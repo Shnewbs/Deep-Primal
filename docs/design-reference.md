@@ -317,7 +317,7 @@ Power is designed around the same model Create uses so a future bridge is simple
 
 - Darkness is dangerous; unlit areas are more hostile.
 - Custom fauna and threats replace vanilla mobs; danger scales with time and progress.
-- Keep inventory on by default, configurable off by the world/server owner. Other death/respawn consequences remain open; see the [decision update](design-decisions-2026-10-18.md#death-and-recovery).
+- Keep inventory on by default, configurable off by the world/server owner. Cargo remains for recovery and respawn fatigue escalates with repeated deaths (configurable); see the [decision update](design-decisions-2026-10-18.md#death-and-recovery).
 - Shelter, fire, and light have real radius and fuel costs.
 - Real hazards: cave-ins, gas pockets, lava, drowning.
 
@@ -918,8 +918,8 @@ Resolved by v0.5: loader (NeoForge), platform (a NeoForge mod rather than Hytale
 3. Assets and licenses: are you open to reusing TFC art if the license allows, or should everything be original? Either way, check each asset's license before reusing any code or art.
 4. Stress-unit scale: match Create's numbers exactly, or use a convertible scale with a bridge?
 5. Default day length for single-player vs server presets?
-6. Updated: water uses hybrid depletion/recharge. Ore-vein renewal and other resource lifecycles remain open.
-7. Updated: keep inventory is on by default and configurable off. Other death rules (respawn injuries, profession XP, vehicle cargo, or team revive) remain open.
+6. Updated: water uses hybrid depletion/recharge; ore veins are finite, with high-reserve bedrock-style deposits. See the owner update for renewal, recycling, and salvage rules.
+7. Updated: keep personal inventory is on by default and configurable off; cargo remains for recovery. Configurable escalating respawn fatigue is required. Exact fatigue values, injury restoration, and profession-XP retention remain to specify.
 8. Mobs/fauna: a fully original roster, or realistic regional wildlife plus a small set of threats?
 9. Config format and UI: plain TOML files only at first, or JSON/datapack formats for list-heavy settings? In-game config screen in v0.1 or later?
 10. Existing-world changes: when a toggle removes content already placed in a world, should the mod keep it, convert it, or block the change?

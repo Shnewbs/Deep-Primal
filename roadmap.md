@@ -6,7 +6,7 @@ Deep Primal is a standalone total-conversion survival mod combining grounded wor
 
 At review, `main` contained a README and a design draft only. No source project, build configuration, tests, or playable artifact was present. All implementation milestones below therefore remain unchecked. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
-Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; shelter, resource renewal/waste, professions, steam transport, rifles, and guild structure retain their stated proposal status.
+Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
 ## Navigation
 
@@ -34,9 +34,10 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 | Content and visuals | Data-driven natural materials and building variants; TFC-style grounding and Conquest Reforged visual inspiration. Asset reuse requires license review. |
 | Configuration | Domain-based settings, presets, tunables, and optional gameplay modules with working defaults. Shared core services remain required. |
 | Documentation | Native Markdown/datapack field guide and independent inspection API; optional tooltip integrations. |
-| Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep inventory defaults on, configurable by the world/server owner. Teams/guilds/parties are proposed. |
-| Water and logistics | Hybrid groundwater depletion/recharge, wells, broad transport coverage, and connected storage are desired; detailed rules are in the dated decisions. |
-| Navigation and activities | Configurable native maps/compass/biome titles, body-region health, hunting, and specialized fishing; full scope is not automatically part of v0.1. |
+| Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep personal inventory defaults on; recover freight in the world. Configurable escalating respawn fatigue; optional teams/guilds/parties. |
+| Water and logistics | Hybrid groundwater depletion/recharge, wells, broad transport coverage, and local connected storage are desired; native remote retrieval/deposit is excluded; detailed rules are in the dated decisions. |
+| Navigation and activities | Configurable native maps/compass/biome titles, slot-free hearth return, body-region health, hunting, specialized fishing, and species journal; full scope is not automatically part of v0.1. |
+| XP and resources | Non-spendable MMO-style XP with a maximum level; finite veins and high-reserve bedrock ore; remeltable scrap, salvage piles, and configurable disposal. |
 
 Far-terrain LOD is **proposed**, not locked. Hytale and an independent game remain portability possibilities, not committed releases. The platform-neutral core is already part of the design.
 
@@ -164,7 +165,7 @@ The [complete question register](docs/design-reference.md#s8) preserves all 31 o
 | D11 | Stress-unit scale and eventual Create bridge contract. | M4 | 4 |
 | D12 | Powder capacity, ignition/fuse rules, crafting, carrying, and blast tuning. | M4 | 13 |
 | D13 | Initial wire logic, gates/channels, and technology-age placement. | M4 | 14, 15 |
-| D14 | Groundwater depletion/recharge and keep-inventory-on default are confirmed. Ore renewal, other death consequences, and fauna/threat roster remain open. | Relevant later systems | 6, 7, 8 |
+| D14 | Groundwater recharge, finite ore veins, keep-inventory-on, cargo recovery, and escalating fatigue are confirmed. Exact fatigue tuning and fauna/threat roster remain open. | Relevant later systems | 6, 7, 8 |
 | D15 | Whether to pursue Hytale or an independent game; engine/language only if pursued. | Future platform planning | 28, 29 |
 
 Open choices can be researched while building independent foundations. Do not treat an unverified stack limit, platform API, compatibility claim, or external license in the design draft as an established implementation constraint.
@@ -191,7 +192,7 @@ These are retained design goals beyond the narrow prototypes above. Scheduling i
 
 ## Additional design follow-up
 
-The [dated decision register](docs/design-decisions-2026-10-18.md) records groundwater/wells; transport and storage; TFC time behavior; shelter; keep inventory; maps; health and hunting; fishing; renewal and waste; professions; and optional cooperation. Agree the unresolved rules before expanding implementation checklists. Full steam vehicles, specialized fishing, web mapping, profession caps, and rifles have no assigned release.
+The [dated decision register](docs/design-decisions-2026-10-18.md) now also covers hearth return, persistent capped character XP, cargo recovery/fatigue, a fishing species journal, finite bedrock reserves, salvage/disposal, and an optional rotation bridge. These need release placement and balancing. It records groundwater/wells; transport and storage; TFC time behavior; shelter; keep inventory; maps; health and hunting; fishing; renewal and waste; professions; and optional cooperation. Agree the unresolved rules before expanding implementation checklists. Full steam vehicles, specialized fishing, web mapping, profession caps, and rifles have no assigned release.
 
 ## Completion and maintenance rules
 

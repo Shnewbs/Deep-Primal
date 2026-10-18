@@ -1,6 +1,6 @@
 # Deep Primal — Design Decisions and Proposals
 
-Date: 2026-10-18. Source: owner's response to the design audit.
+Date: 2026-10-18; updated with the 12:32 PDT owner follow-up. Source: owner responses to the design audit.
 
 This document refines the [design reference](design-reference.md) and [roadmap](../roadmap.md). Confirmed choices supersede conflicting earlier draft text. Proposals remain proposals; no implementation, release date, or v0.1 expansion is implied. Specific balancing numbers require playtesting.
 
@@ -13,18 +13,21 @@ This document refines the [design reference](design-reference.md) and [roadmap](
 | Transport | Confirmed breadth | Personal storage, sledges/handcarts, pack animals, animal carts, rail carts, rafts, boats, and towable cargo craft. Horses, mules, and donkeys can pull appropriate carts. |
 | Steam transport | Proposed extension | Coal-fired steam trains and boats; extends the previous mechanical-only ceiling if adopted. No electrical industry implied. |
 | Time | Confirmed direction | Familiar TFC/Minecraft behavior, not a new real-time offline simulator. Use the TFC 1.21.x baseline and verify each subsystem. |
-| Death | Confirmed | Keep inventory on by default; configurable off by the world/server owner. |
+| Death | Confirmed | Keep personal inventory on by default; configurable off. Recover cargo in the world. Respawn fatigue escalates with repeated deaths and is configurable. |
 | Navigation | Confirmed direction | Biome-entry titles, compass HUD, configurable built-in maps, shared exploration and cartographic features inspired by the supplied references. |
 | Health and hunting | Confirmed direction | First Aid-style body regions integrated with TFC-style survival; primitive weapons through hunting bows, visible back quiver, material-dependent tips, localized animal hits, and carcass processing. |
 | Advanced bows | Proposed | Bow modifications and a later compound bow; exact ages and component requirements undecided. |
 | Hunting rifle | Tentative | Optional late-game hunting rifle under consideration; no construction details or commitment to a release. |
 | Fishing | Confirmed direction | Primitive stick rods plus ice, trolling, surf, fly, casting, and spinning specializations; active fishing, traps, and propped-up idle rods. |
-| Shelter | Explanation requested | Shelter proposal below awaits approval. |
-| Renewal and waste | Explanation requested | Resource lifecycle proposal below awaits approval. |
+| Shelter | Direction accepted | Roof, wind protection, insulation, heating/drying, and cellar benefits accepted in the general follow-up; exact simulation and optional hazards remain to tune. |
+| Renewal and waste | Direction accepted | Renewal/recycling direction accepted; finite ore veins, high-reserve bedrock ore, remeltable scrap, salvage piles, and configurable disposal. |
 | Feedback | Confirmed preference | Follow the restrained PrimalCore/TFC style; explain additional systems without an intrusive notification layer. |
-| Advancement | Mixed | Automation should make work substantially easier. Profession levels and age-based caps are proposed, not yet locked. |
-| Storage | Confirmed direction | Searchable connected storage inspired by Tom's, Obscura's, and Simple Storage Network. Access range, transport rules, and power requirements remain open. |
-| Cooperation | Proposed | Optional teams/guilds/parties, with ordinary multiplayer remaining fully usable without membership. |
+| Advancement | Confirmed direction | Persistent, non-spendable MMO-style character XP with a configurable maximum level; profession progression is distinct. Exact caps, curve, and benefits remain open. |
+| Storage | Confirmed restriction | Searchable connected storage remains local/on-site. No built-in remote retrieval or deposit; external mods may supply those features. |
+| Cooperation | Direction accepted | Optional teams/guilds/parties, with ordinary multiplayer fully usable without membership; detailed permissions remain open. |
+| Hearth return | Confirmed feature, details open | HUD/keybind ability without an inventory slot, returning to a bed/bound home. Configurable 30–60 minute cooldown; default and exact binding rules undecided. |
+| Fishing journal | Confirmed | Persistent species catalog with discovery/catch records. |
+| Power bridge | Confirmed direction | Native rotation interface and optional adapter blocks/modules for Create and other compatible automation mods. |
 
 ## First-day progression
 
@@ -65,9 +68,9 @@ Desired transport coverage: backpacks/baskets; handcarts/sledges; pack animals a
 
 Cargo remains physical and contributes mass. Hitching, unhitching, capsizing/destruction, boarding, ownership, and save/reload must have explicit rules; avoid duplicating a cargo inventory when its carrier changes.
 
-For storage, the owner requests a unified inventory interface inspired by Tom's Simple Storage, Obscura's Simple Storage, and Simple Storage Network. Recommended boundary: a settlement-scale connected store with search, filters, deposit/withdraw, and crafting access; long-distance movement remains a transport task. Unlimited wireless/interdimensional retrieval is not implicitly adopted from reference mods.
+For storage, the owner requests a unified inventory interface inspired by Tom's Simple Storage, Obscura's Simple Storage, and Simple Storage Network. Confirmed boundary: on-site connected storage with search, filters, local deposit/withdraw, and crafting access. No built-in remote retrieval or deposit, including handheld wireless access or automatic deposit from the player at a distance. Players may add external mods such as RS or AE2 for that behavior; this is not a claim of verified compatibility. Revisiting native remote access requires a later explicit design change.
 
-Proposed distinction: indexing tells the player where stock exists; permitted local retrieval moves items; automated long-distance distribution requires infrastructure. Decide whether local retrieval is abstract or physical. Food age, heat, quality, mass, and container contents must survive every transfer. Remote queries must not silently force unlimited chunk loading.
+Indexing and permitted local access are distinct from long-distance transport. Define the physical footprint of a local storage network so long cables cannot silently recreate remote retrieval. Native physical freight/automation remains possible through its own explicit transfer rules. Food age, heat, quality, mass, and container contents must survive every transfer. Remote queries must not silently force unlimited chunk loading.
 
 ## Time, sleep, and server behavior
 
@@ -84,7 +87,7 @@ Sources read through GitHub:
 - [TFC ServerCalendar](https://github.com/TerraFirmaCraft/TerraFirmaCraft/blob/1.21.x/src/main/java/net/dries007/tfc/util/calendar/ServerCalendar.java)
 - [TFC ServerConfig](https://github.com/TerraFirmaCraft/TerraFirmaCraft/blob/1.21.x/src/main/java/net/dries007/tfc/config/ServerConfig.java)
 
-## Shelter proposal — not yet approved
+## Shelter — accepted direction
 
 Shelter answers four questions: does rain reach the occupant, how exposed are they to wind, how much warmth is retained, and can an indoor fire vent safely?
 
@@ -101,7 +104,9 @@ Use shared block thermal/porosity properties, bounded enclosure checks, and inva
 
 Keep inventory is on by default, including mod-managed clothing, quiver, and carried containers; verify nested contents survive exactly once. Server/world owners can turn this off. Multiplayer clients cannot independently override authoritative death rules.
 
-Profession-XP retention, respawn health/injuries, durability penalties, and vehicle cargo are separate choices. Keeping personal inventory does not automatically restore a destroyed vehicle or its cargo. Avoid an unannounced death-teleport mechanic that undercuts hauling; any mitigation needs explicit design approval rather than a hidden penalty.
+Cargo stays in the world and must be recovered after death; it is not returned by keep inventory or hearth travel. Vehicle/container freight is distinct from ordinary carried items. If the carrier survives, leave its cargo in place. If destroyed, use a persistent recoverable cargo record/container at the loss site (safe nearby placement rules must handle lava, void, or inaccessible locations). Do not turn recoverable freight into short-lived loose drops. Define ownership, shared access, marker, and server cleanup policies. Explicit cargo-designated carried loads, if introduced, need visible labels; do not silently classify every backpack as freight.
+
+Respawn applies configurable fatigue. Repeated deaths within a configurable window increase severity and/or duration up to a cap; a recovery/reset period reduces escalation. Exact debuffs, durations, thresholds, and online/offline decay policy are not set. Recommended guardrail: fatigue must leave recovery possible rather than repeatedly killing the player through hunger, cold, or immobility. Character XP is progression rather than a death-payment currency; proposed default is no XP/level loss. Profession-XP retention and respawn body-health restoration need explicit settings.
 
 ## Navigation and maps
 
@@ -143,7 +148,7 @@ Proposed loop: habitat and season → appropriate rod/tackle/bait → active fig
 
 Idle-rod design must specify bite indication, hook/escape timing, ownership, bait use, and loaded-area behavior. Passive fishing should not silently become unlimited offline harvest or an infinite profession-XP loop. Traps also need capacity, checking intervals, and population effects. Catch quality and food safety are separate properties.
 
-## Resource renewal and waste proposal — not yet approved
+## Resource renewal and waste — accepted direction
 
 The purpose is to keep long-term worlds viable and give processing leftovers useful destinations.
 
@@ -153,7 +158,7 @@ The purpose is to keep long-term worlds viable and give processing leftovers use
 | Crops/seeds | Seed recovery, fertility, compost, and rotation |
 | Wildlife/fish | Regional reproduction/recovery and habitat capacity; overharvesting reduces local availability |
 | Groundwater | Recharge and shared drawdown as requested above |
-| Ore | Finite primary veins by default is only a recommendation; scrap recycling and explicit server alternatives |
+| Ore | Finite primary veins, plus high-reserve bedrock-style ore nodes; no default regeneration. Scrap recycling complements mining. |
 | Clay/sand/gravel | Decide finite deposits versus limited river/coastal replenishment; do not overwrite player builds |
 
 Proposed byproduct uses: suitable ash in fertilizer/glass chains, organic leftovers in compost, compatible slag/tailings in recovery or construction recipes, and metal scrap in remelting. These are material-specific recipes, not universal conversions. Preserve losses so recycling cannot produce net new metal. Bulk disposal or stockpiling must remain practical when a byproduct has no current use.
@@ -162,19 +167,88 @@ Pollution, runoff, and water contamination from industry are optional later prop
 
 ## Professions, feedback, and cooperation
 
-Profession levels and age-dependent caps are proposed. Recommended distinction: player skill belongs to the character; technology availability comes from tools/workstations/recipes. Decide whether age is personal, settlement, or world-wide before using it as a cap. Consider soft diminishing returns rather than hard caps to avoid forcing a dedicated fisher to pursue metallurgy just to improve fishing.
+MMO-style character XP and a maximum character level are confirmed. Profession levels are a separate progression track; exact age caps remain undecided. Recommended distinction: player skill belongs to the character; technology availability comes from tools/workstations/recipes. Decide whether age is personal, settlement, or world-wide before using it as a cap. Consider soft diminishing returns rather than hard caps to avoid forcing a dedicated fisher to pursue metallurgy just to improve fishing.
 
 Candidate skills: fishing, cooking, hunting, farming, mining/prospecting, smithing, carpentry, tailoring, and medicine. Exact roster and XP rules are open. Automation should reduce repeated work; an unattended machine need not train every nearby player's profession. Decide XP attribution, team unlocks, late joining, death retention, and exploit prevention.
 
 Follow PrimalCore/TFC-style feedback: readable tools, machine state, sound, temperature/status cues, and guide entries. Add concise explanations where native systems require them (dry well, obstructed network, invalid treatment); avoid a separate stream of pop-ups. New map titles remain independently toggleable.
 
-Teams/guilds/parties are proposed and optional. Suggested roles: party for temporary expeditions; guild/team for persistent shared maps, markers, and storage permissions. Solo players retain normal progression. Membership, storage access, map visibility, PvP/friendly fire, and land protection are separate policies; no economy, mandatory factions, or global MMO service is implied.
+Teams/guilds/parties are accepted as an optional direction. Suggested roles: party for temporary expeditions; guild/team for persistent shared maps, markers, and storage permissions. Solo players retain normal progression. Membership, storage access, map visibility, PvP/friendly fire, and land protection are separate policies; no economy, mandatory factions, or global MMO service is implied.
+
+## Follow-up: hearth return, progression, resource reserves, and interoperability
+
+### Hearth return
+
+Provide an ability button beside the HUD/hotbar, with a keybind and visible cooldown; it takes no inventory slot. The owner suggests a 30-minute or one-hour cooldown and return to bed/home. Both must be configurable; neither is locked as the default yet.
+
+Recommended behavior, pending detailed tuning:
+
+- Explicitly show/bind the home destination, initially using a valid bed. Do not equate every temporary sleep with silently rebinding home.
+- A short channel, with movement/damage interruption, discourages instant combat escape. Channel length and combat restrictions are proposed settings.
+- Validate a safe landing at the destination. A missing/obstructed bed cancels with a clear message; fallback destinations are an explicit server option rather than an arbitrary teleport.
+- The server owns destination and cooldown state; persist both through reconnects and restarts. Consume cooldown on successful travel, not a rejected attempt.
+- Decide elapsed-real-time versus active-playtime cooldown independently of calendar/day length. The requested “30–60 minutes” must not be accidentally rescaled by game-day settings.
+- Never teleport vehicles, attached trailers, or their cargo. Dismount/detach behavior, passenger consent, dimension restrictions, and treatment of designated freight remain explicit rules.
+- Personal carried inventory normally travels with the player; this does permit periodic return with carried goods. If additional encumbrance/freight limits are desired, specify them visibly rather than silently taking items away.
+
+### Character XP and professions
+
+Replace spendable vanilla XP with accumulated character XP and a maximum level. Define a configurable XP curve and cap; the owner has not chosen a numeric cap. Native crafting, repair, and other actions must not spend this progression XP.
+
+Keep character level, profession skill, and technology age as separate values. Specify level benefits, eligible XP sources, party attribution, and behavior at the cap. Prefer rewards for meaningful play/discovery over endless craft/un-craft or recycle loops. Purchased, traded, repeatedly dropped/picked-up, or machine-circulated items should not generate discovery XP repeatedly.
+
+Audit vanilla XP consumers (including any re-enabled anvil/enchanting behavior) and optional mod consumers. Replacement resource costs or a separate legacy compatibility pool are design options; external mods must not silently subtract character progression. No blanket compatibility with every XP-consuming mod is promised.
+
+### Fishing journal
+
+Include a native fishing log/book accessible through the guide/journal UI. Record species caught and catalog completion. Recommended entries: first catch, count, largest catch, water/habitat, season, and successful method; exact fields are tunable. Show undiscovered species as unknown or silhouettes if discovery gating is enabled.
+
+Use stable species IDs from data so added species can extend the journal. Define personal versus shared catalog views separately from profession XP. Avoid discovery farming through trading or repeated pickup; distinguish genuine catches from purchased fish. Trap/idle-rod catches need owner attribution. Preserve records across death and save/reload.
+
+### Finite veins and bedrock reserves
+
+Ordinary ore veins are finite, TFC-style. Add bedrock-style deposits with much larger total recoverable ore per block. The referenced Bedrock Ores reduces a deposit's remaining yield on repeated extraction and turns exhausted deposits into ordinary bedrock. Its high output is a reserve over multiple extractions, not an infinite source.
+
+Recommended native model: geology/ore-linked nodes with saved reserves, tier/tool requirements, and extraction costs. Deplete reserves atomically with output so reloads, automation, or concurrent miners cannot duplicate ore. Extraction method, ages, per-cycle yield, mining speed, and whether a native rotational extractor ships first remain open. Higher reserve does not automatically mean a huge instant block drop. Vanilla bedrock must remain intact beneath exhausted nodes.
+
+### Scrap piles and remelting
+
+Metal scraps are remeltable through the native heat/metallurgy system. Recipes preserve material/alloy identity, require appropriate processing, and include loss or bounded recovery to prevent material-creation loops.
+
+Generate discoverable trash/salvage piles inspired by Scrap Tech Workshop. Piles have finite contents, can shrink as harvested, and use configurable loot pools. Choose locations and a visual/lore explanation appropriate to Deep Primal (for example abandoned camps or ruins). Do not import the reference's batteries, robots, or electrical progression merely because its scrap piles are an inspiration.
+
+Loot must not bypass the intended primitive bootstrap or advanced alloy/tool gates. Specify whether placed piles can merge, how harvested piles persist, and whether any replenishment exists; no automatic scrap regeneration is implied. Recycled player items retain bounded material yield and do not become richer worldgen loot.
+
+### Trash and item-drop policies
+
+Provide configurable disposal choices: a trash bin, optional fire/lava destruction, and a WoW-like drag-to-delete interface. The no-manual-dropping-after-pickup mode is a proposal, not the locked default. Suggested selectable modes: normal dropping, confirmation before dropping, or manual dropping disabled with intentional deletion/trash access.
+
+Use a confirmation or recoverable staging slot for deliberate deletion, especially full containers and valuable items. Deletion must be server-authoritative and explicitly handle nested contents. Fire/lava disposal must have a defined interaction and work without loose item entities if the chosen drop mode disables those entities.
+
+Distinguish manual player drops, newly mined/harvested loot, automation outputs, death loot when keep inventory is off, and persistent cargo recovery. Do not disable all of them with one blanket item-entity switch. Full inventories must never silently void a new pickup. Keep a safe handoff/trade/container-transfer route when manual dropping is disabled.
+
+Material-aware fire disposal versus an unconditional deletion abstraction remains a choice; not every material burns. The optional disposal rule should be explicit in UI/config. Persistent death cargo is not ordinary disposable litter and must not be removed by item cleanup.
+
+### Rotation compatibility bridge
+
+Expose a native rotational-power API and an optional physical adapter/coupler block. Create is the first named bridge target; additional mods need their own tested integrations. The standalone mod works without them.
+
+Specify direction, RPM, load/capacity mapping, unit conversion, overstress/disconnection behavior, and supported operating ranges. Bridge updates must preserve power accounting and avoid double-counting capacity or creating power in conversion loops. Test networks that split, reconnect, unload, or change direction.
+
+Other tech mods may expose electrical/energy APIs rather than rotation. Those require separately scoped conversions with explicit efficiency/cost rules; a generic rotation bridge cannot promise arbitrary interoperability. Keep integration modules optional and version-specific. This does not add native wireless storage or an electrical technology tree.
+
+References inspected on 2026-10-18:
+
+- [Bedrock Ores](https://www.curseforge.com/minecraft/mc-mods/bedrockores): finite repeated extraction from high-reserve bedrock nodes; no direct dependency adopted.
+- [Scrap Tech Workshop](https://www.curseforge.com/minecraft/mc-mods/scrap-tech-workshop): discoverable/harvestable salvage piles and recycling inspiration; no unrelated technology adopted.
+
+These additions are design requirements or clearly marked proposals. Release placement remains open; they are not implemented or automatically added to the v0.1 release gate.
 
 ## Scope and next design tasks
 
 Rendering/worldgen remain the first foundation. Hydrology belongs in M2; bootstrap, health/recovery, and time behavior affect M3. Connected storage and transport need contracts before M4/M5 integration. Full fishing specializations, professions, web mapping, steam vehicles, and a rifle are not automatically v0.1 requirements.
 
-Before implementation: settle water/well guarantees and surface-source rules; define attainable first tools and first metal; choose storage range/retrieval semantics; decide profession caps/age ownership; approve or revise shelter and renewal proposals; scope vehicle physics and steam. Verify all reference compatibility/licensing separately if integration or reuse is selected.
+Before implementation: settle water/well guarantees and surface-source rules; define attainable first tools and first metal; define the local storage footprint; decide character/profession caps and age ownership; specify shelter and renewal parameters; scope vehicle physics and steam. Verify all reference compatibility/licensing separately if integration or reuse is selected.
 
 ## Reference catalog
 
@@ -194,6 +268,6 @@ Reference pages were inspected on 2026-10-18. These are design influences, not a
 | [Fisherman's Trap](https://www.curseforge.com/minecraft/mc-mods/fishermans-trap) | Baited passive trapping |
 | [River Fishing](https://www.curseforge.com/minecraft/mc-mods/river-fishing) | Specialized tackle; owner specifically requests propped-up idle rods |
 | [Obscura's Simple Storage](https://www.curseforge.com/minecraft/mc-mods/obscuras-simple-storage) | Connected inventories, searchable terminal, network limits/diagnostics |
-| [Simple Storage Network](https://www.curseforge.com/minecraft/mc-mods/simple-storage-network) | Unified storage access; unlimited remote access not automatically adopted |
+| [Simple Storage Network](https://www.curseforge.com/minecraft/mc-mods/simple-storage-network) | Local unified storage inspiration only; native remote access explicitly excluded |
 
 Tom's Simple Storage is additionally retained as an owner-named reference; its specific implementation has not been verified in this pass.
