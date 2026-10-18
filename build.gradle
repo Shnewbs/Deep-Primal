@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+group = 'com.shnewbs.deepprimal'
+version = project.mod_version
+base.archivesName = 'DeepPrimal-26.1.2'
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+neoForge {
+    version = project.neo_version
+    runs {
+        client { client() }
+        server {
+            server()
+            programArgument '--nogui'
+            gameDirectory = project.file(findProperty('runDir') ?: 'run')
+            jvmArgument '-Xmx2G'
+        }
+    }
+    mods { deepprimal { sourceSet(sourceSets.main) } }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.named('jar') {
+    manifest.attributes('Implementation-Version': project.version)
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.named('wrapper') { gradleVersion = '9.2.1'; distributionType = Wrapper.DistributionType.BIN }
+
+tasks.register('verifyCoreBoundary') {
+    inputs.files(fileTree('src/main/java/com/shnewbs/deepprimal/core'))
+    doLast {
+        inputs.files.each { f ->
+            if (f.text.contains('net.minecraft') || f.text.contains('net.neoforged'))
+                throw new GradleException("Platform dependency inside core: $f")
+        }
+    }
+}
+tasks.named('check') { dependsOn 'verifyCoreBoundary' }
+tasks.named('runServer') { standardInput = System.in }

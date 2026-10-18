@@ -1,10 +1,10 @@
 # Deep Primal — Roadmap
 
-**Status:** pre-development design. **Updated:** 2026-10-18. **Target:** Minecraft 26.x / NeoForge; exact versions not yet selected.
+**Status:** initial worldgen prototype 0.0.1-alpha.1; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
-At review, `main` contained a README and a design draft only. No source project, build configuration, tests, or playable artifact was present. All implementation milestones below therefore remain unchecked. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
+The initial review found design documents only. The repository now includes the first compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
@@ -49,9 +49,9 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 ### M0 — Target, project, and technical contracts
 
-**Status:** not started. **Depends on:** decisions D01–D03 below.
+**Status:** in progress; toolchain/project foundation exists, module/config architecture incomplete. **Depends on:** decisions D01–D03 below.
 
-- [ ] Select exact Minecraft, NeoForge, Java, and build-tool versions; document reproducible local build commands.
+- [x] Select the initial target (Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25, Gradle 9.2.1) and document local build commands.
 - [ ] Create the development project with separate platform-neutral core and NeoForge adapter boundaries.
 - [ ] Enforce the core boundary with a build check that rejects Minecraft/platform dependencies.
 - [ ] Define property schemas, material identifiers, module manifests, save/config versions, and migration responsibilities.
@@ -77,7 +77,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 ### M2 — Custom world generation and climate foundation
 
-**Status:** not started. **Depends on:** M0–M1; Earth and height decisions D06.
+**Status:** in progress; two vanilla-material terrain presets exist. Native material/climate core, Earth mode, renewable groundwater, and full performance gates remain incomplete. **Depends on:** M0–M1; Earth and height decisions D06.
 
 - [ ] Implement a deterministic core sampler for terrain, surface height, geology, climate, and material queries, with a NeoForge worldgen adapter.
 - [ ] Generate native rock layers, soils, climate-based vegetation, and host-rock-dependent multi-ore veins with surface indicators.
@@ -156,7 +156,7 @@ The [complete question register](docs/design-reference.md#s8) preserves all 31 o
 
 | ID | Decision | Needed by | Original questions |
 | --- | --- | --- | --- |
-| D01 | Exact Minecraft/NeoForge target and supported toolchain. | M0 | 1 |
+| D01 | Initial prototype target selected: Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25, Gradle 9.2.1; broader version support undecided. | M0 | 1 |
 | D02 | Original versus reusable assets/code and license constraints. | M0/imports | 3 |
 | D03 | Data/TOML precedence, module defaults, UI timing, and existing-world change policy. Required core remains enabled. | M0 | 9, 10, 30, 31 |
 | D04 | Initial catalog coverage and how later tiers expand it. | M1 | 16 |
