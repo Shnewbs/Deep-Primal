@@ -1,6 +1,6 @@
 # Deep Primal — Design Decisions and Proposals
 
-Date: 2026-10-18; updated with the 12:32 PDT owner follow-up. Source: owner responses to the design audit.
+Date: 2026-10-18; updated with the 12:44 PDT owner follow-up. Source: owner responses to the design audit.
 
 This document refines the [design reference](design-reference.md) and [roadmap](../roadmap.md). Confirmed choices supersede conflicting earlier draft text. Proposals remain proposals; no implementation, release date, or v0.1 expansion is implied. Specific balancing numbers require playtesting.
 
@@ -13,7 +13,7 @@ This document refines the [design reference](design-reference.md) and [roadmap](
 | Transport | Confirmed breadth | Personal storage, sledges/handcarts, pack animals, animal carts, rail carts, rafts, boats, and towable cargo craft. Horses, mules, and donkeys can pull appropriate carts. |
 | Steam transport | Proposed extension | Coal-fired steam trains and boats; extends the previous mechanical-only ceiling if adopted. No electrical industry implied. |
 | Time | Confirmed direction | Familiar TFC/Minecraft behavior, not a new real-time offline simulator. Use the TFC 1.21.x baseline and verify each subsystem. |
-| Death | Confirmed | Keep personal inventory on by default; configurable off. Recover cargo in the world. Respawn fatigue escalates with repeated deaths and is configurable. |
+| Death | Confirmed | Keep personal inventory on by default; configurable off. Recover cargo in the world. Respawn fatigue escalates only for closely spaced deaths; a configurable death-free interval resets escalation. |
 | Navigation | Confirmed direction | Biome-entry titles, compass HUD, configurable built-in maps, shared exploration and cartographic features inspired by the supplied references. |
 | Health and hunting | Confirmed direction | First Aid-style body regions integrated with TFC-style survival; primitive weapons through hunting bows, visible back quiver, material-dependent tips, localized animal hits, and carcass processing. |
 | Advanced bows | Proposed | Bow modifications and a later compound bow; exact ages and component requirements undecided. |
@@ -22,11 +22,12 @@ This document refines the [design reference](design-reference.md) and [roadmap](
 | Shelter | Direction accepted | Roof, wind protection, insulation, heating/drying, and cellar benefits accepted in the general follow-up; exact simulation and optional hazards remain to tune. |
 | Renewal and waste | Direction accepted | Renewal/recycling direction accepted; finite ore veins, high-reserve bedrock ore, remeltable scrap, salvage piles, and configurable disposal. |
 | Feedback | Confirmed preference | Follow the restrained PrimalCore/TFC style; explain additional systems without an intrusive notification layer. |
-| Advancement | Confirmed direction | Persistent, non-spendable MMO-style character XP with a configurable maximum level; profession progression is distinct. Exact caps, curve, and benefits remain open. |
+| Advancement | Confirmed direction | Persistent, non-spendable MMO-style character XP with a configurable maximum level; vanilla XP is completely replaced with no re-enable or legacy-pool option; profession progression is distinct. Exact caps, curve, and benefits remain open. |
 | Storage | Confirmed restriction | Searchable connected storage remains local/on-site. No built-in remote retrieval or deposit; external mods may supply those features. |
 | Cooperation | Direction accepted | Optional teams/guilds/parties, with ordinary multiplayer fully usable without membership; detailed permissions remain open. |
 | Hearth return | Confirmed feature, details open | HUD/keybind ability without an inventory slot, returning to a bed/bound home. Configurable 30–60 minute cooldown; default and exact binding rules undecided. |
-| Fishing journal | Confirmed | Persistent species catalog with discovery/catch records. |
+| Animal yields | Confirmed | All animal meat/material yields depend on individual weight and species-specific recovery; no fixed universal drops. |
+| Fishing journal | Confirmed | Persistent species catalog with discovery/catch weight records; fish meat yield is based on individual fish weight. |
 | Power bridge | Confirmed direction | Native rotation interface and optional adapter blocks/modules for Create and other compatible automation mods. |
 
 ## First-day progression
@@ -104,9 +105,9 @@ Use shared block thermal/porosity properties, bounded enclosure checks, and inva
 
 Keep inventory is on by default, including mod-managed clothing, quiver, and carried containers; verify nested contents survive exactly once. Server/world owners can turn this off. Multiplayer clients cannot independently override authoritative death rules.
 
-Cargo stays in the world and must be recovered after death; it is not returned by keep inventory or hearth travel. Vehicle/container freight is distinct from ordinary carried items. If the carrier survives, leave its cargo in place. If destroyed, use a persistent recoverable cargo record/container at the loss site (safe nearby placement rules must handle lava, void, or inaccessible locations). Do not turn recoverable freight into short-lived loose drops. Define ownership, shared access, marker, and server cleanup policies. Explicit cargo-designated carried loads, if introduced, need visible labels; do not silently classify every backpack as freight.
+Cargo stays in the world and must be recovered after death; keep inventory does not return it. Hearth travel only carries a cart/wagon and its onboard cargo when the player is seated in that rideable vehicle at activation, as specified below. Unoccupied or merely nearby cargo is not recalled. Vehicle/container freight is distinct from ordinary carried items. If the carrier survives, leave its cargo in place. If destroyed, use a persistent recoverable cargo record/container at the loss site (safe nearby placement rules must handle lava, void, or inaccessible locations). Do not turn recoverable freight into short-lived loose drops. Define ownership, shared access, marker, and server cleanup policies. Explicit cargo-designated carried loads, if introduced, need visible labels; do not silently classify every backpack as freight.
 
-Respawn applies configurable fatigue. Repeated deaths within a configurable window increase severity and/or duration up to a cap; a recovery/reset period reduces escalation. Exact debuffs, durations, thresholds, and online/offline decay policy are not set. Recommended guardrail: fatigue must leave recovery possible rather than repeatedly killing the player through hunger, cold, or immobility. Character XP is progression rather than a death-payment currency; proposed default is no XP/level loss. Profession-XP retention and respawn body-health restoration need explicit settings.
+Respawn applies configurable fatigue. Only closely spaced deaths increase severity and/or duration up to a cap. If the interval since the previous death meets or exceeds a configurable reset interval, the next death receives baseline fatigue, not another stack. This reset is separate from the duration of an existing fatigue effect; stale escalation cannot carry forward indefinitely. Exact interval and clock policy remain open. Exact debuffs, durations, thresholds, and online/offline decay policy are not set. Recommended guardrail: fatigue must leave recovery possible rather than repeatedly killing the player through hunger, cold, or immobility. Character XP is progression rather than a death-payment currency; proposed default is no XP/level loss. Profession-XP retention and respawn body-health restoration need explicit settings.
 
 ## Navigation and maps
 
@@ -188,7 +189,9 @@ Recommended behavior, pending detailed tuning:
 - Validate a safe landing at the destination. A missing/obstructed bed cancels with a clear message; fallback destinations are an explicit server option rather than an arbitrary teleport.
 - The server owns destination and cooldown state; persist both through reconnects and restarts. Consume cooldown on successful travel, not a rejected attempt.
 - Decide elapsed-real-time versus active-playtime cooldown independently of calendar/day length. The requested “30–60 minutes” must not be accidentally rescaled by game-day settings.
-- Never teleport vehicles, attached trailers, or their cargo. Dismount/detach behavior, passenger consent, dimension restrictions, and treatment of designated freight remain explicit rules.
+- Confirmed occupied-vehicle exception: if the player activates hearth while seated in a cart/wagon that supports riding, transfer the player, that occupied vehicle, and its onboard cargo together. If on foot, transfer only the player and personal inventory; an owned, nearby, led, or unoccupied cart does not follow. This is hearth transport, not remote storage access.
+- Revalidate the seat relationship when travel completes. Check safe destination clearance for the whole occupied vehicle; insufficient clearance cancels the entire transfer without consuming cooldown or separating cargo. Transfer entity identity, inventory, and rider state atomically to prevent loss or duplication.
+- Attached draft animals, trailers, other passengers, boats, and trains need explicit follow-up rules; the seated cart/wagon exception does not silently authorize teleporting an entire convoy. Ownership/access, passenger consent, dimension restrictions, and hitch handling remain to specify.
 - Personal carried inventory normally travels with the player; this does permit periodic return with carried goods. If additional encumbrance/freight limits are desired, specify them visibly rather than silently taking items away.
 
 ### Character XP and professions
@@ -197,13 +200,25 @@ Replace spendable vanilla XP with accumulated character XP and a maximum level. 
 
 Keep character level, profession skill, and technology age as separate values. Specify level benefits, eligible XP sources, party attribution, and behavior at the cap. Prefer rewards for meaningful play/discovery over endless craft/un-craft or recycle loops. Purchased, traded, repeatedly dropped/picked-up, or machine-circulated items should not generate discovery XP repeatedly.
 
-Audit vanilla XP consumers (including any re-enabled anvil/enchanting behavior) and optional mod consumers. Replacement resource costs or a separate legacy compatibility pool are design options; external mods must not silently subtract character progression. No blanket compatibility with every XP-consuming mod is promised.
+Vanilla XP is fully replaced whenever Deep Primal is installed. No setting, vanilla-content module, compatibility mode, or legacy XP pool may restore it. Native XP awards feed the new progression rules; vanilla XP orbs, spendable levels, and spending behavior are disabled/replaced. Audit all award/consumer paths, including death, commands, repair, enchanting, and optional mod interactions. Any retained action must use a non-XP cost or be unavailable; unsupported XP-dependent integrations remain unsupported rather than reviving vanilla XP. External mods must never subtract character progression. This is a firm exception to general vanilla-content re-enable options.
 
 ### Fishing journal
 
-Include a native fishing log/book accessible through the guide/journal UI. Record species caught and catalog completion. Recommended entries: first catch, count, largest catch, water/habitat, season, and successful method; exact fields are tunable. Show undiscovered species as unknown or silhouettes if discovery gating is enabled.
+Include a native fishing log/book accessible through the guide/journal UI. Record species caught, catalog completion, and individual catch weight. Recommended additional entries: first catch, count, personal largest weight, water/habitat, season, and successful method; exact fields are tunable. Show undiscovered species as unknown or silhouettes if discovery gating is enabled.
 
 Use stable species IDs from data so added species can extend the journal. Define personal versus shared catalog views separately from profession XP. Avoid discovery farming through trading or repeated pickup; distinguish genuine catches from purchased fish. Trap/idle-rod catches need owner attribution. Preserve records across death and save/reload.
+
+### Animal weight and meat/material yields
+
+Confirmed: all animal meat and item yields are governed by the individual animal's weight, including fish, livestock, and hunted wildlife. Replace fixed per-species drop counts with weight-based species profiles. Species determines which materials exist and their proportions; individual weight sets the available quantities.
+
+Recommended model for each carcass product: recoverable product mass = animal/carcass mass × species product fraction × bounded recovery. Products include meat, fat, organs, bone, hide/leather area or size, feathers, scales, and other applicable animal materials. Proportions, density/area conversions, and tool/skill recovery are balance data. Larger specimens provide more recoverable material of the same species under comparable conditions; quality and contamination remain separate from quantity.
+
+Anatomically discrete items such as horns or a whole hide retain sensible counts, with weight reflected in size, mass, and processing yield instead of arbitrarily adding extra body parts. Damage, trimming, spoilage, or contamination reduce usable recovery. Better tools/skill reduce waste within the available material budget; they do not create extra carcass mass.
+
+Weight is stored per animal and changes with the chosen growth/body-condition model. Persist slaughter/catch weight on carcasses and fish through storage and processing. Products from one carcass share an accounting budget so different processing routes cannot each claim the full yield. Stack splitting, portion rounding, and repeated processing must conserve quantities; different-weight specimens must not merge in a way that erases their weights. Preserve any portion remainder or use variable-weight items. Journals retain the original catch record after processing.
+
+Recurring animal products (milk, eggs, wool and similar) also use species/body-weight-dependent yield profiles, with nutrition, maturity, regrowth/production intervals, and applicable anatomy. They are recurring production, not an unlimited on-demand subtraction from a carcass. Exact production formulas remain to be designed.
 
 ### Finite veins and bedrock reserves
 

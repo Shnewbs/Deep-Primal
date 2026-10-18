@@ -34,10 +34,10 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 | Content and visuals | Data-driven natural materials and building variants; TFC-style grounding and Conquest Reforged visual inspiration. Asset reuse requires license review. |
 | Configuration | Domain-based settings, presets, tunables, and optional gameplay modules with working defaults. Shared core services remain required. |
 | Documentation | Native Markdown/datapack field guide and independent inspection API; optional tooltip integrations. |
-| Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep personal inventory defaults on; recover freight in the world. Configurable escalating respawn fatigue; optional teams/guilds/parties. |
+| Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep personal inventory defaults on; recover freight in the world. Configurable fatigue escalation for closely spaced deaths, resetting after a death-free interval; optional teams/guilds/parties. |
 | Water and logistics | Hybrid groundwater depletion/recharge, wells, broad transport coverage, and local connected storage are desired; native remote retrieval/deposit is excluded; detailed rules are in the dated decisions. |
-| Navigation and activities | Configurable native maps/compass/biome titles, slot-free hearth return, body-region health, hunting, specialized fishing, and species journal; full scope is not automatically part of v0.1. |
-| XP and resources | Non-spendable MMO-style XP with a maximum level; finite veins and high-reserve bedrock ore; remeltable scrap, salvage piles, and configurable disposal. |
+| Navigation and activities | Configurable native maps/compass/biome titles, slot-free hearth return (including an occupied rideable cart/wagon and its cargo), body-region health, hunting, weight-based meat/material yields for all animals, and species journal; full scope is not automatically part of v0.1. |
+| XP and resources | Non-spendable MMO-style XP with a maximum level; vanilla XP cannot be restored; finite veins and high-reserve bedrock ore; remeltable scrap, salvage piles, and configurable disposal. |
 
 Far-terrain LOD is **proposed**, not locked. Hytale and an independent game remain portability possibilities, not committed releases. The platform-neutral core is already part of the design.
 

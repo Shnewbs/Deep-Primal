@@ -1,6 +1,6 @@
 # Deep Primal — Design Reference
 
-Design draft v0.6, reformatted on 2026-10-18. **Read the [owner decision update](design-decisions-2026-10-18.md) alongside this reference; confirmed updates there supersede earlier draft assumptions.** This is the detailed feature specification; use the [roadmap](../roadmap.md) for implementation order and completion status. Section numbers are retained for continuity.
+Design draft v0.6, reformatted on 2026-10-18. **Read the [owner decision update](design-decisions-2026-10-18.md) alongside this reference; confirmed updates there supersede earlier draft assumptions.** This is the detailed feature specification; use the [roadmap](../roadmap.md) for implementation order and completion status. Section numbers are retained for continuity. Vanilla XP is fully replaced and cannot be re-enabled, including through the general vanilla-content toggles below.
 
 > **Status:** design only. Descriptions of behavior are requirements or proposals, not evidence of implemented features. External platform, version, license, and compatibility claims are inherited research notes and require verification against primary sources before implementation. Numerical values are provisional. “Suggested” and “proposed” items remain unapproved.
 
@@ -309,7 +309,7 @@ Power is designed around the same model Create uses so a future bridge is simple
 - Nutrition across multiple groups with long-term effects.
 - Seasonal planting windows, soil nutrients, and fertilizer cycles.
 - Animals with familiarity, breeding cycles, age, and product schedules.
-- Hunting and butchery with different yields per animal; hides feed the clothing and leather chains.
+- Hunting, butchery, fishing, and animal-product yields depend on individual animal weight with species-specific proportions and recovery rules; hides feed clothing and leather chains. See the owner decision update for mass accounting and recurring products.
 
 <a id="s4-7"></a>
 
@@ -317,7 +317,7 @@ Power is designed around the same model Create uses so a future bridge is simple
 
 - Darkness is dangerous; unlit areas are more hostile.
 - Custom fauna and threats replace vanilla mobs; danger scales with time and progress.
-- Keep inventory on by default, configurable off by the world/server owner. Cargo remains for recovery and respawn fatigue escalates with repeated deaths (configurable); see the [decision update](design-decisions-2026-10-18.md#death-and-recovery).
+- Keep inventory on by default, configurable off by the world/server owner. Cargo remains for recovery and respawn fatigue escalates only with closely spaced deaths and resets after a configurable death-free interval; see the [decision update](design-decisions-2026-10-18.md#death-and-recovery).
 - Shelter, fire, and light have real radius and fuel costs.
 - Real hazards: cave-ins, gas pockets, lava, drowning.
 
