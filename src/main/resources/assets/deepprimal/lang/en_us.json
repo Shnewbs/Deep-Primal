@@ -1,14 +1,19 @@
 {
-  "generator.deepprimal.prototype": "Deep Primal — Terrain Prototype (768)",
-  "generator.deepprimal.prototype_deep": "Deep Primal — Deep Comparison (1024)",
+  "generator.minecraft.normal": "Deep Primal",
+  "generator.deepprimal.prototype": "Deep Primal (legacy standard profile)",
+  "generator.deepprimal.prototype_deep": "Deep Primal (legacy deep profile)",
   "deepprimal.distance.open": "Deep Primal distances…",
   "deepprimal.distance.title": "Distances & performance",
   "deepprimal.distance.apply": "Apply",
   "deepprimal.distance.fast_relocation": "Fast camera updates: %s",
-  "deepprimal.distance.invalid": "Enter render 2–%s and simulation 2–%s.",
+  "deepprimal.distance.invalid": "Enter render 2–%s, simulation 2–%s, vertical 0–96.",
+  "deepprimal.distance.vertical": "Vertical render radius",
+  "deepprimal.distance.vertical_value": "Vertical: %s sections (±%s blocks)",
+  "deepprimal.distance.vertical_full": "Vertical: full world height",
+  "deepprimal.distance.vertical_help": "Radius above and below the camera, in 16-block sections. 0 = full height. Chunk loading and server simulation still use full-height columns.",
   "deepprimal.distance.reopen": "Reopen this world to activate server range above %s chunks.",
   "deepprimal.distance.server": "Server render cap: %s chunks. Simulation is controlled by the server.",
   "deepprimal.distance.ranges": "Render: 2–%s chunks. Simulation: 2–%s chunks.",
-  "deepprimal.distance.sections": "Render section slots: %s",
+  "deepprimal.distance.sections": "Requested render section slots: %s",
   "deepprimal.distance.backend": "Graphics API: %s"
 }

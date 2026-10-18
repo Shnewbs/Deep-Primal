@@ -1,0 +1,4 @@
+BENCH COMPLETE count=25 median=149.99ms p95=151.22ms p99=156.09ms max=156.09ms elapsed=3.78s throughput=6.61/s heapEndMiB=272 peakObservedHeapMiB=569 tickP95=1.78ms tickMax=6.87ms gcCount=3 gcMillis=10 seed=20261018 dimension=minecraft:overworld
+Request latency includes tick polling, queueing, neighbor generation and I/O; not pure generator CPU.
+Tick timings measure event Pre-to-Post; heap peak is observed at ticks, not an exact allocation peak.
+Java=25.0.4.1 processors=8 minY=-128 maxY=639 concurrency=1 version=0.0.1-alpha.4

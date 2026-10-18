@@ -15,6 +15,10 @@
     "client.OptionsAccessor",
     "client.VideoSettingsMixin",
     "client.ViewAreaMixin",
+    "client.SectionOcclusionGraphMixin",
+    "client.GraphStorageMixin",
+    "client.FogRendererMixin",
+    "client.CameraMixin",
     "client.LevelRendererAccessor"
   ],
   "injectors": {

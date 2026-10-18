@@ -29,6 +29,7 @@ neoForge {
                 if (project.hasProperty('captureWorld')) programArguments.addAll '--quickPlaySingleplayer', project.property('captureWorld')
                 systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
                 if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
+                if (project.hasProperty('terrainValidation')) systemProperty 'deepprimal.validationTerrain', 'true'
                 jvmArgument '-Xmx2G'
             }
         }
@@ -72,6 +73,13 @@ tasks.register('coreChecks', JavaExec) {
 }
 tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
 tasks.named('runServer') { standardInput = System.in }
+if (project.hasProperty('packagedValidation')) {
+    tasks.named('runServer', JavaExec) {
+        doFirst {
+            environment 'MOD_CLASSES', 'deepprimal%%' + tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+        }
+    }
+}
 
 processResources {
     inputs.property 'mod_version', project.mod_version

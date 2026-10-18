@@ -1,7 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "deepprimal:prototype",
-    "deepprimal:prototype_deep"
-  ]
+  "values": []
 }

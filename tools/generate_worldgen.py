@@ -64,11 +64,25 @@ def profile(name, min_y, height):
     terrain = op('add', op('mul', 1 / 80, 'deepprimal:terrain_height'), {
         'type': 'minecraft:y_clamped_gradient', 'from_y': min_y, 'to_y': top,
         'from_value': -min_y / 80, 'to_value': -top / 80})
-    # Tunnels use a cheap 3D noise band; near-surface protection keeps most roofs intact.
-    caves = op('mul', 3.0, op('add', unary('abs', noise('minecraft:cave_cheese', 0.7, 0.7)), -0.045))
-    final = {'type': 'minecraft:range_choice', 'input': terrain,
-             'min_inclusive': 0.14, 'max_exclusive': 10000.0,
-             'when_in_range': op('min', terrain, caves), 'when_out_of_range': terrain}
+    # Intersect two independent bands to form tubes, rather than cutting whole
+    # sheets through mountains with one abs(noise) field. No hard depth switch:
+    # continuous cover closes the tunnels before they undermine the surface.
+    tunnels = op('max',
+        op('add', op('mul', 7.0, unary('abs', noise('deepprimal:tunnel_a', 0.8, 0.65))), -0.42),
+        op('add', op('mul', 7.0, unary('abs', noise('deepprimal:tunnel_b', 0.8, 0.65))), -0.42))
+    chambers = op('add', 0.38, op('mul', -1.0, noise('deepprimal:chambers', 0.8, 1.0)))
+    # Larger chambers belong underground, and taper out above the lowlands.
+    chambers = op('max', chambers, {
+        'type': 'minecraft:y_clamped_gradient', 'from_y': 48, 'to_y': 144,
+        'from_value': -1.0, 'to_value': 1.0})
+    cover = op('add', 1.5, op('mul', -2.5, terrain))  # 48 blocks of coherent surface rock
+    caves = op('max', op('min', tunnels, chambers), cover)
+    # High alpine faces retain solid rock instead of perforated hanging curtains.
+    # Native biome carvers still provide ordinary low-elevation cave entrances.
+    caves = op('max', caves, {
+        'type': 'minecraft:y_clamped_gradient', 'from_y': 128, 'to_y': 256,
+        'from_value': -1.0, 'to_value': 1.0})
+    final = op('min', terrain, caves)
     # Seal the bottom and keep the upper boundary empty, independently of terrain noise.
     final = op('max', final, {'type': 'minecraft:y_clamped_gradient', 'from_y': min_y, 'to_y': min_y + 8, 'from_value': 1.0, 'to_value': -1000.0})
     final = op('min', final, {'type': 'minecraft:y_clamped_gradient', 'from_y': top - 16, 'to_y': top, 'from_value': 1000.0, 'to_value': -1.0})
@@ -143,5 +157,14 @@ def profile(name, min_y, height):
 
 profile('prototype', -128, 768)
 profile('prototype_deep', -384, 1024)
-write('data/minecraft/tags/worldgen/world_preset/normal.json', {'replace': False, 'values': ['deepprimal:prototype', 'deepprimal:prototype_deep']})
-print('Generated two presets: -128..639 and -384..639, sea level 96.')
+for name, octave in [('tunnel_a', -5), ('tunnel_b', -5), ('chambers', -6)]:
+    write(f'data/deepprimal/worldgen/noise/{name}.json', {'firstOctave': octave, 'amplitudes': [1.0, 0.5]})
+# Keep both historical preset IDs loadable, but expose one normal world type.
+# The startup config chooses which required built-in pack supplies that preset.
+write('data/minecraft/tags/worldgen/world_preset/normal.json', {'replace': False, 'values': []})
+for label, profile_name in [('standard', 'prototype'), ('deep', 'prototype_deep')]:
+    preset = json.loads((ROOT / f'data/deepprimal/worldgen/world_preset/{profile_name}.json').read_text())
+    write(f'worldgen/{label}/data/minecraft/worldgen/world_preset/normal.json', preset)
+    write(f'worldgen/{label}/pack.mcmeta', {'pack': {
+        'description': 'Deep Primal configured world generation', 'min_format': [101, 1], 'max_format': [101, 1]}})
+print('Generated configured normal worldgen and two saved-world profiles, sea level 96.')

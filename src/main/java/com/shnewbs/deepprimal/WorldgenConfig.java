@@ -1,0 +1,35 @@
+package com.shnewbs.deepprimal;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
+
+/** Creation-time defaults. Saved dimensions keep their own type and noise settings. */
+public final class WorldgenConfig {
+    public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec.BooleanValue EXTRA_DEPTH;
+    static {
+        var b = new ModConfigSpec.Builder();
+        EXTRA_DEPTH = b.comment("Use Y=-384..639 (1024 blocks) for NEW Deep Primal worlds instead of -128..639 (768 blocks).",
+            "Restart Minecraft/the server after changing this setting. Existing worlds retain their saved height.",
+            "Extra depth increases generation and memory costs; it does not raise the mountain ceiling.")
+            .define("extraUndergroundDepth", false);
+        SPEC = b.build();
+    }
+
+    public static void packs(AddPackFindersEvent event) {
+        if (event.getPackType() != PackType.SERVER_DATA) return;
+        // Both profiles remain registered for old saves. Only the normal new-world
+        // preset is supplied by this required pack; no saved dimension is rewritten.
+        String profile = EXTRA_DEPTH.get() ? "deep" : "standard";
+        event.addPackFinders(Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + profile),
+            PackType.SERVER_DATA, Component.literal("Deep Primal world generation"), PackSource.BUILT_IN,
+            true, Pack.Position.TOP);
+    }
+
+    private WorldgenConfig() {}
+}

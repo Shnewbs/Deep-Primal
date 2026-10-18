@@ -1,21 +1,23 @@
-# Worldgen prototype 0.0.1-alpha.3
+# Worldgen prototype 0.0.1-alpha.4
 
-Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 2 changed the terrain detail field and surface rules; old and new chunks can meet at visible seams. Never install it into a valuable existing world as a world-height migration tool.
+Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 4 changes cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
 ## Play
 
 1. Install the matching NeoForge version and place the DeepPrimal JAR in `mods` on client and server.
-2. Create a new world. Select **Deep Primal — Terrain Prototype (768)** in the world-type selector. The comparison preset is **Deep Primal — Deep Comparison (1024)**.
+2. Create a new world normally. **Deep Primal** is the default normal world type; no custom preset selection is needed.
 3. Use Creative with commands enabled. `/gamemode spectator` is useful for inspecting geology and caves.
 4. Run `/deepprimal info`, then explore. Vanilla blocks/items, biome vegetation, and feature placement are temporary test materials.
 
-The default prototype spans Y=-128..639 (768 blocks). The comparison extends depth to -384..639 (1024 blocks). Both use sea level 96 and the same horizontal terrain field. They are bounded profiles, not unlimited-height implementation. Default vanilla and third-party world presets remain selectable for comparison; this development build does not silently replace every world type.
+The default spans Y=-128..639 (768 blocks). In `config/deepprimal-worldgen.toml`, set `extraUndergroundDepth = true` and restart Minecraft/the server **before creating a new world** to use -384..639 (1024 blocks). Sea level remains 96 and the mountain ceiling is unchanged. Both bounded profiles stay registered for saved-world compatibility, but are absent from the world-type lists. Saved dimension types and noise settings determine an existing world's height; changing this creation-time config does not migrate it.
+
+A required built-in data pack supplies the configured `minecraft:normal` preset on client and server. An ordinary dedicated server using its default `level-type=minecraft:normal` therefore creates Deep Primal terrain. Flat, amplified, and other explicitly selected world types retain their own generation. This is not unlimited height or cubic chunk streaming.
 
 ## Implemented scope
 
-- Two custom selectable world presets, dimension types, and noise settings.
+- Default normal world generation with two config-selected saved-world profiles, dimension types, and noise settings.
 - Seeded continental terrain, amplified mountain ridges, and valley masks with vanilla multi-noise biomes.
-- Vanilla noise-based underground aquifers and simple noise tunnels. These are **not** the planned renewable groundwater/well simulation or a connected river-drainage model.
+- Vanilla underground aquifers, intersecting noise-band tunnels, continuous surface-rock cover, and deeper chambers that taper out below the alpine terrain. Native biome carvers retain ordinary lower-elevation entrances. The previous single-band sheet carving and hard shallow-depth switch are removed. These remain geological placeholders, without erosion simulation, structural support simulation, renewable groundwater, or connected river drainage.
 - Visible placeholder strata: andesite, granite, diorite, deepslate; bedrock floor; simple soil/sand/snow surface rules.
 - A data-driven terrain-height field stored in the native bounded 5×5 chunk grid, direct preliminary-surface calculation without a vertical search, and interpolated density evaluation through the native engine.
 - Explicit overworld sky/fog/light colors, high clouds, small-scale terrain detail, slope-based exposed rock, and rocky subsoil above Y=224 to reduce dirt stripes on high cliffs.
@@ -56,7 +58,7 @@ Each in-flight request holds its own temporary, non-persistent loading ticket. T
 
 `persistentMobIdleOptimization` (default true) backports the 26.3 behavior: distant persistent mobs accumulate idle time so native random-walk/swim goals can stop. Nearby mobs reset normally, persistence/despawn rules remain native, and other AI still runs. Set false to retain the old persistent-mob idle timer behavior.
 
-Client config `deepprimal-client-performance.toml` contains `optimizeViewRelocation` (default true), also available as **Fast camera updates** in the distance screen. It skips unchanged render columns and vertical-only scans. Turning it off uses the native relocation code.
+Client config `deepprimal-client-performance.toml` contains `optimizeViewRelocation` (default true), also available as **Fast camera updates** in the distance screen. It skips unchanged render columns. With full-height rendering, turning it off uses native relocation. With a bounded vertical window, both settings retain the required vertical slot mapping; the toggle controls scanning optimizations.
 
 These options do not change terrain geometry. Chunk delivery pacing changes arrival timing and idle optimization changes distant random strolling as described above. Cached samples contain values and seed/dimension/coordinate keys, with no retained world or chunk references. Cache contents clear on datapack sync and server shutdown. Vanilla XP suppression has no disable setting.
 
@@ -66,15 +68,18 @@ Your screenshots used render and simulation distance 32. Start tall-world tests 
 
 ## Distance controls
 
-Open **Video Settings → Deep Primal distances…**. Render and simulation each have a slider and a numeric field. Changes apply together with **Apply**; Cancel/Escape leaves the staged values unused. Invalid values disable Apply. Settings persist in normal `options.txt`, and the native Video Settings sliders also support the new ranges.
+Open **Video Settings → Deep Primal distances…**. Horizontal render, simulation, and vertical render each have a slider and a numeric field. Changes apply together with **Apply**; Cancel/Escape leaves staged values unused. Invalid values disable Apply. Horizontal/simulation values persist in `options.txt`; vertical radius persists in `deepprimal-client-performance.toml`. Native Video Settings sliders also support the expanded horizontal/simulation ranges.
 
 - Render distance: **2–96 chunks**, an experimental finite ceiling compatible with the native byte protocol and tracking storage.
 - Simulation distance: **2–32 chunks**. The native simulation-level graph caps the useful range; higher values would need a different simulation architecture.
+- Vertical render radius: **0–96 sections**, independently above/below the camera in 16-block steps. **0 = full world height**. A nonzero value allocates at most `min(worldSections, 2 × radius + 1)` Y slots per render column. Slots wrap when the camera climbs or descends. Native occlusion propagation, section lookup, and octree bounds use the vertical range independently of horizontal distance. Apply rebuilds the render grid immediately. Chunks, lighting data, network packets, and server simulation still use full-height columns. Terrain beyond a selected vertical limit is deliberately clipped.
+
+The authored native fog-include implementation scales the Y component of distance fog independently, with an extended fog uniform buffer. Environmental fog retains its native spherical distance, so water, weather, blindness, and darkness can still limit visibility. The camera far plane includes the vertical range. Third-party shader packs or replacement renderers that replace the fog include/uniform layout require separate compatibility validation.
 - Multiplayer: the server controls delivered terrain and simulation. A client's value cannot override it. The screen shows the server's advertised render cap.
 - Single-player: tracking capacity is allocated when opening the world, at least 32 and up to the chosen render distance. Choosing a range above that session capacity requires reopening the world; the screen tells you when. Effective local rendering stays within the allocated tracking capacity meanwhile.
 - Dedicated server: set `view-distance` before startup (2–96); `simulation-distance` remains 2–32. Actual gameplay requests above the hard limits are clamped. Default distances retain the native 32-chunk tracking-graph capacity rather than always allocating a 96-chunk graph.
 
-Larger render settings multiply chunk and vertical-section costs. The upper range is not a hardware performance promise. There is no literal unlimited mode. Alpha 3 keeps the alpha 2 terrain geometry/resources, so this update introduces no terrain-layout change of its own.
+Larger render settings multiply chunk and vertical-section costs. The upper range is not a hardware performance promise. There is no literal unlimited mode. A smaller vertical range does not establish that the reported alpha 2 heap exhaustion at 32 chunks / 4 GiB is resolved; full chunk-column demand remains.
 
 The screen reports the **actual graphics API**. Vulkan is a separate backend investigation; [the compatibility assessment](VULKAN-BACKPORT.md) explains what remains before it can be offered.
 
@@ -86,7 +91,7 @@ Use Java 25. Run `./gradlew build` (Windows: `gradlew.bat build`). Output is und
 
 `python3 tools/generate_worldgen.py` reproduces the authored JSON resources without external dependencies. Edit terrain parameters/profile heights in that script, regenerate, rebuild, and create a fresh world. Do not change the geometry of an existing world without a migration policy.
 
-Server setup for testing: set `level-type=deepprimal:prototype` or `deepprimal:prototype_deep` before creating the world. Keep a fixed seed and record client/server settings, hardware, software, preset, coordinates, and cache state for comparisons.
+Server setup for testing: leave `level-type=minecraft:normal` and choose extra depth in `config/deepprimal-worldgen.toml` before starting with a new world. The historical `deepprimal:prototype` and `deepprimal:prototype_deep` IDs remain accessible to explicit diagnostic tooling and old saves. Keep a fixed seed and record client/server settings, hardware, software, depth config, coordinates, and cache state for comparisons.
 
 For client visual checks, the opt-in `visualValidation` source set adds an automatic screenshot 45 seconds after joining a server and then exits. Run `./gradlew runClient -PvisualValidation -PcaptureServer=127.0.0.1:25565` against a local test server. Screenshots go to `build/visual-validation/screenshots/terrain.png`. The capture hook is excluded from the distributed JAR.
 

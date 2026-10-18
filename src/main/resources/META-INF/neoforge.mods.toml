@@ -6,7 +6,7 @@ license="All Rights Reserved"
 modId="deepprimal"
 version="${mod_version}"
 displayName="Deep Primal Worldgen Prototype"
-description='''Experimental tall-terrain world preset using vanilla placeholder materials. Disposable test worlds only.'''
+description='''Default tall-terrain generation with configurable underground depth, independent vertical rendering, and vanilla placeholder materials. Disposable test worlds only.'''
 
 [[dependencies.deepprimal]]
 modId="neoforge"

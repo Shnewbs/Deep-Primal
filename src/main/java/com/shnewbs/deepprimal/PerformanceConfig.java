@@ -2,7 +2,7 @@ package com.shnewbs.deepprimal;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-/** Bounded runtime work and diagnostics. Terrain geometry is controlled by the world preset. */
+/** Bounded runtime work and diagnostics. Saved-world profiles control terrain geometry. */
 public final class PerformanceConfig {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.IntValue MAX_BENCH_RADIUS;

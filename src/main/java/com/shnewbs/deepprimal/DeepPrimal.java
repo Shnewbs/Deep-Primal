@@ -26,7 +26,9 @@ public final class DeepPrimal {
         DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, ID);
 
     public DeepPrimal(IEventBus modBus, ModContainer container) {
+        container.registerConfig(ModConfig.Type.STARTUP, WorldgenConfig.SPEC, "deepprimal-worldgen.toml");
         container.registerConfig(ModConfig.Type.COMMON, PerformanceConfig.SPEC, "deepprimal-performance.toml");
+        modBus.addListener(WorldgenConfig::packs);
         TICKETS.register(modBus);
         DENSITIES.register("column_surface", () -> ColumnSurface.MAP_CODEC);
         DENSITIES.register(modBus);

@@ -6,6 +6,27 @@ import java.util.Random;
 public final class CoreChecks {
     public static void main(String[] args) {
         RuntimeChecks.run();
+        check(DistancePolicy.parse("0", 0, 96).orElseThrow() == 0, "full-height input");
+        check(DistancePolicy.parse("1", 0, 96).orElseThrow() == 1, "minimum vertical radius");
+        check(VerticalRange.fogScale(2, 64, 8) == 0.25f, "vertical fog extends beyond horizontal range");
+        check(VerticalRange.fogScale(16, 64, 2) == 8.0f, "vertical fog closes within smaller radius");
+        check(VerticalRange.fogScale(2, 64, 0) == 0.03125f, "full-height fog radius");
+        for (String invalid : new String[]{"", "-1", "97", "1.0", "no", "1000"})
+            check(DistancePolicy.parse(invalid, 0, 96).isEmpty(), "invalid vertical input");
+        for (int worldMin : new int[]{-24, -8, 0}) for (int worldSize : new int[]{24, 48, 64}) {
+            for (int radius : new int[]{0, 1, 2, 8, 32, 96}) for (int camera = worldMin - 4; camera <= worldMin + worldSize + 4; camera++) {
+                int count = VerticalRange.count(worldSize, radius);
+                int low = VerticalRange.low(camera, worldMin, worldSize, radius);
+                boolean[] found = new boolean[count];
+                for (int slot = 0; slot < count; slot++) {
+                    int y = VerticalRange.coordinate(low, count, slot);
+                    check(y >= low && y < low + count && !found[y - low], "unique vertical ring coverage");
+                    check(Math.floorMod(y, count) == slot, "negative vertical lookup");
+                    found[y - low] = true;
+                }
+                check(low >= worldMin && low + count <= worldMin + worldSize, "window inside saved height");
+            }
+        }
         Random random = new Random(20261018L);
         int checked = 0;
         for (int lower : new int[]{-384, -128}) {
