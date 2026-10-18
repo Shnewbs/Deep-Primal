@@ -23,10 +23,12 @@ neoForge {
     runs {
         client {
             client()
-            if (project.hasProperty('visualValidation')) {
+            if (project.hasProperty('visualValidation') && (project.hasProperty('captureServer') || project.hasProperty('captureWorld'))) {
                 gameDirectory = project.file(findProperty('clientRunDir') ?: 'run-visual')
-                programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
+                if (project.hasProperty('captureServer')) programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
+                if (project.hasProperty('captureWorld')) programArguments.addAll '--quickPlaySingleplayer', project.property('captureWorld')
                 systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
+                if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
                 jvmArgument '-Xmx2G'
             }
         }

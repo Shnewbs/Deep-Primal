@@ -32,6 +32,7 @@ public final class DeepPrimal {
         DENSITIES.register(modBus);
         NeoForge.EVENT_BUS.register(new WorldgenProbe(container.getModInfo().getVersion().toString()));
         NeoForge.EVENT_BUS.register(new NoVanillaXp());
+        NeoForge.EVENT_BUS.register(new DistanceRuntime());
         LOGGER.info("Deep Primal worldgen prototype loaded: vanilla placeholders, disposable test worlds.");
     }
 }

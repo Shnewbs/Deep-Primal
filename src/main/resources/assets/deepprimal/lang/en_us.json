@@ -1,4 +1,14 @@
 {
-  "generator.deepprimal.prototype": "Deep Primal \u2014 Terrain Prototype (768)",
-  "generator.deepprimal.prototype_deep": "Deep Primal \u2014 Deep Comparison (1024)"
+  "generator.deepprimal.prototype": "Deep Primal — Terrain Prototype (768)",
+  "generator.deepprimal.prototype_deep": "Deep Primal — Deep Comparison (1024)",
+  "deepprimal.distance.open": "Deep Primal distances…",
+  "deepprimal.distance.title": "Distances & performance",
+  "deepprimal.distance.apply": "Apply",
+  "deepprimal.distance.fast_relocation": "Fast camera updates: %s",
+  "deepprimal.distance.invalid": "Enter render 2–%s and simulation 2–%s.",
+  "deepprimal.distance.reopen": "Reopen this world to activate server range above %s chunks.",
+  "deepprimal.distance.server": "Server render cap: %s chunks. Simulation is controlled by the server.",
+  "deepprimal.distance.ranges": "Render: 2–%s chunks. Simulation: 2–%s chunks.",
+  "deepprimal.distance.sections": "Render section slots: %s",
+  "deepprimal.distance.backend": "Graphics API: %s"
 }

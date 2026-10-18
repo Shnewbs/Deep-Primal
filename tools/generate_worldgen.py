@@ -144,7 +144,4 @@ def profile(name, min_y, height):
 profile('prototype', -128, 768)
 profile('prototype_deep', -384, 1024)
 write('data/minecraft/tags/worldgen/world_preset/normal.json', {'replace': False, 'values': ['deepprimal:prototype', 'deepprimal:prototype_deep']})
-write('assets/deepprimal/lang/en_us.json', {
-    'generator.deepprimal.prototype': 'Deep Primal — Terrain Prototype (768)',
-    'generator.deepprimal.prototype_deep': 'Deep Primal — Deep Comparison (1024)'})
 print('Generated two presets: -128..639 and -384..639, sea level 96.')

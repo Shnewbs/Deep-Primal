@@ -79,6 +79,13 @@ public final class WorldgenProbe {
             source.getLevel().getChunkSource().getLoadedChunksCount(),
             source.getLevel().getChunkSource().getPendingTasksCount(), samples.size(), samples.capacity(),
             samples.hits(), samples.misses(), run == null ? "idle" : run.next + "/" + run.xs.length));
+        reply(source, "RUNTIME trackingCapacity=" + DistanceRuntime.trackingCapacity()
+            + " chunkSelections=" + RuntimeMetrics.SEND_SELECTIONS.sum()
+            + " maxSendBatch=" + RuntimeMetrics.MAX_SEND_BATCH.get()
+            + " candidates=" + RuntimeMetrics.SEND_CANDIDATES.sum()
+            + " selectionMillis=" + RuntimeMetrics.SEND_NANOS.sum() / 1_000_000
+            + " viewColumns=" + RuntimeMetrics.VIEW_COLUMNS.sum()
+            + " viewSectionsMoved=" + RuntimeMetrics.VIEW_SECTIONS_MOVED.sum());
         return 1;
     }
 

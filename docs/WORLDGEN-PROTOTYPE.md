@@ -1,6 +1,6 @@
-# Worldgen prototype 0.0.1-alpha.2
+# Worldgen prototype 0.0.1-alpha.3
 
-Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 2 changes the terrain detail field and surface rules; old and new chunks can meet at visible seams. Never install it into a valuable existing world as a world-height migration tool.
+Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 2 changed the terrain detail field and surface rules; old and new chunks can meet at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
 ## Play
 
@@ -52,11 +52,31 @@ Each in-flight request holds its own temporary, non-persistent loading ticket. T
 | `sampleCacheEntries` | 1024 | Fixed-capacity LRU of diagnostic results; 0 disables caching |
 | `logSamplerQueries` | false | Optional per-query log output |
 
-These options do not change terrain geometry, throttle normal exploration, or alter simulation distance. Cached samples contain values and seed/dimension/coordinate keys, with no retained world or chunk references. Cache contents clear on datapack sync and server shutdown. Vanilla XP suppression has no disable setting.
+`optimizeChunkSelection` (default true) uses a primitive nearest-first queue. `maxChunkSendsPerTick` (default 16, range 1–64) bounds each player's send batch, including integrated-server connections, while respecting native client feedback. Turning selection off restores native batching.
+
+`persistentMobIdleOptimization` (default true) backports the 26.3 behavior: distant persistent mobs accumulate idle time so native random-walk/swim goals can stop. Nearby mobs reset normally, persistence/despawn rules remain native, and other AI still runs. Set false to retain the old persistent-mob idle timer behavior.
+
+Client config `deepprimal-client-performance.toml` contains `optimizeViewRelocation` (default true), also available as **Fast camera updates** in the distance screen. It skips unchanged render columns and vertical-only scans. Turning it off uses the native relocation code.
+
+These options do not change terrain geometry. Chunk delivery pacing changes arrival timing and idle optimization changes distant random strolling as described above. Cached samples contain values and seed/dimension/coordinate keys, with no retained world or chunk references. Cache contents clear on datapack sync and server shutdown. Vanilla XP suppression has no disable setting.
 
 For a controlled benchmark, disable the optional slow-tick pause and record that setting. For ordinary playtesting, leave the default pacing enabled. The mod uses native generation workers and does not create an extra terrain-generation pool.
 
 Your screenshots used render and simulation distance 32. Start tall-world tests around render distance 12–16 and simulation distance 6–8, then increase them while watching `/deepprimal perf`. These are starting points for testing, not measured guarantees. The mod does not override player/server settings.
+
+## Distance controls
+
+Open **Video Settings → Deep Primal distances…**. Render and simulation each have a slider and a numeric field. Changes apply together with **Apply**; Cancel/Escape leaves the staged values unused. Invalid values disable Apply. Settings persist in normal `options.txt`, and the native Video Settings sliders also support the new ranges.
+
+- Render distance: **2–96 chunks**, an experimental finite ceiling compatible with the native byte protocol and tracking storage.
+- Simulation distance: **2–32 chunks**. The native simulation-level graph caps the useful range; higher values would need a different simulation architecture.
+- Multiplayer: the server controls delivered terrain and simulation. A client's value cannot override it. The screen shows the server's advertised render cap.
+- Single-player: tracking capacity is allocated when opening the world, at least 32 and up to the chosen render distance. Choosing a range above that session capacity requires reopening the world; the screen tells you when. Effective local rendering stays within the allocated tracking capacity meanwhile.
+- Dedicated server: set `view-distance` before startup (2–96); `simulation-distance` remains 2–32. Actual gameplay requests above the hard limits are clamped. Default distances retain the native 32-chunk tracking-graph capacity rather than always allocating a 96-chunk graph.
+
+Larger render settings multiply chunk and vertical-section costs. The upper range is not a hardware performance promise. There is no literal unlimited mode. Alpha 3 keeps the alpha 2 terrain geometry/resources, so this update introduces no terrain-layout change of its own.
+
+The screen reports the **actual graphics API**. Vulkan is a separate backend investigation; [the compatibility assessment](VULKAN-BACKPORT.md) explains what remains before it can be offered.
 
 ## Build and reproduce
 

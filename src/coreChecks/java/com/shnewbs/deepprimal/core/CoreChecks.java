@@ -5,6 +5,7 @@ import java.util.Random;
 /** Dependency-free differential checks for hot-path math and bounded memory behavior. */
 public final class CoreChecks {
     public static void main(String[] args) {
+        RuntimeChecks.run();
         Random random = new Random(20261018L);
         int checked = 0;
         for (int lower : new int[]{-384, -128}) {
