@@ -11,6 +11,8 @@ layout(std140) uniform Fog {
     float FogSkyEnd;
     float FogCloudsEnd;
     float DeepPrimalVerticalScale;
+    float DeepPrimalNearDistance;
+    float DeepPrimalVerticalDistance;
 };
 
 float linear_fog_value(float distance, float start, float end) {

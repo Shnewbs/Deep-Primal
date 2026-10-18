@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class FogRendererMixin {
     @ModifyExpressionValue(method = "<clinit>", at = @At(value = "INVOKE",
         target = "Lcom/mojang/blaze3d/buffers/Std140SizeCalculator;get()I"))
-    private static int deepprimal$extendFogBuffer(int original) { return original + 8; }
+    private static int deepprimal$extendFogBuffer(int original) { return original + 24; }
 
     @Inject(method = "updateBuffer(Ljava/nio/ByteBuffer;ILorg/joml/Vector4f;FFFFFF)V", at = @At("RETURN"))
     private void deepprimal$writeVerticalFog(ByteBuffer buffer, int offset, Vector4f color,
@@ -27,7 +27,22 @@ public abstract class FogRendererMixin {
             mc.level.getSectionsCount(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get());
         buffer.putFloat(offset + 40, scale);
         // Include std140 tail padding in the native constructor's buffer.flip().
-        buffer.putFloat(offset + 44, 0.0f);
+        buffer.putFloat(offset + 44, mc == null ? 0 : Math.max(16, mc.options.getEffectiveRenderDistance() * 16 - 48));
+        buffer.putFloat(offset + 48, mc == null || mc.level == null ? 65536 :
+            ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() == 0 ? 65536 : ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() * 16);
+        buffer.putFloat(offset + 52, 0);
+        buffer.putFloat(offset + 56, 0); buffer.putFloat(offset + 60, 0);
+        if (com.shnewbs.deepprimal.client.render.HorizonRenderer.active()) {
+            float far = Math.max(distanceEnd, com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance() * 16);
+            buffer.putFloat(offset + 24, far * 0.75f); buffer.putFloat(offset + 28, far);
+            buffer.putFloat(offset + 40, scale * far / Math.max(1, distanceEnd));
+            // Extend the ordinary 1024-block atmosphere proportionally; retain weather attenuation
+            // and the shorter fog supplied by water, blindness, darkness and custom environments.
+            if (environmentalEnd >= 768 && environmentalEnd <= 1024 && far > 1024) {
+                buffer.putFloat(offset + 16, environmentalStart * far / 1024);
+                buffer.putFloat(offset + 20, environmentalEnd * far / 1024);
+            }
+        }
         buffer.position(offset + FogRenderer.FOG_UBO_SIZE);
     }
 }

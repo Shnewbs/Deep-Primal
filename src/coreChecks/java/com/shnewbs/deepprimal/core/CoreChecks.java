@@ -6,6 +6,14 @@ import java.util.Random;
 public final class CoreChecks {
     public static void main(String[] args) {
         RuntimeChecks.run();
+        check(RendererPolicy.ownsRenderer(java.util.Set.of("deepprimal", "lithium", "ferritecore")), "unrelated optimizers retain renderer");
+        for (String id : RendererPolicy.REPLACEMENTS) check(!RendererPolicy.ownsRenderer(java.util.Set.of(id)), "replacement owns rendering: " + id);
+        for (int x : new int[]{-58000, -1, 0, 1, 58000}) for (int z : new int[]{-58000, -1, 0, 1, 58000}) {
+            long key = FarTerrain.key(x, z); check(FarTerrain.x(key) == x && FarTerrain.z(key) == z, "signed tile key");
+        }
+        check(FarTerrain.inRange(-1, -1, 0, 0, 1), "negative tile touching view");
+        check(!FarTerrain.inRange(9, 0, 0, 0, 256), "outside horizon");
+        check(FarTerrain.inRange(7, 0, 0, 0, 256), "inside horizon");
         for (int capacity = 2; capacity <= 96; capacity++) {
             int buckets = DistancePolicy.queuePriorityCount(46, capacity);
             check(capacity + 2 < buckets, "tracker removal priority fits queue");

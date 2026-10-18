@@ -1,0 +1,38 @@
+{
+  "id": 94,
+  "time": 1792366673654,
+  "heapUsed": 432339024,
+  "heapCommitted": 469762048,
+  "heapMax": 3221225472,
+  "nonHeap": 199757496,
+  "directBytes": 5639388,
+  "gcMillis": 0,
+  "gcCount": 0,
+  "processCpu": 0.08863636363636364,
+  "threads": 18,
+  "server": {
+    "state": "No local server"
+  },
+  "client": {
+    "verticalRadius": 0,
+    "horizonTarget": 238,
+    "frameMaxMs": 82.10149,
+    "farDistance": 256,
+    "state": "In world",
+    "horizonVisible": 84,
+    "graphicsApi": "OpenGL",
+    "dimension": "minecraft:overworld",
+    "horizonCached": 238,
+    "simulationDistance": 2,
+    "rendererOwner": "Deep Primal",
+    "gpu": "llvmpipe (LLVM 20.1.2, 256 bits)",
+    "horizonTrianglesDrawn": 11062912,
+    "fps": 20,
+    "horizonState": "Ready",
+    "sampleTime": 1792366673300,
+    "frameP95Ms": 53.213303,
+    "frameMedianMs": 50.060131,
+    "renderDistance": 6,
+    "horizonUploadedBytes": 1462272
+  }
+}

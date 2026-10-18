@@ -9,7 +9,8 @@
     "DistanceManagerMixin",
     "PlayerListMixin",
     "PlayerChunkSenderMixin",
-    "MobIdleMixin"
+    "MobIdleMixin",
+    "ServerLevelMetricsAccessor"
   ],
   "client": [
     "client.OptionsMixin",
@@ -24,5 +25,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "com.shnewbs.deepprimal.render.RendererMixinPlugin"
 }

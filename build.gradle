@@ -30,6 +30,7 @@ neoForge {
                 systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
                 if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
                 if (project.hasProperty('terrainValidation')) systemProperty 'deepprimal.validationTerrain', 'true'
+                if (project.hasProperty('nativeRendererValidation')) systemProperty 'deepprimal.validationRenderer', 'true'
                 if (project.hasProperty('queueStartupValidation')) systemProperty 'deepprimal.validationQueueStartup', 'true'
                 jvmArgument '-Xmx' + (findProperty('validationHeap') ?: '2G')
             }
@@ -77,6 +78,7 @@ tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
 tasks.named('runServer') { standardInput = System.in }
 if (project.hasProperty('packagedValidation')) {
     ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {
+        dependsOn tasks.named('jar')
         doFirst {
             String paths = 'deepprimal%%' + tasks.named('jar').get().archiveFile.get().asFile.absolutePath
             if (runName == 'runClient' && project.hasProperty('visualValidation'))

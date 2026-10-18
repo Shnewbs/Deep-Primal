@@ -26,9 +26,15 @@ public final class DeepPrimal {
         DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, ID);
 
     public DeepPrimal(IEventBus modBus, ModContainer container) {
+        com.shnewbs.deepprimal.diagnostics.LocalDashboard.metadata(container.getModInfo().getVersion().toString(),
+            net.neoforged.fml.ModList.get().getMods().stream().map(m -> java.util.Map.of("id", m.getModId(), "version", m.getVersion().toString())).toList());
+        container.registerConfig(ModConfig.Type.STARTUP, com.shnewbs.deepprimal.diagnostics.DiagnosticsConfig.SPEC, "deepprimal-diagnostics.toml");
+        NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.diagnostics.ServerTelemetry());
         container.registerConfig(ModConfig.Type.STARTUP, WorldgenConfig.SPEC, "deepprimal-worldgen.toml");
         container.registerConfig(ModConfig.Type.COMMON, PerformanceConfig.SPEC, "deepprimal-performance.toml");
         modBus.addListener(WorldgenConfig::packs);
+        modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
+        NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
         TICKETS.register(modBus);
         DENSITIES.register("column_surface", () -> ColumnSurface.MAP_CODEC);
         DENSITIES.register(modBus);

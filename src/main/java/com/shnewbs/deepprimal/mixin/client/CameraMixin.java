@@ -15,6 +15,6 @@ public abstract class CameraMixin {
         var level = Minecraft.getInstance().level;
         if (level == null) return original;
         int sections = VerticalRange.visibilityRadius(level.getSectionsCount(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get());
-        return Math.max(original, (sections + 2) * 16.0f);
+        return Math.max(Math.max(original, (sections + 2) * 16.0f), com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance() * 16.0f + 64);
     }
 }

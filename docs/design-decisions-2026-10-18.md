@@ -325,3 +325,12 @@ Reference pages were inspected on 2026-10-18. These are design influences, not a
 | [Simple Storage Network](https://www.curseforge.com/minecraft/mc-mods/simple-storage-network) | Local unified storage inspiration only; native remote access explicitly excluded |
 
 Tom's Simple Storage is additionally retained as an owner-named reference; its specific implementation has not been verified in this pass.
+
+
+## Built-in renderer and localhost diagnostics — latest follow-up
+
+The owner requires an authored renderer and performance features inside Deep Primal, available out of the box. Requiring users to collect Sodium and multiple external optimization mods is not the selected distribution strategy. When recognized competing renderers are installed, Deep Primal should silently deactivate overlapping rendering components, preserve unrelated gameplay/worldgen/server optimizations, and restore its renderer automatically when those mods are removed on a later launch. This means yielding code/resources, not uninstalling or deleting other mods.
+
+The requested visibility ceiling is 192 or 256 chunks, with horizontal and vertical culling. Alpha 6 implements a 0–256 macro-terrain horizon alongside bounded native full-detail rendering. Its coarse generated geometry is an initial renderer stage, not completion of the near-terrain pipeline or a saved-world LOD system. The renderer currently uses OpenGL; Vulkan remains implementation work and must not be shown as functional until it actually renders and passes validation.
+
+A built-in localhost listener should make memory/performance graphs, troubleshooting, and world data easy to inspect. Alpha 6 provides a read-only loopback dashboard, bounded history, native metrics and diagnostic JSON export. Its GUI/config/compatibility behavior and limitations are documented in `RENDERER-AND-DIAGNOSTICS.md` and the alpha 6 validation report.

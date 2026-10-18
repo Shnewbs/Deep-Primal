@@ -1,6 +1,6 @@
 # Vulkan backport investigation for 26.1.2
 
-Status: compatibility investigation completed; a working Vulkan backend is not included in alpha 3. The current build renders with OpenGL. The distance screen displays the backend actually in use.
+Status: compatibility investigation completed; a working Vulkan backend is not included in alpha 6. The current build renders with OpenGL. Alpha 6 adds an authored horizon renderer using the platform GPU API and automatic compatibility handoff. It does not implement a Vulkan device backend. The distance screen displays the backend actually in use.
 
 The owner requested investigation of the newer Vulkan features while retaining Minecraft 26.1.2 and NeoForge. Official experimental Vulkan support arrived in **26.2**. Later 26.3/26.4 changes build on that renderer. This is a separate client-renderer project; server simulation range and world generation need CPU work of their own.
 

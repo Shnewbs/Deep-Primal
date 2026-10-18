@@ -1,4 +1,4 @@
-# Worldgen prototype 0.0.1-alpha.5
+# Worldgen prototype 0.0.1-alpha.6
 
 Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
@@ -24,7 +24,7 @@ A required built-in data pack supplies the configured `minecraft:normal` preset 
 - Operator-only diagnostic sampling and a bounded sequential chunk benchmark.
 - Block and mob XP drops suppressed before orb creation; vanilla XP gain/level events and XP-orb spawning disabled; loaded/directly-set player vanilla XP is cleared. The MMO XP replacement is not built yet.
 
-Native survival, custom catalog, Earth data, LOD, finite ore economy, renewable wells, navigation/hearth, vehicles, fishing, animal yields, and professions are not implemented. Vanilla ore/features remain placeholders and are not the final finite ore generation. Flora/biome transitions and terrain balance need visual playtesting.
+Native survival, custom catalog, Earth data, complete saved-world/voxel LOD, finite ore economy, renewable wells, navigation/hearth, vehicles, fishing, animal yields, and professions are not implemented. Vanilla ore/features remain placeholders and are not the final finite ore generation. Flora/biome transitions and terrain balance need visual playtesting.
 
 ## Diagnostics
 
@@ -83,6 +83,10 @@ The authored native fog-include implementation scales the Y component of distanc
 Larger render settings multiply chunk and vertical-section costs. The upper range is not a hardware performance promise. There is no literal unlimited mode. A smaller vertical range does not establish that the reported alpha 2 heap exhaustion at 32 chunks / 4 GiB is resolved; full chunk-column demand remains.
 
 The screen reports the **actual graphics API**. Vulkan is a separate backend investigation; [the compatibility assessment](VULKAN-BACKPORT.md) explains what remains before it can be offered.
+
+## Built-in renderer and local diagnostics
+
+Alpha 6 adds the native horizon and automatic renderer ownership described in [this guide](RENDERER-AND-DIAGNOSTICS.md). The horizon defaults to 192 chunks and accepts 0–256. It does not raise the full-detail or simulation limits. The local dashboard is enabled by default and has a button in Deep Primal’s distance/config screen.
 
 ## Build and reproduce
 

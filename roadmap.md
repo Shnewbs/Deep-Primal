@@ -1,10 +1,10 @@
 # Deep Primal — Roadmap
 
-**Status:** worldgen prototype 0.0.1-alpha.5; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** worldgen/renderer prototype 0.0.1-alpha.6; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
-The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.5.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
+The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.6.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
@@ -41,7 +41,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 | Navigation and activities | Configurable native maps/compass/biome titles, slot-free hearth return (including an occupied rideable cart/wagon and its cargo), body-region health, hunting, weight-based meat/material yields for all animals, and species journal; full scope is not automatically part of v0.1. |
 | XP and resources | Non-spendable MMO-style XP with a maximum level; vanilla XP cannot be restored; finite veins and high-reserve bedrock ore; remeltable scrap, salvage piles, and configurable disposal. |
 
-Far-terrain LOD is **proposed**, not locked. Hytale and an independent game remain portability possibilities, not committed releases. The platform-neutral core is already part of the design.
+The owner has selected an **authored renderer inside Deep Primal**, with no external performance-mod installation required. Alpha 6 implements an experimental macro-terrain horizon and automatically yields its renderer module to recognized competing renderers. A complete near-terrain renderer and Vulkan backend remain future stages. Hytale and an independent game remain portability possibilities, not committed releases. The platform-neutral core is already part of the design.
 
 ## Milestones
 
@@ -91,13 +91,25 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 **Exit evidence:** reproducible seeds and terrain inspection, deterministic sampling checks, native-material generation, measured generation/cache costs, and a working optional Earth prototype. Earth mode and frozen-ground foundations remain in the original v0.1 scope; dataset and height feasibility are blockers to resolve, not silently dropped requirements.
 
-**Conditional research — far terrain:** resolve D07 before treating LOD as committed implementation. If approved, prototype heightmap tiles from cheap sampler queries, test a Distant Horizons integration candidate on the selected versions, and measure seams, caching, server requests, and client cost. Select native LOD, integration, or deferral explicitly. Far visibility and world height are separate problems.
+**Native far terrain — selected direction:** the owner requires the renderer inside Deep Primal, with no external performance-mod installation needed. Alpha 6 supplies the first coarse horizon stage; fuller near/far rendering, saved-world/build representation, transition quality, and real-GPU budgets remain open. Third-party renderer handoff is compatibility behavior, not a required external rendering dependency. Far visibility and world height remain separate problems.
 
 **Rendering performance update:** alpha 3 includes typed distances, an experimental 96-chunk render ceiling, bounded native tracking allocation, chunk-send backpressure and camera-column relocation. Full simulation remains bounded to the native 32-chunk setting. See [alpha 3 validation](docs/VALIDATION-0.0.1-alpha.3.md).
 
 **Alpha 4 follow-up:** independent vertical render radius bounds render-section allocations and meshes; full chunk loading/networking and server simulation still use whole columns. Default world creation uses Deep Primal, with additional underground depth configured before creation instead of selected as a separate world type. Saved-world height remains locked. Cave shaping targets the reported hanging stone curtains; this is not an erosion or physics simulation.
 
 **Alpha 5 correction:** chunk-task queues retain enough priority buckets for the session tracking capacity, including unload priorities. This fixes the reported 96-chunk queue bounds crash without changing generation levels or terrain. Native queue regression tests cover 32, 44, 45, 46, and 96 chunks; see [crash-fix validation](docs/VALIDATION-0.0.1-alpha.5.md).
+
+**Alpha 6 renderer/performance direction:**
+
+- [x] Ship an authored horizon draw pass and meshes in the mod, with 0–256-chunk controls independent of full-detail and simulation distances.
+- [x] Bound sampling work, network requests, client/server caches, and GPU uploads; use no full chunk requests for the horizon.
+- [x] Yield renderer patches/resources automatically when a recognized replacement is installed; retain worldgen/server optimizations and diagnostics.
+- [x] Add a read-only localhost dashboard with bounded memory, frame/tick and GC history, world counters, and diagnostic export.
+- [ ] Replace native near-block mesh compilation and submission with the authored renderer after differential/visual benchmarks.
+- [ ] Refine horizon materials, biome coloring, transition meshes, multi-resolution tiles, generated structures/builds, and conservative terrain occlusion.
+- [ ] Implement a functioning Vulkan backend with OpenGL fallback and validate real GPU/third-party combinations.
+
+See [renderer and diagnostics guide](docs/RENDERER-AND-DIAGNOSTICS.md). The current horizon is an approximate height field, not a complete voxel or saved-world LOD representation. It deliberately does not request full chunk generation.
 
 **Owner-requested Vulkan investigation:** API compatibility has been assessed for retaining 26.1.2/NeoForge. Vulkan is not implemented in the current JAR. The next renderer milestone is an isolated device/presentation/shader adapter prototype with OpenGL fallback, followed by real GPU profiling and compatibility validation. See [Vulkan backport investigation](docs/VULKAN-BACKPORT.md). This remains separate from LOD and world-height feasibility.
 
@@ -170,7 +182,7 @@ The [complete question register](docs/design-reference.md#s8) preserves all 31 o
 | D04 | Initial catalog coverage and how later tiers expand it. | M1 | 16 |
 | D05 | Rendering quality/performance thresholds and hand-authored versus parametric trees. | M1 | 17, 19 |
 | D06 | Expanded vertical terrain is desired and performance is mandatory; verify target height limits and select measured profiles alongside Earth datasets/licenses, projection, and vertical scale. | M2 | 18, 27 |
-| D07 | Whether to commit LOD, native versus third-party approach, tiers, and default distances. | M2 research | 25, 26 |
+| D07 | Built-in native renderer selected; near/far quality, saved-world coverage, default tuning and measured budgets remain open. | M2 renderer follow-up | 25, 26 |
 | D08 | Vanilla-first versus foreign adapters, adapt/convert default, and special handling for pistons, portals, hoppers/droppers, and minecarts. | M3 | 2, 11, 12 |
 | D09 | Calendar defaults, stack ceiling, permafrost tools/thawing, and ice-cementation scope. | M2–M3 | 5, 20, 21, 22 |
 | D10 | Inspection gating and guide source format/schema. | M3 | 23, 24 |

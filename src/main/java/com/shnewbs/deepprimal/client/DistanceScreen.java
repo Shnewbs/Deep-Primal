@@ -18,8 +18,8 @@ import net.minecraft.network.chat.Component;
 /** Edits are staged until Apply; keyboard entry and sliders share the same validation. */
 public final class DistanceScreen extends Screen {
     private final Screen parent;
-    private EditBox renderInput, simulationInput, verticalInput;
-    private DistanceSlider renderSlider, simulationSlider, verticalSlider;
+    private EditBox renderInput, simulationInput, verticalInput, farInput;
+    private DistanceSlider renderSlider, simulationSlider, verticalSlider, farSlider;
     private Button apply;
     private boolean fastRelocation;
     private int left, top, panelWidth;
@@ -30,41 +30,60 @@ public final class DistanceScreen extends Screen {
     }
 
     @Override protected void init() {
+        if (!com.shnewbs.deepprimal.render.RendererOwnership.owned()) {
+            addDashboard(width / 2 - 100, height / 2 + 4, 200);
+            addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, b -> onClose()).bounds(width / 2 - 100, height / 2 + 30, 200, 20).build());
+            return;
+        }
         panelWidth = Math.min(350, width - 32);
         left = (width - panelWidth) / 2; top = Math.max(28, (height - 210) / 2);
         fastRelocation = ClientPerformanceConfig.FAST_VIEW_RELOCATION.get();
         renderInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top, 58, 20,
             Component.translatable("options.renderDistance")));
-        simulationInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top + 30, 58, 20,
+        simulationInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top + 24, 58, 20,
             Component.translatable("options.simulationDistance")));
-        verticalInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top + 60, 58, 20,
+        verticalInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top + 48, 58, 20,
             Component.translatable("deepprimal.distance.vertical")));
-        for (EditBox input : new EditBox[]{renderInput, simulationInput, verticalInput}) {
+        farInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top + 72, 58, 20,
+            Component.translatable("deepprimal.distance.far")));
+        for (EditBox input : new EditBox[]{renderInput, simulationInput, verticalInput, farInput}) {
             input.setMaxLength(3);
             input.setFilter(text -> text.chars().allMatch(c -> c >= '0' && c <= '9'));
         }
         renderInput.setValue(Integer.toString(minecraft.options.renderDistance().get()));
         simulationInput.setValue(Integer.toString(minecraft.options.simulationDistance().get()));
         verticalInput.setValue(Integer.toString(ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()));
+        farInput.setValue(Integer.toString(ClientPerformanceConfig.FAR_RENDER_DISTANCE.get()));
         renderSlider = addRenderableWidget(new DistanceSlider(left, top, panelWidth - 68,
             "options.renderDistance", 2, DistancePolicy.MAX_RENDER, minecraft.options.renderDistance().get(), renderInput));
-        simulationSlider = addRenderableWidget(new DistanceSlider(left, top + 30, panelWidth - 68,
+        simulationSlider = addRenderableWidget(new DistanceSlider(left, top + 24, panelWidth - 68,
             "options.simulationDistance", 2, DistancePolicy.MAX_SIMULATION, minecraft.options.simulationDistance().get(), simulationInput));
-        verticalSlider = addRenderableWidget(new DistanceSlider(left, top + 60, panelWidth - 68,
+        verticalSlider = addRenderableWidget(new DistanceSlider(left, top + 48, panelWidth - 68,
             "deepprimal.distance.vertical", 0, VerticalRange.MAX_RADIUS, ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get(), verticalInput));
+        farSlider = addRenderableWidget(new DistanceSlider(left, top + 72, panelWidth - 68,
+            "deepprimal.distance.far", 0, 256, ClientPerformanceConfig.FAR_RENDER_DISTANCE.get(), farInput));
+        farInput.setTooltip(Tooltip.create(Component.translatable("deepprimal.distance.far_help")));
+        farSlider.setTooltip(Tooltip.create(Component.translatable("deepprimal.distance.far_help")));
         var verticalTip = Tooltip.create(Component.translatable("deepprimal.distance.vertical_help"));
         verticalSlider.setTooltip(verticalTip); verticalInput.setTooltip(verticalTip);
-        renderInput.setResponder(text -> refresh()); simulationInput.setResponder(text -> refresh()); verticalInput.setResponder(text -> refresh());
+        renderInput.setResponder(text -> refresh()); simulationInput.setResponder(text -> refresh()); verticalInput.setResponder(text -> refresh()); farInput.setResponder(text -> refresh());
         addRenderableWidget(Button.builder(relocationLabel(), button -> {
             fastRelocation = !fastRelocation; button.setMessage(relocationLabel());
-        }).bounds(left, top + 138, panelWidth, 20).build());
+        }).bounds(left, top + 136, panelWidth, 20).build());
         apply = addRenderableWidget(Button.builder(Component.translatable("deepprimal.distance.apply"), button -> applyChanges())
             .bounds(left, top + 182, panelWidth / 2 - 5, 20).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, button -> onClose())
             .bounds(left + panelWidth / 2 + 5, top + 182, panelWidth / 2 - 5, 20).build());
+        addDashboard(left, top + 158, panelWidth);
         refresh();
     }
 
+    private void addDashboard(int x, int y, int buttonWidth) {
+        Button button = addRenderableWidget(Button.builder(Component.literal("Local performance dashboard"), b ->
+            net.minecraft.util.Util.getPlatform().openUri(java.net.URI.create(com.shnewbs.deepprimal.diagnostics.LocalDashboard.url())))
+            .bounds(x, y, buttonWidth, 20).build());
+        button.active = com.shnewbs.deepprimal.diagnostics.LocalDashboard.running();
+    }
     private Component relocationLabel() {
         return Component.translatable("deepprimal.distance.fast_relocation", fastRelocation ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF);
     }
@@ -73,9 +92,12 @@ public final class DistanceScreen extends Screen {
     private OptionalInt verticalValue() {
         return DistancePolicy.parse(verticalInput.getValue(), 0, VerticalRange.MAX_RADIUS);
     }
+    private OptionalInt farValue() { return DistancePolicy.parse(farInput.getValue(), 0, 256); }
     private void refresh() {
         var render = renderValue(); var simulation = simulationValue(); var vertical = verticalValue();
-        apply.active = render.isPresent() && simulation.isPresent() && vertical.isPresent();
+        apply.active = render.isPresent() && simulation.isPresent() && vertical.isPresent() && farValue().isPresent();
+        farInput.setTextColor(farValue().isPresent() ? 0xffeeeeee : 0xffff7777);
+        farValue().ifPresent(farSlider::setDistance);
         renderInput.setTextColor(render.isPresent() ? 0xffeeeeee : 0xffff7777);
         simulationInput.setTextColor(simulation.isPresent() ? 0xffeeeeee : 0xffff7777);
         verticalInput.setTextColor(vertical.isPresent() ? 0xffeeeeee : 0xffff7777);
@@ -83,13 +105,14 @@ public final class DistanceScreen extends Screen {
     }
     private void applyChanges() {
         var render = renderValue(); var simulation = simulationValue(); var vertical = verticalValue();
-        if (render.isEmpty() || simulation.isEmpty() || vertical.isEmpty()) return;
+        if (render.isEmpty() || simulation.isEmpty() || vertical.isEmpty() || farValue().isEmpty()) return;
         boolean changedVertical = vertical.getAsInt() != ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get();
         DistanceRuntime.clientRequest(render.getAsInt());
         minecraft.options.renderDistance().set(render.getAsInt());
         minecraft.options.simulationDistance().set(simulation.getAsInt());
         ClientPerformanceConfig.FAST_VIEW_RELOCATION.set(fastRelocation);
         ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.set(vertical.getAsInt());
+        ClientPerformanceConfig.FAR_RENDER_DISTANCE.set(farValue().getAsInt());
         ClientPerformanceConfig.SPEC.save();
         minecraft.options.save();
         if (changedVertical && minecraft.level != null) minecraft.levelRenderer.allChanged();
@@ -99,10 +122,16 @@ public final class DistanceScreen extends Screen {
 
     @Override public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        if (!com.shnewbs.deepprimal.render.RendererOwnership.owned()) {
+            graphics.centeredText(font, title, width / 2, height / 2 - 42, 0xffffffff);
+            graphics.textWithWordWrap(font, Component.literal("Renderer: " + com.shnewbs.deepprimal.render.RendererOwnership.owner()
+                + ". Deep Primal rendering yields automatically. Use that renderer’s controls."), width / 2 - 160, height / 2 - 15, 320, 0xffdddddd);
+            return;
+        }
         graphics.centeredText(font, title, width / 2, top - 24, 0xffffffff);
         Component line;
         var render = renderValue();
-        if (render.isEmpty() || simulationValue().isEmpty() || verticalValue().isEmpty()) {
+        if (render.isEmpty() || simulationValue().isEmpty() || verticalValue().isEmpty() || farValue().isEmpty()) {
             line = Component.translatable("deepprimal.distance.invalid", DistancePolicy.MAX_RENDER, DistancePolicy.MAX_SIMULATION);
         } else {
             int serverRange = ((OptionsAccessor)minecraft.options).deepprimal$serverRenderDistance();
@@ -112,13 +141,9 @@ public final class DistanceScreen extends Screen {
                 line = Component.translatable("deepprimal.distance.server", serverRange);
             else line = Component.translatable("deepprimal.distance.ranges", DistancePolicy.MAX_RENDER, DistancePolicy.MAX_SIMULATION);
         }
-        graphics.textWithWordWrap(font, line, left, top + 92, panelWidth, 0xffdddddd);
+        graphics.textWithWordWrap(font, line, left, top + 98, panelWidth, 0xffdddddd);
         graphics.text(font, Component.translatable("deepprimal.distance.backend", RenderSystem.getDevice().getBackendName()), left, top + 120, 0xffaaaaaa);
-        if (minecraft.level != null && render.isPresent() && verticalValue().isPresent()) {
-            int vertical = VerticalRange.count(minecraft.level.getSectionsCount(), verticalValue().getAsInt());
-            long sections = DistancePolicy.sectionSlots(render.getAsInt(), vertical);
-            graphics.text(font, Component.translatable("deepprimal.distance.sections", sections), left, top + 166, 0xffaaaaaa);
-        }
+
     }
 
     private static final class DistanceSlider extends AbstractSliderButton {
@@ -133,9 +158,9 @@ public final class DistanceScreen extends Screen {
         int distance() { return (int)Math.round(minimum + value * (maximum - minimum)); }
         void setDistance(int distance) { value = (distance - (double)minimum) / (maximum - (double)minimum); updateMessage(); }
         @Override protected void updateMessage() {
-            setMessage(minimum == 0 ? Component.translatable("deepprimal.distance.vertical_value", distance(), distance() * 16)
+            setMessage(label.equals("deepprimal.distance.vertical") ? Component.translatable("deepprimal.distance.vertical_value", distance(), distance() * 16)
                 : Component.translatable(label).append(": " + distance()));
-            if (minimum == 0 && distance() == 0) setMessage(Component.translatable("deepprimal.distance.vertical_full"));
+            if (label.equals("deepprimal.distance.vertical") && distance() == 0) setMessage(Component.translatable("deepprimal.distance.vertical_full"));
         }
         @Override protected void applyValue() { input.setValue(Integer.toString(distance())); }
     }

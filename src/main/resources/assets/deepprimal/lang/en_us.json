@@ -6,14 +6,16 @@
   "deepprimal.distance.title": "Distances & performance",
   "deepprimal.distance.apply": "Apply",
   "deepprimal.distance.fast_relocation": "Fast camera updates: %s",
-  "deepprimal.distance.invalid": "Enter render 2–%s, simulation 2–%s, vertical 0–96.",
+  "deepprimal.distance.invalid": "Render 2–%s, simulation 2–%s; vertical 0–96; horizon 0–256.",
   "deepprimal.distance.vertical": "Vertical render radius",
   "deepprimal.distance.vertical_value": "Vertical: %s sections (±%s blocks)",
   "deepprimal.distance.vertical_full": "Vertical: full world height",
   "deepprimal.distance.vertical_help": "Radius above and below the camera, in 16-block sections. 0 = full height. Chunk loading and server simulation still use full-height columns.",
   "deepprimal.distance.reopen": "Reopen this world to activate server range above %s chunks.",
   "deepprimal.distance.server": "Server render cap: %s chunks. Simulation is controlled by the server.",
-  "deepprimal.distance.ranges": "Render: 2–%s chunks. Simulation: 2–%s chunks.",
+  "deepprimal.distance.ranges": "Full detail 2–%s; simulation 2–%s. Horizon uses coarse terrain.",
   "deepprimal.distance.sections": "Requested render section slots: %s",
-  "deepprimal.distance.backend": "Graphics API: %s"
+  "deepprimal.distance.backend": "Graphics API: %s",
+  "deepprimal.distance.far": "Terrain horizon",
+  "deepprimal.distance.far_help": "Coarse generated landscape, 0–256 chunks; 0 disables. No full chunks, buildings, trees, or simulation. Independent of full-detail distance."
 }

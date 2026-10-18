@@ -67,6 +67,13 @@ public final class ClientCapture {
             String action = Files.readString(request).trim(); Files.delete(request);
             Files.createDirectories(dir);
             if (action.equals("stop")) { mc.stop(); return; }
+            if (action.equals("renderer-checks")) {
+                RendererClientChecks.run(mc); Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8); return;
+            }
+            if (action.startsWith("horizon=")) {
+                com.shnewbs.deepprimal.client.ClientPerformanceConfig.FAR_RENDER_DISTANCE.set(Integer.parseInt(action.substring(8)));
+                mc.setScreen(null); return;
+            }
             if (action.equals("checks")) {
                 TerrainClientChecks.run(mc); Files.writeString(dir.resolve("checks.done"), "pass", StandardCharsets.UTF_8); return;
             }
