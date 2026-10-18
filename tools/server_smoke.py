@@ -45,21 +45,24 @@ class Rcon:
         print(text + ' => ' + answer, flush=True)
         return answer
 
-def run(launcher, preset, suffix, port):
+def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=((200, 200),), restarts=2, runtime_checks=False):
     work = ROOT / ('run-smoke-' + suffix)
     work.mkdir(exist_ok=True)
     # Only invoke this script after accepting the Minecraft EULA.
     (work / 'eula.txt').write_text('eula=true\n')
     (work / 'server.properties').write_text(
-        f'level-type=deepprimal:{preset}\nlevel-seed=20261018\nlevel-name=world\n'
+        f'level-type=deepprimal:{preset}\nlevel-seed={seed}\nlevel-name=world\n'
         'gamemode=creative\nforce-gamemode=true\nspawn-protection=0\n'
         'online-mode=false\nserver-ip=127.0.0.1\n'
         f'server-port={port}\nenable-rcon=true\nrcon.port={port + 1}\n'
         'rcon.password=deepprimal-local-smoke-only\nview-distance=3\nsimulation-distance=3\n'
         'max-players=2\nsync-chunk-writes=true\n')
+    config_dir = work / 'config'
+    config_dir.mkdir(exist_ok=True)
+    (config_dir / 'deepprimal-performance.toml').write_text('pauseAboveTickMilliseconds = 0\n')
     results = []
     expected = None
-    for iteration in range(2):
+    for iteration in range(restarts):
         log = work / f'smoke-{iteration}.log'
         with log.open('w') as output:
             command = launcher + ['runServer', '--console=plain', '-PrunDir=' + str(work)]
@@ -80,7 +83,7 @@ def run(launcher, preset, suffix, port):
                 info = rcon.command('deepprimal info')
                 samples = [rcon.command(f'deepprimal sample {x} {z}')
                            for x, z in [(0, 0), (1024, 1024), (-1024, 2048), (8192, -4096)]]
-                assert 'seed=20261018' in info, info
+                assert f'seed={seed}' in info, info
                 assert all('preliminary surface=' in sample for sample in samples), samples
                 if expected is not None:
                     assert samples == expected, 'Sampler changed after save/restart'
@@ -92,11 +95,12 @@ def run(launcher, preset, suffix, port):
                             reply = rcon.request(2, f'deepprimal sample {x} {z}')
                             survey.append({'x': x, 'z': z, 'reply': reply})
                     (work / 'surface-survey.json').write_text(json.dumps(survey, indent=2) + '\n')
-                    for repetition in range(2):
-                        before = log.read_text(errors='replace').count('BENCH COMPLETE')
-                        rcon.command('deepprimal bench 200 200 1')
+                    for repetition, (cx, cz) in enumerate([center for center in batch_centers for _ in range(2)]):
+                        report_dir = work / 'deepprimal-benchmarks'
+                        before = set(report_dir.glob('*.txt'))
+                        rcon.command(f'deepprimal bench {cx} {cz} {radius}')
                         deadline = time.monotonic() + 180
-                        while log.read_text(errors='replace').count('BENCH COMPLETE') <= before:
+                        while not (set(report_dir.glob('*.txt')) - before):
                             if 'Worldgen benchmark failed' in log.read_text(errors='replace'):
                                 raise RuntimeError('Benchmark reported an engine error')
                             if process.poll() is not None or time.monotonic() > deadline:
@@ -109,6 +113,32 @@ def run(launcher, preset, suffix, port):
                     check = rcon.command(f'execute if block 3200 {floor} 3200 minecraft:bedrock')
                     assert 'Test passed' in check, check
                     rcon.command('forceload remove 3200 3200')
+                if runtime_checks and iteration == 0:
+                    # Verify bounded diagnostics and reload/cancel lifecycle through the live server.
+                    before_perf = rcon.command('deepprimal perf')
+                    assert 'benchmark=idle' in before_perf, before_perf
+                    rcon.command('deepprimal sample 12345 -12345')
+                    rcon.command('deepprimal sample 12345 -12345')
+                    perf = rcon.command('deepprimal perf')
+                    assert 'cacheHits=0 ' not in perf, perf
+                    rcon.command('reload')
+                    deadline = time.monotonic() + 30
+                    while True:
+                        perf = rcon.command('deepprimal perf')
+                        if 'sampleCache=0/' in perf: break
+                        if time.monotonic() > deadline: raise RuntimeError('Sampler cache did not clear on reload')
+                        time.sleep(1)
+                    rejected = rcon.command('deepprimal bench 400 400 5')
+                    assert 'exceeds maxBenchmarkRadius' in rejected, rejected
+                    rcon.command('deepprimal bench 400 400 4')
+                    time.sleep(0.25)
+                    rejected = rcon.command('deepprimal bench 500 500 0')
+                    assert 'request is active' in rejected, rejected
+                    rcon.command('deepprimal cancel')
+                    perf = rcon.command('deepprimal perf')
+                    assert 'benchmark=idle' in perf, perf
+                    time.sleep(3)
+                    assert 'No force loaded chunks were found' in rcon.command('forceload query')
                 results.append({'iteration': iteration, 'info': info, 'samples': samples})
                 rcon.command('save-all flush')
                 try:
@@ -134,7 +164,14 @@ if __name__ == '__main__':
     parser.add_argument('--preset', default='prototype', choices=['prototype', 'prototype_deep'])
     parser.add_argument('--port', type=int, default=25567)
     parser.add_argument('--accept-eula', action='store_true')
+    parser.add_argument('--radius', type=int, default=1)
+    parser.add_argument('--seed', type=int, default=20261018)
+    parser.add_argument('--suffix')
+    parser.add_argument('--restarts', type=int, default=2)
+    parser.add_argument('--comparison', action='store_true')
+    parser.add_argument('--runtime-checks', action='store_true')
     args = parser.parse_args()
     if not args.accept_eula:
         parser.error('Read the Minecraft EULA and pass --accept-eula before starting the server.')
-    run(args.launcher, args.preset, args.preset, args.port)
+    centers = ((200, 200), (-240, 160), (320, -280)) if args.comparison else ((200, 200),)
+    run(args.launcher, args.preset, args.suffix or args.preset, args.port, args.radius, args.seed, centers, args.restarts, args.runtime_checks)

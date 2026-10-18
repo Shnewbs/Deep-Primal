@@ -7,11 +7,29 @@ group = 'com.shnewbs.deepprimal'
 version = project.mod_version
 base.archivesName = 'DeepPrimal-26.1.2'
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+sourceSets {
+    coreChecks {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+    visualValidation {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
 
 neoForge {
     version = project.neo_version
     runs {
-        client { client() }
+        client {
+            client()
+            if (project.hasProperty('visualValidation')) {
+                gameDirectory = project.file(findProperty('clientRunDir') ?: 'run-visual')
+                programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
+                systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
+                jvmArgument '-Xmx2G'
+            }
+        }
         server {
             server()
             programArgument '--nogui'
@@ -19,7 +37,12 @@ neoForge {
             jvmArgument '-Xmx2G'
         }
     }
-    mods { deepprimal { sourceSet(sourceSets.main) } }
+    mods {
+        deepprimal {
+            sourceSet(sourceSets.main)
+            if (project.hasProperty('visualValidation')) sourceSet(sourceSets.visualValidation)
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
@@ -39,5 +62,16 @@ tasks.register('verifyCoreBoundary') {
         }
     }
 }
-tasks.named('check') { dependsOn 'verifyCoreBoundary' }
+tasks.register('coreChecks', JavaExec) {
+    dependsOn coreChecksClasses
+    classpath = sourceSets.coreChecks.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.core.CoreChecks'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
 tasks.named('runServer') { standardInput = System.in }
+
+processResources {
+    inputs.property 'mod_version', project.mod_version
+    filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
+}

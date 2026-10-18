@@ -1,10 +1,10 @@
 # Deep Primal — Roadmap
 
-**Status:** initial worldgen prototype 0.0.1-alpha.1; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** worldgen prototype 0.0.1-alpha.2; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
-The initial review found design documents only. The repository now includes the first compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
+The initial review found design documents only. The repository now includes the first compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.2.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
@@ -53,7 +53,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 - [x] Select the initial target (Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25, Gradle 9.2.1) and document local build commands.
 - [ ] Create the development project with separate platform-neutral core and NeoForge adapter boundaries.
-- [ ] Enforce the core boundary with a build check that rejects Minecraft/platform dependencies.
+- [x] Enforce the core boundary with a build check that rejects Minecraft/platform dependencies.
 - [ ] Define property schemas, material identifiers, module manifests, save/config versions, and migration responsibilities.
 - [ ] Prototype the required core plus two optional modules, including dependencies, conflicts, defaults, and disabled behavior.
 - [ ] Establish per-domain config files, central tunables, validation, reload classifications, and Primal / Hardcore / High TISM preset skeletons.
@@ -77,7 +77,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 ### M2 — Custom world generation and climate foundation
 
-**Status:** in progress; two vanilla-material terrain presets exist. Native material/climate core, Earth mode, renewable groundwater, and full performance gates remain incomplete. **Depends on:** M0–M1; Earth and height decisions D06.
+**Status:** in progress; two vanilla-material terrain presets, direct surface solver, bounded diagnostic caches, async reports, and tick/GC probes exist. Native material/climate core, Earth mode, renewable groundwater, and full performance gates remain incomplete. **Depends on:** M0–M1; Earth and height decisions D06.
 
 - [ ] Implement a deterministic core sampler for terrain, surface height, geology, climate, and material queries, with a NeoForge worldgen adapter.
 - [ ] Generate native rock layers, soils, climate-based vegetation, and host-rock-dependent multi-ore veins with surface indicators.

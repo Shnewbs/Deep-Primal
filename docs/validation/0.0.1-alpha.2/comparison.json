@@ -1,0 +1,42 @@
+{
+  "baseline": {
+    "cold": {
+      "requests": 75,
+      "elapsed_seconds": 16.83,
+      "requests_per_second": 4.456,
+      "median_ms": 199.777,
+      "p95_ms": 400.715,
+      "p99_ms": 1604.199,
+      "max_ms": 1604.199
+    },
+    "repeat": {
+      "requests": 75,
+      "elapsed_seconds": 11.11,
+      "requests_per_second": 6.751,
+      "median_ms": 149.948,
+      "p95_ms": 150.483,
+      "p99_ms": 251.121,
+      "max_ms": 251.121
+    }
+  },
+  "candidate": {
+    "cold": {
+      "requests": 75,
+      "elapsed_seconds": 17.49,
+      "requests_per_second": 4.288,
+      "median_ms": 199.729,
+      "p95_ms": 350.41,
+      "p99_ms": 1652.12,
+      "max_ms": 1652.12
+    },
+    "repeat": {
+      "requests": 75,
+      "elapsed_seconds": 10.96,
+      "requests_per_second": 6.843,
+      "median_ms": 149.944,
+      "p95_ms": 150.714,
+      "p99_ms": 200.66,
+      "max_ms": 200.66
+    }
+  }
+}

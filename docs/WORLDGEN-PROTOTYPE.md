@@ -1,6 +1,6 @@
-# Worldgen prototype 0.0.1-alpha.1
+# Worldgen prototype 0.0.1-alpha.2
 
-Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Never install it into a valuable existing world as a world-height migration tool.
+Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 2 changes the terrain detail field and surface rules; old and new chunks can meet at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
 ## Play
 
@@ -17,9 +17,10 @@ The default prototype spans Y=-128..639 (768 blocks). The comparison extends dep
 - Seeded continental terrain, amplified mountain ridges, and valley masks with vanilla multi-noise biomes.
 - Vanilla noise-based underground aquifers and simple noise tunnels. These are **not** the planned renewable groundwater/well simulation or a connected river-drainage model.
 - Visible placeholder strata: andesite, granite, diorite, deepslate; bedrock floor; simple soil/sand/snow surface rules.
-- A data-driven terrain-height field cached per X/Z column and interpolated density evaluation through the native engine.
+- A data-driven terrain-height field stored in the native bounded 5×5 chunk grid, direct preliminary-surface calculation without a vertical search, and interpolated density evaluation through the native engine.
+- Explicit overworld sky/fog/light colors, high clouds, small-scale terrain detail, slope-based exposed rock, and rocky subsoil above Y=224 to reduce dirt stripes on high cliffs.
 - Operator-only diagnostic sampling and a bounded sequential chunk benchmark.
-- Vanilla XP gain/level events and XP-orb spawning disabled; loaded/directly-set player vanilla XP is cleared. The MMO XP replacement is not built yet.
+- Block and mob XP drops suppressed before orb creation; vanilla XP gain/level events and XP-orb spawning disabled; loaded/directly-set player vanilla XP is cleared. The MMO XP replacement is not built yet.
 
 Native survival, custom catalog, Earth data, LOD, finite ore economy, renewable wells, navigation/hearth, vehicles, fishing, animal yields, and professions are not implemented. Vanilla ore/features remain placeholders and are not the final finite ore generation. Flora/biome transitions and terrain balance need visual playtesting.
 
@@ -28,23 +29,46 @@ Native survival, custom catalog, Earth data, LOD, finite ore economy, renewable 
 | Command | Behavior |
 | --- | --- |
 | `/deepprimal info` | Dimension height, sea level, and seed |
+| `/deepprimal perf` | Recent tick median/p95/max, heap, loaded chunks, pending tasks, sampler cache and benchmark state |
 | `/deepprimal sample <blockX> <blockZ>` | Surface-height/climate sampler query without loading the target chunk |
-| `/deepprimal bench <chunkX> <chunkZ> <radius>` | Request FULL chunks sequentially in a square; radius 0–4, at most 81 requests |
+| `/deepprimal bench <chunkX> <chunkZ> <radius>` | Request FULL chunks sequentially in a square; default radius 0–4, at most 81 requests; configurable maximum up to 8 |
 | `/deepprimal cancel` | Stop scheduling further requests; a submitted engine request may still finish |
 
 Example: `/deepprimal bench 200 200 1` requests nine chunks in a distant area. Coordinates here are **chunk coordinates**, not block coordinates. Use fresh coordinates for cold-generation runs. Repeat the same region to compare cached/loading behavior, noting that already-generated data is not fresh generation.
 
-Results are written under the game/server directory in `deepprimal-benchmarks/` as CSV plus a text summary. Median/p95/p99/max report request-to-ready wall time, including tick polling, disk, queueing, and generation of dependent neighbors. They are **not** isolated CPU timings. Reported heap is end-of-run usage, not peak memory. Concurrency=1; this is an initial probe, not the full multiplayer/per-stage performance suite. No numerical performance gate has passed merely because the command exists.
+Results are written under the game/server directory in `deepprimal-benchmarks/` as CSV plus a text summary. Median/p95/p99/max report request-to-ready wall time, including tick polling, disk, queueing, and generation of dependent neighbors. They are **not** isolated CPU timings. Reports include end heap, heap peak observed at tick boundaries, Pre-to-Post tick timings, and GC deltas. Observed heap is not an exact allocation peak. Tick statistics cover the last 4,096 benchmark ticks; `/perf` covers the last 256 server ticks. Concurrency=1; this is an initial probe, not the full multiplayer/per-stage performance suite. No numerical performance gate has passed merely because the command exists.
 
-Each in-flight request holds its own temporary, non-persistent loading ticket. The ticket is released on completion, cancellation, or failure. The request uses the engine's off-thread dispatch path to avoid its main-thread managed wait. It does not keep the entire benchmark region loaded or force-load unrelated dimensions.
+Each in-flight request holds its own temporary, non-persistent loading ticket. The ticket is released on completion, cancellation, timeout, failure, or shutdown. A timed-out or cancelled engine request may drain before another run is accepted. Reports are written on a bounded worker queue, away from the server thread. The request uses the engine's off-thread dispatch path to avoid its main-thread managed wait. It does not keep the entire benchmark region loaded or force-load unrelated dimensions.
+
+## Performance configuration
+
+`config/deepprimal-performance.toml` controls operator diagnostics:
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `maxBenchmarkRadius` | 4 | Bounds a run to 81 requests; supported range 0–8 |
+| `requestTimeoutSeconds` | 120 | Releases the diagnostic ticket on a stuck request; range 5–600 |
+| `pauseAboveTickMilliseconds` | 50 | Delays the next benchmark request after a slow tick; 0 disables pacing |
+| `sampleCacheEntries` | 1024 | Fixed-capacity LRU of diagnostic results; 0 disables caching |
+| `logSamplerQueries` | false | Optional per-query log output |
+
+These options do not change terrain geometry, throttle normal exploration, or alter simulation distance. Cached samples contain values and seed/dimension/coordinate keys, with no retained world or chunk references. Cache contents clear on datapack sync and server shutdown. Vanilla XP suppression has no disable setting.
+
+For a controlled benchmark, disable the optional slow-tick pause and record that setting. For ordinary playtesting, leave the default pacing enabled. The mod uses native generation workers and does not create an extra terrain-generation pool.
+
+Your screenshots used render and simulation distance 32. Start tall-world tests around render distance 12–16 and simulation distance 6–8, then increase them while watching `/deepprimal perf`. These are starting points for testing, not measured guarantees. The mod does not override player/server settings.
 
 ## Build and reproduce
 
 Use Java 25. Run `./gradlew build` (Windows: `gradlew.bat build`). Output is under `build/libs/`. `./gradlew runClient` starts a development client; `./gradlew runServer` starts a development server (the Minecraft EULA must be accepted before use).
 
+`./gradlew coreChecks` runs the standalone differential height, cache-bound, and tick-ring checks. `./gradlew build` includes these checks.
+
 `python3 tools/generate_worldgen.py` reproduces the authored JSON resources without external dependencies. Edit terrain parameters/profile heights in that script, regenerate, rebuild, and create a fresh world. Do not change the geometry of an existing world without a migration policy.
 
 Server setup for testing: set `level-type=deepprimal:prototype` or `deepprimal:prototype_deep` before creating the world. Keep a fixed seed and record client/server settings, hardware, software, preset, coordinates, and cache state for comparisons.
+
+For client visual checks, the opt-in `visualValidation` source set adds an automatic screenshot 45 seconds after joining a server and then exits. Run `./gradlew runClient -PvisualValidation -PcaptureServer=127.0.0.1:25565` against a local test server. Screenshots go to `build/visual-validation/screenshots/terrain.png`. The capture hook is excluded from the distributed JAR.
 
 ## Licensing and provenance
 

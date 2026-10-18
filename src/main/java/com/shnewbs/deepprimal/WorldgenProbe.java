@@ -1,193 +1,244 @@
 package com.shnewbs.deepprimal;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.shnewbs.deepprimal.core.SampleStats;
-import java.nio.file.Files;
+import com.shnewbs.deepprimal.core.BoundedLru;
+import com.shnewbs.deepprimal.core.TickWindow;
+import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ChunkResult;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-/** Operator-only diagnostic. One in-flight FULL chunk, bounded area, no future.join on server thread. */
+/** Bounded operator diagnostics. World access and ticket ownership stay on the server thread. */
 public final class WorldgenProbe {
+    private final TickWindow recentTicks = new TickWindow(256);
+    private BoundedLru<SampleKey, Sample> samples = new BoundedLru<>(0);
     private Run run;
     private ExecutorService requests;
+    private ExecutorService reports;
     private CompletableFuture<?> draining;
+    private long tickStarted;
+    private long lastTick;
+    private final String version;
+
+    public WorldgenProbe(String version) { this.version = version; }
 
     @SubscribeEvent
     public void commands(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("deepprimal")
             .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
             .then(Commands.literal("info").executes(c -> {
-                var l = c.getSource().getLevel();
-                say(c.getSource(), "Prototype: y=" + l.getMinY() + ".." + l.getMaxY()
-                    + ", sea=" + l.getSeaLevel() + ", seed=" + l.getSeed()
-                    + ". Vanilla aquifers/vegetation are placeholders; no renewable groundwater yet.");
+                var level = c.getSource().getLevel();
+                reply(c.getSource(), "Prototype: y=" + level.getMinY() + ".." + level.getMaxY()
+                    + ", sea=" + level.getSeaLevel() + ", seed=" + level.getSeed()
+                    + ". Native aquifers/vegetation are placeholders; no renewable groundwater yet.");
                 return 1;
             }))
+            .then(Commands.literal("perf").executes(c -> performance(c.getSource())))
             .then(Commands.literal("sample")
                 .then(Commands.argument("x", IntegerArgumentType.integer(-29_000_000, 29_000_000))
                 .then(Commands.argument("z", IntegerArgumentType.integer(-29_000_000, 29_000_000))
-                .executes(c -> sample(c.getSource(), IntegerArgumentType.getInteger(c, "x"), IntegerArgumentType.getInteger(c, "z"))))))
+                .executes(c -> sample(c.getSource(), IntegerArgumentType.getInteger(c, "x"),
+                    IntegerArgumentType.getInteger(c, "z"))))))
             .then(Commands.literal("bench")
                 .then(Commands.argument("chunkX", IntegerArgumentType.integer(-1_800_000, 1_800_000))
                 .then(Commands.argument("chunkZ", IntegerArgumentType.integer(-1_800_000, 1_800_000))
-                .then(Commands.argument("radius", IntegerArgumentType.integer(0, 4))
+                .then(Commands.argument("radius", IntegerArgumentType.integer(0, 8))
                 .executes(c -> start(c.getSource(), IntegerArgumentType.getInteger(c, "chunkX"),
                     IntegerArgumentType.getInteger(c, "chunkZ"), IntegerArgumentType.getInteger(c, "radius")))))))
             .then(Commands.literal("cancel").executes(c -> {
-                // A submitted engine request cannot be safely killed; abandon accounting and submit no more.
-                if (run != null) {
-                    draining = run.future;
-                    run.release();
-                }
-                run = null;
-                say(c.getSource(), "Benchmark stopped; any already-submitted chunk may finish.");
+                cancel();
+                reply(c.getSource(), "Benchmark stopped; any submitted engine request may finish.");
                 return 1;
             })));
     }
 
+    private int performance(CommandSourceStack source) {
+        var ticks = recentTicks.snapshot();
+        reply(source, String.format(Locale.ROOT,
+            "PERF ticks=%d median=%.2fms p95=%.2fms max=%.2fms heapMiB=%d loadedChunks=%d pendingTasks=%d sampleCache=%d/%d cacheHits=%d cacheMisses=%d benchmark=%s",
+            ticks.count(), ticks.medianMs(), ticks.p95Ms(), ticks.maxMs(), heap() / 1048576,
+            source.getLevel().getChunkSource().getLoadedChunksCount(),
+            source.getLevel().getChunkSource().getPendingTasksCount(), samples.size(), samples.capacity(),
+            samples.hits(), samples.misses(), run == null ? "idle" : run.next + "/" + run.xs.length));
+        return 1;
+    }
+
     private int sample(CommandSourceStack source, int x, int z) {
         ServerLevel level = source.getLevel();
-        var router = level.getChunkSource().randomState().router();
-        // Cheap sampler queries only: do not generate/load the target chunk.
-        int top = level.getMaxY();
-        double surface = router.preliminarySurfaceLevel().compute(new DensityFunction.SinglePointContext(x, 0, z));
-        double land = router.continents().compute(new DensityFunction.SinglePointContext(x, 0, z));
-        say(source, String.format(Locale.ROOT,
-            "Sampler (%d,%d): preliminary surface=%.1f, continentalness=%.3f, vertical top=%d. No chunk generated.", x, z, surface, land, top));
+        int capacity = PerformanceConfig.SAMPLE_CACHE_ENTRIES.get();
+        if (capacity != samples.capacity()) samples = new BoundedLru<>(capacity);
+        SampleKey key = new SampleKey(level.dimension().identifier().toString(), level.getSeed(), x, z);
+        Sample sample = samples.get(key);
+        if (sample == null) {
+            var router = level.getChunkSource().randomState().router();
+            var context = new DensityFunction.SinglePointContext(x, 0, z);
+            sample = new Sample(router.preliminarySurfaceLevel().compute(context), router.continents().compute(context));
+            samples.put(key, sample);
+        }
+        String message = String.format(Locale.ROOT,
+            "Sampler (%d,%d): preliminary surface=%.1f, continentalness=%.3f, vertical top=%d. No chunk generated.",
+            x, z, sample.surface, sample.land, level.getMaxY());
+        reply(source, message);
+        if (PerformanceConfig.LOG_SAMPLES.get()) DeepPrimal.LOGGER.info(message);
         return 1;
     }
 
     private int start(CommandSourceStack source, int x, int z, int radius) {
-        if (run != null || (draining != null && !draining.isDone())) {
-            source.sendFailure(Component.literal("A benchmark is already running; use /deepprimal cancel."));
+        if (radius > PerformanceConfig.MAX_BENCH_RADIUS.get()) {
+            source.sendFailure(Component.literal("Radius exceeds maxBenchmarkRadius in deepprimal-performance.toml."));
             return 0;
         }
-        if (requests == null || requests.isShutdown()) {
-            requests = Executors.newSingleThreadExecutor(task -> {
-                Thread thread = new Thread(task, "deepprimal-chunk-request");
-                thread.setDaemon(true);
-                return thread;
-            });
+        if (run != null || (draining != null && !draining.isDone())) {
+            source.sendFailure(Component.literal("A benchmark request is active; wait or use /deepprimal cancel."));
+            return 0;
         }
-        run = new Run(source, x, z, radius);
-        say(source, "Benchmark started: " + run.coords.size()
-            + " FULL chunk requests, concurrency=1. Includes existing chunks; use untouched coordinates for cold terrain.");
+        if (requests == null) requests = worker("deepprimal-chunk-request", 1);
+        if (reports == null) reports = worker("deepprimal-report-writer", 4);
+        run = new Run(source, x, z, radius, version);
+        reply(source, "Benchmark started: " + run.xs.length
+            + " FULL chunk requests, concurrency=1. Use untouched coordinates for cold terrain.");
+        DeepPrimal.LOGGER.info("Benchmark started: {} requests", run.xs.length);
         return 1;
     }
 
+    @SubscribeEvent public void beforeTick(ServerTickEvent.Pre event) { tickStarted = System.nanoTime(); }
+
     @SubscribeEvent
     public void tick(ServerTickEvent.Post event) {
-        if (run == null) return;
-        Run r = run;
+        long now = System.nanoTime();
+        lastTick = Math.max(0, now - tickStarted);
+        recentTicks.record(lastTick);
+        Run current = run;
+        if (current == null) return;
+        current.ticks.record(lastTick);
+        current.peakHeap = Math.max(current.peakHeap, heap());
         try {
-            if (r.future != null) {
-                if (!r.future.isDone()) return;
-                if (!r.future.getNow(null).isSuccess()) throw new IllegalStateException("Engine returned an unavailable chunk");
-                r.samples.add(System.nanoTime() - r.requestStarted);
-                r.release();
-                r.future = null;
-                r.next++;
+            if (current.future != null) {
+                if (!current.future.isDone()) {
+                    if (now - current.requestStarted > TimeUnit.SECONDS.toNanos(PerformanceConfig.REQUEST_TIMEOUT_SECONDS.get()))
+                        throw new IllegalStateException("Chunk request timed out; loading ticket released");
+                    return;
+                }
+                if (!current.future.getNow(null).isSuccess()) throw new IllegalStateException("Engine returned an unavailable chunk");
+                current.durations[current.next++] = now - current.requestStarted;
+                current.release();
+                current.future = null;
             }
-            if (r.next == r.coords.size()) {
+            if (current.next == current.xs.length) {
                 run = null;
-                r.finish();
+                BenchmarkReport report = current.snapshot(now);
+                // No filesystem operations or live world reads occur on the writer thread.
+                reports.execute(() -> {
+                    try {
+                        report.write(Path.of("deepprimal-benchmarks"));
+                        String summary = report.summary();
+                        DeepPrimal.LOGGER.info(summary);
+                        event.getServer().execute(() -> reply(current.source, summary));
+                    } catch (Exception exception) {
+                        DeepPrimal.LOGGER.error("Benchmark report write failed", exception);
+                        event.getServer().execute(() -> current.source.sendFailure(
+                            Component.literal("Benchmark completed, but writing its report failed. See the server log.")));
+                    }
+                });
                 return;
             }
-            int[] p = r.coords.get(r.next);
-            r.requestStarted = System.nanoTime();
-            r.activeTicket = new ChunkPos(p[0], p[1]);
-            r.level.getChunkSource().addTicketWithRadius(DeepPrimal.PROBE_TICKET.get(), r.activeTicket, 0);
-            // This engine API managed-blocks when invoked on its main thread. Its off-thread
-            // branch dispatches safely to the engine's main-thread processor without waiting there.
-            r.future = CompletableFuture.supplyAsync(() ->
-                r.level.getChunkSource().getChunkFuture(p[0], p[1], ChunkStatus.FULL, true), requests)
-                .thenCompose(future -> future);
-        } catch (Exception ex) {
-            r.release();
+            int limit = PerformanceConfig.PAUSE_ABOVE_TICK_MS.get();
+            if (limit > 0 && lastTick > TimeUnit.MILLISECONDS.toNanos(limit)) return;
+            int x = current.xs[current.next], z = current.zs[current.next];
+            current.requestStarted = System.nanoTime();
+            current.ticket = new ChunkPos(x, z);
+            current.level.getChunkSource().addTicketWithRadius(DeepPrimal.PROBE_TICKET.get(), current.ticket, 0);
+            current.future = CompletableFuture.supplyAsync(() ->
+                current.level.getChunkSource().getChunkFuture(x, z, ChunkStatus.FULL, true), requests).thenCompose(f -> f);
+        } catch (Exception exception) {
+            draining = current.future;
+            current.release();
             run = null;
-            DeepPrimal.LOGGER.error("Worldgen benchmark failed", ex);
-            r.source.sendFailure(Component.literal("Benchmark failed: " + ex.getMessage()));
+            DeepPrimal.LOGGER.error("Worldgen benchmark failed", exception);
+            current.source.sendFailure(Component.literal("Benchmark failed: " + exception.getMessage()));
         }
     }
 
-    @SubscribeEvent
-    public void stopped(ServerStoppedEvent event) {
-        if (run != null) run.release();
-        run = null;
-        draining = null;
+    private void cancel() {
+        if (run != null) { draining = run.future; run.release(); run = null; }
+    }
+    @SubscribeEvent public void reload(OnDatapackSyncEvent event) { samples.clear(); }
+    @SubscribeEvent public void stopping(ServerStoppingEvent event) { cancel(); }
+    @SubscribeEvent public void stopped(ServerStoppedEvent event) {
+        cancel(); samples.clear(); recentTicks.clear(); draining = null;
         if (requests != null) requests.shutdownNow();
-        requests = null;
+        if (reports != null) {
+            reports.shutdown();
+            try { if (!reports.awaitTermination(5, TimeUnit.SECONDS)) reports.shutdownNow(); }
+            catch (InterruptedException interrupted) { reports.shutdownNow(); Thread.currentThread().interrupt(); }
+        }
+        requests = null; reports = null;
     }
-
-    private static void say(CommandSourceStack source, String message) {
+    private static ExecutorService worker(String name, int queueSize) {
+        var worker = new ThreadPoolExecutor(1, 1, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueSize), task -> {
+            var thread = new Thread(task, name); thread.setDaemon(true); return thread;
+        }, new ThreadPoolExecutor.AbortPolicy());
+        worker.allowCoreThreadTimeOut(true);
+        return worker;
+    }
+    private static long heap() { return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory(); }
+    private static long gc(boolean time) {
+        return ManagementFactory.getGarbageCollectorMXBeans().stream()
+            .mapToLong(bean -> Math.max(0, time ? bean.getCollectionTime() : bean.getCollectionCount())).sum();
+    }
+    private static void reply(CommandSourceStack source, String message) {
         source.sendSuccess(() -> Component.literal(message), false);
-        DeepPrimal.LOGGER.info(message);
     }
+    private record SampleKey(String dimension, long seed, int x, int z) {}
+    private record Sample(double surface, double land) {}
 
     private static final class Run {
         final CommandSourceStack source;
         final ServerLevel level;
-        final List<int[]> coords = new ArrayList<>();
-        final List<Long> samples = new ArrayList<>();
-        final long started = System.nanoTime();
-        long requestStarted;
+        final int[] xs, zs;
+        final long[] durations;
+        final TickWindow ticks = new TickWindow(4096);
+        final long started = System.nanoTime(), initialGc = gc(false), initialGcMillis = gc(true);
+        long requestStarted, peakHeap = heap();
         int next;
         CompletableFuture<ChunkResult<ChunkAccess>> future;
-        ChunkPos activeTicket;
-
-        void release() {
-            if (activeTicket != null) {
-                level.getChunkSource().removeTicketWithRadius(DeepPrimal.PROBE_TICKET.get(), activeTicket, 0);
-                activeTicket = null;
+        ChunkPos ticket;
+        final String version;
+        Run(CommandSourceStack source, int x, int z, int radius, String version) {
+            this.version = version; this.source = source; level = source.getLevel();
+            int count = (2 * radius + 1) * (2 * radius + 1);
+            xs = new int[count]; zs = new int[count]; durations = new long[count];
+            int index = 0;
+            for (int dz = -radius; dz <= radius; dz++) for (int dx = -radius; dx <= radius; dx++) {
+                xs[index] = x + dx; zs[index++] = z + dz;
             }
         }
-
-        Run(CommandSourceStack source, int x, int z, int radius) {
-            this.source = source;
-            level = source.getLevel();
-            for (int dz = -radius; dz <= radius; dz++)
-                for (int dx = -radius; dx <= radius; dx++) coords.add(new int[]{x + dx, z + dz});
+        void release() {
+            if (ticket != null) { level.getChunkSource().removeTicketWithRadius(DeepPrimal.PROBE_TICKET.get(), ticket, 0); ticket = null; }
         }
-
-        void finish() throws Exception {
-            SampleStats stats = SampleStats.of(samples.stream().mapToLong(Long::longValue).toArray());
-            double seconds = (System.nanoTime() - started) / 1e9;
-            long heap = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-            String summary = String.format(Locale.ROOT,
-                "BENCH COMPLETE count=%d median=%.2fms p95=%.2fms p99=%.2fms max=%.2fms elapsed=%.2fs throughput=%.2f/s heapEndMiB=%d seed=%d dimension=%s",
-                stats.count(), stats.medianMs(), stats.p95Ms(), stats.p99Ms(), stats.maxMs(), seconds,
-                stats.count() / seconds, heap / 1048576, level.getSeed(), level.dimension().identifier());
-            Path dir = Path.of("deepprimal-benchmarks");
-            Files.createDirectories(dir);
-            String stamp = Long.toString(System.currentTimeMillis());
-            StringBuilder csv = new StringBuilder("chunk_x,chunk_z,request_to_ready_ms\n");
-            for (int i = 0; i < samples.size(); i++) csv.append(coords.get(i)[0]).append(',')
-                .append(coords.get(i)[1]).append(',').append(samples.get(i) / 1e6).append('\n');
-            Files.writeString(dir.resolve(stamp + ".csv"), csv.toString());
-            Files.writeString(dir.resolve(stamp + ".txt"), summary + "\n"
-                + "Observational request latency includes tick polling, queueing, neighbor generation and disk I/O; not pure generator CPU.\n"
-                + "Java=" + System.getProperty("java.version") + " processors=" + Runtime.getRuntime().availableProcessors()
-                + " minY=" + level.getMinY() + " maxY=" + level.getMaxY() + " concurrency=1\n");
-            say(source, summary);
+        BenchmarkReport snapshot(long completed) {
+            return new BenchmarkReport(xs, zs, durations, (completed - started) / 1e9, heap(), peakHeap,
+                level.getSeed(), level.dimension().identifier().toString(), level.getMinY(), level.getMaxY(),
+                ticks.snapshot(), gc(false) - initialGc, gc(true) - initialGcMillis, version);
         }
     }
 }

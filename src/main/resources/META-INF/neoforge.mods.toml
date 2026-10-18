@@ -4,7 +4,7 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="deepprimal"
-version="0.0.1-alpha.1"
+version="${mod_version}"
 displayName="Deep Primal Worldgen Prototype"
 description='''Experimental tall-terrain world preset using vanilla placeholder materials. Disposable test worlds only.'''
 

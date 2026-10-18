@@ -6,3 +6,5 @@ run-*/
 *.iml
 *.log
 deepprimal-benchmarks/
+__pycache__/
+*.py[cod]
