@@ -1,0 +1,14 @@
+ - deepprimal (composite(jar(/workspace/scratch/c9df0c17f706/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.5.jar), folder(/workspace/scratch/c9df0c17f706/Deep-Primal/build/classes/java/visualValidation)))
+QUEUE_LIVE_WAITING screen=net.minecraft.client.gui.screens.GenericMessageScreen Reading world data...
+[01:42:41] [Server thread/INFO] [co.sh.de.DeepPrimal/]: Render tracking capacity for this session: 96 chunks
+[01:42:41] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+QUEUE_LIVE_WAITING screen=net.minecraft.client.gui.screens.LevelLoadingScreen 
+[01:42:47] [Server thread/INFO] [minecraft/IntegratedServer]: Changing view distance to 96, from 10
+[01:42:47] [Server thread/INFO] [minecraft/IntegratedServer]: Changing simulation distance to 2, from 0
+QUEUE_LIVE_STARTED render=96 tracker=96 buckets=99 sections=111747
+QUEUE_LIVE_MOVED ticks=60
+QUEUE_LIVE_REDUCED requested=8 tracker=96
+[01:42:54] [Server thread/INFO] [minecraft/IntegratedServer]: Changing view distance to 8, from 96
+QUEUE_LIVE_PASS ticks=200 loaded=0 heapMiB=634
+[01:42:58] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BUILD SUCCESSFUL in 37s

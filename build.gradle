@@ -30,11 +30,13 @@ neoForge {
                 systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
                 if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
                 if (project.hasProperty('terrainValidation')) systemProperty 'deepprimal.validationTerrain', 'true'
-                jvmArgument '-Xmx2G'
+                if (project.hasProperty('queueStartupValidation')) systemProperty 'deepprimal.validationQueueStartup', 'true'
+                jvmArgument '-Xmx' + (findProperty('validationHeap') ?: '2G')
             }
         }
         server {
             server()
+            if (project.hasProperty('queueValidation')) systemProperty 'deepprimal.queueValidation', project.property('queueValidation')
             programArgument '--nogui'
             gameDirectory = project.file(findProperty('runDir') ?: 'run')
             jvmArgument '-Xmx2G'
@@ -74,11 +76,14 @@ tasks.register('coreChecks', JavaExec) {
 tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
 tasks.named('runServer') { standardInput = System.in }
 if (project.hasProperty('packagedValidation')) {
-    tasks.named('runServer', JavaExec) {
+    ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {
         doFirst {
-            environment 'MOD_CLASSES', 'deepprimal%%' + tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+            String paths = 'deepprimal%%' + tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+            if (runName == 'runClient' && project.hasProperty('visualValidation'))
+                paths += File.pathSeparator + 'deepprimal%%' + sourceSets.visualValidation.output.classesDirs.singleFile.absolutePath
+            environment 'MOD_CLASSES', paths
         }
-    }
+    } }
 }
 
 processResources {

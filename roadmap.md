@@ -1,10 +1,10 @@
 # Deep Primal — Roadmap
 
-**Status:** worldgen prototype 0.0.1-alpha.4; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** worldgen prototype 0.0.1-alpha.5; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
-The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.4.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
+The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.5.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
@@ -96,6 +96,8 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 **Rendering performance update:** alpha 3 includes typed distances, an experimental 96-chunk render ceiling, bounded native tracking allocation, chunk-send backpressure and camera-column relocation. Full simulation remains bounded to the native 32-chunk setting. See [alpha 3 validation](docs/VALIDATION-0.0.1-alpha.3.md).
 
 **Alpha 4 follow-up:** independent vertical render radius bounds render-section allocations and meshes; full chunk loading/networking and server simulation still use whole columns. Default world creation uses Deep Primal, with additional underground depth configured before creation instead of selected as a separate world type. Saved-world height remains locked. Cave shaping targets the reported hanging stone curtains; this is not an erosion or physics simulation.
+
+**Alpha 5 correction:** chunk-task queues retain enough priority buckets for the session tracking capacity, including unload priorities. This fixes the reported 96-chunk queue bounds crash without changing generation levels or terrain. Native queue regression tests cover 32, 44, 45, 46, and 96 chunks; see [crash-fix validation](docs/VALIDATION-0.0.1-alpha.5.md).
 
 **Owner-requested Vulkan investigation:** API compatibility has been assessed for retaining 26.1.2/NeoForge. Vulkan is not implemented in the current JAR. The next renderer milestone is an isolated device/presentation/shader adapter prototype with OpenGL fallback, followed by real GPU profiling and compatibility validation. See [Vulkan backport investigation](docs/VULKAN-BACKPORT.md). This remains separate from LOD and world-height feasibility.
 

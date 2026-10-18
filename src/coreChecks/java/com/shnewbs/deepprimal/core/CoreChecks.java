@@ -6,6 +6,12 @@ import java.util.Random;
 public final class CoreChecks {
     public static void main(String[] args) {
         RuntimeChecks.run();
+        for (int capacity = 2; capacity <= 96; capacity++) {
+            int buckets = DistancePolicy.queuePriorityCount(46, capacity);
+            check(capacity + 2 < buckets, "tracker removal priority fits queue");
+            check(buckets >= 46, "native generation queue bounds retained");
+            if (capacity <= 43) check(buckets == 46, "ordinary views retain native allocation");
+        }
         check(DistancePolicy.parse("0", 0, 96).orElseThrow() == 0, "full-height input");
         check(DistancePolicy.parse("1", 0, 96).orElseThrow() == 1, "minimum vertical radius");
         check(VerticalRange.fogScale(2, 64, 8) == 0.25f, "vertical fog extends beyond horizontal range");

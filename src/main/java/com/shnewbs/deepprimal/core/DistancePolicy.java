@@ -18,6 +18,11 @@ public final class DistancePolicy {
     }
     public static int clampRender(int value) { return Math.clamp(value, 2, MAX_RENDER); }
     public static int clampSimulation(int value) { return Math.clamp(value, 2, MAX_SIMULATION); }
+    public static int queuePriorityCount(int nativeCount, int trackingCapacity) {
+        // Tracker priorities include distance + 2 when a player leaves a chunk.
+        // The queue's empty sentinel is one past the last valid bucket.
+        return Math.max(nativeCount, clampRender(trackingCapacity) + 3);
+    }
     public static long sectionSlots(int distance, int verticalSections) {
         long side = 2L * distance + 1;
         return side * side * verticalSections;

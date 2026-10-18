@@ -24,6 +24,10 @@ public final class ClientCapture {
     public ClientCapture() { NeoForge.EVENT_BUS.register(this); }
     @SubscribeEvent public void tick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
+        if (Boolean.getBoolean("deepprimal.validationQueueStartup")) {
+            try { QueueStartupChecks.tick(mc); } catch (Exception e) { throw new RuntimeException(e); }
+            return;
+        }
         if (Boolean.getBoolean("deepprimal.validationTerrain")) { terrain(mc); return; }
         if (mc.level == null || mc.player == null || taken) return;
         mc.options.hideGui = !Boolean.getBoolean("deepprimal.validationDistances");

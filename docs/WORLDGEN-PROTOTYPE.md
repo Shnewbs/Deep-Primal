@@ -1,6 +1,6 @@
-# Worldgen prototype 0.0.1-alpha.4
+# Worldgen prototype 0.0.1-alpha.5
 
-Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 4 changes cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
+Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
 ## Play
 
@@ -77,6 +77,7 @@ Open **Video Settings → Deep Primal distances…**. Horizontal render, simulat
 The authored native fog-include implementation scales the Y component of distance fog independently, with an extended fog uniform buffer. Environmental fog retains its native spherical distance, so water, weather, blindness, and darkness can still limit visibility. The camera far plane includes the vertical range. Third-party shader packs or replacement renderers that replace the fog include/uniform layout require separate compatibility validation.
 - Multiplayer: the server controls delivered terrain and simulation. A client's value cannot override it. The screen shows the server's advertised render cap.
 - Single-player: tracking capacity is allocated when opening the world, at least 32 and up to the chosen render distance. Choosing a range above that session capacity requires reopening the world; the screen tells you when. Effective local rendering stays within the allocated tracking capacity meanwhile.
+- Alpha 5 extends each native chunk-task queue to match its session tracking capacity, including unload priorities. Ordinary 32-chunk sessions keep the native 46 buckets. The fix also preserves the queue size through shutdown; native chunk generation/status levels remain unchanged.
 - Dedicated server: set `view-distance` before startup (2–96); `simulation-distance` remains 2–32. Actual gameplay requests above the hard limits are clamped. Default distances retain the native 32-chunk tracking-graph capacity rather than always allocating a 96-chunk graph.
 
 Larger render settings multiply chunk and vertical-section costs. The upper range is not a hardware performance promise. There is no literal unlimited mode. A smaller vertical range does not establish that the reported alpha 2 heap exhaustion at 32 chunks / 4 GiB is resolved; full chunk-column demand remains.
