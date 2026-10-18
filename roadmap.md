@@ -8,6 +8,8 @@ At review, `main` contained a README and a design draft only. No source project,
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
+**Non-negotiable priority: worldgen performance.** Expanded height/depth must meet measured generation, latency, memory, and correctness budgets. Default vanilla height is not the design ceiling; literal unlimited height remains an architecture feasibility question. See [height and performance gates](docs/design-decisions-2026-10-18.md#world-height-and-performance-priority).
+
 ## Navigation
 
 - [Confirmed direction](#confirmed-direction)
@@ -55,7 +57,8 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 - [ ] Define property schemas, material identifiers, module manifests, save/config versions, and migration responsibilities.
 - [ ] Prototype the required core plus two optional modules, including dependencies, conflicts, defaults, and disabled behavior.
 - [ ] Establish per-domain config files, central tunables, validation, reload classifications, and Primal / Hardcore / High TISM preset skeletons.
-- [ ] Define benchmark hardware, scenes, and measurable budgets for generation time, server tick cost, frame time, memory, atlas size, and network traffic.
+- [ ] Establish the mandatory worldgen benchmark baseline and numeric budgets on named hardware: cold/warm exploration, p95/p99 chunk readiness, throughput, server tick/frame spikes, peak memory, I/O, multiplayer contention, and height scaling; retain rendering/atlas/network budgets.
+- [ ] Verify selected-version height/coordinate/storage limits and compare taller-world profiles; record whether a deeper vertical-streaming architecture is required.
 - [ ] Record asset/code provenance and licenses before importing third-party material.
 
 **Exit evidence:** reproducible build; client and dedicated-server startup; default world loads without manual setup; optional-module and config validation checks; core-boundary check passes. Infrastructure only—this does not establish gameplay completion.
@@ -84,6 +87,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 - [ ] Prototype permafrost and moisture-driven ice cementation using shared material properties; expose thawing hooks for M3 heat systems.
 - [ ] Implement the optional Earth-mode prototype using approved, preprocessed data; validate projection, horizontal scale, vertical scale, cache behavior, and spawn selection.
 - [ ] Verify save/reload consistency, chunk seams, generation order, world-creation locks, and dedicated-server behavior.
+- [ ] Pass worldgen performance budgets for tall mountains, deep caves, dense forests, aquifers, and simultaneous exploration; compare generation output across worker counts. Height expansion is gated on these results.
 
 **Exit evidence:** reproducible seeds and terrain inspection, deterministic sampling checks, native-material generation, measured generation/cache costs, and a working optional Earth prototype. Earth mode and frozen-ground foundations remain in the original v0.1 scope; dataset and height feasibility are blockers to resolve, not silently dropped requirements.
 
@@ -144,7 +148,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 - [ ] Document limitations, known bugs, incomplete features, migration requirements, and reproducible test results.
 - [ ] Choose the artifact label from evidence: experimental/alpha, beta, or release. A successful compilation alone is not proof of playability or release readiness.
 
-**Exit evidence:** reviewable artifact and validation record. No release date or stability label is promised in advance.
+**Exit evidence:** reviewable artifact and validation record. Worldgen performance-budget failures block release; pregeneration alone cannot satisfy the live-generation gate. No release date or stability label is promised in advance.
 
 ## Decisions before implementation
 
@@ -157,7 +161,7 @@ The [complete question register](docs/design-reference.md#s8) preserves all 31 o
 | D03 | Data/TOML precedence, module defaults, UI timing, and existing-world change policy. Required core remains enabled. | M0 | 9, 10, 30, 31 |
 | D04 | Initial catalog coverage and how later tiers expand it. | M1 | 16 |
 | D05 | Rendering quality/performance thresholds and hand-authored versus parametric trees. | M1 | 17, 19 |
-| D06 | Earth datasets/licenses, download/bundle policy, projection, height range, and vertical scale. | M2 | 18, 27 |
+| D06 | Expanded vertical terrain is desired and performance is mandatory; verify target height limits and select measured profiles alongside Earth datasets/licenses, projection, and vertical scale. | M2 | 18, 27 |
 | D07 | Whether to commit LOD, native versus third-party approach, tiers, and default distances. | M2 research | 25, 26 |
 | D08 | Vanilla-first versus foreign adapters, adapt/convert default, and special handling for pistons, portals, hoppers/droppers, and minecarts. | M3 | 2, 11, 12 |
 | D09 | Calendar defaults, stack ceiling, permafrost tools/thawing, and ice-cementation scope. | M2–M3 | 5, 20, 21, 22 |

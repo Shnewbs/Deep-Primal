@@ -1,8 +1,47 @@
 # Deep Primal — Design Decisions and Proposals
 
-Date: 2026-10-18; updated with the 12:44 PDT owner follow-up. Source: owner responses to the design audit.
+Date: 2026-10-18; updated with the 12:47 PDT owner follow-up. Source: owner responses to the design audit.
 
 This document refines the [design reference](design-reference.md) and [roadmap](../roadmap.md). Confirmed choices supersede conflicting earlier draft text. Proposals remain proposals; no implementation, release date, or v0.1 expansion is implied. Specific balancing numbers require playtesting.
+
+## World height and performance priority
+
+Confirmed owner priority: world generation performance is a non-negotiable foundation and release gate. Expanded vertical terrain is the goal; the vanilla default height must not be our assumed design ceiling. “Uncapped” is a desired experience to investigate, not a claim that literal unlimited height is implemented or supported on the unselected target.
+
+Distinguish terrain elevation range, buildable vertical range, and distant visibility. Raising one does not automatically raise the others. Preserve mountain shapes, deep geology, aquifers, caves, and bedrock resources within an explicitly supported vertical range; do not flatten peaks against an arbitrary default ceiling. Earth horizontal 1:1 scale does not silently imply 1:1 vertical scale.
+
+### Required feasibility and performance gates
+
+- Select the exact Minecraft/NeoForge target, then inspect/test dimension height bounds, generator settings, coordinate encoding, section indexing, lighting, persistence, networking, and rendering. Do not adopt an older version’s numeric limits as current facts.
+- Compare bounded taller-world profiles before selecting a default. Exact heights, minimum Y, and sea level are not locked. Lock the selected vertical geometry at world creation and require an explicit migration policy for changes.
+- If supported taller dimensions cannot achieve the desired world, investigate independently streamed vertical sections/cubic world architecture as a separate feasibility effort. This touches much more than a heightmap and is not a presumed drop-in optimization.
+- Use measured exploration performance to decide architecture and scope. A larger height range cannot pass merely because it loads or renders a screenshot. Correctness, save integrity, and deterministic terrain remain mandatory alongside speed.
+- Set numeric budgets on named reference hardware before declaring success. Record CPU, RAM, storage, client settings, server player count, seed, software versions, height profile, and worldgen configuration for reproducibility. No invented performance guarantees.
+
+### Generation approach to prototype
+
+- Stage terrain, geology, hydrology, caves, ores, and vegetation so their separate time and memory costs are visible. Reuse regional/column samples across stages instead of recomputing climate/noise for each block.
+- Use bounded worker queues for pure sampling and safe parallel stages; respect engine ownership/threading rules for world mutation. More threads must not cause unbounded memory growth or main-thread stalls.
+- Prefer sparse/cached derived data and avoid unnecessary work in empty vertical space where the selected engine permits it. Profile total height scaling, not just block-placement cost.
+- Bound caches and queues; define eviction, cancellation, and backpressure. Coalesce repeated requests and avoid forced generation of distant chunks just to answer map/LOD or aquifer queries.
+- Preprocess Earth datasets locally; no synchronous remote downloads in chunk generation. Missing tiles must produce a deliberate, documented behavior.
+- Preserve deterministic output across worker counts and generation order, consistent chunk borders, and bounded neighbor dependencies. Performance tuning must not create seams or aquifer/ore duplication.
+- Keep terrain generation, lighting/meshing, networking, and client rendering separately measured; a faster sampler alone does not prove smoother travel. Far-terrain LOD does not solve world-height limits or server generation stalls.
+
+### Benchmark and regression suite
+
+| Scenario | Required evidence |
+| --- | --- |
+| New world and cold exploration | Time to playable spawn; request-to-ready chunk latency (median/p95/p99), throughput, queue depth, and server tick impact |
+| Several players exploring separately | Throughput and latency under contention; CPU, memory, network, and fairness |
+| Tall mountains, deep caves, dense forests, and aquifers | Per-stage cost and height-scaling behavior across representative worst cases |
+| Warm cache versus fresh terrain | Cache effectiveness without using pregeneration to conceal new-generation cost |
+| Fast transport and hearth arrival with a wagon | Terrain readiness, frame/tick spikes, safe arrival, and no load/transfer deadlocks |
+| Save/reload and long exploration | Save size, I/O, memory stability, cache eviction, and version-consistent output |
+
+Every worldgen change must carry relevant before/after measurements once a runnable baseline exists. Gate releases on the agreed latency, throughput, memory, and correctness budgets. A regression that breaches those budgets blocks advancement until fixed or the feature scope is explicitly reconsidered; do not quietly loosen the budgets to pass. Optional visual complexity must not consume unbounded generation resources. Pregeneration is a server option, not a substitute for acceptable live generation.
+
+Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicChunks/CubicChunks) demonstrates an alternative architecture for extended height/depth. It is a design reference only; compatibility with our future target and any performance benefit are unverified.
 
 ## Decision register
 

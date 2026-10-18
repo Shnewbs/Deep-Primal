@@ -133,6 +133,8 @@ Cost: portability costs up-front work (interfaces, test vectors). Abstract only 
 
 ## 2. Core Design Principles
 
+- World generation performance is a non-negotiable release gate, measured from live exploration and multiplayer load. Expanded height/depth must pass explicit budgets; see the [height and performance requirements](design-decisions-2026-10-18.md#world-height-and-performance-priority).
+
 - Everything is gated by a tool, a fuel, or a tier. No free resources.
 - Failure is informative. Overheating, collapse, spoilage, and frostbite all have traceable causes.
 - No dead-end progression. Hard, but every age has a documented way forward.
