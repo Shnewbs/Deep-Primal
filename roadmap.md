@@ -6,6 +6,8 @@ Deep Primal is a standalone total-conversion survival mod combining grounded wor
 
 At review, `main` contained a README and a design draft only. No source project, build configuration, tests, or playable artifact was present. All implementation milestones below therefore remain unchecked. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
+Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; shelter, resource renewal/waste, professions, steam transport, rifles, and guild structure retain their stated proposal status.
+
 ## Navigation
 
 - [Confirmed direction](#confirmed-direction)
@@ -26,13 +28,15 @@ At review, `main` contained a README and a design draft only. No source project,
 | Vanilla content | Phased replacement by default, with configurable coexistence or vanilla-only modes where supported. Registry entries remain loaded; access and behavior are gated. |
 | Adapters | Property-based behavior for re-enabled vanilla content in v0.1. Other-mod coverage and special game logic need explicit scope decisions. |
 | Survival | Clothing and thermoregulation are essential; hunger, thirst, injury, fatigue, decay, nutrition, weight, and structural hazards form the broader design. |
-| Progression | Ages 0–6, from knapping to late mechanical automation. Mechanical power is the current ceiling; Create compatibility is an optional bridge. |
+| Progression | Ages 0–6, starting with flint/loose-rock/bone tools, developed stone tools, then metals. Rotation-driven automation remains central; steam transport is a proposed later extension. |
 | Inventory | Stack count and mass are independent; stack limits and encumbrance are configurable. Large-stack feasibility is unverified. |
 | Signals and explosives | Cable-style redstone and powder-keg-style TNT by default, with vanilla behavior options. Detailed launch scope remains open. |
 | Content and visuals | Data-driven natural materials and building variants; TFC-style grounding and Conquest Reforged visual inspiration. Asset reuse requires license review. |
 | Configuration | Domain-based settings, presets, tunables, and optional gameplay modules with working defaults. Shared core services remain required. |
 | Documentation | Native Markdown/datapack field guide and independent inspection API; optional tooltip integrations. |
-| Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. |
+| Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep inventory defaults on, configurable by the world/server owner. Teams/guilds/parties are proposed. |
+| Water and logistics | Hybrid groundwater depletion/recharge, wells, broad transport coverage, and connected storage are desired; detailed rules are in the dated decisions. |
+| Navigation and activities | Configurable native maps/compass/biome titles, body-region health, hunting, and specialized fishing; full scope is not automatically part of v0.1. |
 
 Far-terrain LOD is **proposed**, not locked. Hytale and an independent game remain portability possibilities, not committed releases. The platform-neutral core is already part of the design.
 
@@ -73,6 +77,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 - [ ] Implement a deterministic core sampler for terrain, surface height, geology, climate, and material queries, with a NeoForge worldgen adapter.
 - [ ] Generate native rock layers, soils, climate-based vegetation, and host-rock-dependent multi-ore veins with surface indicators.
+- [ ] Define hydrology contracts for chunk-local groundwater, shared aquifers, source quality, recharge, extraction, and surface-water budgets before dependent systems.
 - [ ] Implement phase-1 vanilla replacement controls and verify newly generated chunks honor them.
 - [ ] Add the shared configurable calendar and climate inputs needed by seasons and frozen ground.
 - [ ] Prototype permafrost and moisture-driven ice cementation using shared material properties; expose thawing hooks for M3 heat systems.
@@ -87,6 +92,8 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 **Status:** not started. **Depends on:** M0–M2 and decisions D08–D10.
 
+- [ ] Specify TFC-style time behavior (including default empty-server calendar pause), with verified subsystem catch-up and sleep rules.
+- [ ] Verify keep-inventory defaults include clothing, quiver, and carried containers without duplication.
 - [ ] Connect all process durations to the shared calendar; verify changes to day length behave consistently.
 - [ ] Implement the shared heat model and the playable Age 0–1 loop: knap → fire → clay → charcoal → kiln.
 - [ ] Build property resolution and the adapter prototype for vanilla dirt, gravel, sand, and stone, including tool-based breaking, gravity, and cave-in behavior.
@@ -157,7 +164,7 @@ The [complete question register](docs/design-reference.md#s8) preserves all 31 o
 | D11 | Stress-unit scale and eventual Create bridge contract. | M4 | 4 |
 | D12 | Powder capacity, ignition/fuse rules, crafting, carrying, and blast tuning. | M4 | 13 |
 | D13 | Initial wire logic, gates/channels, and technology-age placement. | M4 | 14, 15 |
-| D14 | Resource depletion, server death rules, and fauna/threat roster. | Relevant later systems | 6, 7, 8 |
+| D14 | Groundwater depletion/recharge and keep-inventory-on default are confirmed. Ore renewal, other death consequences, and fauna/threat roster remain open. | Relevant later systems | 6, 7, 8 |
 | D15 | Whether to pursue Hytale or an independent game; engine/language only if pursued. | Future platform planning | 28, 29 |
 
 Open choices can be researched while building independent foundations. Do not treat an unverified stack limit, platform API, compatibility claim, or external license in the design draft as an established implementation constraint.
@@ -181,6 +188,10 @@ These are retained design goals beyond the narrow prototypes above. Scheduling i
 | Long-term play | Seasonal planning, regional resources, settlements, logistics, and meaningful automation across Ages 0–6. | 5, 6 |
 
 **Outside v0.1:** electricity/GregTech-style electrical machinery, space, extra dimensions, magic, a complete original-art pass, and broad compatibility with vanilla-dependent mods. The optional Create bridge remains the deliberate compatibility direction. See [non-goals](docs/design-reference.md#s9).
+
+## Additional design follow-up
+
+The [dated decision register](docs/design-decisions-2026-10-18.md) records groundwater/wells; transport and storage; TFC time behavior; shelter; keep inventory; maps; health and hunting; fishing; renewal and waste; professions; and optional cooperation. Agree the unresolved rules before expanding implementation checklists. Full steam vehicles, specialized fishing, web mapping, profession caps, and rifles have no assigned release.
 
 ## Completion and maintenance rules
 

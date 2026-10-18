@@ -1,6 +1,6 @@
 # Deep Primal — Design Reference
 
-Design draft v0.6, reformatted on 2026-10-18. This is the detailed feature specification; use the [roadmap](../roadmap.md) for implementation order and completion status. Section numbers are retained for continuity.
+Design draft v0.6, reformatted on 2026-10-18. **Read the [owner decision update](design-decisions-2026-10-18.md) alongside this reference; confirmed updates there supersede earlier draft assumptions.** This is the detailed feature specification; use the [roadmap](../roadmap.md) for implementation order and completion status. Section numbers are retained for continuity.
 
 > **Status:** design only. Descriptions of behavior are requirements or proposals, not evidence of implemented features. External platform, version, license, and compatibility claims are inherited research notes and require verification against primary sources before implementation. Numerical values are provisional. “Suggested” and “proposed” items remain unapproved.
 
@@ -22,7 +22,7 @@ The table includes locked direction alongside explicitly marked proposals. Open 
 | Configuration | Config by default: if it can be a config for the end user, it is. Everything the mod adds, changes, or removes is configurable; settings are split into multiple organized files by domain ([§4.13](#s4-13)) |
 | Realism | Realistic variety in stone, soil, plants, trees, food, crops + configurable day length driving time-based systems |
 | Difficulty target | GregTech-level depth, built for long-term play ("High TISM") |
-| Tech ceiling | Mechanical only for now, designed around Create-style stress units for easy Create compat |
+| Tech ceiling | Rotation-based mechanical industry, with a proposed later coal/steam transport extension; Create bridge remains optional |
 | TFC+ must-have | Clothing, warmth, cold, seasonal temperature requiring clothing |
 | Multiplayer | Both single-player and server |
 | Art | Blend of TFC-style and new assets, with Conquest Reforged inspiration |
@@ -259,7 +259,7 @@ The "realism" pillar means the world's raw materials are varied and behave like 
 
 - Punching trees yields nothing; logs need a sharp tool.
 - Stone and gravel aren't gathered bare-handed.
-- First tools are knapped from stone and bone.
+- First tools use flint, loose rock, and bone in the PrimalCore-inspired starting stage; developed stone tooling and then metals follow. These are alternative material paths, not a requirement to find all three.
 - Early crafting is hand-based and slow.
 
 **Age 1 — Fire & Clay**
@@ -317,7 +317,7 @@ Power is designed around the same model Create uses so a future bridge is simple
 
 - Darkness is dangerous; unlit areas are more hostile.
 - Custom fauna and threats replace vanilla mobs; danger scales with time and progress.
-- Optional harsh death/respawn rules (with server-friendly variants, [§4.11](#s4-11)).
+- Keep inventory on by default, configurable off by the world/server owner. Other death/respawn consequences remain open; see the [decision update](design-decisions-2026-10-18.md#death-and-recovery).
 - Shelter, fire, and light have real radius and fuel costs.
 - Real hazards: cave-ins, gas pockets, lava, drowning.
 
@@ -863,7 +863,7 @@ Portability: the manifest and data formats are the cross-platform contract ([§0
 | 5 | Refined | Full ore-processing chain, advanced alloys, precision machines |
 | 6 | Late Mechanical | Complex mechanical networks, automation within stress limits |
 
-Mechanical stays the ceiling for now; electricity is out of scope ([§9](#s9)).
+Rotation-based mechanics remain the planned core. Coal/steam trains and boats are a proposed late extension; electricity remains out of scope ([§9](#s9)).
 
 <a id="s6"></a>
 
@@ -918,8 +918,8 @@ Resolved by v0.5: loader (NeoForge), platform (a NeoForge mod rather than Hytale
 3. Assets and licenses: are you open to reusing TFC art if the license allows, or should everything be original? Either way, check each asset's license before reusing any code or art.
 4. Stress-unit scale: match Create's numbers exactly, or use a convertible scale with a bridge?
 5. Default day length for single-player vs server presets?
-6. Resource depletion: finite veins, regenerating veins, or neither?
-7. Hardcore death rules on servers: permadeath, item loss, or softer options such as team revive?
+6. Updated: water uses hybrid depletion/recharge. Ore-vein renewal and other resource lifecycles remain open.
+7. Updated: keep inventory is on by default and configurable off. Other death rules (respawn injuries, profession XP, vehicle cargo, or team revive) remain open.
 8. Mobs/fauna: a fully original roster, or realistic regional wildlife plus a small set of threats?
 9. Config format and UI: plain TOML files only at first, or JSON/datapack formats for list-heavy settings? In-game config screen in v0.1 or later?
 10. Existing-world changes: when a toggle removes content already placed in a world, should the mod keep it, convert it, or block the change?
