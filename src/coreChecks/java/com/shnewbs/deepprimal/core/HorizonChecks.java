@@ -3,16 +3,35 @@ package com.shnewbs.deepprimal.core;
 public final class HorizonChecks {
     static void run() {
         int comparisons=0;
+        if (DistancePolicy.parse("4000",100,4000).orElseThrow()!=4000 || DistancePolicy.parse("2147483648",0,Integer.MAX_VALUE).isPresent()) throw new AssertionError("Budget input range/overflow");
         if (HorizonGeometry.sample(new short[]{0,0,0,10},1,256,256)!=0) throw new AssertionError("Transition must match triangle plane, not bilinear saddle");
         for (int detail=0;detail<3;detail++) {
             int n=HorizonGeometry.cells(detail); short[] heights=new short[(n+1)*(n+1)]; int[] colors=new int[heights.length];
-            for (int z=0;z<=n;z++) for (int x=0;x<=n;x++) { heights[z*(n+1)+x]=(short)(100+x*512/n/4+z*512/n/8); colors[z*(n+1)+x]=0xff778855; }
+            for (int z=0;z<=n;z++) for (int x=0;x<=n;x++) { heights[z*(n+1)+x]=(short)(100+x*512/n/4+z*512/n/8); colors[z*(n+1)+x]=0xff000000 | ((x*7)&255)<<16 | ((z*13)&255)<<8 | ((x+z*3)&255); }
             for (int z=0;z<=n;z++) for (int x=0;x<=n;x++) {
                 double actual=HorizonGeometry.sample(heights,n,x*512.0/n,z*512.0/n);
                 if (actual!=heights[z*(n+1)+x]) throw new AssertionError("Interpolation at sample"); comparisons++;
             }
+            var samples = new HorizonSamples(detail, heights, colors);
+            for (int target = detail; target <= 2; target++) {
+                var reduced = samples.forDetail(target); int cells = HorizonGeometry.cells(target), ratio = n / cells;
+                for (int z = 0; z <= cells; z++) for (int x = 0; x <= cells; x++) {
+                    int source = z * ratio * (n + 1) + x * ratio, dest = z * (cells + 1) + x;
+                    if (reduced.heights()[dest] != heights[source] || reduced.colors()[dest] != colors[source]) throw new AssertionError("Sample reuse changed data");
+                }
+            }
             var mesh=HorizonMesh.build(heights,colors,detail,-384);
-            if (mesh.vertices()!=n*n*6+n*4*12+6) throw new AssertionError("Mesh count");
+            if (mesh.indices().length!=n*n*6+n*4*12+6) throw new AssertionError("Mesh count");
+            var reference = LegacyHorizonMesh.build(heights, colors, detail, -384);
+            for (int i = 0; i < mesh.indices().length; i++) {
+                int index = mesh.indices()[i];
+                if (index < 0 || index >= mesh.vertices() || index > 65535) throw new AssertionError("Index bounds");
+                for (int axis = 0; axis < 3; axis++)
+                    if (mesh.positions()[index * 3 + axis] != reference.positions()[i * 3 + axis]) throw new AssertionError("Indexed geometry changed");
+                if (mesh.colors()[index] != reference.colors()[i]) throw new AssertionError("Indexed color changed");
+            }
+            if (mesh.gpuBytes() >= reference.vertices() * 16L) throw new AssertionError("Mesh memory regression");
+            if (mesh.gpuBytes() != HorizonMesh.gpuBytes(detail)) throw new AssertionError("Memory estimate differs from payload");
             if (mesh.minimum()!=-384 || mesh.maximum()!=292) throw new AssertionError("Bounds");
             for (int i=0;i<mesh.vertices();i++) {
                 float x=mesh.positions()[i*3],y=mesh.positions()[i*3+1],z=mesh.positions()[i*3+2];
@@ -29,6 +48,18 @@ public final class HorizonChecks {
                 if (l!=r) throw new AssertionError("Shared boundary anchors"); comparisons++;
             }
         }
+        java.util.Random random = new java.util.Random(8181);
+        for (int i = 0; i < 10000; i++) {
+            double x = random.nextDouble()*20000-10000, z = random.nextDouble()*20000-10000, fraction = .125+random.nextDouble()*.875;
+            int high = 480+random.nextInt(1600), fov = 30+random.nextInt(81), tx = random.nextInt(40)-20, tz = random.nextInt(40)-20;
+            var view = HorizonView.create(x,z,high,fov,fraction);
+            double dx = Math.max(0,Math.abs((tx+.5)*512-x)-256), dz = Math.max(0,Math.abs((tz+.5)*512-z)-256);
+            double projection = Math.clamp(high/720.0*Math.tan(Math.toRadians(35))/Math.tan(Math.toRadians(fov/2.0)),.5,3);
+            int expected = HorizonGeometry.detail(Math.sqrt(dx*dx+dz*dz)/(projection*Math.sqrt(fraction)));
+            if (view.detail(tx,tz)!=expected) throw new AssertionError("Cached view math changed detail");
+        }
+        if (VisualBudget.frameLimit(10,false,false,20,5)!=10 || VisualBudget.frameLimit(144,true,false,20,5)!=144 || VisualBudget.frameLimit(144,false,true,20,5)!=5) throw new AssertionError("FPS policy");
+        if (VisualBudget.outside(-10,-10,-10,10,10,10,0,0,0,1) || VisualBudget.outside(0,0,0,1,1,1,11,0,0,10) || !VisualBudget.outside(0,0,0,1,1,1,12,0,0,10)) throw new AssertionError("Conservative visual bounds");
         ByteLru<Integer,byte[]> cache=new ByteLru<>(100,10,v->v.length);
         cache.put(1,new byte[60]);cache.put(2,new byte[60]);
         if (cache.get(1)!=null || cache.bytes()!=60) throw new AssertionError("Byte eviction");

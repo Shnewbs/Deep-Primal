@@ -1,4 +1,4 @@
-# Worldgen prototype 0.0.1-alpha.6
+# Worldgen prototype 0.0.1-alpha.8
 
 Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
@@ -86,7 +86,9 @@ The screen reports the **actual graphics API**. Vulkan is a separate backend inv
 
 ## Built-in renderer and local diagnostics
 
-Alpha 6 adds the native horizon and automatic renderer ownership described in [this guide](RENDERER-AND-DIAGNOSTICS.md). The horizon defaults to 192 chunks and accepts 0–256. It does not raise the full-detail or simulation limits. The local dashboard is enabled by default and has a button in Deep Primal’s distance/config screen.
+Alpha 6 introduced the native horizon and automatic renderer ownership described in [this guide](RENDERER-AND-DIAGNOSTICS.md). The horizon defaults to 192 chunks and accepts 0–256. It does not raise the full-detail or simulation limits. The local dashboard is enabled by default and has a button in Deep Primal’s distance/config screen.
+
+Alpha 8 extends **Performance…** with terrain upload budgets, visual range/admission limits, background FPS/work controls and staged profiles. See [the renderer guide](RENDERER-AND-DIAGNOSTICS.md#performance-menu) and [validation](VALIDATION-0.0.1-alpha.8.md). Terrain resources are unchanged.
 
 ## Build and reproduce
 

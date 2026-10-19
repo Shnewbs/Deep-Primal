@@ -2,11 +2,13 @@
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 
-**Current build: 0.0.1-alpha.7 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**Current build: 0.0.1-alpha.8 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
 Deep Primal is the default normal world generator. Extra underground depth is a startup config setting, rather than a second selectable world type. Alpha 4 replaced sheet-shaped mountain carving with buried tunnels and deeper chambers, and added an independent vertical render radius. Alpha 5 fixed native chunk-task queue bounds at extended render distances. Alpha 6 adds an authored macro-terrain horizon up to 256 chunks, automatic renderer handoff, and a localhost performance dashboard. The prototype retains vanilla placeholder materials, geological strata, native aquifers, XP suppression, bounded diagnostics, expanded horizontal rendering, and the alpha 3 client/server optimizations. Rendering uses OpenGL. The full survival conversion remains in design. Use disposable test worlds. Alpha 6 can reopen alpha 4/5 worlds without migration; generated voxel terrain is unchanged.
 
 - [Install, play, and build](docs/WORLDGEN-PROTOTYPE.md)
+- [Alpha 8 performance validation](docs/VALIDATION-0.0.1-alpha.8.md)
+- [Mojang, CurseForge and Hytale audit](docs/PERFORMANCE-AUDIT-2026-10-18.md)
 - [Alpha 7 adaptive rendering validation](docs/VALIDATION-0.0.1-alpha.7.md)
 - [Alpha 6 renderer and diagnostics validation](docs/VALIDATION-0.0.1-alpha.6.md)
 - [Renderer and dashboard guide](docs/RENDERER-AND-DIAGNOSTICS.md)
@@ -18,7 +20,7 @@ Deep Primal is the default normal world generator. Extra underground depth is a 
 - [Owner decisions](docs/design-decisions-2026-10-18.md)
 - [Detailed design reference](docs/design-reference.md)
 
-Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.7.jar`.
+Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.8.jar`.
 
 Create a new world normally; its default world type is **Deep Primal**. Prefer Creative with commands enabled for inspection. Set `extraUndergroundDepth = true` in `config/deepprimal-worldgen.toml` and restart before creating a new world to extend Y=-128..639 to -384..639. Saved worlds retain their height. Try `/deepprimal info` and `/deepprimal bench 200 200 1`.
 
@@ -32,4 +34,4 @@ The built-in horizon defaults to 192 chunks and supports 0–256. It draws coars
 
 Alpha 7 closes horizon tile edges to the saved-world floor, adds a near-terrain closure and stitched 16/32/64-block sample grids, and selects prebuilt detail levels by projected sample size and workload pressure. A single bounded worker builds immutable mesh snapshots; GPU uploads stay on the rendering thread. Client requests and server sampling back off independently under frame, tick and heap pressure. The server coalesces matching in-flight requests and rotates sampling fairly. Payload-byte and entry ceilings bound retention.
 
-Open **Deep Primal distances → Performance…** for adaptive work, target FPS and retained vertex-memory controls. The dashboard adds CPU mesh/upload/submission measurements and an asynchronous horizon-pass GPU timer on supported OpenGL devices. This alpha remains OpenGL. Vulkan, a replacement near-block renderer, edited-world LODs, GPU-driven occlusion and broad hardware performance certification are not implemented.
+Alpha 8 uses indexed horizon meshes, cached view calculations, reusable transforms, shared indexed submission and bounded staged uploads. Finer server samples can serve coarser requests without evaluating terrain again. Fine tiles with all cached draw levels use 59,412 GPU payload bytes instead of 172,320 (65.52% less). Open **Deep Primal distances → Performance…** for terrain/upload budgets, optional entity/block-entity/particle visual limits, cloud/shadow/particle quality, background FPS/work controls and staged Balanced/Speed/Quality profiles. Default scene limits retain native behavior; Speed deliberately reduces visual detail. The background FPS hook yields to Dynamic FPS when installed. The dashboard adds CPU mesh/upload/submission measurements and an asynchronous horizon-pass GPU timer on supported OpenGL devices. This alpha remains OpenGL. Vulkan, a replacement near-block renderer, edited-world LODs, GPU-driven occlusion and broad hardware performance certification are not implemented.

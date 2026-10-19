@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 /** Yield before overlapping bytecode is transformed, not after competing renderers initialize. */
 public final class RendererMixinPlugin implements IMixinConfigPlugin {
     @Override public boolean shouldApplyMixin(String target, String mixin) {
+        if (mixin.endsWith("FrameLimitMixin")) return !RendererOwnership.installed("dynamic_fps");
         if (!mixin.contains(".mixin.client.") || mixin.endsWith("VideoSettingsMixin")) return true;
         return RendererOwnership.owned();
     }

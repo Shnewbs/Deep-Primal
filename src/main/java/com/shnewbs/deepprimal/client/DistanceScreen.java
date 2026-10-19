@@ -32,7 +32,9 @@ public final class DistanceScreen extends Screen {
     @Override protected void init() {
         if (!com.shnewbs.deepprimal.render.RendererOwnership.owned()) {
             addDashboard(width / 2 - 100, height / 2 + 4, 200);
-            addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, b -> onClose()).bounds(width / 2 - 100, height / 2 + 30, 200, 20).build());
+            addRenderableWidget(Button.builder(Component.literal("Performance…"), b -> minecraft.setScreen(new HorizonSettingsScreen(this)))
+                .bounds(width / 2 - 100, height / 2 + 28, 200, 20).build());
+            addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, b -> onClose()).bounds(width / 2 - 100, height / 2 + 52, 200, 20).build());
             return;
         }
         String oldRender=renderInput==null?null:renderInput.getValue(), oldSimulation=simulationInput==null?null:simulationInput.getValue();

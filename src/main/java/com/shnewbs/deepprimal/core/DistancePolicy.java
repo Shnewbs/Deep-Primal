@@ -2,7 +2,7 @@ package com.shnewbs.deepprimal.core;
 
 import java.util.OptionalInt;
 
-/** Finite native-protocol limits. Full simulation has a separate level graph. */
+/** Bounded integer input and native distance limits. Simulation has a separate level graph. */
 public final class DistancePolicy {
     public static final int MAX_RENDER = 96;
     public static final int MAX_SIMULATION = 32;
@@ -11,9 +11,15 @@ public final class DistancePolicy {
         return parse(text, 2, maximum);
     }
     public static OptionalInt parse(String text, int minimum, int maximum) {
-        if (text.isEmpty() || text.length() > 3) return OptionalInt.empty();
-        for (int i = 0; i < text.length(); i++) if (text.charAt(i) < '0' || text.charAt(i) > '9') return OptionalInt.empty();
-        int value = Integer.parseInt(text);
+        if (text.isEmpty() || text.length() > 10) return OptionalInt.empty();
+        long parsed = 0;
+        for (int i = 0; i < text.length(); i++) {
+            char digit = text.charAt(i);
+            if (digit < '0' || digit > '9') return OptionalInt.empty();
+            parsed = parsed * 10 + digit - '0';
+            if (parsed > maximum) return OptionalInt.empty();
+        }
+        int value = (int)parsed;
         return value >= minimum && value <= maximum ? OptionalInt.of(value) : OptionalInt.empty();
     }
     public static int clampRender(int value) { return Math.clamp(value, 2, MAX_RENDER); }

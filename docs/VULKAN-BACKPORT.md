@@ -1,6 +1,6 @@
 # Vulkan backport investigation for 26.1.2
 
-Status: compatibility investigation completed; a working Vulkan backend is not included in alpha 7. The current build renders with OpenGL. Deep Primal has an authored horizon renderer using the platform GPU API and automatic compatibility handoff. It does not implement a Vulkan device backend. The distance screen displays the backend actually in use.
+Status: compatibility investigation completed; a working Vulkan backend is not included in alpha 8. The current build renders with OpenGL. Deep Primal has an authored horizon renderer using the platform GPU API and automatic compatibility handoff. It does not implement a Vulkan device backend. The distance screen displays the backend actually in use.
 
 The owner requested investigation of the newer Vulkan features while retaining Minecraft 26.1.2 and NeoForge. Official experimental Vulkan support arrived in **26.2**. Later 26.3/26.4 changes build on that renderer. This is a separate client-renderer project; server simulation range and world generation need CPU work of their own.
 
@@ -38,3 +38,7 @@ python3 tools/renderer_audit.py BASELINE_26_1_2.jar CLIENT_26_2.jar CLIENT_26_3.
 ```
 
 The tool prints interface signatures, Vulkan class counts and file hashes. It does not modify the JARs or copy their implementations into the mod.
+
+## Alpha 8 availability probe
+
+`python3 tools/vulkan_probe.py` checks a Vulkan 1.2 instance only. The local loader exists, but instance creation returned `VK_ERROR_INCOMPATIBLE_DRIVER` (-9); [the retained result](validation/0.0.1-alpha.8/vulkan-instance-probe.json) has `rendererValidated: false`. The full backend remains unimplemented. The probe is development tooling and adds no runtime/native dependencies to the production mod. See the [cross-project audit](PERFORMANCE-AUDIT-2026-10-18.md) for Mojang, CurseForge and Hytale comparisons.

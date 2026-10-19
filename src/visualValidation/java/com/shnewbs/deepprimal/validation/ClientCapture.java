@@ -70,6 +70,20 @@ public final class ClientCapture {
             if (action.equals("renderer-checks")) {
                 RendererClientChecks.run(mc); Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8); return;
             }
+            if (action.equals("performance-checks")) { PerformanceClientChecks.run(mc); return; }
+            if (action.equals("reuse-samples")) {
+                net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new com.shnewbs.deepprimal.render.network.HorizonRequest(
+                    Long.MIN_VALUE, mc.level.dimension().identifier(), Math.floorDiv(mc.player.getBlockX(),512), Math.floorDiv(mc.player.getBlockZ(),512), 2)); return;
+            }
+            if (action.startsWith("batching=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.BATCHED_DRAWS.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }
+            if (action.startsWith("background=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.UNFOCUSED_FPS.set(Integer.parseInt(action.substring(11))); com.shnewbs.deepprimal.client.ClientPerformanceConfig.PAUSE_BACKGROUND.set(true); mc.setScreen(null); return; }
+            if (action.startsWith("performance-page=")) {
+                mc.setScreen(new com.shnewbs.deepprimal.client.HorizonSettingsScreen(null));
+                for (int i = 0; i < Integer.parseInt(action.substring(17)); i++) {
+                    var next = mc.screen.children().stream().filter(net.minecraft.client.gui.components.Button.class::isInstance).map(net.minecraft.client.gui.components.Button.class::cast).filter(b -> b.getMessage().getString().equals("›")).findFirst().orElseThrow(); next.onPress(null);
+                }
+                pendingCapture = "performance-page-" + action.substring(17); pendingAt = System.nanoTime(); return;
+            }
             if (action.equals("performance")) { mc.setScreen(new com.shnewbs.deepprimal.client.HorizonSettingsScreen(null)); pendingCapture=action; pendingAt=System.nanoTime(); return; }
             if (action.startsWith("memory=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.HORIZON_MEMORY_MIB.set(Integer.parseInt(action.substring(7))); mc.setScreen(null); return; }
             if (action.startsWith("adaptive=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.ADAPTIVE_WORK.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }

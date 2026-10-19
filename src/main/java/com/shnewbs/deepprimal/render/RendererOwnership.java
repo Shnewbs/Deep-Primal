@@ -14,6 +14,7 @@ public final class RendererOwnership {
             .collect(Collectors.toUnmodifiableSet());
         static final boolean OWNED = REPLACEMENTS.isEmpty() && !Boolean.getBoolean("deepprimal.renderer.disabled");
     }
+    public static boolean installed(String id) { return Detection.MODS.contains(id); }
     public static boolean owned() { return Detection.OWNED; }
     public static String owner() { return owned() ? "Deep Primal" : Detection.REPLACEMENTS.isEmpty() ? "External / disabled" : String.join(", ", new java.util.TreeSet<>(Detection.REPLACEMENTS)); }
     private RendererOwnership() {}

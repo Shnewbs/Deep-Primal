@@ -1,9 +1,8 @@
 package com.shnewbs.deepprimal.core;
 
-/** A fixed-resolution horizon: no chunk tickets, full voxel columns or simulation. */
+/** A bounded multi-resolution horizon: no chunk tickets, full voxel columns or simulation. */
 public final class FarTerrain {
-    public static final int MAX_DISTANCE = 256, TILE_BLOCKS = 512, CELLS = 8, STEP = TILE_BLOCKS / CELLS;
-    public static final int POINTS = (CELLS + 1) * (CELLS + 1), MAX_TILES = 400;
+    public static final int MAX_DISTANCE = 256, TILE_BLOCKS = 512, MAX_TILES = 400;
     public static long key(int x, int z) { return (long)x << 32 | z & 0xffffffffL; }
     public static int x(long key) { return (int)(key >> 32); }
     public static int z(long key) { return (int)key; }

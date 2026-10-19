@@ -23,6 +23,9 @@ public final class ClientTelemetry {
         var mc = Minecraft.getInstance(); var data = new LinkedHashMap<String, Object>(); var stats = frames.snapshot();
         data.put("state", mc.level == null ? "Menu" : "In world"); data.put("sampleTime", System.currentTimeMillis());
         data.put("frameMedianMs", stats.medianMs()); data.put("frameP95Ms", stats.p95Ms()); data.put("frameMaxMs", stats.maxMs());
+        data.put("windowFocused", mc.isWindowActive());
+        data.put("effectiveFpsLimit", mc.getFramerateLimitTracker().getFramerateLimit());
+        data.put("entitiesSkipped", VisualPerformance.entitiesSkipped); data.put("blockEntitiesSkipped", VisualPerformance.blockEntitiesSkipped); data.put("particlesSkipped", VisualPerformance.particlesSkipped);
         data.put("fps", mc.getFps()); data.put("rendererOwner", RendererOwnership.owner()); data.put("graphicsApi", RenderSystem.getDevice().getBackendName());
         data.put("gpu", RenderSystem.getDevice().getRenderer()); data.put("renderDistance", mc.options.renderDistance().get()); data.put("simulationDistance", mc.options.simulationDistance().get());
         data.put("verticalRadius", RendererOwnership.owned() ? ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() : "External");
@@ -39,6 +42,10 @@ public final class ClientTelemetry {
             data.put("horizonReceivedBytesPerSample", renderer.receivedBytes-lastReceived); lastReceived=renderer.receivedBytes;
             data.put("horizonGpuTimingAvailable", renderer.gpuTimingAvailable()); data.put("horizonGpuMs", renderer.gpuMs());
             data.put("horizonCulledTiles", renderer.culledTiles);
+            data.put("horizonBatchedSubmission", ClientPerformanceConfig.BATCHED_DRAWS.get());
+            data.put("horizonBackgroundPaused", HorizonRenderer.backgroundWorkPaused());
+            data.put("horizonUploadsLastFrame", renderer.uploadsLastFrame); data.put("horizonUploadBytesLastFrame", renderer.uploadBytesLastFrame);
+            data.put("horizonMaxUploadsPerFrame", renderer.maxUploadsPerFrame); data.put("horizonMaxUploadBytesPerFrame", renderer.maxUploadBytesPerFrame);
             data.put("horizonFineVisible", renderer.visibleFine); data.put("horizonMediumVisible", renderer.visibleMedium); data.put("horizonCoarseVisible", renderer.visibleCoarse);
             data.put("horizonState", renderer.status); data.put("horizonCached", renderer.cachedTiles); data.put("horizonTarget", renderer.targetTiles); data.put("horizonVisible", renderer.visibleTiles);
             data.put("horizonTrianglesDrawn", renderer.drawnTriangles); data.put("horizonUploadedBytes", renderer.uploadedBytes);

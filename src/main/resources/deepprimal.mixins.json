@@ -21,7 +21,11 @@
     "client.GraphStorageMixin",
     "client.FogRendererMixin",
     "client.CameraMixin",
-    "client.LevelRendererAccessor"
+    "client.LevelRendererAccessor",
+    "client.FrameLimitMixin",
+    "client.EntityDistanceMixin",
+    "client.BlockEntityDistanceMixin",
+    "client.ParticleAdmissionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
