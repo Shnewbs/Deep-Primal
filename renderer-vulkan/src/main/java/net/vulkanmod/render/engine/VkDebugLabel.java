@@ -1,36 +1,51 @@
-// VulkanMod 0.6.8+26.1.2, Collateral and contributors. LGPL-3.0-only.
-// Reconstructed from the matching published artifact; modified for Deep Primal on 2026-10-19.
+// Deep Primal Vulkan debug utilities. LGPL-3.0-only.
 package net.vulkanmod.render.engine;
 
-import com.mojang.blaze3d.opengl.GlProgram;
-import com.mojang.blaze3d.opengl.GlShaderModule;
-import com.mojang.blaze3d.opengl.VertexArrayCache.VertexArray;
-import com.mojang.logging.LogUtils;
-import java.util.Set;
-import org.slf4j.Logger;
-public class VkDebugLabel {
-   private static final Logger LOGGER = LogUtils.getLogger();
+import java.util.function.Supplier;
+import net.vulkanmod.vulkan.Vulkan;
+import org.lwjgl.system.MemoryStack;
+import org.lwjgl.vulkan.*;
 
-   public void applyLabel(VkGpuBuffer glBuffer) {
-   }
+/** Optional native names/groups. Disabled labels do not evaluate suppliers. */
+public final class VkDebugLabel {
+  private final boolean enabled;
 
-   public void applyLabel(VkGpuTexture glTexture) {
-   }
+  private VkDebugLabel(boolean enabled) {
+    this.enabled = enabled;
+  }
 
-   public void applyLabel(GlShaderModule glShaderModule) {
-   }
+  public static VkDebugLabel create(boolean requested) {
+    return new VkDebugLabel(requested && Vulkan.debugUtilsEnabled());
+  }
 
-   public void applyLabel(GlProgram glProgram) {
-   }
+  public boolean exists() {
+    return enabled;
+  }
 
-   public void applyLabel(VertexArray vertexArray) {
-   }
+  public void applyLabel(VkGpuBuffer buffer) {
+    if (!enabled || buffer.label == null) return;
+    try (var stack = MemoryStack.stackPush()) {
+      Vulkan.setDebugLabel(stack, 9, buffer.getBuffer().getId(), buffer.label.get());
+    }
+  }
 
-   public static VkDebugLabel create(boolean bl, Set<String> set) {
-      return new VkDebugLabel();
-   }
+  public void applyLabel(VkGpuTexture texture) {
+    if (!enabled) return;
+    try (var stack = MemoryStack.stackPush()) {
+      Vulkan.setDebugLabel(stack, 10, texture.getVulkanImage().getId(), texture.getLabel());
+    }
+  }
 
-   public boolean exists() {
-      return true;
-   }
+  public void push(VkCommandBuffer command, Supplier<String> label) {
+    if (!enabled) return;
+    try (var stack = MemoryStack.stackPush()) {
+      var info =
+          VkDebugUtilsLabelEXT.calloc(stack).sType$Default().pLabelName(stack.UTF8(label.get()));
+      EXTDebugUtils.vkCmdBeginDebugUtilsLabelEXT(command, info);
+    }
+  }
+
+  public void pop(VkCommandBuffer command) {
+    if (enabled) EXTDebugUtils.vkCmdEndDebugUtilsLabelEXT(command);
+  }
 }

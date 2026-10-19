@@ -1,4 +1,4 @@
-# Vulkan adapter — alpha 9
+# Vulkan adapter — alpha 10
 
 The standard JAR contains an optional NeoForge graphics backend adapted from **VulkanMod 0.6.8+26.1.2**. OpenGL is the default. Open **Video Settings → Deep Primal distances → Performance → Graphics API**, select Vulkan, Apply, and restart Minecraft. The screen reports the active API separately from the next-launch preference.
 
@@ -16,7 +16,7 @@ Commercial games in the Vulkan ecosystem are architectural references, not sourc
 
 - Select the Vulkan backend before window/device construction. Close NeoForge's early OpenGL loading renderer before replacing its window; use opaque handles across FML's GLFW/Vulkan class-loader boundary. During a failed-device retry, release the failed window while retaining GLFW for the next OpenGL window.
 - Retain the native MainTarget and present it through a Vulkan image blit. Correct sprite-atlas projection and screenshot orientation for the different image origin.
-- Implement native buffer copies, texture copies/readback, per-draw base vertices and uniforms, bufferless drawing, texel-buffer descriptors, device timestamp queries and generation-aware frame fences.
+- Implement native buffer copies, texture copies/readback, per-draw base vertices and uniforms, bufferless drawing, packed readonly storage-buffer descriptors for signed-byte texel reads, device timestamp queries and generation-aware frame fences.
 - Support NeoForge depth/stencil formats and stencil state. Retire views, framebuffer wrappers and image resources without having framebuffer wrappers own their attached textures.
 - Cache pipeline variants by compatible attachment formats rather than framebuffer identity. Cache their hashes without per-draw boxing. Rebuild shader/pipeline caches safely during resource reloads.
 - Store metadata outside Minecraft pipeline objects. No global OpenGL-call emulation mixins or native vertex-format overwrite are installed.
@@ -25,6 +25,10 @@ The preference is `backend=Vulkan` or `backend=OpenGL` in `config/deepprimal-ren
 
 ## Build and limits
 
-Build with `./gradlew build` (Java 25). The adapter is a separate nested JAR with its required LWJGL Vulkan, shaderc and VMA bindings/natives. `./gradlew build -PwithoutVulkan` omits it for a small core-only package. For development runs, `-PgraphicsBackend=Vulkan` selects Vulkan explicitly; ordinary installed clients use their saved preference.
+Build with `./gradlew build` (Java 25). The adapter is a separate nested JAR with its required LWJGL Vulkan, shaderc and VMA bindings/natives. `./gradlew build -PwithoutVulkan` omits it for a smaller package retaining performance and graphics settings. For development runs, `-PgraphicsBackend=Vulkan` selects Vulkan explicitly; ordinary installed clients use their saved preference.
 
 The current backend requires Vulkan 1.2 and the swapchain/dynamic-rendering features it uses. Unsupported initialization falls back to OpenGL. Linux x64 software-driver validation is documented in [the alpha 9 report](VALIDATION-0.0.1-alpha.9.md). Bundled Windows/macOS natives do not establish hardware certification. AMD/Windows performance, shader packs, arbitrary direct-OpenGL mods and broad modpack compatibility remain unverified. Vulkan is experimental; it is not a claim of universal FPS gains or a complete Sodium/OptiFine/Lithium replacement.
+
+## Alpha 10 organization and native work
+
+The backend now depends on the independent graphics-settings module rather than the worldgen/horizon integration. Performance policies have a separate common module. See [module boundaries](MODULES.md), [capability audit](VULKAN-CAPABILITIES.md) and [alpha 10 validation](VALIDATION-0.0.1-alpha.10.md). Persistent caches, exact descriptor reuse, native ownership cleanup and corrected synchronization are implemented; advanced Vulkan capabilities remain explicitly tracked rather than represented as inactive settings.

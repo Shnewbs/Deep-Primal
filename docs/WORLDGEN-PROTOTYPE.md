@@ -1,4 +1,4 @@
-# Worldgen prototype 0.0.1-alpha.9
+# Worldgen prototype 0.0.1-alpha.10
 
 Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
@@ -111,3 +111,5 @@ The original project code is All Rights Reserved pending the owner's final licen
 Keep the memory distance guard enabled for large requested distances. Its effective limit accounts for full-height columns even when vertical rendering is restricted. The horizon distance is separate. `config/deepprimal-performance.toml` exposes `memoryDistanceGuard`, `boundChunkSaves` and `maxConcurrentChunkWrites` (default 16 per dimension). Bulk saves can take longer while write backpressure keeps snapshots bounded.
 
 The standard package now includes the experimental Vulkan adapter. Select it under **Performance → Graphics API**, Apply, and restart. OpenGL remains the default. Use one graphics replacement at a time; Deep Primal yields when an external renderer is installed. See [Vulkan details](VULKAN-BACKPORT.md) and [alpha 9 validation](VALIDATION-0.0.1-alpha.9.md).
+
+Alpha 10 keeps Vulkan, graphics settings and common performance in separate nested modules. See [module builds](MODULES.md), [Vulkan capabilities](VULKAN-CAPABILITIES.md), and [current validation](VALIDATION-0.0.1-alpha.10.md). The default remains OpenGL.

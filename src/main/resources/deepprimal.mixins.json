@@ -4,13 +4,6 @@
   "package": "com.shnewbs.deepprimal.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "ChunkMapMixin",
-    "ChunkSaveBudgetMixin",
-    "ChunkTaskPriorityQueueMixin",
-    "DistanceManagerMixin",
-    "PlayerListMixin",
-    "PlayerChunkSenderMixin",
-    "MobIdleMixin",
     "ServerLevelMetricsAccessor"
   ],
   "client": [
@@ -22,17 +15,10 @@
     "client.GraphStorageMixin",
     "client.FogRendererMixin",
     "client.CameraMixin",
-    "client.LevelRendererAccessor",
-    "client.ChunkRebuildMixin",
-    "client.MemoryDistanceMixin",
-    "client.IntegratedMemoryMixin",
-    "client.FrameLimitMixin",
-    "client.EntityDistanceMixin",
-    "client.BlockEntityDistanceMixin",
-    "client.ParticleAdmissionMixin"
+    "client.LevelRendererAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "com.shnewbs.deepprimal.render.RendererMixinPlugin"
+  "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin"
 }

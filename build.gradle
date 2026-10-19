@@ -12,6 +12,10 @@ sourceSets {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
     }
+    moduleValidation {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
     visualValidation {
         compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
         runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
@@ -23,6 +27,7 @@ neoForge {
     runs {
         client {
             client()
+            gameDirectory = project.file(findProperty('clientRunDir') ?: 'run')
             if (project.hasProperty('visualValidation') && (project.hasProperty('captureServer') || project.hasProperty('captureWorld'))) {
                 gameDirectory = project.file(findProperty('clientRunDir') ?: 'run-visual')
                 if (project.hasProperty('captureServer')) programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
@@ -45,7 +50,9 @@ neoForge {
         }
     }
     mods {
-        deepprimal {
+        if (project.hasProperty("moduleOnlyValidation")) {
+            deepprimal_validation { sourceSet(sourceSets.moduleValidation) }
+        } else deepprimal {
             sourceSet(sourceSets.main)
             if (project.hasProperty('visualValidation')) sourceSet(sourceSets.visualValidation)
         }
@@ -61,7 +68,7 @@ tasks.named('jar') {
 tasks.named('wrapper') { gradleVersion = '9.2.1'; distributionType = Wrapper.DistributionType.BIN }
 
 tasks.register('verifyCoreBoundary') {
-    inputs.files(fileTree('src/main/java/com/shnewbs/deepprimal/core'))
+    inputs.files(fileTree('engine-core/src/main/java'))
     doLast {
         inputs.files.each { f ->
             if (f.text.contains('net.minecraft') || f.text.contains('net.neoforged'))
@@ -94,15 +101,59 @@ processResources {
     filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
 }
 
+ext.minecraftClasspath = configurations.compileClasspath.copyRecursive().files.toList()
+def modules = [':engine-core', ':performance-engine', ':graphics-settings']
+if (findProject(':renderer-vulkan') != null) modules.add(':renderer-vulkan')
+modules.each { path ->
+ evaluationDependsOn(path)
+ dependencies { implementation(project(path)); jarJar(project(path)) }
+}
+dependencies { coreChecksImplementation(project(':engine-core')) }
+neoForge.mods {
+ deepprimal_performance { sourceSet(project(':performance-engine').sourceSets.main) }
+ deepprimal_graphics { sourceSet(project(':graphics-settings').sourceSets.main) }
+}
 if (findProject(':renderer-vulkan') != null) {
-    ext.vulkanMinecraftClasspath = sourceSets.main.compileClasspath.files.toList()
-    evaluationDependsOn(':renderer-vulkan')
-    dependencies { jarJar(project(':renderer-vulkan')) }
-    neoForge.mods {
-        deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) }
+ neoForge.mods { deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) } }
+ neoForge.runs.client {
+  if (project.hasProperty('graphicsBackend')) systemProperty 'deepprimal.graphicsBackend', project.property('graphicsBackend')
+  if (project.hasProperty('vulkanRetry')) systemProperty 'deepprimal.vulkan.retry', 'true'
+  if (project.hasProperty('vulkanValidation')) systemProperty 'deepprimal.vulkan.validation', 'true'
+  if (project.hasProperty('vulkanDebug')) systemProperty 'deepprimal.vulkan.debug', 'true'
+ }
+}
+
+// Architectural checks are source based, so an accidental cross-module import fails the build.
+tasks.register('verifyModuleBoundaries') {
+    def roots = ['engine-core', 'performance-engine', 'graphics-settings', 'renderer-vulkan']
+    inputs.files(roots.collect { fileTree(it + '/src/main/java') })
+    doLast {
+        roots.each { module ->
+            fileTree(module + '/src/main/java').matching { include '**/*.java' }.each { file ->
+                def text = file.text
+                def allowed = module == 'engine-core' ? ['core'] : module == 'performance-engine' ? ['performance','core'] : ['settings','core']
+                (text =~ /com\.shnewbs\.deepprimal\.([a-zA-Z]+)\./).each { match ->
+                    if (!(match[1] in allowed)) throw new GradleException("Cross-module import in $file: ${match[0]}")
+                }
+                if (module != 'renderer-vulkan' && (text =~ /net\.vulkanmod\./).find())
+                    throw new GradleException("Vulkan implementation dependency in $file")
+                if (module == 'engine-core' && (text.contains('org.lwjgl') || text.contains('net.minecraft') || text.contains('net.neoforged')))
+                    throw new GradleException("Platform dependency in $file")
+            }
+        }
     }
-    neoForge.runs.client {
-        if (project.hasProperty('graphicsBackend')) systemProperty 'deepprimal.graphicsBackend', project.property('graphicsBackend')
-        if (project.hasProperty('vulkanRetry')) systemProperty 'deepprimal.vulkan.retry', 'true'
+}
+tasks.named('check') { dependsOn 'verifyModuleBoundaries' }
+if (findProject(':renderer-vulkan') != null) {
+    sourceSets { cacheChecks {
+        compileClasspath += project(':renderer-vulkan').sourceSets.main.output
+        runtimeClasspath += project(':renderer-vulkan').sourceSets.main.output
+    } }
+    tasks.register('cacheChecks', JavaExec) {
+        dependsOn cacheChecksClasses, ':renderer-vulkan:classes'
+        classpath = sourceSets.cacheChecks.runtimeClasspath
+        mainClass = 'com.shnewbs.deepprimal.validation.CacheChecks'
+        javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
     }
+    tasks.named('check') { dependsOn 'cacheChecks' }
 }

@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+[[mods]]
+modId="deepprimal_performance"
+version="${mod_version}"
+displayName="Deep Primal Performance"
+[[dependencies.deepprimal_performance]]
+modId="minecraft"
+type="required"
+versionRange="[26.1.2]"
+side="BOTH"
+[[dependencies.deepprimal_performance]]
+modId="neoforge"
+type="required"
+versionRange="[26.1.2.122,26.1.3)"
+side="BOTH"
+[[mixins]]
+config="deepprimal-performance.mixins.json"

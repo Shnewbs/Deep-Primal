@@ -111,7 +111,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 See [renderer and diagnostics guide](docs/RENDERER-AND-DIAGNOSTICS.md). The current horizon is an approximate height field, not a complete voxel or saved-world LOD representation. It deliberately does not request full chunk generation.
 
-**Owner-requested Vulkan investigation:** API compatibility has been assessed for retaining 26.1.2/NeoForge. Vulkan is not implemented in the current JAR. The next renderer milestone is an isolated device/presentation/shader adapter prototype with OpenGL fallback, followed by real GPU profiling and compatibility validation. See [Vulkan backport investigation](docs/VULKAN-BACKPORT.md). This remains separate from LOD and world-height feasibility.
+**Vulkan implementation:** alpha 9 introduced the experimental device/presentation/shader adapter with OpenGL recovery; alpha 10 separates Vulkan, graphics settings, common performance and core modules, and adds persistent caches, descriptor reuse, synchronization and resource-lifetime fixes. See [capability audit](docs/VULKAN-CAPABILITIES.md) and [module boundaries](docs/MODULES.md). Hardware performance certification, replacement near-block meshing and advanced GPU-driven rendering remain open, separately from LOD and world-height feasibility.
 
 ### M3 — Shared simulation, adapters, and primitive survival
 
