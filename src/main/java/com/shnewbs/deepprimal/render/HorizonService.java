@@ -1,10 +1,14 @@
 package com.shnewbs.deepprimal.render;
 
+import com.shnewbs.deepprimal.core.ByteLru;
 import com.shnewbs.deepprimal.core.FarTerrain;
+import com.shnewbs.deepprimal.core.HorizonGeometry;
+import com.shnewbs.deepprimal.core.WorkBudget;
 import com.shnewbs.deepprimal.render.network.HorizonRequest;
 import com.shnewbs.deepprimal.render.network.HorizonTile;
 import com.shnewbs.deepprimal.worldgen.ColumnSurface;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -16,32 +20,53 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
-/** Server-thread density sampling with a global time/work budget. Never requests a chunk. */
+/** Cooperative server-thread sampling; no chunk tickets and no unsafe worker access to density state. */
 public final class HorizonService {
     private static final ArrayDeque<Job> JOBS = new ArrayDeque<>();
     private static final Map<UUID, Long> LAST = new HashMap<>();
     private static final Map<net.minecraft.resources.Identifier, java.util.Optional<DensityFunction>> SOURCES = new HashMap<>();
-    private static final com.shnewbs.deepprimal.core.BoundedLru<TileKey, TileData> CACHE = new com.shnewbs.deepprimal.core.BoundedLru<>(512);
-    public static long samples, completed;
+    private static final ByteLru<TileKey, TileData> CACHE = new ByteLru<>(8 * 1048576L, 512, t -> t.heights.length * 6L);
+    private static final WorkBudget BUDGET = new WorkBudget();
+    private static long tickStart;
+    public static long samples, completed, sharedRequests, sentBytes, samplingNanos, cancelled;
     public static int cachedTiles() { return CACHE.size(); }
     public static long cacheHits() { return CACHE.hits(); }
+    public static long cacheBytes() { return CACHE.bytes(); }
+    public static double workFraction() { return BUDGET.fraction(); }
     public static void register(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("1").optional();
+        // Different sample counts require a new optional channel version; old peers decline safely.
+        var registrar = event.registrar("2").optional();
         registrar.playToServer(HorizonRequest.TYPE, HorizonRequest.CODEC, (p, c) -> request(p, (ServerPlayer)c.player()));
         registrar.playToClient(HorizonTile.TYPE, HorizonTile.CODEC);
     }
+    private static boolean relevant(Waiter w) {
+        return !w.player.hasDisconnected() && w.player.level().dimension().identifier().equals(w.request.dimension())
+            && FarTerrain.inRange(w.request.x(), w.request.z(), w.player.getX(), w.player.getZ(), FarTerrain.MAX_DISTANCE);
+    }
+    private static void send(Waiter w, TileData data) {
+        if (!relevant(w)) return;
+        var p = w.request;
+        PacketDistributor.sendToPlayer(w.player, new HorizonTile(p.session(), p.dimension(), p.x(), p.z(), p.detail(), true, data.heights, data.colors));
+        sentBytes += data.heights.length * 6L;
+    }
     private static void request(HorizonRequest p, ServerPlayer player) {
         var level = player.level(); long now = level.getGameTime();
-        if (!level.dimension().identifier().equals(p.dimension()) || Math.abs((long)p.x()) > 58000 || Math.abs((long)p.z()) > 58000
+        if (p.detail() < 0 || p.detail() > 2 || !level.dimension().identifier().equals(p.dimension())
+            || Math.abs((long)p.x()) > 58000 || Math.abs((long)p.z()) > 58000
             || !FarTerrain.inRange(p.x(), p.z(), player.getX(), player.getZ(), FarTerrain.MAX_DISTANCE)
-            || JOBS.size() >= 32 || now - LAST.getOrDefault(player.getUUID(), now - 4) < 4
-            || JOBS.stream().anyMatch(j -> j.player == player)) return;
+            || now - LAST.getOrDefault(player.getUUID(), now - 4) < 4) return;
+        // One waiter per player, even when several players share a job.
+        if (JOBS.stream().anyMatch(j -> j.waiters.stream().anyMatch(w -> w.player == player))) return;
         LAST.put(player.getUUID(), now);
-        TileKey key = new TileKey(p.dimension(), p.x(), p.z());
+        TileKey key = new TileKey(p.dimension(), p.x(), p.z(), p.detail());
+        Waiter waiter = new Waiter(player, p);
         TileData cached = CACHE.get(key);
-        if (cached != null) {
-            PacketDistributor.sendToPlayer(player, new HorizonTile(p.session(), p.dimension(), p.x(), p.z(), true, cached.heights, cached.colors)); return;
+        if (cached != null) { send(waiter, cached); return; }
+        for (Job job : JOBS) if (job.key.equals(key)) {
+            if (job.waiters.size() < 32) { job.waiters.add(waiter); sharedRequests++; }
+            return;
         }
+        if (JOBS.size() >= 32) return;
         var source = SOURCES.computeIfAbsent(p.dimension(), dimension -> {
             ColumnSurface[] found = new ColumnSurface[1];
             level.getChunkSource().randomState().router().preliminarySurfaceLevel()
@@ -49,42 +74,51 @@ public final class HorizonService {
             return found[0] == null ? java.util.Optional.empty() : java.util.Optional.of(found[0].height());
         });
         if (source.isEmpty()) {
-            PacketDistributor.sendToPlayer(player, new HorizonTile(p.session(), p.dimension(), p.x(), p.z(), false, new short[0], new int[0])); return;
+            PacketDistributor.sendToPlayer(player, new HorizonTile(p.session(), p.dimension(), p.x(), p.z(), p.detail(), false, new short[0], new int[0])); return;
         }
-        JOBS.add(new Job(player, p, source.get()));
+        JOBS.add(new Job(key, waiter, source.get(), level.getMinY(), level.getMaxY(), level.getSeaLevel()));
     }
+    @SubscribeEvent public void pre(ServerTickEvent.Pre event) { tickStart = System.nanoTime(); }
     @SubscribeEvent public void tick(ServerTickEvent.Post event) {
-        long end = System.nanoTime() + 1_000_000; int work = 0;
+        long start = System.nanoTime(); var runtime = Runtime.getRuntime();
+        BUDGET.observe((start - tickStart) / 1e6, 45, (double)(runtime.totalMemory() - runtime.freeMemory()) / runtime.maxMemory());
+        long end = start + (long)(1_000_000 * BUDGET.fraction()); int work = 0;
         while (!JOBS.isEmpty() && work < 64 && System.nanoTime() < end) {
-            Job job = JOBS.peek();
-            if (job.player.hasDisconnected() || !job.player.level().dimension().identifier().equals(job.request.dimension())) { JOBS.remove(); continue; }
-            int i = job.next++, x = job.request.x() * FarTerrain.TILE_BLOCKS + i % 9 * FarTerrain.STEP;
-            int z = job.request.z() * FarTerrain.TILE_BLOCKS + i / 9 * FarTerrain.STEP;
-            double raw = job.height.compute(new DensityFunction.SinglePointContext(x, 0, z));
-            int h = (int)Math.clamp(Math.floor(raw), job.player.level().getMinY() + 8, job.player.level().getMaxY() - 16);
-            job.heights[i] = (short)Math.max(job.player.level().getSeaLevel(), h);
-            job.colors[i] = h < 96 ? 0xff355d80 : h < 100 ? 0xffb9af80 : h > 360 ? 0xffdee2e1 : h > 224 ? 0xff747c6b : 0xff66824b;
+            Job job = JOBS.removeFirst();
+            job.waiters.removeIf(w -> !relevant(w));
+            if (job.waiters.isEmpty() || start - job.created > 30_000_000_000L) { cancelled++; continue; }
+            int cells = HorizonGeometry.cells(job.key.detail), width = cells + 1, step = FarTerrain.TILE_BLOCKS / cells;
+            int i = job.next++, x = job.key.x * FarTerrain.TILE_BLOCKS + i % width * step;
+            int z = job.key.z * FarTerrain.TILE_BLOCKS + i / width * step;
+            int h = (int)Math.clamp(Math.floor(job.height.compute(new DensityFunction.SinglePointContext(x, 0, z))), job.minY + 8, job.maxY - 16);
+            job.heights[i] = (short)Math.max(job.seaLevel, h);
+            job.colors[i] = h < job.seaLevel ? 0xff355d80 : h < job.seaLevel + 4 ? 0xffb9af80 : h > 360 ? 0xffdee2e1 : h > 224 ? 0xff747c6b : 0xff66824b;
             work++; samples++;
-            if (job.next == FarTerrain.POINTS) {
-                JOBS.remove(); completed++;
-                var p = job.request;
-                CACHE.put(new TileKey(p.dimension(), p.x(), p.z()), new TileData(job.heights, job.colors));
-                PacketDistributor.sendToPlayer(job.player, new HorizonTile(p.session(), p.dimension(), p.x(), p.z(), true, job.heights, job.colors));
-            }
+            if (job.next == job.heights.length) {
+                completed++; var data = new TileData(job.heights, job.colors); CACHE.put(job.key, data);
+                job.waiters.forEach(w -> send(w, data));
+            } else JOBS.addLast(job); // Sample-level fairness under one global budget.
         }
-        // Offline entries do not accumulate across logins; active jobs own at most 32 player references.
+        samplingNanos += System.nanoTime() - start;
         if (event.getServer().getTickCount() % 200 == 0) LAST.keySet().removeIf(id -> event.getServer().getPlayerList().getPlayer(id) == null);
     }
     @SubscribeEvent public void reload(net.neoforged.neoforge.event.OnDatapackSyncEvent event) {
         if (event.getPlayer() == null) { JOBS.clear(); SOURCES.clear(); CACHE.clear(); }
     }
-    @SubscribeEvent public void stopped(ServerStoppedEvent event) { JOBS.clear(); LAST.clear(); SOURCES.clear(); CACHE.clear(); samples = completed = 0; }
-    private record TileKey(net.minecraft.resources.Identifier dimension, int x, int z) {}
+    @SubscribeEvent public void stopped(ServerStoppedEvent event) {
+        JOBS.clear(); LAST.clear(); SOURCES.clear(); CACHE.clear(); BUDGET.reset(); tickStart = 0;
+        samples = completed = sharedRequests = sentBytes = samplingNanos = cancelled = 0;
+    }
+    private record TileKey(net.minecraft.resources.Identifier dimension, int x, int z, int detail) {}
     private record TileData(short[] heights, int[] colors) {}
+    private record Waiter(ServerPlayer player, HorizonRequest request) {}
     public static int pending() { return JOBS.size(); }
     private static final class Job {
-        final ServerPlayer player; final HorizonRequest request; final DensityFunction height;
-        final short[] heights = new short[FarTerrain.POINTS]; final int[] colors = new int[FarTerrain.POINTS]; int next;
-        Job(ServerPlayer player, HorizonRequest request, DensityFunction height) { this.player = player; this.request = request; this.height = height; }
+        final TileKey key; final ArrayList<Waiter> waiters = new ArrayList<>(); final DensityFunction height;
+        final short[] heights; final int[] colors; final int minY, maxY, seaLevel; final long created = System.nanoTime(); int next;
+        Job(TileKey key, Waiter waiter, DensityFunction height, int min, int max, int sea) {
+            this.key = key; this.height = height; minY = min; maxY = max; seaLevel = sea; waiters.add(waiter);
+            heights = new short[HorizonGeometry.points(key.detail)]; colors = new int[heights.length];
+        }
     }
 }

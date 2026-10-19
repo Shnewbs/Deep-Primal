@@ -13,8 +13,9 @@ import net.neoforged.neoforge.client.event.RenderFrameEvent;
 /** Frame interval includes frame limiting and waits; it is not GPU render time. */
 public final class ClientTelemetry {
     private final TickWindow frames = new TickWindow(512);
-    private long previous, sampled;
+    private long previous, sampled, lastBuild, lastUpload, lastDraw, lastReceived;
     @SubscribeEvent public void frame(RenderFrameEvent.Post event) {
+        HorizonRenderer.INSTANCE.observeFrame(System.nanoTime());
         if (!LocalDashboard.running()) LocalDashboard.start();
         if (!LocalDashboard.running()) return;
         long now = System.nanoTime(); if (previous != 0) frames.record(now - previous); previous = now;
@@ -28,6 +29,17 @@ public final class ClientTelemetry {
         data.put("farDistance", RendererOwnership.owned() ? HorizonRenderer.farDistance() : 0);
         if (RendererOwnership.owned()) {
             var renderer = HorizonRenderer.INSTANCE;
+            data.put("horizonResidentBytes", renderer.residentBytes);
+            data.put("horizonWorkFraction", renderer.workFraction());
+            data.put("horizonTargetFps", ClientPerformanceConfig.TARGET_FPS.get());
+            data.put("horizonMemoryLimitBytes", ClientPerformanceConfig.HORIZON_MEMORY_MIB.get()*1048576L);
+            data.put("horizonBuildMsPerSample", (renderer.meshBuildNanos+renderer.meshPackNanos-lastBuild)/1e6); lastBuild=renderer.meshBuildNanos+renderer.meshPackNanos;
+            data.put("horizonUploadMsPerSample", (renderer.uploadNanos-lastUpload)/1e6); lastUpload=renderer.uploadNanos;
+            data.put("horizonDrawCpuMsPerSample", (renderer.drawCpuNanos-lastDraw)/1e6); lastDraw=renderer.drawCpuNanos;
+            data.put("horizonReceivedBytesPerSample", renderer.receivedBytes-lastReceived); lastReceived=renderer.receivedBytes;
+            data.put("horizonGpuTimingAvailable", renderer.gpuTimingAvailable()); data.put("horizonGpuMs", renderer.gpuMs());
+            data.put("horizonCulledTiles", renderer.culledTiles);
+            data.put("horizonFineVisible", renderer.visibleFine); data.put("horizonMediumVisible", renderer.visibleMedium); data.put("horizonCoarseVisible", renderer.visibleCoarse);
             data.put("horizonState", renderer.status); data.put("horizonCached", renderer.cachedTiles); data.put("horizonTarget", renderer.targetTiles); data.put("horizonVisible", renderer.visibleTiles);
             data.put("horizonTrianglesDrawn", renderer.drawnTriangles); data.put("horizonUploadedBytes", renderer.uploadedBytes);
         }

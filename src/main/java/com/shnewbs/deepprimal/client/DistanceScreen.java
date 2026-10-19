@@ -35,9 +35,11 @@ public final class DistanceScreen extends Screen {
             addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, b -> onClose()).bounds(width / 2 - 100, height / 2 + 30, 200, 20).build());
             return;
         }
+        String oldRender=renderInput==null?null:renderInput.getValue(), oldSimulation=simulationInput==null?null:simulationInput.getValue();
+        String oldVertical=verticalInput==null?null:verticalInput.getValue(), oldFar=farInput==null?null:farInput.getValue();
         panelWidth = Math.min(350, width - 32);
         left = (width - panelWidth) / 2; top = Math.max(28, (height - 210) / 2);
-        fastRelocation = ClientPerformanceConfig.FAST_VIEW_RELOCATION.get();
+        if (oldRender==null) fastRelocation = ClientPerformanceConfig.FAST_VIEW_RELOCATION.get();
         renderInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top, 58, 20,
             Component.translatable("options.renderDistance")));
         simulationInput = addRenderableWidget(new EditBox(font, left + panelWidth - 58, top + 24, 58, 20,
@@ -50,10 +52,10 @@ public final class DistanceScreen extends Screen {
             input.setMaxLength(3);
             input.setFilter(text -> text.chars().allMatch(c -> c >= '0' && c <= '9'));
         }
-        renderInput.setValue(Integer.toString(minecraft.options.renderDistance().get()));
-        simulationInput.setValue(Integer.toString(minecraft.options.simulationDistance().get()));
-        verticalInput.setValue(Integer.toString(ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()));
-        farInput.setValue(Integer.toString(ClientPerformanceConfig.FAR_RENDER_DISTANCE.get()));
+        renderInput.setValue(oldRender==null?Integer.toString(minecraft.options.renderDistance().get()):oldRender);
+        simulationInput.setValue(oldSimulation==null?Integer.toString(minecraft.options.simulationDistance().get()):oldSimulation);
+        verticalInput.setValue(oldVertical==null?Integer.toString(ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()):oldVertical);
+        farInput.setValue(oldFar==null?Integer.toString(ClientPerformanceConfig.FAR_RENDER_DISTANCE.get()):oldFar);
         renderSlider = addRenderableWidget(new DistanceSlider(left, top, panelWidth - 68,
             "options.renderDistance", 2, DistancePolicy.MAX_RENDER, minecraft.options.renderDistance().get(), renderInput));
         simulationSlider = addRenderableWidget(new DistanceSlider(left, top + 24, panelWidth - 68,
@@ -74,12 +76,14 @@ public final class DistanceScreen extends Screen {
             .bounds(left, top + 182, panelWidth / 2 - 5, 20).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, button -> onClose())
             .bounds(left + panelWidth / 2 + 5, top + 182, panelWidth / 2 - 5, 20).build());
-        addDashboard(left, top + 158, panelWidth);
+        addRenderableWidget(Button.builder(Component.literal("Performance…"), b -> minecraft.setScreen(new HorizonSettingsScreen(this)))
+            .bounds(left, top+158, panelWidth/2-5,20).build());
+        addDashboard(left+panelWidth/2+5, top + 158, panelWidth/2-5);
         refresh();
     }
 
     private void addDashboard(int x, int y, int buttonWidth) {
-        Button button = addRenderableWidget(Button.builder(Component.literal("Local performance dashboard"), b ->
+        Button button = addRenderableWidget(Button.builder(Component.literal(buttonWidth < 200 ? "Local dashboard" : "Local performance dashboard"), b ->
             net.minecraft.util.Util.getPlatform().openUri(java.net.URI.create(com.shnewbs.deepprimal.diagnostics.LocalDashboard.url())))
             .bounds(x, y, buttonWidth, 20).build());
         button.active = com.shnewbs.deepprimal.diagnostics.LocalDashboard.running();

@@ -27,11 +27,12 @@ public abstract class FogRendererMixin {
             mc.level.getSectionsCount(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get());
         buffer.putFloat(offset + 40, scale);
         // Include std140 tail padding in the native constructor's buffer.flip().
-        buffer.putFloat(offset + 44, mc == null ? 0 : Math.max(16, mc.options.getEffectiveRenderDistance() * 16 - 48));
+        buffer.putFloat(offset + 44, mc == null ? 0 : com.shnewbs.deepprimal.client.render.HorizonRenderer.nearRadius());
         buffer.putFloat(offset + 48, mc == null || mc.level == null ? 65536 :
             ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() == 0 ? 65536 : ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() * 16);
-        buffer.putFloat(offset + 52, 0);
-        buffer.putFloat(offset + 56, 0); buffer.putFloat(offset + 60, 0);
+        var camera = mc == null || mc.gameRenderer == null ? net.minecraft.world.phys.Vec3.ZERO : mc.gameRenderer.getMainCamera().position();
+        buffer.putFloat(offset + 52, (float)(com.shnewbs.deepprimal.client.render.HorizonRenderer.nearCenter(camera.x)-camera.x));
+        buffer.putFloat(offset + 56, (float)(com.shnewbs.deepprimal.client.render.HorizonRenderer.nearCenter(camera.z)-camera.z)); buffer.putFloat(offset + 60, 0);
         if (com.shnewbs.deepprimal.client.render.HorizonRenderer.active()) {
             float far = Math.max(distanceEnd, com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance() * 16);
             buffer.putFloat(offset + 24, far * 0.75f); buffer.putFloat(offset + 28, far);

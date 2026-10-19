@@ -17,7 +17,7 @@ public final class ServerTelemetry {
     private long before, sampled;
     @SubscribeEvent public void started(ServerStartedEvent event) { ticks.clear(); sampled = System.nanoTime(); LocalDashboard.start(); }
     @SubscribeEvent public void pre(ServerTickEvent.Pre event) { before = System.nanoTime(); }
-    @SubscribeEvent public void post(ServerTickEvent.Post event) {
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST) public void post(ServerTickEvent.Post event) {
         if (!LocalDashboard.running()) return;
         long now = System.nanoTime(); ticks.record(now - before);
         if (event.getServer().getTickCount() % 20 != 0) return;
@@ -37,6 +37,9 @@ public final class ServerTelemetry {
         data.put("state", "Running"); data.put("sampleTime", System.currentTimeMillis()); data.put("tickMedianMs", stats.medianMs()); data.put("tickP95Ms", stats.p95Ms()); data.put("tickMaxMs", stats.maxMs());
         data.put("tps", Math.min(20, 20_000_000_000.0 / Math.max(1, now - sampled))); sampled = now;
         data.put("players", event.getServer().getPlayerCount()); data.put("trackingCapacity", DistanceRuntime.trackingCapacity()); data.put("worlds", java.util.List.copyOf(worlds));
+        data.put("horizonCacheBytes", HorizonService.cacheBytes()); data.put("horizonWorkFraction", HorizonService.workFraction());
+        data.put("horizonSharedRequests", HorizonService.sharedRequests); data.put("horizonSentBytes", HorizonService.sentBytes);
+        data.put("horizonSamplingNanos", HorizonService.samplingNanos); data.put("horizonCancelled", HorizonService.cancelled);
         data.put("horizonSamples", HorizonService.samples); data.put("horizonCompleted", HorizonService.completed); data.put("horizonQueued", HorizonService.pending()); data.put("horizonCached", HorizonService.cachedTiles()); data.put("horizonCacheHits", HorizonService.cacheHits());
         data.put("maxChunkSendBatch", RuntimeMetrics.MAX_SEND_BATCH.get()); data.put("viewColumnsScanned", RuntimeMetrics.VIEW_COLUMNS.sum());
         LocalDashboard.server(data);

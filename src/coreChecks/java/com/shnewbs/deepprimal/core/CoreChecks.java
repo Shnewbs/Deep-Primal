@@ -6,6 +6,7 @@ import java.util.Random;
 public final class CoreChecks {
     public static void main(String[] args) {
         RuntimeChecks.run();
+        HorizonChecks.run();
         check(RendererPolicy.ownsRenderer(java.util.Set.of("deepprimal", "lithium", "ferritecore")), "unrelated optimizers retain renderer");
         for (String id : RendererPolicy.REPLACEMENTS) check(!RendererPolicy.ownsRenderer(java.util.Set.of(id)), "replacement owns rendering: " + id);
         for (int x : new int[]{-58000, -1, 0, 1, 58000}) for (int z : new int[]{-58000, -1, 0, 1, 58000}) {
@@ -41,6 +42,17 @@ public final class CoreChecks {
                 check(low >= worldMin && low + count <= worldMin + worldSize, "window inside saved height");
             }
         }
+        WorkBudget budget = new WorkBudget();
+        for (int i = 0; i < 100; i++) budget.observe(50, 16.67, 0.5);
+        check(budget.fraction() == 0.125, "work backoff floor");
+        for (int i = 0; i < 59; i++) budget.observe(16, 16.67, 0.5);
+        check(budget.fraction() == 0.125, "recovery hysteresis");
+        budget.observe(16, 16.67, 0.5);
+        check(budget.fraction() > 0.125, "gradual recovery");
+        for (int i = 0; i < 10000; i++) budget.observe(16, 16.67, 0.5);
+        check(budget.fraction() == 1, "recovery ceiling");
+        budget.observe(1, 16.67, 0.9);
+        check(budget.fraction() < 1, "heap pressure backoff");
         Random random = new Random(20261018L);
         int checked = 0;
         for (int lower : new int[]{-384, -128}) {

@@ -15,6 +15,14 @@ public final class RendererClientChecks {
             if (renderer.cachedTiles < 12 || renderer.drawnTriangles <= 0 || renderer.visibleTiles <= 0)
                 throw new AssertionError("Horizon mesh not rendered: " + renderer.status + " cache=" + renderer.cachedTiles + " visible=" + renderer.visibleTiles + " triangles=" + renderer.drawnTriangles);
             if (mc.level.getChunkSource().getLoadedChunksCount() == 0) throw new AssertionError("Near chunks were not delivered");
+            if (renderer.residentBytes > com.shnewbs.deepprimal.client.ClientPerformanceConfig.HORIZON_MEMORY_MIB.get()*1048576L) throw new AssertionError("Vertex budget exceeded");
+            if (!renderer.gpuTimingAvailable()) throw new AssertionError("Expected supported OpenGL timestamp queries in this test");
+            var performance=new com.shnewbs.deepprimal.client.HorizonSettingsScreen(null); mc.setScreen(performance);
+            var fields=performance.children().stream().filter(net.minecraft.client.gui.components.EditBox.class::isInstance).map(net.minecraft.client.gui.components.EditBox.class::cast).toList();
+            var save=performance.children().stream().filter(net.minecraft.client.gui.components.Button.class::isInstance).map(net.minecraft.client.gui.components.Button.class::cast).filter(b->b.getMessage().getString().equals("Apply")).findFirst().orElseThrow();
+            fields.get(0).setValue("14"); if (save.active) throw new AssertionError("Invalid FPS accepted");
+            fields.get(0).setValue("60"); fields.get(1).setValue("0"); if (save.active) throw new AssertionError("Invalid memory accepted");
+            fields.get(1).setValue("32"); if (!save.active) throw new AssertionError("Valid performance controls rejected"); performance.onClose();
             mc.options.cloudStatus().set(net.minecraft.client.CloudStatus.OFF);
             var screen = new com.shnewbs.deepprimal.client.DistanceScreen(null); mc.setScreen(screen);
             var inputs = screen.children().stream().filter(net.minecraft.client.gui.components.EditBox.class::isInstance)

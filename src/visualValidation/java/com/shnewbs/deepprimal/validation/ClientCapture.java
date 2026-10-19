@@ -70,6 +70,9 @@ public final class ClientCapture {
             if (action.equals("renderer-checks")) {
                 RendererClientChecks.run(mc); Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8); return;
             }
+            if (action.equals("performance")) { mc.setScreen(new com.shnewbs.deepprimal.client.HorizonSettingsScreen(null)); pendingCapture=action; pendingAt=System.nanoTime(); return; }
+            if (action.startsWith("memory=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.HORIZON_MEMORY_MIB.set(Integer.parseInt(action.substring(7))); mc.setScreen(null); return; }
+            if (action.startsWith("adaptive=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.ADAPTIVE_WORK.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }
             if (action.startsWith("horizon=")) {
                 com.shnewbs.deepprimal.client.ClientPerformanceConfig.FAR_RENDER_DISTANCE.set(Integer.parseInt(action.substring(8)));
                 mc.setScreen(null); return;
