@@ -1,0 +1,50 @@
+package com.shnewbs.deepprimal.core;
+
+/** Stateless, continuous 2D land shaping. Water is filled by the platform's sea-level fluid picker. */
+public final class WaterwayShape {
+    private WaterwayShape() {}
+
+    private static double smooth(double value, double low, double high) {
+        double t = Math.clamp((value - low) / (high - low), 0.0, 1.0);
+        return t * t * (3.0 - 2.0 * t);
+    }
+
+    public static double coastWeight(double continents, double erosion) {
+        return smooth(continents, -0.26, -0.20)
+            * (1.0 - smooth(continents, -0.07, -0.02)) * smooth(erosion, -0.45, 0.25);
+    }
+
+    public static double riverWeight(double continents, double ridges) {
+        return lowland(continents) * (1.0 - smooth(Math.abs(ridges), 0.018, 0.22));
+    }
+
+    public static double streamWeight(double continents, double ridges, double tributaries) {
+        double offset = 0.28 * smooth(tributaries, -0.35, 0.45);
+        double distance = Math.abs(Math.abs(ridges) - offset);
+        return lowland(continents) * (1.0 - smooth(tributaries, 0.15, 0.55))
+            * (1.0 - smooth(distance, 0.004, 0.045));
+    }
+
+    private static double lowland(double continents) {
+        return 1.0 - smooth(continents, 0.18, 0.42);
+    }
+
+    public static double coastHeight(double original, double continents, double erosion, int seaLevel) {
+        double shelf = seaLevel + 3.0 + 150.0 * (continents + 0.15);
+        return original + coastWeight(continents, erosion) * (shelf - original);
+    }
+
+    public static double riverHeight(double coast, double continents, double ridges, double bed) {
+        return coast - riverWeight(continents, ridges) * Math.max(0.0, coast - bed);
+    }
+
+    public static double height(double original, double continents, double ridges, double erosion,
+                                double detail, double tributaries, int seaLevel) {
+        double coast = coastHeight(original, continents, erosion, seaLevel);
+        double bed = seaLevel - 7.0 + 1.5 * Math.clamp(detail, -1.0, 1.0);
+        double river = riverHeight(coast, continents, ridges, bed);
+        // Branches share the parent's bed. Neither channel raises the seabed or
+        // leaves a lip across its river mouth. Their shoulders fade continuously.
+        return river - streamWeight(continents, ridges, tributaries) * Math.max(0.0, river - bed);
+    }
+}

@@ -89,7 +89,7 @@ if (project.hasProperty('packagedValidation')) {
         dependsOn tasks.named('jar')
         doFirst {
             String paths = 'deepprimal%%' + tasks.named('jar').get().archiveFile.get().asFile.absolutePath
-            if (runName == 'runClient' && project.hasProperty('visualValidation'))
+            if (project.hasProperty('visualValidation'))
                 paths += File.pathSeparator + 'deepprimal%%' + sourceSets.visualValidation.output.classesDirs.singleFile.absolutePath
             environment 'MOD_CLASSES', paths
         }

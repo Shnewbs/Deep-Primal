@@ -12,12 +12,16 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 public final class WorldgenConfig {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.BooleanValue EXTRA_DEPTH;
+    public static final ModConfigSpec.BooleanValue RIVERS_AND_COASTS;
     static {
         var b = new ModConfigSpec.Builder();
         EXTRA_DEPTH = b.comment("Use Y=-384..639 (1024 blocks) for NEW Deep Primal worlds instead of -128..639 (768 blocks).",
             "Restart Minecraft/the server after changing this setting. Existing worlds retain their saved height.",
             "Extra depth increases generation and memory costs; it does not raise the mountain ceiling.")
             .define("extraUndergroundDepth", false);
+        RIVERS_AND_COASTS = b.comment("Generate river valleys, narrow tributary streams and coastal beaches in NEW worlds.",
+            "Existing worlds retain their saved noise settings. Disable to use the legacy alpha 10 terrain profile.")
+            .define("riversAndCoasts", true);
         SPEC = b.build();
     }
 
@@ -26,6 +30,7 @@ public final class WorldgenConfig {
         // Both profiles remain registered for old saves. Only the normal new-world
         // preset is supplied by this required pack; no saved dimension is rewritten.
         String profile = EXTRA_DEPTH.get() ? "deep" : "standard";
+        if (RIVERS_AND_COASTS.get()) profile = "waterways_" + profile;
         event.addPackFinders(Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + profile),
             PackType.SERVER_DATA, Component.literal("Deep Primal world generation"), PackSource.BUILT_IN,
             true, Pack.Position.TOP);

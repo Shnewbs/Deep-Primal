@@ -5,6 +5,7 @@ import java.util.Random;
 /** Dependency-free differential checks for hot-path math and bounded memory behavior. */
 public final class CoreChecks {
     public static void main(String[] args) {
+        WaterwayChecks.run();
         RuntimeChecks.run();
         HorizonChecks.run();
         check(RendererPolicy.ownsRenderer(java.util.Set.of("deepprimal", "lithium", "ferritecore")), "unrelated optimizers retain renderer");
