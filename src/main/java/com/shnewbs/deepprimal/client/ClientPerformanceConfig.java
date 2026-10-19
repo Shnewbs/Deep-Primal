@@ -5,6 +5,8 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class ClientPerformanceConfig {
     public static final ModConfigSpec SPEC;
+    public static final ModConfigSpec.BooleanValue PACE_REBUILDS;
+    public static final ModConfigSpec.IntValue SYNC_REBUILDS, SYNC_REBUILD_MICROS;
     public static final ModConfigSpec.IntValue UPLOAD_LEVELS, UPLOAD_KIB, UPLOAD_MICROS;
     public static final ModConfigSpec.IntValue ENTITY_LIMIT, BLOCK_ENTITY_LIMIT, PARTICLE_LIMIT, PARTICLE_SPAWNS;
     public static final ModConfigSpec.IntValue UNFOCUSED_FPS, MINIMIZED_FPS;
@@ -16,6 +18,9 @@ public final class ClientPerformanceConfig {
     public static final ModConfigSpec.IntValue FAR_RENDER_DISTANCE;
     static {
         var builder = new ModConfigSpec.Builder();
+        PACE_REBUILDS = builder.comment("Defer excess synchronous nearby-section rebuilds to native workers. Player edits stay synchronous.").define("paceNativeRebuilds", true);
+        SYNC_REBUILDS = builder.comment("Synchronous section limit per frame; player edits bypass it.").defineInRange("synchronousSectionsPerFrame", 2, 1, 16);
+        SYNC_REBUILD_MICROS = builder.comment("Stop starting ordinary synchronous rebuilds after this CPU budget. One section cannot be preempted.").defineInRange("synchronousSectionMicros", 1500, 250, 8000);
         BATCHED_DRAWS = builder.comment("Submit indexed horizon draws through one shared pipeline setup; does not require GPU MultiDrawIndirect.").define("batchHorizonSubmission", true);
         UPLOAD_LEVELS = builder.comment("Maximum cached terrain detail levels uploaded per frame.").defineInRange("meshUploadsPerFrame", 2, 1, 8);
         UPLOAD_KIB = builder.comment("Terrain upload payload budget per frame in KiB; transition closure is separate.").defineInRange("meshUploadKiBPerFrame", 256, 128, 4096);

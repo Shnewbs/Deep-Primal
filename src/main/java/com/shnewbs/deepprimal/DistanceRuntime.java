@@ -14,7 +14,7 @@ public final class DistanceRuntime {
     @SubscribeEvent public void starting(ServerAboutToStartEvent event) {
         int requested = event.getServer().isSingleplayer() ? clientRequest : event.getServer().getPlayerList().getViewDistance();
         RuntimeMetrics.reset();
-        trackingCapacity = Math.max(32, DistancePolicy.clampRender(requested));
+        trackingCapacity = Math.max(32, MemorySafety.limit(DistancePolicy.clampRender(requested), 64));
         DeepPrimal.LOGGER.info("Render tracking capacity for this session: {} chunks", trackingCapacity);
     }
     @SubscribeEvent public void stopped(ServerStoppedEvent event) { trackingCapacity = 32; }

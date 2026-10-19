@@ -6,6 +6,7 @@ import net.minecraft.world.phys.AABB;
 /** Scalar counters, updated on the client thread. No per-object visibility cache. */
 public final class VisualPerformance {
     public static long entitiesSkipped, blockEntitiesSkipped, particlesSkipped;
+    public static long chunkSyncBuilds, chunkSyncNanos, chunkRebuildsDeferred, chunkPlayerBuilds;
     private static int admittedParticles;
     public static void newParticleTick() { admittedParticles = 0; }
     public static boolean admitParticle() {

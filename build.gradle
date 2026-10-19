@@ -29,6 +29,7 @@ neoForge {
                 if (project.hasProperty('captureWorld')) programArguments.addAll '--quickPlaySingleplayer', project.property('captureWorld')
                 systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
                 if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
+                if (project.hasProperty('acceptWorldWarning')) systemProperty 'deepprimal.validationAcceptWorldWarning', 'true'
                 if (project.hasProperty('terrainValidation')) systemProperty 'deepprimal.validationTerrain', 'true'
                 if (project.hasProperty('nativeRendererValidation')) systemProperty 'deepprimal.validationRenderer', 'true'
                 if (project.hasProperty('queueStartupValidation')) systemProperty 'deepprimal.validationQueueStartup', 'true'
@@ -91,4 +92,17 @@ if (project.hasProperty('packagedValidation')) {
 processResources {
     inputs.property 'mod_version', project.mod_version
     filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
+}
+
+if (findProject(':renderer-vulkan') != null) {
+    ext.vulkanMinecraftClasspath = sourceSets.main.compileClasspath.files.toList()
+    evaluationDependsOn(':renderer-vulkan')
+    dependencies { jarJar(project(':renderer-vulkan')) }
+    neoForge.mods {
+        deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) }
+    }
+    neoForge.runs.client {
+        if (project.hasProperty('graphicsBackend')) systemProperty 'deepprimal.graphicsBackend', project.property('graphicsBackend')
+        if (project.hasProperty('vulkanRetry')) systemProperty 'deepprimal.vulkan.retry', 'true'
+    }
 }

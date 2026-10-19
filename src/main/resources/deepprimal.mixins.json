@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "ChunkMapMixin",
+    "ChunkSaveBudgetMixin",
     "ChunkTaskPriorityQueueMixin",
     "DistanceManagerMixin",
     "PlayerListMixin",
@@ -22,6 +23,9 @@
     "client.FogRendererMixin",
     "client.CameraMixin",
     "client.LevelRendererAccessor",
+    "client.ChunkRebuildMixin",
+    "client.MemoryDistanceMixin",
+    "client.IntegratedMemoryMixin",
     "client.FrameLimitMixin",
     "client.EntityDistanceMixin",
     "client.BlockEntityDistanceMixin",

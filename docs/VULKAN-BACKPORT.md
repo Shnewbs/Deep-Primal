@@ -1,44 +1,30 @@
-# Vulkan backport investigation for 26.1.2
+# Vulkan adapter — alpha 9
 
-Status: compatibility investigation completed; a working Vulkan backend is not included in alpha 8. The current build renders with OpenGL. Deep Primal has an authored horizon renderer using the platform GPU API and automatic compatibility handoff. It does not implement a Vulkan device backend. The distance screen displays the backend actually in use.
+The standard JAR contains an optional NeoForge graphics backend adapted from **VulkanMod 0.6.8+26.1.2**. OpenGL is the default. Open **Video Settings → Deep Primal distances → Performance → Graphics API**, select Vulkan, Apply, and restart Minecraft. The screen reports the active API separately from the next-launch preference.
 
-The owner requested investigation of the newer Vulkan features while retaining Minecraft 26.1.2 and NeoForge. Official experimental Vulkan support arrived in **26.2**. Later 26.3/26.4 changes build on that renderer. This is a separate client-renderer project; server simulation range and world generation need CPU work of their own.
+This is a Vulkan device/backend implementation, not an OpenGL translation flag. It uses Vulkan command buffers, buffers/images, shaderc compilation to SPIR-V, descriptors, graphics pipelines, frame fences, timestamps and a GLFW surface/swapchain. Minecraft retains its native chunk mesher, section workers, render passes and gameplay simulation. Deep Primal's horizon uses the same device abstraction. Fabric Loader/API and VulkanMod's custom terrain mesher are not bundled.
 
-## Verified evidence
+## Origin and license
 
-- [Official 26.2 release notes](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-2) describe experimental Vulkan, OpenGL fallback, shader/hardware requirements, and startup recovery. Vulkan can be slower or less stable on some systems. Its stated initial requirement is Vulkan 1.2 plus dynamic rendering and push descriptors; macOS uses MoltenVK.
-- [Official 26.3 notes](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3) introduce SDL3 window/input integration, MultiDrawIndirect terrain rendering on supported devices, and order-independent transparency. These are substantial rendering changes.
-- [26.4 Snapshot 1 notes](https://www.minecraft.net/en-us/article/minecraft-26-4-snapshot-1) describe a different OIT accumulation algorithm, with modest gains on some devices. That pipeline does not exist in this 26.1.2 build.
-- Official 26.2/26.3 client JARs were downloaded through Mojang's version manifest and checked against its SHA-1 digests for local inspection. No game classes, shaders, native libraries, or game JARs are distributed in this repository or mod.
-- Public API inspection finds **69 Vulkan class entries in 26.2** and **60 in 26.3**, plus incompatible device APIs. The retained [API audit](validation/0.0.1-alpha.3/renderer-api-audit.json) records the inspected JAR hashes and method differences.
+The matching published [VulkanMod version](https://modrinth.com/mod/vulkanmod/version/0.6.8%2B26.1.2) is Fabric-only. Its newer device interfaces match Minecraft 26.1.2; the public default development branch inspected during this work targeted 1.21.11. An older NeoForge fork targeted 1.21.1 and was not used as a compatible binary dependency.
 
-In the inspected 26.1.2 API, presentation and vsync belong to `GpuDeviceBackend`, and textures use `TextureFormat`. In 26.2, presentation is separated into `GpuSurfaceBackend`, texture signatures use `GpuFormat`, and device information/query APIs differ. In 26.3 the API has moved to `com.mojang.renderpearl`, with asynchronous pipeline compilation. Later client dependencies include Vulkan bindings, ShaderC natives and SDL3. These observations mean that loading the newer backend classes into the old renderer directly is not binary-compatible.
+The matching LGPL source was reconstructed from the published artifact using Vineflower 1.11.2 with the Minecraft 26.1.2 classpath, then adapted here. Artifact origin, version, hash and reconstruction details are pinned in [UPSTREAM.json](../renderer-vulkan/UPSTREAM.json). The adapter is separately licensed **LGPL-3.0-only**; its license, GPL text and origin notice are included in its JAR. LWJGL dependencies retain their notices. Minecraft game classes and Fabric modules are not repackaged.
 
-`VulkanMod` demonstrates an independent renderer implementation, but its [official installation instructions](https://github.com/xCollateral/VulkanMod) target Fabric. It is not a drop-in NeoForge dependency. No VulkanMod code has been incorporated.
+Commercial games in the Vulkan ecosystem are architectural references, not sources of reusable engine code. This implementation derives from the licensed VulkanMod backend and authored integration changes.
 
-## Required implementation work
+## Adaptations
 
-The following is an engineering assessment from the API differences, not a claim of an implemented backport:
+- Select the Vulkan backend before window/device construction. Close NeoForge's early OpenGL loading renderer before replacing its window; use opaque handles across FML's GLFW/Vulkan class-loader boundary. During a failed-device retry, release the failed window while retaining GLFW for the next OpenGL window.
+- Retain the native MainTarget and present it through a Vulkan image blit. Correct sprite-atlas projection and screenshot orientation for the different image origin.
+- Implement native buffer copies, texture copies/readback, per-draw base vertices and uniforms, bufferless drawing, texel-buffer descriptors, device timestamp queries and generation-aware frame fences.
+- Support NeoForge depth/stencil formats and stencil state. Retire views, framebuffer wrappers and image resources without having framebuffer wrappers own their attached textures.
+- Cache pipeline variants by compatible attachment formats rather than framebuffer identity. Cache their hashes without per-draw boxing. Rebuild shader/pipeline caches safely during resource reloads.
+- Store metadata outside Minecraft pipeline objects. No global OpenGL-call emulation mixins or native vertex-format overwrite are installed.
 
-1. Choose a maintainable backend boundary for 26.1.2/NeoForge. Assess adapting the nearer 26.2 API before the more extensively changed 26.3 API.
-2. Implement device, buffer, texture, command-encoder, pipeline and presentation adapters, with correct ownership, synchronization and resource disposal.
-3. Adapt shader compilation and resource-pack inputs; validate uniform layouts, texture binding, render targets, depth/stencil and transparency behavior.
-4. Integrate window creation, resizing, swapchain recreation, fullscreen, vsync and minimized-window behavior with NeoForge's loading display and client hooks.
-5. Add explicit experimental selection, device-capability detection, a working OpenGL fallback, and startup-crash recovery. A setting becomes available only when a functioning backend exists.
-6. Test Windows/Linux/macOS and representative AMD/Intel/NVIDIA hardware; verify GUI, terrain, fluids, entities, block entities, screenshots, resource reloads and mod rendering hooks. Profile frame times, CPU submission, GPU work, VRAM and stability against OpenGL.
+The preference is `backend=Vulkan` or `backend=OpenGL` in `config/deepprimal-renderer.properties`. A startup marker keeps an incomplete Vulkan startup from repeating on the next launch. Applying a new graphics preference clears that marker. Backend creation failures attempt OpenGL immediately. Known competing renderer mods disable this adapter; Deep Primal's existing renderer handoff remains active.
 
-The Vulkan work is tracked separately from the alpha 3 distance/CPU optimizations. This investigation establishes the compatibility gap and next implementation boundary; it does not establish a working or faster Vulkan port. Unbounded rendering would additionally require a different terrain representation or streaming architecture. A graphics API cannot make infinite full-detail terrain or full simulation finite in cost.
+## Build and limits
 
-## Reproduce the API inspection
+Build with `./gradlew build` (Java 25). The adapter is a separate nested JAR with its required LWJGL Vulkan, shaderc and VMA bindings/natives. `./gradlew build -PwithoutVulkan` omits it for a small core-only package. For development runs, `-PgraphicsBackend=Vulkan` selects Vulkan explicitly; ordinary installed clients use their saved preference.
 
-With Java 25 and legitimately obtained local client JARs:
-
-```sh
-python3 tools/renderer_audit.py BASELINE_26_1_2.jar CLIENT_26_2.jar CLIENT_26_3.jar --javap PATH_TO_JAVAP
-```
-
-The tool prints interface signatures, Vulkan class counts and file hashes. It does not modify the JARs or copy their implementations into the mod.
-
-## Alpha 8 availability probe
-
-`python3 tools/vulkan_probe.py` checks a Vulkan 1.2 instance only. The local loader exists, but instance creation returned `VK_ERROR_INCOMPATIBLE_DRIVER` (-9); [the retained result](validation/0.0.1-alpha.8/vulkan-instance-probe.json) has `rendererValidated: false`. The full backend remains unimplemented. The probe is development tooling and adds no runtime/native dependencies to the production mod. See the [cross-project audit](PERFORMANCE-AUDIT-2026-10-18.md) for Mojang, CurseForge and Hytale comparisons.
+The current backend requires Vulkan 1.2 and the swapchain/dynamic-rendering features it uses. Unsupported initialization falls back to OpenGL. Linux x64 software-driver validation is documented in [the alpha 9 report](VALIDATION-0.0.1-alpha.9.md). Bundled Windows/macOS natives do not establish hardware certification. AMD/Windows performance, shader packs, arbitrary direct-OpenGL mods and broad modpack compatibility remain unverified. Vulkan is experimental; it is not a claim of universal FPS gains or a complete Sodium/OptiFine/Lithium replacement.

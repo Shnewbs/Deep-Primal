@@ -1,0 +1,39 @@
+plugins { id 'java-library' }
+group = 'com.shnewbs.deepprimal'
+version = rootProject.mod_version
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+base.archivesName = 'DeepPrimal-Vulkan'
+repositories { mavenCentral() }
+configurations { bundled { transitive = false }; compileOnly.extendsFrom(bundled) }
+dependencies {
+    compileOnly files(rootProject.vulkanMinecraftClasspath)
+    bundled 'org.lwjgl:lwjgl-vulkan:3.4.1'
+    bundled 'org.lwjgl:lwjgl-shaderc:3.4.1'
+    bundled 'org.lwjgl:lwjgl-vma:3.4.1'
+    for (module in ['lwjgl-shaderc', 'lwjgl-vma']) {
+        for (platform in ['linux', 'windows', 'macos', 'macos-arm64']) {
+            bundled "org.lwjgl:${module}:3.4.1:natives-${platform}"
+        }
+    }
+    bundled 'org.lwjgl:lwjgl-vulkan:3.4.1:natives-macos'
+    bundled 'org.lwjgl:lwjgl-vulkan:3.4.1:natives-macos-arm64'
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+processResources {
+    inputs.property 'mod_version', rootProject.mod_version
+    filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: rootProject.mod_version) }
+}
+tasks.named('jar') {
+    from({ configurations.bundled.collect { zipTree(it) } }) {
+        exclude 'META-INF/MANIFEST.MF', 'META-INF/versions/**', 'module-info.class', 'META-INF/INDEX.LIST'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from('LICENSE') { into 'META-INF/licenses/vulkanmod' }
+    from('COPYING') { into 'META-INF/licenses/vulkanmod' }
+    from('UPSTREAM.json') { into 'META-INF/licenses/vulkanmod' }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+tasks.named('compileJava') { dependsOn rootProject.tasks.named('createMinecraftArtifacts') }

@@ -32,11 +32,16 @@ public final class HorizonSettingsScreen extends Screen {
     private static final List<Control> BACKGROUND = List.of(
         new Control("Unfocused FPS", ClientPerformanceConfig.UNFOCUSED_FPS, 0, 120, "0 = native. Never raises an existing lower cap. Yields to Dynamic FPS."),
         new Control("Minimized FPS", ClientPerformanceConfig.MINIMIZED_FPS, 0, 60, "0 = native. Limits client rendering, never server simulation."));
-    private static final String[] PAGES = {"Terrain work", "Scene quality", "Background", "Profiles"};
+    private static final List<Control> REBUILDS = List.of(
+        new Control("Sync sections / frame", ClientPerformanceConfig.SYNC_REBUILDS, 1, 16, "Ordinary nearby builds beyond this limit use native workers. Player edits stay immediate."),
+        new Control("Sync CPU budget (us)", ClientPerformanceConfig.SYNC_REBUILD_MICROS, 250, 8000, "Checked between native section builds. One build cannot be preempted."));
+    private static final String[] PAGES = {"Terrain work", "Scene quality", "Background", "Profiles", "Chunk rebuilds", "Graphics API"};
     private final Screen parent;
     private final Map<IntValue, String> values = new LinkedHashMap<>();
     private final Map<Control, EditBox> fields = new LinkedHashMap<>();
-    private boolean adaptive, pauseBackground, shadows, batched, staged;
+    private boolean vulkan, backendTouched;
+    private String backendError;
+    private boolean adaptive, pauseBackground, shadows, batched, staged, paceRebuilds;
     private CloudStatus clouds;
     private ParticleStatus particles;
     private int page, left, top, panelWidth;
@@ -44,16 +49,17 @@ public final class HorizonSettingsScreen extends Screen {
 
     public HorizonSettingsScreen(Screen parent) { super(Component.literal("Deep Primal performance")); this.parent = parent; }
     private static List<Control> allControls() {
-        return java.util.stream.Stream.of(HORIZON, SCENE, BACKGROUND).flatMap(List::stream).toList();
+        return java.util.stream.Stream.of(HORIZON, SCENE, BACKGROUND, REBUILDS).flatMap(List::stream).toList();
     }
-    private List<Control> controls() { return page == 0 ? HORIZON : page == 1 ? SCENE : page == 2 ? BACKGROUND : List.of(); }
+    private List<Control> controls() { return page == 0 ? HORIZON : page == 1 ? SCENE : page == 2 ? BACKGROUND : page == 4 ? REBUILDS : List.of(); }
 
     @Override protected void init() {
         if (!staged) {
             for (Control c : allControls()) values.put(c.value, Integer.toString(c.value.get()));
             adaptive = ClientPerformanceConfig.ADAPTIVE_WORK.get(); batched = ClientPerformanceConfig.BATCHED_DRAWS.get();
-            pauseBackground = ClientPerformanceConfig.PAUSE_BACKGROUND.get();
+            pauseBackground = ClientPerformanceConfig.PAUSE_BACKGROUND.get(); paceRebuilds = ClientPerformanceConfig.PACE_REBUILDS.get();
             shadows = minecraft.options.entityShadows().get(); clouds = minecraft.options.cloudStatus().get(); particles = minecraft.options.particles().get();
+            vulkan = GraphicsBackendPreference.vulkan();
             staged = true;
         }
         fields.clear();
@@ -68,7 +74,7 @@ public final class HorizonSettingsScreen extends Screen {
             field.setValue(values.get(control.value));
             field.setTooltip(Tooltip.create(Component.literal(control.help + " Range " + control.min + "–" + control.max + ".")));
             field.setResponder(s -> { values.put(control.value, s); refresh(); }); fields.put(control, field);
-            if (page == 1 && !RendererOwnership.owned() || page == 2 && RendererOwnership.installed("dynamic_fps")) field.active = false;
+            if ((page == 1 || page == 4) && !RendererOwnership.owned() || page == 2 && RendererOwnership.installed("dynamic_fps")) field.active = false;
         }
         if (page == 0) {
             toggleAt("Adaptive", adaptive, 140, left, panelWidth / 2 - 5, value -> adaptive = value);
@@ -79,11 +85,19 @@ public final class HorizonSettingsScreen extends Screen {
             toggle("Entity shadows", shadows, 138, value -> shadows = value);
             addRenderableWidget(Button.builder(particleLabel(), b -> { var options = ParticleStatus.values(); particles = options[(particles.ordinal() + 1) % options.length]; b.setMessage(particleLabel()); }).bounds(left, top + 160, panelWidth, 20).build());
         }
+        if (page == 4) toggle("Paced rebuilds", paceRebuilds, 82, value -> paceRebuilds = value);
         if (page == 2) toggle("Pause background terrain work", pauseBackground, 82, value -> pauseBackground = value);
         if (page == 3) for (int i = 0; i < 3; i++) {
             final int preset = i;
             addRenderableWidget(Button.builder(Component.literal(new String[]{"Balanced", "Speed — reduced visual detail", "Quality — higher resource use"}[i]), b -> preset(preset))
                 .bounds(left, top + 28 + i * 28, panelWidth, 20).build());
+        }
+        if (page == 5) {
+            var button = addRenderableWidget(Button.builder(backendLabel(), b -> {
+                vulkan = !vulkan; backendTouched = true; b.setMessage(backendLabel());
+            }).bounds(left, top + 28, panelWidth, 20).build());
+            button.active = RendererOwnership.owned() && RendererOwnership.installed("deepprimal_vulkan");
+            button.setTooltip(Tooltip.create(Component.literal("Vulkan is experimental and requires a compatible driver. Restart Minecraft after applying. OpenGL remains available.")));
         }
         apply = addRenderableWidget(Button.builder(Component.literal("Apply"), b -> applyChanges()).bounds(left, top + 184, panelWidth / 2 - 5, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Cancel"), b -> onClose()).bounds(left + panelWidth / 2 + 5, top + 184, panelWidth / 2 - 5, 20).build());
@@ -98,6 +112,7 @@ public final class HorizonSettingsScreen extends Screen {
             value[0] = !value[0]; setter.accept(value[0]); b.setMessage(Component.literal(name + ": " + (value[0] ? "ON" : "OFF")));
         }).bounds(x, top + y, buttonWidth, 20).build());
     }
+    private Component backendLabel() { return Component.literal("After restart: " + (vulkan ? "Vulkan (experimental)" : "OpenGL")); }
     private Component cloudLabel() { return Component.literal("Cloud quality: " + clouds.name()); }
     private Component particleLabel() { return Component.literal("Particle quality: " + particles.name()); }
     private void changePage(int direction) { page = Math.floorMod(page + direction, PAGES.length); rebuildWidgets(); }
@@ -109,7 +124,9 @@ public final class HorizonSettingsScreen extends Screen {
     }
     private void set(IntValue value, int number) { values.put(value, Integer.toString(number)); }
     private void preset(int choice) {
-        adaptive = pauseBackground = batched = true;
+        adaptive = pauseBackground = batched = paceRebuilds = true;
+        set(ClientPerformanceConfig.SYNC_REBUILDS, choice == 1 ? 1 : choice == 2 ? 4 : 2);
+        set(ClientPerformanceConfig.SYNC_REBUILD_MICROS, choice == 1 ? 500 : choice == 2 ? 3000 : 1500);
         set(ClientPerformanceConfig.TARGET_FPS, 60);
         set(ClientPerformanceConfig.HORIZON_MEMORY_MIB, choice == 1 ? 16 : choice == 2 ? 64 : 32);
         set(ClientPerformanceConfig.UPLOAD_LEVELS, choice == 1 ? 1 : choice == 2 ? 4 : 2);
@@ -126,8 +143,10 @@ public final class HorizonSettingsScreen extends Screen {
     }
     private void applyChanges() {
         if (!valid()) return;
+        if (backendTouched) try { GraphicsBackendPreference.save(vulkan); }
+        catch (java.io.IOException error) { backendError = "Could not save graphics preference."; page = 5; rebuildWidgets(); return; }
         for (Control c : allControls()) c.value.set(Integer.parseInt(values.get(c.value)));
-        ClientPerformanceConfig.BATCHED_DRAWS.set(batched);
+        ClientPerformanceConfig.BATCHED_DRAWS.set(batched); ClientPerformanceConfig.PACE_REBUILDS.set(paceRebuilds);
         ClientPerformanceConfig.ADAPTIVE_WORK.set(adaptive); ClientPerformanceConfig.PAUSE_BACKGROUND.set(pauseBackground);
         ClientPerformanceConfig.SPEC.save();
         minecraft.options.entityShadows().set(shadows); minecraft.options.cloudStatus().set(clouds); minecraft.options.particles().set(particles);
@@ -140,9 +159,11 @@ public final class HorizonSettingsScreen extends Screen {
         int row = 0;
         for (Control c : controls()) g.text(font, Component.literal(c.label), left, top + 34 + row++ * 22, 0xffdddddd);
         String note = page == 0 ? "Backend: " + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
+            : page == 5 ? (backendError != null ? backendError : "Active: " + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
+                + ". " + (RendererOwnership.installed("deepprimal_vulkan") ? "Apply, then restart Minecraft. A failed startup recovers with OpenGL on the next launch." : "This build does not include the Vulkan adapter."))
             : page == 1 && !RendererOwnership.owned() ? "Distance controls delegated to " + RendererOwnership.owner()
             : page == 2 ? (RendererOwnership.installed("dynamic_fps") ? "FPS throttling delegated to Dynamic FPS. " : "") + "Simulation keeps its configured behavior."
-            : page == 3 ? "Profiles stage changes until Apply. Speed reduces visual effects and admission ranges. Terrain and simulation distances stay unchanged." : "0 uses native visual limits; no gameplay ticks are stopped.";
+            : page == 3 ? "Profiles stage changes until Apply. Speed reduces visual effects and admission ranges. Terrain and simulation distances stay unchanged." : page == 4 ? "Extra nearby rebuilds use native workers. Player edits stay immediate; block simulation is unchanged." : "0 uses native visual limits; no gameplay ticks are stopped.";
         if (page != 1) g.textWithWordWrap(font, Component.literal(note), left, top + (page == 0 ? 164 : 122), panelWidth, 0xffaaaaaa);
     }
 }

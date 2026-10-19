@@ -1,6 +1,8 @@
 # Performance audit — Mojang, CurseForge, Hytale
 
-Deep Primal 26.1.2. Author-written implementation; no third-party renderer, mod source or native library is bundled in this pass. A feature earns its footprint through useful behavior, bounded resources and tests. A menu containing every imaginable toggle is not a performance architecture.
+This records the alpha 8 audit and its implementation status at that time. Alpha 9 subsequently adds the optional LGPL VulkanMod-derived backend, native rebuild pacing and memory/save admission; see [alpha 9 validation](VALIDATION-0.0.1-alpha.9.md) for current scope and limitations.
+
+Deep Primal 26.1.2, alpha 8: author-written implementation; no third-party renderer, mod source or native library was bundled in that pass. A feature earns its footprint through useful behavior, bounded resources and tests. A menu containing every imaginable toggle is not a performance architecture.
 
 ## Evidence and applicability
 

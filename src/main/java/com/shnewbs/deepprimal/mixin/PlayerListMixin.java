@@ -8,8 +8,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(PlayerList.class)
 public abstract class PlayerListMixin {
+    @org.spongepowered.asm.mixin.Shadow @org.spongepowered.asm.mixin.Final private net.minecraft.server.MinecraftServer server;
     @ModifyVariable(method = "setViewDistance", at = @At("HEAD"), argsOnly = true)
-    private int deepprimal$renderLimit(int value) { return DistancePolicy.clampRender(value); }
+    private int deepprimal$renderLimit(int value) { return com.shnewbs.deepprimal.MemorySafety.serverLimit(DistancePolicy.clampRender(value), server); }
     @ModifyVariable(method = "setSimulationDistance", at = @At("HEAD"), argsOnly = true)
-    private int deepprimal$simulationLimit(int value) { return DistancePolicy.clampSimulation(value); }
+    private int deepprimal$simulationLimit(int value) { return com.shnewbs.deepprimal.MemorySafety.serverLimit(DistancePolicy.clampSimulation(value), server); }
 }

@@ -56,9 +56,9 @@ public final class HorizonRenderer {
     private final ArrayList<com.mojang.blaze3d.systems.RenderPass.Draw<Void>> indexedDraws = new ArrayList<>();
     private final HorizonGpuTimer gpuTimer = new HorizonGpuTimer();
     private HorizonGpuMesh transition;
-    private long transitionX = Long.MIN_VALUE, transitionZ, meshVersion, transitionVersion;
-    private int transitionRadius;
-    private double transitionLodScale = Double.NaN;
+    private final com.shnewbs.deepprimal.core.TransitionDependencies transitionSources = new com.shnewbs.deepprimal.core.TransitionDependencies(FarTerrain.MAX_TILES);
+    private final ArrayList<HorizonGpuMesh> visibleWork = new ArrayList<>(FarTerrain.MAX_TILES + 1);
+    public volatile long transitionBuilds;
     public volatile long meshBuildNanos, meshPackNanos, uploadNanos, drawCpuNanos, culledTiles, receivedBytes;
     public double gpuMs() { return gpuTimer.milliseconds; }
     public boolean gpuTimingAvailable() { return gpuTimer.available; }
@@ -196,19 +196,18 @@ public final class HorizonRenderer {
         updateView(camera.x, camera.z);
         long snappedX = (long)nearCenter(camera.x), snappedZ = (long)nearCenter(camera.z);
         int near = (int)nearRadius();
-        double transitionLod = view.fineSquared();
-        if (Double.compare(transitionLodScale, transitionLod) != 0 || transitionX != snappedX || transitionZ != snappedZ || transitionRadius != near || transitionVersion != meshVersion) {
+        if (transitionNeedsRebuild(snappedX, snappedZ, near)) {
             if (transition != null) transition.close();
             transition = buildTransition(snappedX, snappedZ, near);
-            transitionX = snappedX; transitionZ = snappedZ; transitionRadius = near; transitionVersion = meshVersion; transitionLodScale=transitionLod;
+            transitionBuilds++;
         }
         int vertical = ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get();
-        var visible = new ArrayList<HorizonGpuMesh>(); visibleFine=visibleMedium=visibleCoarse=0;
+        var visible = visibleWork; visible.clear(); visibleFine=visibleMedium=visibleCoarse=0;
         for (HorizonGpuMesh tile : cache.values()) {
             if (!FarTerrain.inRange(tile.x, tile.z, camera.x, camera.z, farDistance())) continue;
             if (vertical != 0 && (tile.minY > camera.y + vertical * 16 || tile.maxY < camera.y - vertical * 16)) continue;
             if (event.getFrustum().isVisible(tile.bounds)) {
-                HorizonGpuMesh selected=tile.forDetail(detail(FarTerrain.key(tile.x,tile.z))); visible.add(selected);
+                HorizonGpuMesh selected=tile.forDetail(view.detail(tile.x, tile.z)); visible.add(selected);
                 if (selected.detail==0) visibleFine++; else if (selected.detail==1) visibleMedium++; else visibleCoarse++;
             }
         }
@@ -277,7 +276,7 @@ public final class HorizonRenderer {
                 double dx=(e.getValue().x+.5)*512-player.getX(),dz=(e.getValue().z+.5)*512-player.getZ(), distance=dx*dx+dz*dz;
                 if (distance>farthest) { farthest=distance; victim=e.getKey(); }
             }
-            HorizonGpuMesh tile=cache.remove(victim); residentBytes-=tile.byteSize; tile.close(); meshVersion++;
+            HorizonGpuMesh tile=cache.remove(victim); residentBytes-=tile.byteSize; tile.close();
         }
         cachedTiles=cache.size();
     }
@@ -312,7 +311,7 @@ public final class HorizonRenderer {
             HorizonGpuMesh tile = pending.root;
             HorizonGpuMesh old = cache.put(FarTerrain.key(tile.x, tile.z), tile);
             if (old != null) { residentBytes -= old.byteSize; old.close(); }
-            residentBytes += tile.byteSize; meshVersion++; completedMesh = null;
+            residentBytes += tile.byteSize; completedMesh = null;
         }
     }
     /** Both sides are deliberate: the camera can be above or below the terrain shell. */
@@ -356,11 +355,22 @@ public final class HorizonRenderer {
             return tile;
         }
     }
+    private boolean transitionNeedsRebuild(long cx, long cz, int radius) {
+        transitionSources.begin(cx, cz, radius);
+        int minX = (int)Math.floorDiv(cx - radius, FarTerrain.TILE_BLOCKS), maxX = (int)Math.floorDiv(cx + radius, FarTerrain.TILE_BLOCKS);
+        int minZ = (int)Math.floorDiv(cz - radius, FarTerrain.TILE_BLOCKS), maxZ = (int)Math.floorDiv(cz + radius, FarTerrain.TILE_BLOCKS);
+        for (int x = minX; x <= maxX; x++) for (int z = minZ; z <= maxZ; z++) {
+            if (x != minX && x != maxX && z != minZ && z != maxZ) continue;
+            HorizonGpuMesh root = cache.get(FarTerrain.key(x, z));
+            transitionSources.include(root == null ? null : root.forDetail(view.detail(x, z)));
+        }
+        return transitionSources.end();
+    }
     private void clearMeshes() {
         if (completedMesh != null) { completedMesh.close(); completedMesh = null; }
         if (meshFuture!=null) { meshFuture.cancel(true); meshFuture=null; building=null; }
         if (worker!=null) { worker.shutdownNow(); worker=null; }
         indexedDraws.clear();
-        meshVersion++; if (transition != null) { transition.close(); transition = null; } transitionX = Long.MIN_VALUE; cache.values().forEach(HorizonGpuMesh::close); cache.clear(); residentBytes = 0; cachedTiles = visibleTiles = 0; upload = null; }
-    private void clear() { budget.reset(); previousFrame = 0; gpuTimer.close(); clearMeshes(); wanted = List.of(); targetTiles = 0; waiting = unsupported = false; centerX = Integer.MIN_VALUE; ticks = 0; drawnTriangles = uploadedBytes = 0; status = "Waiting for world"; }
+        transitionSources.clear(); visibleWork.clear(); if (transition != null) { transition.close(); transition = null; } cache.values().forEach(HorizonGpuMesh::close); cache.clear(); residentBytes = 0; cachedTiles = visibleTiles = 0; upload = null; }
+    private void clear() { budget.reset(); previousFrame = 0; gpuTimer.close(); clearMeshes(); wanted = List.of(); targetTiles = 0; waiting = unsupported = false; centerX = Integer.MIN_VALUE; ticks = 0; drawnTriangles = uploadedBytes = transitionBuilds = 0; status = "Waiting for world"; }
 }

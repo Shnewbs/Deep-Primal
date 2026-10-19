@@ -1,0 +1,26 @@
+package com.shnewbs.deepprimal.core;
+
+/** Exact, bounded identity tracking for geometry inputs; no hashes or per-frame collections. */
+public final class TransitionDependencies {
+    private final Object[] sources;
+    private long x = Long.MIN_VALUE, z;
+    private int radius, count, next;
+    private boolean changed;
+    public TransitionDependencies(int capacity) { sources = new Object[capacity]; }
+    public void begin(long x, long z, int radius) {
+        changed = this.x != x || this.z != z || this.radius != radius;
+        this.x = x; this.z = z; this.radius = radius; next = 0;
+    }
+    public void include(Object source) {
+        if (next == sources.length) throw new IllegalStateException("Transition dependency limit");
+        if (sources[next] != source) { changed = true; sources[next] = source; }
+        next++;
+    }
+    public boolean end() {
+        if (next != count) changed = true;
+        java.util.Arrays.fill(sources, next, Math.max(next, count), null);
+        count = next;
+        return changed;
+    }
+    public void clear() { java.util.Arrays.fill(sources, null); count = next = 0; x = Long.MIN_VALUE; }
+}

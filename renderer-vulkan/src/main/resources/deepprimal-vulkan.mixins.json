@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.vulkanmod.mixin",
+  "plugin": "net.vulkanmod.deepprimal.VulkanMixinPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "MinecraftBackendMixin",
+    "DeviceInitializationMixin",
+    "window.VulkanWindowMixin",
+    "window.WindowAccessor",
+    "ScreenshotOrientationMixin",
+    "AtlasProjectionMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

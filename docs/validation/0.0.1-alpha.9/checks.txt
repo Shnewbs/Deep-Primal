@@ -1,0 +1,24 @@
+DASHBOARD_HTTP_CHECKS_PASS loopback=127.0.0.1:8787 readonly=true foreignHost=403 foreignOrigin=403 crossSite=403 post=405 delta=true
+CHUNK_SAVE_BACKPRESSURE_PASS {"maxPendingChunkWrites": 2, "chunkSaveBackpressure": 1083}
+BACKGROUND_FOCUS_CHECK_PASS effectiveFps=7
+HORIZON_FINE_SAMPLE_REUSE_PASS points=81
+HORIZON_SHARED_CACHE_PASS entries=239 hits=29
+HORIZON_MEMORY_LIMIT_PASS bytes=912720
+HORIZON_MOVEMENT_CANCEL_PASS currentCache=0
+DASHBOARD_BROWSER_PASS desktop mobile pause resume history canvases=6 pageErrors=0
+NATIVE_RENDERER_CHECKS_PASS near=6 far=256 cached=238 visible=88 triangles=32578278 clientChunks=213 gpuUploadBytes=1888704 owner=Deep Primal
+MEMORY_GUARD_CHECKS_PASS requested=96 memoryLimit=9 effective=6
+RUNTIME_PASS native
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_ATLAS_RANGE level=0 colored=2624229 total=4194304
+VULKAN_ATLAS_RANGE level=4 colored=10299 total=16384
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+VULKAN_LIGHTMAP_RANGE min=24 max=255
+RESOURCE_RELOAD_PASS
+RECOVERY_PASS case=missing-driver backend=OpenGL cleanSaveExit=true
+RECOVERY_PASS case=marker backend=OpenGL cleanSaveExit=true
+RECOVERY_PASS case=sodium backend=OpenGL cleanSaveExit=true

@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="LGPL-3.0-only"
+[[mods]]
+modId="deepprimal_vulkan"
+version="${mod_version}"
+displayName="Deep Primal Vulkan (experimental)"
+description="Optional Vulkan graphics backend adapted from VulkanMod 0.6.8+26.1.2."
+[[dependencies.deepprimal_vulkan]]
+modId="deepprimal"
+type="required"
+versionRange="[${mod_version}]"
+side="CLIENT"
+[[mixins]]
+config="deepprimal-vulkan.mixins.json"

@@ -3,6 +3,36 @@ package com.shnewbs.deepprimal.core;
 public final class HorizonChecks {
     static void run() {
         int comparisons=0;
+        if (MemoryDistancePolicy.renderLimit(8L*1024*1024*1024,48)!=15 || MemoryDistancePolicy.renderLimit(8L*1024*1024*1024,64)!=13)
+            throw new AssertionError("8 GiB crash regression: full-height admission");
+        for (int gib = 1; gib <= 64; gib++) {
+            int previous = 96;
+            for (int sections : new int[]{24,48,64,128}) {
+                int limit = MemoryDistancePolicy.renderLimit(gib*1024L*1024*1024,sections);
+                if (limit>previous || limit<2 || limit>96) throw new AssertionError("Memory guard height monotonicity");
+                previous=limit;
+            }
+        }
+        var sync = new SyncRebuildBudget(); sync.reset(2, 1500000);
+        if (!sync.allows(false)) throw new AssertionError("First native build deferred");
+        sync.completed(500000); sync.completed(500000);
+        if (sync.allows(false) || !sync.allows(true)) throw new AssertionError("Count budget/player edit exemption");
+        sync.reset(4, 1500000); sync.completed(1600000);
+        if (sync.allows(false) || !sync.allows(true)) throw new AssertionError("Elapsed native build budget");
+        sync.reset(2, 1500000); if (!sync.allows(false)) throw new AssertionError("Frame budget did not reset");
+        var deps = new TransitionDependencies(4); Object sourceA = new Object(), sourceB = new Object();
+        deps.begin(-512, 0, 48); deps.include(sourceA); deps.include(null);
+        if (!deps.end()) throw new AssertionError("Initial transition missing");
+        deps.begin(-512, 0, 48); deps.include(sourceA); deps.include(null);
+        if (deps.end()) throw new AssertionError("Unchanged transition rebuilt");
+        deps.begin(-512, 0, 48); deps.include(sourceA); deps.include(sourceB);
+        if (!deps.end()) throw new AssertionError("New local mesh ignored");
+        deps.begin(-512, 0, 48); deps.include(sourceA);
+        if (!deps.end()) throw new AssertionError("Removed dependency ignored");
+        deps.begin(-496, 0, 48); deps.include(sourceA);
+        if (!deps.end()) throw new AssertionError("Moved closure ignored");
+        deps.clear(); deps.begin(-496, 0, 48); deps.include(sourceA);
+        if (!deps.end()) throw new AssertionError("World change retained old closure");
         if (DistancePolicy.parse("4000",100,4000).orElseThrow()!=4000 || DistancePolicy.parse("2147483648",0,Integer.MAX_VALUE).isPresent()) throw new AssertionError("Budget input range/overflow");
         if (HorizonGeometry.sample(new short[]{0,0,0,10},1,256,256)!=0) throw new AssertionError("Transition must match triangle plane, not bilinear saddle");
         for (int detail=0;detail<3;detail++) {

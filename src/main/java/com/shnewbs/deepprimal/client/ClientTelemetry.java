@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.event.RenderFrameEvent;
 /** Frame interval includes frame limiting and waits; it is not GPU render time. */
 public final class ClientTelemetry {
     private final TickWindow frames = new TickWindow(512);
-    private long previous, sampled, lastBuild, lastUpload, lastDraw, lastReceived;
+    private long previous, sampled, lastBuild, lastUpload, lastDraw, lastReceived, lastSync;
     @SubscribeEvent public void frame(RenderFrameEvent.Post event) {
         HorizonRenderer.INSTANCE.observeFrame(System.nanoTime());
         if (!LocalDashboard.running()) LocalDashboard.start();
@@ -27,12 +27,18 @@ public final class ClientTelemetry {
         data.put("effectiveFpsLimit", mc.getFramerateLimitTracker().getFramerateLimit());
         data.put("entitiesSkipped", VisualPerformance.entitiesSkipped); data.put("blockEntitiesSkipped", VisualPerformance.blockEntitiesSkipped); data.put("particlesSkipped", VisualPerformance.particlesSkipped);
         data.put("fps", mc.getFps()); data.put("rendererOwner", RendererOwnership.owner()); data.put("graphicsApi", RenderSystem.getDevice().getBackendName());
-        data.put("gpu", RenderSystem.getDevice().getRenderer()); data.put("renderDistance", mc.options.renderDistance().get()); data.put("simulationDistance", mc.options.simulationDistance().get());
+        data.put("nativeSyncBuilds", VisualPerformance.chunkSyncBuilds);
+        data.put("nativeRebuildsDeferred", VisualPerformance.chunkRebuildsDeferred);
+        data.put("nativePlayerBuilds", VisualPerformance.chunkPlayerBuilds);
+        data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos-lastSync)/1e6); lastSync=VisualPerformance.chunkSyncNanos;
+        data.put("gpu", RenderSystem.getDevice().getRenderer()); data.put("renderDistance", mc.options.renderDistance().get()); data.put("effectiveRenderDistance", mc.options.getEffectiveRenderDistance());
+        data.put("memoryDistanceGuard", com.shnewbs.deepprimal.MemorySafety.enabled()); data.put("simulationDistance", mc.options.simulationDistance().get());
         data.put("verticalRadius", RendererOwnership.owned() ? ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() : "External");
         data.put("farDistance", RendererOwnership.owned() ? HorizonRenderer.farDistance() : 0);
         if (RendererOwnership.owned()) {
             var renderer = HorizonRenderer.INSTANCE;
             data.put("horizonResidentBytes", renderer.residentBytes);
+            data.put("horizonTransitionBuilds", renderer.transitionBuilds);
             data.put("horizonWorkFraction", renderer.workFraction());
             data.put("horizonTargetFps", ClientPerformanceConfig.TARGET_FPS.get());
             data.put("horizonMemoryLimitBytes", ClientPerformanceConfig.HORIZON_MEMORY_MIB.get()*1048576L);

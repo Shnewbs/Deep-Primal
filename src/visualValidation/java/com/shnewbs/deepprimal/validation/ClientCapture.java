@@ -19,6 +19,8 @@ public final class ClientCapture {
     private boolean taken;
     private boolean checked;
     private long checkedAt;
+    private net.minecraft.client.gui.screens.Screen acceptedWarning;
+    private String waitingScreen;
     private String pendingCapture;
     private long pendingAt;
     public ClientCapture() { NeoForge.EVENT_BUS.register(this); }
@@ -54,7 +56,21 @@ public final class ClientCapture {
     }
 
     private void terrain(Minecraft mc) {
-        if (mc.level == null || mc.player == null) return;
+        if (mc.level == null || mc.player == null) {
+            if (mc.screen != null && !mc.screen.getClass().getName().equals(waitingScreen)) {
+                waitingScreen = mc.screen.getClass().getName(); System.out.println("VALIDATION_WAITING_SCREEN " + waitingScreen);
+            }
+            if (Boolean.getBoolean("deepprimal.validationAcceptWorldWarning") && mc.screen != null
+                && acceptedWarning != mc.screen
+                && (mc.screen instanceof net.minecraft.client.gui.screens.worldselection.ConfirmExperimentalFeaturesScreen
+                    || mc.screen instanceof net.minecraft.client.gui.screens.BackupConfirmScreen)) {
+                for (var child : mc.screen.children()) if (child instanceof net.minecraft.client.gui.components.Button button
+                    && (button.getMessage().getString().equals("Proceed") || button.getMessage().getString().equals("I know what I'm doing!"))) {
+                    acceptedWarning = mc.screen; button.onPress(null); break;
+                }
+            }
+            return;
+        }
         Path dir = Path.of(System.getProperty("deepprimal.validationCapture"));
         if (pendingCapture != null && System.nanoTime() - pendingAt > 1_000_000_000L) {
             String name = pendingCapture; pendingCapture = null;
@@ -70,7 +86,72 @@ public final class ClientCapture {
             if (action.equals("renderer-checks")) {
                 RendererClientChecks.run(mc); Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8); return;
             }
+            if (action.startsWith("backend-check=")) {
+                String backend = com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName();
+                if (!backend.equals(action.substring(14))) throw new AssertionError("Wrong backend " + backend);
+                System.out.println("BACKEND_SELECTION_PASS backend="+backend); return;
+            }
+            if (action.equals("vulkan-checks")) { GpuBackendChecks.run(mc); return; }
+            if (action.equals("scene-near")) {
+                var server = mc.getSingleplayerServer();
+                server.execute(() -> server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), "tp @a -1221 180 243 135 5"));
+                mc.setScreen(null); return;
+            }
+            if (action.equals("reload-check")) {
+                mc.reloadResourcePacks().thenRun(() -> System.out.println("RESOURCE_RELOAD_PASS")); return;
+            }
+            if (action.equals("resize-check")) {
+                org.lwjgl.glfw.GLFW.glfwSetWindowSize(mc.getWindow().handle(), 1000, 650); return;
+            }
+            if (action.equals("scene-checks")) {
+                var server = mc.getSingleplayerServer();
+                server.execute(() -> {
+                    var source = server.createCommandSourceStack();
+                    for (String command : new String[]{"gamemode spectator @a", "time set noon", "weather clear", "tp @a -1221 440 243 135 18"})
+                        server.getCommands().performPrefixedCommand(source, command);
+                }); mc.setScreen(null); return;
+            }
             if (action.equals("performance-checks")) { PerformanceClientChecks.run(mc); return; }
+            if (action.equals("rebuild-stress")) {
+                mc.options.prioritizeChunkUpdates().set(net.minecraft.client.PrioritizeChunkUpdates.NEARBY);
+                com.shnewbs.deepprimal.client.ClientPerformanceConfig.PACE_REBUILDS.set(true);
+                com.shnewbs.deepprimal.client.ClientPerformanceConfig.SYNC_REBUILDS.set(1);
+                com.shnewbs.deepprimal.client.ClientPerformanceConfig.SYNC_REBUILD_MICROS.set(250);
+                mc.setScreen(null); return;
+            }
+            if (action.equals("player-rebuild")) {
+                var view = ((com.shnewbs.deepprimal.mixin.client.LevelRendererAccessor)mc.levelRenderer).deepprimal$viewArea();
+                var center = net.minecraft.core.SectionPos.of(mc.gameRenderer.getMainCamera().position());
+                for (var section : view.sections) {
+                    long node = section.getSectionNode();
+                    if (Math.abs(net.minecraft.core.SectionPos.x(node)-center.x())<=1
+                        && Math.abs(net.minecraft.core.SectionPos.y(node)-center.y())<=1
+                        && Math.abs(net.minecraft.core.SectionPos.z(node)-center.z())<=1) section.setDirty(true);
+                }
+                return;
+            }
+            if (action.equals("memory-guard-checks")) {
+                int requested = mc.options.renderDistance().get();
+                mc.options.renderDistance().set(96);
+                int limit = com.shnewbs.deepprimal.MemorySafety.limit(96, mc.level.getSectionsCount());
+                if (mc.options.renderDistance().get()!=96 || mc.options.getEffectiveRenderDistance()>limit)
+                    throw new AssertionError("Memory guard did not preserve request/bound effective distance");
+                mc.options.renderDistance().set(requested);
+                System.out.println("MEMORY_GUARD_CHECKS_PASS requested=96 memoryLimit="+limit+" effective="+mc.options.getEffectiveRenderDistance());
+                return;
+            }
+            if (action.equals("integrated-memory-checks")) {
+                var server = mc.getSingleplayerServer();
+                if (server == null) throw new AssertionError("No integrated server");
+                int limit = com.shnewbs.deepprimal.MemorySafety.serverLimit(96, server);
+                int view = server.getPlayerList().getViewDistance();
+                int simulation = server.getPlayerList().getSimulationDistance();
+                if (mc.options.renderDistance().get()!=96 || mc.options.simulationDistance().get()!=16
+                    || view>limit || simulation>limit || mc.options.getEffectiveRenderDistance()>limit)
+                    throw new AssertionError("Unbounded integrated distances: " + view + "/" + simulation + " limit="+limit);
+                System.out.println("INTEGRATED_MEMORY_GUARD_PASS requested=96 simulationRequested=16 view="+view+" simulation="+simulation+" limit="+limit);
+                return;
+            }
             if (action.equals("reuse-samples")) {
                 net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new com.shnewbs.deepprimal.render.network.HorizonRequest(
                     Long.MIN_VALUE, mc.level.dimension().identifier(), Math.floorDiv(mc.player.getBlockX(),512), Math.floorDiv(mc.player.getBlockZ(),512), 2)); return;

@@ -141,7 +141,10 @@ public final class DistanceScreen extends Screen {
             line = Component.translatable("deepprimal.distance.invalid", DistancePolicy.MAX_RENDER, DistancePolicy.MAX_SIMULATION);
         } else {
             int serverRange = ((OptionsAccessor)minecraft.options).deepprimal$serverRenderDistance();
-            if (minecraft.getSingleplayerServer() != null && render.getAsInt() > DistanceRuntime.trackingCapacity())
+            int memoryLimit = com.shnewbs.deepprimal.MemorySafety.limit(DistancePolicy.MAX_RENDER, minecraft.level == null ? 64 : minecraft.level.getSectionsCount());
+            if (render.getAsInt() > memoryLimit || simulationValue().getAsInt() > memoryLimit)
+                line = Component.literal("Memory guard: render/simulation ≤" + memoryLimit + " chunks. Horizon is separate.");
+            else if (minecraft.getSingleplayerServer() != null && render.getAsInt() > DistanceRuntime.trackingCapacity())
                 line = Component.translatable("deepprimal.distance.reopen", DistanceRuntime.trackingCapacity());
             else if (minecraft.level != null && serverRange > 0)
                 line = Component.translatable("deepprimal.distance.server", serverRange);
