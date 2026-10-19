@@ -14,6 +14,7 @@ public final class WorldgenConfig {
   public static final ModConfigSpec SPEC;
   public static final ModConfigSpec.BooleanValue EXTRA_DEPTH;
   public static final ModConfigSpec.BooleanValue RIVERS_AND_COASTS;
+  public static final ModConfigSpec.BooleanValue MOUNTAIN_STREAMS;
 
   static {
     var b = new ModConfigSpec.Builder();
@@ -33,6 +34,14 @@ public final class WorldgenConfig {
                 "Existing worlds retain their saved noise settings. Disable to use the legacy alpha"
                     + " 10 terrain profile.")
             .define("riversAndCoasts", true);
+    MOUNTAIN_STREAMS =
+        b.comment(
+                "Route elevated streams through mountain valleys and gorges in NEW worlds.",
+                "Requires riversAndCoasts. Disable before creation to use the frozen alpha 11"
+                    + " lowland profile.",
+                "Existing saves retain their stored terrain profile; restart after changing this"
+                    + " setting.")
+            .define("mountainStreams", true);
     SPEC = b.build();
   }
 
@@ -41,9 +50,17 @@ public final class WorldgenConfig {
     // Preserve saved pack IDs as well as saved noise-setting IDs. Only the
     // selected profile is required for new worlds; saved dimensions stay locked.
     String profile = EXTRA_DEPTH.get() ? "deep" : "standard";
-    if (RIVERS_AND_COASTS.get()) profile = "waterways_" + profile;
+    if (RIVERS_AND_COASTS.get())
+      profile = (MOUNTAIN_STREAMS.get() ? "routed_" : "waterways_") + profile;
     for (String available :
-        new String[] {"standard", "deep", "waterways_standard", "waterways_deep"}) {
+        new String[] {
+          "standard",
+          "deep",
+          "waterways_standard",
+          "waterways_deep",
+          "routed_standard",
+          "routed_deep"
+        }) {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),
           PackType.SERVER_DATA,

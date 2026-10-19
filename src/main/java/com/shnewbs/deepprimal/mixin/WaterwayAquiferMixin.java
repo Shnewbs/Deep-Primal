@@ -2,6 +2,7 @@ package com.shnewbs.deepprimal.mixin;
 
 import com.shnewbs.deepprimal.worldgen.ColumnSurface;
 import com.shnewbs.deepprimal.worldgen.SurfaceWaterAquifer;
+import com.shnewbs.deepprimal.worldgen.WaterwayHeight;
 import net.minecraft.world.level.levelgen.Aquifer;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
@@ -37,7 +38,18 @@ abstract class WaterwayAquiferMixin {
       Blender blender,
       CallbackInfo ci) {
     if (preliminarySurfaceLevel instanceof ColumnSurface column && column.surfaceWater()) {
-      aquifer = new SurfaceWaterAquifer(aquifer, (NoiseChunk) (Object) this, settings.seaLevel());
+      WaterwayHeight[] routed = {null};
+      state
+          .router()
+          .preliminarySurfaceLevel()
+          .mapAll(
+              f -> {
+                if (f instanceof WaterwayHeight h && h.routed()) routed[0] = h;
+                return f;
+              });
+      aquifer =
+          new SurfaceWaterAquifer(
+              aquifer, (NoiseChunk) (Object) this, settings.seaLevel(), routed[0], x, z);
     }
   }
 }

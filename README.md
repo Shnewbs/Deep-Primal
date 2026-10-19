@@ -2,10 +2,12 @@
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 
-**Current build: 0.0.1-alpha.11 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**Current build: 0.0.1-alpha.12 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is the default normal world generator. Alpha 11 adds lowland river valleys, narrower tributary streams, wet gravel beds and layered coastal beaches for new worlds. Existing saves retain their saved terrain profile; this update does not regenerate old chunks. Extra underground depth is a startup config setting, rather than a second selectable world type. Alpha 4 replaced sheet-shaped mountain carving with buried tunnels and deeper chambers, and added an independent vertical render radius. Alpha 5 fixed native chunk-task queue bounds at extended render distances. Alpha 6 adds an authored macro-terrain horizon up to 256 chunks, automatic renderer handoff, and a localhost performance dashboard. The prototype retains vanilla placeholder materials, geological strata, native aquifers, XP suppression, bounded diagnostics, expanded horizontal rendering, and the alpha 3 client/server optimizations. OpenGL is the default; alpha 9 includes an optional experimental Vulkan backend. The full survival conversion remains in design. Use disposable test worlds. Alpha 6 can reopen alpha 4/5 worlds without migration; generated voxel terrain is unchanged.
+Deep Primal is the default normal world generator. Alpha 12 adds elevated mountain tributaries and ridge-cutting gorges on top of alpha 11 lowland rivers and coastal beaches. New-world water heights descend along regional catchments. Existing saves retain their saved terrain profile; this update does not regenerate old chunks. Extra underground depth is a startup config setting, rather than a second selectable world type. Alpha 4 replaced sheet-shaped mountain carving with buried tunnels and deeper chambers, and added an independent vertical render radius. Alpha 5 fixed native chunk-task queue bounds at extended render distances. Alpha 6 adds an authored macro-terrain horizon up to 256 chunks, automatic renderer handoff, and a localhost performance dashboard. The prototype retains vanilla placeholder materials, geological strata, native aquifers, XP suppression, bounded diagnostics, expanded horizontal rendering, and the alpha 3 client/server optimizations. OpenGL is the default; alpha 9 includes an optional experimental Vulkan backend. The full survival conversion remains in design. Use disposable test worlds. Alpha 6 can reopen alpha 4/5 worlds without migration; generated voxel terrain is unchanged.
 
+- [Alpha 12 mountain streams and gorges](docs/VALIDATION-0.0.1-alpha.12.md)
+- [River mod comparison](docs/RIVER-MOD-COMPARISON-2026-10-19.md)
 - [Alpha 11 rivers, streams and beaches](docs/VALIDATION-0.0.1-alpha.11.md)
 - [Alpha 10 Vulkan and module validation](docs/VALIDATION-0.0.1-alpha.10.md)
 - [Module boundaries and builds](docs/MODULES.md)
@@ -26,7 +28,7 @@ Deep Primal is the default normal world generator. Alpha 11 adds lowland river v
 - [Owner decisions](docs/design-decisions-2026-10-18.md)
 - [Detailed design reference](docs/design-reference.md)
 
-Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.11.jar`.
+Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.12.jar`.
 
 Create a new world normally; its default world type is **Deep Primal**. Prefer Creative with commands enabled for inspection. Set `extraUndergroundDepth = true` in `config/deepprimal-worldgen.toml` and restart before creating a new world to extend Y=-128..639 to -384..639. Saved worlds retain their height and generation profile. `riversAndCoasts = true` is the new-world default; set it false before creation to use alpha 10 terrain. Try `/deepprimal info` and `/deepprimal bench 200 200 1`.
 
@@ -49,3 +51,5 @@ The standard build includes Vulkan bindings but keeps OpenGL active until select
 Alpha 10 separates the core, common performance engine, graphics settings and Vulkan backend into distinct nested modules. It adds bounded persistent shader/driver caches, exact descriptor reuse and redundant-bind skipping, portable signed-byte storage buffers, capability checks, Vulkan debug labels and native lifetime/synchronization fixes. See the capability audit for implemented paths and explicit remaining features. This does not replace the native near-block mesher or establish hardware FPS gains.
 
 Alpha 11 shares continuous river/stream/coast shaping between native terrain, biome depth and horizon sampling. One stateless core function and a cached platform adapter own the geometry; a versioned surface-water adapter fills the carved surface band while retaining native deeper aquifers. These are static sea-level lowland channels, not simulated watersheds or upland flowing streams. See [validation and limitations](docs/VALIDATION-0.0.1-alpha.11.md).
+
+Alpha 12 routes elevated tributaries through mountain valleys and gorges toward existing water. Their water heights descend locally instead of being fixed to sea level. `mountainStreams = true` is the new-world default when `riversAndCoasts` is enabled; disabling mountain streams before creation selects the frozen alpha 11 profile. Saved worlds keep their generation profile. Routing is bounded and cached in the core/worldgen adapter, independently of Vulkan and graphics/performance modules. See [scope, tests and remaining limits](docs/VALIDATION-0.0.1-alpha.12.md).

@@ -1,0 +1,173 @@
+{
+  "version": "0.0.1-alpha.12",
+  "date": "2026-10-19",
+  "baseCommit": "f1a2203484bf4fb3681935b32e364771e83a8e56",
+  "minecraft": "26.1.2",
+  "neoforge": "26.1.2.122",
+  "java": 25,
+  "build": "build compileVisualValidationJava --offline",
+  "package": {
+    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.12.jar",
+    "bytes": 22540815,
+    "sha256": "2d5c3f60321d403517f9b5ba48f2cd88cab023d864b055aac461de8114f77ccf",
+    "ownClasses": {
+      "root": 42,
+      "engine-core": 26,
+      "performance-engine": 14,
+      "graphics-settings": 16,
+      "renderer-vulkan": 178
+    },
+    "compiledClassesMatch": true,
+    "nestedJarsMatch": true,
+    "nestedJars": 4,
+    "duplicateProjectClasses": 0,
+    "validationClasses": 0,
+    "frozenResources": 26,
+    "unchangedModuleAndBundledDependencyClasses": {
+      "performance-engine": true,
+      "graphics-settings": true,
+      "renderer-vulkan": true
+    }
+  },
+  "withoutVulkan": {
+    "bytes": 236634,
+    "sha256": "d5eefb1f02a27199b4f1ebc29926e2a914bae0de428a439291e7185c207e1934",
+    "nestedJars": 3,
+    "vulkanBinary": false
+  },
+  "standardRestoredByteIdentical": true,
+  "core": {
+    "waterwayRandomCases": 100000,
+    "drainageSamples": 20000,
+    "wetOutlets": true,
+    "acyclic": true,
+    "downhill": true,
+    "cacheEviction": true,
+    "neighborCacheNoResampling": true
+  },
+  "routing": {
+    "regionBlocks": 4096,
+    "sampleSpacing": 64,
+    "cacheRegions": 32,
+    "cacheWays": 4,
+    "perTickSimulation": false,
+    "extraTerrainExecutor": false,
+    "nativeColumnWaterPrecomputed": 256
+  },
+  "runtime": [
+    {
+      "case": "standard",
+      "profile": "DRAINAGE_PROFILE settings=deepprimal:waterways_v2 minY=-128 values=0x1.7p7,0x1.ap6,0x1.ep6,0x1.ep6,0x1.6p6,0x1.ep6,",
+      "checks": [
+        "DRAINAGE_SERVER_STARTED",
+        "DRAINAGE_PROFILE settings=deepprimal:waterways_v2 minY=-128 values=0x1.7p7,0x1.ap6,0x1.ep6,0x1.ep6,0x1.6p6,0x1.ep6,",
+        "DRAINAGE_MAP_PASS seed=452343 minY=-128 channels=1151 elevated=488 gorges=184 millis=184",
+        "DRAINAGE_BLOCKS_PASS kind=mountain x=-73 z=4597 waterLevel=308 water=142 elevatedWater=142 gravel=147 rock=284 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=gorge x=4425 z=2635 waterLevel=126 water=147 elevatedWater=147 gravel=0 rock=441 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-0-0 x=-73 z=4597 waterLevel=308 water=142 elevatedWater=142 gravel=147 rock=284 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-0-2 x=-65 z=4569 waterLevel=297 water=177 elevatedWater=177 gravel=147 rock=270 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-1-0 x=-57 z=4540 waterLevel=286 water=140 elevatedWater=140 gravel=147 rock=287 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-1-2 x=-64 z=4515 waterLevel=279 water=137 elevatedWater=137 gravel=147 rock=322 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-2-0 x=-72 z=4489 waterLevel=272 water=118 elevatedWater=118 gravel=147 rock=316 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-2-2 x=-69 z=4454 waterLevel=260 water=133 elevatedWater=133 gravel=147 rock=293 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-3-0 x=-67 z=4418 waterLevel=247 water=150 elevatedWater=150 gravel=147 rock=261 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-3-2 x=-101 z=4382 waterLevel=224 water=138 elevatedWater=138 gravel=147 rock=301 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-4-0 x=-135 z=4345 waterLevel=201 water=147 elevatedWater=147 gravel=129 rock=229 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-4-2 x=-129 z=4315 waterLevel=148 water=102 elevatedWater=102 gravel=83 rock=364 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-5-0 x=-124 z=4285 waterLevel=96 water=147 elevatedWater=0 gravel=145 rock=296 centerWet=true supported=true",
+        "DRAINAGE_FULL_PASS kind=mountain waterLevel=308 water=142",
+        "DRAINAGE_FULL_PASS kind=gorge waterLevel=126 water=122",
+        "DRAINAGE_COAST_PASS x=1920 z=-3968",
+        "DRAINAGE_COURSE_PASS nodes=6 sharedPlanner=true quarterSamples=true fullChunks=true",
+        "DRAINAGE_AUTO_PASS case=standard"
+      ],
+      "saveExit": true,
+      "uniqueRecord": true
+    },
+    {
+      "case": "deep",
+      "profile": "DRAINAGE_PROFILE settings=deepprimal:waterways_v2_deep minY=-384 values=0x1.4p5,-0x1.cp5,0x1.4p5,0x1.4p5,0x1.ap6,0x1.cp5,",
+      "checks": [
+        "DRAINAGE_SERVER_STARTED",
+        "DRAINAGE_PROFILE settings=deepprimal:waterways_v2_deep minY=-384 values=0x1.4p5,-0x1.cp5,0x1.4p5,0x1.4p5,0x1.ap6,0x1.cp5,",
+        "DRAINAGE_MAP_PASS seed=947291 minY=-384 channels=1190 elevated=448 gorges=294 millis=189",
+        "DRAINAGE_BLOCKS_PASS kind=mountain x=-769 z=6469 waterLevel=311 water=141 elevatedWater=141 gravel=146 rock=291 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=gorge x=-3907 z=-2421 waterLevel=113 water=147 elevatedWater=147 gravel=49 rock=378 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-0-0 x=-769 z=6469 waterLevel=311 water=141 elevatedWater=141 gravel=146 rock=291 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-0-2 x=-806 z=6431 waterLevel=292 water=133 elevatedWater=133 gravel=138 rock=323 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-1-0 x=-844 z=6393 waterLevel=273 water=155 elevatedWater=155 gravel=147 rock=214 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-1-2 x=-865 z=6401 waterLevel=238 water=111 elevatedWater=111 gravel=146 rock=296 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-2-0 x=-887 z=6408 waterLevel=202 water=157 elevatedWater=157 gravel=144 rock=246 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-2-2 x=-917 z=6432 waterLevel=197 water=138 elevatedWater=138 gravel=147 rock=286 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-3-0 x=-948 z=6455 waterLevel=191 water=146 elevatedWater=146 gravel=147 rock=281 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-3-2 x=-984 z=6456 waterLevel=172 water=136 elevatedWater=136 gravel=147 rock=291 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-4-0 x=-1021 z=6457 waterLevel=152 water=176 elevatedWater=176 gravel=131 rock=245 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-4-2 x=-1053 z=6466 waterLevel=151 water=275 elevatedWater=275 gravel=129 rock=142 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-5-0 x=-1086 z=6474 waterLevel=150 water=264 elevatedWater=264 gravel=114 rock=210 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-5-2 x=-1113 z=6507 waterLevel=150 water=144 elevatedWater=144 gravel=129 rock=288 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-6-0 x=-1141 z=6539 waterLevel=150 water=155 elevatedWater=155 gravel=120 rock=172 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-6-2 x=-1140 z=6561 waterLevel=123 water=482 elevatedWater=482 gravel=6 rock=22 centerWet=true supported=true",
+        "DRAINAGE_BLOCKS_PASS kind=course-7-0 x=-1140 z=6583 waterLevel=96 water=319 elevatedWater=35 gravel=147 rock=155 centerWet=true supported=true",
+        "DRAINAGE_FULL_PASS kind=mountain waterLevel=311 water=141",
+        "DRAINAGE_FULL_PASS kind=gorge waterLevel=113 water=147",
+        "DRAINAGE_COAST_PASS x=1376 z=-3936",
+        "DRAINAGE_COURSE_PASS nodes=8 sharedPlanner=true quarterSamples=true fullChunks=true",
+        "DRAINAGE_AUTO_PASS case=deep"
+      ],
+      "saveExit": true,
+      "uniqueRecord": true
+    },
+    {
+      "case": "alpha11",
+      "profile": "DRAINAGE_PROFILE settings=deepprimal:waterways_v1 minY=-128 values=0x1.7p7,0x1.8p6,0x1.ep6,0x1.ep6,0x1.6p6,0x1.ep6,",
+      "checks": [
+        "DRAINAGE_SERVER_STARTED",
+        "DRAINAGE_PROFILE settings=deepprimal:waterways_v1 minY=-128 values=0x1.7p7,0x1.8p6,0x1.ep6,0x1.ep6,0x1.6p6,0x1.ep6,",
+        "DRAINAGE_AUTO_PASS case=alpha11"
+      ],
+      "saveExit": true,
+      "uniqueRecord": true
+    },
+    {
+      "case": "alpha11-reopen",
+      "profile": "DRAINAGE_PROFILE settings=deepprimal:waterways_v1 minY=-128 values=0x1.7p7,0x1.8p6,0x1.ep6,0x1.ep6,0x1.6p6,0x1.ep6,",
+      "checks": [
+        "DRAINAGE_SERVER_STARTED",
+        "DRAINAGE_PROFILE settings=deepprimal:waterways_v1 minY=-128 values=0x1.7p7,0x1.8p6,0x1.ep6,0x1.ep6,0x1.6p6,0x1.ep6,",
+        "DRAINAGE_AUTO_PASS case=alpha11"
+      ],
+      "saveExit": true,
+      "uniqueRecord": true
+    },
+    {
+      "case": "legacy",
+      "profile": "DRAINAGE_PROFILE settings=deepprimal:prototype minY=-128 values=0x1.7p7,0x1.6p6,0x1.5p7,0x1.4p7,0x1.2p6,0x1.2p7,",
+      "checks": [
+        "DRAINAGE_SERVER_STARTED",
+        "DRAINAGE_PROFILE settings=deepprimal:prototype minY=-128 values=0x1.7p7,0x1.6p6,0x1.5p7,0x1.4p7,0x1.2p6,0x1.2p7,",
+        "DRAINAGE_AUTO_PASS case=legacy"
+      ],
+      "saveExit": true,
+      "uniqueRecord": true
+    },
+    {
+      "case": "legacy-reopen",
+      "profile": "DRAINAGE_PROFILE settings=deepprimal:prototype minY=-128 values=0x1.7p7,0x1.6p6,0x1.5p7,0x1.4p7,0x1.2p6,0x1.2p7,",
+      "checks": [
+        "DRAINAGE_SERVER_STARTED",
+        "DRAINAGE_PROFILE settings=deepprimal:prototype minY=-128 values=0x1.7p7,0x1.6p6,0x1.5p7,0x1.4p7,0x1.2p6,0x1.2p7,",
+        "DRAINAGE_AUTO_PASS case=legacy"
+      ],
+      "saveExit": true,
+      "uniqueRecord": true
+    }
+  ],
+  "harness": "Checks run automatically in ServerTickEvent.Post, use unique per-run records, then halt and save normally. Console transport is not used as validation evidence.",
+  "limitations": [
+    "Regional tributaries; no globally stitched watershed or ocean-outlet guarantee.",
+    "No elevated lake generator, water budgets or continuous erosion simulation.",
+    "Native water; no custom sustained currents on flat channels.",
+    "The horizon shares carved height but retains its sea-level water approximation.",
+    "No interactive visual/hardware FPS/GPU validation in this release."
+  ]
+}

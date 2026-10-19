@@ -1,4 +1,4 @@
-# Worldgen prototype 0.0.1-alpha.11
+# Worldgen prototype 0.0.1-alpha.12
 
 Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
@@ -9,7 +9,7 @@ Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain de
 3. Use Creative with commands enabled. `/gamemode spectator` is useful for inspecting geology and caves.
 4. Run `/deepprimal info`, then explore. Vanilla blocks/items, biome vegetation, and feature placement are temporary test materials.
 
-The default spans Y=-128..639 (768 blocks). In `config/deepprimal-worldgen.toml`, set `extraUndergroundDepth = true` and restart Minecraft/the server **before creating a new world** to use -384..639 (1024 blocks). Sea level remains 96 and the mountain ceiling is unchanged. Both height profiles stay registered for saved-world compatibility, but are absent from the world-type lists. `riversAndCoasts = true` selects the new rivers/streams/coasts profile for new worlds; set it false before creation and restart to retain legacy terrain for a new world. All four pack IDs remain available for saved-world loading, while only the chosen creation profile loads automatically. Saved dimension types and noise settings determine an existing world's height; changing this creation-time config does not migrate it.
+The default spans Y=-128..639 (768 blocks). In `config/deepprimal-worldgen.toml`, set `extraUndergroundDepth = true` and restart Minecraft/the server **before creating a new world** to use -384..639 (1024 blocks). Sea level remains 96 and the mountain ceiling is unchanged. Both height profiles stay registered for saved-world compatibility, but are absent from the world-type lists. `riversAndCoasts = true` selects the new rivers/streams/coasts profile for new worlds; set it false before creation and restart to retain legacy terrain for a new world. All six pack IDs remain available for saved-world loading, while only the chosen creation profile loads automatically. Saved dimension types and noise settings determine an existing world's height; changing this creation-time config does not migrate it.
 
 A required built-in data pack supplies the configured `minecraft:normal` preset on client and server. An ordinary dedicated server using its default `level-type=minecraft:normal` therefore creates Deep Primal terrain. Flat, amplified, and other explicitly selected world types retain their own generation. This is not unlimited height or cubic chunk streaming.
 
@@ -115,10 +115,18 @@ The standard package now includes the experimental Vulkan adapter. Select it und
 
 Alpha 10 keeps Vulkan, graphics settings and common performance in separate nested modules. See [module builds](MODULES.md), [Vulkan capabilities](VULKAN-CAPABILITIES.md), and [current validation](VALIDATION-0.0.1-alpha.10.md). The default remains OpenGL.
 
-## Rivers, streams and coast validation
+## Alpha 11 rivers, streams and coast validation (retained profile)
 
-The new versioned noise settings are `deepprimal:waterways_v1` and `deepprimal:waterways_v1_deep`. Their geometry is separate from the optional Vulkan backend and the performance/graphics modules. Core shaping lives in `engine-core`; the root worldgen adapter owns Minecraft density registration and surface water. There is no per-tick river worker or growing watershed cache.
+The retained alpha 11 noise settings are `deepprimal:waterways_v1` and `deepprimal:waterways_v1_deep`. Their geometry is separate from the optional Vulkan backend and the performance/graphics modules. Core shaping lives in `engine-core`; the root worldgen adapter owns Minecraft density registration and surface water. There is no per-tick river worker or growing watershed cache.
 
 `python3 tools/validate_waterways.py ./gradlew --accept-eula` creates disposable standard, deep and legacy worlds, tests actual river/stream/mouth/beach blocks, saves, and reopens the legacy world after enabling the new-world toggle. Run only after accepting the Minecraft EULA. `--offline` uses prepared Gradle dependencies. Existing test worlds are preserved: use a fresh checkout or move the previous `run-waterways-check-*` directories before repeating. The fixture is never included in the installer. See [alpha 11 results](VALIDATION-0.0.1-alpha.11.md).
 
 Streams currently follow smooth seeded lowland contours at the shared sea level. Width varies with the local noise gradient; arbitrary drainage connectivity, variable-altitude flow, waterfalls, water budgets, recharge and erosion remain future work.
+
+## Alpha 12 mountain streams
+
+`mountainStreams = true` in startup config enables the versioned `waterways_v2` / `waterways_v2_deep` profiles for new worlds when `riversAndCoasts` is true. Set mountain streams false before creation to select alpha 11 lowland rivers/coasts. Set rivers/coasts false to select the original terrain. All six packs remain registered for saved-world loading; only the selected new-world pack is required. Restart after changing creation settings.
+
+Upland tributaries now follow a deterministic catchment graph and variable water heights, with incision through obstructing ridges. Submerged inland beds use local water height, sand in arid biomes and gravel elsewhere; steep rocky surfaces retain priority. There is no per-tick hydrology simulation. New tributaries are regional and require an existing wet outlet; see [alpha 12 validation](VALIDATION-0.0.1-alpha.12.md) and [the comparison](RIVER-MOD-COMPARISON-2026-10-19.md) for limits.
+
+After accepting Minecraft’s EULA, run `python3 tools/validate_mountain_rivers.py ./gradlew --accept-eula` with Java 25. The dedicated-server fixture checks new standard/deep generation, actual elevated water and gorges, descending courses and final FULL chunks. It also creates and reopens both legacy and alpha 11 profiles after changing creation toggles. Existing test worlds are preserved; move the `run-drainage-*` directories before repeating. Test commands/classes are excluded from the installer.

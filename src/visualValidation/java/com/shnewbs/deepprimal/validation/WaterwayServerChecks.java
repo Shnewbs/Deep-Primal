@@ -262,7 +262,7 @@ public final class WaterwayServerChecks {
             + dir.toAbsolutePath());
   }
 
-  private static void verify(ServerLevel level, String kind, int centerX, int centerZ)
+  static void verify(ServerLevel level, String kind, int centerX, int centerZ)
       throws java.io.IOException {
     var centerChunk =
         level.getChunkSource().getChunk(centerX >> 4, centerZ >> 4, ChunkStatus.SURFACE, true);
@@ -307,6 +307,7 @@ public final class WaterwayServerChecks {
             "build/waterways-validation",
             Long.toString(level.getSeed()),
             Integer.toString(level.getMinY()));
+    Files.createDirectories(dir);
     try (var csv = Files.newBufferedWriter(dir.resolve(kind + "-blocks.csv"))) {
       csv.write("x,z,floor,material,water\n");
       for (int z = centerZ - 12; z <= centerZ + 12; z++)

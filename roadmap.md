@@ -77,7 +77,7 @@ These milestones consolidate the former feature checklist and suggested v0.1 che
 
 ### M2 — Custom world generation and climate foundation
 
-**Status:** in progress; default normal worldgen, config-selected underground depth, revised cave shaping, direct surface solver, bounded diagnostic caches, async reports, and tick/GC probes exist. Alpha 11 adds versioned lowland rivers, tributary streams and coastal beaches with native chunk checks; routed watersheds and water budgets remain open. Native material/climate core, Earth mode, renewable groundwater, and full performance gates remain incomplete. **Depends on:** M0–M1; Earth and height decisions D06.
+**Status:** in progress; default normal worldgen, config-selected underground depth, revised cave shaping, direct surface solver, bounded diagnostic caches, async reports, and tick/GC probes exist. Alpha 12 adds bounded mountain tributary routing, gorges and local water heights on top of alpha 11 coasts/lowland rivers. Global watershed stitching, elevated lakes and water budgets remain open. Native material/climate core, Earth mode, renewable groundwater, and full performance gates remain incomplete. **Depends on:** M0–M1; Earth and height decisions D06.
 
 - [ ] Implement a deterministic core sampler for terrain, surface height, geology, climate, and material queries, with a NeoForge worldgen adapter.
 - [ ] Generate native rock layers, soils, climate-based vegetation, and host-rock-dependent multi-ore veins with surface indicators.
