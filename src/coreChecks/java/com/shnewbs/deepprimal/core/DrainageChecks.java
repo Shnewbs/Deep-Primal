@@ -68,6 +68,7 @@ public final class DrainageChecks {
     for (int i = 0; i < 100; i++)
       for (int z = 0; z < 2; z++) for (int x = 0; x < 2; x++) shared.region(x, z);
     check(calls.get() == cold, "neighboring catchments thrash the routing cache");
+    contained();
     System.out.println(
         "DRAINAGE_CORE_PASS channels="
             + channels
@@ -76,6 +77,54 @@ public final class DrainageChecks {
             + " gorges="
             + gorges
             + " random=20000 acyclic=true downhill=true cacheEviction=true");
+  }
+
+  private static void contained() {
+    java.util.function.DoubleBinaryOperator land =
+        (x, z) ->
+            84 + x * .065 + 100 * Math.exp(-Math.pow((x - 1300) / 180, 2)) + 4 * Math.sin(z / 180);
+    var network = new MountainDrainage(land, 96, true);
+    var region = network.region(0, 0);
+    int samples = 0, terraces = 0, descents = 0;
+    for (int k = 0; k < region.nodeCount(); k++) {
+      int n = region.node(k), p = region.parent(n);
+      if (region.width(n) <= 0) continue;
+      double last = Double.POSITIVE_INFINITY;
+      for (int step = 0; step <= 32; step++) {
+        double t = step / 32.0;
+        int x = (int) Math.round(region.x(n) + t * (region.x(p) - region.x(n)));
+        int z = (int) Math.round(region.z(n) + t * (region.z(p) - region.z(n)));
+        var s = network.sample(x, z, land.applyAsDouble(x, z));
+        check(
+            Double.isFinite(s.waterLevel()) && s.height() <= land.applyAsDouble(x, z),
+            "invalid contained profile");
+        check(Math.abs(Math.hypot(s.flowX(), s.flowZ()) - 1) < 1e-8, "missing normalized current");
+        check(s.waterLevel() <= last + 1.0, "contained course rises");
+        if (Double.isFinite(last)) {
+          if ((int) last == (int) s.waterLevel()) terraces++;
+          else descents++;
+        }
+        last = s.waterLevel();
+        samples++;
+      }
+    }
+    check(terraces > 100 && descents > 100, "lost stepped descent");
+    var random = new Random(88213);
+    for (int i = 0; i < 20000; i++) {
+      int x = random.nextInt(4096), z = random.nextInt(4096);
+      double base = land.applyAsDouble(x, z);
+      var a = network.sample(x, z, base);
+      check(
+          a.equals(network.sample(x, z, base)) && a.height() <= base, "unstable contained sample");
+    }
+    System.out.println(
+        "CONTAINED_CORE_PASS courseSamples="
+            + samples
+            + " terraces="
+            + terraces
+            + " descents="
+            + descents
+            + " random=20000 directions=true");
   }
 
   private static void check(boolean ok, String message) {

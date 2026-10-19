@@ -28,3 +28,7 @@ Builds use Java 25, Minecraft 26.1.2 and NeoForge 26.1.2.122. The standard and w
 These are real source/runtime boundaries for future selectable distribution, not a finished in-game module manager. A standalone installation must include each module's dependencies, including the core library. Do not install extracted modules alongside the full installer: it already includes them. Worldgen and horizon remain together in root integration. Module removal/migration for existing worlds is not introduced in this update.
 
 Graphics API selection requires restart. OpenGL remains the default; known external graphics replacements take priority, and failed Vulkan startup recovers to OpenGL. Visual-quality budgets, chunk work and simulation policies are separate from API selection.
+
+## River ownership — alpha 13
+
+Drainage math stays in `engine-core`. Native terrain/aquifer integration stays in root `worldgen`; persistent current blocks and server-synced force settings live in root `water`. One common fluid-vector mixin integrates native physics and fluid rendering. Water code imports no Vulkan, graphics-settings or performance implementation. Native boat/item physics handles drift without an additional boat-force hook. This is an extraction-friendly package boundary, not a separately distributable water module yet. Existing worlds containing registered river blocks need the root mod to remain installed.

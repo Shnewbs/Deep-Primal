@@ -22,6 +22,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 @Mod(value = DeepPrimal.ID, dist = Dist.DEDICATED_SERVER)
 public final class DrainageServerChecks {
   private volatile boolean started;
+  private static final StringBuilder JOURNAL = new StringBuilder();
 
   public DrainageServerChecks() {
     NeoForge.EVENT_BUS.register(this);
@@ -33,16 +34,21 @@ public final class DrainageServerChecks {
     record("DRAINAGE_SERVER_STARTED");
   }
 
-  private static synchronized void record(String message) {
+  static synchronized void record(String message) {
     try {
       String destination = System.getenv("DEEPPRIMAL_VALIDATION_RECORD");
       Path file = destination == null ? Path.of("build/drainage-events.txt") : Path.of(destination);
       Files.createDirectories(file.getParent());
-      Files.writeString(
+      JOURNAL.append(message).append('\n');
+      // Each snapshot is complete, so external log collectors cannot lose an
+      // earlier append while observing a live generation process.
+      Path pending = file.resolveSibling(file.getFileName() + ".pending");
+      Files.writeString(pending, JOURNAL);
+      Files.move(
+          pending,
           file,
-          message + "\n",
-          java.nio.file.StandardOpenOption.CREATE,
-          java.nio.file.StandardOpenOption.APPEND);
+          java.nio.file.StandardCopyOption.ATOMIC_MOVE,
+          java.nio.file.StandardCopyOption.REPLACE_EXISTING);
     } catch (java.io.IOException e) {
       throw new java.io.UncheckedIOException(e);
     }
@@ -58,7 +64,12 @@ public final class DrainageServerChecks {
     try {
       var level = event.getServer().overworld();
       profile(level);
-      if (selected.equals("standard") || selected.equals("deep")) check(level);
+      if (selected.equals("standard") || selected.equals("deep")) {
+        check(level);
+        RiverCurrentChecks.run(level);
+      }
+      if (selected.equals("standard-reopen") || selected.equals("deep-reopen"))
+        RiverCurrentChecks.reopen(level);
       record("DRAINAGE_AUTO_PASS case=" + selected);
     } catch (java.io.IOException | RuntimeException | Error e) {
       record("DRAINAGE_FAILURE " + e);
@@ -325,9 +336,16 @@ public final class DrainageServerChecks {
         var chunk =
             level.getChunkSource().getChunk((x + dx) >> 4, (z + dz) >> 4, ChunkStatus.FULL, true);
         for (int y = water - 12; y < water; y++)
-          if (chunk.getBlockState(pos.set(x + dx, y, z + dz)).is(Blocks.WATER)) wet++;
+          if (chunk
+              .getBlockState(pos.set(x + dx, y, z + dz))
+              .getFluidState()
+              .is(net.minecraft.tags.FluidTags.WATER)) wet++;
       }
     if (wet < 10) throw new AssertionError("Channel lost water after carvers/features: " + kind);
+    support(
+        level.getChunkSource().getChunk(x >> 4, z >> 4, ChunkStatus.FULL, true),
+        level,
+        kind + "-full");
     record("DRAINAGE_FULL_PASS kind=" + kind + " waterLevel=" + water + " water=" + wet);
   }
 
@@ -345,6 +363,7 @@ public final class DrainageServerChecks {
   private static void blocksAt(
       ServerLevel level, WaterwayHeight h, int x, int z, int water, String kind) {
     var chunk = level.getChunkSource().getChunk(x >> 4, z >> 4, ChunkStatus.SURFACE, true);
+    support(chunk, level, kind);
     var noise =
         chunk.getOrCreateNoiseChunk(
             c -> {
@@ -362,11 +381,14 @@ public final class DrainageServerChecks {
     if (mapped[0].drainage() != h.drainage())
       throw new AssertionError("Planner duplicated while wrapping");
     var center = new BlockPos(x, water - 1, z);
-    if (!chunk.getBlockState(center).is(Blocks.WATER))
+    if (!chunk.getBlockState(center).getFluidState().is(net.minecraft.tags.FluidTags.WATER))
       throw new AssertionError("Dry channel center: " + kind + " at " + x + "," + z);
     int bottom = water - 1;
     while (bottom > level.getMinY()
-        && chunk.getBlockState(new BlockPos(x, bottom, z)).is(Blocks.WATER)) bottom--;
+        && chunk
+            .getBlockState(new BlockPos(x, bottom, z))
+            .getFluidState()
+            .is(net.minecraft.tags.FluidTags.WATER)) bottom--;
     if (chunk.getBlockState(new BlockPos(x, bottom, z)).isAir())
       throw new AssertionError("Unsupported floating surface water: " + kind);
     int wet = 0, aboveSea = 0, gravel = 0, rock = 0;
@@ -379,7 +401,7 @@ public final class DrainageServerChecks {
                 .getChunk((x + dx) >> 4, (z + dz) >> 4, ChunkStatus.SURFACE, true);
         for (int y = water - 12; y <= water + 1; y++) {
           var b = c.getBlockState(pos.set(x + dx, y, z + dz));
-          if (b.is(Blocks.WATER)) {
+          if (b.getFluidState().is(net.minecraft.tags.FluidTags.WATER)) {
             wet++;
             if (y >= 96) aboveSea++;
           }
@@ -417,5 +439,31 @@ public final class DrainageServerChecks {
             + " rock="
             + rock
             + " centerWet=true supported=true");
+  }
+
+  private static void support(
+      net.minecraft.world.level.chunk.ChunkAccess chunk, ServerLevel level, String kind) {
+    int currents = 0;
+    var pos = new BlockPos.MutableBlockPos();
+    for (int z = chunk.getPos().getMinBlockZ(); z < chunk.getPos().getMinBlockZ() + 16; z++)
+      for (int x = chunk.getPos().getMinBlockX(); x < chunk.getPos().getMinBlockX() + 16; x++)
+        for (int y = level.getMinY(); y < level.getMaxY(); y++) {
+          var state = chunk.getBlockState(pos.set(x, y, z));
+          if (!(state.getBlock() instanceof com.shnewbs.deepprimal.water.RiverWaterBlock)) continue;
+          currents++;
+          var below = chunk.getBlockState(pos.set(x, y - 1, z));
+          if (!below.getFluidState().is(net.minecraft.tags.FluidTags.WATER)
+              && !below.blocksMotion())
+            throw new AssertionError("Water curtain at " + x + "," + y + "," + z + " kind=" + kind);
+          if (state.getFluidState().getFlow(chunk, pos.set(x, y, z)).lengthSqr() < .9)
+            throw new AssertionError("Generated current has no native flow");
+        }
+    record(
+        "RIVER_SUPPORT_PASS kind="
+            + kind
+            + " currentBlocks="
+            + currents
+            + " chunk="
+            + chunk.getPos());
   }
 }

@@ -12,20 +12,27 @@ public final class MountainDrainage {
   private static final int COUNT = SIDE * SIDE, CACHE_SIZE = 32;
   private final DoubleBinaryOperator terrain;
   private final double seaLevel;
+  private final boolean contained;
+  private static final int STATIONS = 17;
   private static final int WAYS = 4, SETS = CACHE_SIZE / WAYS;
   private final AtomicReferenceArray<Region[]> cache = new AtomicReferenceArray<>(SETS);
   private final Object[] locks = new Object[SETS];
 
   public MountainDrainage(DoubleBinaryOperator terrain, double seaLevel) {
+    this(terrain, seaLevel, false);
+  }
+
+  public MountainDrainage(DoubleBinaryOperator terrain, double seaLevel, boolean contained) {
     this.terrain = terrain;
     this.seaLevel = seaLevel;
+    this.contained = contained;
     Arrays.setAll(locks, i -> new Object());
   }
 
   public Sample sample(int x, int z, double original) {
     Region r = region(Math.floorDiv(x, SIZE), Math.floorDiv(z, SIZE));
     int gx = Math.floorDiv(x - r.x, CELL), gz = Math.floorDiv(z - r.z, CELL);
-    double height = original, surface = seaLevel, strength = 0;
+    double height = original, surface = seaLevel, strength = 0, flowX = 0, flowZ = 0;
     for (int j = Math.max(1, gz - 2); j <= Math.min(SIDE - 2, gz + 2); j++) {
       for (int i = Math.max(1, gx - 2); i <= Math.min(SIDE - 2, gx + 2); i++) {
         int child = j * SIDE + i, parent = r.parent[child];
@@ -39,16 +46,25 @@ public final class MountainDrainage {
         double weight = 1 - smooth(distance, width, width + 12);
         if (weight <= 0) continue;
         double water = r.water[child] + t * (r.water[parent] - r.water[child]);
+        if (r.profiles != null) {
+          double station = t * (STATIONS - 1);
+          int a = Math.min(STATIONS - 2, (int) station);
+          float[] profile = r.profiles[child];
+          water = Math.min(water, profile[a] + (station - a) * (profile[a + 1] - profile[a]));
+        }
         double bed = water - (3 + Math.min(4, width * .18));
         double carved = original - weight * Math.max(0, original - bed);
         if (carved < height || (carved == height && weight > strength)) {
           height = carved;
           surface = water;
           strength = weight;
+          double length = Math.hypot(dx, dz);
+          flowX = dx / length;
+          flowZ = dz / length;
         }
       }
     }
-    return new Sample(height, surface, strength);
+    return new Sample(height, surface, strength, flowX, flowZ);
   }
 
   private static double smooth(double value, double low, double high) {
@@ -90,6 +106,7 @@ public final class MountainDrainage {
     Arrays.fill(flood, Double.POSITIVE_INFINITY);
     PriorityQueue<Node> queue =
         new PriorityQueue<>(Comparator.comparingDouble(Node::level).thenComparingInt(Node::index));
+    int fallback = -1;
     for (int z = 1; z < SIDE - 1; z++)
       for (int x = 1; x < SIDE - 1; x++) {
         int n = z * SIDE + x;
@@ -100,11 +117,27 @@ public final class MountainDrainage {
         if (!Double.isFinite(h[n])) throw new IllegalArgumentException("Non-finite terrain");
         area[n] = 1;
         if (h[n] < seaLevel - 1) {
+          if (fallback < 0 || h[n] < h[fallback]) fallback = n;
+          // A river should keep a direction after reaching sea level. Seed
+          // deep water and wet region exits, rather than ending every reach
+          // at the first shallow river node. An inland basin uses a real wet
+          // minimum when it has no such exit; this is not a global watershed.
+          if (contained
+              && h[n] >= seaLevel - 20
+              && x != 1
+              && z != 1
+              && x != SIDE - 2
+              && z != SIDE - 2) continue;
           parent[n] = -1;
           flood[n] = seaLevel;
           queue.add(new Node(n, seaLevel));
         }
       }
+    if (queue.isEmpty() && fallback >= 0) {
+      parent[fallback] = -1;
+      flood[fallback] = seaLevel;
+      queue.add(new Node(fallback, seaLevel));
+    }
     int length = 0;
     while (!queue.isEmpty()) {
       Node node = queue.remove();
@@ -140,13 +173,45 @@ public final class MountainDrainage {
     }
     for (int k = 0; k < length; k++) {
       int n = order[k];
-      if (parent[n] >= 0 && area[n] >= 10 && h[n] >= seaLevel) {
+      if (parent[n] >= 0 && area[n] >= 10 && (contained || h[n] >= seaLevel)) {
         width[n] = (float) Math.min(16, 3.5 + Math.sqrt(area[n]) * .22);
       }
     }
     // Only retain channels whose complete downstream path is selected or reaches
     // an existing wet outlet; a catchment with no wet outlet creates no channels.
-    return new Region(rx, rz, ox, oz, parent, water, width, h, area, order, length, localX, localZ);
+    float[][] profiles = contained ? new float[COUNT][] : null;
+    if (contained) {
+      // Resolve the waterline against the bed and both banks along each reach,
+      // not just at widely spaced routing nodes. Running minima retain downhill
+      // terraces and breach saddles without suspending water over lower valleys.
+      for (int k = length - 1; k >= 0; k--) {
+        int n = order[k], p = parent[n];
+        if (p < 0 || width[n] <= 0) continue;
+        double dx = localX[p] - localX[n], dz = localZ[p] - localZ[n];
+        double distance = Math.hypot(dx, dz);
+        float[] profile = new float[STATIONS];
+        double last = water[n];
+        for (int s = 0; s < STATIONS; s++) {
+          double t = s / (double) (STATIONS - 1);
+          double x = ox + localX[n] + t * dx, z = oz + localZ[n] + t * dz;
+          double bank = width[n] + t * (Math.max(width[n], width[p]) - width[n]) + 4;
+          double ceiling = terrain.applyAsDouble(x, z);
+          for (int side = -1; side <= 1; side += 2)
+            ceiling =
+                Math.min(
+                    ceiling,
+                    terrain.applyAsDouble(
+                        x - side * bank * dz / distance, z + side * bank * dx / distance));
+          last = Math.min(last, Math.max(seaLevel, ceiling - 2));
+          profile[s] = (float) last;
+        }
+        profiles[n] = profile;
+        water[n] = profile[0];
+        water[p] = Math.min(water[p], profile[STATIONS - 1]);
+      }
+    }
+    return new Region(
+        rx, rz, ox, oz, parent, water, width, h, area, order, length, localX, localZ, profiles);
   }
 
   private static long mix(long value) {
@@ -155,7 +220,8 @@ public final class MountainDrainage {
     return value ^ (value >>> 31);
   }
 
-  public record Sample(double height, double waterLevel, double strength) {}
+  public record Sample(
+      double height, double waterLevel, double strength, double flowX, double flowZ) {}
 
   private record Node(int index, double level) {}
 
@@ -167,6 +233,7 @@ public final class MountainDrainage {
     private final double[] terrain;
     private final int length;
     private final short[] localX, localZ;
+    private final float[][] profiles;
 
     private Region(
         int rx,
@@ -181,7 +248,8 @@ public final class MountainDrainage {
         int[] order,
         int length,
         short[] localX,
-        short[] localZ) {
+        short[] localZ,
+        float[][] profiles) {
       this.rx = rx;
       this.rz = rz;
       this.x = x;
@@ -195,6 +263,7 @@ public final class MountainDrainage {
       this.length = length;
       this.localX = localX;
       this.localZ = localZ;
+      this.profiles = profiles;
     }
 
     public int nodeCount() {

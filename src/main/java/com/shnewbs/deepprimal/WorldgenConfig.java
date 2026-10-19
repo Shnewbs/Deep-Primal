@@ -15,6 +15,7 @@ public final class WorldgenConfig {
   public static final ModConfigSpec.BooleanValue EXTRA_DEPTH;
   public static final ModConfigSpec.BooleanValue RIVERS_AND_COASTS;
   public static final ModConfigSpec.BooleanValue MOUNTAIN_STREAMS;
+  public static final ModConfigSpec.BooleanValue CONTAINED_RIVERS;
 
   static {
     var b = new ModConfigSpec.Builder();
@@ -42,6 +43,14 @@ public final class WorldgenConfig {
                 "Existing saves retain their stored terrain profile; restart after changing this"
                     + " setting.")
             .define("mountainStreams", true);
+    CONTAINED_RIVERS =
+        b.comment(
+                "Use contained, terrain-following stepped rivers with stored currents in NEW"
+                    + " worlds.",
+                "Requires mountainStreams. Disable to select the frozen alpha 12 terrain profile.",
+                "Existing saves keep their stored generation profile; this does not repair explored"
+                    + " chunks.")
+            .define("containedRivers", true);
     SPEC = b.build();
   }
 
@@ -51,7 +60,11 @@ public final class WorldgenConfig {
     // selected profile is required for new worlds; saved dimensions stay locked.
     String profile = EXTRA_DEPTH.get() ? "deep" : "standard";
     if (RIVERS_AND_COASTS.get())
-      profile = (MOUNTAIN_STREAMS.get() ? "routed_" : "waterways_") + profile;
+      profile =
+          (MOUNTAIN_STREAMS.get()
+                  ? CONTAINED_RIVERS.get() ? "contained_" : "routed_"
+                  : "waterways_")
+              + profile;
     for (String available :
         new String[] {
           "standard",
@@ -59,7 +72,9 @@ public final class WorldgenConfig {
           "waterways_standard",
           "waterways_deep",
           "routed_standard",
-          "routed_deep"
+          "routed_deep",
+          "contained_standard",
+          "contained_deep"
         }) {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),

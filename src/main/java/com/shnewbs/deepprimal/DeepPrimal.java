@@ -40,6 +40,11 @@ public final class DeepPrimal {
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.diagnostics.ServerTelemetry());
     container.registerConfig(
         ModConfig.Type.STARTUP, WorldgenConfig.SPEC, "deepprimal-worldgen.toml");
+    container.registerConfig(
+        ModConfig.Type.SERVER,
+        com.shnewbs.deepprimal.water.RiverConfig.SPEC,
+        "deepprimal-rivers.toml");
+    com.shnewbs.deepprimal.water.RiverWater.BLOCKS.register(modBus);
     modBus.addListener(WorldgenConfig::packs);
     modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());

@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.DensityFunction;
 public final class WaterwayHeight implements DensityFunction.SimpleFunction {
   private final DensityFunction terrain, continents, ridges, erosion, detail, tributaries;
   private final int seaLevel;
-  private final boolean routed;
+  private final boolean routed, contained;
   private final MountainDrainage drainage;
 
   public WaterwayHeight(
@@ -24,7 +24,30 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
       DensityFunction tributaries,
       int seaLevel,
       boolean routed) {
-    this(terrain, continents, ridges, erosion, detail, tributaries, seaLevel, routed, null);
+    this(terrain, continents, ridges, erosion, detail, tributaries, seaLevel, routed, false);
+  }
+
+  public WaterwayHeight(
+      DensityFunction terrain,
+      DensityFunction continents,
+      DensityFunction ridges,
+      DensityFunction erosion,
+      DensityFunction detail,
+      DensityFunction tributaries,
+      int seaLevel,
+      boolean routed,
+      boolean contained) {
+    this(
+        terrain,
+        continents,
+        ridges,
+        erosion,
+        detail,
+        tributaries,
+        seaLevel,
+        routed,
+        contained,
+        null);
   }
 
   private WaterwayHeight(
@@ -36,6 +59,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
       DensityFunction tributaries,
       int seaLevel,
       boolean routed,
+      boolean contained,
       MountainDrainage drainage) {
     this.terrain = terrain;
     this.continents = continents;
@@ -45,6 +69,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
     this.tributaries = tributaries;
     this.seaLevel = seaLevel;
     this.routed = routed;
+    this.contained = contained;
     this.drainage = drainage;
   }
 
@@ -80,6 +105,10 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
     return routed;
   }
 
+  public boolean contained() {
+    return contained;
+  }
+
   public static final MapCodec<WaterwayHeight> MAP_CODEC =
       RecordCodecBuilder.mapCodec(
           instance ->
@@ -106,7 +135,10 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
                       Codec.intRange(-4096, 4096)
                           .fieldOf("sea_level")
                           .forGetter(WaterwayHeight::seaLevel),
-                      Codec.BOOL.optionalFieldOf("routed", false).forGetter(WaterwayHeight::routed))
+                      Codec.BOOL.optionalFieldOf("routed", false).forGetter(WaterwayHeight::routed),
+                      Codec.BOOL
+                          .optionalFieldOf("contained", false)
+                          .forGetter(WaterwayHeight::contained))
                   .apply(instance, WaterwayHeight::new));
   private static final KeyDispatchDataCodec<WaterwayHeight> CODEC =
       KeyDispatchDataCodec.of(MAP_CODEC);
@@ -171,6 +203,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
             tributaries.mapAll(visitor),
             seaLevel,
             routed,
+            contained,
             drainage);
     if (routed
         && drainage == null
@@ -183,7 +216,8 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
       var network =
           new MountainDrainage(
               (x, z) -> raw.base(new DensityFunction.SinglePointContext((int) x, 0, (int) z)),
-              seaLevel);
+              seaLevel,
+              contained);
       mapped =
           new WaterwayHeight(
               mapped.terrain,
@@ -194,6 +228,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
               mapped.tributaries,
               seaLevel,
               true,
+              contained,
               network);
     }
     return visitor.apply(mapped);
@@ -207,6 +242,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
     return other instanceof WaterwayHeight h
         && seaLevel == h.seaLevel
         && routed == h.routed
+        && contained == h.contained
         && terrain.equals(h.terrain)
         && continents.equals(h.continents)
         && ridges.equals(h.ridges)
@@ -218,7 +254,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
   @Override
   public int hashCode() {
     return java.util.Objects.hash(
-        terrain, continents, ridges, erosion, detail, tributaries, seaLevel, routed);
+        terrain, continents, ridges, erosion, detail, tributaries, seaLevel, routed, contained);
   }
 
   @Override

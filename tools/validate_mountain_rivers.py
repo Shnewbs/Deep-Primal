@@ -22,18 +22,24 @@ def run(launcher,case,offline,java_launch=None):
     preset='minecraft:normal'
     seed=947291 if family=='deep' else 452343
     (work/'server.properties').write_text(f'level-type={preset}\nlevel-seed={seed}\nserver-port=25587\nserver-ip=127.0.0.1\nonline-mode=false\nview-distance=4\nsimulation-distance=2\nmax-tick-time=-1\n')
-    (work/'config/deepprimal-worldgen.toml').write_text('extraUndergroundDepth = '+str(family=='deep').lower()+'\nriversAndCoasts = '+str(case!='legacy').lower()+'\nmountainStreams = '+str(case!='alpha11').lower()+'\n')
+    (work/'config/deepprimal-worldgen.toml').write_text('extraUndergroundDepth = '+str(family=='deep').lower()+'\nriversAndCoasts = '+str(case!='legacy').lower()+'\nmountainStreams = '+str(case!='alpha11').lower()+'\ncontainedRivers = '+str(case!='alpha12').lower()+'\n')
     log=work/(case+'.log')
     events=work/'build'/('drainage-events-'+case+'-'+uuid.uuid4().hex+'.txt')
     with log.open('w') as output:
         env=os.environ.copy()
-        env['DEEPPRIMAL_VALIDATION_CASE']=family
+        env['DEEPPRIMAL_VALIDATION_CASE']=case
         env['DEEPPRIMAL_VALIDATION_RECORD']=str(events)
         if java_launch:
             spec=json.loads(java_launch.read_text())
             folders='deepprimal%%'+str(ROOT/'build/libs'/('DeepPrimal-26.1.2-'+next(l.split('=',1)[1] for l in (ROOT/'gradle.properties').read_text().splitlines() if l.startswith('mod_version='))+'.jar'))+os.pathsep+'deepprimal%%'+str(ROOT/'build/classes/java/visualValidation')
             jvm=[a for a in spec['jvm'] if not a.startswith('-Dfml.modFolders=')]
-            command=[spec['java'],*jvm,'-Dfml.modFolders='+folders,'-cp',spec['classpath'],spec['main'],*spec['args']]
+            # A saved launch spec may contain older module JARs and loose main
+            # classes. Only the installer and the separate fixture may supply
+            # project code; native/runtime dependency JARs stay on the classpath.
+            classpath=os.pathsep.join(p for p in spec['classpath'].split(os.pathsep)
+                if not (Path(p).is_relative_to(ROOT) and ('/build/libs/' in p
+                    or '/build/classes/' in p or '/build/resources/' in p)))
+            command=[spec['java'],*jvm,'-Dfml.modFolders='+folders,'-cp',classpath,spec['main'],*spec['args']]
             env['MOD_CLASSES']=folders
             env['JAVA_TOOL_OPTIONS']='-Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts'
             directory=work
@@ -60,7 +66,7 @@ def run(launcher,case,offline,java_launch=None):
             content=wait('DRAINAGE_AUTO_PASS',360)
             profile=[l for l in content.splitlines() if l.startswith('DRAINAGE_PROFILE')][-1]
             if content.count('DRAINAGE_AUTO_PASS') != 1:raise AssertionError('Stale or duplicate validation completion')
-            expected='prototype' if family=='legacy' else 'waterways_v1' if family=='alpha11' else 'waterways_v2_deep' if family=='deep' else 'waterways_v2'
+            expected='prototype' if family=='legacy' else 'waterways_v1' if family=='alpha11' else 'waterways_v2' if family=='alpha12' else 'waterways_v3_deep' if family=='deep' else 'waterways_v3'
             if 'settings=deepprimal:'+expected+' ' not in profile:raise AssertionError(profile)
             snapshot=work/'profile.txt'
             if reopen:
@@ -81,7 +87,7 @@ if __name__=='__main__':
     parser.add_argument('--java-launch',type=Path)
     parser.add_argument('--accept-eula',action='store_true')
     parser.add_argument('--offline',action='store_true')
-    parser.add_argument('--cases',nargs='+',choices=['standard','deep','legacy','legacy-reopen','alpha11','alpha11-reopen'],default=['standard','deep','legacy','legacy-reopen','alpha11','alpha11-reopen'])
+    parser.add_argument('--cases',nargs='+',choices=['standard','standard-reopen','deep','deep-reopen','legacy','legacy-reopen','alpha11','alpha11-reopen','alpha12','alpha12-reopen'],default=['standard','standard-reopen','deep','deep-reopen','legacy','legacy-reopen','alpha11','alpha11-reopen','alpha12','alpha12-reopen'])
     args=parser.parse_args()
     if not args.accept_eula:parser.error('Accept the Minecraft EULA before running this fixture')
     for case in args.cases:run(args.launcher,case,args.offline,args.java_launch)

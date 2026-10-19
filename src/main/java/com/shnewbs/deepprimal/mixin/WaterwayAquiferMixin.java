@@ -49,7 +49,13 @@ abstract class WaterwayAquiferMixin {
               });
       aquifer =
           new SurfaceWaterAquifer(
-              aquifer, (NoiseChunk) (Object) this, settings.seaLevel(), routed[0], x, z);
+              aquifer,
+              (NoiseChunk) (Object) this,
+              settings.seaLevel(),
+              routed[0],
+              x,
+              z,
+              noise.getCellWidth());
     }
   }
 }

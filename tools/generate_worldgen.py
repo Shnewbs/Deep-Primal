@@ -88,9 +88,15 @@ write('data/deepprimal/worldgen/density_function/waterways_v2/terrain_height.jso
           'ridges': ridges, 'erosion': erosion, 'detail': noise('deepprimal:surface_detail'),
           'tributaries': 0.0, 'sea_level': SEA_LEVEL, 'routed': True}))
 
-def profile(name, min_y, height, *, waterways=False, routed=False):
+write('data/deepprimal/worldgen/density_function/waterways_v3/terrain_height.json',
+      unary('flat_cache', {'type': 'deepprimal:waterway_height',
+          'terrain_height': op('min', 'deepprimal:terrain_height', 640.0), 'continents': continents,
+          'ridges': ridges, 'erosion': erosion, 'detail': noise('deepprimal:surface_detail'),
+          'tributaries': 0.0, 'sea_level': SEA_LEVEL, 'routed': True, 'contained': True}))
+
+def profile(name, min_y, height, *, waterways=False, routed=False, contained=False):
     top = min_y + height
-    height_source = 'deepprimal:waterways_v2/terrain_height' if routed else waterways_height if waterways else 'deepprimal:terrain_height'
+    height_source = 'deepprimal:waterways_v3/terrain_height' if contained else 'deepprimal:waterways_v2/terrain_height' if routed else waterways_height if waterways else 'deepprimal:terrain_height'
     dimension_name = ('prototype_deep' if min_y == -384 else 'prototype') if waterways else name
     terrain = op('add', op('mul', 1 / 80, height_source), {
         'type': 'minecraft:y_clamped_gradient', 'from_y': min_y, 'to_y': top,
@@ -223,6 +229,8 @@ profile('waterways_v1', -128, 768, waterways=True)
 profile('waterways_v1_deep', -384, 1024, waterways=True)
 profile('waterways_v2', -128, 768, waterways=True, routed=True)
 profile('waterways_v2_deep', -384, 1024, waterways=True, routed=True)
+profile('waterways_v3', -128, 768, waterways=True, routed=True, contained=True)
+profile('waterways_v3_deep', -384, 1024, waterways=True, routed=True, contained=True)
 for name, octave in [('tunnel_a', -5), ('tunnel_b', -5), ('chambers', -6)]:
     write(f'data/deepprimal/worldgen/noise/{name}.json', {'firstOctave': octave, 'amplitudes': [1.0, 0.5]})
 # Keep both historical preset IDs loadable, but expose one normal world type.
@@ -230,7 +238,8 @@ for name, octave in [('tunnel_a', -5), ('tunnel_b', -5), ('chambers', -6)]:
 write('data/minecraft/tags/worldgen/world_preset/normal.json', {'replace': False, 'values': []})
 for label, profile_name in [('standard', 'prototype'), ('deep', 'prototype_deep'),
         ('waterways_standard', 'waterways_v1'), ('waterways_deep', 'waterways_v1_deep'),
-        ('routed_standard', 'waterways_v2'), ('routed_deep', 'waterways_v2_deep')]:
+        ('routed_standard', 'waterways_v2'), ('routed_deep', 'waterways_v2_deep'),
+        ('contained_standard', 'waterways_v3'), ('contained_deep', 'waterways_v3_deep')]:
     preset = json.loads((ROOT / f'data/deepprimal/worldgen/world_preset/{profile_name}.json').read_text())
     write(f'worldgen/{label}/data/minecraft/worldgen/world_preset/normal.json', preset)
     write(f'worldgen/{label}/pack.mcmeta', {'pack': {
