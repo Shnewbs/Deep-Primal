@@ -12,6 +12,10 @@ sourceSets {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
     }
+    moduleValidation {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
     visualValidation {
         compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
         runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
@@ -46,7 +50,9 @@ neoForge {
         }
     }
     mods {
-        deepprimal {
+        if (project.hasProperty("moduleOnlyValidation")) {
+            deepprimal_validation { sourceSet(sourceSets.moduleValidation) }
+        } else deepprimal {
             sourceSet(sourceSets.main)
             if (project.hasProperty('visualValidation')) sourceSet(sourceSets.visualValidation)
         }
@@ -115,4 +121,39 @@ if (findProject(':renderer-vulkan') != null) {
   if (project.hasProperty('vulkanValidation')) systemProperty 'deepprimal.vulkan.validation', 'true'
   if (project.hasProperty('vulkanDebug')) systemProperty 'deepprimal.vulkan.debug', 'true'
  }
+}
+
+// Architectural checks are source based, so an accidental cross-module import fails the build.
+tasks.register('verifyModuleBoundaries') {
+    def roots = ['engine-core', 'performance-engine', 'graphics-settings', 'renderer-vulkan']
+    inputs.files(roots.collect { fileTree(it + '/src/main/java') })
+    doLast {
+        roots.each { module ->
+            fileTree(module + '/src/main/java').matching { include '**/*.java' }.each { file ->
+                def text = file.text
+                def allowed = module == 'engine-core' ? ['core'] : module == 'performance-engine' ? ['performance','core'] : ['settings','core']
+                (text =~ /(?m)^import (?:static )?com\.shnewbs\.deepprimal\.([a-zA-Z]+)\./).each { match ->
+                    if (!(match[1] in allowed)) throw new GradleException("Cross-module import in $file: ${match[0]}")
+                }
+                if (module != 'renderer-vulkan' && (text =~ /(?m)^import (?:static )?net\.vulkanmod\./).find())
+                    throw new GradleException("Vulkan implementation dependency in $file")
+                if (module == 'engine-core' && (text.contains('org.lwjgl') || text.contains('net.minecraft') || text.contains('net.neoforged')))
+                    throw new GradleException("Platform dependency in $file")
+            }
+        }
+    }
+}
+tasks.named('check') { dependsOn 'verifyModuleBoundaries' }
+if (findProject(':renderer-vulkan') != null) {
+    sourceSets { cacheChecks {
+        compileClasspath += project(':renderer-vulkan').sourceSets.main.output
+        runtimeClasspath += project(':renderer-vulkan').sourceSets.main.output
+    } }
+    tasks.register('cacheChecks', JavaExec) {
+        dependsOn cacheChecksClasses, ':renderer-vulkan:classes'
+        classpath = sourceSets.cacheChecks.runtimeClasspath
+        mainClass = 'com.shnewbs.deepprimal.validation.CacheChecks'
+        javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+    }
+    tasks.named('check') { dependsOn 'cacheChecks' }
 }

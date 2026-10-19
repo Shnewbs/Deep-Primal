@@ -8,6 +8,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(ChunkMap.class)
 public abstract class ChunkMapMixin {
-    @ModifyConstant(method = "setServerViewDistance", constant = @Constant(intValue = 32))
-    private int deepprimal$viewCapacity(int nativeMaximum) { return DistanceRuntime.trackingCapacity(); }
+  @ModifyConstant(method = "setServerViewDistance", constant = @Constant(intValue = 32))
+  private int deepprimal$viewCapacity(int nativeMaximum) {
+    return DistanceRuntime.trackingCapacity();
+  }
 }

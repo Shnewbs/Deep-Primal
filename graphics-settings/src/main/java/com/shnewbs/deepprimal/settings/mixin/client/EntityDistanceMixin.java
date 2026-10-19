@@ -15,15 +15,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderDispatcher.class)
 public abstract class EntityDistanceMixin {
-    @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
-    private void deepprimal$visualRange(Entity entity, Frustum frustum, double x, double y, double z,
-                                      CallbackInfoReturnable<Boolean> callback) {
-        int radius = ClientPerformanceConfig.ENTITY_LIMIT.get();
-        if (radius == 0 || entity instanceof Player || Minecraft.getInstance().shouldEntityAppearGlowing(entity)
-            || entity instanceof Leashable leashable && leashable.getLeashHolder() != null) return;
-        if (VisualPerformance.outside(entity.getBoundingBox(), x, y, z, radius)) {
-            VisualPerformance.entitiesSkipped++;
-            callback.setReturnValue(false);
-        }
+  @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
+  private void deepprimal$visualRange(
+      Entity entity,
+      Frustum frustum,
+      double x,
+      double y,
+      double z,
+      CallbackInfoReturnable<Boolean> callback) {
+    int radius = ClientPerformanceConfig.ENTITY_LIMIT.get();
+    if (radius == 0
+        || entity instanceof Player
+        || Minecraft.getInstance().shouldEntityAppearGlowing(entity)
+        || entity instanceof Leashable leashable && leashable.getLeashHolder() != null) return;
+    if (VisualPerformance.outside(entity.getBoundingBox(), x, y, z, radius)) {
+      VisualPerformance.entitiesSkipped++;
+      callback.setReturnValue(false);
     }
+  }
 }

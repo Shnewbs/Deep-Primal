@@ -13,131 +13,145 @@ import org.lwjgl.vulkan.VkMemoryHeap;
 import org.lwjgl.vulkan.VkMemoryType;
 
 public class MemoryTypes {
-   public static MemoryType GPU_MEM;
-   public static MemoryType HOST_MEM;
+  public static MemoryType GPU_MEM;
+  public static MemoryType HOST_MEM;
 
-   public static void createMemoryTypes() {
+  public static void createMemoryTypes() {
+    for (int i = 0; i < DeviceManager.memoryProperties.memoryTypeCount(); i++) {
+      VkMemoryType memoryType = DeviceManager.memoryProperties.memoryTypes(i);
+      VkMemoryHeap heap = DeviceManager.memoryProperties.memoryHeaps(memoryType.heapIndex());
+      int propertyFlags = memoryType.propertyFlags();
+      if (propertyFlags == 1) {
+        GPU_MEM = new MemoryTypes.DeviceLocalMemory(memoryType, heap);
+      }
+
+      if (propertyFlags == 6) {
+        HOST_MEM = new MemoryTypes.HostCoherentMemory(memoryType, heap);
+      }
+    }
+
+    if (GPU_MEM == null || HOST_MEM == null) {
       for (int i = 0; i < DeviceManager.memoryProperties.memoryTypeCount(); i++) {
-         VkMemoryType memoryType = DeviceManager.memoryProperties.memoryTypes(i);
-         VkMemoryHeap heap = DeviceManager.memoryProperties.memoryHeaps(memoryType.heapIndex());
-         int propertyFlags = memoryType.propertyFlags();
-         if (propertyFlags == 1) {
-            GPU_MEM = new MemoryTypes.DeviceLocalMemory(memoryType, heap);
-         }
+        VkMemoryType memoryTypex = DeviceManager.memoryProperties.memoryTypes(i);
+        VkMemoryHeap heapx = DeviceManager.memoryProperties.memoryHeaps(memoryTypex.heapIndex());
+        if ((memoryTypex.propertyFlags() & 7) == 7) {
+          GPU_MEM = new MemoryTypes.DeviceMappableMemory(memoryTypex, heapx);
+        }
 
-         if (propertyFlags == 6) {
-            HOST_MEM = new MemoryTypes.HostCoherentMemory(memoryType, heap);
-         }
+        if ((memoryTypex.propertyFlags() & 6) == 6) {
+          HOST_MEM = new MemoryTypes.HostLocalFallbackMemory(memoryTypex, heapx);
+        }
+
+        if (GPU_MEM != null && HOST_MEM != null) {
+          return;
+        }
       }
 
-      if (GPU_MEM == null || HOST_MEM == null) {
-         for (int i = 0; i < DeviceManager.memoryProperties.memoryTypeCount(); i++) {
-            VkMemoryType memoryTypex = DeviceManager.memoryProperties.memoryTypes(i);
-            VkMemoryHeap heapx = DeviceManager.memoryProperties.memoryHeaps(memoryTypex.heapIndex());
-            if ((memoryTypex.propertyFlags() & 3) == 3) {
-               GPU_MEM = new MemoryTypes.DeviceMappableMemory(memoryTypex, heapx);
-            }
+      GPU_MEM = HOST_MEM;
+    }
+  }
 
-            if ((memoryTypex.propertyFlags() & 6) == 6) {
-               HOST_MEM = new MemoryTypes.HostLocalFallbackMemory(memoryTypex, heapx);
-            }
+  public static class DeviceLocalMemory extends MemoryType {
+    DeviceLocalMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
+      super(MemoryType.Type.DEVICE_LOCAL, vkMemoryType, vkMemoryHeap);
+    }
 
-            if (GPU_MEM != null && HOST_MEM != null) {
-               return;
-            }
-         }
+    @Override
+    public void createBuffer(Buffer buffer, long size) {
+      MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 1);
+    }
 
-         GPU_MEM = HOST_MEM;
+    @Override
+    public void copyToBuffer(
+        Buffer buffer, ByteBuffer src, long size, long srcOffset, long dstOffset) {
+      StagingBuffer stagingBuffer = Vulkan.getStagingBuffer();
+      stagingBuffer.align(4);
+      stagingBuffer.copyBuffer(Math.toIntExact(size), MemoryUtil.memAddress(src) + srcOffset);
+      var command =
+          net.vulkanmod.render.texture.ImageUploadHelper.INSTANCE
+              .getOrStartCommandBuffer()
+              .getHandle();
+      try (var stack = org.lwjgl.system.MemoryStack.stackPush()) {
+        var copy =
+            org.lwjgl.vulkan.VkBufferCopy.calloc(1, stack)
+                .srcOffset(stagingBuffer.getOffset())
+                .dstOffset(dstOffset)
+                .size(size);
+        org.lwjgl.vulkan.VK10.vkCmdCopyBuffer(command, stagingBuffer.getId(), buffer.getId(), copy);
+        var barrier =
+            org.lwjgl.vulkan.VkBufferMemoryBarrier.calloc(1, stack)
+                .sType$Default()
+                .buffer(buffer.getId())
+                .offset(dstOffset)
+                .size(size)
+                .srcQueueFamilyIndex(-1)
+                .dstQueueFamilyIndex(-1)
+                .srcAccessMask(4096)
+                .dstAccessMask(org.lwjgl.vulkan.VK10.VK_ACCESS_MEMORY_READ_BIT);
+        org.lwjgl.vulkan.VK10.vkCmdPipelineBarrier(
+            command,
+            4096,
+            org.lwjgl.vulkan.VK10.VK_PIPELINE_STAGE_ALL_COMMANDS_BIT,
+            0,
+            null,
+            barrier,
+            null);
       }
-   }
+    }
 
-   public static class DeviceLocalMemory extends MemoryType {
-      DeviceLocalMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
-         super(MemoryType.Type.DEVICE_LOCAL, vkMemoryType, vkMemoryHeap);
-      }
+    @Override
+    public boolean mappable() {
+      return false;
+    }
+  }
 
-      @Override
-      public void createBuffer(Buffer buffer, long size) {
-         MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 1);
-      }
+  static class DeviceMappableMemory extends MemoryTypes.MappableMemory {
+    DeviceMappableMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
+      super(MemoryType.Type.DEVICE_LOCAL, vkMemoryType, vkMemoryHeap);
+    }
 
-      @Override
-      public void copyToBuffer(Buffer buffer, ByteBuffer src, long size, long srcOffset, long dstOffset) {
-         StagingBuffer stagingBuffer = Vulkan.getStagingBuffer();
-         stagingBuffer.copyBuffer((int)size, src);
-         DeviceManager.getTransferQueue().copyBufferCmd(stagingBuffer.getId(), stagingBuffer.getOffset(), buffer.getId(), dstOffset, size);
-      }
+    @Override
+    public void createBuffer(Buffer buffer, long size) {
+      MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 7);
+    }
+  }
 
-      @Override
-      public void copyFromBuffer(Buffer buffer, long bufferSize, ByteBuffer byteBuffer) {
-      }
+  static class HostCoherentMemory extends MemoryTypes.MappableMemory {
+    HostCoherentMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
+      super(MemoryType.Type.HOST_LOCAL, vkMemoryType, vkMemoryHeap);
+    }
 
-      public long copyBuffer(Buffer src, Buffer dst) {
-         if (dst.getBufferSize() < src.getBufferSize()) {
-            throw new IllegalArgumentException("dst size is less than src size.");
-         } else {
-            return DeviceManager.getTransferQueue().copyBufferCmd(src.getId(), 0L, dst.getId(), 0L, src.getBufferSize());
-         }
-      }
+    @Override
+    public void createBuffer(Buffer buffer, long size) {
+      MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 6);
+    }
+  }
 
-      @Override
-      public boolean mappable() {
-         return false;
-      }
-   }
+  static class HostLocalFallbackMemory extends MemoryTypes.MappableMemory {
+    HostLocalFallbackMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
+      super(MemoryType.Type.HOST_LOCAL, vkMemoryType, vkMemoryHeap);
+    }
 
-   static class DeviceMappableMemory extends MemoryTypes.MappableMemory {
-      DeviceMappableMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
-         super(MemoryType.Type.DEVICE_LOCAL, vkMemoryType, vkMemoryHeap);
-      }
+    @Override
+    public void createBuffer(Buffer buffer, long size) {
+      MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 6);
+    }
+  }
 
-      @Override
-      public void createBuffer(Buffer buffer, long size) {
-         MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 3);
-      }
-   }
+  abstract static class MappableMemory extends MemoryType {
+    MappableMemory(MemoryType.Type type, VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
+      super(type, vkMemoryType, vkMemoryHeap);
+    }
 
-   static class HostCoherentMemory extends MemoryTypes.MappableMemory {
-      HostCoherentMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
-         super(MemoryType.Type.HOST_LOCAL, vkMemoryType, vkMemoryHeap);
-      }
+    @Override
+    public void copyToBuffer(
+        Buffer buffer, ByteBuffer src, long size, long srcOffset, long dstOffset) {
+      VUtil.memcpy(src, buffer, size, srcOffset, dstOffset);
+    }
 
-      @Override
-      public void createBuffer(Buffer buffer, long size) {
-         MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 6);
-      }
-   }
-
-   static class HostLocalFallbackMemory extends MemoryTypes.MappableMemory {
-      HostLocalFallbackMemory(VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
-         super(MemoryType.Type.HOST_LOCAL, vkMemoryType, vkMemoryHeap);
-      }
-
-      @Override
-      public void createBuffer(Buffer buffer, long size) {
-         MemoryManager.getInstance().createBuffer(buffer, size, 3 | buffer.usage, 6);
-      }
-   }
-
-   abstract static class MappableMemory extends MemoryType {
-      MappableMemory(MemoryType.Type type, VkMemoryType vkMemoryType, VkMemoryHeap vkMemoryHeap) {
-         super(type, vkMemoryType, vkMemoryHeap);
-      }
-
-      @Override
-      public void copyToBuffer(Buffer buffer, ByteBuffer src, long size, long srcOffset, long dstOffset) {
-         VUtil.memcpy(src, buffer, size, srcOffset, dstOffset);
-      }
-
-      @Override
-      public void copyFromBuffer(Buffer buffer, long size, ByteBuffer byteBuffer) {
-         MemoryUtil.memCopy(buffer.getDataPtr(), MemoryUtil.memAddress(byteBuffer), size);
-         VUtil.memcpy(buffer, byteBuffer, size);
-      }
-
-      @Override
-      public boolean mappable() {
-         return true;
-      }
-   }
+    @Override
+    public boolean mappable() {
+      return true;
+    }
+  }
 }

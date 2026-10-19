@@ -17,19 +17,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockEntityRenderDispatcher.class)
 public abstract class BlockEntityDistanceMixin {
-    @Shadow private Vec3 cameraPos;
-    @Shadow public abstract <E extends BlockEntity, S extends BlockEntityRenderState> BlockEntityRenderer<E, S> getRenderer(E entity);
+  @Shadow private Vec3 cameraPos;
 
-    @Inject(method = "tryExtractRenderState(Lnet/minecraft/world/level/block/entity/BlockEntity;FLnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;Lnet/minecraft/client/renderer/culling/Frustum;)Lnet/minecraft/client/renderer/blockentity/state/BlockEntityRenderState;", at = @At("HEAD"), cancellable = true)
-    private void deepprimal$visualRange(BlockEntity entity, float delta, ModelFeatureRenderer.CrumblingOverlay breaking,
-                                      Frustum frustum, CallbackInfoReturnable<BlockEntityRenderState> callback) {
-        int radius = ClientPerformanceConfig.BLOCK_ENTITY_LIMIT.get();
-        if (radius == 0 || cameraPos == null) return;
-        var renderer = getRenderer(entity);
-        if (renderer == null || renderer.shouldRenderOffScreen()) return;
-        if (VisualPerformance.outside(renderer.getRenderBoundingBox(entity), cameraPos.x, cameraPos.y, cameraPos.z, radius)) {
-            VisualPerformance.blockEntitiesSkipped++;
-            callback.setReturnValue(null);
-        }
+  @Shadow
+  public abstract <E extends BlockEntity, S extends BlockEntityRenderState>
+      BlockEntityRenderer<E, S> getRenderer(E entity);
+
+  @Inject(
+      method =
+          "tryExtractRenderState(Lnet/minecraft/world/level/block/entity/BlockEntity;FLnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;Lnet/minecraft/client/renderer/culling/Frustum;)Lnet/minecraft/client/renderer/blockentity/state/BlockEntityRenderState;",
+      at = @At("HEAD"),
+      cancellable = true)
+  private void deepprimal$visualRange(
+      BlockEntity entity,
+      float delta,
+      ModelFeatureRenderer.CrumblingOverlay breaking,
+      Frustum frustum,
+      CallbackInfoReturnable<BlockEntityRenderState> callback) {
+    int radius = ClientPerformanceConfig.BLOCK_ENTITY_LIMIT.get();
+    if (radius == 0 || cameraPos == null) return;
+    var renderer = getRenderer(entity);
+    if (renderer == null || renderer.shouldRenderOffScreen()) return;
+    if (VisualPerformance.outside(
+        renderer.getRenderBoundingBox(entity), cameraPos.x, cameraPos.y, cameraPos.z, radius)) {
+      VisualPerformance.blockEntitiesSkipped++;
+      callback.setReturnValue(null);
     }
+  }
 }

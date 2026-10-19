@@ -10,9 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Options.class)
 public abstract class MemoryDistanceMixin {
-    @Inject(method = "getEffectiveRenderDistance", at = @At("RETURN"), cancellable = true)
-    private void deepprimal$memoryLimit(CallbackInfoReturnable<Integer> callback) {
-        var level = Minecraft.getInstance().level;
-        callback.setReturnValue(MemorySafety.limit(callback.getReturnValue(), level == null ? 64 : level.getSectionsCount()));
-    }
+  @Inject(method = "getEffectiveRenderDistance", at = @At("RETURN"), cancellable = true)
+  private void deepprimal$memoryLimit(CallbackInfoReturnable<Integer> callback) {
+    var level = Minecraft.getInstance().level;
+    callback.setReturnValue(
+        MemorySafety.limit(
+            callback.getReturnValue(), level == null ? 64 : level.getSectionsCount()));
+  }
 }
