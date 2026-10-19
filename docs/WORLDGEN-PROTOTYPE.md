@@ -1,4 +1,4 @@
-# Worldgen prototype 0.0.1-alpha.10
+# Worldgen prototype 0.0.1-alpha.11
 
 Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
 
@@ -9,7 +9,7 @@ Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain de
 3. Use Creative with commands enabled. `/gamemode spectator` is useful for inspecting geology and caves.
 4. Run `/deepprimal info`, then explore. Vanilla blocks/items, biome vegetation, and feature placement are temporary test materials.
 
-The default spans Y=-128..639 (768 blocks). In `config/deepprimal-worldgen.toml`, set `extraUndergroundDepth = true` and restart Minecraft/the server **before creating a new world** to use -384..639 (1024 blocks). Sea level remains 96 and the mountain ceiling is unchanged. Both bounded profiles stay registered for saved-world compatibility, but are absent from the world-type lists. Saved dimension types and noise settings determine an existing world's height; changing this creation-time config does not migrate it.
+The default spans Y=-128..639 (768 blocks). In `config/deepprimal-worldgen.toml`, set `extraUndergroundDepth = true` and restart Minecraft/the server **before creating a new world** to use -384..639 (1024 blocks). Sea level remains 96 and the mountain ceiling is unchanged. Both height profiles stay registered for saved-world compatibility, but are absent from the world-type lists. `riversAndCoasts = true` selects the new rivers/streams/coasts profile for new worlds; set it false before creation and restart to retain legacy terrain for a new world. All four pack IDs remain available for saved-world loading, while only the chosen creation profile loads automatically. Saved dimension types and noise settings determine an existing world's height; changing this creation-time config does not migrate it.
 
 A required built-in data pack supplies the configured `minecraft:normal` preset on client and server. An ordinary dedicated server using its default `level-type=minecraft:normal` therefore creates Deep Primal terrain. Flat, amplified, and other explicitly selected world types retain their own generation. This is not unlimited height or cubic chunk streaming.
 
@@ -17,7 +17,8 @@ A required built-in data pack supplies the configured `minecraft:normal` preset 
 
 - Default normal world generation with two config-selected saved-world profiles, dimension types, and noise settings.
 - Seeded continental terrain, amplified mountain ridges, and valley masks with vanilla multi-noise biomes.
-- Vanilla underground aquifers, intersecting noise-band tunnels, continuous surface-rock cover, and deeper chambers that taper out below the alpine terrain. Native biome carvers retain ordinary lower-elevation entrances. The previous single-band sheet carving and hard shallow-depth switch are removed. These remain geological placeholders, without erosion simulation, structural support simulation, renewable groundwater, or connected river drainage.
+- Vanilla underground aquifers, intersecting noise-band tunnels, continuous surface-rock cover, and deeper chambers that taper out below the alpine terrain. Native biome carvers retain ordinary lower-elevation entrances. The previous single-band sheet carving and hard shallow-depth switch are removed. These remain geological placeholders, without erosion simulation, structural support simulation, renewable groundwater, or a routed watershed solver.
+- Alpha 11 lowland river valleys and narrower tributary streams, water to Y=95, gravel channel beds, graded coastal shelves, sand over sandstone in coastal beach biomes, and retained rocky/steep shores. Terrain and the distant horizon share the shaped field. Existing alpha 10 saves keep their old noise settings and aquifers.
 - Visible placeholder strata: andesite, granite, diorite, deepslate; bedrock floor; simple soil/sand/snow surface rules.
 - A data-driven terrain-height field stored in the native bounded 5×5 chunk grid, direct preliminary-surface calculation without a vertical search, and interpolated density evaluation through the native engine.
 - Explicit overworld sky/fog/light colors, high clouds, small-scale terrain detail, slope-based exposed rock, and rocky subsoil above Y=224 to reduce dirt stripes on high cliffs.
@@ -94,7 +95,7 @@ Alpha 8 extends **Performance…** with terrain upload budgets, visual range/adm
 
 Use Java 25. Run `./gradlew build` (Windows: `gradlew.bat build`). Output is under `build/libs/`. `./gradlew runClient` starts a development client; `./gradlew runServer` starts a development server (the Minecraft EULA must be accepted before use).
 
-`./gradlew coreChecks` runs the standalone differential height, cache-bound, and tick-ring checks. `./gradlew build` includes these checks.
+`./gradlew coreChecks` runs the standalone differential height, 100,000 randomized waterway cases, cache-bound, and tick-ring checks. `./gradlew build` includes these checks.
 
 `python3 tools/generate_worldgen.py` reproduces the authored JSON resources without external dependencies. Edit terrain parameters/profile heights in that script, regenerate, rebuild, and create a fresh world. Do not change the geometry of an existing world without a migration policy.
 
@@ -113,3 +114,11 @@ Keep the memory distance guard enabled for large requested distances. Its effect
 The standard package now includes the experimental Vulkan adapter. Select it under **Performance → Graphics API**, Apply, and restart. OpenGL remains the default. Use one graphics replacement at a time; Deep Primal yields when an external renderer is installed. See [Vulkan details](VULKAN-BACKPORT.md) and [alpha 9 validation](VALIDATION-0.0.1-alpha.9.md).
 
 Alpha 10 keeps Vulkan, graphics settings and common performance in separate nested modules. See [module builds](MODULES.md), [Vulkan capabilities](VULKAN-CAPABILITIES.md), and [current validation](VALIDATION-0.0.1-alpha.10.md). The default remains OpenGL.
+
+## Rivers, streams and coast validation
+
+The new versioned noise settings are `deepprimal:waterways_v1` and `deepprimal:waterways_v1_deep`. Their geometry is separate from the optional Vulkan backend and the performance/graphics modules. Core shaping lives in `engine-core`; the root worldgen adapter owns Minecraft density registration and surface water. There is no per-tick river worker or growing watershed cache.
+
+`python3 tools/validate_waterways.py ./gradlew --accept-eula` creates disposable standard, deep and legacy worlds, tests actual river/stream/mouth/beach blocks, saves, and reopens the legacy world after enabling the new-world toggle. Run only after accepting the Minecraft EULA. `--offline` uses prepared Gradle dependencies. Existing test worlds are preserved: use a fresh checkout or move the previous `run-waterways-check-*` directories before repeating. The fixture is never included in the installer. See [alpha 11 results](VALIDATION-0.0.1-alpha.11.md).
+
+Streams currently follow smooth seeded lowland contours at the shared sea level. Width varies with the local noise gradient; arbitrary drainage connectivity, variable-altitude flow, waterfalls, water budgets, recharge and erosion remain future work.

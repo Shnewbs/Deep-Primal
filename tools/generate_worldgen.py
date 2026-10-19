@@ -26,6 +26,12 @@ def climate_noise(name):
 def clamp(value, low, high):
     return {'type': 'minecraft:clamp', 'input': value, 'min': low, 'max': high}
 
+def below(y):
+    return {'type': 'minecraft:not', 'invert': above(y)}
+
+def biomes(*names):
+    return {'type': 'minecraft:biome', 'biome_is': ['minecraft:' + name for name in names]}
+
 def condition(test, result):
     return {'type': 'minecraft:condition', 'if_true': test, 'then_run': result}
 
@@ -59,9 +65,28 @@ write('data/deepprimal/worldgen/noise/surface_detail.json', {'firstOctave': -5, 
 # height grid once per chunk instead of retaining only the last sampled column.
 write('data/deepprimal/worldgen/density_function/terrain_height.json', unary('flat_cache', height))
 
-def profile(name, min_y, height):
+# Versioned fields are shared by both height profiles. Keep the original height
+# and noise settings intact: old saves must not pick up a different coastline.
+SEA_LEVEL = 96
+WATERWAYS = 'deepprimal:waterways_v1/'
+
+waterways_height = WATERWAYS + 'terrain_height'
+write('data/deepprimal/worldgen/noise/tributaries_v1.json',
+      {'firstOctave': -8, 'amplitudes': [1.0, 0.5]})
+# One cached 2D function evaluates each input once, including horizon queries
+# outside native chunk caches. Avoid duplicating a large expression graph.
+write('data/deepprimal/worldgen/density_function/waterways_v1/terrain_height.json',
+      unary('flat_cache', {'type': 'deepprimal:waterway_height',
+          'terrain_height': 'deepprimal:terrain_height', 'continents': continents,
+          'ridges': ridges, 'erosion': erosion,
+          'detail': noise('deepprimal:surface_detail'),
+          'tributaries': noise('deepprimal:tributaries_v1', 0.8), 'sea_level': SEA_LEVEL}))
+
+def profile(name, min_y, height, *, waterways=False):
     top = min_y + height
-    terrain = op('add', op('mul', 1 / 80, 'deepprimal:terrain_height'), {
+    height_source = waterways_height if waterways else 'deepprimal:terrain_height'
+    dimension_name = ('prototype_deep' if min_y == -384 else 'prototype') if waterways else name
+    terrain = op('add', op('mul', 1 / 80, height_source), {
         'type': 'minecraft:y_clamped_gradient', 'from_y': min_y, 'to_y': top,
         'from_value': -min_y / 80, 'to_value': -top / 80})
     # Intersect two independent bands to form tubes, rather than cutting whole
@@ -96,7 +121,7 @@ def profile(name, min_y, height):
         'continents': continents, 'erosion': erosion, 'ridges': ridges,
         'depth': terrain, 'initial_density_without_jaggedness': terrain,
         'final_density': unary('interpolated', final),
-        'preliminary_surface_level': {'type': 'deepprimal:column_surface', 'height': 'deepprimal:terrain_height',
+        'preliminary_surface_level': {'type': 'deepprimal:column_surface', 'height': height_source,
             'cell_height': 8, 'lower_bound': min_y, 'upper_bound': top - 8},
         'vein_toggle': 0.0, 'vein_ridged': 0.0, 'vein_gap': 0.0}
     arid = {'type': 'minecraft:biome', 'biome_is': ['minecraft:desert', 'minecraft:badlands',
@@ -121,6 +146,35 @@ def profile(name, min_y, height):
         condition(above(16), block('granite')),
         condition(above(-64), block('diorite')),
         block('deepslate'))
+    if waterways:
+        router['preliminary_surface_level']['surface_water'] = True
+        router.pop('initial_density_without_jaggedness')  # Removed from the target-version codec.
+        beach = biomes('beach', 'snowy_beach')
+        # The coastal shelf creates dry sand above the waterline. Restrict its
+        # material to coastal biomes, so inland rivers do not become beaches.
+        coastal_layers = condition(beach, condition(above(SEA_LEVEL - 7),
+            condition(below(SEA_LEVEL + 6), sequence(
+                condition(depth(3), block('sand')),
+                condition(depth(6), block('sandstone'))))))
+        inland_water = condition(below(SEA_LEVEL + 2), condition(
+            {'type': 'minecraft:not', 'invert': biomes('ocean', 'deep_ocean',
+                'cold_ocean', 'deep_cold_ocean', 'frozen_ocean', 'deep_frozen_ocean',
+                'lukewarm_ocean', 'deep_lukewarm_ocean', 'warm_ocean', 'beach', 'snowy_beach')},
+            condition(depth(2), block('gravel'))))
+        surfaces = sequence(surfaces['sequence'][0],
+            condition({'type': 'minecraft:above_preliminary_surface'}, sequence(
+                condition(biomes('stony_shore'), condition(depth(5), rocky)),
+                condition({'type': 'minecraft:steep'}, condition(depth(4), rocky)),
+                coastal_layers,
+                inland_water,
+                condition(depth(), sequence(
+                    condition(below(SEA_LEVEL), block('sand')),
+                    condition(above(360), block('snow_block')),
+                    condition(arid, block('sand')), block('grass_block'))),
+                condition(depth(0, True), sequence(
+                    condition(above(224), block('andesite')),
+                    condition(arid, block('sand')), block('dirt'))))),
+            *surfaces['sequence'][2:])
     write(f'data/deepprimal/worldgen/noise_settings/{name}.json', {
         'aquifers_enabled': True, 'default_block': {'Name': 'minecraft:stone'},
         'default_fluid': {'Name': 'minecraft:water', 'Properties': {'level': '0'}},
@@ -130,7 +184,7 @@ def profile(name, min_y, height):
         'spawn_target': [{'temperature': [-1.0, 1.0], 'humidity': [-1.0, 1.0],
             'continentalness': [0.1, 1.0], 'erosion': [-1.0, 1.0], 'depth': 0.0,
             'weirdness': [-1.0, 1.0], 'offset': 0.0}], 'surface_rule': surfaces})
-    write(f'data/deepprimal/dimension_type/{name}.json', {
+    write(f'data/deepprimal/dimension_type/{dimension_name}.json', {
         'ambient_light': 0.0, 'attributes': {
             'minecraft:visual/cloud_height': 420.0,
             'minecraft:visual/sky_color': '#78a7ff',
@@ -147,7 +201,7 @@ def profile(name, min_y, height):
         'monster_spawn_light_level': {'type': 'minecraft:uniform', 'min_inclusive': 0, 'max_inclusive': 7},
         'timelines': '#minecraft:in_overworld'})
     write(f'data/deepprimal/worldgen/world_preset/{name}.json', {'dimensions': {
-        'minecraft:overworld': {'type': 'deepprimal:' + name, 'generator': {
+        'minecraft:overworld': {'type': 'deepprimal:' + dimension_name, 'generator': {
             'type': 'minecraft:noise', 'biome_source': {'type': 'minecraft:multi_noise', 'preset': 'minecraft:overworld'},
             'settings': 'deepprimal:' + name}},
         'minecraft:the_nether': {'type': 'minecraft:the_nether', 'generator': {
@@ -157,14 +211,17 @@ def profile(name, min_y, height):
 
 profile('prototype', -128, 768)
 profile('prototype_deep', -384, 1024)
+profile('waterways_v1', -128, 768, waterways=True)
+profile('waterways_v1_deep', -384, 1024, waterways=True)
 for name, octave in [('tunnel_a', -5), ('tunnel_b', -5), ('chambers', -6)]:
     write(f'data/deepprimal/worldgen/noise/{name}.json', {'firstOctave': octave, 'amplitudes': [1.0, 0.5]})
 # Keep both historical preset IDs loadable, but expose one normal world type.
 # The startup config chooses which required built-in pack supplies that preset.
 write('data/minecraft/tags/worldgen/world_preset/normal.json', {'replace': False, 'values': []})
-for label, profile_name in [('standard', 'prototype'), ('deep', 'prototype_deep')]:
+for label, profile_name in [('standard', 'prototype'), ('deep', 'prototype_deep'),
+        ('waterways_standard', 'waterways_v1'), ('waterways_deep', 'waterways_v1_deep')]:
     preset = json.loads((ROOT / f'data/deepprimal/worldgen/world_preset/{profile_name}.json').read_text())
     write(f'worldgen/{label}/data/minecraft/worldgen/world_preset/normal.json', preset)
     write(f'worldgen/{label}/pack.mcmeta', {'pack': {
         'description': 'Deep Primal configured world generation', 'min_format': [101, 1], 'max_format': [101, 1]}})
-print('Generated configured normal worldgen and two saved-world profiles, sea level 96.')
+print('Generated legacy and versioned river/stream/coast profiles, sea level 96.')

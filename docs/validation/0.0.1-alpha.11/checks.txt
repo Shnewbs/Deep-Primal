@@ -1,0 +1,27 @@
+WATERWAY_MAP_PASS seed=452343 minY=-128 points=66049 wet=31120 river=301 stream=246 beach=25 milliseconds=2314
+WATERWAY_BLOCKS_PASS kind=mouth x=-3104 z=-4064 water=7739 wetColumns=625 gravel=1750 sand=0 sandstone=0 drySand=0
+WATERWAY_BLOCKS_PASS kind=stream x=-1536 z=-4064 water=1856 wetColumns=391 gravel=1103 sand=0 sandstone=0 drySand=0
+WATERWAY_BLOCKS_PASS kind=river x=-448 z=-4064 water=3763 wetColumns=601 gravel=1831 sand=0 sandstone=0 drySand=0
+WATERWAY_BLOCKS_PASS kind=beach x=1920 z=-3968 water=12 wetColumns=12 gravel=145 sand=1841 sandstone=1534 drySand=1001
+WATERWAY_MAP_PASS seed=947291 minY=-384 points=66049 wet=30087 river=285 stream=251 beach=19 milliseconds=2654
+WATERWAY_BLOCKS_PASS kind=river x=4064 z=-4096 water=3849 wetColumns=625 gravel=1875 sand=0 sandstone=0 drySand=0
+WATERWAY_BLOCKS_PASS kind=stream x=1184 z=-4064 water=898 wetColumns=197 gravel=894 sand=0 sandstone=0 drySand=0
+WATERWAY_BLOCKS_PASS kind=mouth x=1376 z=-4064 water=3932 wetColumns=625 gravel=1509 sand=246 sandstone=0 drySand=0
+WATERWAY_BLOCKS_PASS kind=beach x=1376 z=-3936 water=0 wetColumns=0 gravel=0 sand=2470 sandstone=1609 drySand=1588
+WATERWAY_LEGACY_PASS settings=deepprimal:prototype
+WATERWAY_LEGACY_PASS settings=deepprimal:prototype
+CACHE_CHECKS_PASS corruption truncation bounds LRU250 exactDescriptorEquality dynamicOffsets commandReset
+WATERWAY_CORE_PASS randomCases=100000 riverMouth=true dryBeach=true narrowTributary=true cliffs=true bounds=true continuity=true
+PASS: 3000 nearest-queue differential cases, distance validation, 34300 ring-grid coordinates.
+PASS: horizon snapshots, closed mesh bounds, 1540 interpolation/seam cases, byte-budget stress.
+PASS: 200000 differential surface cases, bounded-cache stress, tick-ring rollover.
+BUILD SUCCESSFUL in 16s
+WATERWAY_RUNTIME_PASS case=standard
+WATERWAY_RUNTIME_PASS case=deep
+WATERWAY_RUNTIME_PASS case=legacy
+WATERWAY_RUNTIME_PASS case=legacy-reopen
+DATAGEN_IDEMPOTENCE_PASS
+LEGACY_RESOURCE_PASS count=16
+PACKAGE_AUDIT_PASS ownClasses=271 nestedJars=4 duplicateProjectClasses=0 fixtures=0
+WITHOUT_VULKAN_PACKAGE_PASS nestedJars=3 staleVulkanBinary=false bytes=216697
+STANDARD_PROFILE_RESTORE_PASS byteIdentical=true

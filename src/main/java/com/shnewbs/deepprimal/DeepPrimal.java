@@ -45,6 +45,8 @@ public final class DeepPrimal {
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
     TICKETS.register(modBus);
     DENSITIES.register("column_surface", () -> ColumnSurface.MAP_CODEC);
+    DENSITIES.register(
+        "waterway_height", () -> com.shnewbs.deepprimal.worldgen.WaterwayHeight.MAP_CODEC);
     DENSITIES.register(modBus);
     NeoForge.EVENT_BUS.register(new WorldgenProbe(container.getModInfo().getVersion().toString()));
     NeoForge.EVENT_BUS.register(new NoVanillaXp());
