@@ -1,6 +1,6 @@
 package com.shnewbs.deepprimal.validation;
 
-import com.shnewbs.deepprimal.DistanceRuntime;
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
 import com.shnewbs.deepprimal.mixin.client.LevelRendererAccessor;
 import java.util.List;
 import net.minecraft.client.Minecraft;

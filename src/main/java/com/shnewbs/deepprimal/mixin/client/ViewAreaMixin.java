@@ -1,7 +1,7 @@
 package com.shnewbs.deepprimal.mixin.client;
 
-import com.shnewbs.deepprimal.RuntimeMetrics;
-import com.shnewbs.deepprimal.client.ClientPerformanceConfig;
+import com.shnewbs.deepprimal.performance.RuntimeMetrics;
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
 import com.shnewbs.deepprimal.client.VerticalView;
 import com.shnewbs.deepprimal.core.ViewGrid;
 import com.shnewbs.deepprimal.core.VerticalRange;

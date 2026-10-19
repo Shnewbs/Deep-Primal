@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.shnewbs.deepprimal.settings.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "client.ChunkRebuildMixin",
+    "client.FrameLimitMixin",
+    "client.EntityDistanceMixin",
+    "client.BlockEntityDistanceMixin",
+    "client.ParticleAdmissionMixin"
+  ],
+  "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

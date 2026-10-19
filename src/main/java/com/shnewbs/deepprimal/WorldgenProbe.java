@@ -1,5 +1,11 @@
 package com.shnewbs.deepprimal;
 
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
+
+import com.shnewbs.deepprimal.performance.RuntimeMetrics;
+
+import com.shnewbs.deepprimal.performance.PerformanceConfig;
+
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.shnewbs.deepprimal.core.BoundedLru;
 import com.shnewbs.deepprimal.core.TickWindow;

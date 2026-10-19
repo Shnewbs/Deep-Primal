@@ -23,6 +23,7 @@ neoForge {
     runs {
         client {
             client()
+            gameDirectory = project.file(findProperty('clientRunDir') ?: 'run')
             if (project.hasProperty('visualValidation') && (project.hasProperty('captureServer') || project.hasProperty('captureWorld'))) {
                 gameDirectory = project.file(findProperty('clientRunDir') ?: 'run-visual')
                 if (project.hasProperty('captureServer')) programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
@@ -61,7 +62,7 @@ tasks.named('jar') {
 tasks.named('wrapper') { gradleVersion = '9.2.1'; distributionType = Wrapper.DistributionType.BIN }
 
 tasks.register('verifyCoreBoundary') {
-    inputs.files(fileTree('src/main/java/com/shnewbs/deepprimal/core'))
+    inputs.files(fileTree('engine-core/src/main/java'))
     doLast {
         inputs.files.each { f ->
             if (f.text.contains('net.minecraft') || f.text.contains('net.neoforged'))
@@ -94,15 +95,24 @@ processResources {
     filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
 }
 
+ext.minecraftClasspath = configurations.compileClasspath.copyRecursive().files.toList()
+def modules = [':engine-core', ':performance-engine', ':graphics-settings']
+if (findProject(':renderer-vulkan') != null) modules.add(':renderer-vulkan')
+modules.each { path ->
+ evaluationDependsOn(path)
+ dependencies { implementation(project(path)); jarJar(project(path)) }
+}
+dependencies { coreChecksImplementation(project(':engine-core')) }
+neoForge.mods {
+ deepprimal_performance { sourceSet(project(':performance-engine').sourceSets.main) }
+ deepprimal_graphics { sourceSet(project(':graphics-settings').sourceSets.main) }
+}
 if (findProject(':renderer-vulkan') != null) {
-    ext.vulkanMinecraftClasspath = sourceSets.main.compileClasspath.files.toList()
-    evaluationDependsOn(':renderer-vulkan')
-    dependencies { jarJar(project(':renderer-vulkan')) }
-    neoForge.mods {
-        deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) }
-    }
-    neoForge.runs.client {
-        if (project.hasProperty('graphicsBackend')) systemProperty 'deepprimal.graphicsBackend', project.property('graphicsBackend')
-        if (project.hasProperty('vulkanRetry')) systemProperty 'deepprimal.vulkan.retry', 'true'
-    }
+ neoForge.mods { deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) } }
+ neoForge.runs.client {
+  if (project.hasProperty('graphicsBackend')) systemProperty 'deepprimal.graphicsBackend', project.property('graphicsBackend')
+  if (project.hasProperty('vulkanRetry')) systemProperty 'deepprimal.vulkan.retry', 'true'
+  if (project.hasProperty('vulkanValidation')) systemProperty 'deepprimal.vulkan.validation', 'true'
+  if (project.hasProperty('vulkanDebug')) systemProperty 'deepprimal.vulkan.debug', 'true'
+ }
 }

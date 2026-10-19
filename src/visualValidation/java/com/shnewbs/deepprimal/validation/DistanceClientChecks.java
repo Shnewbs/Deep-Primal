@@ -1,8 +1,8 @@
 package com.shnewbs.deepprimal.validation;
 
-import com.shnewbs.deepprimal.client.ClientPerformanceConfig;
-import com.shnewbs.deepprimal.DistanceRuntime;
-import com.shnewbs.deepprimal.RuntimeMetrics;
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
+import com.shnewbs.deepprimal.performance.RuntimeMetrics;
 import com.shnewbs.deepprimal.client.DistanceScreen;
 import com.shnewbs.deepprimal.mixin.client.LevelRendererAccessor;
 import java.lang.reflect.Method;

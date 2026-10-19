@@ -1,6 +1,6 @@
 package com.shnewbs.deepprimal.validation;
 
-import com.shnewbs.deepprimal.client.ClientPerformanceConfig;
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
 import com.shnewbs.deepprimal.client.DistanceScreen;
 import com.shnewbs.deepprimal.core.VerticalRange;
 import com.shnewbs.deepprimal.mixin.client.LevelRendererAccessor;

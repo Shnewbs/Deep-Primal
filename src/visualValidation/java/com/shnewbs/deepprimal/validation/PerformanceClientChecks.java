@@ -1,8 +1,8 @@
 package com.shnewbs.deepprimal.validation;
 
-import com.shnewbs.deepprimal.client.ClientPerformanceConfig;
-import com.shnewbs.deepprimal.client.HorizonSettingsScreen;
-import com.shnewbs.deepprimal.client.VisualPerformance;
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+import com.shnewbs.deepprimal.settings.PerformanceSettingsScreen;
+import com.shnewbs.deepprimal.settings.VisualPerformance;
 import com.shnewbs.deepprimal.client.render.HorizonRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -51,7 +51,7 @@ public final class PerformanceClientChecks {
             var renderer = HorizonRenderer.INSTANCE;
             if (renderer.maxUploadsPerFrame > ClientPerformanceConfig.UPLOAD_LEVELS.get()
                 || renderer.maxUploadBytesPerFrame > ClientPerformanceConfig.UPLOAD_KIB.get() * 1024L) throw new AssertionError("Upload budget exceeded");
-            var screen = new HorizonSettingsScreen(null); mc.setScreen(screen);
+            var screen = new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(null); mc.setScreen(screen);
             for (int page = 0; page < 3; page++) button(mc, "›").onPress(null);
             button(mc, "Speed — reduced visual detail").onPress(null);
             if (ClientPerformanceConfig.ENTITY_LIMIT.get() != 32) throw new AssertionError("Profile changed config before Apply");

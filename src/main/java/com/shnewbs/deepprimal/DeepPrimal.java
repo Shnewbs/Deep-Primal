@@ -1,5 +1,9 @@
 package com.shnewbs.deepprimal;
 
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
+
+import com.shnewbs.deepprimal.performance.PerformanceConfig;
+
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import com.shnewbs.deepprimal.worldgen.ColumnSurface;
@@ -31,7 +35,6 @@ public final class DeepPrimal {
         container.registerConfig(ModConfig.Type.STARTUP, com.shnewbs.deepprimal.diagnostics.DiagnosticsConfig.SPEC, "deepprimal-diagnostics.toml");
         NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.diagnostics.ServerTelemetry());
         container.registerConfig(ModConfig.Type.STARTUP, WorldgenConfig.SPEC, "deepprimal-worldgen.toml");
-        container.registerConfig(ModConfig.Type.COMMON, PerformanceConfig.SPEC, "deepprimal-performance.toml");
         modBus.addListener(WorldgenConfig::packs);
         modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
         NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
@@ -40,7 +43,6 @@ public final class DeepPrimal {
         DENSITIES.register(modBus);
         NeoForge.EVENT_BUS.register(new WorldgenProbe(container.getModInfo().getVersion().toString()));
         NeoForge.EVENT_BUS.register(new NoVanillaXp());
-        NeoForge.EVENT_BUS.register(new DistanceRuntime());
         LOGGER.info("Deep Primal worldgen prototype loaded: vanilla placeholders, disposable test worlds.");
     }
 }

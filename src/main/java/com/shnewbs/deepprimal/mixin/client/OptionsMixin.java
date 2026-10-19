@@ -1,6 +1,6 @@
 package com.shnewbs.deepprimal.mixin.client;
 
-import com.shnewbs.deepprimal.DistanceRuntime;
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
 import com.shnewbs.deepprimal.core.DistancePolicy;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;

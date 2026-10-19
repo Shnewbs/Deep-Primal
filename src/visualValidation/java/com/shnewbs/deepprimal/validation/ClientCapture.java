@@ -1,5 +1,9 @@
 package com.shnewbs.deepprimal.validation;
 
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+
+import com.shnewbs.deepprimal.performance.MemorySafety;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -114,9 +118,9 @@ public final class ClientCapture {
             if (action.equals("performance-checks")) { PerformanceClientChecks.run(mc); return; }
             if (action.equals("rebuild-stress")) {
                 mc.options.prioritizeChunkUpdates().set(net.minecraft.client.PrioritizeChunkUpdates.NEARBY);
-                com.shnewbs.deepprimal.client.ClientPerformanceConfig.PACE_REBUILDS.set(true);
-                com.shnewbs.deepprimal.client.ClientPerformanceConfig.SYNC_REBUILDS.set(1);
-                com.shnewbs.deepprimal.client.ClientPerformanceConfig.SYNC_REBUILD_MICROS.set(250);
+                com.shnewbs.deepprimal.settings.ClientPerformanceConfig.PACE_REBUILDS.set(true);
+                com.shnewbs.deepprimal.settings.ClientPerformanceConfig.SYNC_REBUILDS.set(1);
+                com.shnewbs.deepprimal.settings.ClientPerformanceConfig.SYNC_REBUILD_MICROS.set(250);
                 mc.setScreen(null); return;
             }
             if (action.equals("player-rebuild")) {
@@ -133,7 +137,7 @@ public final class ClientCapture {
             if (action.equals("memory-guard-checks")) {
                 int requested = mc.options.renderDistance().get();
                 mc.options.renderDistance().set(96);
-                int limit = com.shnewbs.deepprimal.MemorySafety.limit(96, mc.level.getSectionsCount());
+                int limit = com.shnewbs.deepprimal.performance.MemorySafety.limit(96, mc.level.getSectionsCount());
                 if (mc.options.renderDistance().get()!=96 || mc.options.getEffectiveRenderDistance()>limit)
                     throw new AssertionError("Memory guard did not preserve request/bound effective distance");
                 mc.options.renderDistance().set(requested);
@@ -143,7 +147,7 @@ public final class ClientCapture {
             if (action.equals("integrated-memory-checks")) {
                 var server = mc.getSingleplayerServer();
                 if (server == null) throw new AssertionError("No integrated server");
-                int limit = com.shnewbs.deepprimal.MemorySafety.serverLimit(96, server);
+                int limit = com.shnewbs.deepprimal.performance.MemorySafety.serverLimit(96, server);
                 int view = server.getPlayerList().getViewDistance();
                 int simulation = server.getPlayerList().getSimulationDistance();
                 if (mc.options.renderDistance().get()!=96 || mc.options.simulationDistance().get()!=16
@@ -156,20 +160,20 @@ public final class ClientCapture {
                 net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new com.shnewbs.deepprimal.render.network.HorizonRequest(
                     Long.MIN_VALUE, mc.level.dimension().identifier(), Math.floorDiv(mc.player.getBlockX(),512), Math.floorDiv(mc.player.getBlockZ(),512), 2)); return;
             }
-            if (action.startsWith("batching=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.BATCHED_DRAWS.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }
-            if (action.startsWith("background=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.UNFOCUSED_FPS.set(Integer.parseInt(action.substring(11))); com.shnewbs.deepprimal.client.ClientPerformanceConfig.PAUSE_BACKGROUND.set(true); mc.setScreen(null); return; }
+            if (action.startsWith("batching=")) { com.shnewbs.deepprimal.settings.ClientPerformanceConfig.BATCHED_DRAWS.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }
+            if (action.startsWith("background=")) { com.shnewbs.deepprimal.settings.ClientPerformanceConfig.UNFOCUSED_FPS.set(Integer.parseInt(action.substring(11))); com.shnewbs.deepprimal.settings.ClientPerformanceConfig.PAUSE_BACKGROUND.set(true); mc.setScreen(null); return; }
             if (action.startsWith("performance-page=")) {
-                mc.setScreen(new com.shnewbs.deepprimal.client.HorizonSettingsScreen(null));
+                mc.setScreen(new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(null));
                 for (int i = 0; i < Integer.parseInt(action.substring(17)); i++) {
                     var next = mc.screen.children().stream().filter(net.minecraft.client.gui.components.Button.class::isInstance).map(net.minecraft.client.gui.components.Button.class::cast).filter(b -> b.getMessage().getString().equals("›")).findFirst().orElseThrow(); next.onPress(null);
                 }
                 pendingCapture = "performance-page-" + action.substring(17); pendingAt = System.nanoTime(); return;
             }
-            if (action.equals("performance")) { mc.setScreen(new com.shnewbs.deepprimal.client.HorizonSettingsScreen(null)); pendingCapture=action; pendingAt=System.nanoTime(); return; }
-            if (action.startsWith("memory=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.HORIZON_MEMORY_MIB.set(Integer.parseInt(action.substring(7))); mc.setScreen(null); return; }
-            if (action.startsWith("adaptive=")) { com.shnewbs.deepprimal.client.ClientPerformanceConfig.ADAPTIVE_WORK.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }
+            if (action.equals("performance")) { mc.setScreen(new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(null)); pendingCapture=action; pendingAt=System.nanoTime(); return; }
+            if (action.startsWith("memory=")) { com.shnewbs.deepprimal.settings.ClientPerformanceConfig.HORIZON_MEMORY_MIB.set(Integer.parseInt(action.substring(7))); mc.setScreen(null); return; }
+            if (action.startsWith("adaptive=")) { com.shnewbs.deepprimal.settings.ClientPerformanceConfig.ADAPTIVE_WORK.set(Boolean.parseBoolean(action.substring(9))); mc.setScreen(null); return; }
             if (action.startsWith("horizon=")) {
-                com.shnewbs.deepprimal.client.ClientPerformanceConfig.FAR_RENDER_DISTANCE.set(Integer.parseInt(action.substring(8)));
+                com.shnewbs.deepprimal.settings.ClientPerformanceConfig.FAR_RENDER_DISTANCE.set(Integer.parseInt(action.substring(8)));
                 mc.setScreen(null); return;
             }
             if (action.equals("checks")) {
@@ -178,7 +182,7 @@ public final class ClientCapture {
             if (action.startsWith("volume=")) {
                 String[] values = action.substring(7).split(",");
                 mc.options.renderDistance().set(Integer.parseInt(values[0]));
-                com.shnewbs.deepprimal.client.ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.set(Integer.parseInt(values[1]));
+                com.shnewbs.deepprimal.settings.ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.set(Integer.parseInt(values[1]));
                 mc.levelRenderer.allChanged(); mc.setScreen(null); return;
             }
             if (action.equals("controls")) mc.setScreen(new com.shnewbs.deepprimal.client.DistanceScreen(null));
@@ -199,7 +203,7 @@ public final class ClientCapture {
             }
             else if (action.startsWith("vertical=")) {
                 int radius = Integer.parseInt(action.substring(9));
-                com.shnewbs.deepprimal.client.ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.set(radius);
+                com.shnewbs.deepprimal.settings.ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.set(radius);
                 mc.levelRenderer.allChanged(); mc.setScreen(null); return;
             } else { mc.setScreen(null); mc.options.hideGui = true; }
             pendingCapture = action; pendingAt = System.nanoTime();

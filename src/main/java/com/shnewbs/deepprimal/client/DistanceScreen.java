@@ -1,6 +1,12 @@
 package com.shnewbs.deepprimal.client;
 
-import com.shnewbs.deepprimal.DistanceRuntime;
+import com.shnewbs.deepprimal.settings.RendererOwnership;
+
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+
+import com.shnewbs.deepprimal.performance.MemorySafety;
+
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.shnewbs.deepprimal.core.DistancePolicy;
 import com.shnewbs.deepprimal.core.VerticalRange;
@@ -30,9 +36,9 @@ public final class DistanceScreen extends Screen {
     }
 
     @Override protected void init() {
-        if (!com.shnewbs.deepprimal.render.RendererOwnership.owned()) {
+        if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
             addDashboard(width / 2 - 100, height / 2 + 4, 200);
-            addRenderableWidget(Button.builder(Component.literal("Performance…"), b -> minecraft.setScreen(new HorizonSettingsScreen(this)))
+            addRenderableWidget(Button.builder(Component.literal("Performance…"), b -> minecraft.setScreen(new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(this)))
                 .bounds(width / 2 - 100, height / 2 + 28, 200, 20).build());
             addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, b -> onClose()).bounds(width / 2 - 100, height / 2 + 52, 200, 20).build());
             return;
@@ -78,7 +84,7 @@ public final class DistanceScreen extends Screen {
             .bounds(left, top + 182, panelWidth / 2 - 5, 20).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, button -> onClose())
             .bounds(left + panelWidth / 2 + 5, top + 182, panelWidth / 2 - 5, 20).build());
-        addRenderableWidget(Button.builder(Component.literal("Performance…"), b -> minecraft.setScreen(new HorizonSettingsScreen(this)))
+        addRenderableWidget(Button.builder(Component.literal("Performance…"), b -> minecraft.setScreen(new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(this)))
             .bounds(left, top+158, panelWidth/2-5,20).build());
         addDashboard(left+panelWidth/2+5, top + 158, panelWidth/2-5);
         refresh();
@@ -128,9 +134,9 @@ public final class DistanceScreen extends Screen {
 
     @Override public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        if (!com.shnewbs.deepprimal.render.RendererOwnership.owned()) {
+        if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
             graphics.centeredText(font, title, width / 2, height / 2 - 42, 0xffffffff);
-            graphics.textWithWordWrap(font, Component.literal("Renderer: " + com.shnewbs.deepprimal.render.RendererOwnership.owner()
+            graphics.textWithWordWrap(font, Component.literal("Renderer: " + com.shnewbs.deepprimal.settings.RendererOwnership.owner()
                 + ". Deep Primal rendering yields automatically. Use that renderer’s controls."), width / 2 - 160, height / 2 - 15, 320, 0xffdddddd);
             return;
         }
@@ -141,7 +147,7 @@ public final class DistanceScreen extends Screen {
             line = Component.translatable("deepprimal.distance.invalid", DistancePolicy.MAX_RENDER, DistancePolicy.MAX_SIMULATION);
         } else {
             int serverRange = ((OptionsAccessor)minecraft.options).deepprimal$serverRenderDistance();
-            int memoryLimit = com.shnewbs.deepprimal.MemorySafety.limit(DistancePolicy.MAX_RENDER, minecraft.level == null ? 64 : minecraft.level.getSectionsCount());
+            int memoryLimit = com.shnewbs.deepprimal.performance.MemorySafety.limit(DistancePolicy.MAX_RENDER, minecraft.level == null ? 64 : minecraft.level.getSectionsCount());
             if (render.getAsInt() > memoryLimit || simulationValue().getAsInt() > memoryLimit)
                 line = Component.literal("Memory guard: render/simulation ≤" + memoryLimit + " chunks. Horizon is separate.");
             else if (minecraft.getSingleplayerServer() != null && render.getAsInt() > DistanceRuntime.trackingCapacity())

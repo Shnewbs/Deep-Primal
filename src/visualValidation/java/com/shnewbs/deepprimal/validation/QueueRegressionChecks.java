@@ -1,6 +1,6 @@
 package com.shnewbs.deepprimal.validation;
 
-import com.shnewbs.deepprimal.DistanceRuntime;
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

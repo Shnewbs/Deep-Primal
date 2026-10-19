@@ -1,7 +1,7 @@
 package com.shnewbs.deepprimal.diagnostics;
 
-import com.shnewbs.deepprimal.DistanceRuntime;
-import com.shnewbs.deepprimal.RuntimeMetrics;
+import com.shnewbs.deepprimal.performance.DistanceRuntime;
+import com.shnewbs.deepprimal.performance.RuntimeMetrics;
 import com.shnewbs.deepprimal.core.TickWindow;
 import com.shnewbs.deepprimal.render.HorizonService;
 import java.util.ArrayList;
@@ -37,8 +37,8 @@ public final class ServerTelemetry {
         data.put("state", "Running"); data.put("sampleTime", System.currentTimeMillis()); data.put("tickMedianMs", stats.medianMs()); data.put("tickP95Ms", stats.p95Ms()); data.put("tickMaxMs", stats.maxMs());
         data.put("tps", Math.min(20, 20_000_000_000.0 / Math.max(1, now - sampled))); sampled = now;
         data.put("players", event.getServer().getPlayerCount()); data.put("trackingCapacity", DistanceRuntime.trackingCapacity()); data.put("worlds", java.util.List.copyOf(worlds));
-        data.put("chunkSaveBackpressure", com.shnewbs.deepprimal.RuntimeMetrics.SAVE_BACKPRESSURE.sum());
-        data.put("maxPendingChunkWrites", com.shnewbs.deepprimal.RuntimeMetrics.MAX_PENDING_WRITES.get());
+        data.put("chunkSaveBackpressure", com.shnewbs.deepprimal.performance.RuntimeMetrics.SAVE_BACKPRESSURE.sum());
+        data.put("maxPendingChunkWrites", com.shnewbs.deepprimal.performance.RuntimeMetrics.MAX_PENDING_WRITES.get());
         data.put("horizonReusedSamples", HorizonService.reusedSamples);
         data.put("horizonCacheBytes", HorizonService.cacheBytes()); data.put("horizonWorkFraction", HorizonService.workFraction());
         data.put("horizonSharedRequests", HorizonService.sharedRequests); data.put("horizonSentBytes", HorizonService.sentBytes);

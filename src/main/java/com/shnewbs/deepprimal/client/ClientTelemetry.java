@@ -1,10 +1,16 @@
 package com.shnewbs.deepprimal.client;
 
+import com.shnewbs.deepprimal.settings.VisualPerformance;
+
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+
+import com.shnewbs.deepprimal.performance.MemorySafety;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.shnewbs.deepprimal.client.render.HorizonRenderer;
 import com.shnewbs.deepprimal.core.TickWindow;
 import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
-import com.shnewbs.deepprimal.render.RendererOwnership;
+import com.shnewbs.deepprimal.settings.RendererOwnership;
 import java.util.LinkedHashMap;
 import net.minecraft.client.Minecraft;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -32,7 +38,7 @@ public final class ClientTelemetry {
         data.put("nativePlayerBuilds", VisualPerformance.chunkPlayerBuilds);
         data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos-lastSync)/1e6); lastSync=VisualPerformance.chunkSyncNanos;
         data.put("gpu", RenderSystem.getDevice().getRenderer()); data.put("renderDistance", mc.options.renderDistance().get()); data.put("effectiveRenderDistance", mc.options.getEffectiveRenderDistance());
-        data.put("memoryDistanceGuard", com.shnewbs.deepprimal.MemorySafety.enabled()); data.put("simulationDistance", mc.options.simulationDistance().get());
+        data.put("memoryDistanceGuard", com.shnewbs.deepprimal.performance.MemorySafety.enabled()); data.put("simulationDistance", mc.options.simulationDistance().get());
         data.put("verticalRadius", RendererOwnership.owned() ? ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() : "External");
         data.put("farDistance", RendererOwnership.owned() ? HorizonRenderer.farDistance() : 0);
         if (RendererOwnership.owned()) {

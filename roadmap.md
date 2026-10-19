@@ -1,6 +1,6 @@
 # Deep Primal — Roadmap
 
-**Status:** worldgen/renderer prototype 0.0.1-alpha.6; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** worldgen/renderer prototype 0.0.1-alpha.9; full survival conversion remains in design. **Updated:** 2026-10-18. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
@@ -9,6 +9,12 @@ The initial review found design documents only. The repository now includes a co
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
 **Non-negotiable priority: worldgen performance.** Expanded height/depth must meet measured generation, latency, memory, and correctness budgets. Default vanilla height is not the design ceiling; literal unlimited height remains an architecture feasibility question. See [height and performance gates](docs/design-decisions-2026-10-18.md#world-height-and-performance-priority).
+
+## Alpha 9 build checkpoint
+
+Alpha 9 adds memory-sensitive full-detail/simulation admission, bounded chunk-save concurrency, a synchronous section-rebuild budget, and dependency-based horizon transition invalidation. The standard package now includes an optional LGPL Vulkan adapter; OpenGL remains the default. Packaged Linux software-driver world rendering, copy/stencil checks, resize/reload, startup recovery, and Sodium handoff have functional coverage. Hardware FPS, long-session memory, and arbitrary modpack compatibility remain unverified. This checkpoint does not complete the gameplay milestones below.
+
+See [alpha 9 validation](docs/VALIDATION-0.0.1-alpha.9.md) and [Vulkan integration and license](docs/VULKAN-BACKPORT.md). Earlier alpha 6 milestone notes below describe their original stage; alpha 7–9 follow-up is recorded in the versioned validation reports.
 
 ## Navigation
 

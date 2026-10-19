@@ -24,3 +24,15 @@ side="BOTH"
 
 [[mixins]]
 config="deepprimal.mixins.json"
+
+[[dependencies.deepprimal]]
+modId="deepprimal_performance"
+type="required"
+versionRange="[${mod_version}]"
+side="BOTH"
+
+[[dependencies.deepprimal]]
+modId="deepprimal_graphics"
+type="required"
+versionRange="[${mod_version}]"
+side="CLIENT"

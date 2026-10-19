@@ -11,27 +11,18 @@ import com.mojang.logging.LogUtils;
 /** No graphics class initialization during mixin selection. */
 public final class Startup {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final Path MARKER = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get().resolve("deepprimal-vulkan-starting");
+    private static final Path MARKER = com.shnewbs.deepprimal.settings.RendererPreferences.recoveryMarker();
     private static final boolean REQUESTED = requested();
     private static boolean armed;
     private static boolean complete;
     private static boolean fallbackWindow;
     private static boolean requested() {
-        String choice = System.getProperty("deepprimal.graphicsBackend");
-        if (choice == null) {
-            Properties settings = new Properties();
-            Path file = net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get().resolve("deepprimal-renderer.properties");
-            if (Files.isRegularFile(file)) try (var input = Files.newInputStream(file)) { settings.load(input); }
-            catch (IOException error) { LOGGER.warn("Cannot read renderer preference; using OpenGL", error); }
-            choice = settings.getProperty("backend", "OpenGL");
-        }
-        if (!"Vulkan".equalsIgnoreCase(choice)) return false;
+        if (com.shnewbs.deepprimal.settings.RendererPreferences.requestedBackend() != com.shnewbs.deepprimal.settings.RendererPreferences.Backend.Vulkan) return false;
         if (Files.exists(MARKER) && !Boolean.getBoolean("deepprimal.vulkan.retry")) {
             LOGGER.warn("Previous Vulkan startup did not finish; recovering with OpenGL. Select Vulkan again to retry.");
             return false;
         }
-        var mods = FMLLoader.getCurrent().getLoadingModList().getMods();
-        if (mods.stream().anyMatch(mod -> java.util.Set.of("sodium", "embeddium", "iris", "oculus", "vulkanmod").contains(mod.getModId()))) {
+        if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
             LOGGER.warn("Another graphics replacement is installed; Deep Primal Vulkan is disabled.");
             return false;
         }

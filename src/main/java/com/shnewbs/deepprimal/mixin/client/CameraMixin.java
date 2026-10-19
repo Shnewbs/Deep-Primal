@@ -1,7 +1,7 @@
 package com.shnewbs.deepprimal.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.shnewbs.deepprimal.client.ClientPerformanceConfig;
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
 import com.shnewbs.deepprimal.core.VerticalRange;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
