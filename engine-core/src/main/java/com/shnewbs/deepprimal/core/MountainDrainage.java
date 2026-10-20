@@ -32,7 +32,7 @@ public final class MountainDrainage {
   public Sample sample(int x, int z, double original) {
     Region r = region(Math.floorDiv(x, SIZE), Math.floorDiv(z, SIZE));
     int gx = Math.floorDiv(x - r.x, CELL), gz = Math.floorDiv(z - r.z, CELL);
-    double height = original, surface = seaLevel, strength = 0, flowX = 0, flowZ = 0;
+    double height = original, surface = seaLevel, strength = 0, flowX = 0, flowZ = 0, speed = 1;
     for (int j = Math.max(1, gz - 2); j <= Math.min(SIDE - 2, gz + 2); j++) {
       for (int i = Math.max(1, gx - 2); i <= Math.min(SIDE - 2, gx + 2); i++) {
         int child = j * SIDE + i, parent = r.parent[child];
@@ -61,10 +61,11 @@ public final class MountainDrainage {
           double length = Math.hypot(dx, dz);
           flowX = dx / length;
           flowZ = dz / length;
+          speed = WaterDynamics.speed((r.water[child]-r.water[parent])/length, r.area[child], width);
         }
       }
     }
-    return new Sample(height, surface, strength, flowX, flowZ);
+    return new Sample(height, surface, strength, flowX, flowZ, speed);
   }
 
   private static double smooth(double value, double low, double high) {
@@ -221,7 +222,7 @@ public final class MountainDrainage {
   }
 
   public record Sample(
-      double height, double waterLevel, double strength, double flowX, double flowZ) {}
+      double height, double waterLevel, double strength, double flowX, double flowZ, double speed) {}
 
   private record Node(int index, double level) {}
 
