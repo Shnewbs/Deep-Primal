@@ -174,15 +174,15 @@ public final class ClientCapture {
                     for (int k = 0; k < r.nodeCount(); k++) {
                       int n = r.node(k);
                       if (r.lakeRadius(n) <= 0) continue;
-                      double distance = r.lakeRadius(n) * 1.7;
+                      double distance = 0.5;
                       teleport =
                           "tp @a "
                               + (r.x(n) + distance)
                               + " "
-                              + (r.water(n) + 18)
+                              + (r.water(n) + 50)
                               + " "
                               + (r.z(n) + distance)
-                              + " 135 25";
+                              + " 0 85";
                       break search;
                     }
                   }

@@ -1,0 +1,49 @@
+{
+  "lwjgl": "3.4.1",
+  "meshoptimizerVersion": 1000,
+  "cases": [
+    {
+      "name": "flat",
+      "inputTriangles": 9218,
+      "outputTriangles": 4608,
+      "reportedAbsoluteError": 0.038033,
+      "lockedVertices": 1284,
+      "medianMicros": 3543.751,
+      "roofAnchorsPreserved": true
+    },
+    {
+      "name": "hills",
+      "inputTriangles": 9218,
+      "outputTriangles": 5270,
+      "reportedAbsoluteError": 0.249808,
+      "lockedVertices": 1284,
+      "medianMicros": 4095.373,
+      "roofAnchorsPreserved": true
+    },
+    {
+      "name": "cliff",
+      "inputTriangles": 9218,
+      "outputTriangles": 4608,
+      "reportedAbsoluteError": 0.086917,
+      "lockedVertices": 1410,
+      "medianMicros": 4038.026,
+      "roofAnchorsPreserved": true
+    },
+    {
+      "name": "water-boundary",
+      "inputTriangles": 9218,
+      "outputTriangles": 4608,
+      "reportedAbsoluteError": 0.06985,
+      "lockedVertices": 1410,
+      "medianMicros": 2383.723,
+      "roofAnchorsPreserved": true
+    }
+  ],
+  "dependencySha256": {
+    "lwjgl-3.4.1.jar": "9b1c3a3a078c2377219ecb8a2662730b3dece07c10592cf1d12f957286037b69",
+    "lwjgl-3.4.1-natives-linux.jar": "5dfee41aba83762229b27f969e0b567d68bc9cedda1edcaf82b91dc99fe34677",
+    "lwjgl-meshoptimizer-3.4.1.jar": "9494d647b6bbe61ecffb0049cfba2f72acf7304bab7f7a2e3a3e864072bf6f83",
+    "lwjgl-meshoptimizer-3.4.1-natives-linux.jar": "b0f51702b40b9b1e99c19b5b42e7d509e005c8919f09d4a9e8142682c5f01d4e"
+  },
+  "scope": "Synthetic proxy meshes; CPU-only microprobe, not Minecraft FPS or detailed voxel LOD certification."
+}

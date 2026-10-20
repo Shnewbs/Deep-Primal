@@ -15,6 +15,9 @@ final class HorizonDepthChecks {
   @SubscribeEvent(priority = EventPriority.HIGHEST)
   public void before(RenderLevelStageEvent.AfterSky event) {
     if (!requested || before != null) return;
+    if (!RenderSystem.getDevice().getBackendName().equals("Vulkan"))
+      throw new IllegalStateException(
+          "Native OpenGL depth readback is unsupported; use Vulkan for this check");
     var target = Minecraft.getInstance().getMainRenderTarget();
     before =
         RenderSystem.getDevice()

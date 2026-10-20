@@ -19,9 +19,12 @@ The [reference audit](WATER-REFERENCE-AUDIT-2026-10-20.md) describes every linke
 - Extra-depth native world, seed 452343: normal resolves to `deepprimal:waterways_v5_deep`, floor -384. Twelve surveyed headwater lakes; the first X=-3515/Z=-1478 has radius 14 and survives full generation. Equivalent native checks pass.
 - Standard trench bed -88, depth 183; extra-depth trench bed -344, depth 439. Solid-bed checks pass.
 - A separate alpha 14 serialized v4 world still passed its legacy terrain/current/weather checks with the alpha 15 product, confirming that old profile decoding remains available.
+- OpenGL and Vulkan native clients pass near chunks, horizon upload/draw, staged water controls, tint joins and ocean surfaces. Day/night ocean, river, lake and coastline captures were inspected. The Vulkan before/after readback compares 1,639,680 bytes of native depth unchanged; a separate depth attachment of the same size is active. Vulkan reports zero validation errors, buffers=0, images=0 and outstanding shader results=0 at shutdown. Signed-byte SSBO, shader cache, timer/buffer copy, texture copy, stencil and depth-readback suites pass. Shader-output-not-consumed performance warnings remain.
 - Installer audit: four nested modules; 301 own project classes; no duplicate project classes, development fixtures or Minecraft classes.
 
-The original source-water fixture checked Y=floor(waterline)-1. New partial surfaces can occupy the next block, so that obsolete expectation reported gravel as a dry river while water existed immediately above it. The corrected test checks the native quantized surface and retains all support/full-generation assertions. A failed early candidate was not released.
+The original source-water fixture checked Y=floor(waterline)-1. New partial surfaces can occupy the next block, so that obsolete expectation reported gravel as a dry river while water existed immediately above it. The corrected test checks the native quantized surface and retains all support/full-generation assertions. Early failed checks were not treated as passes. The added OpenGL depth-readback fixture also hit the native API's unsupported depth-to-buffer path; direct before/after depth comparison is therefore reserved for Vulkan, while OpenGL uses rendering/resource checks and visual captures. The fixture is excluded from the product JAR.
+
+See [native evidence](validation/0.0.1-alpha.15/native-evidence.txt), [installer audit](validation/0.0.1-alpha.15/installer-audit.json) and the separate [meshoptimizer development probe](LOD-AND-DRAINAGE-ARCHITECTURE.md).
 
 ## Limits
 

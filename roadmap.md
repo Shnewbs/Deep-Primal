@@ -1,10 +1,10 @@
 # Deep Primal — Roadmap
 
-**Status:** worldgen/renderer prototype 0.0.1-alpha.14; full survival conversion remains in design. **Updated:** 2026-10-20. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** worldgen/renderer prototype 0.0.1-alpha.15; full survival conversion remains in design. **Updated:** 2026-10-20. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
-The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.14.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
+The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.15.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 
@@ -230,3 +230,7 @@ The [dated decision register](docs/design-decisions-2026-10-18.md) now also cove
 ### Cleanup record — 2026-10-18
 
 Separated implementation tracking from the full design draft; converted flattened tables and lists into Markdown; retained section references, catalogs, all open questions, and prototype goals; clarified proposal status, required core services, and existing-world safety. No gameplay implementation or completed build is claimed by this documentation update.
+
+## Drainage and chunk-derived LOD direction (2026-10-20)
+
+See [the researched architecture and executed meshoptimizer probe](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md). The next terrain priority is shared cross-region drainage/outlet contracts, then unified river/lake planning and material masks. The next renderer priority is immutable chunk summaries, edit invalidation and constrained meshes with measured screen-space error; meshoptimizer remains a development probe, not a bundled LOD engine. Alpha 15 keeps the procedural horizon as a background and makes no Distant Horizons/Nanite parity claim.

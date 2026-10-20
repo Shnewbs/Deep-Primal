@@ -1,6 +1,5 @@
 package com.shnewbs.deepprimal.validation;
 
-
 import com.shnewbs.deepprimal.client.render.HorizonRenderer;
 import com.shnewbs.deepprimal.mixin.client.LevelRendererAccessor;
 import com.shnewbs.deepprimal.settings.RendererOwnership;
@@ -24,6 +23,8 @@ public final class RendererClientChecks {
                 + renderer.visibleTiles
                 + " triangles="
                 + renderer.drawnTriangles);
+      if (renderer.backgroundDepthBytes() <= 0)
+        throw new AssertionError("Isolated horizon depth missing");
       if (mc.level.getChunkSource().getLoadedChunksCount() == 0)
         throw new AssertionError("Near chunks were not delivered");
       if (renderer.residentBytes
