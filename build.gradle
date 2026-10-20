@@ -32,7 +32,7 @@ neoForge {
                 gameDirectory = project.file(findProperty('clientRunDir') ?: 'run-visual')
                 if (project.hasProperty('captureServer')) programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
                 if (project.hasProperty('captureWorld')) programArguments.addAll '--quickPlaySingleplayer', project.property('captureWorld')
-                systemProperty 'deepprimal.validationCapture', project.file('build/visual-validation').absolutePath
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/visual-validation').absolutePath
                 if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
                 if (project.hasProperty('acceptWorldWarning')) systemProperty 'deepprimal.validationAcceptWorldWarning', 'true'
                 if (project.hasProperty('terrainValidation')) systemProperty 'deepprimal.validationTerrain', 'true'

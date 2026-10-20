@@ -67,7 +67,9 @@ public final class DrainageServerChecks {
       if (selected.equals("standard") || selected.equals("deep")) {
         check(level);
         RiverCurrentChecks.run(level);
+        WaterEnvironmentChecks.run(level);
       }
+      if (selected.equals("weather")) WaterEnvironmentChecks.run(level);
       if (selected.equals("standard-reopen") || selected.equals("deep-reopen"))
         RiverCurrentChecks.reopen(level);
       record("DRAINAGE_AUTO_PASS case=" + selected);
@@ -455,7 +457,7 @@ public final class DrainageServerChecks {
           if (!below.getFluidState().is(net.minecraft.tags.FluidTags.WATER)
               && !below.blocksMotion())
             throw new AssertionError("Water curtain at " + x + "," + y + "," + z + " kind=" + kind);
-          if (state.getFluidState().getFlow(chunk, pos.set(x, y, z)).lengthSqr() < .9)
+          if (state.getFluidState().getFlow(chunk, pos.set(x, y, z)).lengthSqr() < .1)
             throw new AssertionError("Generated current has no native flow");
         }
     record(

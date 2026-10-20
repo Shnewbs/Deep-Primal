@@ -25,7 +25,7 @@ abstract class FarmWaterMixin {
       CollisionContext context, CallbackInfoReturnable<VoxelShape> ci) {
     // Block shape-cache construction occurs before configuration is loaded.
     if (!(context instanceof EntityCollisionContext c) || !(c.getEntity() instanceof Player p)
-        || !RiverConfig.FARM_WALKING.get() || !state.getFluidState().isSource()
+        || !RiverConfig.FARM_WALKING.get() || !state.getFluidState().is(net.minecraft.tags.FluidTags.WATER) || !state.getFluidState().isSource()
         || p.getY() < pos.getY()+.85 || p.isShiftKeyDown()) return;
     for (Direction d : Direction.Plane.HORIZONTAL)
       if (level.getBlockState(pos.relative(d)).is(Blocks.FARMLAND)) {

@@ -9,6 +9,7 @@ public final class CoreChecks {
         DrainageChecks.run();
         RuntimeChecks.run();
         HorizonChecks.run();
+        WaterDynamicsChecks.run();
         check(RendererPolicy.ownsRenderer(java.util.Set.of("deepprimal", "lithium", "ferritecore")), "unrelated optimizers retain renderer");
         for (String id : RendererPolicy.REPLACEMENTS) check(!RendererPolicy.ownsRenderer(java.util.Set.of(id)), "replacement owns rendering: " + id);
         for (int x : new int[]{-58000, -1, 0, 1, 58000}) for (int z : new int[]{-58000, -1, 0, 1, 58000}) {
