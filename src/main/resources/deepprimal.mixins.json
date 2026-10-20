@@ -12,7 +12,8 @@
     "SwimmingMixin",
     "HorseBuoyancyMixin",
     "OceanBoatMixin",
-    "PrecipitationMixin"
+    "PrecipitationMixin",
+    "FiniteWaterMixin"
   ],
   "client": [
     "client.OptionsMixin",
@@ -33,3 +34,4 @@
   },
   "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin"
 }
+

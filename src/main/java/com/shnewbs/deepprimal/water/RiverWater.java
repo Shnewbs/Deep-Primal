@@ -15,5 +15,10 @@ public final class RiverWater {
               net.minecraft.world.level.block.state.BlockBehaviour.Properties.ofFullCopy(
                   Blocks.WATER));
 
+  public static final DeferredBlock<ChannelWaterBlock> CHANNEL =
+      BLOCKS.registerBlock("channel_water", ChannelWaterBlock::new,
+          () -> net.minecraft.world.level.block.state.BlockBehaviour.Properties.ofFullCopy(Blocks.WATER));
+
   private RiverWater() {}
 }
+

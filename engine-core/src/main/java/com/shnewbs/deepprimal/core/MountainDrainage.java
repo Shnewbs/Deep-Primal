@@ -12,7 +12,7 @@ public final class MountainDrainage {
   private static final int COUNT = SIDE * SIDE, CACHE_SIZE = 32;
   private final DoubleBinaryOperator terrain;
   private final double seaLevel;
-  private final boolean contained, naturalSteps;
+  private final boolean contained, naturalSteps, supportedSteps;
   private static final int STATIONS = 17;
   private static final int WAYS = 4, SETS = CACHE_SIZE / WAYS;
   private final AtomicReferenceArray<Region[]> cache = new AtomicReferenceArray<>(SETS);
@@ -28,6 +28,12 @@ public final class MountainDrainage {
 
   public MountainDrainage(
       DoubleBinaryOperator terrain, double seaLevel, boolean contained, boolean naturalSteps) {
+    this(terrain, seaLevel, contained, naturalSteps, false);
+  }
+
+  public MountainDrainage(DoubleBinaryOperator terrain, double seaLevel, boolean contained,
+      boolean naturalSteps, boolean supportedSteps) {
+    this.supportedSteps = supportedSteps;
     this.terrain = terrain;
     this.seaLevel = seaLevel;
     this.contained = contained;
@@ -229,12 +235,15 @@ public final class MountainDrainage {
           double x = ox + localX[n] + t * dx, z = oz + localZ[n] + t * dz;
           double bank = width[n] + t * (Math.max(width[n], width[p]) - width[n]) + 4;
           double ceiling = terrain.applyAsDouble(x, z);
-          for (int side = -1; side <= 1; side += 2)
+          for (int side = supportedSteps ? -(int) Math.ceil(bank / 2) : -1;
+              side <= (supportedSteps ? (int) Math.ceil(bank / 2) : 1);
+              side += supportedSteps ? 1 : 2)
             ceiling =
                 Math.min(
                     ceiling,
                     terrain.applyAsDouble(
-                        x - side * bank * dz / distance, z + side * bank * dx / distance));
+                        x - side * bank / (supportedSteps ? Math.ceil(bank / 2) : 1) * dz / distance,
+                        z + side * bank / (supportedSteps ? Math.ceil(bank / 2) : 1) * dx / distance));
           last = Math.min(last, Math.max(seaLevel, ceiling - 2));
           profile[s] = (float) last;
         }
@@ -389,3 +398,4 @@ public final class MountainDrainage {
     }
   }
 }
+

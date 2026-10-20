@@ -10,6 +10,7 @@ public final class CoreChecks {
     RuntimeChecks.run();
     HorizonChecks.run();
     WaterDynamicsChecks.run();
+    HydrologyChecks.run();
     check(
         RendererPolicy.ownsRenderer(java.util.Set.of("deepprimal", "lithium", "ferritecore")),
         "unrelated optimizers retain renderer");
@@ -117,3 +118,4 @@ public final class CoreChecks {
     if (!value) throw new AssertionError(message);
   }
 }
+

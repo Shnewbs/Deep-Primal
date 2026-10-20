@@ -75,7 +75,8 @@ public final class SurfaceWaterAquifer implements Aquifer {
                 (int) Math.floor((a + tx * (b - a)) * (1 - tz) + (c + tx * (d - c)) * tz);
             waterStates[z * 16 + x] =
                 sample.strength() > 0 && (sample.flowX() != 0 || sample.flowZ() != 0)
-                    ? RiverWater.BLOCK.get().flowing(sample.flowX(), sample.flowZ(), sample.speed())
+                    ? (routed.supportedSteps() ? RiverWater.CHANNEL.get() : RiverWater.BLOCK.get())
+                        .flowing(sample.flowX(), sample.flowZ(), sample.speed())
                     : Blocks.WATER.defaultBlockState();
             if (surfaceStates != null) {
               if (sample.strength() > 0) {
@@ -150,3 +151,4 @@ public final class SurfaceWaterAquifer implements Aquifer {
     return !suppliedSurfaceWater && delegate.shouldScheduleFluidUpdate();
   }
 }
+

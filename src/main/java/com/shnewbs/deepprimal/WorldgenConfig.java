@@ -19,6 +19,7 @@ public final class WorldgenConfig {
 
   public static final ModConfigSpec.BooleanValue OCEAN_TRENCHES;
   public static final ModConfigSpec.BooleanValue NATURAL_RIVER_STEPS;
+  public static final ModConfigSpec.BooleanValue SUPPORTED_RIVER_STEPS;
 
   static {
     var b = new ModConfigSpec.Builder();
@@ -64,6 +65,7 @@ public final class WorldgenConfig {
                 "Deeper ocean relief for NEW worlds. Requires contained rivers; saved generators"
                     + " retain their IDs.")
             .define("deepOceanTrenches", true);
+    SUPPORTED_RIVER_STEPS = b.comment("Use bank-supported, stable channel surfaces in NEW worlds. Existing saves keep their stored profile.").define("supportedRiverSteps", true);
     SPEC = b.build();
   }
 
@@ -77,7 +79,9 @@ public final class WorldgenConfig {
           (MOUNTAIN_STREAMS.get()
                   ? CONTAINED_RIVERS.get()
                       ? NATURAL_RIVER_STEPS.get()
-                          ? OCEAN_TRENCHES.get() ? "natural_" : "natural_rivers_"
+                          ? SUPPORTED_RIVER_STEPS.get()
+                              ? OCEAN_TRENCHES.get() ? "supported_" : "supported_rivers_"
+                              : OCEAN_TRENCHES.get() ? "natural_" : "natural_rivers_"
                           : OCEAN_TRENCHES.get() ? "ocean_" : "contained_"
                       : "routed_"
                   : "waterways_")
@@ -97,7 +101,9 @@ public final class WorldgenConfig {
           "natural_standard",
           "natural_deep",
           "natural_rivers_standard",
-          "natural_rivers_deep"
+          "natural_rivers_deep",
+          "supported_standard", "supported_deep",
+          "supported_rivers_standard", "supported_rivers_deep"
         }) {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),
@@ -111,3 +117,4 @@ public final class WorldgenConfig {
 
   private WorldgenConfig() {}
 }
+

@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.DensityFunction;
 public final class WaterwayHeight implements DensityFunction.SimpleFunction {
   private final DensityFunction terrain, continents, ridges, erosion, detail, tributaries;
   private final int seaLevel;
-  private final boolean routed, contained, naturalSteps;
+  private final boolean routed, contained, naturalSteps, supportedSteps;
   private final MountainDrainage drainage;
 
   public WaterwayHeight(
@@ -72,7 +72,16 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
         routed,
         contained,
         naturalSteps,
+        false,
         null);
+  }
+
+  public WaterwayHeight(DensityFunction terrain, DensityFunction continents,
+      DensityFunction ridges, DensityFunction erosion, DensityFunction detail,
+      DensityFunction tributaries, int seaLevel, boolean routed, boolean contained,
+      boolean naturalSteps, boolean supportedSteps) {
+    this(terrain, continents, ridges, erosion, detail, tributaries, seaLevel,
+        routed, contained, naturalSteps, supportedSteps, null);
   }
 
   private WaterwayHeight(
@@ -86,6 +95,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
       boolean routed,
       boolean contained,
       boolean naturalSteps,
+      boolean supportedSteps,
       MountainDrainage drainage) {
     this.terrain = terrain;
     this.continents = continents;
@@ -97,6 +107,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
     this.routed = routed;
     this.contained = contained;
     this.naturalSteps = naturalSteps;
+    this.supportedSteps = supportedSteps;
     this.drainage = drainage;
   }
 
@@ -140,6 +151,8 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
     return naturalSteps;
   }
 
+  public boolean supportedSteps() { return supportedSteps; }
+
   public static final MapCodec<WaterwayHeight> MAP_CODEC =
       RecordCodecBuilder.mapCodec(
           instance ->
@@ -172,7 +185,9 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
                           .forGetter(WaterwayHeight::contained),
                       Codec.BOOL
                           .optionalFieldOf("natural_steps", false)
-                          .forGetter(WaterwayHeight::naturalSteps))
+                          .forGetter(WaterwayHeight::naturalSteps),
+                      Codec.BOOL.optionalFieldOf("supported_steps", false)
+                          .forGetter(WaterwayHeight::supportedSteps))
                   .apply(instance, WaterwayHeight::new));
   private static final KeyDispatchDataCodec<WaterwayHeight> CODEC =
       KeyDispatchDataCodec.of(MAP_CODEC);
@@ -239,6 +254,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
             routed,
             contained,
             naturalSteps,
+            supportedSteps,
             drainage);
     if (routed
         && drainage == null
@@ -253,7 +269,8 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
               (x, z) -> raw.base(new DensityFunction.SinglePointContext((int) x, 0, (int) z)),
               seaLevel,
               contained,
-              naturalSteps);
+              naturalSteps,
+              supportedSteps);
       mapped =
           new WaterwayHeight(
               mapped.terrain,
@@ -266,6 +283,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
               true,
               contained,
               naturalSteps,
+              supportedSteps,
               network);
     }
     return visitor.apply(mapped);
@@ -281,6 +299,7 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
         && routed == h.routed
         && contained == h.contained
         && naturalSteps == h.naturalSteps
+        && supportedSteps == h.supportedSteps
         && terrain.equals(h.terrain)
         && continents.equals(h.continents)
         && ridges.equals(h.ridges)
@@ -301,7 +320,8 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
         seaLevel,
         routed,
         contained,
-        naturalSteps);
+        naturalSteps,
+        supportedSteps);
   }
 
   @Override
@@ -319,3 +339,4 @@ public final class WaterwayHeight implements DensityFunction.SimpleFunction {
     return CODEC;
   }
 }
+

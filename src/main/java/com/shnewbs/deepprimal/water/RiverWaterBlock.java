@@ -10,7 +10,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 
 /** Vanilla water with a persistent current direction; no block entity or ticking solver. */
-public final class RiverWaterBlock extends LiquidBlock {
+public class RiverWaterBlock extends LiquidBlock {
   public static final MapCodec<LiquidBlock> CODEC = simpleCodec(RiverWaterBlock::new);
   public static final IntegerProperty CURRENT = IntegerProperty.create("current", 0, 15);
   public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 3);
@@ -53,6 +53,8 @@ public final class RiverWaterBlock extends LiquidBlock {
         .setValue(SPEED, com.shnewbs.deepprimal.core.WaterDynamics.band(speed));
   }
 
+  public boolean stableChannel() { return false; }
+
   public static Vec3 current(BlockState state) {
     if (!(state.getBlock() instanceof RiverWaterBlock) || !RiverConfig.CURRENTS.get())
       return Vec3.ZERO;
@@ -63,3 +65,4 @@ public final class RiverWaterBlock extends LiquidBlock {
     return strength == 1 ? vector : vector.scale(strength);
   }
 }
+

@@ -13,6 +13,10 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 public final class WaterEnvironment {
   @SubscribeEvent
   public void sources(CreateFluidSourceEvent event) {
+    if (FiniteWater.enabled() && event.getFluidState().is(FluidTags.WATER)) {
+      event.setCanConvert(false);
+      return;
+    }
     if (!RiverConfig.FINITE_SOURCES.get() || !event.getFluidState().is(FluidTags.WATER)) return;
     boolean natural =
         event.getState().getBlock() instanceof RiverWaterBlock
@@ -51,3 +55,4 @@ public final class WaterEnvironment {
     return depth;
   }
 }
+
