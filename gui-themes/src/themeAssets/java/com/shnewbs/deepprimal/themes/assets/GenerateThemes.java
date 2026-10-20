@@ -83,7 +83,7 @@ public final class GenerateThemes {
             int r=pixel>>16&255, g=pixel>>8&255, b=pixel&255;
             int max=Math.max(r,Math.max(g,b)), min=Math.min(r,Math.min(g,b));
             int c;
-            if(button) c=panel(t,x,y,w,h,highlight);
+            if(button) c=button(t,x,y,w,h,highlight);
             else if(max-min>30 && !path.contains("hotbar")) c=pixel;
             else if(r==139 && g==139 && b==139) c=t.well;
             else if(max<40) c=mix(t.well,0xff000000,0.55);
@@ -95,6 +95,17 @@ public final class GenerateThemes {
             dst.setRGB(x,y,(alpha<<24)|(c&0xffffff));
         }
         return dst;
+    }
+    private static int button(Theme t,int x,int y,int w,int h,boolean highlighted) {
+        int edge=Math.min(Math.min(x,w-1-x),Math.min(y,h-1-y));
+        if(edge==0)return mix(t.well,0xff000000,0.65);
+        if(edge==1)return highlighted?mix(t.accent,0xffffffff,0.35):t.accent;
+        // Vanilla button labels are white: keep the fill dark even on parchment/clay themes.
+        int base=switch(t) {
+            case FIELD_JOURNAL, RIVERSTONE_MOSS, CLAY_EMBER -> mix(t.accent,0xff000000,0.35);
+            default -> material(t,x,y);
+        };
+        return highlighted?mix(base,t.accent,0.12):base;
     }
     private static int panel(Theme t,int x,int y,int w,int h,boolean highlighted) {
         int edge=Math.min(Math.min(x,w-1-x),Math.min(y,h-1-y));

@@ -3,6 +3,6 @@
   "minVersion": "0.8",
   "package": "com.shnewbs.deepprimal.themes.mixin",
   "compatibilityLevel": "JAVA_25",
-  "client": ["ThemeLabelMixin", "ThemeLogoMixin"],
+  "client": ["ThemeLabelMixin", "ThemeLogoMixin", "ThemeRecoveryMixin"],
   "injectors": { "defaultRequire": 1 }
 }

@@ -39,3 +39,14 @@ tasks.named('processResources') {
 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 tasks.named('jar') { preserveFileTimestamps = false; reproducibleFileOrder = true }
+
+// Opt-in client smoke harness. Its classes are never included in the release JAR.
+if (providers.gradleProperty('themeValidation').isPresent()) {
+    sourceSets {
+        validation {
+            compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+            runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+        }
+    }
+    neoForge.mods.deepprimal_themes.sourceSet(sourceSets.validation)
+}

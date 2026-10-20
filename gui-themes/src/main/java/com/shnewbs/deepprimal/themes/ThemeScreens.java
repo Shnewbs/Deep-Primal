@@ -20,7 +20,7 @@ final class ThemeScreens {
                     .bounds(4, 4, 58, 20).build());
         }
         if (screen instanceof InventoryScreen inventory && ThemeMod.active().custom() && ThemeConfig.INTEGRATION_HUD.get()) {
-            int x = inventory.getGuiLeft(), y = inventory.getGuiTop() - 22;
+            int x = inventory.getLeftPos(), y = inventory.getTopPos() - 22;
             if (y < 2) return;
             addAction(event, x, y, () -> ThemeIntegration.provider().journal());
             addAction(event, x + 90, y, () -> ThemeIntegration.provider().hearth());

@@ -9,7 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.event.ClientStartedEvent;
+import net.neoforged.neoforge.client.event.lifecycle.ClientStartedEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -56,11 +56,19 @@ public final class ThemeMod {
             }));
         } catch (Exception error) { failed(error, recovering); }
     }
+    /** Minecraft's failed-reload future stays incomplete; cooperate with its recovery path. */
+    public static void recoverFromPackFailure() {
+        if (!requestedTheme().custom() && !reloading) return;
+        lastError = "Resource reload failed; restored Vanilla";
+        active = Theme.VANILLA; loading = null; reloading = false;
+        ThemeConfig.THEME.set(Theme.VANILLA); ThemeConfig.SPEC.save();
+    }
     private static void failed(Throwable error, boolean recovering) {
         LogUtils.getLogger().error("Deep Primal theme reload failed", error);
         lastError = "Theme reload failed; see logs/latest.log";
-        ThemeConfig.THEME.set(active); ThemeConfig.SPEC.save();
-        if (!recovering) reload(active, true);
+        ThemeConfig.THEME.set(Theme.VANILLA); ThemeConfig.SPEC.save();
+        active = Theme.VANILLA;
+        if (!recovering) reload(Theme.VANILLA, true);
         else { loading = null; reloading = false; }
     }
 }
