@@ -48,8 +48,10 @@ public final class HorizonRenderer {
           .withLocation(Identifier.fromNamespaceAndPath("deepprimal", "horizon"))
           .withVertexShader(Identifier.fromNamespaceAndPath("deepprimal", "core/horizon"))
           .withFragmentShader(Identifier.fromNamespaceAndPath("deepprimal", "core/horizon"))
-          .withVertexFormat(DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES)
+          .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES)
           .withDepthStencilState(DepthStencilState.DEFAULT)
+          .withSampler("NativeLight")
+          .withColorTargetState(new com.mojang.blaze3d.pipeline.ColorTargetState(com.mojang.blaze3d.pipeline.BlendFunction.TRANSLUCENT))
           .withCull(true)
           .build();
   private final LinkedHashMap<Long, HorizonGpuMesh> cache = new LinkedHashMap<>(400, 0.75f, true);
@@ -239,7 +241,7 @@ public final class HorizonRenderer {
               });
       cachedTiles = cache.size();
     }
-    if (waiting && ticks - pendingAt > 100) waiting = false;
+    if (waiting && ticks - pendingAt > 1200) waiting = false;
     if (waiting
         || upload != null
         || meshFuture != null
@@ -434,6 +436,7 @@ public final class HorizonRenderer {
                 OptionalDouble.empty())) {
       pass.setPipeline(PIPELINE);
       RenderSystem.bindDefaultUniforms(pass);
+      GpuLighting.bind(pass);
       if (ClientPerformanceConfig.BATCHED_DRAWS.get()) {
         indexedDraws.clear();
         for (int i = 0; i < tiles.size(); i++) {
@@ -579,18 +582,18 @@ public final class HorizonRenderer {
       float ny,
       float floor,
       int color) {
-    b.addVertex(x, y, z).setColor(color);
-    b.addVertex(nx, ny, nz).setColor(color);
-    b.addVertex(x, floor, z).setColor(color);
-    b.addVertex(x, floor, z).setColor(color);
-    b.addVertex(nx, ny, nz).setColor(color);
-    b.addVertex(nx, floor, nz).setColor(color);
-    b.addVertex(x, floor, z).setColor(color);
-    b.addVertex(nx, ny, nz).setColor(color);
-    b.addVertex(x, y, z).setColor(color);
-    b.addVertex(nx, floor, nz).setColor(color);
-    b.addVertex(nx, ny, nz).setColor(color);
-    b.addVertex(x, floor, z).setColor(color);
+    b.addVertex(x, y, z).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(nx, ny, nz).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(x, floor, z).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(x, floor, z).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(nx, ny, nz).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(nx, floor, nz).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(x, floor, z).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(nx, ny, nz).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(x, y, z).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(nx, floor, nz).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(nx, ny, nz).setColor(color).setNormal(0, 1, 0);
+    b.addVertex(x, floor, z).setColor(color).setNormal(0, 1, 0);
   }
 
   private HorizonGpuMesh upload(
@@ -614,7 +617,7 @@ public final class HorizonRenderer {
     if (tile == null) return Double.NaN;
     tile = tile.forDetail(detail(FarTerrain.key(tx, tz)));
     return HorizonGeometry.sample(
-        tile.heights, HorizonGeometry.cells(tile.detail), x - tx * 512.0, z - tz * 512.0);
+        tile.heights, HorizonGeometry.cells(tile.detail), x - tx * 512.0, z - tz * 512.0) - .125;
   }
 
   private HorizonGpuMesh buildTransition(long cx, long cz, int radius) {
@@ -633,6 +636,9 @@ public final class HorizonRenderer {
           double nx = x + (side < 2 ? 16 : 0), nz = z + (side < 2 ? 0 : 16);
           double h = height(x, z), nh = height(nx, nz);
           if (!Double.isFinite(h) || !Double.isFinite(nh)) continue;
+          if (ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() == 0
+              && Math.abs(h-(level.getSeaLevel()-.125)) < .01
+              && Math.abs(nh-(level.getSeaLevel()-.125)) < .01) continue;
           // Alpha is an internal marker: transition walls bypass the surface near-clip.
           wall(
               b,

@@ -52,7 +52,7 @@ public final class ClientPerformanceConfig {
         builder
             .comment(
                 "Terrain upload payload budget per frame in KiB; transition closure is separate.")
-            .defineInRange("meshUploadKiBPerFrame", 256, 128, 4096);
+            .defineInRange("meshUploadKiBPerFrame", 256, 256, 4096);
     UPLOAD_MICROS =
         builder
             .comment(

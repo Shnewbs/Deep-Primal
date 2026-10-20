@@ -17,6 +17,8 @@ public final class WorldgenConfig {
   public static final ModConfigSpec.BooleanValue MOUNTAIN_STREAMS;
   public static final ModConfigSpec.BooleanValue CONTAINED_RIVERS;
 
+  public static final ModConfigSpec.BooleanValue OCEAN_TRENCHES;
+
   static {
     var b = new ModConfigSpec.Builder();
     EXTRA_DEPTH =
@@ -51,6 +53,7 @@ public final class WorldgenConfig {
                 "Existing saves keep their stored generation profile; this does not repair explored"
                     + " chunks.")
             .define("containedRivers", true);
+    OCEAN_TRENCHES = b.comment("Deeper ocean relief for NEW worlds. Requires contained rivers; saved generators retain their IDs.").define("deepOceanTrenches", true);
     SPEC = b.build();
   }
 
@@ -62,7 +65,7 @@ public final class WorldgenConfig {
     if (RIVERS_AND_COASTS.get())
       profile =
           (MOUNTAIN_STREAMS.get()
-                  ? CONTAINED_RIVERS.get() ? "contained_" : "routed_"
+                  ? CONTAINED_RIVERS.get() ? OCEAN_TRENCHES.get() ? "ocean_" : "contained_" : "routed_"
                   : "waterways_")
               + profile;
     for (String available :
@@ -74,7 +77,9 @@ public final class WorldgenConfig {
           "routed_standard",
           "routed_deep",
           "contained_standard",
-          "contained_deep"
+          "contained_deep",
+          "ocean_standard",
+          "ocean_deep"
         }) {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),

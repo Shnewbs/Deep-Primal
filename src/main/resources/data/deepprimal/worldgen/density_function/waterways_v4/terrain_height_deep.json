@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "deepprimal:waterway_height",
+    "terrain_height": {
+      "type": "deepprimal:ocean_height",
+      "terrain": {
+        "type": "minecraft:min",
+        "argument1": "deepprimal:terrain_height",
+        "argument2": 640.0
+      },
+      "continents": "minecraft:overworld/continents",
+      "trenches": {
+        "type": "minecraft:noise",
+        "noise": "deepprimal:ocean_trenches_v4",
+        "xz_scale": 1.0,
+        "y_scale": 0.0
+      },
+      "floor": -384
+    },
+    "continents": "minecraft:overworld/continents",
+    "ridges": "minecraft:overworld/ridges",
+    "erosion": "minecraft:overworld/erosion",
+    "detail": {
+      "type": "minecraft:noise",
+      "noise": "deepprimal:surface_detail",
+      "xz_scale": 1.0,
+      "y_scale": 0.0
+    },
+    "tributaries": 0.0,
+    "sea_level": 96,
+    "routed": true,
+    "contained": true
+  }
+}

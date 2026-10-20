@@ -36,7 +36,7 @@ public final class HorizonService {
     public static double workFraction() { return BUDGET.fraction(); }
     public static void register(RegisterPayloadHandlersEvent event) {
         // Different sample counts require a new optional channel version; old peers decline safely.
-        var registrar = event.registrar("2").optional();
+        var registrar = event.registrar("3").optional();
         registrar.playToServer(HorizonRequest.TYPE, HorizonRequest.CODEC, (p, c) -> request(p, (ServerPlayer)c.player()));
         registrar.playToClient(HorizonTile.TYPE, HorizonTile.CODEC);
     }
@@ -99,7 +99,7 @@ public final class HorizonService {
         while (!JOBS.isEmpty() && work < 64 && System.nanoTime() < end) {
             Job job = JOBS.removeFirst();
             job.waiters.removeIf(w -> !relevant(w));
-            if (job.waiters.isEmpty() || start - job.created > 30_000_000_000L) { cancelled++; continue; }
+            if (job.waiters.isEmpty() || start - job.created > 120_000_000_000L) { cancelled++; continue; }
             int cells = HorizonGeometry.cells(job.key.detail), width = cells + 1, step = FarTerrain.TILE_BLOCKS / cells;
             int i = job.next++, x = job.key.x * FarTerrain.TILE_BLOCKS + i % width * step;
             int z = job.key.z * FarTerrain.TILE_BLOCKS + i / width * step;

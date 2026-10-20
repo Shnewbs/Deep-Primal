@@ -85,7 +85,7 @@ public final class HorizonChecks {
             var view = HorizonView.create(x,z,high,fov,fraction);
             double dx = Math.max(0,Math.abs((tx+.5)*512-x)-256), dz = Math.max(0,Math.abs((tz+.5)*512-z)-256);
             double projection = Math.clamp(high/720.0*Math.tan(Math.toRadians(35))/Math.tan(Math.toRadians(fov/2.0)),.5,3);
-            int expected = HorizonGeometry.detail(Math.sqrt(dx*dx+dz*dz)/(projection*Math.sqrt(fraction)));
+            int expected = HorizonGeometry.detail(Math.sqrt(dx*dx+dz*dz)/Math.max(.5,projection*Math.sqrt(fraction)));
             if (view.detail(tx,tz)!=expected) throw new AssertionError("Cached view math changed detail");
         }
         if (VisualBudget.frameLimit(10,false,false,20,5)!=10 || VisualBudget.frameLimit(144,true,false,20,5)!=144 || VisualBudget.frameLimit(144,false,true,20,5)!=5) throw new AssertionError("FPS policy");

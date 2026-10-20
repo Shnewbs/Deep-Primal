@@ -27,14 +27,18 @@ final class HorizonGpuMesh implements AutoCloseable {
         this.vertices = vertices; this.indices = indices;
         this.vertexCount = vertexCount; this.indexCount = indexCount;
         this.detail = detail; this.heights = heights;
-        byteSize = vertexCount * 16L + indexCount * 2L;
+        byteSize = vertices.size() + (indices == null ? 0 : indices.size());
         indexedDraw = indices == null ? null : new RenderPass.Draw<>(0, vertices, indices, VertexFormat.IndexType.SHORT,
             0, indexCount, 0, (unused, uploader) -> uploader.upload("DynamicTransforms", transformSlice));
         bounds = new AABB(x * 512.0, minY - 1, z * 512.0, (x + 1.0) * 512, maxY + 1, (z + 1.0) * 512);
     }
 
     static HorizonGpuMesh upload(int x, int z, int detail, HorizonMesh mesh) {
-        ByteBuffer vertexData = MemoryUtil.memAlloc(mesh.vertices() * 16).order(ByteOrder.nativeOrder());
+        return upload(x,z,detail,mesh,true);
+    }
+
+    static HorizonGpuMesh upload(int x, int z, int detail, HorizonMesh mesh, boolean normals) {
+        ByteBuffer vertexData = MemoryUtil.memAlloc(mesh.vertices() * (normals ? 20 : 16)).order(ByteOrder.nativeOrder());
         ByteBuffer indexData = null;
         GpuBuffer vertices = null, indices = null;
         try {
@@ -43,8 +47,9 @@ final class HorizonGpuMesh implements AutoCloseable {
                 int p = i * 3, color = mesh.colors()[i];
                 vertexData.putFloat(mesh.positions()[p]).putFloat(mesh.positions()[p + 1]).putFloat(mesh.positions()[p + 2]);
                 vertexData.put((byte)(color >> 16)).put((byte)(color >> 8)).put((byte)color).put((byte)(color >> 24));
+                if (normals) vertexData.putInt(mesh.normals()[i]);
             }
-            for (int index : mesh.indices()) indexData.putShort((short)index);
+                        for (int index : mesh.indices()) indexData.putShort((short)index);
             vertexData.flip(); indexData.flip();
             var device = RenderSystem.getDevice();
             vertices = device.createBuffer(() -> "Deep Primal terrain vertices", GpuBuffer.USAGE_VERTEX, vertexData);

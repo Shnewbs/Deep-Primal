@@ -2,9 +2,9 @@ package com.shnewbs.deepprimal.core;
 
 /** Shared height interpolation and stitched tile topology, independent of the game/GPU. */
 public final class HorizonGeometry {
-    public static int cells(int detail) { return 32 >> Math.clamp(detail, 0, 2); }
+    public static int cells(int detail) { return 64 >> Math.clamp(detail, 0, 2); }
     public static int points(int detail) { int n = cells(detail) + 1; return n * n; }
-    public static int detail(double distanceBlocks) { return distanceBlocks < 768 ? 0 : distanceBlocks < 1792 ? 1 : 2; }
+    public static int detail(double distanceBlocks) { return distanceBlocks < 1024 ? 0 : distanceBlocks < 2560 ? 1 : 2; }
     public static double sample(short[] heights, int cells, double x, double z) {
         double gx = Math.clamp(x / FarTerrain.TILE_BLOCKS * cells, 0, cells);
         double gz = Math.clamp(z / FarTerrain.TILE_BLOCKS * cells, 0, cells);
@@ -17,7 +17,7 @@ public final class HorizonGeometry {
     /** All tile boundaries share the coarsest grid, including negative world coordinates. */
     public static double stitched(short[] heights, int cells, int x, int z) {
         if (x != 0 && z != 0 && x != cells && z != cells) return heights[z * (cells+1) + x];
-        int stride = cells / 8;
+        int stride = cells / 16;
         if (x == 0 || x == cells) {
             int lo = z / stride * stride, hi = Math.min(cells, lo + stride);
             return heights[lo * (cells+1) + x] + (heights[hi * (cells+1) + x] - heights[lo * (cells+1) + x]) * (z-lo) / (double)stride;

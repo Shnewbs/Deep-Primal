@@ -41,7 +41,7 @@ public final class PerformanceSettingsScreen extends Screen {
           new Control(
               "Upload budget (KiB)",
               ClientPerformanceConfig.UPLOAD_KIB,
-              128,
+              256,
               4096,
               "Maximum cached-terrain payload started per frame; transition ring is separate."),
           new Control(
@@ -328,7 +328,7 @@ public final class PerformanceSettingsScreen extends Screen {
     set(ClientPerformanceConfig.TARGET_FPS, 60);
     set(ClientPerformanceConfig.HORIZON_MEMORY_MIB, choice == 1 ? 16 : choice == 2 ? 64 : 32);
     set(ClientPerformanceConfig.UPLOAD_LEVELS, choice == 1 ? 1 : choice == 2 ? 4 : 2);
-    set(ClientPerformanceConfig.UPLOAD_KIB, choice == 1 ? 128 : choice == 2 ? 512 : 256);
+    set(ClientPerformanceConfig.UPLOAD_KIB, choice == 1 ? 256 : choice == 2 ? 512 : 256);
     set(ClientPerformanceConfig.UPLOAD_MICROS, choice == 1 ? 500 : choice == 2 ? 2000 : 1000);
     set(ClientPerformanceConfig.ENTITY_LIMIT, choice == 1 ? 64 : 0);
     set(ClientPerformanceConfig.BLOCK_ENTITY_LIMIT, choice == 1 ? 32 : 0);
