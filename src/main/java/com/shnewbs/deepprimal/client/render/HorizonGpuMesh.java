@@ -49,7 +49,7 @@ final class HorizonGpuMesh implements AutoCloseable {
                 vertexData.put((byte)(color >> 16)).put((byte)(color >> 8)).put((byte)color).put((byte)(color >> 24));
                 if (normals) vertexData.putInt(mesh.normals()[i]);
             }
-                        for (int index : mesh.indices()) indexData.putShort((short)index);
+            for (int index : mesh.indices()) indexData.putShort((short)index);
             vertexData.flip(); indexData.flip();
             var device = RenderSystem.getDevice();
             vertices = device.createBuffer(() -> "Deep Primal terrain vertices", GpuBuffer.USAGE_VERTEX, vertexData);

@@ -43,7 +43,8 @@ public final class Precipitation {
   }
 
   public static void snow(ServerLevel level, BlockPos surface) {
-    BlockPos pos = level.getBlockState(surface.below()).is(Blocks.SNOW) ? surface.below() : surface;
+    BlockPos pos = level.getBlockState(surface).is(Blocks.SNOW) ? surface
+        : level.getBlockState(surface.below()).is(Blocks.SNOW) ? surface.below() : surface;
     BlockState state = level.getBlockState(pos);
     if (!state.isAir() && !state.is(Blocks.SNOW)) return;
     int cap = RiverConfig.SNOW_CAP.get(), below = 0;
@@ -59,10 +60,16 @@ public final class Precipitation {
           : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS,available));
       return;
     }
+    if (layers == 8 && below+8 <= cap) {
+      BlockState full = Blocks.SNOW_BLOCK.defaultBlockState();
+      Block.pushEntitiesUp(state,full,level,pos);
+      level.setBlockAndUpdate(pos,full);
+      return;
+    }
     if (below+layers >= cap) return;
     BlockState next = layers >= 8 ? Blocks.SNOW_BLOCK.defaultBlockState()
         : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS,layers+1);
-    if (!next.canSurvive(level,pos) || level.getMaxLocalRawBrightness(pos) > 11) return;
+    if (!next.canSurvive(level,pos) || level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK,pos) >= 10) return;
     Block.pushEntitiesUp(state, next, level, pos);
     level.setBlockAndUpdate(pos,next);
   }

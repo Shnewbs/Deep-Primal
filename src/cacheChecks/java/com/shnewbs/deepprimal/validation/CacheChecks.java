@@ -17,6 +17,12 @@ public final class CacheChecks {
   }
 
   public static void main(String[] args) throws Exception {
+    check(net.vulkanmod.render.engine.StorageRange.accepts(65792, Integer.MIN_VALUE));
+    check(net.vulkanmod.render.engine.StorageRange.accepts(0xffffffffL, -1));
+    check(!net.vulkanmod.render.engine.StorageRange.accepts(0x100000000L, -1));
+    check(net.vulkanmod.render.engine.StorageRange.accepts(65536, 65536));
+    check(!net.vulkanmod.render.engine.StorageRange.accepts(65537, 65536));
+    check(!net.vulkanmod.render.engine.StorageRange.accepts(-1, -1));
     Path dir = Files.createTempDirectory("dp-cache-checks");
     try {
       var cache = new BinaryCache(dir, 32, 144, 3);

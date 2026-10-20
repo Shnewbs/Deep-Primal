@@ -22,8 +22,10 @@ public final class DeepPrimalClient {
     NeoForge.EVENT_BUS.register(new ClientTelemetry());
     modBus.addListener(DeepPrimalClient::packs);
     modBus.addListener(DeepPrimalClient::payloads);
-    if (com.shnewbs.deepprimal.settings.RendererOwnership.owned())
+    if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE);
+      NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE);
+    }
     com.shnewbs.deepprimal.DeepPrimal.LOGGER.info(
         "Client renderer owner: {}", com.shnewbs.deepprimal.settings.RendererOwnership.owner());
   }
@@ -52,6 +54,9 @@ public final class DeepPrimalClient {
 
   @SubscribeEvent
   public void tick(ClientTickEvent.Post event) {
+    WaterEffects.tick();
+    if (com.shnewbs.deepprimal.settings.RendererOwnership.owned())
+      com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.tick();
     DistanceRuntime.clientRequest(Minecraft.getInstance().options.renderDistance().get());
   }
 }
