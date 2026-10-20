@@ -26,14 +26,19 @@ Vulkan remains a separate module. Graphics-settings owns the visual controls; en
 | Native precipitation | 24-layer and partial 10-layer caps pass. Collision growth lifts a standing entity .625 blocks over six increments. Rain refills exposed existing flow and leaves warm dry air empty. |
 | Native water rules | Actual contiguous pressure column 40; air pocket reduces it to 20. Source regeneration policy, optional farmland collision and real ServerPlayer riding a swimming horse pass. |
 | OpenGL integration | Native software OpenGL boot, near chunks, horizon upload/draw/memory bounds, staged settings, 35 opaque blended tint samples, negative-coordinate joins and spruce/birch/oak decorator registration pass. |
+| Vulkan integration | Mesa lavapipe boot, near chunks, horizon, water controls/colors and 29,712-byte ocean mesh pass. Signed-byte SSBO render/readback at offset 65,792, shader-cache, buffer timestamp/copy, texture copy, stencil and depth readback pass. Device validation reports 0 errors; shader-output-not-consumed performance warnings remain. Shutdown reports buffers=0, images=0 and outstanding shader results=0. |
 
 The isolated snow fixture explicitly makes its entity section visible: no players otherwise keep that remote test chunk tracked. It calls native Block.pushEntitiesUp, not a test-only substitute for collision behavior. Fixture classes and commands are excluded from the distributed installer.
+
+Installer: `DeepPrimal-26.1.2-0.0.1-alpha.14.jar`, 22,615,396 bytes; SHA-256 `3eb99e485b489440b1975a954111d287313e6e2321c4831f21e0093061196f8e`. Both native backends ran this product build; development fixtures are separate. Day/night ocean captures and the final mountain horizon were visually inspected on both backends.
+
+See [native evidence](validation/0.0.1-alpha.14/native-evidence.txt) and [installer audit](validation/0.0.1-alpha.14/installer-audit.json). The timer-availability assertion is conditional on OpenGL; the Vulkan fixture checks its own native timestamp query directly.
 
 ## Limits
 
 The procedural horizon represents generator macro terrain. It does not reproduce every distant tree, structure or player edit. Filling a 512-chunk horizon is progressive under bounded server/client work; raising a slider does not promise immediate terrain or hardware FPS. Tests do not constitute 125-full-detail/512-horizon stress certification.
 
-The runtime here uses Mesa llvmpipe software rendering. The user's AMD 8060S/Windows driver and actual modpack have not been benchmarked. Full finite-volume fluids, water-table depletion, pumps/pipes, industrial fluid adapters, mesh wakes, tides and external Physics Mod/Distant Horizons/Iris integration remain separate work.
+The runtime here uses Mesa llvmpipe/lavapipe software rendering. The user's AMD 8060S/Windows driver and actual modpack have not been benchmarked. Full finite-volume fluids, water-table depletion, pumps/pipes, industrial fluid adapters, mesh wakes, tides and external Physics Mod/Distant Horizons/Iris integration remain separate work.
 
 ## Local build environment
 
