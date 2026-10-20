@@ -49,7 +49,7 @@ public final class DistanceClientChecks {
             .filter(button -> button.getMessage().getString().equals("Apply"))
             .findFirst()
             .orElseThrow();
-    inputs.get(0).setValue("97");
+    inputs.get(0).setValue("126");
     check(!apply.active, "invalid render rejected");
     inputs.get(0).setValue("48");
     inputs.get(1).setValue("33");

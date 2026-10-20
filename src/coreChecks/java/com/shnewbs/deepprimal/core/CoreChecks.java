@@ -17,7 +17,7 @@ public final class CoreChecks {
         check(FarTerrain.inRange(-1, -1, 0, 0, 1), "negative tile touching view");
         check(!FarTerrain.inRange(9, 0, 0, 0, 256), "outside horizon");
         check(FarTerrain.inRange(7, 0, 0, 0, 256), "inside horizon");
-        for (int capacity = 2; capacity <= 96; capacity++) {
+        for (int capacity = 2; capacity <= DistancePolicy.MAX_RENDER; capacity++) {
             int buckets = DistancePolicy.queuePriorityCount(46, capacity);
             check(capacity + 2 < buckets, "tracker removal priority fits queue");
             check(buckets >= 46, "native generation queue bounds retained");

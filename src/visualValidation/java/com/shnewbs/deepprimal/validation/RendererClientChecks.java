@@ -70,7 +70,7 @@ public final class RendererClientChecks {
               .orElseThrow();
       int original =
           com.shnewbs.deepprimal.settings.ClientPerformanceConfig.FAR_RENDER_DISTANCE.get();
-      inputs.get(3).setValue("257");
+      inputs.get(3).setValue("513");
       if (apply.active) throw new AssertionError("Invalid far radius accepted");
       inputs.get(3).setValue("192");
       if (!apply.active) throw new AssertionError("Valid far radius rejected");

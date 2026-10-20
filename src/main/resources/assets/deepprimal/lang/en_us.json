@@ -6,7 +6,7 @@
   "deepprimal.distance.title": "Distances & performance",
   "deepprimal.distance.apply": "Apply",
   "deepprimal.distance.fast_relocation": "Fast camera updates: %s",
-  "deepprimal.distance.invalid": "Render 2–%s, simulation 2–%s; vertical 0–96; horizon 0–256.",
+  "deepprimal.distance.invalid": "Render 2–%s, simulation 2–%s; vertical 0–96; horizon 0–512.",
   "deepprimal.distance.vertical": "Vertical render radius",
   "deepprimal.distance.vertical_value": "Vertical: %s sections (±%s blocks)",
   "deepprimal.distance.vertical_full": "Vertical: full world height",
@@ -17,5 +17,5 @@
   "deepprimal.distance.sections": "Requested render section slots: %s",
   "deepprimal.distance.backend": "Graphics API: %s",
   "deepprimal.distance.far": "Terrain horizon",
-  "deepprimal.distance.far_help": "Coarse generated landscape, 0–256 chunks; 0 disables. No full chunks, buildings, trees, or simulation. Independent of full-detail distance."
+  "deepprimal.distance.far_help": "Coarse generated landscape, 0–512 chunks; 0 disables. No full chunks, buildings, trees, or simulation. Independent of full-detail distance."
 }

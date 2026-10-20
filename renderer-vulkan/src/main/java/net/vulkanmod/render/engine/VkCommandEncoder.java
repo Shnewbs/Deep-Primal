@@ -1047,7 +1047,8 @@ public class VkCommandEncoder implements CommandEncoderBackend {
             || slice.offset() + slice.length() > buffer.size())
           throw new IllegalArgumentException("Invalid signed byte slice");
         if (buffer.buffer.getBufferSize()
-            > DeviceManager.deviceProperties.limits().maxStorageBufferRange())
+            > Integer.toUnsignedLong(
+                DeviceManager.deviceProperties.limits().maxStorageBufferRange()))
           throw new UnsupportedOperationException("Signed byte buffer exceeds device range");
         imageDescriptor.setStorageBuffer(
             buffer.buffer.getId(), buffer.buffer.getBufferSize(), Math.toIntExact(slice.offset()));

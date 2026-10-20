@@ -152,7 +152,7 @@ public final class DistanceScreen extends Screen {
                 panelWidth - 68,
                 "deepprimal.distance.far",
                 0,
-                256,
+                com.shnewbs.deepprimal.core.FarTerrain.MAX_DISTANCE,
                 ClientPerformanceConfig.FAR_RENDER_DISTANCE.get(),
                 farInput));
     farInput.setTooltip(Tooltip.create(Component.translatable("deepprimal.distance.far_help")));
@@ -230,7 +230,7 @@ public final class DistanceScreen extends Screen {
   }
 
   private OptionalInt farValue() {
-    return DistancePolicy.parse(farInput.getValue(), 0, 256);
+    return DistancePolicy.parse(farInput.getValue(), 0, com.shnewbs.deepprimal.core.FarTerrain.MAX_DISTANCE);
   }
 
   private void refresh() {

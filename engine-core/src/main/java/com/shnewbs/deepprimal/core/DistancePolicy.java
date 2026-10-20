@@ -4,7 +4,8 @@ import java.util.OptionalInt;
 
 /** Bounded integer input and native distance limits. Simulation has a separate level graph. */
 public final class DistancePolicy {
-    public static final int MAX_RENDER = 96;
+    // The native tracker stores distance + 2 in a signed byte.
+    public static final int MAX_RENDER = Byte.MAX_VALUE - 2;
     public static final int MAX_SIMULATION = 32;
     private DistancePolicy() {}
     public static OptionalInt parse(String text, int maximum) {

@@ -26,7 +26,7 @@ public final class HorizonService {
     private static final ArrayDeque<Job> JOBS = new ArrayDeque<>();
     private static final Map<UUID, Long> LAST = new HashMap<>();
     private static final Map<net.minecraft.resources.Identifier, java.util.Optional<DensityFunction>> SOURCES = new HashMap<>();
-    private static final ByteLru<TileKey, HorizonSamples> CACHE = new ByteLru<>(8 * 1048576L, 512, HorizonSamples::payloadBytes);
+    private static final ByteLru<TileKey, HorizonSamples> CACHE = new ByteLru<>(8 * 1048576L, FarTerrain.MAX_TILES, HorizonSamples::payloadBytes);
     private static final WorkBudget BUDGET = new WorkBudget();
     private static long tickStart;
     public static long samples, completed, sharedRequests, sentBytes, samplingNanos, cancelled, reusedSamples;
