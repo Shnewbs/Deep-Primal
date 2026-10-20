@@ -1,0 +1,41 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+group = 'com.shnewbs.deepprimal'
+version = project.mod_version
+base.archivesName = 'DeepPrimal-Themes-26.1.2'
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+neoForge {
+    version = project.neo_version
+    runs { client { client(); gameDirectory = project.file('run') } }
+    mods { deepprimal_themes { sourceSet(sourceSets.main) } }
+}
+sourceSets {
+    themeAssets {
+        java.srcDir 'src/main/java'
+        java.include 'com/shnewbs/deepprimal/themes/Theme.java'
+        java.include 'com/shnewbs/deepprimal/themes/assets/**'
+    }
+}
+def generatedThemes = layout.buildDirectory.dir('generated/themeResources')
+tasks.register('generateThemeAssets', JavaExec) {
+    dependsOn 'themeAssetsClasses', 'createMinecraftArtifacts'
+    classpath = sourceSets.themeAssets.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.themes.assets.GenerateThemes'
+    inputs.files(sourceSets.themeAssets.allSource)
+    inputs.files(tasks.named('createMinecraftArtifacts'))
+    outputs.dir(generatedThemes)
+    doFirst {
+        delete(generatedThemes)
+        args = [generatedThemes.get().asFile.absolutePath] + configurations.compileClasspath.files.collect { it.absolutePath }
+    }
+}
+sourceSets.main.resources.srcDir generatedThemes
+tasks.named('processResources') {
+    dependsOn 'generateThemeAssets'
+    inputs.property 'mod_version', project.mod_version
+    filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.named('jar') { preserveFileTimestamps = false; reproducibleFileOrder = true }
