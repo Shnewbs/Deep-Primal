@@ -163,7 +163,7 @@ public final class DrainageChecks {
         if (level > 0) partial++;
       }
     }
-    check(sources > 0 && partial > 100, "missing headwaters or partial river levels");
+    check(sources > 0 && lakes > 0 && partial > 100, "missing headwaters or partial river levels");
     for (int y = -400; y < 640; y++)
       check(
           WaterDynamics.surfaceY(y) == y - 1 && WaterDynamics.surfaceLevel(y) == 0,

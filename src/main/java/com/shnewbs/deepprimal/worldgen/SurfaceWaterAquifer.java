@@ -17,6 +17,7 @@ public final class SurfaceWaterAquifer implements Aquifer {
   private final int[] waterLevels;
   private final int[] bedLevels;
   private final BlockState[] waterStates, surfaceStates;
+  private final boolean[] exactChannels;
   private final int minX, minZ;
 
   public SurfaceWaterAquifer(Aquifer delegate, NoiseChunk chunk, int seaLevel) {
@@ -46,6 +47,7 @@ public final class SurfaceWaterAquifer implements Aquifer {
     bedLevels = contained ? new int[256] : null;
     waterStates = contained ? new BlockState[256] : null;
     surfaceStates = routed != null && routed.naturalSteps() ? new BlockState[256] : null;
+    exactChannels = surfaceStates == null ? null : new boolean[256];
     int gridSide = 16 / cellWidth + 1;
     double[] grid = contained ? new double[gridSide * gridSide] : null;
     if (contained) {
@@ -77,6 +79,8 @@ public final class SurfaceWaterAquifer implements Aquifer {
                     : Blocks.WATER.defaultBlockState();
             if (surfaceStates != null) {
               if (sample.strength() > 0) {
+                exactChannels[z * 16 + x] = true;
+                bedLevels[z * 16 + x] = (int) Math.floor(sample.height());
                 waterLevels[z * 16 + x] =
                     com.shnewbs.deepprimal.core.WaterDynamics.surfaceY(sample.waterLevel()) + 1;
                 surfaceStates[z * 16 + x] =
@@ -103,6 +107,14 @@ public final class SurfaceWaterAquifer implements Aquifer {
     if (bedLevels != null && x >= 0 && z >= 0 && x < 16 && z < 16) {
       int index = z * 16 + x, bed = bedLevels[index];
       if (surface > bed + 1) {
+        // Versioned narrow channels use cached per-column cuts. A four-block noise
+        // interpolation cell can otherwise bridge over a shallow stream and leave dry stairs.
+        if (exactChannels != null && exactChannels[index] && y > bed) {
+          suppliedSurfaceWater = true;
+          return y < surface
+              ? y == surface - 1 ? surfaceStates[index] : waterStates[index]
+              : Blocks.AIR.defaultBlockState();
+        }
         if (density <= 0 && y < surface && y > bed) {
           suppliedSurfaceWater = true;
           return surfaceStates != null && y == surface - 1

@@ -255,7 +255,7 @@ public final class MountainDrainage {
     if (naturalSteps) {
       for (int k = 0; k < length; k++) {
         int n = order[k], p = parent[n];
-        if (!headwater[n] || area[n] < 24 || water[n] <= seaLevel + 8) continue;
+        if (!headwater[n] || area[n] < 16 || water[n] <= seaLevel + 8) continue;
         double radius = Math.min(24, 10 + Math.sqrt(area[n]));
         double bank = Double.POSITIVE_INFINITY;
         for (int angle = 0; angle < 16; angle++) {

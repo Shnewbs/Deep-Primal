@@ -399,6 +399,8 @@ public final class DrainageServerChecks {
 
   private static void blocksAt(
       ServerLevel level, WaterwayHeight h, int x, int z, int water, String kind) {
+    if (h.naturalSteps() && h.sample(x, z).strength() > 0)
+      water = com.shnewbs.deepprimal.core.WaterDynamics.surfaceY(h.sample(x, z).waterLevel()) + 1;
     var chunk = level.getChunkSource().getChunk(x >> 4, z >> 4, ChunkStatus.SURFACE, true);
     support(chunk, level, kind);
     var noise =
@@ -419,7 +421,21 @@ public final class DrainageServerChecks {
       throw new AssertionError("Planner duplicated while wrapping");
     var center = new BlockPos(x, water - 1, z);
     if (!chunk.getBlockState(center).getFluidState().is(net.minecraft.tags.FluidTags.WATER))
-      throw new AssertionError("Dry channel center: " + kind + " at " + x + "," + z);
+      throw new AssertionError(
+          "Dry channel center: "
+              + kind
+              + " at "
+              + x
+              + ","
+              + z
+              + " sample="
+              + h.sample(x, z)
+              + " center="
+              + chunk.getBlockState(center)
+              + " lower="
+              + chunk.getBlockState(center.below())
+              + " upper="
+              + chunk.getBlockState(center.above()));
     int bottom = water - 1;
     while (bottom > level.getMinY()
         && chunk

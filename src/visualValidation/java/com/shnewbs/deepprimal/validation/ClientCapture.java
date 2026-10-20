@@ -145,6 +145,57 @@ public final class ClientCapture {
         WaterClientChecks.surface();
         return;
       }
+      if (action.equals("riversteps-scene")
+          || action.equals("headwater-scene")
+          || action.equals("coast-scene")) {
+        var server = mc.getSingleplayerServer();
+        server.execute(
+            () -> {
+              String teleport = "tp @a -3860 339 1225 -126 18";
+              if (action.equals("coast-scene")) teleport = "tp @a -320 120 -3232 135 25";
+              if (action.equals("headwater-scene")) {
+                com.shnewbs.deepprimal.worldgen.WaterwayHeight[] field = {null};
+                server
+                    .overworld()
+                    .getChunkSource()
+                    .randomState()
+                    .router()
+                    .preliminarySurfaceLevel()
+                    .mapAll(
+                        f -> {
+                          if (f instanceof com.shnewbs.deepprimal.worldgen.WaterwayHeight w
+                              && w.routed()) field[0] = w;
+                          return f;
+                        });
+                search:
+                for (int rz = -1; rz <= 1; rz++)
+                  for (int rx = -1; rx <= 1; rx++) {
+                    var r = field[0].drainage().region(rx, rz);
+                    for (int k = 0; k < r.nodeCount(); k++) {
+                      int n = r.node(k);
+                      if (r.lakeRadius(n) <= 0) continue;
+                      double distance = r.lakeRadius(n) * 1.7;
+                      teleport =
+                          "tp @a "
+                              + (r.x(n) + distance)
+                              + " "
+                              + (r.water(n) + 18)
+                              + " "
+                              + (r.z(n) + distance)
+                              + " 135 25";
+                      break search;
+                    }
+                  }
+              }
+              var source = server.createCommandSourceStack();
+              for (String command :
+                  new String[] {
+                    "gamemode spectator @a", "time set noon", "weather clear", teleport
+                  }) server.getCommands().performPrefixedCommand(source, command);
+            });
+        mc.setScreen(null);
+        return;
+      }
       if (action.equals("ocean-scene")) {
         var server = mc.getSingleplayerServer();
         server.execute(
