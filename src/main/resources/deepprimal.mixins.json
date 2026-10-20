@@ -6,7 +6,13 @@
   "mixins": [
     "ServerLevelMetricsAccessor",
     "WaterwayAquiferMixin",
-    "RiverCurrentMixin"
+    "RiverCurrentMixin",
+    "RiverImpulseMixin",
+    "FarmWaterMixin",
+    "SwimmingMixin",
+    "HorseBuoyancyMixin",
+    "OceanBoatMixin",
+    "PrecipitationMixin"
   ],
   "client": [
     "client.OptionsMixin",
@@ -17,7 +23,10 @@
     "client.GraphStorageMixin",
     "client.FogRendererMixin",
     "client.CameraMixin",
-    "client.LevelRendererAccessor"
+    "client.LevelRendererAccessor",
+    "client.WaterColorMixin",
+    "client.SnowFoliageMixin",
+    "client.WaterFogMixin"
   ],
   "injectors": {
     "defaultRequire": 1

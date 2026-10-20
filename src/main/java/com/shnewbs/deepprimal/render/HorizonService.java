@@ -89,7 +89,7 @@ public final class HorizonService {
         if (source.isEmpty()) {
             PacketDistributor.sendToPlayer(player, new HorizonTile(p.session(), p.dimension(), p.x(), p.z(), p.detail(), false, new short[0], new int[0])); return;
         }
-        JOBS.add(new Job(key, waiter, source.get(), level.getMinY(), level.getMaxY(), level.getSeaLevel()));
+        JOBS.add(new Job(key, waiter, source.get(), level));
     }
     @SubscribeEvent public void pre(ServerTickEvent.Pre event) { tickStart = System.nanoTime(); }
     @SubscribeEvent public void tick(ServerTickEvent.Post event) {
@@ -103,9 +103,16 @@ public final class HorizonService {
             int cells = HorizonGeometry.cells(job.key.detail), width = cells + 1, step = FarTerrain.TILE_BLOCKS / cells;
             int i = job.next++, x = job.key.x * FarTerrain.TILE_BLOCKS + i % width * step;
             int z = job.key.z * FarTerrain.TILE_BLOCKS + i / width * step;
-            int h = (int)Math.clamp(Math.floor(job.height.compute(new DensityFunction.SinglePointContext(x, 0, z))), job.minY + 8, job.maxY - 16);
-            job.heights[i] = (short)Math.max(job.seaLevel, h);
-            job.colors[i] = h < job.seaLevel ? 0xff355d80 : h < job.seaLevel + 4 ? 0xffb9af80 : h > 360 ? 0xffdee2e1 : h > 224 ? 0xff747c6b : 0xff66824b;
+            var river = job.waterway == null ? null : job.waterway.sample(x,z);
+            int h = (int)Math.clamp(Math.floor(river == null ? job.height.compute(new DensityFunction.SinglePointContext(x,0,z)) : river.height()),job.minY+8,job.maxY-16);
+            int water = river == null ? job.seaLevel : (int)Math.floor(river.waterLevel());
+            job.heights[i] = (short)Math.max(water,h);
+            var biome = job.level.getChunkSource().getGenerator().getBiomeSource().getNoiseBiome(
+                net.minecraft.core.QuartPos.fromBlock(x),net.minecraft.core.QuartPos.fromBlock(h),net.minecraft.core.QuartPos.fromBlock(z),
+                job.level.getChunkSource().randomState().sampler()).value();
+            int color = com.shnewbs.deepprimal.core.WaterDynamics.palette(biome.getWaterColor(),biome.getBaseTemperature(),biome.hasPrecipitation()?1:0);
+            job.colors[i] = h < water ? 0xf9000000 | color : h < job.seaLevel+4 ? 0xffb9af80
+                : h > 360 ? 0xffdee2e1 : h > 224 ? 0xff747c6b : 0xff000000 | biome.getGrassColor(x,z);
             work++; samples++;
             if (job.next == job.heights.length) {
                 completed++; var data = new HorizonSamples(job.key.detail, job.heights, job.colors); CACHE.put(job.key, data);
@@ -126,10 +133,16 @@ public final class HorizonService {
     private record Waiter(ServerPlayer player, HorizonRequest request) {}
     public static int pending() { return JOBS.size(); }
     private static final class Job {
+        final net.minecraft.server.level.ServerLevel level;
+        final com.shnewbs.deepprimal.worldgen.WaterwayHeight waterway;
         final TileKey key; final ArrayList<Waiter> waiters = new ArrayList<>(); final DensityFunction height;
         final short[] heights; final int[] colors; final int minY, maxY, seaLevel; final long created = System.nanoTime(); int next;
-        Job(TileKey key, Waiter waiter, DensityFunction height, int min, int max, int sea) {
-            this.key = key; this.height = height; minY = min; maxY = max; seaLevel = sea; waiters.add(waiter);
+        Job(TileKey key, Waiter waiter, DensityFunction height, net.minecraft.server.level.ServerLevel level) {
+            this.level=level;
+            com.shnewbs.deepprimal.worldgen.WaterwayHeight[] found={null};
+            height.mapAll(f->{if(f instanceof com.shnewbs.deepprimal.worldgen.WaterwayHeight w && w.routed())found[0]=w;return f;});
+            waterway=found[0];
+            this.key=key; this.height=height; minY=level.getMinY(); maxY=level.getMaxY(); seaLevel=level.getSeaLevel(); waiters.add(waiter);
             heights = new short[HorizonGeometry.points(key.detail)]; colors = new int[heights.length];
         }
     }

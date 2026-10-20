@@ -48,6 +48,7 @@ public final class DeepPrimal {
     modBus.addListener(WorldgenConfig::packs);
     modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
+    NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.WaterEnvironment());
     TICKETS.register(modBus);
     DENSITIES.register("column_surface", () -> ColumnSurface.MAP_CODEC);
     DENSITIES.register(

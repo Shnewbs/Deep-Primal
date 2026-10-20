@@ -171,8 +171,9 @@ public final class DistanceScreen extends Screen {
                   fastRelocation = !fastRelocation;
                   button.setMessage(relocationLabel());
                 })
-            .bounds(left, top + 136, panelWidth, 20)
+            .bounds(left, top + 136, panelWidth / 2 - 5, 20)
             .build());
+    addRenderableWidget(Button.builder(Component.literal("Water & snow…"), b -> minecraft.setScreen(new com.shnewbs.deepprimal.settings.WaterVisualSettingsScreen(this))).bounds(left + panelWidth / 2 + 5, top + 136, panelWidth / 2 - 5, 20).build());
     apply =
         addRenderableWidget(
             Button.builder(
