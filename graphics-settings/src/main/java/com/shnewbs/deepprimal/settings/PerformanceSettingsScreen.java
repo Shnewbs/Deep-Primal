@@ -375,7 +375,7 @@ public final class PerformanceSettingsScreen extends Screen {
             ? "Backend: " + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
             : page == 5
                 ? "Graphics preferences are managed independently. Open graphics settings to choose"
-                      + " the API for the next launch."
+                    + " the API for the next launch."
                 : page == 1 && !RendererOwnership.owned()
                     ? "Distance controls delegated to " + RendererOwnership.owner()
                     : page == 2
@@ -385,11 +385,11 @@ public final class PerformanceSettingsScreen extends Screen {
                             + "Simulation keeps its configured behavior."
                         : page == 3
                             ? "Profiles stage changes until Apply. Speed reduces visual effects and"
-                                  + " admission ranges. Terrain and simulation distances stay"
-                                  + " unchanged."
+                                + " admission ranges. Terrain and simulation distances stay"
+                                + " unchanged."
                             : page == 4
                                 ? "Extra nearby rebuilds use native workers. Player edits stay"
-                                      + " immediate; block simulation is unchanged."
+                                    + " immediate; block simulation is unchanged."
                                 : "0 uses native visual limits; no gameplay ticks are stopped.";
     if (page != 1)
       g.textWithWordWrap(

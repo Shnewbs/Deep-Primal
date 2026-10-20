@@ -20,7 +20,9 @@ public final class RiverWaterBlock extends LiquidBlock {
     for (int i = 0; i < 16; i++) {
       double angle = i * Math.PI / 8;
       for (int band = 0; band < 4; band++)
-        VECTORS[band][i] = new Vec3(Math.cos(angle), 0, Math.sin(angle)).scale(com.shnewbs.deepprimal.core.WaterDynamics.SPEEDS[band]);
+        VECTORS[band][i] =
+            new Vec3(Math.cos(angle), 0, Math.sin(angle))
+                .scale(com.shnewbs.deepprimal.core.WaterDynamics.speedForBand(band));
     }
   }
 
@@ -46,13 +48,17 @@ public final class RiverWaterBlock extends LiquidBlock {
 
   public BlockState flowing(double x, double z, double speed) {
     int direction = Math.floorMod((int) Math.round(Math.atan2(z, x) * 8 / Math.PI), 16);
-    return defaultBlockState().setValue(CURRENT, direction).setValue(SPEED, com.shnewbs.deepprimal.core.WaterDynamics.band(speed));
+    return defaultBlockState()
+        .setValue(CURRENT, direction)
+        .setValue(SPEED, com.shnewbs.deepprimal.core.WaterDynamics.band(speed));
   }
 
   public static Vec3 current(BlockState state) {
     if (!(state.getBlock() instanceof RiverWaterBlock) || !RiverConfig.CURRENTS.get())
       return Vec3.ZERO;
-    Vec3 vector = VECTORS[RiverConfig.VARIABLE_SPEED.get() ? state.getValue(SPEED) : 1][state.getValue(CURRENT)];
+    Vec3 vector =
+        VECTORS[RiverConfig.VARIABLE_SPEED.get() ? state.getValue(SPEED) : 1][
+            state.getValue(CURRENT)];
     double strength = RiverConfig.STRENGTH.get();
     return strength == 1 ? vector : vector.scale(strength);
   }

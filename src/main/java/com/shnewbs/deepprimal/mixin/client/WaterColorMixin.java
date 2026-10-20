@@ -15,13 +15,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BiomeColors.class)
 abstract class WaterColorMixin {
   @Shadow @Final @Mutable public static ColorResolver WATER_COLOR_RESOLVER;
-  @Inject(method="<clinit>",at=@At("RETURN"))
+
+  @Inject(method = "<clinit>", at = @At("RETURN"))
   private static void deepprimal$resolver(CallbackInfo ci) {
     // Replace the registered cache key once; defer configuration access until world rendering.
-    WATER_COLOR_RESOLVER=(b,x,z)->WaterVisualConfig.COLORS.get()?WaterColors.palette(b):b.getWaterColor();
+    WATER_COLOR_RESOLVER =
+        (b, x, z) -> WaterVisualConfig.COLORS.get() ? WaterColors.palette(b) : b.getWaterColor();
   }
-  @Inject(method="getAverageWaterColor",at=@At("HEAD"),cancellable=true)
-  private static void deepprimal$blend(BlockAndTintGetter level, BlockPos pos, CallbackInfoReturnable<Integer> ci) {
-    if(WaterVisualConfig.COLORS.get())ci.setReturnValue(WaterColors.blended(level,pos));
+
+  @Inject(method = "getAverageWaterColor", at = @At("HEAD"), cancellable = true)
+  private static void deepprimal$blend(
+      BlockAndTintGetter level, BlockPos pos, CallbackInfoReturnable<Integer> ci) {
+    if (WaterVisualConfig.COLORS.get()) ci.setReturnValue(WaterColors.blended(level, pos));
   }
 }

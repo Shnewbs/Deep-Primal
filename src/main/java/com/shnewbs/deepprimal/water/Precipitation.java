@@ -13,7 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FlowingFluid;
 
-/** Extend native precipitation at its already-selected loaded column. No world-wide weather loop. */
+/**
+ * Extend native precipitation at its already-selected loaded column. No world-wide weather loop.
+ */
 public final class Precipitation {
   public static void tick(ServerLevel level, BlockPos column) {
     if (!level.isRaining() || !level.hasChunkAt(column)) return;
@@ -24,15 +26,17 @@ public final class Precipitation {
       var p = top.below();
       var state = level.getBlockState(p);
       var fluid = state.getFluidState();
-      if (state.getBlock() instanceof LiquidBlock && fluid.is(FluidTags.WATER)
-          && !fluid.isSource() && !fluid.getValue(FlowingFluid.FALLING))
+      if (state.getBlock() instanceof LiquidBlock
+          && fluid.is(FluidTags.WATER)
+          && !fluid.isSource()
+          && !fluid.getValue(FlowingFluid.FALLING))
         level.setBlockAndUpdate(p, state.setValue(LiquidBlock.LEVEL, 0));
     }
     if (kind != Biome.Precipitation.SNOW || !RiverConfig.SNOW_DRIFTS.get()) return;
     snow(level, top);
     if (level.getBlockState(top.below()).is(BlockTags.LEAVES)) {
       var cursor = top.below().mutable();
-      for (int i = 0; i < 12 && cursor.getY() > level.getMinY()+1; i++) {
+      for (int i = 0; i < 12 && cursor.getY() > level.getMinY() + 1; i++) {
         cursor.move(net.minecraft.core.Direction.DOWN);
         var state = level.getBlockState(cursor);
         if (state.isAir() || state.is(BlockTags.LEAVES)) continue;
@@ -43,8 +47,10 @@ public final class Precipitation {
   }
 
   public static void snow(ServerLevel level, BlockPos surface) {
-    BlockPos pos = level.getBlockState(surface).is(Blocks.SNOW) ? surface
-        : level.getBlockState(surface.below()).is(Blocks.SNOW) ? surface.below() : surface;
+    BlockPos pos =
+        level.getBlockState(surface).is(Blocks.SNOW)
+            ? surface
+            : level.getBlockState(surface.below()).is(Blocks.SNOW) ? surface.below() : surface;
     BlockState state = level.getBlockState(pos);
     if (!state.isAir() && !state.is(Blocks.SNOW)) return;
     int cap = RiverConfig.SNOW_CAP.get(), below = 0;
@@ -54,24 +60,31 @@ public final class Precipitation {
       cursor.move(net.minecraft.core.Direction.DOWN);
     }
     int layers = state.is(Blocks.SNOW) ? state.getValue(SnowLayerBlock.LAYERS) : 0;
-    int available = Math.max(0, cap-below);
+    int available = Math.max(0, cap - below);
     if (layers > available) {
-      level.setBlockAndUpdate(pos, available == 0 ? Blocks.AIR.defaultBlockState()
-          : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS,available));
+      level.setBlockAndUpdate(
+          pos,
+          available == 0
+              ? Blocks.AIR.defaultBlockState()
+              : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, available));
       return;
     }
-    if (layers == 8 && below+8 <= cap) {
+    if (layers == 8 && below + 8 <= cap) {
       BlockState full = Blocks.SNOW_BLOCK.defaultBlockState();
-      Block.pushEntitiesUp(state,full,level,pos);
-      level.setBlockAndUpdate(pos,full);
+      Block.pushEntitiesUp(state, full, level, pos);
+      level.setBlockAndUpdate(pos, full);
       return;
     }
-    if (below+layers >= cap) return;
-    BlockState next = layers >= 8 ? Blocks.SNOW_BLOCK.defaultBlockState()
-        : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS,layers+1);
-    if (!next.canSurvive(level,pos) || level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK,pos) >= 10) return;
+    if (below + layers >= cap) return;
+    BlockState next =
+        layers >= 8
+            ? Blocks.SNOW_BLOCK.defaultBlockState()
+            : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layers + 1);
+    if (!next.canSurvive(level, pos)
+        || level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, pos) >= 10) return;
     Block.pushEntitiesUp(state, next, level, pos);
-    level.setBlockAndUpdate(pos,next);
+    level.setBlockAndUpdate(pos, next);
   }
+
   private Precipitation() {}
 }

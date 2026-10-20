@@ -1,7 +1,5 @@
 package com.shnewbs.deepprimal.validation;
 
-
-
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -126,6 +124,43 @@ public final class ClientCapture {
         mc.stop();
         return;
       }
+      if (action.equals("night-scene") || action.equals("day-scene")) {
+        var server = mc.getSingleplayerServer();
+        server.execute(
+            () ->
+                server
+                    .getCommands()
+                    .performPrefixedCommand(
+                        server.createCommandSourceStack(),
+                        "time set " + (action.equals("night-scene") ? "midnight" : "noon")));
+        mc.setScreen(null);
+        return;
+      }
+      if (action.equals("water-checks")) {
+        WaterClientChecks.run(mc);
+        return;
+      }
+      if (action.equals("water-surface-check")) {
+        WaterClientChecks.surface();
+        return;
+      }
+      if (action.equals("ocean-scene")) {
+        var server = mc.getSingleplayerServer();
+        server.execute(
+            () -> {
+              var point = OceanServerChecks.find(server.overworld());
+              var source = server.createCommandSourceStack();
+              for (String command :
+                  new String[] {
+                    "gamemode spectator @a",
+                    "weather clear",
+                    "time set noon",
+                    "tp @a " + point.x() + " 104 " + point.z() + " 0 15"
+                  }) server.getCommands().performPrefixedCommand(source, command);
+            });
+        mc.setScreen(null);
+        return;
+      }
       if (action.equals("renderer-checks")) {
         RendererClientChecks.run(mc);
         Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8);
@@ -205,16 +240,16 @@ public final class ClientCapture {
       }
       if (action.equals("memory-guard-checks")) {
         int requested = mc.options.renderDistance().get();
-        mc.options.renderDistance().set(96);
+        mc.options.renderDistance().set(125);
         int limit =
-            com.shnewbs.deepprimal.performance.MemorySafety.limit(96, mc.level.getSectionsCount());
-        if (mc.options.renderDistance().get() != 96
+            com.shnewbs.deepprimal.performance.MemorySafety.limit(125, mc.level.getSectionsCount());
+        if (mc.options.renderDistance().get() != 125
             || mc.options.getEffectiveRenderDistance() > limit)
           throw new AssertionError(
               "Memory guard did not preserve request/bound effective distance");
         mc.options.renderDistance().set(requested);
         System.out.println(
-            "MEMORY_GUARD_CHECKS_PASS requested=96 memoryLimit="
+            "MEMORY_GUARD_CHECKS_PASS requested=125 memoryLimit="
                 + limit
                 + " effective="
                 + mc.options.getEffectiveRenderDistance());
@@ -223,10 +258,10 @@ public final class ClientCapture {
       if (action.equals("integrated-memory-checks")) {
         var server = mc.getSingleplayerServer();
         if (server == null) throw new AssertionError("No integrated server");
-        int limit = com.shnewbs.deepprimal.performance.MemorySafety.serverLimit(96, server);
+        int limit = com.shnewbs.deepprimal.performance.MemorySafety.serverLimit(125, server);
         int view = server.getPlayerList().getViewDistance();
         int simulation = server.getPlayerList().getSimulationDistance();
-        if (mc.options.renderDistance().get() != 96
+        if (mc.options.renderDistance().get() != 125
             || mc.options.simulationDistance().get() != 16
             || view > limit
             || simulation > limit
@@ -234,7 +269,7 @@ public final class ClientCapture {
           throw new AssertionError(
               "Unbounded integrated distances: " + view + "/" + simulation + " limit=" + limit);
         System.out.println(
-            "INTEGRATED_MEMORY_GUARD_PASS requested=96 simulationRequested=16 view="
+            "INTEGRATED_MEMORY_GUARD_PASS requested=125 simulationRequested=16 view="
                 + view
                 + " simulation="
                 + simulation

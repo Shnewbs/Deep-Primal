@@ -8,7 +8,15 @@ public final class RiverConfig {
   public static final ModConfigSpec.BooleanValue CURRENTS;
   public static final ModConfigSpec.DoubleValue STRENGTH;
 
-  public static final ModConfigSpec.BooleanValue VARIABLE_SPEED, FINITE_SOURCES, NATURAL_RENEWAL, RAIN_REFILL, SNOW_DRIFTS, HORSES, FARM_WALKING, PRESSURE, OCEAN_MOTION;
+  public static final ModConfigSpec.BooleanValue VARIABLE_SPEED,
+      FINITE_SOURCES,
+      NATURAL_RENEWAL,
+      RAIN_REFILL,
+      SNOW_DRIFTS,
+      HORSES,
+      FARM_WALKING,
+      PRESSURE,
+      OCEAN_MOTION;
   public static final ModConfigSpec.IntValue SNOW_CAP, PRESSURE_DEPTH;
 
   static {
@@ -22,7 +30,9 @@ public final class RiverConfig {
         b.comment("Scale river current force. Zero disables the added force.")
             .defineInRange("currentStrength", 1.0, 0.0, 2.0);
     VARIABLE_SPEED = b.define("variableCurrentSpeed", true);
-    FINITE_SOURCES = b.comment("Disable ordinary source regeneration; not a finite-volume solver.").define("finiteSources", false);
+    FINITE_SOURCES =
+        b.comment("Disable ordinary source regeneration; not a finite-volume solver.")
+            .define("finiteSources", false);
     NATURAL_RENEWAL = b.define("renewableNaturalWaters", true);
     RAIN_REFILL = b.define("rainRefill", true);
     SNOW_DRIFTS = b.define("snowDrifts", true);

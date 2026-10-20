@@ -121,8 +121,8 @@ public final class ClientPerformanceConfig {
             .comment(
                 "Built-in macro-terrain horizon radius in chunks, 0 disables; no full chunks or"
                     + " simulation are requested.")
-            .defineInRange("farRenderDistance", 192, 0,
-                com.shnewbs.deepprimal.core.FarTerrain.MAX_DISTANCE);
+            .defineInRange(
+                "farRenderDistance", 192, 0, com.shnewbs.deepprimal.core.FarTerrain.MAX_DISTANCE);
     SPEC = builder.build();
   }
 

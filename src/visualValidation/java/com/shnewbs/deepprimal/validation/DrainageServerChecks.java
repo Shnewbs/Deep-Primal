@@ -66,6 +66,7 @@ public final class DrainageServerChecks {
       profile(level);
       if (selected.equals("standard") || selected.equals("deep")) {
         check(level);
+        OceanServerChecks.run(level);
         RiverCurrentChecks.run(level);
         WaterEnvironmentChecks.run(level);
       }

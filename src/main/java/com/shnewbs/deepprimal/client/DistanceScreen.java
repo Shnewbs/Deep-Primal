@@ -1,6 +1,5 @@
 package com.shnewbs.deepprimal.client;
 
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.shnewbs.deepprimal.core.DistancePolicy;
 import com.shnewbs.deepprimal.core.VerticalRange;
@@ -173,7 +172,14 @@ public final class DistanceScreen extends Screen {
                 })
             .bounds(left, top + 136, panelWidth / 2 - 5, 20)
             .build());
-    addRenderableWidget(Button.builder(Component.literal("Water & snow…"), b -> minecraft.setScreen(new com.shnewbs.deepprimal.settings.WaterVisualSettingsScreen(this))).bounds(left + panelWidth / 2 + 5, top + 136, panelWidth / 2 - 5, 20).build());
+    addRenderableWidget(
+        Button.builder(
+                Component.literal("Water & snow…"),
+                b ->
+                    minecraft.setScreen(
+                        new com.shnewbs.deepprimal.settings.WaterVisualSettingsScreen(this)))
+            .bounds(left + panelWidth / 2 + 5, top + 136, panelWidth / 2 - 5, 20)
+            .build());
     apply =
         addRenderableWidget(
             Button.builder(
@@ -231,7 +237,8 @@ public final class DistanceScreen extends Screen {
   }
 
   private OptionalInt farValue() {
-    return DistancePolicy.parse(farInput.getValue(), 0, com.shnewbs.deepprimal.core.FarTerrain.MAX_DISTANCE);
+    return DistancePolicy.parse(
+        farInput.getValue(), 0, com.shnewbs.deepprimal.core.FarTerrain.MAX_DISTANCE);
   }
 
   private void refresh() {

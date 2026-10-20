@@ -61,16 +61,33 @@ final class RiverCurrentChecks {
           state.getFluidState().getType() == net.minecraft.world.level.material.Fluids.WATER,
           "River is not native water");
     }
-    double[] speeds = new double[2];
-    for(int band : new int[]{0,3}) {
-      for(int z=1;z<15;z++) for(int x=1;x<15;x++) for(int y=501;y<=502;y++)
-        level.setBlock(new BlockPos(x,y,z),block.flowing(1,0,band==0?.35:1.9),2|16);
-      speeds[band==0?0:1] = item(level,5);
+    double[] speeds = new double[2], boats = new double[2];
+    for (int band : new int[] {0, 3}) {
+      for (int z = 1; z < 15; z++)
+        for (int x = 1; x < 15; x++)
+          for (int y = 501; y <= 502; y++)
+            level.setBlock(
+                new BlockPos(x, y, z), block.flowing(1, 0, band == 0 ? .35 : 1.9), 2 | 16);
+      speeds[band == 0 ? 0 : 1] = item(level, 5);
+      boats[band == 0 ? 0 : 1] = boat(level, 10);
     }
-    require(speeds[1] > speeds[0]*1.4,"Native non-player speed bands lost: "+java.util.Arrays.toString(speeds));
-    DrainageServerChecks.record("RIVER_SPEED_PASS slow="+speeds[0]+" fast="+speeds[1]);
-    for(int z=1;z<15;z++) for(int x=1;x<15;x++) for(int y=501;y<=502;y++)
-      level.setBlock(new BlockPos(x,y,z),block.flowing(1,0),2|16);
+    require(
+        speeds[1] > speeds[0] * 1.4,
+        "Native non-player speed bands lost: " + java.util.Arrays.toString(speeds));
+    require(boats[1] > boats[0] * 1.4, "Boat speed bands lost");
+    DrainageServerChecks.record(
+        "RIVER_SPEED_PASS slow="
+            + speeds[0]
+            + " fast="
+            + speeds[1]
+            + " boatSlow="
+            + boats[0]
+            + " boatFast="
+            + boats[1]);
+    for (int z = 1; z < 15; z++)
+      for (int x = 1; x < 15; x++)
+        for (int y = 501; y <= 502; y++)
+          level.setBlock(new BlockPos(x, y, z), block.flowing(1, 0), 2 | 16);
     level.setBlock(point, block.flowing(1, 0), 2 | 16);
     double itemWith = item(level, 5);
     double boatWith = boat(level, 10);

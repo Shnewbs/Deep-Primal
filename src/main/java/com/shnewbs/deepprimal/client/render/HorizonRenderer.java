@@ -51,7 +51,9 @@ public final class HorizonRenderer {
           .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES)
           .withDepthStencilState(DepthStencilState.DEFAULT)
           .withSampler("NativeLight")
-          .withColorTargetState(new com.mojang.blaze3d.pipeline.ColorTargetState(com.mojang.blaze3d.pipeline.BlendFunction.TRANSLUCENT))
+          .withColorTargetState(
+              new com.mojang.blaze3d.pipeline.ColorTargetState(
+                  com.mojang.blaze3d.pipeline.BlendFunction.TRANSLUCENT))
           .withCull(true)
           .build();
   private final LinkedHashMap<Long, HorizonGpuMesh> cache = new LinkedHashMap<>(400, 0.75f, true);
@@ -617,7 +619,8 @@ public final class HorizonRenderer {
     if (tile == null) return Double.NaN;
     tile = tile.forDetail(detail(FarTerrain.key(tx, tz)));
     return HorizonGeometry.sample(
-        tile.heights, HorizonGeometry.cells(tile.detail), x - tx * 512.0, z - tz * 512.0) - .125;
+            tile.heights, HorizonGeometry.cells(tile.detail), x - tx * 512.0, z - tz * 512.0)
+        - .125;
   }
 
   private HorizonGpuMesh buildTransition(long cx, long cz, int radius) {
@@ -637,8 +640,8 @@ public final class HorizonRenderer {
           double h = height(x, z), nh = height(nx, nz);
           if (!Double.isFinite(h) || !Double.isFinite(nh)) continue;
           if (ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() == 0
-              && Math.abs(h-(level.getSeaLevel()-.125)) < .01
-              && Math.abs(nh-(level.getSeaLevel()-.125)) < .01) continue;
+              && Math.abs(h - (level.getSeaLevel() - .125)) < .01
+              && Math.abs(nh - (level.getSeaLevel() - .125)) < .01) continue;
           // Alpha is an internal marker: transition walls bypass the surface near-clip.
           wall(
               b,
@@ -701,6 +704,20 @@ public final class HorizonRenderer {
     residentBytes = 0;
     cachedTiles = visibleTiles = 0;
     upload = null;
+  }
+
+  @SubscribeEvent
+  public void logout(
+      net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent.LoggingOut event) {
+    clear();
+    level = null;
+    session++;
+  }
+
+  @SubscribeEvent
+  public void shutdown(net.neoforged.neoforge.event.GameShuttingDownEvent event) {
+    clear();
+    level = null;
   }
 
   private void clear() {

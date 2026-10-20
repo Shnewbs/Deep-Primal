@@ -61,7 +61,9 @@ public final class MountainDrainage {
           double length = Math.hypot(dx, dz);
           flowX = dx / length;
           flowZ = dz / length;
-          speed = WaterDynamics.speed((r.water[child]-r.water[parent])/length, r.area[child], width);
+          speed =
+              WaterDynamics.speed(
+                  (r.water[child] - r.water[parent]) / length, r.area[child], width);
         }
       }
     }
@@ -222,7 +224,12 @@ public final class MountainDrainage {
   }
 
   public record Sample(
-      double height, double waterLevel, double strength, double flowX, double flowZ, double speed) {}
+      double height,
+      double waterLevel,
+      double strength,
+      double flowX,
+      double flowZ,
+      double speed) {}
 
   private record Node(int index, double level) {}
 

@@ -12,14 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Small buoyancy delta only: downstream propulsion remains the native fluid current. */
 @Mixin(AbstractBoat.class)
 abstract class OceanBoatMixin {
-  @Inject(method="floatBoat", at=@At("RETURN"))
+  @Inject(method = "floatBoat", at = @At("RETURN"))
   private void deepprimal$swell(CallbackInfo ci) {
-    var boat = (AbstractBoat)(Object)this;
-    if (!RiverConfig.OCEAN_MOTION.get() || !boat.isInWater()
+    var boat = (AbstractBoat) (Object) this;
+    if (!RiverConfig.OCEAN_MOTION.get()
+        || !boat.isInWater()
         || !boat.level().getBiome(boat.blockPosition()).is(BiomeTags.IS_OCEAN)) return;
     double time = boat.level().getGameTime(), storm = boat.level().getRainLevel(1);
-    double delta = (WaterDynamics.wave(boat.getX(),boat.getZ(),time+1,storm)
-        - WaterDynamics.wave(boat.getX(),boat.getZ(),time,storm))*.4;
-    boat.setDeltaMovement(boat.getDeltaMovement().add(0,delta,0));
+    double delta =
+        (WaterDynamics.wave(boat.getX(), boat.getZ(), time + 1, storm)
+                - WaterDynamics.wave(boat.getX(), boat.getZ(), time, storm))
+            * .4;
+    boat.setDeltaMovement(boat.getDeltaMovement().add(0, delta, 0));
   }
 }

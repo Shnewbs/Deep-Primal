@@ -10,8 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 abstract class SwimmingMixin {
-  @Inject(method="dismountsUnderwater", at=@At("HEAD"), cancellable=true)
+  @Inject(method = "dismountsUnderwater", at = @At("HEAD"), cancellable = true)
   private void deepprimal$horse(CallbackInfoReturnable<Boolean> ci) {
-    if ((Object)this instanceof AbstractHorse && RiverConfig.HORSES.get()) ci.setReturnValue(false);
+    if ((Object) this instanceof AbstractHorse && RiverConfig.HORSES.get())
+      ci.setReturnValue(false);
   }
 }

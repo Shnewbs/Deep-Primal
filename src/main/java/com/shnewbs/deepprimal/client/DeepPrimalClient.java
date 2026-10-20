@@ -1,7 +1,5 @@
 package com.shnewbs.deepprimal.client;
 
-
-
 import com.shnewbs.deepprimal.performance.DistanceRuntime;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -24,7 +22,8 @@ public final class DeepPrimalClient {
     modBus.addListener(DeepPrimalClient::payloads);
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE);
-      NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE);
+      NeoForge.EVENT_BUS.register(
+          com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE);
     }
     com.shnewbs.deepprimal.DeepPrimal.LOGGER.info(
         "Client renderer owner: {}", com.shnewbs.deepprimal.settings.RendererOwnership.owner());
