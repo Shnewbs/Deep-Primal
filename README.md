@@ -2,10 +2,14 @@
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 
-**Current build: 0.0.1-alpha.13 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**Current build: 0.0.1-alpha.14 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is the default normal world generator. Alpha 13 keeps stepped mountain rivers, adds persistent downstream currents and fixes unsupported surface-water filling for new worlds. Alpha 12 added elevated mountain tributaries and ridge-cutting gorges on top of alpha 11 lowland rivers and coastal beaches. New-world water heights descend along regional catchments. Existing saves retain their saved terrain profile; this update does not regenerate old chunks. Extra underground depth is a startup config setting, rather than a second selectable world type. Alpha 4 replaced sheet-shaped mountain carving with buried tunnels and deeper chambers, and added an independent vertical render radius. Alpha 5 fixed native chunk-task queue bounds at extended render distances. Alpha 6 adds an authored macro-terrain horizon up to 256 chunks, automatic renderer handoff, and a localhost performance dashboard. The prototype retains vanilla placeholder materials, geological strata, native aquifers, XP suppression, bounded diagnostics, expanded horizontal rendering, and the alpha 3 client/server optimizations. OpenGL is the default; alpha 9 includes an optional experimental Vulkan backend. The full survival conversion remains in design. Use disposable test worlds. Alpha 6 can reopen alpha 4/5 worlds without migration; generated voxel terrain is unchanged.
+Deep Primal is the default normal world generator. Alpha 14 adds variable river currents, blended climate/elevation water colors, optional water gameplay rules, capped cold-weather snow, bounded ocean waves and new deep-ocean profiles. It retains bed-backed stepped mountain rivers and coastal beaches. Existing saves keep their generation profile; use a new world for the v4 ocean terrain.
 
+The procedural horizon now permits 512 chunks with denser smooth-lit meshes. Full-detail requests stop at Minecraft's native signed-byte tracker ceiling of 125 chunks; heap and server delivery guards remain active. This is macro terrain, not detailed voxel/tree/building LOD. OpenGL remains the default; the separate experimental Vulkan backend includes the cloud storage-range crash fix. Graphics controls, the common performance engine and platform-neutral core remain separate modules. The complete survival conversion remains in design; use disposable test worlds.
+
+- [Alpha 14 water, weather and renderer validation](docs/VALIDATION-0.0.1-alpha.14.md)
+- [Water/weather feature scope and requested-mod comparison](docs/WATER-AND-WEATHER-2026-10-20.md)
 - [Alpha 13 contained stepped rivers and persistent currents](docs/VALIDATION-0.0.1-alpha.13.md)
 - [TFC and requested river-mod flow comparison](docs/RIVER-FLOW-COMPARISON-2026-10-19.md)
 - [Alpha 12 mountain streams and gorges](docs/VALIDATION-0.0.1-alpha.12.md)
@@ -30,7 +34,7 @@ Deep Primal is the default normal world generator. Alpha 13 keeps stepped mounta
 - [Owner decisions](docs/design-decisions-2026-10-18.md)
 - [Detailed design reference](docs/design-reference.md)
 
-Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.13.jar`.
+Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.14.jar`.
 
 Create a new world normally; its default world type is **Deep Primal**. Prefer Creative with commands enabled for inspection. Set `extraUndergroundDepth = true` in `config/deepprimal-worldgen.toml` and restart before creating a new world to extend Y=-128..639 to -384..639. Saved worlds retain their height and generation profile. `riversAndCoasts = true` is the new-world default; set it false before creation to use alpha 10 terrain. Try `/deepprimal info` and `/deepprimal bench 200 200 1`.
 

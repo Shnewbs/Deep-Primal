@@ -12,6 +12,10 @@ import net.minecraft.world.level.block.Blocks;
 
 final class WaterClientChecks {
   static void run(Minecraft mc) {
+    var legacy=com.mojang.serialization.JsonOps.INSTANCE;
+    var state=net.minecraft.world.level.block.state.BlockState.CODEC.parse(legacy,
+        com.google.gson.JsonParser.parseString("{\"Name\":\"deepprimal:river_water\",\"Properties\":{\"current\":\"11\",\"level\":\"0\"}}")).getOrThrow();
+    if(state.getValue(com.shnewbs.deepprimal.water.RiverWaterBlock.SPEED)!=1)throw new AssertionError("Old river state did not default to normal speed");
     boolean original = WaterVisualConfig.COLORS.get();
     var screen = new WaterVisualSettingsScreen(null);
     mc.setScreen(screen);
@@ -53,7 +57,7 @@ final class WaterClientChecks {
     }
     mc.setScreen(null);
     System.out.println(
-        "WATER_CLIENT_PASS stagedToggles=true cancel=true inputBounds=true frostPalettes=3"
+        "WATER_CLIENT_PASS oldSpeedDefault=1 stagedToggles=true cancel=true inputBounds=true frostPalettes=3"
             + " opaqueTints=35 negativeJoinContinuity=true");
   }
 

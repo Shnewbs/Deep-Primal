@@ -29,7 +29,8 @@ public final class RendererClientChecks {
       if (renderer.residentBytes
           > com.shnewbs.deepprimal.settings.ClientPerformanceConfig.HORIZON_MEMORY_MIB.get()
               * 1048576L) throw new AssertionError("Vertex budget exceeded");
-      if (!renderer.gpuTimingAvailable())
+      if (com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName().equals("OpenGL")
+          && !renderer.gpuTimingAvailable())
         throw new AssertionError("Expected supported OpenGL timestamp queries in this test");
       var performance = new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(null);
       mc.setScreen(performance);
@@ -72,6 +73,8 @@ public final class RendererClientChecks {
           com.shnewbs.deepprimal.settings.ClientPerformanceConfig.FAR_RENDER_DISTANCE.get();
       inputs.get(3).setValue("513");
       if (apply.active) throw new AssertionError("Invalid far radius accepted");
+      inputs.get(3).setValue("512");
+      if (!apply.active) throw new AssertionError("Maximum far radius rejected");
       inputs.get(3).setValue("192");
       if (!apply.active) throw new AssertionError("Valid far radius rejected");
       screen.onClose();

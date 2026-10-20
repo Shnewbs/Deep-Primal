@@ -1,4 +1,8 @@
-# Alpha 14 recovery checkpoint — NOT A RELEASE
+# Historical alpha 14 recovery checkpoint
+
+The full update has since been reconstructed from the checkpoints on this branch. See [current validation](VALIDATION-0.0.1-alpha.14.md) and [feature scope](WATER-AND-WEATHER-2026-10-20.md). The following describes the earlier loss and is retained as a historical reconstruction record, not the current delivery status.
+
+# Original checkpoint notes
 
 The scratch working directory disappeared before the complete alpha 14 update was published. Main remains alpha 13 at 6c516c5c220ebe8efd3ca3bb03c4c2c0d296cb0d. No alpha 14 installer is available from this checkpoint. This branch is an unbuilt recovery patch, not the previously tested full working tree.
 

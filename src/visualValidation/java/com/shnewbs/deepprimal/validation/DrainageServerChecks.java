@@ -70,7 +70,8 @@ public final class DrainageServerChecks {
         RiverCurrentChecks.run(level);
         WaterEnvironmentChecks.run(level);
       }
-      if (selected.equals("weather")) WaterEnvironmentChecks.run(level);
+      if (selected.equals("weather") || selected.equals("weather-ocean")) WaterEnvironmentChecks.run(level);
+      if (selected.equals("ocean") || selected.equals("weather-ocean")) OceanServerChecks.run(level);
       if (selected.equals("standard-reopen") || selected.equals("deep-reopen"))
         RiverCurrentChecks.reopen(level);
       record("DRAINAGE_AUTO_PASS case=" + selected);

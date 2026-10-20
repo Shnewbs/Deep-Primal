@@ -1,6 +1,8 @@
 # Built-in renderer and local diagnostics
 
-Alpha 8 / Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+Alpha 14 / Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+
+Current bounds: full-detail requests **2–125 chunks**, independent procedural horizon **0–512 chunks**, with heap/server guards retained. Upload budget now starts at **256 KiB/frame** so a fine terrain tile fits. Full-height rendering uses the delivered near-grid edge without opaque transition walls; water overlaps that edge smoothly. Water/snow presentation controls are staged in their own screen. See [alpha 14 validation](VALIDATION-0.0.1-alpha.14.md) and [feature scope](WATER-AND-WEATHER-2026-10-20.md).
 
 ## Renderer ownership
 
@@ -12,7 +14,7 @@ The known-ID policy is deliberately conservative. It is not a claim that every r
 
 ## Horizon and budgets
 
-Open **Video Settings → Deep Primal distances…**, or **Mods → Deep Primal → Config**. Typed values and sliders apply together. The **Terrain horizon** setting accepts 0–256 chunks; default 192, 0 disables it. Full-detail rendering remains 2–96 chunks, simulation 2–32, and vertical radius 0–96 sections. The 256 value belongs to the authored coarse horizon and is not sent through the vanilla byte-sized full-detail distance setting.
+Open **Video Settings → Deep Primal distances…**, or **Mods → Deep Primal → Config**. Typed values and sliders apply together. The **Terrain horizon** setting accepts 0–512 chunks; default 192, 0 disables it. Full-detail rendering remains 2–96 chunks, simulation 2–32, and vertical radius 0–96 sections. The 256 value belongs to the authored coarse horizon and is not sent through the vanilla byte-sized full-detail distance setting.
 
 The horizon samples Deep Primal's seeded terrain-height field on the server and sends compact tiles to the client. It never obtains FULL chunks, places tickets, or runs distant simulation. It does not share the world seed with the client. Optional versioned payloads allow old servers to decline the feature. Dimensions without the Deep Primal `ColumnSurface` height field disable the horizon instead of inventing a surface.
 
@@ -36,7 +38,7 @@ Open **Deep Primal distances → Performance…**. Four pages stage edits until 
 | Adaptive work / target FPS | on / 60 | 15–240 FPS; bounded feedback, respects lower effective cap |
 | Mesh memory | 32 MiB | 1–256 MiB retained vertex/index payload |
 | Detail uploads / frame | 2 | 1–8; a detail level is indivisible |
-| Upload payload / frame | 256 KiB | 128–4096 KiB; checked before each level |
+| Upload payload / frame | 256 KiB | 256–4096 KiB; checked before each level |
 | Upload CPU budget | 1000 us | 100–4000 us; checked between levels, one level may exceed it |
 | Batch draws | on | Shared indexed submission; fallback available |
 | Entity / block-entity / particle range | 0 / 0 / 0 | 0 keeps native admission; positive values bound visual range in blocks |

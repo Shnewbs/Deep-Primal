@@ -45,3 +45,7 @@ Enabling every extension would increase requirements without making unused funct
 - [VulkanMod source and license](https://github.com/xCollateral/VulkanMod); the exact imported artifact remains pinned in [UPSTREAM.json](../renderer-vulkan/UPSTREAM.json).
 
 Commercial Vulkan engines provide design context; their proprietary implementations are not imported. Existing public branch features do not establish features in this adapter.
+
+## Alpha 14 cloud storage-range correction
+
+`VkPhysicalDeviceLimits.maxStorageBufferRange` is a Vulkan uint32 represented by a Java int. The signed-byte cloud buffer path now widens it with `Integer.toUnsignedLong` before comparing positive buffer sizes. A reported limit with its high bit set no longer rejects every cloud buffer. Real device-range checks remain enabled. Pure checks cover 2 GiB/4 GiB unsigned boundaries, and the native GPU fixture reads seventeen signed bytes from a slice at offset 65792. Vulkan remains isolated in its existing module; water visuals use Minecraft's common GPU interface and native lightmap.

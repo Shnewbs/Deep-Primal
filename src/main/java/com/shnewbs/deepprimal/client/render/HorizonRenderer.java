@@ -91,7 +91,7 @@ public final class HorizonRenderer {
   }
 
   public static float nearRadius() {
-    return Math.max(16, Minecraft.getInstance().options.getEffectiveRenderDistance() * 16 - 48);
+    return Math.max(16, Minecraft.getInstance().options.getEffectiveRenderDistance() * 16);
   }
 
   public static double nearCenter(double coordinate) {
@@ -624,7 +624,7 @@ public final class HorizonRenderer {
   }
 
   private HorizonGpuMesh buildTransition(long cx, long cz, int radius) {
-    if (cache.isEmpty()) return null;
+    if (cache.isEmpty() || ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() == 0) return null;
     int tx = (int) Math.floor(cx / 512.0),
         tz = (int) Math.floor(cz / 512.0),
         floor = level.getMinY();

@@ -206,7 +206,7 @@ public final class ClientCapture {
                     "gamemode spectator @a",
                     "time set noon",
                     "weather clear",
-                    "tp @a -1221 440 243 135 18"
+                    "tp @a -3847 420 1212 135 18"
                   }) server.getCommands().performPrefixedCommand(source, command);
             });
         mc.setScreen(null);
