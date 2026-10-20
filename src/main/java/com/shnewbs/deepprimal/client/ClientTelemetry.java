@@ -93,6 +93,7 @@ public final class ClientTelemetry {
       data.put("horizonCached", renderer.cachedTiles);
       data.put("horizonTarget", renderer.targetTiles);
       data.put("horizonVisible", renderer.visibleTiles);
+      data.put("horizonBackgroundDepthBytes", renderer.backgroundDepthBytes());
       data.put("horizonTrianglesDrawn", renderer.drawnTriangles);
       data.put("horizonUploadedBytes", renderer.uploadedBytes);
     }

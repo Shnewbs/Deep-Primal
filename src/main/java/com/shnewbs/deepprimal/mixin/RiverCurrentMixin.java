@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +17,7 @@ abstract class RiverCurrentMixin {
   @Inject(method = "getFlow", at = @At("HEAD"), cancellable = true)
   private void deepprimal$current(
       BlockGetter level, BlockPos pos, FluidState fluid, CallbackInfoReturnable<Vec3> ci) {
-    if (fluid.getType() != Fluids.WATER) return;
+    if (!fluid.is(net.minecraft.tags.FluidTags.WATER)) return;
     Vec3 current = RiverWaterBlock.current(level.getBlockState(pos));
     if (current != Vec3.ZERO && current.lengthSqr() > 0) ci.setReturnValue(current);
   }

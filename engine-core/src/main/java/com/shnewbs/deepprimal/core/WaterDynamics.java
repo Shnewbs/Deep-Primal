@@ -55,5 +55,16 @@ public final class WaterDynamics {
     return t * t * (3 - 2 * t);
   }
 
+  /** Native water surface quantization; integer waterlines preserve source-water height. */
+  public static int surfaceY(double waterline) {
+    return (int) Math.floor(waterline - 1.0 / 9);
+  }
+
+  public static int surfaceLevel(double waterline) {
+    double target = waterline - 1.0 / 9;
+    int amount = (int) Math.clamp(Math.round((target - Math.floor(target)) * 9), 1, 8);
+    return 8 - amount;
+  }
+
   private WaterDynamics() {}
 }

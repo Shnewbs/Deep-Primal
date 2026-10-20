@@ -41,6 +41,18 @@ final class RiverCurrentChecks {
                   : y == 503 ? Blocks.AIR.defaultBlockState() : block.flowing(1, 0),
               2 | 16);
         }
+    for (int liquidLevel = 1; liquidLevel <= 7; liquidLevel++) {
+      var partial =
+          block
+              .flowing(1, 0)
+              .setValue(net.minecraft.world.level.block.LiquidBlock.LEVEL, liquidLevel);
+      level.setBlock(point, partial, 2 | 16);
+      require(!partial.getFluidState().isSource(), "Partial surface became a source");
+      require(
+          partial.getFluidState().getFlow(level, point).distanceTo(new Vec3(1, 0, 0)) < 1e-8,
+          "Partial water lost stored current");
+    }
+    DrainageServerChecks.record("RIVER_PARTIAL_CURRENT_PASS levels=7 nativeFlow=true");
     for (int i = 0; i < 16; i++) {
       var state = block.defaultBlockState().setValue(RiverWaterBlock.CURRENT, i);
       level.setBlock(point, state, 2 | 16);

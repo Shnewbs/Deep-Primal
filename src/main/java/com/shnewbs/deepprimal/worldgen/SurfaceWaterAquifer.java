@@ -16,7 +16,7 @@ public final class SurfaceWaterAquifer implements Aquifer {
   private boolean suppliedSurfaceWater;
   private final int[] waterLevels;
   private final int[] bedLevels;
-  private final BlockState[] waterStates;
+  private final BlockState[] waterStates, surfaceStates;
   private final int minX, minZ;
 
   public SurfaceWaterAquifer(Aquifer delegate, NoiseChunk chunk, int seaLevel) {
@@ -45,6 +45,7 @@ public final class SurfaceWaterAquifer implements Aquifer {
     boolean contained = routed != null && routed.contained();
     bedLevels = contained ? new int[256] : null;
     waterStates = contained ? new BlockState[256] : null;
+    surfaceStates = routed != null && routed.naturalSteps() ? new BlockState[256] : null;
     int gridSide = 16 / cellWidth + 1;
     double[] grid = contained ? new double[gridSide * gridSide] : null;
     if (contained) {
@@ -74,6 +75,17 @@ public final class SurfaceWaterAquifer implements Aquifer {
                 sample.strength() > 0 && (sample.flowX() != 0 || sample.flowZ() != 0)
                     ? RiverWater.BLOCK.get().flowing(sample.flowX(), sample.flowZ(), sample.speed())
                     : Blocks.WATER.defaultBlockState();
+            if (surfaceStates != null) {
+              if (sample.strength() > 0) {
+                waterLevels[z * 16 + x] =
+                    com.shnewbs.deepprimal.core.WaterDynamics.surfaceY(sample.waterLevel()) + 1;
+                surfaceStates[z * 16 + x] =
+                    waterStates[z * 16 + x].setValue(
+                        net.minecraft.world.level.block.LiquidBlock.LEVEL,
+                        com.shnewbs.deepprimal.core.WaterDynamics.surfaceLevel(
+                            sample.waterLevel()));
+              } else surfaceStates[z * 16 + x] = waterStates[z * 16 + x];
+            }
           }
         }
     }
@@ -93,7 +105,9 @@ public final class SurfaceWaterAquifer implements Aquifer {
       if (surface > bed + 1) {
         if (density <= 0 && y < surface && y > bed) {
           suppliedSurfaceWater = true;
-          return waterStates[index];
+          return surfaceStates != null && y == surface - 1
+              ? surfaceStates[index]
+              : waterStates[index];
         }
         // Native biome carvers query this same aquifer. A thin channel floor
         // keeps their cave entrances from punching holes under a filled reach.

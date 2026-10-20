@@ -69,6 +69,7 @@ public final class DrainageChecks {
       for (int z = 0; z < 2; z++) for (int x = 0; x < 2; x++) shared.region(x, z);
     check(calls.get() == cold, "neighboring catchments thrash the routing cache");
     contained();
+    natural();
     System.out.println(
         "DRAINAGE_CORE_PASS channels="
             + channels
@@ -125,6 +126,56 @@ public final class DrainageChecks {
             + " descents="
             + descents
             + " random=20000 directions=true");
+  }
+
+  private static void natural() {
+    java.util.function.DoubleBinaryOperator land =
+        (x, z) ->
+            84 + x * .065 + 100 * Math.exp(-Math.pow((x - 1300) / 180, 2)) + 4 * Math.sin(z / 180);
+    var network = new MountainDrainage(land, 96, true, true);
+    var region = network.region(0, 0);
+    int sources = 0, lakes = 0, partial = 0;
+    for (int k = 0; k < region.nodeCount(); k++) {
+      int n = region.node(k), parent = region.parent(n);
+      if (region.width(n) <= 0) continue;
+      check(parent >= 0 && region.water(parent) <= region.water(n), "natural river rises");
+      if (region.headwater(n)) sources++;
+      if (region.lakeRadius(n) > 0) {
+        lakes++;
+        check(region.lakeRadius(n) >= 12, "large headwater lacks a body of water");
+        var center =
+            network.sample(region.x(n), region.z(n), land.applyAsDouble(region.x(n), region.z(n)));
+        check(center.height() < center.waterLevel() - 1, "headwater pool has no depth");
+      }
+      for (int step = 0; step <= 32; step++) {
+        double t = step / 32.0;
+        int x = (int) Math.round(region.x(n) + t * (region.x(parent) - region.x(n)));
+        int z = (int) Math.round(region.z(n) + t * (region.z(parent) - region.z(n)));
+        var sample = network.sample(x, z, land.applyAsDouble(x, z));
+        int level = WaterDynamics.surfaceLevel(sample.waterLevel());
+        double actual = WaterDynamics.surfaceY(sample.waterLevel()) + (8 - level) / 9.0;
+        check(
+            level >= 0
+                && level <= 7
+                && Math.abs(actual - (sample.waterLevel() - 1.0 / 9)) <= 1.0 / 9 + 1e-6,
+            "invalid partial surface");
+        check(sample.height() <= land.applyAsDouble(x, z), "natural river raises land");
+        if (level > 0) partial++;
+      }
+    }
+    check(sources > 0 && partial > 100, "missing headwaters or partial river levels");
+    for (int y = -400; y < 640; y++)
+      check(
+          WaterDynamics.surfaceY(y) == y - 1 && WaterDynamics.surfaceLevel(y) == 0,
+          "integer source height changed");
+    System.out.println(
+        "NATURAL_RIVER_CORE_PASS sources="
+            + sources
+            + " lakes="
+            + lakes
+            + " partial="
+            + partial
+            + " integerSourceHeights=true");
   }
 
   private static void check(boolean ok, String message) {

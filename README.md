@@ -2,13 +2,13 @@
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 
-**Current build: 0.0.1-alpha.14 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**Current build: 0.0.1-alpha.15 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
 Deep Primal is the default normal world generator. Alpha 14 adds variable river currents, blended climate/elevation water colors, optional water gameplay rules, capped cold-weather snow, bounded ocean waves and new deep-ocean profiles. It retains bed-backed stepped mountain rivers and coastal beaches. Existing saves keep their generation profile; use a new world for the v4 ocean terrain.
 
 The procedural horizon now permits 512 chunks with denser smooth-lit meshes. Full-detail requests stop at Minecraft's native signed-byte tracker ceiling of 125 chunks; heap and server delivery guards remain active. This is macro terrain, not detailed voxel/tree/building LOD. OpenGL remains the default; the separate experimental Vulkan backend includes the cloud storage-range crash fix. Graphics controls, the common performance engine and platform-neutral core remain separate modules. The complete survival conversion remains in design; use disposable test worlds.
 
-- [Alpha 14 water, weather and renderer validation](docs/VALIDATION-0.0.1-alpha.14.md)
+- [Alpha 14 water, weather and renderer validation](docs/VALIDATION-0.0.1-alpha.15.md)
 - [Water/weather feature scope and requested-mod comparison](docs/WATER-AND-WEATHER-2026-10-20.md)
 - [Alpha 13 contained stepped rivers and persistent currents](docs/VALIDATION-0.0.1-alpha.13.md)
 - [TFC and requested river-mod flow comparison](docs/RIVER-FLOW-COMPARISON-2026-10-19.md)
@@ -34,7 +34,7 @@ The procedural horizon now permits 512 chunks with denser smooth-lit meshes. Ful
 - [Owner decisions](docs/design-decisions-2026-10-18.md)
 - [Detailed design reference](docs/design-reference.md)
 
-Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.14.jar`.
+Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.15.jar`.
 
 Create a new world normally; its default world type is **Deep Primal**. Prefer Creative with commands enabled for inspection. Set `extraUndergroundDepth = true` in `config/deepprimal-worldgen.toml` and restart before creating a new world to extend Y=-128..639 to -384..639. Saved worlds retain their height and generation profile. `riversAndCoasts = true` is the new-world default; set it false before creation to use alpha 10 terrain. Try `/deepprimal info` and `/deepprimal bench 200 200 1`.
 

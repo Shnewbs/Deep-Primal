@@ -26,6 +26,7 @@ public final class ClientCapture {
 
   public ClientCapture() {
     NeoForge.EVENT_BUS.register(this);
+    NeoForge.EVENT_BUS.register(new HorizonDepthChecks());
   }
 
   @SubscribeEvent
@@ -159,6 +160,10 @@ public final class ClientCapture {
                   }) server.getCommands().performPrefixedCommand(source, command);
             });
         mc.setScreen(null);
+        return;
+      }
+      if (action.equals("horizon-depth-check")) {
+        HorizonDepthChecks.requested = true;
         return;
       }
       if (action.equals("renderer-checks")) {

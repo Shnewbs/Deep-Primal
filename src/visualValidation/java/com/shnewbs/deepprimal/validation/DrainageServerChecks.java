@@ -70,8 +70,10 @@ public final class DrainageServerChecks {
         RiverCurrentChecks.run(level);
         WaterEnvironmentChecks.run(level);
       }
-      if (selected.equals("weather") || selected.equals("weather-ocean")) WaterEnvironmentChecks.run(level);
-      if (selected.equals("ocean") || selected.equals("weather-ocean")) OceanServerChecks.run(level);
+      if (selected.equals("weather") || selected.equals("weather-ocean"))
+        WaterEnvironmentChecks.run(level);
+      if (selected.equals("ocean") || selected.equals("weather-ocean"))
+        OceanServerChecks.run(level);
       if (selected.equals("standard-reopen") || selected.equals("deep-reopen"))
         RiverCurrentChecks.reopen(level);
       record("DRAINAGE_AUTO_PASS case=" + selected);
@@ -247,6 +249,37 @@ public final class DrainageServerChecks {
     }
     if (mountain == null || gorge == null)
       throw new AssertionError("Missing high stream/gorge: " + elevated + "/" + cuts);
+    int headwaters = 0, lakes = 0;
+    for (int rz = -1; rz <= 1; rz++)
+      for (int rx = -1; rx <= 1; rx++) {
+        var region = network.region(rx, rz);
+        for (int k = 0; k < region.nodeCount(); k++) {
+          int n = region.node(k);
+          if (region.headwater(n)) headwaters++;
+          if (region.lakeRadius(n) > 0) {
+            lakes++;
+            if (lakes == 1) {
+              record(
+                  "HEADWATER_LAKE_POINT x="
+                      + region.x(n)
+                      + " z="
+                      + region.z(n)
+                      + " water="
+                      + region.water(n)
+                      + " radius="
+                      + region.lakeRadius(n));
+              full(level, h, region, n, "headwater-lake");
+            }
+          }
+        }
+      }
+    record(
+        "HEADWATER_MAP_PASS naturalSteps="
+            + h.naturalSteps()
+            + " sources="
+            + headwaters
+            + " lakes="
+            + lakes);
     record(
         "DRAINAGE_MAP_PASS seed="
             + level.getSeed()
@@ -447,7 +480,7 @@ public final class DrainageServerChecks {
 
   private static void support(
       net.minecraft.world.level.chunk.ChunkAccess chunk, ServerLevel level, String kind) {
-    int currents = 0;
+    int currents = 0, partial = 0;
     var pos = new BlockPos.MutableBlockPos();
     for (int z = chunk.getPos().getMinBlockZ(); z < chunk.getPos().getMinBlockZ() + 16; z++)
       for (int x = chunk.getPos().getMinBlockX(); x < chunk.getPos().getMinBlockX() + 16; x++)
@@ -455,6 +488,7 @@ public final class DrainageServerChecks {
           var state = chunk.getBlockState(pos.set(x, y, z));
           if (!(state.getBlock() instanceof com.shnewbs.deepprimal.water.RiverWaterBlock)) continue;
           currents++;
+          if (!state.getFluidState().isSource()) partial++;
           var below = chunk.getBlockState(pos.set(x, y - 1, z));
           if (!below.getFluidState().is(net.minecraft.tags.FluidTags.WATER)
               && !below.blocksMotion())
@@ -467,6 +501,8 @@ public final class DrainageServerChecks {
             + kind
             + " currentBlocks="
             + currents
+            + " partialSurfaces="
+            + partial
             + " chunk="
             + chunk.getPos());
   }

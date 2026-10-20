@@ -71,6 +71,40 @@ public final class HorizonRenderer {
       new ArrayList<>();
   private final HorizonGpuTimer gpuTimer = new HorizonGpuTimer();
   private HorizonGpuMesh transition;
+  private com.mojang.blaze3d.textures.GpuTexture backgroundDepth;
+  private com.mojang.blaze3d.textures.GpuTextureView backgroundDepthView;
+
+  public long backgroundDepthBytes() {
+    return backgroundDepth == null
+        ? 0
+        : (long) backgroundDepth.getWidth(0) * backgroundDepth.getHeight(0) * 4;
+  }
+
+  private void closeBackgroundDepth() {
+    if (backgroundDepthView != null) backgroundDepthView.close();
+    if (backgroundDepth != null) backgroundDepth.close();
+    backgroundDepthView = null;
+    backgroundDepth = null;
+  }
+
+  private void backgroundDepth(int width, int height) {
+    if (backgroundDepth != null
+        && backgroundDepth.getWidth(0) == width
+        && backgroundDepth.getHeight(0) == height) return;
+    closeBackgroundDepth();
+    var device = RenderSystem.getDevice();
+    backgroundDepth =
+        device.createTexture(
+            "Deep Primal horizon depth",
+            com.mojang.blaze3d.textures.GpuTexture.USAGE_RENDER_ATTACHMENT,
+            com.mojang.blaze3d.textures.TextureFormat.DEPTH32,
+            width,
+            height,
+            1,
+            1);
+    backgroundDepthView = device.createTextureView(backgroundDepth);
+  }
+
   private final com.shnewbs.deepprimal.core.TransitionDependencies transitionSources =
       new com.shnewbs.deepprimal.core.TransitionDependencies(FarTerrain.MAX_TILES);
   private final ArrayList<HorizonGpuMesh> visibleWork = new ArrayList<>(FarTerrain.MAX_TILES + 1);
@@ -398,12 +432,14 @@ public final class HorizonRenderer {
   }
 
   @SubscribeEvent
-  public void render(RenderLevelStageEvent.AfterOpaqueBlocks event) {
+  public void render(RenderLevelStageEvent.AfterSky event) {
     if (!active()) return;
     var tiles = event.getLevelRenderState().getRenderData(VISIBLE);
     if (tiles == null || tiles.isEmpty()) return;
     var mc = Minecraft.getInstance();
     var target = mc.getMainRenderTarget();
+    // Macro terrain is a background. Never let its approximate heights occlude real chunks.
+    backgroundDepth(target.width, target.height);
     var camera = event.getLevelRenderState().cameraRenderState.pos;
     long drawStart = System.nanoTime();
     if (transformPool.length != tiles.size()) {
@@ -434,8 +470,8 @@ public final class HorizonRenderer {
                 () -> "Deep Primal horizon",
                 target.getColorTextureView(),
                 OptionalInt.empty(),
-                target.getDepthTextureView(),
-                OptionalDouble.empty())) {
+                backgroundDepthView,
+                OptionalDouble.of(1.0))) {
       pass.setPipeline(PIPELINE);
       RenderSystem.bindDefaultUniforms(pass);
       GpuLighting.bind(pass);
@@ -679,6 +715,7 @@ public final class HorizonRenderer {
   }
 
   private void clearMeshes() {
+    closeBackgroundDepth();
     if (completedMesh != null) {
       completedMesh.close();
       completedMesh = null;

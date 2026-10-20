@@ -12,7 +12,7 @@ public final class MountainDrainage {
   private static final int COUNT = SIDE * SIDE, CACHE_SIZE = 32;
   private final DoubleBinaryOperator terrain;
   private final double seaLevel;
-  private final boolean contained;
+  private final boolean contained, naturalSteps;
   private static final int STATIONS = 17;
   private static final int WAYS = 4, SETS = CACHE_SIZE / WAYS;
   private final AtomicReferenceArray<Region[]> cache = new AtomicReferenceArray<>(SETS);
@@ -23,9 +23,15 @@ public final class MountainDrainage {
   }
 
   public MountainDrainage(DoubleBinaryOperator terrain, double seaLevel, boolean contained) {
+    this(terrain, seaLevel, contained, false);
+  }
+
+  public MountainDrainage(
+      DoubleBinaryOperator terrain, double seaLevel, boolean contained, boolean naturalSteps) {
     this.terrain = terrain;
     this.seaLevel = seaLevel;
     this.contained = contained;
+    this.naturalSteps = naturalSteps;
     Arrays.setAll(locks, i -> new Object());
   }
 
@@ -43,8 +49,12 @@ public final class MountainDrainage {
         double distance = Math.hypot(x - ax - t * dx, z - az - t * dz);
         double width =
             r.width[child] + t * (Math.max(r.width[child], r.width[parent]) - r.width[child]);
+        if (naturalSteps && r.headwater[child] && r.lakes[child] == 0) {
+          // A spring grows into its catchment instead of starting as a full-width waterfall.
+          width = Math.max(2, width * (.25 + .75 * smooth(t, 0, 1)));
+        }
         double weight = 1 - smooth(distance, width, width + 12);
-        if (weight <= 0) continue;
+        if (weight <= 0 && !(naturalSteps && r.lakes[child] > 0)) continue;
         double water = r.water[child] + t * (r.water[parent] - r.water[child]);
         if (r.profiles != null) {
           double station = t * (STATIONS - 1);
@@ -52,7 +62,27 @@ public final class MountainDrainage {
           float[] profile = r.profiles[child];
           water = Math.min(water, profile[a] + (station - a) * (profile[a + 1] - profile[a]));
         }
-        double bed = water - (3 + Math.min(4, width * .18));
+        if (naturalSteps && r.lakes[child] > 0) {
+          double sourceDistance = Math.hypot(x - ax, z - az);
+          double poolWeight = 1 - smooth(sourceDistance, r.lakes[child] * .65, r.lakes[child]);
+          double poolBed = r.water[child] - 3.25;
+          double poolHeight = original - poolWeight * Math.max(0, original - poolBed);
+          if (poolWeight > 0 && poolHeight < height) {
+            height = poolHeight;
+            surface = r.water[child];
+            strength = poolWeight;
+            double length = Math.hypot(dx, dz);
+            flowX = dx / length;
+            flowZ = dz / length;
+            speed = .35;
+          }
+        }
+        if (weight <= 0) continue;
+        double bed =
+            water
+                - (naturalSteps
+                    ? 1.25 + Math.min(2.25, width * .12)
+                    : 3 + Math.min(4, width * .18));
         double carved = original - weight * Math.max(0, original - bed);
         if (carved < height || (carved == height && weight > strength)) {
           height = carved;
@@ -213,8 +243,42 @@ public final class MountainDrainage {
         water[p] = Math.min(water[p], profile[STATIONS - 1]);
       }
     }
+    boolean[] headwater = new boolean[COUNT];
+    float[] lakes = new float[COUNT];
+    if (naturalSteps) {
+      for (int k = 0; k < length; k++) headwater[order[k]] = width[order[k]] > 0;
+      for (int k = 0; k < length; k++) {
+        int n = order[k], p = parent[n];
+        if (width[n] > 0 && p >= 0) headwater[p] = false;
+      }
+    }
+    if (naturalSteps) {
+      for (int k = 0; k < length; k++) {
+        int n = order[k], p = parent[n];
+        if (!headwater[n] || area[n] < 24 || water[n] <= seaLevel + 8) continue;
+        double radius = Math.min(24, 10 + Math.sqrt(area[n]));
+        double bank = Double.POSITIVE_INFINITY;
+        for (int angle = 0; angle < 16; angle++) {
+          double a = angle * Math.PI / 8;
+          bank =
+              Math.min(
+                  bank,
+                  terrain.applyAsDouble(
+                      ox + localX[n] + radius * Math.cos(a),
+                      oz + localZ[n] + radius * Math.sin(a)));
+        }
+        double lake = Math.min(water[n], bank - 1);
+        if (lake < water[p] || lake < water[n] - 8) continue;
+        lakes[n] = (float) radius;
+        water[n] = (float) lake;
+        if (profiles != null && profiles[n] != null)
+          for (int station = 0; station < STATIONS; station++)
+            profiles[n][station] = Math.min(profiles[n][station], (float) lake);
+      }
+    }
     return new Region(
-        rx, rz, ox, oz, parent, water, width, h, area, order, length, localX, localZ, profiles);
+        rx, rz, ox, oz, parent, water, width, h, area, order, length, localX, localZ, profiles,
+        headwater, lakes);
   }
 
   private static long mix(long value) {
@@ -242,6 +306,8 @@ public final class MountainDrainage {
     private final int length;
     private final short[] localX, localZ;
     private final float[][] profiles;
+    private final boolean[] headwater;
+    private final float[] lakes;
 
     private Region(
         int rx,
@@ -257,7 +323,9 @@ public final class MountainDrainage {
         int length,
         short[] localX,
         short[] localZ,
-        float[][] profiles) {
+        float[][] profiles,
+        boolean[] headwater,
+        float[] lakes) {
       this.rx = rx;
       this.rz = rz;
       this.x = x;
@@ -272,6 +340,16 @@ public final class MountainDrainage {
       this.localX = localX;
       this.localZ = localZ;
       this.profiles = profiles;
+      this.headwater = headwater;
+      this.lakes = lakes;
+    }
+
+    public boolean headwater(int node) {
+      return headwater[node];
+    }
+
+    public double lakeRadius(int node) {
+      return lakes[node];
     }
 
     public int nodeCount() {

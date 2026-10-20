@@ -18,6 +18,7 @@ public final class WorldgenConfig {
   public static final ModConfigSpec.BooleanValue CONTAINED_RIVERS;
 
   public static final ModConfigSpec.BooleanValue OCEAN_TRENCHES;
+  public static final ModConfigSpec.BooleanValue NATURAL_RIVER_STEPS;
 
   static {
     var b = new ModConfigSpec.Builder();
@@ -53,6 +54,11 @@ public final class WorldgenConfig {
                 "Existing saves keep their stored generation profile; this does not repair explored"
                     + " chunks.")
             .define("containedRivers", true);
+    NATURAL_RIVER_STEPS =
+        b.comment(
+                "Partial fluid surfaces, shallower streams and tapered spring/lake headwaters for"
+                    + " NEW worlds. Existing saves keep their serialized terrain.")
+            .define("naturalRiverSteps", true);
     OCEAN_TRENCHES =
         b.comment(
                 "Deeper ocean relief for NEW worlds. Requires contained rivers; saved generators"
@@ -70,7 +76,9 @@ public final class WorldgenConfig {
       profile =
           (MOUNTAIN_STREAMS.get()
                   ? CONTAINED_RIVERS.get()
-                      ? OCEAN_TRENCHES.get() ? "ocean_" : "contained_"
+                      ? NATURAL_RIVER_STEPS.get()
+                          ? OCEAN_TRENCHES.get() ? "natural_" : "natural_rivers_"
+                          : OCEAN_TRENCHES.get() ? "ocean_" : "contained_"
                       : "routed_"
                   : "waterways_")
               + profile;
@@ -85,7 +93,11 @@ public final class WorldgenConfig {
           "contained_standard",
           "contained_deep",
           "ocean_standard",
-          "ocean_deep"
+          "ocean_deep",
+          "natural_standard",
+          "natural_deep",
+          "natural_rivers_standard",
+          "natural_rivers_deep"
         }) {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),
