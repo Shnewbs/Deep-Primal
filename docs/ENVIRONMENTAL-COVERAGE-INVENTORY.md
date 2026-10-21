@@ -36,6 +36,12 @@ The current audit contains **22 coverage domains and 163 review entries**. Entri
 
 Do not make every combination a separate block/item/species. A clay-sized particle is not necessarily a clay mineral; a pottery grade is not a separate mineral classification. A grass-covered soil is not automatically a new soil composition. Bedrock is a substrate, not a mandatory soil horizon.
 
+## Named type lists added
+
+The [master named-catalog index](NATURAL-TYPE-CATALOG.md) now links **1013 named entries** in geology/soils/clays, biology/organic materials, and environmental media/habitats/processes. All original 44 rock/material rows and 43 tree/plant rows are preserved. Entries are labeled by kind so types, taxonomic groups, mixtures, forms, states and processes are not confused.
+
+This fills in named candidate lists alongside the coverage reviews below. Individual scope dispositions, regional/species selections and complete property sheets remain open; no implementation milestone is completed by adding names.
+
 ## Coverage domains
 
 | Code | Domain | Review entries |

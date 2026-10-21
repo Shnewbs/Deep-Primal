@@ -621,6 +621,8 @@ Config (signals.toml, examples): mode, max net size, loss per block, analog on/o
 
 ### 4.17. Natural Catalog: Stones, Trees & Rendering
 
+Expanded named lists: [natural type catalog](NATURAL-TYPE-CATALOG.md). The original seed entries below remain preserved; the linked planning catalogs add named types, explicit group splits and environmental forms. New entries remain candidates, and implementation stays deferred until requested.
+
 Requirement: every discoverable type of stone and tree is included, each with its natural function, and the mod will build whatever rendering work is needed to display it all well, including a custom engine layer inside the mod if necessary.
 
 **Coverage policy**

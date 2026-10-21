@@ -34,6 +34,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Decisions before implementation](#decisions-before-implementation)
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
+- [Named environmental type catalogs](docs/NATURAL-TYPE-CATALOG.md) — actual named planning rosters, with kinds and aliases labeled
 - [Environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) — planning completeness across materials, states, habitats and natural processes; implementation deferred by owner direction
 - [Detailed design reference](docs/design-reference.md) — full feature descriptions, material catalogs, configuration layout, progression, and all 31 open questions
 
@@ -257,3 +258,7 @@ See [the researched architecture and executed meshoptimizer probe](docs/LOD-AND-
 ## Environmental planning completeness (2026-10-20)
 
 The owner has requested an exhaustive environmental planning list before implementation. The [environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) records 22 coverage domains and 163 open planning reviews, preserving existing rock/tree catalogs and expanding soil, clay, grass, organic matter, sediments, decomposers, aquatic/coastal/underground habitats, states and natural processes. Added examples are proposals pending disposition. Its checkboxes measure planning review only; existing implementation statuses and release scope remain unchanged. Environmental implementation is deferred until requested.
+
+### Named environmental lists (2026-10-20)
+
+The [named type catalogs](docs/NATURAL-TYPE-CATALOG.md) expand the planning roster to 1013 named entries across geology/soils/clays, biology/organic materials and environmental media/habitats/processes. Counts include groups, subtypes, states and forms as labeled, rather than unique species or approved features. All original rock/tree seed rows are retained. Environmental implementation remains deferred; representation, scientific-name reconciliation and property-sheet decisions remain planning work.
