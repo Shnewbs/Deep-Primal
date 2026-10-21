@@ -38,12 +38,14 @@ public final class ThemeScreen extends Screen {
         g.centeredText(font, title, width / 2, top - 20, 0xffffffff);
         g.fill(left, top + 76, left + panelWidth, top + 160, selected.accent);
         g.fill(left + 1, top + 77, left + panelWidth - 1, top + 159, selected.surface);
+        if(selected.custom()) ThemeArt.panel(g,selected,left,top+76,panelWidth,84);
         g.centeredText(font, Component.literal(selected.displayName), width / 2, top + 83, selected.text);
         int sx = width / 2 - 62;
         for (int row = 0; row < 4; row++) for (int col = 0; col < 9; col++) {
             int x = sx + col * 14, y = top + 98 + row * 13 + (row == 3 ? 3 : 0);
             g.fill(x, y, x + 12, y + 12, selected.accent);
             g.fill(x + 1, y + 1, x + 11, y + 11, selected.well);
+            if(selected.custom())ThemeArt.well(g,selected,x,y,12,12);
         }
         String status = ThemeMod.reloading() ? "Applying theme..." :
                 ThemeMod.lastError() != null ? ThemeMod.lastError() : "Active: " + ThemeMod.active().displayName;

@@ -5,7 +5,7 @@ license="All Rights Reserved"
 modId="deepprimal_themes"
 version="${mod_version}"
 displayName="Deep Primal Themes"
-description='''Eight switchable client GUI themes with a Vanilla option. Standalone, with optional Deep Primal integration hooks.'''
+description='''Eight artwork-based GUI overhauls with custom menus, inventory, workstations and HUD, plus a Vanilla option. Standalone, with optional Deep Primal integration hooks.'''
 [[dependencies.deepprimal_themes]]
 modId="minecraft"
 type="required"

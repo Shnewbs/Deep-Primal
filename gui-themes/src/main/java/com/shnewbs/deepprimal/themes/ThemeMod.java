@@ -27,9 +27,11 @@ public final class ThemeMod {
         container.registerConfig(ModConfig.Type.CLIENT, ThemeConfig.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, (mod, parent) -> new ThemeScreen(parent));
         bus.addListener(ThemePacks::register);
+        bus.addListener(ThemeActions::register);
         bus.addListener((RegisterGuiLayersEvent e) -> e.registerAboveAll(Identifier.fromNamespaceAndPath(ID, "integration"), ThemeHud::render));
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new ThemeScreens());
+        NeoForge.EVENT_BUS.register(new ThemeHud());
     }
     public static Theme active() { return active; }
     public static boolean reloading() { return reloading; }
@@ -39,6 +41,12 @@ public final class ThemeMod {
     @SubscribeEvent public void started(ClientStartedEvent e) { active = ThemeConfig.THEME.get(); started = true; }
     @SubscribeEvent public void tick(ClientTickEvent.Post e) {
         var mc = Minecraft.getInstance();
+        if(started)ThemeActions.tick();
+        if(started && mc.getOverlay()==null && active.custom() && ThemeConfig.TITLE_BRANDING.get() && mc.screen!=null && mc.screen.getClass()==net.minecraft.client.gui.screens.TitleScreen.class)mc.setScreen(new ThemeTitleScreen());
+        if(started && mc.getSingleplayerServer()!=null) {
+            var save=mc.getSingleplayerServer().getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).normalize().getFileName().toString();
+            if(!save.equals(ThemeConfig.LAST_WORLD.get())){ThemeConfig.LAST_WORLD.set(save);ThemeConfig.SPEC.save();}
+        }
         if (!started || reloading || mc.getOverlay() != null || ThemeConfig.THEME.get() == active) return;
         Theme target = ThemeConfig.THEME.get();
         reloading = true; lastError = null;
@@ -52,6 +60,7 @@ public final class ThemeMod {
             mc.reloadResourcePacks().whenComplete((unused, error) -> mc.execute(() -> {
                 if (error == null) {
                     active = target; loading = null; reloading = false;
+                    if(mc.screen instanceof net.minecraft.client.gui.screens.TitleScreen)mc.setScreen(new net.minecraft.client.gui.screens.TitleScreen());
                 } else failed(error, recovering);
             }));
         } catch (Exception error) { failed(error, recovering); }

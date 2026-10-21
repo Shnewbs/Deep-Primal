@@ -4,7 +4,13 @@ import java.nio.file.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.SimpleContainer;
+import com.shnewbs.deepprimal.themes.api.ThemeIntegration;
+import java.util.Optional;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.*;
@@ -22,6 +28,17 @@ public final class ThemeValidation {
         Theme.RIVERSTONE_MOSS, Theme.TIMBER_IRON, Theme.CLAY_EMBER, Theme.OBSIDIAN_ASH, Theme.FROST_SLATE, Theme.VANILLA};
     private static int phase, ticks, themeIndex, total;
     private static boolean failed;
+    private static int[][] nativePositions;
+    private static final ThemeIntegration.Provider TEST_PROVIDER=()->Optional.of(new ThemeIntegration.SurvivalState(0.7f,7,0.55f));
+    private static void verifySlots() {
+        var mc=Minecraft.getInstance();var menu=mc.player.inventoryMenu;
+        if(THEMES[themeIndex].custom()) {
+            if(!(mc.screen instanceof ThemeInventoryScreen))throw new IllegalStateException("Custom inventory not installed");
+            var seen=new java.util.HashSet<String>();
+            for(var s:menu.slots){if(s.x<0||s.y<0||s.x+16>260||s.y+16>198||!seen.add(s.x+","+s.y))throw new IllegalStateException("Invalid slot "+s.index);}
+            if(menu.slots.size()!=46)throw new IllegalStateException("Changed inventory slot count");
+        }else for(int i=0;i<46;i++)if(menu.getSlot(i).x!=nativePositions[i][0]||menu.getSlot(i).y!=nativePositions[i][1])throw new IllegalStateException("Vanilla slot not restored "+i);
+    }
     @SubscribeEvent public static void tick(ClientTickEvent.Post e) {
         if (failed) return;
         var mc = Minecraft.getInstance();
@@ -41,11 +58,17 @@ public final class ThemeValidation {
                     new WorldOptions(42L, false, false), WorldPresets::createFlatWorldDimensions, new TitleScreen());
                 phase=2; ticks=0;
             } else if (phase == 2 && mc.player != null && mc.level != null && ticks > 120) {
-                mc.setScreen(null); phase=3; ticks=0;
+                mc.setScreen(null);
+                nativePositions=new int[46][2];for(int i=0;i<46;i++){nativePositions[i][0]=mc.player.inventoryMenu.getSlot(i).x;nativePositions[i][1]=mc.player.inventoryMenu.getSlot(i).y;}
+                var stacks=new ItemStack[]{new ItemStack(Items.COBBLESTONE,32),new ItemStack(Items.OAK_LOG,16),new ItemStack(Items.STICK,8),new ItemStack(Items.FLINT,6),new ItemStack(Items.BONE,4),new ItemStack(Items.SWEET_BERRIES,12),new ItemStack(Items.COD,3),new ItemStack(Items.RAW_COPPER,5),new ItemStack(Items.COAL,8)};
+                for(int i=0;i<9;i++)mc.player.getInventory().setItem(i+9,stacks[i]);
+                mc.player.getInventory().setItem(0,new ItemStack(Items.STONE_AXE));mc.player.getInventory().setItem(1,new ItemStack(Items.STONE_PICKAXE));mc.player.getInventory().setItem(4,new ItemStack(Items.TORCH,16));
+                ThemeIntegration.register(TEST_PROVIDER);
+                phase=3; ticks=0;
             } else if (phase == 3) {
                 if (themeIndex == THEMES.length) {
                     Files.writeString(Path.of(mc.gameDirectory.toString(), "theme-validation-success.txt"),
-                        "PASS: eight themes and Vanilla restored; all nine inventory resource origins verified; screenshots captured.\n");
+                        "PASS: eight themes and Vanilla; resource origins, 46 slot IDs, unique coordinates, bounds and Vanilla coordinate restoration verified; title/inventory/workstation/crafting/HUD captures.\n");
                     mc.stop(); failed=true; return;
                 }
                 ThemeConfig.THEME.set(THEMES[themeIndex]); ThemeConfig.SPEC.save(); phase=4; ticks=0;
@@ -53,13 +76,52 @@ public final class ThemeValidation {
                 String actual = mc.getResourceManager().getResource(Identifier.withDefaultNamespace("textures/gui/container/inventory.png")).orElseThrow().sourcePackId();
                 String expected = THEMES[themeIndex].custom() ? "deepprimal_themes/" + THEMES[themeIndex].id() : "vanilla";
                 if (!actual.equals(expected)) throw new IllegalStateException("Expected pack " + expected + ", got " + actual);
-                mc.setScreen(new InventoryScreen(mc.player)); phase=5; ticks=0;
+                mc.setScreen(new TitleScreen()); phase=7; ticks=0;
             } else if (phase == 5 && ticks > 12) {
-                capture(String.format("%02d-%s-inventory.png", themeIndex+1, THEMES[themeIndex].id()));
+                verifySlots();
+                capture(String.format("r2-%02d-%s-inventory.png", themeIndex+1, THEMES[themeIndex].id()));
                 mc.setScreen(new ThemeScreen(null)); phase=6; ticks=0;
             } else if (phase == 6 && ticks > 12) {
-                capture(String.format("%02d-%s-selector.png", themeIndex+1, THEMES[themeIndex].id()));
-                mc.setScreen(null); themeIndex++; phase=3; ticks=0;
+                capture(String.format("r2-%02d-%s-selector.png", themeIndex+1, THEMES[themeIndex].id()));
+                mc.setScreen(new FurnaceScreen(new FurnaceMenu(1,mc.player.getInventory()),mc.player.getInventory(),Component.literal("Furnace")));phase=8;ticks=0;
+            } else if(phase==7&&ticks>15){
+                capture(String.format("r2-%02d-%s-title.png",themeIndex+1,THEMES[themeIndex].id()));
+                mc.setScreen(new InventoryScreen(mc.player));phase=5;ticks=0;
+            } else if(phase==8&&ticks>12){
+                capture(String.format("r2-%02d-%s-furnace.png",themeIndex+1,THEMES[themeIndex].id()));
+                mc.setScreen(new CraftingScreen(new CraftingMenu(2,mc.player.getInventory()),mc.player.getInventory(),Component.literal("Crafting")));phase=9;ticks=0;
+            } else if(phase==9&&ticks>12){
+                capture(String.format("r2-%02d-%s-crafting.png",themeIndex+1,THEMES[themeIndex].id()));
+                mc.setScreen(null);phase=10;ticks=0;
+            } else if(phase==10&&ticks>12){
+                capture(String.format("r2-%02d-%s-hud.png",themeIndex+1,THEMES[themeIndex].id()));
+                mc.setScreen(new ContainerScreen(ChestMenu.sixRows(3,mc.player.getInventory()),mc.player.getInventory(),Component.literal("Large Chest")));phase=11;ticks=0;
+            } else if(phase==11&&ticks>12){
+                capture(String.format("r2-%02d-%s-chest.png",themeIndex+1,THEMES[themeIndex].id()));
+                mc.gameMode.setLocalMode(GameType.CREATIVE);
+                mc.setScreen(new CreativeModeInventoryScreen(mc.player,mc.player.connection.enabledFeatures(),false));phase=12;ticks=0;
+            } else if(phase==12&&ticks>12){
+                capture(String.format("r2-%02d-%s-creative.png",themeIndex+1,THEMES[themeIndex].id()));
+                mc.setScreen(null);mc.gameMode.setLocalMode(GameType.SURVIVAL);
+                if(themeIndex==0){
+                    mc.setScreen(new InventoryScreen(mc.player));
+                    var buttons=mc.screen.children().stream().filter(c->c instanceof ThemeButton).map(c->(ThemeButton)c).toList();
+                    buttons.get(1).onPress(null);phase=13;ticks=0;
+                }else{themeIndex++;phase=3;ticks=0;}
+            } else if(phase==13&&ticks>12){
+                capture("r2-recipe-book.png");
+                if(!ThemeRecipes.narrowVisible(mc.screen))throw new IllegalStateException("Narrow recipe layout not active");
+                ThemeRecipes.close(mc.screen);
+                if(ThemeRecipes.narrowVisible(mc.screen))throw new IllegalStateException("Recipe return did not close book");
+                mc.options.guiScale().set(1);mc.resizeGui();
+                ((com.shnewbs.deepprimal.themes.mixin.ThemeRecipeAccessor)mc.screen).deepprimalThemes$recipeBook().toggleVisibility();
+                mc.screen.resize(mc.screen.width,mc.screen.height);phase=14;ticks=0;
+            } else if(phase==14&&ticks>12){
+                if(ThemeRecipes.narrowVisible(mc.screen))throw new IllegalStateException("Wide recipe layout still narrow");
+                capture("r2-recipe-book-wide.png");
+                mc.setScreen(null);mc.player.getRecipeBook().setOpen(net.minecraft.world.inventory.RecipeBookType.CRAFTING,false);
+                mc.options.guiScale().set(2);mc.resizeGui();
+                themeIndex++;phase=3;ticks=0;
             }
         } catch (Throwable error) {
             failed=true; error.printStackTrace();

@@ -1,16 +1,16 @@
 # Deep Primal Themes
 
-Standalone client GUI themes for **Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25**.
-This project builds independently of Deep Primal. It has no Deep Primal runtime dependency.
+Standalone client GUI overhaul for **Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25**.
+This project builds independently of Deep Primal and has no Deep Primal runtime dependency.
 
 ## Install and select a theme
 
-Put `DeepPrimal-Themes-26.1.2-0.1.0-alpha.1.jar` in the client's `mods` folder.
-Open **Themes** at the top left of the title screen or Options, or use **Mods → Deep Primal Themes → Config**.
-Select a theme, then **Apply theme**. Applying reloads client resources; no world restart is required.
-**Vanilla** is the default and removes the selected theme pack.
+Put `DeepPrimal-Themes-26.1.2-0.1.0-alpha.2.jar` in the client's `mods` folder, replacing alpha.1.
+Open **Themes** on the title screen or Options, or **Mods → Deep Primal Themes → Config**.
+Select a theme and **Apply theme**. Resources reload without a world restart.
+**Vanilla** is the default; it restores native screens, slot positions, textures and HUD.
 
-The file `config/deepprimal_themes-client.toml` also supports:
+`config/deepprimal_themes-client.toml` supports:
 
 ```toml
 theme = "VANILLA"
@@ -18,81 +18,79 @@ titleBranding = true
 integrationHud = true
 ```
 
-| Config value | Appearance |
+| Config value | Theme |
 | --- | --- |
-| `VANILLA` | Original Minecraft textures and title |
-| `BASALT_COPPER` | Dark basalt and copper |
-| `FIELD_JOURNAL` | Parchment and olive ink |
-| `RAWHIDE_FLINT` | Stitched hide and flint |
-| `RIVERSTONE_MOSS` | Pale weathered stone and moss |
-| `TIMBER_IRON` | Timber grain and iron fittings |
-| `CLAY_EMBER` | Warm clay and ember accents |
-| `OBSIDIAN_ASH` | Obsidian, ash and orange embers |
-| `FROST_SLATE` | Blue slate and frost |
+| `VANILLA` | Original Minecraft |
+| `BASALT_COPPER` | Basalt & Copper |
+| `FIELD_JOURNAL` | Field Journal |
+| `RAWHIDE_FLINT` | Rawhide & Flint |
+| `RIVERSTONE_MOSS` | Riverstone & Moss |
+| `TIMBER_IRON` | Timber & Iron |
+| `CLAY_EMBER` | Clay & Ember |
+| `OBSIDIAN_ASH` | Obsidian & Ash |
+| `FROST_SLATE` | Frost & Slate |
 
-## What this alpha changes
+## Original mockup artwork and functional screens
 
-Eight native-resolution theme packs cover vanilla container panels, inventory,
-crafting and workstation sprites, creative inventory, recipe book controls,
-buttons and other widgets, tooltips, advancement frames, toasts, hotbar, and menu separators.
-Custom themes add optional Deep Primal title branding and readable container labels.
-The selector is available with every theme, including Vanilla.
+Alpha.2 uses the eight approved boards as unmodified source atlases. Material samples,
+frames, corners, slot wells and buttons are drawn from each original design. Field Journal
+uses revision 3; the other seven use revision 2. The original illustrated title scene is
+bundled with functional Continue, Singleplayer, Multiplayer, Settings and Quit controls.
+Continue remembers the last local save. The scene is static artwork, not a world preset.
 
-This is an implementation of the eight material/palette directions, not a pixel-for-pixel
-conversion of concept images. Inventory layout, slot counts, item rendering, click targets,
-recipes, and server behavior remain controlled by Minecraft. Third-party screens with their
-own textures require adapters. No new panorama or custom world background is bundled.
+The survival inventory has the mockups' Inventory/Crafting/Journal tabs, player preview,
+armor and offhand areas, 2×2 crafting, 27 storage slots and nine hotbar slots. It retains the
+native menu, item rendering and slot IDs. Only client-side positions change; closing the
+screen restores them. Crafting opens the native recipe book, with a separate view at narrow
+GUI sizes and side-by-side placement when space permits.
 
-The build derives textures from the exact target version's native atlases. It checks every
-texture's dimensions and alpha mask, and all 36 player inventory wells. Vanilla sprite
-metadata is copied intact. Only the currently selected theme is registered as a required
-client resource pack; selecting Vanilla unregisters it. A failed resource reload restores
-Vanilla during Minecraft's recovery path.
+Crafting tables, furnaces, smokers and blast furnaces have larger themed panels with real
+input, fuel, output and progress. This module does not introduce a firepit gameplay block.
+Large chests and creative inventory use matching artwork with their native slot geometry.
+Secondary vanilla widgets and screens also receive generated theme textures and readable
+labels. Third-party screens with custom rendering may need explicit adapters.
+
+The HUD shows actual health, hunger, progression, day and weather. Timber & Iron and Clay &
+Ember use the reference bar treatments; other themes use icon rows. Journal opens with **J**
+(default) or its inventory tab. The standalone journal shows live player data. Hearth uses
+**H** and stays disabled until a companion supplies an action. Keys are rebindable.
+`integrationHud = false` restores native health/food/progression rendering while retaining
+selected theme textures; `titleBranding = false` keeps the native title layout.
 
 ## Later Deep Primal integration
 
 `com.shnewbs.deepprimal.themes.api.ThemeIntegration` is the client-only bridge.
-Register one `Provider` during companion client setup. It supplies current thirst, progression,
-and optional Journal/Hearth actions. Query live client state in the provider. `SurvivalState`
-uses thirst/progress fractions in `[0,1]`, and a nonnegative level. Unregister when appropriate.
-
-Without a provider, no invented survival statistics or nonfunctional gameplay buttons appear.
-The module never enables, disables, or awards vanilla XP. The companion owns gameplay,
-network packets, cooldowns, and server permission checks. Never register a client provider
-on a dedicated server.
+Register one `Provider` during companion client setup. It supplies thirst, progression and
+optional Journal/Hearth actions. `SurvivalState` takes fractions in `[0,1]` and a nonnegative
+level. Query synced client state in the provider; unregister when appropriate.
 
 ```java
 ThemeIntegration.register(new ThemeIntegration.Provider() {
     public Optional<ThemeIntegration.SurvivalState> survival() {
-        return Optional.empty(); // Replace with your synced client survival state.
+        return Optional.empty(); // Supply your synced survival state here.
     }
-    // Override journal() / hearth() when actual actions are available.
+    // Override journal() / hearth() with real actions.
 });
 ```
 
-The optional survival strip sits above the vanilla HUD. Mods that add extra HUD rows should
-adapt its placement or disable `integrationHud`. Optional inventory action buttons are
-shown only when there is space above the inventory. This is a bridge for later integration,
-not an implementation of Deep Primal gameplay systems.
+Without a provider, no thirst statistic is invented. Standalone progression displays vanilla
+XP; with Deep Primal loaded, that fallback is suppressed. The module never awards XP or
+implements teleportation. Deep Primal owns gameplay, networking, cooldowns and permission
+checks. Do not register client integration on a dedicated server.
 
-## Build
+## Build and validation
 
-From this directory, with Java 25 selected:
+With Java 25 selected, run from this directory:
 
 ```sh
 ./gradlew build
-```
-
-Output is in `build/libs/`. The root Deep Primal build does not include this project yet.
-Generated textures are reproducible build outputs, not checked-in copies of Minecraft assets.
-
-An opt-in client harness creates a disposable flat world, switches all eight themes back to
-Vanilla, checks each inventory's resource origin, and captures actual inventories/selectors:
-
-```sh
 ./gradlew -PthemeValidation runClient
 ```
 
-Use a graphical desktop or an X server. Results appear under `run/`: screenshots and a
-`theme-validation-success.txt` or `theme-validation-failure.txt` marker. Harness classes are
-excluded from the release JAR. Remove old markers before repeating the run.
+The root Deep Primal build does not include this project yet. Release JARs appear in
+`build/libs/`. Generated fallback textures derive from the target game's native assets.
+The opt-in harness creates a disposable flat world, switches all eight themes and Vanilla,
+checks resource sources and inventory geometry, and captures actual game screens under
+`run/screenshots/`. A success/failure marker appears under `run/`. Remove old markers before
+rerunning. Harness classes and test survival data are excluded from the release JAR.
+See `docs/VALIDATION.md` for verification scope and limitations.
