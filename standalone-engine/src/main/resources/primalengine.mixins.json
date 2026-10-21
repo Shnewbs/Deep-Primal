@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.shnewbs.primalengine.mixin.client",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "FluidModelAccess"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

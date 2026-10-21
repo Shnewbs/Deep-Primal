@@ -1,0 +1,38 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "primalengine:continental",
+      "generator": {
+        "type": "primalengine:continental",
+        "biome_source": {
+          "type": "primalengine:regional",
+          "plains": "minecraft:plains",
+          "forest": "minecraft:forest",
+          "dry": "minecraft:desert",
+          "ocean": "minecraft:ocean"
+        }
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "preset": "minecraft:nether"
+        },
+        "settings": "minecraft:nether"
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:the_end"
+        },
+        "settings": "minecraft:end"
+      }
+    }
+  }
+}

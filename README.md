@@ -1,5 +1,7 @@
 # Deep Primal
 
+**New standalone engine:** [Primal Engine](standalone-engine/README.md) is being built independently of the older terrain prototype below. It supplies its own continental chunk generator, regional biome selection, finite fluid type and curved water mesher, with a separate LOD data module. It builds as its own mod and does not load the legacy Deep Primal modules. The full replacement and Distant Horizons comparison remain unfinished.
+
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 
 **Current build: 0.0.1-alpha.16 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**

@@ -1,5 +1,22 @@
 # Deep Primal — Roadmap
 
+## Standalone engine replacement — owner direction, 2026-10-20
+
+Build the geography, liquid simulation and water mesh as an independently loadable mod before integrating it into Deep Primal. The new Overworld generator owns continent layout, drainage and columns; the old vanilla-noise-based prototype remains available for comparison. Minecraft/NeoForge supply storage, scheduling, networking, materials and GPU interfaces.
+
+- [x] Independent project and platform-neutral seeded geography/transport core.
+- [x] Whole-continent priority-flood drainage and bounded continent cache; custom chunk generator and biome source.
+- [x] Custom finite fluid type, 1/16-block volumes, gravity/pooling, full measured bucket and persisted states.
+- [x] Custom curved, shared-corner water mesher through NeoForge's fluid rendering API.
+- [x] Separate platform-neutral LOD snapshot/storage foundation with actual vertical block runs, corruption checks and stale-revision protection.
+- [ ] Complete regional geology/climate, erosion/deposition, lakes, groundwater/recharge, displacement, pressure and surf integration.
+- [ ] Finish custom settings UI and verify saved/requested/effective-value display across reopen/restart.
+- [ ] Implement automatic LOD capture/update scheduling, multiresolution reduction, native-ready transitions, GPU submission, network synchronization and cache lifecycle.
+- [ ] Benchmark against Distant Horizons on matched worlds, cameras, detail, radius and hardware. Measure frame-time percentiles, memory/VRAM, generation/loading latency, cache I/O and edit propagation. Do not advertise superiority before this passes.
+
+Reference projects are PhysEx Reborn, JDKDigital Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons. Their code is not bundled in this new engine. Detailed scope and acceptance criteria: [standalone engine](standalone-engine/README.md).
+
+
 **Status:** worldgen/renderer prototype 0.0.1-alpha.16; full survival conversion remains in design. **Updated:** 2026-10-20. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
