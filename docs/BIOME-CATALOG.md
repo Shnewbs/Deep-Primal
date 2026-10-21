@@ -568,6 +568,10 @@ Rock type and fresh lava morphology remain substrate/features. These persistent 
 | Volcanic Barrens | Sparse pioneer/cryptogam cover; succession later | Regional precipitation with local drainage | Rocky Scrub; Alpine Barrens; Geothermal Springs |
 | Geothermal Springs | Temperature/chemistry-zoned microbial/edge vegetation candidates | Geological heat and source-water budget | Spring; Volcanic Barrens; Geothermal Cave |
 
+## Glacial landscape coverage
+
+The owner-approved [glacial landscape plan](GLACIAL-LANDSCAPES.md) extends Icefield, Glacial Lake and eligible tundra/alpine/forest/coastal settings through **8 named layers (LAY-056–063)** and **3 community variants (VAR-052–054)**. Troughs, fjords, moraines, till, outwash, braided meltwater reaches, proglacial shores and foreland mosaics retain explicit water/geology/biological prerequisites. The roster remains **118 proposed base profiles**; inherited glacial landforms do not require present ice, and a fjord's marine water is distinct from a glacial lake.
+
 ## Common obligations for every profile
 
 Each candidate inherits the per-biome planning record, transition/placement requirements, resource/progression hooks, material/rendering direction, performance constraints, and validation gates in [BIOME-PLAN.md](BIOME-PLAN.md). The named variants, local layers and habitat coverage crosswalk are in [BIOME-VARIANTS-AND-COVERAGE.md](BIOME-VARIANTS-AND-COVERAGE.md).

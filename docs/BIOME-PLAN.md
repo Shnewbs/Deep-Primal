@@ -11,8 +11,8 @@ The existing [roadmap](../roadmap.md), [design reference](design-reference.md), 
 | Planning layer | Size | Named list |
 | --- | ---: | --- |
 | Proposed broad biome profiles | 118 across 19 families | [BIOME-CATALOG.md](BIOME-CATALOG.md) |
-| Named regional/community variants | 51 | [Variants](BIOME-VARIANTS-AND-COVERAGE.md#regional-community-variants) |
-| Named local forms, habitats, states and modifiers | 55 | [Environmental layers](BIOME-VARIANTS-AND-COVERAGE.md#environmental-layers) |
+| Named regional/community variants | 54 | [Variants](BIOME-VARIANTS-AND-COVERAGE.md#regional-community-variants) |
+| Named local forms, habitats, states and modifiers | 63 | [Environmental layers](BIOME-VARIANTS-AND-COVERAGE.md#environmental-layers) |
 | Existing habitat entries explicitly reconciled | 62 of 62 | [Coverage crosswalk](BIOME-VARIANTS-AND-COVERAGE.md#existing-habitat-crosswalk) |
 
 These counts are different axes and must not be added together as registered biome IDs or claimed species counts. The 118 profile keys are **proposed registration candidates**. Some may later merge or become variants after visual, performance, gameplay and API review; record any such decision explicitly. Registry capacity alone is not the reason to split a biome.
@@ -133,6 +133,10 @@ These are reference examples, not an exhaustive planet inventory. Scientific tra
 - Keep biological communities evidence-aware: [NASA reports Earth as the only place with known life](https://science.nasa.gov/exoplanets/can-we-find-life/). Extraterrestrial ecosystems, if proposed, must be explicitly identified as game invention.
 - Record optional world/profile scope, fidelity and performance choices during later design. Environmental implementation remains deferred.
 
+## Glacial landscape coverage
+
+The owner approved the next coverage pass: glacier-carved valleys/fjords, moraines and debris fields, braided meltwater/outwash, glacial lakes with routed outlets, and ice-margin communities. The [glacial landscape plan](GLACIAL-LANDSCAPES.md) adds **VAR-052–054** and **LAY-056–063** to the actual named lists while retaining the 118 proposed base profiles. Active and inherited glacial settings are distinct; communities remain regionally and climatically eligible. Numeric climate/placement work and environmental implementation stay deferred.
+
 ## Water, shoreline and vertical priorities
 
 - Headwater, mountain, foothill and lowland reaches share one routed river system. River habitat selection must not invent disconnected channel noise.
@@ -217,7 +221,7 @@ This document adds no dependency, imports no third-party code/assets/maps, and m
 Current biome planning review:
 
 - [ ] Review the 118 proposed base-profile names, investigate missing environments and resolve merge/split/disposition decisions.
-- [ ] Review all 51 named community variants and 55 local layers.
+- [ ] Review all 54 named community variants and 63 local layers, including the glacial additions.
 - [ ] Complete island/atoll coverage and a sourced register of proposed planetary traits, with evidence status and biome/material/layer mappings; keep any new profile counts explicit.
 - [ ] Complete biome identity, terrain, geology/soil, water setting, actual material references, vegetation/life and natural resource functions.
 - [ ] Define coherent regional biological pools and review named species/functions against primary sources; record climate questions for the later scenario phase.

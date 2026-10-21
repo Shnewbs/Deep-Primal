@@ -63,6 +63,9 @@ A variant changes the compatible species/community expression of a parent profil
 | VAR-049 | Kelp regional community | Kelp Forest | Region-specific kelps selected by actual marine conditions |
 | VAR-050 | Reef community mosaic | Coral Reef | Colony forms, rubble and algal patches; no random coral at every depth |
 | VAR-051 | Tropical pine forest | Tropical Conifer Forest | Regional tropical-conifer community; species and fire/moisture conditions require later research |
+| VAR-052 | Glacial foreland pioneer community | Polar Desert; Rock Tundra; Alpine Barrens | Sparse regional cryptogams/herbs where exposed substrate permits establishment; record bare patches and seed/spore sources; no fixed recovery timer |
+| VAR-053 | Postglacial shrub–meadow community | Dry Tundra; Shrub Tundra; Alpine Meadow; Montane Meadow; Temperate Meadow | Regional herbs/grasses/shrubs selected by substrate, water and parent-biome eligibility; soil development and exposure vary locally |
+| VAR-054 | Postglacial woodland community | Open Boreal Woodland; Mixed Boreal Forest; Cool Mixed Forest; Subalpine Woodland | Woody establishment where regional species, climate, soil and dispersal permit; woodland is a possible outcome rather than an obligatory final stage |
 
 ## Environmental layers
 
@@ -125,6 +128,16 @@ Layers can combine only when their physical/biological prerequisites hold. Gener
 | LAY-053 | Rain-shadow modifier | Climate field | Terrain and prevailing moisture transport | Any compatible region |
 | LAY-054 | Biological soil crust | Living surface community | Climate, substrate and disturbance | Compatible dryland profile |
 | LAY-055 | Rock and soil palette | Material appearance | Geology, composition and organic fraction | Any compatible material-bearing profile |
+| LAY-056 | Glacial trough / U-shaped valley | Erosional landform | Glaciation history, valley geometry and a connected modern drainage path; do not force present ice | Compatible mountain, tundra, forest or other land profile |
+| LAY-057 | Fjord | Marine glacial landform | Glacial trough below sea level with an open ocean connection; marine/brackish water and adjoining land remain separate | Cold Marine Shelf; Marine Shelf; Cold Ocean; Rocky Shore; Estuary where river mixing applies |
+| LAY-058 | Moraine ridge | Glacial deposit/relief | Ice-deposited debris with explicit lateral, medial, terminal or recessional subtype and history; preserve local drainage | Icefield margins or compatible formerly glaciated land |
+| LAY-059 | Till and erratic field | Glacial substrate/deposit | Unsorted ice-deposited sediment plus transported boulders, with source-rock identity and local drainage | Polar Desert; Rock Tundra; Alpine Barrens; other compatible formerly glaciated land |
+| LAY-060 | Outwash plain | Meltwater depositional landform | Sorted meltwater sediment tied to an upstream source or inherited depositional history and a downstream outlet | Headwater Stream; Foothill River; Lowland River and adjacent eligible land |
+| LAY-061 | Braided meltwater reach | River-reach form | Shared inflow/discharge and sediment context across split/rejoining channels; no duplicated water budgets | Headwater Stream; Mountain River; Foothill River; Lowland River where valley geometry permits |
+| LAY-062 | Proglacial lake margin | Ice–lake–land boundary | Glacial Lake profile with explicit bed, shore, ice/sediment input, controlling sill or dam and routed outlet | Glacial Lake; Icefield; Headwater Stream; Mountain River |
+| LAY-063 | Glacial foreland mosaic | Habitat/substrate mosaic | Time since exposure, soil/substrate, moisture and regional colonization pools; initial history versus live succession remains explicit | Compatible exposed land with VAR-052, VAR-053 or VAR-054 where eligible |
+
+The glacial additions are detailed in [Glacial landscapes](GLACIAL-LANDSCAPES.md). The current lists contain **54 community variants and 63 local layers**; all existing IDs retain their meanings.
 
 ## Existing habitat crosswalk
 
@@ -204,7 +217,9 @@ Every one of the **62 existing HABITAT-TYPE entries** in [NATURAL-TYPES-ENVIRONM
 | Snow-covered pine forest | Existing eligible boreal/temperate forest + regional pine community + seasonal snow state; no winter-only identity required. |
 | Cypress floodplain swamp | Forested Swamp or Tropical Swamp Forest + cypress community where province/climate permit + shared floodplain hydrology. |
 | Mangrove estuary | Connected Estuary/Tidal Mudflat/Mangrove Forest profiles + salinity/inundation gradients and root channels. |
-| Glacial valley lake | Icefield/Alpine Barrens context + Glacial Lake + routed spillway, lake-shore layer and sediment input. |
+| Glacial valley lake | Icefield/Alpine Barrens context + LAY-056 trough + Glacial Lake + LAY-062 margin + routed sill/outlet and downstream river. |
+| Glacial foreland and outwash | LAY-058 moraine and LAY-059 till + LAY-060 outwash + LAY-061 split/rejoining meltwater reach; LAY-063 mosaic selects eligible VAR-052/053/054 communities locally. |
+| Glacial fjord coast | LAY-056 trough opening below sea level becomes LAY-057 fjord with marine water, Rocky Shore and regional land communities; connected freshwater inflows create estuarine mixing locally. |
 | Cave river beneath a forest | Surface forest above; Underground River/Groundwater Cave in the appropriate Y band; host rock and cave forms remain separate. |
 | Kelp-covered rocky shelf | Cold Marine Shelf/Marine Shelf and Kelp Forest where eligible; water-column profile and actual seabed substrate remain distinct. |
 | Burned woodland recovering | Original compatible woodland profile + burn/regrowth state + species traits and resource accounting; no mandatory new biome per recovery year. |

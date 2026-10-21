@@ -26,7 +26,7 @@ An entry may be a material type, umbrella group, subtype, mixture, anatomical pa
 
 ## Related biome plan
 
-The [biome plan](BIOME-PLAN.md), [named biome roster](BIOME-CATALOG.md), and [variants/coverage crosswalk](BIOME-VARIANTS-AND-COVERAGE.md) connect these material/biological names to **118 proposed biome profiles**, **51 community variants** and **55 local layers**. These are a separate planning axis and do not increase the 1,013 named natural-type row count. All 62 existing habitat rows are explicitly reconciled; environmental implementation remains deferred.
+The [biome plan](BIOME-PLAN.md), [named biome roster](BIOME-CATALOG.md), and [variants/coverage crosswalk](BIOME-VARIANTS-AND-COVERAGE.md) connect these material/biological names to **118 proposed biome profiles**, **54 community variants** and **63 local layers**. These are a separate planning axis and do not increase the 1,013 named natural-type row count. All 62 existing habitat rows are explicitly reconciled; environmental implementation remains deferred. The [glacial landscape expansion](GLACIAL-LANDSCAPES.md) accounts for the latest 3 community variants and 8 local layers.
 
 ## Common-name, alias and overlap rules
 

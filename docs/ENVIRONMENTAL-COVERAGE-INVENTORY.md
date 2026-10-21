@@ -466,9 +466,11 @@ For every selected transition, eventually answer: trigger; inputs; outputs; cons
 
 ## Biome/habitat planning reconciliation
 
-The 2026-10-21 [biome plan](BIOME-PLAN.md) supplies a [118-profile named roster](BIOME-CATALOG.md), plus [51 community variants, 55 local layers and a complete mapping of the 62 existing habitat entries](BIOME-VARIANTS-AND-COVERAGE.md). This reconciles named coverage without marking implementation or detailed property-sheet decisions complete. Geology, soil composition, tree dominance and seasonal states do not each require a new biome ID. World block/item texture tiles are planned at up to 64×64 with shared material-family textures and palettes/tints.
+The 2026-10-21 [biome plan](BIOME-PLAN.md) supplies a [118-profile named roster](BIOME-CATALOG.md), plus [54 community variants, 63 local layers and a complete mapping of the 62 existing habitat entries](BIOME-VARIANTS-AND-COVERAGE.md). This reconciles named coverage without marking implementation or detailed property-sheet decisions complete. Geology, soil composition, tree dominance and seasonal states do not each require a new biome ID. World block/item texture tiles are planned at up to 64×64 with shared material-family textures and palettes/tints.
 
 **Biome-first sequence:** complete biome coverage and descriptions before designing supporting climate scenarios. Climate fields elsewhere in this inventory remain later integration requirements, not gates for finishing the biome roster. Climate eligibility must gate actual biome placement, alongside terrain, water, substrate and other habitat requirements. See the [design work order](BIOME-PLAN.md#design-work-order).
+
+The approved [glacial coverage pass](GLACIAL-LANDSCAPES.md) supplies named layers and community variants for SED-06, ICE-04, HAB-04 and connected WAT/PRO reviews. Those review entries remain open for detailed representation and behavior decisions.
 
 ## Habitat cross-check before calling the planning inventory complete
 
