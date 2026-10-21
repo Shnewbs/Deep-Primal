@@ -19,8 +19,10 @@ public final class DeepPrimalClient {
     NeoForge.EVENT_BUS.register(this);
     NeoForge.EVENT_BUS.register(new ClientTelemetry());
     modBus.addListener(DeepPrimalClient::packs);
+    modBus.addListener(WaterPalettes::register);
     modBus.addListener(DeepPrimalClient::payloads);
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
+      NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(
           com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE);
@@ -54,6 +56,8 @@ public final class DeepPrimalClient {
   @SubscribeEvent
   public void tick(ClientTickEvent.Post event) {
     WaterEffects.tick();
+    SnowAtmosphere.tick();
+    com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE.tick();
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned())
       com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.tick();
     DistanceRuntime.clientRequest(Minecraft.getInstance().options.renderDistance().get());

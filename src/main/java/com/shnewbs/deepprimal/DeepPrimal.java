@@ -45,6 +45,10 @@ public final class DeepPrimal {
         com.shnewbs.deepprimal.water.RiverConfig.SPEC,
         "deepprimal-rivers.toml");
     com.shnewbs.deepprimal.water.RiverWater.BLOCKS.register(modBus);
+    com.shnewbs.deepprimal.water.RiverWater.ITEMS.register(modBus);
+    com.shnewbs.deepprimal.water.WeatherHydrology.ATTACHMENTS.register(modBus);
+    modBus.addListener(com.shnewbs.deepprimal.water.WaterPort::register);
+    NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.SwimmingEffort());
     modBus.addListener(WorldgenConfig::packs);
     modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());

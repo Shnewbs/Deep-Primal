@@ -35,6 +35,7 @@ final class WaterEnvironmentChecks {
       throw new AssertionError(e);
     }
     DistanceLimitChecks.run(level);
+    HydrologyServerChecks.run(level);
     level.getServer().setWeatherParameters(0, 6000, true, false);
     level.setRainLevel(1);
     level

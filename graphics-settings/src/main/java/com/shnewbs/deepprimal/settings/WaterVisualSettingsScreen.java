@@ -14,7 +14,7 @@ public final class WaterVisualSettingsScreen extends Screen {
     "Water colors",
     "Underwater clarity",
     "Ocean waves",
-    "Wake particles",
+    "Persistent wakes",
     "Cascade spray",
     "Snow visuals"
   };

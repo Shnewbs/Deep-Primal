@@ -19,10 +19,13 @@ abstract class OceanBoatMixin {
         || !boat.isInWater()
         || !boat.level().getBiome(boat.blockPosition()).is(BiomeTags.IS_OCEAN)) return;
     double time = boat.level().getGameTime(), storm = boat.level().getRainLevel(1);
-    double delta =
-        (WaterDynamics.wave(boat.getX(), boat.getZ(), time + 1, storm)
-                - WaterDynamics.wave(boat.getX(), boat.getZ(), time, storm))
-            * .4;
+    double delta = 0;
+    for (int corner = 0; corner < 4; corner++) {
+      double x = boat.getX() + ((corner & 1) == 0 ? -.6 : .6);
+      double z = boat.getZ() + ((corner & 2) == 0 ? -.6 : .6);
+      delta +=
+          (WaterDynamics.wave(x, z, time + 1, storm) - WaterDynamics.wave(x, z, time, storm)) * .1;
+    }
     boat.setDeltaMovement(boat.getDeltaMovement().add(0, delta, 0));
   }
 }

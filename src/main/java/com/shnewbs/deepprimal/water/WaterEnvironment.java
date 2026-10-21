@@ -37,9 +37,26 @@ public final class WaterEnvironment {
     var pos = BlockPos.containing(player.getEyePosition());
     int depth = columnDepth(level, pos);
     int free = RiverConfig.PRESSURE_DEPTH.get();
-    if (depth > free)
-      player.hurtServer(
-          level, player.damageSources().drown(), Math.min(8, 1 + (depth - free) / 32f));
+    int armor = 0;
+    for (var slot : net.minecraft.world.entity.EquipmentSlot.values())
+      if (slot.getType() == net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR
+          && !player.getItemBySlot(slot).isEmpty()) armor++;
+    float protection = (float) Math.max(0, 1 - armor * RiverConfig.ARMOR_PROTECTION.get());
+    if (depth > free) {
+      if (RiverConfig.PRESSURE_EFFECTS.get()) {
+        player.addEffect(
+            new net.minecraft.world.effect.MobEffectInstance(
+                MobEffects.SLOWNESS, 40, depth > free + 64 ? 1 : 0));
+        if (depth > free + 32)
+          player.addEffect(
+              new net.minecraft.world.effect.MobEffectInstance(MobEffects.MINING_FATIGUE, 40));
+      }
+      if (protection > 0)
+        player.hurtServer(
+            level,
+            player.damageSources().drown(),
+            Math.min(8, 1 + (depth - free) / 32f) * protection);
+    }
   }
 
   public static int columnDepth(net.minecraft.world.level.Level level, BlockPos eyes) {
@@ -55,4 +72,3 @@ public final class WaterEnvironment {
     return depth;
   }
 }
-

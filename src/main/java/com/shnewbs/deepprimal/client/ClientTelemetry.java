@@ -49,6 +49,15 @@ public final class ClientTelemetry {
     data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos - lastSync) / 1e6);
     lastSync = VisualPerformance.chunkSyncNanos;
     data.put("gpu", RenderSystem.getDevice().getRenderer());
+    data.put(
+        "wakeMeshBytes",
+        com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE.residentBytes());
+    data.put(
+        "oceanMeshBytes",
+        com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.residentBytes());
+    data.put(
+        "oceanPendingSamples",
+        com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.pendingSamples());
     data.put("renderDistance", mc.options.renderDistance().get());
     data.put("effectiveRenderDistance", mc.options.getEffectiveRenderDistance());
     data.put("memoryDistanceGuard", com.shnewbs.deepprimal.performance.MemorySafety.enabled());

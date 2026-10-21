@@ -41,7 +41,13 @@ public final class WaterDynamics {
     double p = ticks * .045;
     return (Math.sin(x * .095 + z * .031 - p)
             + .45 * Math.sin(z * .17 - x * .04 - p * 1.41)
-            + .2 * Math.sin(x * .29 + z * .12 - p * 1.9))
+            + .2 * Math.sin(x * .29 + z * .12 - p * 1.9)
+            + .12 * Math.sin(x * .37 - z * .23 - p * 2.3)
+            + .08 * Math.sin(x * .51 + z * .41 - p * 2.7)
+            + .05 * Math.sin(z * .67 - x * .32 - p * 3.1)
+            + .03 * Math.sin(x * .83 + z * .53 - p * 3.6)
+            + .02 * Math.sin(z * 1.07 - x * .73 - p * 4.1))
+        * (1.65 / 1.95)
         * (.10 + Math.clamp(storm, 0, 1) * .15);
   }
 

@@ -35,6 +35,7 @@ public final class DrainageServerChecks {
   }
 
   static synchronized void record(String message) {
+    System.out.println(message);
     try {
       String destination = System.getenv("DEEPPRIMAL_VALIDATION_RECORD");
       Path file = destination == null ? Path.of("build/drainage-events.txt") : Path.of(destination);

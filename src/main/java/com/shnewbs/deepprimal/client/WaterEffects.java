@@ -28,7 +28,10 @@ public final class WaterEffects {
         RendererOwnership.installed("wakes")
             || RendererOwnership.installed("wakesreforged")
             || RendererOwnership.installed("wakes_reforged");
-    if (WaterVisualConfig.WAKES.get() && !particular && !wakes) {
+    if (WaterVisualConfig.WAKES.get()
+        && !particular
+        && !wakes
+        && !com.shnewbs.deepprimal.client.render.WakeRenderer.available()) {
       int examined = 0;
       for (var entity : level.entitiesForRendering()) {
         if (++examined > 128 || remaining <= 0) break;
@@ -56,7 +59,8 @@ public final class WaterEffects {
       if (Math.abs(top.getY() - center.getY()) > 32) continue;
       if (WaterVisualConfig.SNOW.get()
           && level.isRaining()
-          && level.getBiome(top).value().coldEnoughToSnow(top, level.getSeaLevel())) {
+          && (com.shnewbs.deepprimal.water.RiverConfig.GLOBAL_WINTER.get()
+              || level.getBiome(top).value().coldEnoughToSnow(top, level.getSeaLevel()))) {
         level.addParticle(
             ParticleTypes.SNOWFLAKE,
             x + random.nextDouble(),

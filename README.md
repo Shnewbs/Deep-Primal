@@ -2,12 +2,13 @@
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 
-**Current build: 0.0.1-alpha.15 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**Current build: 0.0.1-alpha.16 worldgen prototype — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is the default normal world generator. Alpha 15 isolates procedural-horizon depth from real chunks and adds shallower partial river surfaces, tapered springs and contained headwater lakes. It retains variable currents, blended climate/elevation water colors, optional water rules, capped cold-weather snow, ocean waves and deep-ocean profiles from alpha 14. Existing saves keep their generator; use a new world for the v5 river/lake terrain.
+Deep Primal is the default normal world generator. Alpha 16 adds bank-supported v6 river steps and stable generated channel water, an optional finite-water solver, partial measured buckets, transactional water ports, rain/soil/runoff/evaporation, stamina/treading controls, equipment-aware pressure, persistent mesh wakes, resource-pack water palettes and optional unlimited snow with local snow fog. Finite water and the new survival penalties are disabled by default. Use a new world for v6 terrain; existing saves retain their generator and explored-water layout.
 
 The procedural horizon now permits 512 chunks with denser smooth-lit meshes. Full-detail requests stop at Minecraft's native signed-byte tracker ceiling of 125 chunks; heap and server delivery guards remain active. This is macro terrain, not detailed voxel/tree/building LOD. OpenGL remains the default; the separate experimental Vulkan backend includes the cloud storage-range crash fix. Graphics controls, the common performance engine and platform-neutral core remain separate modules. The complete survival conversion remains in design; use disposable test worlds.
 
+- [Alpha 16 water, river support and renderer validation](docs/VALIDATION-0.0.1-alpha.16.md)
 - [Alpha 15 horizon, partial river surface and headwater validation](docs/VALIDATION-0.0.1-alpha.15.md)
 - [Alpha 14 water, weather and renderer validation](docs/VALIDATION-0.0.1-alpha.14.md)
 - [Complete water/snow reference audit](docs/WATER-REFERENCE-AUDIT-2026-10-20.md)
@@ -36,7 +37,7 @@ The procedural horizon now permits 512 chunks with denser smooth-lit meshes. Ful
 - [Owner decisions](docs/design-decisions-2026-10-18.md)
 - [Detailed design reference](docs/design-reference.md)
 
-Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.15.jar`.
+Build with `./gradlew build` or `gradlew.bat build`. Output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.16.jar`.
 
 Create a new world normally; its default world type is **Deep Primal**. Prefer Creative with commands enabled for inspection. Set `extraUndergroundDepth = true` in `config/deepprimal-worldgen.toml` and restart before creating a new world to extend Y=-128..639 to -384..639. Saved worlds retain their height and generation profile. `riversAndCoasts = true` is the new-world default; set it false before creation to use alpha 10 terrain. Try `/deepprimal info` and `/deepprimal bench 200 200 1`.
 
@@ -65,3 +66,16 @@ Alpha 12 routes elevated tributaries through mountain valleys and gorges toward 
 Alpha 13 keeps stepped mountain rivers while checking intermediate bed/bank elevations and filling water to the native interpolated bed. Generated routed channels store persistent downstream directions, so items and boats drift even on flat stretches. `containedRivers = true` is the new-world default alongside `mountainStreams` and `riversAndCoasts`; disabling it before creation selects frozen alpha 12 terrain. Saved profiles and explored chunks are unchanged. World-synced `deepprimal-rivers.toml` controls currents and force independently of terrain creation and graphics. See [validation, settings and limits](docs/VALIDATION-0.0.1-alpha.13.md).
 
 The [drainage and chunk-derived LOD design](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) records the meshoptimizer prototype and the work still needed for a true editable-world LOD viewer.
+
+
+## Alpha 16 water controls
+
+Gameplay settings live in the world's `serverconfig/deepprimal-rivers.toml`. Set `[hydrology] finiteVolume = true` to opt into water conservation. The solver uses native saved fluid ticks, eight units per block, a shared operation budget (default 2048 per dimension/tick) and bounded connected-pool searches (default 128 cells). It does not load chunks. Waterlogged blocks stay sealed; lava uses native behavior. Rain/runoff and evaporation are explicit input/output, not conserved transfers.
+
+Craft one vanilla bucket into a **Measured Bucket**. Use it on water to collect partial amounts, or pour onto a block/water; sneak-use pours one unit. Native NeoForge fluid ports expose ordinary water, river water and air cells in 125 mB increments when finite mode is active. There are no bundled pumps, pipes or tanks.
+
+Optional swimming stamina/treading, pressure gear reductions/effects, global winter in precipitating biomes and unlimited snow have separate controls. Desert climate replacement and TFC seasons/melting are not implemented.
+
+Resource packs can provide `assets/<biome namespace>/deepprimal/water_palette/<biome path>.json`, for example `assets/minecraft/deepprimal/water_palette/jungle.json` containing `{"color":7823946,"fog_color":5260850,"clarity":0.7}`. Colors are RGB integers, clarity ranges from 0.1 to 8. Fluid transparency is unchanged. Biome/elevation tint transitions remain blended.
+
+Persistent wakes use one 12 KiB GPU vertex buffer and expire after 40 ticks; ocean patch sampling is capped at 256 columns per tick. These bounded systems do not establish a hardware FPS improvement or full parity with the reference mods. See the feature audit for unfinished systems.

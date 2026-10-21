@@ -23,6 +23,7 @@ public final class ClientCapture {
   private String waitingScreen;
   private String pendingCapture;
   private long pendingAt;
+  private long rendererRequestedAt;
 
   public ClientCapture() {
     NeoForge.EVENT_BUS.register(this);
@@ -105,6 +106,22 @@ public final class ClientCapture {
       return;
     }
     Path dir = Path.of(System.getProperty("deepprimal.validationCapture"));
+    if (rendererRequestedAt != 0) {
+      var renderer = com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE;
+      if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()
+          || (renderer.cachedTiles >= 12
+              && renderer.visibleTiles > 0
+              && renderer.drawnTriangles > 0)
+          || System.nanoTime() - rendererRequestedAt > 180_000_000_000L) {
+        rendererRequestedAt = 0;
+        try {
+          RendererClientChecks.run(mc);
+          Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
     if (pendingCapture != null && System.nanoTime() - pendingAt > 1_000_000_000L) {
       String name = pendingCapture;
       pendingCapture = null;
@@ -143,6 +160,14 @@ public final class ClientCapture {
       }
       if (action.equals("water-surface-check")) {
         WaterClientChecks.surface();
+        return;
+      }
+      if (action.equals("wake-seed")) {
+        WaterClientChecks.seedWakes();
+        return;
+      }
+      if (action.equals("wake-checks")) {
+        WaterClientChecks.wakes();
         return;
       }
       if (action.equals("riversteps-scene")
@@ -218,8 +243,8 @@ public final class ClientCapture {
         return;
       }
       if (action.equals("renderer-checks")) {
-        RendererClientChecks.run(mc);
-        Files.writeString(dir.resolve("renderer-checks.done"), "pass", StandardCharsets.UTF_8);
+        rendererRequestedAt = System.nanoTime();
+        mc.setScreen(null);
         return;
       }
       if (action.startsWith("backend-check=")) {

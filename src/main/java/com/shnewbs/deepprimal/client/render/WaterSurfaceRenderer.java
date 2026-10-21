@@ -37,7 +37,9 @@ public final class WaterSurfaceRenderer {
           .withFragmentShader(Identifier.fromNamespaceAndPath("deepprimal", "core/surface_water"))
           .withSampler("NativeLight")
           .withVertexFormat(DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES)
-          .withDepthStencilState(DepthStencilState.DEFAULT)
+          .withDepthStencilState(
+              new DepthStencilState(
+                  com.mojang.blaze3d.platform.CompareOp.LESS_THAN_OR_EQUAL, false))
           .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
           .withCull(false)
           .build();
@@ -45,6 +47,19 @@ public final class WaterSurfaceRenderer {
   private HorizonGpuMesh patch;
   private int originX, originZ, radius;
   private long sampled;
+  private PatchBuild building;
+  private HorizonMesh pending;
+  private boolean pendingReady;
+  private int pendingX, pendingZ, pendingRadius;
+
+  public long residentBytes() {
+    return patch == null ? 0 : patch.byteSize;
+  }
+
+  public int pendingSamples() {
+    return building == null ? 0 : building.count - building.cursor;
+  }
+
   private final Matrix4f texture = new Matrix4f();
   private final Vector4f white = new Vector4f(1, 1, 1, 1);
 
@@ -53,6 +68,29 @@ public final class WaterSurfaceRenderer {
     if (mc.level != level || !WaterVisualConfig.WAVES.get()) {
       close();
       level = mc.level;
+    }
+    if (level == null || mc.player == null || !WaterVisualConfig.WAVES.get() || mc.isPaused())
+      return;
+    int r = WaterVisualConfig.WAVE_RADIUS.get();
+    int cx = Math.floorDiv(mc.player.blockPosition().getX(), 4) * 4;
+    int cz = Math.floorDiv(mc.player.blockPosition().getZ(), 4) * 4;
+    if (building == null
+        && !pendingReady
+        && (level.getGameTime() - sampled >= 10
+            || radius != r
+            || cx != originX + radius
+            || cz != originZ + radius)) building = new PatchBuild(cx, cz, r);
+    if (building != null) {
+      building.sample();
+      if (building.cursor == building.count) {
+        pending = building.finish();
+        pendingX = building.cx - building.r;
+        pendingZ = building.cz - building.r;
+        pendingRadius = building.r;
+        pendingReady = true;
+        building = null;
+        sampled = level.getGameTime();
+      }
     }
   }
 
@@ -70,25 +108,38 @@ public final class WaterSurfaceRenderer {
   }
 
   private void close() {
+    building = null;
+    pending = null;
+    pendingReady = false;
     if (patch != null) {
       patch.close();
       patch = null;
     }
   }
 
-  private void rebuild(int cx, int cz, int r, long ticks) {
-    close();
-    originX = cx - r;
-    originZ = cz - r;
-    radius = r;
-    sampled = ticks;
-    int cells = r, side = cells + 1, count = side * side;
-    float[] positions = new float[count * 3];
-    int[] colors = new int[count];
-    boolean[] valid = new boolean[count];
-    for (int z = 0; z < side; z++)
-      for (int x = 0; x < side; x++) {
-        int i = z * side + x, wx = originX + x * 2, wz = originZ + z * 2;
+  private final class PatchBuild {
+    final int cx, cz, r, cells, side, count;
+    final float[] positions;
+    final int[] colors;
+    final boolean[] valid;
+    int cursor;
+
+    PatchBuild(int cx, int cz, int r) {
+      this.cx = cx;
+      this.cz = cz;
+      this.r = r;
+      cells = r;
+      side = cells + 1;
+      count = side * side;
+      positions = new float[count * 3];
+      colors = new int[count];
+      valid = new boolean[count];
+    }
+
+    void sample() {
+      int end = Math.min(count, cursor + 256);
+      while (cursor < end) {
+        int i = cursor++, x = i % side, z = i / side, wx = cx - r + x * 2, wz = cz - r + z * 2;
         positions[i * 3] = x * 2;
         positions[i * 3 + 2] = z * 2;
         var p = new BlockPos(wx, 0, wz);
@@ -101,7 +152,8 @@ public final class WaterSurfaceRenderer {
             || !level.getFluidState(water.below(2)).is(FluidTags.WATER)) continue;
         boolean shore = false;
         for (var d : net.minecraft.core.Direction.Plane.HORIZONTAL)
-          if (!level.getFluidState(water.relative(d, 2)).is(FluidTags.WATER)) {
+          if (!level.hasChunkAt(water.relative(d, 2))
+              || !level.getFluidState(water.relative(d, 2)).is(FluidTags.WATER)) {
             shore = true;
             break;
           }
@@ -112,38 +164,36 @@ public final class WaterSurfaceRenderer {
             (int) Math.round(100 * fade) << 24 | (WaterColors.blended(level, water) & 0x00ffffff);
         valid[i] = true;
       }
-    int[] indices = new int[cells * cells * 6];
-    int next = 0;
-    for (int z = 0; z < cells; z++)
-      for (int x = 0; x < cells; x++) {
-        int a = z * side + x, b = a + side, c = a + 1, d = b + 1;
-        if (!valid[a] || !valid[b] || !valid[c] || !valid[d]) continue;
-        float h = positions[a * 3 + 1];
-        if (Math.abs(h - positions[b * 3 + 1]) > .1
-            || Math.abs(h - positions[c * 3 + 1]) > .1
-            || Math.abs(h - positions[d * 3 + 1]) > .1) continue;
-        indices[next++] = a;
-        indices[next++] = b;
-        indices[next++] = c;
-        indices[next++] = c;
-        indices[next++] = b;
-        indices[next++] = d;
-      }
-    if (next == 0) return;
-    patch =
-        HorizonGpuMesh.upload(
-            0,
-            0,
-            0,
-            new HorizonMesh(
-                positions,
-                colors,
-                Arrays.copyOf(indices, next),
-                new int[count],
-                new short[0],
-                level.getMinY(),
-                level.getMaxY()),
-            false);
+    }
+
+    HorizonMesh finish() {
+      int[] indices = new int[cells * cells * 6];
+      int next = 0;
+      for (int z = 0; z < cells; z++)
+        for (int x = 0; x < cells; x++) {
+          int a = z * side + x, b = a + side, c = a + 1, d = b + 1;
+          if (!valid[a] || !valid[b] || !valid[c] || !valid[d]) continue;
+          float h = positions[a * 3 + 1];
+          if (Math.abs(h - positions[b * 3 + 1]) > .1
+              || Math.abs(h - positions[c * 3 + 1]) > .1
+              || Math.abs(h - positions[d * 3 + 1]) > .1) continue;
+          indices[next++] = a;
+          indices[next++] = b;
+          indices[next++] = c;
+          indices[next++] = c;
+          indices[next++] = b;
+          indices[next++] = d;
+        }
+      if (next == 0) return null;
+      return new HorizonMesh(
+          positions,
+          colors,
+          Arrays.copyOf(indices, next),
+          new int[count],
+          new short[0],
+          level.getMinY(),
+          level.getMaxY());
+    }
   }
 
   @SubscribeEvent
@@ -154,13 +204,18 @@ public final class WaterSurfaceRenderer {
       close();
       level = mc.level;
     }
-    int r = WaterVisualConfig.WAVE_RADIUS.get();
+    if (pendingReady) {
+      var next = pending == null ? null : HorizonGpuMesh.upload(0, 0, 0, pending, false);
+      if (patch != null) patch.close();
+      patch = next;
+      originX = pendingX;
+      originZ = pendingZ;
+      radius = pendingRadius;
+      pending = null;
+      pendingReady = false;
+    }
     var camera = event.getLevelRenderState().cameraRenderState.pos;
-    int x = Math.floorDiv((int) Math.floor(camera.x), 4) * 4,
-        z = Math.floorDiv((int) Math.floor(camera.z), 4) * 4;
     long ticks = level.getGameTime();
-    if (ticks - sampled >= 10 || radius != r || x != originX + r || z != originZ + r)
-      rebuild(x, z, r, ticks);
     if (patch == null) return;
     texture
         .identity()

@@ -27,6 +27,10 @@ abstract class WaterFogMixin {
     if (!WaterVisualConfig.FOG.get()) return;
     int color = WaterColors.blended(level, camera.blockPosition());
     double clarity = Math.clamp(1 + ((color & 255) - (color >> 16 & 255)) / 90.0, .45, 2.5);
+    clarity *=
+        com.shnewbs.deepprimal.client.WaterPalettes.get(
+                level.getBiome(camera.blockPosition()).value())
+            .clarity();
     fog.environmentalEnd *= (float) clarity;
     fog.skyEnd = fog.cloudEnd = fog.environmentalEnd;
   }
@@ -36,6 +40,11 @@ abstract class WaterFogMixin {
       ClientLevel level, Camera camera, int range, float dt, CallbackInfoReturnable<Integer> ci) {
     if (!WaterVisualConfig.FOG.get()) return;
     int color = WaterColors.blended(level, camera.blockPosition());
+    color =
+        com.shnewbs.deepprimal.client.WaterPalettes.get(
+                level.getBiome(camera.blockPosition()).value())
+            .fogColor()
+            .orElse(color);
     double depth = Math.max(0, level.getSeaLevel() - camera.blockPosition().getY());
     ci.setReturnValue(
         0xff000000 | WaterDynamics.mix(color, 0x030c18, Math.clamp(depth / 384.0, .15, .9)));

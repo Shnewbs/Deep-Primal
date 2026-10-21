@@ -18,11 +18,17 @@ import net.minecraft.world.level.material.FlowingFluid;
  */
 public final class Precipitation {
   public static void tick(ServerLevel level, BlockPos column) {
-    if (!level.isRaining() || !level.hasChunkAt(column)) return;
+    if (!level.hasChunkAt(column)) return;
     BlockPos top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, column);
     var biome = level.getBiome(top).value();
     var kind = biome.getPrecipitationAt(top, level.getSeaLevel());
-    if (kind == Biome.Precipitation.RAIN && RiverConfig.RAIN_REFILL.get()) {
+    if (RiverConfig.GLOBAL_WINTER.get() && biome.hasPrecipitation())
+      kind = Biome.Precipitation.SNOW;
+    WeatherHydrology.tick(level, top, kind);
+    if (!level.isRaining()) return;
+    if (kind == Biome.Precipitation.RAIN
+        && RiverConfig.RAIN_REFILL.get()
+        && !FiniteWater.enabled()) {
       var p = top.below();
       var state = level.getBlockState(p);
       var fluid = state.getFluidState();
@@ -53,9 +59,10 @@ public final class Precipitation {
             : level.getBlockState(surface.below()).is(Blocks.SNOW) ? surface.below() : surface;
     BlockState state = level.getBlockState(pos);
     if (!state.isAir() && !state.is(Blocks.SNOW)) return;
-    int cap = RiverConfig.SNOW_CAP.get(), below = 0;
+    boolean unlimited = RiverConfig.UNLIMITED_SNOW.get();
+    int cap = unlimited ? Integer.MAX_VALUE : RiverConfig.SNOW_CAP.get(), below = 0;
     var cursor = pos.below().mutable();
-    while (below <= cap && level.getBlockState(cursor).is(Blocks.SNOW_BLOCK)) {
+    while (!unlimited && below <= cap && level.getBlockState(cursor).is(Blocks.SNOW_BLOCK)) {
       below += 8;
       cursor.move(net.minecraft.core.Direction.DOWN);
     }

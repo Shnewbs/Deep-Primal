@@ -83,6 +83,17 @@ public abstract class FogRendererMixin {
         buffer.putFloat(offset + 20, environmentalEnd * far / 1024);
       }
     }
+    float snow = com.shnewbs.deepprimal.client.SnowAtmosphere.density();
+    if (snow > .01f && mc != null && mc.player != null && !mc.player.isUnderWater()) {
+      float visibility = 384 - snow * 256;
+      buffer.putFloat(offset + 16, Math.min(buffer.getFloat(offset + 16), visibility * .25f));
+      buffer.putFloat(offset + 20, Math.min(buffer.getFloat(offset + 20), visibility));
+      buffer.putFloat(offset, buffer.getFloat(offset) * (1 - snow * .15f) + .78f * snow * .15f);
+      buffer.putFloat(
+          offset + 4, buffer.getFloat(offset + 4) * (1 - snow * .15f) + .84f * snow * .15f);
+      buffer.putFloat(
+          offset + 8, buffer.getFloat(offset + 8) * (1 - snow * .15f) + .9f * snow * .15f);
+    }
     buffer.position(offset + FogRenderer.FOG_UBO_SIZE);
   }
 }

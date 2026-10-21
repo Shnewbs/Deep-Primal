@@ -32,7 +32,6 @@ abstract class FarmWaterMixin {
         || !(c.getEntity() instanceof Player p)
         || !RiverConfig.FARM_WALKING.get()
         || !state.getFluidState().is(net.minecraft.tags.FluidTags.WATER)
-        || !state.getFluidState().isSource()
         || p.getY() < pos.getY() + .85
         || p.isShiftKeyDown()) return;
     for (Direction d : Direction.Plane.HORIZONTAL)

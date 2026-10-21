@@ -33,7 +33,9 @@ public record SnowFoliage(BlockTintSource delegate) implements BlockTintSource {
     var world = Minecraft.getInstance().level;
     if (world == null
         || !world.hasChunkAt(pos)
-        || !world.getBiome(pos).value().coldEnoughToSnow(pos, world.getSeaLevel())) return original;
+        || !(com.shnewbs.deepprimal.water.RiverConfig.GLOBAL_WINTER.get()
+            || world.getBiome(pos).value().coldEnoughToSnow(pos, world.getSeaLevel())))
+      return original;
     var above = level.getBlockState(pos.above());
     if (!above.is(Blocks.SNOW) && !above.is(Blocks.SNOW_BLOCK) && !world.isRaining())
       return original;

@@ -12,10 +12,16 @@ import net.minecraft.world.level.block.Blocks;
 
 final class WaterClientChecks {
   static void run(Minecraft mc) {
-    var legacy=com.mojang.serialization.JsonOps.INSTANCE;
-    var state=net.minecraft.world.level.block.state.BlockState.CODEC.parse(legacy,
-        com.google.gson.JsonParser.parseString("{\"Name\":\"deepprimal:river_water\",\"Properties\":{\"current\":\"11\",\"level\":\"0\"}}")).getOrThrow();
-    if(state.getValue(com.shnewbs.deepprimal.water.RiverWaterBlock.SPEED)!=1)throw new AssertionError("Old river state did not default to normal speed");
+    var legacy = com.mojang.serialization.JsonOps.INSTANCE;
+    var state =
+        net.minecraft.world.level.block.state.BlockState.CODEC
+            .parse(
+                legacy,
+                com.google.gson.JsonParser.parseString(
+                    "{\"Name\":\"deepprimal:river_water\",\"Properties\":{\"current\":\"11\",\"level\":\"0\"}}"))
+            .getOrThrow();
+    if (state.getValue(com.shnewbs.deepprimal.water.RiverWaterBlock.SPEED) != 1)
+      throw new AssertionError("Old river state did not default to normal speed");
     boolean original = WaterVisualConfig.COLORS.get();
     var screen = new WaterVisualSettingsScreen(null);
     mc.setScreen(screen);
@@ -57,8 +63,8 @@ final class WaterClientChecks {
     }
     mc.setScreen(null);
     System.out.println(
-        "WATER_CLIENT_PASS oldSpeedDefault=1 stagedToggles=true cancel=true inputBounds=true frostPalettes=3"
-            + " opaqueTints=35 negativeJoinContinuity=true");
+        "WATER_CLIENT_PASS oldSpeedDefault=1 stagedToggles=true cancel=true inputBounds=true"
+            + " frostPalettes=3 opaqueTints=35 negativeJoinContinuity=true");
   }
 
   static void surface() throws Exception {
@@ -72,6 +78,35 @@ final class WaterClientChecks {
     if (bytes.getLong(patch) > 256 * 1024)
       throw new AssertionError("Ocean patch exceeds bounded budget");
     System.out.println("OCEAN_SURFACE_PASS bytes=" + bytes.getLong(patch));
+  }
+
+  static void seedWakes() throws Exception {
+    var mc = Minecraft.getInstance();
+    var renderer = com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE;
+    var member = renderer.getClass().getDeclaredField("field");
+    member.setAccessible(true);
+    var field = (com.shnewbs.deepprimal.core.WakeField) member.get(renderer);
+    var top =
+        mc.level
+            .getHeightmapPos(
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,
+                mc.player.blockPosition())
+            .below();
+    if (!mc.level.getFluidState(top).is(net.minecraft.tags.FluidTags.WATER))
+      throw new AssertionError("Wake fixture is not over water");
+    for (int i = 0; i < 24; i++)
+      field.add(top.getX() + i * .25, top.getY() + .905, top.getZ() + 2, 1, .2, 1);
+    System.out.println("WAKE_SEED_READY");
+  }
+
+  static void wakes() throws Exception {
+    var renderer = com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE;
+    var member = renderer.getClass().getDeclaredField("count");
+    member.setAccessible(true);
+    int count = member.getInt(renderer);
+    if (renderer.residentBytes() != 12288 || count < 6 || count > 768)
+      throw new AssertionError("Persistent wake buffer bounds");
+    System.out.println("WAKE_MESH_PASS bufferBytes=12288 vertices=" + count + " reused=true");
   }
 
   private static Button button(net.minecraft.client.gui.screens.Screen screen, String prefix) {

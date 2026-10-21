@@ -32,3 +32,8 @@ Graphics API selection requires restart. OpenGL remains the default; known exter
 ## River ownership — alpha 13
 
 Drainage math stays in `engine-core`. Native terrain/aquifer integration stays in root `worldgen`; persistent current blocks and server-synced force settings live in root `water`. One common fluid-vector mixin integrates native physics and fluid rendering. Water code imports no Vulkan, graphics-settings or performance implementation. Native boat/item physics handles drift without an additional boat-force hook. This is an extraction-friendly package boundary, not a separately distributable water module yet. Existing worlds containing registered river blocks need the root mod to remain installed.
+
+
+## Alpha 16 ownership
+
+`engine-core` owns finite-volume, stamina, wave and wake math. The root mod owns server hydrology, saved soil attachments, native machine ports and worldgen adaptation. Client palettes, snow atmosphere and water meshes stay in the root client package. Graphics/performance controls remain in their existing modules; Vulkan is still its own optional module. No gameplay or core code imports the Vulkan implementation.

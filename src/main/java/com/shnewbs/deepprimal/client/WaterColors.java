@@ -8,6 +8,8 @@ import net.minecraft.world.level.biome.Biome;
 
 public final class WaterColors {
   public static int palette(Biome biome) {
+    var override = WaterPalettes.get(biome).color();
+    if (override.isPresent()) return override.get();
     return WaterDynamics.palette(
         biome.getWaterColor(), biome.getBaseTemperature(), biome.hasPrecipitation() ? 1 : 0);
   }
