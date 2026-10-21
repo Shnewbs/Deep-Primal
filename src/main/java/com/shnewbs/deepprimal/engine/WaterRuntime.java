@@ -10,6 +10,9 @@ import net.minecraft.world.level.block.Blocks;
  * Server-thread-only, bounded finite transport. Unloaded borders are sealed, never force-loaded.
  */
 public final class WaterRuntime {
+  private static final Direction[] SIDES = {
+    Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
+  };
   private static final WeakHashMap<ServerLevel, Budget> BUDGETS = new WeakHashMap<>();
 
   private static final class Budget {
@@ -48,16 +51,16 @@ public final class WaterRuntime {
       budget.time = t;
       budget.count = 0;
     }
-    if (budget.count++ >= 2048) {
+    if (budget.count >= 2048) {
       level.scheduleTick(p, EngineRegistry.WATER.get(), 2);
       return;
     }
+    budget.count++;
     if (units(level, p) == 0) return;
     boolean moved = move(level, p, p.below(), true);
     int rotate = Math.floorMod(p.hashCode() + (int) t, 4);
-    Direction[] sides = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
     for (int n = 0; n < 4 && units(level, p) > 1; n++)
-      moved |= move(level, p, p.relative(sides[(rotate + n) % 4]), false);
+      moved |= move(level, p, p.relative(SIDES[(rotate + n) & 3]), false);
     if (moved && units(level, p) > 0) level.scheduleTick(p, EngineRegistry.WATER.get(), 2);
   }
 
@@ -66,7 +69,7 @@ public final class WaterRuntime {
     var e = WaterTransport.exchange(units(l, a), units(l, b), down);
     if (e.moved() == 0) return false;
     int dx = b.getX() - a.getX(), dz = b.getZ() - a.getZ();
-    int flow = down ? 16 : Math.floorMod((int) Math.round(Math.atan2(dz, dx) * 8 / Math.PI), 16);
+    int flow = down ? 16 : dx > 0 ? 0 : dz > 0 ? 4 : dx < 0 ? 8 : 12;
     set(l, a, e.from(), flow);
     set(l, b, e.to(), flow);
     return true;

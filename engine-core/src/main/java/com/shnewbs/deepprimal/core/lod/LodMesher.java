@@ -68,53 +68,154 @@ public final class LodMesher {
             data[(z * n + x) * h + y] = selected;
           }
     Builder b = new Builder(c.minY);
-    for (int z = 0; z < n; z++)
-      for (int x = 0; x < n; x++) {
-        if (Thread.currentThread().isInterrupted())
-          throw new java.util.concurrent.CancellationException();
-        int base = (z * n + x) * h;
-        float x0 = x * step, x1 = x0 + step, z0 = z * step, z1 = z0 + step;
-        for (int y = 0; y < h; y++) {
-          int v = data[base + y];
-          if (v == 0) continue;
-          float yy = c.minY + y;
-          float surface = yy + (water(v) ? Math.clamp(((v >>> 24) - 224) / 16f, 1 / 16f, 1) : 1);
-          if (exposed(v, y + 1 < h ? data[base + y + 1] : 0))
-            b.quad(v, 0, 1, 0, x0, surface, z0, x0, surface, z1, x1, surface, z1, x1, surface, z0);
-          if (exposed(v, y > 0 ? data[base + y - 1] : 0))
-            b.quad(v, 0, -1, 0, x0, yy, z0, x1, yy, z0, x1, yy, z1, x0, yy, z1);
-        }
-        for (int side = 0; side < 4; side++) {
-          int nx = x + (side == 0 ? -1 : side == 1 ? 1 : 0),
-              nz = z + (side == 2 ? -1 : side == 3 ? 1 : 0),
-              neighbor = nx >= 0 && nz >= 0 && nx < n && nz < n ? (nz * n + nx) * h : -1;
-          for (int y = 0; y < h; ) {
-            int v = data[base + y];
-            if (!exposed(v, neighbor < 0 ? 0 : data[neighbor + y])) {
-              y++;
-              continue;
-            }
-            int end = y + 1;
-            while (end < h
-                && data[base + end] == v
-                && exposed(v, neighbor < 0 ? 0 : data[neighbor + end])) end++;
-            float lo = c.minY + y,
-                hi =
-                    c.minY
-                        + end
-                        - (water(v) ? 1 - Math.clamp(((v >>> 24) - 224) / 16f, 1 / 16f, 1) : 0);
-            if (side < 2) {
-              float xx = side == 0 ? x0 : x1;
-              b.quad(v, side == 0 ? -1 : 1, 0, 0, xx, lo, z0, xx, hi, z0, xx, hi, z1, xx, lo, z1);
-            } else {
-              float zz = side == 2 ? z0 : z1;
-              b.quad(v, 0, 0, side == 2 ? -1 : 1, x0, lo, zz, x1, lo, zz, x1, hi, zz, x0, hi, zz);
-            }
-            y = end;
+    long[] mask = new long[n * Math.max(n, h)];
+    // Each mask plane is greedily merged only across equal material and fluid height.
+    for (int y = 0; y < h; y++) {
+      checkInterrupted();
+      for (int side = 0; side < 2; side++) {
+        for (int z = 0; z < n; z++)
+          for (int x = 0; x < n; x++) {
+            int base = (z * n + x) * h, v = data[base + y];
+            int neighborY = y + (side == 0 ? 1 : -1);
+            int other = neighborY >= 0 && neighborY < h ? data[base + neighborY] : 0;
+            boolean visible = exposed(v, other);
+            // A partial water layer has a free top even below another occupied cell.
+            if (side == 0 && water(v) && units(v) < 16 && !water(other)) visible = true;
+            mask[z * n + x] = visible ? Integer.toUnsignedLong(v) : 0;
           }
-        }
+        final int yy = y, face = side;
+        rectangles(
+            mask,
+            n,
+            n,
+            false,
+            (x, z, w, d, key) -> {
+              int v = (int) key;
+              float x0 = x * step, x1 = (x + w) * step, z0 = z * step, z1 = (z + d) * step;
+              float height = c.minY + yy + (face == 0 ? units(v) / 16f : 0);
+              if (face == 0)
+                b.quad(v, 0, 1, 0, x0, height, z0, x0, height, z1, x1, height, z1, x1, height, z0);
+              else
+                b.quad(v, 0, -1, 0, x0, height, z0, x1, height, z0, x1, height, z1, x0, height, z1);
+            });
+      }
+    }
+    for (int side = 0; side < 4; side++)
+      for (int plane = 0; plane < n; plane++) {
+        checkInterrupted();
+        for (int y = 0; y < h; y++)
+          for (int along = 0; along < n; along++) {
+            int x = side < 2 ? plane : along, z = side < 2 ? along : plane;
+            int nx = x + (side == 0 ? -1 : side == 1 ? 1 : 0);
+            int nz = z + (side == 2 ? -1 : side == 3 ? 1 : 0);
+            int v = data[(z * n + x) * h + y];
+            int other = nx >= 0 && nz >= 0 && nx < n && nz < n ? data[(nz * n + nx) * h + y] : 0;
+            int low = 0, high = height(data, (z * n + x) * h, y, h);
+            int otherHeight =
+                nx >= 0 && nz >= 0 && nx < n && nz < n ? height(data, (nz * n + nx) * h, y, h) : 0;
+            boolean visible = exposed(v, other);
+            if (water(v) && water(other) && high > otherHeight) {
+              visible = true;
+              low = otherHeight;
+            }
+            mask[y * n + along] =
+                visible ? (Integer.toUnsignedLong(v) << 10) | (low << 5) | high : 0;
+          }
+        final int direction = side, axis = plane;
+        rectangles(
+            mask,
+            n,
+            h,
+            true,
+            (along, y, w, d, key) -> {
+              int v = (int) (key >>> 10), low = (int) (key >>> 5) & 31, high = (int) key & 31;
+              float a = along * step, end = (along + w) * step;
+              float lo = c.minY + y + low / 16f, hi = c.minY + y + d - 1 + high / 16f;
+              float position = (axis + (direction == 1 || direction == 3 ? 1 : 0)) * step;
+              if (direction < 2)
+                b.quad(
+                    v,
+                    direction == 0 ? -1 : 1,
+                    0,
+                    0,
+                    position,
+                    lo,
+                    a,
+                    position,
+                    hi,
+                    a,
+                    position,
+                    hi,
+                    end,
+                    position,
+                    lo,
+                    end);
+              else
+                b.quad(
+                    v,
+                    0,
+                    0,
+                    direction == 2 ? -1 : 1,
+                    a,
+                    lo,
+                    position,
+                    end,
+                    lo,
+                    position,
+                    end,
+                    hi,
+                    position,
+                    a,
+                    hi,
+                    position);
+            });
       }
     return b.finish();
+  }
+
+  private static int units(int color) {
+    return color == 0 ? 0 : water(color) ? Math.clamp((color >>> 24) - 224, 1, 16) : 16;
+  }
+
+  private static int height(int[] data, int base, int y, int h) {
+    int v = data[base + y];
+    return water(v) && y + 1 < h && water(data[base + y + 1]) ? 16 : units(v);
+  }
+
+  private static void checkInterrupted() {
+    if (Thread.currentThread().isInterrupted())
+      throw new java.util.concurrent.CancellationException();
+  }
+
+  @FunctionalInterface
+  private interface Rectangle {
+    void emit(int x, int y, int width, int height, long key);
+  }
+
+  private static void rectangles(
+      long[] mask, int width, int height, boolean vertical, Rectangle emit) {
+    for (int y = 0; y < height; y++)
+      for (int x = 0; x < width; ) {
+        long key = mask[y * width + x];
+        if (key == 0) {
+          x++;
+          continue;
+        }
+        int w = 1, h = 1;
+        while (x + w < width && mask[y * width + x + w] == key) w++;
+        // Fractional water sides have a gap between layers and must remain separate.
+        boolean fullHeight = !vertical || (key & 1023) == 16;
+        if (fullHeight)
+          outer:
+          while (y + h < height) {
+            for (int dx = 0; dx < w; dx++) if (mask[(y + h) * width + x + dx] != key) break outer;
+            h++;
+          }
+        emit.emit(x, y, w, h, key);
+        for (int dy = 0; dy < h; dy++)
+          Arrays.fill(mask, (y + dy) * width + x, (y + dy) * width + x + w, 0);
+        x += w;
+      }
   }
 
   private static final class Builder {

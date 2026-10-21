@@ -145,6 +145,46 @@ public final class IntegratedServerChecks {
         require(
             afterImport == 24,
             "Native source conversion bypasses legacy solver and preserves eight imported units");
+        // Simulate dormant worldgen water: section write deliberately schedules no tick.
+        var edgeSource = new BlockPos(95, 520, 8);
+        var edgeTarget = edgeSource.east();
+        level.getChunk(6, 0);
+        for (var point : List.of(edgeSource, edgeTarget))
+          for (var direction : net.minecraft.core.Direction.values())
+            level.setBlock(point.relative(direction), Blocks.STONE.defaultBlockState(), 2);
+        level.setBlock(edgeSource, Blocks.AIR.defaultBlockState(), 2);
+        level.setBlock(edgeTarget, Blocks.AIR.defaultBlockState(), 2);
+        var edgeChunk = level.getChunk(5, 0);
+        edgeChunk
+            .getSection(edgeChunk.getSectionIndex(520))
+            .setBlockState(15, 520 & 15, 8, EngineRegistry.WATER_BLOCK.get().defaultBlockState());
+        require(
+            !level.getFluidTicks().hasScheduledTick(edgeSource, EngineRegistry.WATER.get()),
+            "Dormant border fixture");
+        var wake = new WaterBorderWake();
+        wake.enqueue(level, 5, 0);
+        for (int n = 0; n < 160; n++) wake.step(level);
+        require(
+            level.getFluidTicks().hasScheduledTick(edgeSource, EngineRegistry.WATER.get()),
+            "Loaded border wakes dormant water");
+        WaterRuntime.tick(level, edgeSource);
+        require(
+            WaterRuntime.units(level, edgeTarget) > 0
+                && WaterRuntime.units(level, edgeSource) + WaterRuntime.units(level, edgeTarget)
+                    == 16,
+            "Water crosses loaded border and conserves volume");
+        wake.enqueue(level, 200000, 200000);
+        wake.step(level);
+        require(
+            level
+                    .getChunkSource()
+                    .getChunk(
+                        200000,
+                        200000,
+                        net.minecraft.world.level.chunk.status.ChunkStatus.FULL,
+                        false)
+                == null,
+            "Border wake never loads chunks");
         // Freeze one measured cell so persistence is checked independently of scheduled transport.
         for (var d : net.minecraft.core.Direction.values())
           level.setBlock(stored.relative(d), Blocks.STONE.defaultBlockState(), 2);
@@ -196,7 +236,8 @@ public final class IntegratedServerChecks {
                 + level.getMinY()
                 + " height="
                 + level.getHeight()
-                + " nativeImportWithLegacyEnabled=true waterUnits="
+                + " borderWake=true noForcedChunks=true nativeImportWithLegacyEnabled=true"
+                + " waterUnits="
                 + total
                 + " lodBytes="
                 + mesh.bytes()

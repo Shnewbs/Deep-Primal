@@ -28,6 +28,14 @@ neoForge {
         client {
             client()
             gameDirectory = project.file(findProperty('clientRunDir') ?: 'run')
+            if (project.hasProperty('worldCreationValidation')) {
+                systemProperty 'deepprimal.validationWorldCreation','true'
+                systemProperty 'deepprimal.validationCreationMode',findProperty('creationMode') ?: 'fresh'
+                systemProperty 'deepprimal.validationCapture',project.file(findProperty('captureDir') ?: 'build/world-creation-validation').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+                jvmArgument '-Xmx2G'
+            }
+            if (project.hasProperty('lodHotEdits')) systemProperty 'deepprimal.validationLodHotEdits', 'true'
             if (project.hasProperty('engineValidation')) { systemProperty 'deepprimal.validationEngine', 'true'; programArguments.addAll '--width','1200','--height','800' }
             if (project.hasProperty('engineScenes')) systemProperty 'deepprimal.validationEngineScenes','true'
             if (project.hasProperty('engineReopen')) systemProperty 'deepprimal.validationEngineReopen', 'true'
@@ -92,7 +100,7 @@ if (project.hasProperty('packagedValidation')) {
     ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {
         dependsOn tasks.named('jar')
         doFirst {
-            String paths = 'deepprimal%%' + tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+            String paths = 'deepprimal%%' + project.file(findProperty('validationJar') ?: tasks.named('jar').get().archiveFile.get().asFile).absolutePath
             if (project.hasProperty('visualValidation'))
                 paths += File.pathSeparator + 'deepprimal%%' + sourceSets.visualValidation.output.classesDirs.singleFile.absolutePath
             environment 'MOD_CLASSES', paths

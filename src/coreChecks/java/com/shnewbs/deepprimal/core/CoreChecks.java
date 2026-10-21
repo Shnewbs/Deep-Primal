@@ -6,6 +6,7 @@ import java.util.Random;
 public final class CoreChecks {
   public static void main(String[] args) {
     IntegratedEngineChecks.run();
+    EngineAuditChecks.run();
     WaterwayChecks.run();
     DrainageChecks.run();
     RuntimeChecks.run();

@@ -24,7 +24,10 @@ public final class TerrainEngine {
     }
   }
 
-  private record Land(int x, int z, double cx, double cz, double rx, double rz, double angle) {}
+  private record Land(
+      int x, int z, double cx, double cz, double rx, double rz, double cos, double sin) {}
+
+  private record Location(Land land, double mask) {}
 
   public final TerrainNoise noise;
   private final java.util.concurrent.ConcurrentHashMap<Long, Land> shapes =
@@ -49,6 +52,7 @@ public final class TerrainEngine {
   }
 
   private Land createLand(int x, int z) {
+    double angle = noise.hash(x, z, 5) * Math.PI;
     return new Land(
         x,
         z,
@@ -56,37 +60,44 @@ public final class TerrainEngine {
         z * (double) CELL + (noise.hash(x, z, 2) - .5) * 650,
         2550 + noise.hash(x, z, 3) * 650,
         2350 + noise.hash(x, z, 4) * 700,
-        noise.hash(x, z, 5) * Math.PI);
+        Math.cos(angle),
+        Math.sin(angle));
   }
 
   private double mask(Land i, double x, double z) {
     double wx = x + noise.field(x, z, 1700, 21) * 350 + noise.field(x, z, 430, 25) * 65;
     double wz = z + noise.field(x, z, 1700, 29) * 350 + noise.field(x, z, 430, 31) * 65;
-    double dx = wx - i.cx, dz = wz - i.cz, c = Math.cos(i.angle), s = Math.sin(i.angle);
+    return mask(i, wx, wz, noise.field(x, z, 270, 37) * .035);
+  }
+
+  private double mask(Land i, double wx, double wz, double coast) {
+    double dx = wx - i.cx, dz = wz - i.cz, c = i.cos, s = i.sin;
     double nx = (dx * c - dz * s) / i.rx, nz = (dx * s + dz * c) / i.rz;
     // Connected overlapping provinces produce bays and peninsulas rather than circular islands.
     double core = 1 - Math.hypot(nx / .80, nz / .67);
     double north = (1 - Math.hypot((nx - .42) / .51, (nz + .25) / .55)) * .7;
     double south = (1 - Math.hypot((nx + .45) / .50, (nz - .25) / .49)) * .7;
     double island = (1 - Math.hypot((nx - .90) / .13, (nz - .28) / .18)) * .35;
-    return Math.max(Math.max(core, north), Math.max(south, island))
-        + noise.field(x, z, 270, 37) * .035;
+    return Math.max(Math.max(core, north), Math.max(south, island)) + coast;
   }
 
-  private Land owner(double x, double z) {
+  private Location locate(double x, double z) {
+    double wx = x + noise.field(x, z, 1700, 21) * 350 + noise.field(x, z, 430, 25) * 65;
+    double wz = z + noise.field(x, z, 1700, 29) * 350 + noise.field(x, z, 430, 31) * 65;
+    double coast = noise.field(x, z, 270, 37) * .035;
     int cx = (int) Math.floor(x / CELL + .5), cz = (int) Math.floor(z / CELL + .5);
     Land best = null;
     double score = -Double.MAX_VALUE;
     for (int dz = -1; dz <= 1; dz++)
       for (int dx = -1; dx <= 1; dx++) {
         Land l = land(cx + dx, cz + dz);
-        double m = mask(l, x, z);
+        double m = mask(l, wx, wz, coast);
         if (m > score) {
           score = m;
           best = l;
         }
       }
-    return best;
+    return new Location(best, score);
   }
 
   public double rainfall(double x, double z) {
@@ -99,11 +110,14 @@ public final class TerrainEngine {
   }
 
   public double raw(double x, double z) {
-    return raw(owner(x, z), x, z);
+    return raw(locate(x, z).mask, x, z);
   }
 
   private double raw(Land l, double x, double z) {
-    double m = mask(l, x, z);
+    return raw(mask(l, x, z), x, z);
+  }
+
+  private double raw(double m, double x, double z) {
     if (m < 0)
       return SEA
           - 5
@@ -152,8 +166,9 @@ public final class TerrainEngine {
   }
 
   public Sample sample(double x, double z) {
-    Land l = owner(x, z);
-    double ground = raw(l, x, z), rain = rainfall(x, z);
+    Location location = locate(x, z);
+    Land l = location.land;
+    double ground = raw(location.mask, x, z), rain = rainfall(x, z);
     double temperature =
         Math.clamp(.62 + noise.field(x, z, 6500, 85) * .4 - Math.max(0, ground - 160) / 420, 0, 1);
     double slope =
@@ -217,7 +232,7 @@ public final class TerrainEngine {
   }
 
   public void verify(double x, double z) {
-    Drainage d = plan(owner(x, z));
+    Drainage d = plan(locate(x, z).land);
     for (int a = 0; a < COUNT; a++) {
       int b = d.parent[a];
       if (b >= 0 && (d.order[b] >= d.order[a] || d.surface[b] > d.surface[a]))

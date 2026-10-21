@@ -1,8 +1,8 @@
 # Deep Primal
 
-**0.0.1-alpha.17 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**0.0.1-alpha.18 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is a standalone survival total conversion under development. Alpha 17 integrates an independently authored Overworld terrain/liquid engine, an actual-chunk LOD renderer and a custom graphics screen into the existing Deep Primal mod. The project has not been renamed. The separate `standalone-engine/` experiment remains historical source and is not included in the installer.
+Deep Primal is a standalone survival total conversion under development. Alpha 18 audits the alpha 17 foundation: it recovers KubeJS registry context after a failed world load, removes missing water-model warnings, reuses terrain calculations, merges LOD faces and wakes dormant water across loaded chunk borders. Alpha 17 integrated an independently authored Overworld terrain/liquid engine, an actual-chunk LOD renderer and a custom graphics screen into the existing Deep Primal mod. The project has not been renamed. The separate `standalone-engine/` experiment remains historical source and is not included in the installer.
 
 ## Current foundation
 
@@ -32,15 +32,16 @@ Use Java 25 and the Gradle wrapper:
 ./gradlew build -PvulkanPlatform=linux
 ```
 
-The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.17.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Each installer includes core, common performance and graphics settings. No new runtime dependency was added for terrain/LOD/UI.
+The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.18.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Each installer includes core, common performance and graphics settings. No new runtime dependency was added for terrain/LOD/UI.
 
 ## Scope and evidence
 
-This is an engine alpha, not visual acceptance of the full world design. Connected regional drainage and material fields are implemented foundations; complete river/lake spillways, cross-watershed contracts, erosion/sediment simulation, structural connectivity checks, pressure/displacement, groundwater/recharge and breaking shoreline surf remain unfinished. New native vegetation/coastal scenes still require broader fixed-seed refinement. Near-block meshing remains the host renderer; we have not built a wholesale replacement graphics API or demonstrated higher FPS than Sodium or Distant Horizons.
+This is an engine alpha, not visual acceptance of the full world design. Connected regional drainage and material fields are implemented foundations; complete river/lake spillways, cross-watershed contracts, erosion/sediment simulation, structural connectivity checks, pressure/displacement, groundwater/recharge and breaking shoreline surf remain unfinished. Current visual defects include repeated river basins, abrupt exposed LOD page walls and placeholder tree shapes. Those remain open; this audit preserves the existing terrain version rather than changing saved-world geography. New native vegetation/coastal scenes still require broader fixed-seed refinement. Near-block meshing remains the host renderer; we have not built a wholesale replacement graphics API or demonstrated higher FPS than Sodium or Distant Horizons.
 
 TFC informs geology/climate/drainage, Terralith terrain variety, and Tectonic continental relief. Their source/assets are not bundled. Gaea/World Machine methods guide independent algorithms; no proprietary engine is embedded. Distant Horizons, Nanite and Cesium are references. The earlier LWJGL meshoptimizer probe remains development-only, with no shipping meshoptimizer/clusterlod integration. Environmental catalogs remain planning-only.
 
-- [Alpha 17 validation, reproducible tests and limits](docs/VALIDATION-0.0.1-alpha.17.md)
+- [Alpha 18 audit, regression tests and limits](docs/VALIDATION-0.0.1-alpha.18.md)
+- [Alpha 17 integrated foundation](docs/VALIDATION-0.0.1-alpha.17.md)
 - [Engine/LOD architecture and reference decisions](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md)
 - [Install, settings and diagnostics](docs/WORLDGEN-PROTOTYPE.md)
 - [Module ownership and package profiles](docs/MODULES.md)

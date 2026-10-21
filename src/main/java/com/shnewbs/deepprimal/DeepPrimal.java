@@ -55,6 +55,7 @@ public final class DeepPrimal {
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.WaterEnvironment());
     com.shnewbs.deepprimal.engine.EngineRegistry.register(modBus);
+    NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.WaterBorderWake());
     TICKETS.register(modBus);
     DENSITIES.register("column_surface", () -> ColumnSurface.MAP_CODEC);
     DENSITIES.register(

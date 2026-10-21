@@ -14,7 +14,8 @@
     "OceanBoatMixin",
     "PrecipitationMixin",
     "FiniteWaterMixin",
-    "WaterImportMixin"
+    "WaterImportMixin",
+    "compat.KubeJsRegistryContextMixin"
   ],
   "client": [
     "client.OptionsMixin",

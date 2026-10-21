@@ -140,6 +140,8 @@ public final class IntegratedClientChecks {
       return;
     }
     var lod = VoxelLodRenderer.INSTANCE;
+    if (Boolean.getBoolean("deepprimal.validationLodHotEdits") && (stage == 1 || stage == 2))
+      lod.dirty(0, 0);
     if (ticks % 100 == 0)
       System.out.println(
           "INTEGRATED_PROGRESS stage="
@@ -160,6 +162,8 @@ public final class IntegratedClientChecks {
               + lod.status);
     if (stage == 3 && ticks == 200) capture(mc, "lod-wait-diagnostic");
     if (stage == 1 && ticks > 100 && lod.snapshotRevision(0, 0) > 0 && lod.uploadedChunks > 12) {
+      if (Boolean.getBoolean("deepprimal.validationLodHotEdits"))
+        record.append("LOD_HOT_UPDATES_PROGRESS_PASS continuousInvalidation=true\n");
       capture(mc, "terrain-native");
       oldRevision = lod.snapshotRevision(0, 0);
       mc.getSingleplayerServer()

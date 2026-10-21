@@ -2,6 +2,8 @@
 
 Status, 2026-10-21: **governing direction with an integrated alpha 17 implementation.** Deep Primal has not been renamed. New normal worlds now select our original terrain/biome/fluid path. The actual-chunk LOD and custom graphics screen are integrated into the main mod. Previous terrain profiles/modules remain available for compatibility; the separate alpha.1 experiment remains historical and is not shipped. This is a working foundation, not final visual/performance acceptance. See [validation](VALIDATION-0.0.1-alpha.17.md).
 
+Alpha 18 adds an audit and recovery pass: registry context composition for KubeJS, bit-exact terrain calculation reuse, greedy voxel faces, sorted memory-pressure eviction, fair live/disk scheduling, progress under continuous fluid edits, best-effort disk persistence and bounded fluid border wake-up. See [alpha 18 evidence](VALIDATION-0.0.1-alpha.18.md). Current river basin repetition, synthetic LOD page walls and placeholder vegetation remain unresolved visual defects; the existing version-one geography is preserved.
+
 ## Built-in terrain engine requirements and inspiration
 
 The target is our own Overworld generator and biome/region decisions: original continents, connected relief/drainage/lakes, geological/climate fields, terrain-derived material rules and deliberate feature placement. Use Minecraft/NeoForge as host infrastructure; do not delegate those world-design decisions to the standard vanilla Overworld noise/biome pipeline. Generic noise functions and serialized data are implementation tools, not evidence of vanilla or original terrain by themselves. Nether/End remain native in the current prototypes; no replacement of those dimensions is claimed.

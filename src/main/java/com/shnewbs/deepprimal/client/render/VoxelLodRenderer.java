@@ -39,14 +39,16 @@ public final class VoxelLodRenderer {
           .withCull(false)
           .build();
 
-  private record Entry(long revision, List<List<HorizonGpuMesh>> levels, long bytes, int[] selected)
+  private record Entry(
+      long revision, List<List<HorizonGpuMesh>> levels, long bytes, int[] selected, int top)
       implements AutoCloseable {
     public void close() {
       levels.forEach(l -> l.forEach(HorizonGpuMesh::close));
     }
   }
 
-  private record Ready(long session, long key, long revision, LodMesher.Levels levels) {}
+  private record Ready(
+      long session, long key, long revision, LodMesher.Levels levels, boolean captured) {}
 
   private final ArrayList<com.mojang.blaze3d.systems.RenderPass.Draw<Void>> draws =
       new ArrayList<>();
@@ -56,8 +58,10 @@ public final class VoxelLodRenderer {
   private final ArrayDeque<Long> disk = new ArrayDeque<>();
   private ThreadPoolExecutor worker;
   private Future<Ready> future;
+  private Long workingKey;
+  private volatile boolean persistenceFailed;
   private PendingGpu pendingGpu;
-  private int ticks;
+  private int ticks, captureBurst;
   private final Matrix4f drawMatrix = new Matrix4f(), textureIdentity = new Matrix4f();
   private final Vector4f white = new Vector4f(1, 1, 1, 1);
   private net.minecraft.client.renderer.DynamicUniforms.Transform[] transformPool =
@@ -141,7 +145,7 @@ public final class VoxelLodRenderer {
     if (dirty.size() > 4096) {
       long first = dirty.keySet().iterator().next();
       dirty.remove(first);
-      if (!cache.containsKey(first)) latest.remove(first);
+      forgetUnused(first);
     }
   }
 
@@ -266,6 +270,7 @@ public final class VoxelLodRenderer {
         || ++ticks % (int) Math.ceil(LodConfig.CAPTURES.get() / ClientWorkPacer.fraction()) != 0)
       return;
     if (ClientPerformanceConfig.PAUSE_BACKGROUND.get() && !mc.isWindowActive()) return;
+    if (captureBurst >= 3 && startDiskJob()) return;
     long start = System.nanoTime();
     int count = 0;
     while (!dirty.isEmpty() && count++ < 1 && System.nanoTime() - start < 2_000_000) {
@@ -282,40 +287,58 @@ public final class VoxelLodRenderer {
       long epoch = session;
       LodStore writer = store;
       long bytes = LodConfig.DISK.get() * 1048576L;
-      boolean persist = LodConfig.PERSIST.get(), pruneNow = capturedChunks % 64 == 0;
+      boolean persist = LodConfig.PERSIST.get() && !persistenceFailed,
+          pruneNow = capturedChunks % 64 == 0;
       Path folder = root;
+      workingKey = k;
       future =
           worker.submit(
               () -> {
                 ColumnarChunk page = copy.build();
                 if (persist && writer != null) {
-                  writer.write(page);
-                  if (pruneNow) prune(folder, bytes);
+                  try {
+                    writer.write(page);
+                    if (pruneNow) prune(folder, bytes);
+                  } catch (java.io.IOException failure) {
+                    persistenceFailed = true;
+                    com.shnewbs.deepprimal.DeepPrimal.LOGGER.warn(
+                        "LOD persistence disabled for this session; rendering continues", failure);
+                  }
                 }
-                return new Ready(epoch, k, rev, LodMesher.build(page));
+                return new Ready(epoch, k, rev, LodMesher.build(page), true);
               });
       capturedChunks++;
+      captureBurst++;
       status = "Capturing real chunks";
       return;
     }
+    if (startDiskJob()) return;
+    status = "Ready — explored chunks";
+  }
+
+  /** Keep cache restoration moving even when flowing water continuously dirties native chunks. */
+  private boolean startDiskJob() {
     if (!LodConfig.PERSIST.get()) disk.clear();
-    while (!disk.isEmpty()) {
+    int inspected = 0;
+    while (!disk.isEmpty() && inspected++ < 64) {
       long k = disk.removeFirst();
       if (cache.containsKey(k) || dirty.containsKey(k) || !inRange(k)) continue;
       LodStore reader = store;
       if (reader == null) break;
       long epoch = session;
+      workingKey = k;
       future =
           worker.submit(
               () -> {
                 ColumnarChunk page = reader.read(x(k), z(k));
-                return new Ready(epoch, k, page.revision, LodMesher.build(page));
+                return new Ready(epoch, k, page.revision, LodMesher.build(page), false);
               });
       diskReads++;
       status = "Loading persistent terrain";
-      return;
+      captureBurst = 0;
+      return true;
     }
-    status = "Ready — explored chunks";
+    return false;
   }
 
   private boolean inRange(long k) {
@@ -359,29 +382,11 @@ public final class VoxelLodRenderer {
     if (future != null && future.isDone()) {
       try {
         Ready r = future.get();
-        if (r.session != session || latest.getOrDefault(r.key, r.revision) != r.revision) {
+        if (obsolete(r)) {
           staleResults++;
         } else if (r.levels.bytes() <= LodConfig.MEMORY.get() * 1048576L) {
           long limit = LodConfig.MEMORY.get() * 1048576L;
-          while (residentBytes + r.levels.bytes() > limit && !cache.isEmpty()) {
-            Long victim = null;
-            double far = -1;
-            var camera = event.getCamera().position();
-            for (long k : cache.keySet())
-              if (k != r.key) {
-                double dd =
-                    Math.pow(x(k) * 16. + 8 - camera.x, 2) + Math.pow(z(k) * 16. + 8 - camera.z, 2);
-                if (dd > far) {
-                  far = dd;
-                  victim = k;
-                }
-              }
-            if (victim == null) break;
-            Entry old = cache.remove(victim);
-            residentBytes -= old.bytes;
-            old.close();
-            if (!dirty.containsKey(victim)) latest.remove(victim);
-          }
+          evictToFit(r.levels.bytes(), 4095, r.key, event.getCamera().position());
           if (residentBytes + r.levels.bytes() <= limit) pendingGpu = new PendingGpu(r);
         }
       } catch (InterruptedException failure) {
@@ -391,26 +396,13 @@ public final class VoxelLodRenderer {
         com.shnewbs.deepprimal.DeepPrimal.LOGGER.warn("LOD job failed", failure);
       } finally {
         future = null;
+        Long completed = workingKey;
+        workingKey = null;
+        if (completed != null) forgetUnused(completed);
       }
     }
     processUploads();
-    long limit = LodConfig.MEMORY.get() * 1048576L;
-    while (!cache.isEmpty() && (residentBytes > limit || cache.size() > 4096)) {
-      long victim = cache.keySet().iterator().next();
-      double far = -1;
-      var p = event.getCamera().position();
-      for (long k : cache.keySet()) {
-        double dd = Math.pow(x(k) * 16. + 8 - p.x, 2) + Math.pow(z(k) * 16. + 8 - p.z, 2);
-        if (dd > far) {
-          far = dd;
-          victim = k;
-        }
-      }
-      Entry old = cache.remove(victim);
-      residentBytes -= old.bytes;
-      old.close();
-      if (!dirty.containsKey(victim)) latest.remove(victim);
-    }
+    evictToFit(0, 4096, null, event.getCamera().position());
     var camera = event.getCamera().position();
     var visible = new ArrayList<HorizonGpuMesh>();
     int chunks = 0, span = 0;
@@ -428,7 +420,7 @@ public final class VoxelLodRenderer {
       Entry entry = item.getValue();
       var finest = entry.levels.get(0);
       if (finest.isEmpty()) continue;
-      int top = finest.get(0).maxY;
+      int top = entry.top;
       if (dx <= near
           && dz <= near
           && event
@@ -456,6 +448,47 @@ public final class VoxelLodRenderer {
     event.getRenderState().setRenderData(VISIBLE, List.copyOf(visible));
   }
 
+  private boolean obsolete(Ready r) {
+    if (r.session != session) return true;
+    Entry displayed = cache.get(r.key);
+    if (displayed != null && displayed.revision > r.revision) return true;
+    // A coherent live snapshot may finish while another edit is queued. Discarding it on
+    // every fluid tick would prevent any image from completing. The newer dirty revision
+    // stays queued. Disk data must still lose to edits already observed in this session.
+    return !r.captured && latest.getOrDefault(r.key, r.revision) != r.revision;
+  }
+
+  private void forgetUnused(long k) {
+    if (!cache.containsKey(k)
+        && !dirty.containsKey(k)
+        && (workingKey == null || workingKey != k)
+        && (pendingGpu == null || pendingGpu.ready.key != k)) latest.remove(k);
+  }
+
+  private void evictToFit(
+      long additional, int entries, Long keep, net.minecraft.world.phys.Vec3 camera) {
+    long limit = LodConfig.MEMORY.get() * 1048576L;
+    if (residentBytes + additional <= limit && cache.size() <= entries) return;
+    // Sort once under pressure instead of rescanning every remaining page for every eviction.
+    var victims = new ArrayList<>(cache.keySet());
+    victims.sort(
+        Comparator.<Long>comparingInt(k -> keep != null && k.longValue() == keep ? 1 : 0)
+            .thenComparing(
+                Comparator.comparingDouble(
+                        (Long k) -> {
+                          double dx = x(k) * 16. + 8 - camera.x, dz = z(k) * 16. + 8 - camera.z;
+                          return dx * dx + dz * dz;
+                        })
+                    .reversed()));
+    for (long k : victims) {
+      if (residentBytes + additional <= limit && cache.size() <= entries) break;
+      Entry old = cache.remove(k);
+      residentBytes -= old.bytes;
+      old.close();
+      forgetUnused(k);
+    }
+  }
+
   private void processUploads() {
     PendingGpu p = pendingGpu;
     if (p == null) return;
@@ -463,13 +496,14 @@ public final class VoxelLodRenderer {
       residentBytes -= p.bytes();
       p.close();
       pendingGpu = null;
+      forgetUnused(p.ready.key);
       return;
     }
-    if (p.ready.session != session
-        || latest.getOrDefault(p.ready.key, p.ready.revision) != p.ready.revision) {
+    if (obsolete(p.ready)) {
       residentBytes -= p.bytes();
       p.close();
       pendingGpu = null;
+      forgetUnused(p.ready.key);
       staleResults++;
       return;
     }
@@ -513,7 +547,8 @@ public final class VoxelLodRenderer {
                   p.ready.revision,
                   p.levels.stream().map(List::copyOf).toList(),
                   p.bytes(),
-                  new int[] {0}));
+                  new int[] {0},
+                  p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0)));
       if (old != null) {
         residentBytes -= old.bytes;
         old.close();
@@ -597,6 +632,9 @@ public final class VoxelLodRenderer {
     if (scan != null) scan.cancel(true);
     if (worker != null) worker.shutdownNow();
     future = null;
+    workingKey = null;
+    captureBurst = 0;
+    persistenceFailed = false;
     scan = null;
     worker = null;
     cache.values().forEach(Entry::close);
