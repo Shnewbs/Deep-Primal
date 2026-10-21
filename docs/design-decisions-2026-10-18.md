@@ -54,6 +54,7 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 | Time | Confirmed direction | Familiar TFC/Minecraft behavior, not a new real-time offline simulator. Use the TFC 1.21.x baseline and verify each subsystem. |
 | Death | Confirmed | Keep personal inventory on by default; configurable off. Recover cargo in the world. Respawn fatigue escalates only for closely spaced deaths; a configurable death-free interval resets escalation. |
 | Navigation | Confirmed direction | Biome-entry titles, compass HUD, configurable built-in maps, shared exploration and cartographic features inspired by the supplied references. |
+| Climate geography | Confirmed owner direction, 2026-10-21 | Realistic northern/southern polar regions and an equatorial region in procedural worlds and optional Earth mode; latitude provides the broad temperature pattern, modified by terrain, ocean influence and moisture. Seasons respect hemispheres. Coordinates and scale remain deferred. See [biome plan](BIOME-PLAN.md#geographic-climate-realism--confirmed-direction). |
 | Biome/climate planning order | Confirmed owner direction, 2026-10-21 | Define biomes first; afterward design the climate scenarios needed to support them. Existing climate bands and numerical thresholds must not gate the biome roster. Climate eligibility must gate where each biome can generate. See [biome plan](BIOME-PLAN.md#design-work-order). |
 | Health and hunting | Confirmed direction | First Aid-style body regions integrated with TFC-style survival; primitive weapons through hunting bows, visible back quiver, material-dependent tips, localized animal hits, and carcass processing. |
 | Advanced bows | Proposed | Bow modifications and a later compound bow; exact ages and component requirements undecided. |
@@ -73,6 +74,8 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 ## Biome-first planning — owner clarification, 2026-10-21
 
 Finish biome coverage, identity, terrain, geology/soil, water setting, vegetation/life, resources and regional variants first. Then design the climate scenarios and transitions needed to support that roster. Numerical climate ranges and climate-model selection belong to the later phase. Climate must gate biome placement according to each biome's relevant long-term requirements, together with terrain, water, substrate and other habitat constraints. This supersedes earlier climate-first wording in roster design; climate remains a required placement filter, while detailed runtime generation ordering remains a later technical decision. Environmental implementation remains deferred. See the [biome plan](BIOME-PLAN.md).
+
+The owner also confirmed geographic climate realism: a generally warmer equatorial region and colder northern/southern polar regions, with gradual latitude trends, regional terrain/ocean/moisture influences and opposite seasonal cycles between hemispheres. This applies to ordinary procedural worlds as well as Earth mode. Coordinate mapping and geographic scale remain later climate-design decisions.
 
 ## First-day progression
 

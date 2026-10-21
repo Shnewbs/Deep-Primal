@@ -58,6 +58,18 @@ The fields below are a later integration record. Existing qualitative terrain, s
 | Patch scale/rarity | Regional area, minimum patch scale, transition width and rare-site rules; tune and measure later. |
 | Stable identity | Proposed name/key, parent/variant relationships, tags, existing-world mapping and generation-data version. |
 
+### Geographic climate realism — confirmed direction
+
+The later climate plan must have a northern polar region, an equatorial region and a southern polar region. This applies to ordinary procedural worlds as well as the optional Earth mode.
+
+- Use latitude as the broad thermal baseline: generally warmer near the equator and colder toward either pole, with gradual tropical, subtropical, temperate, subpolar and polar trends.
+- Let elevation, ocean influence, distance inland, prevailing moisture transport and rain shadows produce coherent regional variation. Mountain climates can be cold even at low latitudes.
+- Model moisture and seasonality alongside temperature so latitude allows different suitable communities and water regimes within a region. Climate zones should support varied biome mosaics and gradual transitions.
+- Use hemisphere-aware seasons: northern and southern seasonal cycles are opposite, with regional differences in seasonal strength.
+- Choose world-coordinate mapping, equator/pole positions, climate-region distances and behavior beyond polar regions during later climate planning. Procedural worlds do not inherit Earth's 1:1 scale automatically.
+
+These are requirements for future climate scenarios and placement eligibility. Biome roster design remains first; a biome's inclusion does not authorize placement outside its relevant climate and habitat requirements.
+
 ### Design work order
 
 1. Review and expand the named biome roster, resolving missing environments and profile/variant/layer distinctions.
@@ -163,7 +175,7 @@ Current biome planning review:
 
 Deferred climate and world-placement planning, after the biome roster:
 
-- [ ] Derive the climate scenarios required by the selected biome profiles and regional communities.
+- [ ] Derive the climate scenarios required by the selected biome profiles and regional communities, with equatorial and northern/southern polar regions, coherent latitude trends and hemisphere-aware seasons.
 - [ ] Define temperature, effective moisture, seasonal patterns and exposure, with quantitative ranges and scientific tolerance review; use each biome's relevant requirements as placement gates.
 - [ ] Reconcile climate scenarios with connected water systems, relief, geology and intended biome transitions.
 - [ ] Choose numerical water/scale fields, transition widths, default frequency and future configuration scope.
