@@ -266,6 +266,12 @@ public final class HorizonRenderer {
       targetTiles = wanted.size();
       var keep = new java.util.HashSet<>(wanted);
       wantedSet = keep;
+      // A teleport can leave the only request slot waiting on a now invisible tile.
+      // Advance its session so the server can replace that obsolete waiter immediately.
+      if (waiting && !keep.contains(pending)) {
+        waiting = false;
+        session++;
+      }
       cache
           .entrySet()
           .removeIf(
@@ -290,28 +296,32 @@ public final class HorizonRenderer {
             != 0) return;
     boolean limited = false;
     long memoryLimit = ClientPerformanceConfig.HORIZON_MEMORY_MIB.get() * 1048576L;
-    for (long key : wanted) {
-      int detail = detail(key);
-      HorizonGpuMesh existing = cache.get(key);
-      if (existing != null && existing.detail <= detail) continue;
-      long estimate = estimatedBytes(detail);
-      if (residentBytes - (existing == null ? 0 : existing.byteSize) + estimate > memoryLimit) {
-        limited = true;
-        continue;
+    // Fill coverage with the small grid before spending the only request slot on refinements.
+    for (int stage = 0; stage < 2; stage++) {
+      for (long key : wanted) {
+        HorizonGpuMesh existing = cache.get(key);
+        if (stage == 0 ? existing != null : existing == null || existing.detail <= detail(key))
+          continue;
+        int detail = stage == 0 ? 2 : detail(key);
+        long estimate = estimatedBytes(detail);
+        if (residentBytes - (existing == null ? 0 : existing.byteSize) + estimate > memoryLimit) {
+          limited = true;
+          continue;
+        }
+        pending = key;
+        pendingDetail = detail;
+        pendingAt = ticks;
+        waiting = true;
+        ClientPacketDistributor.sendToServer(
+            new HorizonRequest(
+                session,
+                level.dimension().identifier(),
+                FarTerrain.x(key),
+                FarTerrain.z(key),
+                detail));
+        status = stage == 0 ? "Sampling horizon" : "Refining horizon";
+        return;
       }
-      pending = key;
-      pendingDetail = detail;
-      pendingAt = ticks;
-      waiting = true;
-      ClientPacketDistributor.sendToServer(
-          new HorizonRequest(
-              session,
-              level.dimension().identifier(),
-              FarTerrain.x(key),
-              FarTerrain.z(key),
-              detail));
-      status = "Sampling horizon";
-      return;
     }
     if (limited) {
       status = "Memory budget reached";

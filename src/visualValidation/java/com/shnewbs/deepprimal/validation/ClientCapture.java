@@ -112,7 +112,7 @@ public final class ClientCapture {
           || (renderer.cachedTiles >= 12
               && renderer.visibleTiles > 0
               && renderer.drawnTriangles > 0)
-          || System.nanoTime() - rendererRequestedAt > 180_000_000_000L) {
+          || System.nanoTime() - rendererRequestedAt > 360_000_000_000L) {
         rendererRequestedAt = 0;
         try {
           RendererClientChecks.run(mc);

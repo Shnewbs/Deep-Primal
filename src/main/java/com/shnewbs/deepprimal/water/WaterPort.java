@@ -18,13 +18,13 @@ public final class WaterPort extends SnapshotJournal<BlockState>
     implements ResourceHandler<FluidResource> {
   // All callers touching one cell share a journal, including different machines in one transaction.
   // Weak keys and values release both worlds and unused ports without an unloading scan.
-  private static final java.util.WeakHashMap<ServerLevel,
-          java.util.WeakHashMap<BlockPos, java.lang.ref.WeakReference<WaterPort>>> PORTS =
-      new java.util.WeakHashMap<>();
+  private static final java.util.WeakHashMap<
+          ServerLevel, java.util.WeakHashMap<BlockPos, java.lang.ref.WeakReference<WaterPort>>>
+      PORTS = new java.util.WeakHashMap<>();
   private final ServerLevel level;
   private final BlockPos pos;
 
-  public WaterPort(ServerLevel level, BlockPos pos) {
+  private WaterPort(ServerLevel level, BlockPos pos) {
     this.level = level;
     this.pos = pos.immutable();
   }
@@ -44,9 +44,7 @@ public final class WaterPort extends SnapshotJournal<BlockState>
     event.registerBlock(
         Capabilities.Fluid.BLOCK,
         (level, pos, state, entity, side) ->
-            level instanceof ServerLevel server && FiniteWater.enabled()
-                ? at(server, pos)
-                : null,
+            level instanceof ServerLevel server && FiniteWater.enabled() ? at(server, pos) : null,
         Blocks.WATER,
         Blocks.AIR,
         Blocks.CAVE_AIR,

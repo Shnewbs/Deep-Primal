@@ -114,6 +114,14 @@ public final class HorizonService {
         || Math.abs((long) p.z()) > 58000
         || !FarTerrain.inRange(p.x(), p.z(), player.getX(), player.getZ(), FarTerrain.MAX_DISTANCE)
         || now - LAST.getOrDefault(player.getUUID(), now - 4) < 4) return;
+    // A new client session supersedes its old waiter without disturbing other players.
+    JOBS.removeIf(
+        job -> {
+          job.waiters.removeIf(w -> w.player == player && w.request.session() != p.session());
+          if (!job.waiters.isEmpty()) return false;
+          cancelled++;
+          return true;
+        });
     // One waiter per player, even when several players share a job.
     for (Job job : JOBS) for (Waiter pending : job.waiters) if (pending.player == player) return;
     LAST.put(player.getUUID(), now);
