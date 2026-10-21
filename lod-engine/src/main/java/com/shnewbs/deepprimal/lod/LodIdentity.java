@@ -1,6 +1,6 @@
-package com.shnewbs.deepprimal.render;
+package com.shnewbs.deepprimal.lod;
 
-import com.shnewbs.deepprimal.render.network.LodWorld;
+import com.shnewbs.deepprimal.lod.network.LodWorld;
 import java.nio.file.*;
 import java.util.*;
 import net.minecraft.server.MinecraftServer;
@@ -26,7 +26,7 @@ public final class LodIdentity {
             Files.writeString(p, id, StandardOpenOption.CREATE_NEW);
             return id;
           } catch (Exception e) {
-            com.shnewbs.deepprimal.DeepPrimal.LOGGER.warn(
+            com.shnewbs.deepprimal.lod.LodModule.LOGGER.warn(
                 "Persistent LOD identity unavailable; using session identity", e);
             return UUID.randomUUID().toString();
           }
@@ -35,7 +35,9 @@ public final class LodIdentity {
 
   @SubscribeEvent
   public void login(PlayerEvent.PlayerLoggedInEvent e) {
-    if (e.getEntity() instanceof ServerPlayer p)
+    if (e.getEntity() instanceof ServerPlayer p
+        && net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(
+            p.connection, LodWorld.TYPE.id()))
       PacketDistributor.sendToPlayer(p, new LodWorld(id(p.level().getServer())));
   }
 

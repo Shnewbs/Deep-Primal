@@ -22,6 +22,31 @@ public final class IntegratedEngineChecks {
                 "Engine transport conserves all legal states");
           }
       long begin = System.nanoTime();
+      int pressureCases = 0;
+      for (int dy = -8; dy <= 8; dy++)
+        for (int from = 0; from <= 16; from++)
+          for (int to = 0; to <= 16; to++) {
+            var e = WaterTransport.pressure(dy, from, 0, to);
+            require(
+                e.from() + e.to() == from + to && e.from() >= 0 && e.to() <= 16,
+                "Connected pressure conserves capacity and volume");
+            long before = (long) dy * 16 + from - to;
+            long after = (long) dy * 16 + e.from() - e.to();
+            require(
+                e.moved() == 0 || (before > 1 && after >= 0 && after < before),
+                "Pressure decreases head without overshoot");
+            pressureCases++;
+          }
+      require(
+          WaterTransport.pressure(503, 16, 502, 0).moved() == 16,
+          "Elevated source can raise a connected lower surface");
+      require(
+          WaterTransport.pressure(Integer.MIN_VALUE, 16, Integer.MAX_VALUE, 0).moved() == 0,
+          "Head arithmetic does not wrap");
+      System.out.println(
+          "ENGINE_PRESSURE_CORE_PASS cases="
+              + pressureCases
+              + " conserved=true monotonicHead=true");
       TerrainEngine a = new TerrainEngine(20261020), b = new TerrainEngine(20261020);
       int wet = 0, land = 0, ocean = 0;
       double min = 1e6, max = -1e6;

@@ -12,7 +12,7 @@ Use Creative with commands for development. The engine independently plans conti
 
 ## Custom graphics screen
 
-Open **Video Settings → Deep Primal graphics…**, or **Mods → Deep Primal → Config**. Changes remain staged through tab switches and resize until **Apply**. **Revert** reloads saved values. **Done/Escape** does not commit unapplied edits. Invalid typed input disables Apply. Opening a new screen restores saved requests, including values currently constrained by a server, heap or session cap.
+Open **Video Settings** (opens Deep Primal Graphics directly), or **Mods → Deep Primal → Config**. Changes remain staged through tab switches and resize until **Apply**. **Revert** reloads saved values. **Done/Escape** does not commit unapplied edits. Invalid typed input disables Apply. Opening a new screen restores saved requests, including values currently constrained by a server, heap or session cap.
 
 | Tab | Controls |
 | --- | --- |

@@ -4,6 +4,8 @@
   "package": "com.shnewbs.deepprimal.settings.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
+    "client.OptionsParentAccess",
+    "client.GraphicsPresetMixin",
     "client.ChunkRebuildMixin",
     "client.FrameLimitMixin",
     "client.EntityDistanceMixin",

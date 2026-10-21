@@ -22,10 +22,10 @@ public abstract class CameraMixin {
     return Math.max(
         Math.max(original, (sections + 2) * 16.0f),
         ((com.shnewbs.deepprimal.client.render.HorizonRenderer.active()
-                || com.shnewbs.deepprimal.client.render.VoxelLodRenderer.active())
+                || com.shnewbs.deepprimal.settings.LodAccess.active())
             ? Math.max(
                         com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance(),
-                        com.shnewbs.deepprimal.client.render.VoxelLodRenderer.distance())
+                        com.shnewbs.deepprimal.settings.LodAccess.distance())
                     * 16.0f
                 + 64
             : 0));

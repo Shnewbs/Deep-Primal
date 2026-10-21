@@ -1,10 +1,11 @@
-package com.shnewbs.deepprimal.client.render;
+package com.shnewbs.deepprimal.lod.client;
 
 import com.mojang.blaze3d.pipeline.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.shnewbs.deepprimal.client.lod.NativeLodCapture;
 import com.shnewbs.deepprimal.core.lod.*;
+import com.shnewbs.deepprimal.graphics.GpuLighting;
+import com.shnewbs.deepprimal.graphics.TerrainGpuMesh;
 import com.shnewbs.deepprimal.settings.*;
 import java.nio.file.*;
 import java.util.*;
@@ -25,13 +26,13 @@ import org.joml.Vector4f;
 /** Explored-chunk LOD: immutable copies, worker reduction/storage, render-thread GPU ownership. */
 public final class VoxelLodRenderer {
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
-  private static final ContextKey<List<HorizonGpuMesh>> VISIBLE =
+  private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"));
   private static final RenderPipeline PIPELINE =
       RenderPipeline.builder(net.minecraft.client.renderer.RenderPipelines.MATRICES_FOG_SNIPPET)
           .withLocation(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"))
-          .withVertexShader(Identifier.fromNamespaceAndPath("deepprimal", "core/horizon"))
-          .withFragmentShader(Identifier.fromNamespaceAndPath("deepprimal", "core/voxel_lod"))
+          .withVertexShader(Identifier.fromNamespaceAndPath("deepprimal_graphics", "core/terrain"))
+          .withFragmentShader(Identifier.fromNamespaceAndPath("deepprimal_lod", "core/voxel_lod"))
           .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES)
           .withDepthStencilState(DepthStencilState.DEFAULT)
           .withSampler("NativeLight")
@@ -40,10 +41,10 @@ public final class VoxelLodRenderer {
           .build();
 
   private record Entry(
-      long revision, List<List<HorizonGpuMesh>> levels, long bytes, int[] selected, int top)
+      long revision, List<List<TerrainGpuMesh>> levels, long bytes, int[] selected, int top)
       implements AutoCloseable {
     public void close() {
-      levels.forEach(l -> l.forEach(HorizonGpuMesh::close));
+      levels.forEach(l -> l.forEach(TerrainGpuMesh::close));
     }
   }
 
@@ -69,7 +70,7 @@ public final class VoxelLodRenderer {
 
   private static final class PendingGpu {
     final Ready ready;
-    final List<List<HorizonGpuMesh>> levels = new ArrayList<>();
+    final List<List<TerrainGpuMesh>> levels = new ArrayList<>();
     int detail, part;
 
     PendingGpu(Ready ready) {
@@ -82,7 +83,7 @@ public final class VoxelLodRenderer {
     }
 
     void close() {
-      levels.forEach(l -> l.forEach(HorizonGpuMesh::close));
+      levels.forEach(l -> l.forEach(TerrainGpuMesh::close));
     }
   }
 
@@ -301,7 +302,7 @@ public final class VoxelLodRenderer {
                     if (pruneNow) prune(folder, bytes);
                   } catch (java.io.IOException failure) {
                     persistenceFailed = true;
-                    com.shnewbs.deepprimal.DeepPrimal.LOGGER.warn(
+                    com.shnewbs.deepprimal.lod.LodModule.LOGGER.warn(
                         "LOD persistence disabled for this session; rendering continues", failure);
                   }
                 }
@@ -393,7 +394,7 @@ public final class VoxelLodRenderer {
         Thread.currentThread().interrupt();
       } catch (ExecutionException | CancellationException failure) {
         status = "LOD job failed; terrain kept";
-        com.shnewbs.deepprimal.DeepPrimal.LOGGER.warn("LOD job failed", failure);
+        com.shnewbs.deepprimal.lod.LodModule.LOGGER.warn("LOD job failed", failure);
       } finally {
         future = null;
         Long completed = workingKey;
@@ -404,7 +405,7 @@ public final class VoxelLodRenderer {
     processUploads();
     evictToFit(0, 4096, null, event.getCamera().position());
     var camera = event.getCamera().position();
-    var visible = new ArrayList<HorizonGpuMesh>();
+    var visible = new ArrayList<TerrainGpuMesh>();
     int chunks = 0, span = 0;
     int cx = Math.floorDiv((int) Math.floor(camera.x), 16),
         cz = Math.floorDiv((int) Math.floor(camera.z), 16),
@@ -433,7 +434,7 @@ public final class VoxelLodRenderer {
       while (d > 0 && (1 << d) * focal / dist > LodConfig.ERROR.get() * 1.15) d--;
       entry.selected[0] = d;
       boolean seen = false;
-      for (HorizonGpuMesh part : entry.levels.get(d))
+      for (TerrainGpuMesh part : entry.levels.get(d))
         if (event.getFrustum().isVisible(part.bounds)) {
           visible.add(part);
           seen = true;
@@ -524,7 +525,7 @@ public final class VoxelLodRenderer {
       if (uploaded >= Math.max(1, (int) (LodConfig.UPLOADS.get() * ClientWorkPacer.fraction()))
           || used + mesh.gpuBytes() > limit
           || System.nanoTime() - start > ClientPerformanceConfig.UPLOAD_MICROS.get() * 1000L) break;
-      var gpu = HorizonGpuMesh.upload(x(p.ready.key), z(p.ready.key), p.detail, mesh);
+      var gpu = TerrainGpuMesh.upload(x(p.ready.key), z(p.ready.key), p.detail, mesh);
       gpu.bounds =
           new AABB(
               x(p.ready.key) * 16.,

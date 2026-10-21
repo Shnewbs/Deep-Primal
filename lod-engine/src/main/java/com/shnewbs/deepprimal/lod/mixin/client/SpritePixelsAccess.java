@@ -1,4 +1,4 @@
-package com.shnewbs.deepprimal.mixin.client;
+package com.shnewbs.deepprimal.lod.mixin.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.renderer.texture.SpriteContents;

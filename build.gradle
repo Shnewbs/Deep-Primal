@@ -36,6 +36,14 @@ neoForge {
                 jvmArgument '-Xmx2G'
             }
             if (project.hasProperty('lodHotEdits')) systemProperty 'deepprimal.validationLodHotEdits', 'true'
+            if (project.hasProperty('graphicsValidation')) {
+                systemProperty 'deepprimal.validationGraphics', 'true'
+                systemProperty 'deepprimal.validationGraphicsRestart', project.hasProperty('graphicsRestart').toString()
+                systemProperty 'deepprimal.validationNoLod', project.hasProperty('withoutLod').toString()
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/graphics-validation').absolutePath
+                if (project.hasProperty('delegateRenderer')) systemProperty 'deepprimal.renderer.disabled', 'true'
+                programArguments.addAll '--width','1200','--height','800'
+            }
             if (project.hasProperty('engineValidation')) { systemProperty 'deepprimal.validationEngine', 'true'; programArguments.addAll '--width','1200','--height','800' }
             if (project.hasProperty('engineScenes')) systemProperty 'deepprimal.validationEngineScenes','true'
             if (project.hasProperty('engineReopen')) systemProperty 'deepprimal.validationEngineReopen', 'true'
@@ -116,7 +124,9 @@ processResources {
 ext.minecraftClasspath = configurations.compileClasspath.copyRecursive().files.toList()
 if (findProject(':renderer-vulkan') != null) evaluationDependsOn(':renderer-vulkan')
 def bundleVulkan = findProject(':renderer-vulkan') != null && (project.hasProperty('vulkanPlatform') || project.hasProperty('bundleVulkan'))
+def bundleLod = !project.hasProperty('withoutLod')
 def modules = [':engine-core', ':performance-engine', ':graphics-settings']
+if (bundleLod) modules.add(':lod-engine')
 if (bundleVulkan) modules.add(':renderer-vulkan')
 modules.each { path ->
  evaluationDependsOn(path)
@@ -125,14 +135,18 @@ modules.each { path ->
 // JarJar copies into a generated directory without removing older versions.
 // Rebuild that directory when its task runs, including after module/profile changes.
 tasks.named('jarJar') {
- outputDirectory.set(layout.buildDirectory.dir("generated/jarJar-${project.version}-${!bundleVulkan ? 'opengl' : 'vulkan-' + (findProperty('vulkanPlatform') ?: 'universal')}"))
+ outputDirectory.set(layout.buildDirectory.dir("generated/jarJar-${project.version}-${bundleLod ? 'lod-' : 'no-lod-'}${!bundleVulkan ? 'opengl' : 'vulkan-' + (findProperty('vulkanPlatform') ?: 'universal')}"))
  doFirst { project.delete(outputDirectory.get().asFile) }
 }
-dependencies { coreChecksImplementation(project(':engine-core')) }
+dependencies {
+ coreChecksImplementation(project(':engine-core'))
+ visualValidationCompileOnly(project(':lod-engine'))
+}
 neoForge.mods {
  deepprimal_performance { sourceSet(project(':performance-engine').sourceSets.main) }
  deepprimal_graphics { sourceSet(project(':graphics-settings').sourceSets.main) }
 }
+if (bundleLod) neoForge.mods { deepprimal_lod { sourceSet(project(':lod-engine').sourceSets.main) } }
 if (findProject(':renderer-vulkan') != null) {
  if (bundleVulkan) neoForge.mods { deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) } }
  neoForge.runs.client {
@@ -145,13 +159,17 @@ if (findProject(':renderer-vulkan') != null) {
 
 // Architectural checks are source based, so an accidental cross-module import fails the build.
 tasks.register('verifyModuleBoundaries') {
-    def roots = ['engine-core', 'performance-engine', 'graphics-settings', 'renderer-vulkan']
-    inputs.files(roots.collect { fileTree(it + '/src/main/java') })
+    def roots = ['engine-core', 'performance-engine', 'graphics-settings', 'lod-engine', 'renderer-vulkan']
+    inputs.files(roots.collect { fileTree(it + '/src/main/java') } + fileTree('src/main/java'))
     doLast {
+        fileTree('src/main/java').matching { include '**/*.java' }.each { f ->
+            if (f.text.contains('com.shnewbs.deepprimal.lod.'))
+                throw new GradleException("Main mod depends on optional LOD implementation: $f")
+        }
         roots.each { module ->
             fileTree(module + '/src/main/java').matching { include '**/*.java' }.each { file ->
                 def text = file.text
-                def allowed = module == 'engine-core' ? ['core'] : module == 'performance-engine' ? ['performance','core'] : ['settings','core']
+                def allowed = module == 'engine-core' ? ['core'] : module == 'performance-engine' ? ['performance','core'] : module == 'lod-engine' ? ['lod','settings','graphics','core'] : ['settings','graphics','core']
                 (text =~ /com\.shnewbs\.deepprimal\.([a-zA-Z]+)\./).each { match ->
                     if (!(match[1] in allowed)) throw new GradleException("Cross-module import in $file: ${match[0]}")
                 }
@@ -195,6 +213,6 @@ tasks.named('jar') {
  }
 }
 
-if (bundleVulkan) {
- tasks.named('jar') { archiveClassifier.set('vulkan-' + (project.findProperty('vulkanPlatform') ?: 'universal')) }
+if (bundleVulkan || !bundleLod) {
+ tasks.named('jar') { archiveClassifier.set((bundleVulkan ? 'vulkan-' + (project.findProperty('vulkanPlatform') ?: 'universal') : '') + (!bundleLod ? (bundleVulkan ? '-no-lod' : 'no-lod') : '')) }
 }

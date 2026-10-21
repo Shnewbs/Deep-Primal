@@ -4,6 +4,10 @@ Status, 2026-10-21: **governing direction with an integrated alpha 17 implementa
 
 Alpha 18 adds an audit and recovery pass: registry context composition for KubeJS, bit-exact terrain calculation reuse, greedy voxel faces, sorted memory-pressure eviction, fair live/disk scheduling, progress under continuous fluid edits, best-effort disk persistence and bounded fluid border wake-up. See [alpha 18 evidence](VALIDATION-0.0.1-alpha.18.md). Current river basin repetition, synthetic LOD page walls and placeholder vegetation remain unresolved visual defects; the existing version-one geography is preserved.
 
+Alpha 19 gives graphics and LOD separate ownership: shared GPU/UI infrastructure remains in `graphics-settings`, and `lod-engine` owns actual-chunk capture, cache/streaming, edit invalidation and rendering. The main mod consumes an optional interface. Video Settings opens our screen directly with complete native option coverage. Independent 16-unit liquids now include bounded connected-pool pressure; displacement, recharge and coast surf remain unfinished. See [module contracts](MODULES.md) and [validation](VALIDATION-0.0.1-alpha.19.md).
+
+**Owner clarification:** these projects are inspiration and comparison targets for better Deep Primal systems. Do not treat adding a dependency, copying a feature list or matching a screenshot as completion. Establish improvements through conservation/correctness, useful behavior, integration and matched performance measurements.
+
 ## Built-in terrain engine requirements and inspiration
 
 The target is our own Overworld generator and biome/region decisions: original continents, connected relief/drainage/lakes, geological/climate fields, terrain-derived material rules and deliberate feature placement. Use Minecraft/NeoForge as host infrastructure; do not delegate those world-design decisions to the standard vanilla Overworld noise/biome pipeline. Generic noise functions and serialized data are implementation tools, not evidence of vanilla or original terrain by themselves. Nether/End remain native in the current prototypes; no replacement of those dimensions is claimed.
@@ -26,7 +30,7 @@ These are references for one coherent Deep Primal generator, not three generator
 | Width, depth and speed from drainage/slope | Area-derived width/depth and grade/discharge proxy for stored current speed. Physical discharge, rapids and continuous dynamic river supply remain unfinished. |
 | Terrain-derived materials | Elevation, slope, rain, climate, geological palette and sediment-placement proxies drive original placement. A wear/erosion/deposition solver and catalog geology are unfinished. |
 | Floating-fragment prevention | Solid base columns and owned underground tunnel carving avoid the rejected floating-surface mechanism. General post-feature support/connectivity checks are unfinished; never remove player structures as cleanup. |
-| Independent liquids and smooth water | Separate `Fluid`, 16-unit states, conservative gravity/pooling, own bucket and shared-corner curved patches are integrated. Pressure/displacement, recharge and breaking shoreline surf are unfinished. |
+| Independent liquids and smooth water | Separate `Fluid`, 16-unit states, conservative gravity/pooling, own bucket and shared-corner curved patches are integrated. Bounded connected-pool pressure is added in alpha 19. Displacement, recharge and breaking shoreline surf are unfinished. |
 | Actual-chunk LOD | Owning-thread immutable captures, edit revisions, vertical-run snapshots, three GPU mesh levels, projected-size/hysteresis, native-ready handoff, bounded work/memory/disk and world identity are integrated. Uses explored/delivered chunks; no unseen terrain stream or DH parity is claimed. |
 | Custom graphical controls | Original six-tab screen with slider/typed controls, staged Apply/Revert, contextual help and saved/requested/effective display. Reopen, resize and process restart tested. |
 

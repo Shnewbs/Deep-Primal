@@ -51,7 +51,6 @@ public final class DeepPrimal {
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.SwimmingEffort());
     modBus.addListener(WorldgenConfig::packs);
     modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
-    NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.LodIdentity());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.WaterEnvironment());
     com.shnewbs.deepprimal.engine.EngineRegistry.register(modBus);

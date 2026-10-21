@@ -1,4 +1,4 @@
-package com.shnewbs.deepprimal.render.network;
+package com.shnewbs.deepprimal.lod.network;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

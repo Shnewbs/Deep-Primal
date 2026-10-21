@@ -31,6 +31,10 @@ public final class PrimalGraphicsScreen extends Screen {
   private final Screen parent;
   private final LinkedHashMap<String, Control> controls = new LinkedHashMap<>();
   private final Map<String, String> values = new LinkedHashMap<>();
+  private final Map<net.minecraft.client.OptionInstance<?>, String> nativeBindings =
+      new IdentityHashMap<>();
+  private final Set<String> presetKeys = new HashSet<>();
+  private final Map<String, String> baseline = new LinkedHashMap<>();
   private final List<Display> visible = new ArrayList<>();
   private boolean loaded, updating;
   private int tab, scroll, left, top, panelWidth, contentX, contentWidth, rowHeight, shown;
@@ -81,8 +85,301 @@ public final class PrimalGraphicsScreen extends Screen {
         "ON");
   }
 
+  private void nativeBool(
+      int page,
+      String key,
+      String label,
+      net.minecraft.client.OptionInstance<Boolean> option,
+      String help) {
+    add(
+        page,
+        key,
+        label,
+        () -> option.get() ? 1 : 0,
+        v -> option.set(v == 1),
+        0,
+        1,
+        help,
+        "OFF",
+        "ON");
+    nativeBindings.put(option, key);
+  }
+
+  private void nativeInt(
+      int page,
+      String key,
+      String label,
+      net.minecraft.client.OptionInstance<Integer> option,
+      int min,
+      int max,
+      String help) {
+    add(page, key, label, option::get, option::set, min, max, help);
+    nativeBindings.put(option, key);
+  }
+
+  private void nativePercent(
+      int page,
+      String key,
+      String label,
+      net.minecraft.client.OptionInstance<Double> option,
+      int min,
+      int max,
+      String help) {
+    add(
+        page,
+        key,
+        label,
+        () -> (int) Math.round(option.get() * 100),
+        v -> option.set(v / 100.),
+        min,
+        max,
+        help);
+    nativeBindings.put(option, key);
+  }
+
+  private <T extends Enum<T>> void nativeEnum(
+      int page,
+      String key,
+      String label,
+      net.minecraft.client.OptionInstance<T> option,
+      T[] choices,
+      String help) {
+    add(
+        page,
+        key,
+        label,
+        () -> option.get().ordinal(),
+        v -> option.set(choices[v]),
+        0,
+        choices.length - 1,
+        help,
+        Arrays.stream(choices).map(Enum::name).toArray(String[]::new));
+    nativeBindings.put(option, key);
+  }
+
+  /** All options from the 26.1.2 video menu, alongside our own controls. */
+  private void nativeOptions() {
+    var o = minecraft.options;
+    nativeEnum(
+        1,
+        "preset",
+        "Quality preset",
+        o.graphicsPreset(),
+        net.minecraft.client.GraphicsPreset.values(),
+        "Apply a native quality preset. Other settings you change here override that preset when"
+            + " applied.");
+    nativeBool(0, "fullscreen", "Fullscreen", o.fullscreen(), "Use the full display.");
+    nativeBool(
+        0,
+        "exclusiveFullscreen",
+        "Exclusive fullscreen",
+        o.exclusiveFullscreen(),
+        "Allow fullscreen to use the selected display mode.");
+    var window = minecraft.getWindow();
+    var monitor = window.findBestMonitor();
+    String[] modes = new String[monitor == null ? 1 : monitor.getModeCount() + 1];
+    modes[0] = "Current display";
+    for (int i = 1; i < modes.length; i++) modes[i] = monitor.getMode(i - 1).toString();
+    add(
+        0,
+        "resolution",
+        "Fullscreen resolution",
+        () ->
+            monitor == null
+                ? 0
+                : window
+                        .getPreferredFullscreenVideoMode()
+                        .map(monitor::getVideoModeIndex)
+                        .orElse(-1)
+                    + 1,
+        v ->
+            window.setPreferredFullscreenVideoMode(
+                monitor == null || v == 0 ? Optional.empty() : Optional.of(monitor.getMode(v - 1))),
+        0,
+        modes.length - 1,
+        "Display mode used by exclusive fullscreen.",
+        modes);
+    nativeInt(
+        0,
+        "guiScale",
+        "GUI scale (0 = auto)",
+        o.guiScale(),
+        0,
+        Math.max(o.guiScale().get(), window.calculateScale(0, minecraft.isEnforceUnicode())),
+        "Interface scale. Auto selects the largest scale that fits.");
+    nativeEnum(
+        2,
+        "inactivity",
+        "Idle frame limit",
+        o.inactivityFpsLimit(),
+        net.minecraft.client.InactivityFpsLimit.values(),
+        "Native frame limiting while minimized or idle.");
+    nativeInt(
+        1,
+        "biomeBlend",
+        "Biome blend radius",
+        o.biomeBlendRadius(),
+        0,
+        7,
+        "Blend biome colors across nearby blocks. Larger radii cost more rebuilding work.");
+    nativeBool(
+        1,
+        "ambient",
+        "Ambient occlusion",
+        o.ambientOcclusion(),
+        "Shade corners and contact surfaces.");
+    nativeInt(
+        1, "cloudRange", "Cloud distance (chunks)", o.cloudRange(), 2, 128, "Cloud draw radius.");
+    nativeInt(
+        1,
+        "weatherRange",
+        "Weather radius (blocks)",
+        o.weatherRadius(),
+        3,
+        10,
+        "Rain and snow draw radius.");
+    nativeBool(1, "leaves", "Cutout leaves", o.cutoutLeaves(), "Draw leaf gaps with transparency.");
+    nativeBool(
+        1,
+        "transparency",
+        "Improved transparency",
+        o.improvedTransparency(),
+        "Use native improved translucent rendering. Hardware compatibility is checked on Apply.");
+    nativeInt(
+        1,
+        "mipmaps",
+        "Mipmap levels",
+        o.mipmapLevels(),
+        0,
+        4,
+        "Reduce texture shimmer at a distance. Applying reloads textures.");
+    nativeEnum(
+        1,
+        "filtering",
+        "Texture filtering",
+        o.textureFiltering(),
+        net.minecraft.client.TextureFilteringMethod.values(),
+        "Texture sampling method. Applying reloads textures.");
+    add(
+        1,
+        "anisotropy",
+        "Anisotropic filtering",
+        o.maxAnisotropyBit()::get,
+        o.maxAnisotropyBit()::set,
+        1,
+        3,
+        "Filtering strength when anisotropic filtering is selected. Hardware limits still apply.",
+        "",
+        "2×",
+        "4×",
+        "8×");
+    nativePercent(
+        1,
+        "entityScale",
+        "Entity distance (%)",
+        o.entityDistanceScaling(),
+        50,
+        500,
+        "Native entity distance multiplier, alongside Deep Primal's optional distance cap.");
+    nativeInt(
+        1,
+        "menuBlur",
+        "Menu background blur",
+        o.menuBackgroundBlurriness(),
+        0,
+        10,
+        "Blur strength behind menus.");
+    nativeEnum(
+        2,
+        "chunkPriority",
+        "Chunk update priority",
+        o.prioritizeChunkUpdates(),
+        net.minecraft.client.PrioritizeChunkUpdates.values(),
+        "Prioritize player edits or nearby chunk rebuilds.");
+    nativeBool(
+        0,
+        "autosave",
+        "Autosave indicator",
+        o.showAutosaveIndicator(),
+        "Show world save activity.");
+    nativeBool(1, "vignette", "Vignette", o.vignette(), "Shade screen edges.");
+    nativeEnum(
+        0,
+        "attackIndicator",
+        "Attack indicator",
+        o.attackIndicator(),
+        net.minecraft.client.AttackIndicatorStatus.values(),
+        "Where the attack cooldown indicator appears.");
+    add(
+        1,
+        "chunkFade",
+        "Chunk fade (ms)",
+        () -> (int) Math.round(o.chunkSectionFadeInTime().get() * 1000),
+        v -> o.chunkSectionFadeInTime().set(v / 1000.),
+        0,
+        2000,
+        "Fade newly rendered chunks in over 0–2000 milliseconds.");
+    nativeBool(0, "viewBobbing", "View bobbing", o.bobView(), "Camera motion when walking.");
+    nativePercent(
+        1,
+        "screenEffects",
+        "Screen effects (%)",
+        o.screenEffectScale(),
+        0,
+        100,
+        "Portal and nausea effects.");
+    nativePercent(
+        1,
+        "fovEffects",
+        "FOV effects (%)",
+        o.fovEffectScale(),
+        0,
+        100,
+        "Movement and status FOV effects.");
+    nativePercent(
+        1,
+        "darknessEffects",
+        "Darkness effects (%)",
+        o.darknessEffectScale(),
+        0,
+        100,
+        "Darkness pulse strength.");
+    nativePercent(
+        1,
+        "glintSpeed",
+        "Glint speed (%)",
+        o.glintSpeed(),
+        0,
+        100,
+        "Enchantment glint animation speed.");
+    nativePercent(
+        1,
+        "glintStrength",
+        "Glint strength (%)",
+        o.glintStrength(),
+        0,
+        100,
+        "Enchantment glint opacity.");
+    nativePercent(
+        1,
+        "damageTilt",
+        "Damage tilt (%)",
+        o.damageTiltStrength(),
+        0,
+        100,
+        "Camera tilt on damage.");
+    nativeBool(
+        1,
+        "hideLightning",
+        "Hide lightning flashes",
+        o.hideLightningFlash(),
+        "Suppress lightning flashes.");
+  }
+
   private void define() {
     controls.clear();
+    nativeBindings.clear();
+    nativeOptions();
     add(
         0,
         "render",
@@ -449,12 +746,21 @@ public final class PrimalGraphicsScreen extends Screen {
         ClientPerformanceConfig.BATCHED_DRAWS,
         "Shared pipeline submission for terrain geometry. The graphics API remains a"
             + " separate module.");
+    nativeBindings.put(minecraft.options.renderDistance(), "render");
+    nativeBindings.put(minecraft.options.simulationDistance(), "simulation");
+    nativeBindings.put(minecraft.options.cloudStatus(), "clouds");
+    nativeBindings.put(minecraft.options.particles(), "particles");
+    nativeBindings.put(minecraft.options.entityShadows(), "shadows");
+    nativeBindings.put(minecraft.options.maxAnisotropyBit(), "anisotropy");
   }
 
   private void load() {
     define();
     values.clear();
     controls.forEach((k, c) -> values.put(k, Integer.toString(c.get.getAsInt())));
+    presetKeys.clear();
+    baseline.clear();
+    baseline.putAll(values);
     loaded = true;
   }
 
@@ -470,12 +776,29 @@ public final class PrimalGraphicsScreen extends Screen {
     for (Control c : controls.values()) {
       try {
         int v = Integer.parseInt(values.get(c.key));
-        if (v < c.min || v > c.max) return false;
+        if (!legal(c, v)) return false;
       } catch (RuntimeException e) {
         return false;
       }
     }
     return true;
+  }
+
+  private static int step(Control c) {
+    return switch (c.key) {
+      case "fpsLimit" -> 10;
+      case "entityScale" -> 25;
+      case "chunkFade" -> 50;
+      default -> 1;
+    };
+  }
+
+  private static boolean legal(Control c, int value) {
+    return value >= c.min && value <= c.max && (value - c.min) % step(c) == 0;
+  }
+
+  private static int sliderNumber(Control c, double fraction) {
+    return c.min + (int) Math.round(fraction * (c.max - c.min) / step(c)) * step(c);
   }
 
   @Override
@@ -525,20 +848,26 @@ public final class PrimalGraphicsScreen extends Screen {
                             GraphicsActions.dashboard.run();
                             return;
                           }
-                          int v = (number(c) + 1) % c.choices.length;
+                          int v = number(c) >= c.max ? c.min : number(c) + 1;
                           if (c.key.equals("backend")
                               && !net.neoforged.fml.ModList.get().isLoaded("deepprimal_vulkan")) {
                             v = 0;
                             b.active = false;
                           }
                           values.put(c.key, Integer.toString(v));
+                          if (c.key.equals("preset")) {
+                            stagePreset(net.minecraft.client.GraphicsPreset.values()[v]);
+                            rebuildWidgets();
+                            return;
+                          }
                           b.setMessage(Component.literal(c.choices[v]));
                           refresh();
                         })
                     .bounds(contentX + contentWidth - 104, y, 100, 20)
                     .build());
         button.setTooltip(Tooltip.create(Component.literal(c.help)));
-        if (!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4)) button.active = false;
+        if ((!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4))
+            || (c.tab == 3 && !LodAccess.available())) button.active = false;
         if (c.key.equals("dashboard"))
           button.active = GraphicsActions.dashboardAvailable.getAsBoolean();
         if (c.key.equals("backend")
@@ -559,7 +888,14 @@ public final class PrimalGraphicsScreen extends Screen {
         field.setFilter(s -> s.chars().allMatch(Character::isDigit));
         field.setValue(values.get(c.key));
         field.setTooltip(
-            Tooltip.create(Component.literal(c.help + " Range " + c.min + "–" + c.max + ".")));
+            Tooltip.create(
+                Component.literal(
+                    c.help
+                        + " Range "
+                        + c.min
+                        + "–"
+                        + c.max
+                        + (step(c) == 1 ? "." : "; steps of " + step(c) + "."))));
         var slider =
             addRenderableWidget(
                 new ValueSlider(
@@ -568,7 +904,8 @@ public final class PrimalGraphicsScreen extends Screen {
                     sliderWidth,
                     c,
                     field));
-        if (!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4)) {
+        if ((!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4))
+            || (c.tab == 3 && !LodAccess.available())) {
           field.active = false;
           slider.active = false;
         }
@@ -581,9 +918,7 @@ public final class PrimalGraphicsScreen extends Screen {
                 updating = false;
               }
               field.setTextColor(
-                  s.matches("[0-9]+") && number(c) >= c.min && number(c) <= c.max
-                      ? 0xffeeeeee
-                      : 0xffff7777);
+                  s.matches("[0-9]+") && legal(c, number(c)) ? 0xffeeeeee : 0xffff7777);
               refresh();
             });
       }
@@ -612,23 +947,88 @@ public final class PrimalGraphicsScreen extends Screen {
     refresh();
   }
 
+  private void stagePreset(net.minecraft.client.GraphicsPreset preset) {
+    presetKeys.clear();
+    for (var entry : PresetCapture.plan(preset, minecraft).entrySet()) {
+      String key = nativeBindings.get(entry.getKey());
+      if (key == null)
+        throw new IllegalStateException("Unmapped graphics preset option: " + entry.getKey());
+      Object value = entry.getValue();
+      int encoded =
+          value instanceof Boolean b
+              ? (b ? 1 : 0)
+              : value instanceof Enum<?> e
+                  ? e.ordinal()
+                  : value instanceof Double d
+                      ? (int) Math.round(d * 100)
+                      : ((Number) value).intValue();
+      values.put(key, Integer.toString(encoded));
+      presetKeys.add(key);
+    }
+  }
+
   private void refresh() {
     if (apply != null) {
       apply.active = valid();
-      apply.setTooltip(Tooltip.create(Component.literal(message)));
+      apply.setTooltip(
+          Tooltip.create(
+              Component.literal(
+                  valid()
+                      ? message
+                      : "Use the ranges and increments shown in each setting's tooltip.")));
     }
   }
 
   private void applyChanges() {
     if (!valid()) return;
+    var warnings = minecraft.getGpuWarnlistManager();
+    if (warnings.willShowWarning()
+        && (number(controls.get("transparency")) == 1
+            || number(controls.get("preset"))
+                == net.minecraft.client.GraphicsPreset.FABULOUS.ordinal())
+        && (!Objects.equals(values.get("transparency"), baseline.get("transparency"))
+            || !Objects.equals(values.get("preset"), baseline.get("preset")))) {
+      minecraft.setScreen(
+          new net.minecraft.client.gui.screens.ConfirmScreen(
+              accepted -> {
+                minecraft.setScreen(this);
+                if (accepted) {
+                  warnings.dismissWarning();
+                  applyChanges();
+                }
+              },
+              Component.literal("Graphics compatibility"),
+              Component.literal(
+                  "This graphics device is listed as having issues with improved transparency."
+                      + " Apply these settings?")));
+      return;
+    }
     try {
       // Save backend first so an I/O error cannot silently claim all preferences were applied.
+      var options = minecraft.options;
+      int oldMipmaps = options.mipmapLevels().get();
+      int oldAnisotropy = options.maxAnisotropyBit().get();
+      var oldFiltering = options.textureFiltering().get();
       int oldVertical = ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get();
       boolean oldSmooth = WaterVisualConfig.SMOOTH.get();
       Control backend = controls.get("backend");
       backend.set.accept(number(backend));
+      Control preset = controls.get("preset");
+      if (!Objects.equals(values.get("preset"), baseline.get("preset")))
+        preset.set.accept(number(preset));
       for (Control c : controls.values())
-        if (c != backend && !c.key.equals("dashboard")) c.set.accept(number(c));
+        if (c != backend
+            && c != preset
+            && !c.key.equals("dashboard")
+            && (!Objects.equals(values.get(c.key), baseline.get(c.key))
+                || presetKeys.contains(c.key))) c.set.accept(number(c));
+      minecraft.getWindow().changeFullscreenVideoMode();
+      if (oldMipmaps != options.mipmapLevels().get()
+          || oldAnisotropy != options.maxAnisotropyBit().get()
+          || oldFiltering != options.textureFiltering().get()) {
+        minecraft.updateMaxMipLevel(options.mipmapLevels().get());
+        minecraft.delayTextureReload();
+      }
       ClientPerformanceConfig.SPEC.save();
       LodConfig.SPEC.save();
       WaterVisualConfig.SPEC.save();
@@ -696,7 +1096,7 @@ public final class PrimalGraphicsScreen extends Screen {
         !RendererOwnership.owned()
             ? "Renderer delegated to " + RendererOwnership.owner()
             : tab == 3
-                ? GraphicsActions.lodStatus.get()
+                ? LodAccess.status()
                 : tab == 5
                     ? "Active API: "
                         + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
@@ -745,15 +1145,12 @@ public final class PrimalGraphicsScreen extends Screen {
 
     protected void updateMessage() {
       if (control != null)
-        setMessage(
-            Component.literal(
-                Integer.toString(
-                    control.min + (int) Math.round(value * (control.max - control.min)))));
+        setMessage(Component.literal(Integer.toString(sliderNumber(control, value))));
     }
 
     protected void applyValue() {
       if (control == null) return;
-      int n = control.min + (int) Math.round(value * (control.max - control.min));
+      int n = sliderNumber(control, value);
       values.put(control.key, Integer.toString(n));
       updating = true;
       field.setValue(Integer.toString(n));

@@ -1,4 +1,4 @@
-package com.shnewbs.deepprimal.client.lod;
+package com.shnewbs.deepprimal.lod.client;
 
 import java.util.*;
 import net.minecraft.client.Minecraft;
@@ -21,7 +21,7 @@ final class LodMaterialColors {
         sprite,
         s -> {
           var image =
-              ((com.shnewbs.deepprimal.mixin.client.SpritePixelsAccess) s)
+              ((com.shnewbs.deepprimal.lod.mixin.client.SpritePixelsAccess) s)
                   .deepprimal$originalImage();
           long r = 0, g = 0, b = 0, weight = 0;
           for (int y = 0; y < s.height(); y++)

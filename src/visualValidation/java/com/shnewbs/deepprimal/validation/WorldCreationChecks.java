@@ -96,7 +96,7 @@ public final class WorldCreationChecks {
     report(
         "WORLD_CREATION_FORM_PASS mode=" + mode + " prepareMs=" + (System.nanoTime() - prep) / 1e6);
     var ui = screen.getUiState();
-    ui.setName("Alpha18 creation check");
+    ui.setName("Alpha19-engine-check");
     ui.setSeed("20261020");
     ui.setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE);
     ui.setAllowCommands(true);

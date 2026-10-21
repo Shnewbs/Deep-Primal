@@ -12,7 +12,9 @@ public final class RendererMixinPlugin implements IMixinConfigPlugin {
   public boolean shouldApplyMixin(String target, String mixin) {
     if (mixin.endsWith("KubeJsRegistryContextMixin")) return RendererOwnership.installed("kubejs");
     if (mixin.endsWith("FrameLimitMixin")) return !RendererOwnership.installed("dynamic_fps");
-    if (!mixin.contains(".mixin.client.") || mixin.endsWith("VideoSettingsMixin")) return true;
+    if (!mixin.contains(".mixin.client.")
+        || mixin.endsWith("OptionsParentAccess")
+        || mixin.endsWith("GraphicsPresetMixin")) return true;
     return RendererOwnership.owned();
   }
 

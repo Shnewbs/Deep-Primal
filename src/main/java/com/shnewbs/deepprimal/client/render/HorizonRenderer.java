@@ -10,6 +10,8 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.shnewbs.deepprimal.core.FarTerrain;
 import com.shnewbs.deepprimal.core.HorizonGeometry;
+import com.shnewbs.deepprimal.graphics.GpuLighting;
+import com.shnewbs.deepprimal.graphics.TerrainGpuMesh;
 import com.shnewbs.deepprimal.render.network.HorizonRequest;
 import com.shnewbs.deepprimal.render.network.HorizonTile;
 import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
@@ -41,12 +43,12 @@ import org.joml.Vector4f;
  */
 public final class HorizonRenderer {
   public static final HorizonRenderer INSTANCE = new HorizonRenderer();
-  private static final ContextKey<List<HorizonGpuMesh>> VISIBLE =
+  private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "horizon_visible"));
   private static final RenderPipeline PIPELINE =
       RenderPipeline.builder(RenderPipelines.MATRICES_FOG_SNIPPET)
           .withLocation(Identifier.fromNamespaceAndPath("deepprimal", "horizon"))
-          .withVertexShader(Identifier.fromNamespaceAndPath("deepprimal", "core/horizon"))
+          .withVertexShader(Identifier.fromNamespaceAndPath("deepprimal_graphics", "core/terrain"))
           .withFragmentShader(Identifier.fromNamespaceAndPath("deepprimal", "core/horizon"))
           .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.TRIANGLES)
           .withDepthStencilState(DepthStencilState.DEFAULT)
@@ -56,7 +58,7 @@ public final class HorizonRenderer {
                   com.mojang.blaze3d.pipeline.BlendFunction.TRANSLUCENT))
           .withCull(true)
           .build();
-  private final LinkedHashMap<Long, HorizonGpuMesh> cache = new LinkedHashMap<>(400, 0.75f, true);
+  private final LinkedHashMap<Long, TerrainGpuMesh> cache = new LinkedHashMap<>(400, 0.75f, true);
   private com.shnewbs.deepprimal.core.HorizonView view;
   private final net.minecraft.client.renderer.DynamicUniforms.Transform[] transformStorage =
       new net.minecraft.client.renderer.DynamicUniforms.Transform[FarTerrain.MAX_TILES + 1];
@@ -67,7 +69,7 @@ public final class HorizonRenderer {
   private final ArrayList<com.mojang.blaze3d.systems.RenderPass.Draw<Void>> indexedDraws =
       new ArrayList<>();
   private final HorizonGpuTimer gpuTimer = new HorizonGpuTimer();
-  private HorizonGpuMesh transition;
+  private TerrainGpuMesh transition;
   private com.mojang.blaze3d.textures.GpuTexture backgroundDepth;
   private com.mojang.blaze3d.textures.GpuTextureView backgroundDepthView;
 
@@ -104,7 +106,7 @@ public final class HorizonRenderer {
 
   private final com.shnewbs.deepprimal.core.TransitionDependencies transitionSources =
       new com.shnewbs.deepprimal.core.TransitionDependencies(FarTerrain.MAX_TILES);
-  private final ArrayList<HorizonGpuMesh> visibleWork = new ArrayList<>(FarTerrain.MAX_TILES + 1);
+  private final ArrayList<TerrainGpuMesh> visibleWork = new ArrayList<>(FarTerrain.MAX_TILES + 1);
   public volatile long transitionBuilds;
   public volatile long meshBuildNanos,
       meshPackNanos,
@@ -159,7 +161,7 @@ public final class HorizonRenderer {
     final HorizonTile packet;
     final com.shnewbs.deepprimal.core.HorizonMesh[] levels;
     int next;
-    HorizonGpuMesh root, previous;
+    TerrainGpuMesh root, previous;
 
     PendingUpload(HorizonTile packet, com.shnewbs.deepprimal.core.HorizonMesh[] levels) {
       this.packet = packet;
@@ -291,7 +293,7 @@ public final class HorizonRenderer {
     // Fill coverage with the small grid before spending the only request slot on refinements.
     for (int stage = 0; stage < 2; stage++) {
       for (long key : wanted) {
-        HorizonGpuMesh existing = cache.get(key);
+        TerrainGpuMesh existing = cache.get(key);
         if (stage == 0 ? existing != null : existing == null || existing.detail <= detail(key))
           continue;
         int detail = stage == 0 ? 2 : detail(key);
@@ -413,13 +415,13 @@ public final class HorizonRenderer {
     var visible = visibleWork;
     visible.clear();
     visibleFine = visibleMedium = visibleCoarse = 0;
-    for (HorizonGpuMesh tile : cache.values()) {
+    for (TerrainGpuMesh tile : cache.values()) {
       if (!FarTerrain.inRange(tile.x, tile.z, camera.x, camera.z, farDistance())) continue;
       if (vertical != 0
           && (tile.minY > camera.y + vertical * 16 || tile.maxY < camera.y - vertical * 16))
         continue;
       if (event.getFrustum().isVisible(tile.bounds)) {
-        HorizonGpuMesh selected = tile.forDetail(view.detail(tile.x, tile.z));
+        TerrainGpuMesh selected = tile.forDetail(view.detail(tile.x, tile.z));
         visible.add(selected);
         if (selected.detail == 0) visibleFine++;
         else if (selected.detail == 1) visibleMedium++;
@@ -480,7 +482,7 @@ public final class HorizonRenderer {
       if (ClientPerformanceConfig.BATCHED_DRAWS.get()) {
         indexedDraws.clear();
         for (int i = 0; i < tiles.size(); i++) {
-          HorizonGpuMesh tile = tiles.get(i);
+          TerrainGpuMesh tile = tiles.get(i);
           if (tile.indexedDraw != null) {
             tile.transformSlice = transforms[i];
             indexedDraws.add(tile.indexedDraw);
@@ -496,7 +498,7 @@ public final class HorizonRenderer {
               null);
       }
       for (int i = 0; i < tiles.size(); i++) {
-        HorizonGpuMesh tile = tiles.get(i);
+        TerrainGpuMesh tile = tiles.get(i);
         if (ClientPerformanceConfig.BATCHED_DRAWS.get() && tile.indices != null) continue;
         pass.setUniform("DynamicTransforms", transforms[i]);
         tile.draw(pass);
@@ -543,7 +545,7 @@ public final class HorizonRenderer {
             victim = e.getKey();
           }
         }
-      HorizonGpuMesh tile = cache.remove(victim);
+      TerrainGpuMesh tile = cache.remove(victim);
       residentBytes -= tile.byteSize;
       tile.close();
     }
@@ -569,10 +571,10 @@ public final class HorizonRenderer {
       if (bytes + levelData.gpuBytes() > byteLimit
           || uploadsLastFrame > 0 && System.nanoTime() - start >= timeLimit) break;
       long before = System.nanoTime();
-      HorizonGpuMesh tile;
+      TerrainGpuMesh tile;
       try {
         tile =
-            HorizonGpuMesh.upload(
+            TerrainGpuMesh.upload(
                 pending.packet.x(),
                 pending.packet.z(),
                 pending.packet.detail() + pending.next,
@@ -600,8 +602,8 @@ public final class HorizonRenderer {
     maxUploadsPerFrame = Math.max(maxUploadsPerFrame, uploadsLastFrame);
     maxUploadBytesPerFrame = Math.max(maxUploadBytesPerFrame, bytes);
     if (pending.next == pending.levels.length) {
-      HorizonGpuMesh tile = pending.root;
-      HorizonGpuMesh old = cache.put(FarTerrain.key(tile.x, tile.z), tile);
+      TerrainGpuMesh tile = pending.root;
+      TerrainGpuMesh old = cache.put(FarTerrain.key(tile.x, tile.z), tile);
       if (old != null) {
         residentBytes -= old.byteSize;
         old.close();
@@ -636,7 +638,7 @@ public final class HorizonRenderer {
     b.addVertex(x, floor, z).setColor(color).setNormal(0, 1, 0);
   }
 
-  private HorizonGpuMesh upload(
+  private TerrainGpuMesh upload(
       BufferBuilder builder, int x, int z, int low, int high, int detail, short[] heights) {
     try (var mesh = builder.buildOrThrow()) {
       long start = System.nanoTime();
@@ -646,14 +648,14 @@ public final class HorizonRenderer {
                   () -> "Deep Primal horizon tile", GpuBuffer.USAGE_VERTEX, mesh.vertexBuffer());
       uploadedBytes += mesh.vertexBuffer().remaining();
       uploadNanos += System.nanoTime() - start;
-      return new HorizonGpuMesh(
+      return new TerrainGpuMesh(
           x, z, low, high, buffer, null, mesh.drawState().vertexCount(), 0, detail, heights);
     }
   }
 
   private double height(double x, double z) {
     int tx = (int) Math.floor(x / 512), tz = (int) Math.floor(z / 512);
-    HorizonGpuMesh tile = cache.get(FarTerrain.key(tx, tz));
+    TerrainGpuMesh tile = cache.get(FarTerrain.key(tx, tz));
     if (tile == null) return Double.NaN;
     tile = tile.forDetail(detail(FarTerrain.key(tx, tz)));
     return HorizonGeometry.sample(
@@ -661,7 +663,7 @@ public final class HorizonRenderer {
         - .125;
   }
 
-  private HorizonGpuMesh buildTransition(long cx, long cz, int radius) {
+  private TerrainGpuMesh buildTransition(long cx, long cz, int radius) {
     if (cache.isEmpty() || ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get() == 0) return null;
     int tx = (int) Math.floor(cx / 512.0),
         tz = (int) Math.floor(cz / 512.0),
@@ -694,7 +696,7 @@ public final class HorizonRenderer {
           count++;
         }
       if (count == 0) return null;
-      HorizonGpuMesh tile = upload(b, tx, tz, floor, level.getMaxY(), 2, new short[0]);
+      TerrainGpuMesh tile = upload(b, tx, tz, floor, level.getMaxY(), 2, new short[0]);
       tile.bounds =
           new AABB(cx - radius, floor, cz - radius, cx + radius, level.getMaxY(), cz + radius);
       return tile;
@@ -710,7 +712,7 @@ public final class HorizonRenderer {
     for (int x = minX; x <= maxX; x++)
       for (int z = minZ; z <= maxZ; z++) {
         if (x != minX && x != maxX && z != minZ && z != maxZ) continue;
-        HorizonGpuMesh root = cache.get(FarTerrain.key(x, z));
+        TerrainGpuMesh root = cache.get(FarTerrain.key(x, z));
         transitionSources.include(root == null ? null : root.forDetail(view.detail(x, z)));
       }
     return transitionSources.end();
@@ -738,7 +740,7 @@ public final class HorizonRenderer {
       transition.close();
       transition = null;
     }
-    cache.values().forEach(HorizonGpuMesh::close);
+    cache.values().forEach(TerrainGpuMesh::close);
     cache.clear();
     residentBytes = 0;
     cachedTiles = visibleTiles = 0;

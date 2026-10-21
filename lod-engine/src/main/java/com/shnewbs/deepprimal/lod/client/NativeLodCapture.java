@@ -1,4 +1,4 @@
-package com.shnewbs.deepprimal.client.lod;
+package com.shnewbs.deepprimal.lod.client;
 
 import com.shnewbs.deepprimal.core.lod.ColumnarChunk;
 import java.util.*;

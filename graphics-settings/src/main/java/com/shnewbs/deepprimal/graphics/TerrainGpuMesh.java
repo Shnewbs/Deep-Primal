@@ -1,4 +1,4 @@
-package com.shnewbs.deepprimal.client.render;
+package com.shnewbs.deepprimal.graphics;
 
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.systems.RenderPass;
@@ -11,17 +11,17 @@ import net.minecraft.world.phys.AABB;
 import org.lwjgl.system.MemoryUtil;
 
 /** Owns every GPU allocation for one detail level. A root also owns its coarser levels. */
-final class HorizonGpuMesh implements AutoCloseable {
-  final int x, z, minY, maxY, vertexCount, indexCount, detail;
-  final GpuBuffer vertices, indices;
-  final RenderPass.Draw<Void> indexedDraw;
-  com.mojang.blaze3d.buffers.GpuBufferSlice transformSlice;
-  final short[] heights;
-  AABB bounds;
-  long byteSize;
-  HorizonGpuMesh coarse;
+public final class TerrainGpuMesh implements AutoCloseable {
+  public final int x, z, minY, maxY, vertexCount, indexCount, detail;
+  public final GpuBuffer vertices, indices;
+  public final RenderPass.Draw<Void> indexedDraw;
+  public com.mojang.blaze3d.buffers.GpuBufferSlice transformSlice;
+  public final short[] heights;
+  public AABB bounds;
+  public long byteSize;
+  public TerrainGpuMesh coarse;
 
-  HorizonGpuMesh(
+  public TerrainGpuMesh(
       int x,
       int z,
       int minY,
@@ -58,11 +58,11 @@ final class HorizonGpuMesh implements AutoCloseable {
     bounds = new AABB(x * 512.0, minY - 1, z * 512.0, (x + 1.0) * 512, maxY + 1, (z + 1.0) * 512);
   }
 
-  static HorizonGpuMesh upload(int x, int z, int detail, HorizonMesh mesh) {
+  public static TerrainGpuMesh upload(int x, int z, int detail, HorizonMesh mesh) {
     return upload(x, z, detail, mesh, true);
   }
 
-  static HorizonGpuMesh upload(int x, int z, int detail, HorizonMesh mesh, boolean normals) {
+  public static TerrainGpuMesh upload(int x, int z, int detail, HorizonMesh mesh, boolean normals) {
     ByteBuffer vertexData =
         MemoryUtil.memAlloc(mesh.vertices() * (normals ? 20 : 16)).order(ByteOrder.nativeOrder());
     ByteBuffer indexData = null;
@@ -92,7 +92,7 @@ final class HorizonGpuMesh implements AutoCloseable {
       indices =
           device.createBuffer(
               () -> "Deep Primal terrain indices", GpuBuffer.USAGE_INDEX, indexData);
-      return new HorizonGpuMesh(
+      return new TerrainGpuMesh(
           x,
           z,
           mesh.minimum(),
@@ -113,7 +113,7 @@ final class HorizonGpuMesh implements AutoCloseable {
     }
   }
 
-  void draw(RenderPass pass) {
+  public void draw(RenderPass pass) {
     pass.setVertexBuffer(0, vertices);
     if (indices == null) pass.draw(0, vertexCount);
     else {
@@ -122,11 +122,11 @@ final class HorizonGpuMesh implements AutoCloseable {
     }
   }
 
-  int triangles() {
+  public int triangles() {
     return (indices == null ? vertexCount : indexCount) / 3;
   }
 
-  HorizonGpuMesh forDetail(int wanted) {
+  public TerrainGpuMesh forDetail(int wanted) {
     return coarse != null && wanted > detail ? coarse.forDetail(wanted) : this;
   }
 

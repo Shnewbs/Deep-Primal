@@ -14,6 +14,15 @@ public final class WaterTransport {
     return new Exchange(from - moved, to + moved, moved);
   }
 
+  /** Communicating surfaces use elevation plus volume as hydraulic head. */
+  public static Exchange pressure(int fromY, int from, int toY, int to) {
+    if (from < 0 || from > CAPACITY || to < 0 || to > CAPACITY)
+      throw new IllegalArgumentException("Water capacity");
+    long difference = ((long) fromY - toY) * CAPACITY + from - to;
+    int moved = (int) Math.max(0, Math.min(Math.min(from, CAPACITY - to), difference / 2));
+    return new Exchange(from - moved, to + moved, moved);
+  }
+
   /** Shared global corners make independently rebuilt neighboring cells meet exactly. */
   public static double surface(
       double nw, double ne, double sw, double se, double center, double u, double v) {

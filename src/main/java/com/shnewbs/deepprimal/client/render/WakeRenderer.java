@@ -9,6 +9,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.shnewbs.deepprimal.core.WakeField;
+import com.shnewbs.deepprimal.graphics.GpuLighting;
 import com.shnewbs.deepprimal.settings.RendererOwnership;
 import com.shnewbs.deepprimal.settings.WaterVisualConfig;
 import java.nio.ByteBuffer;

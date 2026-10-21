@@ -19,12 +19,6 @@ public final class DeepPrimalClient {
                     java.net.URI.create(com.shnewbs.deepprimal.diagnostics.LocalDashboard.url()));
     com.shnewbs.deepprimal.settings.GraphicsActions.dashboardAvailable =
         com.shnewbs.deepprimal.diagnostics.LocalDashboard::running;
-    com.shnewbs.deepprimal.settings.GraphicsActions.lodStatus =
-        () ->
-            "Visible LOD span: "
-                + com.shnewbs.deepprimal.client.render.VoxelLodRenderer.visibleDistance()
-                + " chunks | requested: "
-                + com.shnewbs.deepprimal.settings.LodConfig.RADIUS.get();
     container.registerExtensionPoint(
         net.neoforged.neoforge.client.gui.IConfigScreenFactory.class,
         (net.neoforged.neoforge.client.gui.IConfigScreenFactory)
@@ -38,7 +32,6 @@ public final class DeepPrimalClient {
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE);
-      NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.VoxelLodRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(
           com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE);
     }
@@ -75,11 +68,6 @@ public final class DeepPrimalClient {
 
   private static void payloads(
       net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent event) {
-    event.register(
-        com.shnewbs.deepprimal.render.network.LodWorld.TYPE,
-        (p, c) ->
-            com.shnewbs.deepprimal.client.render.VoxelLodRenderer.INSTANCE.worldIdentity(
-                p.identity()));
     event.register(
         com.shnewbs.deepprimal.render.network.HorizonTile.TYPE,
         (p, c) -> {

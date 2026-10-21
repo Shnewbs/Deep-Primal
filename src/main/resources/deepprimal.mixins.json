@@ -20,7 +20,6 @@
   "client": [
     "client.OptionsMixin",
     "client.OptionsAccessor",
-    "client.VideoSettingsMixin",
     "client.ViewAreaMixin",
     "client.SectionOcclusionGraphMixin",
     "client.GraphStorageMixin",
@@ -30,9 +29,7 @@
     "client.WaterColorMixin",
     "client.SnowFoliageMixin",
     "client.WaterFogMixin",
-    "client.FluidModelAccess",
-    "client.LodDirtyMixin",
-    "client.SpritePixelsAccess"
+    "client.FluidModelAccess"
   ],
   "injectors": {
     "defaultRequire": 1

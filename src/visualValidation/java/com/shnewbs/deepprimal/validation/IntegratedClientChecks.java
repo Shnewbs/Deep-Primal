@@ -1,6 +1,6 @@
 package com.shnewbs.deepprimal.validation;
 
-import com.shnewbs.deepprimal.client.render.VoxelLodRenderer;
+import com.shnewbs.deepprimal.lod.client.VoxelLodRenderer;
 import com.shnewbs.deepprimal.settings.*;
 import java.nio.file.*;
 import net.minecraft.client.Minecraft;

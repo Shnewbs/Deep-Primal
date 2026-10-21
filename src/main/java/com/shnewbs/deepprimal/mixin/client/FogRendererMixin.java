@@ -70,13 +70,13 @@ public abstract class FogRendererMixin {
             (com.shnewbs.deepprimal.client.render.HorizonRenderer.nearCenter(camera.z) - camera.z));
     buffer.putFloat(offset + 60, 0);
     if ((com.shnewbs.deepprimal.client.render.HorizonRenderer.active()
-        || com.shnewbs.deepprimal.client.render.VoxelLodRenderer.active())) {
+        || com.shnewbs.deepprimal.settings.LodAccess.active())) {
       float far =
           Math.max(
               distanceEnd,
               Math.max(
                       com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance(),
-                      com.shnewbs.deepprimal.client.render.VoxelLodRenderer.visibleDistance())
+                      com.shnewbs.deepprimal.settings.LodAccess.visibleDistance())
                   * 16);
       buffer.putFloat(offset + 24, far * 0.75f);
       buffer.putFloat(offset + 28, far);

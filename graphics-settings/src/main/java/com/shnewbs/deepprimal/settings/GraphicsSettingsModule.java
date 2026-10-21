@@ -21,5 +21,18 @@ public final class GraphicsSettingsModule {
     container.registerExtensionPoint(
         IConfigScreenFactory.class,
         (IConfigScreenFactory) (mod, parent) -> new PrimalGraphicsScreen(parent));
+    net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(
+        GraphicsSettingsModule::openScreen);
+  }
+
+  private static void openScreen(net.neoforged.neoforge.client.event.ScreenEvent.Opening event) {
+    if (RendererOwnership.owned()
+        && event.getNewScreen()
+            instanceof net.minecraft.client.gui.screens.options.VideoSettingsScreen screen) {
+      var parent =
+          ((com.shnewbs.deepprimal.settings.mixin.client.OptionsParentAccess) screen)
+              .deepprimal$parent();
+      event.setNewScreen(new PrimalGraphicsScreen(parent));
+    }
   }
 }

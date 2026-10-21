@@ -9,6 +9,8 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.shnewbs.deepprimal.client.WaterColors;
 import com.shnewbs.deepprimal.core.HorizonMesh;
+import com.shnewbs.deepprimal.graphics.GpuLighting;
+import com.shnewbs.deepprimal.graphics.TerrainGpuMesh;
 import com.shnewbs.deepprimal.settings.WaterVisualConfig;
 import java.util.Arrays;
 import java.util.OptionalDouble;
@@ -44,7 +46,7 @@ public final class WaterSurfaceRenderer {
           .withCull(false)
           .build();
   private ClientLevel level;
-  private HorizonGpuMesh patch;
+  private TerrainGpuMesh patch;
   private int originX, originZ, radius;
   private long sampled;
   private PatchBuild building;
@@ -205,7 +207,7 @@ public final class WaterSurfaceRenderer {
       level = mc.level;
     }
     if (pendingReady) {
-      var next = pending == null ? null : HorizonGpuMesh.upload(0, 0, 0, pending, false);
+      var next = pending == null ? null : TerrainGpuMesh.upload(0, 0, 0, pending, false);
       if (patch != null) patch.close();
       patch = next;
       originX = pendingX;

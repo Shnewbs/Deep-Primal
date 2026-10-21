@@ -5,7 +5,5 @@ public final class GraphicsActions {
   public static Runnable dashboard = () -> {};
   public static java.util.function.BooleanSupplier dashboardAvailable = () -> false;
 
-  public static java.util.function.Supplier<String> lodStatus = () -> "No world loaded";
-
   private GraphicsActions() {}
 }
