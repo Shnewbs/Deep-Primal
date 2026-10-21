@@ -19,7 +19,7 @@ These counts are different axes and must not be added together as registered bio
 
 ## Scope and identity
 
-Plan natural Overworld surface, inland water, coastal, marine and subterranean environments. Species-by-species global ecoregions, human-made towns/plantations, new dimensions and fantasy ecosystems are not silently added by this natural-world roster. Existing content/dimension policies retain their own scope.
+Plan natural Overworld surface, inland water, coastal, marine and subterranean environments. Species-by-species global ecoregions, human-made towns/plantations, new dimensions and fantasy ecosystems are not silently added by this natural-world roster. The owner also confirmed using traits from actual named planets and exoplanets as references for islands and environments; see [island and planetary reference planning](#islands-and-planetary-references). Existing content/dimension policies retain their own scope.
 
 A biome profile should identify a persistent, meaningful ecological setting: canopy/ground-cover structure, terrain, materials, hydrologic role, community behavior and distinct environmental presentation. Climatic terms in names describe the intended biome; matching scenarios and numerical ranges are designed afterward. A material, temporary weather state or small landform does not automatically need another biome ID.
 
@@ -100,6 +100,38 @@ Scientific anchors: [NOAA ocean currents](https://www.noaa.gov/education/resourc
 This is the content-design sequence. Runtime dependency ordering will be resolved during later integration; this planning correction does not change the current generator. Shared watershed connectivity, deterministic regional sampling and agreement between detailed terrain, maps and LOD remain requirements.
 
 Desired transitions should preserve recognizable biome identity without random checkerboards. Later climate scenarios should support the intended forest–woodland–grassland–semidesert relationships; coastlines, cliffs, water boundaries and geological contacts can have sharper boundaries.
+
+## Islands and planetary references
+
+**Confirmed owner clarification, 2026-10-21:** planetary references mean actual planets humans have discovered/named, including exoplanets. Plan their relevant physical traits as environmental inspiration alongside Earth references. The examples and integration rules below are a working proposal; no planetary biome entries or runtime behavior are selected by this section.
+
+### Island relationships
+
+Use a coherent regional biome and species pool for an archipelago, with local eligibility based on each island's size, elevation, exposure, substrate, age and freshwater setting. Neighboring islands can share broad biome families while differing in their habitat mix. Record mainland connections/isolation and dispersal as community-design inputs. A chain's identity does not require every island to contain the same biomes.
+
+Island forms, proportions and frequency remain open: continental fragments, volcanic islands/chains, rocky islets, barrier islands, reef islands and atolls are candidates for the coverage pass. Select landforms, regional communities and local layers before deciding whether any additional base biome profile is needed.
+
+### Initial planetary references
+
+These are reference examples, not an exhaustive planet inventory. Scientific traits and proposed game translations are separate fields.
+
+| Named reference | Scientific basis | Proposed translation for review |
+| --- | --- | --- |
+| Earth archipelagos | [NPS Haleakalā ecosystems](https://home.nps.gov/hale/learn/nature/naturalfeaturesandecosystems.htm) describes wet/dry and elevation-related habitats. | Related island communities with terrain-appropriate local variety. |
+| Mars | [NASA Mars facts](https://science.nasa.gov/mars/facts/) describes iron oxidation, canyons, volcanoes and impact terrain. | Iron-rich exposed ground, canyon forms and volcanic/impact landforms where local geology and climate permit. |
+| Venus | [NASA Venus facts](https://science.nasa.gov/venus/venus-facts/) describes rocky, extensively volcanic terrain. | Volcanic plains and rocky landform references; evaluate material formation and thermal context. |
+| Mercury | [NASA Mercury facts](https://science.nasa.gov/mercury/facts/) describes impact basins, cratered surfaces and contraction-related cliffs. | Impact basins, exposed rock and escarpment forms with appropriate geological history. |
+| 55 Cancri e / Janssen | [NASA's 2024 Webb report](https://science.nasa.gov/missions/webb/nasas-webb-hints-at-possible-atmosphere-surrounding-rocky-exoplanet/) discusses observations supporting an inferred atmosphere and possible magma-covered surface. | A named reference for later extreme volcanic/melt-surface proposals; the detailed surface model is inferred, not directly mapped terrain. |
+
+### Reference and integration rules
+
+- Give every selected trait a planet identifier/name, primary source, source date, evidence status (observed, inferred/model-dependent or fictional game extrapolation), proposed material/process, spatial scale and eligible parent biome/layer.
+- Describe actual formation and behavior as well as appearance. A red palette alone does not establish a Mars-like environment.
+- Keep gravity, background atmosphere/pressure, rotation and astronomical day/year consistent within a shared world. Traits requiring different global conditions need a separate world-profile design decision.
+- Check local climate, water phase/chemistry, geology and habitat compatibility before placing a translated trait. Planetary inspiration preserves the existing climate-placement gate and biome-first design sequence.
+- Review gas/ice-giant references as atmospheric/interior phenomena; select only physically relevant adaptations rather than assuming an ordinary solid island surface.
+- Keep biological communities evidence-aware: [NASA reports Earth as the only place with known life](https://science.nasa.gov/exoplanets/can-we-find-life/). Extraterrestrial ecosystems, if proposed, must be explicitly identified as game invention.
+- Record optional world/profile scope, fidelity and performance choices during later design. Environmental implementation remains deferred.
 
 ## Water, shoreline and vertical priorities
 
@@ -186,6 +218,7 @@ Current biome planning review:
 
 - [ ] Review the 118 proposed base-profile names, investigate missing environments and resolve merge/split/disposition decisions.
 - [ ] Review all 51 named community variants and 55 local layers.
+- [ ] Complete island/atoll coverage and a sourced register of proposed planetary traits, with evidence status and biome/material/layer mappings; keep any new profile counts explicit.
 - [ ] Complete biome identity, terrain, geology/soil, water setting, actual material references, vegetation/life and natural resource functions.
 - [ ] Define coherent regional biological pools and review named species/functions against primary sources; record climate questions for the later scenario phase.
 - [ ] Review spawn/progression needs and explicit severe-biome exceptions qualitatively.
