@@ -1,10 +1,24 @@
 # Drainage, materials and a chunk-derived LOD renderer
 
-Status, clarified 2026-10-21: **accepted direction for Deep Primal and its standalone Primal Engine component.** Deep Primal has not been renamed. The legacy alpha.15/alpha.16 procedural horizon and the new Primal Engine alpha.1 are separate prototypes; their implemented features must not be conflated.
+Status, reaffirmed 2026-10-21: **governing direction for Deep Primal's built-in world engine.** Deep Primal has not been renamed. Main alpha.16 remains a vanilla-generator-based prototype with custom shaping/hooks. The separate Primal Engine alpha.1 has independent foundations but is not integrated or visually accepted; neither prototype completes this plan.
 
-## Accepted plan and current status
+## Built-in terrain engine requirements and inspiration
 
-We are following the terrain/hydrology and LOD plan quoted by the owner. References guide independently authored algorithms; their products are not automatically mod dependencies.
+The target is our own Overworld generator and biome/region decisions: original continents, connected relief/drainage/lakes, geological/climate fields, terrain-derived material rules and deliberate feature placement. Use Minecraft/NeoForge as host infrastructure; do not delegate those world-design decisions to the standard vanilla Overworld noise/biome pipeline. Generic noise functions and serialized data are implementation tools, not evidence of vanilla or original terrain by themselves. Nether/End remain native in the current prototypes; no replacement of those dimensions is claimed.
+
+| Reference | Role in Deep Primal | Evidence/status |
+| --- | --- | --- |
+| [TFC](https://terrafirmacraft.github.io/Documentation/1.21.x/worldgen/world-preset/) | Coherent continents, regional climate/geology and drainage/river behavior | Partial region/river source review and official generator documentation. Full feature parity is not implemented. |
+| [Terralith](https://www.stardustlabs.net/terralith) | Landform/biome variety, distinctive terrain features and surface composition suited to our grounded setting | Official terrain descriptions and earlier river-specific references reviewed. Broad source/feature audit remains pending; no Terralith source/assets bundled. |
+| [Tectonic](https://modrinth.com/datapack/tectonic) | Continental-scale relief, mountain ranges, deep oceans and continuity where rivers pass through mountainous terrain | Official feature description reviewed in this clarification. Proper source audit and mapped implementation checks remain pending; no Tectonic integration is claimed. |
+
+These are references for one coherent Deep Primal generator, not three generators stacked together. Do not add every fantasy biome or village/structure merely because a reference provides it. Keep the exhaustive natural-material/biology catalogs as planning until their implementation is authorized.
+
+**Recovery and acceptance:** preserve existing Deep Primal terrain, performance, settings and Vulkan work. Evaluate independent engine work against those existing behaviors and the agreed visual goals before replacement. Straight planner-grid canals, uniform hills and repeated placeholder tree scatter do not pass. Prove drainage/outlet correctness, generation-order independence, edit/support behavior and generation/memory budgets with reproducible tests and fixed-seed native captures. Test-passing transport/storage utilities alone do not establish terrain quality or guideline compliance.
+
+## Required plan and separate experiment status
+
+The terrain/hydrology and LOD plan quoted by the owner remains required. Implementation is incomplete, and the separate experiment has not satisfied the visual requirements. References guide independently authored algorithms; their products are not automatically mod dependencies.
 
 | Requirement | Primal Engine alpha.1 status |
 | --- | --- |

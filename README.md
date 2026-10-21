@@ -1,8 +1,8 @@
 # Deep Primal
 
-**Project naming:** Deep Primal remains the overall project. Primal Engine identifies its independently loadable engine component and preview JAR; it is not a project rename.
+**Built-in engine direction:** Deep Primal remains the project. Its target is an original Overworld terrain and liquid engine, informed by TFC, Terralith and Tectonic, with connected drainage and measured generation/rendering budgets. Minecraft/NeoForge remain the host platform; their standard Overworld terrain/biome decisions are not the target generator.
 
-**New standalone engine:** [Primal Engine](standalone-engine/README.md) is being built independently of the older terrain prototype below. It supplies its own continental chunk generator, regional biome selection, finite fluid type and curved water mesher, with a separate LOD data module. It builds as its own mod and does not load the legacy Deep Primal modules. The full replacement and Distant Horizons comparison remain unfinished.
+**Current implementation:** alpha.16 below still uses Minecraft's noise-generator/biome pipeline with authored terrain definitions and custom river/water hooks. The separate [Primal Engine alpha.1 experiment](standalone-engine/README.md) proves some independent generator/fluid/storage contracts, but is not integrated, is not an accepted visual replacement and must not be presented as the next completed Deep Primal engine. Preserve the existing terrain, performance, settings and Vulkan work while developing and validating the replacement. See [engine requirements and reference status](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md).
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.
 

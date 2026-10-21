@@ -1,8 +1,16 @@
 # Deep Primal — Roadmap
 
-## Standalone engine replacement — owner direction, 2026-10-20
+## Built-in engine — reaffirmed owner direction, 2026-10-21
 
-Build the geography, liquid simulation and water mesh as an independently loadable mod before integrating it into Deep Primal. The new Overworld generator owns continent layout, drainage and columns; the old vanilla-noise-based prototype remains available for comparison. Minecraft/NeoForge supply storage, scheduling, networking, materials and GPU interfaces.
+Deep Primal's target is an original terrain/liquid engine with TFC, Terralith and Tectonic as explicit references. The Overworld's continents, landforms, geology/climate, drainage, materials and feature placement must be determined by our engine rather than delegated to the standard vanilla Overworld generator. Minecraft/NeoForge still supply the host APIs, chunk storage, scheduling, networking and GPU interfaces. Reusing noise primitives does not itself mean delegating world design to vanilla.
+
+**Implementation gap:** the main alpha.16 build still uses `minecraft:noise` and the vanilla multi-noise biome source with authored settings and custom river/water hooks. The independent alpha.1 experiment has its own generator/fluid but is not integrated and does not meet visual acceptance. Earlier terrain/performance/settings/Vulkan work and environmental planning must remain intact; do not promote the experiment as their replacement. Environmental catalogs remain planning-only until separately authorized for implementation.
+
+- [ ] Map TFC geology/climate/river behavior, Terralith landform/biome variety and Tectonic continental relief/underground-river continuity to concrete implementation and visual checks. TFC has partial source review; broad Terralith and Tectonic source audits remain pending.
+- [ ] Integrate the custom, independently authored Overworld generator into Deep Primal while retaining existing performance/settings/backend behavior; keep obsolete implementations out of the selected runtime path.
+- [ ] Pass visual comparisons across fixed seeds for coasts, rivers/confluences/outlets, relief, forests and unsupported terrain. The alpha.1 straight channels, uniform slopes and repeated tree scatter fail this gate.
+
+The checked items below record **experimental alpha.1 foundations only**, not completion or acceptance of the built-in replacement:
 
 - [x] Independent project and platform-neutral seeded geography/transport core.
 - [x] Whole-continent priority-flood drainage and bounded continent cache; custom chunk generator and biome source.
@@ -17,7 +25,7 @@ Build the geography, liquid simulation and water mesh as an independently loadab
 Reference projects are PhysEx Reborn, JDKDigital Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons. Their code is not bundled in this new engine. Detailed scope and acceptance criteria: [standalone engine](standalone-engine/README.md).
 
 
-**Status:** worldgen/renderer prototype 0.0.1-alpha.16; full survival conversion remains in design. **Updated:** 2026-10-20. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** worldgen/renderer prototype 0.0.1-alpha.16; full survival conversion remains in design. **Updated:** 2026-10-21. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
