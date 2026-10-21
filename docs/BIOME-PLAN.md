@@ -2,7 +2,7 @@
 
 Planning draft: 2026-10-21. Source baseline: main commit `9ee0f1841ddb0e4aa9b0ece1bdf5f4997dde7dd2`.
 
-**Owner request: plan out the full biome roster. Environmental implementation remains deferred.** This update supplies named profiles, qualitative placement/material/community requirements and coverage checks. It does not create runtime biome entries, change generation, add textures, or complete an implementation milestone.
+**Confirmed owner direction, 2026-10-21: biomes first; climate scenarios afterward.** Define the biome roster and its requirements, then design climate scenarios to support those biomes. An existing climate grid must not dictate or prune the roster. Environmental implementation remains deferred. This update supplies named profiles, qualitative placement/material/community requirements and coverage checks. It does not create runtime biome entries, change generation, add textures, or complete an implementation milestone.
 
 The existing [roadmap](../roadmap.md), [design reference](design-reference.md), [owner decisions](design-decisions-2026-10-18.md), [natural type catalogs](NATURAL-TYPE-CATALOG.md) and [environmental coverage inventory](ENVIRONMENTAL-COVERAGE-INVENTORY.md) remain linked sources of scope and requirements. Deep Primal remains the product and its integrated built-in engine is the target.
 
@@ -21,26 +21,28 @@ These counts are different axes and must not be added together as registered bio
 
 Plan natural Overworld surface, inland water, coastal, marine and subterranean environments. Species-by-species global ecoregions, human-made towns/plantations, new dimensions and fantasy ecosystems are not silently added by this natural-world roster. Existing content/dimension policies retain their own scope.
 
-A biome profile should identify a persistent, meaningful ecological setting: canopy/ground-cover structure, climatic envelope, hydrologic role, community behavior and/or distinct environmental presentation. A material, temporary weather state or small landform does not automatically need another biome ID.
+A biome profile should identify a persistent, meaningful ecological setting: canopy/ground-cover structure, terrain, materials, hydrologic role, community behavior and distinct environmental presentation. Climatic terms in names describe the intended biome; matching scenarios and numerical ranges are designed afterward. A material, temporary weather state or small landform does not automatically need another biome ID.
 
-Use separate, connected planning layers:
+Use separate, connected planning layers. This table describes responsibilities, not runtime generation order:
 
 | Layer | Owns | Example |
 | --- | --- | --- |
-| Regional climate | Long-term temperature, effective moisture, seasonality and exposure | Cool moist coast versus cold dry continental basin |
+| Biome profile | Broad ecological setting, defined first | Temperate Deciduous Forest |
 | Relief and geology | Continents, mountains, valleys, rock bodies and sediment history | Folded range, granite body, carbonate bedrock |
 | Hydrology | Catchments, channels, lakes/outlets, groundwater and salinity | Connected river from headwaters to estuary |
-| Biome profile | Broad ecological setting | Temperate Deciduous Forest |
 | Biological province/community | Compatible regional species pools and dominant communities | Oak–beech versus maple–linden expression |
 | Ground profile/material | Soil horizons, composition, texture, organic cover and deposits | Gravelly topsoil over weathered parent rock |
 | Local habitat/landform | Fine forms and environmental pockets | Spring seep, scree patch, forest gap |
 | Time/state | Seasons, wetness, freezing, damage and recovery | Autumn canopy, wet soil, snow, burn scar |
+| Supporting climate scenarios — later | Long-term temperature, effective moisture, seasonality and exposure that support the selected biomes | Cool moist coast versus cold dry continental basin |
 
 Example: **Temperate Deciduous Forest + oak–beech community + locally derived loamy soil + limestone geology + a wet river hollow**. This does not require a separate ID for every multiplication of soil color, rock type, tree species and season.
 
-## Climate and placement contract
+## Deferred climate and placement record
 
-Every profile must eventually carry a complete planning record. The named roster supplies initial qualitative values for setting, ground, communities, water and neighbors; the numerical fields below remain open and must not be invented as settled defaults.
+Complete biome identity, coverage and community design first. After that roster is reviewed, derive the climate scenarios needed to sustain it, including seasonal patterns and coherent neighboring regions. Support more than one scenario where a biome calls for it; resolve any conflicts through an explicit design review rather than silently removing biome variety.
+
+The fields below are a later integration record. Existing qualitative terrain, substrate, water and community descriptions inform biome design now; numerical climate thresholds and climate-model choices are deferred and are not prerequisites for completing the roster.
 
 | Input/field | Required decision |
 | --- | --- |
@@ -56,19 +58,17 @@ Every profile must eventually carry a complete planning record. The named roster
 | Patch scale/rarity | Regional area, minimum patch scale, transition width and rare-site rules; tune and measure later. |
 | Stable identity | Proposed name/key, parent/variant relationships, tags, existing-world mapping and generation-data version. |
 
-### Placement work order
+### Design work order
 
-This is the planning order for the existing engine direction, not new implementation:
+1. Review and expand the named biome roster, resolving missing environments and profile/variant/layer distinctions.
+2. Define each biome's identity, terrain, geology/soil, water setting, vegetation, animal/habitat roles and useful resources.
+3. Develop regional/community variants, local layers and intended neighboring-biome relationships. Describe the desired transitions qualitatively.
+4. After biome planning, design the climate scenarios that support the selected biomes and their communities. Work out temperature, moisture, seasonality, exposure and regional transitions at that stage.
+5. Then settle numerical ranges, world-placement rules, size/frequency tuning and runtime sampling architecture against the agreed biome and climate plans.
 
-1. Establish the versioned continental/relief/geology context and coarse regional climate.
-2. Resolve shared watershed boundaries, downstream paths, confluences, standing-water basins, spill levels and ocean connection. Where climate and water interact, use one explicit deterministic planning stage or bounded refinement, rather than recursive chunk-dependent guesses.
-3. Classify realm/vertical context and hydrologic eligibility: ocean, coastal mixing, inland standing/flowing water, saturated wetland, ordinary land or underground habitat.
-4. Select an eligible climate/structure profile with coherent regional variation.
-5. Select province-compatible communities, then local soil/deposit/litter and plant placement from the same environmental fields.
-6. Apply local landforms, microhabitats and presentation/state layers without losing the base profile or overwriting placed content.
-7. Serve full-detail generation, maps, inspection and LOD summaries from this shared versioned result. Do not reselect a different biome for the distant renderer.
+This is the content-design sequence. Runtime dependency ordering will be resolved during later integration; this planning correction does not change the current generator. Shared watershed connectivity, deterministic regional sampling and agreement between detailed terrain, maps and LOD remain requirements.
 
-Geology may create sharp substrate contacts, but broad climate/vegetation transitions should not become random checkerboards. Climate fields should allow gradual forest–woodland–grassland–semidesert transitions; coastlines, cliffs, water boundaries and actual geological contacts can be sharper.
+Desired transitions should preserve recognizable biome identity without random checkerboards. Later climate scenarios should support the intended forest–woodland–grassland–semidesert relationships; coastlines, cliffs, water boundaries and geological contacts can have sharper boundaries.
 
 ## Water, shoreline and vertical priorities
 
@@ -151,15 +151,23 @@ This document adds no dependency, imports no third-party code/assets/maps, and m
 
 ## Planning and later implementation gates
 
-Planning review:
+Current biome planning review:
 
-- [ ] Review the 118 proposed base-profile names and resolve merge/split/disposition decisions.
+- [ ] Review the 118 proposed base-profile names, investigate missing environments and resolve merge/split/disposition decisions.
 - [ ] Review all 51 named community variants and 55 local layers.
-- [ ] Complete each selected profile's quantitative climate/water/scale fields and actual material/species references.
-- [ ] Verify regional biological pools, scientific tolerances and named resource functions against primary sources.
-- [ ] Review spawn/progression policies and explicit severe-biome exceptions.
-- [ ] Confirm transition/rare-site rules, default frequency and future configuration scope.
+- [ ] Complete biome identity, terrain, geology/soil, water setting, actual material references, vegetation/life and natural resource functions.
+- [ ] Define coherent regional biological pools and review named species/functions against primary sources; record climate questions for the later scenario phase.
+- [ ] Review spawn/progression needs and explicit severe-biome exceptions qualitatively.
+- [ ] Describe intended neighboring biomes, transitions and rare-site roles without requiring numerical climate or placement tuning.
 - [ ] Preserve the 62-entry habitat crosswalk and record any further discovered gaps.
+
+Deferred climate and world-placement planning, after the biome roster:
+
+- [ ] Derive the climate scenarios required by the selected biome profiles and regional communities.
+- [ ] Define temperature, effective moisture, seasonal patterns and exposure, with quantitative ranges and scientific tolerance review.
+- [ ] Reconcile climate scenarios with connected water systems, relief, geology and intended biome transitions.
+- [ ] Choose numerical water/scale fields, transition widths, default frequency and future configuration scope.
+- [ ] Settle runtime sampling/placement dependencies and document any agreed changes to the biome plan.
 
 Future implementation acceptance, only after authorized:
 

@@ -4,6 +4,8 @@ Planning draft: 2026-10-21. **118 proposed biome profiles in 19 families.** Thes
 
 [Biome architecture and decisions](BIOME-PLAN.md) · [Community variants and environmental layers](BIOME-VARIANTS-AND-COVERAGE.md) · [Natural material/type catalog](NATURAL-TYPE-CATALOG.md)
 
+**Planning order: finish the biome roster first, then design climate scenarios to support it.** Climate descriptions below are qualitative identity cues for that later work, not a preselected climate grid or a gate for accepting a biome. Numerical thresholds remain deferred.
+
 The profiles deliberately cover natural Overworld land, inland water, coasts, oceans and underground habitats. “Biome profile” is a proposed game representation, not a claim that all rows are equivalent scientific taxonomic units. Cave geometry, material color, dominant tree species, seasonal snow and many small habitats are represented separately.
 
 ## Roster summary
@@ -37,7 +39,7 @@ The profiles deliberately cover natural Overworld land, inland water, coasts, oc
 - **Vegetation/life:** candidate community pools; regional species must satisfy climate, water, substrate and biological-province eligibility. Fauna roster and yields remain separate existing plans.
 - **Water regime:** supply, drainage, flow, exposure and salinity are separate from drinking quality.
 - **Neighbors:** plausible transition examples, not a requirement for each pair to border directly. Actual adjacency must satisfy compatible climate, relief and water continuity, using intermediate profiles where necessary.
-- Numerical climate thresholds, spatial scale, frequency, detailed taxa, rarity, spawning and final per-profile registry disposition are explicitly **open tuning/specification fields**.
+- Detailed taxa, resources and regional communities belong to the current biome-design pass. Numerical climate thresholds, spatial scale, frequency, rarity, spawning balance and final per-profile registry disposition remain open for later scenario/integration review.
 
 ## Ground-theme dictionary
 
@@ -67,7 +69,7 @@ The profiles deliberately cover natural Overworld land, inland water, coasts, oc
 
 ## Polar and tundra
 
-**Realm:** Surface land. **Climate envelope:** Polar to subpolar; short growth season.
+**Realm:** Surface land. **Climate context to support later:** Polar to subpolar; short growth season.
 
 Persistent climate and substrate produce these profiles. Ordinary winter snow on another biome remains a seasonal state.
 
@@ -97,7 +99,7 @@ Persistent climate and substrate produce these profiles. Ordinary winter snow on
 
 ## Boreal forests and woodland
 
-**Realm:** Surface land. **Climate envelope:** Boreal; strong seasonality.
+**Realm:** Surface land. **Climate context to support later:** Boreal; strong seasonality.
 
 Tree-species dominance varies within regional pools. Snow cover alone does not create a second forest ID.
 
@@ -123,7 +125,7 @@ Tree-species dominance varies within regional pools. Snow cover alone does not c
 
 ## Temperate forest communities
 
-**Realm:** Surface land. **Climate envelope:** Cool to warm temperate; varied seasonality.
+**Realm:** Surface land. **Climate context to support later:** Cool to warm temperate; varied seasonality.
 
 These broad climate/canopy profiles accept named oak, maple, beech and other community variants rather than a biome for every tree species.
 
@@ -151,7 +153,7 @@ These broad climate/canopy profiles accept named oak, maple, beech and other com
 
 ## Mediterranean and dry shrublands
 
-**Realm:** Surface land. **Climate envelope:** Temperate/warm; seasonally dry.
+**Realm:** Surface land. **Climate context to support later:** Temperate/warm; seasonally dry.
 
 Climate seasonality and canopy structure distinguish profiles; region-specific names are community variants.
 
@@ -175,7 +177,7 @@ Climate seasonality and canopy structure distinguish profiles; region-specific n
 
 ## Temperate grasslands and steppe
 
-**Realm:** Surface land. **Climate envelope:** Cool/temperate; dry to seasonally moist.
+**Realm:** Surface land. **Climate context to support later:** Cool/temperate; dry to seasonally moist.
 
 Grass species, flowering abundance, soil chemistry and relief form variants within these profiles.
 
@@ -201,7 +203,7 @@ Grass species, flowering abundance, soil chemistry and relief form variants with
 
 ## Tropical grasslands and savannas
 
-**Realm:** Surface land. **Climate envelope:** Warm to tropical; seasonal moisture.
+**Realm:** Surface land. **Climate context to support later:** Warm to tropical; seasonal moisture.
 
 Tree density and water regime are persistent profile traits, while recent fire/grazing and species dominance are overlays.
 
@@ -225,7 +227,7 @@ Tree density and water regime are persistent profile traits, while recent fire/g
 
 ## Subtropical forest and scrub
 
-**Realm:** Surface land. **Climate envelope:** Warm temperate/subtropical.
+**Realm:** Surface land. **Climate context to support later:** Warm temperate/subtropical.
 
 Regional species pools determine whether palms, pines or evergreen broadleaf forms belong; common climate is not permission to mix every warm species.
 
@@ -249,7 +251,7 @@ Regional species pools determine whether palms, pines or evergreen broadleaf for
 
 ## Tropical forests
 
-**Realm:** Surface land. **Climate envelope:** Tropical; wet through seasonal dry.
+**Realm:** Surface land. **Climate context to support later:** Tropical; wet through seasonal dry.
 
 Unusual soils can select a community variant without making each soil or rock a new biome.
 
@@ -277,7 +279,7 @@ Unusual soils can select a community variant without making each soil or rock a 
 
 ## Hot arid and semiarid environments
 
-**Realm:** Surface land. **Climate envelope:** Warm/hot; low effective moisture.
+**Realm:** Surface land. **Climate context to support later:** Warm/hot; low effective moisture.
 
 Sand, gravel and rock are substrate/landform overlays. The base ecosystem profile follows water availability and vegetation, preventing rock-color biome multiplication.
 
@@ -303,7 +305,7 @@ Sand, gravel and rock are substrate/landform overlays. The base ecosystem profil
 
 ## Cold arid and alpine dry environments
 
-**Realm:** Surface land. **Climate envelope:** Cold continental/montane; low effective moisture.
+**Realm:** Surface land. **Climate context to support later:** Cold continental/montane; low effective moisture.
 
 Coldness and aridity are independent: avoid treating every snowy place as moist.
 
@@ -323,7 +325,7 @@ Coldness and aridity are independent: avoid treating every snowy place as moist.
 
 ## Montane and alpine ecosystems
 
-**Realm:** Surface land. **Climate envelope:** Elevation modifies regional climate; no fixed global Y threshold.
+**Realm:** Surface land. **Climate context to support later:** Elevation modifies regional climate; no fixed global Y threshold.
 
 Relief does not independently decide biome. A mountain can carry forest, desert, grassland or tundra according to shared climate and water fields.
 
@@ -353,7 +355,7 @@ Relief does not independently decide biome. A mountain can carry forest, desert,
 
 ## Flowing freshwater systems
 
-**Realm:** Freshwater and riparian. **Climate envelope:** Inherit catchment climate; flow, substrate and connectivity are additional constraints.
+**Realm:** Freshwater and riparian. **Climate context to support later:** Inherit catchment climate; flow, substrate and connectivity are additional constraints.
 
 The drainage graph chooses channels, joins, reaches and outlets before these habitat profiles. Rapids, waterfalls and bars are forms within a connected river.
 
@@ -381,7 +383,7 @@ The drainage graph chooses channels, joins, reaches and outlets before these hab
 
 ## Lakes, ponds and inland saline waters
 
-**Realm:** Freshwater or inland saline water. **Climate envelope:** Water thermal regime follows regional climate and depth.
+**Realm:** Freshwater or inland saline water. **Climate context to support later:** Water thermal regime follows regional climate and depth.
 
 Shore vegetation and lakebed are vertically related to the water body; do not assign an entire lake one land-cover texture.
 
@@ -409,7 +411,7 @@ Shore vegetation and lakebed are vertically related to the water body; do not as
 
 ## Freshwater wetlands and wet woodland
 
-**Realm:** Freshwater–terrestrial transition. **Climate envelope:** Climate-specific representatives; water regime is decisive.
+**Realm:** Freshwater–terrestrial transition. **Climate context to support later:** Climate-specific representatives; water regime is decisive.
 
 Marsh, swamp, bog and fen are distinct planning profiles. Organic ground, open water and vegetation remain separate layers.
 
@@ -435,7 +437,7 @@ Marsh, swamp, bog and fen are distinct planning profiles. Organic ground, open w
 
 ## Coasts and estuaries
 
-**Realm:** Marine–freshwater–terrestrial transition. **Climate envelope:** Ocean climate, exposure, substrate and salinity constrain placement.
+**Realm:** Marine–freshwater–terrestrial transition. **Climate context to support later:** Ocean climate, exposure, substrate and salinity constrain placement.
 
 Shore geometry, cliffs, sand color and rock composition are landform/material layers. Tidal behavior is a separately scoped water process.
 
@@ -467,7 +469,7 @@ Shore geometry, cliffs, sand color and rock composition are landform/material la
 
 ## Shallow marine habitats
 
-**Realm:** Marine. **Climate envelope:** Water temperature, light/depth, salinity and seabed determine profiles.
+**Realm:** Marine. **Climate context to support later:** Water temperature, light/depth, salinity and seabed determine profiles.
 
 These are benthic/nearshore game-biome candidates. Water-column properties remain separate and can vary above the seabed.
 
@@ -495,7 +497,7 @@ These are benthic/nearshore game-biome candidates. Water-column properties remai
 
 ## Open ocean and deep marine
 
-**Realm:** Marine. **Climate envelope:** Regional water mass plus depth/light, seabed and connection.
+**Realm:** Marine. **Climate context to support later:** Regional water mass plus depth/light, seabed and connection.
 
 Cold/warm open ocean are water-column candidates; deep seabed/vent profiles are vertical habitats below them. Overlap is represented in 3D, not as mutually exclusive whole columns.
 
@@ -521,7 +523,7 @@ Cold/warm open ocean are water-column candidates; deep seabed/vent profiles are 
 
 ## Underground habitats
 
-**Realm:** Subterranean and subterranean freshwater. **Climate envelope:** Depth, connection, light, geology, moisture and heat are independent of the surface biome.
+**Realm:** Subterranean and subterranean freshwater. **Climate context to support later:** Depth, connection, light, geology, moisture and heat are independent of the surface biome.
 
 Cave shape alone is a feature. Broad cave habitat profiles may merit IDs; guano, crystals, speleothems and mossy entrances can remain nested habitats/features.
 
@@ -551,7 +553,7 @@ Cave shape alone is a feature. Broad cave habitat profiles may merit IDs; guano,
 
 ## Geothermal and volcanic surface habitats
 
-**Realm:** Surface land and geothermal freshwater. **Climate envelope:** Geological activity/history modifies otherwise regional climate.
+**Realm:** Surface land and geothermal freshwater. **Climate context to support later:** Geological activity/history modifies otherwise regional climate.
 
 Rock type and fresh lava morphology remain substrate/features. These persistent habitat extremes may justify specialized profiles; runtime eruption simulation is not implied.
 

@@ -8,7 +8,7 @@ These are proposed representations of regional communities, local forms and stat
 
 ## Regional community variants
 
-A variant changes the compatible species/community expression of a parent profile. It must satisfy province, climate, soil, hydrology and light constraints. It can be represented as data rather than as another registered biome. Scientific names, exact species pools and tolerances require later review.
+A variant changes the compatible species/community expression of a parent profile. Define the intended biome and regional community first, including soil, hydrology, light and biological-province requirements. Design supporting climate scenarios afterward; existing climate bands must not filter the variant roster prematurely. Scientific names, exact species pools and tolerances require review, with quantitative climate tolerances deferred to that later phase. A variant can be represented as data rather than as another registered biome.
 
 | Variant ID | Named variant | Eligible parent profiles | Relationship / remaining decision |
 | --- | --- | --- | --- |

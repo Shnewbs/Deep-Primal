@@ -54,6 +54,7 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 | Time | Confirmed direction | Familiar TFC/Minecraft behavior, not a new real-time offline simulator. Use the TFC 1.21.x baseline and verify each subsystem. |
 | Death | Confirmed | Keep personal inventory on by default; configurable off. Recover cargo in the world. Respawn fatigue escalates only for closely spaced deaths; a configurable death-free interval resets escalation. |
 | Navigation | Confirmed direction | Biome-entry titles, compass HUD, configurable built-in maps, shared exploration and cartographic features inspired by the supplied references. |
+| Biome/climate planning order | Confirmed owner direction, 2026-10-21 | Define biomes first; afterward design the climate scenarios needed to support them. Existing climate bands and numerical thresholds must not gate the biome roster. See [biome plan](BIOME-PLAN.md#design-work-order). |
 | Health and hunting | Confirmed direction | First Aid-style body regions integrated with TFC-style survival; primitive weapons through hunting bows, visible back quiver, material-dependent tips, localized animal hits, and carcass processing. |
 | Advanced bows | Proposed | Bow modifications and a later compound bow; exact ages and component requirements undecided. |
 | Hunting rifle | Tentative | Optional late-game hunting rifle under consideration; no construction details or commitment to a release. |
@@ -68,6 +69,10 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 | Animal yields | Confirmed | All animal meat/material yields depend on individual weight and species-specific recovery; no fixed universal drops. |
 | Fishing journal | Confirmed | Persistent species catalog with discovery/catch weight records; fish meat yield is based on individual fish weight. |
 | Power bridge | Confirmed direction | Native rotation interface and optional adapter blocks/modules for Create and other compatible automation mods. |
+
+## Biome-first planning — owner clarification, 2026-10-21
+
+Finish biome coverage, identity, terrain, geology/soil, water setting, vegetation/life, resources and regional variants first. Then design the climate scenarios and transitions needed to support that roster. Numerical climate ranges and climate-model selection belong to the later phase. This supersedes earlier climate-first wording in biome planning; runtime generation ordering remains a later technical decision. Environmental implementation remains deferred. See the [biome plan](BIOME-PLAN.md).
 
 ## First-day progression
 
