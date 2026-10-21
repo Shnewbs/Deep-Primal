@@ -4,6 +4,8 @@ Design draft v0.6, reformatted on 2026-10-18. **Read the [owner decision update]
 
 > **Status:** design only. Descriptions of behavior are requirements or proposals, not evidence of implemented features. External platform, version, license, and compatibility claims are inherited research notes and require verification against primary sources before implementation. Numerical values are provisional. “Suggested” and “proposed” items remain unapproved.
 
+See the [environmental coverage inventory](ENVIRONMENTAL-COVERAGE-INVENTORY.md) for the owner's planning-only completeness audit across natural materials, states, habitats and processes. It preserves this reference's existing catalogs; additional candidates require scope review before implementation.
+
 The [original draft](https://github.com/Shnewbs/Deep-Primal/blob/89f680063c7993ac53143aa364c08ed5ba90ce83/roadmap.md) remains available in Git history.
 
 A standalone, total-conversion survival mod for Minecraft 26.x via NeoForge. It merges the depth of TerraFirmaCraft, primitive-tech chains, Better-with-Mods-style mechanical power, GregTech-style ore processing, and a realism layer into one long-term, high-complexity game. Difficulty comes from depth and consequence, not from inflated health bars.

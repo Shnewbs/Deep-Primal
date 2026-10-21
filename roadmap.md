@@ -17,6 +17,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Decisions before implementation](#decisions-before-implementation)
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
+- [Environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) — planning completeness across materials, states, habitats and natural processes; implementation deferred by owner direction
 - [Detailed design reference](docs/design-reference.md) — full feature descriptions, material catalogs, configuration layout, progression, and all 31 open questions
 
 ## Confirmed direction
@@ -235,3 +236,7 @@ Separated implementation tracking from the full design draft; converted flattene
 
 See [the researched architecture and executed meshoptimizer probe](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md). The next terrain priority is shared cross-region drainage/outlet contracts, then unified river/lake planning and material masks. The next renderer priority is immutable chunk summaries, edit invalidation and constrained meshes with measured screen-space error; meshoptimizer remains a development probe, not a bundled LOD engine. Alpha 15 keeps the procedural horizon as a background and makes no Distant Horizons/Nanite parity claim.
 
+
+## Environmental planning completeness (2026-10-20)
+
+The owner has requested an exhaustive environmental planning list before implementation. The [environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) records 22 coverage domains and 163 open planning reviews, preserving existing rock/tree catalogs and expanding soil, clay, grass, organic matter, sediments, decomposers, aquatic/coastal/underground habitats, states and natural processes. Added examples are proposals pending disposition. Its checkboxes measure planning review only; existing implementation statuses and release scope remain unchanged. Environmental implementation is deferred until requested.
