@@ -2,7 +2,7 @@
 
 Planning draft: 2026-10-21. Source baseline: main commit `9ee0f1841ddb0e4aa9b0ece1bdf5f4997dde7dd2`.
 
-**Confirmed owner direction, 2026-10-21: biomes first; climate scenarios afterward.** Define the biome roster and its requirements, then design climate scenarios to support those biomes. An existing climate grid must not dictate or prune the roster. Environmental implementation remains deferred. This update supplies named profiles, qualitative placement/material/community requirements and coverage checks. It does not create runtime biome entries, change generation, add textures, or complete an implementation milestone.
+**Confirmed owner direction, 2026-10-21: biomes first; climate scenarios afterward.** Define the biome roster and its requirements, then design climate scenarios to support those biomes. An existing climate grid must not dictate or prune the roster. **Climate must gate placement:** each biome can generate only where its relevant long-term climate requirements are met, alongside its terrain, water, substrate and other habitat requirements. Environmental implementation remains deferred. This update supplies named profiles, qualitative placement/material/community requirements and coverage checks. It does not create runtime biome entries, change generation, add textures, or complete an implementation milestone.
 
 The existing [roadmap](../roadmap.md), [design reference](design-reference.md), [owner decisions](design-decisions-2026-10-18.md), [natural type catalogs](NATURAL-TYPE-CATALOG.md) and [environmental coverage inventory](ENVIRONMENTAL-COVERAGE-INVENTORY.md) remain linked sources of scope and requirements. Deep Primal remains the product and its integrated built-in engine is the target.
 
@@ -64,7 +64,7 @@ The fields below are a later integration record. Existing qualitative terrain, s
 2. Define each biome's identity, terrain, geology/soil, water setting, vegetation, animal/habitat roles and useful resources.
 3. Develop regional/community variants, local layers and intended neighboring-biome relationships. Describe the desired transitions qualitatively.
 4. After biome planning, design the climate scenarios that support the selected biomes and their communities. Work out temperature, moisture, seasonality, exposure and regional transitions at that stage.
-5. Then settle numerical ranges, world-placement rules, size/frequency tuning and runtime sampling architecture against the agreed biome and climate plans.
+5. Then settle numerical ranges, world-placement rules, size/frequency tuning and runtime sampling architecture against the agreed biome and climate plans. Climate eligibility gates biome placement; it does not decide which biome types belong in the catalog.
 
 This is the content-design sequence. Runtime dependency ordering will be resolved during later integration; this planning correction does not change the current generator. Shared watershed connectivity, deterministic regional sampling and agreement between detailed terrain, maps and LOD remain requirements.
 
@@ -164,7 +164,7 @@ Current biome planning review:
 Deferred climate and world-placement planning, after the biome roster:
 
 - [ ] Derive the climate scenarios required by the selected biome profiles and regional communities.
-- [ ] Define temperature, effective moisture, seasonal patterns and exposure, with quantitative ranges and scientific tolerance review.
+- [ ] Define temperature, effective moisture, seasonal patterns and exposure, with quantitative ranges and scientific tolerance review; use each biome's relevant requirements as placement gates.
 - [ ] Reconcile climate scenarios with connected water systems, relief, geology and intended biome transitions.
 - [ ] Choose numerical water/scale fields, transition widths, default frequency and future configuration scope.
 - [ ] Settle runtime sampling/placement dependencies and document any agreed changes to the biome plan.

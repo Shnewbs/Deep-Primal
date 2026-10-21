@@ -4,7 +4,7 @@ Planning draft: 2026-10-21. **118 proposed biome profiles in 19 families.** Thes
 
 [Biome architecture and decisions](BIOME-PLAN.md) · [Community variants and environmental layers](BIOME-VARIANTS-AND-COVERAGE.md) · [Natural material/type catalog](NATURAL-TYPE-CATALOG.md)
 
-**Planning order: finish the biome roster first, then design climate scenarios to support it.** Climate descriptions below are qualitative identity cues for that later work, not a preselected climate grid or a gate for accepting a biome. Numerical thresholds remain deferred.
+**Planning order: finish the biome roster first, then design climate scenarios to support it.** Climate descriptions below are qualitative identity cues for that later work, not a preselected climate grid or a gate for accepting a biome. Numerical thresholds remain deferred. When placing biomes, climate eligibility is required alongside terrain, water, substrate and other habitat requirements. This placement gate does not determine which biome types we include in the roster.
 
 The profiles deliberately cover natural Overworld land, inland water, coasts, oceans and underground habitats. “Biome profile” is a proposed game representation, not a claim that all rows are equivalent scientific taxonomic units. Cave geometry, material color, dominant tree species, seasonal snow and many small habitats are represented separately.
 

@@ -246,7 +246,7 @@ The "realism" pillar means the world's raw materials are varied and behave like 
 
 **Climate**
 
-- Define the biome roster and its communities first, then design temperature, moisture and seasonal scenarios that support those biomes. Existing climate bands must not dictate the roster. Quantitative climate ranges and world-placement integration are deferred until after biome planning; climate will also inform crops, survival pressure and seasonal behavior.
+- Define the biome roster and its communities first, then design temperature, moisture and seasonal scenarios that support those biomes. Existing climate bands must not dictate the roster. Quantitative climate ranges and world-placement integration are deferred until after biome planning. Climate eligibility must gate where each biome can generate, alongside terrain, water and other habitat requirements. Climate will also inform crops, survival pressure and seasonal behavior.
 
 <a id="s4-2"></a>
 
