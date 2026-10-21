@@ -39,7 +39,7 @@ public final class DistanceScreen extends Screen {
                   Component.literal("Performance…"),
                   b ->
                       minecraft.setScreen(
-                          new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(this)))
+                          new com.shnewbs.deepprimal.settings.PrimalGraphicsScreen(this)))
               .bounds(width / 2 - 100, height / 2 + 28, 200, 20)
               .build());
       addRenderableWidget(
@@ -195,7 +195,7 @@ public final class DistanceScreen extends Screen {
                 Component.literal("Performance…"),
                 b ->
                     minecraft.setScreen(
-                        new com.shnewbs.deepprimal.settings.PerformanceSettingsScreen(this)))
+                        new com.shnewbs.deepprimal.settings.PrimalGraphicsScreen(this)))
             .bounds(left, top + 158, panelWidth / 2 - 5, 20)
             .build());
     addDashboard(left + panelWidth / 2 + 5, top + 158, panelWidth / 2 - 5);

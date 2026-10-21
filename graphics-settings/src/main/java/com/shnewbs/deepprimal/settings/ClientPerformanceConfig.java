@@ -5,6 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class ClientPerformanceConfig {
   public static final ModConfigSpec SPEC;
+  public static final ModConfigSpec.BooleanValue LEGACY_HORIZON;
   public static final ModConfigSpec.BooleanValue PACE_REBUILDS;
   public static final ModConfigSpec.IntValue SYNC_REBUILDS, SYNC_REBUILD_MICROS;
   public static final ModConfigSpec.IntValue UPLOAD_LEVELS, UPLOAD_KIB, UPLOAD_MICROS;
@@ -22,6 +23,12 @@ public final class ClientPerformanceConfig {
 
   static {
     var builder = new ModConfigSpec.Builder();
+    LEGACY_HORIZON =
+        builder
+            .comment(
+                "Deprecated macro horizon for explicit legacy comparisons. Never substitutes for"
+                    + " chunk LOD.")
+            .define("enableLegacyProceduralHorizon", false);
     PACE_REBUILDS =
         builder
             .comment(

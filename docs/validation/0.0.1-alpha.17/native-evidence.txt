@@ -1,0 +1,39 @@
+native-standard-final.txt
+INTEGRATED_NATIVE_PASS ownGenerator=true ownBiomes=true modulesRetained=true loadedNineChunksMs=185.624237 minY=-128 height=768 nativeImportWithLegacyEnabled=true waterUnits=16 lodBytes=235888
+
+native-standard-reopen-final.txt
+INTEGRATED_REOPEN_PASS ownGenerator=true minY=-128 height=768 units=7 flow=3 snapshot=true
+
+native-deep-final.txt
+INTEGRATED_NATIVE_PASS ownGenerator=true ownBiomes=true modulesRetained=true loadedNineChunksMs=955.766442 minY=-384 height=1024 nativeImportWithLegacyEnabled=true waterUnits=16 lodBytes=476836
+
+native-deep-reopen-final.txt
+INTEGRATED_REOPEN_PASS ownGenerator=true minY=-384 height=1024 units=7 flow=3 snapshot=true
+
+native-legacy-reopen-final.txt
+LEGACY_REOPEN_PASS generatorRetained=true heightRetained=true
+
+Native client reopen
+SETTINGS_RESTART_PASS radius=208 targetFps=88
+LOD_EDIT_PASS before=117476950823993475 after=117476950823993685
+LOD_NATIVE_GPU_PASS captured=98 uploaded=140 visible=74 triangles=123631744 sourceChunkUnloaded=true residentBytes=32759268 diskReads=45
+LOD_DISK_RESTART_PASS cacheReloadAfterRestart=true
+LEAN_BACKEND_PREFERENCE_RECOVERY_PASS
+SETTINGS_APPLY_REVERT_REOPEN_PASS radius=208 targetFps=88
+INTEGRATED_CLIENT_PASS backend=OpenGL engineFluidCells=1851
+
+Native client vulkan
+SETTINGS_RESTART_PASS radius=208 targetFps=88
+LOD_EDIT_PASS before=117476960692928643 after=117476960692928851
+LOD_NATIVE_GPU_PASS captured=95 uploaded=96 visible=75 triangles=43323592 sourceChunkUnloaded=true residentBytes=26748540 diskReads=3
+LOD_DISK_RESTART_PASS cacheReloadAfterRestart=true
+SETTINGS_APPLY_REVERT_REOPEN_PASS radius=208 targetFps=88
+INTEGRATED_CLIENT_PASS backend=Vulkan engineFluidCells=2786
+
+[07:17:14] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorBindSkips=0, pipelineCreationNanos=60678693, descriptorUpdates=205714, pipelineCacheHits=0, descriptorReuse=177053, pipelineFeedbackValid=47, descriptorBinds=382767, validationErrors=0, pipelineCreates=47}
+[07:17:14] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+Native Vulkan scenes
+INTEGRATED_CLIENT_PASS scenes=coast,river,ridge backend=Vulkan fluidCells=7967
+
+[07:06:36] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorReuse=107320, pipelineCacheHits=0, descriptorUpdates=120471, pipelineCreationNanos=55680463, descriptorBindSkips=0, pipelineCreates=44, validationErrors=0, descriptorBinds=227791, pipelineFeedbackValid=44}
+[07:06:36] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0

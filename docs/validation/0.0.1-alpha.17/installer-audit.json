@@ -1,0 +1,40 @@
+[
+  {
+    "file": "DeepPrimal-26.1.2-0.0.1-alpha.17.jar",
+    "bytes": 509060,
+    "sha256": "3c54a7cf212b2393a6ecc40e2e9cb6b61ebf4fa1721d10126fde000c09e54f4b",
+    "nestedModules": [
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.17.jar",
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.17.jar",
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.17.jar"
+    ],
+    "classCount": 179,
+    "nativeFiles": [],
+    "duplicateClasses": 0,
+    "fixtureClasses": 0,
+    "standaloneExperimentClasses": 0,
+    "gamePlatformClasses": 0,
+    "metadataMatches": true
+  },
+  {
+    "file": "DeepPrimal-26.1.2-0.0.1-alpha.17-vulkan-windows.jar",
+    "bytes": 11438645,
+    "sha256": "074eba71a93a2a04ea2aea37a654bc4c144fbf6e5f96390540135d7ba7fb4ab0",
+    "nestedModules": [
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.17.jar",
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.17.jar",
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.17.jar",
+      "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.17-windows.jar"
+    ],
+    "classCount": 4311,
+    "nativeFiles": [
+      "windows/x64/org/lwjgl/shaderc/shaderc.dll",
+      "windows/x64/org/lwjgl/vma/lwjgl_vma.dll"
+    ],
+    "duplicateClasses": 0,
+    "fixtureClasses": 0,
+    "standaloneExperimentClasses": 0,
+    "gamePlatformClasses": 0,
+    "metadataMatches": true
+  }
+]

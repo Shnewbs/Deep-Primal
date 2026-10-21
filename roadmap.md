@@ -1,35 +1,29 @@
 # Deep Primal — Roadmap
 
-## Built-in engine — reaffirmed owner direction, 2026-10-21
+## Built-in engine — integrated alpha 17, 2026-10-21
 
-Deep Primal's target is an original terrain/liquid engine with TFC, Terralith and Tectonic as explicit references. The Overworld's continents, landforms, geology/climate, drainage, materials and feature placement must be determined by our engine rather than delegated to the standard vanilla Overworld generator. Minecraft/NeoForge still supply the host APIs, chunk storage, scheduling, networking and GPU interfaces. Reusing noise primitives does not itself mean delegating world design to vanilla.
+Deep Primal remains the product. Its original Overworld terrain/liquid engine is now integrated into the main mod, together with an actual-chunk LOD renderer and custom tabbed graphics settings. Minecraft/NeoForge provide host APIs, storage, lighting, scheduling, networking and GPU interfaces. Native Overworld terrain/biome decisions are not used by the selected `continental_v1` / `regional_v1` generator. Existing saves retain their own generator and height. All previous profiles, performance/settings modules and optional Vulkan source remain available; the separate alpha.1 experiment is historical and not shipped.
 
-**Implementation gap:** the main alpha.16 build still uses `minecraft:noise` and the vanilla multi-noise biome source with authored settings and custom river/water hooks. The independent alpha.1 experiment has its own generator/fluid but is not integrated and does not meet visual acceptance. Earlier terrain/performance/settings/Vulkan work and environmental planning must remain intact; do not promote the experiment as their replacement. Environmental catalogs remain planning-only until separately authorized for implementation.
+- [x] Integrate an independent Overworld generator and biome source with original seeded continents, warped coasts, relief, cave volumes, climate/palette fields and feature placement.
+- [x] Plan whole-continent downhill drainage with rainfall-weighted catchment area, curved reaches and area/slope-derived width, depth and stored speed.
+- [x] Integrate an independent 16-unit finite fluid, bounded gravity/pooling, bucket input and curved shared-corner water meshing; verify saved states and native-water conversion without the legacy solver taking ownership.
+- [x] Implement owning-thread chunk snapshot capture, edit invalidation, vertical-run storage, three mesh resolutions, native-ready transitions, OpenGL/Vulkan GPU submission and bounded persistent cache lifecycle. The current viewer uses normally delivered/explored chunks; no bulk server LOD stream or unseen-terrain generator is implemented.
+- [x] Implement original General/Quality/Performance/LOD/Water/API graphics tabs; verify Apply/Revert, tab changes, small-window resizing, reopen and full-process persistence of requested values.
+- [x] Make default installer lean; retain an optional, separately classified Vulkan platform bundle and original module boundaries.
+- [ ] Map the full TFC geology/climate/river, Terralith landform variety and Tectonic relief/underground-river behavior to implementation and visual acceptance. TFC has partial source review; broad Terralith/Tectonic source audits remain pending.
+- [ ] Pass broader fixed-seed native visual comparisons for coasts, rivers/confluences/outlets, relief, forests and unsupported terrain. Current captures prove the new path renders; they do not establish the desired final terrain quality. The rejected alpha.1 appearance is not an acceptance baseline.
+- [ ] Complete shared watershed boundary/outlet contracts, unified lakes/spillways, erosion/deposition, geological catalog placement and structural connectivity checks.
+- [ ] Integrate pressure/displacement, groundwater/recharge, generated water budgets and breaking shoreline surf. Existing legacy hydrology features must be audited individually before claiming compatibility with the new fluid.
+- [ ] Add unseen-terrain LOD planning/streaming, better voxel reduction and material/lighting/transparent-water transitions; test resource reload, saturation, reconnect and broader multiplayer scenes.
+- [ ] Benchmark against Distant Horizons on matched worlds/cameras/detail/radius/hardware: frame-time percentiles, memory/VRAM, generation/loading latency, cache I/O and edit lag. No superiority claim is established.
 
-- [ ] Map TFC geology/climate/river behavior, Terralith landform/biome variety and Tectonic continental relief/underground-river continuity to concrete implementation and visual checks. TFC has partial source review; broad Terralith and Tectonic source audits remain pending.
-- [ ] Integrate the custom, independently authored Overworld generator into Deep Primal while retaining existing performance/settings/backend behavior; keep obsolete implementations out of the selected runtime path.
-- [ ] Pass visual comparisons across fixed seeds for coasts, rivers/confluences/outlets, relief, forests and unsupported terrain. The alpha.1 straight channels, uniform slopes and repeated tree scatter fail this gate.
+TFC/Terralith/Tectonic and PhysEx Reborn, Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons remain references, not bundled generators/engines. Gaea/World Machine techniques guide independently authored region planning. Meshoptimizer is still a development probe, not a runtime dependency. Environmental catalogs remain planning-only until separately authorized. See [architecture/reference status](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) and [alpha 17 validation](docs/VALIDATION-0.0.1-alpha.17.md).
 
-The checked items below record **experimental alpha.1 foundations only**, not completion or acceptance of the built-in replacement:
-
-- [x] Independent project and platform-neutral seeded geography/transport core.
-- [x] Whole-continent priority-flood drainage and bounded continent cache; custom chunk generator and biome source.
-- [x] Custom finite fluid type, 1/16-block volumes, gravity/pooling, full measured bucket and persisted states.
-- [x] Custom curved, shared-corner water mesher through NeoForge's fluid rendering API.
-- [x] Separate platform-neutral LOD snapshot/storage foundation with actual vertical block runs, corruption checks and stale-revision protection.
-- [ ] Complete regional geology/climate, erosion/deposition, lakes, groundwater/recharge, displacement, pressure and surf integration.
-- [ ] Finish custom settings UI and verify saved/requested/effective-value display across reopen/restart.
-- [ ] Implement automatic LOD capture/update scheduling, multiresolution reduction, native-ready transitions, GPU submission, network synchronization and cache lifecycle.
-- [ ] Benchmark against Distant Horizons on matched worlds, cameras, detail, radius and hardware. Measure frame-time percentiles, memory/VRAM, generation/loading latency, cache I/O and edit propagation. Do not advertise superiority before this passes.
-
-Reference projects are PhysEx Reborn, JDKDigital Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons. Their code is not bundled in this new engine. Detailed scope and acceptance criteria: [standalone engine](standalone-engine/README.md).
-
-
-**Status:** worldgen/renderer prototype 0.0.1-alpha.16; full survival conversion remains in design. **Updated:** 2026-10-21. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** integrated engine/LOD/settings alpha 0.0.1-alpha.17; full survival conversion remains in design. **Updated:** 2026-10-21. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
-The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.16.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
+The initial review found design documents only. The repository now includes a compiled terrain prototype; see [play/build instructions](docs/WORLDGEN-PROTOTYPE.md) and [validation evidence](docs/VALIDATION-0.0.1-alpha.17.md). This is a partial foundation, not completion of the full v0.1 milestones. Milestone grouping and acceptance criteria organize the existing draft; they do not establish release dates or approve unresolved proposals.
 
 Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/design-decisions-2026-10-18.md). Confirmed choices there supersede older draft assumptions; the latest follow-up confirms shelter/renewal direction, finite ores, character XP, cargo recovery, local-only storage, and rotation bridging. Exact tuning and explicitly tentative features remain open.
 

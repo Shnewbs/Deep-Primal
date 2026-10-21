@@ -1,0 +1,46 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "deepprimal:prototype_deep",
+      "generator": {
+        "type": "deepprimal:continental_v1",
+        "min_y": -384,
+        "height": 1024,
+        "biome_source": {
+          "type": "deepprimal:regional_v1",
+          "palette": [
+            "minecraft:plains",
+            "minecraft:forest",
+            "minecraft:desert",
+            "minecraft:ocean",
+            "minecraft:taiga",
+            "minecraft:snowy_plains",
+            "minecraft:swamp",
+            "minecraft:stony_peaks"
+          ]
+        }
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "preset": "minecraft:nether"
+        },
+        "settings": "minecraft:nether"
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:the_end"
+        },
+        "settings": "minecraft:end"
+      }
+    }
+  }
+}

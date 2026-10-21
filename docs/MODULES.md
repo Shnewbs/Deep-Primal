@@ -1,14 +1,14 @@
-# Runtime modules — alpha 10
+# Runtime modules — alpha 17
 
 The standard installer remains one JAR. It contains separately built nested JARs with one owner for each config, mixin and runtime service.
 
 | Module | Owns | Project dependencies |
 | --- | --- | --- |
-| `engine-core` | Platform-neutral bounded caches, queues, distance and horizon algorithms | None |
+| `engine-core` | Platform-neutral terrain/noise/drainage, fluid transport, voxel LOD storage/reduction, caches, queues and distance algorithms | None |
 | `performance-engine` | Chunk scheduling/sending/saving, memory-distance policy, idle-mob policy and runtime metrics | Core |
-| `graphics-settings` | Client visual budgets, profiles, renderer ownership/handoff, graphics API preference and settings screens | Core |
+| `graphics-settings` | Custom graphics tabs, visual/LOD budgets, shared work pacing, renderer ownership/handoff and graphics API preference | Core |
 | `renderer-vulkan` | Vulkan bootstrap, native libraries, device, synchronization, descriptors, shaders, presentation, caches and recovery | Graphics settings (and its core dependency) |
-| Root integration | Worldgen, horizon terrain, networking, diagnostics and game-facing entry points | Core, performance, graphics settings; Vulkan optional |
+| Root integration | Custom chunk/biome/fluid adapters, actual-chunk LOD capture/rendering, legacy worldgen/horizon, networking and diagnostics | Core, performance, graphics settings; Vulkan optional |
 
 The Vulkan implementation imports no worldgen, horizon or performance-engine code. Performance and graphics settings import no Vulkan implementation classes. The settings module detects adapter availability by mod ID and exposes a backend-neutral restart preference. Saving a preference never initializes native libraries. The common performance module has no graphics-module dependency. Root integration supplies the combined experience.
 
@@ -16,12 +16,13 @@ The Vulkan implementation imports no worldgen, horizon or performance-engine cod
 
 ## Builds
 
-- Standard: `./gradlew build`.
-- Without native Vulkan: `./gradlew build -PwithoutVulkan`.
-- Individual outputs: `engine-core/build/libs`, `performance-engine/build/libs`, `graphics-settings/build/libs`, `renderer-vulkan/build/libs`.
-- Independence fixture: `./gradlew runClient -PmoduleOnlyValidation -PgraphicsBackend=OpenGL`. With Vulkan included, use `-PgraphicsBackend=Vulkan -PvulkanRetry -PvulkanValidation` to test the other backend. The fixture loads the child modules and stops at the title screen while asserting the root worldgen/horizon mod is absent.
+- Default lean installer: `./gradlew build` → `DeepPrimal-26.1.2-0.0.1-alpha.17.jar`. Includes core, common performance and graphics settings; no Vulkan natives.
+- Platform bundle: `./gradlew build -PvulkanPlatform=windows` (or `linux`, `macos`, `macos-arm64`) → a distinctly classified `-vulkan-<platform>.jar` containing the optional adapter and only that platform's shaderc/VMA natives; MoltenVK only on macOS.
+- `-PwithoutVulkan` excludes the optional Vulkan project entirely. Without it, the default build can still compile/check the optional module without nesting it into the root installer.
+- `-PbundleVulkan` explicitly bundles all supported Vulkan natives; this larger universal package is not the default download.
+- Individual outputs remain under each module's `build/libs`; installing an assembled root installer requires no extraction.
 
-Builds use Java 25, Minecraft 26.1.2 and NeoForge 26.1.2.122. The standard and without-Vulkan build profiles currently share an output filename; keep their deliverables in separate directories.
+Java 25 / Minecraft 26.1.2 / NeoForge 26.1.2.122. JarJar output is isolated by version/profile and audited against embedded metadata; validation fixtures, temporary files and the rejected standalone experiment are excluded. Install one assembled root JAR, never multiple profiles together.
 
 ## Extraction contract
 
@@ -37,3 +38,7 @@ Drainage math stays in `engine-core`. Native terrain/aquifer integration stays i
 ## Alpha 16 ownership
 
 `engine-core` owns finite-volume, stamina, wave and wake math. The root mod owns server hydrology, saved soil attachments, native machine ports and worldgen adaptation. Client palettes, snow atmosphere and water meshes stay in the root client package. Graphics/performance controls remain in their existing modules; Vulkan is still its own optional module. No gameplay or core code imports the Vulkan implementation.
+
+## Alpha 17 ownership
+
+The platform-neutral core owns `TerrainEngine`, `TerrainNoise`, `WaterTransport`, `ColumnarChunk`, `LodStore` and `LodMesher`. Root `engine` owns Minecraft codecs, chunk/biome generation, the independent fluid/block/bucket and bounded game-thread transport. Root client code owns snapshot capture, atlas/biome material sampling, GPU lifetime and edit invalidation. Networking sends a persistent server world identity; it does not stream generated unseen terrain. The settings module owns configuration and original UI; callbacks expose root diagnostics without importing root classes. `ClientWorkPacer` shares the existing optional-work controller between retained horizon and new LOD work. No core/gameplay code imports Vulkan. The old horizon is only an explicit legacy diagnostic option.

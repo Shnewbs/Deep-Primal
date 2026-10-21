@@ -1,6 +1,6 @@
 # Drainage, materials and a chunk-derived LOD renderer
 
-Status, reaffirmed 2026-10-21: **governing direction for Deep Primal's built-in world engine.** Deep Primal has not been renamed. Main alpha.16 remains a vanilla-generator-based prototype with custom shaping/hooks. The separate Primal Engine alpha.1 has independent foundations but is not integrated or visually accepted; neither prototype completes this plan.
+Status, 2026-10-21: **governing direction with an integrated alpha 17 implementation.** Deep Primal has not been renamed. New normal worlds now select our original terrain/biome/fluid path. The actual-chunk LOD and custom graphics screen are integrated into the main mod. Previous terrain profiles/modules remain available for compatibility; the separate alpha.1 experiment remains historical and is not shipped. This is a working foundation, not final visual/performance acceptance. See [validation](VALIDATION-0.0.1-alpha.17.md).
 
 ## Built-in terrain engine requirements and inspiration
 
@@ -16,18 +16,19 @@ These are references for one coherent Deep Primal generator, not three generator
 
 **Recovery and acceptance:** preserve existing Deep Primal terrain, performance, settings and Vulkan work. Evaluate independent engine work against those existing behaviors and the agreed visual goals before replacement. Straight planner-grid canals, uniform hills and repeated placeholder tree scatter do not pass. Prove drainage/outlet correctness, generation-order independence, edit/support behavior and generation/memory budgets with reproducible tests and fixed-seed native captures. Test-passing transport/storage utilities alone do not establish terrain quality or guideline compliance.
 
-## Required plan and separate experiment status
+## Required plan and integrated implementation
 
-The terrain/hydrology and LOD plan quoted by the owner remains required. Implementation is incomplete, and the separate experiment has not satisfied the visual requirements. References guide independently authored algorithms; their products are not automatically mod dependencies.
-
-| Requirement | Primal Engine alpha.1 status |
+| Requirement | Deep Primal alpha 17 status |
 | --- | --- |
-| Continents, deterministic region planning and connected drainage before carving | Seeded landmasses, cached whole-continent downhill graphs, rainfall-weighted catchment area and channel/valley carving exist. Unified lakes/spillways and shared watershed/outlet contracts remain unfinished. |
-| River width, depth and speed from drainage and slope | Catchment-based width/depth and channel direction exist. Slope/discharge-derived velocity and rapids remain unfinished. |
-| Erosion/deposition and terrain-derived material masks | Basic surface placement exists. Wear, sediment, flow, slope and moisture summaries driving coherent materials remain unfinished. |
-| Floating-fragment prevention | Base terrain uses solid columns. General post-feature support/connectivity checks remain unfinished; never delete player constructions as terrain cleanup. |
-| Independent liquids and smooth water | Volume transport and curved shared-edge meshing exist. Pressure/displacement, recharge and shoreline surf remain unfinished. |
-| Actual-chunk LOD viewer | Incremental capture utility and persistent column snapshots exist. Automatic capture/edit invalidation, multiresolution meshes, streaming, GPU rendering, multiplayer and transitions remain unfinished. |
+| Continents and connected drainage before carving | Original warped continental provinces, immutable bounded regional plans, priority-flood downhill graph, rainfall-weighted accumulation and curved channel/valley carving. Unified lakes/spillways and shared cross-watershed outlet contracts remain unfinished. |
+| Width, depth and speed from drainage/slope | Area-derived width/depth and grade/discharge proxy for stored current speed. Physical discharge, rapids and continuous dynamic river supply remain unfinished. |
+| Terrain-derived materials | Elevation, slope, rain, climate, geological palette and sediment-placement proxies drive original placement. A wear/erosion/deposition solver and catalog geology are unfinished. |
+| Floating-fragment prevention | Solid base columns and owned underground tunnel carving avoid the rejected floating-surface mechanism. General post-feature support/connectivity checks are unfinished; never remove player structures as cleanup. |
+| Independent liquids and smooth water | Separate `Fluid`, 16-unit states, conservative gravity/pooling, own bucket and shared-corner curved patches are integrated. Pressure/displacement, recharge and breaking shoreline surf are unfinished. |
+| Actual-chunk LOD | Owning-thread immutable captures, edit revisions, vertical-run snapshots, three GPU mesh levels, projected-size/hysteresis, native-ready handoff, bounded work/memory/disk and world identity are integrated. Uses explored/delivered chunks; no unseen terrain stream or DH parity is claimed. |
+| Custom graphical controls | Original six-tab screen with slider/typed controls, staged Apply/Revert, contextual help and saved/requested/effective display. Reopen, resize and process restart tested. |
+
+The engine is a built-in terrain/liquid/LOD subsystem, not a separate game or a replacement of every Minecraft API. Near-block mesh generation, lighting, entities and game storage still use host APIs. The optional graphics API backend remains a separate retained Vulkan module. Alpha 17 adds no new terrain/LOD native dependency.
 
 ## Tool and reference decisions
 
@@ -41,17 +42,17 @@ The terrain/hydrology and LOD plan quoted by the owner remains required. Impleme
 | meshoptimizer / clusterlod | First reusable-code candidate. The LWJGL development probe has run; neither a shipping meshoptimizer renderer integration nor a clusterlod hierarchy is implemented. |
 | Simplygon | Possible offline asset-preparation reference only; not a current toolchain dependency. |
 
-The viewer must preserve block silhouettes, player edits, materials and distinct water handling, with visibility/error-based selection and explicit memory/work budgets. Its intended settings cover radius/detail, work/upload and RAM/VRAM/cache limits, with correctly restored requested values and separate effective limits. Alpha.1 has no LOD settings or working distant renderer; legacy **Far terrain** controls only its procedural horizon.
+The viewer must preserve block silhouettes, player edits, materials and distinct water handling, with visibility/error-based selection and explicit memory/work budgets. Its intended settings cover radius/detail, work/upload and RAM/VRAM/cache limits, with correctly restored requested values and separate effective limits. Alpha 17 exposes these controls in its LOD tab. The legacy procedural horizon is off by default behind an explicit diagnostic config switch; disabling chunk LOD never enables it automatically.
 
 Prioritize drainage/outlet correctness and material placement, then erosion/deposition and connectivity checks. Develop the viewer from authoritative chunk data. Keep performance budgets explicit throughout; outperforming Distant Horizons is a benchmark target, not an established result.
 
-The references and work orders below remain the technical basis. Implemented alpha.15 features described below belong to the legacy prototype only.
+The references and work orders below remain the technical basis and outstanding quality/performance gates. Legacy alpha.15 descriptions are historical; the current viewer is authoritative-chunk based.
 
 ## Reference fit
 
 | Technology | Verified useful idea | Deep Primal application |
 | --- | --- | --- |
-| [Gaea Rivers / HydroFix](https://docs.gaea.app/reference/nodes/simulate/hydrofix.html) | Alter slopes to sustain continuous drainage. | Plan shared drainage routes and lake outlets before carving final terrain. The present 4096-block catchments remain region-local; cross-region connectivity needs shared boundary contracts. |
+| [Gaea Rivers / HydroFix](https://docs.gaea.app/reference/nodes/simulate/hydrofix.html) | Alter slopes to sustain continuous drainage. | Plan shared drainage routes and lake outlets before carving final terrain. The current whole-continent graph remains region-local; cross-watershed connectivity needs shared boundary contracts. |
 | [World Machine Create Water](https://help.world-machine.com/topic/device-create-water/) and [River Device](https://help.world-machine.com/topic/device-river/) | Drainage area/discharge affects river shape and velocity; explicitly controlled reaches support tributaries. | Extend the existing catchment/slope model with rainfall-weighted discharge, consistent width/depth, rapids and a common outlet plan. Area currently counts routing cells, not simulated water volume. |
 | [Gaea Erosion](https://docs.gaea.app/reference/nodes/simulate/erosion) | Separate erosion, deposition and flow information. | Cache deterministic wear/deposition/flow summaries once per region. Derive valley gravel/silt, scree, exposed slopes and soil placement from those summaries. A full erosion/sediment solver is not present. |
 | [Nanite](https://dev.epicgames.com/documentation/unreal-engine/nanite-technical-details) | Cluster hierarchies and streamed geometric detail. | An architectural reference, not an Unreal engine component to drop into Minecraft. Do not require mesh-shader hardware for the baseline renderer. |
@@ -64,7 +65,7 @@ The references and work orders below remain the technical basis. Implemented alp
 
 Alpha 15 retains bounded region caches, downhill drainage inside a catchment, area/slope-based speed, versioned terrain, partial river surfaces, spring taper and occasional contained headwater lakes. It fixes foreground composition by isolating approximate horizon depth. That background approximation still omits distant player edits, individual buildings, detailed trees, caves and true voxel silhouettes.
 
-The present heightfield hierarchy has three stitched mesh levels, worker meshing, bounded uploads, server sampling budgets and memory accounting. It is a useful fallback for unexplored terrain, but should not become the authoritative representation of explored chunks.
+The present heightfield hierarchy has three stitched mesh levels, worker meshing, bounded uploads, server sampling budgets and memory accounting. It remains historical comparison code, disabled by default. It is not the authoritative representation of explored chunks and is not automatically used for unexplored terrain in alpha 17.
 
 ## Terrain work order
 

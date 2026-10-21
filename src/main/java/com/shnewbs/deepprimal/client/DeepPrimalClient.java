@@ -12,23 +12,53 @@ import net.neoforged.neoforge.common.NeoForge;
 @Mod(value = "deepprimal", dist = Dist.CLIENT)
 public final class DeepPrimalClient {
   public DeepPrimalClient(ModContainer container, net.neoforged.bus.api.IEventBus modBus) {
+    com.shnewbs.deepprimal.settings.GraphicsActions.dashboard =
+        () ->
+            net.minecraft.util.Util.getPlatform()
+                .openUri(
+                    java.net.URI.create(com.shnewbs.deepprimal.diagnostics.LocalDashboard.url()));
+    com.shnewbs.deepprimal.settings.GraphicsActions.dashboardAvailable =
+        com.shnewbs.deepprimal.diagnostics.LocalDashboard::running;
+    com.shnewbs.deepprimal.settings.GraphicsActions.lodStatus =
+        () ->
+            "Visible LOD span: "
+                + com.shnewbs.deepprimal.client.render.VoxelLodRenderer.visibleDistance()
+                + " chunks | requested: "
+                + com.shnewbs.deepprimal.settings.LodConfig.RADIUS.get();
     container.registerExtensionPoint(
         net.neoforged.neoforge.client.gui.IConfigScreenFactory.class,
         (net.neoforged.neoforge.client.gui.IConfigScreenFactory)
-            (mod, parent) -> new DistanceScreen(parent));
+            (mod, parent) -> new com.shnewbs.deepprimal.settings.PrimalGraphicsScreen(parent));
     NeoForge.EVENT_BUS.register(this);
     NeoForge.EVENT_BUS.register(new ClientTelemetry());
     modBus.addListener(DeepPrimalClient::packs);
     modBus.addListener(WaterPalettes::register);
+    modBus.addListener(DeepPrimalClient::engineFluid);
     modBus.addListener(DeepPrimalClient::payloads);
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE);
+      NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.VoxelLodRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(
           com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE);
     }
     com.shnewbs.deepprimal.DeepPrimal.LOGGER.info(
         "Client renderer owner: {}", com.shnewbs.deepprimal.settings.RendererOwnership.owner());
+  }
+
+  private static void engineFluid(
+      net.neoforged.neoforge.client.event.RegisterFluidModelsEvent event) {
+    event.register(
+        new net.minecraft.client.renderer.block.FluidModel.Unbaked(
+            new net.minecraft.client.resources.model.sprite.Material(
+                net.minecraft.resources.Identifier.withDefaultNamespace("block/water_still")),
+            new net.minecraft.client.resources.model.sprite.Material(
+                net.minecraft.resources.Identifier.withDefaultNamespace("block/water_flow")),
+            new net.minecraft.client.resources.model.sprite.Material(
+                net.minecraft.resources.Identifier.withDefaultNamespace("block/water_overlay")),
+            net.neoforged.neoforge.client.fluid.FluidTintSources.water(),
+            new com.shnewbs.deepprimal.client.render.SmoothWaterRenderer()),
+        com.shnewbs.deepprimal.engine.EngineRegistry.WATER);
   }
 
   private static void packs(net.neoforged.neoforge.event.AddPackFindersEvent event) {
@@ -45,6 +75,11 @@ public final class DeepPrimalClient {
 
   private static void payloads(
       net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent event) {
+    event.register(
+        com.shnewbs.deepprimal.render.network.LodWorld.TYPE,
+        (p, c) ->
+            com.shnewbs.deepprimal.client.render.VoxelLodRenderer.INSTANCE.worldIdentity(
+                p.identity()));
     event.register(
         com.shnewbs.deepprimal.render.network.HorizonTile.TYPE,
         (p, c) -> {

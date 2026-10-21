@@ -8,10 +8,11 @@ import net.minecraft.server.packs.repository.PackSource;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 
-/** Creation-time defaults. Saved dimensions keep their own type and noise settings. */
+/** Creation-time defaults. Saved dimensions keep their serialized generator and height. */
 public final class WorldgenConfig {
   private static final PackSource OPTIONAL_PROFILE = PackSource.create(name -> name, false);
   public static final ModConfigSpec SPEC;
+  public static final ModConfigSpec.BooleanValue OWN_ENGINE;
   public static final ModConfigSpec.BooleanValue EXTRA_DEPTH;
   public static final ModConfigSpec.BooleanValue RIVERS_AND_COASTS;
   public static final ModConfigSpec.BooleanValue MOUNTAIN_STREAMS;
@@ -23,6 +24,11 @@ public final class WorldgenConfig {
 
   static {
     var b = new ModConfigSpec.Builder();
+    OWN_ENGINE =
+        b.comment(
+                "Use Deep Primal continental_v1 for new worlds. Saved worlds retain their"
+                    + " generator.")
+            .define("builtInTerrainEngine", true);
     EXTRA_DEPTH =
         b.comment(
                 "Use Y=-384..639 (1024 blocks) for NEW Deep Primal worlds instead of -128..639 (768"
@@ -34,6 +40,8 @@ public final class WorldgenConfig {
             .define("extraUndergroundDepth", false);
     RIVERS_AND_COASTS =
         b.comment(
+                "Legacy creation-profile switches below apply only when builtInTerrainEngine is"
+                    + " false.",
                 "Generate river valleys, narrow tributary streams and coastal beaches in NEW"
                     + " worlds.",
                 "Existing worlds retain their saved noise settings. Disable to use the legacy alpha"
@@ -65,7 +73,11 @@ public final class WorldgenConfig {
                 "Deeper ocean relief for NEW worlds. Requires contained rivers; saved generators"
                     + " retain their IDs.")
             .define("deepOceanTrenches", true);
-    SUPPORTED_RIVER_STEPS = b.comment("Use bank-supported, stable channel surfaces in NEW worlds. Existing saves keep their stored profile.").define("supportedRiverSteps", true);
+    SUPPORTED_RIVER_STEPS =
+        b.comment(
+                "Use bank-supported, stable channel surfaces in NEW worlds. Existing saves keep"
+                    + " their stored profile.")
+            .define("supportedRiverSteps", true);
     SPEC = b.build();
   }
 
@@ -86,8 +98,11 @@ public final class WorldgenConfig {
                       : "routed_"
                   : "waterways_")
               + profile;
+    if (OWN_ENGINE.get()) profile = "engine_" + (EXTRA_DEPTH.get() ? "deep" : "standard");
     for (String available :
         new String[] {
+          "engine_standard",
+          "engine_deep",
           "standard",
           "deep",
           "waterways_standard",
@@ -102,8 +117,10 @@ public final class WorldgenConfig {
           "natural_deep",
           "natural_rivers_standard",
           "natural_rivers_deep",
-          "supported_standard", "supported_deep",
-          "supported_rivers_standard", "supported_rivers_deep"
+          "supported_standard",
+          "supported_deep",
+          "supported_rivers_standard",
+          "supported_rivers_deep"
         }) {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),
@@ -117,4 +134,3 @@ public final class WorldgenConfig {
 
   private WorldgenConfig() {}
 }
-

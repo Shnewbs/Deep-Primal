@@ -1,0 +1,74 @@
+package com.shnewbs.deepprimal.core;
+
+/** Seeded gradient fields owned by Deep Primal; no platform noise router. */
+public final class TerrainNoise {
+  private final long seed;
+
+  public TerrainNoise(long seed) {
+    this.seed = seed;
+  }
+
+  public static long mix(long v) {
+    v = (v ^ v >>> 30) * 0xbf58476d1ce4e5b9L;
+    v = (v ^ v >>> 27) * 0x94d049bb133111ebL;
+    return v ^ v >>> 31;
+  }
+
+  public double hash(int x, int z, long salt) {
+    return (mix(seed ^ x * 0x9e3779b97f4a7c15L ^ z * 0xd1b54a32d192ed03L ^ salt) >>> 11)
+        * 0x1.0p-53;
+  }
+
+  public static double smooth(double t) {
+    t = Math.clamp(t, 0, 1);
+    return t * t * t * (t * (t * 6 - 15) + 10);
+  }
+
+  public static double lerp(double a, double b, double t) {
+    return a + (b - a) * t;
+  }
+
+  private double gradient(int x, int z, double dx, double dz, long salt) {
+    int g = (int) (hash(x, z, salt) * 8);
+    return switch (g) {
+      case 0 -> dx;
+      case 1 -> -dx;
+      case 2 -> dz;
+      case 3 -> -dz;
+      case 4 -> (dx + dz) * .70710678;
+      case 5 -> (dx - dz) * .70710678;
+      case 6 -> (-dx + dz) * .70710678;
+      default -> (-dx - dz) * .70710678;
+    };
+  }
+
+  public double noise(double x, double z, double scale, long salt) {
+    x /= scale;
+    z /= scale;
+    int a = (int) Math.floor(x), b = (int) Math.floor(z);
+    double dx = x - a, dz = z - b;
+    return lerp(
+            lerp(gradient(a, b, dx, dz, salt), gradient(a + 1, b, dx - 1, dz, salt), smooth(dx)),
+            lerp(
+                gradient(a, b + 1, dx, dz - 1, salt),
+                gradient(a + 1, b + 1, dx - 1, dz - 1, salt),
+                smooth(dx)),
+            smooth(dz))
+        * 1.7;
+  }
+
+  public double field(double x, double z, double scale, long salt) {
+    return noise(x, z, scale, salt) * .65
+        + noise(x, z, scale / 2, salt + 1) * .25
+        + noise(x, z, scale / 4, salt + 2) * .10;
+  }
+
+  public double volume(double x, double y, double z, double scale, long salt) {
+    double q = y / scale;
+    int iy = (int) Math.floor(q);
+    return lerp(
+        noise(x, z, scale, salt + iy * 7919L),
+        noise(x, z, scale, salt + (iy + 1) * 7919L),
+        smooth(q - iy));
+  }
+}

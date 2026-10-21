@@ -57,9 +57,6 @@ public final class HorizonRenderer {
           .withCull(true)
           .build();
   private final LinkedHashMap<Long, HorizonGpuMesh> cache = new LinkedHashMap<>(400, 0.75f, true);
-  private final com.shnewbs.deepprimal.core.WorkBudget budget =
-      new com.shnewbs.deepprimal.core.WorkBudget();
-  private long previousFrame;
   private com.shnewbs.deepprimal.core.HorizonView view;
   private final net.minecraft.client.renderer.DynamicUniforms.Transform[] transformStorage =
       new net.minecraft.client.renderer.DynamicUniforms.Transform[FarTerrain.MAX_TILES + 1];
@@ -135,21 +132,11 @@ public final class HorizonRenderer {
   public volatile long residentBytes;
 
   public double workFraction() {
-    return ClientPerformanceConfig.ADAPTIVE_WORK.get() ? budget.fraction() : 1;
+    return com.shnewbs.deepprimal.settings.ClientWorkPacer.fraction();
   }
 
   public void observeFrame(long now) {
-    if (previousFrame != 0 && level != null) {
-      var runtime = Runtime.getRuntime();
-      budget.observe(
-          (now - previousFrame) / 1e6,
-          1000.0
-              / Math.min(
-                  ClientPerformanceConfig.TARGET_FPS.get(),
-                  Minecraft.getInstance().getFramerateLimitTracker().getFramerateLimit()),
-          (double) (runtime.totalMemory() - runtime.freeMemory()) / runtime.maxMemory());
-    }
-    previousFrame = now;
+    com.shnewbs.deepprimal.settings.ClientWorkPacer.observe(now);
   }
 
   private ClientLevel level;
@@ -201,7 +188,11 @@ public final class HorizonRenderer {
   public volatile String status = "Waiting for world";
 
   public static int farDistance() {
-    return RendererOwnership.owned() ? ClientPerformanceConfig.FAR_RENDER_DISTANCE.get() : 0;
+    return RendererOwnership.owned()
+            && ClientPerformanceConfig.LEGACY_HORIZON.get()
+            && !com.shnewbs.deepprimal.settings.LodConfig.ENABLED.get()
+        ? ClientPerformanceConfig.FAR_RENDER_DISTANCE.get()
+        : 0;
   }
 
   public static boolean active() {
@@ -291,7 +282,8 @@ public final class HorizonRenderer {
         || backgroundPaused()
         || ticks
                 % (ClientPerformanceConfig.ADAPTIVE_WORK.get()
-                    ? (int) Math.ceil(4 / budget.fraction())
+                    ? (int)
+                        Math.ceil(4 / com.shnewbs.deepprimal.settings.ClientWorkPacer.fraction())
                     : 4)
             != 0) return;
     boolean limited = false;
@@ -768,8 +760,7 @@ public final class HorizonRenderer {
   }
 
   private void clear() {
-    budget.reset();
-    previousFrame = 0;
+    com.shnewbs.deepprimal.settings.ClientWorkPacer.reset();
     gpuTimer.close();
     clearMeshes();
     wanted = List.of();

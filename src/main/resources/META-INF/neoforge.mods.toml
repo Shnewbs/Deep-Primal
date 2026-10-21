@@ -5,8 +5,8 @@ license="All Rights Reserved"
 [[mods]]
 modId="deepprimal"
 version="${mod_version}"
-displayName="Deep Primal Worldgen Prototype"
-description='''Default tall-terrain generation with configurable underground depth, independent vertical rendering, and vanilla placeholder materials. Disposable test worlds only.'''
+displayName="Deep Primal"
+description='''Original continental terrain and volume-based water, explored-chunk LOD, custom graphics settings, and modular performance/rendering. Early alpha; use disposable new worlds. Existing block assets are temporary palettes.'''
 
 [[dependencies.deepprimal]]
 modId="neoforge"
@@ -36,3 +36,4 @@ modId="deepprimal_graphics"
 type="required"
 versionRange="[${mod_version}]"
 side="CLIENT"
+

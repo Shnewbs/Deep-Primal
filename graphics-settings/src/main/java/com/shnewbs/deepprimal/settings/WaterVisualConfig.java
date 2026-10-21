@@ -5,11 +5,12 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 /** Presentation settings remain independent of server water physics and the graphics backend. */
 public final class WaterVisualConfig {
   public static final ModConfigSpec SPEC;
-  public static final ModConfigSpec.BooleanValue COLORS, FOG, WAVES, WAKES, CASCADES, SNOW;
+  public static final ModConfigSpec.BooleanValue COLORS, FOG, WAVES, WAKES, CASCADES, SNOW, SMOOTH;
   public static final ModConfigSpec.IntValue PARTICLES, WAVE_RADIUS;
 
   static {
     var b = new ModConfigSpec.Builder();
+    SMOOTH = b.define("smoothEngineWaterMesh", true);
     COLORS = b.define("blendedWaterColors", true);
     FOG = b.define("waterClarity", true);
     WAVES = b.define("oceanSurfaceWaves", true);

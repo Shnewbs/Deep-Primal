@@ -21,8 +21,13 @@ public abstract class CameraMixin {
             level.getSectionsCount(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get());
     return Math.max(
         Math.max(original, (sections + 2) * 16.0f),
-        (com.shnewbs.deepprimal.client.render.HorizonRenderer.active()
-            ? com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance() * 16.0f + 64
+        ((com.shnewbs.deepprimal.client.render.HorizonRenderer.active()
+                || com.shnewbs.deepprimal.client.render.VoxelLodRenderer.active())
+            ? Math.max(
+                        com.shnewbs.deepprimal.client.render.HorizonRenderer.farDistance(),
+                        com.shnewbs.deepprimal.client.render.VoxelLodRenderer.distance())
+                    * 16.0f
+                + 64
             : 0));
   }
 }

@@ -13,7 +13,8 @@
     "HorseBuoyancyMixin",
     "OceanBoatMixin",
     "PrecipitationMixin",
-    "FiniteWaterMixin"
+    "FiniteWaterMixin",
+    "WaterImportMixin"
   ],
   "client": [
     "client.OptionsMixin",
@@ -27,11 +28,13 @@
     "client.LevelRendererAccessor",
     "client.WaterColorMixin",
     "client.SnowFoliageMixin",
-    "client.WaterFogMixin"
+    "client.WaterFogMixin",
+    "client.FluidModelAccess",
+    "client.LodDirtyMixin",
+    "client.SpritePixelsAccess"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin"
 }
-

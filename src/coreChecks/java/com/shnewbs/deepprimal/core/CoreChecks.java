@@ -5,6 +5,7 @@ import java.util.Random;
 /** Dependency-free differential checks for hot-path math and bounded memory behavior. */
 public final class CoreChecks {
   public static void main(String[] args) {
+    IntegratedEngineChecks.run();
     WaterwayChecks.run();
     DrainageChecks.run();
     RuntimeChecks.run();
@@ -118,4 +119,3 @@ public final class CoreChecks {
     if (!value) throw new AssertionError(message);
   }
 }
-

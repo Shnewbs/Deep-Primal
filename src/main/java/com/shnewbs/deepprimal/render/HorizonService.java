@@ -64,6 +64,9 @@ public final class HorizonService {
     registrar.playToServer(
         HorizonRequest.TYPE, HorizonRequest.CODEC, (p, c) -> request(p, (ServerPlayer) c.player()));
     registrar.playToClient(HorizonTile.TYPE, HorizonTile.CODEC);
+    registrar.playToClient(
+        com.shnewbs.deepprimal.render.network.LodWorld.TYPE,
+        com.shnewbs.deepprimal.render.network.LodWorld.CODEC);
   }
 
   private static boolean relevant(Waiter w) {

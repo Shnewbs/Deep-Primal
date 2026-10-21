@@ -106,6 +106,17 @@ public final class ClientTelemetry {
       data.put("horizonTrianglesDrawn", renderer.drawnTriangles);
       data.put("horizonUploadedBytes", renderer.uploadedBytes);
     }
+    var lod = com.shnewbs.deepprimal.client.render.VoxelLodRenderer.INSTANCE;
+    data.put("lodState", lod.status);
+    data.put("lodCaptured", lod.capturedChunks);
+    data.put("lodUploaded", lod.uploadedChunks);
+    data.put("lodVisible", lod.visibleChunks);
+    data.put("lodVisibleSpan", lod.visibleSpan);
+    data.put("lodRequestedRadius", com.shnewbs.deepprimal.settings.LodConfig.RADIUS.get());
+    data.put("lodResidentBytes", lod.residentBytes);
+    data.put("lodDiskReads", lod.diskReads);
+    data.put("lodStaleResults", lod.staleResults);
+    data.put("lodQueued", lod.queuedChunks);
     if (mc.level != null) data.put("dimension", mc.level.dimension().identifier().toString());
     LocalDashboard.client(data);
   }

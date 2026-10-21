@@ -1,31 +1,39 @@
-# Worldgen prototype 0.0.1-alpha.12
+# Deep Primal engine alpha 17 — play and build
 
-Target: **Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25**. This is a terrain development build, not the full survival conversion. Use new disposable worlds. Alpha 5 fixes extended-distance queue bounds and can reopen alpha 4 saves. Alpha 4 changed cave geometry; existing chunks retain their old carving, and new chunks can meet them at visible seams. Never install it into a valuable existing world as a world-height migration tool.
+Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. Install one matching Deep Primal JAR. The default small JAR uses OpenGL; the `vulkan-windows` JAR is an alternative containing the optional Windows adapter. Do not install both or extracted duplicate modules. Select a bundled backend under Graphics API and restart; the screen reports saved and actual API separately.
 
-## Play
+## New worlds and compatibility
 
-1. Install the matching NeoForge version and place the DeepPrimal JAR in `mods` on client and server.
-2. Create a new world normally. **Deep Primal** is the default normal world type; no custom preset selection is needed.
-3. Use Creative with commands enabled. `/gamemode spectator` is useful for inspecting geology and caves.
-4. Run `/deepprimal info`, then explore. Vanilla blocks/items, biome vegetation, and feature placement are temporary test materials.
+Create a normal world for our `deepprimal:continental_v1` generator and `deepprimal:regional_v1` biome source. They own Overworld terrain/biome decisions without the native noise generator. Existing Minecraft block/biome assets remain temporary palettes. Nether/End remain native. Native carvers/decorators and villages are not placed by the custom Overworld generator.
 
-The default spans Y=-128..639 (768 blocks). In `config/deepprimal-worldgen.toml`, set `extraUndergroundDepth = true` and restart Minecraft/the server **before creating a new world** to use -384..639 (1024 blocks). Sea level remains 96 and the mountain ceiling is unchanged. Both height profiles stay registered for saved-world compatibility, but are absent from the world-type lists. `riversAndCoasts = true` selects the new rivers/streams/coasts profile for new worlds; set it false before creation and restart to retain legacy terrain for a new world. All six pack IDs remain available for saved-world loading, while only the chosen creation profile loads automatically. Saved dimension types and noise settings determine an existing world's height; changing this creation-time config does not migrate it.
+`config/deepprimal-worldgen.toml` defaults to `builtInTerrainEngine = true`. `extraUndergroundDepth = true`, followed by restart **before creation**, chooses -384..639 (1024 blocks) rather than -128..639 (768 blocks). Sea level is 96. Saved dimensions keep their serialized generator and height; changing these creation settings does not migrate old worlds. Legacy river switches select retained older profiles only when the built-in engine is explicitly disabled. Never delete a save to enable this update; create a separate inspection world.
 
-A required built-in data pack supplies the configured `minecraft:normal` preset on client and server. An ordinary dedicated server using its default `level-type=minecraft:normal` therefore creates Deep Primal terrain. Flat, amplified, and other explicitly selected world types retain their own generation. This is not unlimited height or cubic chunk streaming.
+Use Creative with commands for development. The engine independently plans continental relief, curved regional drainage, material fields, cave tunnels and vegetation. Terrain quality, unified lakes/outlets, erosion/sediment simulation and complete natural catalogs remain unfinished. Catalogs are planning-only.
 
-## Implemented scope
+## Custom graphics screen
 
-- Default normal world generation with two config-selected saved-world profiles, dimension types, and noise settings.
-- Seeded continental terrain, amplified mountain ridges, and valley masks with vanilla multi-noise biomes.
-- Vanilla underground aquifers, intersecting noise-band tunnels, continuous surface-rock cover, and deeper chambers that taper out below the alpine terrain. Native biome carvers retain ordinary lower-elevation entrances. The previous single-band sheet carving and hard shallow-depth switch are removed. These remain geological placeholders, without erosion simulation, structural support simulation, renewable groundwater, or a routed watershed solver.
-- Alpha 11 lowland river valleys and narrower tributary streams, water to Y=95, gravel channel beds, graded coastal shelves, sand over sandstone in coastal beach biomes, and retained rocky/steep shores. Terrain and the distant horizon share the shaped field. Existing alpha 10 saves keep their old noise settings and aquifers.
-- Visible placeholder strata: andesite, granite, diorite, deepslate; bedrock floor; simple soil/sand/snow surface rules.
-- A data-driven terrain-height field stored in the native bounded 5×5 chunk grid, direct preliminary-surface calculation without a vertical search, and interpolated density evaluation through the native engine.
-- Explicit overworld sky/fog/light colors, high clouds, small-scale terrain detail, slope-based exposed rock, and rocky subsoil above Y=224 to reduce dirt stripes on high cliffs.
-- Operator-only diagnostic sampling and a bounded sequential chunk benchmark.
-- Block and mob XP drops suppressed before orb creation; vanilla XP gain/level events and XP-orb spawning disabled; loaded/directly-set player vanilla XP is cleared. The MMO XP replacement is not built yet.
+Open **Video Settings → Deep Primal graphics…**, or **Mods → Deep Primal → Config**. Changes remain staged through tab switches and resize until **Apply**. **Revert** reloads saved values. **Done/Escape** does not commit unapplied edits. Invalid typed input disables Apply. Opening a new screen restores saved requests, including values currently constrained by a server, heap or session cap.
 
-Native survival, custom catalog, Earth data, complete saved-world/voxel LOD, finite ore economy, renewable wells, navigation/hearth, vehicles, fishing, animal yields, and professions are not implemented. Vanilla ore/features remain placeholders and are not the final finite ore generation. Flora/biome transitions and terrain balance need visual playtesting.
+| Tab | Controls |
+| --- | --- |
+| General | Native render 2–125 chunks, simulation 2–32, vertical radius 0–96 sections (0 = full height), FOV, brightness, FPS cap/VSync and optional-work target |
+| Quality | Clouds, particles, shadows and optional entity/block-entity/particle visual limits |
+| Performance | Shared adaptive work/upload limits, nearby synchronous mesh limits, background FPS/work and local dashboard |
+| LOD | Enabled, requested radius 16–512 chunks, projected cell size 1–12 pixels, GPU payload budget 4–256 MiB, disk budget 16–4096 MiB, persistence, capture interval and per-frame upload count |
+| Water | Curved engine-water surface, tint/fog, retained swell/cascade/wake/snow controls; these controls do not implement breaking surf |
+| Graphics API | Saved backend, currently active backend and restart status; optional adapter availability |
+
+The requested LOD radius is a retention/view limit, not a promise of loaded terrain. The screen also reports current visible LOD span. Only normally delivered/explored chunks are captured; no extra full chunk tickets or unseen-terrain generation is requested. Detailed host chunks hand off when compiled. Distant meshes approximate materials/shapes and lighting; full texture/model/transparency parity remains unfinished. The legacy procedural horizon is off and is not a fallback when LOD is disabled.
+
+Native requested distances remain subject to server delivery, memory guards and session tracking allocation. Vertical distance changes render allocations, not full-height chunk storage/simulation. Increasing native render request above session capacity may require reopening a local world. External renderer ownership disables our internal LOD/water rendering controls while retaining general settings. Broad replacement-renderer compatibility still needs testing.
+
+The read-only local dashboard normally uses `http://127.0.0.1:8787/` and is linked from Performance. It reports LOD captures/revisions, uploads, visible/requested span and payload/cache/work counters. It is not a substitute for hardware profiling.
+
+## Liquids
+
+New engine water is a distinct 16-unit fluid with conservative gravity/pooling and stored current direction/speed. Its own full bucket removes/places 16 units; partial cells do not yield a free full bucket. Ordinary water introduced into these worlds is converted before native water spreading, including when the old optional finite-water config is enabled. Lava and waterlogged blocks are not replaced.
+
+The old eight-unit finite-water solver, measured bucket, rain/soil/machine-port and survival features remain available in source for legacy worlds. Do not assume each is integrated with the new fluid: pressure/displacement, recharge, river/ocean replenishment, erosion and shoreline surf require explicit integration and validation.
 
 ## Diagnostics
 
@@ -43,90 +51,22 @@ Results are written under the game/server directory in `deepprimal-benchmarks/` 
 
 Each in-flight request holds its own temporary, non-persistent loading ticket. The ticket is released on completion, cancellation, timeout, failure, or shutdown. A timed-out or cancelled engine request may drain before another run is accepted. Reports are written on a bounded worker queue, away from the server thread. The request uses the engine's off-thread dispatch path to avoid its main-thread managed wait. It does not keep the entire benchmark region loaded or force-load unrelated dimensions.
 
-## Performance configuration
+## Build and validation
 
-`config/deepprimal-performance.toml` controls operator diagnostics:
+```sh
+./gradlew build
+./gradlew build -PvulkanPlatform=windows
+./gradlew build -PvulkanPlatform=linux
+```
 
-| Setting | Default | Purpose |
-| --- | --- | --- |
-| `maxBenchmarkRadius` | 4 | Bounds a run to 81 requests; supported range 0–8 |
-| `requestTimeoutSeconds` | 120 | Releases the diagnostic ticket on a stuck request; range 5–600 |
-| `pauseAboveTickMilliseconds` | 50 | Delays the next benchmark request after a slow tick; 0 disables pacing |
-| `sampleCacheEntries` | 1024 | Fixed-capacity LRU of diagnostic results; 0 disables caching |
-| `logSamplerQueries` | false | Optional per-query log output |
+Default output: `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.17.jar`. Platform bundles use distinct `-vulkan-<platform>` filenames. No terrain/LOD runtime library was added. Core checks, source module boundaries and optional Vulkan cache checks run in the default build. `-PwithoutVulkan` excludes the optional project entirely. `-PbundleVulkan` explicitly requests the larger universal package.
 
-`optimizeChunkSelection` (default true) uses a primitive nearest-first queue. `maxChunkSendsPerTick` (default 16, range 1–64) bounds each player's send batch, including integrated-server connections, while respecting native client feedback. Turning selection off restores native batching.
+`./gradlew runClient` / `runServer` launch development instances. Accept the Minecraft EULA before running a server. Development-only `visualValidation` fixtures are excluded from installers. Alpha 17 fixtures exercise actual engine worlds, fluids, snapshot persistence, edits after native unload, disk reload, UI persistence/resize and both common GPU backends. See [recorded commands, results and limits](VALIDATION-0.0.1-alpha.17.md).
 
-`persistentMobIdleOptimization` (default true) backports the 26.3 behavior: distant persistent mobs accumulate idle time so native random-walk/swim goals can stop. Nearby mobs reset normally, persistence/despawn rules remain native, and other AI still runs. Set false to retain the old persistent-mob idle timer behavior.
+`tools/generate_worldgen.py` reproduces **legacy** authored noise resources, not the new original Java terrain engine. Those resources remain frozen for saved-world compatibility. Change the new generator only with versioned profiles/migration policy after release; changing explored saved terrain in place is not supported.
 
-Client config `deepprimal-client-performance.toml` contains `optimizeViewRelocation` (default true), also available as **Fast camera updates** in the distance screen. It skips unchanged render columns. With full-height rendering, turning it off uses native relocation. With a bounded vertical window, both settings retain the required vertical slot mapping; the toggle controls scanning optimizations.
+## References and provenance
 
-These options do not change terrain geometry. Chunk delivery pacing changes arrival timing and idle optimization changes distant random strolling as described above. Cached samples contain values and seed/dimension/coordinate keys, with no retained world or chunk references. Cache contents clear on datapack sync and server shutdown. Vanilla XP suppression has no disable setting.
+TFC, Terralith and Tectonic guide original terrain work; full parity/source audits and visual acceptance are not complete. Gaea/World Machine methods are references without proprietary engine imports. Distant Horizons, Nanite and Cesium guide LOD architecture without bundled runtimes; meshoptimizer remains a development probe. No comparative FPS claim is made. [Architecture/reference decisions](LOD-AND-DRAINAGE-ARCHITECTURE.md) remain governing requirements.
 
-For a controlled benchmark, disable the optional slow-tick pause and record that setting. For ordinary playtesting, leave the default pacing enabled. The mod uses native generation workers and does not create an extra terrain-generation pool.
-
-Your screenshots used render and simulation distance 32. Start tall-world tests around render distance 12–16 and simulation distance 6–8, then increase them while watching `/deepprimal perf`. These are starting points for testing, not measured guarantees. The mod does not override player/server settings.
-
-## Distance controls
-
-Open **Video Settings → Deep Primal distances…**. Horizontal render, simulation, and vertical render each have a slider and a numeric field. Changes apply together with **Apply**; Cancel/Escape leaves staged values unused. Invalid values disable Apply. Horizontal/simulation values persist in `options.txt`; vertical radius persists in `deepprimal-client-performance.toml`. Native Video Settings sliders also support the expanded horizontal/simulation ranges.
-
-- Render distance: **2–96 chunks**, an experimental finite ceiling compatible with the native byte protocol and tracking storage.
-- Simulation distance: **2–32 chunks**. The native simulation-level graph caps the useful range; higher values would need a different simulation architecture.
-- Vertical render radius: **0–96 sections**, independently above/below the camera in 16-block steps. **0 = full world height**. A nonzero value allocates at most `min(worldSections, 2 × radius + 1)` Y slots per render column. Slots wrap when the camera climbs or descends. Native occlusion propagation, section lookup, and octree bounds use the vertical range independently of horizontal distance. Apply rebuilds the render grid immediately. Chunks, lighting data, network packets, and server simulation still use full-height columns. Terrain beyond a selected vertical limit is deliberately clipped.
-
-The authored native fog-include implementation scales the Y component of distance fog independently, with an extended fog uniform buffer. Environmental fog retains its native spherical distance, so water, weather, blindness, and darkness can still limit visibility. The camera far plane includes the vertical range. Third-party shader packs or replacement renderers that replace the fog include/uniform layout require separate compatibility validation.
-- Multiplayer: the server controls delivered terrain and simulation. A client's value cannot override it. The screen shows the server's advertised render cap.
-- Single-player: tracking capacity is allocated when opening the world, at least 32 and up to the chosen render distance. Choosing a range above that session capacity requires reopening the world; the screen tells you when. Effective local rendering stays within the allocated tracking capacity meanwhile.
-- Alpha 5 extends each native chunk-task queue to match its session tracking capacity, including unload priorities. Ordinary 32-chunk sessions keep the native 46 buckets. The fix also preserves the queue size through shutdown; native chunk generation/status levels remain unchanged.
-- Dedicated server: set `view-distance` before startup (2–96); `simulation-distance` remains 2–32. Actual gameplay requests above the hard limits are clamped. Default distances retain the native 32-chunk tracking-graph capacity rather than always allocating a 96-chunk graph.
-
-Larger render settings multiply chunk and vertical-section costs. The upper range is not a hardware performance promise. There is no literal unlimited mode. A smaller vertical range does not establish that the reported alpha 2 heap exhaustion at 32 chunks / 4 GiB is resolved; full chunk-column demand remains.
-
-The screen reports the **actual graphics API**. Alpha 9 includes an optional experimental Vulkan backend; select it on the Graphics API performance page, Apply, and restart. See [the implementation and compatibility notes](VULKAN-BACKPORT.md).
-
-## Built-in renderer and local diagnostics
-
-Alpha 6 introduced the native horizon and automatic renderer ownership described in [this guide](RENDERER-AND-DIAGNOSTICS.md). The horizon defaults to 192 chunks and accepts 0–256. It does not raise the full-detail or simulation limits. The local dashboard is enabled by default and has a button in Deep Primal’s distance/config screen.
-
-Alpha 8 extends **Performance…** with terrain upload budgets, visual range/admission limits, background FPS/work controls and staged profiles. See [the renderer guide](RENDERER-AND-DIAGNOSTICS.md#performance-menu) and [validation](VALIDATION-0.0.1-alpha.8.md). Terrain resources are unchanged.
-
-## Build and reproduce
-
-Use Java 25. Run `./gradlew build` (Windows: `gradlew.bat build`). Output is under `build/libs/`. `./gradlew runClient` starts a development client; `./gradlew runServer` starts a development server (the Minecraft EULA must be accepted before use).
-
-`./gradlew coreChecks` runs the standalone differential height, 100,000 randomized waterway cases, cache-bound, and tick-ring checks. `./gradlew build` includes these checks.
-
-`python3 tools/generate_worldgen.py` reproduces the authored JSON resources without external dependencies. Edit terrain parameters/profile heights in that script, regenerate, rebuild, and create a fresh world. Do not change the geometry of an existing world without a migration policy.
-
-Server setup for testing: leave `level-type=minecraft:normal` and choose extra depth in `config/deepprimal-worldgen.toml` before starting with a new world. The historical `deepprimal:prototype` and `deepprimal:prototype_deep` IDs remain accessible to explicit diagnostic tooling and old saves. Keep a fixed seed and record client/server settings, hardware, software, depth config, coordinates, and cache state for comparisons.
-
-For client visual checks, the opt-in `visualValidation` source set adds an automatic screenshot 45 seconds after joining a server and then exits. Run `./gradlew runClient -PvisualValidation -PcaptureServer=127.0.0.1:25565` against a local test server. Screenshots go to `build/visual-validation/screenshots/terrain.png`. The capture hook is excluded from the distributed JAR.
-
-## Licensing and provenance
-
-The original project code is All Rights Reserved pending the owner's final licensing choice. The separately replaceable Vulkan adapter is LGPL-3.0-only and contains adapted VulkanMod source; its origin and license notices are included. Bundled LWJGL bindings/natives retain their notices. Gradle wrapper files retain Gradle's notices. NeoForge and Minecraft are dependencies, not bundled game distributions. The authored density/surface definitions reference vanilla registries. No TFC or Terralith source/assets are included.
-
-## Alpha 9 memory and graphics changes
-
-Keep the memory distance guard enabled for large requested distances. Its effective limit accounts for full-height columns even when vertical rendering is restricted. The horizon distance is separate. `config/deepprimal-performance.toml` exposes `memoryDistanceGuard`, `boundChunkSaves` and `maxConcurrentChunkWrites` (default 16 per dimension). Bulk saves can take longer while write backpressure keeps snapshots bounded.
-
-The standard package now includes the experimental Vulkan adapter. Select it under **Performance → Graphics API**, Apply, and restart. OpenGL remains the default. Use one graphics replacement at a time; Deep Primal yields when an external renderer is installed. See [Vulkan details](VULKAN-BACKPORT.md) and [alpha 9 validation](VALIDATION-0.0.1-alpha.9.md).
-
-Alpha 10 keeps Vulkan, graphics settings and common performance in separate nested modules. See [module builds](MODULES.md), [Vulkan capabilities](VULKAN-CAPABILITIES.md), and [current validation](VALIDATION-0.0.1-alpha.10.md). The default remains OpenGL.
-
-## Alpha 11 rivers, streams and coast validation (retained profile)
-
-The retained alpha 11 noise settings are `deepprimal:waterways_v1` and `deepprimal:waterways_v1_deep`. Their geometry is separate from the optional Vulkan backend and the performance/graphics modules. Core shaping lives in `engine-core`; the root worldgen adapter owns Minecraft density registration and surface water. There is no per-tick river worker or growing watershed cache.
-
-`python3 tools/validate_waterways.py ./gradlew --accept-eula` creates disposable standard, deep and legacy worlds, tests actual river/stream/mouth/beach blocks, saves, and reopens the legacy world after enabling the new-world toggle. Run only after accepting the Minecraft EULA. `--offline` uses prepared Gradle dependencies. Existing test worlds are preserved: use a fresh checkout or move the previous `run-waterways-check-*` directories before repeating. The fixture is never included in the installer. See [alpha 11 results](VALIDATION-0.0.1-alpha.11.md).
-
-Streams currently follow smooth seeded lowland contours at the shared sea level. Width varies with the local noise gradient; arbitrary drainage connectivity, variable-altitude flow, waterfalls, water budgets, recharge and erosion remain future work.
-
-## Alpha 12 mountain streams
-
-`mountainStreams = true` in startup config enables the versioned `waterways_v2` / `waterways_v2_deep` profiles for new worlds when `riversAndCoasts` is true. Set mountain streams false before creation to select alpha 11 lowland rivers/coasts. Set rivers/coasts false to select the original terrain. All six packs remain registered for saved-world loading; only the selected new-world pack is required. Restart after changing creation settings.
-
-Upland tributaries now follow a deterministic catchment graph and variable water heights, with incision through obstructing ridges. Submerged inland beds use local water height, sand in arid biomes and gravel elsewhere; steep rocky surfaces retain priority. There is no per-tick hydrology simulation. New tributaries are regional and require an existing wet outlet; see [alpha 12 validation](VALIDATION-0.0.1-alpha.12.md) and [the comparison](RIVER-MOD-COMPARISON-2026-10-19.md) for limits.
-
-After accepting Minecraft’s EULA, run `python3 tools/validate_mountain_rivers.py ./gradlew --accept-eula` with Java 25. The dedicated-server fixture checks new standard/deep generation, actual elevated water and gorges, descending courses and final FULL chunks. It also creates and reopens both legacy and alpha 11 profiles after changing creation toggles. Existing test worlds are preserved; move the `run-drainage-*` directories before repeating. Test commands/classes are excluded from the installer.
+Original project code is All Rights Reserved pending the owner's final licensing choice. The optional Vulkan adapter is separately licensed LGPL-3.0-only with adapted VulkanMod source/notices retained. Minecraft/NeoForge are dependencies, not bundled game distributions.

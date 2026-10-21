@@ -60,7 +60,7 @@ public final class WorldgenProbe {
                               var level = c.getSource().getLevel();
                               reply(
                                   c.getSource(),
-                                  "Prototype: y="
+                                  "Deep Primal: y="
                                       + level.getMinY()
                                       + ".."
                                       + level.getMaxY()
@@ -68,8 +68,14 @@ public final class WorldgenProbe {
                                       + level.getSeaLevel()
                                       + ", seed="
                                       + level.getSeed()
-                                      + ". Native aquifers/vegetation are placeholders; no"
-                                      + " renewable groundwater yet.");
+                                      + ", generator="
+                                      + (level.getChunkSource().getGenerator()
+                                              instanceof
+                                              com.shnewbs.deepprimal.engine.EngineChunkGenerator
+                                          ? "deepprimal:continental_v1"
+                                          : "saved legacy/native profile")
+                                      + ". Terrain/materials remain alpha; renewable groundwater is"
+                                      + " unfinished.");
                               return 1;
                             }))
                 .then(Commands.literal("perf").executes(c -> performance(c.getSource())))
@@ -163,6 +169,27 @@ public final class WorldgenProbe {
 
   private int sample(CommandSourceStack source, int x, int z) {
     ServerLevel level = source.getLevel();
+    if (level.getChunkSource().getGenerator()
+        instanceof com.shnewbs.deepprimal.engine.EngineChunkGenerator engine) {
+      var s = engine.geography().sample(x, z);
+      String message =
+          String.format(
+              Locale.ROOT,
+              "Engine sampler (%d,%d): ground=%.2f, water=%.2f, rain=%.3f, temperature=%.3f,"
+                  + " slope=%.3f, sedimentProxy=%.3f, currentSpeed=%.3f. No chunk generated.",
+              x,
+              z,
+              s.ground(),
+              s.water(),
+              s.rain(),
+              s.temperature(),
+              s.slope(),
+              s.sediment(),
+              s.speed());
+      reply(source, message);
+      if (PerformanceConfig.LOG_SAMPLES.get()) DeepPrimal.LOGGER.info(message);
+      return 1;
+    }
     int capacity = PerformanceConfig.SAMPLE_CACHE_ENTRIES.get();
     if (capacity != samples.capacity()) samples = new BoundedLru<>(capacity);
     SampleKey key = new SampleKey(level.dimension().identifier().toString(), level.getSeed(), x, z);

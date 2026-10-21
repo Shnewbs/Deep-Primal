@@ -16,8 +16,10 @@ public final class GraphicsSettingsModule {
         net.neoforged.fml.config.ModConfig.Type.CLIENT,
         WaterVisualConfig.SPEC,
         "deepprimal-water-visuals.toml");
+    container.registerConfig(
+        net.neoforged.fml.config.ModConfig.Type.CLIENT, LodConfig.SPEC, "deepprimal-lod.toml");
     container.registerExtensionPoint(
         IConfigScreenFactory.class,
-        (IConfigScreenFactory) (mod, parent) -> new PerformanceSettingsScreen(parent));
+        (IConfigScreenFactory) (mod, parent) -> new PrimalGraphicsScreen(parent));
   }
 }

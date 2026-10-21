@@ -20,5 +20,7 @@
   "deepprimal.distance.far_help": "Coarse generated landscape, 0\u2013512 chunks; 0 disables. No full chunks, buildings, trees, or simulation. Independent of full-detail distance.",
   "item.deepprimal.measured_bucket": "Measured Bucket",
   "item.deepprimal.measured_bucket.amount": "Water: %s/%s units",
-  "deepprimal.swimming.remaining": "Swimming stamina: %ss"
+  "deepprimal.swimming.remaining": "Swimming stamina: %ss",
+  "item.deepprimal.engine_water_bucket": "Water Bucket (16 units)",
+  "block.deepprimal.engine_water": "Water"
 }
