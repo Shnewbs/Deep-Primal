@@ -70,6 +70,25 @@ The later climate plan must have a northern polar region, an equatorial region a
 
 These are requirements for future climate scenarios and placement eligibility. Biome roster design remains first; a biome's inclusion does not authorize placement outside its relevant climate and habitat requirements.
 
+### Ocean circulation — confirmed direction
+
+Ocean currents must have a physical basis in both procedural worlds and optional Earth mode. Plan a shared current record with direction, speed and depth dependence, linked to water temperature and salinity.
+
+| Attribute | Basis for later design |
+| --- | --- |
+| Surface circulation | Prevailing winds and seasonal wind patterns drive broad surface flows and basin circulation. |
+| Hemisphere and latitude | Include rotation/Coriolis effects with opposite deflection between hemispheres; individual local eddies need their own flow context. |
+| Basin and seafloor geometry | Coastlines, islands, straits, shelves, depth and seafloor relief guide connected flow paths and local strength. |
+| Deep circulation | Temperature and salinity affect density and water-mass movement; surface flow and deep flow can differ. |
+| Vertical exchange | Plan upwelling, downwelling and mixing where supported by winds, geometry and water properties. |
+| Coastal and tidal exchange | Keep an interface for estuary/strait exchange and tidal currents; the tide model and live sea-level changes retain their separate deferred scope. |
+
+Warm/cold water transport should inform regional coastal climate and marine-biome eligibility. Upwelling and nutrient delivery should inform productive habitats and fishing. Future boat/swimming interactions should consume the same current field; force scales and balance remain open.
+
+For later implementation, prefer bounded regional summaries, depth layers and cheap shared queries. Keep currents continuous through connected water and across region/chunk boundaries, with no paths through land. Resolve climate/current coupling in an explicit deterministic stage or bounded refinement. Simulation method, resolution, update cadence and performance budgets remain deferred; biome planning stays first.
+
+Scientific anchors: [NOAA ocean currents](https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-currents), [NOAA current drivers and landform effects](https://oceanexplorer.noaa.gov/ocean-fact/currents/) and [NOAA Coriolis overview](https://oceanservice.noaa.gov/education/tutorial_currents/04currents1.html). The game requirements above are our design inferences from those physical principles.
+
 ### Design work order
 
 1. Review and expand the named biome roster, resolving missing environments and profile/variant/layer distinctions.
@@ -177,7 +196,8 @@ Deferred climate and world-placement planning, after the biome roster:
 
 - [ ] Derive the climate scenarios required by the selected biome profiles and regional communities, with equatorial and northern/southern polar regions, coherent latitude trends and hemisphere-aware seasons.
 - [ ] Define temperature, effective moisture, seasonal patterns and exposure, with quantitative ranges and scientific tolerance review; use each biome's relevant requirements as placement gates.
-- [ ] Reconcile climate scenarios with connected water systems, relief, geology and intended biome transitions.
+- [ ] Plan realistic ocean circulation from winds, hemisphere/latitude, basin geometry, depth, temperature and salinity; include vertical exchange and regional climate/habitat effects.
+- [ ] Reconcile climate scenarios with connected water systems, ocean circulation, relief, geology and intended biome transitions.
 - [ ] Choose numerical water/scale fields, transition widths, default frequency and future configuration scope.
 - [ ] Settle runtime sampling/placement dependencies and document any agreed changes to the biome plan.
 

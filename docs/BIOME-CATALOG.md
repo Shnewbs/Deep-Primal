@@ -38,6 +38,7 @@ The profiles deliberately cover natural Overworld land, inland water, coasts, oc
 - **Setting/ground:** material themes and physical setting. Ground codes below are selectors/themes, not new material definitions or forced soil taxonomy.
 - **Vegetation/life:** candidate community pools; regional species must satisfy climate, water, substrate and biological-province eligibility. Fauna roster and yields remain separate existing plans.
 - **Water regime:** supply, drainage, flow, exposure and salinity are separate from drinking quality.
+- **Ocean circulation:** future marine placement uses shared current, temperature and salinity fields shaped by winds, latitude/rotation, basin geometry and depth, including vertical exchange. See the [circulation plan](BIOME-PLAN.md#ocean-circulation--confirmed-direction); this adds no biome IDs or implemented current simulation.
 - **Neighbors:** plausible transition examples, not a requirement for each pair to border directly. Actual adjacency must satisfy compatible climate, relief and water continuity, using intermediate profiles where necessary.
 - Detailed taxa, resources and regional communities belong to the current biome-design pass. Numerical climate thresholds, spatial scale, frequency, rarity, spawning balance and final per-profile registry disposition remain open for later scenario/integration review.
 
