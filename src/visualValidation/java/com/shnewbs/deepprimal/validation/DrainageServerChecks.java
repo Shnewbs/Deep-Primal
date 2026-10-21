@@ -75,8 +75,10 @@ public final class DrainageServerChecks {
         WaterEnvironmentChecks.run(level);
       if (selected.equals("ocean") || selected.equals("weather-ocean"))
         OceanServerChecks.run(level);
-      if (selected.equals("standard-reopen") || selected.equals("deep-reopen"))
+      if (selected.equals("standard-reopen") || selected.equals("deep-reopen")) {
         RiverCurrentChecks.reopen(level);
+        HydrologyServerChecks.reopen(level);
+      }
       record("DRAINAGE_AUTO_PASS case=" + selected);
     } catch (java.io.IOException | RuntimeException | Error e) {
       record("DRAINAGE_FAILURE " + e);

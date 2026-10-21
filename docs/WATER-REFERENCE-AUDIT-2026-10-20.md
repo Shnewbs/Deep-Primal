@@ -36,7 +36,7 @@ Checked each author's project description on 2026-10-20 against Deep Primal sour
 
 New `waterways_v6*` resources sample cross-channel bank support and use a separately registered stable channel block. Existing generators and legacy river blocks keep their saved behavior. This avoids new vanilla spread curtains on planned channels; it does not clean already-explored water or repair every drainage discontinuity. Finite dynamics are opt-in.
 
-The ocean patch samples at most 256 loaded columns per client tick, retains its previous GPU patch until replacement is ready, and does not write the native depth buffer. Vulkan remains a separate module; no Vulkan implementation dependency was added to gameplay, settings or the core math module.
+The ocean patch samples at most 256 loaded columns per client tick, retains its previous GPU patch until replacement is ready, and does not write the native depth buffer. Horizon coverage is requested before refinements, and stale teleport requests are replaced rather than occupying the request slot. Vulkan remains a separate module; no Vulkan implementation dependency was added to gameplay, settings or the core math module.
 
 ## Remaining work
 

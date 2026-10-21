@@ -11,6 +11,24 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 /** Native fluid ticks, transactional ports, rain and snow in a disposable world. */
 final class HydrologyServerChecks {
+  static void reopen(ServerLevel level) {
+    var soil = new BlockPos(76, 500, 8);
+    int column = (soil.getZ() & 15) * 16 + (soil.getX() & 15);
+    require(
+        level.getChunkAt(soil).getData(WeatherHydrology.SOIL).get(column) == 8,
+        "Saved soil water did not survive reopening");
+    var stack = RiverWater.MEASURED_BUCKET.get().getDefaultInstance();
+    net.minecraft.world.item.component.CustomData.update(
+        net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+        stack,
+        tag -> tag.putInt("water_units", 3));
+    var ops = level.registryAccess().createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
+    var encoded = net.minecraft.world.item.ItemStack.CODEC.encodeStart(ops, stack).getOrThrow();
+    var decoded = net.minecraft.world.item.ItemStack.CODEC.parse(ops, encoded).getOrThrow();
+    require(MeasuredBucket.units(decoded) == 3, "Measured bucket lost persisted volume");
+    DrainageServerChecks.record("HYDROLOGY_REOPEN_PASS soil=8 measuredBucketUnits=3");
+  }
+
   static void run(ServerLevel level) {
     boolean original = RiverConfig.FINITE_VOLUME.get();
     int work = RiverConfig.FLUID_WORK.get();
