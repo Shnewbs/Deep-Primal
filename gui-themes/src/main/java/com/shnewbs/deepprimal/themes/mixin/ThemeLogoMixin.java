@@ -19,12 +19,16 @@ abstract class ThemeLogoMixin {
         int opacity = (int)(Math.clamp(alpha, 0, 1) * 255) << 24;
         if (opacity != 0) {
             var font = Minecraft.getInstance().font;
-            int color = (ThemeMod.active().accent & 0xffffff) | opacity;
+            int color = (ThemeMod.active().text & 0xffffff) | opacity;
+            int frame = (ThemeMod.active().accent & 0xffffff) | opacity;
+            int background = (ThemeMod.active().surface & 0xffffff) | opacity;
+            g.fill(width / 2 - 104, y - 6, width / 2 + 104, y + 46, background);
+            g.outline(width / 2 - 104, y - 6, 208, 52, frame);
             g.pose().pushMatrix(); g.pose().scale(2, 2);
             g.centeredText(font, "DEEP PRIMAL", width / 4, y / 2, color);
             g.pose().popMatrix();
-            g.centeredText(font, ThemeMod.active().displayName, width / 2, y + 26, 0xffffff | opacity);
-            g.horizontalLine(width / 2 - 90, width / 2 + 90, y + 40, color);
+            g.centeredText(font, ThemeMod.active().displayName, width / 2, y + 26, color);
+            g.horizontalLine(width / 2 - 90, width / 2 + 90, y + 40, frame);
         }
         ci.cancel();
     }

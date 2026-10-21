@@ -23,11 +23,12 @@ tasks.register('generateThemeAssets', JavaExec) {
     dependsOn 'themeAssetsClasses', 'createMinecraftArtifacts'
     classpath = sourceSets.themeAssets.runtimeClasspath
     mainClass = 'com.shnewbs.deepprimal.themes.assets.GenerateThemes'
+    systemProperty 'java.awt.headless', 'true'
     inputs.files(sourceSets.themeAssets.allSource)
     inputs.files(tasks.named('createMinecraftArtifacts'))
     outputs.dir(generatedThemes)
     doFirst {
-        delete(generatedThemes)
+        delete(generatedThemes.get().asFile)
         args = [generatedThemes.get().asFile.absolutePath] + configurations.compileClasspath.files.collect { it.absolutePath }
     }
 }
@@ -49,4 +50,11 @@ if (providers.gradleProperty('themeValidation').isPresent()) {
         }
     }
     neoForge.mods.deepprimal_themes.sourceSet(sourceSets.validation)
+}
+
+// Use the project's Java 25 toolchain for the asset downloader as well as the game.
+tasks.withType(net.neoforged.nfrtgradle.NeoFormRuntimeTask).configureEach {
+    javaExecutable = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }.map { it.executablePath.asFile.absolutePath }
 }

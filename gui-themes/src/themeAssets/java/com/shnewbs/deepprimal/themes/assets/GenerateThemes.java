@@ -39,7 +39,7 @@ public final class GenerateThemes {
                     Path dest = pack.resolve(entry.getName());
                     Files.createDirectories(dest.getParent());
                     if (entry.getName().endsWith(".mcmeta")) {
-                        try (var in = zip.getInputStream(entry)) { Files.copy(in, dest); }
+                        try (var in = zip.getInputStream(entry)) { Files.copy(in, dest, java.nio.file.StandardCopyOption.REPLACE_EXISTING); }
                     } else {
                         BufferedImage src;
                         try (var in = zip.getInputStream(entry)) { src = ImageIO.read(in); }
@@ -47,7 +47,9 @@ public final class GenerateThemes {
                         BufferedImage image = style(src, theme, entry.getName());
                         verify(src, image, entry.getName());
                         if (entry.getName().equals(INVENTORY)) verifySlots(image, theme);
-                        ImageIO.write(image, "PNG", dest.toFile()); images++;
+                        ImageIO.write(image, "PNG", dest.toFile());
+                        if (entry.getName().equals(INVENTORY)) verifySlots(ImageIO.read(dest.toFile()), theme);
+                        images++;
                     }
                 }
                 Path panel = pack.resolve("assets/deepprimal_themes/textures/gui/sprites/panel.png");
@@ -84,6 +86,9 @@ public final class GenerateThemes {
             int max=Math.max(r,Math.max(g,b)), min=Math.min(r,Math.min(g,b));
             int c;
             if(button) c=button(t,x,y,w,h,highlight);
+            else if(path.contains("/container/slot/")) c=mix(t.well,t.text,0.65);
+            // This baked arrow shares vanilla's slot-well grey; keep it visible on dark themes.
+            else if(path.equals(INVENTORY) && x>=132 && x<151 && y>=28 && y<45 && max==139 && min==139) c=t.accent;
             else if(max-min>30 && !path.contains("hotbar")) c=pixel;
             else if(r==139 && g==139 && b==139) c=t.well;
             else if(max<40) c=mix(t.well,0xff000000,0.55);
@@ -139,6 +144,8 @@ public final class GenerateThemes {
             if((src.getRGB(x,y)>>>24)!=(dst.getRGB(x,y)>>>24))throw new IllegalStateException("Alpha changed: "+name+" at "+x+","+y);
     }
     private static void verifySlots(BufferedImage image,Theme t) {
+        if (image.getRGB(140,36) == image.getRGB(8,84))
+            throw new IllegalStateException("Crafting arrow disappears into the slot well: " + t);
         for(int row=0;row<4;row++)for(int col=0;col<9;col++) {
             int x=8+col*18,y=row==3?142:84+row*18;
             for(int dy=0;dy<16;dy++)for(int dx=0;dx<16;dx++)
