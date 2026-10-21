@@ -40,6 +40,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Decisions before implementation](#decisions-before-implementation)
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
+- [Biome plan and named roster](docs/BIOME-PLAN.md) — proposed profiles, regional communities, environmental layers and habitat coverage
 - [Named environmental type catalogs](docs/NATURAL-TYPE-CATALOG.md) — actual named planning rosters, with kinds and aliases labeled
 - [Environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) — planning completeness across materials, states, habitats and natural processes; implementation deferred by owner direction
 - [Detailed design reference](docs/design-reference.md) — full feature descriptions, material catalogs, configuration layout, progression, and all 31 open questions
@@ -268,3 +269,7 @@ The owner has requested an exhaustive environmental planning list before impleme
 ### Named environmental lists (2026-10-20)
 
 The [named type catalogs](docs/NATURAL-TYPE-CATALOG.md) expand the planning roster to 1013 named entries across geology/soils/clays, biology/organic materials and environmental media/habitats/processes. Counts include groups, subtypes, states and forms as labeled, rather than unique species or approved features. All original rock/tree seed rows are retained. Environmental implementation remains deferred; representation, scientific-name reconciliation and property-sheet decisions remain planning work.
+
+## Biome planning roster (2026-10-21)
+
+The owner requested a connected natural-world biome plan before environmental implementation. The [biome plan](docs/BIOME-PLAN.md) defines **118 proposed broad biome profiles across 19 families**, **51 regional/community variants** and **55 local habitat/landform/state layers**, with all **62 existing HABITAT-TYPE entries** reconciled. The [named roster](docs/BIOME-CATALOG.md) covers climate, physical setting, ground themes, vegetation/life, water regimes and neighboring environments. The [variant/coverage crosswalk](docs/BIOME-VARIANTS-AND-COVERAGE.md) separates species/material/seasonal variety from biome IDs. Profiles and numeric thresholds remain planning proposals. Existing generation/renderer work and implementation checkboxes are unchanged. Environmental implementation stays deferred until requested; world block/item texture tiles are planned at up to 64×64 with shared families and material palettes/tints.

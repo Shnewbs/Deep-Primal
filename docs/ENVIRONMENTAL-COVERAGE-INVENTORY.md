@@ -464,6 +464,10 @@ Use the following as cross-checks, not universal recipes or promises of live sim
 
 For every selected transition, eventually answer: trigger; inputs; outputs; conservation/loss rules; time basis; spatial scope; unloaded-area behavior; natural/placed-content distinction; visual cue; configuration; and future verification evidence.
 
+## Biome/habitat planning reconciliation
+
+The 2026-10-21 [biome plan](BIOME-PLAN.md) supplies a [118-profile named roster](BIOME-CATALOG.md), plus [51 community variants, 55 local layers and a complete mapping of the 62 existing habitat entries](BIOME-VARIANTS-AND-COVERAGE.md). This reconciles named coverage without marking implementation or detailed property-sheet decisions complete. Geology, soil composition, tree dominance and seasonal states do not each require a new biome ID. World block/item texture tiles are planned at up to 64×64 with shared material-family textures and palettes/tints.
+
 ## Habitat cross-check before calling the planning inventory complete
 
 For each HAB row, record:

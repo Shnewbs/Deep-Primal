@@ -24,6 +24,10 @@ An entry may be a material type, umbrella group, subtype, mixture, anatomical pa
 - Plant and fungus entries use named groups/representatives where a global species list would be open-ended. Names do not automatically imply edibility, medicinal behavior, growth properties or accepted regional distribution.
 - Existing detailed requirements stay in the [design reference](design-reference.md) and [owner decisions](design-decisions-2026-10-18.md). New names are planning candidates until their representation and scope are settled.
 
+## Related biome plan
+
+The [biome plan](BIOME-PLAN.md), [named biome roster](BIOME-CATALOG.md), and [variants/coverage crosswalk](BIOME-VARIANTS-AND-COVERAGE.md) connect these material/biological names to **118 proposed biome profiles**, **51 community variants** and **55 local layers**. These are a separate planning axis and do not increase the 1,013 named natural-type row count. All 62 existing habitat rows are explicitly reconciled; environmental implementation remains deferred.
+
 ## Common-name, alias and overlap rules
 
 | Label or overlap | Planned treatment |

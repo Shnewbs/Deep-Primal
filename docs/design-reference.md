@@ -191,6 +191,8 @@ Cost: portability costs up-front work (interfaces, test vectors). Abstract only 
 
 ### 4.1. World, Geology, Permafrost & 1:1 Earth Generation
 
+See the [connected biome plan](BIOME-PLAN.md), [118-profile named roster](BIOME-CATALOG.md), and [regional variants/habitat crosswalk](BIOME-VARIANTS-AND-COVERAGE.md) for the 2026-10-21 planning expansion. Biome identity, biological communities, geology/soil, local forms and seasonal states remain separate layers. Added profiles are proposals; environmental implementation remains deferred. The current world block/item texture direction is shared families and material palettes/tints at up to 64×64 per tile.
+
 The "realism" pillar means the world's raw materials are varied and behave like their real counterparts.
 
 **Stone**
