@@ -1,5 +1,7 @@
 # Deep Primal
 
+**Project naming:** Deep Primal remains the overall project. Primal Engine identifies its independently loadable engine component and preview JAR; it is not a project rename.
+
 **New standalone engine:** [Primal Engine](standalone-engine/README.md) is being built independently of the older terrain prototype below. It supplies its own continental chunk generator, regional biome selection, finite fluid type and curved water mesher, with a separate LOD data module. It builds as its own mod and does not load the legacy Deep Primal modules. The full replacement and Distant Horizons comparison remain unfinished.
 
 A standalone survival total conversion for Minecraft, starting with an experimental world-generation foundation.

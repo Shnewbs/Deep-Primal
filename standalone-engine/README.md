@@ -4,6 +4,16 @@ An original standalone engine prototype for Minecraft 26.1.2, NeoForge 26.1.2.12
 
 Build this directory independently from the repository root: `./gradlew -p standalone-engine build` (`gradlew.bat -p standalone-engine build` on Windows). Output: `standalone-engine/build/libs/PrimalEngine-26.1.2-0.0.1-alpha.1.jar`. The main legacy project is not a dependency. Install this JAR in place of the old Deep Primal worldgen prototype and create a disposable new world normally. The normal Overworld preset selects `primalengine:continental`. Old saves are not migrated. This prototype deliberately declares the old `deepprimal` mod incompatible until an integration adapter exists. Nether/End generation remains native.
 
+## Project identity and accepted direction
+
+Deep Primal remains the overall project; Primal Engine names this independent engine component and preview JAR. The [terrain and LOD architecture](../docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) remains the accepted direction. Its current status and reference/tool decisions are recorded there; starting this replacement does not discard that plan.
+
+## LOD settings
+
+Version 0.0.1-alpha.1 has no LOD settings screen or LOD configuration file: it does not yet render distant chunk LODs. The snapshot/storage library is groundwork. The older Deep Primal alpha.16 build exposes **Far terrain** distance for its procedural horizon; that screen is not included here and does not configure this module.
+
+The intended custom settings section will cover enable/disable, viewing radius, detail/screen-space error, CPU/background work, upload work, RAM/VRAM and disk-cache limits. Persist requested values, show effective limits separately, and verify reopen/restart behavior before shipping. These controls remain unimplemented.
+
 ## Implemented ownership
 
 - Original seeded scalar fields create several-kilometre landmasses and surrounding ocean gaps. A bounded twelve-continent cache holds whole-continent priority-flood drainage plans, downhill parent links and rainfall-weighted catchment area. Per-chunk terrain, carved channels and climate sampling use that plan.

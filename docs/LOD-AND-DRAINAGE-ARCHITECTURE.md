@@ -1,6 +1,37 @@
 # Drainage, materials and a chunk-derived LOD renderer
 
-Status: researched design plus an executed standalone meshoptimizer probe. Alpha 15 still ships the procedural horizon, not a Distant Horizons-equivalent voxel renderer. This plan does not imply full erosion, sediment transport, global watersheds or a new chunk LOD engine are already implemented.
+Status, clarified 2026-10-21: **accepted direction for Deep Primal and its standalone Primal Engine component.** Deep Primal has not been renamed. The legacy alpha.15/alpha.16 procedural horizon and the new Primal Engine alpha.1 are separate prototypes; their implemented features must not be conflated.
+
+## Accepted plan and current status
+
+We are following the terrain/hydrology and LOD plan quoted by the owner. References guide independently authored algorithms; their products are not automatically mod dependencies.
+
+| Requirement | Primal Engine alpha.1 status |
+| --- | --- |
+| Continents, deterministic region planning and connected drainage before carving | Seeded landmasses, cached whole-continent downhill graphs, rainfall-weighted catchment area and channel/valley carving exist. Unified lakes/spillways and shared watershed/outlet contracts remain unfinished. |
+| River width, depth and speed from drainage and slope | Catchment-based width/depth and channel direction exist. Slope/discharge-derived velocity and rapids remain unfinished. |
+| Erosion/deposition and terrain-derived material masks | Basic surface placement exists. Wear, sediment, flow, slope and moisture summaries driving coherent materials remain unfinished. |
+| Floating-fragment prevention | Base terrain uses solid columns. General post-feature support/connectivity checks remain unfinished; never delete player constructions as terrain cleanup. |
+| Independent liquids and smooth water | Volume transport and curved shared-edge meshing exist. Pressure/displacement, recharge and shoreline surf remain unfinished. |
+| Actual-chunk LOD viewer | Incremental capture utility and persistent column snapshots exist. Automatic capture/edit invalidation, multiresolution meshes, streaming, GPU rendering, multiplayer and transitions remain unfinished. |
+
+## Tool and reference decisions
+
+| Reference | Decision |
+| --- | --- |
+| Gaea / World Machine | Use drainage, erosion/deposition and material-mask techniques in our own deterministic region planner. No proprietary engine code or authored terrain-map imports are included. Licensed map import remains optional, not required. |
+| PhysEx, Finite Water, BetterWaterMesh, Water Erosion | Use behavior/design references for independently authored liquids, surfaces and erosion. No reference-project code is bundled. Full feature parity is unfinished. |
+| Distant Horizons | Functional baseline and future matched performance comparison. No DH code is embedded; the full source audit remains pending. |
+| Nanite | Geometry-hierarchy/streaming architecture reference only; no Unreal integration. |
+| Cesium Native | Screen-space selection, streaming and fallback-coverage references; no Cesium runtime adopted. |
+| meshoptimizer / clusterlod | First reusable-code candidate. The LWJGL development probe has run; neither a shipping meshoptimizer renderer integration nor a clusterlod hierarchy is implemented. |
+| Simplygon | Possible offline asset-preparation reference only; not a current toolchain dependency. |
+
+The viewer must preserve block silhouettes, player edits, materials and distinct water handling, with visibility/error-based selection and explicit memory/work budgets. Its intended settings cover radius/detail, work/upload and RAM/VRAM/cache limits, with correctly restored requested values and separate effective limits. Alpha.1 has no LOD settings or working distant renderer; legacy **Far terrain** controls only its procedural horizon.
+
+Prioritize drainage/outlet correctness and material placement, then erosion/deposition and connectivity checks. Develop the viewer from authoritative chunk data. Keep performance budgets explicit throughout; outperforming Distant Horizons is a benchmark target, not an established result.
+
+The references and work orders below remain the technical basis. Implemented alpha.15 features described below belong to the legacy prototype only.
 
 ## Reference fit
 
@@ -15,7 +46,7 @@ Status: researched design plus an executed standalone meshoptimizer probe. Alpha
 | [LWJGL MeshOptimizer](https://javadoc.lwjgl.org/org/lwjgl/util/meshoptimizer/MeshOptimizer.html) | Native simplification APIs exposed to Java. | The executed probe uses version 3.4.1, matching Minecraft's LWJGL version. Its binding reports meshoptimizer version 1000. Current online snapshot docs and newer upstream headers must not be assumed ABI-compatible with this pinned build. |
 | [Simplygon vegetation optimization](https://www.simplygon.com/features/vegetationoptimization) | Prepared vegetation LODs/impostors. | Useful offline asset workflow. It does not replace the live chunk/edit/lighting pipeline; no dependency is added. |
 
-## Implemented foundation and gaps
+## Legacy prototype foundation and gaps
 
 Alpha 15 retains bounded region caches, downhill drainage inside a catchment, area/slope-based speed, versioned terrain, partial river surfaces, spring taper and occasional contained headwater lakes. It fixes foreground composition by isolating approximate horizon depth. That background approximation still omits distant player edits, individual buildings, detailed trees, caves and true voxel silhouettes.
 
