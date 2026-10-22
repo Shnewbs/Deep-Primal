@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T09:49:00Z",
-  "active_until": "2026-10-22T09:49:00Z",
+  "status": "scheduled_active",
+  "updated_at": "2026-10-22T10:32:00Z",
+  "active_until": "2026-10-22T11:10:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Fresh full default non-Vulkan build and all Gradle CoreChecks pass. Private current-proxy/pinned NeoForm fallback resolves build-host blockers. Native 262-cell sealed pressure defect reproduced: 128 visits, no rise after 120 ticks, all 4192 units conserved. Persistent continuation and visual/LOD/water-budget acceptance remain open.",
+  "current_gate": "Isolated implementation of bounded persistent pressure continuation; retain source and native conservation/edit/unload evidence.",
   "next_items": [
     "Implement fair bounded persistent pressure/drain continuation. Native sealed 262-cell bend stops at 128 visits and remains unequal after 120 ticks; require eventual rise plus edit/unload/conservation and idle-budget acceptance.",
     "Restore display/optional Vulkan environment and verify nearest-first page admission under enabled-view memory pressure, teleports, edits and reloads; remaining unresident-page fallback and mixed transparency are open",
@@ -25,5 +25,6 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-build-access-and-native-pressure.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore"
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore",
+  "worker": "scheduled-pressure-a22609fabda0"
 }
