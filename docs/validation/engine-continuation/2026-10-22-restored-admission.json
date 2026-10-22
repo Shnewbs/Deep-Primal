@@ -1,0 +1,9 @@
+{
+  "scope": "extracted-production-scheduler-logic",
+  "source_sha256": "70501f745ab22e7488f16c9ad072a63e847781e0d60bef0320c931b9c8d95864",
+  "exit_code": 0,
+  "stdout": "WATER_PAGE_ADMISSION_LOGIC_PASS maxPages=2048 fartherDiscoveries=513 randomizedVictims=2000 busyProtection=true memoryBudgetProtection=true memoryRecovery=true replacementProtection=true equalDistanceStable=true freshTransition=true\n",
+  "stderr": "",
+  "full_mod_build": "not run: JDK 25/Gradle/native environment unavailable",
+  "native_visual_acceptance": "not run"
+}
