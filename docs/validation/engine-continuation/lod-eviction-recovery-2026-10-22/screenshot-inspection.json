@@ -1,0 +1,26 @@
+[
+  {
+    "case": "vulkan-disk-eviction-watch-final",
+    "path": "vulkan-disk-eviction-watch-final/screenshots/disk-recovery.png",
+    "sha256": "15a6deb664ef448dfdc9714c3f13d6a8e416af5871fd510dc4c4c66511bb2d03",
+    "inspected": true,
+    "observations": "Upright blue lake and terraced grassy banks; right gravel strip, fine water patterns and repeated contours remain. Not full water/LOD/transparency coverage or identical-state output.",
+    "scope": "Accepted route scene"
+  },
+  {
+    "case": "vulkan-disk-eviction-watch-final-packaged",
+    "path": "vulkan-disk-eviction-watch-final-packaged/screenshots/disk-recovery.png",
+    "sha256": "88a775281d3b14d2c0958aa0be1eb0ac15387d2f845a58cbcf3a1a1e57157b69",
+    "inspected": true,
+    "observations": "Upright blue lake and terraced grassy banks; right gravel strip, fine water patterns and repeated contours remain. Not full water/LOD/transparency coverage or identical-state output.",
+    "scope": "Accepted route scene"
+  },
+  {
+    "case": "vulkan-disk-eviction-bounded-final",
+    "path": "vulkan-disk-eviction-bounded-final/screenshots/disk-recovery.png",
+    "sha256": "d02626c0596beaa0e5c952ad7ba25833d2c6e822c120f6ba50e010a9055b3342",
+    "inspected": true,
+    "observations": "Upright blue lake and terraced grassy banks; right gravel strip, fine water patterns and repeated contours remain. Not full water/LOD/transparency coverage or identical-state output.",
+    "scope": "Captured before reload timeout, not a screenshot of the stuck phase"
+  }
+]

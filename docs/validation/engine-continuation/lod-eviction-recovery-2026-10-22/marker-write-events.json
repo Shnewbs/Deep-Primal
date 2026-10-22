@@ -1,0 +1,447 @@
+[
+  {
+    "type": "jdk.FileWrite",
+    "values": {
+      "startTime": "2026-10-22T18:32:29.907004458-04:00",
+      "duration": "PT0.000014372S",
+      "eventThread": {
+        "osName": "Render thread",
+        "osThreadId": 217,
+        "javaName": "Render thread",
+        "javaThreadId": 3,
+        "group": {
+          "parent": {
+            "parent": null,
+            "name": "system"
+          },
+          "name": "main"
+        },
+        "virtual": false
+      },
+      "stackTrace": {
+        "truncated": false,
+        "frames": [
+          {
+            "method": {
+              "type": {
+                "classLoader": {
+                  "type": null,
+                  "name": "bootstrap"
+                },
+                "name": "java/nio/file/Files",
+                "package": {
+                  "name": "java/nio/file",
+                  "module": {
+                    "name": "java.base",
+                    "version": "25.0.4.1",
+                    "location": "jrt:/java.base",
+                    "classLoader": {
+                      "type": null,
+                      "name": "bootstrap"
+                    }
+                  },
+                  "exported": true
+                },
+                "modifiers": 17,
+                "hidden": false
+              },
+              "name": "write",
+              "descriptor": "(Ljava/nio/file/Path;[B[Ljava/nio/file/OpenOption;)Ljava/nio/file/Path;",
+              "modifiers": 137,
+              "hidden": false
+            },
+            "lineNumber": 3179,
+            "bytecodeIndex": 43,
+            "type": "Interpreted"
+          },
+          {
+            "method": {
+              "type": {
+                "classLoader": {
+                  "type": null,
+                  "name": "bootstrap"
+                },
+                "name": "java/nio/file/Files",
+                "package": {
+                  "name": "java/nio/file",
+                  "module": {
+                    "name": "java.base",
+                    "version": "25.0.4.1",
+                    "location": "jrt:/java.base",
+                    "classLoader": {
+                      "type": null,
+                      "name": "bootstrap"
+                    }
+                  },
+                  "exported": true
+                },
+                "modifiers": 17,
+                "hidden": false
+              },
+              "name": "writeString",
+              "descriptor": "(Ljava/nio/file/Path;Ljava/lang/CharSequence;Ljava/nio/charset/Charset;[Ljava/nio/file/OpenOption;)Ljava/nio/file/Path;",
+              "modifiers": 137,
+              "hidden": false
+            },
+            "lineNumber": 3368,
+            "bytecodeIndex": 61,
+            "type": "Interpreted"
+          },
+          {
+            "method": {
+              "type": {
+                "classLoader": {
+                  "type": null,
+                  "name": "bootstrap"
+                },
+                "name": "java/nio/file/Files",
+                "package": {
+                  "name": "java/nio/file",
+                  "module": {
+                    "name": "java.base",
+                    "version": "25.0.4.1",
+                    "location": "jrt:/java.base",
+                    "classLoader": {
+                      "type": null,
+                      "name": "bootstrap"
+                    }
+                  },
+                  "exported": true
+                },
+                "modifiers": 17,
+                "hidden": false
+              },
+              "name": "writeString",
+              "descriptor": "(Ljava/nio/file/Path;Ljava/lang/CharSequence;[Ljava/nio/file/OpenOption;)Ljava/nio/file/Path;",
+              "modifiers": 137,
+              "hidden": false
+            },
+            "lineNumber": 3315,
+            "bytecodeIndex": 6,
+            "type": "Interpreted"
+          },
+          {
+            "method": {
+              "type": {
+                "classLoader": {
+                  "type": {
+                    "classLoader": {
+                      "type": {
+                        "classLoader": {
+                          "type": null,
+                          "name": "bootstrap"
+                        },
+                        "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                        "package": {
+                          "name": "jdk/internal/loader",
+                          "module": {
+                            "name": "java.base",
+                            "version": "25.0.4.1",
+                            "location": "jrt:/java.base",
+                            "classLoader": {
+                              "type": null,
+                              "name": "bootstrap"
+                            }
+                          },
+                          "exported": true
+                        },
+                        "modifiers": 10,
+                        "hidden": false
+                      },
+                      "name": "app"
+                    },
+                    "name": "net/neoforged/fml/classloading/transformation/TransformingClassLoader",
+                    "package": {
+                      "name": "net/neoforged/fml/classloading/transformation",
+                      "module": {
+                        "name": null,
+                        "version": null,
+                        "location": null,
+                        "classLoader": {
+                          "type": {
+                            "classLoader": {
+                              "type": null,
+                              "name": "bootstrap"
+                            },
+                            "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                            "package": {
+                              "name": "jdk/internal/loader",
+                              "module": {
+                                "name": "java.base",
+                                "version": "25.0.4.1",
+                                "location": "jrt:/java.base",
+                                "classLoader": {
+                                  "type": null,
+                                  "name": "bootstrap"
+                                }
+                              },
+                              "exported": true
+                            },
+                            "modifiers": 10,
+                            "hidden": false
+                          },
+                          "name": "app"
+                        }
+                      },
+                      "exported": true
+                    },
+                    "modifiers": 1,
+                    "hidden": false
+                  },
+                  "name": "TRANSFORMER"
+                },
+                "name": "net/vulkanmod/deepprimal/Startup",
+                "package": {
+                  "name": "net/vulkanmod/deepprimal",
+                  "module": {
+                    "name": "deepprimal_vulkan",
+                    "version": "0.0.1-alpha.25-dev",
+                    "location": "file:///workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+                    "classLoader": {
+                      "type": {
+                        "classLoader": {
+                          "type": {
+                            "classLoader": {
+                              "type": null,
+                              "name": "bootstrap"
+                            },
+                            "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                            "package": {
+                              "name": "jdk/internal/loader",
+                              "module": {
+                                "name": "java.base",
+                                "version": "25.0.4.1",
+                                "location": "jrt:/java.base",
+                                "classLoader": {
+                                  "type": null,
+                                  "name": "bootstrap"
+                                }
+                              },
+                              "exported": true
+                            },
+                            "modifiers": 10,
+                            "hidden": false
+                          },
+                          "name": "app"
+                        },
+                        "name": "net/neoforged/fml/classloading/transformation/TransformingClassLoader",
+                        "package": {
+                          "name": "net/neoforged/fml/classloading/transformation",
+                          "module": {
+                            "name": null,
+                            "version": null,
+                            "location": null,
+                            "classLoader": {
+                              "type": {
+                                "classLoader": {
+                                  "type": null,
+                                  "name": "bootstrap"
+                                },
+                                "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                                "package": {
+                                  "name": "jdk/internal/loader",
+                                  "module": {
+                                    "name": "java.base",
+                                    "version": "25.0.4.1",
+                                    "location": "jrt:/java.base",
+                                    "classLoader": {
+                                      "type": null,
+                                      "name": "bootstrap"
+                                    }
+                                  },
+                                  "exported": true
+                                },
+                                "modifiers": 10,
+                                "hidden": false
+                              },
+                              "name": "app"
+                            }
+                          },
+                          "exported": true
+                        },
+                        "modifiers": 1,
+                        "hidden": false
+                      },
+                      "name": "TRANSFORMER"
+                    }
+                  },
+                  "exported": true
+                },
+                "modifiers": 17,
+                "hidden": false
+              },
+              "name": "arm",
+              "descriptor": "()V",
+              "modifiers": 9,
+              "hidden": false
+            },
+            "lineNumber": 43,
+            "bytecodeIndex": 33,
+            "type": "Interpreted"
+          },
+          {
+            "method": {
+              "type": {
+                "classLoader": {
+                  "type": {
+                    "classLoader": {
+                      "type": {
+                        "classLoader": {
+                          "type": null,
+                          "name": "bootstrap"
+                        },
+                        "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                        "package": {
+                          "name": "jdk/internal/loader",
+                          "module": {
+                            "name": "java.base",
+                            "version": "25.0.4.1",
+                            "location": "jrt:/java.base",
+                            "classLoader": {
+                              "type": null,
+                              "name": "bootstrap"
+                            }
+                          },
+                          "exported": true
+                        },
+                        "modifiers": 10,
+                        "hidden": false
+                      },
+                      "name": "app"
+                    },
+                    "name": "net/neoforged/fml/classloading/transformation/TransformingClassLoader",
+                    "package": {
+                      "name": "net/neoforged/fml/classloading/transformation",
+                      "module": {
+                        "name": null,
+                        "version": null,
+                        "location": null,
+                        "classLoader": {
+                          "type": {
+                            "classLoader": {
+                              "type": null,
+                              "name": "bootstrap"
+                            },
+                            "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                            "package": {
+                              "name": "jdk/internal/loader",
+                              "module": {
+                                "name": "java.base",
+                                "version": "25.0.4.1",
+                                "location": "jrt:/java.base",
+                                "classLoader": {
+                                  "type": null,
+                                  "name": "bootstrap"
+                                }
+                              },
+                              "exported": true
+                            },
+                            "modifiers": 10,
+                            "hidden": false
+                          },
+                          "name": "app"
+                        }
+                      },
+                      "exported": true
+                    },
+                    "modifiers": 1,
+                    "hidden": false
+                  },
+                  "name": "TRANSFORMER"
+                },
+                "name": "net/vulkanmod/render/engine/VkBackend",
+                "package": {
+                  "name": "net/vulkanmod/render/engine",
+                  "module": {
+                    "name": "deepprimal_vulkan",
+                    "version": "0.0.1-alpha.25-dev",
+                    "location": "file:///workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+                    "classLoader": {
+                      "type": {
+                        "classLoader": {
+                          "type": {
+                            "classLoader": {
+                              "type": null,
+                              "name": "bootstrap"
+                            },
+                            "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                            "package": {
+                              "name": "jdk/internal/loader",
+                              "module": {
+                                "name": "java.base",
+                                "version": "25.0.4.1",
+                                "location": "jrt:/java.base",
+                                "classLoader": {
+                                  "type": null,
+                                  "name": "bootstrap"
+                                }
+                              },
+                              "exported": true
+                            },
+                            "modifiers": 10,
+                            "hidden": false
+                          },
+                          "name": "app"
+                        },
+                        "name": "net/neoforged/fml/classloading/transformation/TransformingClassLoader",
+                        "package": {
+                          "name": "net/neoforged/fml/classloading/transformation",
+                          "module": {
+                            "name": null,
+                            "version": null,
+                            "location": null,
+                            "classLoader": {
+                              "type": {
+                                "classLoader": {
+                                  "type": null,
+                                  "name": "bootstrap"
+                                },
+                                "name": "jdk/internal/loader/ClassLoaders$AppClassLoader",
+                                "package": {
+                                  "name": "jdk/internal/loader",
+                                  "module": {
+                                    "name": "java.base",
+                                    "version": "25.0.4.1",
+                                    "location": "jrt:/java.base",
+                                    "classLoader": {
+                                      "type": null,
+                                      "name": "bootstrap"
+                                    }
+                                  },
+                                  "exported": true
+                                },
+                                "modifiers": 10,
+                                "hidden": false
+                              },
+                              "name": "app"
+                            }
+                          },
+                          "exported": true
+                        },
+                        "modifiers": 1,
+                        "hidden": false
+                      },
+                      "name": "TRANSFORMER"
+                    }
+                  },
+                  "exported": true
+                },
+                "modifiers": 1,
+                "hidden": false
+              },
+              "name": "createDevice",
+              "descriptor": "(JLcom/mojang/blaze3d/shaders/ShaderSource;Lcom/mojang/blaze3d/shaders/GpuDebugOptions;)Lcom/mojang/blaze3d/systems/GpuDevice;",
+              "modifiers": 1,
+              "hidden": false
+            },
+            "lineNumber": 32,
+            "bytecodeIndex": 0,
+            "type": "Interpreted"
+          }
+        ]
+      },
+      "path": "/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting",
+      "bytesWritten": 27
+    }
+  }
+]

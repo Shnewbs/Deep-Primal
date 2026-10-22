@@ -297,7 +297,12 @@ public final class ClientCapture {
         return;
       }
       if (action.equals("reload-check")) {
-        mc.reloadResourcePacks().thenRun(() -> System.out.println("RESOURCE_RELOAD_PASS"));
+        Runnable completed = StartupLifecycleChecks.watchPhase(dir, "resource-reload");
+        mc.reloadResourcePacks().whenComplete((result, failure) -> {
+          completed.run();
+          if (failure != null) System.out.println("RESOURCE_RELOAD_FAILED " + failure);
+          else System.out.println("RESOURCE_RELOAD_PASS");
+        });
         return;
       }
       if (action.equals("resize-check")) {

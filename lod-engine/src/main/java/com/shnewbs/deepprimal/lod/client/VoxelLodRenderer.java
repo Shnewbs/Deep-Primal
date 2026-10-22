@@ -25,6 +25,7 @@ import org.joml.Vector4f;
 
 /** Explored-chunk LOD: immutable copies, worker reduction/storage, render-thread GPU ownership. */
 public final class VoxelLodRenderer {
+  private static final int MAX_DISK_KEYS = 8192;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
   private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"));
@@ -41,7 +42,8 @@ public final class VoxelLodRenderer {
           .build();
 
   private record Entry(
-      long revision, List<List<TerrainGpuMesh>> levels, long bytes, int[] selected, int top)
+      long revision, List<List<TerrainGpuMesh>> levels, long bytes, int[] selected, int top,
+      boolean persisted)
       implements AutoCloseable {
     public void close() {
       levels.forEach(l -> l.forEach(TerrainGpuMesh::close));
@@ -49,14 +51,17 @@ public final class VoxelLodRenderer {
   }
 
   private record Ready(
-      long session, long key, long revision, LodMesher.Levels levels, boolean captured) {}
+      long session, long key, long revision, LodMesher.Levels levels, boolean captured,
+      boolean persisted) {}
 
   private final ArrayList<com.mojang.blaze3d.systems.RenderPass.Draw<Void>> draws =
       new ArrayList<>();
   private final LinkedHashMap<Long, Entry> cache = new LinkedHashMap<>(256, .75f, true);
   private final LinkedHashMap<Long, Long> dirty = new LinkedHashMap<>();
   private final HashMap<Long, Long> latest = new HashMap<>();
-  private final ArrayDeque<Long> disk = new ArrayDeque<>();
+  private final LinkedHashSet<Long> disk = new LinkedHashSet<>();
+  private record DeferredView(long cameraChunk, int memoryMiB) {}
+  private final HashMap<Long, DeferredView> deferredDisk = new HashMap<>();
   private ThreadPoolExecutor worker;
   private Future<Ready> future;
   private Long workingKey;
@@ -215,7 +220,7 @@ public final class VoxelLodRenderer {
                             keys.add(key(Integer.parseInt(parts[0]), Integer.parseInt(parts[1])));
                           } catch (RuntimeException ignored) {
                           }
-                          if (keys.size() >= 8192) break;
+                          if (keys.size() >= MAX_DISK_KEYS) break;
                         }
                       }
                     return keys;
@@ -296,9 +301,11 @@ public final class VoxelLodRenderer {
           worker.submit(
               () -> {
                 ColumnarChunk page = copy.build();
+                boolean persisted = false;
                 if (persist && writer != null) {
                   try {
                     writer.write(page);
+                    persisted = true;
                     if (pruneNow) prune(folder, bytes);
                   } catch (java.io.IOException failure) {
                     persistenceFailed = true;
@@ -306,7 +313,7 @@ public final class VoxelLodRenderer {
                         "LOD persistence disabled for this session; rendering continues", failure);
                   }
                 }
-                return new Ready(epoch, k, rev, LodMesher.build(page), true);
+                return new Ready(epoch, k, rev, LodMesher.build(page), true, persisted);
               });
       capturedChunks++;
       captureBurst++;
@@ -319,13 +326,35 @@ public final class VoxelLodRenderer {
 
   /** Keep cache restoration moving even when flowing water continuously dirties native chunks. */
   private boolean startDiskJob() {
-    if (!LodConfig.PERSIST.get()) disk.clear();
+    if (!LodConfig.PERSIST.get()) {
+      // Release queued edit guards with the same per-call key bound as disk selection.
+      for (int remaining = Math.min(64, disk.size()); remaining > 0; remaining--) {
+        long k = disk.removeFirst();
+        deferredDisk.remove(k);
+        forgetUnused(k);
+      }
+      return false;
+    }
     // A later camera move can bring an indexed page into range. Keep those keys,
     // but inspect each at most once per call and retain the existing 64-key bound.
     int remaining = Math.min(64, disk.size());
     while (!disk.isEmpty() && remaining-- > 0) {
       long k = disk.removeFirst();
-      if (cache.containsKey(k) || dirty.containsKey(k)) continue;
+      if (cache.containsKey(k) || dirty.containsKey(k)) {
+        deferredDisk.remove(k);
+        continue;
+      }
+      var deferred = deferredDisk.get(k);
+      if (deferred != null) {
+        var player = Minecraft.getInstance().player;
+        if (player == null
+            || (deferred.cameraChunk == key(player.chunkPosition().x(), player.chunkPosition().z())
+                && deferred.memoryMiB == LodConfig.MEMORY.get())) {
+          disk.addLast(k);
+          continue;
+        }
+        deferredDisk.remove(k);
+      }
       if (!inRange(k)) {
         disk.addLast(k);
         continue;
@@ -338,7 +367,7 @@ public final class VoxelLodRenderer {
           worker.submit(
               () -> {
                 ColumnarChunk page = reader.read(x(k), z(k));
-                return new Ready(epoch, k, page.revision, LodMesher.build(page), false);
+                return new Ready(epoch, k, page.revision, LodMesher.build(page), false, true);
               });
       diskReads++;
       status = "Loading persistent terrain";
@@ -467,6 +496,7 @@ public final class VoxelLodRenderer {
 
   private void forgetUnused(long k) {
     if (!cache.containsKey(k)
+        && !disk.contains(k)
         && !dirty.containsKey(k)
         && (workingKey == null || workingKey != k)
         && (pendingGpu == null || pendingGpu.ready.key != k)) latest.remove(k);
@@ -492,6 +522,19 @@ public final class VoxelLodRenderer {
       Entry old = cache.remove(k);
       residentBytes -= old.bytes;
       old.close();
+      // Revisit only a persisted revision that no observed edit has superseded.
+      // Ordered uniqueness prevents duplicate restores; retain the index memory bound.
+      if (old.persisted && store != null && LodConfig.PERSIST.get()
+          && !dirty.containsKey(k) && latest.getOrDefault(k, old.revision) == old.revision
+          && disk.size() < MAX_DISK_KEYS) {
+        disk.add(k);
+        // Avoid a fixed-view eviction/read/upload loop. Reconsider after movement or rebudgeting.
+        var player = Minecraft.getInstance().player;
+        long view = player != null ? key(player.chunkPosition().x(), player.chunkPosition().z())
+            : key(Math.floorDiv((int) Math.floor(camera.x), 16),
+                Math.floorDiv((int) Math.floor(camera.z), 16));
+        deferredDisk.put(k, new DeferredView(view, LodConfig.MEMORY.get()));
+      }
       forgetUnused(k);
     }
   }
@@ -555,7 +598,8 @@ public final class VoxelLodRenderer {
                   p.levels.stream().map(List::copyOf).toList(),
                   p.bytes(),
                   new int[] {0},
-                  p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0)));
+                  p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
+                  p.ready.persisted));
       if (old != null) {
         residentBytes -= old.bytes;
         old.close();
@@ -650,6 +694,7 @@ public final class VoxelLodRenderer {
     dirty.clear();
     latest.clear();
     disk.clear();
+    deferredDisk.clear();
     residentBytes = 0;
     visibleSpan = visibleChunks = queuedChunks = 0;
     store = null;

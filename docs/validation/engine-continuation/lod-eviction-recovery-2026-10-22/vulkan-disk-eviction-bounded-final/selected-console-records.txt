@@ -1,0 +1,26 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/lod-engine/build/classes/java/main/
+LOD_EVICTION_RECOVERY_OBSERVED cycle=0 indexed=true resident=0
+LOD_EVICTION_RECOVERY_OBSERVED cycle=1 indexed=true resident=0
+LOD_EVICTION_RECOVERY_OBSERVED cycle=2 indexed=true resident=0
+LOD_EVICTION_RECOVERY_OBSERVED cycle=3 indexed=true resident=0
+LOD_FIXED_VIEW_DEFERRAL_PASS idleCalls=16 noDiskWork=true cameraMoveRecovery=true
+LOD_EVICTION_ADMISSION_PASS control=dirty
+LOD_EVICTION_ADMISSION_PASS control=newer-revision
+LOD_EVICTION_ADMISSION_PASS control=not-persisted
+LOD_EVICTION_ADMISSION_PASS control=persistence-disabled
+LOD_QUEUED_EDIT_GUARD_PASS dirtyDisplacement=true staleReadRejected=true metadataReleased=true
+LOD_CAPTURE_PERSISTENCE_PASS realNativeChunk=true storedRevisionMatches=true
+LOD_DISK_RECOVERY_NATIVE_PASS backend=Vulkan retainedAfterOutside=1 diskReads=6 uploadedChunks=6 restored=true evictionCycles=4 fixedViewIdleCalls=16 cameraMoveRecovery=true editPersistenceControls=4 nativeCapturePersisted=true queuedEditGuard=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu
+VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/classes/java/main/
+VULKAN_FRAME_COMPLETION_NATIVE_PASS iterations=8 mappedBytes=128 openPassRejections=8 backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1

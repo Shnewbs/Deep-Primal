@@ -67,5 +67,34 @@ final class StartupLifecycleChecks {
     watcher.setDaemon(true); watcher.start();
   }
 
+  static Runnable watchPhase(Path output, String phase) {
+    var finished = new java.util.concurrent.atomic.AtomicBoolean();
+    Thread watcher = new Thread(() -> {
+      try {
+        for (int sample = 0; sample < 3; sample++) {
+          Thread.sleep(20_000);
+          if (finished.get()) return;
+          var traces = Thread.getAllStackTraces().entrySet().stream()
+              .sorted(java.util.Comparator.comparing(
+                  (java.util.Map.Entry<Thread, StackTraceElement[]> e) -> !e.getKey().getName().equals("Render thread"))
+                  .thenComparing(e -> e.getKey().getName())).limit(64).toList();
+          StringBuilder report = new StringBuilder("VALIDATION_PHASE_STACK phase=")
+              .append(phase).append(" sample=").append(sample).append('\n');
+          for (var entry : traces) {
+            if (report.length() > 262_144) break;
+            report.append(entry.getKey().getName()).append(" state=")
+                .append(entry.getKey().getState()).append('\n');
+            for (var frame : java.util.Arrays.stream(entry.getValue()).limit(64).toList())
+              report.append("  ").append(frame).append('\n');
+          }
+          Files.writeString(output.resolve(phase + "-watchdog-" + sample + ".txt"), report);
+          System.out.print(report);
+        }
+      } catch (Exception failure) { System.out.println("VALIDATION_PHASE_CAPTURE_FAILED " + failure); }
+    }, "Deep Primal validation phase watchdog");
+    watcher.setDaemon(true); watcher.start();
+    return () -> finished.set(true);
+  }
+
   private StartupLifecycleChecks() {}
 }
