@@ -48,3 +48,22 @@ WATER_SURFACE_SHAPE_PASS planarSamples=441 extremaCases=20000 planarPatchVertice
 CAVE_COLUMN_PASS samples=965965 cavities=21771
 WATERSHED_CORE_PASS centerlineSamples=5845944 headwaters=951 lakes=648 savedV2=18000 faceConnectedFlowReaches=4286 containedBanks=539438
 BUILD SUCCESSFUL in 43s
+
+G3 — coast/bank visual refinement
+WATERSHED_NATIVE_PASS sites=5 waterCells=12213 dryColumns=2976 materialColumns=80 sealedBanks=187 trunks=4 faceConnectedSourceReaches=55 estuaryReaches=33 generationAndAuditMs=16552.669253
+WORLD_CREATION_FORM_PASS mode=fresh prepareMs=993.269555
+CREATION_SCREEN net.minecraft.client.gui.screens.ConfirmScreen
+CREATION_SCREEN net.minecraft.client.gui.screens.LevelLoadingScreen
+WORLD_CREATION_JOIN_PASS revision=3 backend=OpenGL
+WORLD_CREATION_PASS
+Nine-seed core: centerlineSamples=5846893 headwaters=964 lakes=657 savedV2=18000 faceConnectedFlowReaches=4292 containedBanks=538908.
+First G3 native fixture failed at an obsolete estuary coordinate after the coast moved. Replaced that one fixed mouth with every actual land-to-sea reach (33); retained the fixed source and lake-inlet regressions. All 55 routes pass.
+Six OpenGL native views inspected: exposed strips reduced; enclosed lake/outlet shown. Repetitive contours, distant water artifacts and broader terrain variety remain open.
+
+G4 — cross-layer water corner correction
+Independent reproduction failed at units=1 with world height 9.0 instead of 9.03125. Expanding to vertical section seams caught an old empty-surface shortcut cancelling valid signed corner heights. Both are corrected. Atlas-side coordinates stay within their sprite; animated page bounds include the extended corner geometry.
+WATER_SURFACE_SHAPE_PASS planarSamples=441 extremaCases=20000 planarPatchVertices=4 verticalSeamVertices=64 verticalPageSeamVertices=1024
+CAVE_COLUMN_PASS samples=761165 cavities=17272
+WATERSHED_CORE_PASS centerlineSamples=5846893 headwaters=964 lakes=657 savedV2=18000 faceConnectedFlowReaches=4292 containedBanks=538908
+BUILD SUCCESSFUL in 57s
+G4 native lake/GPU revalidation is pending. Earlier GPU records predate this last surface fix.

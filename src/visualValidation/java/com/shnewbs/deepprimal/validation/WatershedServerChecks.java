@@ -97,16 +97,30 @@ public final class WatershedServerChecks {
         throw new AssertionError("Disconnected native source " + start + " -> " + end);
       paths++;
     }
-    for (int[] route :
-        new int[][] {
-          {-52, -1607, -20, -1639}, {-52, -1159, -20, -1159}, {972, -2055, 1004, -2087}
-        }) {
+    for (int[] route : new int[][] {{-52, -1607, -20, -1639}, {-52, -1159, -20, -1159}}) {
       var start = top(level, generator, route[0], route[1]);
       var end = top(level, generator, route[2], route[3]);
       if (!connected(level, start, end))
         throw new AssertionError("Native regression " + start + " -> " + end);
       paths++;
     }
+    // The revised coast moves river mouths. Audit every actual land-to-sea reach rather
+    // than assuming an obsolete mouth coordinate must remain a river in new geography.
+    int mouths = 0;
+    for (int n = 0; n < line.size(); n += 16) {
+      var a = line.get(n);
+      var b = line.get(n + 15);
+      if (a.stage() <= com.shnewbs.deepprimal.core.TerrainEngine.SEA + .01
+          || b.stage() > com.shnewbs.deepprimal.core.TerrainEngine.SEA + .01
+          || terrain.sample(a.x(), a.z()).speed() == 0) continue;
+      var start = top(level, generator, (int) Math.rint(a.x()), (int) Math.rint(a.z()));
+      var end = top(level, generator, (int) Math.rint(b.x()), (int) Math.rint(b.z()));
+      if (!connected(level, start, end))
+        throw new AssertionError("Disconnected native estuary " + start + " -> " + end);
+      mouths++;
+      paths++;
+    }
+    if (mouths == 0) throw new AssertionError("No native estuaries audited");
     if (paths < 10 || wet < 100 || dry < 100) throw new AssertionError("Native coverage");
     String report =
         "WATERSHED_NATIVE_PASS sites="
@@ -123,6 +137,8 @@ public final class WatershedServerChecks {
             + trees
             + " faceConnectedSourceReaches="
             + paths
+            + " estuaryReaches="
+            + mouths
             + " generationAndAuditMs="
             + (System.nanoTime() - began) / 1e6
             + "\n";

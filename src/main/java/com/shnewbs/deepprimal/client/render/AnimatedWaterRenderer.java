@@ -101,7 +101,8 @@ public final class AnimatedWaterRenderer {
       x = SectionPos.x(key) * 16;
       y = SectionPos.y(key) * 16;
       z = SectionPos.z(key) * 16;
-      bounds = new AABB(x, y, z, x + 16, y + 16, z + 16);
+      // Shared surface corners can cross a layer boundary by less than one block.
+      bounds = new AABB(x, y - 1, z, x + 16, y + 17, z + 16);
     }
   }
 

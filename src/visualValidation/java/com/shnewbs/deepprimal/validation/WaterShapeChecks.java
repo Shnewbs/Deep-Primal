@@ -49,6 +49,9 @@ final class WaterShapeChecks {
       double kernel = WaterTransport.surface(1, 1, 1, 1, .0625, .5, .5);
       if (kernel != (before ? .0625 : 1))
         throw new AssertionError("Wrong runtime kernel " + kernel);
+      if (!before
+          && WaterTransport.surface(1.03125, 1.03125, 1.03125, 1.03125, 1, .5, .5) != 1.03125)
+        throw new AssertionError("Runtime still clips shared corners at a vertical cell boundary");
       System.out.println(
           "WATER_SHAPE_RUNTIME kernel="
               + kernel
@@ -132,6 +135,7 @@ final class WaterShapeChecks {
                 + RenderSystem.getDevice().getBackendName()
                 + " kernel="
                 + WaterTransport.surface(1, 1, 1, 1, .0625, .5, .5)
+                + " crossLayerCorners=true"
                 + " captures=checker-animated,checker-fallback,slope-animated,slope-fallback"
                 + " validationErrors="
                 + validation

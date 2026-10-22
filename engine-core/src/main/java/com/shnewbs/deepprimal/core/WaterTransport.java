@@ -26,9 +26,18 @@ public final class WaterTransport {
   /** Shared global corners make independently rebuilt neighboring cells meet exactly. */
   public static double surface(
       double nw, double ne, double sw, double se, double center, double u, double v) {
-    double edge = TerrainNoise.lerp(TerrainNoise.lerp(nw, ne, u), TerrainNoise.lerp(sw, se, u), v);
+    u = Math.clamp(u, 0, 1);
+    v = Math.clamp(v, 0, 1);
     // Volume belongs to transport; per-cell center corrections create repeated bowls/tents.
-    return Math.clamp(edge, 1. / 16, 1);
+    // Corner heights may cross the cell's vertical boundary. Clipping each layer separately
+    // gives two different world heights at the very same shared edge.
+    return TerrainNoise.lerp(TerrainNoise.lerp(nw, ne, u), TerrainNoise.lerp(sw, se, u), v);
+  }
+
+  /** Nearby connected surface height relative to this Y, or NaN for a dry column. */
+  public static double surfaceColumn(int below, int here, int above) {
+    if (here > 0) return above > 0 ? 1 + above / 16.0 : here / 16.0;
+    return below > 0 ? -1 + below / 16.0 : Double.NaN;
   }
 
   private WaterTransport() {}

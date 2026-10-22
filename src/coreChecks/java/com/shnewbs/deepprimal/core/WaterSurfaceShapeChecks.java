@@ -47,10 +47,88 @@ final class WaterSurfaceShapeChecks {
       top++;
     }
     if (top != 4) throw new AssertionError("Unnecessary planar subdivision");
+    int verticalSeams = 0;
+    for (int amount = 1; amount <= 16; amount++) {
+      byte[] stepped = new byte[WaterPatchMesher.CELLS];
+      for (int z = -1; z <= 16; z++)
+        for (int x = -1; x <= 16; x++) {
+          for (int y = -1; y <= 8; y++) stepped[WaterPatchMesher.index(x, y, z)] = 16;
+          if (x >= 8) stepped[WaterPatchMesher.index(x, 9, z)] = (byte) amount;
+        }
+      var step =
+          WaterPatchMesher.build(
+              new WaterPatchMesher.Snapshot(
+                  stepped, new byte[stepped.length], new int[stepped.length], new int[256]),
+              null,
+              true);
+      int shared = 0;
+      for (int i = 0; i < step.vertices().length; i += WaterPatchMesher.STRIDE) {
+        float[] a = step.vertices();
+        if (a[i + 10] != 0 || a[i] != 8 || a[i + 2] != 8) continue;
+        if (a[i + 1] + a[i + 3] != 9 + amount / 32f)
+          throw new AssertionError(
+              "Water surface tears across a vertical voxel boundary: units="
+                  + amount
+                  + " height="
+                  + (a[i + 1] + a[i + 3]));
+        shared++;
+      }
+      if (shared < 4) throw new AssertionError("Missing both sides of stepped surface");
+      verticalSeams += shared;
+    }
+    int verticalPageSeams = 0;
+    for (int lower = 1; lower <= 16; lower++)
+      for (int upper = 1; upper <= 16; upper++) {
+        int shared = 0;
+        for (int origin : new int[] {0, 16}) {
+          byte[] stepped = new byte[WaterPatchMesher.CELLS];
+          for (int z = -1; z <= 16; z++)
+            for (int x = -1; x <= 16; x++)
+              for (int y = -1; y <= 16; y++) {
+                int worldY = origin + y;
+                int amount =
+                    worldY < 15
+                        ? 16
+                        : worldY == 15 ? (x < 8 ? lower : 16) : worldY == 16 && x >= 8 ? upper : 0;
+                stepped[WaterPatchMesher.index(x, y, z)] = (byte) amount;
+              }
+          var step =
+              WaterPatchMesher.build(
+                  new WaterPatchMesher.Snapshot(
+                      stepped, new byte[stepped.length], new int[stepped.length], new int[256]),
+                  null,
+                  true);
+          for (int i = 0; i < step.vertices().length; i += WaterPatchMesher.STRIDE) {
+            float[] a = step.vertices();
+            if (a[i + 10] != 0 || a[i] != 8 || a[i + 2] != 8) continue;
+            if (origin + a[i + 1] + a[i + 3] != 15.5f + (lower + upper) / 32f)
+              throw new AssertionError(
+                  "Vertical section seam changed world surface height: lower="
+                      + lower
+                      + " upper="
+                      + upper
+                      + " origin="
+                      + origin
+                      + " localY="
+                      + a[i + 1]
+                      + " height="
+                      + a[i + 3]
+                      + " expected="
+                      + (15.5f + (lower + upper) / 32f));
+            shared++;
+          }
+        }
+        if (shared < 4) throw new AssertionError("Missing vertical section seam coverage");
+        verticalPageSeams += shared;
+      }
     System.out.println(
         "WATER_SURFACE_SHAPE_PASS planarSamples="
             + checked
             + " extremaCases=20000 planarPatchVertices="
-            + top);
+            + top
+            + " verticalSeamVertices="
+            + verticalSeams
+            + " verticalPageSeamVertices="
+            + verticalPageSeams);
   }
 }

@@ -116,9 +116,13 @@ public final class WaterPatchMesher {
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         int n = s.water(x + dx, y, z + dz);
-        if (n == 0) continue;
-        if (s.water(x + dx, y + 1, z + dz) > 0) return corners[key] = 1;
-        sum += n / 16f;
+        double height =
+            WaterTransport.surfaceColumn(
+                n == 0 ? s.water(x + dx, y - 1, z + dz) : 0,
+                n,
+                n > 0 ? s.water(x + dx, y + 1, z + dz) : 0);
+        if (!Double.isFinite(height)) continue;
+        sum += (float) height;
         count++;
       }
     return corners[key] = count == 0 ? 0 : sum / count;
@@ -129,9 +133,7 @@ public final class WaterPatchMesher {
         b = corner(s, x + 1, y, z),
         c = corner(s, x, y, z + 1),
         d = corner(s, x + 1, y, z + 1);
-    float center = s.water(x, y + 1, z) > 0 ? 1 : s.water(x, y, z) / 16f;
-    if (a + b + c + d + center == 0) return 0;
-    return (float) WaterTransport.surface(a, b, c, d, center, u, v);
+    return (float) WaterTransport.surface(a, b, c, d, 0, u, v);
   }
 
   private boolean planar(Snapshot s, int x, int y, int z) {
@@ -156,7 +158,8 @@ public final class WaterPatchMesher {
             | ((int) (((color >> 16) & 255) * shade) << 16)
             | ((int) (((color >> 8) & 255) * shade) << 8)
             | (int) ((color & 255) * shade);
-    float textureU = (face == 2 || face == 4) ? v : u, textureV = face == 0 ? v : 1 - target;
+    float textureU = (face == 2 || face == 4) ? v : u,
+        textureV = face == 0 ? v : Math.clamp(1 - target, 0, 1);
     vertices[size++] = x + u;
     vertices[size++] = y;
     vertices[size++] = z + v;

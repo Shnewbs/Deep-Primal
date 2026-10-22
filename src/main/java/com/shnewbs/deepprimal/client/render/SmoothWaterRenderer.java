@@ -22,19 +22,26 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
     return l.getFluidState(p).getType() == EngineRegistry.WATER.get();
   }
 
+  private static int units(BlockAndTintGetter l, BlockPos p) {
+    var state = l.getFluidState(p);
+    return state.getType() == EngineRegistry.WATER.get() ? state.getValue(EngineFluid.UNITS) : 0;
+  }
+
   private static double corner(BlockAndTintGetter l, BlockPos corner) {
     double sum = 0;
     int count = 0;
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         var p = corner.offset(dx, 0, dz);
-        var s = l.getFluidState(p);
-        if (s.getType() != EngineRegistry.WATER.get()) continue;
-        if (water(l, p.above())) return 1;
-        sum += s.getOwnHeight();
+        int n = units(l, p);
+        double height =
+            WaterTransport.surfaceColumn(
+                n == 0 ? units(l, p.below()) : 0, n, n > 0 ? units(l, p.above()) : 0);
+        if (!Double.isFinite(height)) continue;
+        sum += height;
         count++;
       }
-    return count == 0 ? 1. / 16 : sum / count;
+    return count == 0 ? 0 : sum / count;
   }
 
   @Override
@@ -65,8 +72,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         ne = corner(l, p.east()),
         sw = corner(l, p.south()),
         se = corner(l, p.east().south());
-    double center = water(l, p.above()) ? 1 : state.getOwnHeight();
-    int divisions=Math.abs(nw-ne-sw+se)<1e-5?1:SUB;
+    int divisions = Math.abs(nw - ne - sw + se) < 1e-5 ? 1 : SUB;
     if (top && divisions > 1) curvedCells++;
     if (top)
       for (int iz = 0; iz < divisions; iz++)
@@ -82,16 +88,16 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
               y,
               z,
               u,
-              (float) WaterTransport.surface(nw, ne, sw, se, center, u, v),
+              (float) WaterTransport.surface(nw, ne, sw, se, 0, u, v),
               v,
               u,
-              (float) WaterTransport.surface(nw, ne, sw, se, center, u, vv),
+              (float) WaterTransport.surface(nw, ne, sw, se, 0, u, vv),
               vv,
               uu,
-              (float) WaterTransport.surface(nw, ne, sw, se, center, uu, vv),
+              (float) WaterTransport.surface(nw, ne, sw, se, 0, uu, vv),
               vv,
               uu,
-              (float) WaterTransport.surface(nw, ne, sw, se, center, uu, v),
+              (float) WaterTransport.surface(nw, ne, sw, se, 0, uu, v),
               v,
               color,
               light,
@@ -113,8 +119,8 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
       }
       {
         float x0 = ax, z0 = az, x1 = bx, z1 = bz;
-        float h0 = (float) WaterTransport.surface(nw, ne, sw, se, center, x0, z0),
-            h1 = (float) WaterTransport.surface(nw, ne, sw, se, center, x1, z1);
+        float h0 = (float) WaterTransport.surface(nw, ne, sw, se, 0, x0, z0),
+            h1 = (float) WaterTransport.surface(nw, ne, sw, se, 0, x1, z1);
         face(
             out,
             sprite,
@@ -197,7 +203,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
       float nx,
       float ny,
       float nz) {
-    float u = mode == 1 ? dz : dx, v = mode == 0 ? dz : 1 - dy;
+    float u = mode == 1 ? dz : dx, v = mode == 0 ? dz : Math.clamp(1 - dy, 0, 1);
     out.addVertex(
         x + dx,
         y + dy,

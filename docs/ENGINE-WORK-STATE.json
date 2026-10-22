@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "status": "foreground_active",
+  "updated_at": "2026-10-22T05:33:06.038693+00:00",
+  "active_until": "2026-10-22T05:58:06.038693+00:00",
+  "source_ref": "audit/alpha24-recovery",
+  "candidate_version": "0.0.1-alpha.24",
+  "candidate_released": false,
+  "acceptance_complete": false,
+  "current_gate": "Final native lake retention and OpenGL/Vulkan surface/scene checks after cross-layer corner correction",
+  "next_items": [
+    "Finish and publish verified alpha.24 candidate with honest remaining limitations",
+    "Reproduce and fix enabled-view distant water/page coverage; test teleport, edits and resource reload",
+    "Replace silently truncated pressure searches with bounded continuation; include a sealed U-bend longer than 128 water nodes",
+    "Implement explicit finite/renewable watershed, glacier, aquifer and ocean/atmosphere budgets",
+    "Continue independent terrain/geology/material and LOD work against the accepted requirement register"
+  ],
+  "rules": [
+    "Do not edit the active foreground checkout or start competing Gradle/native jobs",
+    "Read docs/ENGINE-BUILD-AUDIT-HANDOFF.md before automated continuation",
+    "Preserve published V1/V2 geography; freeze V3 once an installer is delivered",
+    "Do not mark the engine perfect or complete from build success or screenshots alone"
+  ]
+}

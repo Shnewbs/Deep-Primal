@@ -172,6 +172,9 @@ final class EngineSceneChecks {
           && g.geography().revision >= 3)
         names = new String[] {"coast", "headwater", "river", "lake", "outlet", "ridge"};
       LodConfig.ENABLED.set(false);
+      WaterVisualConfig.INTERPOLATE.set(true);
+      WaterVisualConfig.SMOOTH.set(true);
+      WaterVisualConfig.WAVES.set(true);
       ClientPerformanceConfig.PAUSE_BACKGROUND.set(false);
       ClientPerformanceConfig.ADAPTIVE_WORK.set(false);
       mc.options.renderDistance().set(8);
@@ -219,8 +222,14 @@ final class EngineSceneChecks {
                 + String.join(",", names)
                 + " backend="
                 + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
-                + " fluidCells="
-                + com.shnewbs.deepprimal.client.render.SmoothWaterRenderer.renderedCells
+                + " waterResidentBytes="
+                + com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE.residentBytes
+                + " waterUploads="
+                + com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE.uploads
+                + " waterDrawnPages="
+                + com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE.drawnPages
+                + " waterPending="
+                + com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE.pending()
                 + "\n";
         Files.writeString(out.resolve("scene-result.txt"), report);
         System.out.print(report);
