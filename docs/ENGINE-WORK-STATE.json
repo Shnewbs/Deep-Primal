@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "continuation_active",
-  "updated_at": "2026-10-22T16:24:10Z",
-  "active_until": "2026-10-22T17:24:10Z",
+  "updated_at": "2026-10-22T16:39:29Z",
+  "active_until": "2026-10-22T17:39:29Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Isolated continuation reproducing/profile retained-drain film starvation; accepted production solver unchanged.",
+  "current_gate": "Separate bounded drain-request FIFO fixes film starvation in fresh native tests (outlet8 by tick44). Closed basin still fails at3200: conserved8192, upper368 bottom7697 intermediate127 pending681. Running edit/reload/pressure/queue/package gates; candidate remains out of production.",
   "next_items": [
     "Reproduce/profile retained-drain admission/fairness on eight-cell film with 1024 stable competing cells. Canonical packaged failure has zero transfers, 16 resident jobs, 128 waiting jobs and 1032 pending cells. Repair progress within existing quantity/no-force/edit/work bounds; retain ticket/FULL readiness and actual physical-unload regressions. Repeat filling, closed-basin settling, full safety/build/package gates before integration.",
     "Establish a deterministic fully loaded closed-basin native replay or explicit boundary-flux ledger, then compare conserved output, settling, latency and memory against pre-continuation/current source. Current open-boundary basin final water-state digests vary even on unchanged-revision repeats; do not certify broad performance from them. Profile remaining pressure/drain churn; preserve FIFO cap/order/mutable/overflow and long/head/edit/unload/idle/reopen regressions.",
@@ -27,7 +27,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/drain-native-restore-1524",
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/drain-progress-1624",
   "promotion_blockers": [
     "Native JDK25/21/Gradle environment is restored. Unaccepted retained-drain experiment fails existing film (inherited and ticket variants; accepted checkpoint passes) and closed-basin settling at 3200 ticks (upper698 bottom7457 intermediate37 pending500), despite conservation. Runtime candidate was not integrated.",
     "Closed-basin candidate remains active; 2000-tick physical reload deadline also failed before a 3200-tick pass. Complete settling, matched output, broad latency and resident-memory acceptance remain open; prior open-boundary output variability is unresolved.",
@@ -36,9 +36,12 @@
   ],
   "latest_accepted_solver_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a",
   "staged_validation_evidence": [
-    "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/native-results.json",
-    "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/candidate-build-audit.json",
-    "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/readiness-model.json"
+    "profile-before.json",
+    "profile-quiet.json",
+    "profile-admission.json",
+    "profile-fifo.json",
+    "fifo-safety.json",
+    "basin-fifo-corrected.json"
   ],
   "worker": "drain-progress-1624"
 }
