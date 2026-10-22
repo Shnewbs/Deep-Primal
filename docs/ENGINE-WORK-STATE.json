@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T10:55:00Z",
-  "active_until": "2026-10-22T10:55:00Z",
+  "status": "scheduled_active",
+  "updated_at": "2026-10-22T11:34:00Z",
+  "active_until": "2026-10-22T12:15:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Unreleased pressure-continuation candidate: long bends, silent wall edits, actual unload/no-force-load, idle/reopen, existing filling/pressure and full non-Vulkan build/core checks pass. PROMOTION BLOCKED: paired 1000-tick basin median/p95 17.092/27.239ms vs baseline15.595/24.754ms; pending7093 vs3676. No stable merge or installer release.",
+  "current_gate": "Isolated profiling and focused correction of pressure continuation duplicate/restart/admission overhead. Keep promotion blocked until fresh native/performance evidence.",
   "next_items": [
     "Profile and reduce duplicate/overlapping pressure searches, restart churn and admission backlog. Revalidate the paired 1000-tick basin, long bends, wall edits, actual unload/no-force-load and idle/reopen before promotion. Current performance regression is a release/main blocker.",
     "Extend bounded drain continuation and pressure behavior beyond the 8192-node/job residency boundary; 16 jobs/level currently cap memory, and saturation is still unresolved for larger connected regions.",
@@ -31,5 +31,6 @@
     "Fresh paired basin tick-cost regression and larger unresolved queue",
     "Pressure residency saturation and general drain continuation remain incomplete",
     "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open"
-  ]
+  ],
+  "worker": "scheduled-pressure-profile-a22609fabda0"
 }
