@@ -1,0 +1,35 @@
+[17:12:00] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true
+[17:12:08] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:overworld
+[17:12:08] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_nether
+[17:12:08] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_end
+[17:12:08] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/coverage-audit-2031/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar
+LOD_DISK_RECOVERY_OBSERVED retainedAfterOutside=1 startedAfterMove=true
+LOD_DISK_RECOVERY_NATIVE_PASS backend=Vulkan retainedAfterOutside=1 diskReads=1 uploadedChunks=1 restored=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/coverage-audit-2031/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+VULKAN_FRAME_COMPLETION_NATIVE_PASS iterations=8 mappedBytes=128 openPassRejections=8 backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+WATER_VIEW_OBSERVATION label=disk-recovery backend=Vulkan animated=true waves=false lod=true ownsWater=true waterBytes=1172304 drawnPages=13025 pending=48 loadedChunks=117 horizonTiles=0 visibleTiles=0 lodActive=true lodBytes=5655240 lodVisible=2 lodCaptured=39 lodTriangles=943394 camera=107.68827612381756,176.5875,-226.797007486035
+[17:12:44] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:overworld
+[17:12:44] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_nether
+[17:12:44] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_end
+RESOURCE_RELOAD_PASS
+[17:12:54] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:overworld
+[17:12:54] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_nether
+[17:12:54] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_end
+[17:12:54] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLIENT_SAVED_DISCONNECT_PASS
+VULKAN_SHUTDOWN_FAILURE_QUEUED
+[17:12:54] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[17:12:54] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=158447, pipelineCreationNanos=124434382, descriptorBindSkips=8, pipelineCreates=84, validationErrors=0, descriptorBinds=281185, pipelineFeedbackValid=84, descriptorReuse=122746}
+BUILD SUCCESSFUL in 1m 9s

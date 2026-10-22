@@ -157,3 +157,12 @@ records, failures and limits](validation/engine-continuation/vulkan-primary-2026
 Next implement bounded Vulkan coverage-recovery stress across joins, teleports,
 low budgets and player edits. Water p95/residency, regional budgets, geology and
 LOD acceptance remain open; no installer released or main merge.
+
+
+## 2026-10-22: native Vulkan completion crash and LOD disk retention fixed
+
+[Fresh evidence and limitations](validation/engine-continuation/vulkan-lod-recovery-2026-10-22/README.md) record two focused production fixes. Actual V3 creation/disconnect and a native injected completion reproduced premature public render-pass ownership; ownership now begins after lazy frame-start callbacks. The old native LOD disk queue lost an out-of-range persisted key; rotation now preserves it within 64 inspections per call. Exact-source bounded/fairness controls and real store/worker/GPU checks pass.
+
+Uncached full Linux Vulkan build/core/geography/module checks, six CRCs and 406 class matches pass. Two strict combined native sessions (development and packaged JAR origins) pass regression/device/reload/normal-disconnect/shutdown gates with zero VUIDs, validation errors and final native resources. Source audit: 502/505 original inputs unchanged, two production changes plus validation dispatch/cleanup, two new fixtures. Water/core/geography are unchanged.
+
+Two direct-stop sessions are rejected despite Gradle zero because saves logged rejected-executor failures. Validation now disconnects/saves before stop; direct quit safety is not established. Malformed generated archives were rejected. An unforced packaged launch selected OpenGL recovery and failed the Vulkan assertion; final sessions explicitly retry Vulkan. Marker persistence after FIRST_FRAME/clean shutdown remains unexplained, so clean unforced reopening is still a blocker. Next instrument it in-process, then extend actual physical teleport/edit/budget coverage. The isolated disk fixture does not validate physical teleport or all eviction recovery. Scene LOD is active but this camera has zero visible LOD triangles; exposed lake regions/transparency remain open. Software-driver passes are not owner GPU/FPS guarantees. No installer released, main untouched; retained-drain experiment, regional budgets, pressure p95/residency, geology and LOD hierarchy remain open. Catalog/species remains deferred.

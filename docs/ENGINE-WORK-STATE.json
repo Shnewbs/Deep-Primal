@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "status": "foreground_active",
-  "updated_at": "2026-10-22T20:50:50.000Z",
-  "active_until": "2026-10-22T21:50:50.000Z",
+  "status": "continuation_permitted",
+  "updated_at": "2026-10-22T21:16:50Z",
+  "active_until": null,
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Real Vulkan Create World/disconnect crash reproduced: frame startup drains a readback after VkCommandEncoder marks its public pass open. Forced native regression reproduces it; focused ordering fix under native validation. Separately, exact-source LOD range-queue test reproduces discarded disk keys; candidate retains them within existing 64-key bound, native acceptance pending.",
+  "current_gate": "Focused Vulkan frame-completion ordering and bounded LOD disk retention fixes pass uncached Linux Vulkan build, six CRCs/406 class matches and two strict combined native sessions (development and packaged JARs). Normal saved-disconnect is clean; direct-stop save errors are excluded. Explicit Vulkan retry is required in these sessions; unexplained recovery-marker persistence prevents clean unforced reopen acceptance. Full coverage, direct-stop safety and broader engine acceptance remain open.",
   "next_items": [
+    "Instrument Vulkan recovery-marker state in-process after firstFrame, reload and normal disconnect. Reproduce persistence and clean unforced reopen without erasing evidence; cause remains unproven. Separately reproduce/audit direct-stop save errors, which a Gradle-zero log exposed. Keep explicit retry scoped honestly.",
     "Vulkan-first: add bounded coverage-recovery regression across join, teleport, constrained water/LOD budgets, edits and physical reload. Early reopen screenshot shows partial water/exposed terrain; warmed captures recover. Preserve actual active-LOD observations, zero-VUID/resource shutdown and OpenGL modular fallback; establish identical-state/output comparisons before performance claims.",
     "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
@@ -26,13 +27,13 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/vulkan-primary-2026-10-22/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/vulkan-lod-recovery-2026-10-22/README.md",
   "local_validation_environment": "/workspace/scratch/a22609fabda0/coverage-audit-2031",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
     "Explicit renewable/finite regional reservoirs, accounted hydrological budgets and coherent geology remain unfinished.",
-    "Vulkan software-driver environment and four strict correctness sessions now pass. Complete enabled-view water/LOD coverage, mixed transparency, memory-pressure/teleport/edit stress and owner GPU/FPS acceptance remain open. Early reopen partial coverage observation needs bounded reproduction and cause isolation. Solver substeps do not establish independent 60 Hz."
+    "Two current combined native software-Vulkan sessions pass device/regression/reload/normal-disconnect/resource gates with explicit retry. Recovery marker persists despite FIRST_FRAME; an actual unforced OpenGL fallback was rejected. Clean unforced reopen, direct-stop save safety, full enabled-view/mixed transparency/physical teleport/edit/memory-pressure coverage and owner GPU/FPS acceptance remain open. Solver substeps do not establish independent 60 Hz."
   ],
   "latest_accepted_solver_commit": "900ebebf67b6220ce0efab0b71abdeffe3bd1ed0",
   "staged_validation_evidence": [
@@ -46,22 +47,32 @@
     "docs/validation/engine-continuation/basin-pressure-2026-10-22/initial-build-failure.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "coverage-audit-2031",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
   "latest_test_summary": {
-    "accepted_solver_native_passes": 13,
-    "software_vulkan_sessions": 4,
-    "non_vulkan_build": "pass",
+    "fresh_production_files_changed": 2,
+    "fresh_validation_sources_added": 2,
+    "original_inputs_unchanged": 502,
+    "original_inputs_checked": 505,
+    "software_vulkan_combined_sessions": 2,
+    "packaged_module_origin_verified": true,
+    "frame_completions_per_session": 8,
+    "open_pass_rejections_per_session": 8,
+    "native_isolated_lod_uploads_per_session": 1,
+    "actual_physical_teleport_coverage": false,
+    "accepted_solver_validation": "production solver unchanged; prior 13 native cases are historical, not rerun here",
     "vulkan_linux_build": "pass",
     "vulkan_archive_crc_count": 6,
     "vulkan_compiled_class_matches": 406,
     "zero_vuid_errors": true,
     "final_tracked_buffers": 0,
     "final_tracked_images": 0,
-    "rejected_opengl_reopen": 1,
-    "rejected_incomplete_scene_capture": 1,
+    "normal_saved_disconnect": "pass",
+    "direct_stop_save_safety": "unaccepted; two current sessions rejected for save errors despite Gradle zero",
+    "unforced_vulkan_reopen": "unaccepted; recovery marker persisted, actual OpenGL fallback rejected",
+    "explicit_vulkan_retry_used": true,
     "enabled_view_complete_acceptance": false,
     "owner_gpu_fps_acceptance": false,
     "installer_released": false
@@ -74,8 +85,9 @@
   "owner_update_policy": "Concise verified milestones/blockers; continue implementation after checkpoints.",
   "latest_accepted_solver_evidence": "docs/validation/engine-continuation/pressure-admission-2026-10-22/README.md",
   "latest_graphics_evidence": [
-    "docs/validation/engine-continuation/vulkan-primary-2026-10-22/strict-vulkan-audit.json",
-    "docs/validation/engine-continuation/vulkan-primary-2026-10-22/vulkan-build-audit.json",
-    "docs/validation/engine-continuation/vulkan-primary-2026-10-22/screenshot-manifest.json"
+    "docs/validation/engine-continuation/vulkan-lod-recovery-2026-10-22/strict-combined-native-audit.json",
+    "docs/validation/engine-continuation/vulkan-lod-recovery-2026-10-22/vulkan-build-audit.json",
+    "docs/validation/engine-continuation/vulkan-lod-recovery-2026-10-22/source-audit.json",
+    "docs/validation/engine-continuation/vulkan-lod-recovery-2026-10-22/screenshot-manifest.json"
   ]
 }

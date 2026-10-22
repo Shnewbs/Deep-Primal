@@ -128,3 +128,13 @@ address demonstrated missing coverage/transparency without changing geography.
 No production renderer fix or owner GPU/FPS acceptance is claimed. OpenGL remains
 a modular fallback; Vulkan is the primary sample/reference target. Keep updates
 brief and keep working through the open acceptance items.
+
+
+## Current Vulkan frame/LOD recovery checkpoint
+
+Read [fresh source, before failures and scoped acceptance](validation/engine-continuation/vulkan-lod-recovery-2026-10-22/README.md).
+Two production fixes now delay public Vulkan pass ownership until fenced frame-start callbacks finish and retain out-of-range indexed LOD disk keys within the existing 64-key/call bound (up to two calls per scheduled tick). Exact-source controls, uncached Linux Vulkan build/core/geography checks, six CRCs/406 class comparisons and two strict combined native sessions pass, including packaged module origins, real store/worker/GPU upload, eight frame completions/eight in-pass rejections per session, reload, normal save/disconnect and zero-resource/zero-error Vulkan shutdown.
+
+Self-audit rejected direct-stop sessions that logged chunk-save errors despite Gradle zero. Validation now uses normal save/disconnect and rejects save/server-stop/scheduler failures. Direct-stop save safety remains open. Malformed standalone module bytes and an actual OpenGL recovery fallback are excluded. Both final combined sessions use explicit Vulkan retry: the recovery marker remains after FIRST_FRAME/clean shutdown, with cause unproven. Do not claim clean unforced reopen. Next instrument that lifecycle in-process, then test real physical teleport/memory-pressure/edit coverage. Isolated client-position selection is not physical teleport acceptance. The viewed scene has LOD active but zero visible LOD triangles; the isolated synthetic page proves real GPU upload only. Exposed right-hand lake regions and mixed transparency remain unaccepted.
+
+Water runtime/core/frozen geography are unchanged; retained-drain work stays separate/unaccepted. No installer or main merge. Prior native counts/measurements above are historical to this checkpoint. Software Vulkan is not owner GPU/FPS acceptance. Preserve all recorded hydrology, pressure residency/performance, geology and LOD requirements; catalog/species remains deferred.

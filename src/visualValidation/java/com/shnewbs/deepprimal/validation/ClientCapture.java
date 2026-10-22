@@ -141,8 +141,20 @@ public final class ClientCapture {
       String action = Files.readString(request).trim();
       Files.delete(request);
       Files.createDirectories(dir);
+      if (action.equals("vulkan-frame-completion-check")) {
+        VulkanFrameCompletionChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("lod-disk-recovery-check")) {
+        LodDiskRecoveryChecks.run(mc, dir);
+        return;
+      }
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
+        mc.disconnectWithSavingScreen();
+        String record = "CLIENT_SAVED_DISCONNECT_PASS\n";
+        Files.writeString(dir.resolve("saved-disconnect.txt"), record);
+        System.out.print(record);
         mc.stop();
         return;
       }
