@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T16:58:08Z",
-  "active_until": "2026-10-22T16:58:08Z",
+  "status": "foreground_active",
+  "updated_at": "2026-10-22T17:09:00Z",
+  "active_until": "2026-10-22T18:09:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Bounded drain-request FIFO repairs native film starvation (all 8 units at outlet by tick 44). 17 safety cases, fully loaded pool idle/edit, full non-Vulkan core/module build and packaged filling/reload pass; all 226 packaged classes match. Larger closed basin still fails full settling at 3,200 (conserved 8,192, upper 368 bottom 7,697 intermediate 127 pending 681). Runtime remains evidence-only; accepted solver unchanged.",
+  "current_gate": "Profiling and reproducing distant drain throughput and closed-basin settling in an isolated foreground audit. Accepted production source remains unchanged.",
   "next_items": [
     "Profile and repair repeated drain/pressure search work in the fully loaded 8192-unit stepped basin. The FIFO candidate fixes film starvation, but full settling fails at 3,200 ticks. Preserve its independent admission FIFO, total 6,144 drain visits/host, 128-node turns, 16 resident jobs, temporary-watch cleanup and all queue/edit/reload/conservation tests. Repeat complete basin settling and full safety/build/package gates before integrating runtime source.",
     "Use the sealed deterministic basin and the new 1024-unit loaded pool idle/edit replay to compare exact output, settling, latency and memory with prior/current source. Seven closed-route quantity/FLOW digests match prior ticket source, but that does not certify broader output/performance. Original unpinned filling still has 1,024 pending/waits at 120; earlier open-boundary basin final digests varied even on unchanged revisions.",
@@ -27,7 +27,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/drain-progress-1624",
+  "local_validation_environment": "/workspace/scratch/98befbcef095/basin-audit-1706",
   "promotion_blockers": [
     "Unaccepted retained-drain/FIFO runtime fails the 3200-tick fully loaded stepped basin: conserved 8,192, upper 368 bottom 7,697 intermediate 127 pending 681. Film, loaded-pool idle/edit, safety and packaged gates now pass; runtime stays out of production until the remaining settling gate is corrected.",
     "Original unpinned filling retains 1,024 pending entries/waits at 120 despite repaired moving film. Broad settling, matched output, latency and resident-memory acceptance remain open. Active admission allocation counters measured 80,560 and 304 bytes in separate processes; no fresh allocation/performance superiority is claimed. Prior open-boundary digest variability remains unresolved.",
@@ -41,5 +41,6 @@
     "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/staging-verification.json",
     "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/matched-output-controls.json"
   ],
-  "latest_staged_solver_source": "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/fifo-WaterRuntime.java"
+  "latest_staged_solver_source": "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/fifo-WaterRuntime.java",
+  "worker": "basin-audit-1706"
 }
