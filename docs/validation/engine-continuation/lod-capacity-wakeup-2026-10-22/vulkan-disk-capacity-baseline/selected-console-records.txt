@@ -1,0 +1,10 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/coverage-2327/project/lod-engine/build/classes/java/main/
+LOD_EVICTION_RECOVERY_OBSERVED cycle=0 indexed=true resident=0
+LOD_EVICTION_RECOVERY_OBSERVED cycle=1 indexed=true resident=0
+LOD_EVICTION_RECOVERY_OBSERVED cycle=2 indexed=true resident=0
+LOD_EVICTION_RECOVERY_OBSERVED cycle=3 indexed=true resident=0
+LOD_CAPACITY_RECOVERY_OBSERVED pageBytes=1656 ballastBytes=4193476 fixedView=true recovered=false
+java.lang.AssertionError: Freed GPU capacity must wake a deferred page without camera or budget changes
+java.lang.AssertionError: Freed GPU capacity must wake a deferred page without camera or budget changes
+java.lang.AssertionError: Freed GPU capacity must wake a deferred page without camera or budget changes

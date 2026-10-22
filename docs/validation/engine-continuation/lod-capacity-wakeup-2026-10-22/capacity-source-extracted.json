@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "before",
+    "source_sha256": "affa95c8daa6d2e9378f1c06e58f02401c4ba1a9b94489d6f216ddd9e518660c",
+    "exit_code": 1,
+    "stdout": "CAPACITY_RECOVERY_OBSERVED sameView=true sameBudget=true freedBytes=4193792 started=false\n",
+    "stderr": "Exception in thread \"main\" java.lang.AssertionError: Freed GPU capacity did not wake a fixed-view deferred page\n\tat CapacityExtracted.check(CapacityExtracted.java:23)\n\tat CapacityExtracted.main(CapacityExtracted.java:150)\n",
+    "scope": "Exact production DeferredView, eviction/forgetting/obsolescence/queue/range methods; explicit Entry, GPU-byte-accounting, world and store doubles; not native execution."
+  },
+  {
+    "variant": "after",
+    "source_sha256": "721de25a36072d5b1c1d374c5bb935ef10eae7fc09becf48a560f32bbfa3ea24",
+    "exit_code": 0,
+    "stdout": "CAPACITY_RECOVERY_OBSERVED sameView=true sameBudget=true freedBytes=4193792 started=true\nCAPACITY_EXTRACTED_PASS blockedCalls=1000 exactByteBoundary=true entryBound=4096 indexBound=8192 cleanupCalls=128 rotationCalls=1000 selectionBound=64 editGuard=true missingPlayer=true cameraAndBudgetBehaviorRetained=true saturationRecovery=false\n",
+    "stderr": "",
+    "scope": "Exact production DeferredView, eviction/forgetting/obsolescence/queue/range methods; explicit Entry, GPU-byte-accounting, world and store doubles; not native execution."
+  }
+]

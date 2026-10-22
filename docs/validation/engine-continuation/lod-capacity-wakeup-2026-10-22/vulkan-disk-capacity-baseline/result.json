@@ -1,0 +1,34 @@
+{
+  "case": "vulkan-disk-capacity-baseline",
+  "run_directory": "/tmp/deepprimal-capacity-2327",
+  "started_utc": "2026-10-22T23:40:06.104937+00:00",
+  "finished_utc": "2026-10-22T23:40:47.150770+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 41.05,
+  "build_successful": false,
+  "records": [
+    "[19:40:26] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[19:40:33] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[19:40:34] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=0",
+    "[19:40:37] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x8dc00000008dc, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x8dd00000008dd, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[19:40:39] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[19:40:41] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x8dc00000008dc, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x8dd00000008dd, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "[19:40:42] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x8dc00000008dc, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x8dd00000008dd, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "java.lang.AssertionError: Freed GPU capacity must wake a deferred page without camera or budget changes",
+    "java.lang.AssertionError: Freed GPU capacity must wake a deferred page without camera or budget changes",
+    "[19:40:44] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 91064628-b949-40b1-8e0c-171903e8504a",
+    "java.lang.AssertionError: Freed GPU capacity must wake a deferred page without camera or budget changes",
+    "[19:40:44] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 64ad63f9-3717-4c14-b453-924b5f669c78"
+  ],
+  "console_sha256": "2b5b681cf83c33fadc24d27b1c61d73dede7d4784363ceb2f67bca09d81a0ab8",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_19.40.44-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

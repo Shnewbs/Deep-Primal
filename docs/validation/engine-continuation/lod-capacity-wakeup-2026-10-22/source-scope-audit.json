@@ -1,0 +1,23 @@
+{
+  "source_commit": "1b6ef4e25f750f77fd5aea865794bd1072292a43",
+  "original_inputs_checked": 508,
+  "original_inputs_unchanged": 506,
+  "changed": [
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+      "before_git_blob_sha": "7d4e46a08df4da339a96d49ee90a7a36b93a5cac",
+      "after_git_blob_sha": "d5fe4eea0fd3754b168cb08a8d9354cd96ffb043",
+      "sha256": "721de25a36072d5b1c1d374c5bb935ef10eae7fc09becf48a560f32bbfa3ea24"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodDiskRecoveryChecks.java",
+      "before_git_blob_sha": "7aa53fcbedc289f5703731c25941d81a00a93435",
+      "after_git_blob_sha": "b55c4918ae0e38c3123563a7e6467a7a39925583",
+      "sha256": "1c07e8d543d8c9ffa1b11380a5614347e38dc1975aa880d0aa56a0c4c19c83a7"
+    }
+  ],
+  "production_files_changed": 1,
+  "validation_files_changed": 1,
+  "water_runtime_core_vulkan_and_frozen_geography_unchanged": true,
+  "isolated_restore_git_blobs_verified": 511
+}

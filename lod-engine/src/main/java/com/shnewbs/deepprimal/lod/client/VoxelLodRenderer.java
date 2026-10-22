@@ -60,7 +60,7 @@ public final class VoxelLodRenderer {
   private final LinkedHashMap<Long, Long> dirty = new LinkedHashMap<>();
   private final HashMap<Long, Long> latest = new HashMap<>();
   private final LinkedHashSet<Long> disk = new LinkedHashSet<>();
-  private record DeferredView(long cameraChunk, int memoryMiB) {}
+  private record DeferredView(long cameraChunk, int memoryMiB, long bytes) {}
   private final HashMap<Long, DeferredView> deferredDisk = new HashMap<>();
   private ThreadPoolExecutor worker;
   private Future<Ready> future;
@@ -349,7 +349,9 @@ public final class VoxelLodRenderer {
         var player = Minecraft.getInstance().player;
         if (player == null
             || (deferred.cameraChunk == key(player.chunkPosition().x(), player.chunkPosition().z())
-                && deferred.memoryMiB == LodConfig.MEMORY.get())) {
+                && deferred.memoryMiB == LodConfig.MEMORY.get()
+                && (deferred.bytes > LodConfig.MEMORY.get() * 1048576L - residentBytes
+                    || cache.size() >= 4096))) {
           disk.addLast(k);
           continue;
         }
@@ -533,7 +535,7 @@ public final class VoxelLodRenderer {
         long view = player != null ? key(player.chunkPosition().x(), player.chunkPosition().z())
             : key(Math.floorDiv((int) Math.floor(camera.x), 16),
                 Math.floorDiv((int) Math.floor(camera.z), 16));
-        deferredDisk.put(k, new DeferredView(view, LodConfig.MEMORY.get()));
+        deferredDisk.put(k, new DeferredView(view, LodConfig.MEMORY.get(), old.bytes));
       }
       forgetUnused(k);
     }

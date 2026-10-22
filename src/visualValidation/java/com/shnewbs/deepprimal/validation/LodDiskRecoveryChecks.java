@@ -100,24 +100,50 @@ final class LodDiskRecoveryChecks {
         if (!((Map<?, ?>) field(type, "cache").get(renderer)).containsKey(key))
           throw new AssertionError("Evicted page did not regain GPU residency");
       }
-      // A fixed camera must not continually reload its pressure victim.
+      // Real GPU ballast fills the 4 MiB payload budget; releasing it must wake the same view.
+      long pageBytes = type.getField("residentBytes").getLong(renderer);
+      long ballastBytes = 4L * 1048576 - Math.max(1, pageBytes / 2);
+      if (pageBytes <= 0 || ballastBytes + pageBytes <= 4L * 1048576)
+        throw new AssertionError("Pressure fixture must exceed the budget with its target page");
       try {
         mc.player.setPos(x * 16. + .5, oldPosition.y, z * 16. + .5);
-        evict.invoke(renderer, 0L, 0, null, mc.player.position().add(32, 0, 0));
-        long beforeReads = type.getField("diskReads").getLong(renderer);
-        for (int turn = 0; turn < 16; turn++)
-          if ((Boolean) start.invoke(renderer)) throw new AssertionError("Fixed-view eviction read/upload churn");
-        if (type.getField("diskReads").getLong(renderer) != beforeReads)
-          throw new AssertionError("Fixed-view deferred page performed disk work");
-        mc.player.setPos((x + 1) * 16. + .5, oldPosition.y, z * 16. + .5);
-        if (!(Boolean) start.invoke(renderer)) throw new AssertionError("Camera movement did not wake deferred restore");
+        evict.invoke(renderer, ballastBytes, 4095, null, mc.player.position().add(32, 0, 0));
+        var ballastBuffer = RenderSystem.getDevice().createBuffer(() -> "LOD recovery pressure ballast",
+            com.mojang.blaze3d.buffers.GpuBuffer.USAGE_VERTEX, ballastBytes);
+        boolean cacheOwnsBallast = false;
+        try {
+          var ballast = new com.shnewbs.deepprimal.graphics.TerrainGpuMesh(x + 1, z, 192, 193,
+              ballastBuffer, null, 3, 0, 0, new short[0]);
+          var entryType = Class.forName(type.getName() + "$Entry");
+          var entryConstructor = entryType.getDeclaredConstructor(long.class, List.class, long.class,
+              int[].class, int.class, boolean.class); entryConstructor.setAccessible(true);
+          @SuppressWarnings("unchecked") var cache = (Map<Long, Object>) field(type, "cache").get(renderer);
+          Object entry = entryConstructor.newInstance(0L,
+              List.of(List.of(ballast), List.of(), List.of()), ballast.byteSize, new int[] {0}, 193, false);
+          cache.put(key + (1L << 32), entry); cacheOwnsBallast = true;
+          type.getField("residentBytes").setLong(renderer, ballast.byteSize);
+          if (ballast.byteSize != ballastBytes || ballastBytes > 4L * 1048576)
+            throw new AssertionError("Actual GPU payload accounting differs from ballast allocation");
+          long beforeReads = type.getField("diskReads").getLong(renderer);
+          for (int turn = 0; turn < 16; turn++)
+            if ((Boolean) start.invoke(renderer)) throw new AssertionError("Fixed-view read/upload churn under pressure");
+          if (type.getField("diskReads").getLong(renderer) != beforeReads)
+            throw new AssertionError("Deferred page performed disk work without capacity");
+          evict.invoke(renderer, 0L, 0, null, mc.player.position());
+          if (type.getField("residentBytes").getLong(renderer) != 0)
+            throw new AssertionError("Closing the real ballast did not free all GPU payload");
+          boolean recovered = (Boolean) start.invoke(renderer);
+          System.out.println("LOD_CAPACITY_RECOVERY_OBSERVED pageBytes=" + pageBytes
+              + " ballastBytes=" + ballastBytes + " fixedView=true recovered=" + recovered);
+          if (!recovered) throw new AssertionError("Freed GPU capacity must wake a deferred page without camera or budget changes");
+        } finally { if (!cacheOwnsBallast) ballastBuffer.close(); }
       } finally { mc.player.setPos(oldPosition); }
       future = (Future<?>) field(type, "future").get(renderer);
       ready = future.get(5, TimeUnit.SECONDS);
       field(type, "pendingGpu").set(renderer, pendingConstructor.newInstance(ready));
       field(type, "future").set(renderer, null); field(type, "workingKey").set(renderer, null);
       for (int turn = 0; turn < 16 && field(type, "pendingGpu").get(renderer) != null; turn++) upload.invoke(renderer);
-      System.out.println("LOD_FIXED_VIEW_DEFERRAL_PASS idleCalls=16 noDiskWork=true cameraMoveRecovery=true");
+      System.out.println("LOD_FIXED_VIEW_CAPACITY_PASS idleCalls=16 noDiskWorkUnderPressure=true freedCapacityRecovery=true actualGpuBallast=true");
       diskReads = type.getField("diskReads").getLong(renderer);
       uploaded = type.getField("uploadedChunks").getLong(renderer);
       restored = ((Map<?, ?>) field(type, "cache").get(renderer)).containsKey(key);
@@ -209,7 +235,7 @@ final class LodDiskRecoveryChecks {
     String record = "LOD_DISK_RECOVERY_NATIVE_PASS backend=" + backend
         + " retainedAfterOutside=" + retained + " diskReads=" + diskReads
         + " uploadedChunks=" + uploaded + " restored=" + restored
-        + " evictionCycles=4 fixedViewIdleCalls=16 cameraMoveRecovery=true editPersistenceControls=4 nativeCapturePersisted=true queuedEditGuard=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu\n";
+        + " evictionCycles=4 fixedViewIdleCalls=16 freedCapacityRecovery=true actualGpuBallast=true editPersistenceControls=4 nativeCapturePersisted=true queuedEditGuard=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu\n";
     Files.writeString(output.resolve("lod-disk-recovery.txt"), record);
     System.out.print(record);
   }
