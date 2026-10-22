@@ -48,7 +48,7 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 | Topic | Status | Direction |
 | --- | --- | --- |
 | First tools | Confirmed | PrimalCore-inspired flint, loose rock, and bone tools, followed by developed stone tooling and later metals. |
-| Water | Confirmed direction | Distinct real-world water types; varying groundwater per chunk; wells and hybrid depletion/recharge. Elevation-based quality is a proposal to refine, not a guaranteed purity rule. |
+| Water | Confirmed direction; expanded 2026-10-22 | Distinct water types; finite local physics with renewable regional reservoirs, perennial major rivers, seasonal melt and desert wet/dry states, shared depletable wells, stable mean ocean level and accounted recycling. Local floods remain physical; strict depletion/source safety are optional. See [water mechanics](WATER-BUDGET-REQUIREMENTS.md). Elevation is not a guaranteed purity rule. |
 | Transport | Confirmed breadth | Personal storage, sledges/handcarts, pack animals, animal carts, rail carts, rafts, boats, and towable cargo craft. Horses, mules, and donkeys can pull appropriate carts. |
 | Steam transport | Proposed extension | Coal-fired steam trains and boats; extends the previous mechanical-only ceiling if adopted. No electrical industry implied. |
 | Time | Confirmed direction | Familiar TFC/Minecraft behavior, not a new real-time offline simulator. Use the TFC 1.21.x baseline and verify each subsystem. |
@@ -116,6 +116,16 @@ Research basis: USGS documents groundwater in permeable layers, variable recharg
 
 - [USGS: Aquifers and Groundwater](https://www.usgs.gov/water-science-school/science/aquifers-and-groundwater)
 - [USGS: Contamination of Groundwater](https://www.usgs.gov/water-science-school/science/contamination-groundwater)
+
+### Renewable rivers and seasonal surface water — approved 2026-10-22
+
+The owner approved the hybrid proposal and clarified that temporary desert flooding should recede through the following dry period. The [water mechanics contract](WATER-BUDGET-REQUIREMENTS.md) now governs metered regional headwaters, locally finite water, renewable minimum supply for designated major rivers, seasonal glacial/snowmelt streams, shared groundwater and accounted ocean/atmosphere recycling at stable average sea level.
+
+This preserves well depletion/recovery and bounded extraction; it does not make every groundwater source or river cell infinitely renewable. Actual basin storage and outlets govern local damming/floods. Optional strict mode removes protected baseflow; optional source safety limits new delivery under backpressure/capacity constraints without deleting stored water.
+
+Seasonal desert washes/lakes may fill, shrink into pools/damp ground and expose dry beds as weather, substrate and the water budget change. A sufficiently supplied river or spring may remain wet in a desert. Evaporation, infiltration and drainage transfer water to named accounts; visual hiding is not physical drying. Wet/dry season timing follows the later local climate plan rather than a rule that every desert has winter rain.
+
+Numeric rates, reservation/extraction priority, climate thresholds and release placement remain open. This records accepted mechanics, not completed runtime implementation or an expansion of environmental catalog implementation.
 
 ## Transport and connected storage
 

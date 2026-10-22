@@ -16,6 +16,10 @@ The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-202
 
 **Water/source acceptance:** require supported partial-height descending steps, proper banks and source scale, distinct river speeds, source-derived color/confluence mixing, richer coasts/currents and climate-aware deep snow. A broad headwater needs a substantial contained lake or sufficient accumulated supply; a small spring should begin narrow. See P0-RENDER, TERRAIN-01/02, WATER-01/03, OCEAN-01/02 and SNOW-01 in the audit.
 
+## Adopted water-cycle direction — 2026-10-22
+
+The [water mechanics contract](WATER-BUDGET-REQUIREMENTS.md) is now owner-approved design: finite physical water locally, metered renewable regional reservoirs, perennial major-river allocations, seasonal glacial/desert surface waters, depletable wells, and accounted ocean/atmosphere recycling at stable average sea level. Local backwater/flooding remains meaningful; strict depletion and source safety are optional. Evaporation/infiltration/drainage drive real recession rather than hiding fluid. Implement coarse/loaded ownership with bounded work and no double accounting. Alpha 21 presentation does not implement these reservoir/cycle mechanics.
+
 ## Built-in terrain engine requirements and inspiration
 
 The target is our own Overworld generator and biome/region decisions: original continents, connected relief/drainage/lakes, geological/climate fields, terrain-derived material rules and deliberate feature placement. Use Minecraft/NeoForge as host infrastructure; do not delegate those world-design decisions to the standard vanilla Overworld noise/biome pipeline. Generic noise functions and serialized data are implementation tools, not evidence of vanilla or original terrain by themselves. Nether/End remain native in the current prototypes; no replacement of those dimensions is claimed.

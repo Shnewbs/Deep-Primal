@@ -31,7 +31,7 @@ Deep Primal remains the product. Its original Overworld terrain/liquid engine is
 
 The aim is to build better integrated Deep Primal systems, with improvements demonstrated by behavior and matched measurements. TFC/Terralith/Tectonic and PhysEx Reborn, Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons remain references, not bundled generators/engines. Gaea/World Machine techniques guide independently authored region planning. Meshoptimizer is still a development probe, not a runtime dependency. Environmental catalogs remain planning-only until separately authorized. See [architecture/reference status](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) and [alpha 21 validation](docs/VALIDATION-0.0.1-alpha.21.md).
 
-**Status:** integrated engine/LOD/settings alpha 0.0.1-alpha.20; full survival conversion remains in design. **Updated:** 2026-10-22. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** integrated engine/LOD/settings alpha 0.0.1-alpha.21; full survival conversion remains in design. **Updated:** 2026-10-22. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
@@ -49,6 +49,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
 - [Terrain, water, snow and LOD audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) — 20 linked projects, current source coverage, detailed gaps and acceptance requirements
+- [Approved water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md) — watershed reservoirs, seasonal wet/dry surface water, perennial/strict policies, ocean recycling and blocked-river behavior; implementation open
 - [Biome plan and named roster](docs/BIOME-PLAN.md) — proposed profiles, regional communities, environmental layers and habitat coverage
 - [Named environmental type catalogs](docs/NATURAL-TYPE-CATALOG.md) — actual named planning rosters, with kinds and aliases labeled
 - [Environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) — planning completeness across materials, states, habitats and natural processes; implementation deferred by owner direction
@@ -64,7 +65,7 @@ The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md
 - [ ] **TERRAIN-03:** add deterministic erosion/deposition/material masks and bounded generated-support checks; remove repeated bowl/rim artifacts and unsuitable grass/surface placement.
 - [ ] **TERRAIN-04:** finish current/source continuity and boat navigation, versioned riparian bank/feature rules, biome identity preservation, foam/debris and bounded distant river effects; detailed Streams Reflowing comparison is in the three-project follow-up.
 - [ ] **WATER-01:** unify native sixteen-unit ownership with containers/displacement/waterlogging, fair basin work and per-frame water-height/wet-edge presentation.
-- [ ] **WATER-02:** integrate native rainfall, infiltration, groundwater, runoff, evaporation, drought and snowmelt budgets with bounded weather ownership.
+- [ ] **WATER-02:** implement the [approved hybrid water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md): metered reservoir-backed headwaters, renewable major-river baseflow, seasonal meltwater, depletable wells, balanced ocean/atmosphere recycling and stable average sea level; support strict depletion, local dam/overflow physics and optional source safety. Include wet-season desert flooding and physical dry-season recession into pools, damp ground and exposed beds through accounted evaporation/infiltration/drainage.
 - [ ] **WATER-03:** transport water composition, sediment/organic load and salinity; blend confluence plumes and underwater clarity consistently across near/far rendering.
 - [ ] **WATER-04:** provide lossless transactional native fluid ports, partial containers and progression-appropriate pumps/pipes/tanks/valves/sensors, plus separately tested optional machine adapters.
 - [ ] **WATER-05:** integrate rated pressure equipment, deep-water semantics, stamina, currents, mount swimming and useful warnings/navigation.
@@ -98,7 +99,7 @@ Prioritize enabled-view correctness and supported water steps/filling, then conn
 | Configuration | Domain-based settings, presets, tunables, and optional gameplay modules with working defaults. Shared core services remain required. |
 | Documentation | Native Markdown/datapack field guide and independent inspection API; optional tooltip integrations. |
 | Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep personal inventory defaults on; recover freight in the world. Configurable fatigue escalation for closely spaced deaths, resetting after a death-free interval; optional teams/guilds/parties. |
-| Water and logistics | Hybrid groundwater depletion/recharge, wells, broad transport coverage, and local connected storage are desired; native remote retrieval/deposit is excluded; detailed rules are in the dated decisions. |
+| Water and logistics | Approved hybrid finite local water plus renewable watershed reservoirs, designated perennial major rivers, seasonal melt streams/desert inundation and recession, shared depletable aquifers/wells, accounted ocean recycling with stable mean sea level, and real local flood/dam behavior. Strict depletion and source safety are optional. See [water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md); broad transport/local storage remain desired and native remote retrieval/deposit is excluded. |
 | Navigation and activities | Configurable native maps/compass/biome titles, slot-free hearth return (including an occupied rideable cart/wagon and its cargo), body-region health, hunting, weight-based meat/material yields for all animals, and species journal; full scope is not automatically part of v0.1. |
 | XP and resources | Non-spendable MMO-style XP with a maximum level; vanilla XP cannot be restored; finite veins and high-reserve bedrock ore; remeltable scrap, salvage piles, and configurable disposal. |
 

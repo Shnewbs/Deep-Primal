@@ -195,6 +195,8 @@ See the [connected biome plan](BIOME-PLAN.md), [118-profile named roster](BIOME-
 
 The [2026-10-22 terrain/water/snow/LOD audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) supplies the detailed connected-drainage, source-lake sizing, erosion/material placement, water composition/mixing, ocean and snow requirements, with current-source status and acceptance evidence. Reference inspiration does not establish implementation.
 
+**Approved water mechanics, 2026-10-22:** [renewable watershed reservoirs with finite local physics](WATER-BUDGET-REQUIREMENTS.md). Designated major rivers receive budgeted renewable baseflow; glacial streams and temporary desert waters respond seasonally. Surface floods recede through accounted evaporation, infiltration and drainage into pools/damp ground/exposed beds, while supplied rivers/oases can persist. Shared wells remain depletable. Ocean/atmosphere recycling maintains stable average sea level; local damming/overflow stays physical, with optional strict depletion and source safety. Numerical climate/recharge tuning and implementation remain open.
+
 The "realism" pillar means the world's raw materials are varied and behave like their real counterparts.
 
 **Stone**

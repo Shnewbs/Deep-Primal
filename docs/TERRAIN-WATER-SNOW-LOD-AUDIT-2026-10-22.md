@@ -130,6 +130,8 @@ Use independently authored algorithms. Any actual source/native-library/assets a
 
 ### WATER-02 — rainfall, groundwater, drought and snowmelt budgets
 
+**Later owner adoption, 2026-10-22:** the [hybrid water mechanics contract](WATER-BUDGET-REQUIREMENTS.md) selects renewable regional reservoirs plus finite local water, designated perennial rivers, seasonal melt/desert wet-dry regimes, depletable wells and accounted ocean recycling at stable mean sea level. Local floods remain physical; strict depletion and source safety are optional. This updates design direction, not the alpha 20 source evidence above; alpha 21 presentation progress is documented separately.
+
 - [ ] Feed measured precipitation into native soil storage, infiltration, aquifers, surface runoff and contained pools. Account for shelter, material permeability, slope, saturation, cold precipitation and locally moving/intensifying storms.
 - [ ] Route runoff to real lower outlets before raising a basin. Include evaporation, seepage, springs, extraction and recharge; use declared bounded reservoirs/boundary fluxes for large natural waters rather than untracked infinite blocks.
 - [ ] Link snowmelt/thaw to the same ledger. Persist soil/aquifer summaries, cap catch-up, and define unloaded-region/calendar behavior without scanning the whole world.
