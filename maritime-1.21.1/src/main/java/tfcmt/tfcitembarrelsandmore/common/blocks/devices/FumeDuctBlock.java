@@ -58,7 +58,7 @@ implements EntityBlock {
 
     public FumeDuctBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.defaultBlockState().setValue((Property)NORTH, (Comparable)Boolean.valueOf(false))).setValue((Property)SOUTH, (Comparable)Boolean.valueOf(false))).setValue((Property)EAST, (Comparable)Boolean.valueOf(false))).setValue((Property)WEST, (Comparable)Boolean.valueOf(false))).setValue((Property)UP, (Comparable)Boolean.valueOf(false))).setValue((Property)DOWN, (Comparable)Boolean.valueOf(false))).setValue((Property)NORTH_SIDE, (Comparable)Boolean.valueOf(false))).setValue((Property)SOUTH_SIDE, (Comparable)Boolean.valueOf(false))).setValue((Property)EAST_SIDE, (Comparable)Boolean.valueOf(false))).setValue((Property)WEST_SIDE, (Comparable)Boolean.valueOf(false))).setValue((Property)DOWN_SIDE, (Comparable)Boolean.valueOf(false))).setValue((Property)SIDE, (Comparable)Boolean.valueOf(false))).setValue(AXIS, (Comparable)Direction.Axis.Z));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.defaultBlockState().setValue((Property)NORTH, Boolean.valueOf(false))).setValue((Property)SOUTH, Boolean.valueOf(false))).setValue((Property)EAST, Boolean.valueOf(false))).setValue((Property)WEST, Boolean.valueOf(false))).setValue((Property)UP, Boolean.valueOf(false))).setValue((Property)DOWN, Boolean.valueOf(false))).setValue((Property)NORTH_SIDE, Boolean.valueOf(false))).setValue((Property)SOUTH_SIDE, Boolean.valueOf(false))).setValue((Property)EAST_SIDE, Boolean.valueOf(false))).setValue((Property)WEST_SIDE, Boolean.valueOf(false))).setValue((Property)DOWN_SIDE, Boolean.valueOf(false))).setValue((Property)SIDE, Boolean.valueOf(false))).setValue(AXIS, Direction.Axis.Z));
     }
 
     @Nullable
@@ -78,19 +78,19 @@ implements EntityBlock {
         if (clickedFace.getAxis() == Direction.Axis.Y) {
             BlockState state = this.defaultBlockState();
             for (Direction dir : Direction.values()) {
-                state = (BlockState)state.setValue((Property)PROPERTY_BY_DIRECTION.get(dir), (Comparable)Boolean.valueOf(FumeDuctBlock.connectsTo(dir, level.getBlockState(pos.relative(dir)))));
+                state = (BlockState)state.setValue((Property)PROPERTY_BY_DIRECTION.get(dir), Boolean.valueOf(FumeDuctBlock.connectsTo(dir, level.getBlockState(pos.relative(dir)))));
             }
             for (Direction dir : SIDE_PROPERTY_BY_DIRECTION.keySet()) {
                 BlockState neighbor = level.getBlockState(pos.relative(dir));
-                state = (BlockState)state.setValue((Property)SIDE_PROPERTY_BY_DIRECTION.get(dir), (Comparable)Boolean.valueOf(neighbor.getBlock() instanceof FumeDuctBlock && (Boolean)neighbor.getValue((Property)SIDE) != false));
+                state = (BlockState)state.setValue((Property)SIDE_PROPERTY_BY_DIRECTION.get(dir), Boolean.valueOf(neighbor.getBlock() instanceof FumeDuctBlock && (Boolean)neighbor.getValue((Property)SIDE) != false));
             }
             return state;
         }
         Direction.Axis axis = clickedFace.getAxis();
-        BlockState state = (BlockState)((BlockState)this.defaultBlockState().setValue((Property)SIDE, (Comparable)Boolean.valueOf(true))).setValue(AXIS, (Comparable)axis);
+        BlockState state = (BlockState)((BlockState)this.defaultBlockState().setValue((Property)SIDE, Boolean.valueOf(true))).setValue(AXIS, axis);
         for (Direction dir : Direction.values()) {
             if (dir == Direction.DOWN) continue;
-            state = (BlockState)state.setValue((Property)PROPERTY_BY_DIRECTION.get(dir), (Comparable)Boolean.valueOf(FumeDuctBlock.connectsTo(dir, level.getBlockState(pos.relative(dir)))));
+            state = (BlockState)state.setValue((Property)PROPERTY_BY_DIRECTION.get(dir), Boolean.valueOf(FumeDuctBlock.connectsTo(dir, level.getBlockState(pos.relative(dir)))));
         }
         return state;
     }
@@ -109,8 +109,8 @@ implements EntityBlock {
                 duct.unlink(direction);
             }
         }
-        if (!((Boolean)(state = (BlockState)state.setValue((Property)PROPERTY_BY_DIRECTION.get(direction), (Comparable)Boolean.valueOf(connected))).getValue((Property)SIDE)).booleanValue() && SIDE_PROPERTY_BY_DIRECTION.containsKey(direction)) {
-            state = (BlockState)state.setValue((Property)SIDE_PROPERTY_BY_DIRECTION.get(direction), (Comparable)Boolean.valueOf(neighborState.getBlock() instanceof FumeDuctBlock && (Boolean)neighborState.getValue((Property)SIDE) != false));
+        if (!((Boolean)(state = (BlockState)state.setValue((Property)PROPERTY_BY_DIRECTION.get(direction), Boolean.valueOf(connected))).getValue((Property)SIDE)).booleanValue() && SIDE_PROPERTY_BY_DIRECTION.containsKey(direction)) {
+            state = (BlockState)state.setValue((Property)SIDE_PROPERTY_BY_DIRECTION.get(direction), Boolean.valueOf(neighborState.getBlock() instanceof FumeDuctBlock && (Boolean)neighborState.getValue((Property)SIDE) != false));
         }
         return state;
     }
@@ -175,7 +175,7 @@ implements EntityBlock {
     }
 
     public static List<Direction> openVentExits(Level level, BlockPos pos) {
-        List<Object> exits;
+        List<Direction> exits;
         BlockState state = level.getBlockState(pos);
         if (!(state.getBlock() instanceof FumeDuctBlock)) {
             return List.of();

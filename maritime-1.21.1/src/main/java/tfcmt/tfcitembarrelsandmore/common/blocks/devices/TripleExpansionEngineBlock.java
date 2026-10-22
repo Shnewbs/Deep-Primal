@@ -57,7 +57,7 @@ extends DeviceBlock {
 
     public TripleExpansionEngineBlock(ExtendedProperties properties) {
         super(properties, DeviceBlock.InventoryRemoveBehavior.DROP);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, (Comparable)Direction.NORTH)).setValue((Property)LINKED, (Comparable)Boolean.valueOf(false))).setValue((Property)RUNNING, (Comparable)Boolean.valueOf(false)));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, Direction.NORTH)).setValue((Property)LINKED, Boolean.valueOf(false))).setValue((Property)RUNNING, Boolean.valueOf(false)));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -66,7 +66,7 @@ extends DeviceBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)ctx.getHorizontalDirection().getOpposite());
+        return (BlockState)this.defaultBlockState().setValue((Property)FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
@@ -84,13 +84,13 @@ extends DeviceBlock {
             return;
         }
         Direction facing = (Direction)state.getValue((Property)FACING);
-        BlockState filler = (BlockState)((Block)TIBAMBlocks.ENGINE_FILLER.get()).defaultBlockState().setValue((Property)EngineFillerBlock.FACING, (Comparable)facing);
+        BlockState filler = (BlockState)((Block)TIBAMBlocks.ENGINE_FILLER.get()).defaultBlockState().setValue((Property)EngineFillerBlock.FACING, facing);
         level.setBlock(pos.above(), (BlockState)filler.setValue(EngineFillerBlock.ROLE, EngineFillerBlock.Role.ABOVE), 3);
         level.setBlock(pos.relative(facing), (BlockState)filler.setValue(EngineFillerBlock.ROLE, EngineFillerBlock.Role.HORIZONTAL), 3);
         level.setBlock(pos.above().relative(facing), (BlockState)filler.setValue(EngineFillerBlock.ROLE, EngineFillerBlock.Role.DIAGONAL), 3);
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         return InteractionResult.PASS;
     }
 
@@ -102,14 +102,14 @@ extends DeviceBlock {
         return SHAPES.getOrDefault(state.getValue((Property)FACING), Shapes.block());
     }
 
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
             ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, new ItemStack((ItemLike)this));
             entity.setDefaultPickUpDelay();
             level.addFreshEntity((Entity)entity);
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
@@ -175,6 +175,21 @@ extends DeviceBlock {
         SHAPES.put(Direction.NORTH, Block.box((double)0.0, (double)0.0, (double)-16.0, (double)16.0, (double)32.0, (double)16.0));
         SHAPES.put(Direction.EAST, Block.box((double)0.0, (double)0.0, (double)0.0, (double)32.0, (double)32.0, (double)16.0));
         SHAPES.put(Direction.WEST, Block.box((double)-16.0, (double)0.0, (double)0.0, (double)16.0, (double)32.0, (double)16.0));
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

@@ -1,8 +1,17 @@
 {
   "replace": false,
   "values": [
-    "create:fake_track",
-    "create:honey",
-    "create:chocolate"
+    {
+      "id": "create:fake_track",
+      "required": false
+    },
+    {
+      "id": "create:honey",
+      "required": false
+    },
+    {
+      "id": "create:chocolate",
+      "required": false
+    }
   ]
 }

@@ -26,7 +26,7 @@ public final class ExpellerPressRecipe extends ItemRecipe {
     public static final MapCodec<ExpellerPressRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
         Ingredient.CODEC.fieldOf("ingredient").forGetter(ExpellerPressRecipe::getIngredient),
         FluidStack.CODEC.fieldOf("result_fluid").forGetter(r -> r.resultFluid),
-        Codec.intRange(1, Integer.MAX_VALUE).optionalFieldOf("result_fluid_min", 100).forGetter(r -> r.resultFluidMin),
+        Codec.intRange(1, Integer.MAX_VALUE).optionalFieldOf("result_fluid_min", Integer.MAX_VALUE).forGetter(r -> r.resultFluidMin),
         ItemStack.CODEC.optionalFieldOf("result_item", ItemStack.EMPTY).forGetter(r -> r.resultItem),
         Codec.intRange(1, Integer.MAX_VALUE).optionalFieldOf("press_ticks", 600).forGetter(r -> r.pressTicks)).apply(i, ExpellerPressRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, ExpellerPressRecipe> STREAM_CODEC = StreamCodec.composite(

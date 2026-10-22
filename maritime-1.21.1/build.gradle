@@ -11,6 +11,7 @@ repositories {
     maven { url = 'https://maven.theillusivec4.top/' }
     maven { url = 'https://maven.createmod.net' }
     maven { url = 'https://maven.tterrag.com' }
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
     maven { url = 'https://maven.valkyrienskies.org' }
 }
 neoForge {
@@ -25,7 +26,9 @@ neoForge {
 }
 dependencies {
     implementation files('libs/tfc-4.2.12.jar')
+    runtimeOnly 'vazkii.patchouli:Patchouli:1.21.1-92-NEOFORGE'
     compileOnly 'org.valkyrienskies.core:api:1.1.0+2d6eb6ff55'
+    compileOnly('maven.modrinth:sodium-dynamic-lights:XI0WLXdn') { transitive = false }
     compileOnly 'mezz.jei:jei-1.21.1-common-api:19.25.0.321'
     compileOnly 'mezz.jei:jei-1.21.1-neoforge-api:19.25.0.321'
     compileOnly 'com.simibubi.create:create-1.21.1:6.0.11-319'
@@ -51,3 +54,4 @@ tasks.named('compileJava') { dependsOn 'fetchTfc' }
 // The preserved 1.20.1 data tree is never used for the port's datapack.
 sourceSets.main.resources { exclude 'assets/**'; exclude 'data/**' }
 tasks.named('processResources', ProcessResources) { from 'src/ported/resources' }
+sourceSets.main.java.exclude 'com/example/**'

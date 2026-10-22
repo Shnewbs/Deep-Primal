@@ -1,7 +1,5 @@
 package tfcmt.tfcitembarrelsandmore.client;
 
-import dev.lambdaurora.lambdynlights.api.item.ItemLightSource;
-import dev.lambdaurora.lambdynlights.api.item.ItemLightSources;
 import java.util.Map;
 import net.dries007.tfc.client.model.entity.WaterWheelModel;
 import net.minecraft.client.Minecraft;
@@ -31,7 +29,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import tfcmt.tfcitembarrelsandmore.client.BraceClientCache;
-import tfcmt.tfcitembarrelsandmore.client.curios.ItemBarrelCurioRenderer;
 import tfcmt.tfcitembarrelsandmore.client.model.DiveSuitModel;
 import tfcmt.tfcitembarrelsandmore.client.model.TFCBarrelBracedModel;
 import tfcmt.tfcitembarrelsandmore.client.renderer.AirCompressorBlockEntityRenderer;
@@ -66,13 +63,9 @@ import tfcmt.tfcitembarrelsandmore.common.TIBAMContainerTypes;
 import tfcmt.tfcitembarrelsandmore.common.TIBAMEntities;
 import tfcmt.tfcitembarrelsandmore.common.blockentities.ExplorationLampBlockEntity;
 import tfcmt.tfcitembarrelsandmore.common.items.ExplorationLampBlockItem;
-import tfcmt.tfcitembarrelsandmore.compat.create.CreateCompat;
-import tfcmt.tfcitembarrelsandmore.compat.create.SpeedTelegraphInputRenderer;
-import tfcmt.tfcitembarrelsandmore.compat.create.SpeedTelegraphOutputRenderer;
 import tfcmt.tfcitembarrelsandmore.compat.create.TFCSpeedTelegraphInputRenderer;
 import tfcmt.tfcitembarrelsandmore.compat.create.TFCSpeedTelegraphOutputRenderer;
 import tfcmt.tfcitembarrelsandmore.tfcitembarrelsandmore;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @EventBusSubscriber(modid="tfc_item_barrels_and_more", bus=EventBusSubscriber.Bus.MOD, value={Dist.CLIENT})
 public class TIBAMClientEvents {
@@ -80,51 +73,36 @@ public class TIBAMClientEvents {
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             NeoForge.EVENT_BUS.addListener(TIBAMClientEvents::onPlayerLogout);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.BOILER.get()), BoilerBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get()), ItemBarrelRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.GRINDER.get()), GrinderBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.MECHANICAL_POWER_HAMMER.get()), MechanicalPowerHammerBER::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.PNEUMATIC_POWER_HAMMER.get()), PneumaticPowerHammerBER::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.EXPELLER_PRESS.get()), ExpellerPressBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.SINGLE_PISTON_ENGINE.get()), SinglePistonEngineBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.LARGE_SINGLE_PISTON_ENGINE.get()), LargeSinglePistonEngineBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.TRIPLE_EXPANSION_ENGINE.get()), TripleExpansionEngineBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.CAST_IRON_AXLE.get()), CastIronAxleBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.CAST_IRON_AXLE_BRACE.get()), CastIronAxleBraceRenderer::new);
-            BlockEntityType propellerType = (BlockEntityType)TIBAMBlockEntities.PROPELLER.get();
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.BOILER.get()), BoilerBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.ITEM_BARREL.get()), ItemBarrelRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.GRINDER.get()), GrinderBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.MECHANICAL_POWER_HAMMER.get()), MechanicalPowerHammerBER::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.PNEUMATIC_POWER_HAMMER.get()), PneumaticPowerHammerBER::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.EXPELLER_PRESS.get()), ExpellerPressBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.SINGLE_PISTON_ENGINE.get()), SinglePistonEngineBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.LARGE_SINGLE_PISTON_ENGINE.get()), LargeSinglePistonEngineBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.TRIPLE_EXPANSION_ENGINE.get()), TripleExpansionEngineBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.CAST_IRON_AXLE.get()), CastIronAxleBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.CAST_IRON_AXLE_BRACE.get()), CastIronAxleBraceRenderer::new);
+            BlockEntityType propellerType = TIBAMBlockEntities.PROPELLER.get();
             BlockEntityRenderers.register((BlockEntityType)propellerType, PropellerBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.WATER_PADDLE.get()), WaterPaddleBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.MAST_ANCHOR.get()), MastCellRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.MAST_FILLER.get()), MastCellRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.YARD_FILLER.get()), YardCellRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.BOOM_FILLER.get()), BoomCellRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.AIR_COMPRESSOR.get()), AirCompressorBlockEntityRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.EXPLORATION_LAMP.get()), ExplorationLampBER::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_INPUT.get()), TFCSpeedTelegraphInputRenderer::new);
-            BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_OUTPUT.get()), TFCSpeedTelegraphOutputRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.WATER_PADDLE.get()), WaterPaddleBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.MAST_ANCHOR.get()), MastCellRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.MAST_FILLER.get()), MastCellRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.YARD_FILLER.get()), YardCellRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.BOOM_FILLER.get()), BoomCellRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.AIR_COMPRESSOR.get()), AirCompressorBlockEntityRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.EXPLORATION_LAMP.get()), ExplorationLampBER::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_INPUT.get()), TFCSpeedTelegraphInputRenderer::new);
+            BlockEntityRenderers.register((BlockEntityType)(TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_OUTPUT.get()), TFCSpeedTelegraphOutputRenderer::new);
             if (ModList.get().isLoaded("create")) {
-                BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)CreateCompat.SPEED_TELEGRAPH_INPUT_BE.get()), SpeedTelegraphInputRenderer::new);
-                BlockEntityRenderers.register((BlockEntityType)((BlockEntityType)CreateCompat.SPEED_TELEGRAPH_OUTPUT_BE.get()), SpeedTelegraphOutputRenderer::new);
+                tfcmt.tfcitembarrelsandmore.client.compat.CreateClient.registerRenderers();
             }
             if (ModList.get().isLoaded("sodiumdynamiclights")) {
-                try {
-                    ItemLightSources.registerItemLightSource((ItemLightSource)new ItemLightSource(ResourceLocation.fromNamespaceAndPath("tfc_item_barrels_and_more", "exploration_lamp"), ((Block)TIBAMBlocks.EXPLORATION_LAMP.get()).asItem(), true){
-
-                        public int getLuminance(ItemStack stack) {
-                            if (!ExplorationLampBlockItem.isLit(stack)) {
-                                return 0;
-                            }
-                            return ExplorationLampBlockItem.getModeFromStack(stack) == ExplorationLampBlockEntity.Mode.SEARCH ? 15 : 14;
-                        }
-                    });
-                    ItemLightSources.load((ResourceManager)Minecraft.getInstance().getResourceManager());
-                }
-                catch (Throwable t) {
-                    tfcitembarrelsandmore.LOGGER.error("[TIBAM] exploration lamp ItemLightSource registration FAILED", t);
-                }
+                tfcmt.tfcitembarrelsandmore.client.compat.DynamicLightsClient.register();
             }
             if (ModList.get().isLoaded("curios")) {
-                TIBAMBlocks.ITEM_BARRELS.values().forEach(ro -> CuriosRendererRegistry.register((Item)((Block)ro.get()).asItem(), ItemBarrelCurioRenderer::new));
+                tfcmt.tfcitembarrelsandmore.client.compat.CuriosClient.registerRenderers();
             }
             TIBAMBlocks.ITEM_BARRELS.forEach((wood, blockRO) -> ItemProperties.register((Item)((Block)blockRO.get()).asItem(), (ResourceLocation)ResourceLocation.fromNamespaceAndPath("tfc_item_barrels_and_more", "sealed"), (stack, level, entity, seed) -> {
                 CompoundTag tag;

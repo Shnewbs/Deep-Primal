@@ -17,40 +17,25 @@ import tfcmt.tfcitembarrelsandmore.client.model.DiveSuitModel;
 
 public class DiveSuitArmorItem
 extends ArmorItem {
-    public DiveSuitArmorItem(ArmorMaterial material, ArmorItem.Type type, Item.Properties properties) {
+    public DiveSuitArmorItem(net.minecraft.core.Holder<ArmorMaterial> material, ArmorItem.Type type, Item.Properties properties) {
         super(material, type, properties);
     }
 
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return "tfc_item_barrels_and_more:textures/models/armor/dive_suit.png";
+    @Override public net.minecraft.resources.ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean inner) {
+        return net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("tfc_item_barrels_and_more", "textures/models/armor/dive_suit.png");
     }
 
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions(){
 
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-                ModelLayerLocation layer;
-                switch (equipmentSlot) {
-                    case HEAD: {
-                        ModelLayerLocation modelLayerLocation = DiveSuitModel.HELMET_LAYER;
-                        break;
-                    }
-                    case CHEST: {
-                        ModelLayerLocation modelLayerLocation = DiveSuitModel.CHEST_LAYER;
-                        break;
-                    }
-                    case LEGS: {
-                        ModelLayerLocation modelLayerLocation = DiveSuitModel.LEGGINGS_LAYER;
-                        break;
-                    }
-                    case FEET: {
-                        ModelLayerLocation modelLayerLocation = DiveSuitModel.BOOTS_LAYER;
-                        break;
-                    }
-                    default: {
-                        ModelLayerLocation modelLayerLocation = layer = null;
-                    }
-                }
+                ModelLayerLocation layer = switch (equipmentSlot) {
+                    case HEAD -> DiveSuitModel.HELMET_LAYER;
+                    case CHEST -> DiveSuitModel.CHEST_LAYER;
+                    case LEGS -> DiveSuitModel.LEGGINGS_LAYER;
+                    case FEET -> DiveSuitModel.BOOTS_LAYER;
+                    default -> null;
+                };
                 if (layer == null) {
                     return original;
                 }

@@ -24,7 +24,7 @@ extends Block {
 
     public EngineFillerBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)Direction.NORTH)).setValue(ROLE, Role.ABOVE));
+        this.registerDefaultState((BlockState)((BlockState)this.defaultBlockState().setValue((Property)FACING, Direction.NORTH)).setValue(ROLE, Role.ABOVE));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -41,7 +41,7 @@ extends Block {
         };
     }
 
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         BlockPos masterPos;
         BlockState masterState;
         Block masterBlock;
@@ -49,7 +49,7 @@ extends Block {
             masterBlock.playerWillDestroy(level, masterPos, masterState, player);
             level.destroyBlock(masterPos, false);
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {

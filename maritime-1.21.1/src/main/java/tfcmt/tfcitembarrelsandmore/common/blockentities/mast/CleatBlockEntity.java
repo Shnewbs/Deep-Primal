@@ -29,7 +29,7 @@ implements RigLinkable {
     private final Map<RigSlot, Set<RigLink>> rigLinks = new EnumMap<RigSlot, Set<RigLink>>(RigSlot.class);
 
     public CleatBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.CLEAT.get(), pos, state);
+        super(TIBAMBlockEntities.CLEAT.get(), pos, state);
     }
 
     @Override
@@ -118,7 +118,7 @@ implements RigLinkable {
     }
 
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.handleUpdateTag(pkt.getTag());
+        this.handleUpdateTag(pkt.getTag(), this.level.registryAccess());
     }
 }
 

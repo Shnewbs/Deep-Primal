@@ -18,7 +18,7 @@ extends AbstractContainerScreen<SmokeShackContainer> {
     private static final int COL_H = 50;
 
     public SmokeShackScreen(SmokeShackContainer container, Inventory playerInventory, Component title) {
-        super((AbstractContainerMenu)container, playerInventory, title);
+        super(container, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 166;
         this.inventoryLabelY = 72;

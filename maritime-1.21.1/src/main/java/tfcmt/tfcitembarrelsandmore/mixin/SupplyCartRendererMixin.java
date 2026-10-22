@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import tfcastikorcarts.client.renderer.entity.TFCSupplyCartRenderer;
-import tfcastikorcarts.common.entities.carts.TFCSupplyCartEntity;
+
+
 import tfcmt.tfcitembarrelsandmore.compat.astikorcarts.BarrelCartHandler;
 
 @Pseudo
-@Mixin(value={TFCSupplyCartRenderer.class}, remap=false)
+@Mixin(targets="tfcastikorcarts.client.renderer.entity.TFCSupplyCartRenderer", remap=false)
 public class SupplyCartRendererMixin {
     private static final float[] BX = new float[]{-0.22f, 0.22f, -0.22f, 0.22f};
     private static final float[] BZ = new float[]{0.14f, 0.14f, -0.14f, -0.14f};
@@ -30,7 +30,7 @@ public class SupplyCartRendererMixin {
     private static final float SCALE = 0.36f;
 
     @Inject(method={"renderContents(Ltfcastikorcarts/common/entities/carts/TFCSupplyCartEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V"}, at={@At(value="HEAD")}, cancellable=true)
-    private void tibam$renderBarrels(TFCSupplyCartEntity entity, float partialTick, PoseStack pose, MultiBufferSource buffers, int packedLight, CallbackInfo ci) {
+    private void tibam$renderBarrels(@org.spongepowered.asm.mixin.injection.Coerce Object entity, float partialTick, PoseStack pose, MultiBufferSource buffers, int packedLight, CallbackInfo ci) {
         if (!BarrelCartHandler.isBarrelMode(entity)) {
             return;
         }
@@ -38,7 +38,9 @@ public class SupplyCartRendererMixin {
         BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
         for (int i = 0; i < 4; ++i) {
             Item item;
-            ItemStack stack = entity.inventory.getStackInSlot(i);
+            var inventory = BarrelCartHandler.inventory(entity);
+            if (inventory == null) return;
+            ItemStack stack = inventory.getStackInSlot(i);
             if (stack.isEmpty() || !((item = stack.getItem()) instanceof BlockItem)) continue;
             BlockItem bi = (BlockItem)item;
             BlockState state = bi.getBlock().defaultBlockState();

@@ -35,7 +35,6 @@ implements BlockEntityRenderer<ExplorationLampBlockEntity> {
     }
 
     public void render(ExplorationLampBlockEntity be, float partialTick, PoseStack ps, MultiBufferSource buffers, int packedLight, int packedOverlay) {
-        float yRot;
         if (be.getLevel() == null) {
             return;
         }
@@ -46,23 +45,12 @@ implements BlockEntityRenderer<ExplorationLampBlockEntity> {
         Direction facing = (Direction)be.getBlockState().getValue((Property)ExplorationLampBlock.FACING);
         long gameTime = be.getLevel().getGameTime();
         ps.pushPose();
-        switch (facing) {
-            case SOUTH: {
-                float f = 180.0f;
-                break;
-            }
-            case EAST: {
-                float f = 270.0f;
-                break;
-            }
-            case WEST: {
-                float f = 90.0f;
-                break;
-            }
-            default: {
-                float f = yRot = 0.0f;
-            }
-        }
+        float yRot = switch (facing) {
+            case SOUTH -> 180.0f;
+            case EAST -> 270.0f;
+            case WEST -> 90.0f;
+            default -> 0.0f;
+        };
         if (yRot != 0.0f) {
             ps.translate(0.5f, 0.0f, 0.5f);
             ps.mulPose(Axis.YP.rotationDegrees(yRot));

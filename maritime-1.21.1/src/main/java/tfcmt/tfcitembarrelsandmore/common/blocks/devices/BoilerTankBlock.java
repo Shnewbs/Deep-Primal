@@ -57,7 +57,7 @@ extends DeviceBlock {
 
     public BoilerTankBlock(ExtendedProperties properties) {
         super(properties, DeviceBlock.InventoryRemoveBehavior.DROP);
-        this.registerDefaultState((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, (Comparable)Direction.NORTH));
+        this.registerDefaultState((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, Direction.NORTH));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -70,7 +70,7 @@ extends DeviceBlock {
         Level level = ctx.getLevel();
         BlockState belowState = level.getBlockState(below = ctx.getClickedPos().below());
         Direction facing = belowState.getBlock() instanceof BoilerBlock && belowState.hasProperty((Property)BoilerBlock.FACING) ? (Direction)belowState.getValue((Property)BoilerBlock.FACING) : ctx.getHorizontalDirection().getOpposite();
-        return (BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)facing);
+        return (BlockState)this.defaultBlockState().setValue((Property)FACING, facing);
     }
 
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
@@ -78,12 +78,12 @@ extends DeviceBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (!level.isClientSide && tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.has(stack) && tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.get(stack).contains(NBT_FLUID) && (blockEntity = level.getBlockEntity(pos)) instanceof BoilerTankBlockEntity) {
             BoilerTankBlockEntity tank = (BoilerTankBlockEntity)blockEntity;
-            FluidStack fluid = FluidStack.loadFluidStackFromNBT((CompoundTag)tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.get(stack).getCompound(NBT_FLUID));
+            FluidStack fluid = FluidStack.parseOptional(level.registryAccess(), tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.get(stack).getCompound(NBT_FLUID));
             tank.getWaterTank().fill(fluid, IFluidHandler.FluidAction.EXECUTE);
         }
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof BoilerTankBlockEntity) {
             BoilerTankBlockEntity tank = (BoilerTankBlockEntity)blockEntity;
@@ -92,25 +92,25 @@ extends DeviceBlock {
         return InteractionResult.PASS;
     }
 
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, net.minecraft.world.level.LevelReader level, BlockPos pos, Player player) {
         BoilerTankBlockEntity tank;
         FluidStack fluid;
         ItemStack stack = super.getCloneItemStack(state, target, level, pos, player);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof BoilerTankBlockEntity && !(fluid = (tank = (BoilerTankBlockEntity)blockEntity).getWaterTank().getFluid()).isEmpty()) {
-            tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.update(stack, data -> data.put(NBT_FLUID, (Tag)fluid.writeToNBT(new CompoundTag())));
+            tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.update(stack, data -> data.put(NBT_FLUID, (Tag)fluid.saveOptional(level.registryAccess())));
         }
         return stack;
     }
 
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
-            ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, this.getCloneItemStack(state, null, (BlockGetter)level, pos, player));
+            ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, this.getCloneItemStack(state, null, (net.minecraft.world.level.LevelReader)level, pos, player));
             entity.setDefaultPickUpDelay();
             level.addFreshEntity((Entity)entity);
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
@@ -122,29 +122,28 @@ extends DeviceBlock {
 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockPos[] blockPosArray;
-        if (!state.is(newState.getBlock()) && !level.isClientSide && (blockPosArray = level.getBlockEntity(pos)) instanceof BoilerTankBlockEntity) {
-            BoilerTankBlockEntity tank = (BoilerTankBlockEntity)blockPosArray;
+        if (!state.is(newState.getBlock()) && !level.isClientSide && (level.getBlockEntity(pos)) instanceof BoilerTankBlockEntity tank) {
             for (BlockPos candidate : tank.getCandidateEnginePositions(state, pos)) {
                 TickableInventoryBlockEntity engineBe;
                 BlockEntity blockEntity;
                 BlockState stopped;
                 BlockState s = level.getBlockState(candidate);
                 if (s.is((Block)TIBAMBlocks.TRIPLE_EXPANSION_ENGINE.get()) && ((Boolean)s.getValue((Property)TripleExpansionEngineBlock.LINKED)).booleanValue()) {
-                    stopped = (BlockState)s.setValue((Property)TripleExpansionEngineBlock.LINKED, (Comparable)Boolean.valueOf(false));
+                    stopped = (BlockState)s.setValue((Property)TripleExpansionEngineBlock.LINKED, Boolean.valueOf(false));
                     level.setBlock(candidate, stopped, 2);
                     blockEntity = level.getBlockEntity(candidate);
                     if (!(blockEntity instanceof TripleExpansionEngineBlockEntity)) continue;
                     engineBe = (TripleExpansionEngineBlockEntity)blockEntity;
-                    engineBe.tickIdle(level, candidate, stopped);
+                    ((TripleExpansionEngineBlockEntity)engineBe).tickIdle(level, candidate, stopped);
                     continue;
                 }
                 if (!s.is((Block)TIBAMBlocks.LARGE_SINGLE_PISTON_ENGINE.get()) || !((Boolean)s.getValue((Property)LargeSinglePistonEngineBlock.LINKED)).booleanValue()) continue;
-                stopped = (BlockState)s.setValue((Property)LargeSinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(false));
+                stopped = (BlockState)s.setValue((Property)LargeSinglePistonEngineBlock.LINKED, Boolean.valueOf(false));
                 level.setBlock(candidate, stopped, 2);
                 blockEntity = level.getBlockEntity(candidate);
                 if (!(blockEntity instanceof LargeSinglePistonEngineBlockEntity)) continue;
                 engineBe = (LargeSinglePistonEngineBlockEntity)blockEntity;
-                engineBe.tickIdle(level, candidate, stopped);
+                ((LargeSinglePistonEngineBlockEntity)engineBe).tickIdle(level, candidate, stopped);
             }
             int rodsToDrop = tank.getLinkedEngineCount();
             for (int i = 0; i < rodsToDrop; ++i) {
@@ -181,6 +180,21 @@ extends DeviceBlock {
                 BoilerTankBlockEntity.serverTick(lvl, pos, st, tank);
             }
         };
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

@@ -63,12 +63,12 @@ public class TIBAMBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CleatBlockEntity>> CLEAT;
 
     static {
-        DeferredHolder[] holder2;
+        
         BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, (String)"tfc_item_barrels_and_more");
-        ITEM_BARREL = BLOCK_ENTITIES.register("item_barrel", () -> BlockEntityType.Builder.of((pos, state) -> new ItemBarrelBlockEntity((BlockEntityType)ITEM_BARREL.get(), pos, state), (Block[])((Block[])TIBAMBlocks.ITEM_BARRELS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))).build(null));
+        ITEM_BARREL = BLOCK_ENTITIES.register("item_barrel", () -> BlockEntityType.Builder.of((pos, state) -> new ItemBarrelBlockEntity(TIBAMBlockEntities.ITEM_BARREL.get(), pos, state), (Block[])((Block[])TIBAMBlocks.ITEM_BARRELS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))).build(null));
         BOILER = BLOCK_ENTITIES.register("boiler", () -> BlockEntityType.Builder.of(BoilerBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.BOILER.get()}).build(null));
-        BOILER_TANK = BLOCK_ENTITIES.register("boiler_tank", () -> BlockEntityType.Builder.of((pos, state) -> new BoilerTankBlockEntity((BlockEntityType)BOILER_TANK.get(), pos, state, BoilerTankBlockEntity.TankTier.CAST_IRON), (Block[])new Block[]{(Block)TIBAMBlocks.BOILER_TANK.get()}).build(null));
-        STEEL_BOILER_TANK = BLOCK_ENTITIES.register("steel_boiler_tank", () -> BlockEntityType.Builder.of((pos, state) -> new BoilerTankBlockEntity((BlockEntityType)STEEL_BOILER_TANK.get(), pos, state, BoilerTankBlockEntity.TankTier.STEEL), (Block[])new Block[]{(Block)TIBAMBlocks.STEEL_BOILER_TANK.get()}).build(null));
+        BOILER_TANK = BLOCK_ENTITIES.register("boiler_tank", () -> BlockEntityType.Builder.of((pos, state) -> new BoilerTankBlockEntity(TIBAMBlockEntities.BOILER_TANK.get(), pos, state, BoilerTankBlockEntity.TankTier.CAST_IRON), (Block[])new Block[]{(Block)TIBAMBlocks.BOILER_TANK.get()}).build(null));
+        STEEL_BOILER_TANK = BLOCK_ENTITIES.register("steel_boiler_tank", () -> BlockEntityType.Builder.of((pos, state) -> new BoilerTankBlockEntity(TIBAMBlockEntities.STEEL_BOILER_TANK.get(), pos, state, BoilerTankBlockEntity.TankTier.STEEL), (Block[])new Block[]{(Block)TIBAMBlocks.STEEL_BOILER_TANK.get()}).build(null));
         FUME_DUCT = BLOCK_ENTITIES.register("fume_hood_duct", () -> BlockEntityType.Builder.of(FumeDuctBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.FUME_HOOD_DUCT.get()}).build(null));
         SINGLE_PISTON_ENGINE = BLOCK_ENTITIES.register("single_piston_engine", () -> BlockEntityType.Builder.of(SinglePistonEngineBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.SINGLE_PISTON_ENGINE.get()}).build(null));
         TRIPLE_EXPANSION_ENGINE = BLOCK_ENTITIES.register("triple_expansion_engine", () -> BlockEntityType.Builder.of(TripleExpansionEngineBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.TRIPLE_EXPANSION_ENGINE.get()}).build(null));
@@ -83,8 +83,7 @@ public class TIBAMBlockEntities {
         PROPELLER = BLOCK_ENTITIES.register("propeller", () -> BlockEntityType.Builder.of(PropellerBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.TWO_BLADE_PROPELLER.get(), (Block)TIBAMBlocks.FOUR_BLADE_PROPELLER.get()}).build(null));
         WATER_PADDLE = BLOCK_ENTITIES.register("water_paddle", () -> BlockEntityType.Builder.of(WaterPaddleBlockEntity::new, (Block[])((Block[])TIBAMBlocks.WATER_PADDLES.values().stream().map(DeferredHolder::get).toArray(Block[]::new))).build(null));
         TFC_SPEED_TELEGRAPH_INPUT = BLOCK_ENTITIES.register("tfc_speed_telegraph_input", () -> BlockEntityType.Builder.of((pos, state) -> new TFCSpeedTelegraphInputBlockEntity(pos, state), (Block[])new Block[]{(Block)TIBAMBlocks.TFC_SPEED_TELEGRAPH_INPUT.get()}).build(null));
-        holder2 = new DeferredHolder[]{BLOCK_ENTITIES.register("tfc_speed_telegraph_output", () -> BlockEntityType.Builder.of((pos, state) -> new TFCSpeedTelegraphOutputBlockEntity((BlockEntityType)holder2[0].get(), pos, state), (Block[])new Block[]{(Block)TIBAMBlocks.TFC_SPEED_TELEGRAPH_OUTPUT.get()}).build(null))};
-        TFC_SPEED_TELEGRAPH_OUTPUT = holder2[0];
+        TFC_SPEED_TELEGRAPH_OUTPUT = BLOCK_ENTITIES.register("tfc_speed_telegraph_output", () -> BlockEntityType.Builder.of((pos, state) -> new TFCSpeedTelegraphOutputBlockEntity(TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_OUTPUT.get(), pos, state), TIBAMBlocks.TFC_SPEED_TELEGRAPH_OUTPUT.get()).build(null));
         EXPLORATION_LAMP = BLOCK_ENTITIES.register("exploration_lamp", () -> BlockEntityType.Builder.of(ExplorationLampBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.EXPLORATION_LAMP.get()}).build(null));
         AIR_COMPRESSOR = BLOCK_ENTITIES.register("air_compressor", () -> BlockEntityType.Builder.of(AirCompressorBlockEntity::new, (Block[])new Block[]{(Block)TIBAMBlocks.AIR_COMPRESSOR.get()}).build(null));
         MAST_ANCHOR = BLOCK_ENTITIES.register("mast_anchor", () -> BlockEntityType.Builder.of(MastBlockEntity::new, (Block[])((Block[])TIBAMBlocks.MAST_ANCHORS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))).build(null));

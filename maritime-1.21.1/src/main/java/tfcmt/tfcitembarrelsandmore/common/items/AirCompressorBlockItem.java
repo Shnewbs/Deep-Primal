@@ -22,8 +22,9 @@ extends SizedBlockItem {
         super(block, properties, size, weight);
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendHoverText(ItemStack stack, net.minecraft.world.item.Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        Level level = context.level();
+        super.appendHoverText(stack, context, tooltip, flag);
         if (!tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.has(stack) || !tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.get(stack).contains(NBT_COMPRESSED_AIR)) {
             return;
         }

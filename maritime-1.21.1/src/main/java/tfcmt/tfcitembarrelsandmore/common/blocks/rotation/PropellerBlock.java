@@ -37,7 +37,7 @@ implements EntityBlock {
     public PropellerBlock(BlockBehaviour.Properties properties, boolean requiresCastIron) {
         super(properties);
         this.requiresCastIron = requiresCastIron;
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue((Property)FACING, (Comparable)Direction.UP));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue((Property)FACING, Direction.UP));
     }
 
     public boolean requiresCastIron() {
@@ -54,7 +54,7 @@ implements EntityBlock {
             clicked = Direction.UP;
         }
         Direction facing = clicked.getOpposite();
-        return (BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)facing);
+        return (BlockState)this.defaultBlockState().setValue((Property)FACING, facing);
     }
 
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {

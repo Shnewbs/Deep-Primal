@@ -113,7 +113,7 @@ EngineSoundInstance.SteamEngineAccessor {
     }
 
     public SinglePistonEngineBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.SINGLE_PISTON_ENGINE.get(), pos, state, self -> new ItemStackHandler(2), NAME.getString());
+        super(TIBAMBlockEntities.SINGLE_PISTON_ENGINE.get(), pos, state, self -> new ItemStackHandler(2), NAME.getString());
         this.waterTank = new FluidTank((Integer)TIBAMConfig.SERVER.engineWaterCapacity.get()){
 
             public boolean isFluidValid(FluidStack stack) {
@@ -245,7 +245,7 @@ EngineSoundInstance.SteamEngineAccessor {
         }
         this.running = shouldRun;
         if ((Boolean)liveState.getValue((Property)SinglePistonEngineBlock.RUNNING) != shouldRun) {
-            level.setBlock(pos, (BlockState)liveState.setValue((Property)SinglePistonEngineBlock.RUNNING, (Comparable)Boolean.valueOf(shouldRun)), 2);
+            level.setBlock(pos, (BlockState)liveState.setValue((Property)SinglePistonEngineBlock.RUNNING, Boolean.valueOf(shouldRun)), 2);
             this.performNetworkAction(NetworkAction.UPDATE);
             this.setChanged();
             this.markForSync();
@@ -314,12 +314,12 @@ EngineSoundInstance.SteamEngineAccessor {
     private void popRod(Level level, BlockPos pos, BlockState state) {
         Direction facing = (Direction)state.getValue((Property)SinglePistonEngineBlock.FACING);
         Direction boilerDir = facing.getOpposite();
-        level.setBlock(pos, (BlockState)state.setValue((Property)SinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+        level.setBlock(pos, (BlockState)state.setValue((Property)SinglePistonEngineBlock.LINKED, Boolean.valueOf(false)), 2);
         BlockPos boilerPos = pos.relative(boilerDir);
         BlockEntity blockEntity = level.getBlockEntity(boilerPos);
         if (blockEntity instanceof BoilerBlockEntity) {
             BoilerBlockEntity boilerBe = (BoilerBlockEntity)blockEntity;
-            level.setBlock(boilerPos, (BlockState)level.getBlockState(boilerPos).setValue((Property)BoilerBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+            level.setBlock(boilerPos, (BlockState)level.getBlockState(boilerPos).setValue((Property)BoilerBlock.LINKED, Boolean.valueOf(false)), 2);
             boilerBe.setLinkedEngine(null);
         }
         this.dropRod(level, pos, state);
@@ -333,7 +333,7 @@ EngineSoundInstance.SteamEngineAccessor {
         double y = (double)pos.getY() + 0.5;
         double z = (double)pos.getZ() + 0.5 + (double)boilerDir.getStepZ() * 0.6;
         Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, x, y, z);
-        ItemStack rod = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.COPPER)).get(Metal.ItemType.ROD)).get());
+        ItemStack rod = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.COPPER).get(Metal.ItemType.ROD).get());
         level.addFreshEntity((Entity)new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, rod));
     }
 
@@ -346,7 +346,7 @@ EngineSoundInstance.SteamEngineAccessor {
             BlockEntity blockEntity = level.getBlockEntity(boilerPos);
             if (blockEntity instanceof BoilerBlockEntity) {
                 BoilerBlockEntity boiler = (BoilerBlockEntity)blockEntity;
-                level.setBlock(boilerPos, (BlockState)level.getBlockState(boilerPos).setValue((Property)BoilerBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+                level.setBlock(boilerPos, (BlockState)level.getBlockState(boilerPos).setValue((Property)BoilerBlock.LINKED, Boolean.valueOf(false)), 2);
                 boiler.setLinkedEngine(null);
             }
         }
@@ -395,8 +395,8 @@ EngineSoundInstance.SteamEngineAccessor {
         if (!player.isCreative()) {
             rod.shrink(1);
         }
-        level.setBlock(pos, (BlockState)state.setValue((Property)SinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(true)), 2);
-        level.setBlock(boilerPos, (BlockState)level.getBlockState(boilerPos).setValue((Property)BoilerBlock.LINKED, (Comparable)Boolean.valueOf(true)), 2);
+        level.setBlock(pos, (BlockState)state.setValue((Property)SinglePistonEngineBlock.LINKED, Boolean.valueOf(true)), 2);
+        level.setBlock(boilerPos, (BlockState)level.getBlockState(boilerPos).setValue((Property)BoilerBlock.LINKED, Boolean.valueOf(true)), 2);
         boilerBe.setLinkedEngine(this);
         level.playSound(null, pos, SoundEvents.COPPER_PLACE, SoundSource.BLOCKS, 0.8f, 1.2f);
         return InteractionResult.sidedSuccess((boolean)false);
@@ -406,7 +406,7 @@ EngineSoundInstance.SteamEngineAccessor {
         if (stack.isEmpty()) {
             return false;
         }
-        return stack.getItem() == ((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.COPPER)).get(Metal.ItemType.ROD)).get();
+        return stack.getItem() == TFCItems.METAL_ITEMS.get(Metal.COPPER).get(Metal.ItemType.ROD).get();
     }
 
     public IntArrayBuilder getSyncableData() {
@@ -495,7 +495,7 @@ EngineSoundInstance.SteamEngineAccessor {
     }
 
     public float getRotationAngle(float partialTick) {
-        return super.getRotationAngle(partialTick);
+        return RotatingBlockEntity.super.getRotationAngle(partialTick);
     }
 
     @Override

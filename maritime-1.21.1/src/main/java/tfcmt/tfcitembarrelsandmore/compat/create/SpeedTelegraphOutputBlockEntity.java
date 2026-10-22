@@ -239,7 +239,7 @@ extends GeneratingKineticBlockEntity {
                 break;
             }
             if (!alreadyQueued) {
-                pendingList.add((Object)StringTag.valueOf((String)thisUUID));
+                pendingList.add(StringTag.valueOf((String)thisUUID));
             }
             itemTag.put("PendingTelegraphOutputUUIDs", (Tag)pendingList);
             tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.set(held, itemTag);
@@ -278,8 +278,8 @@ extends GeneratingKineticBlockEntity {
         return this.getHandleOrder();
     }
 
-    public void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
+    public void write(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
         tag.putString("OwnUUID", this.ownUUID.toString());
         if (this.inputUUID != null) {
             tag.putString("InputUUID", this.inputUUID.toString());
@@ -292,8 +292,8 @@ extends GeneratingKineticBlockEntity {
         }
     }
 
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
+    protected void read(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
         this.ownUUID = tag.contains("OwnUUID") ? UUID.fromString(tag.getString("OwnUUID")) : UUID.randomUUID();
         SpeedTelegraphInputBlockEntity.OUTPUT_REGISTRY.put(this.ownUUID, new WeakReference<SpeedTelegraphOutputBlockEntity>(this));
         this.resolvedInputPos = null;

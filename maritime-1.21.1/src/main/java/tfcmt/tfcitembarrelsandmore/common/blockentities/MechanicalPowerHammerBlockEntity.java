@@ -109,7 +109,7 @@ ITollableSink {
     }
 
     public MechanicalPowerHammerBlockEntity(BlockPos pos, BlockState state) {
-        this((BlockEntityType)TIBAMBlockEntities.MECHANICAL_POWER_HAMMER.get(), pos, state, NAME.getString());
+        this(TIBAMBlockEntities.MECHANICAL_POWER_HAMMER.get(), pos, state, NAME);
     }
 
     protected MechanicalPowerHammerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name) {
@@ -259,13 +259,14 @@ ITollableSink {
         }
         ForgeStep step = this.pendingSteps.remove(0);
         forging.addStep(step);
-        LOGGER.debug("[powerHammer] step {} \u2192 work={} target={} at {}", (Object)step.name(), (Object)forging.getWork(), (Object)forging.getWorkTarget(), (Object)this.worldPosition);
+        LOGGER.debug("[powerHammer] step {} \u2192 work={} target={} at {}", (Object)step.name(), (Object)forging.work(), (Object)forging.target(), (Object)this.worldPosition);
         ItemStack hammerStack = ((ItemStackHandler)this.inventory).getStackInSlot(1);
         if (!hammerStack.isEmpty()) {
             ServerPlayer spl;
             Player player = this.activePlayer;
             ServerPlayer sp = player instanceof ServerPlayer ? (spl = (ServerPlayer)player) : null;
-            boolean broke = hammerStack.hurt(1, sp != null ? sp.getRandom() : level.getRandom(), sp);
+            hammerStack.hurtAndBreak(1, (ServerLevel)level, sp, item -> {});
+            boolean broke = hammerStack.isEmpty();
             ((ItemStackHandler)this.inventory).setStackInSlot(1, broke ? ItemStack.EMPTY : hammerStack);
             if (broke) {
                 level.playSound(null, (double)this.worldPosition.getX() + 0.5, (double)this.worldPosition.getY() + 0.5, (double)this.worldPosition.getZ() + 0.5, SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 0.8f, 0.8f + level.getRandom().nextFloat() * 0.4f);
@@ -290,6 +291,8 @@ ITollableSink {
         final ItemStack workPiece = held;
         final int tier = this.getAnvilTier();
         AnvilRecipe.Inventory inv = new AnvilRecipe.Inventory(){
+            @Override public ItemStack getItem(int slot) { return slot == 0 ? getItem() : ItemStack.EMPTY; }
+            @Override public int size() { return 1; }
 
             public ItemStack getItem() {
                 return workPiece;
@@ -308,7 +311,7 @@ ITollableSink {
             this.buildStepSequence(held);
             return;
         }
-        ItemStack result = recipe.assemble(inv);
+        ItemStack result = recipe.assemble(inv, level.registryAccess());
         if (!result.isEmpty()) {
             IHeat heatIn = HeatCapability.get((ItemStack)held);
             IHeat heatOut = HeatCapability.get((ItemStack)result);
@@ -337,14 +340,14 @@ ITollableSink {
         }
         ItemStack dieStack = ((ItemStackHandler)this.inventory).getStackInSlot(2);
         List<AnvilRecipe> candidates = PowerHammerRecipes.getAvailableRecipes(this.level, this.getAnvilTier(), dieStack, this.isPneumaticHammer()).stream().filter(r -> r.getInput().test(stack)).toList();
-        return candidates.size() == 1 ? candidates.get(0).getId() : null;
+        return candidates.size() == 1 ? AnvilRecipe.getId(candidates.get(0)) : null;
     }
 
     private void consumeFlux(Player player) {
         Inventory inv = player.getInventory();
         for (int i = 0; i < inv.getContainerSize(); ++i) {
             ItemStack stack = inv.getItem(i);
-            if (stack.isEmpty() || !Helpers.isItem((ItemStack)stack, (TagKey)TFCTags.Items.FLUX)) continue;
+            if (stack.isEmpty() || !Helpers.isItem((ItemStack)stack, (TagKey)net.minecraft.tags.ItemTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("tfc", "welding_flux")))) continue;
             stack.shrink(1);
             return;
         }
@@ -365,6 +368,8 @@ ITollableSink {
         }
         final int tier = this.getAnvilTier();
         AnvilRecipe.Inventory inv = new AnvilRecipe.Inventory(){
+            @Override public ItemStack getItem(int slot) { return slot == 0 ? getItem() : ItemStack.EMPTY; }
+            @Override public int size() { return 1; }
 
             public ItemStack getItem() {
                 return workPiece;
@@ -378,13 +383,13 @@ ITollableSink {
                 return 0L;
             }
         };
-        AnvilRecipe existingRecipe = forging.getRecipe(this.level);
-        if (existingRecipe == null || !existingRecipe.getId().equals((Object)recipe.getId())) {
-            forging.setRecipe(recipe, inv);
+        AnvilRecipe existingRecipe = forging.getRecipe();
+        if (existingRecipe == null || !AnvilRecipe.getId(existingRecipe).equals((Object)AnvilRecipe.getId(recipe))) {
+            forging.setRecipe(new net.minecraft.world.item.crafting.RecipeHolder<>(AnvilRecipe.getId(recipe), recipe), inv);
         }
-        int current = forging.getWork();
-        int target = forging.getWorkTarget();
-        ForgeRule[] rules = recipe.getRules();
+        int current = forging.work();
+        int target = forging.target();
+        List<ForgeRule> rules = recipe.getRules();
         ForgeStep requiredLast = null;
         ForgeStep requiredSecondLast = null;
         ForgeStep requiredThirdLast = null;
@@ -491,7 +496,7 @@ ITollableSink {
             return;
         }
         if ((Boolean)state.getValue((Property)MechanicalPowerHammerBlock.RUNNING) != running) {
-            level.setBlock(this.worldPosition, (BlockState)state.setValue((Property)MechanicalPowerHammerBlock.RUNNING, (Comparable)Boolean.valueOf(running)), 3);
+            level.setBlock(this.worldPosition, (BlockState)state.setValue((Property)MechanicalPowerHammerBlock.RUNNING, Boolean.valueOf(running)), 3);
         }
     }
 
@@ -508,22 +513,15 @@ ITollableSink {
     }
 
     public int getAnvilTier() {
-        BlockItem blockItem;
-        ItemStack anvil = ((ItemStackHandler)this.inventory).getStackInSlot(0);
-        if (anvil.isEmpty()) {
-            return -1;
-        }
-        Item item = anvil.getItem();
-        if (item instanceof BlockItem && (item = (blockItem = (BlockItem)item).getBlock()) instanceof Tiered) {
-            Tiered tiered = (Tiered)item;
-            return tiered.getTier();
-        }
+        ItemStack anvil = this.inventory.getStackInSlot(0);
+        if (anvil.isEmpty()) return -1;
+        if (anvil.getItem() instanceof BlockItem item && item.getBlock() instanceof Tiered tiered) return tiered.getTier();
         return 0;
     }
 
     @Nullable
     private AnvilRecipe getRecipeById(Level level, ResourceLocation id) {
-        return (AnvilRecipe)Helpers.getRecipes((Level)level, (Supplier)TFCRecipeTypes.ANVIL).get(id);
+        return AnvilRecipe.byId(id);
     }
 
     private void showTooltip(Player player, String key) {

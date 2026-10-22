@@ -41,10 +41,10 @@ public class TIBAMItems {
     public static final DeferredHolder<Item, WindGaugeItem> WIND_GAUGE = ITEMS.register("wind_gauge", WindGaugeItem::new);
     public static final DeferredHolder<Item, Item> UNFINISHED_DIVING_HELMET = ITEMS.register("unfinished_diving_helmet", () -> new SizedItem(Size.LARGE, Weight.HEAVY));
     public static final DeferredHolder<Item, Item> UNFINISHED_DIVING_BOOTS = ITEMS.register("unfinished_diving_boots", () -> new SizedItem(Size.LARGE, Weight.HEAVY));
-    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_HELMET = ITEMS.register("diving_helmet", () -> new DiveSuitArmorItem((ArmorMaterial)TFCArmorMaterials.BRONZE, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_BOOTS = ITEMS.register("diving_boots", () -> new DiveSuitArmorItem((ArmorMaterial)TFCArmorMaterials.BRONZE, ArmorItem.Type.BOOTS, new Item.Properties()));
-    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_SUIT = ITEMS.register("diving_suit", () -> new DiveSuitArmorItem(TIBAMArmorMaterials.DIVE_CANVAS, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_LEGGINGS = ITEMS.register("diving_leggings", () -> new DiveSuitArmorItem(TIBAMArmorMaterials.DIVE_CANVAS, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_HELMET = ITEMS.register("diving_helmet", () -> new DiveSuitArmorItem(TFCArmorMaterials.BRONZE.holder(), ArmorItem.Type.HELMET, new Item.Properties().durability(TFCArmorMaterials.BRONZE.headDamage())));
+    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_BOOTS = ITEMS.register("diving_boots", () -> new DiveSuitArmorItem(TFCArmorMaterials.BRONZE.holder(), ArmorItem.Type.BOOTS, new Item.Properties().durability(TFCArmorMaterials.BRONZE.feetDamage())));
+    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_SUIT = ITEMS.register("diving_suit", () -> new DiveSuitArmorItem(TIBAMArmorMaterials.DIVE_CANVAS, ArmorItem.Type.CHESTPLATE, new Item.Properties().durability(110)));
+    public static final DeferredHolder<Item, DiveSuitArmorItem> DIVING_LEGGINGS = ITEMS.register("diving_leggings", () -> new DiveSuitArmorItem(TIBAMArmorMaterials.DIVE_CANVAS, ArmorItem.Type.LEGGINGS, new Item.Properties().durability(100)));
     public static final DeferredHolder<Item, Item> PISTON_HEAD = ITEMS.register("piston_head", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ROD_ASSEMBLY = ITEMS.register("rod_assembly", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CRANK_ASSEMBLY = ITEMS.register("crank_assembly", () -> new Item(new Item.Properties()));

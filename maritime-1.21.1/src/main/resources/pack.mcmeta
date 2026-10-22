@@ -1,1 +1,10 @@
-{"pack": {"pack_format": 34, "description": "TFC Maritime Travelers \u2014 1.21.1 port"}}
+{
+  "pack": {
+    "pack_format": 34,
+    "supported_formats": [
+      34,
+      48
+    ],
+    "description": "TFC Maritime Travelers \u2014 Minecraft 1.21.1"
+  }
+}

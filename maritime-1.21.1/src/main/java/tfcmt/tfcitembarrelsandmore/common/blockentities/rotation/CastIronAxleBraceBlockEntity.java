@@ -20,7 +20,7 @@ implements RotatingBlockEntity {
     private Node node;
 
     public CastIronAxleBraceBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.CAST_IRON_AXLE_BRACE.get(), pos, state);
+        super(TIBAMBlockEntities.CAST_IRON_AXLE_BRACE.get(), pos, state);
         Direction.Axis axis = (Direction.Axis)state.getValue((Property)BlockStateProperties.AXIS);
         this.node = new BraceNode(pos, Node.ofAxis((Direction.Axis)axis));
     }

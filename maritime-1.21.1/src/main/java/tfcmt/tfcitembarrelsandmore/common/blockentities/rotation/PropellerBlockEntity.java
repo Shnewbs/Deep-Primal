@@ -37,7 +37,7 @@ ITollableSink {
     private LoadedServerShip previousShip = null;
 
     public PropellerBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.PROPELLER.get(), pos, state);
+        super(TIBAMBlockEntities.PROPELLER.get(), pos, state);
         Direction facing = (Direction)state.getValue((Property)PropellerBlock.FACING);
         this.sinkNode = new SinkNode(pos, facing){};
         this.facing = facing;

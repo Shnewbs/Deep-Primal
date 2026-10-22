@@ -15,11 +15,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import org.joml.primitives.AABBic;
 import org.valkyrienskies.core.api.ships.Ship;
-import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import tfcmt.tfcitembarrelsandmore.compat.valkyrienskies.VSCompat;
 import tfcmt.tfcitembarrelsandmore.common.TIBAMConfig;
 
 public final class ValkibIcebreakerCompat {
@@ -28,10 +29,7 @@ public final class ValkibIcebreakerCompat {
     private int tickCounter = 0;
 
     @SubscribeEvent
-    public void onServerTick(TickEvent.ServerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public void onServerTick(ServerTickEvent.Post event) {
         if (!((Boolean)TIBAMConfig.COMMON.icebreakerEnabled.get()).booleanValue()) {
             return;
         }
@@ -46,7 +44,7 @@ public final class ValkibIcebreakerCompat {
             HashSet<Long> scannedShipIds = new HashSet<Long>();
             for (ServerPlayer player : level.players()) {
                 AABB searchArea = player.getBoundingBox().inflate(radius);
-                for (Ship ship : VSGameUtilsKt.getShipsIntersecting((Level)level, (AABB)searchArea)) {
+                for (Ship ship : VSCompat.getShipsIntersecting((Level)level, (AABB)searchArea)) {
                     if (!scannedShipIds.add(ship.getId())) continue;
                     this.scanShip(level, ship);
                 }
@@ -72,7 +70,8 @@ public final class ValkibIcebreakerCompat {
     }
 
     private void breakNearbyIce(ServerLevel level, Ship ship, BlockPos shipPos) {
-        Vec3 worldCenter = VSGameUtilsKt.toWorldCoordinates((Ship)ship, (Vec3)Vec3.atCenterOf((Vec3i)shipPos));
+        org.joml.Vector3d worldVector = ship.getShipToWorld().transformPosition(new org.joml.Vector3d(shipPos.getX() + 0.5, shipPos.getY() + 0.5, shipPos.getZ() + 0.5));
+            Vec3 worldCenter = new Vec3(worldVector.x, worldVector.y, worldVector.z);
         BlockPos center = new BlockPos(Mth.floor((double)worldCenter.x), Mth.floor((double)worldCenter.y), Mth.floor((double)worldCenter.z));
         int r = (Integer)TIBAMConfig.COMMON.icebreakerBreakRadius.get();
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();

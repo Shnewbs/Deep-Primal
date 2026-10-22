@@ -125,7 +125,7 @@ public class TIBAMCommonEvents {
         for (BracePos bracePos : inChunk) {
             BraceData data = SERVER_BRACE_MAP.get(bracePos);
             if (data == null) continue;
-            TIBAMNetwork.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), (Object)new BraceDataPacket(bracePos.pos(), data));
+            PacketDistributor.sendToPlayer(player, new BraceDataPacket(bracePos.pos(), data));
         }
     }
 
@@ -185,14 +185,14 @@ public class TIBAMCommonEvents {
             BraceData data = new BraceData(fType, fVariant, fMod);
             TIBAMCommonEvents.putBraceData(level, pos, data);
             if (state.hasProperty((Property)ItemBarrelBlock.BRACED)) {
-                level.setBlockAndUpdate(pos, (BlockState)state.setValue((Property)ItemBarrelBlock.BRACED, (Comparable)Boolean.valueOf(true)));
+                level.setBlockAndUpdate(pos, (BlockState)state.setValue((Property)ItemBarrelBlock.BRACED, Boolean.valueOf(true)));
             }
             TIBAMNetwork.syncBrace(pos, data, (ServerLevel)level);
         }
     }
 
     public static boolean isBarrel(BlockState state) {
-        ResourceLocation id = BuiltInRegistries.BLOCK.getKey((Object)state.getBlock());
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
         if (id == null) {
             return false;
         }
@@ -220,7 +220,7 @@ public class TIBAMCommonEvents {
     private String[] resolveBraceType(ItemStack held) {
         String metalName;
         boolean valid;
-        ResourceLocation heldId = BuiltInRegistries.ITEM.getKey((Object)held.getItem());
+        ResourceLocation heldId = BuiltInRegistries.ITEM.getKey(held.getItem());
         if (heldId == null) {
             return null;
         }
@@ -296,8 +296,11 @@ public class TIBAMCommonEvents {
         if (ExplorationLampBlockItem.getFluidInStack(offhand).isEmpty()) {
             return;
         }
-        event.setCanceled(true);
-        event.setCancellationResult(InteractionResult.SUCCESS);
+        if (event instanceof PlayerInteractEvent.RightClickBlock blockEvent) {
+            blockEvent.setCanceled(true); blockEvent.setCancellationResult(InteractionResult.SUCCESS);
+        } else if (event instanceof PlayerInteractEvent.RightClickItem itemEvent) {
+            itemEvent.setCanceled(true); itemEvent.setCancellationResult(InteractionResult.SUCCESS);
+        }
         if (player.level().isClientSide) {
             return;
         }
@@ -326,7 +329,7 @@ public class TIBAMCommonEvents {
                 return;
             }
             event.setCanceled(true);
-            BlockState newLampState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, (Comparable)Boolean.valueOf(true));
+            BlockState newLampState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, Boolean.valueOf(true));
             level.setBlockAndUpdate(pos, newLampState);
             lamp.markForSync();
             if (level instanceof ServerLevel) {
@@ -379,7 +382,7 @@ public class TIBAMCommonEvents {
         private final Map<BracePos, BraceData> braces = new HashMap<BracePos, BraceData>();
 
         public static TFCBarrelBraceSaveData get(ServerLevel level) {
-            return (TFCBarrelBraceSaveData)level.getDataStorage().computeIfAbsent(TFCBarrelBraceSaveData::load, TFCBarrelBraceSaveData::new, NAME.getString());
+            return (TFCBarrelBraceSaveData)level.getDataStorage().computeIfAbsent(new SavedData.Factory<>(TFCBarrelBraceSaveData::new, (tag, registries) -> TFCBarrelBraceSaveData.load(tag), null), NAME);
         }
 
         private TFCBarrelBraceSaveData() {
@@ -399,7 +402,7 @@ public class TIBAMCommonEvents {
             return this.braces;
         }
 
-        public CompoundTag save(CompoundTag tag) {
+        public CompoundTag save(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
             ListTag list = new ListTag();
             for (Map.Entry<BracePos, BraceData> e : this.braces.entrySet()) {
                 CompoundTag entry = new CompoundTag();
@@ -410,7 +413,7 @@ public class TIBAMCommonEvents {
                 entry.putString("type", e.getValue().type);
                 entry.putString("variant", e.getValue().variant);
                 entry.putString("mod", e.getValue().mod);
-                list.add((Object)entry);
+                list.add(entry);
             }
             tag.put("braces", (Tag)list);
             return tag;

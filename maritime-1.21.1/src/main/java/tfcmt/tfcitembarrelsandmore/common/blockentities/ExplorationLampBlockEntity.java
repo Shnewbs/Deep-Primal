@@ -44,7 +44,7 @@ implements FluidTankCallback {
     private static final String NBT_LIT = "Lit";
 
     public ExplorationLampBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.EXPLORATION_LAMP.get(), pos, state);
+        super(TIBAMBlockEntities.EXPLORATION_LAMP.get(), pos, state);
         this.tank = new InventoryFluidTank(250, fluid -> LampFuel.get((Fluid)fluid.getFluid(), (BlockState)state) != null, (FluidTankCallback)this);
         this.fluidHolder = this.tank;
     }
@@ -60,7 +60,7 @@ implements FluidTankCallback {
         if (lamp.pendingLitRestore) {
             lamp.pendingLitRestore = false;
             if (!lamp.tank.isEmpty()) {
-                BlockState litState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, (Comparable)Boolean.valueOf(true));
+                BlockState litState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, Boolean.valueOf(true));
                 level.setBlockAndUpdate(pos, litState);
                 if (level instanceof ServerLevel) {
                     ServerLevel serverLevel = (ServerLevel)level;
@@ -78,11 +78,11 @@ implements FluidTankCallback {
             lamp.extinguish(level, pos, state);
             return;
         }
-        if (fuel.getBurnRate() == -1) {
+        if (fuel.burnRate() == -1) {
             return;
         }
         ++lamp.liveTicksSinceDrain;
-        if (lamp.liveTicksSinceDrain >= fuel.getBurnRate()) {
+        if (lamp.liveTicksSinceDrain >= fuel.burnRate()) {
             lamp.liveTicksSinceDrain = 0;
             lamp.tank.drain(1, IFluidHandler.FluidAction.EXECUTE);
             if (lamp.tank.getFluidAmount() <= 0) {
@@ -92,7 +92,7 @@ implements FluidTankCallback {
     }
 
     private void extinguish(Level level, BlockPos pos, BlockState state) {
-        BlockState newState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, (Comparable)Boolean.valueOf(false));
+        BlockState newState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, Boolean.valueOf(false));
         level.setBlockAndUpdate(pos, newState);
         this.markForSync();
         if (level instanceof ServerLevel) {
@@ -105,7 +105,7 @@ implements FluidTankCallback {
         if (level.isClientSide) {
             return;
         }
-        BlockState litState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, (Comparable)Boolean.valueOf(true));
+        BlockState litState = (BlockState)state.setValue((Property)ExplorationLampBlock.LIT, Boolean.valueOf(true));
         level.setBlockAndUpdate(pos, litState);
         this.markForSync();
         if (level instanceof ServerLevel) {
@@ -113,7 +113,7 @@ implements FluidTankCallback {
             ExplorationLampBeam.sync(serverLevel, pos, litState);
         }
         if (player != null && !stack.isEmpty()) {
-            stack.hurtAndBreak(1, (LivingEntity)player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+            stack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
         }
         level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
     }
@@ -134,7 +134,7 @@ implements FluidTankCallback {
     @Nullable
     private static LampFuel resolveFuel(FluidStack fluidStack, BlockState state) {
         for (LampFuel candidate : LampFuel.MANAGER.getValues()) {
-            if (!candidate.getFluidIngredient().test((Object)fluidStack.getFluid()) || !candidate.getValidLamps().test(state)) continue;
+            if (!candidate.fluid().test(fluidStack) || !candidate.lamps().test(state)) continue;
             return candidate;
         }
         return null;

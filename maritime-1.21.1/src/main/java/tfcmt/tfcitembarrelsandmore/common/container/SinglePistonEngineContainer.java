@@ -32,7 +32,7 @@ implements ISteamEngineMenu {
     }
 
     public SinglePistonEngineContainer(int windowId, Inventory playerInv, SinglePistonEngineBlockEntity engine) {
-        super((MenuType)TIBAMContainerTypes.SINGLE_PISTON_ENGINE.get(), windowId, (InventoryBlockEntity)engine);
+        super((MenuType)TIBAMContainerTypes.SINGLE_PISTON_ENGINE.get(), windowId, engine);
     }
 
     protected void addContainerSlots() {

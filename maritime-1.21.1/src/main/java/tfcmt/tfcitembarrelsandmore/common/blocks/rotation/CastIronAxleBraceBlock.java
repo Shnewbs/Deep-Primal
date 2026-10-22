@@ -45,7 +45,7 @@ implements EntityBlock {
 
     public CastIronAxleBraceBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)this.defaultBlockState().setValue(AXIS, (Comparable)Direction.Axis.Z)).setValue((Property)FACE, (Comparable)Direction.DOWN));
+        this.registerDefaultState((BlockState)((BlockState)this.defaultBlockState().setValue(AXIS, Direction.Axis.Z)).setValue((Property)FACE, Direction.DOWN));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -57,7 +57,7 @@ implements EntityBlock {
         Direction clickedFace = ctx.getClickedFace();
         Direction mountFace = clickedFace.getOpposite();
         Direction.Axis shaftAxis = ctx.getPlayer() != null && ctx.getPlayer().isShiftKeyDown() ? Direction.Axis.Y : (clickedFace.getAxis() == Direction.Axis.Y ? ctx.getHorizontalDirection().getAxis() : (clickedFace.getAxis() == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X));
-        return (BlockState)((BlockState)this.defaultBlockState().setValue(AXIS, (Comparable)shaftAxis)).setValue((Property)FACE, (Comparable)mountFace);
+        return (BlockState)((BlockState)this.defaultBlockState().setValue(AXIS, shaftAxis)).setValue((Property)FACE, mountFace);
     }
 
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
@@ -87,12 +87,12 @@ implements EntityBlock {
     }
 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
-        return List.of(new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.ROD)).get()));
+        return List.of(new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.ROD).get()));
     }
 
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity be, ItemStack tool) {
         if (!level.isClientSide) {
-            ItemStack rod = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.ROD)).get());
+            ItemStack rod = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.ROD).get());
             Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
             ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, rod);
             entity.setDefaultPickUpDelay();

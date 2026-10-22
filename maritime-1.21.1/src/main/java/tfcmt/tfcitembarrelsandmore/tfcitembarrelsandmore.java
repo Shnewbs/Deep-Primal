@@ -42,6 +42,7 @@ public class tfcitembarrelsandmore {
         container.registerConfig(ModConfig.Type.COMMON, TIBAMConfig.COMMON_SPEC, "deepprimal/maritime/common.toml");
         TIBAMBlocks.BLOCKS.register(bus);
         TIBAMItems.ITEMS.register(bus);
+        tfcmt.tfcitembarrelsandmore.common.TIBAMArmorMaterials.MATERIALS.register(bus);
         TIBAMBlockEntities.BLOCK_ENTITIES.register(bus);
         TIBAMEntities.ENTITY_TYPES.register(bus);
         TIBAMContainerTypes.CONTAINERS.register(bus);
@@ -53,7 +54,7 @@ public class tfcitembarrelsandmore {
         NeoForge.EVENT_BUS.register((Object)new TIBAMCommonEvents());
         NeoForge.EVENT_BUS.register((Object)new TIBAMDiveSuitEvents());
         if (ModList.get().isLoaded("curios")) {
-            NeoForge.EVENT_BUS.register((Object)new CuriosCompat());
+            bus.addListener(CuriosCompat::registerCapabilities);
         }
         if (ModList.get().isLoaded("astikorcarts") && ModList.get().isLoaded("tfcastikorcarts")) {
             NeoForge.EVENT_BUS.register((Object)new BarrelCartHandler());
@@ -63,7 +64,7 @@ public class tfcitembarrelsandmore {
             CreateCompat.register(bus);
             LOGGER.info("TFC Maritime Travelers: Create speed telegraph compat enabled.");
         }
-        if (ModList.get().isLoaded("valkyrienskies")) {
+        if (tfcmt.tfcitembarrelsandmore.compat.valkyrienskies.VSCompat.isLoaded()) {
             LOGGER.info("TFC Maritime Travelers: Valkyrien Skies compat enabled.");
             NeoForge.EVENT_BUS.register((Object)new TFCWindBridge());
             LOGGER.info("TFC Maritime Travelers: TFC-to-VS wind bridge enabled.");
@@ -72,7 +73,7 @@ public class tfcitembarrelsandmore {
             VSSailsBlocks.register(bus);
             LOGGER.info("TFC Maritime Travelers: VS Sails helm/wheel compat enabled.");
         }
-        if (ModList.get().isLoaded("valkib") && ModList.get().isLoaded("valkyrienskies")) {
+        if (ModList.get().isLoaded("valkib") && tfcmt.tfcitembarrelsandmore.compat.valkyrienskies.VSCompat.isLoaded()) {
             NeoForge.EVENT_BUS.register((Object)new ValkibIcebreakerCompat());
             LOGGER.info("TFC Maritime Travelers: valkib ice-breaker compat enabled.");
         }
@@ -84,7 +85,7 @@ public class tfcitembarrelsandmore {
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            if (ModList.get().isLoaded("valkyrienskies")) {
+            if (tfcmt.tfcitembarrelsandmore.compat.valkyrienskies.VSCompat.isLoaded()) {
                 VSRegistration.register();
             }
         });

@@ -78,7 +78,7 @@ extends TFCBlockEntity {
     }
 
     public TFCSpeedTelegraphInputBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_INPUT.get(), pos, state);
+        super(TIBAMBlockEntities.TFC_SPEED_TELEGRAPH_INPUT.get(), pos, state);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, TFCSpeedTelegraphInputBlockEntity be) {
@@ -235,8 +235,8 @@ extends TFCBlockEntity {
         }
     }
 
-    public void loadAdditional(CompoundTag tag) {
-        super.loadAdditional(tag);
+    public void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         this.ownUUID = tag.contains("OwnUUID") ? UUID.fromString(tag.getString("OwnUUID")) : UUID.randomUUID();
         TFC_INPUT_REGISTRY.put(this.ownUUID, new WeakReference<TFCSpeedTelegraphInputBlockEntity>(this));
         this.order = SpeedTelegraphOrder.fromOrdinal(tag.getInt("Order"));
@@ -257,23 +257,18 @@ extends TFCBlockEntity {
         }
     }
 
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putString("OwnUUID", this.ownUUID.toString());
         tag.putInt("Order", this.order.ordinal());
         tag.putInt("AcknowledgedOrder", this.acknowledgedOrder.ordinal());
         ListTag list = new ListTag();
         for (UUID uuid : this.outputUUIDs) {
-            list.add((Object)StringTag.valueOf((String)uuid.toString()));
+            list.add(StringTag.valueOf((String)uuid.toString()));
         }
         tag.put("OutputUUIDs", (Tag)list);
     }
 
-    @Nonnull
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
-        this.saveAdditional(tag);
-        return tag;
-    }
+
 }
 

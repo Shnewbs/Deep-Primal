@@ -66,20 +66,20 @@ implements EntityBlock {
         }
     }
 
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         int chunk;
-        super.playerWillDestroy(level, pos, state, player);
+        BlockState result = super.playerWillDestroy(level, pos, state, player);
         if (level.isClientSide || player.getAbilities().instabuild) {
-            return;
+            return result;
         }
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (!(blockEntity instanceof MastBlockEntity)) {
-            return;
+            return result;
         }
         MastBlockEntity mastBE = (MastBlockEntity)blockEntity;
         int extra = mastBE.getTotalHeight() - 1;
         if (extra <= 0) {
-            return;
+            return result;
         }
         Item item = this.asItem();
         int maxStack = item.getDefaultInstance().getMaxStackSize();
@@ -90,9 +90,10 @@ implements EntityBlock {
             entity.setDefaultPickUpDelay();
             level.addFreshEntity((Entity)entity);
         }
+        return result;
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack held = player.getItemInHand(hand);
         if (held.getItem() instanceof YardItem) {
             return YardGrowth.tryGrow(level, pos, player, held, hit);
@@ -100,7 +101,7 @@ implements EntityBlock {
         if (held.getItem() instanceof BoomItem) {
             return BoomGrowth.tryGrow(level, pos, player, held, hit);
         }
-        if (Helpers.isItem((ItemStack)held, (TagKey)TFCTags.Items.HAMMERS)) {
+        if (Helpers.isItem((ItemStack)held, (TagKey)net.minecraft.tags.ItemTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "tools/hammer")))) {
             return MastRake.tryRake(level, pos, player, held, hit);
         }
         return MastGrowth.tryGrow(level, pos, player, held);
@@ -138,6 +139,21 @@ implements EntityBlock {
 
     public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.BLOCK;
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

@@ -250,7 +250,7 @@ implements RotatingBlockEntity {
                 break;
             }
             if (!alreadyQueued) {
-                pendingList.add((Object)StringTag.valueOf((String)thisUUID));
+                pendingList.add(StringTag.valueOf((String)thisUUID));
             }
             itemTag.put("PendingTFCTelegraphOutputUUIDs", (Tag)pendingList);
             tfcmt.tfcitembarrelsandmore.common.MaritimeItemData.set(held, itemTag);
@@ -284,8 +284,8 @@ implements RotatingBlockEntity {
         return this.handleOrder;
     }
 
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putString("OwnUUID", this.ownUUID.toString());
         if (this.inputUUID != null) {
             tag.putString("InputUUID", this.inputUUID.toString());
@@ -298,8 +298,8 @@ implements RotatingBlockEntity {
         tag.putFloat("OutSpeed", this.outSpeed);
     }
 
-    public void loadAdditional(CompoundTag tag) {
-        super.loadAdditional(tag);
+    public void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         this.ownUUID = tag.contains("OwnUUID") ? UUID.fromString(tag.getString("OwnUUID")) : UUID.randomUUID();
         TFCSpeedTelegraphInputBlockEntity.TFC_OUTPUT_REGISTRY.put(this.ownUUID, new WeakReference<TFCSpeedTelegraphOutputBlockEntity>(this));
         this.resolvedInputPos = null;
@@ -317,11 +317,6 @@ implements RotatingBlockEntity {
         this.outSpeed = tag.getFloat("OutSpeed");
     }
 
-    @Nonnull
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
-        this.saveAdditional(tag);
-        return tag;
-    }
+
 }
 

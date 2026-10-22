@@ -69,7 +69,7 @@ public final class PowerHammerRecipes {
             return List.of();
         }
         List<String> activePrefixes = PowerHammerRecipes.getActivePrefixes(dieStack, isPneumatic);
-        return Helpers.getRecipes((Level)level, (Supplier)TFCRecipeTypes.ANVIL).values().stream().filter(r -> r.isCorrectTier(anvilTier)).filter(r -> PowerHammerRecipes.isRecipeAllowed(r, level, activePrefixes)).sorted((a, b) -> {
+        return level.getRecipeManager().getAllRecipesFor(TFCRecipeTypes.ANVIL.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).filter(r -> r.isCorrectTier(anvilTier)).filter(r -> PowerHammerRecipes.isRecipeAllowed(r, level, activePrefixes)).sorted((a, b) -> {
             String pa = a.getResultItem(level.registryAccess()).getItem().builtInRegistryHolder().key().location().getPath();
             String pb = b.getResultItem(level.registryAccess()).getItem().builtInRegistryHolder().key().location().getPath();
             return pa.compareTo(pb);

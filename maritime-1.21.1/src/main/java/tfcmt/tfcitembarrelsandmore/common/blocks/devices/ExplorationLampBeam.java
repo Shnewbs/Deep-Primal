@@ -83,7 +83,7 @@ public final class ExplorationLampBeam {
         if (!existing.isAir() && !existing.is(Blocks.LIGHT)) {
             return;
         }
-        BlockState lightState = (BlockState)((BlockState)Blocks.LIGHT.defaultBlockState().setValue((Property)BlockStateProperties.LEVEL, (Comparable)Integer.valueOf(15))).setValue((Property)BlockStateProperties.WATERLOGGED, (Comparable)Boolean.valueOf(false));
+        BlockState lightState = (BlockState)((BlockState)Blocks.LIGHT.defaultBlockState().setValue((Property)BlockStateProperties.LEVEL, Integer.valueOf(15))).setValue((Property)BlockStateProperties.WATERLOGGED, Boolean.valueOf(false));
         level.setBlock(target, lightState, 3);
         OWNED_LIGHTS.put(GlobalPos.of((ResourceKey)level.dimension(), (BlockPos)target), GlobalPos.of((ResourceKey)level.dimension(), (BlockPos)lampPos));
     }

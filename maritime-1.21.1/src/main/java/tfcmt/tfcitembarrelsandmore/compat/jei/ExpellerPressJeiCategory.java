@@ -2,7 +2,7 @@ package tfcmt.tfcitembarrelsandmore.compat.jei;
 
 import java.util.Arrays;
 import java.util.List;
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -72,7 +72,7 @@ implements IRecipeCategory<ExpellerPressRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 5, 15).addIngredients(recipe.getIngredient());
         builder.addSlot(RecipeIngredientRole.CATALYST, 5, 39).addItemStacks(this.screwCycle);
         if (!recipe.getResultFluid().isEmpty()) {
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 57, 9).addIngredient((IIngredientType)ForgeTypes.FLUID_STACK, (Object)recipe.getResultFluid());
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 57, 9).addIngredient((IIngredientType)NeoForgeTypes.FLUID_STACK, (Object)recipe.getResultFluid());
         }
         if (recipe.hasResultItem()) {
             builder.addSlot(RecipeIngredientRole.OUTPUT, 81, 15).addItemStack(recipe.getResultItem(null));

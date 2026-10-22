@@ -27,7 +27,7 @@ implements MastCell {
     private int signedOffset = 1;
 
     public YardFillerBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.YARD_FILLER.get(), pos, state);
+        super(TIBAMBlockEntities.YARD_FILLER.get(), pos, state);
     }
 
     public void init(Direction.Axis axis, int signedOffset) {
@@ -169,7 +169,7 @@ implements MastCell {
     }
 
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.handleUpdateTag(pkt.getTag());
+        this.handleUpdateTag(pkt.getTag(), this.level.registryAccess());
     }
 }
 

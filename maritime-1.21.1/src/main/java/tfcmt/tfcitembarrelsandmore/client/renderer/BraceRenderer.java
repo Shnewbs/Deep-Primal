@@ -76,10 +76,10 @@ public class BraceRenderer {
     }
 
     private static void quad(VertexConsumer vc, Matrix4f m, Matrix3f n, float x0, float y0, float z0, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float nx, float ny, float nz, float u0, float v0, float u1, float v1, int light, int overlay) {
-        vc.addVertex(m, x0, y0, z0).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u0, v1).setOverlay(overlay).setLight(light).setNormal(n, nx, ny, nz);
-        vc.addVertex(m, x1, y1, z1).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u1, v1).setOverlay(overlay).setLight(light).setNormal(n, nx, ny, nz);
-        vc.addVertex(m, x2, y2, z2).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u1, v0).setOverlay(overlay).setLight(light).setNormal(n, nx, ny, nz);
-        vc.addVertex(m, x3, y3, z3).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u0, v0).setOverlay(overlay).setLight(light).setNormal(n, nx, ny, nz);
+        tfcmt.tfcitembarrelsandmore.client.MaritimeRender.normal(vc.addVertex(m, x0, y0, z0).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u0, v1).setOverlay(overlay).setLight(light), n, nx, ny, nz);
+        tfcmt.tfcitembarrelsandmore.client.MaritimeRender.normal(vc.addVertex(m, x1, y1, z1).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u1, v1).setOverlay(overlay).setLight(light), n, nx, ny, nz);
+        tfcmt.tfcitembarrelsandmore.client.MaritimeRender.normal(vc.addVertex(m, x2, y2, z2).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u1, v0).setOverlay(overlay).setLight(light), n, nx, ny, nz);
+        tfcmt.tfcitembarrelsandmore.client.MaritimeRender.normal(vc.addVertex(m, x3, y3, z3).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(u0, v0).setOverlay(overlay).setLight(light), n, nx, ny, nz);
     }
 }
 

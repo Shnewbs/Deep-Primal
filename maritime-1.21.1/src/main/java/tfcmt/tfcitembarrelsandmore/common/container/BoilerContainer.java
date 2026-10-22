@@ -35,7 +35,7 @@ extends BlockEntityContainer<BoilerBlockEntity> {
     }
 
     public BoilerContainer(int windowId, Inventory playerInv, BoilerBlockEntity boiler) {
-        super((MenuType)TIBAMContainerTypes.BOILER.get(), windowId, (InventoryBlockEntity)boiler);
+        super((MenuType)TIBAMContainerTypes.BOILER.get(), windowId, boiler);
     }
 
     protected void addContainerSlots() {

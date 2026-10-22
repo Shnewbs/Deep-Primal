@@ -235,8 +235,8 @@ extends TFCBlockEntity {
         }
     }
 
-    public void loadAdditional(CompoundTag tag) {
-        super.loadAdditional(tag);
+    public void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         this.ownUUID = tag.contains("OwnUUID") ? UUID.fromString(tag.getString("OwnUUID")) : UUID.randomUUID();
         INPUT_REGISTRY.put(this.ownUUID, new WeakReference<SpeedTelegraphInputBlockEntity>(this));
         this.order = SpeedTelegraphOrder.fromOrdinal(tag.getInt("Order"));
@@ -257,23 +257,18 @@ extends TFCBlockEntity {
         }
     }
 
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.putString("OwnUUID", this.ownUUID.toString());
         tag.putInt("Order", this.order.ordinal());
         tag.putInt("AcknowledgedOrder", this.acknowledgedOrder.ordinal());
         ListTag list = new ListTag();
         for (UUID uuid : this.outputUUIDs) {
-            list.add((Object)StringTag.valueOf((String)uuid.toString()));
+            list.add(StringTag.valueOf((String)uuid.toString()));
         }
         tag.put("OutputUUIDs", (Tag)list);
     }
 
-    @Nonnull
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = super.getUpdateTag();
-        this.saveAdditional(tag);
-        return tag;
-    }
+
 }
 

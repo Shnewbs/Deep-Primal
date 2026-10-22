@@ -1,8 +1,7 @@
 {
-  "fluid": "minecraft:lava",
+  "fluid": {
+    "fluid": "minecraft:lava"
+  },
   "burn_rate": -1,
-  "valid_lamps": {
-    "type": "tfc:tag",
-    "tag": "tfc:lamps"
-  }
+  "lamps": "#tfc:lamps"
 }

@@ -78,7 +78,7 @@ ITollableSink {
     }
 
     public GrinderBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.GRINDER.get(), pos, state, self -> new ItemStackHandler(2){
+        super(TIBAMBlockEntities.GRINDER.get(), pos, state, self -> new ItemStackHandler(2){
 
             public boolean isItemValid(int slot, ItemStack stack) {
                 if (slot == 1) {
@@ -180,7 +180,7 @@ ITollableSink {
         if ((current = this.getBlockState()).getValue(GrinderBlock.SCREW) != type) {
             BlockState next = (BlockState)current.setValue(GrinderBlock.SCREW, type);
             if (type == GrinderBlock.ScrewType.NONE) {
-                next = (BlockState)next.setValue((Property)GrinderBlock.ROTATING, (Comparable)Boolean.valueOf(false));
+                next = (BlockState)next.setValue((Property)GrinderBlock.ROTATING, Boolean.valueOf(false));
             }
             this.level.setBlock(this.worldPosition, next, 3);
         }
@@ -193,7 +193,7 @@ ITollableSink {
         boolean nowRotating = this.sinkNode != null && this.sinkNode.isConnectedToNetwork() && this.getBlockState().getValue(GrinderBlock.SCREW) != GrinderBlock.ScrewType.NONE;
         BlockState current = this.getBlockState();
         if ((Boolean)current.getValue((Property)GrinderBlock.ROTATING) != nowRotating) {
-            this.level.setBlock(this.worldPosition, (BlockState)current.setValue((Property)GrinderBlock.ROTATING, (Comparable)Boolean.valueOf(nowRotating)), 3);
+            this.level.setBlock(this.worldPosition, (BlockState)current.setValue((Property)GrinderBlock.ROTATING, Boolean.valueOf(nowRotating)), 3);
         }
     }
 
@@ -264,7 +264,7 @@ ITollableSink {
             return;
         }
         AABB scanBox = new AABB((double)pos.getX(), (double)pos.getY() + 1.0, (double)pos.getZ(), (double)pos.getX() + 1.0, (double)pos.getY() + 2.0, (double)pos.getZ() + 1.0);
-        List items = level.getEntitiesOfClass(ItemEntity.class, scanBox);
+        List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, scanBox);
         for (ItemEntity itemEntity : items) {
             GrinderRecipe recipe;
             ItemStack entityStack = itemEntity.getItem();

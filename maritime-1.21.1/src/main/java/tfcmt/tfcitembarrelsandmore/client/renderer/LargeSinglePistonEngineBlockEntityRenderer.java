@@ -56,8 +56,7 @@ implements BlockEntityRenderer<LargeSinglePistonEngineBlockEntity> {
                 default -> 1;
             };
             float trueAngle = rawDeg * (float)axisStep;
-            boolean extraFlip = true;
-            globalAngleDeg = trueAngle * (float)extraFlip;
+            globalAngleDeg = trueAngle;
         }
         float angleRad = (float)Math.toRadians(globalAngleDeg);
         float pinY = 0.5f + (float)Math.cos(angleRad) * 0.125f;

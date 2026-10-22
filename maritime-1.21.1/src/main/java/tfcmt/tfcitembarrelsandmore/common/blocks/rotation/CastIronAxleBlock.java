@@ -35,12 +35,12 @@ extends AxleBlock {
     }
 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
-        return List.of(new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.ROD)).get()));
+        return List.of(new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.ROD).get()));
     }
 
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity be, ItemStack tool) {
         if (!level.isClientSide) {
-            ItemStack rod = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.ROD)).get());
+            ItemStack rod = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.ROD).get());
             Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
             ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, rod);
             entity.setDefaultPickUpDelay();

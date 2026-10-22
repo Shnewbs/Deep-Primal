@@ -37,11 +37,11 @@ extends SizedItem {
         if (level.isClientSide) {
             player.displayClientMessage(WindGaugeItem.buildReading(level, player), true);
         }
-        return InteractionResultHolder.sidedSuccess((Object)stack, (boolean)level.isClientSide);
+        return InteractionResultHolder.sidedSuccess(stack, (boolean)level.isClientSide);
     }
 
     private static Component buildReading(Level level, Player player) {
-        Vec2 wind = Climate.getWindVector((Level)level, (BlockPos)player.blockPosition());
+        Vec2 wind = Climate.get(level).getWind(level, player.blockPosition());
         double intensity = wind.length();
         if (intensity < 0.05) {
             return Component.translatable((String)"message.tfc_item_barrels_and_more.wind_gauge.becalmed").withStyle(ChatFormatting.GRAY);
@@ -83,8 +83,9 @@ extends SizedItem {
         return "gale";
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendHoverText(ItemStack stack, net.minecraft.world.item.Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        Level level = context.level();
+        super.appendHoverText(stack, context, tooltip, flag);
         tooltip.add((Component)Component.translatable((String)"tooltip.tfc_item_barrels_and_more.wind_gauge.desc").withStyle(ChatFormatting.GRAY));
     }
 }

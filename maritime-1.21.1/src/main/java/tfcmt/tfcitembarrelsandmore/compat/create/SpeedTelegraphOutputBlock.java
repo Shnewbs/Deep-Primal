@@ -28,7 +28,7 @@ extends DirectionalKineticBlock
 implements IBE<SpeedTelegraphOutputBlockEntity> {
     public SpeedTelegraphOutputBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, (Comparable)Direction.EAST));
+        this.registerDefaultState((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, Direction.EAST));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -36,7 +36,7 @@ implements IBE<SpeedTelegraphOutputBlockEntity> {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)ctx.getHorizontalDirection());
+        return (BlockState)this.defaultBlockState().setValue((Property)FACING, ctx.getHorizontalDirection());
     }
 
     public Direction.Axis getRotationAxis(BlockState state) {
@@ -65,7 +65,7 @@ implements IBE<SpeedTelegraphOutputBlockEntity> {
         };
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -105,6 +105,21 @@ implements IBE<SpeedTelegraphOutputBlockEntity> {
 
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return this.getBlockEntityType().create(pos, state);
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

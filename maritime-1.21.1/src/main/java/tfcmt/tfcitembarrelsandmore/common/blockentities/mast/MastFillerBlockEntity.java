@@ -56,7 +56,7 @@ RigLinkable {
     private final Map<RigSlot, Set<RigLink>> rigLinks = new EnumMap<RigSlot, Set<RigLink>>(RigSlot.class);
 
     public MastFillerBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.MAST_FILLER.get(), pos, state);
+        super(TIBAMBlockEntities.MAST_FILLER.get(), pos, state);
     }
 
     public void init(int offsetBelowAnchor) {
@@ -376,7 +376,7 @@ RigLinkable {
     }
 
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.handleUpdateTag(pkt.getTag());
+        this.handleUpdateTag(pkt.getTag(), this.level.registryAccess());
     }
 }
 

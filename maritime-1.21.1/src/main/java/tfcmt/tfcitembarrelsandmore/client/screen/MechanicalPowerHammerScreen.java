@@ -39,7 +39,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
     private List<ItemStack> lastInventorySnapshot = new ArrayList<ItemStack>();
 
     public MechanicalPowerHammerScreen(MechanicalPowerHammerContainer container, Inventory playerInventory, Component title) {
-        super((AbstractContainerMenu)container, playerInventory, title);
+        super(container, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 166;
         this.inventoryLabelY = this.imageHeight + 10;
@@ -60,18 +60,18 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         ItemStack dieStack = be.getHammerInventory().getStackInSlot(2);
         List<AnvilRecipe> allAllowed = PowerHammerRecipes.getAvailableRecipes((Level)this.minecraft.level, be.getAnvilTier(), dieStack, be.isPneumaticHammer());
         HashSet<ResourceLocation> craftable = new HashSet<ResourceLocation>();
-        NonNullList playerItems = this.minecraft.player.getInventory().items;
+        NonNullList<ItemStack> playerItems = this.minecraft.player.getInventory().items;
         for (ItemStack playerStack : playerItems) {
             if (playerStack.isEmpty()) continue;
             for (AnvilRecipe recipe : allAllowed) {
                 if (!recipe.getInput().test(playerStack)) continue;
-                craftable.add(recipe.getId());
+                craftable.add(AnvilRecipe.getId(recipe));
             }
         }
-        List<AnvilRecipe> filtered = allAllowed.stream().filter(r -> craftable.contains(r.getId())).toList();
+        List<AnvilRecipe> filtered = allAllowed.stream().filter(r -> craftable.contains(AnvilRecipe.getId(r))).toList();
         HashSet<ResourceLocation> filteredIds = new HashSet<ResourceLocation>();
         for (AnvilRecipe r2 : filtered) {
-            filteredIds.add(r2.getId());
+            filteredIds.add(AnvilRecipe.getId(r2));
         }
         if (this.selectedId != null && !filteredIds.contains(this.selectedId)) {
             this.selectedId = null;
@@ -79,7 +79,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         }
         if (this.selectedId != null && this.minecraft.player != null) {
             ItemStack held = this.minecraft.player.getMainHandItem();
-            AnvilRecipe selected = allAllowed.stream().filter(r -> r.getId().equals((Object)this.selectedId)).findFirst().orElse(null);
+            AnvilRecipe selected = allAllowed.stream().filter(r -> AnvilRecipe.getId(r).equals((Object)this.selectedId)).findFirst().orElse(null);
             if (selected != null && !held.isEmpty() && !selected.getInput().test(held)) {
                 this.selectedId = null;
                 TIBAMNetwork.setPrimedRecipe(((MechanicalPowerHammerBlockEntity)((MechanicalPowerHammerContainer)this.menu).getBlockEntity()).getBlockPos(), null);
@@ -88,7 +88,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         this.recipes = new ArrayList<AnvilRecipe>(filtered);
         this.scrollOffset = Math.min(this.scrollOffset, Math.max(0, this.recipes.size() - 3));
         if (this.selectedId == null && this.recipes.size() == 1) {
-            this.selectedId = this.recipes.get(0).getId();
+            this.selectedId = AnvilRecipe.getId(this.recipes.get(0));
             TIBAMNetwork.setPrimedRecipe(((MechanicalPowerHammerBlockEntity)((MechanicalPowerHammerContainer)this.menu).getBlockEntity()).getBlockPos(), this.selectedId);
         }
     }
@@ -97,7 +97,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         super.containerTick();
         if (this.minecraft != null && this.minecraft.player != null) {
             boolean changed;
-            NonNullList current = this.minecraft.player.getInventory().items;
+            NonNullList<ItemStack> current = this.minecraft.player.getInventory().items;
             boolean bl = changed = current.size() != this.lastInventorySnapshot.size();
             if (!changed) {
                 for (int i = 0; i < current.size(); ++i) {
@@ -136,7 +136,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         int rowW = 117;
         for (int i = 0; i < 3 && (idx = i + this.scrollOffset) < this.recipes.size(); ++i) {
             AnvilRecipe recipe = this.recipes.get(idx);
-            ResourceLocation id = recipe.getId();
+            ResourceLocation id = AnvilRecipe.getId(recipe);
             boolean selected = id.equals((Object)this.selectedId);
             boolean hovered = this.isMouseOverRow(mouseX, mouseY, i);
             int rowY = listScreenY + i * 18;
@@ -189,7 +189,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         this.renderEquipmentSlotTooltip(graphics, mouseX, mouseY, 7, 48, "container.tfc_item_barrels_and_more.hammer.die", 2);
         int hoveredRow = this.getHoveredRow(mouseX, mouseY);
         if (hoveredRow >= 0 && hoveredRow + this.scrollOffset < this.recipes.size() && this.minecraft != null && this.minecraft.level != null && !(result = (recipe = this.recipes.get(hoveredRow + this.scrollOffset)).getResultItem(this.minecraft.level.registryAccess())).isEmpty()) {
-            ArrayList<Object> lines = new ArrayList<Object>();
+            ArrayList<Component> lines = new ArrayList<>();
             lines.add(result.getHoverName());
             lines.add(Component.translatable((String)"container.tfc_item_barrels_and_more.hammer.min_tier", (Object[])new Object[]{recipe.getMinTier()}));
             graphics.renderComponentTooltip(this.font, lines, mouseX, mouseY);
@@ -200,7 +200,7 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         int idx;
         int row = this.getHoveredRow((int)mouseX, (int)mouseY);
         if (row >= 0 && (idx = row + this.scrollOffset) < this.recipes.size()) {
-            ResourceLocation id = this.recipes.get(idx).getId();
+            ResourceLocation id = AnvilRecipe.getId(this.recipes.get(idx));
             if (id.equals((Object)this.selectedId)) {
                 this.selectedId = null;
                 TIBAMNetwork.setPrimedRecipe(((MechanicalPowerHammerBlockEntity)((MechanicalPowerHammerContainer)this.menu).getBlockEntity()).getBlockPos(), null);
@@ -229,13 +229,13 @@ extends AbstractContainerScreen<MechanicalPowerHammerContainer> {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
-    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double deltaX, double delta) {
         if (this.isMouseOverList((int)mouseX, (int)mouseY)) {
             int max = Math.max(0, this.recipes.size() - 3);
             this.scrollOffset = (int)Math.max(0.0, Math.min((double)max, (double)this.scrollOffset - delta));
             return true;
         }
-        return super.mouseScrolled(mouseX, mouseY, delta);
+        return super.mouseScrolled(mouseX, mouseY, deltaX, delta);
     }
 
     private void renderEquipmentSlotTooltip(GuiGraphics graphics, int mouseX, int mouseY, int slotX, int slotY, String labelKey, int slotIndex) {

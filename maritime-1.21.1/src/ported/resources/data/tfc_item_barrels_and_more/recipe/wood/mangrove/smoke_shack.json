@@ -10,7 +10,7 @@
       "item": "tfc:wood/lumber/mangrove"
     },
     "G": {
-      "item": "tfc:metal/grill/wrought_iron"
+      "item": "tfc:wrought_iron_grill"
     }
   },
   "result": {

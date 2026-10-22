@@ -39,7 +39,7 @@ ITollableSink {
     private LoadedServerShip previousShip = null;
 
     public WaterPaddleBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.WATER_PADDLE.get(), pos, state);
+        super(TIBAMBlockEntities.WATER_PADDLE.get(), pos, state);
         Direction facing = (Direction)state.getValue((Property)WaterPaddleBlock.FACING);
         this.sinkNode = new SinkNode(pos, facing){};
         this.facing = facing;

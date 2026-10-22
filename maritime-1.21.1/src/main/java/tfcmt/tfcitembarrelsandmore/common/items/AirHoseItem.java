@@ -27,8 +27,9 @@ extends SizedItem {
         return Math.min(maxRange, perItem * hoseCount);
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendHoverText(ItemStack stack, net.minecraft.world.item.Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        Level level = context.level();
+        super.appendHoverText(stack, context, tooltip, flag);
         tooltip.add((Component)Component.translatable((String)"tooltip.tfc_item_barrels_and_more.air_hose.range", (Object[])new Object[]{TIBAMConfig.SERVER.compressorHoseRangePerItem.get(), TIBAMConfig.SERVER.compressorHoseMaxRange.get()}).withStyle(ChatFormatting.GRAY));
     }
 }

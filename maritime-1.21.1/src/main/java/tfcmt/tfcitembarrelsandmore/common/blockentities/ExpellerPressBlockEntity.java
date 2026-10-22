@@ -87,7 +87,7 @@ ITollableSink {
     }
 
     public ExpellerPressBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.EXPELLER_PRESS.get(), pos, state, self -> new ItemStackHandler(3){
+        super(TIBAMBlockEntities.EXPELLER_PRESS.get(), pos, state, self -> new ItemStackHandler(3){
 
             public boolean isItemValid(int slot, ItemStack stack) {
                 return switch (slot) {
@@ -128,7 +128,7 @@ ITollableSink {
         boolean nowRotating = this.sinkNode != null && this.sinkNode.isConnectedToNetwork() && this.getBlockState().getValue(ExpellerPressBlock.SCREW) != GrinderBlock.ScrewType.NONE;
         BlockState current = this.getBlockState();
         if ((Boolean)current.getValue((Property)ExpellerPressBlock.ROTATING) != nowRotating) {
-            this.level.setBlock(this.worldPosition, (BlockState)current.setValue((Property)ExpellerPressBlock.ROTATING, (Comparable)Boolean.valueOf(nowRotating)), 3);
+            this.level.setBlock(this.worldPosition, (BlockState)current.setValue((Property)ExpellerPressBlock.ROTATING, Boolean.valueOf(nowRotating)), 3);
         }
     }
 
@@ -300,7 +300,7 @@ ITollableSink {
         if ((current = this.getBlockState()).getValue(ExpellerPressBlock.SCREW) != type) {
             BlockState next = (BlockState)current.setValue(ExpellerPressBlock.SCREW, type);
             if (type == GrinderBlock.ScrewType.NONE) {
-                next = (BlockState)next.setValue((Property)ExpellerPressBlock.ROTATING, (Comparable)Boolean.valueOf(false));
+                next = (BlockState)next.setValue((Property)ExpellerPressBlock.ROTATING, Boolean.valueOf(false));
             }
             this.level.setBlock(this.worldPosition, next, 3);
         }

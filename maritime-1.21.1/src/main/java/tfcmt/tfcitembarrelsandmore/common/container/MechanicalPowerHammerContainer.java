@@ -42,11 +42,11 @@ extends BlockEntityContainer<MechanicalPowerHammerBlockEntity> {
     }
 
     public MechanicalPowerHammerContainer(int windowId, Inventory playerInv, MechanicalPowerHammerBlockEntity be) {
-        super((MenuType)TIBAMContainerTypes.MECHANICAL_POWER_HAMMER.get(), windowId, (InventoryBlockEntity)be);
+        super((MenuType)TIBAMContainerTypes.MECHANICAL_POWER_HAMMER.get(), windowId, be);
     }
 
     public MechanicalPowerHammerContainer(MenuType<?> menuType, int windowId, Inventory playerInv, MechanicalPowerHammerBlockEntity be) {
-        super(menuType, windowId, (InventoryBlockEntity)be);
+        super(menuType, windowId, be);
     }
 
     protected void addContainerSlots() {

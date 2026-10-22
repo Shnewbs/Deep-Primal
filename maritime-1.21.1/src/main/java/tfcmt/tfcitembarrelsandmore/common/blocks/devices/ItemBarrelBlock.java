@@ -57,9 +57,10 @@ extends SealableDeviceBlock {
     public static final BooleanProperty BRACED = BooleanProperty.create((String)"braced");
 
     public static void toggleSeal(Level level, BlockPos pos, BlockState state) {
-        level.getBlockEntity(pos, (BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
+        level.getBlockEntity(pos, TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
             boolean previousSealed = (Boolean)state.getValue((Property)SEALED);
-            level.setBlockAndUpdate(pos, (BlockState)state.setValue((Property)SEALED, (Comparable)Boolean.valueOf(!previousSealed)));
+            level.setBlockAndUpdate(pos, (BlockState)state.setValue((Property)SEALED, Boolean.valueOf(!previousSealed)));
+            level.invalidateCapabilities(pos);
             if (previousSealed) {
                 barrel.onUnseal();
             } else {
@@ -70,20 +71,20 @@ extends SealableDeviceBlock {
 
     public ItemBarrelBlock(ExtendedProperties properties) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)SEALED, (Comparable)Boolean.valueOf(false))).setValue(FACING, (Comparable)Direction.UP)).setValue((Property)BRACED, (Comparable)Boolean.valueOf(false)));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)SEALED, Boolean.valueOf(false))).setValue(FACING, Direction.UP)).setValue((Property)BRACED, Boolean.valueOf(false)));
     }
 
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
         ItemStack held = player.getItemInHand(hand);
         if (player.isShiftKeyDown() && held.isEmpty()) {
-            level.getBlockEntity(pos, (BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
+            level.getBlockEntity(pos, TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
                 if (player instanceof ServerPlayer) {
                     ItemBarrelBlock.toggleSeal(level, pos, state);
                     level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0f, 0.85f);
@@ -92,10 +93,10 @@ extends SealableDeviceBlock {
             return InteractionResult.CONSUME;
         }
         if (!player.isShiftKeyDown()) {
-            level.getBlockEntity(pos, (BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
+            level.getBlockEntity(pos, TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
                 if (player instanceof ServerPlayer) {
                     ServerPlayer serverPlayer = (ServerPlayer)player;
-                    Helpers.openScreen((ServerPlayer)serverPlayer, (MenuProvider)barrel, (BlockPos)barrel.getBlockPos());
+                    serverPlayer.openMenu(barrel, barrel.getBlockPos());
                 }
             });
             return InteractionResult.CONSUME;
@@ -111,7 +112,7 @@ extends SealableDeviceBlock {
             if (dir == Direction.DOWN) {
                 dir = Direction.UP;
             }
-            state = (BlockState)state.setValue(FACING, (Comparable)dir);
+            state = (BlockState)state.setValue(FACING, dir);
             Level level = context.getLevel();
             BlockPos pos = context.getClickedPos();
             if (dir == Direction.UP && !level.getBlockState(pos.below()).isFaceSturdy((BlockGetter)level, pos.below(), Direction.UP, SupportType.CENTER)) {
@@ -123,25 +124,25 @@ extends SealableDeviceBlock {
 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!Helpers.isBlock((BlockState)state, (Block)newState.getBlock())) {
-            level.getBlockEntity(pos, (BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
+            level.getBlockEntity(pos, TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
                 if (!((Boolean)state.getValue((Property)SEALED)).booleanValue()) {
                     barrel.ejectInventory();
                 } else {
                     ItemStack stack = new ItemStack((ItemLike)this);
                     CompoundTag tag = new CompoundTag();
-                    barrel.saveAdditional(tag);
+                    barrel.saveAdditional(tag, level.registryAccess());
                     tag.putBoolean("Sealed", true);
                     tag.remove("BraceType");
                     tag.remove("BraceVariant");
                     tag.remove("BraceMod");
                     if (!tag.isEmpty()) {
-                        stack.addTagElement("BlockEntityTag", (Tag)tag);
+                        net.minecraft.world.item.BlockItem.setBlockEntityData(stack, TIBAMBlockEntities.ITEM_BARREL.get(), tag);
                     }
                     Helpers.spawnItem((Level)level, (BlockPos)pos, (ItemStack)stack);
                 }
             });
             if (((Boolean)state.getValue((Property)BRACED)).booleanValue() && !level.isClientSide()) {
-                level.getBlockEntity(pos, (BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
+                level.getBlockEntity(pos, TIBAMBlockEntities.ITEM_BARREL.get()).ifPresent(barrel -> {
                     ResourceLocation itemId;
                     Item item;
                     BraceData brace = barrel.getEffectiveBraceData();
@@ -171,7 +172,7 @@ extends SealableDeviceBlock {
     }
 
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ItemBarrelBlockEntity((BlockEntityType)TIBAMBlockEntities.ITEM_BARREL.get(), pos, state);
+        return new ItemBarrelBlockEntity(TIBAMBlockEntities.ITEM_BARREL.get(), pos, state);
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -193,6 +194,21 @@ extends SealableDeviceBlock {
                 ItemBarrelBlockEntity.serverTick(lvl, p, st, barrel);
             }
         };
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

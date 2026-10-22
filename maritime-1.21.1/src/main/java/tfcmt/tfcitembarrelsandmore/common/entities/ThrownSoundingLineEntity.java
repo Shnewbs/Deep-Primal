@@ -40,13 +40,13 @@ extends ThrowableItemProjectile {
     private void reportDepth(BlockPos hitPos) {
         BlockPos.MutableBlockPos cursor;
         Level level = this.level();
-        if (!level.getFluidState((BlockPos)(cursor = hitPos.above().mutable())).is(TFCTags.Fluids.ANY_WATER)) {
+        if (!level.getFluidState((BlockPos)(cursor = hitPos.above().mutable())).is(net.minecraft.tags.FluidTags.WATER)) {
             this.sendMessage((Component)Component.translatable((String)"message.tfc_item_barrels_and_more.sounding_line.no_water").withStyle(ChatFormatting.GRAY));
             return;
         }
         int depth = 0;
         int maxY = level.getMaxBuildHeight();
-        while (cursor.getY() <= maxY && level.getFluidState((BlockPos)cursor).is(TFCTags.Fluids.ANY_WATER)) {
+        while (cursor.getY() <= maxY && level.getFluidState((BlockPos)cursor).is(net.minecraft.tags.FluidTags.WATER)) {
             ++depth;
             cursor.move(0, 1, 0);
         }

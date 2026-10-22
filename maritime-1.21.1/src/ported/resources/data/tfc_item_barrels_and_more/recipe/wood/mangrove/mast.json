@@ -1,28 +1,32 @@
 {
-  "type": "tfc:damage_inputs_shaped_crafting",
-  "recipe": {
-    "type": "tfc:advanced_shaped_crafting",
-    "pattern": [
-      "XS",
-      "X ",
-      "X "
-    ],
-    "key": {
-      "X": {
-        "item": "tfc:wood/stripped_log/mangrove"
-      },
-      "S": {
-        "tag": "tfc:saws"
+  "type": "tfc:advanced_shaped_crafting",
+  "pattern": [
+    "XS",
+    "X ",
+    "X "
+  ],
+  "key": {
+    "X": {
+      "item": "tfc:wood/stripped_log/mangrove"
+    },
+    "S": {
+      "tag": "c:tools/saw"
+    }
+  },
+  "result": {
+    "stack": {
+      "count": 3,
+      "id": "tfc_item_barrels_and_more:wood/mangrove/mast"
+    },
+    "modifiers": []
+  },
+  "input_row": 0,
+  "input_column": 1,
+  "remainder": {
+    "modifiers": [
+      {
+        "type": "tfc:damage_crafting_remainder"
       }
-    },
-    "result": {
-      "stack": {
-        "count": 3,
-        "id": "tfc_item_barrels_and_more:wood/mangrove/mast"
-      },
-      "modifiers": []
-    },
-    "input_row": 0,
-    "input_column": 1
+    ]
   }
 }

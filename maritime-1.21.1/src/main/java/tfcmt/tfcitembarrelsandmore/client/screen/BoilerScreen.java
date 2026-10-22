@@ -24,7 +24,7 @@ extends AbstractContainerScreen<BoilerContainer> {
     private static final float MAX_DISPLAY_TEMP = 1600.0f;
 
     public BoilerScreen(BoilerContainer container, Inventory playerInventory, Component title) {
-        super((AbstractContainerMenu)container, playerInventory, title);
+        super(container, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 166;
     }
@@ -122,7 +122,7 @@ extends AbstractContainerScreen<BoilerContainer> {
         if (this.isHovering(12, 27, 12, 48, mouseX, mouseY)) {
             float temp = ((BoilerContainer)this.menu).getTemperature();
             Heat heat = Heat.getHeat((float)temp);
-            MutableComponent tooltip = heat == null ? Component.literal((String)String.format("%.1f\u00b0C", Float.valueOf(temp))) : heat.getDisplayName().copy().withStyle(s -> s.withColor(heat.getColor())).append((Component)Component.literal((String)String.format(" (%.1f\u00b0C)", Float.valueOf(temp))));
+            MutableComponent tooltip = heat == null ? Component.literal((String)String.format("%.1f\u00b0C", Float.valueOf(temp))) : net.dries007.tfc.util.Helpers.translateEnum(heat).copy().withStyle(s -> s.withColor(heat.getColor())).append((Component)Component.literal((String)String.format(" (%.1f\u00b0C)", Float.valueOf(temp))));
             graphics.renderTooltip(this.font, (Component)tooltip, mouseX, mouseY);
         }
         if (this.isHovering(71, 44, 16, 16, mouseX, mouseY) && (ash = ((BoilerContainer)this.menu).getAshCount()) == 64) {

@@ -95,7 +95,7 @@ ITollableSink {
     }
 
     public AirCompressorBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.AIR_COMPRESSOR.get(), pos, state, self -> new ItemStackHandler(6){
+        super(TIBAMBlockEntities.AIR_COMPRESSOR.get(), pos, state, self -> new ItemStackHandler(6){
 
             public boolean isItemValid(int slot, ItemStack stack) {
                 return stack.getItem() instanceof AirHoseItem;
@@ -373,16 +373,11 @@ ITollableSink {
         tag.putBoolean("InvalidInNetwork", this.invalidInNetwork);
         ListTag connections = new ListTag();
         for (UUID uuid : this.linkedPlayers) {
-            connections.add((Object)NbtUtils.createUUID((UUID)uuid));
+            connections.add(NbtUtils.createUUID((UUID)uuid));
         }
         tag.put("LinkedHoses", (Tag)connections);
     }
 
-    @Nonnull
-    public CompoundTag getUpdateTag(net.minecraft.core.HolderLookup.Provider registries) {
-        CompoundTag tag = super.getUpdateTag(registries);
-        this.saveAdditional(tag, registries);
-        return tag;
-    }
+
 }
 

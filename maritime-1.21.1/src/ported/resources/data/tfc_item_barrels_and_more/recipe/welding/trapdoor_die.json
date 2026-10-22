@@ -1,7 +1,7 @@
 {
   "type": "tfc:welding",
   "first_input": {
-    "tag": "tfc:trapdoors"
+    "tag": "minecraft:trapdoors"
   },
   "second_input": {
     "tag": "c:ingots/steel"

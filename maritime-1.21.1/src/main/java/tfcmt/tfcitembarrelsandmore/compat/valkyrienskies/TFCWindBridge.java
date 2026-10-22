@@ -10,22 +10,20 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import org.joml.Vector3dc;
 import org.valkyrienskies.core.api.ships.LoadedServerShip;
 import org.valkyrienskies.core.api.ships.Ship;
-import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import tfcmt.tfcitembarrelsandmore.compat.valkyrienskies.VSCompat;
 import tfcmt.tfcitembarrelsandmore.common.TIBAMConfig;
 
 public final class TFCWindBridge {
     private int tickCounter = 0;
 
     @SubscribeEvent
-    public void onServerTick(TickEvent.ServerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public void onServerTick(ServerTickEvent.Post event) {
         if (!((Boolean)TIBAMConfig.COMMON.windBridgeEnabled.get()).booleanValue()) {
             return;
         }
@@ -41,7 +39,7 @@ public final class TFCWindBridge {
             HashSet<Long> handledShipIds = new HashSet<Long>();
             for (ServerPlayer player : level.players()) {
                 AABB searchArea = player.getBoundingBox().inflate(radius);
-                for (Ship ship : VSGameUtilsKt.getShipsIntersecting((Level)level, (AABB)searchArea)) {
+                for (Ship ship : VSCompat.getShipsIntersecting((Level)level, (AABB)searchArea)) {
                     LoadedServerShip loadedShip;
                     if (!(ship instanceof LoadedServerShip) || !handledShipIds.add((loadedShip = (LoadedServerShip)ship).getId())) continue;
                     this.applyWindTo(level, loadedShip, speedScale);
@@ -56,7 +54,7 @@ public final class TFCWindBridge {
         }
         Vector3dc posInWorld = ship.getTransform().getPositionInWorld();
         BlockPos samplePos = new BlockPos(Mth.floor((double)posInWorld.x()), Mth.floor((double)posInWorld.y()), Mth.floor((double)posInWorld.z()));
-        Vec2 tfcWind = Climate.getWindVector((Level)level, (BlockPos)samplePos);
+        Vec2 tfcWind = Climate.get(level).getWind(level, samplePos);
         double magnitude = Math.sqrt(tfcWind.x * tfcWind.x + tfcWind.y * tfcWind.y);
         if (magnitude < 1.0E-4) {
             ship.getDragController().setWindSpeed(0.0, "tfc_item_barrels_and_more");

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import tfcmt.tfcitembarrelsandmore.common.blockentities.ExplorationLampBlockEntity;
 import tfcmt.tfcitembarrelsandmore.common.items.ExplorationLampBlockItem;
 
-@Mixin(value={Entity.class})
+@Mixin(value={Entity.class}, priority=900)
 public abstract class EntityDynamicLightMixin {
     private static final double BEAM_DISTANCE = 3.0;
 
@@ -20,7 +20,7 @@ public abstract class EntityDynamicLightMixin {
     private void tfcmt$offsetLightX(CallbackInfoReturnable<Double> cir) {
         Vec3 offset = this.tfcmt$searchBeamOffset();
         if (offset != null) {
-            cir.setReturnValue((Object)offset.x);
+            cir.setReturnValue(offset.x);
         }
     }
 
@@ -28,7 +28,7 @@ public abstract class EntityDynamicLightMixin {
     private void tfcmt$offsetLightY(CallbackInfoReturnable<Double> cir) {
         Vec3 offset = this.tfcmt$searchBeamOffset();
         if (offset != null) {
-            cir.setReturnValue((Object)offset.y);
+            cir.setReturnValue(offset.y);
         }
     }
 
@@ -36,12 +36,12 @@ public abstract class EntityDynamicLightMixin {
     private void tfcmt$offsetLightZ(CallbackInfoReturnable<Double> cir) {
         Vec3 offset = this.tfcmt$searchBeamOffset();
         if (offset != null) {
-            cir.setReturnValue((Object)offset.z);
+            cir.setReturnValue(offset.z);
         }
     }
 
     private Vec3 tfcmt$searchBeamOffset() {
-        EntityDynamicLightMixin entityDynamicLightMixin = this;
+        Object entityDynamicLightMixin = this;
         if (!(entityDynamicLightMixin instanceof Player)) {
             return null;
         }

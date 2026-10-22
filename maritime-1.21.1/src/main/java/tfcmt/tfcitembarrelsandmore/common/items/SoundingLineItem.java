@@ -35,12 +35,13 @@ extends SizedItem {
             line.shootFromRotation((Entity)player, player.getXRot(), player.getYRot(), 0.0f, 1.5f, 1.0f);
             level.addFreshEntity((Entity)line);
         }
-        player.awardStat(Stats.ITEM_USED.get((Object)this));
-        return InteractionResultHolder.sidedSuccess((Object)stack, (boolean)level.isClientSide);
+        player.awardStat(Stats.ITEM_USED.get(this));
+        return InteractionResultHolder.sidedSuccess(stack, (boolean)level.isClientSide);
     }
 
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendHoverText(ItemStack stack, net.minecraft.world.item.Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        Level level = context.level();
+        super.appendHoverText(stack, context, tooltip, flag);
         tooltip.add((Component)Component.translatable((String)"tooltip.tfc_item_barrels_and_more.sounding_line.desc").withStyle(ChatFormatting.GRAY));
     }
 }

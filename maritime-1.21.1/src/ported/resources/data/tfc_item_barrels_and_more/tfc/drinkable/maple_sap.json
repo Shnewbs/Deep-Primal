@@ -2,5 +2,11 @@
   "ingredient": {
     "fluid": "afc:maple_sap"
   },
-  "water": 5
+  "water": 5,
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "afc"
+    }
+  ]
 }

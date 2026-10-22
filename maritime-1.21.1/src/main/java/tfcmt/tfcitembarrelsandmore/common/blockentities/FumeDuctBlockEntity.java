@@ -17,7 +17,7 @@ extends BlockEntity {
     private final Map<Direction, BlockEntity> neighbors = new EnumMap<Direction, BlockEntity>(Direction.class);
 
     public FumeDuctBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.FUME_DUCT.get(), pos, state);
+        super(TIBAMBlockEntities.FUME_DUCT.get(), pos, state);
     }
 
     public void onLoad() {

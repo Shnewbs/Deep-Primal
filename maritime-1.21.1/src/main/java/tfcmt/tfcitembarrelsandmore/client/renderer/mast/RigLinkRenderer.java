@@ -38,7 +38,7 @@ import tfcmt.tfcitembarrelsandmore.common.blockentities.mast.RigSlot;
 import tfcmt.tfcitembarrelsandmore.common.blockentities.mast.YardHost;
 import tfcmt.tfcitembarrelsandmore.common.blocks.mast.YardGrowth;
 
-@EventBusSubscriber(modid="tfc_item_barrels_and_more", bus=EventBusSubscriber.Bus.FORGE, value={Dist.CLIENT})
+@EventBusSubscriber(modid="tfc_item_barrels_and_more", bus=EventBusSubscriber.Bus.GAME, value={Dist.CLIENT})
 public final class RigLinkRenderer {
     private static final ResourceLocation RIG_LINE_TEXTURE = ResourceLocation.fromNamespaceAndPath("tfc_item_barrels_and_more", "textures/entity/rig_line.png");
     private static final RenderType RIG_RENDER_TYPE = RenderType.entityCutoutNoCull((ResourceLocation)RIG_LINE_TEXTURE);

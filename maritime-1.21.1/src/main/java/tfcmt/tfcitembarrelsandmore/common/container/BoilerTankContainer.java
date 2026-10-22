@@ -32,7 +32,7 @@ implements ISteamEngineMenu {
     }
 
     public BoilerTankContainer(int windowId, Inventory playerInv, BoilerTankBlockEntity be) {
-        super((MenuType)TIBAMContainerTypes.BOILER_TANK.get(), windowId, (InventoryBlockEntity)be);
+        super((MenuType)TIBAMContainerTypes.BOILER_TANK.get(), windowId, be);
     }
 
     protected void addContainerSlots() {

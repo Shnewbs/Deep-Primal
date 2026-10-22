@@ -1,7 +1,7 @@
 package tfcmt.tfcitembarrelsandmore.client.curios;
 
-import com.eerussianguy.barrels_2012.client.BlockItemCurioRenderer;
-import com.eerussianguy.barrels_2012.client.BodyCurioModel;
+
+
 import net.dries007.tfc.common.blocks.devices.BarrelBlock;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -19,9 +19,23 @@ import tfcmt.tfcitembarrelsandmore.common.TIBAMBlocks;
 import tfcmt.tfcitembarrelsandmore.common.blocks.devices.ItemBarrelBlock;
 
 public class ItemBarrelCurioRenderer
-extends BlockItemCurioRenderer {
-    public ItemBarrelCurioRenderer() {
-        super(new BodyCurioModel(BlockItemCurioRenderer.bake((String)"barrel"), "body"));
+implements top.theillusivec4.curios.api.client.ICurioRenderer {
+    @Override
+    public <T extends LivingEntity, M extends net.minecraft.client.model.EntityModel<T>> void render(
+        ItemStack stack, top.theillusivec4.curios.api.SlotContext slot, com.mojang.blaze3d.vertex.PoseStack pose,
+        net.minecraft.client.renderer.entity.RenderLayerParent<T, M> parent, net.minecraft.client.renderer.MultiBufferSource buffers,
+        int light, float limbSwing, float limbAmount, float partialTick, float age, float headYaw, float headPitch) {
+        BlockState state = resolveBarrelState(stack);
+        if (state == null || !slot.visible()) return;
+        pose.pushPose();
+        if (parent.getModel() instanceof net.minecraft.client.model.HumanoidModel<?> humanoid) humanoid.body.translateAndRotate(pose);
+        pose.translate(0.0, 0.5, 0.18);
+        pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(180));
+        pose.scale(0.6f, 0.6f, 0.6f);
+        pose.translate(-0.5, -0.5, -1.0);
+        net.minecraft.client.Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
+            state, pose, buffers, light, net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);
+        pose.popPose();
     }
 
     @Nullable
@@ -53,7 +67,7 @@ extends BlockItemCurioRenderer {
             return null;
         }
         BarrelBlock barrelBlock = (BarrelBlock)tfcBarrel;
-        return (BlockState)barrelBlock.defaultBlockState().setValue((Property)BarrelBlock.SEALED, (Comparable)Boolean.valueOf(ItemBarrelCurioRenderer.isSealed(stack)));
+        return (BlockState)barrelBlock.defaultBlockState().setValue((Property)BarrelBlock.SEALED, Boolean.valueOf(ItemBarrelCurioRenderer.isSealed(stack)));
     }
 
     private static boolean isSealed(ItemStack stack) {

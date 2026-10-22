@@ -29,7 +29,7 @@ implements ICompressorMenu {
     }
 
     public AirCompressorContainer(int windowId, Inventory playerInv, AirCompressorBlockEntity be) {
-        super((MenuType)TIBAMContainerTypes.AIR_COMPRESSOR.get(), windowId, (InventoryBlockEntity)be);
+        super((MenuType)TIBAMContainerTypes.AIR_COMPRESSOR.get(), windowId, be);
     }
 
     protected void addContainerSlots() {

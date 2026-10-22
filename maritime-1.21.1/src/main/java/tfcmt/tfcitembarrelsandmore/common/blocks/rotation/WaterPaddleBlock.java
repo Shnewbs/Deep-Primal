@@ -30,7 +30,7 @@ implements EntityBlock {
     public WaterPaddleBlock(BlockBehaviour.Properties properties, TIBAMBlocks.Wood wood) {
         super(properties);
         this.wood = wood;
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue((Property)FACING, (Comparable)Direction.NORTH));
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue((Property)FACING, Direction.NORTH));
     }
 
     public TIBAMBlocks.Wood getWood() {
@@ -45,7 +45,7 @@ implements EntityBlock {
         Direction clicked = ctx.getClickedFace();
         Direction awayFromAxle = clicked.getAxis().isHorizontal() ? clicked : ctx.getHorizontalDirection().getOpposite();
         Direction facing = awayFromAxle.getOpposite();
-        return (BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)facing);
+        return (BlockState)this.defaultBlockState().setValue((Property)FACING, facing);
     }
 
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {

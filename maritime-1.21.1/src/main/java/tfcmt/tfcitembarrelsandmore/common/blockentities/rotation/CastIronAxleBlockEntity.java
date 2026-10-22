@@ -21,7 +21,7 @@ implements RotatingBlockEntity {
     private boolean invalid = false;
 
     public CastIronAxleBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.CAST_IRON_AXLE.get(), pos, state);
+        super(TIBAMBlockEntities.CAST_IRON_AXLE.get(), pos, state);
         Direction.Axis axis = (Direction.Axis)state.getValue((Property)AxleBlock.AXIS);
         this.node = new AxleNode(pos, Node.ofAxis((Direction.Axis)axis));
     }

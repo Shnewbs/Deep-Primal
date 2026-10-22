@@ -35,7 +35,7 @@ public final class MastRake {
             return InteractionResult.PASS;
         }
         MastBlockEntity anchor = (MastBlockEntity)blockEntity;
-        if (!Helpers.isItem((ItemStack)held, (TagKey)TFCTags.Items.HAMMERS)) {
+        if (!Helpers.isItem((ItemStack)held, (TagKey)net.minecraft.tags.ItemTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "tools/hammer")))) {
             return InteractionResult.PASS;
         }
         return player.isShiftKeyDown() ? MastRake.tryUnrake(anchor) : MastRake.tryIncreaseRake(level, anchorPos, anchor, player, hit);

@@ -2,10 +2,10 @@ package tfcmt.tfcitembarrelsandmore.common.container;
 
 import net.dries007.tfc.common.blockentities.InventoryBlockEntity;
 import net.dries007.tfc.common.blocks.devices.SealableDeviceBlock;
-import net.dries007.tfc.common.capabilities.Capabilities;
+
 import net.dries007.tfc.common.container.BlockEntityContainer;
 import net.dries007.tfc.common.container.ButtonHandlerContainer;
-import net.dries007.tfc.common.container.CallbackSlot;
+import net.dries007.tfc.common.container.slot.CallbackSlot;
 import net.dries007.tfc.common.container.Container;
 import net.dries007.tfc.common.container.ISlotCallback;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +30,7 @@ implements ButtonHandlerContainer {
     }
 
     private ItemBarrelContainer(int windowId, ItemBarrelBlockEntity barrel) {
-        super((MenuType)TIBAMContainerTypes.ITEM_BARREL.get(), windowId, (InventoryBlockEntity)barrel);
+        super((MenuType)TIBAMContainerTypes.ITEM_BARREL.get(), windowId, barrel);
     }
 
     public void clicked(int slot, int button, ClickType clickType, Player player) {
@@ -71,13 +71,14 @@ implements ButtonHandlerContainer {
     }
 
     protected void addContainerSlots() {
-        ((ItemBarrelBlockEntity)this.blockEntity).getCapability(Capabilities.ITEM).ifPresent(inventory -> {
+        var inventory = this.blockEntity.getInventory();
+        {
             for (int y = 0; y < 3; ++y) {
                 for (int x = 0; x < 4; ++x) {
                     this.addSlot((Slot)new CallbackSlot((ISlotCallback)this.blockEntity, inventory, y * 4 + x, 25 + x * 18, 19 + y * 18));
                 }
             }
-        });
+        }
     }
 }
 

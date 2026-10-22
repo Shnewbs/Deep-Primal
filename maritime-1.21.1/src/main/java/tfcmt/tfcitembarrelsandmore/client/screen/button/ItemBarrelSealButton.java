@@ -26,7 +26,7 @@ extends Button {
     }
 
     public void onPress() {
-        PacketHandler.send((PacketDistributor.PacketTarget)PacketDistributor.SERVER.noArg(), (Object)new ScreenButtonPacket(0, (CompoundTag)null));
+        PacketDistributor.sendToServer(new ScreenButtonPacket(0, (CompoundTag)null));
         this.playDownSound(Minecraft.getInstance().getSoundManager());
     }
 

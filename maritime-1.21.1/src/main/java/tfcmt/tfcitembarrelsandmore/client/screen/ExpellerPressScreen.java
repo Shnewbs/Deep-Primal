@@ -30,7 +30,7 @@ extends AbstractContainerScreen<ExpellerPressContainer> {
     private static final int TANK_H = 50;
 
     public ExpellerPressScreen(ExpellerPressContainer container, Inventory playerInventory, Component title) {
-        super((AbstractContainerMenu)container, playerInventory, title);
+        super(container, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 186;
         this.inventoryLabelY = this.imageHeight - 106;
@@ -69,8 +69,7 @@ extends AbstractContainerScreen<ExpellerPressContainer> {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder buf = tesselator.getBuilder();
-        buf.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+        BufferBuilder buf = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         float spriteW = sprite.getU1() - sprite.getU0();
         float spriteH = sprite.getV1() - sprite.getV0();
         for (int ty = 0; ty < fillH; ty += 16) {
@@ -92,7 +91,7 @@ extends AbstractContainerScreen<ExpellerPressContainer> {
                 buf.addVertex((float)x0, (float)y0, (float)z).setUv(u0, v0).setColor(r, g, b, a);
             }
         }
-        tesselator.end();
+        com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buf.buildOrThrow());
         RenderSystem.disableBlend();
     }
 
@@ -103,7 +102,7 @@ extends AbstractContainerScreen<ExpellerPressContainer> {
         this.renderTooltip(graphics, mouseX, mouseY);
         if (this.isHovering(8, 20, 16, 50, mouseX, mouseY)) {
             FluidStack tankFluid = ((ExpellerPressContainer)this.menu).getOutputFluid();
-            MutableComponent fluidName = tankFluid.isEmpty() ? Component.literal((String)"Empty") : tankFluid.getFluid().getFluidType().getDescription();
+            Component fluidName = tankFluid.isEmpty() ? Component.literal((String)"Empty") : tankFluid.getFluid().getFluidType().getDescription();
             graphics.renderTooltip(this.font, (Component)Component.literal((String)(((ExpellerPressContainer)this.menu).getFluidAmount() + " / " + ((ExpellerPressContainer)this.menu).getFluidCapacity() + " mB of ")).append((Component)fluidName), mouseX, mouseY);
         }
     }

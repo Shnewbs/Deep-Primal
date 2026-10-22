@@ -41,15 +41,14 @@ public final class CreateCompat {
     }
 
     static {
-        DeferredHolder[] holder;
+        
         BLOCKS = DeferredRegister.create(Registries.BLOCK, (String)"tfc_item_barrels_and_more");
         ITEMS = DeferredRegister.create(Registries.ITEM, (String)"tfc_item_barrels_and_more");
         BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, (String)"tfc_item_barrels_and_more");
-        SPEED_TELEGRAPH_INPUT = RegistrationHelpers.registerBlock(BLOCKS, ITEMS, (String)"speed_telegraph_input", () -> new SpeedTelegraphInputBlock(ExtendedProperties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).strength(3.0f).requiresCorrectToolForDrops().noOcclusion().blockEntity(SPEED_TELEGRAPH_INPUT_BE)), item -> new SpeedTelegraphInputItem((Block)item, new Item.Properties(), Size.HUGE, Weight.VERY_HEAVY));
+        SPEED_TELEGRAPH_INPUT = RegistrationHelpers.registerBlock(BLOCKS, ITEMS, (String)"speed_telegraph_input", () -> new SpeedTelegraphInputBlock(ExtendedProperties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).strength(3.0f).requiresCorrectToolForDrops().noOcclusion().blockEntity(() -> CreateCompat.SPEED_TELEGRAPH_INPUT_BE.get())), item -> new SpeedTelegraphInputItem((Block)item, new Item.Properties(), Size.HUGE, Weight.VERY_HEAVY));
         SPEED_TELEGRAPH_OUTPUT = RegistrationHelpers.registerBlock(BLOCKS, ITEMS, (String)"speed_telegraph_output", () -> new SpeedTelegraphOutputBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).strength(3.0f).requiresCorrectToolForDrops().noOcclusion()), item -> new SizedBlockItem((Block)item, new Item.Properties(), Size.HUGE, Weight.VERY_HEAVY));
         SPEED_TELEGRAPH_INPUT_BE = BLOCK_ENTITIES.register("speed_telegraph_input", () -> BlockEntityType.Builder.of((pos, state) -> new SpeedTelegraphInputBlockEntity(pos, state), (Block[])new Block[]{(Block)SPEED_TELEGRAPH_INPUT.get()}).build(null));
-        holder = new DeferredHolder[]{BLOCK_ENTITIES.register("speed_telegraph_output", () -> BlockEntityType.Builder.of((pos, state) -> new SpeedTelegraphOutputBlockEntity((BlockEntityType)holder[0].get(), pos, state), (Block[])new Block[]{(Block)SPEED_TELEGRAPH_OUTPUT.get()}).build(null))};
-        SPEED_TELEGRAPH_OUTPUT_BE = holder[0];
+        SPEED_TELEGRAPH_OUTPUT_BE = BLOCK_ENTITIES.register("speed_telegraph_output", () -> BlockEntityType.Builder.of((pos, state) -> new SpeedTelegraphOutputBlockEntity(CreateCompat.SPEED_TELEGRAPH_OUTPUT_BE.get(), pos, state), SPEED_TELEGRAPH_OUTPUT.get()).build(null));
     }
 }
 

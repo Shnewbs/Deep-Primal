@@ -26,7 +26,7 @@ implements MastCell {
     private int distanceFromHost = 1;
 
     public BoomFillerBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.BOOM_FILLER.get(), pos, state);
+        super(TIBAMBlockEntities.BOOM_FILLER.get(), pos, state);
     }
 
     public void init(Direction face, int distanceFromHost) {
@@ -113,7 +113,7 @@ implements MastCell {
     }
 
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.handleUpdateTag(pkt.getTag());
+        this.handleUpdateTag(pkt.getTag(), this.level.registryAccess());
     }
 }
 

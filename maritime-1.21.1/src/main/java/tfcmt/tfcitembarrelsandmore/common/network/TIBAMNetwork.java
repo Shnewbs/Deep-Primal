@@ -26,6 +26,9 @@ public final class TIBAMNetwork {
         if (!(context.player() instanceof ServerPlayer player) || !player.isAlive() || player.isSpectator()
             || player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) > 64
             || !player.serverLevel().hasChunkAt(pos)) return null;
+        if (!(player.containerMenu instanceof net.dries007.tfc.common.container.BlockEntityContainer<?> menu)
+            || menu.getBlockEntity().getLevel() != player.serverLevel()
+            || !menu.getBlockEntity().getBlockPos().equals(pos) || !menu.stillValid(player)) return null;
         return player.serverLevel().getBlockEntity(pos);
     }
     public static void syncBrace(BlockPos pos, BraceData data, ServerLevel level) {

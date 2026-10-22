@@ -40,7 +40,7 @@ extends TickableInventoryBlockEntity<InventoryItemHandler> {
     private long saltClockLastCalendarTime = -1L;
 
     public ItemBarrelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state, self -> new InventoryItemHandler((ISlotCallback)self, 12), (Component)Component.translatable((String)"Item Barrel"));
+        super(type, pos, state, self -> new InventoryItemHandler((ISlotCallback)self, 12), "container.tfc_item_barrels_and_more.item_barrel");
     }
 
 

@@ -50,7 +50,7 @@ implements MenuProvider {
     private final IItemHandler topCap = this.inventory;
 
     public SmokeShackBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.SMOKE_SHACK.get(), pos, state, self -> new ItemStackHandler(2){
+        super(TIBAMBlockEntities.SMOKE_SHACK.get(), pos, state, self -> new ItemStackHandler(2){
 
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 if (!stack.is(TAG_MEATS)) {
@@ -155,7 +155,7 @@ implements MenuProvider {
         if ((Boolean)state.getValue((Property)SmokeShackBlock.LIT) == lit) {
             return;
         }
-        level.setBlock(pos, (BlockState)state.setValue((Property)SmokeShackBlock.LIT, (Comparable)Boolean.valueOf(lit)), 2);
+        level.setBlock(pos, (BlockState)state.setValue((Property)SmokeShackBlock.LIT, Boolean.valueOf(lit)), 2);
     }
 
 

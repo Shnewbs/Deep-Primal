@@ -62,7 +62,7 @@ implements EntityBlockExtension {
 
     public ExplorationLampBlock(ExtendedProperties properties, boolean defaultLit, ExplorationLampBlockEntity.Mode defaultMode) {
         super(properties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue((Property)FACING, (Comparable)Direction.NORTH)).setValue((Property)LIT, (Comparable)Boolean.valueOf(defaultLit))).setValue(MODE, defaultMode));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue((Property)FACING, Direction.NORTH)).setValue((Property)LIT, Boolean.valueOf(defaultLit))).setValue(MODE, defaultMode));
     }
 
     public ExplorationLampBlock(ExtendedProperties properties) {
@@ -75,10 +75,10 @@ implements EntityBlockExtension {
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)ctx.getHorizontalDirection().getOpposite());
+        return (BlockState)this.defaultBlockState().setValue((Property)FACING, ctx.getHorizontalDirection().getOpposite());
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ExplorationLampBlockEntity lamp;
         ItemStack held = player.getItemInHand(hand);
         BlockEntity blockEntity = level.getBlockEntity(pos);
@@ -97,7 +97,7 @@ implements EntityBlockExtension {
             BlockEntity serverLevel;
             if (player.isShiftKeyDown() && ((Boolean)state.getValue((Property)LIT)).booleanValue()) {
                 if (!level.isClientSide) {
-                    BlockState newState = (BlockState)state.setValue((Property)LIT, (Comparable)Boolean.valueOf(false));
+                    BlockState newState = (BlockState)state.setValue((Property)LIT, Boolean.valueOf(false));
                     level.setBlockAndUpdate(pos, newState);
                     BlockEntity blockEntity2 = level.getBlockEntity(pos);
                     if (blockEntity2 instanceof ExplorationLampBlockEntity) {
@@ -105,8 +105,8 @@ implements EntityBlockExtension {
                         lamp2.markForSync();
                     }
                     if (level instanceof ServerLevel) {
-                        serverLevel = (ServerLevel)level;
-                        ExplorationLampBeam.sync((ServerLevel)serverLevel, pos, newState);
+                        ServerLevel serverLevel2 = (ServerLevel)level;
+                        ExplorationLampBeam.sync(serverLevel2, pos, newState);
                     }
                 }
                 return InteractionResult.sidedSuccess((boolean)level.isClientSide);
@@ -115,7 +115,7 @@ implements EntityBlockExtension {
                 if (!level.isClientSide && (serverLevel = level.getBlockEntity(pos)) instanceof ExplorationLampBlockEntity) {
                     lamp = (ExplorationLampBlockEntity)serverLevel;
                     lamp.cycleMode();
-                    BlockState newState = (BlockState)state.setValue(MODE, (Comparable)((Object)lamp.getMode()));
+                    BlockState newState = (BlockState)state.setValue(MODE, (lamp.getMode()));
                     level.setBlockAndUpdate(pos, newState);
                     if (level instanceof ServerLevel) {
                         ServerLevel serverLevel2 = (ServerLevel)level;
@@ -147,7 +147,7 @@ implements EntityBlockExtension {
         super.onRemove(state, level, pos, newState, isMoving);
     }
 
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, net.minecraft.world.level.LevelReader level, BlockPos pos, Player player) {
         boolean lit = (Boolean)state.getValue((Property)LIT);
         ItemStack stack = new ItemStack((ItemLike)this.asItem());
         BlockEntity blockEntity = level.getBlockEntity(pos);
@@ -175,15 +175,15 @@ implements EntityBlockExtension {
         return false;
     }
 
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
-            ItemStack drop = this.getCloneItemStack(state, null, (BlockGetter)level, pos, player);
+            ItemStack drop = this.getCloneItemStack(state, null, (net.minecraft.world.level.LevelReader)level, pos, player);
             Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
             ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, drop);
             entity.setDefaultPickUpDelay();
             level.addFreshEntity((Entity)entity);
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
@@ -202,6 +202,21 @@ implements EntityBlockExtension {
             case ExplorationLampBlockEntity.Mode.SEARCH -> 0;
             case ExplorationLampBlockEntity.Mode.AREA -> 14;
         };
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

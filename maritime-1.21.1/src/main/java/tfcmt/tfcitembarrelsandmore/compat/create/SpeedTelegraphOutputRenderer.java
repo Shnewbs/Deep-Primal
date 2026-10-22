@@ -41,8 +41,8 @@ implements BlockEntityRenderer<SpeedTelegraphOutputBlockEntity> {
         float redPrev = be.getRedAnglePrev();
         float redCurr = be.getRedAngle();
         float redDeg = redPrev + (redCurr - redPrev) * partialTick;
-        BakedModel handleModel = Minecraft.getInstance().getModelManager().getModel(MODEL_HANDLE);
-        BakedModel redModel = Minecraft.getInstance().getModelManager().getModel(MODEL_RED);
+        BakedModel handleModel = Minecraft.getInstance().getModelManager().getModel(net.minecraft.client.resources.model.ModelResourceLocation.standalone(MODEL_HANDLE));
+        BakedModel redModel = Minecraft.getInstance().getModelManager().getModel(net.minecraft.client.resources.model.ModelResourceLocation.standalone(MODEL_RED));
         ps.pushPose();
         SpeedTelegraphOutputRenderer.applyFacingTransform(ps, state);
         ps.pushPose();

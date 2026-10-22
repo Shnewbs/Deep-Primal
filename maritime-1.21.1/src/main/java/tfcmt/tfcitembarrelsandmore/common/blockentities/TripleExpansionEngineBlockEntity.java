@@ -76,7 +76,7 @@ EngineSoundInstance.SteamEngineAccessor {
     }
 
     public TripleExpansionEngineBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.TRIPLE_EXPANSION_ENGINE.get(), pos, state, self -> new ItemStackHandler(0), NAME.getString());
+        super(TIBAMBlockEntities.TRIPLE_EXPANSION_ENGINE.get(), pos, state, self -> new ItemStackHandler(0), NAME.getString());
         Direction facing;
         Direction output = facing = (Direction)state.getValue((Property)TripleExpansionEngineBlock.FACING);
         this.sourceNode = new SourceNode(pos.relative(output), Node.ofAxis((Direction.Axis)output.getAxis()), output.getOpposite(), 0.0f){};
@@ -154,7 +154,7 @@ EngineSoundInstance.SteamEngineAccessor {
         }
         this.running = shouldRun;
         if ((Boolean)state.getValue((Property)TripleExpansionEngineBlock.RUNNING) != shouldRun) {
-            level.setBlock(pos, (BlockState)state.setValue((Property)TripleExpansionEngineBlock.RUNNING, (Comparable)Boolean.valueOf(shouldRun)), 2);
+            level.setBlock(pos, (BlockState)state.setValue((Property)TripleExpansionEngineBlock.RUNNING, Boolean.valueOf(shouldRun)), 2);
             this.performNetworkAction(NetworkAction.UPDATE);
         }
         ++this.tollHeartbeatCounter;
@@ -197,7 +197,7 @@ EngineSoundInstance.SteamEngineAccessor {
         }
         this.running = false;
         if (((Boolean)state.getValue((Property)TripleExpansionEngineBlock.RUNNING)).booleanValue()) {
-            level.setBlock(pos, (BlockState)state.setValue((Property)TripleExpansionEngineBlock.RUNNING, (Comparable)Boolean.valueOf(false)), 2);
+            level.setBlock(pos, (BlockState)state.setValue((Property)TripleExpansionEngineBlock.RUNNING, Boolean.valueOf(false)), 2);
             this.performNetworkAction(NetworkAction.UPDATE);
         }
         this.setChanged();
@@ -225,7 +225,7 @@ EngineSoundInstance.SteamEngineAccessor {
         double ry = (double)pos.getY() + 0.5;
         double rz = (double)pos.getZ() + 0.5 + (double)backFace.getStepZ() * 0.6;
         Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, rx, ry, rz);
-        ItemStack rod = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.ROD)).get());
+        ItemStack rod = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.ROD).get());
         level.addFreshEntity((Entity)new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, rod));
     }
 

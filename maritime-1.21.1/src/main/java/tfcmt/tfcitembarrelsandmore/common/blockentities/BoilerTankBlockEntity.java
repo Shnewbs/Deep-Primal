@@ -163,12 +163,12 @@ implements MenuProvider {
                 blockEntity = level.getBlockEntity(candidate);
                 if (!(blockEntity instanceof TripleExpansionEngineBlockEntity)) continue;
                 engine = (TripleExpansionEngineBlockEntity)blockEntity;
-                engine.tickFromTank(this, this.psi, this.throttle, level, candidate, engineState);
+                ((TripleExpansionEngineBlockEntity)engine).tickFromTank(this, this.psi, this.throttle, level, candidate, engineState);
                 continue;
             }
             if (!engineState.is((Block)TIBAMBlocks.LARGE_SINGLE_PISTON_ENGINE.get()) || !((Boolean)engineState.getValue((Property)LargeSinglePistonEngineBlock.LINKED)).booleanValue() || !((blockEntity = level.getBlockEntity(candidate)) instanceof LargeSinglePistonEngineBlockEntity)) continue;
             engine = (LargeSinglePistonEngineBlockEntity)blockEntity;
-            engine.tickFromTank(this, this.psi, this.throttle, level, candidate, engineState);
+            ((LargeSinglePistonEngineBlockEntity)engine).tickFromTank(this, this.psi, this.throttle, level, candidate, engineState);
         }
         this.waterAmount = this.waterTank.getFluidAmount();
         if (level.getGameTime() % 100L == 0L && (boilerTemp > 0.0f || this.steam > 0)) {
@@ -295,10 +295,10 @@ implements MenuProvider {
             if (!isTripleExpansion && !isLargeSinglePiston || this.tier == TankTier.STEEL && !isTripleExpansion) continue;
             if (isTripleExpansion) {
                 if (((Boolean)engineState.getValue((Property)TripleExpansionEngineBlock.LINKED)).booleanValue()) continue;
-                level.setBlock(candidate, (BlockState)engineState.setValue((Property)TripleExpansionEngineBlock.LINKED, (Comparable)Boolean.valueOf(true)), 2);
+                level.setBlock(candidate, (BlockState)engineState.setValue((Property)TripleExpansionEngineBlock.LINKED, Boolean.valueOf(true)), 2);
             } else {
                 if (((Boolean)engineState.getValue((Property)LargeSinglePistonEngineBlock.LINKED)).booleanValue()) continue;
-                level.setBlock(candidate, (BlockState)engineState.setValue((Property)LargeSinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(true)), 2);
+                level.setBlock(candidate, (BlockState)engineState.setValue((Property)LargeSinglePistonEngineBlock.LINKED, Boolean.valueOf(true)), 2);
             }
             ++this.linkedCount;
             if (!player.isCreative()) {
@@ -317,14 +317,14 @@ implements MenuProvider {
         if (stack.isEmpty()) {
             return false;
         }
-        return stack.getItem() == ((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.ROD)).get();
+        return stack.getItem() == TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.ROD).get();
     }
 
     private static boolean isSteelRod(ItemStack stack) {
         if (stack.isEmpty()) {
             return false;
         }
-        return stack.getItem() == ((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.STEEL)).get(Metal.ItemType.ROD)).get();
+        return stack.getItem() == TFCItems.METAL_ITEMS.get(Metal.STEEL).get(Metal.ItemType.ROD).get();
     }
 
     private boolean isValidLinkRod(ItemStack stack) {
@@ -332,7 +332,7 @@ implements MenuProvider {
     }
 
     public ItemStack getLinkRodStack() {
-        Metal.Default metal = this.tier == TankTier.STEEL ? Metal.STEEL : Metal.CAST_IRON;
+        Metal metal = this.tier == TankTier.STEEL ? Metal.STEEL : Metal.CAST_IRON;
         return new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(metal)).get(Metal.ItemType.ROD)).get());
     }
 
@@ -433,7 +433,7 @@ implements MenuProvider {
         float f = this.effectiveBoilerTemp = tag.contains("EffectiveBoilerTemp") ? tag.getFloat("EffectiveBoilerTemp") : 0.0f;
         if (tag.contains("WaterTank")) {
             CompoundTag waterTag = tag.getCompound("WaterTank");
-            this.waterTank.readFromNBT(waterTag);
+            this.waterTank.readFromNBT(registries, waterTag);
         }
         this.waterAmount = this.waterTank.getFluidAmount();
         this.linkedCount = tag.getInt("LinkedCount");
@@ -446,7 +446,7 @@ implements MenuProvider {
         tag.putInt("Throttle", this.throttle);
         tag.putFloat("EffectiveBoilerTemp", this.effectiveBoilerTemp);
         CompoundTag waterTag = new CompoundTag();
-        this.waterTank.writeToNBT(waterTag);
+        this.waterTank.writeToNBT(registries, waterTag);
         tag.put("WaterTank", (Tag)waterTag);
         tag.putInt("LinkedCount", this.linkedCount);
     }

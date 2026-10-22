@@ -58,7 +58,7 @@ extends AbstractContainerScreen<AirCompressorContainer> {
     private static final int BL_TRAVEL = 45;
 
     public AirCompressorScreen(AirCompressorContainer container, Inventory playerInventory, Component title) {
-        super((AbstractContainerMenu)container, playerInventory, title);
+        super(container, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 166;
     }

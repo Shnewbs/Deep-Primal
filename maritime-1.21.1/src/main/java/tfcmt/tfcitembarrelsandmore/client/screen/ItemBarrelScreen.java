@@ -21,13 +21,13 @@ extends BlockEntityScreen<ItemBarrelBlockEntity, ItemBarrelContainer> {
     private ItemBarrelSealButton sealButton;
 
     public ItemBarrelScreen(ItemBarrelContainer container, Inventory playerInventory, Component name) {
-        super((BlockEntityContainer)container, playerInventory, name, BACKGROUND);
+        super(container, playerInventory, name, BACKGROUND);
     }
 
     public void init() {
         super.init();
         this.sealButton = new ItemBarrelSealButton((ItemBarrelBlockEntity)this.blockEntity, this.getGuiLeft(), this.getGuiTop(), this.isSealed() ? UNSEAL : SEAL);
-        this.addRenderableWidget((GuiEventListener)this.sealButton);
+        this.addRenderableWidget(this.sealButton);
     }
 
     public void containerTick() {

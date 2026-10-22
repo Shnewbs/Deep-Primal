@@ -1,17 +1,24 @@
 {
   "type": "tfc:heating",
   "ingredient": {
-    "type": "tfc:not_rotten",
-    "ingredient": {
-      "item": "tfc_item_barrels_and_more:raw_camelidae_sausage"
-    }
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc_item_barrels_and_more:raw_camelidae_sausage"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
   },
   "result_item": {
     "stack": {
       "id": "tfc_item_barrels_and_more:camelidae_sausage"
     },
     "modifiers": [
-      "tfc:copy_food"
+      {
+        "type": "tfc:copy_food"
+      }
     ]
   },
   "temperature": 200

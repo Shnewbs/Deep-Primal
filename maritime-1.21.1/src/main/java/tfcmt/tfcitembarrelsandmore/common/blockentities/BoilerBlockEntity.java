@@ -133,7 +133,7 @@ implements MenuProvider {
     }
 
     public BoilerBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.BOILER.get(), pos, state, self -> new BoilerItemHandler(), NAME.getString());
+        super(TIBAMBlockEntities.BOILER.get(), pos, state, self -> new BoilerItemHandler(), NAME.getString());
         ((BoilerItemHandler)this.inventory).owner = this;
         this.itemHandler = this.inventory;
     }
@@ -150,7 +150,7 @@ implements MenuProvider {
         if (!BoilerBlock.hasOpenVent(level, pos)) {
             this.temperature = Math.max(0.0f, this.temperature - heatLossPerTick);
             this.setLit(false);
-            HeatCapability.provideHeatTo((Level)level, (BlockPos)pos.above(), (float)this.temperature);
+            HeatCapability.provideHeatTo(level, pos.above(), Direction.DOWN, this.temperature);
             if (this.linkedEngine != null) {
                 this.linkedEngine.receiveBoilerTemperature(this.temperature);
             }
@@ -166,7 +166,7 @@ implements MenuProvider {
             this.temperature = Math.max(0.0f, this.temperature - heatLossPerTick);
             this.setLit(false);
         }
-        HeatCapability.provideHeatTo((Level)level, (BlockPos)pos.above(), (float)this.temperature);
+        HeatCapability.provideHeatTo(level, pos.above(), Direction.DOWN, this.temperature);
         float destructionTemp = (float)((Double)TIBAMConfig.SERVER.boilerDestructionTemp.get()).doubleValue();
         float rodPopTemp = (float)((Double)TIBAMConfig.SERVER.copperRodPopTemp.get()).doubleValue();
         if (this.temperature >= destructionTemp) {
@@ -191,7 +191,7 @@ implements MenuProvider {
             Fuel fuel;
             ItemStack stack = ((ItemStackHandler)this.inventory).getStackInSlot(slot);
             if (stack.isEmpty() || (fuel = Fuel.get((ItemStack)stack)) == null) continue;
-            total += fuel.getTemperature();
+            total += fuel.temperature();
             ++count;
         }
         this.averageBurnTemp = count > 0 ? total / (float)count : 0.0f;
@@ -211,21 +211,21 @@ implements MenuProvider {
             int slot = 0 + this.activeFuelSlot;
             ItemStack queued = ((ItemStackHandler)this.inventory).getStackInSlot(slot);
             if (queued.isEmpty() || (fuel = Fuel.get((ItemStack)queued)) == null) continue;
-            float thisFuelTemp = fuel.getTemperature();
+            float thisFuelTemp = fuel.temperature();
             this.midConsumption = true;
             ItemStack consumed = queued.copy();
             consumed.setCount(1);
             queued.shrink(1);
             ((ItemStackHandler)this.inventory).setStackInSlot(slot, queued);
             this.midConsumption = false;
-            this.fuelBurnTicksRemaining = fuel.getDuration();
+            this.fuelBurnTicksRemaining = fuel.duration();
             int remainingCount = 0;
             float remainingTotal = 0.0f;
             for (int s = 0; s <= 2; ++s) {
                 Fuel remainingFuel;
                 ItemStack remaining = ((ItemStackHandler)this.inventory).getStackInSlot(s);
                 if (remaining.isEmpty() || (remainingFuel = Fuel.get((ItemStack)remaining)) == null) continue;
-                remainingTotal += remainingFuel.getTemperature();
+                remainingTotal += remainingFuel.temperature();
                 ++remainingCount;
             }
             this.fuelBurnTemp = remainingCount > 0 ? (remainingTotal + thisFuelTemp) / (float)(remainingCount + 1) : thisFuelTemp;
@@ -252,7 +252,7 @@ implements MenuProvider {
         }
         if (this.level.getRandom().nextFloat() < chance) {
             ItemStack ashSlot = ((ItemStackHandler)this.inventory).getStackInSlot(3);
-            ItemStack ashItem = new ItemStack((ItemLike)((DeferredHolder)TFCItems.POWDERS.get(Powder.WOOD_ASH)).get());
+            ItemStack ashItem = new ItemStack((ItemLike)TFCItems.POWDERS.get(Powder.WOOD_ASH).get());
             if (ashSlot.isEmpty()) {
                 ((ItemStackHandler)this.inventory).setStackInSlot(3, ashItem);
             } else if (ashSlot.getCount() < 64) {
@@ -293,7 +293,7 @@ implements MenuProvider {
         if (stack.isEmpty()) {
             return false;
         }
-        return stack.getItem() == ((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.COPPER)).get(Metal.ItemType.ROD)).get();
+        return stack.getItem() == TFCItems.METAL_ITEMS.get(Metal.COPPER).get(Metal.ItemType.ROD).get();
     }
 
     private InteractionResult tryLinkEngine(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack rod) {
@@ -316,8 +316,8 @@ implements MenuProvider {
         if (!player.isCreative()) {
             rod.shrink(1);
         }
-        level.setBlock(pos, (BlockState)state.setValue((Property)BoilerBlock.LINKED, (Comparable)Boolean.valueOf(true)), 2);
-        level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(true)), 2);
+        level.setBlock(pos, (BlockState)state.setValue((Property)BoilerBlock.LINKED, Boolean.valueOf(true)), 2);
+        level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, Boolean.valueOf(true)), 2);
         BlockEntity blockEntity = level.getBlockEntity(enginePos);
         if (blockEntity instanceof SinglePistonEngineBlockEntity) {
             SinglePistonEngineBlockEntity engineBe = (SinglePistonEngineBlockEntity)blockEntity;
@@ -330,11 +330,11 @@ implements MenuProvider {
     private void unlinkFromEngine(Level level, BlockPos pos, BlockState state) {
         Direction facing = (Direction)state.getValue((Property)BoilerBlock.FACING);
         BlockPos enginePos = pos.relative(facing.getOpposite());
-        level.setBlock(pos, (BlockState)state.setValue((Property)BoilerBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+        level.setBlock(pos, (BlockState)state.setValue((Property)BoilerBlock.LINKED, Boolean.valueOf(false)), 2);
         this.setLinkedEngine(null);
         BlockState engineState = level.getBlockState(enginePos);
         if (engineState.getBlock() instanceof SinglePistonEngineBlock) {
-            level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+            level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, Boolean.valueOf(false)), 2);
         }
         LOGGER.debug("[boiler] rod unlinked at {}", (Object)pos);
     }
@@ -351,7 +351,7 @@ implements MenuProvider {
         double x = (double)pos.getX() + 0.5 + (double)pipeFace.getStepX() * 0.6;
         double y = (double)pos.getY() + 0.5;
         double z = (double)pos.getZ() + 0.5 + (double)pipeFace.getStepZ() * 0.6;
-        ItemStack rodStack = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.COPPER)).get(Metal.ItemType.ROD)).get());
+        ItemStack rodStack = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.COPPER).get(Metal.ItemType.ROD).get());
         Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, x, y, z);
         level.addFreshEntity((Entity)new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, rodStack));
     }
@@ -444,7 +444,7 @@ implements MenuProvider {
         }
         this.needsIgnition = false;
         if (player != null && !stack.isEmpty()) {
-            stack.hurtAndBreak(1, (LivingEntity)player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+            stack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
         }
         this.tryConsumeFuel();
         this.setChanged();
@@ -477,7 +477,7 @@ implements MenuProvider {
         BlockState engineState;
         LOGGER.warn("[boiler] overheated and destroyed at {} (temp={})", (Object)pos, (Object)String.format("%.1f", Float.valueOf(this.temperature)));
         if (((Boolean)state.getValue((Property)BoilerBlock.LINKED)).booleanValue() && (engineState = level.getBlockState(enginePos = pos.relative(((Direction)state.getValue((Property)BoilerBlock.FACING)).getOpposite()))).getBlock() instanceof SinglePistonEngineBlock) {
-            level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+            level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, Boolean.valueOf(false)), 2);
         }
         this.dropAllItems(level, pos);
         this.spawnSalvage(level, pos);
@@ -486,14 +486,14 @@ implements MenuProvider {
             Level.ExplosionInteraction interaction = (Boolean)TIBAMConfig.SERVER.boilerExplosionBlockDamage.get() != false ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE;
             level.explode(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, explosionRadius, false, interaction);
         } else {
-            level.playSound(null, pos, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 0.5f, 1.5f);
+            level.playSound(null, pos, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 0.5f, 1.5f);
         }
         level.removeBlock(pos, false);
     }
 
     private void spawnSalvage(Level level, BlockPos pos) {
-        ItemStack sheets = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.SHEET)).get(), 5);
-        ItemStack doubleIngot = new ItemStack((ItemLike)((DeferredHolder)((Map)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON)).get(Metal.ItemType.DOUBLE_INGOT)).get(), 1);
+        ItemStack sheets = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.SHEET).get(), 5);
+        ItemStack doubleIngot = new ItemStack((ItemLike)TFCItems.METAL_ITEMS.get(Metal.CAST_IRON).get(Metal.ItemType.DOUBLE_INGOT).get(), 1);
         Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
         level.addFreshEntity((Entity)new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, sheets));
         level.addFreshEntity((Entity)new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, doubleIngot));
@@ -525,7 +525,7 @@ implements MenuProvider {
         if ((Boolean)current.getValue((Property)BoilerBlock.LIT) == lit) {
             return;
         }
-        this.level.setBlock(this.worldPosition, (BlockState)current.setValue((Property)BoilerBlock.LIT, (Comparable)Boolean.valueOf(lit)), 2);
+        this.level.setBlock(this.worldPosition, (BlockState)current.setValue((Property)BoilerBlock.LIT, Boolean.valueOf(lit)), 2);
     }
 
 
@@ -576,7 +576,7 @@ implements MenuProvider {
         }
 
         void clearSlotDirect(int slot) {
-            this.stacks.set(slot, (Object)ItemStack.EMPTY);
+            this.stacks.set(slot, ItemStack.EMPTY);
         }
     }
 

@@ -12,7 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import tfcmt.tfcitembarrelsandmore.common.TIBAMConfig;
 import tfcmt.tfcitembarrelsandmore.common.blockentities.AirCompressorBlockEntity;
@@ -23,11 +24,8 @@ public class TIBAMDiveSuitEvents {
     private static final int EFFECT_DURATION_TICKS = 30;
 
     @SubscribeEvent
-    public void onPlayerTickAir(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-        Player player = event.player;
+    public void onPlayerTickAir(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
         if (player.level().isClientSide) {
             return;
         }
@@ -74,11 +72,8 @@ public class TIBAMDiveSuitEvents {
     }
 
     @SubscribeEvent
-    public void onPlayerTickTether(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-        Player player = event.player;
+    public void onPlayerTickTether(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
         if (player.level().isClientSide) {
             return;
         }

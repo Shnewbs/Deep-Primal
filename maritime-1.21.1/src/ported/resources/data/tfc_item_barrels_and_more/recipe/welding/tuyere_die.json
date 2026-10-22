@@ -1,7 +1,7 @@
 {
   "type": "tfc:welding",
   "first_input": {
-    "tag": "tfc:tuyeres"
+    "tag": "tfc:blast_furnace_tuyeres"
   },
   "second_input": {
     "tag": "c:ingots/steel"

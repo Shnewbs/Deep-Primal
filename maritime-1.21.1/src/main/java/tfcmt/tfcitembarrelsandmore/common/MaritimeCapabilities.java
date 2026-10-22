@@ -7,6 +7,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 public final class MaritimeCapabilities {
     private MaritimeCapabilities() {}
     public static void register(RegisterCapabilitiesEvent event) {
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> tfcmt.tfcitembarrelsandmore.common.items.ExplorationLampBlockItem.fluidHandler(stack), TIBAMBlocks.EXPLORATION_LAMP.get().asItem());
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TIBAMBlockEntities.BOILER.get(), (be, side) -> be.maritimeItems(side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TIBAMBlockEntities.GRINDER.get(), (be, side) -> be.maritimeItems(side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TIBAMBlockEntities.EXPELLER_PRESS.get(), (be, side) -> be.maritimeItems(side));

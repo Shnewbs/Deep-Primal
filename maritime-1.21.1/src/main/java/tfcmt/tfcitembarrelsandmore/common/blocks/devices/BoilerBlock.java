@@ -59,7 +59,7 @@ extends DeviceBlock {
 
     public BoilerBlock(ExtendedProperties properties) {
         super(properties, DeviceBlock.InventoryRemoveBehavior.DROP);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, (Comparable)Direction.NORTH)).setValue((Property)LIT, (Comparable)Boolean.valueOf(false))).setValue((Property)LINKED, (Comparable)Boolean.valueOf(false))).setValue((Property)STEEL_TANK, (Comparable)Boolean.valueOf(false)));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)((BlockState)this.getStateDefinition().any()).setValue((Property)FACING, Direction.NORTH)).setValue((Property)LIT, Boolean.valueOf(false))).setValue((Property)LINKED, Boolean.valueOf(false))).setValue((Property)STEEL_TANK, Boolean.valueOf(false)));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -68,14 +68,14 @@ extends DeviceBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return (BlockState)((BlockState)this.defaultBlockState().setValue((Property)FACING, (Comparable)ctx.getHorizontalDirection().getOpposite())).setValue((Property)STEEL_TANK, (Comparable)Boolean.valueOf(BoilerBlock.hasSteelTankAbove(ctx.getLevel(), ctx.getClickedPos())));
+        return (BlockState)((BlockState)this.defaultBlockState().setValue((Property)FACING, ctx.getHorizontalDirection().getOpposite())).setValue((Property)STEEL_TANK, Boolean.valueOf(BoilerBlock.hasSteelTankAbove(ctx.getLevel(), ctx.getClickedPos())));
     }
 
     private static boolean hasSteelTankAbove(Level level, BlockPos pos) {
         return level.getBlockState(pos.above()).is((Block)TIBAMBlocks.STEEL_BOILER_TANK.get());
     }
 
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult legacyUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof BoilerBlockEntity) {
             BoilerBlockEntity boiler = (BoilerBlockEntity)blockEntity;
@@ -261,19 +261,19 @@ extends DeviceBlock {
         if (!level.isClientSide && fromPos.equals((Object)pos.above())) {
             boolean steelTankNow = BoilerBlock.hasSteelTankAbove(level, pos);
             if ((Boolean)state.getValue((Property)STEEL_TANK) != steelTankNow) {
-                level.setBlock(pos, (BlockState)state.setValue((Property)STEEL_TANK, (Comparable)Boolean.valueOf(steelTankNow)), 2);
+                level.setBlock(pos, (BlockState)state.setValue((Property)STEEL_TANK, Boolean.valueOf(steelTankNow)), 2);
             }
         }
     }
 
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             Vec3 dropPos = VSCompat.spawnPosToWorld(level, pos, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5);
             ItemEntity entity = new ItemEntity(level, dropPos.x, dropPos.y, dropPos.z, new ItemStack((ItemLike)this));
             entity.setDefaultPickUpDelay();
             level.addFreshEntity((Entity)entity);
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
@@ -289,10 +289,25 @@ extends DeviceBlock {
             BlockPos enginePos = pos.relative(((Direction)state.getValue((Property)FACING)).getOpposite());
             BlockState engineState = level.getBlockState(enginePos);
             if (engineState.getBlock() instanceof SinglePistonEngineBlock) {
-                level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, (Comparable)Boolean.valueOf(false)), 2);
+                level.setBlock(enginePos, (BlockState)engineState.setValue((Property)SinglePistonEngineBlock.LINKED, Boolean.valueOf(false)), 2);
             }
         }
         super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    @Override
+    public net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return switch (legacyUse(state, level, pos, player, hand, hit)) {
+            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
+            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
+            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return legacyUse(state, level, pos, player, InteractionHand.MAIN_HAND, hit);
     }
 }
 

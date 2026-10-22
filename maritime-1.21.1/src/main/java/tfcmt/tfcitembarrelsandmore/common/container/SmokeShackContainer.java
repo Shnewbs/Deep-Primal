@@ -49,7 +49,7 @@ extends BlockEntityContainer<SmokeShackBlockEntity> {
     }
 
     public SmokeShackContainer(int windowId, Inventory playerInv, SmokeShackBlockEntity be) {
-        super((MenuType)TIBAMContainerTypes.SMOKE_SHACK.get(), windowId, (InventoryBlockEntity)be);
+        super((MenuType)TIBAMContainerTypes.SMOKE_SHACK.get(), windowId, be);
     }
 
     protected void addContainerSlots() {

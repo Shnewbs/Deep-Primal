@@ -19,7 +19,7 @@ extends MechanicalPowerHammerBlockEntity {
     private static final float SPEED_MULTIPLIER = 1.3f;
 
     public PneumaticPowerHammerBlockEntity(BlockPos pos, BlockState state) {
-        super((BlockEntityType)TIBAMBlockEntities.PNEUMATIC_POWER_HAMMER.get(), pos, state, NAME.getString());
+        super(TIBAMBlockEntities.PNEUMATIC_POWER_HAMMER.get(), pos, state, NAME);
     }
 
     @Override

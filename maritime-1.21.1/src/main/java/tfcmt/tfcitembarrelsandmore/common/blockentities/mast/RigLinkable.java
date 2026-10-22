@@ -53,7 +53,7 @@ public interface RigLinkable {
             for (RigLink link : entry.getValue()) {
                 CompoundTag entryTag = link.toTag();
                 entryTag.putString(TAG_LOCAL_SLOT, entry.getKey().name());
-                list.add((Object)entryTag);
+                list.add(entryTag);
             }
         }
         tag.put(TAG_RIG_LINKS, (Tag)list);

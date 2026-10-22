@@ -32,7 +32,7 @@ implements BakedModel {
 
     @NotNull
     public ModelData getModelData(@NotNull BlockAndTintGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
-        return modelData.derive().with(BRACE_POS, (Object)pos.immutable()).build();
+        return modelData.derive().with(BRACE_POS, pos.immutable()).build();
     }
 
     @NotNull
@@ -63,12 +63,10 @@ implements BakedModel {
         return this.tfcModel.useAmbientOcclusion();
     }
 
-    public boolean useAmbientOcclusion(BlockState s) {
-        return this.tfcModel.useAmbientOcclusion(s);
-    }
+    
 
-    public boolean useAmbientOcclusion(BlockState s, RenderType r) {
-        return this.tfcModel.useAmbientOcclusion(s, r);
+    @Override public net.neoforged.neoforge.common.util.TriState useAmbientOcclusion(BlockState state, ModelData data, RenderType renderType) {
+        return this.tfcModel.useAmbientOcclusion(state, data, renderType);
     }
 
     public boolean isGui3d() {

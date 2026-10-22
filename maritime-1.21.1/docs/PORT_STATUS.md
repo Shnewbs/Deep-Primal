@@ -1,56 +1,52 @@
 # Port status
 
-Status: **source reconstruction and API migration in progress; not playable**.
+Status: **buildable 1.21.1 alpha; dedicated-server and client world smoke checks passed**.
 
-## Verified baseline
+## Recovered input
 
-- Uploaded artifact: `TFCMaritimeTravelers-1.20.1-0.0.4..jar` (2,161,678 bytes).
+- Original artifact: `TFCMaritimeTravelers-1.20.1-0.0.4..jar`, 2,161,678 bytes.
 - SHA-256: `7dc148b8ba2caacf48eaa4aba95f8fd61a580de7d9c47c1dcc1106370f9cf975`.
 - Original target: Minecraft 1.20.1 / Forge 47+, TFC 3.x.
-- 293 bytecode classes, reconstructed into 200 top-level Java source files.
-- 1,366 original asset files and 724 original data files inspected.
-- Original metadata is inconsistent: mod metadata says `1.0.0`, the manifest says `0.0.0-indev`, and the supplied filename says `0.0.4`. Provenance identifies this input by hash rather than relying on those versions.
+- 293 class files reconstructed into 200 top-level Java sources; 1,366 original asset files and 724 original data files inspected.
+- Original version strings disagree between filename, manifest and mod metadata; the hash identifies the input.
 
-## Scope recovered from the jar
+## Migration implemented
 
-| System | Recovered implementation | 1.21.1 validation |
-| --- | --- | --- |
-| Steam and heat | Boiler, cast-iron and steel tanks, pressure, bleeders, fuel, explosions and copper connections | API migration incomplete |
-| Engines and rotation | Small and large single-piston engines, triple-expansion engine, load tolls, axles and braces | API migration incomplete |
-| Propulsion | Copper/brass propellers and wood variants of water paddles; ship force listeners | VS API/backend compatibility incomplete |
-| Processing | Grinder, expeller press, mechanical and pneumatic power hammers | Recipe codecs migrated; machine and anvil validation incomplete |
-| Preservation and storage | Item barrels, braces, racks, salting, honey preservation and smoke shacks | Food registry and component migration started; save/load checks pending |
-| Ship fittings | Masts, yards, booms, cleats and rigging links | Source and rendering migration started; interaction/save tests pending |
-| Exploration | Diving suit, air compressor, hoses, exploration lamp, sounding line, knot meter and wind gauge | Component and equipment API migration incomplete |
-| Optional integrations | Create, JEI, Curios, AstikorCarts, Barrels 2012, VS, VS Sails, icebreakers and dynamic lighting | Separate validation required for each target dependency |
+- Independent Java 21 / NeoForge 21.1.264 module, TFC 4.2.12 and Patchouli 92 development runtime.
+- Deferred registries, armor material holders, component-based food/custom data, registry-aware block entity persistence, item/fluid/heat capability registration, block interactions and client rendering migrated to the current APIs.
+- Six NeoForge payloads with explicit codecs and direction. Machine control rejects invalid players, distant/unloaded targets and targets outside the player's valid open container.
+- Grinder, expeller and smoke-shack recipes use map codecs and stream codecs. TFC 4 anvil/forging APIs and inventory access migrated.
+- Exploration lamp uses the TFC fluid-container component and item fluid capability. Barrel/lamp contents use block entity components instead of legacy item NBT mutation.
+- Rendering uses current vertex APIs, normalized UVs and standalone model IDs. Curios renderer registered independently of Barrels 2012.
+- Required TFC mixins ported; optional cart and dynamic-light mixins guarded by mod presence. Cart access and VS Minecraft access use isolated adapters.
+- Datapack directories, item stacks, tags, advanced crafting remainders, lamp fuels, food and heating migrated. Fresh-food ingredients now use TFC's `and` predicate; retaining the old wrapper would match unrelated items in TFC 4.
+- Optional recipes, loot, custom TFC data and external tag entries are guarded. A scoped DataManager mixin evaluates conditions only for this mod's custom data.
+- Multi-output axle, brace and duct recipes retain their yields using TFC's four-item heavy stack limit. Ground meat and sausages have heat definitions.
+- Shared hammer running-state property corrected to prevent a pneumatic hammer tick crash.
 
-## Changes in this branch
+## Completed validation
 
-- Independent Java 21 / NeoForge 1.21.1 build module, with TFC 4.2.12 pinned and checksum verified.
-- Minecraft SRG members restored to readable names, Forge registration converted toward NeoForge deferred holders, and TFC component package migrations applied.
-- Six packets rewritten as NeoForge payloads with explicit directions and stream codecs. Server controls reject dead/spectator players, distant targets, and unloaded chunks.
-- Grinder, expeller and smoke shack serializers replaced with map codecs and network stream codecs.
-- Block entity persistence changed toward registry-aware signatures; inventory/fluid/heat providers moved toward capability registration events.
-- Item custom-data reads now return copies and mutations replace components; food traits use deferred registry entries.
-- Renderer vertex builder/model-ID changes and sprite UV normalization migrated; menu registration moved to its dedicated event.
-- Recipe, loot and tag directories updated; item-stack outputs, common tags and TFC data paths migrated.
-- 40 duplicate data definitions consolidated. 684 JSON files parse successfully, including 64 recipes made conditional on their optional mod dependencies.
+`build`, `prepareServerRun` and `prepareClientRun` complete successfully. The jar contains the reconstructed 1.21.1 classes, current metadata, original visual assets and the migrated datapack.
 
-## Validation and remaining blockers
+A dedicated server with only NeoForge, TFC, Patchouli and this port boots successfully. TFC data self-tests pass at startup and after `/reload`. The tested datapack has no Maritime recipe, custom-data or missing optional-tag load errors.
 
-The NeoForge Minecraft development artifacts were prepared successfully. The latest completed full source compile produced **283 errors and 12 warnings**; the branch does not currently produce a verified jar. JSON parsing is a structural check, not a successful Minecraft datapack reload.
+Twenty-two representative blocks were freshly placed in a loaded test area: boiler, grinder, expeller, compressor, both tanks, all three engine variants, both hammers, exploration lamp, oak item barrel, oak smoke shack, oak mast, axle, brace, both propeller sizes, oak paddle and both telegraphs. They ticked without a fatal error, `save-all flush` completed, the existing test world reopened, and the server shut down normally.
 
-Remaining work includes:
+These are placement, tick and persistence smoke checks, not proof of every processing recipe, GUI control, pressure/load edge case, inventory transfer or animation. Multiplayer synchronization and a full optional-mod matrix remain unverified.
 
-1. Finish armor material holders, armor model registration, item fluid components, tooltip signatures, and NeoForge tick events.
-2. Finish TFC 4 anvil/forging access, heat/fuel accessors, container slots, save/update methods, rotation interface calls, and block interaction overrides.
-3. Resolve the exact 1.21.1 dependencies/API adapters for VS world access, AstikorCarts, VS Sails, Barrels 2012 and dynamic lights. The VS core compile API is not a working 1.21.1 ship backend.
-4. Finish ported mixins and conditionally register them. The old 1.20.1 mixin configs are intentionally not activated as if they were compatible.
-5. Compile the complete source, then boot a dedicated server and a client. Validate registry and recipe reloads before gameplay checks.
-6. Check every device's placement, interaction, GUI, automation, chunk unload/reload, item pickup/drop preservation, rendering and network synchronization. Test optional integrations both installed and absent.
+A client with the same minimal mod set joined a copy of the saved world. The machines and original textures rendered in-world without a port exception or missing-model error; TFC data self-tests also passed on the client. Optional integrations were absent, exercising the guarded client-loading path. The headless environment had no audio device.
 
-No client/server gameplay test has passed for the port. No CurseForge upload or release has been made.
+## Remaining acceptance work
 
-## Deep Primal integration boundary
+1. Exercise each machine GUI and equipment interaction.
+2. Operate each machine with fuel, heat, fluids and inputs; verify outputs, automation, failure states and item pickup/drop preservation.
+3. Test real multiplayer container controls, chunk unload/reload and long-running pressure/load behavior.
+4. Test Create, JEI, Curios, cart and dynamic-light integrations with matching 1.21.1 mods installed.
+5. Validate ship assembly, propulsion, load feedback, sails and rigging with an actual compatible 1.21.1 Valkyrien Skies backend. The core compile API is not a working backend; absence or incompatible physics-listener APIs disable that integration.
+6. Plan saved-data migration and adapters before integrating into Deep Primal.
 
-This branch keeps TFC as a required dependency for the port. Later integration should extract the steam/pressure and mechanical-load logic into a small module, with adapters for heat/fuels, recipes, food, climate and ship forces. That separation should follow a working baseline port, with saved-data identity and migration reviewed before namespace changes. Main-branch Deep Primal remains outside this module's build.
+No public release or CurseForge upload has been made. Original WIP behavior and incomplete upstream features remain part of the recovered baseline.
+
+## Deep Primal boundary
+
+The branch keeps TFC as a required dependency and preserves saved registry names. Later integration should separate steam/pressure and mechanical-load logic from heat/fuels, recipes, food, climate and ship adapters. Deep Primal's main build is unchanged.

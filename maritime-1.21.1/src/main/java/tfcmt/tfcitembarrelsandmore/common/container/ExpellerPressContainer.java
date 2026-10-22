@@ -37,7 +37,7 @@ extends BlockEntityContainer<ExpellerPressBlockEntity> {
     }
 
     public ExpellerPressContainer(int windowId, Inventory playerInv, ExpellerPressBlockEntity press) {
-        super((MenuType)TIBAMContainerTypes.EXPELLER_PRESS.get(), windowId, (InventoryBlockEntity)press);
+        super((MenuType)TIBAMContainerTypes.EXPELLER_PRESS.get(), windowId, press);
     }
 
     protected void addContainerSlots() {
