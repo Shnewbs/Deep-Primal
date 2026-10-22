@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T16:19:22Z",
-  "active_until": "2026-10-22T16:19:22Z",
+  "status": "continuation_active",
+  "updated_at": "2026-10-22T16:24:10Z",
+  "active_until": "2026-10-22T17:24:10Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Native environment restored. Bounded ticket/FULL-readiness candidate passes cached and actual physical-unload reload plus packaged reload, but inherited retained-drain and canonical candidate fail eight-unit film; closed basin fails full settling at 3200 ticks. Runtime candidate remains evidence-only, not integrated.",
+  "current_gate": "Isolated continuation reproducing/profile retained-drain film starvation; accepted production solver unchanged.",
   "next_items": [
     "Reproduce/profile retained-drain admission/fairness on eight-cell film with 1024 stable competing cells. Canonical packaged failure has zero transfers, 16 resident jobs, 128 waiting jobs and 1032 pending cells. Repair progress within existing quantity/no-force/edit/work bounds; retain ticket/FULL readiness and actual physical-unload regressions. Repeat filling, closed-basin settling, full safety/build/package gates before integration.",
     "Establish a deterministic fully loaded closed-basin native replay or explicit boundary-flux ledger, then compare conserved output, settling, latency and memory against pre-continuation/current source. Current open-boundary basin final water-state digests vary even on unchanged-revision repeats; do not certify broad performance from them. Profile remaining pressure/drain churn; preserve FIFO cap/order/mutable/overflow and long/head/edit/unload/idle/reopen regressions.",
@@ -39,6 +39,6 @@
     "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/native-results.json",
     "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/candidate-build-audit.json",
     "docs/validation/engine-continuation/drain-ticket-readiness-2026-10-22/readiness-model.json"
-  ]
+  ],
+  "worker": "drain-progress-1624"
 }
-
