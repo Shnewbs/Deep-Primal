@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-22T23:28:00Z",
-  "active_until": "2026-10-23T00:25:00Z",
+  "updated_at": "2026-10-22T23:44:58Z",
+  "active_until": "2026-10-23T00:35:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "One production LOD eviction-recovery fix passes exact-source bounds/edit controls, uncached Linux Vulkan/core/geography build, six CRCs/407 class matches and two strict development/packaged native sessions. Fixed-view restores are deferred; queued edits survive dirty displacement. Marker writer, excluded resource-reload timeout, prior atlas stall, physical teleport/sustained memory-pressure coverage and index saturation remain open. No installer release.",
+  "current_gate": "Active isolated continuation: current production missed a same-view LOD wakeup after real 4193476-byte GPU ballast was freed. Focused candidate passes exact-source byte/entry/index/edit bounds, sealed full uncached Linux Vulkan/core/geography build, package checks and one strict development native session. Packaged gate pending; no installer release.",
   "next_items": [
     "Vulkan-first: test actual authoritative teleport, player edits, physical reload and sustained constrained-memory water/LOD coverage. The fixed isolated eviction route is not physical teleport or full coverage acceptance. Resolve 8192-key recovery saturation, same-camera freed-capacity recovery and coarser fallback without changing frozen geography.",
     "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
