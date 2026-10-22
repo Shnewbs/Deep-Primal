@@ -1,5 +1,7 @@
 # Water, weather and distance scope — alpha 14
 
+**Historical release record.** Some counts and feature gaps below were superseded in alpha 16 and the independent alpha 17–20 engine. Consult the [2026-10-22 completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) for current source coverage and detailed remaining requirements; this document does not certify the native engine or current renderer.
+
 Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. These are authored features inside Deep Primal, not an installer for the referenced mods. The four existing engine modules remain separate. Vulkan contains the backend; graphics-settings owns presentation controls; engine-core contains deterministic math without Minecraft dependencies; server water rules and worldgen adapters remain in root packages.
 
 ## Implemented behavior

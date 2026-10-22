@@ -8,6 +8,14 @@ Alpha 19 gives graphics and LOD separate ownership: shared GPU/UI infrastructure
 
 **Owner clarification:** these projects are inspiration and comparison targets for better Deep Primal systems. Do not treat adding a dependency, copying a feature list or matching a screenshot as completion. Establish improvements through conservation/correctness, useful behavior, integration and matched performance measurements.
 
+## Current owner follow-up — 2026-10-22
+
+The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) is the current detailed feature mapping against alpha 20. It checks all 17 owner-linked water/snow mods and distinguishes native implementation from older configured hooks. Alpha 20 improves bounded liquid activation/transport and mesh-build progress; it does not establish frame-interpolated water, complete watershed budgets or finished visual quality.
+
+**P0 rendering report:** the owner observes graphical problems disappearing when "horizonal view" is removed. The exact control and responsible pass are unresolved. Reproduce full-detail distance, actual-chunk LOD, legacy horizon and water overlays separately, then fix enabled-view behavior. A historical depth fix, passing a small fixture, or leaving the feature disabled is not acceptance for this report.
+
+**Water/source acceptance:** require supported partial-height descending steps, proper banks and source scale, distinct river speeds, source-derived color/confluence mixing, richer coasts/currents and climate-aware deep snow. A broad headwater needs a substantial contained lake or sufficient accumulated supply; a small spring should begin narrow. See P0-RENDER, TERRAIN-01/02, WATER-01/03, OCEAN-01/02 and SNOW-01 in the audit.
+
 ## Built-in terrain engine requirements and inspiration
 
 The target is our own Overworld generator and biome/region decisions: original continents, connected relief/drainage/lakes, geological/climate fields, terrain-derived material rules and deliberate feature placement. Use Minecraft/NeoForge as host infrastructure; do not delegate those world-design decisions to the standard vanilla Overworld noise/biome pipeline. Generic noise functions and serialized data are implementation tools, not evidence of vanilla or original terrain by themselves. Nether/End remain native in the current prototypes; no replacement of those dimensions is claimed.

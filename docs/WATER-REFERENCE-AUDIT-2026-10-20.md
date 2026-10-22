@@ -1,5 +1,7 @@
 # Water and snow reference audit — alpha 16
 
+**Historical release record.** For current native-engine coverage, use the [2026-10-22 completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md). In particular, the eight-unit solver/weather/port claims below describe the alpha 16 path, not automatic support for the later independent sixteen-unit engine. The newer actual-chunk LOD also supersedes the older edited-world-LOD gap. Do not use this table as current feature-parity certification.
+
 Checked each author's project description on 2026-10-20 against Deep Primal source. These are independent equivalents, not bundled copies of the referenced mods. This audit supersedes the less precise alpha 14 inspiration table. A similar visual effect is not proof of the reference's gameplay system.
 
 | Reference | What its author describes | Actual Deep Primal status |

@@ -1,6 +1,6 @@
 # Deep Primal — Roadmap
 
-## Built-in engine — modular alpha 19, 2026-10-21
+## Built-in engine — modular alpha 20, 2026-10-21
 
 Deep Primal remains the product. Its original Overworld terrain/liquid engine is now integrated into the main mod, together with an actual-chunk LOD renderer and custom tabbed graphics settings. Minecraft/NeoForge provide host APIs, storage, lighting, scheduling, networking and GPU interfaces. Native Overworld terrain/biome decisions are not used by the selected `continental_v1` / `regional_v1` generator. Existing saves retain their own generator and height. All previous profiles, performance/settings modules and optional Vulkan source remain available; the separate alpha.1 experiment is historical and not shipped.
 
@@ -29,7 +29,7 @@ Deep Primal remains the product. Its original Overworld terrain/liquid engine is
 
 The aim is to build better integrated Deep Primal systems, with improvements demonstrated by behavior and matched measurements. TFC/Terralith/Tectonic and PhysEx Reborn, Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons remain references, not bundled generators/engines. Gaea/World Machine techniques guide independently authored region planning. Meshoptimizer is still a development probe, not a runtime dependency. Environmental catalogs remain planning-only until separately authorized. See [architecture/reference status](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) and [alpha 20 validation](docs/VALIDATION-0.0.1-alpha.20.md).
 
-**Status:** integrated engine/LOD/settings alpha 0.0.1-alpha.19; full survival conversion remains in design. **Updated:** 2026-10-21. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
+**Status:** integrated engine/LOD/settings alpha 0.0.1-alpha.20; full survival conversion remains in design. **Updated:** 2026-10-22. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 
 Deep Primal is a standalone total-conversion survival mod combining grounded world generation, demanding survival, primitive technology, metallurgy, and mechanical automation. Difficulty comes from decisions and consequences, with GregTech-level depth as the long-term target.
 
@@ -46,10 +46,34 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Decisions before implementation](#decisions-before-implementation)
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
+- [Terrain, water, snow and LOD audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) — all 17 linked mods, current source coverage, detailed gaps and acceptance requirements
 - [Biome plan and named roster](docs/BIOME-PLAN.md) — proposed profiles, regional communities, environmental layers and habitat coverage
 - [Named environmental type catalogs](docs/NATURAL-TYPE-CATALOG.md) — actual named planning rosters, with kinds and aliases labeled
 - [Environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) — planning completeness across materials, states, habitats and natural processes; implementation deferred by owner direction
 - [Detailed design reference](docs/design-reference.md) — full feature descriptions, material catalogs, configuration layout, progression, and all 31 open questions
+
+## Terrain, water, snow and LOD follow-up — 2026-10-22
+
+The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) checks all 17 owner-linked mods and the Gaea/World Machine, Nanite, Cesium, meshoptimizer/clusterlod, LWJGL and Simplygon references against alpha 20 source. It contains the detailed native behavior, integration gaps, configuration/performance constraints and acceptance scenes for every item below. Referenced mods are not bundled or fully implemented. Older alpha 14/16 water tables remain historical; legacy eight-unit hooks do not automatically support the independent sixteen-unit fluid.
+
+- [ ] **P0-RENDER:** reproduce the owner's report that defects disappear with "horizonal view" disabled; identify the actual control/pass and fix enabled-view page walls, foreground/depth and water seams on OpenGL/Vulkan.
+- [ ] **TERRAIN-01:** connect tributaries, cross-region outlets, lakes/spillways and sustained source budgets; broad initial rivers need substantial source water or upstream catchment, while small springs taper.
+- [ ] **TERRAIN-02:** finish hydraulic width/depth/speed, pools/rapids/cascades and supported partial-height descending water steps. Generated river speed already varies; runtime edited-channel hydraulics remain incomplete.
+- [ ] **TERRAIN-03:** add deterministic erosion/deposition/material masks and bounded generated-support checks; remove repeated bowl/rim artifacts and unsuitable grass/surface placement.
+- [ ] **WATER-01:** unify native sixteen-unit ownership with containers/displacement/waterlogging, fair basin work and per-frame water-height/wet-edge presentation.
+- [ ] **WATER-02:** integrate native rainfall, infiltration, groundwater, runoff, evaporation, drought and snowmelt budgets with bounded weather ownership.
+- [ ] **WATER-03:** transport water composition, sediment/organic load and salinity; blend confluence plumes and underwater clarity consistently across near/far rendering.
+- [ ] **WATER-04:** provide lossless transactional native fluid ports, partial containers and progression-appropriate pumps/pipes/tanks/valves/sensors, plus separately tested optional machine adapters.
+- [ ] **WATER-05:** integrate rated pressure equipment, deep-water semantics, stamina, currents, mount swimming and useful warnings/navigation.
+- [ ] **WATER-06:** specify farm-water convenience/irrigation, measured drinking/inspection, sponge storage and fluid-aware fishing/boats/dripstone; keep lava, gas hazards and admin infinite sources explicit later proposals.
+- [ ] **OCEAN-01:** complete shared visible/physical waves, depth-aware shore breakers, foam/swash, sound, flow-aware wakes and bounded strandline materials.
+- [ ] **OCEAN-02:** add realistic simplified circulation, depth/hemisphere effects, tidal/estuary/rip flow, wind/surge and optional vessel/weather integration.
+- [ ] **OCEAN-03:** plan shelf-to-trench bathymetry and evaluate Mariana-scale depth against actual vertical storage/lighting/network/performance limits; the current generator does not support literal 11 km depth.
+- [ ] **SNOW-01:** complete intensity/climate-aware deep accumulation, canopy/drifts/compaction, thaw/refreeze/meltwater and matching fog/geometry; global forced winter remains optional.
+- [ ] **LOD-01:** extend authoritative edited-world LOD with bounded error-based hierarchy/streaming, evaluate constrained meshoptimizer use, and run matched Distant Horizons benchmarks.
+- [ ] **LOD-02:** verify material/lighting/cutout/water ownership, depth/alpha/fades and composition/snow/wave continuity, with any external shader/renderer combinations separately certified.
+
+Prioritize enabled-view correctness and supported water steps/filling, then connected drainage/source scale/material placement and native hydrology integration. "Do better" requires reproducible correctness, integration, visual and/or matched performance evidence. This follow-up is documentation only; environmental catalog implementation remains deferred, and existing versioned saves/geography remain unchanged.
 
 ## Confirmed direction
 

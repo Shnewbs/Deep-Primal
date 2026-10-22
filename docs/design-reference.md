@@ -193,6 +193,8 @@ Cost: portability costs up-front work (interfaces, test vectors). Abstract only 
 
 See the [connected biome plan](BIOME-PLAN.md), [118-profile named roster](BIOME-CATALOG.md), and [regional variants/habitat crosswalk](BIOME-VARIANTS-AND-COVERAGE.md) for the 2026-10-21 planning expansion. **Confirmed planning order: biomes first, supporting climate scenarios afterward.** Complete biome identity, terrain, materials, water setting and life before selecting climate-model ranges. Biome identity, biological communities, geology/soil, local forms and seasonal states remain separate layers. Added profiles are proposals; environmental implementation remains deferred. The current world block/item texture direction is shared families and material palettes/tints at up to 64×64 per tile. The owner also confirmed actual named planets/exoplanets as physical environmental references alongside Earth. See [island and planetary reference planning](BIOME-PLAN.md#islands-and-planetary-references) for sourced examples, evidence status and proposed compatibility rules. The owner-approved [glacial landscape expansion](GLACIAL-LANDSCAPES.md) adds named landform/water layers and foreland community variants, with explicit source materials, routed meltwater/lake outlets and active-versus-inherited glacial history.
 
+The [2026-10-22 terrain/water/snow/LOD audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) supplies the detailed connected-drainage, source-lake sizing, erosion/material placement, water composition/mixing, ocean and snow requirements, with current-source status and acceptance evidence. Reference inspiration does not establish implementation.
+
 The "realism" pillar means the world's raw materials are varied and behave like their real counterparts.
 
 **Stone**
@@ -834,30 +836,20 @@ Portability: the manifest and data formats are the cross-platform contract ([§0
 
 ### 4.19. Worldgen Architecture & Far Terrain (LOD)
 
-**Worldgen architecture (suggested)**
+**Current direction:** the built-in independent terrain/biome/fluid engine and actual-chunk LOD supersede the earlier heightmap-first proposal. Deep Primal remains the product, with optional LOD ownership separate from graphics and Vulkan. See [architecture and reference decisions](LOD-AND-DRAINAGE-ARCHITECTURE.md), [alpha 20 evidence](VALIDATION-0.0.1-alpha.20.md) and the [current detailed terrain/water/snow/LOD audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md).
 
-- Engine-agnostic sampler in the core: a function of (seed, x, y, z, config) that returns material, rock layer, and climate values, plus cheap queries for surface height and biome at (x, z). Platform adapters call it. On NeoForge that means a custom biome source and chunk generator, using vanilla density-function JSON where possible.
-- Terrain-shaping layer, Terralith-style: noise settings, density functions, surface rules, and biome layout as data. Terralith uses only vanilla blocks, so reuse the approach (and possibly its shaping, after a license check) but map materials to the mod's blocks.
-- Geology layer, TFC-style: rock layers, soils, veins, permafrost, and ice cementation ([§4.1](#s4-1)) added on top with custom code.
-- Earth mode: a separate sampler source that reads pre-baked tiles instead of noise ([§4.1](#s4-1)).
+- The platform-neutral core owns original deterministic terrain/drainage/material decisions; NeoForge hosts storage, scheduling and rendering integration. Selected independent generators do not delegate their Overworld terrain/biome decisions to vanilla density-function JSON. Previous profiles remain available and existing saves keep serialized geography/height.
+- Region plans must connect tributaries, cross-region outlets, lakes and spillways before carving. Derive width/depth/speed, source-water scale, erosion/deposition and suitable surfaces from shared data; complete catalog geology/vegetation remains deferred.
+- Native water uses sixteen volume units and bounded local transport/pressure. Integrate rainfall, groundwater, containers/machines, source composition and surface motion explicitly; older eight-unit facilities are not automatically native-engine features.
+- Actual-chunk LOD captures delivered/explored authoritative data, including edits, through immutable revisioned snapshots. Unseen-terrain generation/streaming remains open and must not replace authoritative saved/build data with a heightmap approximation.
+- Select detail using projected geometric error, three-dimensional bounds, visibility and hysteresis. Retain covering geometry while finer children load. Bound work, RAM/VRAM, uploads, network and persistent caches.
+- Preserve block silhouettes, cutout vegetation, materials, snow, lighting and transparent water with explicit layer/depth ownership. Evaluate meshoptimizer as a constrained processing component; the executed LWJGL probe is not a shipped runtime hierarchy.
+- Diagnose the owner's enabled "horizonal view" defect through independent renderer/water A/B cases; fix page walls and handoffs while enabled. The legacy procedural horizon is diagnostic and off by default, never an automatic substitute for disabled chunk LOD.
+- Benchmark Distant Horizons using matched worlds, camera paths, radius/detail and named hardware. No superiority or full external shader/wave compatibility is established.
+- Render distance and vertical world range are separate: more LOD distance cannot create deeper trenches or taller storage. Mariana-scale depth and Earth-mode scaling require separate host/streaming/performance feasibility checks.
+- Keep settings effective, staged and persistent with separate gameplay/server and presentation ownership. Preserve the max-64×64 world texture/shared-family tint direction; optional Earth tiles and licensed offline terrain imports are separate sources, not mandatory dependencies.
 
-**Why mountains get cut off: two separate problems**
-
-- Render distance: far peaks vanish because only nearby chunks are loaded. The fix is far-terrain LOD.
-- Height cap: peaks flatten at the world's build limit. The fix is a taller custom height range and/or a vertical scale ([§4.1](#s4-1) Earth notes; verify the caps for 26.x). LOD does not fix this.
-
-**Far-terrain LOD: heightmap-first (proposed)**
-
-- Beyond the real-chunk radius, terrain is drawn as coarse height columns with a surface material and biome tint, so full mountain silhouettes stay visible. Caves, overhangs, and structures don't appear at distance; near tiers use real chunks.
-- Tiers: near = real chunks; mid = simplified block columns at 2x and 4x steps; far = heightmap tiles at 8x and coarser; haze hides the seams. Distances are configurable.
-- Source: tiles are sampled directly from the generator's cheap height and material queries, with no chunk generation needed. In Earth mode they come from the pre-baked tiles.
-- Climate-aware look: snow line and permafrost tint from the climate model, and seasonal tint from the calendar (suggested).
-- Vertical detail: full 3D detail only near the player; underground is culled from far views.
-- Server and network: the server serves tile data on request and caches it to disk; servers can disable sending, and clients can disable rendering.
-- Do we need a distance system? Yes for large worlds and Earth mode, since vanilla render distance cuts mountains off at a few hundred blocks. For small default worlds it can ship on at a conservative distance.
-- Distant Horizons: its page lists NeoForge support for 26.1 to 26.3 but doesn't document how it treats modded worldgen or custom blocks. Test it as an optional fallback; a native LOD is a candidate because it could read the sampler directly; the choice remains open in [§8](#s8).
-- Module: render.far_terrain, on by default with low-cost settings (suggested).
-- Config (far-terrain.toml): tier distances, resolution steps, tile cache size, tint on/off, and server send on/off.
+Open work and acceptance are tracked as P0-RENDER, TERRAIN-01–03, WATER-01–06, OCEAN-01–03, SNOW-01 and LOD-01/02 in the audit and roadmap. Climate supports the chosen biome roster and gates placement afterward, with latitude/poles/equator and realistic ocean influences; it does not dictate which biomes exist.
 
 <a id="s5"></a>
 
