@@ -141,6 +141,14 @@ public final class ClientCapture {
       String action = Files.readString(request).trim();
       Files.delete(request);
       Files.createDirectories(dir);
+      if (action.startsWith("startup-observe=")) {
+        StartupLifecycleChecks.observe(action.substring("startup-observe=".length()), dir);
+        return;
+      }
+      if (action.equals("startup-rearm-check")) {
+        StartupLifecycleChecks.rearm(mc, dir);
+        return;
+      }
       if (action.equals("vulkan-frame-completion-check")) {
         VulkanFrameCompletionChecks.run(mc, dir);
         return;
@@ -151,7 +159,9 @@ public final class ClientCapture {
       }
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
+        StartupLifecycleChecks.observe("before-disconnect", dir);
         mc.disconnectWithSavingScreen();
+        StartupLifecycleChecks.observe("after-disconnect", dir);
         String record = "CLIENT_SAVED_DISCONNECT_PASS\n";
         Files.writeString(dir.resolve("saved-disconnect.txt"), record);
         System.out.print(record);
@@ -271,6 +281,7 @@ public final class ClientCapture {
         return;
       }
       if (action.equals("vulkan-checks")) {
+        StartupLifecycleChecks.watchGpuCheck(dir);
         GpuBackendChecks.run(mc);
         return;
       }
