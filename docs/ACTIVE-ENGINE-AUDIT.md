@@ -83,3 +83,42 @@ All 17 sequential safety cases pass, including long drains, silent wall edits, c
 
 Next repair repeated basin search/admission churn, then repeat full settling/safety/package checks. Larger residency continuation, renewable/finite regional water budgets, enabled-view water/LOD/transparency and geology remain open; catalog/species stays deferred. No fresh visual/Vulkan/owner GPU acceptance ran, and substeps remain distinct from independent 60 Hz. Work lease released.
 
+## 2026-10-22 continuation: closed basin settles; pressure-cap cleanup staged
+
+An independent distant-drain throughput fix replaces the inherited one-unit-only
+commit with the existing four-unit pressure quantum after witness/head/capacity
+validation, preserving one-unit film progress. The engine core now owns the capped
+pressure overload and its legacy API remains exact across 34,969 differential
+cases; 629,442 capped cases and 29,478 new integrated cases pass. Local and retained
+pressure lose duplicated cap/reconstructed Exchange code. Scheduling, bounds,
+topology and lifecycle bodies match the prior staged FIFO. See [source, failure
+evidence and acceptance limits](validation/engine-continuation/basin-pressure-2026-10-22/README.md).
+
+The old wet-witness probe transfers one instead of four units and asserts/crashes
+despite Gradle zero. The old sealed basin again conserves 8,192 units but fails full
+settling at 3,200 (upper 368, bottom 7,697, pending 681). Both current-source repeats now
+settle at tick 2,369 with identical quantity/FLOW hashes and final pending/watch counts
+zero. The stricter repeat checks zero actual solver work on all 831 subsequent
+ticks. The fully loaded pool passes 20 zero-work idle ticks, ordinary floor-edit
+wake, exact quantity and final cleanup. Seven specified route digest pairs match
+the prior FIFO. All 24 final native safety/idle/basin/packaged cases pass the strict
+record-file/stdout/final-stop/save/build audit, along with uncached non-Vulkan
+core/geography/module build, five CRCs and 226 packaged-class comparisons.
+
+Self-audit caught a truncated reopen log capture (record file exists, but no stdout
+pass/final shutdown/build completion), stopped the matrix and required an explicit
+separate-process retry. It passes; the rejected attempt remains excluded. The
+runner no longer treats a startup autosave as final acceptance. The first full
+build also caught a new validation-local name collision; the corrected core test
+and generator then pass the full build. Neither event is relabeled as a native
+solver pass. The matching archive hash remains unchanged after packaged probes.
+
+**Production source remains at 2c431bb; runtime/core changes are staged evidence
+only.** Candidate basin p95 remains higher: 5.26–5.65 ms versus 4.59 ms baseline,
+despite eventual settling and fewer combined visits. Broad latency, output and
+resident-memory acceptance remains open. Next profile increased pressure work and
+tail latency while preserving the new functional gates. Original unpinned filling
+still has 1,024 waiters at tick 120; larger residency, regional budgets, enabled-view LOD/
+water/transparency and geology remain unfinished. No fresh visual/Vulkan/owner GPU
+check ran; the display/Vulkan test environment is absent. Main, supplied installers
+and frozen V1/V2/V3 geography are unchanged. Work lease released.

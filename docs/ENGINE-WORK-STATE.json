@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "status": "foreground_active",
-  "updated_at": "2026-10-22T17:37:00Z",
-  "active_until": "2026-10-22T18:37:00Z",
+  "status": "ready_for_continuation",
+  "updated_at": "2026-10-22T17:51:00Z",
+  "active_until": "2026-10-22T17:51:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Distant wet-drain transfer and shared pressure cap implemented in isolation; baseline reproduced, current 8192-unit basin settles at tick 2369 with exact quantity/FLOW. Safety/build/package validation ongoing; a missing reopen pass record is rejected and under investigation. Production source unchanged.",
+  "current_gate": "Staged wet-drain throughput fix passes two deterministic 8192-unit basin replays, zero-idle-work and all 24 strict native safety/package gates. Higher fixture p95 blocks production/performance promotion. Accepted production solver remains 2c431bb; no installer released.",
   "next_items": [
-    "Profile and repair repeated drain/pressure search work in the fully loaded 8192-unit stepped basin. The FIFO candidate fixes film starvation, but full settling fails at 3,200 ticks. Preserve its independent admission FIFO, total 6,144 drain visits/host, 128-node turns, 16 resident jobs, temporary-watch cleanup and all queue/edit/reload/conservation tests. Repeat complete basin settling and full safety/build/package gates before integrating runtime source.",
-    "Use the sealed deterministic basin and the new 1024-unit loaded pool idle/edit replay to compare exact output, settling, latency and memory with prior/current source. Seven closed-route quantity/FLOW digests match prior ticket source, but that does not certify broader output/performance. Original unpinned filling still has 1,024 pending/waits at 120; earlier open-boundary basin final digests varied even on unchanged revisions.",
-    "Extend bounded drain continuation and pressure behavior beyond the 8192-node/job residency boundary; 16 jobs/level currently cap memory, and saturation is still unresolved for larger connected regions.",
+    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
+    "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
+    "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
     "Restore display/optional Vulkan environment and verify enabled-view water/LOD coverage under memory pressure, teleports, edits and reloads; fallback gaps and mixed transparency remain open",
     "Implement explicit renewable regional reservoirs plus finite local water, perennial/seasonal supply, depletable wells and accounted ocean recycling; source safety/strict depletion remain optional",
     "Improve terrain variety and coherent geology/material fields; preserve delivered V1/V2/V3 geography and require a new saved revision for geographic changes",
@@ -26,21 +26,41 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/basin-pressure-2026-10-22/README.md",
   "local_validation_environment": "/workspace/scratch/98befbcef095/basin-audit-1706",
   "promotion_blockers": [
-    "Unaccepted retained-drain/FIFO runtime fails the 3200-tick fully loaded stepped basin: conserved 8,192, upper 368 bottom 7,697 intermediate 127 pending 681. Film, loaded-pool idle/edit, safety and packaged gates now pass; runtime stays out of production until the remaining settling gate is corrected.",
-    "Original unpinned filling retains 1,024 pending entries/waits at 120 despite repaired moving film. Broad settling, matched output, latency and resident-memory acceptance remain open. Active admission allocation counters measured 80,560 and 304 bytes in separate processes; no fresh allocation/performance superiority is claimed. Prior open-boundary digest variability remains unresolved.",
-    "Pressure residency saturation and general drain continuation remain incomplete",
-    "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open; display/optional Vulkan environment remains unavailable"
+    "Staged runtime/core closes the 3200-tick basin settling gate but candidate p95 remains higher: 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline. Runtime/core remain staged evidence only; accepted production source is unchanged.",
+    "Original unpinned filling retains 1024 pending/waits at tick 120. Broader output, latency, resident memory and saturation/continuation beyond local residency remain unaccepted. Prior open-boundary basin variability is historical and unresolved.",
+    "Explicit renewable/finite regional reservoirs, accounted hydrological budgets and coherent geology remain unfinished.",
+    "Enabled-view water/LOD coverage, mixed transparency and visual/Vulkan/owner GPU acceptance remain open. This environment has no DISPLAY, Xvfb or vulkaninfo. Solver substeps do not establish independent 60 Hz."
   ],
   "latest_accepted_solver_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a",
   "staged_validation_evidence": [
-    "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/native-results.json",
-    "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/fifo-build-audit.json",
-    "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/staging-verification.json",
-    "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/matched-output-controls.json"
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/native-results.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/strict-native-audit.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/basin-metrics.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-build-audit.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/staging-verification.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/matched-route-controls.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/inspected-baseline-failures.json",
+    "docs/validation/engine-continuation/basin-pressure-2026-10-22/initial-build-failure.json"
   ],
-  "latest_staged_solver_source": "docs/validation/engine-continuation/drain-fifo-progress-2026-10-22/fifo-WaterRuntime.java",
-  "worker": "basin-audit-1706"
+  "latest_staged_solver_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-drain-WaterRuntime.java",
+  "worker": "basin-audit-1706",
+  "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
+  "staged_version": "0.0.1-alpha.25-dev",
+  "staged_installer_released": false,
+  "latest_test_summary": {
+    "strict_native_passes": 24,
+    "current_source_basin_repeats": 2,
+    "first_settled_tick": 2369,
+    "conserved_basin_units": 8192,
+    "subsequent_zero_solver_work_ticks": 831,
+    "non_vulkan_full_build": "pass after correcting validation-local name collision",
+    "archive_crc_count": 5,
+    "compiled_class_matches": 226,
+    "rejected_incomplete_reopen_capture": 1,
+    "baseline_native_failures": 2,
+    "performance_promotion": false
+  }
 }

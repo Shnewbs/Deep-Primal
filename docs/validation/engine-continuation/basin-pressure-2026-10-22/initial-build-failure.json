@@ -1,0 +1,12 @@
+{
+  "phase": "first uncached full build",
+  "status": "FAIL",
+  "reason": "New validation local boolean rejected collided with an existing corrupt-cache test local in IntegratedEngineChecks.run; production/runtime code unchanged.",
+  "log_sha256": "1ad819b0866f2251d407ee2050e0ced123359ecbfb450a5eb21f6f8326be73bf",
+  "evidence": [
+    "/workspace/scratch/98befbcef095/basin-audit-1706/project/src/coreChecks/java/com/shnewbs/deepprimal/core/IntegratedEngineChecks.java:153: error: variable rejected is already defined in method run()",
+    "  /workspace/scratch/98befbcef095/basin-audit-1706/project/src/coreChecks/java/com/shnewbs/deepprimal/core/IntegratedEngineChecks.java:153: error: variable rejected is already defined in method run()",
+    "BUILD FAILED in 18s"
+  ],
+  "correction": "Rename only the new negative pressure-limit local to pressureLimitRejected, update generator, repeat full build and package gates."
+}

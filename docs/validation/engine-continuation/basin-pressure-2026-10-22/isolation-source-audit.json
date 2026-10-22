@@ -1,0 +1,45 @@
+{
+  "source_commit": "da92144aa6d3f757984934a0e6a1e14da35b7cf1",
+  "isolated_directory": "/workspace/scratch/98befbcef095/basin-audit-1706/project",
+  "matched_tracked_files": 378,
+  "changed_tracked_files": [
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+      "expected": "98bde68cf619d0f254263b7e71ecd4a69030686c",
+      "actual": "5efb42137154781808a7117d4ce2e7e79dd4d3a4"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFillingChecks.java",
+      "expected": "58bd56d542a9583ce763822cadaa9f7f9a61d68b",
+      "actual": "baf7a23ed6f0dbacfccdc364d18f2ecda8f35417"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "expected": "581134f7e05b72190deabf86aa8ebba39739e2d6",
+      "actual": "ae38f4e8746cda0f9ab3d8b4bbb7ae14b1e448c2"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/IntegratedEngineChecks.java",
+      "expected": "176310643bda00d024a1a988c16120ea1fd5f0f7",
+      "actual": "d1e3999a8d636535336cef833176252a7851cdcd"
+    }
+  ],
+  "untracked_files": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainIdleChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainTransferChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClosedWaterChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainPendingChecks.java"
+  ],
+  "scope": "Git blob comparison of copied inputs; no edits to active/predecessor checkout; one Gradle/native producer at a time",
+  "final_input_sha256": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java": "df59081de2c2456e179e8c36055b907a62461916b2e3fff5ab2db9a0bf3fd645",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFillingChecks.java": "d6895027bfecae3db178b8b45afdb053014eff823c88e59c03bd083521200f1e",
+    "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java": "b86fd1b63f57c666ca9fac5ff2b8b74935fa1a5dae709f05f6270cdc34565d33",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/IntegratedEngineChecks.java": "fcfa120dabe0de1bf9d5650b21f47baed29dc7399f5d7c7f5bd62ab50d99d77b",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainIdleChecks.java": "df2090146c8827af6b70cdec4ec2b696fd55d59080a4412d78fa85766829a3b2",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainTransferChecks.java": "fc6e12efca0d22e66c518b3986e7c5863dddcb2c410f7d140bbf9d5c4dc834e0",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClosedWaterChecks.java": "b4eb016358618c6ad1d7d4b60f9b1c2c2fe05c1c2ad432cb5c590f25457a76aa",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainPendingChecks.java": "030f9774f4d9588049f0564c53d07ca6cb835d4c030bc8337a9ad38fa215f2f6"
+  },
+  "validation_correction": "New negative-limit local renamed to pressureLimitRejected after full build caught its collision; runtime/core unchanged."
+}

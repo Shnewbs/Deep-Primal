@@ -45,9 +45,9 @@ A truncated large workspace JAR was caught during this audit. Build and stage fi
 
 A rejected screenshot callback also exposed a real shutdown cleanup bug. The native VulkanShutdownChecks fixture injects a failed completion and requires the following completion to run. Require zero destruction-time Vulkan VUID messages, zero tracked resources and final counters after cleanup. UI capture fixtures must await the image write. Preserve this regression when changing the graphics backend.
 
-## Latest continuation focus
+## Historical alpha.24 scene context
 
-The final native coast uses about 1.76 MB of animated water residency at this camera. Repetitive contours and suspicious distant-water patterns remain visible quality concerns; their cause is unproven. Isolate the waves overlay as well as animated/fallback water, near terrain and LOD before diagnosing missing pages. A useful lake-outlet camera for seed 20261020 is x=107.68827612381756, y=176.5875, z=-226.797007486035, yaw=180, pitch=33.02386755579665. Keep geometry/volumes and the camera fixed across comparisons.
+The historical alpha.24 native coast used about 1.76 MB of animated water residency at this camera. That pre-reset observation is not fresh candidate validation. Repetitive contours and suspicious distant-water patterns remain visible quality concerns; their cause is unproven. Isolate the waves overlay as well as animated/fallback water, near terrain and LOD before diagnosing missing pages. A useful lake-outlet camera for seed 20261020 is x=107.68827612381756, y=176.5875, z=-226.797007486035, yaw=180, pitch=33.02386755579665. Keep geometry/volumes and the camera fixed across comparisons.
 
 The final ocean-grouping fix removes seven false lake classifications from the nine-seed ensemble: 650 lakes, 964 headwaters, 4,292 connected reaches. The latest 1,000-tick basin is retained; pending work remains nonzero. Do not turn these into claims that regional hydrology or the full terrain design is finished. New installer releases need unique versioned names; do not replace the supplied alpha.24 bytes.
 
@@ -55,16 +55,35 @@ The final ocean-grouping fix removes seven false lake classifications from the n
 
 The pressure-head continuation caught a valid-CRC JAR containing an older WaterRuntime after copying incremental build output. Compare packaged main-class bytes with current compiled outputs, not just CRCs, and run a focused packaged-native regression. If stale, reject that archive, rebuild with `--no-build-cache --rerun-tasks jar`, and repeat identity/CRC/native checks after producer completion. See `validation/engine-continuation/2026-10-22-pressure-head-retention-build.json`. The exact incremental cause remains unproven; do not reuse or deliver the rejected archive.
 
-## Latest native drain continuation
+## Current retained-drain candidate and acceptance gates
 
-Read [ticket-readiness evidence](validation/engine-continuation/drain-ticket-readiness-2026-10-22/README.md) before resuming. The native toolchain is restored in the work-state directory; `tools/restore_validation_toolchain.py` can restore pinned private tools to a fresh directory after another reset. It is optional build tooling, never mod payload. The current disposable local project contains an **unaccepted** runtime, not the accepted branch source. Use the branch/recorded accepted solver for production comparisons.
+Read [the basin/pressure audit](validation/engine-continuation/basin-pressure-2026-10-22/README.md) and work-state staged source paths.
+The optional checksum-pinned tool restoration helper can recreate private tools
+after a reset; it is never mod payload. The accepted production solver remains
+2c431bb. The disposable project and staged runtime/core are an **unaccepted
+experiment** and must be reviewed/copied together. Main and supplied installers
+are unchanged.
 
-The bounded cached-FULL/ticket readiness patch passes targeted native/packaged reload and actual physical-unload safety, but its inherited parent fails eight-unit film filling and a 3200-tick closed basin. Preserve failing evidence and keep runtime out of production. Next reproduce/profile admission/fairness with the film's stable competing cells, then repeat full safety/settling/build/package checks. Avoid claiming a physical unload from FULL,false == null alone: require the new observed Unload fixture. Final archives still require class identity and explicit native pass records, because fresh failures again returned Gradle zero.
+The candidate now uses the existing four-unit pressure quantum through validated
+drain witnesses, retaining one-unit film progress. It shares a capped core pressure
+overload rather than duplicating caps. Two current-source closed 8,192-unit basin
+runs settle at tick 2,369 with identical quantity/FLOW hashes; the stricter repeat
+then checks zero solver work on every following host tick. All 24 strict native
+safety/idle/basin/package cases, uncached default non-Vulkan core/module build,
+five archive CRCs and 226 class comparisons pass. The initial validation compile
+failure and incomplete reopen log capture are preserved, followed by corrected
+passing gates. A startup autosave or record file alone is not complete acceptance.
 
+**Keep runtime/core out of production until performance promotion is justified.**
+Current-source basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline.
+The candidate settles and reduces total search visits, but that does not establish
+lower tick latency or general output/memory acceptance. Original unpinned filling
+still retains 1,024 waiters at 120 ticks. Next profile the increased pressure work
+and tail latency without weakening settling, film, FIFO bounds, physical unload,
+player edits or zero-idle-work checks. Preserve the 16-job/8,192-node residency
+limits and current per-host bounds; larger-region continuation remains open.
 
-## Current drain FIFO evidence and remaining gate
-
-The [FIFO continuation](validation/engine-continuation/drain-fifo-progress-2026-10-22/README.md) preserves a bounded independent drain-request FIFO and its final source. Film starvation is reproduced before and fixed afterward; 20 final safety/loaded-idle/packaged cases pass, plus core/module/CRC and 226 class comparisons. A65536-key drain queue and one temporary128-visit witness add explicit bounded work/memory; they do not raise the 16 retained-job/8,192-node residency cap or total 6,144 drain visits/host. Temporary chunk watches are checked for cleanup. One comment was normalized after the safety batch; all 104 compiled main-class hashes match, and canonical packaged tests pass.
-
-Production source remains the accepted2c431bb solver. The latest local project/work-state staged source contains an **unaccepted** experiment. The 3,200-tick closed basin remains conserved but unsettled (upper 368/bottom 7,697/intermediate 127/pending 681); original unpinned filling has 1,024 pending/waits at 120. Do not promote on a targeted film pass. Next profile/reduce redundant basin work, preserving queue saturation/overflow, fully loaded idle then floor-edit wake, silent edits, cached/physical reload and quantity invariants; repeat full settling/build/package gates. Check explicit records/crash stacks because the failure again returned Gradle zero. Visual/Vulkan and broad performance remain separate open gates.
-
+Historical failures stay in ACTIVE-ENGINE-AUDIT and the linked reports. Regional
+renewable/finite reservoirs, enabled-view water/LOD coverage, transparency and
+geology remain unfinished; catalog/species stays deferred. No fresh visual/Vulkan
+or owner GPU/FPS acceptance is established here. Substeps are not independent 60 Hz.
