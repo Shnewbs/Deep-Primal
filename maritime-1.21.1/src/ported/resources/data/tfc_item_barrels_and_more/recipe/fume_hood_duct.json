@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "S S",
+    " S "
+  ],
+  "key": {
+    "S": [
+      {
+        "item": "tfc:metal/sheet/cast_iron"
+      }
+    ]
+  },
+  "result": {
+    "count": 4,
+    "id": "tfc_item_barrels_and_more:fume_hood_duct"
+  }
+}

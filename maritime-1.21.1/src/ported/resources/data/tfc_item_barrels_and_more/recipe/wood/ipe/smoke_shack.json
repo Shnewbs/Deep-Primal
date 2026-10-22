@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LGL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "afc:wood/lumber/ipe"
+    },
+    "G": {
+      "item": "tfc:metal/grill/wrought_iron"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/ipe/smoke_shack"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "afc"
+    }
+  ]
+}

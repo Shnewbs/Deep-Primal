@@ -1,0 +1,39 @@
+{
+  "type": "tfc:welding",
+  "first_input": [
+    {
+      "item": "tfc:metal/bars/bismuth_bronze"
+    },
+    {
+      "item": "tfc:metal/bars/black_bronze"
+    },
+    {
+      "item": "tfc:metal/bars/black_steel"
+    },
+    {
+      "item": "tfc:metal/bars/blue_steel"
+    },
+    {
+      "item": "tfc:metal/bars/bronze"
+    },
+    {
+      "item": "tfc:metal/bars/copper"
+    },
+    {
+      "item": "tfc:metal/bars/red_steel"
+    },
+    {
+      "item": "tfc:metal/bars/steel"
+    },
+    {
+      "item": "tfc:metal/bars/wrought_iron"
+    }
+  ],
+  "second_input": {
+    "tag": "c:ingots/steel"
+  },
+  "tier": 4,
+  "result": {
+    "id": "tfc_item_barrels_and_more:bars_die"
+  }
+}

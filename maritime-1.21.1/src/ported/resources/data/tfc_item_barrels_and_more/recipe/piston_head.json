@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "A A",
+    "   "
+  ],
+  "key": {
+    "A": [
+      {
+        "item": "tfc:metal/double_sheet/bronze"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:piston_head"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RLR",
+    "LSL",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "item": "tfc:metal/rod/brass"
+    },
+    "L": {
+      "item": "tfc:lens"
+    },
+    "S": {
+      "item": "tfc_item_barrels_and_more:unfinished_diving_helmet"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:diving_helmet"
+  }
+}

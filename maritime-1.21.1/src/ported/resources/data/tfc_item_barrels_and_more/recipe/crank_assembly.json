@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "BB",
+    "II"
+  ],
+  "key": {
+    "S": [
+      {
+        "item": "tfc:metal/sheet/cast_iron"
+      }
+    ],
+    "I": [
+      {
+        "tag": "c:double_ingots/cast_iron"
+      }
+    ],
+    "B": [
+      {
+        "tag": "c:double_ingots/brass"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:crank_assembly"
+  }
+}

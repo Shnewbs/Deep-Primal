@@ -1,0 +1,9 @@
+{
+  "ingredient": {
+    "item": "tfc_item_barrels_and_more:venison_sausage"
+  },
+  "hunger": 4,
+  "saturation": 0,
+  "decay_modifier": 1.5,
+  "protein": 2
+}

@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    {
+      "item": "afc:wood/barrel/eucalyptus"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/eucalyptus/item_barrel"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "afc"
+    }
+  ]
+}

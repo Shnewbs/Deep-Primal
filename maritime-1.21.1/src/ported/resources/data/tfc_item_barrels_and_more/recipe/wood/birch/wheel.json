@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LBL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/birch"
+    },
+    "B": {
+      "tag": "c:double_ingots/brass"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/birch/vs_sails_helm_wheel"
+  }
+}

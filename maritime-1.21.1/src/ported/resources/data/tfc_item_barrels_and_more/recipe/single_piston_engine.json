@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR ",
+    "ATI",
+    "BTB"
+  ],
+  "key": {
+    "T": [
+      {
+        "tag": "c:double_ingots/cast_iron"
+      }
+    ],
+    "I": [
+      {
+        "tag": "c:double_ingots/brass"
+      }
+    ],
+    "R": [
+      {
+        "tag": "c:rods/copper"
+      }
+    ],
+    "A": [
+      {
+        "item": "tfc:metal/double_sheet/brass"
+      }
+    ],
+    "B": [
+      {
+        "tag": "tfc:lumber"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:single_piston_engine"
+  }
+}

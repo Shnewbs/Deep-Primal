@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "LRL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/mangrove"
+    },
+    "R": {
+      "item": "minecraft:lead"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/mangrove/vs_sails_helm"
+  }
+}

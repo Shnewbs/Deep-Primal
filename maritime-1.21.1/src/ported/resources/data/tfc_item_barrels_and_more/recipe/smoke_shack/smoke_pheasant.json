@@ -1,0 +1,12 @@
+{
+  "type": "tfc_item_barrels_and_more:smoke_shack",
+  "ingredient": {
+    "type": "tfc:not_rotten",
+    "ingredient": {
+      "item": "tfc:food/pheasant"
+    }
+  },
+  "cooked_result": {
+    "id": "tfc:food/cooked_pheasant"
+  }
+}

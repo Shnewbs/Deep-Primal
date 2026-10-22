@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "item": "tfc:metal/rod/blue_steel"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:metal/blue_steel/cleat"
+  }
+}

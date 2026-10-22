@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LGL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/willow"
+    },
+    "G": {
+      "item": "tfc:metal/grill/wrought_iron"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/willow/smoke_shack"
+  }
+}

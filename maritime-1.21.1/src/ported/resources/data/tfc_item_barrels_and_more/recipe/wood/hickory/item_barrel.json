@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/lumber/hickory"
+    },
+    {
+      "item": "tfc:wood/barrel/hickory"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/hickory/item_barrel"
+  }
+}

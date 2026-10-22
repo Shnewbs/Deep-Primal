@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    {
+      "item": "tfc:wood/barrel/white_cedar"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/white_cedar/item_barrel"
+  }
+}

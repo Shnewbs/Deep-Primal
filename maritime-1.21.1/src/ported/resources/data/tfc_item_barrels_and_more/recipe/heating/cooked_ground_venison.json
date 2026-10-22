@@ -1,0 +1,18 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "type": "tfc:not_rotten",
+    "ingredient": {
+      "item": "tfc_item_barrels_and_more:raw_ground_venison"
+    }
+  },
+  "result_item": {
+    "stack": {
+      "id": "tfc_item_barrels_and_more:cooked_ground_venison"
+    },
+    "modifiers": [
+      "tfc:copy_food"
+    ]
+  },
+  "temperature": 200
+}

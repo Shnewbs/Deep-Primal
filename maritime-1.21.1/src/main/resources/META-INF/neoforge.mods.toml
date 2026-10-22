@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+[[mods]]
+modId="tfc_item_barrels_and_more"
+version="0.0.4-port.1-alpha"
+displayName="TFC Maritime Travelers — 1.21.1 Port"
+authors="commandodonut; 1.21.1 port maintained in Deep Primal"
+description='''Development port of the user-supplied TFC Maritime Travelers 0.0.4 build.'''
+[[dependencies.tfc_item_barrels_and_more]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.tfc_item_barrels_and_more]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.234,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.tfc_item_barrels_and_more]]
+modId="tfc"
+type="required"
+versionRange="[4.2.12,4.3)"
+ordering="AFTER"
+side="BOTH"

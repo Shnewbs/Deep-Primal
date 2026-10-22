@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc_item_barrels_and_more:wood/ipe/item_barrel",
+          "properties": {
+            "sealed": "false"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc_item_barrels_and_more:wood/ipe/item_barrel"
+        }
+      ]
+    }
+  ]
+}

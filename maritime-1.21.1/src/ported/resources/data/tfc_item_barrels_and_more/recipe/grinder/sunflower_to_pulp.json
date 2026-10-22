@@ -1,0 +1,15 @@
+{
+  "type": "tfc_item_barrels_and_more:grinder",
+  "ingredient": {
+    "item": "artisanal:sunflower_seeds"
+  },
+  "result": {
+    "id": "artisanal:sunflower_pulp"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "artisanal"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/lumber/palm"
+    },
+    {
+      "item": "tfc:wood/barrel/palm"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/palm/item_barrel"
+  }
+}
