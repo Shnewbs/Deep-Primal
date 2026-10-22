@@ -2,6 +2,7 @@ package com.shnewbs.deepprimal.engine;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.shnewbs.deepprimal.core.CaveColumn;
 import com.shnewbs.deepprimal.core.TerrainEngine;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -162,13 +163,15 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return (y == bed ? Blocks.GRASS_BLOCK : Blocks.DIRT).defaultBlockState();
   }
 
-  private BlockState at(TerrainEngine.Sample s, int x, int y, int z) {
+  private CaveColumn caves(TerrainEngine.Sample s, int x, int z, int maxY) {
+    return !s.wet() && (revision < 3 || s.sediment() < .05)
+        ? new CaveColumn(engine.noise, x, z, s.ground(), minY, maxY)
+        : null;
+  }
+
+  private BlockState at(TerrainEngine.Sample s, CaveColumn caves, int y) {
     if (y <= (int) Math.floor(s.ground()))
-      return !s.wet()
-              && (revision < 3 || s.sediment() < .05)
-              && engine.cave(x, y, z, s.ground(), minY)
-          ? Blocks.AIR.defaultBlockState()
-          : solid(s, y);
+      return caves != null && caves.contains(y) ? Blocks.AIR.defaultBlockState() : solid(s, y);
     if (s.wet() && y < s.water()) {
       int direction =
           Math.abs(s.flowX()) + Math.abs(s.flowZ()) < .01
@@ -186,8 +189,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
 
   public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor l, RandomState r) {
     var s = surfaceSample(x, z);
+    var caves = caves(s, x, z, l.getMaxY() - 1);
     BlockState[] a = new BlockState[l.getHeight()];
-    for (int j = 0; j < a.length; j++) a[j] = at(s, x, l.getMinY() + j, z);
+    for (int j = 0; j < a.length; j++) a[j] = at(s, caves, l.getMinY() + j);
     return new NoiseColumn(l.getMinY(), a);
   }
 
@@ -246,8 +250,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
             Math.min(
                 c.getMaxY() - 1,
                 (int) Math.ceil(Math.max(s.ground(), s.wet() ? s.water() : s.ground())));
+        var caves = caves(s, ox + x, oz + z, max);
         for (int y = c.getMinY(); y <= max; y++) {
-          BlockState state = at(s, ox + x, y, oz + z);
+          BlockState state = at(s, caves, y);
           if (!state.isAir()) {
             c.setBlockState(pos.set(ox + x, y, oz + z), state);
             floor.update(x, y, z, state);
