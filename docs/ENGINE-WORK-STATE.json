@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "foreground_active",
-  "updated_at": "2026-10-22T20:34:00Z",
-  "active_until": "2026-10-22T21:34:00Z",
+  "updated_at": "2026-10-22T20:50:50.000Z",
+  "active_until": "2026-10-22T21:50:50.000Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Investigating water discovery frustum bounds versus vertically expanded render bounds; restoring isolated source/toolchain after workspace maintenance. No new validation yet.",
+  "current_gate": "Real Vulkan Create World/disconnect crash reproduced: frame startup drains a readback after VkCommandEncoder marks its public pass open. Forced native regression reproduces it; focused ordering fix under native validation. Separately, exact-source LOD range-queue test reproduces discarded disk keys; candidate retains them within existing 64-key bound, native acceptance pending.",
   "next_items": [
     "Vulkan-first: add bounded coverage-recovery regression across join, teleport, constrained water/LOD budgets, edits and physical reload. Early reopen screenshot shows partial water/exposed terrain; warmed captures recover. Preserve actual active-LOD observations, zero-VUID/resource shutdown and OpenGL modular fallback; establish identical-state/output comparisons before performance claims.",
     "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
