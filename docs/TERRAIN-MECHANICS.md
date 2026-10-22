@@ -35,6 +35,10 @@ The larger inventories remain reference catalogs. Names in those catalogs do not
 
 Primary grounding: [Climax operator](https://www.climaxmolybdenum.com/operations/usa), [USGS porphyry/epithermal systems](https://www.usgs.gov/publications/porphyry-and-epithermal-mineral-deposits), [USGS gemstone environments](https://pubs.usgs.gov/gip/gemstones/environment.html), and [NPS cross-cutting relationships](https://www.nps.gov/articles/geologic-principles-cross-cutting-relationships.htm). These inform our simplified generation rules; they are not claims of a scientific simulation.
 
+### Flexible deposit authoring — owner direction, 2026-10-21 PDT
+
+Use TFC/GTCEu-inspired flexibility through one native deposit schema: geometry, host rock/contact eligibility, occurrence/selection weight versus density, vertical reference modes, multi-ore/gem composition/grades, indicators and finite/bedrock reserve rules. Support datapack definitions, config tuning and optional versioned KubeJS transforms; a visual companion editor is proposed. All authoring must compile to deterministic native planning data, not per-block scripts. See [configuration and ore authoring](CONFIGURATION-AND-ORE-AUTHORING.md); implementation remains open.
+
 ## TERRAIN-03 clarification — resistance without mandatory sediment simulation
 
 Keep the accepted rock-specific resistance direction. Use coherent weathering/erosion histories and compact generation-time summaries to shape cliffs, ledges, channels, exposed rock and loose slope material. Share material properties with excavation and stability.

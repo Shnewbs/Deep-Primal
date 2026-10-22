@@ -58,3 +58,9 @@ The independent 16-unit water adapter now has a bounded communicating-pool press
 ## Alpha 21 liquid presentation
 
 Core owns snapshot-to-geometry math and continuous height retargeting. Graphics owns the backend-neutral GPU allocation helper and liquid shaders. Root client integration owns loaded-world capture, patch scheduling, configuration handoff and lifecycle. Worker inputs contain primitive arrays and never reference a live world. LOD remains a separate optional module; client level events continue to invalidate its snapshots. Server transport stays independent of presentation.
+
+## Planned config and external-authoring boundary — 2026-10-21 PDT
+
+The [configuration/ore contract](CONFIGURATION-AND-ORE-AUTHORING.md) requires domain subdirectories beneath each scope's deepprimal root, while preserving current config ownership and optional-module behavior. Existing flat filenames have not yet been migrated. Central schema/validation metadata and immutable deposit compilation belong to the portable core plus host adapters; optional KubeJS prepares typed definitions at a documented lifecycle, never per voxel.
+
+The proposed external editor is a separate optional tool using the same schema/preview interfaces, not a desktop framework nested into the required mod. Graphics, LOD and Vulkan retain their current responsibilities. [Voxel-engine research](VOXEL-ENGINE-REFERENCES.md) is reference/prototype work, not adoption of another engine or a module-boundary rewrite.

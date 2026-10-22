@@ -50,6 +50,8 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
 - [Terrain, water, snow and LOD audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) — 20 linked projects, current source coverage, detailed gaps and acceptance requirements
+- [Configuration and ore authoring](docs/CONFIGURATION-AND-ORE-AUTHORING.md) — flexible deposits, organized config roots, optional KubeJS and proposed external visual editor
+- [Voxel-engine research](docs/VOXEL-ENGINE-REFERENCES.md) — runtime/worldgen/authoring references and measurable prototype targets
 - [Approved terrain mechanics](docs/TERRAIN-MECHANICS.md) — realistic geology/ores, soil/wind forms, underground drainage, cave-ins and obstructions; no sinkholes; optional sediment simulation
 - [Approved water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md) — watershed reservoirs, seasonal wet/dry surface water, perennial/strict policies, ocean recycling and blocked-river behavior; implementation open
 - [Biome plan and named roster](docs/BIOME-PLAN.md) — proposed profiles, regional communities, environmental layers and habitat coverage
@@ -90,6 +92,16 @@ The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md
 
 Prioritize enabled-view correctness and supported water steps/filling, then connected drainage/source scale/material placement and native hydrology integration. "Do better" requires reproducible correctness, integration, visual and/or matched performance evidence. This follow-up is documentation only; environmental catalog implementation remains deferred, and existing versioned saves/geography remain unchanged.
 
+## Configurable deposits and external authoring — 2026-10-21 PDT
+
+The [configuration/ore contract](docs/CONFIGURATION-AND-ORE-AUTHORING.md) records flexible native deposits and domain-organized deepprimal config roots. The external visual editor remains a proposal, not a shipped tool.
+
+- [ ] **CONFIG-01:** inventory/migrate current flat files into domain subdirectories beneath config/deepprimal/ and matching supported world overrides; preserve scope/sync, user values, backups and one authoritative live copy.
+- [ ] **ORE-01:** implement one validated, versioned native deposit schema for geometry, geological hosts, occurrence/density, height/depth modes, mixed ores/gems/grades, indicators and finite/high-reserve behavior.
+- [ ] **ORE-02:** provide datapack/config authoring and optional versioned KubeJS add/modify/remove; compile immutable definitions once, expose provenance/precedence and preserve saved generation contracts.
+- [ ] **EDITOR-01 (proposal):** evaluate an optional editor outside Minecraft using shared schemas, sliders plus numbers, presets/diffs, registry-aware validation and seeded previews without bloating the game runtime.
+- [ ] **ENGINE-RESEARCH:** prototype selected Voxel Tools/Luanti runtime lessons and Veloren/Vintage Story worldgen organization; use Voxel Plugin as a secondary editor/profiling reference. [Research scope](docs/VOXEL-ENGINE-REFERENCES.md) requires native correctness and matched measurements.
+
 ## Confirmed direction
 
 | Area | Direction |
@@ -105,7 +117,7 @@ Prioritize enabled-view correctness and supported water steps/filling, then conn
 | Inventory | Stack count and mass are independent; stack limits and encumbrance are configurable. Large-stack feasibility is unverified. |
 | Signals and explosives | Cable-style redstone and powder-keg-style TNT by default, with vanilla behavior options. Detailed launch scope remains open. |
 | Content and visuals | Data-driven natural materials and building variants; TFC-style grounding and Conquest Reforged visual inspiration. Asset reuse requires license review. |
-| Configuration | Domain-based settings, presets, tunables, and optional gameplay modules with working defaults. Shared core services remain required. |
+| Configuration | All Deep Primal user settings beneath domain-organized deepprimal roots, preserving client/server scope and world overrides; presets/tunables, flexible deposit datapack/config/optional KubeJS authoring and optional modules. External visual editor proposed; shared core remains required. |
 | Documentation | Native Markdown/datapack field guide and independent inspection API; optional tooltip integrations. |
 | Multiplayer | Single-player and dedicated servers; gameplay state is server-authoritative. Keep personal inventory defaults on; recover freight in the world. Configurable fatigue escalation for closely spaced deaths, resetting after a death-free interval; optional teams/guilds/parties. |
 | Water and logistics | Approved hybrid finite local water plus renewable watershed reservoirs, designated perennial major rivers, seasonal melt streams/desert inundation and recession, shared depletable aquifers/wells, accounted ocean recycling with stable mean sea level, and real local flood/dam behavior. Strict depletion and source safety are optional. See [water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md); broad transport/local storage remain desired and native remote retrieval/deposit is excluded. |
@@ -249,7 +261,7 @@ The [complete question register](docs/design-reference.md#s8) preserves all 31 o
 | --- | --- | --- | --- |
 | D01 | Initial prototype target selected: Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25, Gradle 9.2.1; broader version support undecided. | M0 | 1 |
 | D02 | Original versus reusable assets/code and license constraints. | M0/imports | 3 |
-| D03 | Data/TOML precedence, module defaults, UI timing, and existing-world change policy. Required core remains enabled. | M0 | 9, 10, 30, 31 |
+| D03 | deepprimal/domain config organization and flexible ore authoring are confirmed; implement schema/precedence/migration and saved-world rules. External companion editor remains proposed; module defaults/UI scheduling still need selection. Required core remains enabled. | M0 | 9, 10, 30, 31 |
 | D04 | Initial catalog coverage and how later tiers expand it. | M1 | 16 |
 | D05 | Rendering quality/performance thresholds and hand-authored versus parametric trees. | M1 | 17, 19 |
 | D06 | Expanded vertical terrain is desired and performance is mandatory; verify target height limits and select measured profiles alongside Earth datasets/licenses, projection, and vertical scale. | M2 | 18, 27 |

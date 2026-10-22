@@ -8,6 +8,34 @@ Alpha 19 gives graphics and LOD separate ownership: shared GPU/UI infrastructure
 
 **Owner clarification:** these projects are inspiration and comparison targets for better Deep Primal systems. Do not treat adding a dependency, copying a feature list or matching a screenshot as completion. Establish improvements through conservation/correctness, useful behavior, integration and matched performance measurements.
 
+## Engine charter and quality gates
+
+**Confirmed:** Deep Primal builds its own original terrain/worldgen engine inside the mod. The selected independent path is implemented through [TerrainEngine](../engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java), [EngineChunkGenerator](../src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java) and the native fluid adapters. Minecraft/NeoForge still host saves, scheduling, registries, lighting, networking and GPU integration. This is an independent world-design subsystem, not a replacement for every host API or a claim that final quality is achieved.
+
+| Reference group | What guides our implementation |
+| --- | --- |
+| TFC and GTCEu Modern | Coherent geology/river behavior and flexible deposit definitions/authoring. See [ore/config contract](CONFIGURATION-AND-ORE-AUTHORING.md). |
+| Terralith and Tectonic | Landform variety, relief, coasts and cave/mountain-river examples, adapted to our natural setting. |
+| Gaea and World Machine | Connected drainage before carving, discharge-aware cross-sections, generation-time resistance/wear/material context. Full live sediment transport remains optional/default-off. |
+| Streams Reflowing, Underground Rivers and the audited water/snow references | Channel continuity, bank/source scale, underground passages, fluid behavior and atmosphere; inspect exact features rather than claiming bundled parity. |
+| Voxel Tools, Luanti, Veloren, Vintage Story and Voxel Plugin | [New voxel research shortlist](VOXEL-ENGINE-REFERENCES.md): runtime data/jobs, regional generation and authoring workflows; none is adopted as our runtime. |
+| Distant Horizons, Cesium, Nanite, meshoptimizer/clusterlod | Distance coverage, hierarchy/error/streaming and constrained mesh processing; separate architecture references from candidate code components. |
+| USGS, NPS and NOAA | Geological/hydrological grounding. Scientific sources inform simplified rules; they do not make a game generator scientifically complete. |
+
+Required quality gates:
+
+1. **Connected world decisions:** choose the biome roster first; share geological, terrain, drainage and soil inputs instead of stacking unrelated generators. Later climate gates placement.
+2. **Physical plausibility:** accepted host-controlled ores/gems, supported channels/caves, local water budgets and believable materials. Enforce no sinkholes and optional/default-off live sediment transport.
+3. **Determinism and saves:** immutable versioned region plans, shared boundaries, independent seeded candidates, identical results across worker/order/cache changes and explicit saved-generation policies.
+4. **Bounded runtime:** reuse fields, bulk data access and compiled definitions; no per-voxel scripts/file reads, forced whole-world loading or unbounded work/memory queues. Distinguish simulation, generation, near rendering and LOD budgets.
+5. **Actual visual acceptance:** inspect native fixed-seed coasts, cliffs, soil cuts, mountain/cave rivers, confluences, lake sources, forests and ore cross-sections. Floating fragments/water sheets, repeated bowls, page walls and placeholder scatter are unresolved defects until captures prove otherwise.
+6. **Editable-world correctness:** preserve player edits, water quantity, lighting/material classes and revisioned cache ownership through unload/reload, multiplayer, teleport and resource changes.
+7. **Controls and authoring:** [domain-organized config paths and typed deposit data](CONFIGURATION-AND-ORE-AUTHORING.md), working effective controls, documented reload/world locks and source-aware validation; external editor remains proposed.
+8. **Measured performance:** fixed camera/exploration/edit suites, named hardware and p50/p95/p99 frame/tick/chunk readiness, throughput, RAM/VRAM, I/O/network and edit lag. Software-driver evidence does not certify the owner's AMD driver. No cross-engine or DH superiority claim without matched conditions.
+9. **Modularity and provenance:** retain core/host/graphics/LOD/Vulkan boundaries and the max-64×64 world-texture/shared-tint direction. Pin sources/licenses before actual reuse; proprietary engine code is not a shortcut to the target.
+
+These are the meaning of the requested exceptional quality: coherent behavior, useful authoring, clean integration and demonstrated performance/visual results.
+
 ## Current owner follow-up — 2026-10-22
 
 The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) is the current detailed feature mapping against alpha 20. It checks 20 owner-linked projects, including the [Streams Reflowing, Canopy Cascade and Puddles & Floods follow-up](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md), and distinguishes native implementation from older configured hooks. TERRAIN-04, WATER-07 and WATER-08 add the detailed stream/bank, canopy-moisture and puddle/flood requirements. Alpha 20 improves bounded liquid activation/transport and mesh-build progress; it does not establish frame-interpolated water, complete watershed budgets or finished visual quality.
@@ -31,6 +59,7 @@ The target is our own Overworld generator and biome/region decisions: original c
 | Reference | Role in Deep Primal | Evidence/status |
 | --- | --- | --- |
 | [TFC](https://terrafirmacraft.github.io/Documentation/1.21.x/worldgen/world-preset/) | Coherent continents, regional climate/geology and drainage/river behavior | Partial region/river source review and official generator documentation. Full feature parity is not implemented. |
+| [GTCEu Modern](https://gregtechceu.github.io/GregTech-Modern/1.20.1/Modpacks/Ore-Generation/01-Customizing-Veins/) | Flexible multi-ore deposit authoring and deterministic planned-versus-placed generation | Official authoring/developer documentation checked. Our schema, KubeJS bridge and GUI authoring are not implemented; no GTCEu runtime/source is bundled. |
 | [Terralith](https://www.stardustlabs.net/terralith) | Landform/biome variety, distinctive terrain features and surface composition suited to our grounded setting | Official terrain descriptions and earlier river-specific references reviewed. Broad source/feature audit remains pending; no Terralith source/assets bundled. |
 | [Tectonic](https://modrinth.com/datapack/tectonic) | Continental-scale relief, mountain ranges, deep oceans and continuity where rivers pass through mountainous terrain | Official feature description reviewed in this clarification. Proper source audit and mapped implementation checks remain pending; no Tectonic integration is claimed. |
 

@@ -48,6 +48,7 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 | Topic | Status | Direction |
 | --- | --- | --- |
 | First tools | Confirmed | PrimalCore-inspired flint, loose rock, and bone tools, followed by developed stone tooling and later metals. |
+| Configuration and ore authoring | Confirmed owner direction; companion editor proposed, 2026-10-21 PDT | Flexible native deposits via datapacks/config/optional KubeJS; all Deep Primal user configs beneath domain-organized deepprimal roots. External sliders/preview editor remains a proposal; implementation pending. See [contract](CONFIGURATION-AND-ORE-AUTHORING.md). |
 | Terrain mechanics | Confirmed owner scope, 2026-10-21 PDT | Realistic structural geology/ores/gems, erosion resistance, soil horizons, wind forms, caves/mountain rivers/springs, slope stability/cave-ins and natural obstructions. No sinkholes; full live sediment transport optional/default-off. See [mechanics](TERRAIN-MECHANICS.md). |
 | Water | Confirmed direction; expanded 2026-10-22 | Distinct water types; finite local physics with renewable regional reservoirs, perennial major rivers, seasonal melt and desert wet/dry states, shared depletable wells, stable mean ocean level and accounted recycling. Local floods remain physical; strict depletion/source safety are optional. See [water mechanics](WATER-BUDGET-REQUIREMENTS.md). Elevation is not a guaranteed purity rule. |
 | Transport | Confirmed breadth | Personal storage, sledges/handcarts, pack animals, animal carts, rail carts, rafts, boats, and towable cargo craft. Horses, mules, and donkeys can pull appropriate carts. |
@@ -84,6 +85,16 @@ The owner also confirmed geographic climate realism: a generally warmer equatori
 The owner also requires ocean currents based on realistic attributes. Later climate/ocean planning must connect winds, rotation, basin geometry, depth, temperature and salinity to surface/deep flow and vertical exchange, with consequences for coastal climate and marine habitats. Use a shared current field for future gameplay consumers, with bounded regional sampling. See [ocean circulation requirements](BIOME-PLAN.md#ocean-circulation--confirmed-direction). This records planning scope only.
 
 The owner clarified that other planets means actual discovered/named planets, including exoplanets. Planetary physical traits are now in the environmental reference scope. The [island and planetary planning proposal](BIOME-PLAN.md#islands-and-planetary-references) records examples, scientific uncertainty and how traits could fit island communities, materials and landforms. Exact trait selections, full planetary world profiles and implementation remain open. Existing biome/climate placement requirements continue to apply.
+
+## Configurable deposits and organized settings — 2026-10-21 PDT
+
+Confirmed owner direction: TFC/GregTech-style flexible deposits with supported datapack, config and optional KubeJS authoring. Expose useful shape/size/density/rarity, host/geological eligibility, depth reference, mixed contents/grades, indicators and finite/high-reserve deposit properties through one native schema; no Java editing should be needed for supported data choices.
+
+All Deep Primal user configs belong beneath a deepprimal root with domain subdirectories. Preserve client/common/startup/server ownership, mirror valid world override paths, migrate existing flat files with backups, and avoid competing live copies. The [ore/config contract](CONFIGURATION-AND-ORE-AUTHORING.md) records the target layout, typed authoring, proposed precedence, saved-world restrictions and migration requirements.
+
+The owner proposed a visual editor outside Minecraft. Record it as a companion-tool proposal: shared metadata/validation, sliders plus exact numbers, presets, staged diffs and useful previews, available without launching the game. Toolkit/distribution, registry validation while offline and implementation scope remain open. The existing in-game graphics screen/dashboard does not establish this companion app.
+
+Engine ownership remains confirmed: our original terrain/biome/geology/drainage decisions run inside Deep Primal, with Minecraft/NeoForge as host infrastructure. The [engine charter](LOD-AND-DRAINAGE-ARCHITECTURE.md) and [voxel research shortlist](VOXEL-ENGINE-REFERENCES.md) define references and acceptance gates. Studying another engine is not adoption or measured superiority.
 
 ## First-day progression
 

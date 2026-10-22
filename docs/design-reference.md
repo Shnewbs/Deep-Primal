@@ -220,7 +220,7 @@ The "realism" pillar means the world's raw materials are varied and behave like 
 - Permafrost: polar and alpine ground has a dense, frozen subsurface layer that is harder than obsidian. Early tools can't dig it; players need advanced tooling, must thaw it with heat (fire, steam, thermal tools), or must route around it through natural caves.
 - Cold-weather hardening (ice cementation): freezing ambient temperatures combined with moisture inside a block raise the hardness and blast resistance of soils, gravels, and sedimentary stone until heat or industrial steam thaws them. Both effects run through the property system ([§4.14](#s4-14)): hardness and blast resistance are functions of temperature and moisture state, so native and adapted blocks behave the same way.
 - Interactions (suggested): seasonal freeze and thaw come from the calendar ([§4.2](#s4-2)); frozen ground resists blasting ([§4.15](#s4-15)); thawing ground can slump or collapse ([§4.10](#s4-10)); cold exposure feeds the temperature model ([§4.9](#s4-9)); frost shortens growing seasons ([§4.6](#s4-6)).
-- Config: permafrost depth and hardness, freeze threshold, ice-cementation strength, and thaw rates (temperature-clothing.toml, hazards.toml, world.toml).
+- Config: permafrost depth and hardness, freeze threshold, ice-cementation strength, and thaw rates (survival/temperature-clothing.toml, hazards/stability.toml, worldgen/terrain.toml).
 
 **1:1 Earth scale option**
 
@@ -232,7 +232,7 @@ The "realism" pillar means the world's raw materials are varied and behave like 
 - Geology and climate mapping: real lithology can pick the mod's rock types by region ([§4.17](#s4-17)), and latitude, altitude, and ocean proximity drive temperature and rainfall, which is where permafrost, deserts, and rainforests land.
 - Calendar link: hemisphere-correct seasons and latitude-based day length (polar day and night) follow naturally if the calendar ([§4.2](#s4-2)) reads latitude.
 - Performance: chunk generation must stay fast on servers, so sample pre-built tiles rather than computing from raw datasets at runtime.
-- Config (world.toml): Earth mode on/off, horizontal and vertical scale, data source, sea-level offset, and spawn location. Locked at world creation.
+- Config (worldgen/terrain.toml): Earth mode on/off, horizontal and vertical scale, data source, sea-level offset, and spawn location. Locked at world creation.
 
 **Trees, leaves, plants**
 
@@ -436,34 +436,38 @@ Power is designed around the same model Create uses so a future bridge is simple
 
 Principle: anything the mod adds, changes, or removes can be turned off, scaled, or swapped by the player or server owner, and settings are grouped into several files by what they control instead of one giant file.
 
-**Suggested layout**
+**Required domain organization — migration not yet implemented**
 
-All files below are relative to `config/deepprimal/`.
+All Deep Primal-owned user configuration lives beneath `config/deepprimal/`, then domain subdirectories. World/server overrides mirror that organization beneath `<save>/serverconfig/deepprimal/` where the host supports them. The audited alpha 21 source still uses some flat filenames; [configuration and ore authoring](CONFIGURATION-AND-ORE-AUTHORING.md) defines scope, migration, precedence and the proposed external visual editor. File names below describe the target layout.
 
 | File | Purpose |
 | --- | --- |
-| `core.toml` | preset selection, global switches, config version |
-| `vanilla-content.toml` | per-module vanilla removal/re-add modes ([§0.2](#s0-2)) |
-| `world.toml` | terrain, geology, rock layers, climate, vein density, 1:1 Earth seed and projection |
-| `inventory.toml` | global and per-item stack sizes, weight multipliers, encumbrance limits |
-| `time.toml` | day length, month/year length, season length |
-| `survival.toml` | hunger, thirst, injury, fatigue |
-| `temperature-clothing.toml` | temperature model, clothing, wetness, seasons, permafrost |
-| `food-farming.toml` | decay rates, nutrition, crops, animals, preservation |
-| `fauna-threats.toml` | mob roster, spawn rules, danger scaling |
-| `hazards.toml` | collapse, fire spread, cave gas, darkness, ice cementation |
-| `metallurgy-heat.toml` | heat tolerances, alloy windows, forging difficulty |
-| `ores-processing.toml` | vein sizes/rarity, processing steps, yields, depletion |
-| `power.toml` | stress units, overstress behavior, Create bridge |
-| `signals.toml` | wire-style redstone mode, signal rules, gates, bundled cables |
-| `explosives.toml` | powder-keg vs vanilla TNT, blast scale, ignition, cave-in triggers |
-| `building.toml` | generated variants, shape sets, material list |
-| `adapters.toml` | adapter modes, auto-inference, foreign content rules |
-| `multiplayer.toml` | death rules, per-player state, performance limits |
-| `guide-inspection.toml` | field guide discovery gating, inspection tool tiers, soft-integration switches (e.g. Jade) |
-| `modules.toml` | module enable/disable states, dependency overrides, default module set |
-| `far-terrain.toml` | LOD distances and tiers, tile cache, tint, server send options |
-| `client.toml` | HUD, units, visual and audio options (per-player) |
+| `core/settings.toml` | preset selection, global switches, config version |
+| `core/vanilla-content.toml` | per-module vanilla removal/re-add modes ([§0.2](#s0-2)) |
+| `worldgen/terrain.toml` | terrain scales, creation profile, optional Earth seed/projection and supported height | 
+| `worldgen/geology.toml` | geological unit/layer/contact tuning | 
+| `worldgen/ores.toml` | deposit enable states, broad scales and supported per-ID tuning | 
+| `worldgen/biomes.toml`, `worldgen/climate.toml`, `worldgen/water.toml` | separated biome, later climate and native hydrology rules | 
+| `graphics/quality.toml`, `graphics/water.toml`, `performance/client.toml`, `performance/server.toml`, `performance/diagnostics.toml` | presentation and performance/diagnostics with explicit scope and retained module ownership |
+| `survival/inventory.toml` | global and per-item stack sizes, weight multipliers, encumbrance limits |
+| `survival/calendar.toml` | day length, month/year length, season length |
+| `survival/needs.toml` | hunger, thirst, injury, fatigue |
+| `survival/temperature-clothing.toml` | temperature model, clothing, wetness, seasons, permafrost |
+| `ecology/food-farming.toml` | decay rates, nutrition, crops, animals, preservation |
+| `ecology/fauna-threats.toml` | mob roster, spawn rules, danger scaling |
+| `hazards/stability.toml` | collapse, fire spread, cave gas, darkness, ice cementation |
+| `technology/metallurgy-heat.toml` | heat tolerances, alloy windows, forging difficulty |
+| `technology/ore-processing.toml` | vein sizes/rarity, processing steps, yields, depletion |
+| `technology/power.toml` | stress units, overstress behavior, Create bridge |
+| `technology/signals.toml` | wire-style redstone mode, signal rules, gates, bundled cables |
+| `hazards/explosives.toml` | powder-keg vs vanilla TNT, blast scale, ignition, cave-in triggers |
+| `materials/building.toml` | generated variants, shape sets, material list |
+| `integration/adapters.toml` | adapter modes, auto-inference, foreign content rules |
+| `multiplayer/rules.toml` | death rules, per-player state, performance limits |
+| `ui/guide-inspection.toml` | field guide discovery gating, inspection tool tiers, soft-integration switches (e.g. Jade) |
+| `core/modules.toml` | module enable/disable states, dependency overrides, default module set |
+| `graphics/lod.toml` | LOD distances and tiers, tile cache, tint, server send options |
+| `ui/client.toml` | HUD, units, visual and audio options (per-player) |
 | `presets/primal.toml` | Primal preset overlay |
 | `presets/hardcore.toml` | Hardcore preset overlay |
 | `presets/high-tism.toml` | High TISM preset overlay |
@@ -472,13 +476,14 @@ All files below are relative to `config/deepprimal/`.
 
 - Grouped by domain: each file only holds settings for its own system, with clear section headers and generated comments explaining every key, its default, and its valid range.
 - Scopes: per-player client settings, global common settings, and per-world server settings (synced to clients) are kept separate so servers control gameplay while players control display.
-- Presets are overlays: presets/*.toml set many keys at once; any key can still be overridden individually. Selecting a preset in core.toml applies it; local overrides win.
+- Presets are overlays: presets/*.toml set many keys at once; any key can still be overridden individually. Selecting a preset in core/settings.toml applies it; scope-correct local overrides follow the documented precedence.
 - Content toggles at item level: individual rock types, soils, trees, crops, metals, fabrics, ores, and mobs can be enabled/disabled by id lists, not just whole categories.
-- Data-driven definitions: content definitions (rocks, plants, ores, fabrics) live in data files/datapacks; configs hold rules, scales, and toggles, so players can add or change content without editing code.
+- Data-driven definitions: content definitions live in datapacks; configs hold supported rules/scales/toggles and per-ID tuning. Flexible multi-ore/gem deposits use one native schema for datapacks, optional KubeJS and GUI authoring, with exact precedence, lifecycle and immutable compilation defined in [ore/config contract](CONFIGURATION-AND-ORE-AUTHORING.md).
 - Reload behavior is labelled: each key states whether it applies live, on restart, or only to new chunks/new worlds.
-- Validation and migration: invalid values are clamped with a logged warning; config files carry a version so updates add new keys without wiping player edits.
+- Validation and migration: each key declares rejection/clamping policy with diagnostics; invalid structural definitions are rejected rather than silently rewritten. Versioned migration and backups preserve user edits and resolve old/new path conflicts.
 - Server locking: server owners can lock keys so clients can't override gameplay-affecting values.
 - In-game config screen: a searchable UI grouped the same way as the files (planned after the file-based system works).
+- External companion editor (proposal): shared schemas/validation, sliders plus numeric entry, ID/tag selectors, staged changes, profiles and seeded ore/terrain previews. It can edit ordinary settings while Minecraft is closed; packaging and implementation remain open.
 - Export/share: dump a "diff from preset" so players can share their setup.
 
 **Config coverage policy: "if it can be a config, it is"**
@@ -833,7 +838,7 @@ Requirement: gameplay features are optional modules with datapack-driven definit
 
 - Datapacks hold content and rules: definitions, recipes, module manifests, and module enable states.
 - TOML holds tuning and per-player options: scales, rates, HUD.
-- Module toggles can appear in both (datapack at world creation, modules.toml for server owners), with the datapack state winning for world-locked modules.
+- Module toggles may have datapack defaults and core/modules.toml server policy; resolve precedence through the shared configuration contract, then freeze world-locked module/generation state. Existing saved-world contracts cannot be silently changed by either route.
 
 Portability: the manifest and data formats are the cross-platform contract ([§0.4](#s0-4)). Each platform adapter interprets them (Hytale asset packs, an own game's loader).
 
