@@ -49,7 +49,8 @@ public final class EngineWaterBlock extends Block implements BucketPickup {
   }
 
   protected void onPlace(BlockState s, Level l, BlockPos p, BlockState old, boolean moved) {
-    l.scheduleTick(p, EngineRegistry.WATER.get(), 2);
+    if (l instanceof net.minecraft.server.level.ServerLevel server)
+      WaterRuntime.activate(server, p);
   }
 
   protected BlockState updateShape(
@@ -61,7 +62,9 @@ public final class EngineWaterBlock extends Block implements BucketPickup {
       BlockPos q,
       BlockState n,
       RandomSource r) {
-    ticks.scheduleTick(p, EngineRegistry.WATER.get(), 2);
+    if (l instanceof net.minecraft.server.level.ServerLevel server)
+      WaterRuntime.activate(server, p);
+    else ticks.scheduleTick(p, EngineRegistry.WATER.get(), 1);
     return s;
   }
 

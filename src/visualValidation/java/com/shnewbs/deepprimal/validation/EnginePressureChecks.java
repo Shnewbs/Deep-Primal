@@ -48,7 +48,7 @@ public final class EnginePressureChecks {
         l.setBlock(p, EngineRegistry.WATER_BLOCK.get().defaultBlockState(), 2 | 16);
     int before = tube.stream().mapToInt(p -> WaterRuntime.units(l, p)).sum();
     require(before == 144, "Known U-bend volume");
-    WaterRuntime.tick(l, new BlockPos(2, 500, 8));
+    for (int n = 0; n < 4; n++) WaterRuntime.tick(l, new BlockPos(0, 503, 8));
     require(
         WaterRuntime.units(l, new BlockPos(4, 502, 8)) == 16
             && WaterRuntime.units(l, new BlockPos(0, 503, 8)) == 0,

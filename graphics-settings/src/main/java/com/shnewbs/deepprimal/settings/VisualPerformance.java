@@ -7,6 +7,7 @@ import net.minecraft.world.phys.AABB;
 public final class VisualPerformance {
   public static long entitiesSkipped, blockEntitiesSkipped, particlesSkipped;
   public static long chunkSyncBuilds, chunkSyncNanos, chunkRebuildsDeferred, chunkPlayerBuilds;
+  public static long chunkRebuildsCoalesced;
   private static int admittedParticles;
 
   public static void newParticleTick() {

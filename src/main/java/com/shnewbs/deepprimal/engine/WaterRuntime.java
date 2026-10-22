@@ -15,10 +15,14 @@ public final class WaterRuntime {
   };
   private static final WeakHashMap<ServerLevel, Budget> BUDGETS = new WeakHashMap<>();
   private static final int PRESSURE_VISITS_PER_TICK = 4096, PRESSURE_SEARCH = 128;
+  private static final int MAX_ACTIVE = 65536, DRAIN_VISITS_PER_TICK = 2048, DRAIN_SEARCH = 128;
+  private static final int TICKS_PER_LEVEL = 2048, SIDE_TRANSFER = 2, PRESSURE_TRANSFER = 4;
 
   private static final class Budget {
     long time = Long.MIN_VALUE;
-    int count, pressureVisits;
+    int count, pressureVisits, drainVisits;
+    final LinkedHashSet<BlockPos> active = new LinkedHashSet<>();
+    final LinkedHashSet<BlockPos> pressure = new LinkedHashSet<>();
   }
 
   public static int units(ServerLevel l, BlockPos p) {
@@ -29,7 +33,34 @@ public final class WaterRuntime {
   private static boolean open(ServerLevel l, BlockPos p) {
     if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return false;
     var s = l.getBlockState(p);
-    return s.isAir() || s.is(EngineRegistry.WATER_BLOCK.get());
+    return s.isAir()
+        || s.is(EngineRegistry.WATER_BLOCK.get())
+        || (s.canBeReplaced()
+            && s.getFluidState().isEmpty()
+            && s.getCollisionShape(l, p).isEmpty());
+  }
+
+  /** Cheap activation predicate for loaded generated cells; stable ocean interiors stay asleep. */
+  public static boolean needsWake(ServerLevel l, BlockPos p) {
+    int amount = units(l, p);
+    if (amount == 0) return false;
+    if (open(l, p.below()) && units(l, p.below()) < WaterTransport.CAPACITY) return true;
+    for (Direction d : SIDES) {
+      BlockPos q = p.relative(d);
+      if (open(l, q)
+          && (amount > units(l, q) + 1 || (amount == 1 && units(l, q) < WaterTransport.CAPACITY)))
+        return true;
+    }
+    // One corner of an otherwise uniform free surface can test submerged communication.
+    // This also covers narrow sealed vessels without queueing every stable ocean cell.
+    return surface(l, p, amount)
+        && (!open(l, p.west()) || units(l, p.west()) != amount)
+        && (!open(l, p.north()) || units(l, p.north()) != amount);
+  }
+
+  private static boolean surface(ServerLevel l, BlockPos p, int amount) {
+    // A partial cell has a free surface inside its own block, even beneath a solid ceiling.
+    return amount < WaterTransport.CAPACITY || (open(l, p.above()) && units(l, p.above()) == 0);
   }
 
   private static net.minecraft.world.level.block.state.BlockState state(
@@ -43,12 +74,12 @@ public final class WaterRuntime {
   }
 
   private static void wake(ServerLevel l, BlockPos p) {
-    if (units(l, p) > 0) l.scheduleTick(p, EngineRegistry.WATER.get(), 2);
+    if (units(l, p) > 0) activate(l, p);
     for (Direction d : Direction.values()) {
       BlockPos q = p.relative(d);
       if (l.isInWorldBounds(q) && l.hasChunkAt(q)) {
         l.neighborChanged(q, EngineRegistry.WATER_BLOCK.get(), null);
-        if (units(l, q) > 0) l.scheduleTick(q, EngineRegistry.WATER.get(), 2);
+        if (units(l, q) > 0) activate(l, q);
       }
     }
   }
@@ -64,32 +95,124 @@ public final class WaterRuntime {
       l.setBlock(a, beforeA, 2 | 16);
       return false;
     }
+    if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))
+      net.minecraft.world.level.block.Block.dropResources(beforeB, l, b);
     wake(l, a);
     wake(l, b);
     return true;
   }
 
-  public static void tick(ServerLevel level, BlockPos p) {
+  private static Budget budget(ServerLevel level) {
     Budget budget = BUDGETS.computeIfAbsent(level, k -> new Budget());
-    long t = level.getGameTime();
-    if (budget.time != t) {
-      budget.time = t;
-      budget.count = 0;
-      budget.pressureVisits = 0;
+    if (budget.time != level.getGameTime()) {
+      budget.time = level.getGameTime();
+      budget.count = budget.pressureVisits = budget.drainVisits = 0;
     }
-    if (budget.count >= 2048) {
-      level.scheduleTick(p, EngineRegistry.WATER.get(), 2);
+    return budget;
+  }
+
+  /** Coalesced FIFO work persists across ticks; overflow remains in the native wake queue. */
+  public static void activate(ServerLevel level, BlockPos p) {
+    if (!level.isInWorldBounds(p) || !level.hasChunkAt(p)) return;
+    Budget budget = budget(level);
+    if (budget.active.contains(p)) return;
+    if (budget.active.size() >= MAX_ACTIVE) {
+      level.scheduleTick(p, EngineRegistry.WATER.get(), 1);
       return;
     }
+    budget.active.add(p.immutable());
+  }
+
+  public static int queued(ServerLevel level) {
+    Budget b = BUDGETS.get(level);
+    return b == null ? 0 : b.active.size() + b.pressure.size();
+  }
+
+  /** Owning-thread update. Stable pressure work cannot consume the gravity/spreading budget. */
+  public static void step(ServerLevel level) {
+    Budget budget = budget(level);
+    int remaining = Math.min(budget.active.size(), TICKS_PER_LEVEL - budget.count);
+    while (remaining-- > 0 && !budget.active.isEmpty()) {
+      BlockPos p = budget.active.getFirst();
+      budget.active.removeFirst();
+      advance(level, p, budget);
+    }
+    int pending = budget.pressure.size();
+    while (pending-- > 0
+        && !budget.pressure.isEmpty()
+        && PRESSURE_VISITS_PER_TICK - budget.pressureVisits >= PRESSURE_SEARCH) {
+      BlockPos p = budget.pressure.getFirst();
+      budget.pressure.removeFirst();
+      if (level.isInWorldBounds(p) && level.hasChunkAt(p) && units(level, p) > 0)
+        equalize(level, p, budget);
+    }
+  }
+
+  /** Single-cell entry retained for adapters and focused native fixtures. */
+  public static void tick(ServerLevel level, BlockPos p) {
+    Budget b = budget(level);
+    if (b.count >= TICKS_PER_LEVEL) {
+      activate(level, p);
+      return;
+    }
+    advance(level, p, b);
+    if (PRESSURE_VISITS_PER_TICK - b.pressureVisits >= PRESSURE_SEARCH && b.pressure.remove(p))
+      equalize(level, p, b);
+  }
+
+  private static void advance(ServerLevel level, BlockPos p, Budget budget) {
     budget.count++;
-    if (!level.isInWorldBounds(p) || !level.hasChunkAt(p)) return;
-    if (units(level, p) == 0) return;
+    if (!level.isInWorldBounds(p) || !level.hasChunkAt(p) || units(level, p) == 0) return;
     boolean moved = move(level, p, p.below(), true);
-    int rotate = Math.floorMod(p.hashCode() + (int) t, 4);
+    boolean triedDrain = !moved && units(level, p) <= SIDE_TRANSFER;
+    if (triedDrain) moved = drain(level, p, budget);
+    int rotate = Math.floorMod(p.hashCode() + (int) level.getGameTime(), 4);
     for (int n = 0; n < 4 && units(level, p) > 1; n++)
       moved |= move(level, p, p.relative(SIDES[(rotate + n) & 3]), false);
-    if (!moved && units(level, p) > 0) moved = equalize(level, p, budget);
-    if (moved && units(level, p) > 0) level.scheduleTick(p, EngineRegistry.WATER.get(), 2);
+    if (!moved && !triedDrain && units(level, p) > 0) moved = drain(level, p, budget);
+    if (!moved && units(level, p) > 0 && surface(level, p, units(level, p))) {
+      if (budget.pressure.size() < MAX_ACTIVE) budget.pressure.add(p.immutable());
+      else activate(level, p);
+    }
+  }
+
+  /** A thin film follows a bounded downhill path instead of stopping at one unit. */
+  private static boolean drain(ServerLevel l, BlockPos origin, Budget budget) {
+    if (budget.drainVisits >= DRAIN_VISITS_PER_TICK) {
+      activate(l, origin);
+      return false;
+    }
+    record Node(BlockPos position, BlockPos first) {}
+    var queue = new ArrayDeque<Node>();
+    var seen = new HashSet<BlockPos>();
+    seen.add(origin);
+    for (Direction d : SIDES) {
+      BlockPos q = origin.relative(d);
+      if (open(l, q) && units(l, q) < WaterTransport.CAPACITY) {
+        queue.add(new Node(q, q));
+        seen.add(q);
+      }
+    }
+    while (!queue.isEmpty() && budget.drainVisits < DRAIN_VISITS_PER_TICK) {
+      Node n = queue.removeFirst();
+      budget.drainVisits++;
+      BlockPos below = n.position.below();
+      if (open(l, below) && units(l, below) < WaterTransport.CAPACITY) {
+        int dx = n.first.getX() - origin.getX(), dz = n.first.getZ() - origin.getZ();
+        int flow = dx > 0 ? 0 : dz > 0 ? 4 : dx < 0 ? 8 : 12;
+        int from = units(l, origin), to = units(l, n.first);
+        return transfer(l, origin, n.first, new WaterTransport.Exchange(from - 1, to + 1, 1), flow);
+      }
+      for (Direction d : SIDES) {
+        BlockPos q = n.position.relative(d);
+        if (seen.size() < DRAIN_SEARCH && !seen.contains(q) && open(l, q)) {
+          seen.add(q);
+          queue.addLast(new Node(q, n.first));
+        }
+      }
+    }
+    if (!queue.isEmpty()) activate(l, origin);
+    return false;
   }
 
   private static boolean move(ServerLevel l, BlockPos a, BlockPos b, boolean down) {
@@ -98,13 +221,17 @@ public final class WaterRuntime {
     if (e.moved() == 0) return false;
     int dx = b.getX() - a.getX(), dz = b.getZ() - a.getZ();
     int flow = down ? 16 : dx > 0 ? 0 : dz > 0 ? 4 : dx < 0 ? 8 : 12;
+    if (!down && e.moved() > SIDE_TRANSFER)
+      e =
+          new WaterTransport.Exchange(
+              units(l, a) - SIDE_TRANSFER, units(l, b) + SIDE_TRANSFER, SIDE_TRANSFER);
     return transfer(l, a, b, e, flow);
   }
 
   /** Bounded connected-water search; sealed and unloaded cells cannot become outlets. */
   private static boolean equalize(ServerLevel l, BlockPos origin, Budget budget) {
     if (budget.pressureVisits >= PRESSURE_VISITS_PER_TICK) {
-      l.scheduleTick(origin, EngineRegistry.WATER.get(), 2);
+      budget.pressure.add(origin.immutable());
       return false;
     }
     var queue = new ArrayDeque<BlockPos>();
@@ -118,7 +245,7 @@ public final class WaterRuntime {
       budget.pressureVisits++;
       int amount = units(l, p);
       BlockPos above = p.above();
-      if (open(l, above) && units(l, above) == 0) {
+      if (surface(l, p, amount)) {
         long head = (long) p.getY() * WaterTransport.CAPACITY + amount;
         if (head > highHead) {
           highHead = head;
@@ -141,14 +268,33 @@ public final class WaterRuntime {
         }
       }
     }
-    if (!queue.isEmpty()) l.scheduleTick(origin, EngineRegistry.WATER.get(), 2);
+    if (!queue.isEmpty()) budget.pressure.add(origin.immutable());
     if (high == null || low == null || high.equals(low)) return false;
-    return transfer(
-        l,
-        high,
-        low,
-        WaterTransport.pressure(high.getY(), units(l, high), low.getY(), units(l, low)),
-        16);
+    var exchange = WaterTransport.pressure(high.getY(), units(l, high), low.getY(), units(l, low));
+    if (exchange.moved() > PRESSURE_TRANSFER)
+      exchange =
+          new WaterTransport.Exchange(
+              units(l, high) - PRESSURE_TRANSFER,
+              units(l, low) + PRESSURE_TRANSFER,
+              PRESSURE_TRANSFER);
+    return transfer(l, high, low, exchange, 16);
+  }
+
+  public static final class Events {
+    @net.neoforged.bus.api.SubscribeEvent
+    public void tick(net.neoforged.neoforge.event.tick.LevelTickEvent.Post event) {
+      if (event.getLevel() instanceof ServerLevel level) step(level);
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public void stopped(net.neoforged.neoforge.event.server.ServerStoppedEvent event) {
+      BUDGETS.clear();
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public void unloaded(net.neoforged.neoforge.event.level.LevelEvent.Unload event) {
+      if (event.getLevel() instanceof ServerLevel level) BUDGETS.remove(level);
+    }
   }
 
   private WaterRuntime() {}

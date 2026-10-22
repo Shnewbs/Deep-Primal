@@ -1,8 +1,8 @@
 # Deep Primal
 
-**0.0.1-alpha.19 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**0.0.1-alpha.20 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is a standalone survival total conversion under development. Alpha 19 replaces the Video Settings entry with our graphics screen, separates the explored-terrain LOD runtime into its own module, and adds bounded connected-pool pressure to the independent liquid engine. Deep Primal remains the product name. Reference mods guide the capabilities we intend to improve; superiority requires measured behavior and performance comparisons. The separate `standalone-engine/` experiment is historical source and is not shipped.
+Deep Primal is a standalone survival total conversion under development. Alpha 20 addresses stalled liquid filling: persistent per-tick work, downhill thin films, wash-through plants and activation of dormant water inside loaded chunks. Graphics coalesces non-player chunk rebuilds so repeated changes cannot continually cancel an unfinished snapshot. The custom Video Settings screen and separate explored-terrain LOD module remain. Deep Primal remains the product name. Reference mods guide the capabilities we intend to improve; superiority requires measured behavior and performance comparisons. The separate `standalone-engine/` experiment is historical source and is not shipped.
 
 ## Current foundation
 
@@ -33,14 +33,17 @@ Use Java 25 and the Gradle wrapper:
 ./gradlew build -PvulkanPlatform=linux
 ```
 
-The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.19.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics and LOD. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
+The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.20.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics and LOD. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
 
 ## Scope and evidence
 
 This is an engine alpha, not visual acceptance of the full world design. Connected regional drainage and material fields are implemented foundations; complete river/lake spillways, cross-watershed contracts, erosion/sediment simulation, structural connectivity checks, displacement, groundwater/recharge and breaking shoreline surf remain unfinished. The new pressure pass searches at most 128 connected wet cells per attempt and 4,096 cells per level/tick; it is not whole-lake filling, recharge or a replacement for correctly generated spillways. Current visual defects include repeated river basins, abrupt exposed LOD page walls and placeholder tree shapes. Those remain open; this audit preserves the existing terrain version rather than changing saved-world geography. New native vegetation/coastal scenes still require broader fixed-seed refinement. Near-block meshing remains the host renderer; we have not built a wholesale replacement graphics API or demonstrated higher FPS than Sodium or Distant Horizons.
 
+Liquid authority remains a 20 Hz, 16-unit simulation. Persistent queues prevent dropped work, and bounded downhill routing can drain one-unit films toward nearby outlets. Neither local routing nor the 128-cell pressure search is an unlimited regional lake solver. Near water still uses asynchronously rebuilt chunk meshes: per-frame interpolation of changing water heights is unfinished, so this update does not promise fully continuous visual motion.
+
 PhysEx Reborn, Finite Water, BetterWaterMesh and Water Erosion inform independently authored liquid behavior and visuals. No PhysEx runtime/code is bundled; displacement, collision-shaped fluid storage, containers, lava and erosion remain separate unfinished work. TFC informs geology/climate/drainage, Terralith terrain variety, and Tectonic continental relief. Their source/assets are not bundled. Gaea/World Machine methods guide independent algorithms; no proprietary engine is embedded. Distant Horizons, Nanite and Cesium are references. The earlier LWJGL meshoptimizer probe remains development-only, with no shipping meshoptimizer/clusterlod integration. Environmental catalogs remain planning-only.
 
+- [Alpha 20 liquid filling and mesh progress](docs/VALIDATION-0.0.1-alpha.20.md)
 - [Alpha 19 module, menu and liquid validation](docs/VALIDATION-0.0.1-alpha.19.md)
 - [PhysEx reference review and independent water work](docs/PHYSEX-REFERENCE-2026-10-21.md)
 - [Alpha 18 audit, regression tests and limits](docs/VALIDATION-0.0.1-alpha.18.md)

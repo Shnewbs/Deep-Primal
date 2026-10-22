@@ -45,6 +45,7 @@ neoForge {
                 programArguments.addAll '--width','1200','--height','800'
             }
             if (project.hasProperty('engineValidation')) { systemProperty 'deepprimal.validationEngine', 'true'; programArguments.addAll '--width','1200','--height','800' }
+            if (project.hasProperty('fillingValidation')) { systemProperty 'deepprimal.validationFilling', 'true'; programArguments.addAll '--width','1200','--height','800' }
             if (project.hasProperty('engineScenes')) systemProperty 'deepprimal.validationEngineScenes','true'
             if (project.hasProperty('engineReopen')) systemProperty 'deepprimal.validationEngineReopen', 'true'
             if (project.hasProperty('visualValidation') && (project.hasProperty('captureServer') || project.hasProperty('captureWorld'))) {

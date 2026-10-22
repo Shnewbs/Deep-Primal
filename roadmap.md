@@ -12,6 +12,8 @@ Deep Primal remains the product. Its original Overworld terrain/liquid engine is
 - [x] Recover KubeJS built-in registry access before serialization contexts are created, including Create World after an unsupported saved generator; define invisible fluid models to remove missing-model spam.
 - [x] Reuse coordinate warp/trigonometry without changing version-one terrain output; greedily merge matching LOD faces while retaining air gaps and fractional fluid steps; keep live updates and disk restores progressing under continuous invalidation.
 - [x] Resume dormant finite water at loaded chunk borders through bounded, coalesced scans without forced chunk loads.
+- [x] Activate dormant loaded interiors, drain thin films toward nearby outlets, wash through replaceable plants, and retain per-tick transport work under budget saturation; validate conservation and continued local basin filling.
+- [x] Coalesce unfinished non-player native mesh builds while preserving newer dirtiness and immediate player-edit replacement.
 - [x] Make default installer lean; retain an optional, separately classified Vulkan platform bundle and original module boundaries.
 - [x] Separate the actual-chunk LOD runtime from graphics and root integration; provide an optional interface and a build that omits LOD without losing worldgen/settings.
 - [x] Replace the native Video Settings entry directly; preserve native option coverage, correct parent navigation, staged preset previews and texture/display updates.
@@ -21,10 +23,11 @@ Deep Primal remains the product. Its original Overworld terrain/liquid engine is
 - [ ] Pass broader fixed-seed native visual comparisons for coasts, rivers/confluences/outlets, relief, forests and unsupported terrain. Current captures prove the new path renders; they do not establish the desired final terrain quality. The rejected alpha.1 appearance is not an acceptance baseline.
 - [ ] Complete shared watershed boundary/outlet contracts, unified lakes/spillways, erosion/deposition, geological catalog placement and structural connectivity checks.
 - [ ] Complete displacement, groundwater/recharge, generated water budgets and breaking shoreline surf. Existing legacy hydrology features must be audited individually before claiming compatibility with the new fluid.
+- [ ] Render changing liquid heights and wet/dry boundaries with per-frame interpolation independently of chunk rebuild frequency.
 - [ ] Add unseen-terrain LOD planning/streaming, better voxel reduction and material/lighting/transparent-water transitions; test resource reload, saturation, reconnect and broader multiplayer scenes.
 - [ ] Benchmark against Distant Horizons on matched worlds/cameras/detail/radius/hardware: frame-time percentiles, memory/VRAM, generation/loading latency, cache I/O and edit lag. No superiority claim is established.
 
-The aim is to build better integrated Deep Primal systems, with improvements demonstrated by behavior and matched measurements. TFC/Terralith/Tectonic and PhysEx Reborn, Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons remain references, not bundled generators/engines. Gaea/World Machine techniques guide independently authored region planning. Meshoptimizer is still a development probe, not a runtime dependency. Environmental catalogs remain planning-only until separately authorized. See [architecture/reference status](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) and [alpha 19 validation](docs/VALIDATION-0.0.1-alpha.19.md).
+The aim is to build better integrated Deep Primal systems, with improvements demonstrated by behavior and matched measurements. TFC/Terralith/Tectonic and PhysEx Reborn, Finite Water, BetterWaterMesh, Water Erosion and Distant Horizons remain references, not bundled generators/engines. Gaea/World Machine techniques guide independently authored region planning. Meshoptimizer is still a development probe, not a runtime dependency. Environmental catalogs remain planning-only until separately authorized. See [architecture/reference status](docs/LOD-AND-DRAINAGE-ARCHITECTURE.md) and [alpha 20 validation](docs/VALIDATION-0.0.1-alpha.20.md).
 
 **Status:** integrated engine/LOD/settings alpha 0.0.1-alpha.19; full survival conversion remains in design. **Updated:** 2026-10-21. **Prototype target:** Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.
 

@@ -45,6 +45,7 @@ public final class ClientTelemetry {
     data.put("graphicsApi", RenderSystem.getDevice().getBackendName());
     data.put("nativeSyncBuilds", VisualPerformance.chunkSyncBuilds);
     data.put("nativeRebuildsDeferred", VisualPerformance.chunkRebuildsDeferred);
+    data.put("nativeRebuildsCoalesced", VisualPerformance.chunkRebuildsCoalesced);
     data.put("nativePlayerBuilds", VisualPerformance.chunkPlayerBuilds);
     data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos - lastSync) / 1e6);
     lastSync = VisualPerformance.chunkSyncNanos;

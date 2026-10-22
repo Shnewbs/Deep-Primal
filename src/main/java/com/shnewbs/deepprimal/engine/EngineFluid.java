@@ -34,7 +34,7 @@ public final class EngineFluid extends Fluid {
   }
 
   public int getTickDelay(LevelReader level) {
-    return 2;
+    return 1;
   }
 
   protected float getExplosionResistance() {
@@ -86,6 +86,6 @@ public final class EngineFluid extends Fluid {
   }
 
   protected void tick(ServerLevel l, BlockPos p, BlockState b, FluidState s) {
-    WaterRuntime.tick(l, p);
+    WaterRuntime.activate(l, p);
   }
 }
