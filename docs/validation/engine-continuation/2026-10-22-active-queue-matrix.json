@@ -1,0 +1,306 @@
+[
+  {
+    "case": "queue-before",
+    "project": "active-queue-base",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 30.8,
+    "records": [
+      "ACTIVE_QUEUE_NATIVE_PASS cells=65536 admissions=262144 fifo=true mutableSnapshots=true negativeCoordinates=true duplicateAtCapacity=true scheduledOverflow=true allocatedBytes=17197016 queue=java.util.LinkedHashSet"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "queue-after",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 30.23,
+    "records": [
+      "ACTIVE_QUEUE_NATIVE_PASS cells=65536 admissions=262144 fifo=true mutableSnapshots=true negativeCoordinates=true duplicateAtCapacity=true scheduledOverflow=true allocatedBytes=304 queue=it.unimi.dsi.fastutil.longs.LongLinkedOpenHashSet"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "pre-a",
+    "project": "active-queue-pre",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 82.82,
+    "records": [
+      "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.375..153.4375 forcedChunks=49 peakPending=9057 pending=3601 diagnostics=Diagnostics[active=2030, pressure=1571, processed=6090, pressureVisits=12288, drainVisits=6144, transfers=384] medianTickMs=17.429513 p95TickMs=31.525013"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "snapshot": {
+      "scope": "loaded lake rectangle, open boundaries; units and FLOW",
+      "ticks": 1000,
+      "initial": {
+        "chunks": 49,
+        "cells": 15266,
+        "units": 184538,
+        "waterStateSha256": "b0c7c4f0dce1f464edc67f54cc8a8cb63e266b590decffa34106fbab22a302b5"
+      },
+      "final": {
+        "chunks": 49,
+        "cells": 14477,
+        "units": 183906,
+        "waterStateSha256": "3c802da07be933d30b03a8aad8d6153908eea387f984800ecb31bd0d95cbb4bf"
+      }
+    }
+  },
+  {
+    "case": "opt-a",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 71.56,
+    "records": [
+      "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.25..153.25 forcedChunks=49 peakPending=9105 pending=6136 diagnostics=Diagnostics[active=2037, pressure=4099, processed=6109, pressureVisits=5888, drainVisits=6144, transfers=467] medianTickMs=20.419294 p95TickMs=34.133629"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "snapshot": {
+      "scope": "loaded lake rectangle, open boundaries; units and FLOW",
+      "ticks": 1000,
+      "initial": {
+        "chunks": 49,
+        "cells": 15266,
+        "units": 184538,
+        "waterStateSha256": "b0c7c4f0dce1f464edc67f54cc8a8cb63e266b590decffa34106fbab22a302b5"
+      },
+      "final": {
+        "chunks": 49,
+        "cells": 14891,
+        "units": 184561,
+        "waterStateSha256": "2a21b406f6d95b325db43d40ed0b062c8d6ab2eb3e040e677b90ad1b0da09655"
+      }
+    }
+  },
+  {
+    "case": "opt-b",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 71.53,
+    "records": [
+      "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.25..153.25 forcedChunks=49 peakPending=9105 pending=6067 diagnostics=Diagnostics[active=2012, pressure=4055, processed=6057, pressureVisits=6144, drainVisits=6144, transfers=606] medianTickMs=17.913468 p95TickMs=27.777913"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "snapshot": {
+      "scope": "loaded lake rectangle, open boundaries; units and FLOW",
+      "ticks": 1000,
+      "initial": {
+        "chunks": 49,
+        "cells": 15266,
+        "units": 184538,
+        "waterStateSha256": "b0c7c4f0dce1f464edc67f54cc8a8cb63e266b590decffa34106fbab22a302b5"
+      },
+      "final": {
+        "chunks": 49,
+        "cells": 14918,
+        "units": 184627,
+        "waterStateSha256": "b79056504315f151334d4533b802810c231fe2ed1b778fc7bdf1929971606a74"
+      }
+    }
+  },
+  {
+    "case": "pre-b",
+    "project": "active-queue-pre",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 72.23,
+    "records": [
+      "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.375..153.4375 forcedChunks=49 peakPending=9057 pending=3623 diagnostics=Diagnostics[active=2070, pressure=1553, processed=6144, pressureVisits=12288, drainVisits=6144, transfers=346] medianTickMs=18.479587 p95TickMs=32.486599"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "snapshot": {
+      "scope": "loaded lake rectangle, open boundaries; units and FLOW",
+      "ticks": 1000,
+      "initial": {
+        "chunks": 49,
+        "cells": 15266,
+        "units": 184538,
+        "waterStateSha256": "b0c7c4f0dce1f464edc67f54cc8a8cb63e266b590decffa34106fbab22a302b5"
+      },
+      "final": {
+        "chunks": 49,
+        "cells": 14509,
+        "units": 184126,
+        "waterStateSha256": "f6999c103c987f8732108167e762d04b5aee94707753fac2d5bc48d470c69c39"
+      }
+    }
+  },
+  {
+    "case": "current-a",
+    "project": "active-queue-base",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 73.46,
+    "records": [
+      "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.25..153.25 forcedChunks=49 peakPending=9105 pending=6050 diagnostics=Diagnostics[active=2028, pressure=4022, processed=6110, pressureVisits=6144, drainVisits=6144, transfers=207] medianTickMs=17.614723 p95TickMs=32.683403"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "snapshot": {
+      "scope": "loaded lake rectangle, open boundaries; units and FLOW",
+      "ticks": 1000,
+      "initial": {
+        "chunks": 49,
+        "cells": 15266,
+        "units": 184538,
+        "waterStateSha256": "b0c7c4f0dce1f464edc67f54cc8a8cb63e266b590decffa34106fbab22a302b5"
+      },
+      "final": {
+        "chunks": 49,
+        "cells": 14876,
+        "units": 184071,
+        "waterStateSha256": "251e6fd25e3038d5c9bd5184d68bf1be91ec3b1a2f5208cf2b7472a217c2b555"
+      }
+    }
+  },
+  {
+    "case": "current-b",
+    "project": "active-queue-base",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 72.55,
+    "records": [
+      "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.25..153.25 forcedChunks=49 peakPending=9105 pending=6020 diagnostics=Diagnostics[active=2042, pressure=3978, processed=6117, pressureVisits=6144, drainVisits=6144, transfers=203] medianTickMs=16.819171 p95TickMs=27.438046"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "snapshot": {
+      "scope": "loaded lake rectangle, open boundaries; units and FLOW",
+      "ticks": 1000,
+      "initial": {
+        "chunks": 49,
+        "cells": 15266,
+        "units": 184538,
+        "waterStateSha256": "b0c7c4f0dce1f464edc67f54cc8a8cb63e266b590decffa34106fbab22a302b5"
+      },
+      "final": {
+        "chunks": 49,
+        "cells": 15091,
+        "units": 186047,
+        "waterStateSha256": "f657ec94a85e9e5c07507982055e2c53b47842f72a7914d2a43029433a87eea6"
+      }
+    }
+  },
+  {
+    "case": "heads",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 27.81,
+    "records": [
+      "LONG_PRESSURE_HEAD_CHANGE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4190 finalUnits=4190 outletUnits=7 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=113471 peakTickPressureVisits=6144 restarts=7 coalesced=7536 completed=467 saturated=45 headFrontierRetained=true headRefreshes=22 headDeferrals=2 idleSamples=0 finalWatchedChunks=13 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "fixed",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 33.05,
+    "records": [
+      "LONG_PRESSURE_CONTINUATION_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=2104 peakTickPressureVisits=5664 restarts=7 coalesced=7213 completed=656 saturated=0 headFrontierRetained=false headRefreshes=13 headDeferrals=1 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "edit",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 30.55,
+    "records": [
+      "LONG_PRESSURE_EDIT_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4176 finalUnits=4176 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=110200 peakTickPressureVisits=6144 restarts=1 coalesced=7057 completed=520 saturated=43 headFrontierRetained=false headRefreshes=23 headDeferrals=3 idleSamples=0 finalWatchedChunks=14 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "unload",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 30.9,
+    "records": [
+      "LONG_PRESSURE_UNLOAD_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=2 peakRetainedNodes=14506 peakTickPressureVisits=768 restarts=1 coalesced=2 completed=12 saturated=2 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=true independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "idle",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 29.64,
+    "records": [
+      "LONG_PRESSURE_IDLE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=4 peakRetainedNodes=906 peakTickPressureVisits=1301 restarts=3 coalesced=3 completed=11 saturated=0 headFrontierRetained=false headRefreshes=2 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "reopen",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 27.59,
+    "records": [
+      "LONG_PRESSURE_REOPEN_NATIVE_PASS ticks=120 initialWaterCells=263 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=34 firstSearchVisits=0 maxSliceVisits=0 peakJobs=0 peakRetainedNodes=0 peakTickPressureVisits=0 restarts=0 coalesced=0 completed=0 saturated=0 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "filling",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 26.54,
+    "records": [
+      "WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "pressure",
+    "project": "active-queue-opt",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 19.96,
+    "records": [
+      "ENGINE_PRESSURE_NATIVE_PASS units=144 raisedSurface=true conserved=true disconnected=true noForceLoad=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  }
+]

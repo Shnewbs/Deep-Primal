@@ -1,0 +1,61 @@
+{
+  "full_non_vulkan_build_pass": true,
+  "core_checks_pass": true,
+  "core_boundary_pass": true,
+  "module_boundaries_pass": true,
+  "build_summary": [
+    "WATERSHED_CORE_PASS centerlineSamples=5846893 headwaters=964 lakes=650 savedV2=18000 faceConnectedFlowReaches=4292 containedBanks=538915",
+    "> Task :verifyCoreBoundary",
+    "> Task :verifyModuleBoundaries",
+    "BUILD SUCCESSFUL in 1m 2s"
+  ],
+  "archive": {
+    "scope": "unreleased-development-candidate-only",
+    "bytes": 614359,
+    "sha256": "53b1958d615b6469d95eb48174a9f769047d62362ba24d9c1632547ec1b5eab1",
+    "nested": [
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+        "bytes": 101978,
+        "sha256": "c353c7e02fc570020d136886ce267250c06fb890336dade8207b931e301f2c06",
+        "crc_pass": true
+      },
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+        "bytes": 89077,
+        "sha256": "00ebffd0b19c675b1ec4f31dcd1da8fbe0a8b5def8b1e0c9cf796009cc6bc3f1",
+        "crc_pass": true
+      },
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "bytes": 40185,
+        "sha256": "91508ae20e70bc6c73a8041b8e663afed349b2bbdb6e27013c0ab77b3125f59c",
+        "crc_pass": true
+      },
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+        "bytes": 19660,
+        "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+        "crc_pass": true
+      }
+    ],
+    "outer_crc_pass": true,
+    "main_class_byte_matches": 103,
+    "class_mismatches": [],
+    "packaged_native": {
+      "case": "packaged-filling",
+      "project": "active-queue-opt",
+      "exit_code": 0,
+      "explicit_pass": true,
+      "elapsed_seconds": 26.1,
+      "records": [
+        "WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0"
+      ],
+      "failures": [],
+      "normal_save": true,
+      "crash_reports": []
+    }
+  },
+  "visual_vulkan_checks_this_run": false,
+  "release_acceptance_complete": false
+}
