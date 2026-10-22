@@ -1,8 +1,8 @@
 package com.shnewbs.deepprimal.engine;
 
 import com.shnewbs.deepprimal.core.WaterTransport;
-import java.util.*;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
+import java.util.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Blocks;
  * Server-thread-only, bounded finite transport. Unloaded borders are sealed, never force-loaded.
  */
 public final class WaterRuntime {
-  private static final Direction[] ALL=Direction.values();
+  private static final Direction[] ALL = Direction.values();
   private static final Direction[] SIDES = {
     Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
   };
@@ -27,10 +27,10 @@ public final class WaterRuntime {
 
   private static final class Budget {
     long time = Long.MIN_VALUE;
-    int count,pressureVisits,drainVisits,transfers;
-    final long[] searchQueue=new long[PRESSURE_SEARCH];
-    final int[] firstStep=new int[PRESSURE_SEARCH];
-    final LongOpenHashSet seen=new LongOpenHashSet(PRESSURE_SEARCH);
+    int count, pressureVisits, drainVisits, transfers;
+    final long[] searchQueue = new long[PRESSURE_SEARCH];
+    final int[] firstStep = new int[PRESSURE_SEARCH];
+    final LongOpenHashSet seen = new LongOpenHashSet(PRESSURE_SEARCH);
     int pressureLimit = PRESSURE_VISITS_PER_TICK, drainLimit = DRAIN_VISITS_PER_TICK;
     boolean stepped;
     final LinkedHashSet<BlockPos> active = new LinkedHashSet<>();
@@ -111,8 +111,8 @@ public final class WaterRuntime {
     if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))
       net.minecraft.world.level.block.Block.dropResources(beforeB, l, b);
     budget(l).transfers++;
-    wake(l,a);
-    wake(l,b);
+    wake(l, a);
+    wake(l, b);
     return true;
   }
 
@@ -120,7 +120,7 @@ public final class WaterRuntime {
     Budget budget = BUDGETS.computeIfAbsent(level, k -> new Budget());
     if (budget.time != level.getGameTime()) {
       budget.time = level.getGameTime();
-      budget.count=budget.pressureVisits=budget.drainVisits=budget.transfers=0;
+      budget.count = budget.pressureVisits = budget.drainVisits = budget.transfers = 0;
       budget.pressureLimit = PRESSURE_VISITS_PER_TICK;
       budget.drainLimit = DRAIN_VISITS_PER_TICK;
       budget.stepped = false;
@@ -145,10 +145,25 @@ public final class WaterRuntime {
     return b == null ? 0 : b.active.size() + b.pressure.size();
   }
 
-  public record Diagnostics(int active,int pressure,int processed,int pressureVisits,int drainVisits,int transfers){}
-  public static Diagnostics diagnostics(ServerLevel level){
-    Budget b=BUDGETS.get(level);
-    return b==null?new Diagnostics(0,0,0,0,0,0):new Diagnostics(b.active.size(),b.pressure.size(),b.count,b.pressureVisits,b.drainVisits,b.transfers);
+  public record Diagnostics(
+      int active,
+      int pressure,
+      int processed,
+      int pressureVisits,
+      int drainVisits,
+      int transfers) {}
+
+  public static Diagnostics diagnostics(ServerLevel level) {
+    Budget b = BUDGETS.get(level);
+    return b == null
+        ? new Diagnostics(0, 0, 0, 0, 0, 0)
+        : new Diagnostics(
+            b.active.size(),
+            b.pressure.size(),
+            b.count,
+            b.pressureVisits,
+            b.drainVisits,
+            b.transfers);
   }
 
   /**
@@ -251,32 +266,53 @@ public final class WaterRuntime {
       activate(l, origin);
       return false;
     }
-    int head=0,tail=0;
-    var seen=budget.seen;seen.clear();seen.add(origin.asLong());
-    long[] queue=budget.searchQueue;int[] first=budget.firstStep;
-    var p=new BlockPos.MutableBlockPos();var q=new BlockPos.MutableBlockPos();
-    for(int side=0;side<SIDES.length;side++){
-      p.setWithOffset(origin,SIDES[side]);
-      if(open(l,p)&&units(l,p)<WaterTransport.CAPACITY){
-        long key=p.asLong();if(seen.add(key)){queue[tail]=key;first[tail++]=side;}
+    int head = 0, tail = 0;
+    var seen = budget.seen;
+    seen.clear();
+    seen.add(origin.asLong());
+    long[] queue = budget.searchQueue;
+    int[] first = budget.firstStep;
+    var p = new BlockPos.MutableBlockPos();
+    var q = new BlockPos.MutableBlockPos();
+    for (int side = 0; side < SIDES.length; side++) {
+      p.setWithOffset(origin, SIDES[side]);
+      if (open(l, p) && units(l, p) < WaterTransport.CAPACITY) {
+        long key = p.asLong();
+        if (seen.add(key)) {
+          queue[tail] = key;
+          first[tail++] = side;
+        }
       }
     }
-    while(head<tail&&budget.drainVisits<budget.drainLimit){
-      p.set(queue[head]);int direction=first[head++];budget.drainVisits++;
-      q.set(p.getX(),p.getY()-1,p.getZ());
-      if(open(l,q)&&units(l,q)<WaterTransport.CAPACITY){
-        BlockPos target=origin.relative(SIDES[direction]);
-        int from=units(l,origin),to=units(l,target);
-        int flow=switch(SIDES[direction]){case EAST->0;case SOUTH->4;case WEST->8;default->12;};
-        return transfer(l,origin,target,new WaterTransport.Exchange(from-1,to+1,1),flow);
+    while (head < tail && budget.drainVisits < budget.drainLimit) {
+      p.set(queue[head]);
+      int direction = first[head++];
+      budget.drainVisits++;
+      q.set(p.getX(), p.getY() - 1, p.getZ());
+      if (open(l, q) && units(l, q) < WaterTransport.CAPACITY) {
+        BlockPos target = origin.relative(SIDES[direction]);
+        int from = units(l, origin), to = units(l, target);
+        int flow =
+            switch (SIDES[direction]) {
+              case EAST -> 0;
+              case SOUTH -> 4;
+              case WEST -> 8;
+              default -> 12;
+            };
+        return transfer(l, origin, target, new WaterTransport.Exchange(from - 1, to + 1, 1), flow);
       }
-      for(Direction d:SIDES){
-        if(seen.size()>=DRAIN_SEARCH)break;
-        q.setWithOffset(p,d);long key=q.asLong();
-        if(!seen.contains(key)&&open(l,q)){seen.add(key);queue[tail]=key;first[tail++]=direction;}
+      for (Direction d : SIDES) {
+        if (seen.size() >= DRAIN_SEARCH) break;
+        q.setWithOffset(p, d);
+        long key = q.asLong();
+        if (!seen.contains(key) && open(l, q)) {
+          seen.add(key);
+          queue[tail] = key;
+          first[tail++] = direction;
+        }
       }
     }
-    if(head<tail)activate(l,origin);
+    if (head < tail) activate(l, origin);
     return false;
   }
 
@@ -299,26 +335,43 @@ public final class WaterRuntime {
       budget.pressure.add(origin.immutable());
       return false;
     }
-    int head=0,tail=1;
-    var seen=budget.seen;seen.clear();seen.add(origin.asLong());
-    long[] queue=budget.searchQueue;queue[0]=origin.asLong();
-    var p=new BlockPos.MutableBlockPos();var q=new BlockPos.MutableBlockPos();
-    BlockPos high=null,low=null;long highHead=Long.MIN_VALUE,lowHead=Long.MAX_VALUE;
-    while(head<tail&&budget.pressureVisits<budget.pressureLimit){
-      p.set(queue[head++]);budget.pressureVisits++;
-      int amount=units(l,p);if(amount==0)continue;
-      if(surface(l,p,amount)){
-        long value=(long)p.getY()*WaterTransport.CAPACITY+amount;
-        if(value>highHead){highHead=value;high=p.immutable();}
-        if(value<lowHead){lowHead=value;low=amount==WaterTransport.CAPACITY?p.above():p.immutable();}
+    int head = 0, tail = 1;
+    var seen = budget.seen;
+    seen.clear();
+    seen.add(origin.asLong());
+    long[] queue = budget.searchQueue;
+    queue[0] = origin.asLong();
+    var p = new BlockPos.MutableBlockPos();
+    var q = new BlockPos.MutableBlockPos();
+    BlockPos high = null, low = null;
+    long highHead = Long.MIN_VALUE, lowHead = Long.MAX_VALUE;
+    while (head < tail && budget.pressureVisits < budget.pressureLimit) {
+      p.set(queue[head++]);
+      budget.pressureVisits++;
+      int amount = units(l, p);
+      if (amount == 0) continue;
+      if (surface(l, p, amount)) {
+        long value = (long) p.getY() * WaterTransport.CAPACITY + amount;
+        if (value > highHead) {
+          highHead = value;
+          high = p.immutable();
+        }
+        if (value < lowHead) {
+          lowHead = value;
+          low = amount == WaterTransport.CAPACITY ? p.above() : p.immutable();
+        }
       }
-      for(Direction d:ALL){
-        if(tail>=PRESSURE_SEARCH)break;
-        q.setWithOffset(p,d);long key=q.asLong();
-        if(!seen.contains(key)&&l.isInWorldBounds(q)&&l.hasChunkAt(q)&&units(l,q)>0){seen.add(key);queue[tail++]=key;}
+      for (Direction d : ALL) {
+        if (tail >= PRESSURE_SEARCH) break;
+        q.setWithOffset(p, d);
+        long key = q.asLong();
+        if (!seen.contains(key) && l.isInWorldBounds(q) && l.hasChunkAt(q) && units(l, q) > 0) {
+          seen.add(key);
+          queue[tail++] = key;
+        }
       }
     }
-    if(head<tail)budget.pressure.add(origin.immutable());
+    if (head < tail) budget.pressure.add(origin.immutable());
     if (high == null || low == null || high.equals(low)) return false;
     var exchange = WaterTransport.pressure(high.getY(), units(l, high), low.getY(), units(l, low));
     if (exchange.moved() > PRESSURE_TRANSFER)

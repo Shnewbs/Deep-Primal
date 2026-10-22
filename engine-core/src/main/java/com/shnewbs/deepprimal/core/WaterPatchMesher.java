@@ -29,15 +29,15 @@ public final class WaterPatchMesher {
   private float[] vertices = new float[8192];
   private int size;
   private final Snapshot current, previous;
-  private final float[] currentCorners=new float[17*16*17];
+  private final float[] currentCorners = new float[17 * 16 * 17];
   private final float[] previousCorners;
 
   private WaterPatchMesher(Snapshot current, Snapshot previous) {
     this.current = current;
     this.previous = previous == null ? current : previous;
-    Arrays.fill(currentCorners,Float.NaN);
-    previousCorners=this.previous==current?currentCorners:new float[currentCorners.length];
-    if(previousCorners!=currentCorners)Arrays.fill(previousCorners,Float.NaN);
+    Arrays.fill(currentCorners, Float.NaN);
+    previousCorners = this.previous == current ? currentCorners : new float[currentCorners.length];
+    if (previousCorners != currentCorners) Arrays.fill(previousCorners, Float.NaN);
   }
 
   public static Mesh build(Snapshot current, Snapshot previous, boolean smooth) {
@@ -50,7 +50,8 @@ public final class WaterPatchMesher {
           if (current.water(x, y, z) == 0 && m.previous.water(x, y, z) == 0) continue;
           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
           if (top || oldTop) {
-            int sub = smooth && (!m.planar(current, x, y, z) || !m.planar(m.previous, x, y, z)) ? 2 : 1;
+            int sub =
+                smooth && (!m.planar(current, x, y, z) || !m.planar(m.previous, x, y, z)) ? 2 : 1;
             for (int iz = 0; iz < sub; iz++)
               for (int ix = 0; ix < sub; ix++) {
                 float a = ix / (float) sub,
@@ -106,19 +107,21 @@ public final class WaterPatchMesher {
   }
 
   private float corner(Snapshot s, int x, int y, int z) {
-    int key=(y*17+z)*17+x;float[] corners=s==current?currentCorners:previousCorners;
-    float cached=corners[key];if(!Float.isNaN(cached))return cached;
+    int key = (y * 17 + z) * 17 + x;
+    float[] corners = s == current ? currentCorners : previousCorners;
+    float cached = corners[key];
+    if (!Float.isNaN(cached)) return cached;
     float sum = 0;
     int count = 0;
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         int n = s.water(x + dx, y, z + dz);
         if (n == 0) continue;
-        if (s.water(x + dx, y + 1, z + dz) > 0) return corners[key]=1;
+        if (s.water(x + dx, y + 1, z + dz) > 0) return corners[key] = 1;
         sum += n / 16f;
         count++;
       }
-    return corners[key]=count==0?0:sum/count;
+    return corners[key] = count == 0 ? 0 : sum / count;
   }
 
   private float height(Snapshot s, int x, int y, int z, float u, float v) {
@@ -131,8 +134,13 @@ public final class WaterPatchMesher {
     return (float) WaterTransport.surface(a, b, c, d, center, u, v);
   }
 
-  private boolean planar(Snapshot s,int x,int y,int z){
-    return Math.abs(corner(s,x,y,z)-corner(s,x+1,y,z)-corner(s,x,y,z+1)+corner(s,x+1,y,z+1))<.00001;
+  private boolean planar(Snapshot s, int x, int y, int z) {
+    return Math.abs(
+            corner(s, x, y, z)
+                - corner(s, x + 1, y, z)
+                - corner(s, x, y, z + 1)
+                + corner(s, x + 1, y, z + 1))
+        < .00001;
   }
 
   private void vertex(

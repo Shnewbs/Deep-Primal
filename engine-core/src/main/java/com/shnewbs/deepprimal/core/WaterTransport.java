@@ -28,7 +28,7 @@ public final class WaterTransport {
       double nw, double ne, double sw, double se, double center, double u, double v) {
     double edge = TerrainNoise.lerp(TerrainNoise.lerp(nw, ne, u), TerrainNoise.lerp(sw, se, u), v);
     // Volume belongs to transport; per-cell center corrections create repeated bowls/tents.
-    return Math.clamp(edge,1./16,1);
+    return Math.clamp(edge, 1. / 16, 1);
   }
 
   private WaterTransport() {}

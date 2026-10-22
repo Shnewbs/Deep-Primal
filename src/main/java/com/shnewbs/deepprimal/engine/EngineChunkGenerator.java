@@ -23,7 +23,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 public final class EngineChunkGenerator extends ChunkGenerator {
   public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
   public static final MapCodec<EngineChunkGenerator> CODEC_V2 = codecFor(2);
-  public static final MapCodec<EngineChunkGenerator> CODEC_V3=codecFor(3);
+  public static final MapCodec<EngineChunkGenerator> CODEC_V3 = codecFor(3);
 
   private static MapCodec<EngineChunkGenerator> codecFor(int revision) {
     return RecordCodecBuilder.mapCodec(
@@ -60,7 +60,11 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   }
 
   protected MapCodec<? extends ChunkGenerator> codec() {
-    return switch(revision){case 1->CODEC;case 2->CODEC_V2;default->CODEC_V3;};
+    return switch (revision) {
+      case 1 -> CODEC;
+      case 2 -> CODEC_V2;
+      default -> CODEC_V3;
+    };
   }
 
   public ChunkGeneratorStructureState createState(
@@ -98,7 +102,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public void applyBiomeDecoration(WorldGenLevel l, ChunkAccess c, StructureManager m) {}
 
   public void addDebugScreenInfo(List<String> lines, RandomState s, BlockPos p) {
-    var a=surfaceSample(p.getX(),p.getZ());
+    var a = surfaceSample(p.getX(), p.getZ());
     lines.add(
         "Deep Primal continental_v"
             + revision
@@ -131,7 +135,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                   ? Blocks.GRANITE
                   : s.rock() == 1 ? Blocks.ANDESITE : s.rock() == 2 ? Blocks.STONE : Blocks.DIORITE)
           .defaultBlockState();
-    if(revision>=3)return surfaceV3(s,y,bed);
+    if (revision >= 3) return surfaceV3(s, y, bed);
     if (s.ground() < getSeaLevel() + 4 || s.rain() < .32)
       return (y < bed - 2 ? Blocks.SANDSTONE : Blocks.SAND).defaultBlockState();
     if (s.wet() || s.sediment() > .65)
@@ -142,22 +146,27 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return (y == bed ? Blocks.GRASS_BLOCK : Blocks.DIRT).defaultBlockState();
   }
 
-  private BlockState surfaceV3(TerrainEngine.Sample s,int y,int bed){
-    if(s.sediment()>.65&&s.slope()>.45&&bed<=270)return Blocks.GRAVEL.defaultBlockState();
-    if(s.slope()>.95||bed>270)return(s.rock()==0?Blocks.GRANITE:Blocks.STONE).defaultBlockState();
-    if(s.ground()<getSeaLevel()+4||s.rain()<.32)return(y<bed-2?Blocks.SANDSTONE:Blocks.SAND).defaultBlockState();
-    if(s.wet()){
-      if(s.speed()>.28||s.slope()>.35)return Blocks.GRAVEL.defaultBlockState();
-      return(s.rain()>.72&&s.sediment()>.8?Blocks.CLAY:Blocks.DIRT).defaultBlockState();
+  private BlockState surfaceV3(TerrainEngine.Sample s, int y, int bed) {
+    if (s.sediment() > .65 && s.slope() > .45 && bed <= 270)
+      return Blocks.GRAVEL.defaultBlockState();
+    if (s.slope() > .95 || bed > 270)
+      return (s.rock() == 0 ? Blocks.GRANITE : Blocks.STONE).defaultBlockState();
+    if (s.ground() < getSeaLevel() + 4 || s.rain() < .32)
+      return (y < bed - 2 ? Blocks.SANDSTONE : Blocks.SAND).defaultBlockState();
+    if (s.wet()) {
+      if (s.speed() > .28 || s.slope() > .35) return Blocks.GRAVEL.defaultBlockState();
+      return (s.rain() > .72 && s.sediment() > .8 ? Blocks.CLAY : Blocks.DIRT).defaultBlockState();
     }
-    if(s.temperature()<.16&&y==bed)return Blocks.SNOW_BLOCK.defaultBlockState();
-    if(s.sediment()>.9&&s.slope()>.35)return Blocks.GRAVEL.defaultBlockState();
-    return(y==bed?Blocks.GRASS_BLOCK:Blocks.DIRT).defaultBlockState();
+    if (s.temperature() < .16 && y == bed) return Blocks.SNOW_BLOCK.defaultBlockState();
+    if (s.sediment() > .9 && s.slope() > .35) return Blocks.GRAVEL.defaultBlockState();
+    return (y == bed ? Blocks.GRASS_BLOCK : Blocks.DIRT).defaultBlockState();
   }
 
   private BlockState at(TerrainEngine.Sample s, int x, int y, int z) {
     if (y <= (int) Math.floor(s.ground()))
-      return !s.wet()&&(revision<3||s.sediment()<.05)&&engine.cave(x,y,z,s.ground(),minY)
+      return !s.wet()
+              && (revision < 3 || s.sediment() < .05)
+              && engine.cave(x, y, z, s.ground(), minY)
           ? Blocks.AIR.defaultBlockState()
           : solid(s, y);
     if (s.wet() && y < s.water()) {
@@ -175,45 +184,64 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return Blocks.AIR.defaultBlockState();
   }
 
-  public NoiseColumn getBaseColumn(int x,int z,LevelHeightAccessor l,RandomState r){
-    var s=surfaceSample(x,z);
+  public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor l, RandomState r) {
+    var s = surfaceSample(x, z);
     BlockState[] a = new BlockState[l.getHeight()];
     for (int j = 0; j < a.length; j++) a[j] = at(s, x, l.getMinY() + j, z);
     return new NoiseColumn(l.getMinY(), a);
   }
 
-  private static TerrainEngine.Sample shapedSlope(TerrainEngine.Sample center,TerrainEngine.Sample west,TerrainEngine.Sample east,TerrainEngine.Sample north,TerrainEngine.Sample south){
-    return center.withSlope(Math.hypot(east.ground()-west.ground(),south.ground()-north.ground())*.5);
+  private static TerrainEngine.Sample shapedSlope(
+      TerrainEngine.Sample center,
+      TerrainEngine.Sample west,
+      TerrainEngine.Sample east,
+      TerrainEngine.Sample north,
+      TerrainEngine.Sample south) {
+    return center.withSlope(
+        Math.hypot(east.ground() - west.ground(), south.ground() - north.ground()) * .5);
   }
-  private TerrainEngine.Sample surfaceSample(int x,int z){
-    var center=engine.column(x,z);
-    return revision<3?center:shapedSlope(center,engine.column(x-1,z),engine.column(x+1,z),engine.column(x,z-1),engine.column(x,z+1));
+
+  private TerrainEngine.Sample surfaceSample(int x, int z) {
+    var center = engine.column(x, z);
+    return revision < 3
+        ? center
+        : shapedSlope(
+            center,
+            engine.column(x - 1, z),
+            engine.column(x + 1, z),
+            engine.column(x, z - 1),
+            engine.column(x, z + 1));
   }
-  private TerrainEngine.Sample[] columns(int ox,int oz){
-    var result=new TerrainEngine.Sample[256];
-    if(revision<3){
-      for(int z=0;z<16;z++)for(int x=0;x<16;x++)result[z*16+x]=engine.column(ox+x,oz+z);
+
+  private TerrainEngine.Sample[] columns(int ox, int oz) {
+    var result = new TerrainEngine.Sample[256];
+    if (revision < 3) {
+      for (int z = 0; z < 16; z++)
+        for (int x = 0; x < 16; x++) result[z * 16 + x] = engine.column(ox + x, oz + z);
       return result;
     }
-    var halo=new TerrainEngine.Sample[18*18];
-    for(int z=-1;z<=16;z++)for(int x=-1;x<=16;x++)halo[(z+1)*18+x+1]=engine.column(ox+x,oz+z);
-    for(int z=0;z<16;z++)for(int x=0;x<16;x++){
-      int i=(z+1)*18+x+1;
-      result[z*16+x]=shapedSlope(halo[i],halo[i-1],halo[i+1],halo[i-18],halo[i+18]);
-    }
+    var halo = new TerrainEngine.Sample[18 * 18];
+    for (int z = -1; z <= 16; z++)
+      for (int x = -1; x <= 16; x++) halo[(z + 1) * 18 + x + 1] = engine.column(ox + x, oz + z);
+    for (int z = 0; z < 16; z++)
+      for (int x = 0; x < 16; x++) {
+        int i = (z + 1) * 18 + x + 1;
+        result[z * 16 + x] =
+            shapedSlope(halo[i], halo[i - 1], halo[i + 1], halo[i - 18], halo[i + 18]);
+      }
     return result;
   }
 
   public CompletableFuture<ChunkAccess> fillFromNoise(
       Blender b, RandomState r, StructureManager m, ChunkAccess c) {
-    int ox=c.getPos().getMinBlockX(),oz=c.getPos().getMinBlockZ();
-    var columns=columns(ox,oz);
+    int ox = c.getPos().getMinBlockX(), oz = c.getPos().getMinBlockZ();
+    var columns = columns(ox, oz);
     var pos = new BlockPos.MutableBlockPos();
     var floor = c.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
     var top = c.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
     for (int z = 0; z < 16; z++)
       for (int x = 0; x < 16; x++) {
-        var s=columns[z*16+x];
+        var s = columns[z * 16 + x];
         int max =
             Math.min(
                 c.getMaxY() - 1,
@@ -242,10 +270,12 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       for (int gx = Math.floorDiv(ox - 6, 8); gx <= Math.floorDiv(ox + 21, 8); gx++) {
         int x = gx * 8 + 1 + (int) (engine.noise.hash(gx, gz, 311) * 6),
             z = gz * 8 + 1 + (int) (engine.noise.hash(gx, gz, 312) * 6);
-        int reach=revision>=3?4:3;
-        if(x+reach<ox||z+reach<oz||x-reach>ox+15||z-reach>oz+15)continue;
-        var s=column(columns,ox,oz,x,z);
-        if(revision>=3&&(x<ox||z<oz||x>ox+15||z>oz+15))s=surfaceSample(x,z);
+        int reach = revision >= 3 ? 4 : 3;
+        if (x + reach < ox || z + reach < oz || x - reach > ox + 15 || z - reach > oz + 15)
+          continue;
+        var s = column(columns, ox, oz, x, z);
+        if (revision >= 3 && (x < ox || z < oz || x > ox + 15 || z > oz + 15))
+          s = surfaceSample(x, z);
         double density = engine.forest(x, z);
         if (s.wet()
             || s.ground() < getSeaLevel() + 5
@@ -253,16 +283,24 @@ public final class EngineChunkGenerator extends ChunkGenerator {
             || s.temperature() < .1
             || s.rain() < .38
             || engine.noise.hash(gx, gz, 313) > Math.max(0, density - .20) * .66) continue;
-        boolean pine=s.temperature()<.36;
-        int y=(int)Math.floor(s.ground())+1,
-            h=revision>=3?(pine?8:5)+(int)(engine.noise.hash(gx,gz,314)*5):5+(int)(engine.noise.hash(gx,gz,314)*7),
-            radius=revision>=3?3+(int)(engine.noise.hash(gx,gz,315)*2):2+(int)(engine.noise.hash(gx,gz,315)*2);
+        boolean pine = s.temperature() < .36;
+        int y = (int) Math.floor(s.ground()) + 1,
+            h =
+                revision >= 3
+                    ? (pine ? 8 : 5) + (int) (engine.noise.hash(gx, gz, 314) * 5)
+                    : 5 + (int) (engine.noise.hash(gx, gz, 314) * 7),
+            radius =
+                revision >= 3
+                    ? 3 + (int) (engine.noise.hash(gx, gz, 315) * 2)
+                    : 2 + (int) (engine.noise.hash(gx, gz, 315) * 2);
         if (revision >= 2) {
           boolean supported = true;
           for (int dz = -radius; dz <= radius && supported; dz++)
             for (int dx = -radius; dx <= radius; dx++) {
               var neighbor = column(columns, ox, oz, x + dx, z + dz);
-              if((revision>=3&&neighbor.sediment()>.85)||neighbor.wet()||Math.abs(neighbor.ground()-s.ground())>2) {
+              if ((revision >= 3 && neighbor.sediment() > .85)
+                  || neighbor.wet()
+                  || Math.abs(neighbor.ground() - s.ground()) > 2) {
                 supported = false;
                 break;
               }
@@ -288,10 +326,16 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                   dy >= (pine ? 3 : h - 3)
                       && dx * dx + dz * dz + (pine ? 0 : Math.pow((dy - h + .5) * .9, 2))
                           <= canopy * canopy;
-              if(revision>=3){
-                double crownY=(dy-h+.5)/(pine?1:3.3),jitter=.88+engine.noise.hash(wx,wz,317+dy)*.12;
-                double spread=pine?Math.max(.35,radius*(h+2.-dy)/(h-1.)):radius*jitter;
-                leaf=dy>=(pine?3:h-4)&&(pine?dx*dx+dz*dz<=spread*spread:(dx*dx+dz*dz)/(spread*spread)+crownY*crownY<=1);
+              if (revision >= 3) {
+                double crownY = (dy - h + .5) / (pine ? 1 : 3.3),
+                    jitter = .88 + engine.noise.hash(wx, wz, 317 + dy) * .12;
+                double spread =
+                    pine ? Math.max(.35, radius * (h + 2. - dy) / (h - 1.)) : radius * jitter;
+                leaf =
+                    dy >= (pine ? 3 : h - 4)
+                        && (pine
+                            ? dx * dx + dz * dz <= spread * spread
+                            : (dx * dx + dz * dz) / (spread * spread) + crownY * crownY <= 1);
               }
               var p = new BlockPos(wx, y + dy, wz);
               if (trunk || leaf) {

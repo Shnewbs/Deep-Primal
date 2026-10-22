@@ -305,7 +305,7 @@ public final class IntegratedClientChecks {
     field(mc, "LOD radius (chunks)").setValue("208");
     button(mc, "Apply");
     require(LodConfig.RADIUS.get() == 208, "Apply writes LOD setting");
-    button(mc, "General");
+    button(mc, "Performance");
     field(mc, "Target FPS").setValue("88");
     button(mc, "Apply");
     require(ClientPerformanceConfig.TARGET_FPS.get() == 88, "Apply writes performance setting");

@@ -1,9 +1,8 @@
 package com.shnewbs.deepprimal.core.baseline;
 
-import com.shnewbs.deepprimal.core.TerrainNoise;
-
 import static com.shnewbs.deepprimal.core.TerrainNoise.*;
 
+import com.shnewbs.deepprimal.core.TerrainNoise;
 import java.util.*;
 
 /** Original versioned continental planner. Immutable drainage results are shared between chunks. */
