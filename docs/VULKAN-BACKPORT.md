@@ -1,6 +1,6 @@
-# Vulkan adapter — alpha 10
+# Vulkan adapter
 
-The standard JAR contains an optional NeoForge graphics backend adapted from **VulkanMod 0.6.8+26.1.2**. OpenGL is the default. Open **Video Settings → Deep Primal distances → Performance → Graphics API**, select Vulkan, Apply, and restart Minecraft. The screen reports the active API separately from the next-launch preference.
+Vulkan is the primary development sample/reference API and graphics validation target. The separately replaceable NeoForge backend is adapted from **VulkanMod 0.6.8+26.1.2**. The lean default JAR omits the optional adapter; include it using a Vulkan build profile below. Installed clients retain their saved API preference, with OpenGL as the recovery fallback. Open **Video Settings → Deep Primal distances → Performance → Graphics API**, select Vulkan, Apply, and restart Minecraft. The screen reports the active API separately from the next-launch preference.
 
 This is a Vulkan device/backend implementation, not an OpenGL translation flag. It uses Vulkan command buffers, buffers/images, shaderc compilation to SPIR-V, descriptors, graphics pipelines, frame fences, timestamps and a GLFW surface/swapchain. Minecraft retains its native chunk mesher, section workers, render passes and gameplay simulation. Deep Primal's horizon uses the same device abstraction. Fabric Loader/API and VulkanMod's custom terrain mesher are not bundled.
 
@@ -25,9 +25,11 @@ The preference is `backend=Vulkan` or `backend=OpenGL` in `config/deepprimal-ren
 
 ## Build and limits
 
-Build with `./gradlew build` (Java 25). The adapter is a separate nested JAR with its required LWJGL Vulkan, shaderc and VMA bindings/natives. `./gradlew build -PwithoutVulkan` omits it for a smaller package retaining performance and graphics settings. For development runs, `-PgraphicsBackend=Vulkan` selects Vulkan explicitly; ordinary installed clients use their saved preference.
+Use Java 25. The primary Linux sample build is `./gradlew -PvulkanPlatform=linux build`; use `windows`, `macos` or `macos-arm64` for that platform, or `-PbundleVulkan` for universal natives. The adapter remains a separate nested JAR with its LWJGL Vulkan, shaderc and VMA bindings/natives. `./gradlew -PwithoutVulkan build` excludes the optional module for renderless/core or lean-package checks. Such server checks validate neither graphics API.
 
-The current backend requires Vulkan 1.2 and the swapchain/dynamic-rendering features it uses. Unsupported initialization falls back to OpenGL. Linux x64 software-driver validation is documented in [the alpha 9 report](VALIDATION-0.0.1-alpha.9.md). Bundled Windows/macOS natives do not establish hardware certification. AMD/Windows performance, shader packs, arbitrary direct-OpenGL mods and broad modpack compatibility remain unverified. Vulkan is experimental; it is not a claim of universal FPS gains or a complete Sodium/OptiFine/Lithium replacement.
+The primary native sample launch is `./gradlew -PvulkanPlatform=linux -PgraphicsBackend=Vulkan -PvulkanValidation runClient`. Verify the active backend explicitly: a recovered OpenGL launch is not a Vulkan pass. Ordinary installed clients use their saved preference. Keep OpenGL fallback comparisons after the Vulkan gates, preserving modularity and saved preferences.
+
+The current backend requires Vulkan 1.2 and the swapchain/dynamic-rendering features it uses. Unsupported initialization falls back to OpenGL. Historical Linux software-driver validation is documented in [the alpha 9 report](VALIDATION-0.0.1-alpha.9.md); current checks and remaining limits are recorded in [the engine handoff](ENGINE-BUILD-AUDIT-HANDOFF.md). Bundled Windows/macOS natives do not establish hardware certification. AMD/Windows performance, shader packs, arbitrary direct-OpenGL mods and broad modpack compatibility remain unverified. Vulkan is experimental; it is not a claim of universal FPS gains or a complete Sodium/OptiFine/Lithium replacement.
 
 ## Alpha 10 organization and native work
 

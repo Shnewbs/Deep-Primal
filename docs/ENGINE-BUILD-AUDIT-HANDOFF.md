@@ -106,3 +106,25 @@ verified milestones or blockers. Restore Vulkan/display/driver before enabled-vi
 coverage/transparency and shutdown injection checks; do not claim GPU/FPS guarantees
 from software-driver runs. Regional water budgets, pressure residency/performance,
 geology and LOD acceptance remain open; catalog/species remains deferred.
+
+## Current Vulkan-first native checkpoint
+
+The [Vulkan primary report](validation/engine-continuation/vulkan-primary-2026-10-22/README.md)
+now supersedes the missing-environment blocker. All 124 optional module inputs
+were restored exactly. The uncached Vulkan Linux build/core/module checks, six
+CRCs and 406 compiled class comparisons pass. Four strict software-Vulkan sessions
+cover fresh V3 creation, saved-world reopen, GPU transfer/shader/depth/stencil,
+enabled animated/fallback water and actual active LOD, resource reload, memory
+guard and rejected-completion shutdown with zero final buffers/images and VUIDs.
+The final capture starts/ends without a recovery marker and uses no forced retry.
+
+Preserve the failed OpenGL fallback assertion and incomplete scene capture as
+failures. The early reopened screenshot shows partial water/exposed terrain while
+delivery warms; the later scene recovers. This is not full coverage acceptance.
+The final camera-matched images continued simulation/LOD warming, so they do not
+prove equal-state output or performance. Next establish a bounded Vulkan coverage
+recovery regression under joins, teleports, constrained budgets and edits, then
+address demonstrated missing coverage/transparency without changing geography.
+No production renderer fix or owner GPU/FPS acceptance is claimed. OpenGL remains
+a modular fallback; Vulkan is the primary sample/reference target. Keep updates
+brief and keep working through the open acceptance items.

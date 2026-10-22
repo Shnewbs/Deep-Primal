@@ -1,0 +1,44 @@
+[
+  {
+    "path": "vulkan-create-attempt2/screenshots/creation-form.png",
+    "bytes": 931754,
+    "sha256": "98aec4169f26d98e58c849f12f09f566c360c92d2bb6ead8896fdfc0d2a4de7b",
+    "visually_inspected": true
+  },
+  {
+    "path": "vulkan-smoke/screenshots/reopened-vulkan.png",
+    "bytes": 561425,
+    "sha256": "72f1d97fed6a4d1f83739d22c0c1321a44866a8b30e4d853b024d9a49ae70750",
+    "visually_inspected": true
+  },
+  {
+    "path": "vulkan-view-final/screenshots/enabled-animated.png",
+    "bytes": 730723,
+    "sha256": "8447d7144ff04902415114c2990f8ad48433bdcf0cf85efaedcccb2d7d235790",
+    "visually_inspected": true
+  },
+  {
+    "path": "vulkan-view-final/screenshots/enabled-fallback.png",
+    "bytes": 710869,
+    "sha256": "630204a640b194cae1046c055e9e513cf79c435448fc52c92532969a00f69e98",
+    "visually_inspected": true
+  },
+  {
+    "path": "vulkan-view-final/screenshots/enabled-waves.png",
+    "bytes": 772856,
+    "sha256": "59d11bc4fc386b5d47e014bb5fba76d6ee0c263f4679803a19e997f053ab1629",
+    "visually_inspected": true
+  },
+  {
+    "path": "vulkan-view-final/screenshots/diagnostic-no-lod.png",
+    "bytes": 636099,
+    "sha256": "391d48941ede79497197b601a1b95923129bfb7cfc07323f86d8f367c76ec9b0",
+    "visually_inspected": true
+  },
+  {
+    "path": "vulkan-view-final/screenshots/enabled-reloaded.png",
+    "bytes": 775509,
+    "sha256": "901985541274546467482e07ff4e7fb4909ee9d2d75416aa09bb70d06d072844",
+    "visually_inspected": true
+  }
+]

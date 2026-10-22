@@ -138,3 +138,22 @@ cleanup needs fresh full validation. Main/installers/geography remain unchanged.
 Vulkan is now the primary graphics reference/test API at the owner's direction;
 OpenGL fallback remains modular. No fresh graphics acceptance yet. Next restore
 the Vulkan environment and exercise enabled-view water/LOD and cleanup gates.
+
+## 2026-10-22: Vulkan primary sample and fresh software-driver validation
+
+Added validation-only water/LOD scene isolation/observation commands and corrected
+stale Vulkan build/sample instructions. Production renderer and frozen geography
+are unchanged. The restored Vulkan Linux build/core/module checks pass, as do six
+archive CRCs and 406 class-byte comparisons. Four strict Vulkan sessions pass
+creation/reopen, device transfers/shader/depth/stencil, active LOD with animated
+and fallback water, resource reload, memory guard and forced shutdown-completion
+rejection. All finish with zero VUIDs, validation errors and tracked resources.
+
+The initial OpenGL recovery attempt and incomplete scene capture are excluded.
+An early reopen screenshot shows transient partial water/exposed terrain; warmed
+images recover. Cause and complete coverage remain unaccepted. These are software
+Vulkan correctness checks, not owner GPU/FPS guarantees. See [screenshots, exact
+records, failures and limits](validation/engine-continuation/vulkan-primary-2026-10-22/README.md).
+Next implement bounded Vulkan coverage-recovery stress across joins, teleports,
+low budgets and player edits. Water p95/residency, regional budgets, geology and
+LOD acceptance remain open; no installer released or main merge.

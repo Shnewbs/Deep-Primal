@@ -1,0 +1,47 @@
+{
+  "software_driver": true,
+  "owner_gpu_fps_acceptance": false,
+  "complete_enabled_view_coverage_acceptance": false,
+  "cases": [
+    {
+      "case": "vulkan-create-attempt2",
+      "acceptance": true,
+      "console_sha256": "37779e3ceb5545e6be24d7c86d5a5844c3f261681c1b2a3999c5caab4d6e7a51",
+      "shutdown_file_sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+      "zero_vuid": true,
+      "zero_validation_errors": true,
+      "zero_tracked_buffers_images": true,
+      "shader_output_not_consumed_warnings": 2
+    },
+    {
+      "case": "vulkan-scene-retry",
+      "acceptance": true,
+      "console_sha256": "66b37fa1affbcf9bcaf6f5c37b551e69d3de50468504cede08ee6ceb5653d737",
+      "shutdown_file_sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+      "zero_vuid": true,
+      "zero_validation_errors": true,
+      "zero_tracked_buffers_images": true,
+      "shader_output_not_consumed_warnings": 2
+    },
+    {
+      "case": "vulkan-view-final",
+      "acceptance": true,
+      "console_sha256": "c96584c457910344dd2cc4bcd69a5a35ee9b80398c3f185cad79dec0febf7f80",
+      "shutdown_file_sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+      "zero_vuid": true,
+      "zero_validation_errors": true,
+      "zero_tracked_buffers_images": true,
+      "shader_output_not_consumed_warnings": 7
+    },
+    {
+      "case": "vulkan-smoke",
+      "acceptance": true,
+      "console_sha256": "f728a18d722b7d5ffd22a3cdbb071a043eba11e7aa21def1ee6cb83f64d9af5f",
+      "shutdown_file_sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+      "zero_vuid": true,
+      "zero_validation_errors": true,
+      "zero_tracked_buffers_images": true,
+      "shader_output_not_consumed_warnings": 4
+    }
+  ]
+}

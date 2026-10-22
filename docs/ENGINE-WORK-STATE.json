@@ -1,19 +1,18 @@
 {
   "schema": 1,
-  "status": "foreground_active",
-  "updated_at": "2026-10-22T19:14:00Z",
-  "active_until": "2026-10-22T20:14:00Z",
+  "status": "continuation_permitted",
+  "updated_at": "2026-10-22T19:34:00Z",
+  "active_until": null,
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Accepted-solver two-method admission cleanup passes all 13 final native gates, uncached non-Vulkan core/module build, five CRCs and 225 class-byte checks. Normal admission amount reads 3 to 1 in exact-source controls; injected overlap gameplay reachability and p95 causal link unproven. Vulkan now primary graphics reference/validation target; restoring its module/environment next.",
+  "current_gate": "Accepted water admission cleanup checkpointed and passed 13 native gates. Vulkan is primary sample/reference target. Fresh Vulkan Linux build/core/module, six CRCs/406 class matches and four strict software-Vulkan sessions pass including actual active LOD, water switching, reload, device checks and zero-resource/zero-error shutdown. Early reopen shows transient partial water/exposed terrain; full coverage/transparency and owner GPU/performance acceptance remain open.",
   "next_items": [
-    "Prioritize Vulkan as primary sample/reference graphics API. Restore optional module/display/driver; reproduce enabled-view water/LOD/transparency and preserve shutdown rejection/resource lifetime gates. Retain modular OpenGL fallback.",
+    "Vulkan-first: add bounded coverage-recovery regression across join, teleport, constrained water/LOD budgets, edits and physical reload. Early reopen screenshot shows partial water/exposed terrain; warmed captures recover. Preserve actual active-LOD observations, zero-VUID/resource shutdown and OpenGL modular fallback; establish identical-state/output comparisons before performance claims.",
     "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
     "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
-    "Restore display/optional Vulkan environment and verify enabled-view water/LOD coverage under memory pressure, teleports, edits and reloads; fallback gaps and mixed transparency remain open",
     "Implement explicit renewable regional reservoirs plus finite local water, perennial/seasonal supply, depletable wells and accounted ocean recycling; source safety/strict depletion remain optional",
     "Improve terrain variety and coherent geology/material fields; preserve delivered V1/V2/V3 geography and require a new saved revision for geographic changes",
     "Continue LOD hierarchy/coverage and editable-world performance acceptance; catalog/species work remains separately deferred"
@@ -27,15 +26,15 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/pressure-admission-2026-10-22/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/vulkan-primary-2026-10-22/README.md",
   "local_validation_environment": "/workspace/scratch/a22609fabda0/pressure-admission-1835",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
     "Explicit renewable/finite regional reservoirs, accounted hydrological budgets and coherent geology remain unfinished.",
-    "Enabled-view water/LOD coverage, mixed transparency and visual/Vulkan/owner GPU acceptance remain open. This environment has no DISPLAY, Xvfb or vulkaninfo. Solver substeps do not establish independent 60 Hz."
+    "Vulkan software-driver environment and four strict correctness sessions now pass. Complete enabled-view water/LOD coverage, mixed transparency, memory-pressure/teleport/edit stress and owner GPU/FPS acceptance remain open. Early reopen partial coverage observation needs bounded reproduction and cause isolation. Solver substeps do not establish independent 60 Hz."
   ],
-  "latest_accepted_solver_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a",
+  "latest_accepted_solver_commit": "900ebebf67b6220ce0efab0b71abdeffe3bd1ed0",
   "staged_validation_evidence": [
     "docs/validation/engine-continuation/basin-pressure-2026-10-22/native-results.json",
     "docs/validation/engine-continuation/basin-pressure-2026-10-22/strict-native-audit.json",
@@ -47,23 +46,36 @@
     "docs/validation/engine-continuation/basin-pressure-2026-10-22/initial-build-failure.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "pressure-admission-1835",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
   "latest_test_summary": {
-    "strict_native_passes": 13,
-    "non_vulkan_full_build": "pass",
-    "archive_crc_count": 5,
-    "compiled_class_matches": 225,
-    "accepted_runtime_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
-    "graphics_validation": "pending Vulkan environment restoration",
-    "installer_release": false
+    "accepted_solver_native_passes": 13,
+    "software_vulkan_sessions": 4,
+    "non_vulkan_build": "pass",
+    "vulkan_linux_build": "pass",
+    "vulkan_archive_crc_count": 6,
+    "vulkan_compiled_class_matches": 406,
+    "zero_vuid_errors": true,
+    "final_tracked_buffers": 0,
+    "final_tracked_images": 0,
+    "rejected_opengl_reopen": 1,
+    "rejected_incomplete_scene_capture": 1,
+    "enabled_view_complete_acceptance": false,
+    "owner_gpu_fps_acceptance": false,
+    "installer_released": false
   },
   "graphics_reference_api": "vulkan",
   "graphics_validation_order": [
     "vulkan",
     "opengl_fallback"
   ],
-  "owner_update_policy": "Concise verified milestones/blockers; continue implementation after checkpoints."
+  "owner_update_policy": "Concise verified milestones/blockers; continue implementation after checkpoints.",
+  "latest_accepted_solver_evidence": "docs/validation/engine-continuation/pressure-admission-2026-10-22/README.md",
+  "latest_graphics_evidence": [
+    "docs/validation/engine-continuation/vulkan-primary-2026-10-22/strict-vulkan-audit.json",
+    "docs/validation/engine-continuation/vulkan-primary-2026-10-22/vulkan-build-audit.json",
+    "docs/validation/engine-continuation/vulkan-primary-2026-10-22/screenshot-manifest.json"
+  ]
 }

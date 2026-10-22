@@ -1,0 +1,97 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 28.04
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 30.04
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 31.04
+  },
+  {
+    "action": "audit-lake-camera",
+    "completed": true,
+    "elapsed": 66.07
+  },
+  {
+    "action": "water-view-observe=enabled-animated",
+    "completed": true,
+    "elapsed": 67.07
+  },
+  {
+    "action": "enabled-animated",
+    "completed": true,
+    "elapsed": 69.07
+  },
+  {
+    "action": "water-view=false,false,true",
+    "completed": true,
+    "elapsed": 84.09
+  },
+  {
+    "action": "water-view-observe=enabled-fallback",
+    "completed": true,
+    "elapsed": 85.09
+  },
+  {
+    "action": "enabled-fallback",
+    "completed": true,
+    "elapsed": 87.09
+  },
+  {
+    "action": "water-view=true,true,true",
+    "completed": true,
+    "elapsed": 102.11
+  },
+  {
+    "action": "enabled-waves",
+    "completed": true,
+    "elapsed": 104.12
+  },
+  {
+    "action": "water-view=true,false,false",
+    "completed": true,
+    "elapsed": 114.13
+  },
+  {
+    "action": "diagnostic-no-lod",
+    "completed": true,
+    "elapsed": 116.14
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 118.14
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 133.15
+  },
+  {
+    "action": "water-view-observe=enabled-reloaded",
+    "completed": true,
+    "elapsed": 134.15
+  },
+  {
+    "action": "enabled-reloaded",
+    "completed": true,
+    "elapsed": 136.16
+  },
+  {
+    "action": "memory-guard-checks",
+    "completed": true,
+    "elapsed": 137.16
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 138.16
+  }
+]

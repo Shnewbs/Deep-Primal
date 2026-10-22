@@ -141,6 +141,7 @@ public final class ClientCapture {
       String action = Files.readString(request).trim();
       Files.delete(request);
       Files.createDirectories(dir);
+      if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
         mc.stop();
         return;
