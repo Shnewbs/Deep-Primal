@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T08:46:00Z",
-  "active_until": "2026-10-22T08:46:00Z",
+  "status": "scheduled_active",
+  "updated_at": "2026-10-22T09:25:00Z",
+  "active_until": "2026-10-22T09:55:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "JDK25/Gradle and 370 source inputs restored; full dependency-free core and page admission fixtures pass. Full mod build blocked in plugin resolution by Java networking. Actual-source 262-cell pressure cutoff reproduced; native validation and persistent continuation remain open.",
+  "current_gate": "Isolated build-network compatibility diagnosis; then one bounded pressure-continuation implementation increment",
   "next_items": [
     "Resolve Java artifact-download access; full default build failed in settings plugin resolution before mod compilation. JDK25/Gradle are now available in the isolated restoration directory.",
     "Verify nearest-first page admission under enabled-view memory pressure, teleports, edits and reloads; remaining unresident-page fallback and mixed transparency are open",
@@ -26,5 +26,6 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-restoration-and-pressure.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore"
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore",
+  "worker": "scheduled-a22609fabda0"
 }
