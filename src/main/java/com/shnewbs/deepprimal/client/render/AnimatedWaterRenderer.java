@@ -20,9 +20,11 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.level.chunk.EmptyLevelChunk;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.event.level.ChunkEvent;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -130,6 +132,56 @@ public final class AnimatedWaterRenderer {
     return sample == null ? Float.NaN : sample.at(clock);
   }
 
+  private boolean loaded(int x, int z) {
+    // ClientLevel.hasChunk() is unconditionally true. Query delivered storage without creating air.
+    var chunk = level.getChunkSource().getChunk(x, z, false);
+    return chunk != null && !(chunk instanceof EmptyLevelChunk);
+  }
+
+  private void release(Page page) {
+    dirty.remove(page.key);
+    urgent.remove(page.key);
+    fresh.remove(page.key);
+    if (page.gpu != null) {
+      residentBytes -= page.gpu.bytes;
+      page.gpu.close();
+      page.gpu = null;
+    }
+  }
+
+  private void chunkChanged(ClientLevel source, int x, int z, boolean removed) {
+    if (!owns || source != level) return;
+    for (var it = pages.values().iterator(); it.hasNext(); ) {
+      Page page = it.next();
+      int dx = Math.abs((page.x >> 4) - x), dz = Math.abs((page.z >> 4) - z);
+      if (dx > 1 || dz > 1) continue;
+      if (removed && dx == 0 && dz == 0) {
+        release(page);
+        it.remove();
+      } else {
+        page.changed = true;
+        urgent.add(page.key);
+      }
+    }
+    if (removed) fresh.removeIf(key -> SectionPos.x(key) == x && SectionPos.z(key) == z);
+  }
+
+  @SubscribeEvent
+  public void chunkLoaded(ChunkEvent.Load event) {
+    if (event.getLevel() instanceof ClientLevel client) {
+      var pos = event.getChunk().getPos();
+      chunkChanged(client, pos.x(), pos.z(), false);
+    }
+  }
+
+  @SubscribeEvent
+  public void chunkUnloaded(ChunkEvent.Unload event) {
+    if (event.getLevel() instanceof ClientLevel client) {
+      var pos = event.getChunk().getPos();
+      chunkChanged(client, pos.x(), pos.z(), true);
+    }
+  }
+
   public void changed(ClientLevel source, BlockPos p) {
     if (!owns || source != level) return;
     for (int dy = -1; dy <= 1; dy++)
@@ -234,10 +286,9 @@ public final class AnimatedWaterRenderer {
         if (pages.containsKey(key) || !event.getFrustum().isVisible(section.getBoundingBox()))
           continue;
         int x = SectionPos.x(key), y = SectionPos.y(key), z = SectionPos.z(key);
-        if (!level.hasChunk(x, z) || y < level.getMinSectionY() || y >= level.getMaxSectionY())
-          continue;
+        if (y < level.getMinSectionY() || y >= level.getMaxSectionY()) continue;
         var chunk = level.getChunkSource().getChunk(x, z, false);
-        if (chunk == null) continue;
+        if (chunk == null || chunk instanceof EmptyLevelChunk) continue;
         if (chunk
             .getSection(chunk.getSectionIndexFromSectionY(y))
             .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
@@ -253,13 +304,8 @@ public final class AnimatedWaterRenderer {
     var visible = new ArrayList<Page>();
     for (var it = pages.values().iterator(); it.hasNext(); ) {
       Page page = it.next();
-      if (!level.hasChunk(page.x >> 4, page.z >> 4)) {
-        if (page.gpu != null) {
-          residentBytes -= page.gpu.bytes;
-          page.gpu.close();
-        }
-        dirty.remove(page.key);
-        urgent.remove(page.key);
+      if (!loaded(page.x >> 4, page.z >> 4)) {
+        release(page);
         it.remove();
         continue;
       }
@@ -285,6 +331,11 @@ public final class AnimatedWaterRenderer {
       long key = queue.removeFirst();
       Page page = pages.get(key);
       if (page == null) continue;
+      if (!loaded(page.x >> 4, page.z >> 4)) {
+        release(page);
+        pages.remove(key);
+        continue;
+      }
       if (page.busy) {
         queue.add(key);
         continue;
@@ -320,18 +371,25 @@ public final class AnimatedWaterRenderer {
   private WaterPatchMesher.Snapshot capture(Page page) {
     byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
     int[] light = new int[units.length], colors = new int[256];
+    var chunks = new net.minecraft.world.level.chunk.LevelChunk[9];
+    for (int dz = -1; dz <= 1; dz++)
+      for (int dx = -1; dx <= 1; dx++) {
+        var chunk = level.getChunkSource().getChunk((page.x >> 4) + dx, (page.z >> 4) + dz, false);
+        if (chunk != null && !(chunk instanceof EmptyLevelChunk))
+          chunks[(dz + 1) * 3 + dx + 1] = chunk;
+      }
     var pos = new BlockPos.MutableBlockPos();
     for (int z = -1; z <= 16; z++)
       for (int x = -1; x <= 16; x++) {
-        boolean loaded = level.hasChunk((page.x + x) >> 4, (page.z + z) >> 4);
+        var chunk = chunks[(z < 0 ? 0 : z < 16 ? 1 : 2) * 3 + (x < 0 ? 0 : x < 16 ? 1 : 2)];
         for (int y = -1; y <= 16; y++) {
           int i = WaterPatchMesher.index(x, y, z);
           pos.set(page.x + x, page.y + y, page.z + z);
-          if (!loaded || !level.isInWorldBounds(pos)) {
+          if (chunk == null || !level.isInWorldBounds(pos)) {
             solid[i] = 1;
             continue;
           }
-          var state = level.getBlockState(pos);
+          var state = chunk.getBlockState(pos);
           if (state.is(EngineRegistry.WATER_BLOCK.get())) {
             units[i] = (byte) (int) state.getValue(EngineFluid.UNITS);
             light[i] = LevelRenderer.getLightCoords(level, pos.above());
@@ -463,12 +521,7 @@ public final class AnimatedWaterRenderer {
       }
     if (victim == null) return false;
     pages.remove(victim.key);
-    dirty.remove(victim.key);
-    urgent.remove(victim.key);
-    if (victim.gpu != null) {
-      residentBytes -= victim.gpu.bytes;
-      victim.gpu.close();
-    }
+    release(victim);
     return true;
   }
 

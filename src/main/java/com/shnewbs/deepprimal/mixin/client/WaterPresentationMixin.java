@@ -49,8 +49,8 @@ public abstract class WaterPresentationMixin {
     AnimatedWaterRenderer.INSTANCE.reset();
   }
 
-  @Inject(method = "setSectionDirtyWithNeighbors", at = @At("HEAD"))
-  private void deepprimal$lighting(int x, int y, int z, CallbackInfo ci) {
+  @Inject(method = "setSectionDirty(IIIZ)V", at = @At("HEAD"))
+  private void deepprimal$lighting(int x, int y, int z, boolean playerChanged, CallbackInfo ci) {
     AnimatedWaterRenderer.INSTANCE.sectionChanged(x, y, z);
   }
 }

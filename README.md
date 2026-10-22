@@ -1,8 +1,8 @@
 # Deep Primal
 
-**0.0.1-alpha.21 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**0.0.1-alpha.22 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is a standalone survival total conversion under development. Alpha 21 gives the independent liquid engine its own animated presentation: GPU height interpolation and wet/dry fading update without rebuilding terrain for water-only changes. Bounded snapshot workers, priority for changing patches and faster local pressure handling improve consistency. The existing per-tick transport, dormant-water activation and terrain rebuild coalescing remain. The custom Video Settings screen and separate explored-terrain LOD module remain. Deep Primal remains the product name. Reference mods guide the capabilities we intend to improve; superiority requires measured behavior and performance comparisons. The separate `standalone-engine/` experiment is historical source and is not shipped.
+Deep Primal is a standalone survival total conversion under development. Alpha 22 repairs false ocean walls and stale liquid pages at client chunk boundaries. The independent liquid engine retains its own animated presentation: GPU height interpolation and wet/dry fading update without rebuilding terrain for water-only changes. Bounded snapshot workers, priority for changing patches and faster local pressure handling improve consistency. The existing per-tick transport, dormant-water activation and terrain rebuild coalescing remain. The custom Video Settings screen and separate explored-terrain LOD module remain. Deep Primal remains the product name. Reference mods guide the capabilities we intend to improve; superiority requires measured behavior and performance comparisons. The separate `standalone-engine/` experiment is historical source and is not shipped.
 
 ## Current foundation
 
@@ -33,7 +33,7 @@ Use Java 25 and the Gradle wrapper:
 ./gradlew build -PvulkanPlatform=linux
 ```
 
-The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.21.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics and LOD. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
+The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.22.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics and LOD. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
 
 ## Scope and evidence
 
@@ -43,6 +43,7 @@ Liquid authority remains a 20 Hz, 16-unit simulation. Persistent queues prevent 
 
 PhysEx Reborn, Finite Water, BetterWaterMesh and Water Erosion inform independently authored liquid behavior and visuals. No PhysEx runtime/code is bundled; displacement, collision-shaped fluid storage, containers, lava and erosion remain separate unfinished work. TFC informs geology/climate/drainage, Terralith terrain variety, and Tectonic continental relief. Their source/assets are not bundled. Gaea/World Machine methods guide independent algorithms; no proprietary engine is embedded. Distant Horizons, Nanite and Cesium are references. The earlier LWJGL meshoptimizer probe remains development-only, with no shipping meshoptimizer/clusterlod integration. Environmental catalogs remain planning-only.
 
+- [Alpha 22 ocean rendering repair](docs/VALIDATION-0.0.1-alpha.22.md)
 - [Alpha 21 independent animated water](docs/VALIDATION-0.0.1-alpha.21.md)
 - [Water budgets and long-running world requirements](docs/WATER-BUDGET-REQUIREMENTS.md)
 - [Alpha 20 liquid filling and mesh progress](docs/VALIDATION-0.0.1-alpha.20.md)

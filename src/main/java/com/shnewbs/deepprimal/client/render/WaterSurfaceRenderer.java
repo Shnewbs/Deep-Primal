@@ -54,6 +54,11 @@ public final class WaterSurfaceRenderer {
   private boolean pendingReady;
   private int pendingX, pendingZ, pendingRadius;
 
+  private boolean loaded(BlockPos p) {
+    var chunk = level.getChunkSource().getChunk(p.getX() >> 4, p.getZ() >> 4, false);
+    return chunk != null && !(chunk instanceof net.minecraft.world.level.chunk.EmptyLevelChunk);
+  }
+
   public long residentBytes() {
     return patch == null ? 0 : patch.byteSize;
   }
@@ -145,7 +150,7 @@ public final class WaterSurfaceRenderer {
         positions[i * 3] = x * 2;
         positions[i * 3 + 2] = z * 2;
         var p = new BlockPos(wx, 0, wz);
-        if (!level.hasChunkAt(p)) continue;
+        if (!loaded(p)) continue;
         var top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, p);
         var water = top.below();
         if (!level.isEmptyBlock(top)
@@ -154,7 +159,7 @@ public final class WaterSurfaceRenderer {
             || !level.getFluidState(water.below(2)).is(FluidTags.WATER)) continue;
         boolean shore = false;
         for (var d : net.minecraft.core.Direction.Plane.HORIZONTAL)
-          if (!level.hasChunkAt(water.relative(d, 2))
+          if (!loaded(water.relative(d, 2))
               || !level.getFluidState(water.relative(d, 2)).is(FluidTags.WATER)) {
             shore = true;
             break;
