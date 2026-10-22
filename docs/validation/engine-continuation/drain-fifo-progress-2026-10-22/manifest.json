@@ -1,0 +1,118 @@
+{
+  "ClosedWaterChecks.java": {
+    "bytes": 14368,
+    "sha256": "0ed04c05b5ccae976f9c85335752eb4f4f83c873c90c7da7a268122ffd83fe39"
+  },
+  "DrainIdleChecks.java": {
+    "bytes": 4518,
+    "sha256": "5c2745bfdda5e7d1b19902610ac732bbea27bca85bf47e19857ffa995b0eb000"
+  },
+  "DrainPendingChecks.java": {
+    "bytes": 3748,
+    "sha256": "030f9774f4d9588049f0564c53d07ca6cb835d4c030bc8337a9ad38fa215f2f6"
+  },
+  "ProfileWaterFillingChecks.java": {
+    "bytes": 10564,
+    "sha256": "bdb5e1bcfe9a77ef02bfca48b58872076a09f0bdde88f1a47fed7fcb890e1bb0"
+  },
+  "README.md": {
+    "bytes": 10571,
+    "sha256": "76c4fb07a88c94e3a1eaa41be3c8fbe5d871f2c8a2954269ce0e04c0ae4d83cf"
+  },
+  "WaterFillingChecks.java": {
+    "bytes": 10281,
+    "sha256": "d6895027bfecae3db178b8b45afdb053014eff823c88e59c03bd083521200f1e"
+  },
+  "audit_package.py": {
+    "bytes": 2207,
+    "sha256": "c0d0698184b0db0a97860b9e06532a29153d31c6c3fd254eedff80e191223cba"
+  },
+  "canonical-source-identity.json": {
+    "bytes": 382,
+    "sha256": "c704be0c715519e184e13e98ec2532e0ea55159ad16f27af3485a797db718124"
+  },
+  "drain-admission.patch": {
+    "bytes": 3588,
+    "sha256": "f4afee2ba9fa661ee503cdbb52c82d7dafa4f173119d9d2de27d650eb45ed8a9"
+  },
+  "drain-fifo-admission.patch": {
+    "bytes": 8391,
+    "sha256": "62c2abcadfab301800cc196a28cfeeecafc91d3d01827e5e83b783a6d8e7153e"
+  },
+  "fifo-WaterRuntime.java": {
+    "bytes": 42447,
+    "sha256": "8ca0d657c403d4a65118202ad34cd9e6ffa0aee5ff5f125861f98e9a41ae3ee8"
+  },
+  "fifo-build-audit.json": {
+    "bytes": 1163,
+    "sha256": "98ac950520774fef1828ca71653dd100a015570670500d88fdfe019904b46c18"
+  },
+  "fifo-core-records.txt": {
+    "bytes": 1770,
+    "sha256": "139877b2b34e3f4a7afbed6dfdc1d19da0719e00b26b8682c1bc6c88fff4d08e"
+  },
+  "finish_validation.py": {
+    "bytes": 4560,
+    "sha256": "3840ebae5199b0069e1314814637c1036df5e0cb5015fe2c39f167b5de4319fb"
+  },
+  "inspected-crashes.json": {
+    "bytes": 8939,
+    "sha256": "ef495f5ec300f1364ef20520bcb09f289183151cf8a6fae5af6acdf5508a6b0d"
+  },
+  "isolation-source-audit.json": {
+    "bytes": 930,
+    "sha256": "9b0b3ed03917b714e5df98ecdce68a05209eaf50ac5c30abef0e9eeb794a73a5"
+  },
+  "matched-output-controls.json": {
+    "bytes": 2212,
+    "sha256": "43302feb12107c2f9d4dbee59b68079c3d44ceb9c5332e94e671cb6d1f1f1b16"
+  },
+  "native-excerpts.txt": {
+    "bytes": 73460,
+    "sha256": "7c5d203524309661621a3c5d0b0c581079f3598a52ab06c8175effd62a764290"
+  },
+  "native-results.json": {
+    "bytes": 24044,
+    "sha256": "78e0d34bed2c96b67cc97990669dc96f4a61b6457c0b1bca5d6a1b6012e856ce"
+  },
+  "package-post-native.json": {
+    "bytes": 252,
+    "sha256": "2a076e3d95958b90901583f233054b71e30e0a90260f2888e97c2f234f06d8a0"
+  },
+  "prepare_admission_candidate.py": {
+    "bytes": 2933,
+    "sha256": "fc8333b500d7042737abdb5583bc63b2daaeee33218b4707601bc30a63a875ff"
+  },
+  "prepare_fifo_candidate.py": {
+    "bytes": 4778,
+    "sha256": "b72ecab55ebec30a7a46f16b43e51dfb429372e2f04d1c0a30be8f6dc67e6958"
+  },
+  "prepare_quiet_candidate.py": {
+    "bytes": 3960,
+    "sha256": "a402f31c957fa1fd0e794e17ff1b8148073535b08e46bdebd863e18adab3a7a2"
+  },
+  "quiet-component.patch": {
+    "bytes": 5668,
+    "sha256": "2507e20af910688b88df1dcc6967e79e9baeae46567db3d9fde84020700155b7"
+  },
+  "run_fifo_safety.py": {
+    "bytes": 1458,
+    "sha256": "b16f2b510515eff3cab958195a8070b89589d4b3385a7b7c771c1592b5c4fcd7"
+  },
+  "run_native.py": {
+    "bytes": 4567,
+    "sha256": "9a7a27079a974121b9f03c0a0b1f0e7f58d213f20c9cc2d4c95db53598820ff1"
+  },
+  "staging-verification.json": {
+    "bytes": 196,
+    "sha256": "5f95b2991c3ea9f56dbe905c923f222e14cad5944be80b616977f6402c89a4e9"
+  },
+  "summary.json": {
+    "bytes": 412,
+    "sha256": "135cba9dcafe45626ef7e887d6326b77aa644d1fb0c01285008d7057b15b5f60"
+  },
+  "unchanged-transport-bodies.json": {
+    "bytes": 1850,
+    "sha256": "7d6fc5c8263d67a0784fd30bae04fae61e2924fd22f0df64aa5418e39946476e"
+  }
+}

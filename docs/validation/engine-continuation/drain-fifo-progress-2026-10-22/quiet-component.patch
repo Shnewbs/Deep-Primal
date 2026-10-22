@@ -1,0 +1,114 @@
+--- a/WaterRuntime.java
++++ b/WaterRuntime.java
+@@ -49,7 +49,7 @@
+     final LongLinkedOpenHashSet loadedDrainChunks = new LongLinkedOpenHashSet();
+     boolean drainLoadOverflow;
+     int drainReadyProbes;
+-    int drainRestarts, drainCompleted, drainSaturated, maxDrainSlice;
++    int drainRestarts, drainCompleted, drainSaturated, maxDrainSlice, drainCoalesced;
+     int pressureRestarts, pressureCompleted, pressureSaturated, maxPressureSlice, pressureCoalesced;
+     int pressureHeadRefreshes, pressureHeadDeferrals;
+   }
+@@ -64,11 +64,14 @@
+     final LongOpenHashSet chunks = new LongOpenHashSet();
+     final LongOpenHashSet missingChunks = new LongOpenHashSet();
+     int head, tail;
+-    boolean invalidated, saturated;
+-
+-    DrainJob(BlockPos origin) {
++    boolean invalidated, saturated, quiet;
++    final int quietUnits;
++
++    DrainJob(BlockPos origin, int amount, boolean supported) {
+       this.origin = origin.immutable();
+       seen.add(origin.asLong());
++      quietUnits = amount;
++      quiet = supported;
+     }
+   }
+ 
+@@ -241,6 +244,11 @@
+     boolean volumeOnly = before.is(EngineRegistry.WATER_BLOCK.get())
+         && after.is(EngineRegistry.WATER_BLOCK.get());
+     if (volumeOnly && before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))) return;
++    // A settled-component proof needs unchanged amounts, even when connectivity
++    // survives a partial-to-partial write. Conservatively revoke it for the chunk.
++    var drainWatchers = budget.drainChunks.get(
++        net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4));
++    if (drainWatchers != null) for (var job : drainWatchers) job.quiet = false;
+     // Drain witnesses depend on open passages and available capacity, not the exact
+     // positive volume in a still-partial cell. Full/partial transitions do change exits.
+     if (!volumeOnly || (before.getValue(EngineFluid.UNITS) == WaterTransport.CAPACITY)
+@@ -276,17 +284,17 @@
+   }
+ 
+   public record DrainDiagnostics(int jobs, int retainedNodes, int watchedChunks, int restarts,
+-      int completed, int saturated, int maxSliceVisits, int waitingJobs, int waitingChunks, int waitingLinks, int readyProbes, int readyPending) {}
++      int completed, int saturated, int maxSliceVisits, int waitingJobs, int waitingChunks, int waitingLinks, int readyProbes, int readyPending, int coalesced) {}
+ 
+   public static DrainDiagnostics drainDiagnostics(ServerLevel level) {
+     Budget budget = BUDGETS.get(level);
+-    if (budget == null) return new DrainDiagnostics(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
++    if (budget == null) return new DrainDiagnostics(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+     int nodes = 0;
+     for (var job : budget.drains.values()) nodes += job.seen.size();
+     return new DrainDiagnostics(budget.drains.size(), nodes, budget.drainChunks.size(),
+         budget.drainRestarts, budget.drainCompleted, budget.drainSaturated, budget.maxDrainSlice,
+         budget.waitingDrains.size(), budget.drainWakeChunks.size(), budget.drainWaitLinks,
+-        budget.drainReadyProbes, budget.loadedDrainChunks.size());
++        budget.drainReadyProbes, budget.loadedDrainChunks.size(), budget.drainCoalesced);
+   }
+ 
+   public record PressureDiagnostics(int jobs, int retainedNodes, int watchedChunks, int restarts,
+@@ -550,7 +558,7 @@
+       activate(l, origin);
+       return false;
+     }
+-    job = new DrainJob(origin);
++    job = new DrainJob(origin, units(l, origin), !open(l, origin.below()));
+     budget.drains.put(job.origin, job);
+     watch(budget, job, origin);
+     for (int side = 0; side < SIDES.length; side++) {
+@@ -592,8 +600,11 @@
+       long firstDry = job.firstDry[job.head++];
+       visits++; budget.drainVisits++;
+       if (!open(l, p)) { job.invalidated = true; break; }
++      if (units(l, p) != job.quietUnits) job.quiet = false;
+       q.set(p.getX(), p.getY() - 1, p.getZ());
+-      if (drainOpen(l, q, job, budget) && units(l, q) < WaterTransport.CAPACITY) {
++      boolean belowOpen = drainOpen(l, q, job, budget);
++      if (belowOpen) job.quiet = false;
++      if (belowOpen && units(l, q) < WaterTransport.CAPACITY) {
+         var target = firstDry == origin.asLong() ? q.immutable() : BlockPos.of(firstDry);
+         int from = units(l, origin);
+         budget.maxDrainSlice = Math.max(budget.maxDrainSlice, visits);
+@@ -637,12 +648,29 @@
+     }
+     budget.maxDrainSlice = Math.max(budget.maxDrainSlice, visits);
+     if (!job.invalidated && job.head == job.tail) {
++      if (job.quiet && !job.saturated && job.missingChunks.isEmpty())
++        coalesceQuietDrains(budget, job);
+       finish(budget, job);
+       budget.drainCompleted++;
+       if (job.saturated) budget.drainSaturated++;
+       if (!job.missingChunks.isEmpty()) waitForDrainChunks(l, origin, job.missingChunks, budget);
+     }
+     return false;
++  }
++
++  /** A complete unchanged witness proves every cell has no local transport left. */
++  private static void coalesceQuietDrains(Budget budget, DrainJob complete) {
++    // At most 8192 keys and 16 resident jobs. No world reads or retained cache:
++    // normal neighbor/edit activation can immediately wake this component again.
++    for (long key : complete.seen)
++      if (budget.active.remove(key)) budget.drainCoalesced++;
++    var overlaps = new ArrayList<DrainJob>();
++    for (var job : budget.drains.values())
++      if (job != complete && complete.seen.contains(job.origin.asLong())) overlaps.add(job);
++    for (var job : overlaps) {
++      finish(budget, job);
++      budget.drainCoalesced++;
++    }
+   }
+ 
+   private static boolean move(ServerLevel l, BlockPos a, BlockPos b, boolean down) {

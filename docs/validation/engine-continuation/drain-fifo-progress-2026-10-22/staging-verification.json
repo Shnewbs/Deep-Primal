@@ -1,0 +1,6 @@
+{
+  "staged_runtime_and_four_fixtures_match_executed_inputs": true,
+  "focused_patch_applies_to_prior_ticket_source": true,
+  "patched_bytes_match_canonical": true,
+  "installer_release": false
+}
