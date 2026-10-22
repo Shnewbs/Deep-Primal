@@ -96,7 +96,7 @@ public final class WorldCreationChecks {
     report(
         "WORLD_CREATION_FORM_PASS mode=" + mode + " prepareMs=" + (System.nanoTime() - prep) / 1e6);
     var ui = screen.getUiState();
-    ui.setName("Alpha19-engine-check");
+    ui.setName(System.getProperty("deepprimal.validationCreationName", "Alpha19-engine-check"));
     ui.setSeed("20261020");
     ui.setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE);
     ui.setAllowCommands(true);
@@ -199,8 +199,12 @@ public final class WorldCreationChecks {
             mc.getSingleplayerServer().overworld().getChunkSource().getGenerator()
                 instanceof EngineChunkGenerator,
             "UI-created world uses our engine");
+        var generator =
+            (EngineChunkGenerator)
+                mc.getSingleplayerServer().overworld().getChunkSource().getGenerator();
+        require(generator.geography().revision == 3, "Fresh creation selects V3 geography");
         report(
-            "WORLD_CREATION_JOIN_PASS backend="
+            "WORLD_CREATION_JOIN_PASS revision=3 backend="
                 + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName());
         mc.disconnectWithSavingScreen();
         report("WORLD_CREATION_PASS");

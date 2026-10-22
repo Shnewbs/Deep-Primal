@@ -34,6 +34,7 @@ public final class EngineRegistry {
   public static void register(IEventBus bus) {
     GENERATORS.register("continental_v1", () -> EngineChunkGenerator.CODEC);
     GENERATORS.register("continental_v2", () -> EngineChunkGenerator.CODEC_V2);
+    GENERATORS.register("continental_v3", () -> EngineChunkGenerator.CODEC_V3);
     BIOMES.register("regional_v1", () -> RegionBiomeSource.CODEC);
     GENERATORS.register(bus);
     BIOMES.register(bus);

@@ -1,4 +1,4 @@
-# Runtime modules — alpha 23
+# Runtime modules — alpha 24
 
 The standard installer remains one JAR. It contains separately built nested JARs with one owner for each config, mixin and runtime service.
 
@@ -17,7 +17,7 @@ The Vulkan implementation imports no worldgen, horizon or performance-engine cod
 
 ## Builds
 
-- Default lean installer: `./gradlew build` → `DeepPrimal-26.1.2-0.0.1-alpha.22.jar`. Includes core, common performance, graphics and LOD; no Vulkan natives.
+- Default lean installer: `./gradlew build` → `DeepPrimal-26.1.2-0.0.1-alpha.24.jar`. Includes core, common performance, graphics and LOD; no Vulkan natives.
 - Platform bundle: `./gradlew build -PvulkanPlatform=windows` (or `linux`, `macos`, `macos-arm64`) → a distinctly classified `-vulkan-<platform>.jar` containing the optional adapter and only that platform's shaderc/VMA natives; MoltenVK only on macOS.
 - `-PwithoutVulkan` excludes the optional Vulkan project entirely. Without it, the default build can still compile/check the optional module without nesting it into the root installer.
 - `-PwithoutLod` omits the LOD runtime from the installer and development mod list. Output gets a distinct `-no-lod` suffix (also composable with Vulkan platform bundles). Graphics settings and world generation remain available.

@@ -19,6 +19,8 @@ import net.neoforged.neoforge.common.NeoForge;
 @Mod(value = "deepprimal", dist = Dist.CLIENT)
 public final class GraphicsMenuChecks {
   private int stage, ticks;
+  private long began;
+  private volatile boolean screenshotPending;
   private final StringBuilder record = new StringBuilder();
 
   public GraphicsMenuChecks() {
@@ -185,18 +187,41 @@ public final class GraphicsMenuChecks {
     if (!Boolean.getBoolean("deepprimal.validationGraphics")) return;
     var mc = Minecraft.getInstance();
     try {
+      if (began == 0) began = System.nanoTime();
+      if (System.nanoTime() - began > 120_000_000_000L)
+        throw new AssertionError(
+            "Graphics check timed out at stage "
+                + stage
+                + " screen="
+                + (mc.screen == null ? "null" : mc.screen.getClass().getName()));
+      if (stage == 0
+          && mc.getOverlay() == null
+          && mc.screen instanceof AccessibilityOnboardingScreen) {
+        mc.screen.onClose();
+        return;
+      }
       if (stage == 0 && mc.screen instanceof TitleScreen && mc.getOverlay() == null) {
+        String backend = com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName();
+        if ("Vulkan".equals(System.getProperty("deepprimal.graphicsBackend")))
+          require(backend.equals("Vulkan"), "Graphics menu must use requested Vulkan backend");
         check(mc);
+        record.append("GRAPHICS_BACKEND_PASS backend=").append(backend).append('\n');
         stage = 1;
         ticks = 0;
       } else if (stage == 1 && ++ticks > 25 && mc.getOverlay() == null) {
         Path out = Path.of(System.getProperty("deepprimal.validationCapture"));
         Files.createDirectories(out);
-        Screenshot.grab(out.toFile(), "graphics-menu.png", mc.getMainRenderTarget(), 1, m -> {});
+        screenshotPending = true;
+        Screenshot.grab(
+            out.toFile(),
+            "graphics-menu.png",
+            mc.getMainRenderTarget(),
+            1,
+            m -> screenshotPending = false);
         Files.writeString(out.resolve("graphics-result.txt"), record);
         System.out.print(record);
         stage = 2;
-      } else if (stage == 2 && ++ticks > 40) {
+      } else if (stage == 2 && ++ticks > 40 && !screenshotPending) {
         stage = 3;
         mc.stop();
       }

@@ -27,6 +27,16 @@ final class GuiOrientationChecks {
                 for (String cmd :
                     new String[] {"gamemode survival @a", "time set noon", "weather clear"})
                   s.getCommands().performPrefixedCommand(s.createCommandSourceStack(), cmd);
+                int floor =
+                    s.overworld()
+                        .getHeight(
+                            net.minecraft.world.level.levelgen.Heightmap.Types
+                                .MOTION_BLOCKING_NO_LEAVES,
+                            0,
+                            0);
+                s.getCommands()
+                    .performPrefixedCommand(
+                        s.createCommandSourceStack(), "tp @a 0.5 " + (floor + 2) + " 0.5");
                 for (var p : s.getPlayerList().getPlayers()) {
                   p.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
                   p.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));

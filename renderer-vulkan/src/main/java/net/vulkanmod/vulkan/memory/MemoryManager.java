@@ -1,5 +1,5 @@
 // VulkanMod 0.6.8+26.1.2, Collateral and contributors. LGPL-3.0-only.
-// Reconstructed from the matching published artifact; modified for Deep Primal on 2026-10-19.
+// Reconstructed from the matching published artifact; modified for Deep Primal on 2026-10-22.
 package net.vulkanmod.vulkan.memory;
 
 import it.unimi.dsi.fastutil.longs.Long2ReferenceOpenHashMap;
@@ -74,7 +74,21 @@ public class MemoryManager {
   }
 
   public void freeAllBuffers() {
-    for (int frame = 0; frame < Frames; frame++) doFrameOps(frame);
+    // Client executors have already stopped. A rejected screenshot/readback consumer must
+    // not prevent later native-resource completions or the allocator's tracked releases.
+    for (int frame = 0; frame < Frames; frame++) {
+      var operations = this.frameOps[frame];
+      for (int i = 0; i < operations.size(); i++) {
+        try {
+          operations.get(i).run();
+        } catch (RuntimeException failure) {
+          Initializer.LOGGER.warn(
+              "Deferred GPU completion failed during shutdown; continuing resource release",
+              failure);
+        }
+      }
+      operations.clear();
+    }
     for (int frame = 0; frame < Frames; frame++) {
       freeBuffers(frame);
       freeImages(frame);

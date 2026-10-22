@@ -29,10 +29,15 @@ public final class WaterPatchMesher {
   private float[] vertices = new float[8192];
   private int size;
   private final Snapshot current, previous;
+  private final float[] currentCorners = new float[17 * 16 * 17];
+  private final float[] previousCorners;
 
   private WaterPatchMesher(Snapshot current, Snapshot previous) {
     this.current = current;
     this.previous = previous == null ? current : previous;
+    Arrays.fill(currentCorners, Float.NaN);
+    previousCorners = this.previous == current ? currentCorners : new float[currentCorners.length];
+    if (previousCorners != currentCorners) Arrays.fill(previousCorners, Float.NaN);
   }
 
   public static Mesh build(Snapshot current, Snapshot previous, boolean smooth) {
@@ -45,7 +50,8 @@ public final class WaterPatchMesher {
           if (current.water(x, y, z) == 0 && m.previous.water(x, y, z) == 0) continue;
           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
           if (top || oldTop) {
-            int sub = smooth && (!m.flat(current, x, y, z) || !m.flat(m.previous, x, y, z)) ? 2 : 1;
+            int sub =
+                smooth && (!m.planar(current, x, y, z) || !m.planar(m.previous, x, y, z)) ? 2 : 1;
             for (int iz = 0; iz < sub; iz++)
               for (int ix = 0; ix < sub; ix++) {
                 float a = ix / (float) sub,
@@ -100,36 +106,43 @@ public final class WaterPatchMesher {
         && (!s.solid(x + dx, y + dy, z + dz) || (face == 0 && amount < 16));
   }
 
-  private static float corner(Snapshot s, int x, int y, int z) {
+  private float corner(Snapshot s, int x, int y, int z) {
+    int key = (y * 17 + z) * 17 + x;
+    float[] corners = s == current ? currentCorners : previousCorners;
+    float cached = corners[key];
+    if (!Float.isNaN(cached)) return cached;
     float sum = 0;
     int count = 0;
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         int n = s.water(x + dx, y, z + dz);
-        if (n == 0) continue;
-        if (s.water(x + dx, y + 1, z + dz) > 0) return 1;
-        sum += n / 16f;
+        double height =
+            WaterTransport.surfaceColumn(
+                n == 0 ? s.water(x + dx, y - 1, z + dz) : 0,
+                n,
+                n > 0 ? s.water(x + dx, y + 1, z + dz) : 0);
+        if (!Double.isFinite(height)) continue;
+        sum += (float) height;
         count++;
       }
-    return count == 0 ? 0 : sum / count;
+    return corners[key] = count == 0 ? 0 : sum / count;
   }
 
-  private static float height(Snapshot s, int x, int y, int z, float u, float v) {
+  private float height(Snapshot s, int x, int y, int z, float u, float v) {
     float a = corner(s, x, y, z),
         b = corner(s, x + 1, y, z),
         c = corner(s, x, y, z + 1),
         d = corner(s, x + 1, y, z + 1);
-    float center = s.water(x, y + 1, z) > 0 ? 1 : s.water(x, y, z) / 16f;
-    if (a + b + c + d + center == 0) return 0;
-    return (float) WaterTransport.surface(a, b, c, d, center, u, v);
+    return (float) WaterTransport.surface(a, b, c, d, 0, u, v);
   }
 
-  private boolean flat(Snapshot s, int x, int y, int z) {
-    float h = s.water(x, y, z) / 16f;
-    return Math.abs(corner(s, x, y, z) - h) < .00001
-        && Math.abs(corner(s, x + 1, y, z) - h) < .00001
-        && Math.abs(corner(s, x, y, z + 1) - h) < .00001
-        && Math.abs(corner(s, x + 1, y, z + 1) - h) < .00001;
+  private boolean planar(Snapshot s, int x, int y, int z) {
+    return Math.abs(
+            corner(s, x, y, z)
+                - corner(s, x + 1, y, z)
+                - corner(s, x, y, z + 1)
+                + corner(s, x + 1, y, z + 1))
+        < .00001;
   }
 
   private void vertex(
@@ -145,7 +158,8 @@ public final class WaterPatchMesher {
             | ((int) (((color >> 16) & 255) * shade) << 16)
             | ((int) (((color >> 8) & 255) * shade) << 8)
             | (int) ((color & 255) * shade);
-    float textureU = (face == 2 || face == 4) ? v : u, textureV = face == 0 ? v : 1 - target;
+    float textureU = (face == 2 || face == 4) ? v : u,
+        textureV = face == 0 ? v : Math.clamp(1 - target, 0, 1);
     vertices[size++] = x + u;
     vertices[size++] = y;
     vertices[size++] = z + v;

@@ -48,6 +48,10 @@ public final class WaterMeshChecks {
   public void tick(ClientTickEvent.Post event) {
     if (!Boolean.getBoolean("deepprimal.validationFilling")) return;
     var mc = Minecraft.getInstance();
+    if (Boolean.getBoolean("deepprimal.validationWaterShape")) {
+      WaterShapeChecks.tick(mc);
+      return;
+    }
     if (Boolean.getBoolean("deepprimal.validationOceanWater")) {
       OceanWaterChecks.tick(mc);
       return;

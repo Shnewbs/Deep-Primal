@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "status": "ready_for_continuation",
+  "updated_at": "2026-10-22T06:27:15.132033+00:00",
+  "active_until": "2026-10-22T06:27:15.132033+00:00",
+  "source_ref": "work/engine-after-alpha24",
+  "candidate_version": "0.0.1-alpha.24",
+  "candidate_released": true,
+  "acceptance_complete": false,
+  "current_gate": "Alpha.24 increment built, audited and supplied; V3 geography is now frozen. Continue the open engine requirements on the working branch.",
+  "next_items": [
+    "Reproduce enabled-view distant water/page artifacts with fixed-camera A/B of waves, animated/fallback water, near geometry and LOD; preserve coverage under memory pressure",
+    "Implement bounded persistent pressure/drain continuation with a sealed U-bend longer than 128 nodes and edit/unload/conservation regressions",
+    "Implement explicit finite/renewable watershed, glacier/snowmelt, aquifer and ocean/atmosphere budgets",
+    "Improve terrain variety and coherent geological/material fields; a geographic change after delivered V3 requires a new saved revision",
+    "Continue LOD hierarchy/coverage, mixed transparency and editable-world performance acceptance"
+  ],
+  "rules": [
+    "Use docs/ENGINE-BUILD-AUDIT-HANDOFF.md and the requirement register",
+    "Use an isolated directory and a guarded expected-parent/ref update; preserve unrelated changes",
+    "Keep the stable branch and supplied installers intact until new work passes its acceptance checks",
+    "Preserve published V1/V2/V3 geography and player edits; bump saved terrain revision for changed geography",
+    "Do not declare engine completion or performance superiority from isolated fixtures",
+    "Keep hourly updates active and report only verified progress"
+  ]
+}

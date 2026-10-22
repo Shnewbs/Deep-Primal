@@ -30,7 +30,8 @@
     "client.SnowFoliageMixin",
     "client.WaterFogMixin",
     "client.FluidModelAccess",
-    "client.WaterPresentationMixin"
+    "client.WaterPresentationMixin",
+    "client.WaterSectionBoundsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

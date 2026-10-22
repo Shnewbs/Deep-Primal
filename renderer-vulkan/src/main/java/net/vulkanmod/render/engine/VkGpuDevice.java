@@ -332,10 +332,14 @@ public class VkGpuDevice implements GpuDeviceBackend {
   @Override
   public void close() {
     this.clearPipelineCache();
-    net.vulkanmod.Initializer.LOGGER.info(
-        "VULKAN_OPERATION_COUNTS {}", net.vulkanmod.vulkan.VulkanStatistics.snapshot());
-    Vulkan.cleanUp();
-    current = null;
+    try {
+      Vulkan.cleanUp();
+    } finally {
+      // Include destruction-time validation failures, not only the last rendered frame.
+      net.vulkanmod.Initializer.LOGGER.info(
+          "VULKAN_OPERATION_COUNTS {}", net.vulkanmod.vulkan.VulkanStatistics.snapshot());
+      current = null;
+    }
   }
 
   @Override

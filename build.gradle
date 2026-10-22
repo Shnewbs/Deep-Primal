@@ -30,6 +30,7 @@ neoForge {
             gameDirectory = project.file(findProperty('clientRunDir') ?: 'run')
             if (project.hasProperty('worldCreationValidation')) {
                 systemProperty 'deepprimal.validationWorldCreation','true'
+                if(project.hasProperty('creationName')) systemProperty 'deepprimal.validationCreationName',project.property('creationName')
                 systemProperty 'deepprimal.validationCreationMode',findProperty('creationMode') ?: 'fresh'
                 systemProperty 'deepprimal.validationCapture',project.file(findProperty('captureDir') ?: 'build/world-creation-validation').absolutePath
                 programArguments.addAll '--width','1200','--height','800'
@@ -46,6 +47,8 @@ neoForge {
             }
             if (project.hasProperty('engineValidation')) { systemProperty 'deepprimal.validationEngine', 'true'; programArguments.addAll '--width','1200','--height','800' }
             if (project.hasProperty('fillingValidation')) { systemProperty 'deepprimal.validationFilling', 'true'; programArguments.addAll '--width','1200','--height','800' }
+            if(project.hasProperty('waterShapeValidation')) systemProperty 'deepprimal.validationWaterShape','true'
+            if(project.hasProperty('waterShapeBefore')) systemProperty 'deepprimal.validationOldSurface','true'
             if (project.hasProperty('animatedWaterValidation')) systemProperty 'deepprimal.validationAnimatedWater', 'true'
             if (project.hasProperty('guiOrientationValidation')) systemProperty 'deepprimal.validationGuiOrientation', 'true'
             if (project.hasProperty('oceanWaterValidation')) systemProperty 'deepprimal.validationOceanWater', 'true'
