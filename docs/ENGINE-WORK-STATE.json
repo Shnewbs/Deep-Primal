@@ -1,19 +1,20 @@
 {
   "schema": 1,
-  "status": "scheduled_active",
-  "updated_at": "2026-10-22T10:32:00Z",
-  "active_until": "2026-10-22T11:10:00Z",
+  "status": "ready_for_continuation",
+  "updated_at": "2026-10-22T10:55:00Z",
+  "active_until": "2026-10-22T10:55:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Isolated implementation of bounded persistent pressure continuation; retain source and native conservation/edit/unload evidence.",
+  "current_gate": "Unreleased pressure-continuation candidate: long bends, silent wall edits, actual unload/no-force-load, idle/reopen, existing filling/pressure and full non-Vulkan build/core checks pass. PROMOTION BLOCKED: paired 1000-tick basin median/p95 17.092/27.239ms vs baseline15.595/24.754ms; pending7093 vs3676. No stable merge or installer release.",
   "next_items": [
-    "Implement fair bounded persistent pressure/drain continuation. Native sealed 262-cell bend stops at 128 visits and remains unequal after 120 ticks; require eventual rise plus edit/unload/conservation and idle-budget acceptance.",
-    "Restore display/optional Vulkan environment and verify nearest-first page admission under enabled-view memory pressure, teleports, edits and reloads; remaining unresident-page fallback and mixed transparency are open",
-    "Implement explicit finite/renewable watershed, glacier/snowmelt, aquifer and ocean/atmosphere budgets",
-    "Improve terrain variety and coherent geological/material fields; a geographic change after delivered V3 requires a new saved revision",
-    "Continue LOD hierarchy/coverage, mixed transparency and editable-world performance acceptance"
+    "Profile and reduce duplicate/overlapping pressure searches, restart churn and admission backlog. Revalidate the paired 1000-tick basin, long bends, wall edits, actual unload/no-force-load and idle/reopen before promotion. Current performance regression is a release/main blocker.",
+    "Extend bounded drain continuation and pressure behavior beyond the 8192-node/job residency boundary; 16 jobs/level currently cap memory, and saturation is still unresolved for larger connected regions.",
+    "Restore display/optional Vulkan environment and verify enabled-view water/LOD coverage under memory pressure, teleports, edits and reloads; fallback gaps and mixed transparency remain open",
+    "Implement explicit renewable regional reservoirs plus finite local water, perennial/seasonal supply, depletable wells and accounted ocean recycling; source safety/strict depletion remain optional",
+    "Improve terrain variety and coherent geology/material fields; preserve delivered V1/V2/V3 geography and require a new saved revision for geographic changes",
+    "Continue LOD hierarchy/coverage and editable-world performance acceptance; catalog/species work remains separately deferred"
   ],
   "rules": [
     "Use docs/ENGINE-BUILD-AUDIT-HANDOFF.md and the requirement register",
@@ -24,7 +25,11 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-build-access-and-native-pressure.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore",
-  "worker": "scheduled-pressure-a22609fabda0"
+  "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-pressure-continuation.md",
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore/pressure-continuation",
+  "promotion_blockers": [
+    "Fresh paired basin tick-cost regression and larger unresolved queue",
+    "Pressure residency saturation and general drain continuation remain incomplete",
+    "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open"
+  ]
 }

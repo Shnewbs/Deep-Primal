@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Execute the production pressure-search body in a sealed in-memory U-bend.
 
+Historical fixture for pre-continuation source: use --root with that checkout.
+The retained-frontier implementation uses native LongPressureChecks instead.
 Requires JDK 25. This is a source-extracted algorithm reproduction, not a native
 Minecraft test. Exit zero means the documented defect was reproduced unless
 --expect-fixed is supplied. The result label deliberately does not say PASS.
@@ -31,6 +33,9 @@ def main():
     parser.add_argument("--expect-fixed", action="store_true")
     args = parser.parse_args()
     source = (args.root / "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java").read_text()
+    if "class PressureJob" in source:
+        parser.error("Historical fixture: pass --root with the pre-continuation checkout; "
+                     "use native LongPressureChecks for retained-frontier acceptance")
     limit = int(re.search(r"PRESSURE_SEARCH = (\d+)", source).group(1))
     pressure = body(source, source.index("private static boolean equalize("))
     surface = body(source, source.index("private static boolean surface("))
