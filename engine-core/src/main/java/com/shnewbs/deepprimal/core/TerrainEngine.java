@@ -19,6 +19,7 @@ public final class TerrainEngine {
       double flowZ,
       double speed,
       int rock) {
+    public Sample withSlope(double value) { return new Sample(ground,water,rain,temperature,value,sediment,flowX,flowZ,speed,rock); }
     public boolean wet() {
       return Double.isFinite(water);
     }
@@ -35,12 +36,16 @@ public final class TerrainEngine {
       new java.util.concurrent.ConcurrentHashMap<>();
   private final LinkedHashMap<Long, Drainage> cache = new LinkedHashMap<>(16, .75f, true);
 
+  private record Planned(long key,WatershedRegion region) {}
+  private volatile Planned lastWatershed;
+  private final LinkedHashMap<Long,WatershedRegion> watersheds=new LinkedHashMap<>(8,.75f,true);
+
   public TerrainEngine(long seed) {
     this(seed, 1);
   }
 
   public TerrainEngine(long seed, int revision) {
-    if (revision < 1 || revision > 2) throw new IllegalArgumentException("Terrain revision");
+    if (revision < 1 || revision > 3) throw new IllegalArgumentException("Terrain revision");
     this.revision = revision;
     noise = new TerrainNoise(seed);
   }
@@ -125,6 +130,10 @@ public final class TerrainEngine {
   }
 
   private double raw(double m, double x, double z) {
+    if(m<0&&revision>=3){
+      double shelf=smooth(-m/.12);
+      return SEA-3-44*shelf-85*smooth((-m-.12)/.55)+noise.field(x,z,270,33)*13*shelf;
+    }
     if (m < 0)
       return SEA
           - 5
@@ -155,9 +164,26 @@ public final class TerrainEngine {
     return d;
   }
 
-  public synchronized int cachedRegions() {
-    return cache.size();
+  private WatershedRegion watershed(Land l){
+    long key=((long)l.x<<32)^(l.z&0xffffffffL);
+    Planned last=lastWatershed;
+    return last!=null&&last.key==key?last.region:loadWatershed(l,key);
   }
+  private synchronized WatershedRegion loadWatershed(Land l,long key){
+    var d=watersheds.get(key);
+    if(d==null){
+      d=new WatershedRegion(l.cx-CELL/2.,l.cz-CELL/2.,(x,z)->raw(l,x,z),this::rainfall);
+      watersheds.put(key,d);
+      while(watersheds.size()>6)watersheds.remove(watersheds.keySet().iterator().next());
+    }
+    lastWatershed=new Planned(key,d);return d;
+  }
+  public WatershedRegion waterways(double x,double z){
+    if(revision<3)throw new IllegalStateException("Watershed geometry requires revision 3");
+    return watershed(locate(x,z).land);
+  }
+  public synchronized int cachedRegions(){return revision>=3?watersheds.size():cache.size();}
+
 
   public int biome(double x, double z) {
     double h = raw(x, z),
@@ -172,16 +198,23 @@ public final class TerrainEngine {
     return forest(x, z) > .45 && r > .5 ? 1 : 0;
   }
 
-  public Sample sample(double x, double z) {
+  public Sample sample(double x,double z){return sample(x,z,true);}
+  /** Bulk V3 callers derive shaped slope from a shared halo; legacy metadata remains exact. */
+  public Sample column(double x,double z){return sample(x,z,revision<3);}
+  private Sample sample(double x,double z,boolean gradient){
     Location location = locate(x, z);
     Land l = location.land;
     double ground = raw(location.mask, x, z), uncut = ground, rain = rainfall(x, z);
     double temperature =
         Math.clamp(.62 + noise.field(x, z, 6500, 85) * .4 - Math.max(0, ground - 160) / 420, 0, 1);
     double slope =
-        Math.hypot(raw(l, x + 3, z) - raw(l, x - 3, z), raw(l, x, z + 3) - raw(l, x, z - 3)) / 6;
+        gradient ? Math.hypot(raw(l, x + 3, z) - raw(l, x - 3, z), raw(l, x, z + 3) - raw(l, x, z - 3)) / 6 : 0;
     int rock = (int) Math.floor((noise.field(x, z, 1500, 91) + 1) * 2.5) % 4;
-    if (ground < SEA) return new Sample(ground, SEA, rain, temperature, slope, 1, 0, 0, 0, rock);
+    if(ground<SEA&&(revision<3||location.mask<0))return new Sample(revision>=3?Math.min(ground,SEA-1.001):ground,SEA,rain,temperature,slope,1,0,0,0,rock);
+    if(revision>=3){
+      var v=watershed(l).sample(x,z,ground);
+      return new Sample(v.ground(),v.water(),rain,temperature,slope,v.sediment(),v.flowX(),v.flowZ(),v.speed(),rock);
+    }
     Drainage d = plan(l);
     int gx = (int) Math.floor((x - d.ox) / STEP), gz = (int) Math.floor((z - d.oz) / STEP);
     double water = Double.NaN, fx = 0, fz = 0, speed = 0, sediment = 0, best = Double.MAX_VALUE;
@@ -254,7 +287,8 @@ public final class TerrainEngine {
     return a * a + b * b < .012;
   }
 
-  public void verify(double x, double z) {
+  public void verify(double x,double z){
+    if(revision>=3){waterways(x,z).verify();return;}
     Drainage d = plan(locate(x, z).land);
     for (int a = 0; a < COUNT; a++) {
       int b = d.parent[a];
