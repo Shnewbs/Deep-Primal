@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T12:52:00Z",
-  "active_until": "2026-10-22T12:52:00Z",
+  "status": "foreground_active",
+  "updated_at": "2026-10-22T13:02:28.858582+00:00",
+  "active_until": "2026-10-22T14:02:28.858582+00:00",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Unreleased active-water FIFO allocation fix: native 65536-cell cap/order/mutable/overflow controls reduce warmed 262144-admission allocation 17197016 -> 304 bytes; 21 native cases, full non-Vulkan core/module build and class/CRC/packaged filling checks pass. No stable promotion: basin timing/output vary, ~6100 entries remain, residency/drain and broader engine gates stay open.",
+  "current_gate": "Implement a closed native finite-water replay and reproduce/fix bounded drain continuation without changing delivered geography. Keep promotion blocked on exact conservation, safe edit/unload, full build and matched cost evidence.",
   "next_items": [
     "Establish a deterministic fully loaded closed-basin native replay or explicit boundary-flux ledger, then compare conserved output, settling, latency and memory against pre-continuation/current source. Current open-boundary basin final water-state digests vary even on unchanged-revision repeats; do not certify broad performance from them. Profile remaining pressure/drain churn; preserve FIFO cap/order/mutable/overflow and long/head/edit/unload/idle/reopen regressions.",
     "Extend bounded drain continuation and pressure behavior beyond the 8192-node/job residency boundary; 16 jobs/level currently cap memory, and saturation is still unresolved for larger connected regions.",
@@ -31,5 +31,6 @@
     "Thousands of active-basin pending entries remain; final output varies across unchanged-revision repeats, so complete settling, exact output, broad latency and resident-memory acceptance remain unproven",
     "Pressure residency saturation and general drain continuation remain incomplete",
     "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open; display/optional Vulkan environment remains unavailable"
-  ]
+  ],
+  "worker": "foreground-closed-basin-drain-98befbcef095"
 }
