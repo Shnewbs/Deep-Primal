@@ -1,50 +1,37 @@
 # Active engine audit — alpha.24 candidate
 
-## Recovery checkpoint — 2026-10-22 04:25 UTC
+Status: 2026-10-22 05:06 UTC. Candidate source is checkpointed on [audit/alpha24-recovery](https://github.com/Shnewbs/Deep-Primal/tree/audit/alpha24-recovery), currently `0bcb01bbd002c2474a6dff91891aa7e1951d3f2f`. No alpha.24 installer has been released.
 
-The execution workspace became unavailable during the next performance experiment. GitHub main and the previously delivered alpha.23 build remain intact. The unreleased local installer, native captures and local test environment were not preserved by that workspace reset.
+## Implemented in the candidate
 
-Recovered source is being checkpointed on [audit/alpha24-recovery](https://github.com/Shnewbs/Deep-Primal/tree/audit/alpha24-recovery), starting at commit `cd0fac8c04298f14f11015bd39b150380a216a12`. This is a work-in-progress branch, not a released installer. The Minecraft adapter and native fixtures are still being restored.
+- Independent V3 continental drainage: connected small tributaries, accumulated catchment, varying widths, natural lake spill levels, connected sea classification, continuous inlet/estuary beds and dry bank floors applied after the union of wet channels. Published V1/V2 geography remains versioned.
+- Water surfaces interpolate shared corners without artificial center dimples. Planar/sloping patches use one quad; genuinely curved saddles retain subdivision. Adjacent mesh jobs reuse corner heights.
+- Materials use the final shaped terrain slope. Riparian banks remain sealed against cave cuts. Trees have revised crowns and deterministic footprint checks.
+- Bulk chunk samples reuse an 18×18 height halo. Cave columns cache the exact vertical noise endpoints instead of recomputing them for every Y. Pressure/drain searches reuse bounded primitive scratch storage.
 
-A fresh standalone Java 25 rerun of the recovered core passes all nine seeds with the same pre-reset counts: 5,845,944 centerline samples, 951 headwaters, 648 lakes, 18,000 unchanged V2 samples, 4,286 face-connected flowing reaches and 539,438 contained-bank checks. New bulk-column inputs also match full samples after restoring the slope metadata.
+## Fresh verification after workspace recovery
 
-The native measurements below are historical evidence from the pre-reset candidate. Fresh full/native validation is required before releasing the recovered candidate.
+The execution workspace became unavailable around 04:04 UTC. The local candidate and test environment were reconstructed from the preserved GitHub source and session work. Source changes are now checkpointed frequently. Pre-reset screenshots and timings are historical evidence, not substitutes for these reruns.
 
+- Full recovered build passed. A second full build with cave reuse passed in 43 seconds, including module/platform boundaries and the complete core suite.
+- Nine-seed watershed suite: 5,845,944 centerline samples, 951 headwaters, 648 lakes, 4,286 connected flowing reaches and 539,438 contained-bank checks. Cache eviction/replay and 18,000 frozen V2 sample comparisons pass, in addition to existing V1/V2 regressions.
+- New cave comparison: 965,965 Y positions against the published alpha.23 formula, including negative heights, world-edge coordinates and the bounded fallback; 21,771 cavity positions exercised.
+- Fresh native watershed run before cave reuse: five sites, 11,260 water cells, 2,976 dry columns, 80 material-column comparisons, 187 sealed banks and 23 connected source/inlet/estuary routes. Generation plus audit took 15,933.60 ms in this test environment.
+- Fresh V3 codec round trip and nine-chunk digest match the pre-reset candidate: `5c58aa00a2718e7177221d9caea486cbc66da57884f94ce3db2b14f1ba8095f2`. The measured request/audit time was 532.00 ms before cave reuse; this single run is not an FPS claim.
+- Lean candidate with cave reuse is 604,606 bytes and contains four intended modules, with no validation classes in the root archive. Final installer audit is pending.
 
-This is an ongoing implementation and validation record, not a declaration that the engine is complete. Status recorded at 2026-10-22 03:24 UTC. The candidate code is still being validated locally; this status checkpoint does not publish the candidate installer.
+## Active acceptance work
 
-## Current scope
+- Fresh 1,000-tick real-solver lake run passed with 49 forced chunks: initial surface 153.1875, retained center 153.375–153.4375. Median tick work 15.22 ms, p95 22.71 ms; pending work decreased from a peak of 9,057 to 3,693 and still has active transfers. This is a finite, loaded-basin test, not global hydrology or a settled-state claim.
+- Repeat native geometry/digests after cave reuse and verify saved V2 native blocks against the published digest.
+- Repeat actual Create World/join/save and reopen. The first recovered client attempt was blocked by the test display's missing GLX module; that dependency has been extracted into the private test environment for a retry.
+- Capture and inspect coast, real narrow headwater, river, lake, outlet and ridge scenes on OpenGL/Vulkan, plus controlled animated/fallback water surfaces.
+- Recheck bounded filling/pressure behavior, profile packaging, resource release and native costs before releasing an installer.
 
-- Own continental generator and region drainage planner, with new geography saved as `continental_v3`.
-- Connected small tributaries, variable channel width/depth/speed, natural lake spill elevations, and consistent shore/bed placement.
-- Remove artificial per-cell water dimples in animated and chunk-buffer rendering.
-- Keep published V1 and V2 geography reproducible.
-- Audit native creation, saved revision/codec round trips, generated water cells, vegetation support, rendering, and runtime cost.
+## Broader requirements still unfinished
 
-## Evidence so far
+Renewable watershed/ocean budgets, persistent pressure searches beyond the current 128-cell search window, geological strata/ore hosts, intentional underground rivers, live erosion/deposition, full-distance LOD coverage and transparent-material ordering remain separate implementation work. Three fluid passes per 20 Hz server tick are nominally 60 substeps/second; they do not establish an independent 60 Hz simulator or a guaranteed 60 FPS minimum.
 
-- First core build passes; new bilinear surface checks cover planar surfaces and 20,000 bounded interpolation cases.
-- A follow-up audit reproduced invalid lake outlet beds and wet metadata without a native fluid voxel. Both are corrected in the current V3 implementation; native integration remains to be checked.
-- Core watershed ensemble passes 5,138,836 centerline samples. Three seeded continents contain 313 headwaters and 209 lakes. An analytical closed basin also produces a lake. Parent routing and water heads are monotonic.
-- 6,000 V2 samples match the alpha.23 baseline exactly; existing V1 differential checks pass.
-- V3 region cache is capped at six immutable plans, approximately 4.1–4.2 MB each for the sampled continents. Replay after eviction passes.
-- Native V3 creation/save and generator codec round trip pass. Nine generated chunks were audited.
-- The first native face-connectivity audit failed on a source reach. After correcting shallow stream cores, a new run passes 20 source reaches, 11,092 actual water cells, and 2,976 dry columns across five sites.
-- A generated basin stays at exactly 153.25 blocks for 200 ticks with its full 49-chunk footprint loaded. The initial run measured median server tick work 21.56 ms and p95 47.03 ms. A run with reusable search buffers measured 19.65 ms median and 47.17 ms p95; these are two software-test runs, not a hardware FPS guarantee. Pending work is shrinking and still transferring water.
-- Native OpenGL controlled checkerboard/sloped water captures pass in animated and fallback rendering. An isolated reproduction using the old surface kernel and mesher shows the repeated peaks/dimples; the corrected surface is continuous with the same measured cell volumes.
-- Visual review rejected broad clay banks, sparse tree crowns, and the original headwater scene selection. Candidate material/crown changes and new site selection are awaiting fresh captures.
-- Expanding connectivity checks to complete flow reaches exposed an estuary gap and a river-to-lake inlet gap. Candidate fixes now extend receiving beds and distinguish connected sea from landlocked depressions below sea level. The expanded multi-seed suite is running again; full native revalidation follows it.
+TFC/Terralith/Tectonic, PhysEx, finitewater, BetterWaterMesh, Water Erosion, Distant Horizons, Gaea/World Machine, Nanite, Cesium and meshoptimizer remain references. This candidate does not incorporate their runtime code or establish performance superiority.
 
-## Acceptance still open
-
-- Revalidate native channel/lake water placement and outlet retention after the expanded estuary/inlet fixes.
-- Fresh creation/join and save/reopen of V3 geography.
-- Visual review of coast, narrow headwater, broad river/confluence, lake outlet, and ridge scenes in OpenGL and Vulkan.
-- Water surface comparison in animated and fallback paths, including sloped and thin water.
-- Native performance measurements and installer audit.
-
-## Broader work that must not be represented as finished
-
-Renewable watershed/ocean budgets, detailed geological strata and ore hosts, intentional underground rivers, live erosion/deposition, full-distance renderer coverage, and transparent-material ordering still require separate implementation and native evidence. Existing modules and prototypes do not establish completion or superiority over reference projects.
-
-The hourly progress automation reports verified changes and failures; it does not itself perform background development.
+Hourly progress reporting remains enabled. It reports evidence; it does not itself perform background development.
