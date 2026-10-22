@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "status": "continuation_active",
-  "updated_at": "2026-10-22T14:27:56.698Z",
-  "active_until": "2026-10-22T15:27:56.698Z",
+  "status": "ready_for_continuation",
+  "updated_at": "2026-10-22T14:37:47.980Z",
+  "active_until": "2026-10-22T14:37:47.980Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Audit and reproduce the unaccepted drain-reload wake/cleanup failure in an isolated directory. Preserve the failing experiment separately; do not promote production solver changes without native/build acceptance.",
+  "current_gate": "The failed drain-reload experiment and a separately tested lifecycle candidate are preserved as evidence only. Restore JDK25/Gradle/native dependencies and prove reload wakeup, closed-basin settling and safety before integrating production changes.",
   "next_items": [
+    "Restore the pruned JDK25/Gradle/native environment, then trace chunk-load thread/FULL readiness and waiter registration/removal in the preserved reload fixture. The fresh source-extracted lifecycle candidate passes modeled deferral/bounds/cleanup only; actual native reload remains failed/unproven. Do not integrate the preserved experiment until reload, edit/unload/conservation, reopen, closed-basin repeats and full build/package gates pass.",
     "Establish a deterministic fully loaded closed-basin native replay or explicit boundary-flux ledger, then compare conserved output, settling, latency and memory against pre-continuation/current source. Current open-boundary basin final water-state digests vary even on unchanged-revision repeats; do not certify broad performance from them. Profile remaining pressure/drain churn; preserve FIFO cap/order/mutable/overflow and long/head/edit/unload/idle/reopen regressions.",
     "Extend bounded drain continuation and pressure behavior beyond the 8192-node/job residency boundary; 16 jobs/level currently cap memory, and saturation is still unresolved for larger connected regions.",
     "Restore display/optional Vulkan environment and verify enabled-view water/LOD coverage under memory pressure, teleports, edits and reloads; fallback gaps and mixed transparency remain open",
@@ -25,12 +26,13 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-active-queue-allocation.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/engine-native-restore/active-queue-opt",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/drain-reload-audit-2026-10-22/README.md",
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/drain-reload-audit",
   "promotion_blockers": [
+    "The unaccepted drain experiment fails native reload and prior closed-basin settling. This continuation preserved source/patches and fresh saved-state/source-extracted lifecycle evidence only; JDK25/Gradle/native dependencies were removed by workspace maintenance.",
     "Thousands of active-basin pending entries remain; final output varies across unchanged-revision repeats, so complete settling, exact output, broad latency and resident-memory acceptance remain unproven",
     "Pressure residency saturation and general drain continuation remain incomplete",
     "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open; display/optional Vulkan environment remains unavailable"
   ],
-  "worker": "continuation-drain-reload-audit-a22609fabda0"
+  "latest_accepted_solver_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a"
 }

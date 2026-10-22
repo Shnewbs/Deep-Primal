@@ -1,0 +1,134 @@
+{
+  "passing_control": {
+    "world": "/workspace/scratch/98befbcef095/engine-drain-reload/run-final-fixed/world",
+    "saved_state_only": true,
+    "scenes": [
+      {
+        "offset": 4096,
+        "water": [
+          {
+            "position": [
+              4353,
+              198,
+              8
+            ],
+            "properties": {
+              "units": "1",
+              "speed": "3",
+              "flow": "16"
+            }
+          }
+        ]
+      },
+      {
+        "offset": 8192,
+        "water": [
+          {
+            "position": [
+              8208,
+              198,
+              8
+            ],
+            "properties": {
+              "units": "1",
+              "speed": "3",
+              "flow": "16"
+            }
+          }
+        ]
+      }
+    ],
+    "region_sha256": {
+      "r.8.0.mca": "d7d7f86e2cb3ccc6cb34d1c58d9c061a575f7dbe10cb7a9c2bd1d92e3e6d6d19",
+      "r.16.0.mca": "30d74ce4742d449fb706af750f3b4f2f85eb546ed3231d9e739a562554d58275"
+    }
+  },
+  "failed_reload": {
+    "world": "/workspace/scratch/98befbcef095/engine-drain-reload/run-final-reload/world",
+    "saved_state_only": true,
+    "scenes": [
+      {
+        "offset": 4096,
+        "water": [
+          {
+            "position": [
+              4096,
+              200,
+              8
+            ],
+            "properties": {
+              "units": "1",
+              "speed": "3",
+              "flow": "16"
+            }
+          }
+        ]
+      },
+      {
+        "offset": 8192,
+        "water": [
+          {
+            "position": [
+              8208,
+              198,
+              8
+            ],
+            "properties": {
+              "units": "1",
+              "speed": "3",
+              "flow": "16"
+            }
+          }
+        ]
+      }
+    ],
+    "region_sha256": {
+      "r.8.0.mca": "fdad4883daec5c48cd8426ff0ef72eeffdb69b443508e90177e8d8b89ec75efb",
+      "r.16.0.mca": "89a19273a7293f0fdd3f6fd8d7f286db6d2c40544413101b54096d759a6e33c5"
+    }
+  },
+  "before_reload_reproduction": {
+    "world": "/workspace/scratch/98befbcef095/engine-drain-reload-base/run-reload-before-reproduction/world",
+    "saved_state_only": true,
+    "scenes": [
+      {
+        "offset": 4096,
+        "water": [
+          {
+            "position": [
+              4096,
+              200,
+              8
+            ],
+            "properties": {
+              "units": "1",
+              "speed": "3",
+              "flow": "16"
+            }
+          }
+        ]
+      },
+      {
+        "offset": 8192,
+        "water": [
+          {
+            "position": [
+              8208,
+              198,
+              8
+            ],
+            "properties": {
+              "units": "1",
+              "speed": "3",
+              "flow": "16"
+            }
+          }
+        ]
+      }
+    ],
+    "region_sha256": {
+      "r.8.0.mca": "852bc1d4e4bdd24e1b0f9725d6a12516a330ddb18337997bba173cb5420184f7",
+      "r.16.0.mca": "47ba1f7317cb3f3eaeb2c660498788f16f192ccb102f4f1641b92bee3995c81b"
+    }
+  }
+}
