@@ -670,6 +670,13 @@ public final class PrimalGraphicsScreen extends Screen {
         "Shared-edge curved surfaces for Deep Primal's volume-based fluid.");
     bool(
         4,
+        "interpolatedWater",
+        "Smooth water movement",
+        WaterVisualConfig.INTERPOLATE,
+        "Smooths water heights between updates. Adds a short visual delay and uses additional GPU"
+            + " memory.");
+    bool(
+        4,
         "waterColor",
         "Water colors",
         WaterVisualConfig.COLORS,
@@ -1011,6 +1018,7 @@ public final class PrimalGraphicsScreen extends Screen {
       var oldFiltering = options.textureFiltering().get();
       int oldVertical = ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get();
       boolean oldSmooth = WaterVisualConfig.SMOOTH.get();
+      boolean oldInterpolation = WaterVisualConfig.INTERPOLATE.get();
       Control backend = controls.get("backend");
       backend.set.accept(number(backend));
       Control preset = controls.get("preset");
@@ -1034,7 +1042,8 @@ public final class PrimalGraphicsScreen extends Screen {
       WaterVisualConfig.SPEC.save();
       minecraft.options.save();
       if ((oldVertical != ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()
-              || oldSmooth != WaterVisualConfig.SMOOTH.get())
+              || oldSmooth != WaterVisualConfig.SMOOTH.get()
+              || oldInterpolation != WaterVisualConfig.INTERPOLATE.get())
           && minecraft.level != null) minecraft.levelRenderer.allChanged();
       load();
       message = "Saved. Graphics API changes require restart.";

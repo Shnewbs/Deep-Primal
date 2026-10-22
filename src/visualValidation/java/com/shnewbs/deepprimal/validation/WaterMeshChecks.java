@@ -48,6 +48,10 @@ public final class WaterMeshChecks {
   public void tick(ClientTickEvent.Post event) {
     if (!Boolean.getBoolean("deepprimal.validationFilling")) return;
     var mc = Minecraft.getInstance();
+    if (Boolean.getBoolean("deepprimal.validationAnimatedWater")) {
+      AnimatedWaterChecks.tick(mc);
+      return;
+    }
     if (began == 0) began = System.nanoTime();
     require(
         System.nanoTime() - began < 240_000_000_000L,
@@ -70,6 +74,7 @@ public final class WaterMeshChecks {
     }
     ticks++;
     if (stage == 0) {
+      WaterVisualConfig.INTERPOLATE.set(false);
       if ("Vulkan".equals(System.getProperty("deepprimal.graphicsBackend")))
         require(
             RenderSystem.getDevice().getBackendName().equals("Vulkan"),
@@ -186,6 +191,10 @@ public final class WaterMeshChecks {
 
   @SubscribeEvent
   public void frame(RenderFrameEvent.Post event) {
+    if (Boolean.getBoolean("deepprimal.validationAnimatedWater")) {
+      AnimatedWaterChecks.frame();
+      return;
+    }
     if (!Boolean.getBoolean("deepprimal.validationFilling") || stage != 3) return;
     var mc = Minecraft.getInstance();
     var s = section(mc);

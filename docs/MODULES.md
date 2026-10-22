@@ -1,10 +1,10 @@
-# Runtime modules — alpha 20
+# Runtime modules — alpha 21
 
 The standard installer remains one JAR. It contains separately built nested JARs with one owner for each config, mixin and runtime service.
 
 | Module | Owns | Project dependencies |
 | --- | --- | --- |
-| `engine-core` | Platform-neutral terrain/noise/drainage, fluid transport, voxel LOD storage/reduction, caches, queues and distance algorithms | None |
+| `engine-core` | Platform-neutral terrain/noise/drainage, fluid transport, liquid patch meshing/interpolation, voxel LOD storage/reduction, caches, queues and distance algorithms | None |
 | `performance-engine` | Chunk scheduling/sending/saving, memory-distance policy, idle-mob policy and runtime metrics | Core |
 | `graphics-settings` | Custom graphics tabs, visual/LOD budgets, shared work pacing, renderer ownership/handoff, common GPU mesh/lighting/shader resources and graphics API preference | Core |
 | `lod-engine` | Actual-chunk capture, atlas/biome material sampling, edit invalidation, GPU LOD lifetime, cache/streaming and optional world identity channel | Core, graphics API/settings; no root or Vulkan imports |
@@ -17,7 +17,7 @@ The Vulkan implementation imports no worldgen, horizon or performance-engine cod
 
 ## Builds
 
-- Default lean installer: `./gradlew build` → `DeepPrimal-26.1.2-0.0.1-alpha.20.jar`. Includes core, common performance, graphics and LOD; no Vulkan natives.
+- Default lean installer: `./gradlew build` → `DeepPrimal-26.1.2-0.0.1-alpha.21.jar`. Includes core, common performance, graphics and LOD; no Vulkan natives.
 - Platform bundle: `./gradlew build -PvulkanPlatform=windows` (or `linux`, `macos`, `macos-arm64`) → a distinctly classified `-vulkan-<platform>.jar` containing the optional adapter and only that platform's shaderc/VMA natives; MoltenVK only on macOS.
 - `-PwithoutVulkan` excludes the optional Vulkan project entirely. Without it, the default build can still compile/check the optional module without nesting it into the root installer.
 - `-PwithoutLod` omits the LOD runtime from the installer and development mod list. Output gets a distinct `-no-lod` suffix (also composable with Vulkan platform bundles). Graphics settings and world generation remain available.
@@ -54,3 +54,7 @@ Shared `TerrainGpuMesh`, native-lightmap binding and the common terrain vertex s
 Graphics intercepts native Video Settings opening, preserves the actual parent screen, and installs `PrimalGraphicsScreen` directly. UI accessors/preset preview hooks belong to graphics; the former root menu-button mixin is removed. Renderer replacements keep their own entry. Pure UI hooks do not take terrain-renderer ownership. Preset capture intercepts only a scoped preview and is otherwise inert.
 
 The independent 16-unit water adapter now has a bounded communicating-pool pressure pass and paired volume writes before neighbor notification. Its simulation remains under root `engine`, independent of graphics/LOD/backend implementations. Water presentation still has root fluid/terrain adapters; this is not a claim that the entire near-block graphics engine has been replaced or extracted.
+
+## Alpha 21 liquid presentation
+
+Core owns snapshot-to-geometry math and continuous height retargeting. Graphics owns the backend-neutral GPU allocation helper and liquid shaders. Root client integration owns loaded-world capture, patch scheduling, configuration handoff and lifecycle. Worker inputs contain primitive arrays and never reference a live world. LOD remains a separate optional module; client level events continue to invalidate its snapshots. Server transport stays independent of presentation.

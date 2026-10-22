@@ -53,7 +53,8 @@ public final class WaterRuntime {
     }
     // One corner of an otherwise uniform free surface can test submerged communication.
     // This also covers narrow sealed vessels without queueing every stable ocean cell.
-    return surface(l, p, amount)
+    return units(l, p.below()) > 0
+        && surface(l, p, amount)
         && (!open(l, p.west()) || units(l, p.west()) != amount)
         && (!open(l, p.north()) || units(l, p.north()) != amount);
   }
@@ -169,15 +170,50 @@ public final class WaterRuntime {
     int rotate = Math.floorMod(p.hashCode() + (int) level.getGameTime(), 4);
     for (int n = 0; n < 4 && units(level, p) > 1; n++)
       moved |= move(level, p, p.relative(SIDES[(rotate + n) & 3]), false);
+    if (!moved && units(level, p) > 0) moved = localPressure(level, p);
     if (!moved && !triedDrain && units(level, p) > 0) moved = drain(level, p, budget);
-    if (!moved && units(level, p) > 0 && surface(level, p, units(level, p))) {
+    if (!moved
+        && units(level, p) > 0
+        && units(level, p.below()) > 0
+        && surface(level, p, units(level, p))) {
       if (budget.pressure.size() < MAX_ACTIVE) budget.pressure.add(p.immutable());
       else activate(level, p);
     }
   }
 
+  /** Immediate L-shaped communication avoids queueing the last unit behind unrelated pools. */
+  private static boolean localPressure(ServerLevel level, BlockPos origin) {
+    BlockPos below = origin.below();
+    if (!level.isInWorldBounds(below)
+        || !level.hasChunkAt(below)
+        || units(level, below) != WaterTransport.CAPACITY) return false;
+    for (Direction side : SIDES) {
+      BlockPos outlet = below.relative(side);
+      if (!open(level, outlet)) continue;
+      int from = units(level, origin), to = units(level, outlet);
+      var exchange = WaterTransport.pressure(origin.getY(), from, outlet.getY(), to);
+      if (exchange.moved() > PRESSURE_TRANSFER)
+        exchange =
+            new WaterTransport.Exchange(
+                from - PRESSURE_TRANSFER, to + PRESSURE_TRANSFER, PRESSURE_TRANSFER);
+      if (transfer(level, origin, outlet, exchange, 16)) return true;
+    }
+    return false;
+  }
+
   /** A thin film follows a bounded downhill path instead of stopping at one unit. */
   private static boolean drain(ServerLevel l, BlockPos origin, Budget budget) {
+    // Full submerged cells with no lateral capacity have no horizontal route to begin.
+    // Check before budget admission: they must not requeue merely because other films used it.
+    boolean exit = false;
+    for (Direction d : SIDES) {
+      BlockPos q = origin.relative(d);
+      if (open(l, q) && units(l, q) < WaterTransport.CAPACITY) {
+        exit = true;
+        break;
+      }
+    }
+    if (!exit) return false;
     if (budget.drainVisits >= DRAIN_VISITS_PER_TICK) {
       activate(l, origin);
       return false;

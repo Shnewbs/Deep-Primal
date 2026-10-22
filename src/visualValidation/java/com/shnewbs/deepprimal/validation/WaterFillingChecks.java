@@ -57,6 +57,12 @@ public final class WaterFillingChecks {
         l.getChunk(x >> 4, z >> 4);
         WaterRuntime.activate(l, new BlockPos(x, baseY + 100, z));
       }
+    // Competing settled films must not delay a moving basin's last unit behind pressure scans.
+    var stable = new ArrayList<BlockPos>();
+    for (int x = 96; x < 128; x++)
+      for (int z = 0; z < 32; z++) stable.add(new BlockPos(x, baseY, z));
+    walls(l, stable);
+    for (BlockPos p : stable) water(l, p, 1);
     for (int x = 0; x <= 8; x++) film.add(new BlockPos(x, baseY, 8));
     film.add(new BlockPos(8, baseY - 1, 8));
     walls(l, film);
@@ -162,7 +168,7 @@ public final class WaterFillingChecks {
               + progressTicks
               + " maxProgressGap="
               + maxGap
-              + " conserved=true noForceLoad=true pending="
+              + " competingStableCells=1024 conserved=true noForceLoad=true pending="
               + WaterRuntime.queued(l)
               + "\n";
       Files.writeString(out, result);

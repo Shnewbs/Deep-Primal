@@ -45,6 +45,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
       BlockPos p,
       FluidRenderer.Output output,
       BlockState block) {
+    if (AnimatedWaterRenderer.ownsWater()) return true;
     if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()
         || !com.shnewbs.deepprimal.settings.WaterVisualConfig.SMOOTH.get()) return false;
     boolean top = !water(l, p.above()) && !l.getBlockState(p.above()).isSolid();

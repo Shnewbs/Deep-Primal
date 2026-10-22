@@ -30,6 +30,8 @@ public final class DeepPrimalClient {
     modBus.addListener(DeepPrimalClient::engineFluid);
     modBus.addListener(DeepPrimalClient::payloads);
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
+      NeoForge.EVENT_BUS.register(
+          com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE);
       NeoForge.EVENT_BUS.register(

@@ -29,7 +29,8 @@
     "client.WaterColorMixin",
     "client.SnowFoliageMixin",
     "client.WaterFogMixin",
-    "client.FluidModelAccess"
+    "client.FluidModelAccess",
+    "client.WaterPresentationMixin"
   ],
   "injectors": {
     "defaultRequire": 1

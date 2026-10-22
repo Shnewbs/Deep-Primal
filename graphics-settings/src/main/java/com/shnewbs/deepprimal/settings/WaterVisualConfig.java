@@ -7,10 +7,14 @@ public final class WaterVisualConfig {
   public static final ModConfigSpec SPEC;
   public static final ModConfigSpec.BooleanValue COLORS, FOG, WAVES, WAKES, CASCADES, SNOW, SMOOTH;
   public static final ModConfigSpec.IntValue PARTICLES, WAVE_RADIUS;
+  public static final ModConfigSpec.BooleanValue INTERPOLATE;
 
   static {
     var b = new ModConfigSpec.Builder();
     SMOOTH = b.define("smoothEngineWaterMesh", true);
+    INTERPOLATE =
+        b.comment("Render independent liquid patches with per-frame height interpolation.")
+            .define("interpolateEngineWater", true);
     COLORS = b.define("blendedWaterColors", true);
     FOG = b.define("waterClarity", true);
     WAVES = b.define("oceanSurfaceWaves", true);

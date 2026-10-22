@@ -46,6 +46,11 @@ public final class ClientTelemetry {
     data.put("nativeSyncBuilds", VisualPerformance.chunkSyncBuilds);
     data.put("nativeRebuildsDeferred", VisualPerformance.chunkRebuildsDeferred);
     data.put("nativeRebuildsCoalesced", VisualPerformance.chunkRebuildsCoalesced);
+    var water = com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE;
+    data.put("waterGpuBytes", water.residentBytes);
+    data.put("waterPatchUploads", water.uploads);
+    data.put("waterPatchPending", water.pending());
+    data.put("waterTerrainInvalidationsAvoided", water.terrainInvalidationsAvoided);
     data.put("nativePlayerBuilds", VisualPerformance.chunkPlayerBuilds);
     data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos - lastSync) / 1e6);
     lastSync = VisualPerformance.chunkSyncNanos;
