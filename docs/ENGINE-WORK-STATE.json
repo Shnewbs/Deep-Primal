@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-22T22:30:00Z",
-  "active_until": "2026-10-22T23:25:00Z",
+  "updated_at": "2026-10-22T22:54:42Z",
+  "active_until": "2026-10-22T23:40:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "One production startup re-arm completion reset passes exact-source controls, uncached Linux Vulkan build/core/geography checks, six CRCs/406 class matches and two 32-cycle native owner-method replays (development/packaged). One unforced development reopen is clean; the following unforced packaged launch leaves its marker despite clean GPU/save/shutdown. Original intermittent marker recreation remains unexplained and is not attributed to the reset. Three focused native sessions are accepted; atlas timeout and mutable-console digest mismatch are excluded. No installer release.",
+  "current_gate": "Active isolated continuation: reproduced persisted LOD eviction key loss; candidate has bounded unique recovery, edit revision guards and fixed-view deferral. Full uncached Linux Vulkan/core build and 407 class comparisons pass. A native reload timeout is excluded; bounded phase-aware retry and packaged final gates are pending.",
   "next_items": [
     "Capture bounded in-process marker filesystem events plus owner-call/classloader identity to identify intermittent recreation after a successful delete. One unforced development reopen is clean but the following packaged run leaves the marker. Do not attribute the natural symptom to the independently fixed re-arm latch. Repeat clean unforced packaged opening without erasing recovery evidence; ptrace is unavailable.",
     "Reproduce the early-join atlas readback timeout with phase-aware in-process thread capture and matched warm state. The timed-out before-rearm session is excluded; later differently ordered GPU passes do not explain or repair it. Keep immutable closed-launcher console snapshots and verify both raw/compressed hashes.",
