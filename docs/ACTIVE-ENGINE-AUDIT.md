@@ -1,5 +1,16 @@
 # Active engine audit — alpha.24 candidate
 
+## Recovery checkpoint — 2026-10-22 04:25 UTC
+
+The execution workspace became unavailable during the next performance experiment. GitHub main and the previously delivered alpha.23 build remain intact. The unreleased local installer, native captures and local test environment were not preserved by that workspace reset.
+
+Recovered source is being checkpointed on [audit/alpha24-recovery](https://github.com/Shnewbs/Deep-Primal/tree/audit/alpha24-recovery), starting at commit `cd0fac8c04298f14f11015bd39b150380a216a12`. This is a work-in-progress branch, not a released installer. The Minecraft adapter and native fixtures are still being restored.
+
+A fresh standalone Java 25 rerun of the recovered core passes all nine seeds with the same pre-reset counts: 5,845,944 centerline samples, 951 headwaters, 648 lakes, 18,000 unchanged V2 samples, 4,286 face-connected flowing reaches and 539,438 contained-bank checks. New bulk-column inputs also match full samples after restoring the slope metadata.
+
+The native measurements below are historical evidence from the pre-reset candidate. Fresh full/native validation is required before releasing the recovered candidate.
+
+
 This is an ongoing implementation and validation record, not a declaration that the engine is complete. Status recorded at 2026-10-22 03:24 UTC. The candidate code is still being validated locally; this status checkpoint does not publish the candidate installer.
 
 ## Current scope
