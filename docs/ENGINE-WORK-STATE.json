@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T07:32:08Z",
-  "active_until": "2026-10-22T07:32:08Z",
+  "status": "scheduled_active",
+  "updated_at": "2026-10-22T08:33:00Z",
+  "active_until": "2026-10-22T09:03:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Unreleased nearest-first animated-water page admission fix checkpointed; extracted production scheduler regression passes. Full JDK 25 build/native pressure coverage checks blocked by removed test environment.",
+  "current_gate": "Attempt native toolchain recovery; preserve a source-extracted long U-bend pressure cutoff reproduction if native dependencies remain inaccessible",
   "next_items": [
     "Restore JDK 25/Gradle/native test environment and build the scheduler change before any release",
     "Verify nearest-first page admission under enabled-view memory pressure, teleports, edits and reloads; remaining unresident-page fallback and mixed transparency are open",
@@ -25,5 +25,6 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-page-admission.md"
+  "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-page-admission.md",
+  "worker": "scheduled-a22609fabda0"
 }
