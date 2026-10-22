@@ -2,7 +2,7 @@
 
 Reviewed 2026-10-22 against Deep Primal commit **15c4bcd4a049f2d8569d1df6d18316b029adb51a**, including alpha 20. This is the current reference-to-requirement audit; the alpha 14/16 water documents remain historical release records.
 
-**Result: the requested systems are partially implemented, not complete.** All 17 linked mods' author descriptions were checked against Deep Primal source and the existing roadmap. The terrain and rendering technologies below were checked against their official documentation. This is not an exhaustive upstream source audit, installation test of those mods, new in-game validation run, or certification of feature parity. Author claims describe the references, not measured Deep Primal behavior.
+**Result: the requested systems are partially implemented, not complete.** The first 17 linked mods' author descriptions were checked against Deep Primal source and the existing roadmap. A [three-project follow-up](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md) adds Streams Reflowing, Canopy Cascade and Puddles & Floods, bringing coverage to **20 owner-linked projects**. The follow-up checks main 999e2fe, whose alpha 20 runtime is unchanged from this audit's baseline. The terrain and rendering technologies below were checked against their official documentation. This is not an exhaustive upstream source audit, installation test of those mods, new in-game validation run, or certification of feature parity. Author claims describe the references, not measured Deep Primal behavior.
 
 This update adds planning and acceptance criteria only. It does not repair rendering/water, implement catalog content, change saved geography, add dependencies, or ship a new build. Existing environmental catalog implementation remains deferred. Biome identities come first; a realistic climate model gates their placement afterward rather than shrinking the roster.
 
@@ -21,7 +21,7 @@ Reviewed screenshots include a hovering water sheet near a forest bank, thin wat
 
 **Native partial** means source exists on the current independent engine path, with the listed limits. **Legacy/configured** means code exists but targets older water, a compatibility path, or an opt-in rule; it is not automatically complete for EngineFluid. **Open** means the complete requested behavior has no demonstrated implementation. All new work items below remain unchecked.
 
-## All 17 requested mods
+## First 17 requested mods
 
 | Reference and author-described scope | Deep Primal evidence and actual coverage | Missing behavior / requirement |
 | --- | --- | --- |
@@ -42,6 +42,18 @@ Reviewed screenshots include a hovering water sheet near a forest bank, thin wat
 | [Sablewaves](https://www.curseforge.com/minecraft/mc-mods/sablewaves): shared Gerstner wave/physics field, tides/surge, wind, several current types, ship forces/sails, wakes/audio and soft weather integrations. | **Presentation partial.** Deep Primal sums sinusoidal waves and samples four boat points for vertical changes. This is not full Gerstner motion, vessel force/torque, tides, global ocean circulation or ship integration. | Shared geometry/physics, winds/currents/tides, craft forces, sails and optional integrations: OCEAN-01/02. The reference shifts effective flotation for tides rather than physically moving water blocks; beach swash is currently optional and has documented visual limits. |
 | [Snowy Weather](https://www.curseforge.com/minecraft/mc-mods/snowy-weather): global freezing/snow, including hot biomes, with optional unlimited stacking. | **Configured partial.** Precipitation stacks cold snow with a 24-layer default cap and optional unlimited mode. GlobalWinter changes rain in precipitating biomes; it does not force deserts to freeze. | Rich climate-aware accumulation/melt with optional explicit winter-world override: SNOW-01. Global freezing is not the default biome design. |
 | [TFC DeepSnowStack](https://www.curseforge.com/minecraft/mc-mods/tfc-deepsnowstack-accumulation): deep cold accumulation tied to TFC weather/intensity/melting, plus fog. | **Native partial analogue.** Stacking, a bounded canopy check, foliage tint and local weather/snow fog exist. No TFC dependency or equivalent native intensity/melt water cycle is established. | Native accumulation rate, redistribution/compaction, thaw/runoff, snow geometry and weather-linked visibility: SNOW-01. |
+
+## Three additional references — streams, canopy and puddles
+
+The [detailed follow-up](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md) records source scope, current coverage and acceptance for these additions. It includes targeted Puddles & Floods source review; no source inspection is claimed for the other two projects.
+
+| Reference | Native coverage and additional open requirement |
+| --- | --- |
+| [Streams Reflowing](https://modrinth.com/mod/streams-reflowing) | Partial regional stream/current foundation; **TERRAIN-04** adds detailed riparian style/feature contracts, flow/navigation cases and richer bounded river atmosphere alongside TERRAIN-01/02/03. |
+| [Canopy Cascade V1.2](https://www.curseforge.com/minecraft/mc-mods/canopy-cascade-v1-2) | Native canopy moisture lifecycle is open; **WATER-07** adds interception, conditional dew, drying, collision-aware presentation and accounted release. |
+| [Puddles & Floods](https://modrinth.com/mod/puddles-floods) | Detailed puddle/event presentation is open; **WATER-08** separates safe cosmetic traces from physical native inundation, sub-unit storage and local-stage flood/recession behavior. |
+
+These three detailed cards extend the existing requirements; they do not claim implemented parity or change the biome roster. The previously documented Flood source-refill behavior is also distinct from this new puddle/visual-flood reference.
 
 ### Implementation evidence
 

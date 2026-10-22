@@ -1,5 +1,7 @@
 # River flow references — alpha 13
 
+**Historical release record.** For the current independent alpha 20 fluid/terrain path and the expanded Streams Reflowing feature comparison, use the [2026-10-22 streams/canopy/puddles follow-up](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md) and [main audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md). Legacy current hooks described below do not establish full native-engine support.
+
 The requested behavior is a stepped mountain river with a supported bed and a persistent downstream current, including across flat source-water stretches. Alpha 13 implements this in original Deep Primal code. None of the following mods or their assets is bundled or required.
 
 | Reference | Evidence examined | Application and scope |

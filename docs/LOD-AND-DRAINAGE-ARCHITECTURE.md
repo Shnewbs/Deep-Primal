@@ -10,7 +10,7 @@ Alpha 19 gives graphics and LOD separate ownership: shared GPU/UI infrastructure
 
 ## Current owner follow-up — 2026-10-22
 
-The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) is the current detailed feature mapping against alpha 20. It checks all 17 owner-linked water/snow mods and distinguishes native implementation from older configured hooks. Alpha 20 improves bounded liquid activation/transport and mesh-build progress; it does not establish frame-interpolated water, complete watershed budgets or finished visual quality.
+The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) is the current detailed feature mapping against alpha 20. It checks 20 owner-linked projects, including the [Streams Reflowing, Canopy Cascade and Puddles & Floods follow-up](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md), and distinguishes native implementation from older configured hooks. TERRAIN-04, WATER-07 and WATER-08 add the detailed stream/bank, canopy-moisture and puddle/flood requirements. Alpha 20 improves bounded liquid activation/transport and mesh-build progress; it does not establish frame-interpolated water, complete watershed budgets or finished visual quality.
 
 **P0 rendering report:** the owner observes graphical problems disappearing when "horizonal view" is removed. The exact control and responsible pass are unresolved. Reproduce full-detail distance, actual-chunk LOD, legacy horizon and water overlays separately, then fix enabled-view behavior. A historical depth fix, passing a small fixture, or leaving the feature disabled is not acceptance for this report.
 

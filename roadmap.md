@@ -46,7 +46,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Decisions before implementation](#decisions-before-implementation)
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
-- [Terrain, water, snow and LOD audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) — all 17 linked mods, current source coverage, detailed gaps and acceptance requirements
+- [Terrain, water, snow and LOD audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) — 20 linked projects, current source coverage, detailed gaps and acceptance requirements
 - [Biome plan and named roster](docs/BIOME-PLAN.md) — proposed profiles, regional communities, environmental layers and habitat coverage
 - [Named environmental type catalogs](docs/NATURAL-TYPE-CATALOG.md) — actual named planning rosters, with kinds and aliases labeled
 - [Environmental coverage inventory](docs/ENVIRONMENTAL-COVERAGE-INVENTORY.md) — planning completeness across materials, states, habitats and natural processes; implementation deferred by owner direction
@@ -54,18 +54,21 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 
 ## Terrain, water, snow and LOD follow-up — 2026-10-22
 
-The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) checks all 17 owner-linked mods and the Gaea/World Machine, Nanite, Cesium, meshoptimizer/clusterlod, LWJGL and Simplygon references against alpha 20 source. It contains the detailed native behavior, integration gaps, configuration/performance constraints and acceptance scenes for every item below. Referenced mods are not bundled or fully implemented. Older alpha 14/16 water tables remain historical; legacy eight-unit hooks do not automatically support the independent sixteen-unit fluid.
+The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) checks 20 owner-linked projects, including the [Streams Reflowing / Canopy Cascade / Puddles & Floods follow-up](docs/STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md), and the Gaea/World Machine, Nanite, Cesium, meshoptimizer/clusterlod, LWJGL and Simplygon references against alpha 20 source. It contains the detailed native behavior, integration gaps, configuration/performance constraints and acceptance scenes for every item below. Referenced mods are not bundled or fully implemented. Older alpha 14/16 water tables remain historical; legacy eight-unit hooks do not automatically support the independent sixteen-unit fluid.
 
 - [ ] **P0-RENDER:** reproduce the owner's report that defects disappear with "horizonal view" disabled; identify the actual control/pass and fix enabled-view page walls, foreground/depth and water seams on OpenGL/Vulkan.
 - [ ] **TERRAIN-01:** connect tributaries, cross-region outlets, lakes/spillways and sustained source budgets; broad initial rivers need substantial source water or upstream catchment, while small springs taper.
 - [ ] **TERRAIN-02:** finish hydraulic width/depth/speed, pools/rapids/cascades and supported partial-height descending water steps. Generated river speed already varies; runtime edited-channel hydraulics remain incomplete.
 - [ ] **TERRAIN-03:** add deterministic erosion/deposition/material masks and bounded generated-support checks; remove repeated bowl/rim artifacts and unsuitable grass/surface placement.
+- [ ] **TERRAIN-04:** finish current/source continuity and boat navigation, versioned riparian bank/feature rules, biome identity preservation, foam/debris and bounded distant river effects; detailed Streams Reflowing comparison is in the three-project follow-up.
 - [ ] **WATER-01:** unify native sixteen-unit ownership with containers/displacement/waterlogging, fair basin work and per-frame water-height/wet-edge presentation.
 - [ ] **WATER-02:** integrate native rainfall, infiltration, groundwater, runoff, evaporation, drought and snowmelt budgets with bounded weather ownership.
 - [ ] **WATER-03:** transport water composition, sediment/organic load and salinity; blend confluence plumes and underwater clarity consistently across near/far rendering.
 - [ ] **WATER-04:** provide lossless transactional native fluid ports, partial containers and progression-appropriate pumps/pipes/tanks/valves/sensors, plus separately tested optional machine adapters.
 - [ ] **WATER-05:** integrate rated pressure equipment, deep-water semantics, stamina, currents, mount swimming and useful warnings/navigation.
 - [ ] **WATER-06:** specify farm-water convenience/irrigation, measured drinking/inspection, sponge storage and fluid-aware fishing/boats/dripstone; keep lava, gas hazards and admin infinite sources explicit later proposals.
+- [ ] **WATER-07:** add native canopy interception, conditional dew/post-rain drying, exposed-leaf drips, climate/material styling and accounted ground release; keep particles independent of water quantity.
+- [ ] **WATER-08:** add detailed puddles and all event paths, sub-unit wetness storage, safe block coexistence and local-stage flood/recession; separate cosmetic traces from authoritative physical water and test shader/depth handoffs.
 - [ ] **OCEAN-01:** complete shared visible/physical waves, depth-aware shore breakers, foam/swash, sound, flow-aware wakes and bounded strandline materials.
 - [ ] **OCEAN-02:** add realistic simplified circulation, depth/hemisphere effects, tidal/estuary/rip flow, wind/surge and optional vessel/weather integration.
 - [ ] **OCEAN-03:** plan shelf-to-trench bathymetry and evaluate Mariana-scale depth against actual vertical storage/lighting/network/performance limits; the current generator does not support literal 11 km depth.
