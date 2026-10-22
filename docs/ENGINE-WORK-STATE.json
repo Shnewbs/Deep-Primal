@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "foreground_active",
-  "updated_at": "2026-10-22T18:36:00Z",
-  "active_until": "2026-10-22T19:36:00Z",
+  "updated_at": "2026-10-22T19:03:00Z",
+  "active_until": "2026-10-22T20:03:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Isolated audit of duplicate pressure admission, retained-frontier ownership and watcher cleanup. JDK25/Gradle native toolchain was pruned; attempting restoration and exact-source reproduction. Accepted production solver remains unchanged.",
+  "current_gate": "Restored verified toolchain. Independent accepted-solver admission cleanup now passes 10 development-native cases and fresh uncached non-Vulkan core/module build plus five CRCs/225 class matches; final packaged tests ongoing. Normal admission's redundant amount reads reduced 3 to 1 in exact-source controls. Overlap ownership probe is deliberately injected; ordinary-call reachability and basin p95 cause remain unproven.",
   "next_items": [
     "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
