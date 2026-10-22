@@ -20,6 +20,10 @@ The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-202
 
 The [water mechanics contract](WATER-BUDGET-REQUIREMENTS.md) is now owner-approved design: finite physical water locally, metered renewable regional reservoirs, perennial major-river allocations, seasonal glacial/desert surface waters, depletable wells, and accounted ocean/atmosphere recycling at stable average sea level. Local backwater/flooding remains meaningful; strict depletion and source safety are optional. Evaporation/infiltration/drainage drive real recession rather than hiding fluid. Implement coarse/loaded ownership with bounded work and no double accounting. Alpha 21 presentation does not implement these reservoir/cycle mechanics.
 
+## Accepted terrain scope — 2026-10-21 PDT
+
+The [terrain mechanics contract](TERRAIN-MECHANICS.md) governs realistic structural geology and host-controlled ores/gems, accepted erosion resistance, soil profiles, wind-shaped terrain, cave/karst mountain rivers and springs, slope stability with underground cave-ins, and natural obstructions. No sinkholes or sinkhole-producing live collapse. Full live sediment transport is optional/default-off; recipe-based panning/sluices are the baseline, with optional useful local provenance. Generated wear/material context and coarse water-composition blending do not require that live solver. IDs TERRAIN-05–10 provide the detailed acceptance requirements.
+
 ## Built-in terrain engine requirements and inspiration
 
 The target is our own Overworld generator and biome/region decisions: original continents, connected relief/drainage/lakes, geological/climate fields, terrain-derived material rules and deliberate feature placement. Use Minecraft/NeoForge as host infrastructure; do not delegate those world-design decisions to the standard vanilla Overworld noise/biome pipeline. Generic noise functions and serialized data are implementation tools, not evidence of vanilla or original terrain by themselves. Nether/End remain native in the current prototypes; no replacement of those dimensions is claimed.

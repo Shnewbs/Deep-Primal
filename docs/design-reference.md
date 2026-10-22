@@ -199,11 +199,13 @@ The [2026-10-22 terrain/water/snow/LOD audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-
 
 The "realism" pillar means the world's raw materials are varied and behave like their real counterparts.
 
+**Accepted terrain mechanics:** [structural geology, soils, wind, underground drainage and stability](TERRAIN-MECHANICS.md) govern the detailed scope. No sinkholes; underground cave-ins remain included. Panning/sluices are recipe-based by default, with optional useful local provenance rather than mandatory live sediment simulation. Accepted design is distinct from deferred implementation.
+
 **Stone**
 
 - Three rock classes (igneous, sedimentary, metamorphic) with multiple types in each.
 - Each type has a property profile: hardness, workability, color/texture, ore associations, weathering products (the soil, sand, or clay it breaks down into), and building traits (e.g. which stones suit roofing, which carve cleanly, which crack in heat).
-- Rock layering by depth and region; stone variants carry through to cobble, gravel, sand, and building blocks. Full rock catalog in [§4.17](#s4-17).
+- Coherent geological units across depth/region: appropriate sedimentary beds, faults/folds, cross-cutting intrusions, metamorphic relationships and exposed contacts. Host/formation setting selects finite ores and gems; current high elevation is not a blanket ore exclusion. Material variants carry through to cobble, gravel, sand and building blocks. Full rock catalog in [§4.17](#s4-17); mechanics in [terrain plan](TERRAIN-MECHANICS.md).
 
 **Soil & ground**
 
@@ -211,6 +213,7 @@ The "realism" pillar means the world's raw materials are varied and behave like 
 - Multiple grass and ground-cover types tied to climate zone and soil.
 - Distinct mud, clay (several kinds with different firing properties), and sand (colored by source rock), plus gravel.
 - Soil nutrients and depletion tie into farming ([§4.6](#s4-6)).
+- Soil depth and horizons vary coherently with parent material and terrain history. Rock/soil permeability governs flooding/drainage and linked springs/cave rivers; wind forms, local slope failures, underground cave-ins and natural obstructions use the same material properties. Sinkholes are excluded.
 
 **Permafrost & ice cementation**
 

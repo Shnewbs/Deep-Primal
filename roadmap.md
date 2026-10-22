@@ -49,6 +49,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 - [Long-term backlog](#long-term-backlog)
 - [Completion and maintenance rules](#completion-and-maintenance-rules)
 - [Terrain, water, snow and LOD audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) — 20 linked projects, current source coverage, detailed gaps and acceptance requirements
+- [Approved terrain mechanics](docs/TERRAIN-MECHANICS.md) — realistic geology/ores, soil/wind forms, underground drainage, cave-ins and obstructions; no sinkholes; optional sediment simulation
 - [Approved water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md) — watershed reservoirs, seasonal wet/dry surface water, perennial/strict policies, ocean recycling and blocked-river behavior; implementation open
 - [Biome plan and named roster](docs/BIOME-PLAN.md) — proposed profiles, regional communities, environmental layers and habitat coverage
 - [Named environmental type catalogs](docs/NATURAL-TYPE-CATALOG.md) — actual named planning rosters, with kinds and aliases labeled
@@ -62,11 +63,18 @@ The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md
 - [ ] **P0-RENDER:** reproduce the owner's report that defects disappear with "horizonal view" disabled; identify the actual control/pass and fix enabled-view page walls, foreground/depth and water seams on OpenGL/Vulkan.
 - [ ] **TERRAIN-01:** connect tributaries, cross-region outlets, lakes/spillways and sustained source budgets; broad initial rivers need substantial source water or upstream catchment, while small springs taper.
 - [ ] **TERRAIN-02:** finish hydraulic width/depth/speed, pools/rapids/cascades and supported partial-height descending water steps. Generated river speed already varies; runtime edited-channel hydraulics remain incomplete.
-- [ ] **TERRAIN-03:** add deterministic erosion/deposition/material masks and bounded generated-support checks; remove repeated bowl/rim artifacts and unsuitable grass/surface placement.
+- [ ] **TERRAIN-03:** use rock-specific erosion resistance and deterministic generation-time wear/material masks with bounded support checks; remove repeated bowl/rim artifacts and unsuitable surfaces. Full live sediment transport is optional/default-off; recipe-based panning/sluices are the baseline, with local provenance only when useful.
 - [ ] **TERRAIN-04:** finish current/source continuity and boat navigation, versioned riparian bank/feature rules, biome identity preservation, foam/debris and bounded distant river effects; detailed Streams Reflowing comparison is in the three-project follow-up.
+- [ ] **TERRAIN-05:** implement [realistic structural geology](docs/TERRAIN-MECHANICS.md): coherent beds/bodies, folds/faults, intrusions and exposures; place finite ores and gems by host/formation setting, including eligible mountain deposits without a blanket high-elevation ore ban.
+- [ ] **TERRAIN-06:** connect rock/soil-dependent infiltration, flooding/drainage, caves, karst, through-mountain rivers and returning springs under one water budget; exclude generated sinkholes and live surface-collapse sinkhole behavior.
+- [ ] **TERRAIN-07:** implement coherent soil horizons/depth, exposed profiles and shared drainage/rooting/material properties.
+- [ ] **TERRAIN-08:** generate plausible wind-shaped terrain from material supply/exposure/history; live sand movement remains optional and bounded.
+- [ ] **TERRAIN-09:** add material/support/moisture-dependent slope stability and underground cave-ins with meaningful supports, bounded propagation and no sinkhole-producing surface breach.
+- [ ] **TERRAIN-10:** add grounded natural obstructions and accounted ponding, bypass/outlet response and release when removed.
+- [ ] Define data-driven panning and sluice variants using consumed input recipes; optional local-geology/deposit context must provide useful prospecting and cannot mint unlimited ore/gems from flowing water.
 - [ ] **WATER-01:** unify native sixteen-unit ownership with containers/displacement/waterlogging, fair basin work and per-frame water-height/wet-edge presentation.
 - [ ] **WATER-02:** implement the [approved hybrid water mechanics](docs/WATER-BUDGET-REQUIREMENTS.md): metered reservoir-backed headwaters, renewable major-river baseflow, seasonal meltwater, depletable wells, balanced ocean/atmosphere recycling and stable average sea level; support strict depletion, local dam/overflow physics and optional source safety. Include wet-season desert flooding and physical dry-season recession into pools, damp ground and exposed beds through accounted evaporation/infiltration/drainage.
-- [ ] **WATER-03:** transport water composition, sediment/organic load and salinity; blend confluence plumes and underwater clarity consistently across near/far rendering.
+- [ ] **WATER-03:** carry bounded source/composition summaries for sediment/organic load and salinity; blend confluences/clarity across near/far rendering. This does not require a live terrain-eroding sediment solver; that extension is optional/default-off under the terrain mechanics decision.
 - [ ] **WATER-04:** provide lossless transactional native fluid ports, partial containers and progression-appropriate pumps/pipes/tanks/valves/sensors, plus separately tested optional machine adapters.
 - [ ] **WATER-05:** integrate rated pressure equipment, deep-water semantics, stamina, currents, mount swimming and useful warnings/navigation.
 - [ ] **WATER-06:** specify farm-water convenience/irrigation, measured drinking/inspection, sponge storage and fluid-aware fishing/boats/dripstone; keep lava, gas hazards and admin infinite sources explicit later proposals.
@@ -88,7 +96,7 @@ Prioritize enabled-view correctness and supported water steps/filling, then conn
 | Platform | Standalone NeoForge mod on Minecraft 26.x; no TFC dependency. |
 | Build order | Rendering and custom world generation are the first foundation. Gameplay builds on that foundation. |
 | Core | Shared properties, calendar, heat, stress, tunables, and worldgen sampling; platform-neutral rules with a NeoForge adapter. |
-| World | Native geology, climate, soils, plants, trees, ore veins, permafrost, and cold-weather hardening; optional Earth mode with a 1:1 horizontal-scale goal. |
+| World | Natural structural geology, host-controlled finite ores/gems, soil profiles, wind-shaped terrain, rock/soil-dependent drainage, mountain cave rivers/springs, slope/cave-in stability and natural obstructions; no sinkholes. See [terrain mechanics](docs/TERRAIN-MECHANICS.md). Existing biome/climate, flora, frozen-ground and optional 1:1-horizontal Earth goals remain. |
 | Vanilla content | Phased replacement by default, with configurable coexistence or vanilla-only modes where supported. Registry entries remain loaded; access and behavior are gated. |
 | Adapters | Property-based behavior for re-enabled vanilla content in v0.1. Other-mod coverage and special game logic need explicit scope decisions. |
 | Survival | Clothing and thermoregulation are essential; hunger, thirst, injury, fatigue, decay, nutrition, weight, and structural hazards form the broader design. |

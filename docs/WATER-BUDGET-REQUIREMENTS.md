@@ -24,6 +24,10 @@ Alpha 21 adds independent liquid presentation, height interpolation and local sc
 
 The persistent-world concern is addressed through controlled supply, connected outflow and balanced accounting together. Rate limiting alone merely slows accumulation when a closed basin has sustained net input.
 
+## Rock/soil drainage and underground routing — owner scope, 2026-10-21 PDT
+
+The [accepted terrain mechanics](TERRAIN-MECHANICS.md) require permeability/fracture/saturation-dependent flooding and draining, caves/karst, rivers through mountains and returning springs. Use shared surface/aquifer/outlet accounts; a tunnel exit or spring cannot independently regenerate its inflow. Sinkholes and live surface-collapse sinkhole behavior are excluded. Panning/sluices use consumed recipes by default; full live sediment transport is optional/default-off, with surrounding-deposit links only when useful. Coarse water-composition appearance remains a distinct requirement.
+
 ## Water accounting and source delivery
 
 For every account: **change in stored water = accepted inputs - accepted outputs**. Track surface water, soil, aquifers, snow/ice, retained meltwater, containers and ocean/atmosphere exchanges without creating independent copies.

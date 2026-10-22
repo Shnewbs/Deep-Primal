@@ -48,6 +48,7 @@ Research reference: [OpenCubicChunks/CubicChunks](https://github.com/OpenCubicCh
 | Topic | Status | Direction |
 | --- | --- | --- |
 | First tools | Confirmed | PrimalCore-inspired flint, loose rock, and bone tools, followed by developed stone tooling and later metals. |
+| Terrain mechanics | Confirmed owner scope, 2026-10-21 PDT | Realistic structural geology/ores/gems, erosion resistance, soil horizons, wind forms, caves/mountain rivers/springs, slope stability/cave-ins and natural obstructions. No sinkholes; full live sediment transport optional/default-off. See [mechanics](TERRAIN-MECHANICS.md). |
 | Water | Confirmed direction; expanded 2026-10-22 | Distinct water types; finite local physics with renewable regional reservoirs, perennial major rivers, seasonal melt and desert wet/dry states, shared depletable wells, stable mean ocean level and accounted recycling. Local floods remain physical; strict depletion/source safety are optional. See [water mechanics](WATER-BUDGET-REQUIREMENTS.md). Elevation is not a guaranteed purity rule. |
 | Transport | Confirmed breadth | Personal storage, sledges/handcarts, pack animals, animal carts, rail carts, rafts, boats, and towable cargo craft. Horses, mules, and donkeys can pull appropriate carts. |
 | Steam transport | Proposed extension | Coal-fired steam trains and boats; extends the previous mechanical-only ceiling if adopted. No electrical industry implied. |
@@ -91,6 +92,19 @@ Flint, loose rocks, sticks, and accessible bone are alternative starting resourc
 Proposed bootstrap: gather loose material → produce an edge or point → obtain fiber/bindings and sticks → assemble tools → establish fire, water, and shelter → pottery → first metal. Bone must not require defeating an animal with a weapon that itself requires bone. Validate alternatives across climates and geology.
 
 Exact recipes, starter resource availability, spawn season, and cold-region survivability remain design tasks. Keep the no-punching-trees direction.
+
+## Terrain, geology and stability — approved 2026-10-21 PDT
+
+The owner's direction is natural and realistic, with the selected mechanics specified in [terrain mechanics](TERRAIN-MECHANICS.md).
+
+- Accept coherent geological rock units/layers, faults, folds, intrusions, outcrops, appropriate caves and mineral deposits. Both ores and gems may occur at high elevation where host geology and formation/exposure history support them; a mountain is not automatically gem-only or ore-rich.
+- Accept the previously described material-dependent erosion resistance, soil horizons/depth, wind-shaped terrain, slope stability with underground cave-ins, and natural obstructions.
+- Accept material-dependent flooding/drainage, karst caves, returning springs and underground rivers through mountains, sharing the established water budget.
+- Exclude sinkholes, including generated collapse pits and a runtime surface-collapse/sinkhole mechanic. Underground cave-ins remain included, with propagation constrained to respect this exclusion.
+- Do not require a full live sediment-transport solver by default. Baseline panning and sluice variants use consumed input recipes. Optional local-provenance/deposit rules are worthwhile only if they connect recovery to the surroundings in a useful way, with no unaccounted renewable valuables.
+- Keep coarse water-source appearance/mixing and generated material context separate from the optional terrain-changing sediment solver. Preserve finite-ore and aquifer-depletion decisions.
+
+The high-elevation ore correction is supported by the [Climax operator's mountain molybdenum deposit](https://www.climaxmolybdenum.com/operations/usa). Detailed climate, rates, machine recipes, release placement and native catalog implementation remain open. No implementation completion or approval of unmentioned speculative terrain events is implied.
 
 ## Water, aquifers, and wells
 

@@ -6,6 +6,8 @@ Planning draft: 2026-10-21. **No implementation change.**
 
 These are proposed representations of regional communities, local forms and states. They do not automatically consume biome IDs and their counts must not be added to the base-profile registry count.
 
+**Owner terrain scope:** [accepted mechanics](TERRAIN-MECHANICS.md) retain caves/karst, through-mountain rivers and springs but exclude sinkholes. Ordinary wet/dry states and substrate-dependent drainage do not require new biome IDs. The LAY-007 label is clarified without changing its ID or the roster counts.
+
 ## Regional community variants
 
 A variant changes the compatible species/community expression of a parent profile. Define the intended biome and regional community first, including soil, hydrology, light and biological-province requirements. Design supporting climate scenarios afterward; existing climate bands must not filter the variant roster prematurely. Climate eligibility must still gate where each parent biome and community variant can generate. Scientific names, exact species pools and tolerances require review, with quantitative climate tolerances deferred to that later phase. A variant can be represented as data rather than as another registered biome.
@@ -79,7 +81,7 @@ Layers can combine only when their physical/biological prerequisites hold. Gener
 | LAY-004 | Badland gullies | Landform | Erodible ground, drainage and sparse cover | Semidesert; Hot Desert; Dry Grassland |
 | LAY-005 | Mesa or plateau | Relief | Coherent geology and terrain history | Any compatible land profile |
 | LAY-006 | Folded ridge | Relief/geology | Regional structure and erosion | Any compatible land profile |
-| LAY-007 | Karst surface | Geology/landform | Soluble-rock and water history | Compatible land/wetland profile |
+| LAY-007 | Karst geology | Geology/hydrology | Compatible rock/fractures and drainage history; sinkholes excluded | Compatible land/wetland profile |
 | LAY-008 | Limestone cave geometry | Subterranean landform | Host rock and dissolution history | Dry Cave; Wet Cave; Groundwater Cave |
 | LAY-009 | Basalt columns | Rock form | Appropriate cooling/host-rock history | Volcanic Barrens; Rocky Shore |
 | LAY-010 | Lava surface forms | Rock form | Composition/cooling history | Volcanic Barrens |

@@ -240,7 +240,7 @@ Named process coverage completes the inventory axis; each may be represented by 
 | PROCESS-TYPE-011 | Slope creep | Mass-movement process | Slow downslope movement. | Planning expansion |
 | PROCESS-TYPE-012 | Rockfall | Mass-movement event | Detached rock movement. | Planning expansion |
 | PROCESS-TYPE-013 | Landslide | Mass-movement event | Slope failure. | Planning expansion |
-| PROCESS-TYPE-014 | Sediment transport | Material-transfer process | Movement of loose particles. | Planning expansion |
+| PROCESS-TYPE-014 | Sediment transport | Material-transfer process | Movement of loose particles; full live solver optional/default-off. Recipe-first panning/sluices; useful local provenance may be added. | Owner scope clarified; see [terrain mechanics](TERRAIN-MECHANICS.md) |
 | PROCESS-TYPE-015 | Sediment deposition | Material-transfer process | Accumulation. | Planning expansion |
 | PROCESS-TYPE-016 | Hydrologic recharge | Water process | Water-storage replenishment. | Planning expansion |
 | PROCESS-TYPE-017 | Infiltration | Water process | Entry into ground. | Planning expansion |

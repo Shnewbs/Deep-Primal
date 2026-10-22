@@ -6,6 +6,8 @@ Planning baseline: 2026-10-20. Audited against main commit `fc0b0feb29a031dba8ae
 
 The [design reference](design-reference.md), [owner decisions](design-decisions-2026-10-18.md) and [roadmap](../roadmap.md) retain their existing authority. Existing requirements are preserved. New examples below are **proposed coverage candidates** until reviewed. A row describing existing plans is not a claim that the feature exists in code.
 
+**Accepted terrain scope (2026-10-21 PDT):** see [terrain mechanics](TERRAIN-MECHANICS.md) for structural geology and altitude-independent ore/gem eligibility, material erosion resistance, soil profiles, wind forms, underground rivers/springs, slope stability/cave-ins and natural obstructions. Sinkholes are excluded. Full live sediment transport is optional/default-off; panning/sluices use consumed recipes as the baseline. This supersedes broader candidate wording without completing implementation.
+
 ## What “exhaustive” means for this plan
 
 Aim for complete coverage of environmental **roles and families**, supported climates/habitats, material states and transformations. Species and geological names remain expandable. A finite checklist cannot establish that every organism, rock name or regional variant has been enumerated.
@@ -81,7 +83,7 @@ All rows below are **open planning reviews**. Existing requirements remain requi
 | GEO-02 | Additional igneous coverage | Review dacite, trachyte, anorthosite, dunite, phonolite and uncommon alkaline rocks for distinct appearance, host-rock or processing roles; merge aliases or redundant roles explicitly. |
 | GEO-03 | Additional metamorphic coverage | Review migmatite, quartz-rich versus carbonate-rich contact rocks, skarn, mylonite and fault-related rocks; distinguish rock type from deformation texture. |
 | GEO-04 | Sedimentary composition and texture | Review arkose, argillite, diatomite, phosphorite, chert varieties and evaporite mixtures; distinguish grain size, cement and composition. |
-| GEO-05 | Rock bodies and contacts | Beds, intrusions, dikes, sills, lenses, faults, folds, unconformities and contact zones; record which are actual generation features versus appearance variants. |
+| GEO-05 | Rock bodies and contacts | Beds, intrusions, dikes, sills, lenses, faults, folds, unconformities and contact zones; structural mechanics accepted in [terrain plan](TERRAIN-MECHANICS.md), with specific unit/property definitions still open. |
 | GEO-06 | Exposed rock forms | Outcrops, boulders, fractured faces, jointing, columnar forms, overhangs, scree and weathering rinds. |
 | GEO-07 | Weathered parent material | Fresh rock, fractured rock, weathered rock and saprolite/regolith; define products and avoid implying one universal sequence. |
 | GEO-08 | Special inclusions | Nodules, geodes, fossils, mineral veins, concretions and embedded shells; decide discoverable content versus decorative texture. |
@@ -95,7 +97,7 @@ All rows below are **open planning reviews**. Existing requirements remain requi
 | ID | Coverage review | Candidate content or decision needed |
 | --- | --- | --- |
 | MIN-01 | Rock-forming minerals | Quartz, feldspar, mica, calcite, dolomite, olivine, pyroxene and amphibole groups; choose inspection data versus separate resources. |
-| MIN-02 | Ore roster cross-check | Cross-reference each planned metal with ore minerals, host rocks, depth, surface indicators, processing outputs and byproducts. |
+| MIN-02 | Ore roster cross-check | Cross-reference metals and gems with host/deposit setting, cover/exposure, indicators and outputs. No blanket high-elevation ore exclusion; rare eligible mountain ore/gem deposits follow geology. Specific associations remain to define. |
 | MIN-03 | Industrial minerals | Salt, gypsum, sulfur, graphite, phosphate, refractory minerals and abrasives; map existing entries before adding duplicates. |
 | MIN-04 | Pigments and colorants | Ochres, iron oxides, carbon blacks, mineral pigments and plant dyes; decide which differences change use or appearance. |
 | MIN-05 | Gems and crystals | Common crystals, gem-bearing deposits and decorative minerals; select distinct roles rather than requiring every mineral name. |
@@ -112,7 +114,7 @@ All rows below are **open planning reviews**. Existing requirements remain requi
 | --- | --- | --- |
 | SED-01 | Grain-size coverage | Boulders, cobbles, pebbles/gravel, sand, silt and clay-sized sediment; choose useful game-scale groupings. |
 | SED-02 | Composition versus size | Quartz-rich, volcanic, carbonate/shell-rich and mixed sediment; color alone must not silently define chemistry. |
-| SED-03 | River deposits | Channel beds, gravel bars, sandbars, point bars, floodplain silt, natural levees, alluvial fans and deltas. |
+| SED-03 | River deposits | Channel beds, bars, floodplain silt, levees, fans and deltas remain coverage candidates. Full live sediment transport is optional/default-off; baseline panning/sluices use consumed recipes, with local deposit/provenance links only when useful. |
 | SED-04 | Lake deposits | Shore gravels, fine lakebed mud, marl/calcareous mud, organic-rich sediment and seasonal exposed margins. |
 | SED-05 | Wind deposits | Dune sand, windblown silt/loess, dust mantles and deflation surfaces. |
 | SED-06 | Glacial deposits | Unsorted till, moraine material, outwash sand/gravel and fine glacial sediment; separate ancient deposits from live glacier simulation. |
@@ -357,7 +359,7 @@ All rows below are **open planning reviews**. Existing requirements remain requi
 | HAB-06 | Wetlands | Marsh, swamp, bog, fen and wet meadow; map substrate, hydrology, vegetation and organic accumulation. |
 | HAB-07 | Coastal environments | Rocky shores, sandy/shingle beaches, dunes, estuaries, deltas, mudflats, salt marsh and mangrove. |
 | HAB-08 | Marine environments | Intertidal pools, seagrass/kelp, reefs, shelf sediments and deep seafloor; full marine simulation is a separate scope choice. |
-| HAB-09 | Underground environments | Dry/wet caves, karst, lava tubes, groundwater-fed spaces, cave sediment, guano, speleothems and low-light ecology. |
+| HAB-09 | Underground environments | Dry/wet caves, karst, mountain river passages and returning springs are accepted directions; sinkholes excluded. Other cave habitats/materials remain candidates, with all routing sharing the water budget. |
 | HAB-10 | Disturbed and transitional environments | Burn scars, windthrow, landslides, river migration, regrowth, abandoned cultivation and habitat boundaries; separate natural from player-created disturbance. |
 | HAB-11 | Landform continuity | Ridges, valleys, basins, terraces, fans, cliffs, shore profiles, watershed divides and cave entrances; materials follow the same terrain plan. |
 | HAB-12 | Microhabitats | North/south exposure where meaningful, shaded hollows, seeps, logs, boulders, root pockets and rain shadows; choose scale rather than simulating every detail. |
@@ -377,7 +379,7 @@ All rows below are **open planning reviews**. Existing requirements remain requi
 | PRO-05 | Plant life cycles | Germination, establishment, growth, flowering, fruiting, seed dispersal, dormancy, senescence and death. |
 | PRO-06 | Succession and regeneration | Pioneer cover, canopy closure, gap recovery and disturbance response; decide snapshots versus live regional updates. |
 | PRO-07 | Fire and recovery | Ignition, fuel moisture, spread, charring, ash, canopy damage and regeneration; scope peat fire separately if considered. |
-| PRO-08 | Freeze/thaw and mass movement | Frost effects, thaw slump, soil creep, bank collapse, rockfall and landslides as review candidates. |
+| PRO-08 | Freeze/thaw and mass movement | Slope stability and underground cave-ins accepted, with material/support rules and bounded propagation. No sinkhole-producing surface collapse; remaining frost/thaw/creep event details stay under review. |
 | PRO-09 | Coastal and lake change | Waves, tides, seasonal levels, sediment movement, shoreline erosion and exposure; distinguish appearance, terrain and water-budget behavior. |
 | PRO-10 | Biological interactions | Competition, shade, pollination, grazing, browsing, decomposers, disease and habitat capacity; choose abstractions individually. |
 | PRO-11 | Climate and calendar transitions | Season, altitude, latitude/projection where applicable, weather and local exposure; use shared rules rather than competing clocks. |

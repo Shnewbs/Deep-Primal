@@ -114,8 +114,10 @@ Use independently authored algorithms. Any actual source/native-library/assets a
 
 ### TERRAIN-03 — erosion, deposition, material masks and support
 
+**Later owner clarification (2026-10-21 PDT):** [terrain mechanics](TERRAIN-MECHANICS.md) accepts material erosion resistance and generation-time context, but makes full live sediment transport optional/default-off. Baseline panning/sluices use consumed recipes; contextual provenance must offer useful surrounding-geology gameplay. Sinkholes are excluded; appropriate caves/karst, mountain rivers/springs and bounded underground cave-ins remain accepted. This supersedes mandatory-sounding sediment wording while preserving this audit's source evidence.
+
 - [ ] Produce compact, reusable wear, flow and deposition summaries in the regional planner. Geological hardness, gradient and drainage should form gullies, weathered slopes, alluvial floors, gravel bars, silt/clay deposits and scree where appropriate.
-- [ ] Keep generation-time shaping separate from optional, bounded live erosion. Define sediment accounting and edited-block protection before runtime banks can erode.
+- [ ] Keep generation-time shaping separate from optional, default-off bounded live erosion and solid-sediment transport. Define sediment accounting and edited-block protection before runtime banks can erode.
 - [ ] Place stone, dirt, gravel, sand, clay, mud, grass and snow using slope, elevation relative to water, substrate, moisture, inundation and deposition history. Avoid grass on freshly scoured/unsuitable surfaces and identical beaches around all lakes.
 - [ ] Check generated support/connectivity after carvers/features, including water-bed containment. Protect intentional caves, overhangs and player builds; never use a global destructive cleanup scan.
 - [ ] Accept using geological/soil boundary and wet/dry transects, sediment continuity, no unsupported generated fragments, deterministic region seams and measured generation/cache budgets. Full natural-material catalog implementation remains separately deferred.
@@ -142,7 +144,7 @@ Use independently authored algorithms. Any actual source/native-library/assets a
 
 - [ ] Track bounded summaries of water source, temperature, suspended mineral sediment and dissolved organic/tannin load; add salinity where fresh/marine systems meet. Keep optical appearance separate from drinking safety/contaminants.
 - [ ] Support clear snow-fed mountain streams, sediment-rich runoff, organic-stained forest/wetland waters and clearer settled lakes. Do not make every tropical river brown or every frozen-source stream clear: [glacial meltwater can carry rock flour](https://uol.de/en/news/article/unlocking-the-secrets-of-glacier-flour).
-- [ ] Advect/mix concentrations using actual water exchange or an explicit conservative coarse model. Let sediment settle/resuspend with speed and substrate. At confluences retain plausible joining plumes that blend downstream, rather than instantly averaging a whole basin or drawing a biome seam.
+- [ ] Advect/mix concentrations using actual water exchange or an explicit conservative coarse model. Full sediment settling/resuspension is an optional/default-off extension; retain useful coarse source-composition blending without requiring terrain-changing transport. At confluences retain plausible joining plumes that blend downstream, rather than instantly averaging a whole basin or drawing a biome seam.
 - [ ] Derive tint, scattering/fog, clarity and foam response consistently for surface, underwater and LOD rendering. Retain resource-pack style overrides and the shared low-resolution texture/tint direction; no high-resolution texture requirement is introduced.
 - [ ] Accept clear/muddy confluence, unequal-flow mixing, lake settling, storm turbidity and estuary transitions, with no color jump at chunks, biome boundaries or near/far handoff. Budget composition storage/update/network costs.
 
