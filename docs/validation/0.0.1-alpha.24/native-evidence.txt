@@ -67,3 +67,26 @@ CAVE_COLUMN_PASS samples=761165 cavities=17272
 WATERSHED_CORE_PASS centerlineSamples=5846893 headwaters=964 lakes=657 savedV2=18000 faceConnectedFlowReaches=4292 containedBanks=538908
 BUILD SUCCESSFUL in 57s
 G4 native lake/GPU revalidation is pending. Earlier GPU records predate this last surface fix.
+
+G4 final native reruns and G5 culling/shutdown audit
+LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.375..153.4375 forcedChunks=49 peakPending=9057 pending=3667 diagnostics=Diagnostics[active=2064, pressure=1603, processed=6113, pressureVisits=12288, drainVisits=6144, transfers=289] medianTickMs=16.932195 p95TickMs=24.738627
+WATER_SHAPE_NATIVE_PASS backend=OpenGL kernel=1.0 crossLayerCorners=true captures=checker-animated,checker-fallback,slope-animated,slope-fallback validationErrors=notApplicable
+WATER_SHAPE_NATIVE_PASS backend=Vulkan kernel=1.0 crossLayerCorners=true captures=checker-animated,checker-fallback,slope-animated,slope-fallback validationErrors=0
+INTEGRATED_CLIENT_PASS scenes=coast,headwater,river,lake,outlet,ridge backend=Vulkan waterResidentBytes=4896 waterUploads=699 waterDrawnPages=14545 waterPending=0
+WATER_SHAPE_NATIVE_PASS backend=Vulkan kernel=1.0 crossLayerCorners=true fallbackBounds=true captures=checker-animated,checker-fallback,slope-animated,slope-fallback validationErrors=0
+recovered24-final-shape-vk.log
+[01:37:02] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=105465, pipelineCreationNanos=73769524, descriptorBindSkips=0, pipelineCreates=43, validationErrors=0, descriptorBinds=125668, pipelineFeedbackValid=43, descriptorReuse=20203}
+[01:37:02] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+recovered24-final-scenes-vk.log
+[01:38:30] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorReuse=159474, pipelineFeedbackValid=43, descriptorBinds=299558, validationErrors=0, pipelineCreates=43, descriptorBindSkips=0, pipelineCreationNanos=48994812, descriptorUpdates=140084, pipelineCacheHits=0}
+[01:38:30] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+recovered24-bounds-shape-vk.log
+[01:41:18] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorBindSkips=0, pipelineCreationNanos=48780778, descriptorUpdates=104439, pipelineCacheHits=0, descriptorReuse=20072, pipelineFeedbackValid=43, descriptorBinds=124511, validationErrors=0, pipelineCreates=43}
+[01:41:18] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+Native graphics controls, Performance value reopening and full restart passed on both APIs (native=3, custom pacing=89). Inventory/entity preview and all item rows were captured after resource reload on both APIs and inspected upright.
+The first fresh Vulkan menu exit exposed 1,644 destruction-time validation messages: a screenshot callback rejected by the stopped executor aborted MemoryManager releases. Graphics fixture now waits for its image; production cleanup independently continues after a failed completion, and final statistics are logged after device destruction.
+VULKAN_SHUTDOWN_CONTINUATION_PASS rejectedCompletion=true followingCompletion=true
+[02:00:27] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[02:00:27] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {validationErrors=0, pipelineCreates=46, descriptorBindSkips=0, pipelineCreationNanos=49241208, descriptorUpdates=24455, pipelineCacheHits=0, descriptorReuse=1794, pipelineFeedbackValid=46, descriptorBinds=26249}
+Native shutdown injection: failed completion followed by successful completion, menu PNG complete, no Vulkan VUID errors, zero tracked buffers/images and finalCountersAfterCleanup=true.
+Archive audit caught a truncated 8,051,517-byte Linux workspace output. Rebuilt synchronously and verified all outer/nested ZIP CRCs before staging and again after copy: 12,747,109 bytes, SHA-256 e145fc02b793a6791631ecff8206cabdd49f431059bbb6468a6f9c2bb6b4af1b. Later shutdown fix assembled and passed complete archive CRCs as well. No truncated archive was delivered. Final delivery profiles require their own post-staging audit.

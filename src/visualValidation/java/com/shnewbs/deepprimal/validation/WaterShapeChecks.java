@@ -93,6 +93,22 @@ final class WaterShapeChecks {
         throw new AssertionError("No animated GPU geometry");
       if (view % 2 == 1 && AnimatedWaterRenderer.ownsWater())
         throw new AssertionError("Fallback still animated");
+      if (view % 2 == 1 && !Boolean.getBoolean("deepprimal.validationOldSurface")) {
+        var area =
+            ((com.shnewbs.deepprimal.mixin.client.LevelRendererAccessor) mc.levelRenderer)
+                .deepprimal$viewArea();
+        boolean checked = false;
+        for (var section : area.sections)
+          if (section.getSectionNode() == net.minecraft.core.SectionPos.asLong(0, Y >> 4, 0)) {
+            var bounds = section.getBoundingBox();
+            if (bounds.minY != Y - 1 || bounds.maxY != Y + 17)
+              throw new AssertionError("Fallback clips cross-layer water corners: " + bounds);
+            if (section.getBoundingBox() != bounds)
+              throw new AssertionError("Fallback bounds allocate on every query");
+            checked = true;
+          }
+        if (!checked) throw new AssertionError("Missing native section-bound fixture");
+      }
       Path out = Path.of(System.getProperty("deepprimal.validationCapture"));
       out.toFile().mkdirs();
       String name = (view < 2 ? "checker" : "slope") + (view % 2 == 0 ? "-animated" : "-fallback");
@@ -135,7 +151,7 @@ final class WaterShapeChecks {
                 + RenderSystem.getDevice().getBackendName()
                 + " kernel="
                 + WaterTransport.surface(1, 1, 1, 1, .0625, .5, .5)
-                + " crossLayerCorners=true"
+                + " crossLayerCorners=true fallbackBounds=true"
                 + " captures=checker-animated,checker-fallback,slope-animated,slope-fallback"
                 + " validationErrors="
                 + validation
