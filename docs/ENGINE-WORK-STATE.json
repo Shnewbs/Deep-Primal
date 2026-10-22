@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T12:10:50Z",
-  "active_until": "2026-10-22T12:10:50Z",
+  "status": "scheduled_active",
+  "updated_at": "2026-10-22T12:27:00Z",
+  "active_until": "2026-10-22T13:20:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Unreleased pressure-head retention fix: native before/after reproduction, long/edit/unload/idle/reopen/filling/pressure, repeated basin retention, full non-Vulkan core/module build and rebuilt packaged-native/class/CRC checks pass. Revised ABBA median17.608–17.725ms/p95 27.456–31.423 improves over preceding candidate19.093–19.402/33.123–33.130; pending6099–6198 remains. PROMOTION BLOCKED: broader matched pre-continuation performance/settling/output/memory, saturation/drain and engine gates remain open.",
+  "current_gate": "Isolated audit and correction of remaining water runtime allocation/read overhead, with matched pre-continuation/current basin and native safety checks before any promotion.",
   "next_items": [
     "Repeat matched pre-continuation/current basin comparisons, establish settling/output/memory evidence, and profile remaining active-basin duplicate/admission churn and BlockPos allocation before promotion. Preserve the new volume-head frontier regression and long/edit/unload/idle/reopen controls.",
     "Extend bounded drain continuation and pressure behavior beyond the 8192-node/job residency boundary; 16 jobs/level currently cap memory, and saturation is still unresolved for larger connected regions.",
@@ -31,5 +31,6 @@
     "Thousands of active-basin pending entries remain; current matched pre-continuation performance, complete settling, output and memory acceptance are unproven",
     "Pressure residency saturation and general drain continuation remain incomplete",
     "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open"
-  ]
+  ],
+  "worker": "scheduled-pressure-allocation-a22609fabda0"
 }
