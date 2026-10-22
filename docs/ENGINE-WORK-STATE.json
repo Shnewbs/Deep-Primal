@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_continuation",
-  "updated_at": "2026-10-22T14:37:47.980Z",
-  "active_until": "2026-10-22T14:37:47.980Z",
+  "status": "continuation_active",
+  "updated_at": "2026-10-22T15:25:15.394Z",
+  "active_until": "2026-10-22T16:25:15.394Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "The failed drain-reload experiment and a separately tested lifecycle candidate are preserved as evidence only. Restore JDK25/Gradle/native dependencies and prove reload wakeup, closed-basin settling and safety before integrating production changes.",
+  "current_gate": "Restore pinned build tools in a new isolated directory, then reproduce and trace the preserved drain-reload candidate. Keep production integration and installer release blocked on native/build acceptance.",
   "next_items": [
     "Restore the pruned JDK25/Gradle/native environment, then trace chunk-load thread/FULL readiness and waiter registration/removal in the preserved reload fixture. The fresh source-extracted lifecycle candidate passes modeled deferral/bounds/cleanup only; actual native reload remains failed/unproven. Do not integrate the preserved experiment until reload, edit/unload/conservation, reopen, closed-basin repeats and full build/package gates pass.",
     "Establish a deterministic fully loaded closed-basin native replay or explicit boundary-flux ledger, then compare conserved output, settling, latency and memory against pre-continuation/current source. Current open-boundary basin final water-state digests vary even on unchanged-revision repeats; do not certify broad performance from them. Profile remaining pressure/drain churn; preserve FIFO cap/order/mutable/overflow and long/head/edit/unload/idle/reopen regressions.",
@@ -34,5 +34,6 @@
     "Pressure residency saturation and general drain continuation remain incomplete",
     "Broader enabled-view/native visual/LOD, water-budget and terrain/geology acceptance remains open; display/optional Vulkan environment remains unavailable"
   ],
-  "latest_accepted_solver_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a"
+  "latest_accepted_solver_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a",
+  "worker": "continuation-native-restore-1524"
 }
