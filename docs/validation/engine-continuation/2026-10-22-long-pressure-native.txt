@@ -1,0 +1,15 @@
+Fresh dedicated-server reproduction, 2026-10-22 09:46 UTC; exit 0.
+Fixture: LongPressureChecks; -PvisualValidation -PwithoutVulkan -PrunDir=run-long-pressure runServer
+DEEPPRIMAL_LONG_PRESSURE_CHECKS=true; record destination supplied by DEEPPRIMAL_LONG_PRESSURE_RECORD.
+MC 26.1.2 / NeoForge 26.1.2.122 / game JDK25 / asset-tool JDK21.
+Loopback-only offline test server; 18 fixture chunks forced, then released. No production force-loading change.
+Nonfatal Yggdrasil public-key fetch failed with UnknownHostException; LAN pinger network unreachable.
+No crash-report directory, assertion failure or server crash in this launch. Explicit records and normal save/shutdown inspected.
+[05:46:20] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true
+LONG_PRESSURE_CUTOFF_NATIVE_REPRODUCED ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=0 forcedChunks=18 firstSearchVisits=128 conserved=true solverAcceptance=false
+[05:46:29] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[05:46:31] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BUILD SUCCESSFUL in 55s
+18 actionable tasks: 3 executed, 15 up-to-date
+solverAcceptance=false; this intentionally confirms the open defect, not hydraulic correctness.

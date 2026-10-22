@@ -1,0 +1,7 @@
+{
+  "tools/build_with_current_proxy.py": "54ac049a8f22fab15cde893323e1674bf02488a20352b7430ab2006c3bbe0254",
+  "tools/compat/ProcessCommandFallback.java": "1192c345d87923178f0553029d8e3bdc16e24b0e2ce7e39f3580a815a58a5219",
+  "tools/compat/ProcessCommandFallbackChecks.java": "4d85179369b3ce83dc137f81c1cf179d7869539c3473320c1e416451b71dc674",
+  "tools/compat/build_process_fallback.py": "406fe4c8a04d2c62d26d638379896608ab2bb93839e0b40acfafc39c69e7b36d",
+  "src/visualValidation/java/com/shnewbs/deepprimal/validation/LongPressureChecks.java": "8ab91006d8de23d9812ddaa01ae20b370e5f4b1037d2a744b5795a9b28e97386"
+}
