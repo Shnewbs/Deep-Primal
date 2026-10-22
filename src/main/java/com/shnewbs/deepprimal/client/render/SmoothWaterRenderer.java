@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.client.fluid.CustomFluidRenderer;
 
-/** Original shared-corner curved patch mesher; uses the game's chunk buffers/materials only. */
+/** Original shared-corner bilinear patch mesher; uses the game's chunk buffers/materials only. */
 public final class SmoothWaterRenderer implements CustomFluidRenderer {
   public static volatile long renderedCells;
   public static volatile long curvedCells;
@@ -66,7 +66,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         sw = corner(l, p.south()),
         se = corner(l, p.east().south());
     double center = water(l, p.above()) ? 1 : state.getOwnHeight();
-    int divisions = Math.abs(center - (nw + ne + sw + se) * .25) < 1e-5 ? 1 : SUB;
+    int divisions=Math.abs(nw-ne-sw+se)<1e-5?1:SUB;
     if (top && divisions > 1) curvedCells++;
     if (top)
       for (int iz = 0; iz < divisions; iz++)
