@@ -148,9 +148,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   }
 
   private BlockState surfaceV3(TerrainEngine.Sample s, int y, int bed) {
-    if (s.sediment() > .65 && s.slope() > .45 && bed <= 270)
+    if (s.sediment() > .65 && s.slope() > 1.15 && bed <= 270)
       return Blocks.GRAVEL.defaultBlockState();
-    if (s.slope() > .95 || bed > 270)
+    if (s.slope() > 1.4 || bed > 270)
       return (s.rock() == 0 ? Blocks.GRANITE : Blocks.STONE).defaultBlockState();
     if (s.ground() < getSeaLevel() + 4 || s.rain() < .32)
       return (y < bed - 2 ? Blocks.SANDSTONE : Blocks.SAND).defaultBlockState();
@@ -159,7 +159,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       return (s.rain() > .72 && s.sediment() > .8 ? Blocks.CLAY : Blocks.DIRT).defaultBlockState();
     }
     if (s.temperature() < .16 && y == bed) return Blocks.SNOW_BLOCK.defaultBlockState();
-    if (s.sediment() > .9 && s.slope() > .35) return Blocks.GRAVEL.defaultBlockState();
+    if (s.sediment() > .9 && s.slope() > .8 && s.rain() < .45)
+      return Blocks.GRAVEL.defaultBlockState();
     return (y == bed ? Blocks.GRASS_BLOCK : Blocks.DIRT).defaultBlockState();
   }
 

@@ -15,8 +15,9 @@ final class CaveColumnChecks {
         int x = random.nextInt(-30_000_000, 30_000_000),
             z = random.nextInt(-30_000_000, 30_000_000),
             min = n % 2 == 0 ? -128 : -384,
-            max = min + 768 - 1;
-        double surface = random.nextInt(-100, 420) + random.nextInt(16) / 16.0;
+            max = min + (n % 3 == 0 ? 256 : 768) - 1;
+        double surface =
+            n % 11 == 0 ? min - 40 : random.nextInt(-100, 420) + random.nextInt(16) / 16.0;
         var cached = new CaveColumn(noise, x, z, surface, min, max);
         for (int y = min - 1; y <= max + 1; y++) {
           boolean expected = y <= max && baseline.cave(x, y, z, surface, min);

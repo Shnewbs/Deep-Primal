@@ -87,9 +87,11 @@ public final class LakeRetentionChecks {
             break;
           }
         }
-        if (!Double.isFinite(surface) || surface < lake.level() - 1.0625)
+        if (!Double.isFinite(surface)
+            || surface < lake.level() - 1.0625
+            || surface > lake.level() + 1.0625)
           throw new AssertionError(
-              "Lake drained below outlet sill: initial="
+              "Lake escaped its spill-level bounds: initial="
                   + lake.level()
                   + " actual="
                   + surface

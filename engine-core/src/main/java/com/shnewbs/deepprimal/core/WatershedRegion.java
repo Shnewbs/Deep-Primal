@@ -271,7 +271,7 @@ public final class WatershedRegion {
     ArrayList<Integer>[] buckets = new ArrayList[TILES * TILES];
     for (int n = 0; n < segments.length; n++) {
       var s = segments[n];
-      double margin = Math.max(s.ra, s.rb) + 16;
+      double margin = Math.max(s.ra, s.rb) + 36;
       int x0 = tile(Math.min(s.ax, s.bx) - margin, ox),
           x1 = tile(Math.max(s.ax, s.bx) + margin, ox);
       int z0 = tile(Math.min(s.az, s.bz) - margin, oz),
@@ -376,10 +376,10 @@ public final class WatershedRegion {
         double vx = s.bx - s.ax, vz = s.bz - s.az, len = vx * vx + vz * vz;
         double t = Math.clamp(((x - s.ax) * vx + (z - s.az) * vz) / len, 0, 1);
         double dist = Math.hypot(x - s.ax - vx * t, z - s.az - vz * t), r = lerp(s.ra, s.rb, t);
-        if (dist > r + 16) continue;
+        if (dist > r + 36) continue;
         double level = lerp(s.sa, s.sb, t),
             depth = Math.clamp(1.35 + r * .17, 1.5, 6),
-            bank = 4 + r * .4;
+            bank = Math.clamp(5 + r * .4 + Math.sqrt(Math.max(0, uncut - level)) * 2, 5, 24);
         if (dist < r + 1.01) {
           double grade = Math.max(0, (s.sa - s.sb) / Math.sqrt(len));
           joinedBed = Math.min(joinedBed, Math.floor(level - grade) - 1.001);

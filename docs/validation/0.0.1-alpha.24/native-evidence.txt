@@ -1,0 +1,50 @@
+Fresh recovery evidence — 2026-10-22
+
+G1: recovered candidate before cave caching. G2: exact cave caching, before the subsequent coast/bank visual refinement. These stages are not the final installer.
+
+recovered24-native
+WATERSHED_NATIVE_PASS sites=5 waterCells=11260 dryColumns=2976 materialColumns=80 sealedBanks=187 trunks=4 faceConnectedSourceReaches=23 generationAndAuditMs=15933.600118
+
+recovered24-before-revision
+TERRAIN_REVISION_NATIVE_PASS revision=3 codecRoundTrip=true chunks=9 generationMs=532.001251 columnReuse=true blockDigest=5c58aa00a2718e7177221d9caea486cbc66da57884f94ce3db2b14f1ba8095f2 minY=-128 height=768
+
+recovered24-lake1000
+LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.375..153.4375 forcedChunks=49 peakPending=9057 pending=3693 diagnostics=Diagnostics[active=2084, pressure=1609, processed=6144, pressureVisits=12288, drainVisits=6144, transfers=287] medianTickMs=15.217591 p95TickMs=22.705817
+
+recovered24-v2
+TERRAIN_REVISION_NATIVE_PASS revision=2 codecRoundTrip=true chunks=9 generationMs=518.539974 columnReuse=true blockDigest=a2f9e01595e6af310116a3f05e9c4d4d9776ffbac49153e87977ec43c308b36f minY=-128 height=768
+
+recovered24-v3-after
+TERRAIN_REVISION_NATIVE_PASS revision=3 codecRoundTrip=true chunks=9 generationMs=491.701165 columnReuse=true blockDigest=5c58aa00a2718e7177221d9caea486cbc66da57884f94ce3db2b14f1ba8095f2 minY=-128 height=768
+
+recovered24-v3-reopen
+TERRAIN_REVISION_NATIVE_PASS revision=3 codecRoundTrip=true chunks=9 generationMs=1037.158185 columnReuse=true blockDigest=5c58aa00a2718e7177221d9caea486cbc66da57884f94ce3db2b14f1ba8095f2 minY=-128 height=768
+
+recovered24-watershed-after
+WATERSHED_NATIVE_PASS sites=5 waterCells=11260 dryColumns=2976 materialColumns=80 sealedBanks=187 trunks=4 faceConnectedSourceReaches=23 generationAndAuditMs=12445.462825
+
+recovered24-pressure
+ENGINE_PRESSURE_NATIVE_PASS units=144 raisedSurface=true conserved=true disconnected=true noForceLoad=true
+
+recovered24-filling
+WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0
+
+Fresh native Create World (G2)
+WORLD_CREATION_FORM_PASS mode=fresh prepareMs=1033.772083
+CREATION_SCREEN net.minecraft.client.gui.screens.ConfirmScreen
+CREATION_SCREEN net.minecraft.client.gui.screens.LevelLoadingScreen
+WORLD_CREATION_JOIN_PASS revision=3 backend=OpenGL
+WORLD_CREATION_PASS
+
+Fresh OpenGL scene capture (G2): six files produced; visual acceptance FAILED for uniform coast terraces and regular exposed-bank strips. Lake selection/camera needs a smaller verified inland basin. Screenshots establish a reproduction, not completion.
+
+recovery-build-captured.log
+WATER_SURFACE_SHAPE_PASS planarSamples=441 extremaCases=20000 planarPatchVertices=4
+WATERSHED_CORE_PASS centerlineSamples=5845944 headwaters=951 lakes=648 savedV2=18000 faceConnectedFlowReaches=4286 containedBanks=539438
+BUILD SUCCESSFUL in 47s
+
+recovered24-cave-build.log
+WATER_SURFACE_SHAPE_PASS planarSamples=441 extremaCases=20000 planarPatchVertices=4
+CAVE_COLUMN_PASS samples=965965 cavities=21771
+WATERSHED_CORE_PASS centerlineSamples=5845944 headwaters=951 lakes=648 savedV2=18000 faceConnectedFlowReaches=4286 containedBanks=539438
+BUILD SUCCESSFUL in 43s

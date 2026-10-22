@@ -136,13 +136,19 @@ public final class TerrainEngine {
   }
 
   private double raw(double m, double x, double z) {
+    double coastalDetail = 0;
+    if (revision >= 3 && Math.abs(m) < .18)
+      coastalDetail =
+          (noise.field(x, z, 64, 73) * 2.2 + noise.field(x, z, 180, 77) * 4.5)
+              * (1 - smooth(Math.abs(m) / .18));
     if (m < 0 && revision >= 3) {
       double shelf = smooth(-m / .12);
       return SEA
           - 3
           - 44 * shelf
           - 85 * smooth((-m - .12) / .55)
-          + noise.field(x, z, 270, 33) * 13 * shelf;
+          + noise.field(x, z, 270, 33) * 13 * shelf
+          + coastalDetail;
     }
     if (m < 0)
       return SEA
@@ -160,7 +166,8 @@ public final class TerrainEngine {
         noise.field(x, z, 240, 61) * 24
             + noise.field(x, z, 65, 65) * 6
             + noise.noise(x, z, 19, 70) * 1.3;
-    return SEA - 3 + inland * (plateau + peaks + hills) + Math.min(m, .15) * 30;
+    double ground = SEA - 3 + inland * (plateau + peaks + hills) + Math.min(m, .15) * 30;
+    return revision >= 3 ? ground + coastalDetail : ground;
   }
 
   private synchronized Drainage plan(Land l) {

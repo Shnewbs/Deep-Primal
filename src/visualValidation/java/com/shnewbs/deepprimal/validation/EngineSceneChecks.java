@@ -60,14 +60,24 @@ final class EngineSceneChecks {
                 } else {
                   var p =
                       region.lakeProbes().stream()
-                          .filter(a -> a.area() < 30000)
-                          .max(java.util.Comparator.comparingDouble(a -> a.area()))
+                          .filter(
+                              a ->
+                                  a.area() >= 3072
+                                      && a.area() < 16000
+                                      && a.level() > 110
+                                      && Math.abs(
+                                              g.geography().sample(a.x(), a.z()).water()
+                                                  - a.level())
+                                          < .01
+                                      && g.geography().sample(a.x(), a.z()).ground()
+                                          < a.level() - 3)
+                          .min(java.util.Comparator.comparingDouble(a -> a.area()))
                           .orElseThrow();
                   targetX = view == 3 ? p.x() : p.outletX();
                   targetZ = view == 3 ? p.z() : p.outletZ();
                   level = p.level();
                 }
-                double distance = view == 1 ? 30 : 65;
+                double distance = view == 1 ? 30 : view == 3 ? 48 : view == 4 ? 36 : 65;
                 if (view == 1 || view == 2) {
                   var flow = g.geography().sample(targetX, targetZ);
                   x = targetX - flow.flowX() * distance + flow.flowZ() * distance * .3;
@@ -109,6 +119,17 @@ final class EngineSceneChecks {
                 y = g.geography().sample(x, z).ground() + 60;
                 yaw = 35;
                 pitch = 30;
+              }
+              try {
+                Path out = Path.of(System.getProperty("deepprimal.validationCapture"));
+                Files.createDirectories(out);
+                Files.writeString(
+                    out.resolve("scene-cameras.tsv"),
+                    names[view] + "\t" + x + "\t" + y + "\t" + z + "\t" + yaw + "\t" + pitch + "\n",
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND);
+              } catch (java.io.IOException e) {
+                throw new java.io.UncheckedIOException(e);
               }
               var source = server.createCommandSourceStack();
               server.getCommands().performPrefixedCommand(source, "time set noon");
