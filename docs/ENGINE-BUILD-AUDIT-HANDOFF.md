@@ -59,8 +59,8 @@ The pressure-head continuation caught a valid-CRC JAR containing an older WaterR
 
 Read [the basin/pressure audit](validation/engine-continuation/basin-pressure-2026-10-22/README.md) and work-state staged source paths.
 The optional checksum-pinned tool restoration helper can recreate private tools
-after a reset; it is never mod payload. The accepted production solver remains
-2c431bb. The disposable project and staged runtime/core are an **unaccepted
+after a reset; it is never mod payload. The accepted production solver was 2c431bb at that checkpoint; the later
+pressure-admission cleanup below supersedes it on the working branch. The disposable project and staged runtime/core are an **unaccepted
 experiment** and must be reviewed/copied together. Main and supplied installers
 are unchanged.
 
@@ -87,3 +87,22 @@ Historical failures stay in ACTIVE-ENGINE-AUDIT and the linked reports. Regional
 renewable/finite reservoirs, enabled-view water/LOD coverage, transparency and
 geology remain unfinished; catalog/species stays deferred. No fresh visual/Vulkan
 or owner GPU/FPS acceptance is established here. Substeps are not independent 60 Hz.
+
+## Current accepted cleanup and Vulkan priority
+
+Read [pressure admission evidence](validation/engine-continuation/pressure-admission-2026-10-22/README.md).
+Production now contains the independently authored, validated two-method cleanup
+on the accepted solver: centralize new-admission validation (amount reads 3 to 1)
+and preserve resident job ownership defensively. Injected overlap reachability
+in ordinary gameplay and a latency causal link are unproven. All 13 final native
+cases, uncached non-Vulkan core/module build, five CRCs and 225 class matches pass.
+Main/installers are unchanged. The newly staged retained-drain cleanup has only
+source-extracted controls; it must repeat full native/basin gates before promotion.
+
+Owner direction: prioritize Vulkan as the primary sample/reference graphics API
+and test target, preserving OpenGL fallback and independent module boundaries.
+Continue actual implementation after checkpoints; keep owner updates to concise
+verified milestones or blockers. Restore Vulkan/display/driver before enabled-view
+coverage/transparency and shutdown injection checks; do not claim GPU/FPS guarantees
+from software-driver runs. Regional water budgets, pressure residency/performance,
+geology and LOD acceptance remain open; catalog/species remains deferred.

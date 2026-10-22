@@ -122,3 +122,19 @@ still has 1,024 waiters at tick 120; larger residency, regional budgets, enabled
 water/transparency and geology remain unfinished. No fresh visual/Vulkan/owner GPU
 check ran; the display/Vulkan test environment is absent. Main, supplied installers
 and frozen V1/V2/V3 geography are unchanged. Work lease released.
+
+## 2026-10-22: accepted pressure admission cleanup; Vulkan next
+
+Two production methods now centralize admission checks and retain resident job
+ownership defensively. Exact-source normal amount reads fall from three to one;
+no measured gameplay latency/FPS improvement is asserted. The overlap reproduction
+is deliberately injected and normal-call reachability is unproven. All 13 final
+native gates, uncached non-Vulkan build/core/module checks, five CRCs and 225 class
+comparisons pass. Baseline assertion crashes and rejected intermediate capture are
+preserved as failures. See [source, evidence and scope](validation/engine-continuation/pressure-admission-2026-10-22/README.md).
+
+The retained-drain experiment stays separate and unaccepted; its newly combined
+cleanup needs fresh full validation. Main/installers/geography remain unchanged.
+Vulkan is now the primary graphics reference/test API at the owner's direction;
+OpenGL fallback remains modular. No fresh graphics acceptance yet. Next restore
+the Vulkan environment and exercise enabled-view water/LOD and cleanup gates.
