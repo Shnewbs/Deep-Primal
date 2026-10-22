@@ -10,6 +10,8 @@ At reviewed main **797c2851df7816f416e9a25be757444aa7a9836b** (alpha 21), an ind
 
 Alpha 21 adds independent liquid presentation, height interpolation and local scheduling improvements. Neither interpolation nor faster transfer creates recharge. Existing conservation fixtures cover finite local flows; they do not validate the watershed mechanics below. This document changes planning only.
 
+Alpha 23 adds three local transport substeps per 20 Hz host tick (nominal 60/second), retained bounded work and per-frame liquid presentation. That cadence improvement does not implement the renewable reservoir or ocean/atmosphere ledger. See [scope and tests](VALIDATION-0.0.1-alpha.23.md).
+
 ## Approved operating model
 
 | Component | Required behavior |

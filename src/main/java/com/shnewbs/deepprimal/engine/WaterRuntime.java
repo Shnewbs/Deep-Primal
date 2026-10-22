@@ -16,11 +16,18 @@ public final class WaterRuntime {
   private static final WeakHashMap<ServerLevel, Budget> BUDGETS = new WeakHashMap<>();
   private static final int PRESSURE_VISITS_PER_TICK = 4096, PRESSURE_SEARCH = 128;
   private static final int MAX_ACTIVE = 65536, DRAIN_VISITS_PER_TICK = 2048, DRAIN_SEARCH = 128;
-  private static final int TICKS_PER_LEVEL = 2048, SIDE_TRANSFER = 2, PRESSURE_TRANSFER = 4;
+  // Three transport substeps per 50 ms host tick: nominal 60 Hz solver resolution.
+  // World commits stay on the owning thread; presentation interpolates every rendered frame.
+  public static final int SUBSTEPS = 3;
+  private static final int CELLS_PER_SUBSTEP = 2048;
+  private static final int TICKS_PER_LEVEL = CELLS_PER_SUBSTEP * SUBSTEPS;
+  private static final int SIDE_TRANSFER = 2, PRESSURE_TRANSFER = 4;
 
   private static final class Budget {
     long time = Long.MIN_VALUE;
     int count, pressureVisits, drainVisits;
+    int pressureLimit = PRESSURE_VISITS_PER_TICK, drainLimit = DRAIN_VISITS_PER_TICK;
+    boolean stepped;
     final LinkedHashSet<BlockPos> active = new LinkedHashSet<>();
     final LinkedHashSet<BlockPos> pressure = new LinkedHashSet<>();
   }
@@ -108,6 +115,9 @@ public final class WaterRuntime {
     if (budget.time != level.getGameTime()) {
       budget.time = level.getGameTime();
       budget.count = budget.pressureVisits = budget.drainVisits = 0;
+      budget.pressureLimit = PRESSURE_VISITS_PER_TICK;
+      budget.drainLimit = DRAIN_VISITS_PER_TICK;
+      budget.stepped = false;
     }
     return budget;
   }
@@ -129,23 +139,34 @@ public final class WaterRuntime {
     return b == null ? 0 : b.active.size() + b.pressure.size();
   }
 
-  /** Owning-thread update. Stable pressure work cannot consume the gravity/spreading budget. */
+  /**
+   * Run newly activated cells again within this host tick instead of waiting another 50 ms. The
+   * persistent FIFO contains only unresolved work. A stable world does no transport work; a large
+   * connected flood cannot monopolize the server until the entire ocean equilibrates.
+   */
   public static void step(ServerLevel level) {
     Budget budget = budget(level);
-    int remaining = Math.min(budget.active.size(), TICKS_PER_LEVEL - budget.count);
-    while (remaining-- > 0 && !budget.active.isEmpty()) {
-      BlockPos p = budget.active.getFirst();
-      budget.active.removeFirst();
-      advance(level, p, budget);
-    }
-    int pending = budget.pressure.size();
-    while (pending-- > 0
-        && !budget.pressure.isEmpty()
-        && PRESSURE_VISITS_PER_TICK - budget.pressureVisits >= PRESSURE_SEARCH) {
-      BlockPos p = budget.pressure.getFirst();
-      budget.pressure.removeFirst();
-      if (level.isInWorldBounds(p) && level.hasChunkAt(p) && units(level, p) > 0)
-        equalize(level, p, budget);
+    if (budget.stepped) return;
+    budget.stepped = true;
+    for (int phase = 0; phase < SUBSTEPS; phase++) {
+      budget.pressureLimit = PRESSURE_VISITS_PER_TICK * (phase + 1);
+      budget.drainLimit = DRAIN_VISITS_PER_TICK * (phase + 1);
+      int remaining =
+          Math.min(
+              budget.active.size(), Math.min(CELLS_PER_SUBSTEP, TICKS_PER_LEVEL - budget.count));
+      while (remaining-- > 0 && !budget.active.isEmpty()) {
+        BlockPos p = budget.active.removeFirst();
+        advance(level, p, budget);
+      }
+      int pending = budget.pressure.size();
+      while (pending-- > 0
+          && !budget.pressure.isEmpty()
+          && budget.pressureLimit - budget.pressureVisits >= PRESSURE_SEARCH) {
+        BlockPos p = budget.pressure.removeFirst();
+        if (level.isInWorldBounds(p) && level.hasChunkAt(p) && units(level, p) > 0)
+          equalize(level, p, budget);
+      }
+      if (budget.active.isEmpty() && budget.pressure.isEmpty()) break;
     }
   }
 
@@ -157,7 +178,7 @@ public final class WaterRuntime {
       return;
     }
     advance(level, p, b);
-    if (PRESSURE_VISITS_PER_TICK - b.pressureVisits >= PRESSURE_SEARCH && b.pressure.remove(p))
+    if (b.pressureLimit - b.pressureVisits >= PRESSURE_SEARCH && b.pressure.remove(p))
       equalize(level, p, b);
   }
 
@@ -214,7 +235,7 @@ public final class WaterRuntime {
       }
     }
     if (!exit) return false;
-    if (budget.drainVisits >= DRAIN_VISITS_PER_TICK) {
+    if (budget.drainVisits >= budget.drainLimit) {
       activate(l, origin);
       return false;
     }
@@ -229,7 +250,7 @@ public final class WaterRuntime {
         seen.add(q);
       }
     }
-    while (!queue.isEmpty() && budget.drainVisits < DRAIN_VISITS_PER_TICK) {
+    while (!queue.isEmpty() && budget.drainVisits < budget.drainLimit) {
       Node n = queue.removeFirst();
       budget.drainVisits++;
       BlockPos below = n.position.below();
@@ -266,7 +287,7 @@ public final class WaterRuntime {
 
   /** Bounded connected-water search; sealed and unloaded cells cannot become outlets. */
   private static boolean equalize(ServerLevel l, BlockPos origin, Budget budget) {
-    if (budget.pressureVisits >= PRESSURE_VISITS_PER_TICK) {
+    if (budget.pressureVisits >= budget.pressureLimit) {
       budget.pressure.add(origin.immutable());
       return false;
     }
@@ -276,7 +297,7 @@ public final class WaterRuntime {
     seen.add(origin);
     BlockPos high = null, low = null;
     long highHead = Long.MIN_VALUE, lowHead = Long.MAX_VALUE;
-    while (!queue.isEmpty() && budget.pressureVisits < PRESSURE_VISITS_PER_TICK) {
+    while (!queue.isEmpty() && budget.pressureVisits < budget.pressureLimit) {
       BlockPos p = queue.removeFirst();
       budget.pressureVisits++;
       int amount = units(l, p);

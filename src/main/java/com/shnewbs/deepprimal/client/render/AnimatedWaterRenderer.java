@@ -56,6 +56,8 @@ public final class AnimatedWaterRenderer {
   private final LinkedHashSet<Long> dirty = new LinkedHashSet<>();
   private final LinkedHashSet<Long> urgent = new LinkedHashSet<>();
   private final LinkedHashSet<Long> fresh = new LinkedHashSet<>();
+  // Fully hidden water needs no resident page. Remember it until geometry/halo data changes.
+  private final LinkedHashSet<Long> hidden = new LinkedHashSet<>();
   private static final WaterPatchMesher.Snapshot EMPTY =
       new WaterPatchMesher.Snapshot(
           new byte[WaterPatchMesher.CELLS],
@@ -151,6 +153,8 @@ public final class AnimatedWaterRenderer {
 
   private void chunkChanged(ClientLevel source, int x, int z, boolean removed) {
     if (!owns || source != level) return;
+    hidden.removeIf(
+        key -> Math.abs(SectionPos.x(key) - x) <= 1 && Math.abs(SectionPos.z(key) - z) <= 1);
     for (var it = pages.values().iterator(); it.hasNext(); ) {
       Page page = it.next();
       int dx = Math.abs((page.x >> 4) - x), dz = Math.abs((page.z >> 4) - z);
@@ -189,6 +193,7 @@ public final class AnimatedWaterRenderer {
         for (int dx = -1; dx <= 1; dx++) {
           long key =
               SectionPos.asLong((p.getX() + dx) >> 4, (p.getY() + dy) >> 4, (p.getZ() + dz) >> 4);
+          invalidateHidden(key);
           Page page = pages.get(key);
           if (page != null) {
             page.changed = true;
@@ -197,9 +202,17 @@ public final class AnimatedWaterRenderer {
         }
   }
 
+  private void invalidateHidden(long key) {
+    if (hidden.remove(key))
+      newlyWet(
+          new BlockPos(
+              SectionPos.x(key) * 16 + 8, SectionPos.y(key) * 16 + 8, SectionPos.z(key) * 16 + 8));
+  }
+
   public void newlyWet(BlockPos p) {
     if (!owns) return;
     long key = SectionPos.asLong(p);
+    hidden.remove(key);
     if (pages.containsKey(key)) return;
     fresh.add(key);
     while (fresh.size() > MAX_PAGES * 2) fresh.removeFirst();
@@ -220,7 +233,9 @@ public final class AnimatedWaterRenderer {
     for (int dy = -1; dy <= 1; dy++)
       for (int dz = -1; dz <= 1; dz++)
         for (int dx = -1; dx <= 1; dx++) {
-          var page = pages.get(SectionPos.asLong(x + dx, y + dy, z + dz));
+          long key = SectionPos.asLong(x + dx, y + dy, z + dz);
+          invalidateHidden(key);
+          var page = pages.get(key);
           if (page != null) {
             page.changed = true;
             urgent.add(page.key);
@@ -283,8 +298,9 @@ public final class AnimatedWaterRenderer {
           n++) {
         var section = view.sections[Math.floorMod(discovery++, view.sections.length)];
         long key = section.getSectionNode();
-        if (pages.containsKey(key) || !event.getFrustum().isVisible(section.getBoundingBox()))
-          continue;
+        if (pages.containsKey(key)
+            || hidden.contains(key)
+            || !event.getFrustum().isVisible(section.getBoundingBox())) continue;
         int x = SectionPos.x(key), y = SectionPos.y(key), z = SectionPos.z(key);
         if (y < level.getMinSectionY() || y >= level.getMaxSectionY()) continue;
         var chunk = level.getChunkSource().getChunk(x, z, false);
@@ -420,12 +436,12 @@ public final class AnimatedWaterRenderer {
     float[] values = ready.mesh.vertices();
     int count = ready.mesh.count();
     if (count == 0) {
-      if (p.gpu != null) {
-        residentBytes -= p.gpu.bytes;
-        p.gpu.close();
-        p.gpu = null;
-      }
-      p.snapshot = ready.snapshot;
+      // An edit during capture/meshing must get another turn before a negative result is cached.
+      if (p.changed) return;
+      release(p);
+      pages.remove(p.key);
+      hidden.add(p.key);
+      while (hidden.size() > MAX_PAGES * 4) hidden.removeFirst();
       return;
     }
     long bytes = (long) count * 36;
@@ -585,6 +601,7 @@ public final class AnimatedWaterRenderer {
     dirty.clear();
     urgent.clear();
     fresh.clear();
+    hidden.clear();
     heights.forEach(Map::clear);
     alpha.forEach(Map::clear);
     residentBytes = 0;

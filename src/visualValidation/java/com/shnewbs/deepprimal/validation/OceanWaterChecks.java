@@ -18,6 +18,9 @@ public final class OceanWaterChecks {
   private static volatile int oceanX;
   private static volatile String oceanAudit;
   private static String meshAudit;
+  private static long exposedKey;
+  private static BlockPos exposed;
+  private static net.minecraft.world.level.block.state.BlockState covered;
   private static volatile boolean reloaded;
   private static net.minecraft.client.gui.screens.Screen warning;
 
@@ -97,6 +100,7 @@ public final class OceanWaterChecks {
   }
 
   public static void tick(Minecraft mc) {
+    if (stage == 16) return;
     if (began == 0) began = System.nanoTime();
     if (System.nanoTime() - began > 180_000_000_000L)
       throw new AssertionError("Ocean water timeout stage=" + stage);
@@ -242,6 +246,24 @@ public final class OceanWaterChecks {
         throw new AssertionError("Ocean regression: " + oceanAudit + " " + meshAudit);
       try {
         String afterReload = inspect(mc), validation = "notApplicable";
+        var renderer = AnimatedWaterRenderer.INSTANCE;
+        var hiddenField = renderer.getClass().getDeclaredField("hidden");
+        hiddenField.setAccessible(true);
+        int hidden = ((java.util.Set<?>) hiddenField.get(renderer)).size();
+        if (hidden == 0)
+          throw new AssertionError("Generated ocean must exercise hidden-page cache");
+        var pageField = renderer.getClass().getDeclaredField("pages");
+        pageField.setAccessible(true);
+        for (var page : ((java.util.Map<?, ?>) pageField.get(renderer)).values()) {
+          var gpu = page.getClass().getDeclaredField("gpu");
+          gpu.setAccessible(true);
+          var busy = page.getClass().getDeclaredField("busy");
+          busy.setAccessible(true);
+          var changed = page.getClass().getDeclaredField("changed");
+          changed.setAccessible(true);
+          if (gpu.get(page) == null && !busy.getBoolean(page) && !changed.getBoolean(page))
+            throw new AssertionError("Settled hidden page occupies active storage");
+        }
         if (!afterReload.equals("unloadedPages=0 unloadedBoundaryFaces=0"))
           throw new AssertionError("Reload retained invalid ocean mesh: " + afterReload);
         if (RenderSystem.getDevice().getBackendName().equals("Vulkan")) {
@@ -258,18 +280,83 @@ public final class OceanWaterChecks {
             Path.of(System.getProperty("deepprimal.validationCapture"), "ocean-result.txt"),
             "OCEAN_WATER_NATIVE_PASS backend="
                 + RenderSystem.getDevice().getBackendName()
-                + " animatedAndFallback=true views=9 resourceReload=true validationErrors="
+                + " hiddenPages="
+                + hidden
+                + " emptyActivePages=0 animatedAndFallback=true views=9 resourceReload=true"
+                + " validationErrors="
                 + validation
                 + " "
                 + oceanAudit
                 + " "
                 + meshAudit
                 + "\n");
+        var hiddenKeys = (java.util.Set<Long>) hiddenField.get(renderer);
+        exposedKey =
+            hiddenKeys.stream()
+                .filter(
+                    key -> mc.level.getBlockState(center(key)).is(EngineRegistry.WATER_BLOCK.get()))
+                .min(
+                    java.util.Comparator.comparingDouble(
+                        key ->
+                            mc.player.distanceToSqr(
+                                center(key).getX(), center(key).getY(), center(key).getZ())))
+                .orElseThrow();
+        exposed = center(exposedKey);
+        covered = mc.level.getBlockState(exposed);
+        command(
+            mc,
+            "tp @a "
+                + (exposed.getX() + .5)
+                + " "
+                + (exposed.getY() + 5)
+                + " "
+                + (exposed.getZ() + .5)
+                + " 0 90");
+        mc.level.setBlock(exposed, Blocks.AIR.defaultBlockState(), 2 | 16);
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
-      mc.stop();
       stage = 14;
+      ticks = 0;
+    } else if (stage == 14 && ticks > 60) {
+      try {
+        var renderer = AnimatedWaterRenderer.INSTANCE;
+        var field = renderer.getClass().getDeclaredField("pages");
+        field.setAccessible(true);
+        var page = ((java.util.Map<?, ?>) field.get(renderer)).get(exposedKey);
+        if (page == null) throw new AssertionError("Hidden page did not return after exposure");
+        var gpu = page.getClass().getDeclaredField("gpu");
+        gpu.setAccessible(true);
+        if (gpu.get(page) == null) throw new AssertionError("Newly exposed liquid has no GPU mesh");
+        mc.level.setBlock(exposed, covered, 2 | 16);
+        stage = 15;
+        ticks = 0;
+      } catch (ReflectiveOperationException e) {
+        throw new RuntimeException(e);
+      }
+    } else if (stage == 15 && ticks > 60) {
+      try {
+        var renderer = AnimatedWaterRenderer.INSTANCE;
+        var field = renderer.getClass().getDeclaredField("hidden");
+        field.setAccessible(true);
+        if (!((java.util.Set<?>) field.get(renderer)).contains(exposedKey))
+          throw new AssertionError("Covered liquid did not release its active page");
+        Files.writeString(
+            Path.of(System.getProperty("deepprimal.validationCapture"), "ocean-result.txt"),
+            "WATER_HIDDEN_PAGE_LIFECYCLE_PASS exposureRestored=true coveredPageReleased=true\n",
+            StandardOpenOption.APPEND);
+        stage = 16;
+        mc.stop();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
     }
+  }
+
+  private static BlockPos center(long key) {
+    return new BlockPos(
+        net.minecraft.core.SectionPos.x(key) * 16 + 8,
+        net.minecraft.core.SectionPos.y(key) * 16 + 8,
+        net.minecraft.core.SectionPos.z(key) * 16 + 8);
   }
 }

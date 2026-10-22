@@ -1,0 +1,87 @@
+Deep Primal alpha 23 — completed native and core checks
+Linux Mesa software OpenGL/Lavapipe; Windows binaries packaged/audited, not executed on Windows.
+
+WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0
+ENGINE_PRESSURE_NATIVE_PASS units=144 raisedSurface=true conserved=true disconnected=true noForceLoad=true
+TERRAIN_REVISION_NATIVE_PASS revision=2 codecRoundTrip=true chunks=9 generationMs=664.876468 minY=-128 height=768
+TERRAIN_REVISION_NATIVE_PASS revision=2 codecRoundTrip=true chunks=9 generationMs=214.644328 minY=-128 height=768
+TERRAIN_REVISION_NATIVE_PASS revision=1 codecRoundTrip=true chunks=9 generationMs=1239.254863 minY=-128 height=768
+TERRAIN_REVISION_NATIVE_PASS revision=2 codecRoundTrip=true chunks=9 generationMs=632.263593 columnReuse=false blockDigest=a2f9e01595e6af310116a3f05e9c4d4d9776ffbac49153e87977ec43c308b36f minY=-128 height=768
+TERRAIN_REVISION_NATIVE_PASS revision=2 codecRoundTrip=true chunks=9 generationMs=605.478692 columnReuse=true blockDigest=a2f9e01595e6af310116a3f05e9c4d4d9776ffbac49153e87977ec43c308b36f minY=-128 height=768
+
+Column-reuse before/after digests match. Request wall times include loading and warm-up.
+
+alpha23-menu-vulkan-final exit=0
+GRAPHICS_SEARCH_AND_PERFORMANCE_REOPEN_PASS targetFps=89
+GRAPHICS_NATIVE_STEPS_PASS fps=10 entityPercent=25 fadeMs=50
+GRAPHICS_PRESET_PASS preview=true staged=true nativeApply=true explicitOverride=true textureReload=true
+GRAPHICS_MENU_PASS nativeOptions=30 apply=true revert=true resize=true reopen=true parent=true optionalLod=true
+[21:59:19] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorReuse=1116, pipelineFeedbackValid=24, descriptorBinds=14069, validationErrors=0, pipelineCreates=24, descriptorBindSkips=0, pipelineCreationNanos=24079803, descriptorUpdates=12953, pipelineCacheHits=0}
+[21:59:19] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+
+alpha23-menu-vulkan-restart exit=0
+GRAPHICS_RESTART_PASS native=3 custom=89
+GRAPHICS_SEARCH_AND_PERFORMANCE_REOPEN_PASS targetFps=89
+GRAPHICS_NATIVE_STEPS_PASS fps=10 entityPercent=25 fadeMs=50
+GRAPHICS_PRESET_PASS preview=true staged=true nativeApply=true explicitOverride=true textureReload=true
+GRAPHICS_MENU_PASS nativeOptions=30 apply=true revert=true resize=true reopen=true parent=true optionalLod=true
+[21:59:44] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=12433, pipelineCreationNanos=28993027, descriptorBindSkips=0, pipelineCreates=24, validationErrors=0, descriptorBinds=13462, pipelineFeedbackValid=24, descriptorReuse=1029}
+[21:59:44] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+
+alpha23-orientation-vulkan-final exit=0
+GUI_ORIENTATION_NATIVE_CAPTURE backend=Vulkan itemAtlas=true entityPip=true resourceReload=true views=2
+[22:00:22] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=26356, pipelineCreationNanos=95364436, descriptorBindSkips=6, pipelineCreates=82, validationErrors=0, descriptorBinds=36172, pipelineFeedbackValid=82, descriptorReuse=9822}
+[22:00:22] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+
+alpha23-orientation-opengl-final exit=0
+GUI_ORIENTATION_NATIVE_CAPTURE backend=OpenGL itemAtlas=true entityPip=true resourceReload=true views=2
+
+alpha23-terrain-scenes exit=0
+INTEGRATED_CLIENT_PASS scenes=coast,river,ridge backend=OpenGL fluidCells=0
+
+alpha23-menu-opengl-polished exit=0
+GRAPHICS_SEARCH_AND_PERFORMANCE_REOPEN_PASS targetFps=89
+GRAPHICS_NATIVE_STEPS_PASS fps=10 entityPercent=25 fadeMs=50
+GRAPHICS_PRESET_PASS preview=true staged=true nativeApply=true explicitOverride=true textureReload=true
+GRAPHICS_MENU_PASS nativeOptions=30 apply=true revert=true resize=true reopen=true parent=true optionalLod=true
+
+alpha23-menu-vulkan-polished exit=0
+GRAPHICS_SEARCH_AND_PERFORMANCE_REOPEN_PASS targetFps=89
+GRAPHICS_NATIVE_STEPS_PASS fps=10 entityPercent=25 fadeMs=50
+GRAPHICS_PRESET_PASS preview=true staged=true nativeApply=true explicitOverride=true textureReload=true
+GRAPHICS_MENU_PASS nativeOptions=30 apply=true revert=true resize=true reopen=true parent=true optionalLod=true
+[22:07:17] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {validationErrors=0, pipelineCreates=24, descriptorBindSkips=0, pipelineCreationNanos=41871432, descriptorUpdates=12692, pipelineCacheHits=0, descriptorReuse=1053, pipelineFeedbackValid=24, descriptorBinds=13745}
+[22:07:17] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+
+alpha23-world-creation exit=0
+WORLD_CREATION_FORM_PASS mode=fresh prepareMs=2212.000266
+WORLD_CREATION_JOIN_PASS backend=OpenGL
+WORLD_CREATION_PASS
+
+Pixel checks: helmet above boots on both APIs, before/after resource reload.
+All four inventory rows: 5,730 colored item pixels per row on both APIs.
+
+Final water-cache and animation checks:
+alpha23-water-cache-opengl exit=0
+OCEAN_WATER_NATIVE_PASS backend=OpenGL hiddenPages=91 emptyActivePages=0 animatedAndFallback=true views=9 resourceReload=true validationErrors=notApplicable generatedCells=74716 missing=0 partial=0 unloadedPages=0 unloadedBoundaryFaces=0
+WATER_HIDDEN_PAGE_LIFECYCLE_PASS exposureRestored=true coveredPageReleased=true
+
+alpha23-water-cache-vulkan exit=0
+OCEAN_WATER_NATIVE_PASS backend=Vulkan hiddenPages=72 emptyActivePages=0 animatedAndFallback=true views=9 resourceReload=true validationErrors=0 generatedCells=74716 missing=0 partial=0 unloadedPages=0 unloadedBoundaryFaces=0
+WATER_HIDDEN_PAGE_LIFECYCLE_PASS exposureRestored=true coveredPageReleased=true
+[22:17:30] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineFeedbackValid=76, descriptorReuse=134337, pipelineCacheHits=0, descriptorUpdates=142157, pipelineCreationNanos=98095677, descriptorBindSkips=0, pipelineCreates=76, validationErrors=0, descriptorBinds=276494}
+[22:17:30] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+
+alpha23-water-animation-final exit=0
+ANIMATED_WATER_NATIVE_PASS backend=Vulkan intermediateFrames=2 uploads=7 terrainInvalidationsAvoided=28186 dry=true fallback=true reenable=true resourceReload=true validationErrors=0
+[22:18:23] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineFeedbackValid=72, descriptorReuse=7386, pipelineCacheHits=0, descriptorUpdates=61019, pipelineCreationNanos=101714701, descriptorBindSkips=0, pipelineCreates=72, validationErrors=0, descriptorBinds=68405}
+[22:18:23] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+
+Final default build and all module-boundary checks: exit=0
+WATER_ANIMATION_CORE_PASS retargets=10000 sharedEdges=64 dryFade=true immutableSnapshots=true
+ENGINE_PRESSURE_CORE_PASS cases=4913 conserved=true monotonicHead=true
+ENGINE_AUDIT_PASS terrainSamples=1800 cubeBytesBefore=72128 cubeBytesAfter=1656 rawOldMs=68.361689 rawNewMs=14.498515 checksum=2787130.868268061
+TERRAIN_V2_CORE_PASS samples=12000 changed=381 inlandWater=30 noRaisedRims=true deterministic=true
+default: 582084 bytes sha256=d3a6f4671c8962f06261aa2105ab14f4e0ab29bb3ccb07a084abae1ef86190ff
+without_lod: 544898 bytes sha256=c5d3573aa58f51aca17477b745d311d247e26f0481d03f04bc3a9e224a7040f9
+windows_vulkan: 11513277 bytes sha256=f57f8158ec443039689bef67ae6e16c749985128b9ba20a75773dab71c7dcd12

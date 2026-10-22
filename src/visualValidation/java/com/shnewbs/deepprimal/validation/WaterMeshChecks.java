@@ -76,6 +76,10 @@ public final class WaterMeshChecks {
           }
       return;
     }
+    if (Boolean.getBoolean("deepprimal.validationGuiOrientation")) {
+      GuiOrientationChecks.tick(mc);
+      return;
+    }
     ticks++;
     if (stage == 0) {
       WaterVisualConfig.INTERPOLATE.set(false);

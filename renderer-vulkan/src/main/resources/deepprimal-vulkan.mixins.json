@@ -10,7 +10,9 @@
     "window.VulkanWindowMixin",
     "window.WindowAccessor",
     "ScreenshotOrientationMixin",
-    "AtlasProjectionMixin"
+    "AtlasProjectionMixin",
+    "GuiItemAtlasOriginMixin",
+    "GuiPictureOriginMixin"
   ],
   "injectors": {
     "defaultRequire": 1

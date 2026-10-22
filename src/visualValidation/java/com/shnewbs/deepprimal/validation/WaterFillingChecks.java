@@ -19,6 +19,8 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class WaterFillingChecks {
   private boolean started, done;
   private int baseY, ticks, previousSink, previousBasin, lastProgress, maxGap, progressTicks;
+  private int firstFilledTick;
+  private final List<BlockPos> rapid = new ArrayList<>();
   private final List<BlockPos> film = new ArrayList<>(),
       plant = new ArrayList<>(),
       basin = new ArrayList<>();
@@ -51,6 +53,10 @@ public final class WaterFillingChecks {
     if (!Boolean.parseBoolean(System.getenv("DEEPPRIMAL_FILL_CHECKS"))) return;
     ServerLevel l = event.getServer().overworld();
     baseY = Math.min(500, l.getMaxY() - 128);
+    // A new falling cell must advance through three substeps in the first host update.
+    for (int y = baseY + 30; y <= baseY + 33; y++) rapid.add(new BlockPos(64, y, 8));
+    walls(l, rapid);
+    water(l, rapid.getLast(), 16);
     // Budget saturation precedes all live cells; FIFO work must eventually reach them.
     for (int x = 0; x < 48; x++)
       for (int z = 0; z < 48; z++) {
@@ -105,6 +111,13 @@ public final class WaterFillingChecks {
                 + WaterRuntime.units(l, new BlockPos(56, baseY + 20, 8))
             == 16,
         "Dormant shaft conserves water");
+    if (ticks == 1)
+      require(
+          WaterRuntime.units(l, rapid.getFirst()) == 16,
+          "Three transport substeps continue the falling front within one host tick");
+    require(
+        rapid.stream().mapToInt(p -> WaterRuntime.units(l, p)).sum() == 16,
+        "Substeps conserve the falling column");
     int sink = WaterRuntime.units(l, new BlockPos(8, baseY - 1, 8));
     int filled =
         WaterRuntime.units(l, new BlockPos(40, baseY, 8))
@@ -124,6 +137,7 @@ public final class WaterFillingChecks {
       lastProgress = ticks;
       progressTicks++;
     }
+    if (filled == 32 && firstFilledTick == 0) firstFilledTick = ticks;
     previousSink = sink;
     previousBasin = filled;
     if (ticks >= 120) {
@@ -131,7 +145,7 @@ public final class WaterFillingChecks {
       require(
           WaterRuntime.units(l, new BlockPos(24, baseY, 8)) == 16, "Grass cannot suspend water");
       require(
-          filled == 32 && progressTicks > 1 && maxGap <= 2,
+          filled == 32 && progressTicks >= 1 && maxGap <= 2,
           "Basin fills across consecutive updates, with no long work-budget pauses: filled="
               + filled
               + " progressTicks="
@@ -164,6 +178,10 @@ public final class WaterFillingChecks {
       String result =
           "WATER_FILLING_NATIVE_PASS ticks="
               + ticks
+              + " nominalSolverHz="
+              + WaterRuntime.SUBSTEPS * 20
+              + " firstTickFall=3 basinFilledTick="
+              + firstFilledTick
               + " thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks="
               + progressTicks
               + " maxProgressGap="

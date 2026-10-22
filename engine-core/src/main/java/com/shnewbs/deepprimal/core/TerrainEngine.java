@@ -30,11 +30,18 @@ public final class TerrainEngine {
   private record Location(Land land, double mask) {}
 
   public final TerrainNoise noise;
+  public final int revision;
   private final java.util.concurrent.ConcurrentHashMap<Long, Land> shapes =
       new java.util.concurrent.ConcurrentHashMap<>();
   private final LinkedHashMap<Long, Drainage> cache = new LinkedHashMap<>(16, .75f, true);
 
   public TerrainEngine(long seed) {
+    this(seed, 1);
+  }
+
+  public TerrainEngine(long seed, int revision) {
+    if (revision < 1 || revision > 2) throw new IllegalArgumentException("Terrain revision");
+    this.revision = revision;
     noise = new TerrainNoise(seed);
   }
 
@@ -168,7 +175,7 @@ public final class TerrainEngine {
   public Sample sample(double x, double z) {
     Location location = locate(x, z);
     Land l = location.land;
-    double ground = raw(location.mask, x, z), rain = rainfall(x, z);
+    double ground = raw(location.mask, x, z), uncut = ground, rain = rainfall(x, z);
     double temperature =
         Math.clamp(.62 + noise.field(x, z, 6500, 85) * .4 - Math.max(0, ground - 160) / 420, 0, 1);
     double slope =
@@ -183,7 +190,8 @@ public final class TerrainEngine {
         int xx = gx + dx, zz = gz + dz;
         if (xx < 0 || zz < 0 || xx >= SIDE || zz >= SIDE) continue;
         int a = zz * SIDE + xx, b = d.parent[a];
-        if (b < 0 || d.area[a] < 60_000 || d.surface[a] < SEA + .2) continue;
+        if (b < 0 || d.area[a] < (revision == 1 ? 60_000 : 18_000) || d.surface[a] < SEA + .2)
+          continue;
         double[] c = d.curves[a];
         if (c == null) continue;
         double width = Math.clamp(1.7 + Math.sqrt(d.area[a]) / 530, 2.5, 22);
@@ -195,13 +203,28 @@ public final class TerrainEngine {
               len = vx * vx + vz * vz;
           double t = Math.clamp(((x - ax) * vx + (z - az) * vz) / len, 0, 1),
               dist = Math.hypot(x - ax - vx * t, z - az - vz * t);
+          double along = (k + t) / 8;
+          if (revision == 2) {
+            // Width joins at shared graph nodes; small springs no longer start river-sized.
+            double catchment = lerp(d.area[a], d.area[b], smooth(along));
+            width = Math.clamp(.70 + Math.sqrt(catchment) / 410, 1.05, 26);
+          }
           if (dist > width + 38) continue;
-          double along = (k + t) / 8,
-              surface = Math.max(SEA, lerp(d.surface[a], d.surface[b], along) - .15);
-          double depth = Math.clamp(1.2 + width * .20, 1.3, 5.5);
+          double surface = Math.max(SEA, lerp(d.surface[a], d.surface[b], along) - .15);
+          double depth =
+              revision == 1
+                  ? Math.clamp(1.2 + width * .20, 1.3, 5.5)
+                  : Math.clamp(.55 + width * .19, .75, 6);
           double valley = 1 - smooth((dist - width) / (20 + width));
-          ground = Math.min(ground, lerp(ground, surface - depth, valley));
-          if (dist >= width && dist < width + 9) {
+          if (revision == 1) ground = Math.min(ground, lerp(ground, surface - depth, valley));
+          else {
+            // Union cuts only: a second reach cannot raise a rim across a carved channel.
+            double edge = Math.clamp(dist / width, 0, 1);
+            double bed = surface - depth * (1 - Math.pow(edge, 4) * .95);
+            double bank = smooth((dist - width) / (4 + width * .4));
+            ground = Math.min(ground, lerp(bed, uncut, bank));
+          }
+          if (revision == 1 && dist >= width && dist < width + 9) {
             double bank = 1 - smooth((dist - width) / 9);
             ground = Math.max(ground, lerp(ground, surface + .35, bank));
           }

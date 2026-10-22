@@ -1,5 +1,7 @@
 # Terrain, water, snow and LOD completeness audit
 
+Runtime follow-up: [alpha 23](VALIDATION-0.0.1-alpha.23.md) repairs specific rendering/settings/water issues and introduces version-two river cuts. It does not close the complete requirement register below. The original review baseline and source-coverage limitations remain as recorded.
+
 Reviewed 2026-10-22 against Deep Primal commit **15c4bcd4a049f2d8569d1df6d18316b029adb51a**, including alpha 20. This is the current reference-to-requirement audit; the alpha 14/16 water documents remain historical release records.
 
 **Result: the requested systems are partially implemented, not complete.** The first 17 linked mods' author descriptions were checked against Deep Primal source and the existing roadmap. A [three-project follow-up](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md) adds Streams Reflowing, Canopy Cascade and Puddles & Floods, bringing coverage to **20 owner-linked projects**. The follow-up checks main 999e2fe, whose alpha 20 runtime is unchanged from this audit's baseline. The terrain and rendering technologies below were checked against their official documentation. This is not an exhaustive upstream source audit, installation test of those mods, new in-game validation run, or certification of feature parity. Author claims describe the references, not measured Deep Primal behavior.

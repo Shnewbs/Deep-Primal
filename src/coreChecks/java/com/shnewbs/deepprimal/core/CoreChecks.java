@@ -8,6 +8,7 @@ public final class CoreChecks {
     WaterAnimationChecks.run();
     IntegratedEngineChecks.run();
     EngineAuditChecks.run();
+    TerrainRevisionChecks.run();
     WaterwayChecks.run();
     DrainageChecks.run();
     RuntimeChecks.run();

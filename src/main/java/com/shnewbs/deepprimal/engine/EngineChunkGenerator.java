@@ -21,19 +21,33 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
  * structures.
  */
 public final class EngineChunkGenerator extends ChunkGenerator {
-  public static final MapCodec<EngineChunkGenerator> CODEC =
-      RecordCodecBuilder.mapCodec(
-          i ->
-              i.group(
-                      BiomeSource.CODEC.fieldOf("biome_source").forGetter(g -> g.biomeSource),
-                      Codec.INT.optionalFieldOf("min_y", -128).forGetter(g -> g.minY),
-                      Codec.INT.optionalFieldOf("height", 768).forGetter(g -> g.height))
-                  .apply(i, EngineChunkGenerator::new));
-  private final int minY, height;
+  public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
+  public static final MapCodec<EngineChunkGenerator> CODEC_V2 = codecFor(2);
+
+  private static MapCodec<EngineChunkGenerator> codecFor(int revision) {
+    return RecordCodecBuilder.mapCodec(
+        i ->
+            i.group(
+                    BiomeSource.CODEC.fieldOf("biome_source").forGetter(g -> g.biomeSource),
+                    Codec.INT.optionalFieldOf("min_y", -128).forGetter(g -> g.minY),
+                    Codec.INT.optionalFieldOf("height", 768).forGetter(g -> g.height))
+                .apply(
+                    i,
+                    (source, min, height) ->
+                        new EngineChunkGenerator(source, min, height, revision)));
+  }
+
+  private final int minY, height, revision;
   private volatile TerrainEngine engine = new TerrainEngine(0);
 
   public EngineChunkGenerator(BiomeSource source, int minY, int height) {
+    this(source, minY, height, 1);
+  }
+
+  private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision) {
     super(source);
+    this.revision = revision;
+    engine = new TerrainEngine(0, revision);
     if (minY % 16 != 0 || height % 16 != 0 || height < 256 || height > 2048)
       throw new IllegalArgumentException("Engine height");
     this.minY = minY;
@@ -45,12 +59,12 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   }
 
   protected MapCodec<? extends ChunkGenerator> codec() {
-    return CODEC;
+    return revision == 1 ? CODEC : CODEC_V2;
   }
 
   public ChunkGeneratorStructureState createState(
       HolderLookup<StructureSet> sets, RandomState random, long seed) {
-    engine = new TerrainEngine(seed);
+    engine = new TerrainEngine(seed, revision);
     if (biomeSource instanceof RegionBiomeSource b) b.bind(engine);
     return ChunkGeneratorStructureState.createForFlat(
         random, seed, biomeSource, java.util.stream.Stream.empty());
@@ -85,7 +99,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public void addDebugScreenInfo(List<String> lines, RandomState s, BlockPos p) {
     var a = engine.sample(p.getX(), p.getZ());
     lines.add(
-        "Deep Primal continental_v1 | drainage regions "
+        "Deep Primal continental_v"
+            + revision
+            + " | drainage regions "
             + engine.cachedRegions()
             + " | slope "
             + String.format(java.util.Locale.ROOT, "%.2f", a.slope()));
@@ -153,6 +169,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
 
   public CompletableFuture<ChunkAccess> fillFromNoise(
       Blender b, RandomState r, StructureManager m, ChunkAccess c) {
+    var columns = new TerrainEngine.Sample[256];
     var pos = new BlockPos.MutableBlockPos();
     var floor = c.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
     var top = c.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
@@ -160,6 +177,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     for (int z = 0; z < 16; z++)
       for (int x = 0; x < 16; x++) {
         var s = engine.sample(ox + x, oz + z);
+        columns[z * 16 + x] = s;
         int max =
             Math.min(
                 c.getMaxY() - 1,
@@ -173,16 +191,22 @@ public final class EngineChunkGenerator extends ChunkGenerator {
           }
         }
       }
-    decorate(c, ox, oz);
+    decorate(c, ox, oz, columns);
     return CompletableFuture.completedFuture(c);
   }
 
-  private void decorate(ChunkAccess c, int ox, int oz) {
+  private TerrainEngine.Sample column(
+      TerrainEngine.Sample[] columns, int ox, int oz, int x, int z) {
+    int dx = x - ox, dz = z - oz;
+    return dx >= 0 && dx < 16 && dz >= 0 && dz < 16 ? columns[dz * 16 + dx] : engine.sample(x, z);
+  }
+
+  private void decorate(ChunkAccess c, int ox, int oz, TerrainEngine.Sample[] columns) {
     for (int gz = Math.floorDiv(oz - 6, 8); gz <= Math.floorDiv(oz + 21, 8); gz++)
       for (int gx = Math.floorDiv(ox - 6, 8); gx <= Math.floorDiv(ox + 21, 8); gx++) {
         int x = gx * 8 + 1 + (int) (engine.noise.hash(gx, gz, 311) * 6),
             z = gz * 8 + 1 + (int) (engine.noise.hash(gx, gz, 312) * 6);
-        var s = engine.sample(x, z);
+        var s = column(columns, ox, oz, x, z);
         double density = engine.forest(x, z);
         if (s.wet()
             || s.ground() < getSeaLevel() + 5
@@ -193,6 +217,18 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         int y = (int) Math.floor(s.ground()) + 1,
             h = 5 + (int) (engine.noise.hash(gx, gz, 314) * 7),
             radius = 2 + (int) (engine.noise.hash(gx, gz, 315) * 2);
+        if (revision == 2) {
+          boolean supported = true;
+          for (int dz = -radius; dz <= radius && supported; dz++)
+            for (int dx = -radius; dx <= radius; dx++) {
+              var neighbor = column(columns, ox, oz, x + dx, z + dz);
+              if (neighbor.wet() || Math.abs(neighbor.ground() - s.ground()) > 2) {
+                supported = false;
+                break;
+              }
+            }
+          if (!supported) continue;
+        }
         boolean pine = s.temperature() < .36;
         Block log =
             pine
@@ -233,7 +269,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     for (int z = 0; z < 16; z++)
       for (int x = 0; x < 16; x++)
         if (engine.noise.hash(ox + x, oz + z, 401) < .11) {
-          var s = engine.sample(ox + x, oz + z);
+          var s = column(columns, ox, oz, ox + x, oz + z);
           int y = (int) Math.floor(s.ground()) + 1;
           var p = new BlockPos(ox + x, y, oz + z);
           if (!s.wet()

@@ -4,7 +4,7 @@ Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. Install one matching Deep Prim
 
 ## New worlds and compatibility
 
-Create a normal world for our `deepprimal:continental_v1` generator and `deepprimal:regional_v1` biome source. They own Overworld terrain/biome decisions without the native noise generator. Existing Minecraft block/biome assets remain temporary palettes. Nether/End remain native. Native carvers/decorators and villages are not placed by the custom Overworld generator.
+Create a normal world for our `deepprimal:continental_v2` generator and `deepprimal:regional_v1` biome source. Saved `continental_v1` worlds retain their earlier geography. They own Overworld terrain/biome decisions without the native noise generator. Existing Minecraft block/biome assets remain temporary palettes. Nether/End remain native. Native carvers/decorators and villages are not placed by the custom Overworld generator.
 
 `config/deepprimal-worldgen.toml` defaults to `builtInTerrainEngine = true`. `extraUndergroundDepth = true`, followed by restart **before creation**, chooses -384..639 (1024 blocks) rather than -128..639 (768 blocks). Sea level is 96. Saved dimensions keep their serialized generator and height; changing these creation settings does not migrate old worlds. Legacy river switches select retained older profiles only when the built-in engine is explicitly disabled. Never delete a save to enable this update; create a separate inspection world.
 

@@ -1,4 +1,4 @@
-# Runtime modules — alpha 22
+# Runtime modules — alpha 23
 
 The standard installer remains one JAR. It contains separately built nested JARs with one owner for each config, mixin and runtime service.
 

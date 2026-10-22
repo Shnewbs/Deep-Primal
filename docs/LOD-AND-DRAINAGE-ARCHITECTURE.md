@@ -6,6 +6,8 @@ Alpha 18 adds an audit and recovery pass: registry context composition for KubeJ
 
 Alpha 19 gives graphics and LOD separate ownership: shared GPU/UI infrastructure remains in `graphics-settings`, and `lod-engine` owns actual-chunk capture, cache/streaming, edit invalidation and rendering. The main mod consumes an optional interface. Video Settings opens our screen directly with complete native option coverage. Independent 16-unit liquids now include bounded connected-pool pressure; displacement, recharge and coast surf remain unfinished. See [module contracts](MODULES.md) and [validation](VALIDATION-0.0.1-alpha.19.md).
 
+Alpha 23 adds Vulkan GUI render-target origin corrections, authored searchable graphics controls, three native water-transport substeps per host tick, and `continental_v2` river cuts for new worlds. Version one remains serialized and bit exact for existing worlds. Column sample reuse preserves generated block output. These fixes do not close regional water-cycle, complete lake/outlet, breaking-surf or advanced LOD requirements; see [alpha 23 evidence](VALIDATION-0.0.1-alpha.23.md).
+
 **Owner clarification:** these projects are inspiration and comparison targets for better Deep Primal systems. Do not treat adding a dependency, copying a feature list or matching a screenshot as completion. Establish improvements through conservation/correctness, useful behavior, integration and matched performance measurements.
 
 ## Engine charter and quality gates

@@ -56,6 +56,19 @@ public final class GraphicsMenuChecks {
     }
     require(mc.screen instanceof PrimalGraphicsScreen, "Video Settings opens Deep Primal directly");
     var screen = mc.screen;
+    button(mc, "Performance").onPress(null);
+    EditBox search =
+        mc.screen.children().stream()
+            .filter(EditBox.class::isInstance)
+            .map(EditBox.class::cast)
+            .filter(f -> f.getMessage().getString().equals("Search settings"))
+            .findFirst()
+            .orElseThrow();
+    search.setValue("Target FPS");
+    require(
+        mc.screen.children().stream().filter(EditBox.class::isInstance).count() == 2,
+        "Search shows only the matching numeric control and search box");
+    button(mc, "General").onPress(null);
     var v = values(screen);
     String[] keys = {
       "preset",
@@ -116,6 +129,11 @@ public final class GraphicsMenuChecks {
     mc.setScreen(new VideoSettingsScreen(parent, mc, mc.options));
     require(mc.screen instanceof PrimalGraphicsScreen, "Programmatic video opening is replaced");
     require(values(mc.screen).get("menuBlur").equals("3"), "Reopen displays saved native value");
+    button(mc, "Performance").onPress(null);
+    require(
+        values(mc.screen).get("target").equals("89"),
+        "Performance tab shows saved value after reopen");
+    record.append("GRAPHICS_SEARCH_AND_PERFORMANCE_REOPEN_PASS targetFps=89\n");
     values(mc.screen).put("menuBlur", "9");
     mc.screen.onClose();
     require(

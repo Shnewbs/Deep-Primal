@@ -92,6 +92,10 @@ The [current completeness audit](docs/TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md
 
 Prioritize enabled-view correctness and supported water steps/filling, then connected drainage/source scale/material placement and native hydrology integration. "Do better" requires reproducible correctness, integration, visual and/or matched performance evidence. This follow-up is documentation only; environmental catalog implementation remains deferred, and existing versioned saves/geography remain unchanged.
 
+## Alpha 23 runtime follow-up — 2026-10-22
+
+[Validation and remaining scope](docs/VALIDATION-0.0.1-alpha.23.md) records Vulkan GUI origin repairs, three liquid-transport substeps per host tick, empty water-page residency cleanup, searchable authored video controls, version-two river cuts for new worlds and generated-column reuse. Existing version-one geography is retained. This is progress on the terrain/water/rendering audit; the full regional hydrology, coastal surf, advanced LOD and other unchecked requirements remain open. Nominal 60 transport substeps/second depends on 20 server TPS and bounded admission; no guaranteed minimum FPS is established.
+
 ## Configurable deposits and external authoring — 2026-10-21 PDT
 
 The [configuration/ore contract](docs/CONFIGURATION-AND-ORE-AUTHORING.md) records flexible native deposits and domain-organized deepprimal config roots. The external visual editor remains a proposal, not a shipped tool.

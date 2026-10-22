@@ -39,6 +39,8 @@ public final class PrimalGraphicsScreen extends Screen {
   private boolean loaded, updating;
   private int tab, scroll, left, top, panelWidth, contentX, contentWidth, rowHeight, shown;
   private Button apply;
+  private EditBox search;
+  private String filter = "";
   private String message = "Changes are staged until Apply.";
 
   public PrimalGraphicsScreen(Screen parent) {
@@ -447,7 +449,7 @@ public final class PrimalGraphicsScreen extends Screen {
         "OFF",
         "ON");
     integer(
-        0,
+        2,
         "target",
         "Target FPS",
         ClientPerformanceConfig.TARGET_FPS,
@@ -808,6 +810,17 @@ public final class PrimalGraphicsScreen extends Screen {
     return c.min + (int) Math.round(fraction * (c.max - c.min) / step(c)) * step(c);
   }
 
+  private List<Control> filteredControls() {
+    String query = filter.strip().toLowerCase(Locale.ROOT);
+    return controls.values().stream()
+        .filter(c -> c.tab == tab)
+        .filter(
+            c ->
+                query.isEmpty()
+                    || (c.label + " " + c.help).toLowerCase(Locale.ROOT).contains(query))
+        .toList();
+  }
+
   @Override
   protected void init() {
     if (!loaded) load();
@@ -820,7 +833,7 @@ public final class PrimalGraphicsScreen extends Screen {
     contentWidth = panelWidth - rail - 24;
     boolean wide = contentWidth > 490;
     if (wide) contentWidth -= 190;
-    rowHeight = 26;
+    rowHeight = 28;
     shown = Math.max(1, (height - 106) / rowHeight);
     for (int i = 0; i < TABS.length; i++) {
       final int t = i;
@@ -831,14 +844,36 @@ public final class PrimalGraphicsScreen extends Screen {
                       v -> {
                         tab = t;
                         scroll = 0;
+                        filter = "";
                         message = "Changes are staged until Apply.";
                         rebuildWidgets();
                       })
                   .bounds(left + 6, top + 14 + i * 25, rail - 8, 22)
-                  .build());
+                  .build(FlatButton::new));
       b.setTooltip(Tooltip.create(Component.literal("Open " + TABS[i] + " settings")));
     }
-    var list = controls.values().stream().filter(c -> c.tab == tab).toList();
+    int searchWidth = Math.min(140, contentWidth - 80);
+    search =
+        addRenderableWidget(
+            new EditBox(
+                font,
+                contentX + contentWidth - searchWidth - 4,
+                top + 5,
+                searchWidth,
+                16,
+                Component.literal("Search settings")));
+    search.setHint(Component.literal("Search this tab"));
+    search.setMaxLength(80);
+    search.setValue(filter);
+    search.setResponder(
+        s -> {
+          boolean focused = search.isFocused();
+          filter = s;
+          scroll = 0;
+          rebuildWidgets();
+          if (focused) setFocused(search);
+        });
+    var list = filteredControls();
     scroll = Math.clamp(scroll, 0, Math.max(0, list.size() - shown));
     for (int i = 0; i < shown && scroll + i < list.size(); i++) {
       Control c = list.get(scroll + i);
@@ -871,7 +906,7 @@ public final class PrimalGraphicsScreen extends Screen {
                           refresh();
                         })
                     .bounds(contentX + contentWidth - 104, y, 100, 20)
-                    .build());
+                    .build(FlatButton::new));
         button.setTooltip(Tooltip.create(Component.literal(c.help)));
         if ((!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4))
             || (c.tab == 3 && !LodAccess.available())) button.active = false;
@@ -881,7 +916,7 @@ public final class PrimalGraphicsScreen extends Screen {
             && !net.neoforged.fml.ModList.get().isLoaded("deepprimal_vulkan")
             && number(c) == 0) button.active = false;
       } else {
-        int fieldWidth = 48, sliderWidth = Math.max(44, Math.min(110, contentWidth / 3));
+        int fieldWidth = 44, sliderWidth = Math.max(40, Math.min(100, contentWidth / 3));
         EditBox field =
             addRenderableWidget(
                 new EditBox(
@@ -935,7 +970,7 @@ public final class PrimalGraphicsScreen extends Screen {
         addRenderableWidget(
             Button.builder(Component.literal("Apply"), b -> applyChanges())
                 .bounds(left + panelWidth - bw * 3 - 16, bottom, bw, 20)
-                .build());
+                .build(FlatButton::new));
     addRenderableWidget(
         Button.builder(
                 Component.literal("Revert"),
@@ -945,11 +980,11 @@ public final class PrimalGraphicsScreen extends Screen {
                   rebuildWidgets();
                 })
             .bounds(left + panelWidth - bw * 2 - 10, bottom, bw, 20)
-            .build());
+            .build(FlatButton::new));
     addRenderableWidget(
             Button.builder(Component.literal("Done"), b -> onClose())
                 .bounds(left + panelWidth - bw - 4, bottom, bw, 20)
-                .build())
+                .build(FlatButton::new))
         .setTooltip(Tooltip.create(Component.literal("Close; unapplied changes are discarded.")));
     refresh();
   }
@@ -1054,7 +1089,8 @@ public final class PrimalGraphicsScreen extends Screen {
   }
 
   public boolean mouseScrolled(double mx, double my, double dx, double dy) {
-    int count = (int) controls.values().stream().filter(c -> c.tab == tab).count();
+    if (dy == 0) return super.mouseScrolled(mx, my, dx, dy);
+    int count = filteredControls().size();
     int next = Math.clamp(scroll + (dy < 0 ? 1 : -1), 0, Math.max(0, count - shown));
     if (next != scroll) {
       scroll = next;
@@ -1077,21 +1113,45 @@ public final class PrimalGraphicsScreen extends Screen {
     g.fill(left, top, left + panelWidth, top + 2, 0xff70c49a);
     g.centeredText(font, title, width / 2, 12, 0xfff1f4f2);
     g.text(font, Component.literal(TABS[tab]), contentX, top + 10, 0xff8edbb4);
+    for (Display row : visible) {
+      boolean hovered =
+          mx >= contentX - 4
+              && mx < contentX + contentWidth
+              && my >= row.y - 2
+              && my < row.y + rowHeight - 2;
+      g.fill(
+          contentX - 4,
+          row.y - 2,
+          contentX + contentWidth,
+          row.y + rowHeight - 3,
+          hovered ? 0xff293738 : 0xff1b2528);
+      if (!Objects.equals(values.get(row.control.key), baseline.get(row.control.key)))
+        g.fill(contentX - 4, row.y - 2, contentX - 2, row.y + rowHeight - 3, 0xff8edbb4);
+    }
     super.extractRenderState(g, mx, my, delta);
-    int count = (int) controls.values().stream().filter(c -> c.tab == tab).count();
-    if (count > shown)
-      g.text(
-          font,
-          Component.literal(
-              (scroll + 1) + "–" + Math.min(scroll + shown, count) + " / " + count + " · scroll"),
-          contentX + contentWidth - 100,
-          top + 10,
-          0xff93aa9c);
+    int count = filteredControls().size();
+    if (count > shown) {
+      int track = shown * rowHeight - 3, thumb = Math.max(10, track * shown / count);
+      int y = top + 26 + (track - thumb) * scroll / (count - shown);
+      g.fill(
+          contentX + contentWidth + 2,
+          top + 26,
+          contentX + contentWidth + 4,
+          top + 26 + track,
+          0xff344541);
+      g.fill(contentX + contentWidth + 2, y, contentX + contentWidth + 4, y + thumb, 0xff8edbb4);
+    }
+    if (count == 0)
+      g.text(font, Component.literal("No matching settings"), contentX, top + 34, 0xffb9c8c1);
     String help = "Hover a setting for its purpose. Scroll to see more controls.";
     for (Display row : visible) {
       Control c = row.control;
-      int labelWidth = Math.max(45, contentWidth - (c.choices.length > 0 ? 114 : 180));
-      String label = font.plainSubstrByWidth(c.label, labelWidth);
+      int numericWidth = 44 + Math.max(40, Math.min(100, contentWidth / 3)) + 18;
+      int labelWidth = Math.max(45, contentWidth - (c.choices.length > 0 ? 114 : numericWidth));
+      String label =
+          font.width(c.label) <= labelWidth
+              ? c.label
+              : font.plainSubstrByWidth(c.label, labelWidth - font.width("…")) + "…";
       g.text(font, Component.literal(label), contentX, row.y + 6, 0xffe0e8e4);
       if (mx >= contentX && mx < contentX + contentWidth && my >= row.y && my < row.y + 23)
         help = c.help;
@@ -1109,10 +1169,14 @@ public final class PrimalGraphicsScreen extends Screen {
                 : tab == 5
                     ? "Active API: "
                         + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
-                    : "Requested render: "
+                    : "Staged: "
                         + values.get("render")
-                        + " | effective: "
-                        + minecraft.options.getEffectiveRenderDistance();
+                        + " chunks | active: "
+                        + minecraft.options.getEffectiveRenderDistance()
+                        + (minecraft.options.getEffectiveRenderDistance()
+                                < minecraft.options.renderDistance().get()
+                            ? " (memory/server limit)"
+                            : "");
     g.text(
         font,
         Component.literal(font.plainSubstrByWidth(note, panelWidth - 12)),
@@ -1152,9 +1216,24 @@ public final class PrimalGraphicsScreen extends Screen {
       updateMessage();
     }
 
+    @Override
+    public void extractWidgetRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
+      int x = getX(), y = getY(), w = getWidth(), h = getHeight();
+      g.fill(x + 4, y + h / 2 - 1, x + w - 4, y + h / 2 + 1, 0xff425354);
+      int handle = x + (int) (value * (w - 8));
+      g.fill(x + 4, y + h / 2 - 1, handle + 4, y + h / 2 + 1, active ? 0xff70c49a : 0xff52615c);
+      g.fill(
+          handle + 1,
+          y + 4,
+          handle + 7,
+          y + h - 4,
+          active && (isHoveredOrFocused() || dragging) ? 0xffb9efcf : 0xff81ad97);
+      handleCursor(g);
+    }
+
     protected void updateMessage() {
       if (control != null)
-        setMessage(Component.literal(Integer.toString(sliderNumber(control, value))));
+        setMessage(Component.literal(control.label + ": " + sliderNumber(control, value)));
     }
 
     protected void applyValue() {
@@ -1165,6 +1244,30 @@ public final class PrimalGraphicsScreen extends Screen {
       field.setValue(Integer.toString(n));
       updating = false;
       refresh();
+    }
+  }
+
+  /** Authored controls retain native focus, keyboard, narration, sound and tooltip behavior. */
+  private static final class FlatButton extends Button {
+    FlatButton(Button.Builder builder) {
+      super(builder);
+    }
+
+    @Override
+    protected void extractContents(GuiGraphicsExtractor g, int mx, int my, float delta) {
+      int x = getX(), y = getY(), w = getWidth(), h = getHeight();
+      boolean selected = getMessage().getString().startsWith("› ");
+      int border =
+          !active ? 0xff364341 : isHoveredOrFocused() || selected ? 0xff8edbb4 : 0xff465b54;
+      g.fill(x, y, x + w, y + h, border);
+      g.fill(
+          x + 1,
+          y + 1,
+          x + w - 1,
+          y + h - 1,
+          active && (isHoveredOrFocused() || selected) ? 0xff304c41 : 0xff23332e);
+      extractDefaultLabel(
+          g.textRendererForWidget(this, GuiGraphicsExtractor.HoveredTextEffects.NONE));
     }
   }
 }
