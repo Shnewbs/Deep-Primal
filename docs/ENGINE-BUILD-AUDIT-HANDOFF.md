@@ -54,3 +54,10 @@ The final ocean-grouping fix removes seven false lake classifications from the n
 ## Packaged class freshness
 
 The pressure-head continuation caught a valid-CRC JAR containing an older WaterRuntime after copying incremental build output. Compare packaged main-class bytes with current compiled outputs, not just CRCs, and run a focused packaged-native regression. If stale, reject that archive, rebuild with `--no-build-cache --rerun-tasks jar`, and repeat identity/CRC/native checks after producer completion. See `validation/engine-continuation/2026-10-22-pressure-head-retention-build.json`. The exact incremental cause remains unproven; do not reuse or deliver the rejected archive.
+
+## Latest native drain continuation
+
+Read [ticket-readiness evidence](validation/engine-continuation/drain-ticket-readiness-2026-10-22/README.md) before resuming. The native toolchain is restored in the work-state directory; `tools/restore_validation_toolchain.py` can restore pinned private tools to a fresh directory after another reset. It is optional build tooling, never mod payload. The current disposable local project contains an **unaccepted** runtime, not the accepted branch source. Use the branch/recorded accepted solver for production comparisons.
+
+The bounded cached-FULL/ticket readiness patch passes targeted native/packaged reload and actual physical-unload safety, but its inherited parent fails eight-unit film filling and a 3200-tick closed basin. Preserve failing evidence and keep runtime out of production. Next reproduce/profile admission/fairness with the film's stable competing cells, then repeat full safety/settling/build/package checks. Avoid claiming a physical unload from FULL,false == null alone: require the new observed Unload fixture. Final archives still require class identity and explicit native pass records, because fresh failures again returned Gradle zero.
+
