@@ -1,6 +1,7 @@
 package com.shnewbs.deepprimal.engine;
 
 import com.shnewbs.deepprimal.core.WaterTransport;
+import it.unimi.dsi.fastutil.longs.LongLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import java.util.*;
 import net.minecraft.core.*;
@@ -37,10 +38,11 @@ public final class WaterRuntime {
     int pressureLimit = PRESSURE_VISITS_PER_TICK, drainLimit = DRAIN_VISITS_PER_TICK;
     boolean stepped;
     final LinkedHashSet<BlockPos> active = new LinkedHashSet<>();
-    final LinkedHashSet<BlockPos> pressure = new LinkedHashSet<>();
+    final LongLinkedOpenHashSet pressure = new LongLinkedOpenHashSet();
     final LinkedHashMap<BlockPos, PressureJob> searches = new LinkedHashMap<>();
     final HashMap<Long, HashSet<PressureJob>> watchedChunks = new HashMap<>();
-    int pressureRestarts, pressureCompleted, pressureSaturated, maxPressureSlice;
+    int pressureRestarts, pressureCompleted, pressureSaturated, maxPressureSlice, pressureCoalesced;
+    int pressureHeadRefreshes, pressureHeadDeferrals;
   }
 
   private static final class PressureJob {
@@ -49,9 +51,10 @@ public final class WaterRuntime {
     final LongOpenHashSet seen = new LongOpenHashSet(PRESSURE_SEARCH);
     final LongOpenHashSet chunks = new LongOpenHashSet();
     int head, tail = 1;
-    BlockPos high, low;
+    BlockPos high, lowSurface;
     long highHead = Long.MIN_VALUE, lowHead = Long.MAX_VALUE;
-    boolean invalidated, saturated;
+    boolean invalidated, saturated, headsDirty, refreshing;
+    int refreshes;
 
     PressureJob(BlockPos origin) {
       this.origin = origin.immutable();
@@ -84,19 +87,28 @@ public final class WaterRuntime {
     Budget budget = BUDGETS.get(level);
     if (budget == null || budget.watchedChunks.isEmpty() || before == null || before == after) return;
     // Current-direction animation alone cannot change hydraulic connectivity or head.
-    if (before.is(EngineRegistry.WATER_BLOCK.get()) && after.is(EngineRegistry.WATER_BLOCK.get())
-        && before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))) return;
+    boolean volumeOnly = before.is(EngineRegistry.WATER_BLOCK.get())
+        && after.is(EngineRegistry.WATER_BLOCK.get());
+    if (volumeOnly && before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))) return;
     var watchers = budget.watchedChunks.get(
         net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4));
     if (watchers == null) return;
     var neighbor = new BlockPos.MutableBlockPos();
     for (var job : watchers) {
+      if (job.invalidated) continue;
       // Unrelated movement elsewhere in the same chunk must not starve a long search.
       // A changed witness or its adjacent outlet/boundary can alter the retained graph.
-      if (job.seen.contains(p.asLong())) { job.invalidated = true; continue; }
+      boolean relevant = job.seen.contains(p.asLong());
       for (Direction direction : ALL) {
+        if (relevant) break;
         neighbor.setWithOffset(p, direction);
-        if (job.seen.contains(neighbor.asLong())) { job.invalidated = true; break; }
+        relevant = job.seen.contains(neighbor.asLong());
+      }
+      // Positive-to-positive volume changes preserve the wet witness graph. Refresh
+      // heads without throwing away the frontier; additions/removals still cancel it.
+      if (relevant) {
+        if (volumeOnly) job.headsDirty = true;
+        else job.invalidated = true;
       }
     }
   }
@@ -107,15 +119,17 @@ public final class WaterRuntime {
   }
 
   public record PressureDiagnostics(int jobs, int retainedNodes, int watchedChunks, int restarts,
-      int completed, int saturated, int maxSliceVisits) {}
+      int completed, int saturated, int maxSliceVisits, int coalesced,
+      int headRefreshes, int headDeferrals) {}
 
   public static PressureDiagnostics pressureDiagnostics(ServerLevel level) {
     Budget budget = BUDGETS.get(level);
-    if (budget == null) return new PressureDiagnostics(0, 0, 0, 0, 0, 0, 0);
+    if (budget == null) return new PressureDiagnostics(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     int nodes = 0;
     for (var job : budget.searches.values()) nodes += job.tail;
     return new PressureDiagnostics(budget.searches.size(), nodes, budget.watchedChunks.size(), budget.pressureRestarts,
-        budget.pressureCompleted, budget.pressureSaturated, budget.maxPressureSlice);
+        budget.pressureCompleted, budget.pressureSaturated, budget.maxPressureSlice,
+        budget.pressureCoalesced, budget.pressureHeadRefreshes, budget.pressureHeadDeferrals);
   }
 
   public static int units(ServerLevel l, BlockPos p) {
@@ -154,7 +168,14 @@ public final class WaterRuntime {
 
   private static boolean surface(ServerLevel l, BlockPos p, int amount) {
     // A partial cell has a free surface inside its own block, even beneath a solid ceiling.
-    return amount < WaterTransport.CAPACITY || (open(l, p.above()) && units(l, p.above()) == 0);
+    if (amount < WaterTransport.CAPACITY) return true;
+    BlockPos above = p.above();
+    if (!l.isInWorldBounds(above) || !l.hasChunkAt(above)) return false;
+    // One loaded-state read is enough: EngineFluid always has at least one unit.
+    var state = l.getBlockState(above);
+    return state.isAir()
+        || (!state.is(EngineRegistry.WATER_BLOCK.get()) && state.canBeReplaced()
+            && state.getFluidState().isEmpty() && state.getCollisionShape(l, above).isEmpty());
   }
 
   private static net.minecraft.world.level.block.state.BlockState state(
@@ -280,7 +301,7 @@ public final class WaterRuntime {
     }
     advance(level, p, b);
     if (b.pressureLimit > b.pressureVisits
-        && (b.pressure.remove(p) || b.searches.containsKey(p))) equalize(level, p, b);
+        && (b.pressure.remove(p.asLong()) || b.searches.containsKey(p))) equalize(level, p, b);
   }
 
   private static void advance(ServerLevel level, BlockPos p, Budget budget) {
@@ -299,7 +320,7 @@ public final class WaterRuntime {
         && units(level, p.below()) > 0
         && surface(level, p, units(level, p))) {
       if (!budget.searches.containsKey(p)) {
-        if (budget.pressure.size() < MAX_ACTIVE) budget.pressure.add(p.immutable());
+        if (budget.pressure.size() < MAX_ACTIVE) budget.pressure.add(p.asLong());
         else activate(level, p);
       }
     }
@@ -394,14 +415,17 @@ public final class WaterRuntime {
 
   private static boolean move(ServerLevel l, BlockPos a, BlockPos b, boolean down) {
     if (!open(l, b)) return false;
-    var e = WaterTransport.exchange(units(l, a), units(l, b), down);
+    int from = units(l, a), to = units(l, b);
+    // Avoid creating zero-move exchanges, and reuse the same authoritative read for the cap.
+    if (from == 0 || to == WaterTransport.CAPACITY || (!down && from <= to + 1)) return false;
+    var e = WaterTransport.exchange(from, to, down);
     if (e.moved() == 0) return false;
     int dx = b.getX() - a.getX(), dz = b.getZ() - a.getZ();
     int flow = down ? 16 : dx > 0 ? 0 : dz > 0 ? 4 : dx < 0 ? 8 : 12;
     if (!down && e.moved() > SIDE_TRANSFER)
       e =
           new WaterTransport.Exchange(
-              units(l, a) - SIDE_TRANSFER, units(l, b) + SIDE_TRANSFER, SIDE_TRANSFER);
+              from - SIDE_TRANSFER, to + SIDE_TRANSFER, SIDE_TRANSFER);
     return transfer(l, a, b, e, flow);
   }
 
@@ -410,7 +434,7 @@ public final class WaterRuntime {
     int admission = MAX_PRESSURE_JOBS;
     while (admission-- > 0 && budget.searches.size() < MAX_PRESSURE_JOBS
         && !budget.pressure.isEmpty()) {
-      BlockPos origin = budget.pressure.removeFirst();
+      BlockPos origin = BlockPos.of(budget.pressure.removeFirstLong());
       if (level.isInWorldBounds(origin) && level.hasChunkAt(origin)
           && units(level, origin) > 0) startPressure(level, origin, budget);
     }
@@ -433,17 +457,35 @@ public final class WaterRuntime {
     return job;
   }
 
+  private static void deferPressure(ServerLevel level, BlockPos origin, Budget budget) {
+    if (budget.pressure.size() < MAX_ACTIVE) budget.pressure.add(origin.asLong());
+    else activate(level, origin);
+  }
+
+  private static void refreshHeads(PressureJob job, Budget budget) {
+    job.head = 0;
+    job.high = job.lowSurface = null;
+    job.highHead = Long.MIN_VALUE;
+    job.lowHead = Long.MAX_VALUE;
+    job.headsDirty = false;
+    job.refreshing = true;
+    job.refreshes++;
+    budget.pressureHeadRefreshes++;
+  }
+
   /** Retained connected-water frontier, bounded to 128 visits per fair scheduling turn. */
   private static boolean equalize(ServerLevel l, BlockPos origin, Budget budget) {
     var job = budget.searches.get(origin);
     if (job != null && job.invalidated) {
       finish(budget, job);
       budget.pressureRestarts++;
-      job = null;
+      // Do not let a constantly edited component occupy its resident slot forever.
+      deferPressure(l, origin, budget);
+      return false;
     }
     if (job == null) {
       if (budget.searches.size() >= MAX_PRESSURE_JOBS) {
-        budget.pressure.add(origin.immutable());
+        deferPressure(l, origin, budget);
         return false;
       }
       job = startPressure(l, origin, budget);
@@ -468,15 +510,18 @@ public final class WaterRuntime {
         if (value > job.highHead) { job.highHead = value; job.high = p.immutable(); }
         if (value < job.lowHead) {
           job.lowHead = value;
-          job.low = amount == WaterTransport.CAPACITY ? p.above() : p.immutable();
+          job.lowSurface = p.immutable();
         }
       }
+      if (job.refreshing) continue;
       for (Direction d : ALL) {
         q.setWithOffset(p, d);
+        long key = q.asLong();
+        // Previously admitted wet cells are already watched; do not query their chunks again.
+        if (job.seen.contains(key)) continue;
         if (!l.isInWorldBounds(q) || !l.hasChunkAt(q)) continue;
         watch(budget, job, q);
-        long key = q.asLong();
-        if (!job.seen.contains(key) && units(l, q) > 0) {
+        if (units(l, q) > 0) {
           if (job.tail == MAX_PRESSURE_NODES) { job.saturated = true; continue; }
           job.seen.add(key);
           if (job.tail == job.queue.length)
@@ -486,23 +531,81 @@ public final class WaterRuntime {
       }
     }
     budget.maxPressureSlice = Math.max(budget.maxPressureSlice, visits);
-    if (job.invalidated || job.head < job.tail) return false;
+    if (job.invalidated) return false;
+    BlockPos high = job.high, low = job.lowSurface;
+    WaterTransport.Exchange exchange = null;
+    int from = 0, to = 0;
+    if (high != null && low != null && !high.equals(low)
+        && l.hasChunkAt(high) && l.hasChunkAt(low)) {
+      from = units(l, high);
+      int lower = units(l, low);
+      if (from > 0 && lower > 0 && surface(l, high, from) && surface(l, low, lower)) {
+        low = lower == WaterTransport.CAPACITY ? low.above() : low;
+        if (open(l, low)) {
+          to = units(l, low);
+          exchange = WaterTransport.pressure(high.getY(), from, low.getY(), to);
+        }
+      }
+    }
+    // A fresh connected witness already permits a conservative head-reducing transfer.
+    // Preserve the frontier only while no useful pair is known; stable components still
+    // finish their bounded search. This avoids rescanning a whole body before every 4 units.
+    if (job.invalidated) return false;
+    if ((exchange == null || exchange.moved() == 0) && job.head < job.tail) return false;
+    if ((exchange == null || exchange.moved() == 0) && job.headsDirty) {
+      if (job.refreshes < 2) refreshHeads(job, budget);
+      else {
+        finish(budget, job);
+        budget.pressureHeadDeferrals++;
+        deferPressure(l, origin, budget);
+      }
+      return false;
+    }
     // Every read chunk stays watched until commit. Edits/unloads invalidate the entire
     // witness graph, including already visited prefixes, so stale frontiers never teleport water.
-    BlockPos high = job.high, low = job.low;
+    // Coalesce only a stable, fully explored component with no remaining pressure move.
+    // A transfer can alter or split its wet topology; keep other requests in that case.
+    if (!job.saturated && !job.headsDirty && job.head == job.tail
+        && (exchange == null || exchange.moved() == 0)) coalesceComplete(budget, job);
     finish(budget, job);
     budget.pressureCompleted++;
     if (job.saturated) budget.pressureSaturated++;
-    if (high == null || low == null || high.equals(low)
-        || !l.hasChunkAt(high) || !open(l, low)) return false;
-    var exchange = WaterTransport.pressure(high.getY(), units(l, high), low.getY(), units(l, low));
+    if (exchange == null || exchange.moved() == 0) return false;
     if (exchange.moved() > PRESSURE_TRANSFER)
-      exchange = new WaterTransport.Exchange(units(l, high) - PRESSURE_TRANSFER,
-          units(l, low) + PRESSURE_TRANSFER, PRESSURE_TRANSFER);
+      exchange = new WaterTransport.Exchange(from - PRESSURE_TRANSFER,
+          to + PRESSURE_TRANSFER, PRESSURE_TRANSFER);
     return transfer(l, high, low, exchange, 16);
   }
 
+  /** Only a completed, unchanged component can discharge its duplicate pressure requests. */
+  private static void coalesceComplete(Budget budget, PressureJob complete) {
+    // Cleanup is bounded by 8192 retained nodes and 16 resident jobs; no world reads occur.
+    for (int n = 0; n < complete.tail; n++)
+      if (budget.pressure.remove(complete.queue[n])) budget.pressureCoalesced++;
+    var overlaps = new ArrayList<PressureJob>();
+    for (var job : budget.searches.values())
+      if (job != complete && complete.seen.contains(job.origin.asLong())) overlaps.add(job);
+    for (var job : overlaps) {
+      finish(budget, job);
+      budget.pressureCoalesced++;
+    }
+  }
+
   public static final class Events {
+    @net.neoforged.bus.api.SubscribeEvent
+    public void chunkLoaded(net.neoforged.neoforge.event.level.ChunkEvent.Load event) {
+      if (event.getLevel() instanceof ServerLevel level && level.getServer().isSameThread()) {
+        Budget budget = BUDGETS.get(level);
+        if (budget == null || budget.watchedChunks.isEmpty()) return;
+        var pos = event.getChunk().getPos();
+        invalidateChunk(budget, pos.pack());
+        // A newly loaded neighbor changes a previously sealed search boundary.
+        for (Direction side : SIDES)
+          invalidateChunk(budget, net.minecraft.world.level.ChunkPos.pack(
+              pos.x() + side.getStepX(), pos.z() + side.getStepZ()));
+      }
+    }
+
     @net.neoforged.bus.api.SubscribeEvent
     public void tick(net.neoforged.neoforge.event.tick.LevelTickEvent.Post event) {
       if (event.getLevel() instanceof ServerLevel level) step(level);

@@ -25,6 +25,7 @@ public final class LongPressureChecks {
   private List<BlockPos> secondTube;
   private int ticks, quantity, firstSearchVisits, secondQuantity;
   private int peakJobs, peakNodes, peakVisits, idleSamples, baseY = 500;
+  private boolean headFrontierRetained;
   private ServerLevel testLevel;
   private final String mode = System.getenv().getOrDefault("DEEPPRIMAL_LONG_PRESSURE_MODE", "reproduce");
   private boolean done, gapUnloaded;
@@ -102,8 +103,14 @@ public final class LongPressureChecks {
         "Short control conservation");
     System.out.println("SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true");
     tube = create(level, offset, 256, baseY + 2);
+    if (mode.equals("heads")) {
+      level.setBlock(new BlockPos(offset, baseY + 3, 8), EngineRegistry.WATER_BLOCK.get()
+          .defaultBlockState().setValue(com.shnewbs.deepprimal.engine.EngineFluid.UNITS, 15), 2 | 16);
+      level.setBlock(new BlockPos(offset + 256, baseY + 2, 8), EngineRegistry.WATER_BLOCK.get()
+          .defaultBlockState().setValue(com.shnewbs.deepprimal.engine.EngineFluid.UNITS, 15), 2 | 16);
+    }
     quantity = tube.stream().mapToInt(p -> WaterRuntime.units(level, p)).sum();
-    check(quantity == 262 * 16, "Long bend starts with 262 full water cells");
+    check(quantity == 262 * 16 - (mode.equals("heads") ? 2 : 0), "Known long-bend volume");
     int beforeSearch = WaterRuntime.diagnostics(level).pressureVisits();
     WaterRuntime.tick(level, new BlockPos(offset, baseY + 3, 8));
     firstSearchVisits = WaterRuntime.diagnostics(level).pressureVisits() - beforeSearch;
@@ -111,7 +118,22 @@ public final class LongPressureChecks {
     if (!mode.equals("reproduce")) {
       check(WaterRuntime.pressureDiagnostics(level).jobs() > 0,
           "First slice must retain its frontier");
-      if (mode.equals("edit")) {
+      if (mode.equals("heads")) {
+        var beforeHeadChange = WaterRuntime.pressureDiagnostics(level);
+        // Both cells stay wet. Shift one unit without adding/removing a graph node.
+        level.setBlock(new BlockPos(offset, baseY + 3, 8), EngineRegistry.WATER_BLOCK.get()
+            .defaultBlockState().setValue(com.shnewbs.deepprimal.engine.EngineFluid.UNITS, 14), 2 | 16);
+        level.setBlock(new BlockPos(offset + 256, baseY + 2, 8), EngineRegistry.WATER_BLOCK.get()
+            .defaultBlockState().setValue(com.shnewbs.deepprimal.engine.EngineFluid.UNITS, 16), 2 | 16);
+        WaterRuntime.tick(level, new BlockPos(offset, baseY + 3, 8));
+        var resumed = WaterRuntime.pressureDiagnostics(level);
+        check(resumed.restarts() == beforeHeadChange.restarts()
+            && resumed.retainedNodes() > beforeHeadChange.retainedNodes(),
+            "Positive-volume changes must preserve and extend the native frontier");
+        check(tube.stream().mapToInt(p -> WaterRuntime.units(level, p)).sum() == quantity,
+            "Head-change control conserves volume");
+        headFrontierRetained = true;
+      } else if (mode.equals("edit")) {
         // Already visited prefix: continuing from the old frontier would bypass this wall.
         level.setBlock(new BlockPos(8, baseY, 8), Blocks.STONE.defaultBlockState(), 2 | 16);
         quantity -= 16;
@@ -179,17 +201,23 @@ public final class LongPressureChecks {
     int outlet = WaterRuntime.units(level, new BlockPos(offset + 256, baseY + 3, 8));
     check(after == quantity, "Long sealed bend conservation");
     String label;
-    if ((mode.equals("fixed") || mode.equals("idle") || mode.equals("reopen"))) {
-      check(outlet == 8 && WaterRuntime.units(level, new BlockPos(offset, baseY + 3, 8)) == 8,
+    if ((mode.equals("fixed") || mode.equals("idle") || mode.equals("reopen") || mode.equals("heads"))) {
+      int expectedSurface = mode.equals("heads") ? 7 : 8;
+      check(outlet == expectedSurface && WaterRuntime.units(level, new BlockPos(offset, baseY + 3, 8)) == expectedSurface,
           "Long communicating surfaces must equalize, not restart the old prefix");
+      if (secondTube != null) {
       check(secondTube.stream().mapToInt(p -> WaterRuntime.units(level, p)).sum() == secondQuantity,
           "Second independent bend conservation");
       check(WaterRuntime.units(level, new BlockPos(2304, baseY + 3, 8)) == 8
           && WaterRuntime.units(level, new BlockPos(2048, baseY + 3, 8)) == 8,
           "Both independent components must progress fairly");
-      label = mode.equals("idle") ? "LONG_PRESSURE_IDLE_NATIVE_PASS"
+      }
+      if (mode.equals("heads")) check(headFrontierRetained, "Head-change frontier check executed");
+      label = mode.equals("heads") ? "LONG_PRESSURE_HEAD_CHANGE_NATIVE_PASS" : mode.equals("idle") ? "LONG_PRESSURE_IDLE_NATIVE_PASS"
           : mode.equals("reopen") ? "LONG_PRESSURE_REOPEN_NATIVE_PASS"
           : "LONG_PRESSURE_CONTINUATION_NATIVE_PASS";
+      if (mode.equals("idle")) check(pressure.coalesced() > 0,
+          "Completed communicating components must coalesce duplicate native requests");
     } else {
       check(outlet == 0 && WaterRuntime.units(level, new BlockPos(offset, baseY + 3, 8)) == 16,
           "Disconnected/reproduction case must not raise the remote outlet");
@@ -208,7 +236,9 @@ public final class LongPressureChecks {
         + " firstSearchVisits=" + firstSearchVisits + " maxSliceVisits=" + pressure.maxSliceVisits()
         + " peakJobs=" + peakJobs + " peakRetainedNodes=" + peakNodes
         + " peakTickPressureVisits=" + peakVisits + " restarts=" + pressure.restarts()
-        + " completed=" + pressure.completed() + " saturated=" + pressure.saturated()
+        + " coalesced=" + pressure.coalesced() + " completed=" + pressure.completed() + " saturated=" + pressure.saturated()
+        + " headFrontierRetained=" + headFrontierRetained
+        + " headRefreshes=" + pressure.headRefreshes() + " headDeferrals=" + pressure.headDeferrals()
         + " idleSamples=" + idleSamples + " finalWatchedChunks=" + pressure.watchedChunks()
         + " actualGapUnloaded=" + gapUnloaded + " independentComponents=" + (secondTube == null ? 1 : 2)
         + " conserved=true solverAcceptance=" + !mode.equals("reproduce") + "\n";
@@ -218,5 +248,12 @@ public final class LongPressureChecks {
     System.out.print(result);
     for (ChunkPos chunk : forced) level.setChunkForced(chunk.x(), chunk.z(), false);
     event.getServer().halt(false);
+  }
+
+  @SubscribeEvent
+  public void stopping(net.neoforged.neoforge.event.server.ServerStoppingEvent event) {
+    if (System.getenv("DEEPPRIMAL_LAKE_RECORD") != null)
+      System.out.println("LAKE_PRESSURE_SEARCH_SUMMARY "
+          + WaterRuntime.pressureDiagnostics(event.getServer().overworld()));
   }
 }

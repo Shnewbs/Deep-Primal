@@ -1,0 +1,67 @@
+{
+  "scope": "unreleased-development-archive-only",
+  "full_non_vulkan_build_pass": true,
+  "core_checks_pass": true,
+  "core_boundary_pass": true,
+  "module_boundaries_pass": true,
+  "build_summary": [
+    "WATERSHED_CORE_PASS centerlineSamples=5846893 headwaters=964 lakes=650 savedV2=18000 faceConnectedFlowReaches=4292 containedBanks=538915",
+    "> Task :verifyCoreBoundary",
+    "> Task :verifyModuleBoundaries",
+    "BUILD SUCCESSFUL in 1m 2s"
+  ],
+  "initial_packaging_failure": {
+    "stale_water_runtime_detected": true,
+    "outer_crc_was_valid": true,
+    "rejected_sha256": "6497e18ce89f0ecb984052877ccb64c78b67853d4f9fc4e55697bdd9dbbeba13",
+    "cause": "copied incremental build output; exact cause not established",
+    "correction": "jar --no-build-cache --rerun-tasks; BUILD SUCCESSFUL in 20s"
+  },
+  "archive": {
+    "path": "build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev.jar",
+    "bytes": 614409,
+    "sha256": "840c16f0bd22944aed2f33817a5dc362c0b8a263b0e22bb1b900749c965cea4b",
+    "outer_crc_pass": true,
+    "nested": [
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+        "bytes": 101978,
+        "sha256": "c353c7e02fc570020d136886ce267250c06fb890336dade8207b931e301f2c06",
+        "crc_pass": true
+      },
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+        "bytes": 89077,
+        "sha256": "00ebffd0b19c675b1ec4f31dcd1da8fbe0a8b5def8b1e0c9cf796009cc6bc3f1",
+        "crc_pass": true
+      },
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "bytes": 40185,
+        "sha256": "91508ae20e70bc6c73a8041b8e663afed349b2bbdb6e27013c0ab77b3125f59c",
+        "crc_pass": true
+      },
+      {
+        "entry": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+        "bytes": 19660,
+        "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+        "crc_pass": true
+      }
+    ],
+    "main_class_byte_matches": 103,
+    "validation_and_build_compat_classes_absent": true,
+    "pressure_mutation_mixin_present": true
+  },
+  "packaged_native_frontier": {
+    "case": "packaged-frontier-after",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "HEAD_FRONTIER_RETAINED_NATIVE_PASS firstNodes=129 nextNodes=257 restartDelta=0 units=4190 conserved=true"
+    ],
+    "elapsed_seconds": 22.12
+  },
+  "release_acceptance_complete": false,
+  "visual_vulkan_checks_this_run": false,
+  "promotion": "BLOCKED pending sustained settling/backlog, matched pre-continuation performance, larger component/drain and broader engine gates"
+}
