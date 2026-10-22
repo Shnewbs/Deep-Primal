@@ -1,15 +1,16 @@
 {
   "schema": 1,
-  "status": "scheduled_active",
-  "updated_at": "2026-10-22T07:27:00Z",
-  "active_until": "2026-10-22T07:57:00Z",
+  "status": "ready_for_continuation",
+  "updated_at": "2026-10-22T07:32:08Z",
+  "active_until": "2026-10-22T07:32:08Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Isolated distant-water coverage code audit and regression; native toolchain unavailable after workspace maintenance",
+  "current_gate": "Unreleased nearest-first animated-water page admission fix checkpointed; extracted production scheduler regression passes. Full JDK 25 build/native pressure coverage checks blocked by removed test environment.",
   "next_items": [
-    "Reproduce enabled-view distant water/page artifacts with fixed-camera A/B of waves, animated/fallback water, near geometry and LOD; preserve coverage under memory pressure",
+    "Restore JDK 25/Gradle/native test environment and build the scheduler change before any release",
+    "Verify nearest-first page admission under enabled-view memory pressure, teleports, edits and reloads; remaining unresident-page fallback and mixed transparency are open",
     "Implement bounded persistent pressure/drain continuation with a sealed U-bend longer than 128 nodes and edit/unload/conservation regressions",
     "Implement explicit finite/renewable watershed, glacier/snowmelt, aquifer and ocean/atmosphere budgets",
     "Improve terrain variety and coherent geological/material fields; a geographic change after delivered V3 requires a new saved revision",
@@ -23,5 +24,6 @@
     "Do not declare engine completion or performance superiority from isolated fixtures",
     "Keep hourly updates active and report only verified progress"
   ],
-  "worker": "scheduled-a22609fabda0"
+  "unreleased_changes": true,
+  "latest_continuation_evidence": "docs/validation/engine-continuation/2026-10-22-page-admission.md"
 }

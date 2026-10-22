@@ -309,9 +309,9 @@ public final class AnimatedWaterRenderer {
         if (chunk
             .getSection(chunk.getSectionIndexFromSectionY(y))
             .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
-          if (pages.size() >= MAX_PAGES) evict(camera, null);
+          Page p = new Page(key);
+          if (pages.size() >= MAX_PAGES) evict(camera, p);
           if (pages.size() < MAX_PAGES) {
-            Page p = new Page(key);
             if (fresh.remove(key)) p.snapshot = EMPTY;
             pages.put(key, p);
             dirty.add(key);
@@ -527,7 +527,9 @@ public final class AnimatedWaterRenderer {
 
   private boolean evict(net.minecraft.world.phys.Vec3 camera, Page keep) {
     Page victim = null;
-    double far = -1;
+    // Discovery/upload of a farther page must not displace a closer covering mesh.
+    // Busy farther pages are ineligible; wait rather than evict a closer idle page.
+    double far = keep == null ? -1 : keep.bounds.distanceToSqr(camera);
     for (Page p : pages.values())
       if (p != keep && !p.busy) {
         double d = p.bounds.distanceToSqr(camera);
@@ -625,3 +627,4 @@ public final class AnimatedWaterRenderer {
     workers.shutdownNow();
   }
 }
+
