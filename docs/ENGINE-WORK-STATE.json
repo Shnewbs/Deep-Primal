@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T06:42:33.969Z",
-  "active_until": "2026-10-23T07:42:33.969Z",
+  "updated_at": "2026-10-23T07:16:42.842Z",
+  "active_until": "2026-10-23T08:16:42.842Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Fixed same-direction flow-top tile phase resets and reproduced mip-wrap stripes. Clean serial full build/core/package, two strict software Vulkan sessions and scoped OpenGL pass. Base pixels exact; diagnostic mip controls allow one channel unit rounding. Direction retargets/different-direction edges, full streams/ocean, profiling and broader engine acceptance remain open. No installer.",
+  "current_gate": "Active isolated direction-blend audit: final full build and package identities pass; first final Vulkan336-render/7-upload controls pass, remaining final native/regression gates pending. No installer.",
   "next_items": [
     "Owner priority seamless flowing water: implement smooth direction/material retargets and different-direction edge continuity; world-anchored phase can change abruptly when direction changes. Same-direction spatial tile phase and explicit-gradient mip stripes now fixed, retaining prior side-height/stale upload continuity and payload size. Then speed-dependent advection, sustained real streams and actual ocean-wave/shared/native/LOD/reload/travel/memory coverage, preserving quantity and edits.",
     "Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
