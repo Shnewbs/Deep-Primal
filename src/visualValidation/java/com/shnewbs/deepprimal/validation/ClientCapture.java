@@ -170,6 +170,10 @@ public final class ClientCapture {
         LodIndexMergeChecks.run(mc, dir);
         return;
       }
+      if (action.equals("water-fade-continuity-check")) {
+        WaterFadeContinuityChecks.run(mc, dir);
+        return;
+      }
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
         StartupLifecycleChecks.observe("before-disconnect", dir);

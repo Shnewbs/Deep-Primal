@@ -439,6 +439,9 @@ public final class AnimatedWaterRenderer {
     if (count == 0) {
       // An edit during capture/meshing must get another turn before a negative result is cached.
       if (p.changed) return;
+      // The previous snapshot may already be dry while its GPU faces are still fading.
+      // Repeated empty captures must not cut that fade short or extend its deadline.
+      if (p.gpu != null && clock < p.cleanup) return;
       release(p);
       pages.remove(p.key);
       hidden.add(p.key);
