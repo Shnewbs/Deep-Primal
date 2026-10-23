@@ -181,6 +181,10 @@ public final class ClientCapture {
         WaterSideUvUploadChecks.run(mc, dir);
         return;
       }
+      if (action.equals("water-flow-phase-check")) {
+        WaterFlowPhaseChecks.run(mc, dir);
+        return;
+      }
       if (action.equals("water-side-uv-check")) {
         WaterSideUvChecks.run(mc, dir);
         return;

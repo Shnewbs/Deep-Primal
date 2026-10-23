@@ -1,0 +1,25 @@
+{
+  "case": "vulkan-phase-baseline",
+  "run_directory": "/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/run-vulkan-primary",
+  "started_utc": "2026-10-23T05:10:42.633095+00:00",
+  "finished_utc": "2026-10-23T05:12:44.748368+00:00",
+  "exit_code": -15,
+  "timeout": true,
+  "elapsed_seconds": 122.12,
+  "build_successful": false,
+  "records": [
+    "[01:10:58] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[01:11:06] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[01:11:07] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=0",
+    "[01:11:10] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x6d400000006d4, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x6d500000006d5, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[01:11:11] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[01:11:13] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x6d400000006d4, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x6d500000006d5, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT."
+  ],
+  "console_sha256": "ce35957deb66ec2d118c6b25191b0640f66e98d394bfb1759c289ed45a55307d",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

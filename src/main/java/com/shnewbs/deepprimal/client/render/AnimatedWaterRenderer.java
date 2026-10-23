@@ -515,6 +515,7 @@ public final class AnimatedWaterRenderer {
     try {
       for (var faces : parts) {
         float[] values = faces.vertices;
+        float phaseU = 0, phaseV = 0;
         for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
           int i = v * WaterPatchMesher.STRIDE;
           int cell = (int) values[i + 9];
@@ -522,6 +523,11 @@ public final class AnimatedWaterRenderer {
           int face = WaterPatchMesher.face(values[i + 10]);
           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
           if ((v & 3) == 0) {
+            int direction = WaterPatchMesher.direction(values[i + 10]);
+            if (face == 0 && direction < 16) {
+              phaseU = WaterPatchMesher.flowUOffset(direction, p.x + cx, p.z + cz);
+              phaseV = WaterPatchMesher.flowVOffset(direction, p.x + cx, p.z + cz);
+            }
             opacity =
                 transition(alpha.get(face), cellKey, values[i + 12], values[i + 13]);
             dyingFaces |= values[i + 13] == 0;
@@ -563,12 +569,14 @@ public final class AnimatedWaterRenderer {
           var sprite = flowingFace ? flowing : still;
           // Derive side V from the admitted shared height, including rejected stale captures.
           // The shader follows its displayed morph height and clamps inside this sprite's tile.
-          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : values[i + 6];
-          data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(textureV));
+          boolean flowTop = face == 0 && flowingFace;
+          float textureU = values[i + 5] + (flowTop ? phaseU : 0);
+          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : values[i + 6] + (flowTop ? phaseV : 0);
+          data.putFloat(sprite.getU(textureU)).putFloat(sprite.getV(textureV));
           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
               .putShort((short) offset);
-          // Native light coordinates occupy the low byte; reserve bits 8/9 for side UV mode.
-          int presentation = side ? 256 | (flowingFace ? 512 : 0) : 0;
+          // Native light coordinates occupy the low byte; reserve bits 8/9 for side mode and bit 10 for periodic flow tops.
+          int presentation = side ? 256 | (flowingFace ? 512 : 0) : flowTop ? 1024 : 0;
           data.putShort((short) ((light & 255) | presentation)).putShort((short) (light >>> 16));
           data.put((byte) Math.round(opacity.from(clock) * 127))
               .put((byte) Math.round(opacity.target() * 127))
@@ -593,6 +601,8 @@ public final class AnimatedWaterRenderer {
       // Existing uniform storage carries sprite bounds; no vertex/uniform allocation growth.
       p.texture.m10(still.getV(1) - still.getV(0)).m11((flowing.getV(1) - flowing.getV(0)) * .5f);
       p.texture.m20(still.getV(0)).m21(flowing.getV(0));
+      p.texture.m01(flowing.getU(0)).m02(flowing.getU(1) - flowing.getU(0));
+      p.texture.m03(flowing.getV(0)).m12(flowing.getV(1) - flowing.getV(0));
       p.fading = rememberFading(p, parts);
       p.snapshot = ready.snapshot;
       p.uploaded = clock;

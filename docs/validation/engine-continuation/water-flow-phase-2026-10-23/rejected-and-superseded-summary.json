@@ -1,0 +1,13 @@
+{
+  "missing_helper_build": "Renderer could not see added core methods; compiled/packaged core lacked them despite source changes. Copied build state suspected, root cause not established; deleting isolated build state restored correct compilation.",
+  "truncated_archive_build": "jarJar rejected a 10,192,270-byte Vulkan dependency lacking a ZIP central directory. Header/tail/hash retained; cause unresolved. Clean serial build passes six CRCs and class identities; not claimed as an underlying bug fix.",
+  "wrong_world_native": "First attempt used a fresh directory without the named reference world, stayed at DisconnectedScreen and timed out. Excluded. Corrected retry briefly overlapped its final shutdown; neither is timing/performance evidence. Final sessions run sequentially. Missing-world preflight now rejects before launch.",
+  "phase_only_prototype": "Six base pixel pairs passed, but diagnostic mip controls later exposed stripes. Superseded; not final acceptance.",
+  "implicit_mip_controls": {
+    "different_pixels": 1713,
+    "pixels_with_channel_error_above_one": 132,
+    "max_channel_error": 255,
+    "base_pairs_exact": 6,
+    "scope": "Actual shader/mip sampler diagnostic; other one-unit differences reflect rounding at the mip boundary."
+  }
+}

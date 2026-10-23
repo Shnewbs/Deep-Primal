@@ -91,6 +91,11 @@ final class WaterFlowTextureChecks {
                 float u=s.cpu[i]-cx,w=s.cpu[i+2]-cz;
                 float eu=s.direction==0?.5f-.5f*(w-.5f):s.direction==4?.5f+.5f*(u-.5f):u;
                 float ev=s.direction==0?.5f+.5f*(u-.5f):s.direction==4?.5f+.5f*(w-.5f):w;
+                if(s.direction<16) {
+                  eu+=WaterPatchMesher.flowUOffset(s.direction,position.getX(),position.getZ());
+                  ev+=WaterPatchMesher.flowVOffset(s.direction,position.getX(),position.getZ());
+                  if((data.getShort(v*36+28)&1024)==0)throw new AssertionError("Missing periodic flow-top tag");
+                }
                 if(Math.abs(data.getFloat(v*36+16)-sprite.getU(eu))>.000001f || Math.abs(data.getFloat(v*36+20)-sprite.getV(ev))>.000001f)throw new AssertionError("Actual flow/still atlas UV differs for direction "+s.direction);
                 byte[] rawVertex=new byte[36];data.duplicate().position(v*36).get(rawVertex);selected.writeBytes(rawVertex);
                 rows.add(Map.of("direction",s.direction,"sprite",s.direction==16?"water_still":"water_flow","u",data.getFloat(v*36+16),"v",data.getFloat(v*36+20),"expectedU",sprite.getU(eu),"expectedV",sprite.getV(ev),"x",data.getFloat(v*36),"y",data.getFloat(v*36+4),"z",data.getFloat(v*36+8)));

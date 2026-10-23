@@ -1,0 +1,44 @@
+[
+  {
+    "coveredPixels": 1024,
+    "pair": 0,
+    "differentPixels": 0,
+    "originX": 15,
+    "direction": 0
+  },
+  {
+    "coveredPixels": 1024,
+    "pair": 1,
+    "differentPixels": 0,
+    "originX": -1,
+    "direction": 2
+  },
+  {
+    "coveredPixels": 1024,
+    "pair": 2,
+    "differentPixels": 0,
+    "originX": -16,
+    "direction": 4
+  },
+  {
+    "coveredPixels": 1024,
+    "pair": 3,
+    "differentPixels": 0,
+    "originX": 29999998,
+    "direction": 6
+  },
+  {
+    "coveredPixels": 1024,
+    "pair": 4,
+    "differentPixels": 0,
+    "originX": -29999999,
+    "direction": 10
+  },
+  {
+    "coveredPixels": 1024,
+    "pair": 5,
+    "differentPixels": 0,
+    "originX": 31,
+    "direction": 14
+  }
+]

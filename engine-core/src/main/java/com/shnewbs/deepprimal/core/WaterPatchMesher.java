@@ -55,6 +55,19 @@ public final class WaterPatchMesher {
     return code == 0 ? 16 : code - 1;
   }
 
+  /** Periodic phase at a world cell origin; double intermediates retain distant/negative seams. */
+  public static float flowUOffset(int direction, int worldX, int worldZ) {
+    if (direction < 0 || direction >= 16) return 0;
+    double phase = .5 * ((double) FLOW_Z[direction] * worldX - (double) FLOW_X[direction] * worldZ);
+    return (float) (phase - Math.floor(phase));
+  }
+
+  public static float flowVOffset(int direction, int worldX, int worldZ) {
+    if (direction < 0 || direction >= 16) return 0;
+    double phase = .5 * ((double) FLOW_X[direction] * worldX + (double) FLOW_Z[direction] * worldZ);
+    return (float) (phase - Math.floor(phase));
+  }
+
   private int flowMaterial;
   private float flowX, flowZ;
   private float[] vertices = new float[8192];

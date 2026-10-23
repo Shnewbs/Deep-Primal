@@ -54,6 +54,22 @@ final class WaterFlowTextureChecks {
       for (int i = 0; i < fading.length; i += step) require(WaterPatchMesher.direction(fading[i+10]) == direction && fading[i+13] == 0, "drying faces retain original flow material");
       checked += mesh.count();
     }
+    var random = new java.util.Random(0xFA5E);
+    double maxError=0; int edges=0;
+    for(int direction=0;direction<16;direction++)for(int sample=0;sample<6250;sample++) {
+      int x=sample<8?new int[]{-1,0,15,16,-16,-17,29999998,-29999999}[sample]:random.nextInt(60000000)-30000000;
+      int z=random.nextInt(60000000)-30000000;
+      double fx=(float)Math.cos(direction*Math.PI/8),fz=(float)Math.sin(direction*Math.PI/8);
+      for(boolean alongX:new boolean[]{true,false})for(boolean u:new boolean[]{true,false}) {
+        float a=u?WaterPatchMesher.flowUOffset(direction,x,z):WaterPatchMesher.flowVOffset(direction,x,z);
+        float b=u?WaterPatchMesher.flowUOffset(direction,x+(alongX?1:0),z+(alongX?0:1)):WaterPatchMesher.flowVOffset(direction,x+(alongX?1:0),z+(alongX?0:1));
+        double expected=.5*(u?(alongX?fz:-fx):(alongX?fx:fz));
+        double gap=(b-a)-expected;gap-=Math.rint(gap);maxError=Math.max(maxError,Math.abs(gap));
+        require(a>=0&&a<=1&&b>=0&&b<=1&&Math.abs(gap)<2e-7,"world phase discontinuity at shared or distant edge");edges++;
+      }
+    }
+    require(WaterPatchMesher.flowUOffset(16,-1,16)==0&&WaterPatchMesher.flowVOffset(16,16,-1)==0,"still material has no flow phase");
+    System.out.println("WATER_FLOW_PHASE_CORE_PASS directions=16 origins=100000 edges="+edges+" maxCircularError="+maxError+" negativeDistantSectionEdges=true phaseBounded=true");
     System.out.println("WATER_FLOW_TEXTURE_CORE_PASS directions=16 vertices="+checked+" legacyStill=true quantityAndGeometryUnchanged=true snapshotImmutable=true dryMaterialRetained=true atlasBounds=true");
   }
 

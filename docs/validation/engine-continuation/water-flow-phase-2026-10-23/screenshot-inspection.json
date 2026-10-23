@@ -1,0 +1,15 @@
+{
+  "inspected_at": "2026-10-23T05:36:08.407583+00:00",
+  "sheets": [
+    "phase-before-after.png",
+    "mip-before-after.png",
+    "vulkan-order-phase-gradient-final-contact.png",
+    "vulkan-order-phase-gradient-final-packaged-contact.png",
+    "vulkan-reuse-gl-phase-gradient-final-contact.png"
+  ],
+  "controlled_phase": "Two adjacent tiles now match continuous references. Custom gradient is diagnostic and is not an assertion that the gradient itself is periodic or representative water art.",
+  "mip_diagnostic": "Implicit wrapping produces blue coarse-mip spots against near-green hardware-repeat reference. Explicit unwrapped gradients remove large differences; one-unit mip-boundary rounding remains within declared tolerance.",
+  "lake": "27 real frames inspected. Water/shore/terrain visible. First development session has a changing far-left terrain silhouette during loading; these are integration/capture evidence, not matched-state or whole-scene coverage/flicker acceptance.",
+  "ocean": "Enabled waves have waveBytes=0 at the lake; actual ocean waves remain open.",
+  "timing": "Lossless videos preserve RGB pixels exactly; illustrative playback is not measured FPS or independent 60Hz."
+}

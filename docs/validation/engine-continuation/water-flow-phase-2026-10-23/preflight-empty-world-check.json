@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "exit_code": 1,
+  "stderr": "Missing disposable reference world: set DEEPPRIMAL_NATIVE_RUN_DIR before launching an existing-world validation",
+  "gradle_launch_record_absent": true,
+  "display_launch_record_absent": true,
+  "scope": "Missing disposable world rejected before native/Gradle startup"
+}

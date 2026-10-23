@@ -9,6 +9,7 @@ in ivec2 UV2;
 in vec3 Normal;
 uniform sampler2D Sampler2;
 out vec2 texCoord;
+flat out vec4 flowBounds;
 out vec4 vertexColor;
 out vec3 relativePosition;
 void main() {
@@ -24,6 +25,9 @@ void main() {
     float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
     vertexColor.a *= mix(Normal.x, Normal.y, alphaT);
     texCoord = UV0;
+    flowBounds = (UV2.x & 1024) != 0
+        ? vec4(TextureMat[0][1], TextureMat[0][3], TextureMat[0][2], TextureMat[1][2])
+        : vec4(0.0);
     if ((UV2.x & 256) != 0) {
         bool flowing = (UV2.x & 512) != 0;
         float span = flowing ? TextureMat[1][1] : TextureMat[1][0];
