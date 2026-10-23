@@ -1,0 +1,14 @@
+{
+  "inspected_utc": "2026-10-23T04:57:51.366614+00:00",
+  "contact_sheets": [
+    "side-uv-before-after.png",
+    "vulkan-order-side-final-contact.png",
+    "vulkan-order-side-final-packaged-contact.png",
+    "vulkan-reuse-gl-side-final-contact.png"
+  ],
+  "controlled_before_after": "Baseline first two matched-height still-side pairs visibly shift UV despite identical silhouette. Candidate pairs have the same gradient; settled pair already matched on baseline. Flow-side numeric differences also preserved in all twelve raw images.",
+  "live_27_frames": "Lake, water grid, native shore and distant terrain remain visible across all three profiles and three sessions. No blank capture observed. Camera is fixed; a short lake sequence cannot establish smooth moving streams or diagonal/primitive transparency.",
+  "wave_geometry": "waveBytes=0 despite enabled option; actual ocean waves untested",
+  "owner_gpu_acceptance": false,
+  "full_flow_flicker_acceptance": false
+}

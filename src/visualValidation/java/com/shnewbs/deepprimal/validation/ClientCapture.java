@@ -177,6 +177,14 @@ public final class ClientCapture {
         WaterPageOrderChecks.start(mc, dir.resolve(label));
         return;
       }
+      if (action.equals("water-side-uv-upload-check")) {
+        WaterSideUvUploadChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-side-uv-check")) {
+        WaterSideUvChecks.run(mc, dir);
+        return;
+      }
       if (action.equals("water-page-order-check")) {
         WaterPageOrderChecks.start(mc, dir);
         return;

@@ -1,0 +1,10 @@
+{
+  "classification": "Incomplete client console; Gradle exit zero alone is rejected",
+  "full_daemon_sha256": "24a72b02e5879ee91f6a7af2554cb8347b017c98e6429587395bf637ca6e32d5",
+  "selected_daemon_markers": 19,
+  "client_bytes": 1284,
+  "explicit_client_required_records": false,
+  "native_acceptance": false,
+  "root_cause": "unresolved",
+  "final_uncached_candidate_build": "explicit complete sealed records pass"
+}

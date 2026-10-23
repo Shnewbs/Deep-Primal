@@ -1,0 +1,71 @@
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -519,10 +519,11 @@
+           int i = v * WaterPatchMesher.STRIDE;
+           int cell = (int) values[i + 9];
+           int cx = cell & 15, cz = (cell >> 4) & 15, cy = cell >> 8;
++          int face = WaterPatchMesher.face(values[i + 10]);
+           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
+           if ((v & 3) == 0) {
+             opacity =
+-                transition(alpha.get(WaterPatchMesher.face(values[i + 10])), cellKey, values[i + 12], values[i + 13]);
++                transition(alpha.get(face), cellKey, values[i + 12], values[i + 13]);
+             dyingFaces |= values[i + 13] == 0;
+           }
+           float target = values[i + 3], from = target;
+@@ -557,11 +558,18 @@
+               light = Float.floatToRawIntBits(values[i + 8]);
+           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
+           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
+-          var sprite = WaterPatchMesher.direction(values[i + 10]) < 16 ? flowing : still;
+-          data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(values[i + 6]));
++          boolean flowingFace = WaterPatchMesher.direction(values[i + 10]) < 16;
++          boolean side = face >= 1 && face <= 4;
++          var sprite = flowingFace ? flowing : still;
++          // Derive side V from the admitted shared height, including rejected stale captures.
++          // The shader follows its displayed morph height and clamps inside this sprite's tile.
++          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : values[i + 6];
++          data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(textureV));
+           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
+               .putShort((short) offset);
+-          data.putShort((short) (light & 65535)).putShort((short) (light >>> 16));
++          // Native light coordinates occupy the low byte; reserve bits 8/9 for side UV mode.
++          int presentation = side ? 256 | (flowingFace ? 512 : 0) : 0;
++          data.putShort((short) ((light & 255) | presentation)).putShort((short) (light >>> 16));
+           data.put((byte) Math.round(opacity.from(clock) * 127))
+               .put((byte) Math.round(opacity.target() * 127))
+               .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
+@@ -582,6 +590,9 @@
+         residentBytes += mesh.bytes;
+       }
+       // Retained CPU faces are a subset of the admitted GPU payload; failed admission changes neither.
++      // Existing uniform storage carries sprite bounds; no vertex/uniform allocation growth.
++      p.texture.m10(still.getV(1) - still.getV(0)).m11((flowing.getV(1) - flowing.getV(0)) * .5f);
++      p.texture.m20(still.getV(0)).m21(flowing.getV(0));
+       p.fading = rememberFading(p, parts);
+       p.snapshot = ready.snapshot;
+       p.uploaded = clock;
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
+@@ -15,12 +15,19 @@
+     // TextureMat carries elapsed milliseconds since this mesh was uploaded.
+     float t = clamp((TextureMat[0][0] - float(UV1.y)) / 100.0, 0.0, 1.0);
+     vec3 p = Position;
+-    p.y += float(UV1.x) / 16384.0 * (1.0 - t);
++    float displacement = float(UV1.x) / 16384.0 * (1.0 - t);
++    p.y += displacement;
+     relativePosition = p + ModelOffset;
+     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
+-    vertexColor = Color * ColorModulator * texelFetch(Sampler2, clamp(UV2 / 16, ivec2(0), ivec2(15)), 0);
++    vertexColor = Color * ColorModulator * texelFetch(Sampler2, clamp(ivec2(UV2.x & 255, UV2.y) / 16, ivec2(0), ivec2(15)), 0);
+     // Signed normalized Normal.z stores the original opacity start offset in milliseconds.
+     float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
+     vertexColor.a *= mix(Normal.x, Normal.y, alphaT);
+     texCoord = UV0;
++    if ((UV2.x & 256) != 0) {
++        bool flowing = (UV2.x & 512) != 0;
++        float span = flowing ? TextureMat[1][1] : TextureMat[1][0];
++        float start = flowing ? TextureMat[2][1] : TextureMat[2][0];
++        texCoord.y = clamp(UV0.y - displacement * span, start, start + span);
++    }
+ }
