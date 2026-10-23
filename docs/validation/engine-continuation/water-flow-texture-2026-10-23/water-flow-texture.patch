@@ -1,0 +1,163 @@
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -390,7 +390,8 @@
+   }
+ 
+   private WaterPatchMesher.Snapshot capture(Page page) {
+-    byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
++    byte[] units = new byte[WaterPatchMesher.CELLS],
++        solid = new byte[units.length], flow = new byte[units.length];
+     int[] light = new int[units.length], colors = new int[256];
+     var chunks = new net.minecraft.world.level.chunk.LevelChunk[9];
+     for (int dz = -1; dz <= 1; dz++)
+@@ -413,6 +414,7 @@
+           var state = chunk.getBlockState(pos);
+           if (state.is(EngineRegistry.WATER_BLOCK.get())) {
+             units[i] = (byte) (int) state.getValue(EngineFluid.UNITS);
++            flow[i] = (byte) (int) state.getValue(EngineFluid.FLOW);
+             light[i] = LevelRenderer.getLightCoords(level, pos.above());
+           } else if (state.isSolid()) solid[i] = 1;
+         }
+@@ -421,7 +423,7 @@
+           colors[z * 16 + x] = BiomeColors.getAverageWaterColor(level, pos);
+         }
+       }
+-    return new WaterPatchMesher.Snapshot(units, solid, light, colors);
++    return new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);
+   }
+ 
+   private WaterSurfaceTransition transition(
+@@ -437,7 +439,7 @@
+   }
+ 
+   private static int faceKey(float[] values, int i) {
+-    return (int) values[i + 9] * 6 + (int) values[i + 10];
++    return (int) values[i + 9] * 6 + WaterPatchMesher.face(values[i + 10]);
+   }
+ 
+   private boolean fading(Page page, int face) {
+@@ -505,12 +507,11 @@
+     boolean animating = false, dyingFaces = false;
+     int remaining = 0;
+     WaterSurfaceTransition opacity = null;
+-    var sprite =
+-        ((TextureAtlas)
+-                Minecraft.getInstance()
+-                    .getTextureManager()
+-                    .getTexture(TextureAtlas.LOCATION_BLOCKS))
+-            .getSprite(Identifier.withDefaultNamespace("block/water_still"));
++    var atlas =
++        (TextureAtlas)
++            Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS);
++    var still = atlas.getSprite(Identifier.withDefaultNamespace("block/water_still"));
++    var flowing = atlas.getSprite(Identifier.withDefaultNamespace("block/water_flow"));
+     try {
+       for (var faces : parts) {
+         float[] values = faces.vertices;
+@@ -521,7 +522,7 @@
+           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
+           if ((v & 3) == 0) {
+             opacity =
+-                transition(alpha.get((int) values[i + 10]), cellKey, values[i + 12], values[i + 13]);
++                transition(alpha.get(WaterPatchMesher.face(values[i + 10])), cellKey, values[i + 12], values[i + 13]);
+             dyingFaces |= values[i + 13] == 0;
+           }
+           float target = values[i + 3], from = target;
+@@ -556,6 +557,7 @@
+               light = Float.floatToRawIntBits(values[i + 8]);
+           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
+           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
++          var sprite = WaterPatchMesher.direction(values[i + 10]) < 16 ? flowing : still;
+           data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(values[i + 6]));
+           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
+               .putShort((short) offset);
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java
+@@ -6,7 +6,25 @@
+ public final class WaterPatchMesher {
+   public static final int SIZE = 18, CELLS = SIZE * SIZE * SIZE, STRIDE = 14;
+ 
+-  public record Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors) {
++  private static final float[] FLOW_X = new float[16], FLOW_Z = new float[16];
++
++  static {
++    for (int d = 0; d < 16; d++) {
++      FLOW_X[d] = (float) Math.cos(d * Math.PI / 8);
++      FLOW_Z[d] = (float) Math.sin(d * Math.PI / 8);
++    }
++  }
++
++  /** Flow is captured with quantity; null retains the legacy still-water material. */
++  public record Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors, byte[] flow) {
++    public Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors) {
++      this(units, solid, lights, colors, null);
++    }
++
++    public int direction(int x, int y, int z) {
++      return flow == null ? 16 : flow[index(x, y, z)] & 255;
++    }
++
+     public int water(int x, int y, int z) {
+       return units[index(x, y, z)];
+     }
+@@ -26,6 +44,19 @@
+     return ((y + 1) * SIZE + z + 1) * SIZE + x + 1;
+   }
+ 
++  // Slot 10 retains the face in its low three bits and a flowing-direction code above it.
++  // Code zero means still; codes 1..16 mean directions 0..15. All values are exact floats.
++  public static int face(float material) {
++    return (int) material & 7;
++  }
++
++  public static int direction(float material) {
++    int code = (int) material >>> 3;
++    return code == 0 ? 16 : code - 1;
++  }
++
++  private int flowMaterial;
++  private float flowX, flowZ;
+   private float[] vertices = new float[8192];
+   private int size;
+   private final Snapshot current, previous;
+@@ -48,6 +79,12 @@
+           if (Thread.currentThread().isInterrupted())
+             throw new java.util.concurrent.CancellationException();
+           if (current.water(x, y, z) == 0 && m.previous.water(x, y, z) == 0) continue;
++          int direction = (current.water(x, y, z) > 0 ? current : m.previous).direction(x, y, z);
++          m.flowMaterial = direction < 16 ? (direction + 1) << 3 : 0;
++          if (m.flowMaterial != 0) {
++            m.flowX = FLOW_X[direction];
++            m.flowZ = FLOW_Z[direction];
++          }
+           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
+           if (top || oldTop) {
+             int sub =
+@@ -160,6 +197,18 @@
+             | (int) ((color & 255) * shade);
+     float textureU = (face == 2 || face == 4) ? v : u,
+         textureV = face == 0 ? v : Math.clamp(1 - target, 0, 1);
++    if (flowMaterial != 0) {
++      if (face == 0) {
++        // The flowing sprite covers twice the still sprite's texel width. Rotate its
++        // central half tile so increasing V follows the captured horizontal flow.
++        float a = textureU - .5f, b = textureV - .5f;
++        textureU = .5f + .5f * (flowZ * a - flowX * b);
++        textureV = .5f + .5f * (flowX * a + flowZ * b);
++      } else {
++        textureU *= .5f;
++        textureV *= .5f;
++      }
++    }
+     vertices[size++] = x + u;
+     vertices[size++] = y;
+     vertices[size++] = z + v;
+@@ -170,7 +219,7 @@
+     vertices[size++] = Float.intBitsToFloat(color);
+     vertices[size++] = Float.intBitsToFloat(light);
+     vertices[size++] = x | (z << 4) | (y << 8);
+-    vertices[size++] = face;
++    vertices[size++] = face | flowMaterial;
+     vertices[size++] = moving ? 1 : 0;
+     vertices[size++] = was ? 1 : 0;
+     vertices[size++] = next ? 1 : 0;

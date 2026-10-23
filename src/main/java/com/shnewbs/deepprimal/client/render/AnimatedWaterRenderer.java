@@ -390,7 +390,8 @@ public final class AnimatedWaterRenderer {
   }
 
   private WaterPatchMesher.Snapshot capture(Page page) {
-    byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
+    byte[] units = new byte[WaterPatchMesher.CELLS],
+        solid = new byte[units.length], flow = new byte[units.length];
     int[] light = new int[units.length], colors = new int[256];
     var chunks = new net.minecraft.world.level.chunk.LevelChunk[9];
     for (int dz = -1; dz <= 1; dz++)
@@ -413,6 +414,7 @@ public final class AnimatedWaterRenderer {
           var state = chunk.getBlockState(pos);
           if (state.is(EngineRegistry.WATER_BLOCK.get())) {
             units[i] = (byte) (int) state.getValue(EngineFluid.UNITS);
+            flow[i] = (byte) (int) state.getValue(EngineFluid.FLOW);
             light[i] = LevelRenderer.getLightCoords(level, pos.above());
           } else if (state.isSolid()) solid[i] = 1;
         }
@@ -421,7 +423,7 @@ public final class AnimatedWaterRenderer {
           colors[z * 16 + x] = BiomeColors.getAverageWaterColor(level, pos);
         }
       }
-    return new WaterPatchMesher.Snapshot(units, solid, light, colors);
+    return new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);
   }
 
   private WaterSurfaceTransition transition(
@@ -437,7 +439,7 @@ public final class AnimatedWaterRenderer {
   }
 
   private static int faceKey(float[] values, int i) {
-    return (int) values[i + 9] * 6 + (int) values[i + 10];
+    return (int) values[i + 9] * 6 + WaterPatchMesher.face(values[i + 10]);
   }
 
   private boolean fading(Page page, int face) {
@@ -505,12 +507,11 @@ public final class AnimatedWaterRenderer {
     boolean animating = false, dyingFaces = false;
     int remaining = 0;
     WaterSurfaceTransition opacity = null;
-    var sprite =
-        ((TextureAtlas)
-                Minecraft.getInstance()
-                    .getTextureManager()
-                    .getTexture(TextureAtlas.LOCATION_BLOCKS))
-            .getSprite(Identifier.withDefaultNamespace("block/water_still"));
+    var atlas =
+        (TextureAtlas)
+            Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS);
+    var still = atlas.getSprite(Identifier.withDefaultNamespace("block/water_still"));
+    var flowing = atlas.getSprite(Identifier.withDefaultNamespace("block/water_flow"));
     try {
       for (var faces : parts) {
         float[] values = faces.vertices;
@@ -521,7 +522,7 @@ public final class AnimatedWaterRenderer {
           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
           if ((v & 3) == 0) {
             opacity =
-                transition(alpha.get((int) values[i + 10]), cellKey, values[i + 12], values[i + 13]);
+                transition(alpha.get(WaterPatchMesher.face(values[i + 10])), cellKey, values[i + 12], values[i + 13]);
             dyingFaces |= values[i + 13] == 0;
           }
           float target = values[i + 3], from = target;
@@ -556,6 +557,7 @@ public final class AnimatedWaterRenderer {
               light = Float.floatToRawIntBits(values[i + 8]);
           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
+          var sprite = WaterPatchMesher.direction(values[i + 10]) < 16 ? flowing : still;
           data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(values[i + 6]));
           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
               .putShort((short) offset);

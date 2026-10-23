@@ -1,0 +1,8 @@
+{
+  "flow_capture": "Copies EngineFluid.FLOW from the same bounded loaded-chunk snapshot as quantity. Existing WaterPresentationMixin invalidates on any state change, including direction-only changes. No new world reads on worker threads.",
+  "material": "Low3 bits of mesh slot10 are face0..5. Upper code0 is still;1..16 encode directions0..15. Exact integer float values,14-float stride retained. Face keys and opacity maps explicitly mask face; flow changes do not multiply transition history identities.",
+  "flow_uv": "Lookup sin/cos once at class initialization; set direction per cell, rotate top UVs so increasingV follows physical flow and scale sides for flowing atlas texel density. Still compatibility constructor preserved. Dry material comes from previous wet snapshot; retained face arrays preserve packed direction.",
+  "timing": "No new per-page clock. Existing atlas animations drive still/flow sprites; shader height/opacity clocks and GPU format unchanged. UV orientation switches immediately on direction/material changes; continuity of this retarget remains open.",
+  "memory": "5832 additional flow bytes per captured18-cube snapshot.2048 resident-page and4 pending-job caps unchanged; jobs can retain current/previous snapshot references. CPU vertex payload remains56bytes, GPU36bytes; partial-fade retained payload remains1120bytes. This is not a total process heap/VRAM budget.",
+  "open": "Speed-dependent advection, smooth direction/material changes, diagonal/side UV seams and long actual stream/ocean/native/LOD coverage remain open. Regional chemistry/reservoirs and other registered engine work unchanged."
+}

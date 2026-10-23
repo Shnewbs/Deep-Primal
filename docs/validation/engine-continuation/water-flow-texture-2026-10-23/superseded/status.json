@@ -1,0 +1,4 @@
+{
+  "promoted": false,
+  "reason": "Initial functional candidate used15-float CPU vertices and1200 retained CPU bytes. Short40-warmup CPU observations showed cost/variance. Final keeps14-float payload, packs direction with face metadata and reruns full build/native gates. Short-warmup data is not used for speed claims; final CPU comparison uses1000 warmups/400 samples."
+}

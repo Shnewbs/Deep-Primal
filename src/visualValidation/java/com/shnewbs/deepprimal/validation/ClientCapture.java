@@ -181,6 +181,17 @@ public final class ClientCapture {
         WaterPageOrderChecks.start(mc, dir);
         return;
       }
+      if (action.equals("water-flow-texture-check") || action.startsWith("water-flow-texture-check=")) {
+        Path destination=dir;
+        if (action.contains("=")) {
+          String label=action.substring(action.indexOf('=')+1);
+          if(!label.matches("[a-z0-9-]{1,32}"))throw new IllegalArgumentException("Flow texture capture label");
+          destination=dir.resolve(label);
+        }
+        Files.createDirectories(destination);
+        WaterFlowTextureChecks.run(mc, destination);
+        return;
+      }
       if (action.equals("water-partial-fade-check")) {
         WaterPartialFadeChecks.run(mc, dir);
         return;
