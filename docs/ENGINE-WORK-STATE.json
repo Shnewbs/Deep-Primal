@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T18:30:00Z",
+  "updated_at": "2026-10-23T18:53:00Z",
   "active_until": "2026-10-23T19:35:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R39: reproduce boundary publication write amplification under contiguous/scattered water boundaries, implement a focused independently authored correction only if supported, and validate native retry/data/corner gates in isolation.",
+  "current_gate": "R39 boundary-range batching passes fresh native regression suites; independently replay and preserve compacted exact evidence, then guarded checkpoint. Real scene/cap-churn/performance acceptance remains open.",
   "next_items": [
     "Restore the complete581-input snapshot with docs/validation/engine-continuation/water-shared-budget-2026-10-23/scripts/restore_snapshot.py (all hashes checked before writing; new isolated directory required), then restore recorded JDK/Gradle/Mesa/Xvfb pins. R38 adds1production/3validation filechanges;19staged files total(5production/14validation). Native baseline polled4optional futures after each8/12/20ms mandatory retirement stall; identical candidate fixture polls0 in9finalcases with retirement/GPUbytes preserved. Real-frame2048page32MiB active controls complete129frames/2175writes,max18writes and262080bytes/frame,no predicted Vulkan overflow, independentGPUhashespass. Dev/packaged retirementp95/max1.221446/11.126275ms and1.200735/3.763378ms, steady0writes. These private pages bypass actual admission/eviction and are not drawn; scene keysets differ andLODtiles0. Next implement workload-matched real-scene cap churn and scattered boundary updates, diagnose remainingtail/optionalstarvation, then streams/ocean. Preserve quantity/geometry/corner/readback/save/crash/resource gates; do not promote before broader frame-time/resident-memory/visual acceptance. Optionaldeadlinecorrection is not a hard2ms totalbound; controlled250ms/frame steps are not independent60Hz.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
