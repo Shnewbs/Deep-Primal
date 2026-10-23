@@ -1,0 +1,334 @@
+{
+  "case": "vulkan-admission-baseline",
+  "pass": true,
+  "baseline": true,
+  "initial_allocation_only_variant": true,
+  "cases": 16,
+  "nominal_budget_denials": 8,
+  "lost_resident_meshes_on_budget_denial": 16,
+  "unnecessary_placeholder_evictions": 16,
+  "paired_cpu_gpu_reads": 92,
+  "different_bytes": 0,
+  "raw_readback_bytes": 4482432,
+  "raw_sha256": "00cfe8e942e8eea1c2da69e366283a6e3f7d0190fc9b0904bda5635bae1cdc2e",
+  "fixture_class_sha256": "d3aef751bd8394a05e22bc826d06a3d22b99f3f5771c1539a2fb82f9d5ebe020",
+  "independent_farthest_first_budget_and_survivor_oracle": true,
+  "all_target_and_survivor_gpu_checks_pass": true,
+  "normal_save_shutdown": true,
+  "new_crashes": 0,
+  "routes": [
+    {
+      "id": 0,
+      "mode": "insufficient",
+      "axis": 0,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.257117
+    },
+    {
+      "id": 1,
+      "mode": "busy",
+      "axis": 0,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.135714
+    },
+    {
+      "id": 2,
+      "mode": "single",
+      "axis": 0,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0"
+      ],
+      "actual_evictions": [
+        "far0",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 7.757766
+    },
+    {
+      "id": 3,
+      "mode": "multiple",
+      "axis": 0,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 9.03769
+    },
+    {
+      "id": 4,
+      "mode": "insufficient",
+      "axis": 1,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.110436
+    },
+    {
+      "id": 5,
+      "mode": "busy",
+      "axis": 1,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.144257
+    },
+    {
+      "id": 6,
+      "mode": "single",
+      "axis": 1,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0"
+      ],
+      "actual_evictions": [
+        "far0",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 7.037342
+    },
+    {
+      "id": 7,
+      "mode": "multiple",
+      "axis": 1,
+      "origin": 0,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 7.640033
+    },
+    {
+      "id": 8,
+      "mode": "insufficient",
+      "axis": 0,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.289315
+    },
+    {
+      "id": 9,
+      "mode": "busy",
+      "axis": 0,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.110576
+    },
+    {
+      "id": 10,
+      "mode": "single",
+      "axis": 0,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0"
+      ],
+      "actual_evictions": [
+        "far0",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 2.676144
+    },
+    {
+      "id": 11,
+      "mode": "multiple",
+      "axis": 0,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 388.406576
+    },
+    {
+      "id": 12,
+      "mode": "insufficient",
+      "axis": 1,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.140762
+    },
+    {
+      "id": 13,
+      "mode": "busy",
+      "axis": 1,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": false,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33554016,
+      "upload_cpu_ms": 0.122193
+    },
+    {
+      "id": 14,
+      "mode": "single",
+      "axis": 1,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0"
+      ],
+      "actual_evictions": [
+        "far0",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 1.189599
+    },
+    {
+      "id": 15,
+      "mode": "multiple",
+      "axis": 1,
+      "origin": 29999968,
+      "incoming_bytes": 140832,
+      "accepted": true,
+      "expected_evictions": [
+        "placeholder",
+        "far0",
+        "far1"
+      ],
+      "actual_evictions": [
+        "far0",
+        "far1",
+        "placeholder"
+      ],
+      "after_resident_bytes": 33508224,
+      "upload_cpu_ms": 1.43581
+    }
+  ],
+  "scope": "Private real-mesher production upload/eviction with actual32MiB residency; no discovery/travel/visible-scene, allocationfailure atomicity, broad memory/FPS acceptance"
+}

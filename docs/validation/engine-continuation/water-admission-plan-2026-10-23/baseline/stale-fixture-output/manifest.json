@@ -1,0 +1,20 @@
+{
+  "status": "Excluded stale private validation output retained before rebuild; no unrelated checkout cleanup",
+  "files": [
+    {
+      "path": "WaterAdmissionPlanChecks$Read.class",
+      "bytes": 2463,
+      "sha256": "767349a056004062663803bce27272ac0e975e09b3e0ae88dd99c929a9ab24ad"
+    },
+    {
+      "path": "previous-compilation-data.bin",
+      "bytes": 279371,
+      "sha256": "ad34619270f9db36f4217b065c6333591a1638c85d25ec1d7ab3cd8dc5ee5477"
+    },
+    {
+      "path": "WaterAdmissionPlanChecks.class",
+      "bytes": 26508,
+      "sha256": "d3aef751bd8394a05e22bc826d06a3d22b99f3f5771c1539a2fb82f9d5ebe020"
+    }
+  ]
+}

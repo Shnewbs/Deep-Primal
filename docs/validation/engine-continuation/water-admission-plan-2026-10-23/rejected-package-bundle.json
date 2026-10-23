@@ -1,0 +1,179 @@
+{
+  "archive": "rejected-package.tar.gz",
+  "bytes": 12710083,
+  "sha256": "cab94ae612bf2c90af8fdcbc0d6540bf456a97ac91a416b27b9465b16d4531a6",
+  "parts": [
+    {
+      "path": "rejected-package.tar.gz.part000",
+      "bytes": 524288,
+      "sha256": "0ac2ac5dbf6c9710ced27a848e191fac3db98d02d6e14736ed821c971c038040",
+      "git_sha": "c63c4652fd41b7d8ba6448e09f69212ac09983d9"
+    },
+    {
+      "path": "rejected-package.tar.gz.part001",
+      "bytes": 524288,
+      "sha256": "78249dcbba552f16ccd82b3ebc286c3aeddb82c9b7bfd01743e2830c82b16991",
+      "git_sha": "f61fbe487a9fb3edc1584f952bbce6b5466a6870"
+    },
+    {
+      "path": "rejected-package.tar.gz.part002",
+      "bytes": 524288,
+      "sha256": "73e1ef8afd278715225f48856bd99d42726c5712342e2f3e36240be2be2305c2",
+      "git_sha": "0697c75c07415dd12c8913f251393d149c036e74"
+    },
+    {
+      "path": "rejected-package.tar.gz.part003",
+      "bytes": 524288,
+      "sha256": "ae488855c6dc9f1d019979da612df3a17f8e6a65d8b8c9c1a53bab0628e4ebb3",
+      "git_sha": "35cfcdce0eeb07090b7a82292d691b40ee0b68a6"
+    },
+    {
+      "path": "rejected-package.tar.gz.part004",
+      "bytes": 524288,
+      "sha256": "25cc6df31214f2e7e2beadadc111cf890ad49d82f0733ccd7d8ce233fd035a66",
+      "git_sha": "c715938136425fc2392e834b6b986776eb59d90e"
+    },
+    {
+      "path": "rejected-package.tar.gz.part005",
+      "bytes": 524288,
+      "sha256": "a0ec95b0e66600abb29d7e6ec2d68a81c23b4fe559c6ca6908871f3927e71e9f",
+      "git_sha": "82a91c91cc2a6d0ba1e2b42849ba462b3955a38f"
+    },
+    {
+      "path": "rejected-package.tar.gz.part006",
+      "bytes": 524288,
+      "sha256": "1da6d4f284c21d8a97e7f471340ce3e83054d88a691974b2d057598471f33684",
+      "git_sha": "cd2fff28589a7d723ea0f09ade90d14598056740"
+    },
+    {
+      "path": "rejected-package.tar.gz.part007",
+      "bytes": 524288,
+      "sha256": "eb5fdb9a23ccf216f61fb1dea387f938e64cb9283923e11ea5b57cc34a31a92f",
+      "git_sha": "31bbf4402eb65b4e0d6a9e70ea20f38bb57fbfc4"
+    },
+    {
+      "path": "rejected-package.tar.gz.part008",
+      "bytes": 524288,
+      "sha256": "ce8adf67de0eecc949f7a2fab335f4c36e867719a5d1d213821c40a61cae18f7",
+      "git_sha": "30c84dfa945cd1d04ae221849539dbe2f371044e"
+    },
+    {
+      "path": "rejected-package.tar.gz.part009",
+      "bytes": 524288,
+      "sha256": "0c2ccb2d240f5343cbeaa505740010deffa638af22d405ce4dafd64a328acb46",
+      "git_sha": "20e77c54cbb3f141153a4b1b043d929f49a8edf6"
+    },
+    {
+      "path": "rejected-package.tar.gz.part010",
+      "bytes": 524288,
+      "sha256": "d1ed86c9bfe480e9e75f3aa02599525d87916f226206941bbb6aa0f55d3eb2de",
+      "git_sha": "d531794d5d6430ca6dfaa23edb9ea98434372666"
+    },
+    {
+      "path": "rejected-package.tar.gz.part011",
+      "bytes": 524288,
+      "sha256": "a32d4ec8fba290abee06616d5f4b9abbc844ed7d99fb1037d4454313050032ad",
+      "git_sha": "aff37ab126fb3f593e931f2beca8585fee1d9a3b"
+    },
+    {
+      "path": "rejected-package.tar.gz.part012",
+      "bytes": 524288,
+      "sha256": "7c6642c6ce08d7e141038177875bf93599b3a6bc0469cdab442a4b58b2d0ff60",
+      "git_sha": "31e598b17250bd0d4ef270a80880e300ac1b1748"
+    },
+    {
+      "path": "rejected-package.tar.gz.part013",
+      "bytes": 524288,
+      "sha256": "b11e44b61673796d49814582a2d8bc99b7eeed39dadfb9f1c2d7523387264093",
+      "git_sha": "ab6d0a6481079b25fc8d1557d8a79f22193351f2"
+    },
+    {
+      "path": "rejected-package.tar.gz.part014",
+      "bytes": 524288,
+      "sha256": "68e4154aff3ceae07884405d8af5896071ddee0c74fd8640591ca9501ff30481",
+      "git_sha": "53189ee34a79ccb42185192a8b14d395613e8cb1"
+    },
+    {
+      "path": "rejected-package.tar.gz.part015",
+      "bytes": 524288,
+      "sha256": "cb11bde48711a8c129e897b985146936e3be1df7022f8b286bc6068ae0b6cc83",
+      "git_sha": "aa1a73faec37c8292cb008829c91fd724bbbcb1c"
+    },
+    {
+      "path": "rejected-package.tar.gz.part016",
+      "bytes": 524288,
+      "sha256": "4b638da67783ec5fcbd97fb244c5a1c09bcf3c956ae3c259a759a0e321e4ae6f",
+      "git_sha": "a40aafeee9c3df0de7bfebd475ad106d4c50e2ac"
+    },
+    {
+      "path": "rejected-package.tar.gz.part017",
+      "bytes": 524288,
+      "sha256": "a2c079dbc7f44c1d73b63a029b25ce3575e068913aa5ad7409edd7c0c2e13ba8",
+      "git_sha": "3d8003be26ff55bcbcf5f8c44efe0bcc676a1e7d"
+    },
+    {
+      "path": "rejected-package.tar.gz.part018",
+      "bytes": 524288,
+      "sha256": "2c0a2d81d920cfe9d01955ced819a622a9d698a6049b57e621c4f7ae8f59ae53",
+      "git_sha": "8b1c1bb2f54b975a0fa78d1994210a0c611e9043"
+    },
+    {
+      "path": "rejected-package.tar.gz.part019",
+      "bytes": 524288,
+      "sha256": "da649039641265fa336967247c46b9b1652584c6508e5df84229a798b94406fa",
+      "git_sha": "5de175429d2e5fad81e49e3a10f0451a08ec1e0d"
+    },
+    {
+      "path": "rejected-package.tar.gz.part020",
+      "bytes": 524288,
+      "sha256": "08010643f29b14b61a0d62d49384aebcdd7a20589a7744e17652eaa3b0f18339",
+      "git_sha": "841e0d636a01924ee1100c3b7b5243042ac1e046"
+    },
+    {
+      "path": "rejected-package.tar.gz.part021",
+      "bytes": 524288,
+      "sha256": "61ba839a68f626c8c7ee70ff922807543015429a62b688e80401c7925b002765",
+      "git_sha": "39edbd9f36ffac2e7d62eefed84742f1a41cb181"
+    },
+    {
+      "path": "rejected-package.tar.gz.part022",
+      "bytes": 524288,
+      "sha256": "829b155c30829ebd8977dc5f12f60feb9d43e39b9572587bfd468f5342e4bebc",
+      "git_sha": "b25d7c8007ebcd341d0293bcbd44549e67abfa23"
+    },
+    {
+      "path": "rejected-package.tar.gz.part023",
+      "bytes": 524288,
+      "sha256": "73e440ec9bafd99f61c33db599290d869bc15d359b34e3d98d5105fef8c4ff02",
+      "git_sha": "dc6ec6b0660a9d9e4aa0edc35e0321e06003e7b9"
+    },
+    {
+      "path": "rejected-package.tar.gz.part024",
+      "bytes": 127171,
+      "sha256": "d6dc6bd22126f67f0e32f3cc4d750e8aa4b400ee2b1512e1899f5239715f55c0",
+      "git_sha": "07ec0eb385abaf19fda00250f1284f557bbc4e41"
+    }
+  ],
+  "members": [
+    {
+      "path": "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+      "bytes": 12774927,
+      "sha256": "a9247e3c29ad0964e731527a9e3531009154355e88968cf04207ed6020600ae2"
+    },
+    {
+      "path": "audit.json",
+      "bytes": 992,
+      "sha256": "aa6f9a1f500006a1027be8f0b4739277dbe4e87d14a6e10c0173a4bc4213fcc3"
+    },
+    {
+      "path": "empty-built-descriptor.toml",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "nested-descriptors.json",
+      "bytes": 2887,
+      "sha256": "63f26f1d838d75ec434d1d3dac72e77bd4d11c3a2227cac72fd96d43f29b613a"
+    }
+  ]
+}
