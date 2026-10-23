@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "parent_blobs": 6165,
+  "unchanged_parent_blobs": 6162,
+  "changed_coordination": [
+    "docs/ACTIVE-ENGINE-AUDIT.md",
+    "docs/ENGINE-BUILD-AUDIT-HANDOFF.md",
+    "docs/ENGINE-WORK-STATE.json"
+  ],
+  "added_evidence_blobs": 140,
+  "public_source_unchanged": true,
+  "tree": "6e83907f746ce463c2aefd6d7256c4a6b5873321",
+  "verified_tree_before_adding_this_audit": "6e83907f746ce463c2aefd6d7256c4a6b5873321",
+  "guarded_expected_parent": "d6aae3d5ee15ec19d8ced676e2f18ba85b7341d9",
+  "main_unchanged": "d021557dd9fc6a7e3d29d81a80b55a608fdbb3d6",
+  "final_additional_audit_blob_count": 1,
+  "acceptance_complete": false
+}

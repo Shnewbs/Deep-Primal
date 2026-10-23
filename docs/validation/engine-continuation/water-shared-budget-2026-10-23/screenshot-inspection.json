@@ -1,0 +1,13 @@
+{
+  "inspected": [
+    "vulkan-corners-shared-final/screenshots/corners-scene-before.png",
+    "vulkan-frame-retire-steady-final/screenshots/frame-retire-after.png",
+    "vulkan-reuse-gl-corners-shared-final/screenshots/reuse-gl-recovery.png"
+  ],
+  "observations": [
+    "Lake scene renders in Vulkan and GL controls without a crash screen.",
+    "Distant terrain remains visibly cut off; LOD fixture has zero cached/visible tiles, so no LOD coverage acceptance.",
+    "Static captures cannot establish absence of temporal flicker; numerical controlled corner/transition oracles are separate."
+  ],
+  "full_scene_accepted": false
+}
