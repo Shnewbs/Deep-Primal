@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T09:30:15.000Z",
-  "active_until": "2026-10-23T10:30:15.000Z",
+  "updated_at": "2026-10-23T09:54:23.000Z",
+  "active_until": "2026-10-23T10:54:23.000Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Active isolated side-face still/flow material reproduction and bounded presentation fix; full build/core/package and Vulkan-first native checks required before acceptance. No installer.",
+  "current_gate": "Active side/underside material continuation. Full build/core/package pass; fragment clamp corrects reproduced simultaneous height/material distortion. Repeating strict Vulkan and GL after diagnostic readback-row normalization; archiving reviewable source and failures. No installer.",
   "next_items": [
     "Owner seamless-water priority: implement side-face still/flow/material continuity, then different-direction spatial shared edges, sustained actual streams/ocean and history-cap churn with matched profiling. Top still/flow 100 ms blending now passes 64 near/far routes per session with actual production uploads and shader pixel/mip checks under two software Vulkan and scoped GL sessions. Preserve quantity, edits and sparse bounded history; speed advection, tints, other liquids and full native/LOD acceptance remain open.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
