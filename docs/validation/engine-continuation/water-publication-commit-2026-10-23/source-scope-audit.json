@@ -1,0 +1,17 @@
+{
+  "public_inputs": 575,
+  "staged_files": 17,
+  "staged_production_files": 5,
+  "staged_validation_files": 12,
+  "changes_since_prior_checkpoint": [
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPacketChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPublicationFailureChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterRetirementBudgetChecks.java"
+  ],
+  "production_changes_promoted": 0,
+  "source_base": "f85fc8a565a64d1ed7789f830193f1b7aa614bba",
+  "prior_checkpoint": "91c8b9488fd617c6cc9705cce490b503fc3c6058"
+}
