@@ -1,0 +1,486 @@
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java
+@@ -98,6 +98,22 @@
+     }
+   }
+ 
++  /** Rebase failed material corners over current accepted bytes; never restore retired fields.
++   * Full monotonic elapsed time disambiguates the queued16-bit timestamps across later wraps. */
++  public static void rebaseCorners(ByteBuffer current, int dst, ByteBuffer queued, int src,
++      int mask, long queuedAt, long now) {
++    long elapsed = Math.max(0, now - queuedAt);
++    int targets = 0, sources = 0, ages = 0;
++    for (int n = 0; n < 4; n++) {
++      int to = target(queued, src, n);
++      int age = elapsed >= 100 ? 100 : (int)Math.min(100, elapsed
++          + ((queuedAt - start(queued, src, n)) & 65535));
++      int from = age == 100 ? to : source(queued, src, n);
++      targets |= to << (n * 5); sources |= from << (n * 5); ages |= age << (n * 8);
++    }
++    patchCorners(current, dst, mask, targets, sources, ages, now);
++  }
++
+   /** Read-only admission check: steady slices need no temporary copy or GPU write. */
+   public static boolean needsRetirement(ByteBuffer b, int begin, int end, long now) {
+     if (begin < 0 || end > b.limit() || begin > end || begin % 144 != 0 || end % 144 != 0)
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java
+@@ -12,6 +12,7 @@
+     WaterCornerPacketChecks.run();
+     WaterCornerBulkChecks.run();
+     WaterBoundaryIndexChecks.run();
++    WaterCornerRetryChecks.run();
+     WaterSurfaceShapeChecks.run();
+     CaveColumnChecks.run();
+     IntegratedEngineChecks.run();
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerRetryChecks.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerRetryChecks.java
+@@ -0,0 +1,31 @@
++package com.shnewbs.deepprimal.core;
++
++import java.nio.*;
++import java.util.*;
++
++/** Known input/field oracle for deferred material, current nonmaterial and long elapsed epochs. */
++final class WaterCornerRetryChecks {
++  static void need(boolean value,String why){if(!value)throw new AssertionError(why);}
++  static void run(){
++    Random random=new Random(0x432026);long cases=0;
++    for(int trial=0;trial<10000;trial++)for(long base:new long[]{0,65520,65535,65536,131071,Long.MAX_VALUE-10000})for(int delta:new int[]{0,1,74,75,99,100,500,65536}){
++      if(base>Long.MAX_VALUE-delta)continue;long now=base+delta;int mask=trial&15,dst=trial%2==0?0:144,src=144-dst;
++      byte[] raw=new byte[432],old=new byte[288];random.nextBytes(raw);random.nextBytes(old);var live=ByteBuffer.wrap(raw).order(ByteOrder.nativeOrder());var queued=ByteBuffer.wrap(old).order(ByteOrder.nativeOrder());
++      int[] targets=new int[4],sources=new int[4],ages=new int[4];long pairs=0,power=1;
++      for(int n=0;n<4;n++){targets[n]=random.nextInt(17);sources[n]=random.nextInt(17);ages[n]=random.nextInt(201);pairs+=(targets[n]*17L+sources[n])*power;power*=289;}
++      for(int v=0;v<4;v++){
++        WaterCornerPacket.write(queued,src+v*36,pairs,(int)(base-ages[0])&65535,(int)(base-ages[1])&65535,(int)(base-ages[2])&65535,(int)(base-ages[3])&65535,random.nextBoolean());
++        WaterCornerPacket.write(live,dst+v*36,random.nextLong(6975757441L),11,22,33,44,random.nextBoolean());
++      }
++      byte[] before=raw.clone(),queuedBefore=old.clone();var expected=ByteBuffer.wrap(raw.clone()).order(ByteOrder.nativeOrder());
++      for(int n=0;n<4;n++)if((mask&(1<<n))!=0){int age=Math.min(100,ages[n]+delta);WaterCornerPacket.corner(expected,dst,n,targets[n],age==100?targets[n]:sources[n],age,now);}
++      WaterCornerPacket.rebaseCorners(live,dst,queued,src,mask,base,now);
++      need(Arrays.equals(raw,expected.array()),"Rebased packet differs from scalar known-input result");need(Arrays.equals(old,queuedBefore),"Queued data mutated");
++      for(int v=0;v<4;v++)for(int n=0;n<4;n++)if((mask&(1<<n))!=0){int at=dst+v*36,age=Math.min(100,ages[n]+delta);need(WaterCornerPacket.target(live,at,n)==targets[n],"Target differs");need(WaterCornerPacket.source(live,at,n)==(age==100?targets[n]:sources[n]),"Expired source revived");need(WaterCornerPacket.start(live,at,n)==((int)(now-age)&65535),"Clock differs");}
++      for(int at=0;at<raw.length;at++){int within=at-dst,field=Math.floorMod(within,36);if(within<0||within>=144||!(field>=16&&field<=23)&&!(field>=27&&field<=31)&&field!=33)need(raw[at]==before[at],"Current nonmaterial byte replaced");}
++      cases++;
++    }
++    System.out.println("WATER_CORNER_RETRY_CORE_PASS cases="+cases+" masks=16 currentBytesPreserved=true expiredPairsSteady=true longElapsedWraps=true");
++  }
++  public static void main(String[]args){run();}
++}
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -61,6 +61,10 @@
+   private final LinkedHashSet<Long> dirty = new LinkedHashSet<>();
+   private final LinkedHashSet<Long> urgent = new LinkedHashSet<>();
+   private final LinkedHashSet<Long> retireQueue = new LinkedHashSet<>();
++  private static final int CORNER_RETRY_BYTES = 1024 * 1024, CORNER_RETRY_RANGES = 16;
++  private static final int CORNER_RETRY_SLICE = 65_520;
++  private final ArrayDeque<CornerRetry> cornerRetries = new ArrayDeque<>();
++  private int cornerRetryBytes;
+   private final LinkedHashSet<Long> fresh = new LinkedHashSet<>();
+   // Fully hidden water needs no resident page. Remember it until geometry/halo data changes.
+   private final LinkedHashSet<Long> hidden = new LinkedHashSet<>();
+@@ -107,7 +111,7 @@
+     int retireOffset;
+     Map<Integer, WaterFaces> fading = Map.of();
+     boolean changed = true, busy;
+-    long uploaded, used, cleanup;
++    long uploaded, used, cleanup, cornerGeneration;
+ 
+     Page(long key) {
+       this.key = key;
+@@ -119,6 +123,18 @@
+     }
+   }
+ 
++  private static final class CornerRetry {
++    final Page page;
++    final long generation, queuedAt, cleanup;
++    final int start;
++    final byte[] data, masks;
++    int offset, failures;
++    CornerRetry(Page page, int start, byte[] data, byte[] masks, long queuedAt, long cleanup) {
++      this.page = page; this.generation = page.cornerGeneration; this.start = start;
++      this.data = data; this.masks = masks; this.queuedAt = queuedAt; this.cleanup = cleanup;
++    }
++  }
++
+   private record WaterFaces(float[] vertices, long revision) {}
+ 
+   private record Ready(
+@@ -138,7 +154,7 @@
+   }
+ 
+   public int pending() {
+-    return dirty.size() + urgent.size() + work.size();
++    return dirty.size() + urgent.size() + work.size() + cornerRetries.size();
+   }
+ 
+   public long animationTime() {
+@@ -157,6 +173,7 @@
+   }
+ 
+   private void release(Page page) {
++    cancelCornerRetries(page, false);
+     page.presentation = null;
+     page.boundaryQuads = WaterBoundaryIndex.EMPTY;
+     retireQueue.remove(page.key);
+@@ -287,6 +304,7 @@
+     clock = clockNanos / 1_000_000;
+     lastFrame = now;
+     retirePresentation();
++    retryCornerPublications();
+     // Retirement consumes this frame's shared admission budget; expiry service is mandatory.
+     long deadline = now + 2_000_000;
+     int uploadedThisFrame = 0;
+@@ -690,6 +708,7 @@
+       p.texture.m30(p.x).m31(p.z);
+       p.fading = rememberFading(p, parts);
+       p.snapshot = ready.snapshot;
++      cancelCornerRetries(p, false);
+       p.presentation = accepted;
+       p.boundaryQuads = boundaryIndex;
+       p.retireOffset = 0;
+@@ -699,7 +718,7 @@
+       p.uploaded = clock;
+       p.cleanup = animating || dyingFaces ? clock + Math.max(0, remaining) + 1 : 0;
+       uploads++;
+-      synchronizeCornerNeighbors(p);
++      synchronizeCornerNeighbors(p, true);
+     } finally {
+       MemoryUtil.memFree(data);
+     }
+@@ -708,6 +727,11 @@
+   /** Visit only neighbor-facing quads; contiguous changed quads share one bounded submission.
+    * Publication remains synchronous: a range bound does not establish a frame-time bound. */
+   private void synchronizeCornerNeighbors(Page admitted) {
++    synchronizeCornerNeighbors(admitted, false);
++  }
++
++  /** Ordinary publication stays within one extraction; only rejected ranges are deferred. */
++  private void synchronizeCornerNeighbors(Page admitted, boolean deferFailures) {
+     ByteBuffer transfer = null;
+     ByteBuffer quad = ByteBuffer.allocate(144).order(ByteOrder.nativeOrder());
+     try {
+@@ -715,6 +739,7 @@
+         if (dx == 0 && dz == 0) continue;
+         Page p = pages.get(SectionPos.asLong((admitted.x >> 4) + dx, admitted.y >> 4, (admitted.z >> 4) + dz));
+         if (p == null || p.gpu == null || p.presentation == null) continue;
++        cancelCornerRetries(p, true);
+         ByteBuffer accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
+         int start = -1, end = 0;
+         long pendingCleanup = p.cleanup;
+@@ -748,7 +773,7 @@
+               transfer = MemoryUtil.memAlloc(WaterCornerPacket.SLICE_BYTES).order(ByteOrder.nativeOrder());
+             // Never bridge an unchanged quad or exceed the existing range-byte bound.
+             if (start >= 0 && (at != end || transfer.remaining() < 144)) {
+-              publishCornerRange(p, start, transfer, pendingCleanup);
++              publishCornerRange(p, start, transfer, pendingCleanup, deferFailures);
+               start = -1;
+             }
+             if (start < 0) start = at;
+@@ -757,13 +782,13 @@
+             pendingCleanup = cleanup;
+           } else {
+             if (start >= 0) {
+-              publishCornerRange(p, start, transfer, pendingCleanup);
++              publishCornerRange(p, start, transfer, pendingCleanup, deferFailures);
+               start = -1;
+             }
+             p.cleanup = cleanup;
+           }
+         }
+-        if (start >= 0) publishCornerRange(p, start, transfer, pendingCleanup);
++        if (start >= 0) publishCornerRange(p, start, transfer, pendingCleanup, deferFailures);
+       }
+     } finally {
+       if (transfer != null) MemoryUtil.memFree(transfer);
+@@ -771,13 +796,96 @@
+   }
+ 
+   /** Commit the accepted CPU mirror and deadline only after the entire GPU range succeeds. */
+-  private void publishCornerRange(Page p, int start, ByteBuffer transfer, long cleanup) {
++  private void publishCornerRange(Page p, int start, ByteBuffer transfer, long cleanup, boolean deferFailures) {
+     transfer.flip();
+     int length = transfer.remaining();
+-    p.gpu.updateRange(start, transfer);
++    try {
++      p.gpu.updateRange(start, transfer);
++    } catch (RuntimeException failure) {
++      if (!deferFailures) throw failure;
++      deferCornerRange(p, start, transfer.duplicate().position(0).limit(length), cleanup);
++      transfer.clear();
++      return;
++    }
+     transfer.get(0, p.presentation, start, length);
+     p.cleanup = cleanup;
+     transfer.clear();
++  }
++
++  /** A new material publication supersedes old failed data; remesh unaccepted earlier corners. */
++  private void cancelCornerRetries(Page p, boolean remesh) {
++    boolean removed = false;
++    for (var it = cornerRetries.iterator(); it.hasNext();) {
++      var retry = it.next();
++      if (retry.page != p) continue;
++      cornerRetryBytes -= retry.data.length;
++      it.remove(); removed = true;
++    }
++    p.cornerGeneration++;
++    if (removed && remesh) { p.changed = true; urgent.add(p.key); }
++  }
++
++  /** Bounded retained recovery data. Overflow schedules a fresh authoritative mesh instead. */
++  private void deferCornerRange(Page p, int start, ByteBuffer transfer, long cleanup) {
++    int length = transfer.remaining();
++    if (cornerRetries.size() >= CORNER_RETRY_RANGES || length > CORNER_RETRY_BYTES - cornerRetryBytes) {
++      p.changed = true; urgent.add(p.key);
++      return;
++    }
++    byte[] data = new byte[length], masks = new byte[length / 144];
++    transfer.get(0, data);
++    var next = ByteBuffer.wrap(data).order(ByteOrder.nativeOrder());
++    var old = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
++    for (int q = 0; q < length; q += 144) for (int n = 0; n < 4; n++) {
++      if (WaterCornerPacket.target(next, q, n) != WaterCornerPacket.target(old, start + q, n)
++          || WaterCornerPacket.source(next, q, n) != WaterCornerPacket.source(old, start + q, n)
++          || WaterCornerPacket.start(next, q, n) != WaterCornerPacket.start(old, start + q, n))
++        masks[q / 144] |= (byte)(1 << n);
++    }
++    cornerRetries.addLast(new CornerRetry(p, start, data, masks, clock, cleanup));
++    cornerRetryBytes += length;
++  }
++
++  /** Mandatory fair recovery: <=16 stale headers, one write and65520bytes per rendered frame.
++   * Rebuild only requested material corners over the latest accepted bytes, retaining retirement,
++   * height, light and opacity. A completed transition becomes steady rather than reviving on wrap.
++   * Three consecutive synchronous failures on a range remain fatal; async loss is not handled. */
++  private void retryCornerPublications() {
++    for (int headers = 0; headers < CORNER_RETRY_RANGES && !cornerRetries.isEmpty(); headers++) {
++      var retry = cornerRetries.removeFirst(); Page p = retry.page;
++      if (pages.get(p.key) != p || p.gpu == null || p.presentation == null
++          || p.cornerGeneration != retry.generation) {
++        cornerRetryBytes -= retry.data.length;
++        continue;
++      }
++      int length = Math.min(CORNER_RETRY_SLICE, retry.data.length - retry.offset);
++      ByteBuffer patch = MemoryUtil.memAlloc(length).order(ByteOrder.nativeOrder());
++      try {
++        patch.put(p.presentation, retry.start + retry.offset, length).flip();
++        var queued = ByteBuffer.wrap(retry.data).order(ByteOrder.nativeOrder());
++        for (int q = 0; q < length; q += 144) {
++          int original = retry.offset + q;
++          WaterCornerPacket.rebaseCorners(patch, q, queued, original,
++              retry.masks[original / 144] & 15, retry.queuedAt, clock);
++        }
++        try {
++          p.gpu.updateRange(retry.start + retry.offset, patch);
++        } catch (RuntimeException failure) {
++          if (++retry.failures >= 3) {
++            cornerRetryBytes -= retry.data.length;
++            throw new IllegalStateException("Water corner publication failed after three recovery attempts", failure);
++          }
++          cornerRetries.addLast(retry);
++          return;
++        }
++        patch.get(0, p.presentation, retry.start + retry.offset, length);
++        if (retry.cleanup != 0) p.cleanup = p.cleanup == 0 ? retry.cleanup : Math.min(p.cleanup, retry.cleanup);
++        retry.offset += length; retry.failures = 0;
++        if (retry.offset == retry.data.length) cornerRetryBytes -= retry.data.length;
++        else cornerRetries.addLast(retry);
++        return;
++      } finally { MemoryUtil.memFree(patch); }
++    }
+   }
+ 
+   /** Guaranteed service before other extraction work. At most 32 page headers and 262080 bytes.
+@@ -912,6 +1020,8 @@
+         p.gpu = null;
+       }
+     }
++    cornerRetries.clear();
++    cornerRetryBytes = 0;
+     pages.clear();
+     dirty.clear();
+     urgent.clear();
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java
+@@ -30,6 +30,7 @@
+     NeoForge.EVENT_BUS.register(new HorizonDepthChecks());
+     NeoForge.EVENT_BUS.register(new WaterPageOrderChecks());
+     NeoForge.EVENT_BUS.register(new WaterFrameRetirementChecks());
++    NeoForge.EVENT_BUS.register(new WaterBoundaryRetryChecks());
+     NeoForge.EVENT_BUS.register(new WaterExtractionDeadlineChecks());
+   }
+ 
+@@ -202,6 +203,8 @@
+       if (action.equals("water-retirement-cap-duplicate-check")) { WaterRetirementBudgetChecks.run(mc, dir, 2048, true); return; }
+       if (action.equals("water-admission-probe")) { WaterAdmissionPlanChecks.run(mc, dir, false); return; }
+       if (action.equals("water-admission-check")) { WaterAdmissionPlanChecks.run(mc, dir, true); return; }
++      if (action.equals("water-boundary-retry-probe")) { WaterBoundaryRetryChecks.start(dir, false); return; }
++      if (action.equals("water-boundary-retry-check")) { WaterBoundaryRetryChecks.start(dir, true); return; }
+       if (action.equals("water-boundary-batch-probe")) { WaterBoundaryBatchChecks.run(dir, false); return; }
+       if (action.equals("water-boundary-batch-check")) { WaterBoundaryBatchChecks.run(dir, true); return; }
+       if (action.equals("water-deadline-probe")) { WaterExtractionDeadlineChecks.start(dir, false); return; }
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryRetryChecks.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryRetryChecks.java
+@@ -0,0 +1,143 @@
++package com.shnewbs.deepprimal.validation;
++
++import com.mojang.blaze3d.buffers.*;
++import com.mojang.blaze3d.systems.RenderSystem;
++import com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer;
++import com.shnewbs.deepprimal.core.*;
++import com.shnewbs.deepprimal.graphics.WaterGpuMesh;
++import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
++import java.lang.reflect.*;
++import java.nio.*;
++import java.nio.file.*;
++import java.util.*;
++import java.util.concurrent.ExecutorService;
++import net.minecraft.core.*;
++import net.neoforged.bus.api.SubscribeEvent;
++import net.neoforged.neoforge.client.event.RenderFrameEvent;
++import org.lwjgl.system.MemoryUtil;
++
++/** Private readable GPU pages. One production retry call per distinct rendered frame. */
++final class WaterBoundaryRetryChecks {
++  private static Job active;
++  private static long frame;
++  private record Read(int id,String phase,byte[] cpu,GpuBuffer gpu) {}
++  private static Object invoke(Method m,Object target,Object[] args)throws Throwable {
++    try{return m.invoke(target,args);}catch(InvocationTargetException e){throw e.getCause();}
++  }
++  static void start(Path output,boolean required)throws Exception {
++    if(active!=null)throw new IllegalStateException("Boundary retry fixture already active");
++    active=new Job(output,required);
++  }
++  @SubscribeEvent public void before(RenderFrameEvent.Pre event) {
++    frame++;Job job=active;if(job==null||job.finishing)return;
++    try{job.turn();}catch(Exception|Error failure){active=null;job.close();throw new RuntimeException(failure);}
++  }
++  private static final class Job implements AutoCloseable {
++    final Path output;final boolean required;final List<Map<String,Object>> rows=new ArrayList<>();
++    final List<Read> reads=new ArrayList<>();Case current;int next;boolean finishing;
++    Job(Path output,boolean required){this.output=output;this.required=required;}
++    void turn()throws Exception {
++      if(current==null){if(next==40){finish();return;}current=new Case(this,next++);return;}
++      if(current.turn()){rows.add(current.row());current.close();current=null;}
++    }
++    void finish() {
++      finishing=true;RenderSystem.queueFencedTask(()->{
++        try {
++          var raw=new java.io.ByteArrayOutputStream();var meta=new ArrayList<Map<String,Object>>();
++          for(var r:reads)try(var view=RenderSystem.getDevice().createCommandEncoder().mapBuffer(r.gpu,true,false)){
++            byte[] gpu=new byte[r.cpu.length];view.data().get(0,gpu);if(!Arrays.equals(gpu,r.cpu))throw new AssertionError("Retry CPU/GPU bytes differ");
++            int at=raw.size();raw.writeBytes(r.cpu);raw.writeBytes(gpu);meta.add(Map.of("id",r.id,"phase",r.phase,"offset",at,"bytes",gpu.length,"sha256",WaterPublicationFailureChecks.sha(gpu)));
++          }
++          var result=new LinkedHashMap<String,Object>();result.put("pass",true);result.put("required",required);result.put("cases",rows);result.put("readbacks",meta);
++          try(var in=WaterBoundaryRetryChecks.class.getResourceAsStream("WaterBoundaryRetryChecks.class")){result.put("fixtureClassSha256",WaterPublicationFailureChecks.sha(in.readAllBytes()));}
++          Files.write(output.resolve("water-boundary-retry.bin"),raw.toByteArray());Files.writeString(output.resolve("water-boundary-retry.json"),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(result)+"\n");
++          System.out.println("WATER_BOUNDARY_RETRY_PASS cases=40 readbacks=120 required="+required+" distinctFrames=true");
++        }catch(Exception e){throw new RuntimeException(e);}finally{active=null;close();}
++      });
++    }
++    public void close(){if(current!=null)current.close();for(var r:reads)r.gpu.close();reads.clear();}
++  }
++  private static final class Case implements AutoCloseable {
++    final Job owner;final int id,axis,scenario,count=2048,group,bytes,quads,origin;final long initialClock;
++    final Class<?> type=AnimatedWaterRenderer.class,pt;final Object renderer,neighbor,admitted,device=RenderSystem.getDevice(),original,proxy;
++    final Field backend;final Method sync,pump,defer,cancel;final Map<Long,Object> pages;
++    final List<Map<String,Object>> writes=new ArrayList<>(),turns=new ArrayList<>();
++    final GpuBuffer target;final int[] entries;final byte[] initial;
++    int phase,attempts,turn;boolean recovering,initialThrew,terminal,firstRead,removed,closed;long storageBoundBytes;int storageBoundRanges;
++    @SuppressWarnings("unchecked") Case(Job owner,int id)throws Exception {
++      this.owner=owner;this.id=id;axis=id%8;scenario=id/8;group=scenario==1||scenario==2?8:2048;origin=(axis&1)==0?0:29999968;initialClock=origin==0?125:65545;
++      pt=Class.forName(type.getName()+"$Page");var rc=type.getDeclaredConstructor();rc.setAccessible(true);renderer=rc.newInstance();var pc=pt.getDeclaredConstructor(long.class);pc.setAccessible(true);
++      Method method;try{method=type.getDeclaredMethod("synchronizeCornerNeighbors",pt,boolean.class);recovering=true;}catch(NoSuchMethodException old){method=type.getDeclaredMethod("synchronizeCornerNeighbors",pt);}method.setAccessible(true);sync=method;
++      Method retry=null,def=null,can=null;if(recovering){retry=type.getDeclaredMethod("retryCornerPublications");retry.setAccessible(true);def=type.getDeclaredMethod("deferCornerRange",pt,int.class,ByteBuffer.class,long.class);def.setAccessible(true);can=type.getDeclaredMethod("cancelCornerRetries",pt,boolean.class);can.setAccessible(true);}pump=retry;defer=def;cancel=can;
++      int[][] deltas={{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,1},{1,-1},{-1,-1}};int dx=deltas[axis][0],dz=deltas[axis][1];
++      int sx=origin>>4,sz=-origin>>4;admitted=pc.newInstance(SectionPos.asLong(sx,0,sz));neighbor=pc.newInstance(SectionPos.asLong(sx-dx,0,sz-dz));
++      pages=(Map<Long,Object>)WaterPublicationFailureChecks.field(type,"pages").get(renderer);pages.put(key(neighbor),neighbor);pages.put(key(admitted),admitted);
++      quads=count+(group==2048?0:(count-1)/8);bytes=quads*144;initial=new byte[bytes];var packet=ByteBuffer.wrap(initial).order(ByteOrder.nativeOrder());
++      for(int q=0;q<quads;q++)for(int v=0;v<4;v++){
++        int at=q*144+v*36;packet.putFloat(at,q+(v&1)*.5f);packet.putFloat(at+4,q%17+(v>>1)*.25f);packet.putFloat(at+8,-q);packet.putInt(at+12,0x1a234567);packet.putShort(at+24,(short)1234);packet.putShort(at+28,(short)176);packet.putShort(at+30,(short)240);packet.put(at+32,(byte)127);packet.put(at+34,(byte)(q%16));packet.put(at+35,(byte)91);WaterCornerPacket.write(packet,at,72L*(1+289+83521+24137569L),0,0,0,0,true);
++      }
++      entries=new int[count];for(int n=0;n<count;n++){
++        int q=n+(group==2048?0:n/8),y=(n%256)/16,lane=n%16,cx=dx==0?lane:dx>0?15:0,cz=dz==0?lane:dz>0?15:0;
++        if(group==8&&(n/8&1)!=0){if(dx!=0)cx=15-cx;else cz=15-cz;}entries[n]=(q<<12)|(y<<8)|(cz<<4)|cx;
++      }
++      var directions=(Long2ObjectLinkedOpenHashMap<WaterFlowTransition>)WaterPublicationFailureChecks.field(type,"cornerDirections").get(renderer);int ax=WaterPublicationFailureChecks.field(pt,"x").getInt(admitted),az=WaterPublicationFailureChecks.field(pt,"z").getInt(admitted);long base=initialClock-25;
++      for(int y=0;y<16;y++)for(int x=ax;x<=ax+16;x++)for(int z=az;z<=az+16;z++){if(x!=ax&&x!=ax+16&&z!=az&&z!=az+16)continue;var state=new WaterFlowTransition(4,0);state.target(8,base,1);state.target(12,initialClock,2);directions.put(BlockPos.asLong(x,y,z),state);}
++      var data=MemoryUtil.memAlloc(bytes).order(ByteOrder.nativeOrder());WaterGpuMesh mesh;Field vf=WaterPublicationFailureChecks.field(WaterGpuMesh.class,"vertices");
++      try{data.put(initial).flip();mesh=new WaterGpuMesh(data,quads*4);((GpuBuffer)vf.get(mesh)).close();vf.set(mesh,RenderSystem.getDevice().createBuffer(()->"Boundary retry readable vertices",GpuBuffer.USAGE_VERTEX|GpuBuffer.USAGE_COPY_DST|GpuBuffer.USAGE_COPY_SRC,data));}finally{MemoryUtil.memFree(data);}target=(GpuBuffer)vf.get(mesh);
++      WaterPublicationFailureChecks.field(pt,"gpu").set(neighbor,mesh);WaterPublicationFailureChecks.field(pt,"presentation").set(neighbor,initial.clone());WaterPublicationFailureChecks.field(pt,"boundaryQuads").set(neighbor,WaterBoundaryIndex.of(entries));WaterPublicationFailureChecks.field(type,"residentBytes").setLong(renderer,bytes);clock(initialClock);
++      backend=Arrays.stream(device.getClass().getDeclaredFields()).filter(f->f.getType().isInterface()&&f.getType().getSimpleName().equals("GpuDeviceBackend")).findFirst().orElseThrow();backend.setAccessible(true);original=backend.get(device);
++      proxy=Proxy.newProxyInstance(backend.getType().getClassLoader(),new Class<?>[]{backend.getType()},(o,m,a)->{
++        Object value=invoke(m,original,a);if(!m.getName().equals("createCommandEncoder"))return value;
++        return Proxy.newProxyInstance(m.getReturnType().getClassLoader(),new Class<?>[]{m.getReturnType()},(enc,op,args)->{
++          if(op.getName().equals("writeToBuffer")&&args[0]instanceof GpuBufferSlice slice&&slice.buffer()==target){
++            boolean reject=(phase==0&&(scenario==2||++attempts==1))||(phase==1&&scenario==3);int length=((ByteBuffer)args[1]).remaining();
++            writes.add(Map.of("phase",phase,"frame",frame,"offset",slice.offset(),"bytes",length,"rejected",reject));
++            if(reject){if(scenario==1)((ByteBuffer)args[1]).position(((ByteBuffer)args[1]).limit());throw new IllegalStateException("INJECTED_BOUNDARY_RETRY_REJECTION");}
++          }
++          return invoke(op,value,args);
++        });
++      });
++      backend.set(device,proxy);try{publish();}catch(IllegalStateException failure){if(!failure.getMessage().equals("INJECTED_BOUNDARY_RETRY_REJECTION"))throw failure;initialThrew=true;}finally{backend.set(device,original);}
++      read("after-call");
++      if(owner.required&&(!recovering||initialThrew))throw new AssertionError("Production boundary rejection was not deferred");
++      if(scenario==2){if(owner.required&&(pending()!=16||pendingBytes()>1048576||!urgent()))throw new AssertionError("Range cap/backpressure missing");phase=2;directions.replaceAll((key,state)->new WaterFlowTransition(16,initialClock));backend.set(device,proxy);try{publish();}finally{backend.set(device,original);}}
++      if(scenario==4){pages.remove(key(neighbor));removed=true;}
++      if(scenario==1){clock(initialClock+200);phase=3;mutateCurrent();}
++    }
++    void publish()throws Exception {if(recovering)WaterPublicationFailureChecks.call(sync,renderer,admitted,true);else WaterPublicationFailureChecks.call(sync,renderer,admitted);}
++    long key(Object page)throws Exception{return WaterPublicationFailureChecks.field(pt,"key").getLong(page);}
++    void clock(long value)throws Exception{WaterPublicationFailureChecks.field(type,"clock").setLong(renderer,value);}
++    int pending()throws Exception{return recovering?((Collection<?>)WaterPublicationFailureChecks.field(type,"cornerRetries").get(renderer)).size():0;}
++    int pendingBytes()throws Exception{return recovering?WaterPublicationFailureChecks.field(type,"cornerRetryBytes").getInt(renderer):0;}
++    boolean urgent()throws Exception{return ((Set<?>)WaterPublicationFailureChecks.field(type,"urgent").get(renderer)).contains(key(neighbor));}
++    void mutateCurrent()throws Exception{
++      byte[] live=(byte[])WaterPublicationFailureChecks.field(pt,"presentation").get(neighbor);var b=ByteBuffer.wrap(live).order(ByteOrder.nativeOrder());
++      for(int q=0;q<quads;q++)for(int v=0;v<4;v++){int at=q*144+v*36;b.putShort(at+24,(short)0);b.put(at+32,(byte)63);b.put(at+12,(byte)19);}
++      var data=MemoryUtil.memAlloc(bytes).order(ByteOrder.nativeOrder());try{data.put(live).flip();((WaterGpuMesh)WaterPublicationFailureChecks.field(pt,"gpu").get(neighbor)).updateRange(0,data);}finally{MemoryUtil.memFree(data);}
++    }
++    boolean turn()throws Exception{
++      if(turn>=64)throw new AssertionError("Recovery exceeded fixture bound");int before=writes.size();long start=System.nanoTime();phase=1;
++      if(pump!=null){backend.set(device,proxy);try{WaterPublicationFailureChecks.call(pump,renderer);}catch(IllegalStateException failure){if(!failure.getMessage().equals("Water corner publication failed after three recovery attempts"))throw failure;terminal=true;}finally{backend.set(device,original);}}
++      long nanos=System.nanoTime()-start;int count=writes.size()-before,total=0;for(int n=before;n<writes.size();n++)total+=((Number)writes.get(n).get("bytes")).intValue();
++      if(count>1||total>65520||pending()>16||pendingBytes()>1048576)throw new AssertionError("Recovery work/memory bound exceeded");
++      turns.add(Map.of("frame",frame,"writes",count,"bytes",total,"nanos",nanos,"pending",pending(),"pendingBytes",pendingBytes()));turn++;
++      if(!firstRead){read("after-first-turn");firstRead=true;}
++      if(pending()!=0&&!terminal)return false;
++      if(owner.required&&scenario==3&&!terminal)throw new AssertionError("Permanent rejection was silently discarded");
++      read("after-recovery");if(removed)pages.put(key(neighbor),neighbor);lifecycle();return true;
++    }
++    void lifecycle()throws Exception{
++      if(!recovering)return;WaterPublicationFailureChecks.call(cancel,renderer,neighbor,false);
++      var live=ByteBuffer.wrap((byte[])WaterPublicationFailureChecks.field(pt,"presentation").get(neighbor)).order(ByteOrder.nativeOrder());
++      if(id==0){for(int n=0;n<5;n++)WaterPublicationFailureChecks.call(defer,renderer,neighbor,0,live.duplicate().limit(262080),201L);storageBoundBytes=pendingBytes();storageBoundRanges=pending();if(storageBoundBytes!=1048320||storageBoundRanges!=4||!urgent())throw new AssertionError("Byte cap/backpressure missing");WaterPublicationFailureChecks.call(cancel,renderer,neighbor,false);}
++      WaterPublicationFailureChecks.call(defer,renderer,neighbor,0,live.duplicate().limit(144),201L);
++      if((axis&1)==0){var release=type.getDeclaredMethod("release",pt);release.setAccessible(true);WaterPublicationFailureChecks.call(release,renderer,neighbor);}else type.getMethod("reset").invoke(renderer);
++      if(pending()!=0||pendingBytes()!=0)throw new AssertionError("Release/reset retained recovery data");
++    }
++    void read(String phase)throws Exception {byte[] cpu=((byte[])WaterPublicationFailureChecks.field(pt,"presentation").get(neighbor)).clone();var gpu=RenderSystem.getDevice().createBuffer(()->"Boundary retry readback",GpuBuffer.USAGE_COPY_DST|GpuBuffer.USAGE_MAP_READ,cpu.length);RenderSystem.getDevice().createCommandEncoder().copyToBuffer(target.slice(0,cpu.length),gpu.slice());owner.reads.add(new Read(id,phase,cpu,gpu));}
++    Map<String,Object> row() throws Exception {
++      var r=new LinkedHashMap<String,Object>();r.put("id",id);r.put("axis",axis);r.put("scenario",scenario);r.put("count",count);r.put("group",group);r.put("origin",origin);r.put("initialClock",initialClock);r.put("bytes",bytes);r.put("quads",quads);r.put("boundaryEntries",entries);r.put("initialSha256",WaterPublicationFailureChecks.sha(initial));r.put("recovering",recovering);r.put("initialThrew",initialThrew);r.put("terminal",terminal);r.put("writes",writes);r.put("turns",turns);r.put("storageBoundBytes",storageBoundBytes);r.put("storageBoundRanges",storageBoundRanges);return r;
++    }
++    public void close(){if(closed)return;closed=true;try{backend.set(device,original);type.getMethod("reset").invoke(renderer);((ExecutorService)WaterPublicationFailureChecks.field(type,"workers").get(renderer)).shutdownNow();}catch(Exception e){throw new RuntimeException(e);}}
++  }
++}
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPublicationFailureChecks.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPublicationFailureChecks.java
+@@ -75,7 +75,12 @@
+         try(var reject=new Reject(path.equals("neighbor")?s.buffer(1):null,fail)) {
+           try{if(path.equals("neighbor"))s.put(0,4,8,100);else call(s.retire,s.renderer);}
+           catch(IllegalStateException expected){if(!expected.getMessage().equals("INJECTED_WATER_PUBLICATION_REJECTION"))throw expected;caught=true;}
+-          if(!caught||!reject.rejected||reject.writes!=fail)throw new AssertionError("Injection missed production range path "+path);
++          boolean deferred=false;
++          if(path.equals("neighbor"))try {
++            deferred=!((Collection<?>)field(s.type,"cornerRetries").get(s.renderer)).isEmpty();
++          }catch(NoSuchFieldException old) { /* Pre-recovery control must still throw. */ }
++          if(!reject.rejected || (deferred ? caught || reject.writes<fail : !caught || reject.writes!=fail))
++            throw new AssertionError("Injection missed production rejection/defer path "+path);
+         }
+         s.read(reads,path,fail,"after-rejection");
+         if(path.equals("neighbor"))call(s.sync,s.renderer,s.page[0]);else call(s.retire,s.renderer);

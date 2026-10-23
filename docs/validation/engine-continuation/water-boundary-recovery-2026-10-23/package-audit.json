@@ -1,0 +1,66 @@
+{
+  "pass": true,
+  "status": "staged only; performance gate not accepted",
+  "archive_crcs": [
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+  ],
+  "compiled_class_identities": {
+    "main": 105,
+    "engine-core": 62,
+    "graphics-settings": 37,
+    "lod-engine": 14,
+    "performance-engine": 14,
+    "renderer-vulkan": 181
+  },
+  "nested_standalone_modules": [
+    {
+      "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+      "standalone": "engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+      "bytes": 111181,
+      "sha256": "352c3a29ddfb571c74ac9860e4db4e90da6815991296da5f22cf4e6b4b7c0a80",
+      "identical": true
+    },
+    {
+      "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+      "standalone": "graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+      "bytes": 93512,
+      "sha256": "4438a4687fba5e88c6d7768eb86de3380cee634b5dd413ebd95c82a8012bacbe",
+      "identical": true
+    },
+    {
+      "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+      "standalone": "lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+      "bytes": 42354,
+      "sha256": "fca58acd406a46d72be01cb36f2b639bcb54d7a3515fa680ae9aeea91f210a2b",
+      "identical": true
+    },
+    {
+      "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+      "standalone": "performance-engine/build/libs/DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+      "bytes": 19660,
+      "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+      "identical": true
+    },
+    {
+      "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+      "standalone": "renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+      "bytes": 12818196,
+      "sha256": "2bedfa7d34947e355c83b8672669bcf4f0bbe360402952f1ec85a25781176d81",
+      "identical": true
+    }
+  ],
+  "validation_private_agent_absent": true,
+  "jar_bytes": 12780553,
+  "jar_sha256": "a19c44f2237b39edcf53267bda8755a27e2b2e5e5649fd5ecd8327752d695124",
+  "installer_released": false,
+  "source_sha256": {
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java": "b2af8ba0b5e1a9209883b7bde746a26ef34664490f2a071427996502b0f6a81d",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java": "e49231067c5008261e6db5f397a6a707397d2637ea759eb25acb8c19751a0355",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java": "2bf3f43e2c5a9f9f0f4c88a799d16ea598b598c8071e249340820788833b3ced"
+  }
+}
