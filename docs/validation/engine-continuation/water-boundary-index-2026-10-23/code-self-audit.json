@@ -1,0 +1,65 @@
+{
+  "pass": true,
+  "changes_since_r41": [
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java",
+      "kind": "production",
+      "before_sha256": null,
+      "after_sha256": "2bf3f43e2c5a9f9f0f4c88a799d16ea598b598c8071e249340820788833b3ced"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+      "kind": "validation",
+      "before_sha256": "9a08fd9c43c7e5dcce5013ff7824bc5490e9ecfcab2f02ec9c14c2e020545d56",
+      "after_sha256": "d1024c7c88b9152e6c81e2d1489754d6ada6f115ec38733e8fa2acdb769cd779"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBoundaryIndexChecks.java",
+      "kind": "validation",
+      "before_sha256": null,
+      "after_sha256": "660c77a7c19d6a6f41f4ab0f0b7414c5cfa694b74fbbb7ba06cb36eb52507ab6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+      "kind": "production",
+      "before_sha256": "07ab9372689c9395770b7b7a051b698fe2eac520fbd6c5587f369bb39fccf43a",
+      "after_sha256": "20753c5288e2831619154fa19f3f1d3040a884a4dccde92cc4a36f7fbea1614a"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryBatchChecks.java",
+      "kind": "validation",
+      "before_sha256": "a39d2611c8e726945440b2206d8db85d6bba879a3b90c9fd416e4cac979ca8fb",
+      "after_sha256": "7e454437d4cb82c753d75c12590ed348676776daf93472655a82a902b106978d"
+    }
+  ],
+  "same_prior_snapshot_inputs": 581,
+  "new_snapshot_inputs": 586,
+  "production_files_changed": 2,
+  "validation_files_changed": 3,
+  "public_repository_source_promotion": false,
+  "GPU_range_commit_and_retirement_methods_byte_identical": true,
+  "index_built_before_GPU_publication_and_committed_after_success": true,
+  "release_and_reset_drop_old_index": true,
+  "fresh_control_candidate_private_fixture_sources_identical": true,
+  "index_owned_immutable_no_caller_array_alias": true,
+  "native_vertex_layout_or_shader_changes": false,
+  "solver_quantity_geometry_geography_changes": false,
+  "full_boundary_model": {
+    "input_quads": 960,
+    "neighbor_routes": 8,
+    "prior_quad_visits": 7680,
+    "indexed_quad_visits": 1088,
+    "same_relevant_corner_masks": true,
+    "scope": "Dependency-free known-coordinate work-count reproduction; not actual scene latency/FPS"
+  },
+  "index_storage": {
+    "header_ints": 10,
+    "max_entries_per_input": 3,
+    "max_raw_index_int_payload_at_32MiB_2048page_caps": 2878112,
+    "prior_max_flat_index_int_payload": 932064,
+    "maximum_raw_payload_increment_bound": 1946048,
+    "excludes_object_headers_transient_build_arrays_and_process_GPU_peak_memory": true
+  },
+  "resumable_publication_implemented": false,
+  "remaining": "Whole-neighbor publication remains synchronous. Index construction adds upload CPU and bounded retained memory; no hard2ms/fullscene/ownerGPU/FPS promotion. Cross-frame cohort visibility/retry/admission/edit churn remains unfinished."
+}

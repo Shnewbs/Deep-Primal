@@ -1,0 +1,282 @@
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java
+@@ -0,0 +1,48 @@
++package com.shnewbs.deepprimal.core;
++
++/** Immutable neighbor-facing lists of packed top-quad offsets/cells, in original GPU order.
++ * Each boundary cell belongs to one side, or two sides and their diagonal at a page corner.
++ * At most three stored entries per input; the center bucket is always empty. */
++public final class WaterBoundaryIndex {
++  public static final WaterBoundaryIndex EMPTY = new WaterBoundaryIndex(new int[10]);
++  private final int[] entries;
++
++  private WaterBoundaryIndex(int[] entries) { this.entries = entries; }
++
++  public static WaterBoundaryIndex of(int[] quads) {
++    if (quads.length == 0) return EMPTY;
++    int[] offsets = new int[10];
++    for (int entry : quads) for (int slot = 0; slot < 9; slot++) {
++      if (slot != 4 && mask(entry, slot % 3 - 1, slot / 3 - 1) != 0)
++        offsets[slot + 1]++;
++    }
++    offsets[0] = 10;
++    for (int slot = 0; slot < 9; slot++) offsets[slot + 1] = Math.addExact(offsets[slot + 1], offsets[slot]);
++    int[] entries = new int[offsets[9]];
++    System.arraycopy(offsets, 0, entries, 0, 10);
++    for (int entry : quads) for (int slot = 0; slot < 9; slot++) {
++      if (slot != 4 && mask(entry, slot % 3 - 1, slot / 3 - 1) != 0)
++        entries[offsets[slot]++] = entry;
++    }
++    return new WaterBoundaryIndex(entries);
++  }
++
++  private static int slot(int dx, int dz) {
++    if (dx < -1 || dx > 1 || dz < -1 || dz > 1 || (dx == 0 && dz == 0))
++      throw new IllegalArgumentException("Expected an adjacent horizontal page");
++    return (dz + 1) * 3 + dx + 1;
++  }
++
++  public int begin(int dx, int dz) { return entries[slot(dx, dz)]; }
++  public int end(int dx, int dz) { return entries[slot(dx, dz) + 1]; }
++  public int entry(int position) { return entries[position]; }
++  public int retainedBytes() { return entries.length * Integer.BYTES; }
++
++  /** Local shared-corner mask for a neighbor at dx/dz relative to this page. */
++  public static int mask(int entry, int dx, int dz) {
++    int x = entry & 15, z = (entry >>> 4) & 15;
++    int xs = dx == 0 ? 15 : dx < 0 ? (x == 0 ? 5 : 0) : (x == 15 ? 10 : 0);
++    int zs = dz == 0 ? 15 : dz < 0 ? (z == 0 ? 3 : 0) : (z == 15 ? 12 : 0);
++    return xs & zs;
++  }
++}
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java
+@@ -11,6 +11,7 @@
+     WaterFlowFieldChecks.run();
+     WaterCornerPacketChecks.run();
+     WaterCornerBulkChecks.run();
++    WaterBoundaryIndexChecks.run();
+     WaterSurfaceShapeChecks.run();
+     CaveColumnChecks.run();
+     IntegratedEngineChecks.run();
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBoundaryIndexChecks.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBoundaryIndexChecks.java
+@@ -0,0 +1,58 @@
++package com.shnewbs.deepprimal.core;
++
++import java.util.*;
++
++/** Independent absolute-coordinate corner intersection oracle, stable order and storage bounds. */
++final class WaterBoundaryIndexChecks {
++  private static void need(boolean pass,String why) { if(!pass)throw new AssertionError(why); }
++  private static int oracle(int entry,int dx,int dz,int origin) {
++    int mask=0,x=origin+(entry&15),z=-origin+((entry>>>4)&15);
++    int lowX=origin+dx*16,lowZ=-origin+dz*16;
++    for(int n=0;n<4;n++) {
++      int px=x+(n&1),pz=z+(n>>1);
++      if(px>=lowX&&px<=lowX+16&&pz>=lowZ&&pz<=lowZ+16)mask|=1<<n;
++    }
++    return mask;
++  }
++  static void run() {
++    Random random=new Random(0x421023);long cases=0;int[] origins={-29999968,-16,0,16,29999968};
++    for(int origin:origins)for(int cell=0;cell<4096;cell++)for(int dz=-1;dz<=1;dz++)for(int dx=-1;dx<=1;dx++) {
++      if(dx==0&&dz==0)continue;
++      need(WaterBoundaryIndex.mask((12345<<12)|cell,dx,dz)==oracle(cell,dx,dz,origin),"Shared-corner mask differs");cases++;
++    }
++    int[] full=new int[960];int count=0;
++    for(int cell=0;cell<4096;cell++)if((cell&15)==0||(cell&15)==15||((cell>>>4)&15)==0||((cell>>>4)&15)==15)full[count]=(count++<<12)|cell;
++    need(count==960,"Full boundary fixture differs");
++    long oldVisits=0,newVisits=0;
++    var fullIndex=WaterBoundaryIndex.of(full);
++    for(int dz=-1;dz<=1;dz++)for(int dx=-1;dx<=1;dx++)if(dx!=0||dz!=0) {
++      oldVisits+=full.length;newVisits+=fullIndex.end(dx,dz)-fullIndex.begin(dx,dz);
++    }
++    need(oldVisits==7680&&newVisits==1088,"Boundary scan reproduction differs");
++    for(int trial=0;trial<1000;trial++) {
++      int[] input=trial==0?new int[0]:trial==1?full:random.ints(random.nextInt(4097),0,4096).toArray();
++      if(trial>1)for(int i=0;i<input.length;i++)input[i]|=i<<12;
++      int[] before=input.clone();var index=WaterBoundaryIndex.of(input);
++      need(index.retainedBytes()<=40+12*input.length,"Index storage exceeded three entries per input");
++      for(int dz=-1;dz<=1;dz++)for(int dx=-1;dx<=1;dx++)if(dx!=0||dz!=0) {
++        int position=index.begin(dx,dz),end=index.end(dx,dz);need(position>=0&&end>=position,"Invalid range");
++        for(int entry:input)if(oracle(entry,dx,dz,origins[trial%origins.length])!=0) {
++          need(position<end&&index.entry(position++)==entry,"Missing, reordered or extra quad");cases++;
++        }
++        need(position==end,"Unexpected indexed quad");
++      }
++      need(Arrays.equals(input,before),"Index construction mutated caller input");
++      Arrays.fill(input,0);
++      for(int dz=-1;dz<=1;dz++)for(int dx=-1;dx<=1;dx++)if(dx!=0||dz!=0) {
++        int position=index.begin(dx,dz);
++        for(int entry:before)if(oracle(entry,dx,dz,0)!=0)need(index.entry(position++)==entry,"Index aliases caller array");
++      }
++    }
++    int rejected=0;for(int[] delta:new int[][]{{0,0},{-2,0},{0,2},{2,-2}}) {
++      try {WaterBoundaryIndex.EMPTY.begin(delta[0],delta[1]);}catch(IllegalArgumentException expected){rejected++;}
++    }
++    need(rejected==4,"Invalid neighbor accepted");
++    System.out.println("WATER_BOUNDARY_INDEX_CORE_PASS cases="+cases+" oldVisits="+oldVisits+" indexedVisits="+newVisits+" exactCoordinateOracle=true stableOrder=true immutable=true maxEntriesPerInput=3");
++  }
++  public static void main(String[] args){run();}
++}
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -6,6 +6,7 @@
+ import com.shnewbs.deepprimal.core.WaterPatchMesher;
+ import com.shnewbs.deepprimal.core.WaterFlowField;
+ import com.shnewbs.deepprimal.core.WaterCornerPacket;
++import com.shnewbs.deepprimal.core.WaterBoundaryIndex;
+ import it.unimi.dsi.fastutil.ints.IntArrayList;
+ import com.shnewbs.deepprimal.core.WaterFlowTransition;
+ import com.shnewbs.deepprimal.core.WaterSurfaceTransition;
+@@ -102,7 +103,7 @@
+     WaterGpuMesh gpu;
+     // Accepted vertex bytes only: total retained payload cannot exceed the 32 MiB GPU cap.
+     byte[] presentation;
+-    int[] boundaryQuads = new int[0];
++    WaterBoundaryIndex boundaryQuads = WaterBoundaryIndex.EMPTY;
+     int retireOffset;
+     Map<Integer, WaterFaces> fading = Map.of();
+     boolean changed = true, busy;
+@@ -157,7 +158,7 @@
+ 
+   private void release(Page page) {
+     page.presentation = null;
+-    page.boundaryQuads = new int[0];
++    page.boundaryQuads = WaterBoundaryIndex.EMPTY;
+     retireQueue.remove(page.key);
+     page.fading = Map.of();
+     dirty.remove(page.key);
+@@ -666,6 +667,7 @@
+       data.flip();
+       byte[] accepted = new byte[data.remaining()];
+       data.duplicate().get(accepted);
++      var boundaryIndex = WaterBoundaryIndex.of(boundary.toIntArray());
+       if (reuse) {
+         // Retain allocation capacity: a smaller update can grow back without another buffer.
+         p.gpu.update(data, count);
+@@ -689,7 +691,7 @@
+       p.fading = rememberFading(p, parts);
+       p.snapshot = ready.snapshot;
+       p.presentation = accepted;
+-      p.boundaryQuads = boundary.toIntArray();
++      p.boundaryQuads = boundaryIndex;
+       p.retireOffset = 0;
+       retireQueue.remove(p.key);
+       retireQueue.add(p.key);
+@@ -703,7 +705,8 @@
+     }
+   }
+ 
+-  /** Only boundary quads change; contiguous changed quads share one bounded submission. */
++  /** Visit only neighbor-facing quads; contiguous changed quads share one bounded submission.
++   * Publication remains synchronous: a range bound does not establish a frame-time bound. */
+   private void synchronizeCornerNeighbors(Page admitted) {
+     ByteBuffer transfer = null;
+     ByteBuffer quad = ByteBuffer.allocate(144).order(ByteOrder.nativeOrder());
+@@ -715,15 +718,18 @@
+         ByteBuffer accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
+         int start = -1, end = 0;
+         long pendingCleanup = p.cleanup;
+-        for (int entry : p.boundaryQuads) {
++        // Relative to the resident page, the admitted page lies in the opposite direction.
++        int endIndex = p.boundaryQuads.end(-dx, -dz);
++        for (int index = p.boundaryQuads.begin(-dx, -dz); index < endIndex; index++) {
++          int entry = p.boundaryQuads.entry(index);
++          int shared = WaterBoundaryIndex.mask(entry, -dx, -dz);
+           int at = (entry >>> 12) * 144, cell = entry & 4095;
+           int cx = cell & 15, cz = (cell >> 4) & 15, y = p.y + (cell >> 8);
+           int mask = 0, targets = 0, sources = 0, ages = 0;
+           long cleanup = start >= 0 ? pendingCleanup : p.cleanup;
+           for (int n = 0; n < 4; n++) {
++            if ((shared & (1 << n)) == 0) continue;
+             int x = p.x + cx + (n & 1), z = p.z + cz + (n >> 1);
+-            if (x < admitted.x || x > admitted.x + 16 || z < admitted.z || z > admitted.z + 16
+-                || y < admitted.y || y >= admitted.y + 16) continue;
+             var c = cornerDirections.get(BlockPos.asLong(x, y, z));
+             if (c == null) continue;
+             int to = c.target(), from = c.active(clock) ? c.source() : to, age = c.age(clock);
+@@ -900,7 +906,7 @@
+     for (Page p : pages.values()) {
+       p.fading = Map.of();
+       p.presentation = null;
+-      p.boundaryQuads = new int[0];
++      p.boundaryQuads = WaterBoundaryIndex.EMPTY;
+       if (p.gpu != null) {
+         p.gpu.close();
+         p.gpu = null;
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryBatchChecks.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryBatchChecks.java
+@@ -29,15 +29,17 @@
+     Field vf=WaterPublicationFailureChecks.field(WaterGpuMesh.class,"vertices");
+     int id=0;
+     try {
+-      for(int count:new int[]{256,2048})for(int origin:new int[]{0,29999968})for(int axis=0;axis<2;axis++)for(int group:new int[]{256,8})for(int fail:new int[]{0,1,2}) {
+-        if(group==256&&fail==2&&count==256)continue;
++      for(int count:new int[]{256,2048})for(int origin:new int[]{0,29999968})for(int axis=0;axis<8;axis++)for(int group:new int[]{2048,256,8})for(int fail:new int[]{0,1,2}) {
++        if(group>=256&&fail==2&&count==256)continue;
+         int caseId=id++;Object renderer=rc.newInstance();Object device=RenderSystem.getDevice();
+         Field backend=Arrays.stream(device.getClass().getDeclaredFields()).filter(f->f.getType().isInterface()&&f.getType().getSimpleName().equals("GpuDeviceBackend")).findFirst().orElseThrow();backend.setAccessible(true);Object original=backend.get(device);
+         try {
++          int[][] deltas={{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,1},{1,-1},{-1,-1}};
++          int dx=deltas[axis][0],dz=deltas[axis][1];
+           int sx=origin>>4,sz=-origin>>4;Object admitted=pc.newInstance(SectionPos.asLong(sx,0,sz));
+-          Object neighbor=pc.newInstance(SectionPos.asLong(sx-(axis==0?1:0),0,sz-(axis==1?1:0)));
++          Object neighbor=pc.newInstance(SectionPos.asLong(sx-dx,0,sz-dz));
+           int px=WaterPublicationFailureChecks.field(pt,"x").getInt(neighbor),pz=WaterPublicationFailureChecks.field(pt,"z").getInt(neighbor);
+-          int[] entries=new int[count];int quads=count+(group==256?0:(count-1)/8),bytes=quads*144;
++          int[] entries=new int[count];int quads=count+(group>=256?0:(count-1)/8),bytes=quads*144;
+           byte[] initial=new byte[bytes];ByteBuffer packet=ByteBuffer.wrap(initial).order(ByteOrder.nativeOrder());
+           long pair=72L*(1+289+83521+24137569L);
+           for(int q=0;q<quads;q++)for(int v=0;v<4;v++) {
+@@ -45,14 +47,24 @@
+           }
+           @SuppressWarnings("unchecked") var directions=(Long2ObjectLinkedOpenHashMap<WaterFlowTransition>)WaterPublicationFailureChecks.field(type,"cornerDirections").get(renderer);
+           int ax=WaterPublicationFailureChecks.field(pt,"x").getInt(admitted),az=WaterPublicationFailureChecks.field(pt,"z").getInt(admitted);
+-          for(int y=0;y<16;y++)for(int lane=0;lane<=16;lane++) {
+-            int x=axis==0?ax:ax+lane,z=axis==0?az+lane:az;var state=new WaterFlowTransition(4,0);state.target(8,100,1);state.target(12,125,2);directions.put(BlockPos.asLong(x,y,z),state);
++          for(int y=0;y<16;y++)for(int x=ax;x<=ax+16;x++)for(int z=az;z<=az+16;z++) {
++            if(x!=ax&&x!=ax+16&&z!=az&&z!=az+16)continue;
++            var state=new WaterFlowTransition(4,0);state.target(8,100,1);state.target(12,125,2);directions.put(BlockPos.asLong(x,y,z),state);
+           }
+-          for(int n=0;n<count;n++){int q=n+(group==256?0:n/group);int y=(n%256)/16,lane=n%16,cx=axis==0?15:lane,cz=axis==0?lane:15;entries[n]=(q<<12)|(y<<8)|(cz<<4)|cx;}
++          for(int n=0;n<count;n++) {
++            int q=n+(group>=256?0:n/group),y=(n%256)/16,lane=n%16;
++            int cx=dx==0?lane:dx>0?15:0,cz=dz==0?lane:dz>0?15:0;
++            // Half the entries face away from the admitted page. Keep them in GPU order.
++            if(group!=2048&&(n/(group==256?128:8)&1)!=0){if(dx!=0)cx=15-cx;else cz=15-cz;}
++            entries[n]=(q<<12)|(y<<8)|(cz<<4)|cx;
++          }
+           var data=MemoryUtil.memAlloc(bytes).order(ByteOrder.nativeOrder());WaterGpuMesh mesh;
+           try {data.put(initial).flip();mesh=new WaterGpuMesh(data,quads*4);((GpuBuffer)vf.get(mesh)).close();vf.set(mesh,RenderSystem.getDevice().createBuffer(()->"Boundary batch readable vertices",GpuBuffer.USAGE_VERTEX|GpuBuffer.USAGE_COPY_DST|GpuBuffer.USAGE_COPY_SRC,data));}
+           finally {MemoryUtil.memFree(data);}
+-          WaterPublicationFailureChecks.field(pt,"gpu").set(neighbor,mesh);WaterPublicationFailureChecks.field(pt,"presentation").set(neighbor,initial.clone());WaterPublicationFailureChecks.field(pt,"boundaryQuads").set(neighbor,entries);WaterPublicationFailureChecks.field(type,"residentBytes").setLong(renderer,bytes);WaterPublicationFailureChecks.field(type,"clock").setLong(renderer,125);
++          WaterPublicationFailureChecks.field(pt,"gpu").set(neighbor,mesh);WaterPublicationFailureChecks.field(pt,"presentation").set(neighbor,initial.clone());Field boundaryField=WaterPublicationFailureChecks.field(pt,"boundaryQuads");
++          Object boundaryIndex=entries;
++          if(boundaryField.getType()!=int[].class)boundaryIndex=boundaryField.getType().getMethod("of",int[].class).invoke(null,(Object)entries);
++          boundaryField.set(neighbor,boundaryIndex);WaterPublicationFailureChecks.field(type,"residentBytes").setLong(renderer,bytes);WaterPublicationFailureChecks.field(type,"clock").setLong(renderer,125);
+           @SuppressWarnings("unchecked") var pages=(Map<Long,Object>)WaterPublicationFailureChecks.field(type,"pages").get(renderer);pages.put(WaterPublicationFailureChecks.field(pt,"key").getLong(neighbor),neighbor);pages.put(WaterPublicationFailureChecks.field(pt,"key").getLong(admitted),admitted);
+           var ranges=new ArrayList<Map<String,Object>>();int[] attempts={0};boolean[] rejected={false};GpuBuffer target=(GpuBuffer)vf.get(mesh);
+           Object proxy=Proxy.newProxyInstance(backend.getType().getClassLoader(),new Class<?>[]{backend.getType()},(o,m,a)->{
+@@ -77,7 +89,7 @@
+           int retryAttempts=attempts[0]-firstAttempts;read(reads,caseId,"after-retry",renderer,neighbor,pt,target);
+           int beforeStable=attempts[0];backend.set(device,proxy);try {WaterPublicationFailureChecks.call(sync,renderer,admitted);}finally {backend.set(device,original);}
+           if(attempts[0]!=beforeStable)throw new AssertionError("Idempotent boundary publication wrote GPU bytes");
+-          int expected=group==256?(count+1819)/1820:(count+7)/8;
++          int expected=group==2048?(count+1819)/1820:group==256?count/256:count/16;
+           if(requireBatches&&fail==0&&firstAttempts!=expected)throw new AssertionError("Contiguous boundary batches were not combined");
+           var row=new LinkedHashMap<String,Object>();row.put("id",caseId);row.put("cleanupAfterCall",cleanupAfterCall);row.put("cleanupAfterRetry",WaterPublicationFailureChecks.field(pt,"cleanup").getLong(neighbor));row.put("origin",origin);row.put("axis",axis);row.put("group",group);row.put("count",count);row.put("rejectWrite",fail);row.put("bytes",bytes);row.put("quads",quads);row.put("boundaryEntries",entries);row.put("initialSha256",WaterPublicationFailureChecks.sha(initial));row.put("firstWriteAttempts",firstAttempts);row.put("retryWriteAttempts",retryAttempts);row.put("idempotentWrites",attempts[0]-beforeStable);row.put("syncCpuNanos",elapsed);row.put("ranges",ranges);rows.add(row);
+         } finally {backend.set(device,original);type.getMethod("reset").invoke(renderer);((ExecutorService)WaterPublicationFailureChecks.field(type,"workers").get(renderer)).shutdownNow();}
+@@ -93,9 +105,9 @@
+         if(bad!=0)throw new AssertionError("Boundary batch accepted mirror differs from GPU");
+         var result=new LinkedHashMap<String,Object>();result.put("pass",true);result.put("requireBatches",requireBatches);result.put("cases",rows);result.put("readbacks",metadata);result.put("differentBytes",bad);
+         try(var input=WaterBoundaryBatchChecks.class.getResourceAsStream("WaterBoundaryBatchChecks.class")){result.put("fixtureClassSha256",WaterPublicationFailureChecks.sha(input.readAllBytes()));}
+-        result.put("scope","Private256/2048boundaryquad realGPU fixture; contiguous/scattered range submissions and synchronous rejection/manualretry/idempotence. No wholecohort/asyncfailure/fullscene/capchurn/FPS acceptance.");
++        result.put("scope","Private256/2048boundaryquad realGPU fixture,all8neighbors,halfunrelated; contiguous/scattered range submissions and synchronous rejection/manualretry/idempotence. No wholecohort/asyncfailure/fullscene/capchurn/FPS acceptance.");
+         Files.write(output.resolve("water-boundary-batch-readbacks.bin"),raw.toByteArray());Files.writeString(output.resolve("water-boundary-batch.json"),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(result)+"\n");
+-        System.out.println("WATER_BOUNDARY_BATCH_PASS cases=44 readbacks=88 differentBytes=0 batched="+requireBatches);
++        System.out.println("WATER_BOUNDARY_BATCH_PASS cases=256 readbacks=512 differentBytes=0 batched="+requireBatches);
+       }catch(Exception e){throw new RuntimeException(e);}finally {for(var r:reads)r.gpu.close();}
+     });
+   }

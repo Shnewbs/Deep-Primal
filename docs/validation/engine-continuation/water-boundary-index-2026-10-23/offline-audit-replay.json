@@ -1,0 +1,5735 @@
+{
+  "pass": true,
+  "verified_archived_members": 971,
+  "verified_capture_paths": 20926,
+  "verified_capture_content_objects": 944,
+  "restored_source": {
+    "pass": true,
+    "source_inputs": 586,
+    "all_archive_member_and_source_hashes_verified_before_writing": true,
+    "target": "water-boundary-scan-2102/replay/source",
+    "build_or_native_validation_repeated": false
+  },
+  "baseline584_source_reconstruction_verified": true,
+  "cold_boundary_control": {
+    "case": "vulkan-batch-r41-control",
+    "pass": true,
+    "baseline": false,
+    "cases": 256,
+    "paired_cpu_gpu_reads": 512,
+    "raw_readback_bytes": 194291712,
+    "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+    "all_bytes_match_independent_packet_and_rejection_oracle": true,
+    "normal_routes": [
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 18.181487
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.800834
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.835496
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.979763
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.550388
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.974455
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.726842
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.482455
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 1.562729
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.961325
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.608755
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 1.126634
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.961095
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.832332
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 1.278793
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.853503
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.579351
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.89737
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.833513
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.496197
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.898762
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.835396
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.53882
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.968096
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.982727
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.585881
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 1.121306
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.99738
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.536277
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 1.334527
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.83761
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.514804
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.588265
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.589726
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.33925
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.883098
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.582506
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.316616
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.960173
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.553332
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.383616
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.850669
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.617939
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.204087
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.720904
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.505049
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.318098
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.757499
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 4.061627
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.352037
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 4.315729
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 2.5743
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.357074
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.978268
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 2.956105
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.245767
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.586589
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 2.934703
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 3.293382
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 4.148427
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 2.736985
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.429249
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 3.587865
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 3.549527
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.704108
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.435522
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 2.012806
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.120004
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 3.666813
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.936478
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.29486
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.061039
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.945762
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.613363
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.556824
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.914104
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.626092
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 3.128924
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.31021
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.646151
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.697225
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.769541
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.99773
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.250724
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.288227
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.636887
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.672104
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.911821
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.772041
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.152607
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.911724
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.504258
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 3.269756
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.380986
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.943759
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 112.745399
+      }
+    ],
+    "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+    "new_crashes": 0,
+    "normal_save_shutdown": true,
+    "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+  },
+  "baseline_full_suite_boundary": {
+    "case": "vulkan-corners-shared-final-r41-control",
+    "pass": true,
+    "baseline": false,
+    "cases": 256,
+    "paired_cpu_gpu_reads": 512,
+    "raw_readback_bytes": 194291712,
+    "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+    "all_bytes_match_independent_packet_and_rejection_oracle": true,
+    "normal_routes": [
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 1.36312
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.06654
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.268824
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.092459
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.064337
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.300843
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.135624
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.071297
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.303446
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.185479
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.177247
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.411038
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.167942
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.129886
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.265479
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.09313
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.057216
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.340782
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.084697
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.067251
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.403607
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.09991
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.059189
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.25946
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.090506
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.098308
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.412821
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.190706
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.101713
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.469296
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.151478
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.101172
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.39284
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.155244
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.348044
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.293661
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.095634
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.05978
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.230086
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.084877
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.056755
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.238779
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.083014
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.056335
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.370257
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.082675
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.097116
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.344408
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.39648
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.618309
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.12146
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.820554
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.517218
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.537825
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.870068
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.588164
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.035731
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.898301
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.559211
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.791123
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.729797
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.469446
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.835339
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.830859
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.46596
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.817523
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.747444
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.470898
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.722089
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.735556
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.466181
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.643151
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.024711
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.533873
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.236052
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.846853
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.648745
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.008639
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.827505
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.614414
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.851353
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.999182
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.513522
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.84925
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.332123
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.821304
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.937423
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.627323
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.490177
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.623671
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.580483
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.421063
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.837332
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.605801
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.408304
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.539345
+      }
+    ],
+    "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+    "new_crashes": 0,
+    "normal_save_shutdown": true,
+    "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+  },
+  "candidate_boundaries": [
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "pass": true,
+      "baseline": false,
+      "cases": 256,
+      "paired_cpu_gpu_reads": 512,
+      "raw_readback_bytes": 194291712,
+      "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.943288
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.081442
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.334263
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.168734
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.072128
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.285268
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.107141
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.072038
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.288294
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.089044
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.066159
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.434773
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.082544
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.059339
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.268554
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.081884
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.052218
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.260321
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.082714
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.114352
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.283196
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.0803
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.055604
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.234613
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.10003
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056905
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.382245
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.087161
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056234
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.347352
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.08612
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056164
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.27286
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.087151
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056014
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.272169
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.087652
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.055814
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.43216
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.288433
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.098408
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.233291
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.079119
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.058979
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.254192
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.078748
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.050466
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 1.335668
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.174106
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.448194
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.963562
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.662166
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.393722
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.685905
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.844069
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.482395
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.109912
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.655496
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.679451
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.56951
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.724239
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.352239
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.723171
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.557758
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.348464
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.471953
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.580843
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.346601
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.610071
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.555585
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.341414
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.827698
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.226614
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.777209
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 3.108334
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.364161
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.708135
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.556324
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.62529
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.410998
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.842641
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.033564
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.386992
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.591683
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.857319
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.349626
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.517392
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.547733
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.346121
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.525133
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.54526
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.344769
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.518013
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.582406
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.368674
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.465894
+        }
+      ],
+      "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "pass": true,
+      "baseline": false,
+      "cases": 256,
+      "paired_cpu_gpu_reads": 512,
+      "raw_readback_bytes": 194291712,
+      "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.98439
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.063796
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.381193
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.108092
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.059991
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.334643
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.160912
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.06613
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.370247
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.09992
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.077416
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.348514
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.088703
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.063616
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.36552
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.085578
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.058468
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.567874
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.086741
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.097396
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.549146
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.099569
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.062283
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.430157
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.122474
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.069755
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.438349
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.0862
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056244
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.277857
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.086711
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.053921
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.245729
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.089194
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.061122
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.404528
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.081753
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.203105
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.23266
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.105007
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.053931
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.394664
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.085068
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.055143
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.261563
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.08609
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.123066
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.400001
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.119323
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.500292
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.773036
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.694795
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.458369
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.65553
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.685751
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.406972
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.672295
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.63183
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.428635
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.834548
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.727234
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.353672
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.854448
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.852332
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.3458
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.599075
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.658801
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.346811
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.508859
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.53223
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.367673
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.308211
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.804099
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.509886
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.439478
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.122147
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.540022
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.223444
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.406876
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.38572
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.069952
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.088917
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.421313
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.922871
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.962318
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.382826
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.847799
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.81163
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.440242
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.078144
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.01751
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.5193
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.067058
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.699452
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.364999
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.076753
+        }
+      ],
+      "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "pass": true,
+      "baseline": false,
+      "cases": 256,
+      "paired_cpu_gpu_reads": 512,
+      "raw_readback_bytes": 194291712,
+      "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 1.233415
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.19971
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.158278
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.113981
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.077406
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.127351
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.117146
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.062634
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.130927
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.101753
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.062514
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.121132
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.084387
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.055333
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.109805
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.085288
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.048743
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.130576
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.087171
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.048493
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.133751
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.07992
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.05316
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.147602
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.090957
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.050747
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.121193
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.090266
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.105218
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.148674
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.096795
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.098889
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.111768
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.414063
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.123335
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.147602
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.247522
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.04636
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.100321
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.224457
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.045028
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.110436
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.267592
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.045298
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.128904
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.201663
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.047461
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.127993
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.021476
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.35272
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.893704
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.641063
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.441765
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.532952
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.832061
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.398309
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.520854
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.640473
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.314373
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.77151
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.552671
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.377218
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.549697
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.574163
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.284999
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.479771
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.53859
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.27919
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.51864
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.534403
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.32608
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.569066
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.701094
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.323546
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.510438
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.610979
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.370387
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.815246
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.718119
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.313611
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.810698
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.640153
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.318189
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.582896
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.606132
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.294933
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.524299
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.668946
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.287262
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.556497
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.766332
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.419221
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.685281
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.717669
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.274413
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.424749
+        }
+      ],
+      "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    }
+  ],
+  "all_call_and_retry_packets_equal_fresh_controls": true,
+  "candidate_and_control_admissions": [
+    {
+      "case": "vulkan-corners-shared-final-r41-control",
+      "pass": true,
+      "baseline": false,
+      "initial_allocation_only_variant": false,
+      "cases": 16,
+      "nominal_budget_denials": 8,
+      "lost_resident_meshes_on_budget_denial": 0,
+      "unnecessary_placeholder_evictions": 0,
+      "paired_cpu_gpu_reads": 144,
+      "different_bytes": 0,
+      "raw_readback_bytes": 4497408,
+      "raw_sha256": "8cc2a9ecd27dba3695a35639bca9829335e87b776d4ea6a02350f5c0e6ac2c0d",
+      "fixture_class_sha256": "3e2f910ec534b32481049086c79fcc971e900718296f0ae5f34be374e158acf9",
+      "independent_farthest_first_budget_and_survivor_oracle": true,
+      "all_target_and_survivor_gpu_checks_pass": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "routes": [
+        {
+          "id": 0,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.047632
+        },
+        {
+          "id": 1,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.057025
+        },
+        {
+          "id": 2,
+          "mode": "single",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 2.393128
+        },
+        {
+          "id": 3,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.972192
+        },
+        {
+          "id": 4,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.035553
+        },
+        {
+          "id": 5,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.029484
+        },
+        {
+          "id": 6,
+          "mode": "single",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.038041
+        },
+        {
+          "id": 7,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.946032
+        },
+        {
+          "id": 8,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.066099
+        },
+        {
+          "id": 9,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.02601
+        },
+        {
+          "id": 10,
+          "mode": "single",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 31.577156
+        },
+        {
+          "id": 11,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.881295
+        },
+        {
+          "id": 12,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.032318
+        },
+        {
+          "id": 13,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.030816
+        },
+        {
+          "id": 14,
+          "mode": "single",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 0.855356
+        },
+        {
+          "id": 15,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.288577
+        }
+      ],
+      "scope": "Private real-mesher production upload/eviction with actual32MiB residency; no discovery/travel/visible-scene, allocationfailure atomicity, broad memory/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "pass": true,
+      "baseline": false,
+      "initial_allocation_only_variant": false,
+      "cases": 16,
+      "nominal_budget_denials": 8,
+      "lost_resident_meshes_on_budget_denial": 0,
+      "unnecessary_placeholder_evictions": 0,
+      "paired_cpu_gpu_reads": 144,
+      "different_bytes": 0,
+      "raw_readback_bytes": 4497408,
+      "raw_sha256": "8cc2a9ecd27dba3695a35639bca9829335e87b776d4ea6a02350f5c0e6ac2c0d",
+      "fixture_class_sha256": "3e2f910ec534b32481049086c79fcc971e900718296f0ae5f34be374e158acf9",
+      "independent_farthest_first_budget_and_survivor_oracle": true,
+      "all_target_and_survivor_gpu_checks_pass": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "routes": [
+        {
+          "id": 0,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.037016
+        },
+        {
+          "id": 1,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.034282
+        },
+        {
+          "id": 2,
+          "mode": "single",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.971504
+        },
+        {
+          "id": 3,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.519144
+        },
+        {
+          "id": 4,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.030516
+        },
+        {
+          "id": 5,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.022193
+        },
+        {
+          "id": 6,
+          "mode": "single",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.073004
+        },
+        {
+          "id": 7,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.998511
+        },
+        {
+          "id": 8,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.031747
+        },
+        {
+          "id": 9,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.032739
+        },
+        {
+          "id": 10,
+          "mode": "single",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 100.987321
+        },
+        {
+          "id": 11,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.842416
+        },
+        {
+          "id": 12,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.028573
+        },
+        {
+          "id": 13,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.027451
+        },
+        {
+          "id": 14,
+          "mode": "single",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 0.977439
+        },
+        {
+          "id": 15,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.870189
+        }
+      ],
+      "scope": "Private real-mesher production upload/eviction with actual32MiB residency; no discovery/travel/visible-scene, allocationfailure atomicity, broad memory/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "pass": true,
+      "baseline": false,
+      "initial_allocation_only_variant": false,
+      "cases": 16,
+      "nominal_budget_denials": 8,
+      "lost_resident_meshes_on_budget_denial": 0,
+      "unnecessary_placeholder_evictions": 0,
+      "paired_cpu_gpu_reads": 144,
+      "different_bytes": 0,
+      "raw_readback_bytes": 4497408,
+      "raw_sha256": "8cc2a9ecd27dba3695a35639bca9829335e87b776d4ea6a02350f5c0e6ac2c0d",
+      "fixture_class_sha256": "3e2f910ec534b32481049086c79fcc971e900718296f0ae5f34be374e158acf9",
+      "independent_farthest_first_budget_and_survivor_oracle": true,
+      "all_target_and_survivor_gpu_checks_pass": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "routes": [
+        {
+          "id": 0,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.04699
+        },
+        {
+          "id": 1,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.033891
+        },
+        {
+          "id": 2,
+          "mode": "single",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.597011
+        },
+        {
+          "id": 3,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.16348
+        },
+        {
+          "id": 4,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.037397
+        },
+        {
+          "id": 5,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.021212
+        },
+        {
+          "id": 6,
+          "mode": "single",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.441118
+        },
+        {
+          "id": 7,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.080225
+        },
+        {
+          "id": 8,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.022654
+        },
+        {
+          "id": 9,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.02711
+        },
+        {
+          "id": 10,
+          "mode": "single",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 38.852479
+        },
+        {
+          "id": 11,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.905531
+        },
+        {
+          "id": 12,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.043255
+        },
+        {
+          "id": 13,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.031517
+        },
+        {
+          "id": 14,
+          "mode": "single",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 0.95103
+        },
+        {
+          "id": 15,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.124902
+        }
+      ],
+      "scope": "Private real-mesher production upload/eviction with actual32MiB residency; no discovery/travel/visible-scene, allocationfailure atomicity, broad memory/FPS acceptance"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "pass": true,
+      "baseline": false,
+      "initial_allocation_only_variant": false,
+      "cases": 16,
+      "nominal_budget_denials": 8,
+      "lost_resident_meshes_on_budget_denial": 0,
+      "unnecessary_placeholder_evictions": 0,
+      "paired_cpu_gpu_reads": 144,
+      "different_bytes": 0,
+      "raw_readback_bytes": 4497408,
+      "raw_sha256": "8cc2a9ecd27dba3695a35639bca9829335e87b776d4ea6a02350f5c0e6ac2c0d",
+      "fixture_class_sha256": "3e2f910ec534b32481049086c79fcc971e900718296f0ae5f34be374e158acf9",
+      "independent_farthest_first_budget_and_survivor_oracle": true,
+      "all_target_and_survivor_gpu_checks_pass": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "routes": [
+        {
+          "id": 0,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.072108
+        },
+        {
+          "id": 1,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.027792
+        },
+        {
+          "id": 2,
+          "mode": "single",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 2.390093
+        },
+        {
+          "id": 3,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 0.923658
+        },
+        {
+          "id": 4,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.094202
+        },
+        {
+          "id": 5,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.022764
+        },
+        {
+          "id": 6,
+          "mode": "single",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.679354
+        },
+        {
+          "id": 7,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 0,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.569099
+        },
+        {
+          "id": 8,
+          "mode": "insufficient",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.028293
+        },
+        {
+          "id": 9,
+          "mode": "busy",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.027892
+        },
+        {
+          "id": 10,
+          "mode": "single",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.550962
+        },
+        {
+          "id": 11,
+          "mode": "multiple",
+          "axis": 0,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.587667
+        },
+        {
+          "id": 12,
+          "mode": "insufficient",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.027992
+        },
+        {
+          "id": 13,
+          "mode": "busy",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": false,
+          "expected_evictions": [],
+          "actual_evictions": [],
+          "after_resident_bytes": 33554304,
+          "upload_cpu_ms": 0.062414
+        },
+        {
+          "id": 14,
+          "mode": "single",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0"
+          ],
+          "actual_evictions": [
+            "far0"
+          ],
+          "after_resident_bytes": 33508224,
+          "upload_cpu_ms": 1.710992
+        },
+        {
+          "id": 15,
+          "mode": "multiple",
+          "axis": 1,
+          "origin": 29999968,
+          "incoming_bytes": 140832,
+          "accepted": true,
+          "expected_evictions": [
+            "far0",
+            "far1"
+          ],
+          "actual_evictions": [
+            "far0",
+            "far1"
+          ],
+          "after_resident_bytes": 33462144,
+          "upload_cpu_ms": 1.653085
+        }
+      ],
+      "scope": "Private real-mesher production upload/eviction with actual32MiB residency; no discovery/travel/visible-scene, allocationfailure atomicity, broad memory/FPS acceptance"
+    }
+  ],
+  "final_corner_comparisons_including_control": 20448,
+  "final_frame_controls": [
+    {
+      "case": "vulkan-corners-shared-final-r41-control",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 1.288668,
+      "retire_cpu_max_ms": 2.584887,
+      "frame_cpu_p95_ms": 5.456199,
+      "frame_cpu_max_ms": 7.310081,
+      "frame_interval_p95_ms": 61.385654,
+      "frame_interval_max_ms": 65.976688,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 1.600897,
+      "retire_cpu_max_ms": 5.895935,
+      "frame_cpu_p95_ms": 6.422426,
+      "frame_cpu_max_ms": 12.825545,
+      "frame_interval_p95_ms": 82.545161,
+      "frame_interval_max_ms": 108.249037,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 1.690081,
+      "retire_cpu_max_ms": 17.41666,
+      "frame_cpu_p95_ms": 7.475396,
+      "frame_cpu_max_ms": 23.684276,
+      "frame_interval_p95_ms": 73.256159,
+      "frame_interval_max_ms": 94.291882,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 1.145953,
+      "retire_cpu_max_ms": 4.719695,
+      "frame_cpu_p95_ms": 34.609798,
+      "frame_cpu_max_ms": 57.288332,
+      "frame_interval_p95_ms": 46.006182,
+      "frame_interval_max_ms": 71.562188,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    }
+  ],
+  "final_deadline_controls": [
+    {
+      "case": "vulkan-corners-shared-final-r41-control",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    }
+  ],
+  "final_publication_sessions": [
+    {
+      "case": "vulkan-corners-shared-final-r41-control",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    }
+  ],
+  "two_full_builds_pass": true,
+  "raw_sealed_console_sessions": [
+    {
+      "case": "vulkan-batch-r41-control",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "2fc052a182b36c2850347afffe1def87b1363d4423e30d34c26d449401050a8f",
+      "bytes": 35577,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-r41-control",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "154166a1dcb344f8bad41597cf601f994813c7787403f9b14518ae52d1bdd02f",
+      "bytes": 47096,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "27bda6c0fda9af230ce90780b22f21e2c82d3e3913dcd04bd6fde8d099c16bff",
+      "bytes": 47845,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "b1fe333372bebcdd29d19ce047bdc7b9fa6e0fbda7875f226d8616a4776359f3",
+      "bytes": 47080,
+      "build": false
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "81f1902db994c74f8b7bccbcbbd3e8fe8bb557e720772b2a39e3b4f11351069c",
+      "bytes": 54349,
+      "build": false
+    },
+    {
+      "case": "build-baseline",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "1078f2ed77f0ea1a97df0a793f2181e60edc266a4e915e6cb780b11a12893ad4",
+      "bytes": 15044,
+      "build": true
+    },
+    {
+      "case": "build-candidate",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "e9676cbe82e8127dbd239cac7454910b8bf21c5300f97c9c004f9bd4b3d0c7a0",
+      "bytes": 15209,
+      "build": true
+    }
+  ],
+  "historical_admission_and_publication_baselines_not_fresh": true,
+  "new_build_or_native_execution": false
+}
