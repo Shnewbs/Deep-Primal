@@ -1,0 +1,28 @@
+---- Minecraft Crash Report ----
+// Why is it breaking :(
+
+Time: 2026-10-22 20:58:01
+Description: Unexpected error
+
+java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193
+	at TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.LodIndexMergeChecks.run(LodIndexMergeChecks.java:47) ~[main/:?] {}
+	at TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.ClientCapture.terrain(ClientCapture.java:170) ~[main/:?] {}
+	at TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.ClientCapture.tick(ClientCapture.java:48) ~[main/:?] {}
+	at net.neoforged.bus.EventBus.post(EventBus.java:360) ~[bus-8.0.5.jar:?] {}
+	at net.neoforged.bus.EventBus.post(EventBus.java:328) ~[bus-8.0.5.jar:?] {}
+	at TRANSFORMER/neoforge@26.1.2.122/net.neoforged.neoforge.client.ClientHooks.fireClientTickPost(ClientHooks.java:931) ~[neoforge-26.1.2.122-universal.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.client.Minecraft.tick(Minecraft.java:1981) [minecraft-patched-26.1.2.122.jar:?] {neoforge:mixin[APP:deepprimal-vulkan.mixins.json:MinecraftBackendMixin from mod deepprimal_vulkan]}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.client.Minecraft.runTick(Minecraft.java:1308) [minecraft-patched-26.1.2.122.jar:?] {neoforge:mixin[APP:deepprimal-vulkan.mixins.json:MinecraftBackendMixin from mod deepprimal_vulkan]}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.client.Minecraft.run(Minecraft.java:937) [minecraft-patched-26.1.2.122.jar:?] {neoforge:mixin[APP:deepprimal-vulkan.mixins.json:MinecraftBackendMixin from mod deepprimal_vulkan]}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.client.main.Main.main(Main.java:246) [minecraft-patched-26.1.2.122.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-11.0.15.jar:11.0] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread

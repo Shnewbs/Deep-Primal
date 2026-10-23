@@ -166,6 +166,10 @@ public final class ClientCapture {
         LodUploadRetryChecks.run(mc, dir);
         return;
       }
+      if (action.equals("lod-index-merge-check")) {
+        LodIndexMergeChecks.run(mc, dir);
+        return;
+      }
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
         StartupLifecycleChecks.observe("before-disconnect", dir);

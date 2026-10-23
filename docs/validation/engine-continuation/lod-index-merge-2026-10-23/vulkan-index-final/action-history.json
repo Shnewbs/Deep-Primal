@@ -1,0 +1,47 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 25.03
+  },
+  {
+    "action": "lod-index-merge-check",
+    "completed": true,
+    "elapsed": 26.04
+  },
+  {
+    "action": "lod-upload-retry-check",
+    "completed": true,
+    "elapsed": 27.04
+  },
+  {
+    "action": "lod-disk-recovery-check",
+    "completed": true,
+    "elapsed": 28.04
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 29.04
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 31.05
+  },
+  {
+    "action": "index-recovery",
+    "completed": true,
+    "elapsed": 33.05
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 38.06
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 39.06
+  }
+]
