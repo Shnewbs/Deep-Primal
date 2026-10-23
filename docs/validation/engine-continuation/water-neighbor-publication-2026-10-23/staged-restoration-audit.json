@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "base_inputs_verified": 575,
+  "candidate_paths_restored": 5,
+  "unrelated_inputs_preserved": 572,
+  "all_staged_bytes_match_built_candidate": true,
+  "stdout": "{\"applied\": 5, \"scope\": \"isolated staged candidate only;performance acceptance false\"}\n"
+}

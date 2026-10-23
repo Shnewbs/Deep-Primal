@@ -1,0 +1,6 @@
+{
+  "initial_failure": "Auditor compared expanded graphics mods.toml directly to unexpanded source.",
+  "declared_rule": "graphics-settings/build.gradle line7 expands only mod_version in META-INF/neoforge.mods.toml.",
+  "correction": "Apply exact declared0.0.1-alpha.25-dev substitution for that file; require all other resource bytes unchanged.",
+  "production_change": false
+}
