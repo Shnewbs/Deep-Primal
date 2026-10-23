@@ -28,6 +28,7 @@ public final class ClientCapture {
   public ClientCapture() {
     NeoForge.EVENT_BUS.register(this);
     NeoForge.EVENT_BUS.register(new HorizonDepthChecks());
+    NeoForge.EVENT_BUS.register(new WaterPageOrderChecks());
   }
 
   @SubscribeEvent
@@ -168,6 +169,16 @@ public final class ClientCapture {
       }
       if (action.equals("lod-index-merge-check")) {
         LodIndexMergeChecks.run(mc, dir);
+        return;
+      }
+      if (action.startsWith("water-page-order-check=")) {
+        String label=action.substring("water-page-order-check=".length());
+        if(!label.matches("[a-z0-9-]{1,32}"))throw new IllegalArgumentException("Page-order capture label");
+        WaterPageOrderChecks.start(mc, dir.resolve(label));
+        return;
+      }
+      if (action.equals("water-page-order-check")) {
+        WaterPageOrderChecks.start(mc, dir);
         return;
       }
       if (action.equals("water-partial-fade-check")) {

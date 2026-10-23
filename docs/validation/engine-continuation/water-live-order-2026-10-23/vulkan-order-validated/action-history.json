@@ -1,0 +1,102 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 28.03
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 31.04
+  },
+  {
+    "action": "audit-lake-camera",
+    "completed": true,
+    "elapsed": 36.05
+  },
+  {
+    "action": "water-page-order-check",
+    "completed": true,
+    "elapsed": 38.05
+  },
+  {
+    "action": "water-view=true,true,true",
+    "completed": true,
+    "elapsed": 41.05
+  },
+  {
+    "action": "water-page-order-check=waves-enabled",
+    "completed": true,
+    "elapsed": 43.05
+  },
+  {
+    "action": "water-view=true,false,false",
+    "completed": true,
+    "elapsed": 46.06
+  },
+  {
+    "action": "water-page-order-check=lod-disabled",
+    "completed": true,
+    "elapsed": 48.06
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 50.06
+  },
+  {
+    "action": "water-partial-fade-check",
+    "completed": true,
+    "elapsed": 51.07
+  },
+  {
+    "action": "water-gpu-reuse-check",
+    "completed": true,
+    "elapsed": 52.07
+  },
+  {
+    "action": "water-fade-continuity-check",
+    "completed": true,
+    "elapsed": 53.07
+  },
+  {
+    "action": "lod-index-merge-check",
+    "completed": true,
+    "elapsed": 54.07
+  },
+  {
+    "action": "lod-upload-retry-check",
+    "completed": true,
+    "elapsed": 55.07
+  },
+  {
+    "action": "lod-disk-recovery-check",
+    "completed": true,
+    "elapsed": 56.07
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 57.07
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 59.07
+  },
+  {
+    "action": "order-recovery",
+    "completed": true,
+    "elapsed": 61.07
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 66.08
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 67.08
+  }
+]

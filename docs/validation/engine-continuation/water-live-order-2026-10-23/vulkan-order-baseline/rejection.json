@@ -1,0 +1,4 @@
+{
+  "accepted": false,
+  "reason": "New validation harness failed compilation due to wildcard JOML Math ambiguity. Corrected explicit vector/matrix imports. This was not an engine reproduction or native pass."
+}
