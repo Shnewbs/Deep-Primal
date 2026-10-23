@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "released",
-  "updated_at": "2026-10-23T20:10:00Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-23T20:29:00Z",
+  "active_until": "2026-10-23T21:30:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R40 nominal byte-reservation planning is staged:8baseline denials lose16valid neighbor meshes;24candidate denials across Vulkan development/package andGL preserve all residents.48cases/432pairedCPU-GPUreads,15336seam comparisons and all explicit save/crash/resource gates pass. Full-scene discovery/travel/capchurn, scattered work/retirement2ms bounds, streams/oceans/LOD/ownerGPU acceptance remain open.",
+  "current_gate": "R41: independently coalesce repeated boundary corner packet mutation per quad, reproduce current large-boundary admission CPU overrun with byte-identical baseline/candidate oracles; preserve R40 admission fix and full snapshot. Actual visible-scene cap churn remains unaccepted.",
   "next_items": [
     "Restore583-input snapshot with docs/validation/engine-continuation/water-admission-plan-2026-10-23/scripts/restore_snapshot.py into a nonexistent isolated destination (all hashes before writes);21staged files(5production/16validation),3changed sinceR39. R40 preflights a sufficient strictly-farther nonbusy GPU reservation before releasing pages; insufficient admission is read-only and separate discovery/page-count policy remains unchanged. Next implement matched actual visible-scene discovery/admission/eviction under travel, edits and cap churn, then bound larger scattered boundary publication. Current softwareVulkan retirement maxima10.981ms development/5.071ms packaged exceed2ms target; no full-frame/ownerGPU/FPS acceptance. Preserve quantity, local corners, retry and explicit save/crash gates. Four stale fixture attempts and one empty-descriptor package startup are retained/excluded; guarded private compilation and immutable audited package retry pass, causes remain unproven.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
@@ -30,7 +30,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/water-admission-plan-2026-10-23/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/water-admission-plan-1932",
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/water-quad-packet-2029",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -84,7 +84,7 @@
     "docs/validation/engine-continuation/water-admission-plan-2026-10-23/sequential-job-audit.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "water-quad-packet-20261023-2029",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
