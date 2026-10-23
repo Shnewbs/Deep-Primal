@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T08:28:30.636Z",
-  "active_until": "2026-10-23T09:28:30.636Z",
+  "updated_at": "2026-10-23T09:01:05.729Z",
+  "active_until": "2026-10-23T10:01:05.729Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Active isolated continuation: reproduce still/flow material transition discontinuity after80978fa. No new candidate acceptance yet; prior gates remain scoped.",
+  "current_gate": "Active isolated still/flow top-material audit: full build/core/package, two strict software Vulkan and scoped OpenGL pass. Archiving/replaying evidence and reviewing screenshots; no installer or full engine acceptance.",
   "next_items": [
     "Owner priority seamless water: smooth still/flow and other material transitions, different-direction shared edges; validate sustained actual streams/ocean and history-cap churn with matched profiling. Direction-only100ms fixed-endpoint/latest-request blend now passes controlled near/farcell15/mip pixels and actual repeated/queued/stale GPU upload checks. Preserve quantity,edits and bounded work; speed advection and full native/LOD coverage remain open.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
