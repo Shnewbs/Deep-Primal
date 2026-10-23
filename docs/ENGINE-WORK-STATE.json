@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T19:32:00Z",
-  "active_until": "2026-10-23T20:35:00Z",
+  "updated_at": "2026-10-23T19:55:00Z",
+  "active_until": "2026-10-23T20:45:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R40: reproduce rejected water mesh growth evicting valid farther pages when eligible memory cannot satisfy admission; implement a preflight reservation plan and validate real GPU residency/churn.",
+  "current_gate": "R40: real-mesher baseline reproduces16resident mesh losses across8budget-denied growth cases at actual32MiB allocations. Preflight reservation fix applied in isolated staging;25taskbuild/core/package and developmentVulkan controls pass. PackagedVulkan/GL regressions, archived replay and guarded evidence publication remain active. Four stale stronger-fixture attempts excluded; immediate post-compiler/pre-native and runtime hashes agree on guarded baseline/development.",
   "next_items": [
     "Restore582-input source snapshot with docs/validation/engine-continuation/water-boundary-batches-2026-10-23/scripts/restore_snapshot.py (all hashes before write; nonexistent isolated destination), then reuse recorded toolchain/graphics pins. R39 changes1production/2validation files;20staged total(5production/15validation). Native256/2048contiguousquads reproduce256/2048GPUwrites and candidate uses1/2, group-of8scattered uses32/256, payload36864/294912unchanged, maxrange262080bytes. Final132expanded cases/264paired reads verify independent packet/range/queueddeadline/rejection/idempotence oracles. New transient batchbuffer<=262080native+144heap bytes versus prior144native; no residentlimit increase. Large scattered controls remain6.04–10.43ms, and packaged private retirement max15.202ms: not2ms/full-frame/ownerGPU/FPS acceptance. Actual scene discovery/admission/eviction/capchurn is still untested by these private non-drawn pages; scene keysets differ andLODtiles0. Next implement workload-matched cap churn and reduce/incrementally bound scattered boundary scan/publication while preserving local shared corners, retry safety, geometry/quantity and explicit save/crash/resource gates. Continue long streams/ocean after residency/performance; no promotion or installer release before acceptance.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
