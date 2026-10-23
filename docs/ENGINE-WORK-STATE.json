@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T15:31:07.000Z",
-  "active_until": "2026-10-23T16:31:07.000Z",
+  "updated_at": "2026-10-23T16:10:54Z",
+  "active_until": "2026-10-23T16:50:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Isolated recovery of exact staged source/evidence after maintenance; rebuild pinned tools, replay old raw evidence without relabeling native results, and investigate bounded publication/failure handling.",
+  "current_gate": "Fresh full build and software Vulkan/GL rejection, corner and synthetic32MiB GPU checks pass; preserve staged publication fix and evidence. CPU-enqueue outliers block promotion.",
   "next_items": [
     "Recover build/native environment after exec-server disconnection. Read docs/validation/engine-continuation/water-boundary-packet-2026-10-23/interruption-recovery.json and missing-original-artifacts.json. Restore14staged exact files with scripts/restore_staged.py onto575-input-verified isolated public source. Original summaries/restoration/offline-replay records are byte-identical pre-interruption records; full original audit/launcher and some identity/package wrappers remain unavailable. Regenerate/recover them using retained raw uploads/pixels/details/sealed logs and original artifact hashes; do not relabel replay as fresh native execution. Then profile worst-case boundary GPU range submissions and262080-byte retirement at32MiB/2048pages under cap churn/height/opacity/edits/failure injection; coalesce/bound submissions without neighbor incoherence. Preserve210000packet/SNORM cases,2420routes/session, eight GPU retire/wrap routes and unchanged repeating-UV phase controls. CPU-slice0.892msp95 excludes GPU and combined extraction; no promotion before matched frame/memory and real streams/ocean acceptance.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
@@ -30,7 +30,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/README.md",
-  "local_validation_environment": null,
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/water-recovery-1529",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -157,5 +157,5 @@
   ],
   "latest_staged_graphics_promoted": false,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/water-boundary-packet-1330",
-  "validation_environment_status": "unavailable_after_completed_validation"
+  "validation_environment_status": "restored_fresh_validation_complete_checkpointing"
 }
