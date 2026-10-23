@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "continuation_permitted",
-  "updated_at": "2026-10-23T04:57:51.366949+00:00",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-23T05:05:50.433Z",
+  "active_until": "2026-10-23T06:05:50.433Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
@@ -13,7 +13,7 @@
     "Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
     "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
     "Identify the original recovery-marker writer. Temporary in-process events show deletion then a different inode with original mtime and one Java write; matched /tmp runs are clean. Correlation is not root cause; ptrace is denied. Preserve recovery evidence and do not ship a speculative workaround.",
-    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26\u20135.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
+    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
     "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
     "Implement explicit renewable regional reservoirs plus finite local water, perennial/seasonal supply, depletable wells and accounted ocean recycling; source safety/strict depletion remain optional Owner clarified metered headwater source outlets and shared compatible river/ocean chemistry/volume separation; implement sparse conserved constituent state, mixing/advection and explicit per-liquid compatibility under docs/WATER-BUDGET-REQUIREMENTS.md.",
@@ -30,7 +30,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/water-side-uv-2026-10-23/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/water-side-uv-0433",
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/water-flow-phase-0507",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -50,7 +50,7 @@
     "docs/validation/engine-continuation/basin-pressure-2026-10-22/initial-build-failure.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "water-flow-phase-20261023-0507",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
