@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T13:36:48.000Z",
-  "active_until": "2026-10-23T14:36:48.000Z",
+  "updated_at": "2026-10-23T14:07:35.000Z",
+  "active_until": "2026-10-23T15:07:35.000Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Isolated bounded boundary-packet/independent-clock prototype to replace rejected whole-page neighbor rebasing. Verify codec, retirement and actual GPU publication before promotion; prior staged and production results remain distinct.",
+  "current_gate": "Isolated bounded corner-packet candidate: final full build/210000 core cases and development/packaged software Vulkan plus OpenGL passing. Evidence/restoration replay and guarded checkpoint in progress; performance promotion remains unaccepted.",
   "next_items": [
     "Owner seamless-water priority: replace staged whole-page mirror/rebase/copy publication with a bounded efficient neighbor-consistent path. Reproduce32new-request resident-neighbor failures and retain80new routes across X/Z, near/far, both first-page orders and0/25/50/75/100ms; include20s old clocks. Preserve180000clock/endpoint cases, retained material/height/opacity behavior and old geometry/coverage. Candidate source under docs/validation/engine-continuation/water-neighbor-publication-2026-10-23/staged/ is not promoted:32MiB synthetic rebase p95=8.54ms exceeds2ms extraction target before scans/copy/GPU writes; CPU mirror/transient memory also needs acceptance. Establish matched actual-upload/frame-time/resident-memory and saturation coverage before promotion, then active cap churn, full streams/ocean, spatial sides/tint/chemistry and resource-pack/edit/queued/stale/failure combinations.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
