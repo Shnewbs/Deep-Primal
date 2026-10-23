@@ -1,0 +1,13 @@
+{
+  "case": "vulkan-reuse-gl-final2",
+  "pass": true,
+  "backend": "OpenGL software llvmpipe",
+  "scope": "Shared water buffer update API, actual near-capacity allocations, same/smaller/regrowth/bounded growth retry, 288-byte fenced GPU readback, prior fade checks, reload/capture/normal save. Not full OpenGL performance or visual acceptance.",
+  "started_utc": "2026-10-23T01:45:07.468505+00:00",
+  "finished_utc": "2026-10-23T01:45:40.519341+00:00",
+  "console_sha256": "5a9cc534d5e1aab0ddcfa7d32f6e72471a08efe826fdc12f41852d2a1f0b9679",
+  "sealed_console_gzip_sha256": "1cbba7f2e30b7ee001ad6fdccfcd217f6646b8851cac97f963fd954e2017a1b1",
+  "new_crashes": 0,
+  "save_errors": 0,
+  "owner_gpu_fps_acceptance": false
+}

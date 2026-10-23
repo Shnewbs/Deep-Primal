@@ -450,8 +450,9 @@ public final class AnimatedWaterRenderer {
     }
     long bytes = (long) count * 36;
     var camera = Minecraft.getInstance().gameRenderer.getMainCamera().position();
-    while (residentBytes + bytes > MAX_BYTES && evict(camera, p)) {}
-    if (residentBytes + bytes > MAX_BYTES) {
+    boolean reuse = p.gpu != null && bytes <= p.gpu.bytes;
+    while (!reuse && residentBytes + bytes > MAX_BYTES && evict(camera, p)) {}
+    if (!reuse && residentBytes + bytes > MAX_BYTES) {
       p.changed = true;
       return;
     }
@@ -512,13 +513,18 @@ public final class AnimatedWaterRenderer {
             .put((byte) 0);
       }
       data.flip();
-      var mesh = new WaterGpuMesh(data, count);
-      if (p.gpu != null) {
-        residentBytes -= p.gpu.bytes;
-        p.gpu.close();
+      if (reuse) {
+        // Retain allocation capacity: a smaller update can grow back without another buffer.
+        p.gpu.update(data, count);
+      } else {
+        var mesh = new WaterGpuMesh(data, count);
+        if (p.gpu != null) {
+          residentBytes -= p.gpu.bytes;
+          p.gpu.close();
+        }
+        p.gpu = mesh;
+        residentBytes += mesh.bytes;
       }
-      p.gpu = mesh;
-      residentBytes += mesh.bytes;
       p.snapshot = ready.snapshot;
       p.uploaded = clock;
       p.cleanup = animating ? clock + WaterSurfaceTransition.MILLIS + 1 : 0;
