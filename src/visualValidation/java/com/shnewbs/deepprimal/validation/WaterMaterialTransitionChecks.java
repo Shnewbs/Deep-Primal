@@ -120,12 +120,13 @@ final class WaterMaterialTransitionChecks {
             var b=mapped.data().order(ByteOrder.nativeOrder());byte[] copy=new byte[720];b.get(0,copy);int offset=raw.size();raw.writeBytes(copy);
             for(int v=0;v<20;v++) {
               int at=v*36,l=b.getShort(at+28)&65535,sky=b.getShort(at+30)&65535;boolean active=(sky&32768)!=0,expected=s.active;
-              boolean wrong=(l&255)!=176||(sky&255)!=240||active!=expected||(b.get(at+15)&255)!=(expected?(s.cell|(s.cell<<4)):255);
-              if(active)wrong|=(l>>>11)!=s.source||((sky>>>8)&127)!=s.age;
+              boolean wrong=(l&255)!=176||(sky&255)!=240;
               if(v<4) {
-                float x=b.getFloat(at)-s.cell,z=b.getFloat(at+8)-s.cell,u=x,w=z;
-                if(s.target<16){float fx=(float)Math.cos(s.target*Math.PI/8),fz=(float)Math.sin(s.target*Math.PI/8);u=.5f+.5f*(fz*(x-.5f)-fx*(z-.5f))+WaterPatchMesher.flowUOffset(s.target,s.origin+s.cell,-s.origin+s.cell);w=.5f+.5f*(fx*(x-.5f)+fz*(z-.5f))+WaterPatchMesher.flowVOffset(s.target,s.origin+s.cell,-s.origin+s.cell);}
-                var sprite=s.target==16?still:flowing;wrong|=Math.abs(b.getFloat(at+16)-sprite.getU(u))>1e-6||Math.abs(b.getFloat(at+20)-sprite.getV(w))>1e-6;
+                int expectedAge=s.active?s.age:(s.age>=100?100:s.target==16?100:0);
+                WaterCornerPacking.uniform(b,at,s.source,s.target,expectedAge,s.cell|(s.cell<<4));
+              } else {
+                wrong|=active!=expected||(b.get(at+15)&255)!=(expected?(s.cell|(s.cell<<4)):255);
+                if(active)wrong|=(l>>>11)!=s.source||((sky>>>8)&127)!=s.age;
               }
               if(wrong)bad++;
             }

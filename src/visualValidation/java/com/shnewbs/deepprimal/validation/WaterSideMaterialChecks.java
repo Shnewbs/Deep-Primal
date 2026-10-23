@@ -142,7 +142,13 @@ final class WaterSideMaterialChecks {
             var b=mapped.data().order(ByteOrder.nativeOrder());byte[] copy=new byte[864];b.get(0,copy);int offset=raw.size();raw.writeBytes(copy);
             for(int v=0;v<24;v++) {
               int at=v*36,l=b.getShort(at+28)&65535,sky=b.getShort(at+30)&65535;boolean active=(sky&32768)!=0,expected=s.active;
-              boolean wrong=(l&255)!=176||(sky&255)!=240||active!=expected||(b.get(at+15)&255)!=(expected?(s.cell|(s.cell<<4)):255);
+              boolean wrong=(l&255)!=176||(sky&255)!=240;
+              if(v<4) {
+                int expectedAge=s.active?s.age:(s.age>=100?100:s.target==16?100:0);
+                WaterCornerPacking.uniform(b,at,s.source,s.target,expectedAge,s.cell|(s.cell<<4));
+                continue;
+              }
+              wrong|=active!=expected||(b.get(at+15)&255)!=(expected?(s.cell|(s.cell<<4)):255);
               if(active)wrong|=(l>>>11)!=s.source||((sky>>>8)&127)!=s.age;
               int face=v/4;
               float x=b.getFloat(at)-s.cell,z=b.getFloat(at+8)-s.cell,y=b.getFloat(at+4),u,w;

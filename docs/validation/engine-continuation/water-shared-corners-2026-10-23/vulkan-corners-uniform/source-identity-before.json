@@ -1,0 +1,7 @@
+{
+  "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java": "10ed54892a22f7837a886ba88656f9500506145b4e4f93a36676a1da48ffed93",
+  "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh": "e6a99aebe935df452b409fa086c11b0f4cded46736f9ab1e088748e560e8b858",
+  "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh": "1e072189c2b8932cf4c1a3de9a0bd9be87d76832a39af8b064f8ef23b878fce3",
+  "expected_corner_history_field": true,
+  "expected_renderer_class_sha256": "365d8d63baab334c915839e38421c1dce84d1c0eb43373d9f4c1c6a83d13466c"
+}

@@ -1,0 +1,29 @@
+{
+  "inspected": [
+    "exact-baseline/corner-0-4-0.png",
+    "exact-baseline/corner-0-4-1.png",
+    "exact-baseline/corner-0-68-0.png",
+    "exact-baseline/corner-0-68-1.png",
+    "exact-baseline/corner-0-2329-0.png",
+    "exact-baseline/corner-0-2329-1.png",
+    "vulkan-corners-clock-final/corner-0-4-0.png",
+    "vulkan-corners-clock-final/corner-0-4-1.png",
+    "vulkan-corners-clock-final/corner-0-68-0.png",
+    "vulkan-corners-clock-final/corner-0-68-1.png",
+    "vulkan-corners-clock-final/corner-0-2329-0.png",
+    "vulkan-corners-clock-final/corner-0-2329-1.png",
+    "vulkan-corners-clock-final/screenshots/corners-scene-before.png"
+  ],
+  "observations": [
+    "Baseline equal world-edge samples visibly differ; corrected selected counterparts match.",
+    "Uniform controls and mip color independently checked across all raw frames, not inferred from selected PNGs.",
+    "Lake shoreline/terrain render, distant rectangular horizon/LOD boundaries remain visible.",
+    "Static lake image does not establish flowing stream/ocean temporal continuity or FPS."
+  ],
+  "pass_scope": "diagnostic sample inspection only",
+  "full_scene_acceptance": false,
+  "additional_inspected": [
+    "vulkan-corners-clock-final-packaged/screenshots/corners-scene-before.png",
+    "vulkan-reuse-gl-corners-clock-final/screenshots/order-live-frame-1.png"
+  ]
+}

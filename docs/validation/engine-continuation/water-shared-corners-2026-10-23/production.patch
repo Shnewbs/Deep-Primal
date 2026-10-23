@@ -1,0 +1,363 @@
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh
+@@ -1,14 +1,76 @@
+ #version 330
+ #moj_import <minecraft:fog.glsl>
++#moj_import <minecraft:dynamictransforms.glsl>
++#moj_import <deepprimal_graphics:water_flow.glsl>
+ uniform sampler2D Sampler0;
+ in vec2 texCoord;
+ flat in vec4 flowBounds;
+ flat in vec4 previousBounds;
+ in vec2 previousTexCoord;
+ flat in float previousWeight;
++flat in ivec4 waterCorners;
++in vec2 cornerSourceTexCoord;
+ in vec4 vertexColor;
+ in vec3 relativePosition;
+ out vec4 fragColor;
++vec4 spatialSample(int direction, vec2 local, vec2 dx, vec2 dy) {
++    int to = waterCorners.x, from = waterCorners.y;
++    if ((to == ((to & 31) * 33825) && direction == (to & 31))
++        || (from == ((from & 31) * 33825) && direction == (from & 31))) {
++        vec4 tile = direction == 16 ? previousBounds : flowBounds;
++        vec2 interpolated = to == ((to & 31) * 33825) && direction == (to & 31)
++            ? previousTexCoord : cornerSourceTexCoord;
++        vec2 uv = tile.xy + fract((interpolated - tile.xy) / tile.zw) * tile.zw;
++        return textureGrad(Sampler0, uv, dFdx(interpolated), dFdy(interpolated));
++    }
++
++    if (direction == 16) {
++        vec2 uv = previousBounds.xy + fract(local) * previousBounds.zw;
++        return textureGrad(Sampler0, uv, dx * previousBounds.zw, dy * previousBounds.zw);
++    }
++    ivec2 c = FLOW_Q25[direction];
++    ivec2 cell = ivec2(waterCorners.w & 15, waterCorners.w >> 4);
++    uvec2 world = uvec2(ivec2(TextureMat[3][0], TextureMat[3][1]) + cell);
++    uvec2 phase = uvec2(uint(c.y) * world.x - uint(c.x) * world.y,
++                       uint(c.x) * world.x + uint(c.y) * world.y) & uvec2(67108863u);
++    vec2 flow = vec2(c) / 33554432.0, p = local - vec2(0.5);
++    vec2 uv = vec2(0.5) + 0.5 * vec2(flow.y*p.x-flow.x*p.y, flow.x*p.x+flow.y*p.y) + vec2(phase)/67108864.0;
++    vec2 ux = 0.5 * vec2(flow.y*dx.x-flow.x*dx.y, flow.x*dx.x+flow.y*dx.y);
++    vec2 uy = 0.5 * vec2(flow.y*dy.x-flow.x*dy.y, flow.x*dy.x+flow.y*dy.y);
++    return textureGrad(Sampler0, flowBounds.xy + fract(uv) * flowBounds.zw, ux * flowBounds.zw, uy * flowBounds.zw);
++}
++vec4 spatialColor(vec2 local, vec2 dx, vec2 dy) {
++    int to = waterCorners.x, from = waterCorners.y;
++    // Uniform settled surfaces retain the original single texture evaluation.
++    int ages = waterCorners.z;
++    int youngest = min(min(ages & 255, (ages >> 8) & 255), min((ages >> 16) & 255, (ages >> 24) & 255));
++    bool uniformTo = to == ((to & 31) * 33825), uniformFrom = from == ((from & 31) * 33825);
++    if (uniformTo && (to == from || TextureMat[0][0] + float(youngest) >= 100.0))
++        return spatialSample(to & 31, local, dx, dy);
++    if (uniformTo && uniformFrom) {
++        vec2 w = clamp(local, vec2(0.0), vec2(1.0));
++        float t = 0.0;
++        for (int n = 0; n < 4; n++) {
++            float weight = ((n&1)==0 ? 1.0-w.x : w.x) * ((n&2)==0 ? 1.0-w.y : w.y);
++            t += weight * clamp((TextureMat[0][0] + float((ages >> (n*8)) & 255)) / 100.0, 0.0, 1.0);
++        }
++        return mix(spatialSample(from & 31, local, dx, dy), spatialSample(to & 31, local, dx, dy), t);
++    }
++    vec2 w = clamp(local, vec2(0.0), vec2(1.0));
++    vec4 result = vec4(0.0);
++    for (int n = 0; n < 4; n++) {
++        int target = (to >> (n*5)) & 31, source = (from >> (n*5)) & 31;
++        float age = TextureMat[0][0] + float((waterCorners.z >> (n*8)) & 255);
++        float weight = ((n&1)==0 ? 1.0-w.x : w.x) * ((n&2)==0 ? 1.0-w.y : w.y);
++        if (weight > 0.0) {
++            vec4 sampled = spatialSample(target, local, dx, dy);
++            if (source != target && age < 100.0)
++                sampled = mix(spatialSample(source, local, dx, dy), sampled, clamp(age/100.0,0.0,1.0));
++            result += sampled * weight;
++        }
++    }
++    return result;
++}
+ void main() {
+     // Keep interpolated world phase unwrapped until sampling; never interpolate a tile seam.
+     vec2 uv = flowBounds.z > 0.0
+@@ -21,7 +83,8 @@
+     }
+     // Derive LOD from the unwrapped phase so wrap boundaries do not select coarse mips.
+     vec2 dx = dFdx(texCoord), dy = dFdy(texCoord);
+-    vec4 sampled = flowBounds.z != 0.0 ? textureGrad(Sampler0, uv, dx, dy) : texture(Sampler0, uv);
++    vec4 sampled = previousWeight < 0.0 ? spatialColor(texCoord, dx, dy)
++        : flowBounds.z != 0.0 ? textureGrad(Sampler0, uv, dx, dy) : texture(Sampler0, uv);
+     vec2 oldDx = dFdx(previousTexCoord), oldDy = dFdy(previousTexCoord);
+     if (previousWeight > 0.0) {
+         vec2 oldUV = previousBounds.z > 0.0
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
+@@ -13,26 +13,11 @@
+ flat out vec4 previousBounds;
+ out vec2 previousTexCoord;
+ flat out float previousWeight;
++flat out ivec4 waterCorners;
++out vec2 cornerSourceTexCoord;
+ out vec4 vertexColor;
+ out vec3 relativePosition;
+-// Q25 coefficients keep world-origin phase exact using uint modular arithmetic.
+-const ivec2 FLOW_Q25[16] = ivec2[16](
+-    ivec2(33554432, 0),
+-    ivec2(31000252, 12840725),
+-    ivec2(23726566, 23726566),
+-    ivec2(12840725, 31000252),
+-    ivec2(0, 33554432),
+-    ivec2(-12840725, 31000252),
+-    ivec2(-23726566, 23726566),
+-    ivec2(-31000252, 12840725),
+-    ivec2(-33554432, 0),
+-    ivec2(-31000252, -12840725),
+-    ivec2(-23726566, -23726566),
+-    ivec2(-12840725, -31000252),
+-    ivec2(0, -33554432),
+-    ivec2(12840725, -31000252),
+-    ivec2(23726566, -23726566),
+-    ivec2(31000252, -12840725));
++#moj_import <deepprimal_graphics:water_flow.glsl>
+ vec2 previousFlow(int direction, vec4 tile) {
+     ivec2 c = FLOW_Q25[direction];
+     int cellBits = int(round(Color.a * 255.0));
+@@ -47,7 +32,10 @@
+ }
+ void main() {
+     // TextureMat carries elapsed milliseconds since this mesh was uploaded.
+-    float t = clamp((TextureMat[0][0] - float(UV1.y)) / 100.0, 0.0, 1.0);
++    bool spatial = UV0.x < -1.0;
++    int heightOffset = spatial ? (UV1.y & 255) : UV1.y;
++    if (spatial && heightOffset > 127) heightOffset -= 256;
++    float t = clamp((TextureMat[0][0] - float(heightOffset)) / 100.0, 0.0, 1.0);
+     vec3 p = Position;
+     float displacement = float(UV1.x) / 16384.0 * (1.0 - t);
+     p.y += displacement;
+@@ -55,7 +43,7 @@
+     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
+     // Active material blends reuse the otherwise constant color alpha for cell coordinates.
+     vec4 tint = Color;
+-    if ((UV2.y & 32768) != 0) tint.a = 1.0;
++    if (spatial || (UV2.y & 32768) != 0) tint.a = 1.0;
+     vertexColor = tint * ColorModulator * texelFetch(Sampler2, clamp(ivec2(UV2.x & 255, UV2.y & 255) / 16, ivec2(0), ivec2(15)), 0);
+     // Signed normalized Normal.z stores the original opacity start offset in milliseconds.
+     float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
+@@ -63,6 +51,26 @@
+     texCoord = UV0;
+     vec4 flowTile = vec4(TextureMat[0][1], TextureMat[0][3], TextureMat[0][2], TextureMat[1][2]);
+     vec4 stillTile = vec4(TextureMat[1][3], TextureMat[2][0], TextureMat[2][2], TextureMat[1][0]);
++    waterCorners = ivec4(0);
++    cornerSourceTexCoord = vec2(0.0);
++    if (spatial) {
++        int to = int(round(-UV0.x)) - 2, from = int(round(UV0.y));
++        int fourthAge = ((to >> 20) & 15) | (((from >> 20) & 7) << 4);
++        int ages = ((UV1.y >> 8) & 255) | (((UV2.x >> 8) & 255) << 8)
++                 | (((UV2.y >> 8) & 255) << 16) | (fourthAge << 24);
++        int cellBits = int(round(Color.a * 255.0));
++        waterCorners = ivec4(to & 1048575, from & 1048575, ages, cellBits);
++        flowBounds = flowTile; previousBounds = stillTile;
++        texCoord = Position.xz - vec2(cellBits & 15, cellBits >> 4);
++        int uniformDirection = to & 31;
++        previousTexCoord = uniformDirection == 16 ? stillTile.xy + texCoord * stillTile.zw
++            : previousFlow(uniformDirection, flowTile);
++        int sourceDirection = from & 31;
++        cornerSourceTexCoord = sourceDirection == 16 ? stillTile.xy + texCoord * stillTile.zw
++            : previousFlow(sourceDirection, flowTile);
++        previousWeight = -1.0;
++        return;
++    }
+     flowBounds = (UV2.x & 1024) != 0 ? flowTile : vec4(0.0);
+     previousBounds = vec4(0.0);
+     previousWeight = (UV2.y & 32768) != 0
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -4,6 +4,7 @@
+ import com.mojang.blaze3d.systems.RenderSystem;
+ import com.mojang.blaze3d.vertex.*;
+ import com.shnewbs.deepprimal.core.WaterPatchMesher;
++import com.shnewbs.deepprimal.core.WaterFlowField;
+ import com.shnewbs.deepprimal.core.WaterFlowTransition;
+ import com.shnewbs.deepprimal.core.WaterSurfaceTransition;
+ import com.shnewbs.deepprimal.engine.*;
+@@ -69,6 +70,7 @@
+       heights = new ArrayList<>(),
+       alpha = new ArrayList<>();
+   private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> flowDirections = new Long2ObjectLinkedOpenHashMap<>();
++  private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> cornerDirections = new Long2ObjectLinkedOpenHashMap<>();
+   private final ArrayList<Future<Ready>> work = new ArrayList<>();
+   private final ExecutorService workers =
+       Executors.newFixedThreadPool(
+@@ -479,6 +481,17 @@
+     }
+     if (value != null) value.target(direction, clock, revision);
+     while (flowDirections.size() > MAX_HISTORY) flowDirections.removeFirst();
++    return value;
++  }
++
++  private WaterFlowTransition cornerFlow(long key, int direction, long revision, int previous) {
++    var value = cornerDirections.getAndMoveToLast(key);
++    if (value == null && (direction < 16 || previous < 16)) {
++      value = new WaterFlowTransition(previous, clock);
++      cornerDirections.put(key, value);
++    }
++    if (value != null) value.target(direction, clock, revision);
++    while (cornerDirections.size() > MAX_HISTORY) cornerDirections.removeFirst();
+     return value;
+   }
+ 
+@@ -528,9 +541,9 @@
+     try {
+       for (var faces : parts) {
+         float[] values = faces.vertices;
+-        float phaseU = 0, phaseV = 0;
+         int shownDirection = 16;
+         WaterFlowTransition flowState = null;
++        int cornerTargets = 0, cornerSources = 0, cornerAges = 0;
+         for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
+           int i = v * WaterPatchMesher.STRIDE;
+           int cell = (int) values[i + 9];
+@@ -549,10 +562,25 @@
+               animating = true;
+               remaining = Math.max(remaining, WaterFlowTransition.MILLIS - flowState.age(clock));
+             }
+-            if (face == 0 && shownDirection < 16) {
+-              direction = shownDirection;
+-              phaseU = WaterPatchMesher.flowUOffset(direction, p.x + cx, p.z + cz);
+-              phaseV = WaterPatchMesher.flowVOffset(direction, p.x + cx, p.z + cz);
++            if (face == 0) {
++              cornerTargets = cornerSources = cornerAges = 0;
++              for (int n = 0; n < 4; n++) {
++                int x = cx + (n & 1), z = cz + (n >> 1);
++                int directionAtCorner = WaterFlowField.direction(ready.snapshot, x, cy, z);
++                int old = WaterFlowField.direction(p.snapshot, x, cy, z);
++                if (directionAtCorner < 0) directionAtCorner = old < 0 ? direction : old;
++                if (old < 0) old = directionAtCorner;
++                var corner = cornerFlow(BlockPos.asLong(p.x + x, p.y + cy, p.z + z), directionAtCorner, faces.revision, old);
++                int to = corner == null ? directionAtCorner : corner.target();
++                int from = corner == null || !corner.active(clock) ? to : corner.source();
++                int age = corner == null ? 100 : corner.age(clock);
++                cornerTargets |= to << (n * 5); cornerSources |= from << (n * 5);
++                cornerAges |= age << (n * 8);
++                if (corner != null && corner.queued(clock)) {
++                  animating = true;
++                  remaining = Math.max(remaining, 100 - age);
++                }
++              }
+             }
+             opacity =
+                 transition(alpha.get(face), cellKey, values[i + 12], values[i + 13]);
+@@ -593,41 +621,26 @@
+               && (face == 0 || (flowState.source() < 16) != (shownDirection < 16));
+           // Opacity lives in Normal; active faces reuse constant color alpha for cell-local UVs.
+           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
+-              .put((byte) (blend ? cx | (cz << 4) : 255));
++              .put((byte) (face == 0 || blend ? cx | (cz << 4) : 255));
+           boolean flowingFace = shownDirection < 16;
+           boolean side = face != 0;
+-          var sprite = flowingFace ? flowing : still;
+-          // Derive side V from the admitted shared height, including rejected stale captures.
+-          // The shader follows its displayed morph height and clamps inside this sprite's tile.
+-          boolean flowTop = face == 0 && flowingFace;
+-          float textureU = values[i + 5] + (flowTop ? phaseU : 0);
+-          if (side) {
+-            // Raw meshing may contain a queued/stale material. Recover its cell-local U
+-            // before applying the admitted sprite's full/half-tile scale.
++          if (face == 0) {
++            data.putFloat(WaterFlowField.targets(cornerTargets, (cornerAges >>> 24) & 255))
++                .putFloat(WaterFlowField.sources(cornerSources, (cornerAges >>> 24) & 255));
++          } else {
++            var sprite = flowingFace ? flowing : still;
++            float scale = flowingFace ? .5f : 1;
+             float localU = values[i + 5] * (WaterPatchMesher.direction(values[i + 10]) < 16 ? 2 : 1);
+-            textureU = localU * (flowingFace ? .5f : 1);
+-          }
+-          float topV = values[i + 6];
+-          if (face == 0) {
+-            if (flowTop) {
+-              float a = values[i] - cx - .5f, b = values[i + 2] - cz - .5f;
+-              textureU = .5f + .5f * (WaterPatchMesher.flowZ(shownDirection) * a - WaterPatchMesher.flowX(shownDirection) * b) + phaseU;
+-              topV = .5f + .5f * (WaterPatchMesher.flowX(shownDirection) * a + WaterPatchMesher.flowZ(shownDirection) * b);
+-            } else {
+-              // Raw captures may request flow while the admitted endpoint is still.
+-              textureU = values[i] - cx;
+-              topV = values[i + 2] - cz;
+-            }
+-          }
+-          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : topV + (flowTop ? phaseV : 0);
+-          data.putFloat(sprite.getU(textureU)).putFloat(sprite.getV(textureV));
++            data.putFloat(sprite.getU(localU * scale)).putFloat(sprite.getV((1 - target) * scale));
++          }
+           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
+-              .putShort((short) offset);
++              .putShort((short) (face == 0 ? WaterFlowField.heightClock(offset, cornerAges & 255) : offset));
+           // Native light coordinates occupy the low byte; reserve bits 8/9 for side mode and bit 10 for periodic flow tops.
+-          int presentation = side ? 256 | (flowingFace ? 512 : 0) : flowTop ? 1024 : 0;
++          int presentation = side ? 256 | (flowingFace ? 512 : 0) : 0;
+           int source = blend ? flowState.source() << 11 : 0;
+           int age = blend ? 32768 | (flowState.age(clock) << 8) : 0;
+-          data.putShort((short) ((light & 255) | presentation | source)).putShort((short) (((light >>> 16) & 255) | age));
++          data.putShort((short) ((light & 255) | (face == 0 ? ((cornerAges >>> 8) & 255) << 8 : presentation | source)))
++              .putShort((short) (((light >>> 16) & 255) | (face == 0 ? ((cornerAges >>> 16) & 255) << 8 : age)));
+           data.put((byte) Math.round(opacity.from(clock) * 127))
+               .put((byte) Math.round(opacity.target() * 127))
+               .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
+@@ -750,6 +763,7 @@
+     heights.forEach(Map::clear);
+     alpha.forEach(Map::clear);
+     flowDirections.clear();
++    cornerDirections.clear();
+     residentBytes = 0;
+     discovery = 0;
+     lastFrame = 0;
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowField.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowField.java
+@@ -0,0 +1,30 @@
++package com.shnewbs.deepprimal.core;
++
++/** Canonical visual direction at one global water corner. Never changes quantity. */
++public final class WaterFlowField {
++  public static int direction(WaterPatchMesher.Snapshot s, int x, int y, int z) {
++    if (s == null) return -1;
++    double vx = 0, vz = 0; boolean wet = false;
++    for (int dz = -1; dz <= 0; dz++) for (int dx = -1; dx <= 0; dx++) {
++      if (s.water(x + dx, y, z + dz) <= 0) continue;
++      wet = true; int d = s.direction(x + dx, y, z + dz);
++      if (d < 16) { vx += WaterPatchMesher.flowX(d); vz += WaterPatchMesher.flowZ(d); }
++    }
++    if (!wet) return -1;
++    if (vx * vx + vz * vz < 1e-12) return 16;
++    return (int) Math.round(Math.atan2(vz, vx) * (8 / Math.PI)) & 15;
++  }
++  /** Four 5-bit IDs plus the low/high four/three bits of the fourth age.
++   * The valid ID range leaves every encoded integer strictly below 2^24. */
++  public static float targets(int directions, int fourthAge) {
++    return -(directions | ((fourthAge & 15) << 20)) - 2f;
++  }
++  public static float sources(int directions, int fourthAge) {
++    return directions | ((fourthAge >>> 4) << 20);
++  }
++  /** Preserve an active height morph; expired offsets need no more than its full window. */
++  public static int heightClock(int offset, int cornerAge) {
++    return (Math.clamp(offset, -WaterSurfaceTransition.MILLIS, 0) & 255) | (cornerAge << 8);
++  }
++  private WaterFlowField() {}
++}
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/include/water_flow.glsl
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/include/water_flow.glsl
+@@ -0,0 +1,18 @@
++// Q25 coefficients keep world-origin phase exact using uint modular arithmetic.
++const ivec2 FLOW_Q25[16] = ivec2[16](
++    ivec2(33554432, 0),
++    ivec2(31000252, 12840725),
++    ivec2(23726566, 23726566),
++    ivec2(12840725, 31000252),
++    ivec2(0, 33554432),
++    ivec2(-12840725, 31000252),
++    ivec2(-23726566, 23726566),
++    ivec2(-31000252, 12840725),
++    ivec2(-33554432, 0),
++    ivec2(-31000252, -12840725),
++    ivec2(-23726566, -23726566),
++    ivec2(-12840725, -31000252),
++    ivec2(0, -33554432),
++    ivec2(12840725, -31000252),
++    ivec2(23726566, -23726566),
++    ivec2(31000252, -12840725));

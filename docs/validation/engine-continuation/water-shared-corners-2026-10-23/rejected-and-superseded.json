@@ -1,0 +1,13 @@
+{
+  "mixed_baseline": "Initial same-directory restoration mixed first-candidate renderer with old shaders; excluded. Exact separate baseline verifies411 production blobs and loaded class/shader identity. Cause unproven.",
+  "first_baseline_build": "Gradle binary store temporary read failure; clean serial retry passes.",
+  "uniform_fidelity": "First integrated corner candidate passes edges but fails24 nearest-texel channels max5. Interpolated target UV fixes whole-cell controls, but25channels remain at source fade endpoint. Interpolating both endpoints fixes without widening tolerance.",
+  "height_clock": "Independent raw audit found expired signed-short height offsets could wrap the new signed byte. Clamp completed offsets to100ms and add98307cases; all3final suites repeated.",
+  "superseded": "All earlier passing candidates excluded from final totals; raw vertices/pixels, result and sealed consoles preserved.",
+  "validation_corrections": "Generated shader arithmetic plus signs corrected before build/native; GL rows normalized explicitly; independent decoder accounts for delayed separate-page outer-corner start.",
+  "final_only": [
+    "vulkan-corners-clock-final",
+    "vulkan-corners-clock-final-packaged",
+    "vulkan-reuse-gl-corners-clock-final"
+  ]
+}

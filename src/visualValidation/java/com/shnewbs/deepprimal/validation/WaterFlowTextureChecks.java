@@ -21,7 +21,7 @@ import net.minecraft.resources.Identifier;
 final class WaterFlowTextureChecks {
   private static Field field(Class<?> c,String n)throws Exception {var f=c.getDeclaredField(n);f.setAccessible(true);return f;}
   private static Method method(Class<?> c,String n,Class<?>... args)throws Exception {var m=c.getDeclaredMethod(n,args);m.setAccessible(true);return m;}
-  private record Sample(int direction,int count,float[] cpu,GpuBuffer read) {}
+  private record Sample(int direction,int count,float[] cpu,WaterPatchMesher.Snapshot snapshot,GpuBuffer read) {}
   private static List<Float> topUv(WaterPatchMesher.Mesh mesh,int cell) {
     var result=new ArrayList<Float>();var v=mesh.vertices();
     for(int i=0;i<v.length;i+=WaterPatchMesher.STRIDE)if((int)v[i+9]==cell && ((int)v[i+10]&7)==0){result.add(v[i+5]);result.add(v[i+6]);}
@@ -76,7 +76,7 @@ final class WaterFlowTextureChecks {
         int count=field(WaterGpuMesh.class,"indices").getInt(gpu)/6*4;
         if(count!=mesh.count() || count*36L>33554432)throw new AssertionError("Flow GPU coverage/budget changed");
         var source=(GpuBuffer)vf.get(gpu);var read=RenderSystem.getDevice().createBuffer(()->"Flow UV readback",GpuBuffer.USAGE_MAP_READ|GpuBuffer.USAGE_COPY_DST,count*36L);
-        RenderSystem.getDevice().createCommandEncoder().copyToBuffer(source.slice(0,count*36L),read.slice());samples.add(new Sample(new int[]{0,4,16}[n],count,mesh.vertices(),read));
+        RenderSystem.getDevice().createCommandEncoder().copyToBuffer(source.slice(0,count*36L),read.slice());samples.add(new Sample(new int[]{0,4,16}[n],count,mesh.vertices(),s,read));
       }
       var atlas=(TextureAtlas)mc.getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS);
       RenderSystem.queueFencedTask(()->{
@@ -88,17 +88,17 @@ final class WaterFlowTextureChecks {
               var data=mapped.data().order(ByteOrder.nativeOrder());bytes+=s.count*36L;
               for(int v=0;v<s.count;v++) {
                 int i=v*WaterPatchMesher.STRIDE;if((int)s.cpu[i+9]!=cell || ((int)s.cpu[i+10]&7)!=0)continue;
-                float u=s.cpu[i]-cx,w=s.cpu[i+2]-cz;
-                float eu=s.direction==0?.5f-.5f*(w-.5f):s.direction==4?.5f+.5f*(u-.5f):u;
-                float ev=s.direction==0?.5f+.5f*(u-.5f):s.direction==4?.5f+.5f*(w-.5f):w;
-                if(s.direction<16) {
-                  eu+=WaterPatchMesher.flowUOffset(s.direction,position.getX(),position.getZ());
-                  ev+=WaterPatchMesher.flowVOffset(s.direction,position.getX(),position.getZ());
-                  if((data.getShort(v*36+28)&1024)==0)throw new AssertionError("Missing periodic flow-top tag");
+                if(!WaterCornerPacking.spatial(data,v*36))throw new AssertionError("Actual FLOW top missing corner payload");
+                int[] targets=WaterCornerPacking.ids(data,v*36,true);
+                for(int n=0;n<4;n++) {
+                  // Independent canonical mean of the four captured wet cells.
+                  double vx=0,vz=0;int x=cx+(n&1),z=cz+(n>>1);
+                  for(int dz=-1;dz<=0;dz++)for(int dx=-1;dx<=0;dx++)if(s.snapshot.water(x+dx,cy,z+dz)>0){int d=s.snapshot.direction(x+dx,cy,z+dz);if(d<16){vx+=(float)Math.cos(d*Math.PI/8);vz+=(float)Math.sin(d*Math.PI/8);}}
+                  int expected=vx*vx+vz*vz<1e-12?16:((int)Math.round(Math.atan2(vz,vx)*8/Math.PI)&15);
+                  if(targets[n]!=expected)throw new AssertionError("Actual captured FLOW corner direction differs");
                 }
-                if(Math.abs(data.getFloat(v*36+16)-sprite.getU(eu))>.000001f || Math.abs(data.getFloat(v*36+20)-sprite.getV(ev))>.000001f)throw new AssertionError("Actual flow/still atlas UV differs for direction "+s.direction);
                 byte[] rawVertex=new byte[36];data.duplicate().position(v*36).get(rawVertex);selected.writeBytes(rawVertex);
-                rows.add(Map.of("direction",s.direction,"sprite",s.direction==16?"water_still":"water_flow","u",data.getFloat(v*36+16),"v",data.getFloat(v*36+20),"expectedU",sprite.getU(eu),"expectedV",sprite.getV(ev),"x",data.getFloat(v*36),"y",data.getFloat(v*36+4),"z",data.getFloat(v*36+8)));
+                rows.add(Map.of("direction",s.direction,"cornerTargets",targets,"packedU",data.getFloat(v*36+16),"packedV",data.getFloat(v*36+20),"x",data.getFloat(v*36),"y",data.getFloat(v*36+4),"z",data.getFloat(v*36+8)));
                 matched++;
               }
             }

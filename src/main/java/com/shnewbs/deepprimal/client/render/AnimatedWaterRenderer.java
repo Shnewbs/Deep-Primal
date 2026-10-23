@@ -4,6 +4,7 @@ import com.mojang.blaze3d.pipeline.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.shnewbs.deepprimal.core.WaterPatchMesher;
+import com.shnewbs.deepprimal.core.WaterFlowField;
 import com.shnewbs.deepprimal.core.WaterFlowTransition;
 import com.shnewbs.deepprimal.core.WaterSurfaceTransition;
 import com.shnewbs.deepprimal.engine.*;
@@ -69,6 +70,7 @@ public final class AnimatedWaterRenderer {
       heights = new ArrayList<>(),
       alpha = new ArrayList<>();
   private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> flowDirections = new Long2ObjectLinkedOpenHashMap<>();
+  private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> cornerDirections = new Long2ObjectLinkedOpenHashMap<>();
   private final ArrayList<Future<Ready>> work = new ArrayList<>();
   private final ExecutorService workers =
       Executors.newFixedThreadPool(
@@ -482,6 +484,17 @@ public final class AnimatedWaterRenderer {
     return value;
   }
 
+  private WaterFlowTransition cornerFlow(long key, int direction, long revision, int previous) {
+    var value = cornerDirections.getAndMoveToLast(key);
+    if (value == null && (direction < 16 || previous < 16)) {
+      value = new WaterFlowTransition(previous, clock);
+      cornerDirections.put(key, value);
+    }
+    if (value != null) value.target(direction, clock, revision);
+    while (cornerDirections.size() > MAX_HISTORY) cornerDirections.removeFirst();
+    return value;
+  }
+
   private void upload(Ready ready) {
     Page p = ready.page;
     var parts = new ArrayList<WaterFaces>();
@@ -528,9 +541,9 @@ public final class AnimatedWaterRenderer {
     try {
       for (var faces : parts) {
         float[] values = faces.vertices;
-        float phaseU = 0, phaseV = 0;
         int shownDirection = 16;
         WaterFlowTransition flowState = null;
+        int cornerTargets = 0, cornerSources = 0, cornerAges = 0;
         for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
           int i = v * WaterPatchMesher.STRIDE;
           int cell = (int) values[i + 9];
@@ -549,10 +562,25 @@ public final class AnimatedWaterRenderer {
               animating = true;
               remaining = Math.max(remaining, WaterFlowTransition.MILLIS - flowState.age(clock));
             }
-            if (face == 0 && shownDirection < 16) {
-              direction = shownDirection;
-              phaseU = WaterPatchMesher.flowUOffset(direction, p.x + cx, p.z + cz);
-              phaseV = WaterPatchMesher.flowVOffset(direction, p.x + cx, p.z + cz);
+            if (face == 0) {
+              cornerTargets = cornerSources = cornerAges = 0;
+              for (int n = 0; n < 4; n++) {
+                int x = cx + (n & 1), z = cz + (n >> 1);
+                int directionAtCorner = WaterFlowField.direction(ready.snapshot, x, cy, z);
+                int old = WaterFlowField.direction(p.snapshot, x, cy, z);
+                if (directionAtCorner < 0) directionAtCorner = old < 0 ? direction : old;
+                if (old < 0) old = directionAtCorner;
+                var corner = cornerFlow(BlockPos.asLong(p.x + x, p.y + cy, p.z + z), directionAtCorner, faces.revision, old);
+                int to = corner == null ? directionAtCorner : corner.target();
+                int from = corner == null || !corner.active(clock) ? to : corner.source();
+                int age = corner == null ? 100 : corner.age(clock);
+                cornerTargets |= to << (n * 5); cornerSources |= from << (n * 5);
+                cornerAges |= age << (n * 8);
+                if (corner != null && corner.queued(clock)) {
+                  animating = true;
+                  remaining = Math.max(remaining, 100 - age);
+                }
+              }
             }
             opacity =
                 transition(alpha.get(face), cellKey, values[i + 12], values[i + 13]);
@@ -593,41 +621,26 @@ public final class AnimatedWaterRenderer {
               && (face == 0 || (flowState.source() < 16) != (shownDirection < 16));
           // Opacity lives in Normal; active faces reuse constant color alpha for cell-local UVs.
           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
-              .put((byte) (blend ? cx | (cz << 4) : 255));
+              .put((byte) (face == 0 || blend ? cx | (cz << 4) : 255));
           boolean flowingFace = shownDirection < 16;
           boolean side = face != 0;
-          var sprite = flowingFace ? flowing : still;
-          // Derive side V from the admitted shared height, including rejected stale captures.
-          // The shader follows its displayed morph height and clamps inside this sprite's tile.
-          boolean flowTop = face == 0 && flowingFace;
-          float textureU = values[i + 5] + (flowTop ? phaseU : 0);
-          if (side) {
-            // Raw meshing may contain a queued/stale material. Recover its cell-local U
-            // before applying the admitted sprite's full/half-tile scale.
-            float localU = values[i + 5] * (WaterPatchMesher.direction(values[i + 10]) < 16 ? 2 : 1);
-            textureU = localU * (flowingFace ? .5f : 1);
-          }
-          float topV = values[i + 6];
           if (face == 0) {
-            if (flowTop) {
-              float a = values[i] - cx - .5f, b = values[i + 2] - cz - .5f;
-              textureU = .5f + .5f * (WaterPatchMesher.flowZ(shownDirection) * a - WaterPatchMesher.flowX(shownDirection) * b) + phaseU;
-              topV = .5f + .5f * (WaterPatchMesher.flowX(shownDirection) * a + WaterPatchMesher.flowZ(shownDirection) * b);
-            } else {
-              // Raw captures may request flow while the admitted endpoint is still.
-              textureU = values[i] - cx;
-              topV = values[i + 2] - cz;
-            }
+            data.putFloat(WaterFlowField.targets(cornerTargets, (cornerAges >>> 24) & 255))
+                .putFloat(WaterFlowField.sources(cornerSources, (cornerAges >>> 24) & 255));
+          } else {
+            var sprite = flowingFace ? flowing : still;
+            float scale = flowingFace ? .5f : 1;
+            float localU = values[i + 5] * (WaterPatchMesher.direction(values[i + 10]) < 16 ? 2 : 1);
+            data.putFloat(sprite.getU(localU * scale)).putFloat(sprite.getV((1 - target) * scale));
           }
-          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : topV + (flowTop ? phaseV : 0);
-          data.putFloat(sprite.getU(textureU)).putFloat(sprite.getV(textureV));
           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
-              .putShort((short) offset);
+              .putShort((short) (face == 0 ? WaterFlowField.heightClock(offset, cornerAges & 255) : offset));
           // Native light coordinates occupy the low byte; reserve bits 8/9 for side mode and bit 10 for periodic flow tops.
-          int presentation = side ? 256 | (flowingFace ? 512 : 0) : flowTop ? 1024 : 0;
+          int presentation = side ? 256 | (flowingFace ? 512 : 0) : 0;
           int source = blend ? flowState.source() << 11 : 0;
           int age = blend ? 32768 | (flowState.age(clock) << 8) : 0;
-          data.putShort((short) ((light & 255) | presentation | source)).putShort((short) (((light >>> 16) & 255) | age));
+          data.putShort((short) ((light & 255) | (face == 0 ? ((cornerAges >>> 8) & 255) << 8 : presentation | source)))
+              .putShort((short) (((light >>> 16) & 255) | (face == 0 ? ((cornerAges >>> 16) & 255) << 8 : age)));
           data.put((byte) Math.round(opacity.from(clock) * 127))
               .put((byte) Math.round(opacity.target() * 127))
               .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
@@ -750,6 +763,7 @@ public final class AnimatedWaterRenderer {
     heights.forEach(Map::clear);
     alpha.forEach(Map::clear);
     flowDirections.clear();
+    cornerDirections.clear();
     residentBytes = 0;
     discovery = 0;
     lastFrame = 0;

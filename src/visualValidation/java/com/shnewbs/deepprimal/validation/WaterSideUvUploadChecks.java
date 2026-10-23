@@ -51,16 +51,16 @@ final class WaterSideUvUploadChecks {
             try(var mapped=RenderSystem.getDevice().createCommandEncoder().mapBuffer(sample.read,true,false)) {
               var b=mapped.data().order(ByteOrder.nativeOrder());
               for(int v=0;v<sample.count;v++) {
-                int i=v*36;int light=b.getShort(i+28)&65535,sky=b.getShort(i+30)&65535;boolean sideFlag=(light&256)!=0,flowFlag=(light&512)!=0;
-                if((light&255)!=176 || sky!=240 || flowFlag!=(sideFlag&&sample.direction!=16))throw new AssertionError("Water metadata corrupts light or material");
-                float y=b.getFloat(i+4),delta=b.getShort(i+24)/16384f;int offset=b.getShort(i+26);float t=Math.clamp((sample.time-sample.uploaded-offset)/100f,0,1);float shown=y+delta*(1-t);float uv=b.getFloat(i+20);
+                int i=v*36;int light=b.getShort(i+28)&65535,sky=b.getShort(i+30)&65535;boolean sideFlag=!WaterCornerPacking.spatial(b,i)&&(light&256)!=0,flowFlag=(light&512)!=0;
+                if((light&255)!=176 || (sky&255)!=240 || (v>=4&&flowFlag!=(sideFlag&&sample.direction!=16)))throw new AssertionError("Water metadata corrupts light or material");
+                float y=b.getFloat(i+4),delta=b.getShort(i+24)/16384f;int offset=WaterCornerPacking.heightOffset(b,i);float t=Math.clamp((sample.time-sample.uploaded-offset)/100f,0,1);float shown=y+delta*(1-t);float uv=b.getFloat(i+20);
                 // Mesher emits top quad first, followed by the four vertical sides.
                 boolean expectedSide=v>=4;if(sideFlag!=expectedSide)throw new AssertionError("Surface/side tag differs");
                 if(sideFlag) {
                   sideCount++;float displayed=Math.clamp(uv-delta*(1-t)*span,v0,v0+span);float expected=v0+Math.clamp(1-shown,0,1)*span;
                   if(Math.abs(displayed-expected)>1e-6)throw new AssertionError("Side UV does not follow displayed height");
                   if(sample.stale&&y>0&&Math.abs(y-1)>1e-6)throw new AssertionError("Stale revision reversed height target");
-                }else topCount++;
+                }else {if(!WaterCornerPacking.spatial(b,i))throw new AssertionError("Missing corner field");topCount++;}
                 byte[] bytes=new byte[36];b.duplicate().position(i).get(bytes);raw.writeBytes(bytes);
               }
             }

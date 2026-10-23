@@ -54,17 +54,9 @@ final class WaterDirectionUploadChecks {
               int at=v*36,light=b.getShort(at+28)&65535,sky=b.getShort(at+30)&65535;
               if((light&255)!=176||(sky&255)!=240)throw new AssertionError("Direction metadata corrupted light");
               boolean active=(sky&32768)!=0;
-              if((b.get(at+15)&255)!=(active?51:255))throw new AssertionError("Cell phase packing corrupted color alpha");
-              if(active!=(v<4&&sample.active))throw new AssertionError("Direction blend activation differs");
-              if(v<4) {
-                if(active&&((light>>>11)!=sample.source||((sky>>>8)&127)!=sample.age))throw new AssertionError("Source direction/age reset or stale target admitted");
-                float x=b.getFloat(at)-3,z=b.getFloat(at+8)-3;double angle=sample.direction*Math.PI/8;
-                float fx=(float)Math.cos(angle),fz=(float)Math.sin(angle);
-                float u=.5f+.5f*(fz*(x-.5f)-fx*(z-.5f))+WaterPatchMesher.flowUOffset(sample.direction,3,3);
-                float w=.5f+.5f*(fx*(x-.5f)+fz*(z-.5f))+WaterPatchMesher.flowVOffset(sample.direction,3,3);
-                var atlas=(net.minecraft.client.renderer.texture.TextureAtlas)mc.getTextureManager().getTexture(net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS);
-                var sprite=atlas.getSprite(net.minecraft.resources.Identifier.withDefaultNamespace("block/water_flow"));
-                if(Math.abs(b.getFloat(at+16)-sprite.getU(u))>1e-6||Math.abs(b.getFloat(at+20)-sprite.getV(w))>1e-6)throw new AssertionError("Pending or stale request changed admitted UV target");
+              if(v<4) WaterCornerPacking.uniform(b,at,sample.source,sample.direction,sample.age,51);
+              else {
+                if((b.get(at+15)&255)!=255||active)throw new AssertionError("Side flow-to-flow metadata changed");
               }
               byte[] bytes=new byte[36];b.duplicate().position(at).get(bytes);raw.writeBytes(bytes);vertices++;
             }

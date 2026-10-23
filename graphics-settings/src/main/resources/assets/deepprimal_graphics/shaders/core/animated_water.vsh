@@ -13,26 +13,11 @@ flat out vec4 flowBounds;
 flat out vec4 previousBounds;
 out vec2 previousTexCoord;
 flat out float previousWeight;
+flat out ivec4 waterCorners;
+out vec2 cornerSourceTexCoord;
 out vec4 vertexColor;
 out vec3 relativePosition;
-// Q25 coefficients keep world-origin phase exact using uint modular arithmetic.
-const ivec2 FLOW_Q25[16] = ivec2[16](
-    ivec2(33554432, 0),
-    ivec2(31000252, 12840725),
-    ivec2(23726566, 23726566),
-    ivec2(12840725, 31000252),
-    ivec2(0, 33554432),
-    ivec2(-12840725, 31000252),
-    ivec2(-23726566, 23726566),
-    ivec2(-31000252, 12840725),
-    ivec2(-33554432, 0),
-    ivec2(-31000252, -12840725),
-    ivec2(-23726566, -23726566),
-    ivec2(-12840725, -31000252),
-    ivec2(0, -33554432),
-    ivec2(12840725, -31000252),
-    ivec2(23726566, -23726566),
-    ivec2(31000252, -12840725));
+#moj_import <deepprimal_graphics:water_flow.glsl>
 vec2 previousFlow(int direction, vec4 tile) {
     ivec2 c = FLOW_Q25[direction];
     int cellBits = int(round(Color.a * 255.0));
@@ -47,7 +32,10 @@ vec2 previousFlow(int direction, vec4 tile) {
 }
 void main() {
     // TextureMat carries elapsed milliseconds since this mesh was uploaded.
-    float t = clamp((TextureMat[0][0] - float(UV1.y)) / 100.0, 0.0, 1.0);
+    bool spatial = UV0.x < -1.0;
+    int heightOffset = spatial ? (UV1.y & 255) : UV1.y;
+    if (spatial && heightOffset > 127) heightOffset -= 256;
+    float t = clamp((TextureMat[0][0] - float(heightOffset)) / 100.0, 0.0, 1.0);
     vec3 p = Position;
     float displacement = float(UV1.x) / 16384.0 * (1.0 - t);
     p.y += displacement;
@@ -55,7 +43,7 @@ void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
     // Active material blends reuse the otherwise constant color alpha for cell coordinates.
     vec4 tint = Color;
-    if ((UV2.y & 32768) != 0) tint.a = 1.0;
+    if (spatial || (UV2.y & 32768) != 0) tint.a = 1.0;
     vertexColor = tint * ColorModulator * texelFetch(Sampler2, clamp(ivec2(UV2.x & 255, UV2.y & 255) / 16, ivec2(0), ivec2(15)), 0);
     // Signed normalized Normal.z stores the original opacity start offset in milliseconds.
     float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
@@ -63,6 +51,26 @@ void main() {
     texCoord = UV0;
     vec4 flowTile = vec4(TextureMat[0][1], TextureMat[0][3], TextureMat[0][2], TextureMat[1][2]);
     vec4 stillTile = vec4(TextureMat[1][3], TextureMat[2][0], TextureMat[2][2], TextureMat[1][0]);
+    waterCorners = ivec4(0);
+    cornerSourceTexCoord = vec2(0.0);
+    if (spatial) {
+        int to = int(round(-UV0.x)) - 2, from = int(round(UV0.y));
+        int fourthAge = ((to >> 20) & 15) | (((from >> 20) & 7) << 4);
+        int ages = ((UV1.y >> 8) & 255) | (((UV2.x >> 8) & 255) << 8)
+                 | (((UV2.y >> 8) & 255) << 16) | (fourthAge << 24);
+        int cellBits = int(round(Color.a * 255.0));
+        waterCorners = ivec4(to & 1048575, from & 1048575, ages, cellBits);
+        flowBounds = flowTile; previousBounds = stillTile;
+        texCoord = Position.xz - vec2(cellBits & 15, cellBits >> 4);
+        int uniformDirection = to & 31;
+        previousTexCoord = uniformDirection == 16 ? stillTile.xy + texCoord * stillTile.zw
+            : previousFlow(uniformDirection, flowTile);
+        int sourceDirection = from & 31;
+        cornerSourceTexCoord = sourceDirection == 16 ? stillTile.xy + texCoord * stillTile.zw
+            : previousFlow(sourceDirection, flowTile);
+        previousWeight = -1.0;
+        return;
+    }
     flowBounds = (UV2.x & 1024) != 0 ? flowTile : vec4(0.0);
     previousBounds = vec4(0.0);
     previousWeight = (UV2.y & 32768) != 0
