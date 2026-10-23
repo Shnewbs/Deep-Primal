@@ -1,0 +1,28 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+LOD_TRAVEL_PHASE phase=0
+LOD_TRAVEL_PHASE phase=1
+BACKEND_SELECTION_PASS backend=Vulkan
+BACKEND_SELECTION_PASS backend=Vulkan
+LOD_TRAVEL_EDIT_PERSISTED revision=117487424056320818
+LOD_TRAVEL_PHASE phase=2
+LOD_TRAVEL_UNLOAD_OBSERVED targetClientChunkAbsent=true
+LOD_TRAVEL_PHASE phase=3
+LOD_TRAVEL_PHASE phase=4
+LOD_TRAVEL_PHASE phase=5
+LOD_TRAVEL_PHASE phase=6
+LOD_TRAVEL_NATIVE_PASS backend=Vulkan authoritativeTeleports=3 clientUnload=true serverBlockEdits=2 diskStateMatches=true reload=true samples=1441 peakLodBytes=4191796 peakWaterBytes=69696 diskReadsDelta=15 capturesDelta=101 scope=authoritativeTravelAndEditDataNotCompleteVisualCoverage
+VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/travel-0035/project/renderer-vulkan/build/classes/java/main/
+VULKAN_FRAME_COMPLETION_NATIVE_PASS iterations=8 mappedBytes=128 openPassRejections=8 backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+CLIENT_SAVED_DISCONNECT_PASS
+[20:38:31] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[20:38:31] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCreates=79, validationErrors=0, descriptorBinds=532027, pipelineFeedbackValid=79, descriptorReuse=212166, pipelineCacheHits=0, descriptorUpdates=319869, pipelineCreationNanos=103793991, descriptorBindSkips=8}
+BUILD SUCCESSFUL in 1m 45s

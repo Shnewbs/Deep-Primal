@@ -1,0 +1,702 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/rejected-travel-oracle.json",
+    "bytes": 515,
+    "sha256": "5d5fb06fe8ff042ad4c7202ce09a6c81d9ccbb96faf4963d94980cb555133d75"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/audit_travel.py",
+    "bytes": 4315,
+    "sha256": "6c813f7aa6497c41f994a721d1cffadb5f4b8ce254555e9134ed53a8c5d0375b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/upload-retry.patch",
+    "bytes": 2309,
+    "sha256": "7f6d31515b3e6e7c5395e36ab1d2759ed1387c05c213b95e4d104532f39ad2d2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/upload-retry-source-extracted.json",
+    "bytes": 514,
+    "sha256": "ef1ba265ce2f3c957a115e18450da5f53cebe7336f2dc3a8bc612817e8dda0f7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/source-baseline.json",
+    "bytes": 41070,
+    "sha256": "b37b3175c3842e257f5180a3140eb11fe8e216a94bd20cf016778280d50f12b5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/run_vulkan.py",
+    "bytes": 13102,
+    "sha256": "b3b2bd3109a3cfb38f660c0dee749e98776765500a860d57148db558513d7e7d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/audit_vulkan_package.py",
+    "bytes": 3517,
+    "sha256": "66d30546f4398caf9dd3243fec8ec2cdf131d1471af5b85ea897b891c85d73f9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/rejected-LodTravelChecks-hasChunk.java",
+    "bytes": 7289,
+    "sha256": "6df1f19700136414d4fe812faf5360b07b41c3ae68d2c7a97a2e8604fe088e0c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-build-audit.json",
+    "bytes": 1775,
+    "sha256": "3224e831af7ff62ca966aadac451b1518de0c853da4d21d0e65ae82ddb82e901"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/README.md",
+    "bytes": 7038,
+    "sha256": "2e26fd113a190b6cb077f15be7de8cb1155846ce1e7bbf4e749185f30a90e66d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/candidate-build-result.json",
+    "bytes": 2354,
+    "sha256": "570099a7708192bf817e4256bc394535a5183d0691990d43ac7c15bf99ad9bc2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/candidate-build-final.gz",
+    "bytes": 3420,
+    "sha256": "3f26525bdf89a8285baae0924a208cb0c08da961ece5efba8a38d24d98e71ce5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/screenshot-inspection.json",
+    "bytes": 2211,
+    "sha256": "d475d83634ae4088af3dd9c99fe630dd709064a6e01b3b9d4e16e36c5cbb18a6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/packaged-module-identity.json",
+    "bytes": 1526,
+    "sha256": "190f1936c68f21f6023fd423cb62cd024034de88d310867471d7d4fe104475e8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/source-scope-audit.json",
+    "bytes": 1196,
+    "sha256": "6ffc186a953a0a4faa8c1463c60a1176a7b1470cd4bc3b507a3d55b81a0c3964"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/build_candidate.py",
+    "bytes": 2339,
+    "sha256": "24e4bc259238f917606eec242b3eaee90c0c4afe3e126c113a6298fe49ba4a15"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/strict-upload-native-audit.json",
+    "bytes": 4874,
+    "sha256": "9d7e127c6ced4b8953e94a3193fbff3ff46be6d630032718214b4a90ea9758ff"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/strict-travel-audit.json",
+    "bytes": 2889,
+    "sha256": "7092cae199dc7046d2654f182e4f3cf8665a6ab32fe98e958e266bd6f1c34a26"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/before-VoxelLodRenderer.java",
+    "bytes": 26541,
+    "sha256": "721de25a36072d5b1c1d374c5bb935ef10eae7fc09becf48a560f32bbfa3ea24"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/rejected-upload-console-mutation.json",
+    "bytes": 646,
+    "sha256": "ab4a165effae3ffdd014ff33bcdff22da243c87b497a887342282ef28b32cb9e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/check_upload_retry.py",
+    "bytes": 5409,
+    "sha256": "0ed7f2c53b087f4ae660c96bac113ddf19983caa76089089e99badd3c504ec95"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/audit_upload.py",
+    "bytes": 6838,
+    "sha256": "8b580f6a6592b2081853bbcc9144b2b80b7357b7a13a4ef0e6ec46a5e0c120fd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/command.json",
+    "bytes": 1319,
+    "sha256": "08bd57d4b16c986570d925ac250e82a68bd33f0645d74ab08bd665f11505368b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/action-history.json",
+    "bytes": 94,
+    "sha256": "044ae00b74d92690f0d5fe5a23dc85188fbb12fb7c744c221fc8de4cded1c792"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/result.json",
+    "bytes": 3570,
+    "sha256": "1c626d7d89b2b0ec872ea7c36b4483a1f43e07a603b1c8c17bd4fbe65d63c8a4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/console-final.gz",
+    "bytes": 12298,
+    "sha256": "ceb6aeaf9bb776020b9f8e1c0d5a2679b0d4b11ec6fae99ed1a8dfed0e9d96f4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/crash-excerpt.txt",
+    "bytes": 2389,
+    "sha256": "c8eb03f0cab25edfe0a8ce876b7000e8a0169b8f2770181790eeda74fd896f1a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/crash-delta.json",
+    "bytes": 156,
+    "sha256": "036c4d422979bd86a0b4da5ae8a98c40386e5e9fd15243a1ba6d803c080684a8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/live-action.json",
+    "bytes": 263,
+    "sha256": "c4ed733d5a5fd9d04c85d1c1082f2aa32642c91bb05506f3d8782b28c63ecef3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/selected-console-records.txt",
+    "bytes": 635,
+    "sha256": "0e67f1648e36ed43ebcb89936fe4883facb25cc8a497af4aaedbca3b0723d71c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "f0d0602e682779d1688a2ef98bdc366818b47a6e16ea3850a53073356d2a450e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-baseline/prior-crash-reports.json",
+    "bytes": 3,
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/lod-travel-pass.txt",
+    "bytes": 287,
+    "sha256": "c56929abd2ea25c1e2301b585d3a28b5b049c30a775eb81771e1a07bd02d557b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/command.json",
+    "bytes": 1483,
+    "sha256": "f9a80367bc72a7c5526ae389c61b134963705fc3a3659a329fa3f91f9c86e380"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/action-history.json",
+    "bytes": 721,
+    "sha256": "3e3055c538660e686e17e28cb5f3245c71539c1076d600752b04f51ce7851215"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/result.json",
+    "bytes": 6289,
+    "sha256": "b29078dc8582e798effc0dc171fe624133fdfd2a4e4d57ef7118c76344594f9a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/startup-lifecycle.txt",
+    "bytes": 869,
+    "sha256": "8d240be360ab4fabb41d61c396ce624447e6903b3c92146fd16a3517a1de7f30"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/console-final.gz",
+    "bytes": 8269,
+    "sha256": "a3cb960f020aa359acd8215ebd6b93f0cd0e23ce77c540f28db83de9a6e3fb5a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/crash-delta.json",
+    "bytes": 156,
+    "sha256": "aa45ea38eb0ef0e1879afdfb02c9c2bec1a01e35d6295d811d5facace5cd2694"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/live-action.json",
+    "bytes": 417,
+    "sha256": "048fb2ff61f06d55af455c3bc37ca2a07598a09235ba7949d175f73cf9e2cd34"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/selected-console-records.txt",
+    "bytes": 2049,
+    "sha256": "37f3d86589a7aba94c07372462a378b8368b5944e0c1d89ee6590e1f8dc3acb2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "7e9ecb20010eef344cecd4b754850809a411f0cfadd54bd9c63e4285fce7e930"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/prior-crash-reports.json",
+    "bytes": 113,
+    "sha256": "61c5613e285b876e813a844d055bc22280a0dabdaa9754033c95fd29854d0697"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/command.json",
+    "bytes": 1483,
+    "sha256": "c7ee7c835c2305ac00051f5daa2e251d419c65f9a62d1378824b59888a5fccdf"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/action-history.json",
+    "bytes": 709,
+    "sha256": "2e0efd930eb53046fbd4c12b0506548abe4eeaa63c3816fc30b350b9c7f05686"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/result.json",
+    "bytes": 8462,
+    "sha256": "6c26696bcde8ad0962f2444dd2e49393658cbf753eb0e651ad7aa7ffa19215ec"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/startup-lifecycle.txt",
+    "bytes": 869,
+    "sha256": "8d240be360ab4fabb41d61c396ce624447e6903b3c92146fd16a3517a1de7f30"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/console-final.gz",
+    "bytes": 8227,
+    "sha256": "1ae11206c0ab3bbe139eba69d7ddfafa41343ff2cd7a429457c237d4cb1122cf"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/crash-delta.json",
+    "bytes": 156,
+    "sha256": "aa45ea38eb0ef0e1879afdfb02c9c2bec1a01e35d6295d811d5facace5cd2694"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/live-action.json",
+    "bytes": 167,
+    "sha256": "3b4bf3f02baabe19b85a0e323ecb52e86ab9ea225b8ab908b901af70ee4fa14a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/selected-console-records.txt",
+    "bytes": 3015,
+    "sha256": "bcbd536e1c975928901ae08daeff22e2dda159754fed1a2ad70f9a811a1fb4ee"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "7cbdcf53068cf0219b87b558acaa4b450443f8502e5f78f1d5957df9b32eeaea"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/prior-crash-reports.json",
+    "bytes": 113,
+    "sha256": "61c5613e285b876e813a844d055bc22280a0dabdaa9754033c95fd29854d0697"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/command.json",
+    "bytes": 1310,
+    "sha256": "a8a631f83f60a24d00fd5ccf8fb15c3b0c254ad3417797879c579e48b9856ee5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/action-history.json",
+    "bytes": 709,
+    "sha256": "7595a7d615fdb87d216881e76b9bda414a31dd6759de2a43f1a5d030a3588e64"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/result.json",
+    "bytes": 8453,
+    "sha256": "b181ce95e4605009ed1399673094f99c1c22fcde61c43e95e1c9f6e6d9666d5f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/startup-lifecycle.txt",
+    "bytes": 803,
+    "sha256": "9e3b45304c9f5de2d2e9784369832e427cb0781ebec0b7903b207d85f15fd18e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/console-final.gz",
+    "bytes": 8053,
+    "sha256": "45c5d19ce00bb238c475158748950219887b3f40c5d5693222bc228e6ac08c78"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/crash-delta.json",
+    "bytes": 156,
+    "sha256": "aa45ea38eb0ef0e1879afdfb02c9c2bec1a01e35d6295d811d5facace5cd2694"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/live-action.json",
+    "bytes": 414,
+    "sha256": "688e9750f2f43116cb93e156decf96217f728feef897905ec97c773520b0eccd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/selected-console-records.txt",
+    "bytes": 2934,
+    "sha256": "da6f9a1d19e6a0d9e74b22cba76a8816acbf38f5b02df8ecaae43a2b03275cd1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "bdc03b08097ed6ee1edeb5d3b85a57fbd8dd129c7c799f02b9496f9e125bb402"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/prior-crash-reports.json",
+    "bytes": 113,
+    "sha256": "61c5613e285b876e813a844d055bc22280a0dabdaa9754033c95fd29854d0697"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/lod-travel-pass.txt",
+    "bytes": 287,
+    "sha256": "e065f5661cdfae1d0cdfdf382a6a7e34799e470a38192118d8972866aac4d565"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/command.json",
+    "bytes": 1328,
+    "sha256": "19f711600de658c44be592bf0816f5ba4482bdbaca5fe4fe250181deb48cb97c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/action-history.json",
+    "bytes": 526,
+    "sha256": "05161fe2e3552035d049267630cef2c4c15d97f9dadc1f2c8cdffd6c0010169b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/result.json",
+    "bytes": 6330,
+    "sha256": "2bcd352f6ff22bc1d047979e1e802a707d2c20e80a68a071912b3e497918dc9e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/startup-lifecycle.txt",
+    "bytes": 803,
+    "sha256": "9e3b45304c9f5de2d2e9784369832e427cb0781ebec0b7903b207d85f15fd18e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/console-final.gz",
+    "bytes": 7878,
+    "sha256": "6fa9aa6747dd302737e8f002e32033782637f6311af691f3a5bc2a62ef2b9ecd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/crash-delta.json",
+    "bytes": 42,
+    "sha256": "dbed4583c48519dff8df12cc7b71572f76c72e9be4f469cf611a31efb5fbc38d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/live-action.json",
+    "bytes": 149,
+    "sha256": "da14b28745420656e7ef3ac02e5ae6bc8b322288e68ce3c7de14c7ab681f9e05"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/selected-console-records.txt",
+    "bytes": 1887,
+    "sha256": "bac92cd235b883fb76fb8fcca1e438a3e908fab81fed754500c0b5d8745d125c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "5a98727b3938d60f999fddbf8c7e74fea47114b387c09c8df51e7a41bdef2ae0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/prior-crash-reports.json",
+    "bytes": 3,
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/command.json",
+    "bytes": 1327,
+    "sha256": "dce009de4df2076f9c9bfefb236345ac58a9166eea3deb24dc685acaa7c348f1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/action-history.json",
+    "bytes": 94,
+    "sha256": "4b9c41168a3260d5bca7306a7debb82f2c469f99352e2baa1eec4acb85df6e23"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/result.json",
+    "bytes": 3335,
+    "sha256": "ffdf93f98c45431823662c0460ece9ffb868ca23e9801f6aa1e6cfe1ef22ca39"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/console-final.gz",
+    "bytes": 10719,
+    "sha256": "09106444425f6b1df807cc60e0d96e9d0afaf4ecce43d5c3945fcf39d3a53cd8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/crash-excerpt.txt",
+    "bytes": 2283,
+    "sha256": "112cda7b9ff4348c401eec66649751f1f6579862169470a24d2bdc607be2a725"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/crash-delta.json",
+    "bytes": 156,
+    "sha256": "385bf0c813f9c8523bcddf5279e7a52578f2100fed6d82b04c8d7799b6aa223b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/live-action.json",
+    "bytes": 275,
+    "sha256": "2a97487361f45d1155fe0a450c9cb1d7ecc04c31507b603d4b8fc9e289403d3d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/selected-console-records.txt",
+    "bytes": 541,
+    "sha256": "177725f5a5dac28aaaf0b5b4a6805809624d0461fac6ea36ffdba8c73bca67f0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "e5c31f0ca94f662eb0d40ed7e8f43f7c39986396e5ca1ae92a2b010d137bc9ae"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-baseline/prior-crash-reports.json",
+    "bytes": 3,
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/command.json",
+    "bytes": 1324,
+    "sha256": "d9500cbc5d6a7e6a4d91c0c61998341aed2286dcf455284b372dd4b0ca4541d2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/action-history.json",
+    "bytes": 709,
+    "sha256": "6a604a9d6fe1e4a080f34fe1acb021ec4315a81bc789fae8306ee181bf01b5e2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/result.json",
+    "bytes": 8498,
+    "sha256": "fac38d87327c173f63af7174a936601010ff7691a0c640bf8a05eee46b9868a9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/startup-lifecycle.txt",
+    "bytes": 803,
+    "sha256": "9e3b45304c9f5de2d2e9784369832e427cb0781ebec0b7903b207d85f15fd18e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/console-final.gz",
+    "bytes": 8073,
+    "sha256": "5f6d5dc5da3d3a492d1755cc17b300e987432b66c3be755f3fe84b3d09c09398"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/crash-delta.json",
+    "bytes": 156,
+    "sha256": "aa45ea38eb0ef0e1879afdfb02c9c2bec1a01e35d6295d811d5facace5cd2694"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/live-action.json",
+    "bytes": 414,
+    "sha256": "daad81c1b92b5969efe34b4b8cd0b592108db3e0991e44a85a85c5223e765e31"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/selected-console-records.txt",
+    "bytes": 2972,
+    "sha256": "f7f7c283c30c7dfb950926c52e41ca8864ffbbd6fab4d99defb3be045c618cda"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "2ee3b80ad827feb4dd9cc960e19e6cb83e366429d6dd470cc19abc2e407d209a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-fixed/prior-crash-reports.json",
+    "bytes": 113,
+    "sha256": "61c5613e285b876e813a844d055bc22280a0dabdaa9754033c95fd29854d0697"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/screenshots/travel-recovery.png",
+    "bytes": 784285,
+    "sha256": "abb03371d1ce2d6955b2fc82fd36217d3716fdec77a0ceaf6baaf6f9e43de596"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/screenshots/upload-recovery.png",
+    "bytes": 66862,
+    "sha256": "add1da0800ea586dce8b382659424477e6f0b5979e5f80ce0c1dfe989f97b55b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/screenshots/upload-recovery.png",
+    "bytes": 66929,
+    "sha256": "f6135f84b2257e930eedb18e6db30f906b1c509185db77aa1c46a1bfcd858283"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/screenshots/travel-recovery.png",
+    "bytes": 79828,
+    "sha256": "7a30e4bfec111f0762e507e4df950cc016bf985a608996cfa99cb6ba00a91bab"
+  }
+]

@@ -109,6 +109,7 @@ public final class ClientCapture {
       return;
     }
     Path dir = Path.of(System.getProperty("deepprimal.validationCapture"));
+    try { LodTravelChecks.tick(mc); } catch (Exception failure) { throw new RuntimeException(failure); }
     if (rendererRequestedAt != 0) {
       var renderer = com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE;
       if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()
@@ -155,6 +156,14 @@ public final class ClientCapture {
       }
       if (action.equals("lod-disk-recovery-check")) {
         LodDiskRecoveryChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("lod-travel-check")) {
+        LodTravelChecks.start(mc, dir);
+        return;
+      }
+      if (action.equals("lod-upload-retry-check")) {
+        LodUploadRetryChecks.run(mc, dir);
         return;
       }
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;

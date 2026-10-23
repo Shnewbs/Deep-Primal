@@ -340,7 +340,10 @@ public final class VoxelLodRenderer {
     int remaining = Math.min(64, disk.size());
     while (!disk.isEmpty() && remaining-- > 0) {
       long k = disk.removeFirst();
-      if (cache.containsKey(k) || dirty.containsKey(k)) {
+      Entry displayed = cache.get(k);
+      if ((displayed != null
+              && latest.getOrDefault(k, displayed.revision) <= displayed.revision)
+          || dirty.containsKey(k)) {
         deferredDisk.remove(k);
         continue;
       }
@@ -426,6 +429,9 @@ public final class VoxelLodRenderer {
           long limit = LodConfig.MEMORY.get() * 1048576L;
           evictToFit(r.levels.bytes(), 4095, r.key, event.getCamera().position());
           if (residentBytes + r.levels.bytes() <= limit) pendingGpu = new PendingGpu(r);
+          else deferPersisted(r);
+        } else {
+          deferPersisted(r);
         }
       } catch (InterruptedException failure) {
         Thread.currentThread().interrupt();
@@ -545,6 +551,7 @@ public final class VoxelLodRenderer {
     PendingGpu p = pendingGpu;
     if (p == null) return;
     if (p.ready.levels.bytes() + residentBytes - p.bytes() > LodConfig.MEMORY.get() * 1048576L) {
+      deferPersisted(p.ready);
       residentBytes -= p.bytes();
       p.close();
       pendingGpu = null;
@@ -609,6 +616,20 @@ public final class VoxelLodRenderer {
       uploadedChunks++;
       pendingGpu = null;
     }
+  }
+
+  /** Keep completed disk-backed work recoverable when a live budget change rejects its upload. */
+  private void deferPersisted(Ready r) {
+    if (r.session != session || !r.persisted || store == null || !LodConfig.PERSIST.get()
+        || dirty.containsKey(r.key) || latest.getOrDefault(r.key, r.revision) != r.revision
+        || (!disk.contains(r.key) && disk.size() >= MAX_DISK_KEYS)) return;
+    Entry displayed = cache.get(r.key);
+    if (displayed != null && displayed.revision >= r.revision) return;
+    disk.add(r.key);
+    latest.putIfAbsent(r.key, r.revision);
+    var player = Minecraft.getInstance().player;
+    long view = player == null ? 0 : key(player.chunkPosition().x(), player.chunkPosition().z());
+    deferredDisk.put(r.key, new DeferredView(view, LodConfig.MEMORY.get(), r.levels.bytes()));
   }
 
   @SubscribeEvent

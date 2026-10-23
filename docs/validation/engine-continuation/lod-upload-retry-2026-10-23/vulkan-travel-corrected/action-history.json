@@ -1,0 +1,32 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 26.03
+  },
+  {
+    "action": "lod-travel-check",
+    "completed": true,
+    "elapsed": 100.1
+  },
+  {
+    "action": "travel-recovery",
+    "completed": true,
+    "elapsed": 102.1
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 103.1
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 105.1
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 106.1
+  }
+]

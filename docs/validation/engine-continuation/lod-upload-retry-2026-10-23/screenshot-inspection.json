@@ -1,0 +1,30 @@
+[
+  {
+    "case": "vulkan-upload-final",
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final/screenshots/upload-recovery.png",
+    "sha256": "f6135f84b2257e930eedb18e6db30f906b1c509185db77aa1c46a1bfcd858283",
+    "inspected": true,
+    "observations": "High-altitude view is mostly sky with a small clipped terraced terrain footprint; prior travel image has a tall rectangular page edge. These captures are limited scene evidence and do not establish complete view coverage."
+  },
+  {
+    "case": "vulkan-upload-final-packaged",
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-upload-final-packaged/screenshots/upload-recovery.png",
+    "sha256": "add1da0800ea586dce8b382659424477e6f0b5979e5f80ce0c1dfe989f97b55b",
+    "inspected": true,
+    "observations": "High-altitude view is mostly sky with a small clipped terraced terrain footprint; prior travel image has a tall rectangular page edge. These captures are limited scene evidence and do not establish complete view coverage."
+  },
+  {
+    "case": "vulkan-travel-corrected",
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-corrected/screenshots/travel-recovery.png",
+    "sha256": "7a30e4bfec111f0762e507e4df950cc016bf985a608996cfa99cb6ba00a91bab",
+    "inspected": true,
+    "observations": "High-altitude view is mostly sky with a small clipped terraced terrain footprint; prior travel image has a tall rectangular page edge. These captures are limited scene evidence and do not establish complete view coverage."
+  },
+  {
+    "case": "vulkan-travel-final-packaged",
+    "path": "docs/validation/engine-continuation/lod-upload-retry-2026-10-23/vulkan-travel-final-packaged/screenshots/travel-recovery.png",
+    "sha256": "abb03371d1ce2d6955b2fc82fd36217d3716fdec77a0ceaf6baaf6f9e43de596",
+    "inspected": true,
+    "observations": "Upright lake, repeated terraced banks, fine water surface patterns and exposed right shoreline. Global LOD active with 20 visible pages at this observation; lodBytes=9778864 after fixture restored its earlier budget. This image does not prove 4 MiB complete coverage or equal-state output."
+  }
+]

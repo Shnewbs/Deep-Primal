@@ -1,0 +1,26 @@
+{
+  "parent_source": "b7bc1db6ca18bb9f650a437a387327743807893b",
+  "original_inputs_checked": 508,
+  "original_inputs_unchanged": 506,
+  "changed_original_inputs": [
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "before_git_blob_sha": "0d2a263a6c3ced46826ba54e9d695e5350eff423",
+      "after_git_blob_sha": "8de8f12071b0a1804a72fd1dcfc356586a9935b3",
+      "sha256": "ef077e36db00eec09a7b23726123d7e487e398bfe30f41175d91c85801f179dd"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+      "before_git_blob_sha": "d5fe4eea0fd3754b168cb08a8d9354cd96ffb043",
+      "after_git_blob_sha": "592c9ee5b169675171ff6fda8a71ef3c2b288e8f",
+      "sha256": "3eced2cbfad9c4fc995b426573a8a9c08a501cf30142dd2e988b95777b37845c"
+    }
+  ],
+  "new_validation_files": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodTravelChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodUploadRetryChecks.java"
+  ],
+  "production_files_changed": 1,
+  "validation_files_changed_or_added": 3,
+  "water_runtime_core_vulkan_and_geography_unchanged": true
+}
