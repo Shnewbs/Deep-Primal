@@ -1,0 +1,20 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/screenshots/partial-recovery.png",
+    "sha256": "35fe2e6e6170a8834581fede8d02f71327b639a075de7f177eb1de4a625fa6e8",
+    "inspected": true,
+    "scope": "Actual active lake still shows fine repeated water patterns/darker bands and terraced terrain. Not a temporal sequence or image of the isolated partial-fade fixture; no full flicker acceptance."
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/screenshots/partial-recovery.png",
+    "sha256": "accbfdc9157deab1018e9a59b917ce77ee37f8fc3c2e8473fb4819d92df2e683",
+    "inspected": true,
+    "scope": "Actual active lake still shows fine repeated water patterns/darker bands and terraced terrain. Not a temporal sequence or image of the isolated partial-fade fixture; no full flicker acceptance."
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/screenshots/reuse-gl-recovery.png",
+    "sha256": "e0896d03998b239985319bdd750706dc003f43de7645e115364eeabaae950df4",
+    "inspected": true,
+    "scope": "Actual active lake still shows fine repeated water patterns/darker bands and terraced terrain. Not a temporal sequence or image of the isolated partial-fade fixture; no full flicker acceptance."
+  }
+]

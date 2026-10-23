@@ -19,6 +19,8 @@ void main() {
     relativePosition = p + ModelOffset;
     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
     vertexColor = Color * ColorModulator * texelFetch(Sampler2, clamp(UV2 / 16, ivec2(0), ivec2(15)), 0);
-    vertexColor.a *= mix(Normal.x, Normal.y, clamp(TextureMat[0][0] / 100.0, 0.0, 1.0));
+    // Signed normalized Normal.z stores the original opacity start offset in milliseconds.
+    float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
+    vertexColor.a *= mix(Normal.x, Normal.y, alphaT);
     texCoord = UV0;
 }

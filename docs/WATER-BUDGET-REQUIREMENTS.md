@@ -123,3 +123,26 @@ Use a versioned seeded watershed graph with shared outlet identities, finite reg
 - [ ] Record named-hardware worldgen, server-tick, memory, I/O and network budgets; verify visual settings and disabled presentation leave physics unchanged.
 
 See the [owner decisions](design-decisions-2026-10-18.md), [roadmap](../roadmap.md), [glacial landscape plan](GLACIAL-LANDSCAPES.md), [reference completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-2026-10-22.md) and [stream/canopy/puddle review](STREAMS-CANOPY-PUDDLES-AUDIT-2026-10-22.md). Environmental catalog and climate implementation remain deferred; this is adopted mechanics direction with implementation work still open.
+
+## Headwater sources and composition mixing — owner clarification, 2026-10-23 UTC
+
+Owner direction: place river supply at stream headwaters. River, ocean and other liquid identities carry distinct chemical/composition state; contact and blending must not independently stack liquid or raise levels. This is an adopted requirement, not a shipped chemistry/reservoir implementation. Current physical water remains one finite-volume family; separate Minecraft registry IDs do not supply the coupling automatically.
+
+- Locate designated stream source outlets at their headwaters, including spring, snow/glacier and catchment origins. A source is a metered outlet of the backing account above, with stable identity and bounded delivery. Existing downstream full cells are not new emitters. Changed generated source placement after delivered V3 requires an explicit saved terrain revision/migration decision; do not silently rewrite published worlds.
+- Model compatible water kinds (fresh river, brackish, salt ocean, mineral/contaminated water) within a shared physical-volume solver. Named kinds can differ while remaining physically compatible. Registry representation is an implementation decision; any distinct IDs must participate in the same conservative exchange rules.
+- Keep volume and composition transactions distinct. Pure chemical diffusion/contact blending exchanges conserved constituent amounts while leaving each cell's physical water units unchanged. Bulk water flow advects its constituents in proportion to accepted water volume. Both conserve totals and reject stale/repeated transfers; dilution must not duplicate or delete salt/minerals/contaminants.
+- At river/ocean interfaces, use bounded local mixing and advection to form the composition transition; contact must not instantly homogenize a whole river or ocean.
+- Sea-level stability comes from the accounted ocean boundary above. Real river discharge adds water to a receiver and must leave through a connected outlet or be credited once to its ocean/coarse reservoir. Merely changing metadata cannot neutralize inflow. Dams and closed inland basins retain the existing real storage rise/overtopping behavior.
+- Persist sparse, versioned cell/chunk composition together with ownership/revisions and fixed-point remainders. Do not add a block entity/NBT object to every water block. Save/network/container/machine transfers preserve constituent quantities; omitted metadata must have explicit migration/default semantics.
+- Apply a compatibility table to other liquid families. Miscible liquids blend; immiscible liquids retain separate phases/interfaces and conservative displacement; reactive pairs use explicit recipes and accounted products/phase/volume changes. The rule is no unaccounted volume from contact, not a promise that every liquid mixes or every physical/reaction process leaves level unchanged.
+
+Additional acceptance:
+
+- [ ] Equal-volume fresh/salt mixing yields the mass-weighted constituent concentration with unchanged total water; composition-only diffusion leaves both cell levels unchanged.
+- [ ] An already full connected river/ocean interface blends/advects constituents without adding a second layer solely because its water kind differs; one ocean credit corresponds to one accepted river debit.
+- [ ] A full closed inland basin still raises/stops supply/overflows under the selected physical/source-safety policy; chemistry does not become a hidden drain.
+- [ ] Headwater delivery consumes the correct backing supply; downstream cells never multiply it, and replay/reload/unloaded exchanges neither duplicate water nor constituents.
+- [ ] Repeated mixing/dilution/extraction/container exchanges preserve constituent amounts and sub-unit remainders; concentration and kind labels derive from authoritative quantities.
+- [ ] Immiscible layering and configured reactions preserve their declared material/product budgets with bounded work and deterministic saved-state recovery.
+
+These requirements complement the finite/renewable watershed model and remain open. Chemistry changes alone do not alter stored terrain geography; introducing new generated source locations still follows the frozen-geography rule.
