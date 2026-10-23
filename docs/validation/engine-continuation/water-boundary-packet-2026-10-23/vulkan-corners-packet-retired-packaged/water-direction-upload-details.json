@@ -1,0 +1,58 @@
+[
+  {
+    "vertices": 20,
+    "active": false,
+    "target": 0,
+    "source": 0,
+    "age": 0,
+    "time": 0
+  },
+  {
+    "vertices": 20,
+    "active": true,
+    "target": 4,
+    "source": 0,
+    "age": 0,
+    "time": 100
+  },
+  {
+    "vertices": 20,
+    "active": true,
+    "target": 4,
+    "source": 0,
+    "age": 25,
+    "time": 125
+  },
+  {
+    "vertices": 20,
+    "active": true,
+    "target": 4,
+    "source": 0,
+    "age": 50,
+    "time": 150
+  },
+  {
+    "vertices": 20,
+    "active": true,
+    "target": 8,
+    "source": 4,
+    "age": 0,
+    "time": 200
+  },
+  {
+    "vertices": 20,
+    "active": true,
+    "target": 8,
+    "source": 4,
+    "age": 25,
+    "time": 225
+  },
+  {
+    "vertices": 20,
+    "active": true,
+    "target": 8,
+    "source": 4,
+    "age": 50,
+    "time": 250
+  }
+]
