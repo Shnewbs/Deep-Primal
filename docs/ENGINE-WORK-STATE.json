@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T11:07:08.162Z",
-  "active_until": "2026-10-23T12:07:08.162Z",
+  "updated_at": "2026-10-23T11:35:59.626Z",
+  "active_until": "2026-10-23T12:35:59.626Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "No production fix promoted. Spatial seam audit reproduces all 1920 distinct-direction routes per final software Vulkan session while 128 same-direction controls are exact. Naive shared wrapped UVs fail 60/64 uniform-flow fidelity routes. Staged sampled-color blend passes 2048 exact two-cell edge routes per session; bounded corner-distribution reference passes 100000 edges/17000 uniform cases. Full build/package and two sequential strict native sessions pass. Actual GPU corner-field/upload/history integration remains next; engine acceptance open.",
+  "current_gate": "Active actual shared-corner upload/shader integration. Exact 411-blob baseline reproduces 2204 edge failures. Candidate settles shared edges; preserving uniform and still/flow endpoint fidelity before promotion. Mixed-source baseline and failing endpoint variants excluded; no installer.",
   "next_items": [
     "Owner seamless-water priority: integrate canonical shared-corner sample-color weights/phase/history into actual uploads with explicit vertex/texture/history/resident budgets, then check across page halos, temporal retargets, cap churn, mips/alpha, real streams/ocean and matched profiling. New staged reference blends sampled colors rather than wrapped UVs, has at most nine unique neighboring directions, and preserves uniform direction. Existing shader proves only fixed equal-weight two-cell edges. Production shared-edge seam remains open (1920/1920 distinct-direction diagnostic routes per session). Do not promote the rejected shared-wrapped-UV candidate:60/64 uniform fidelity routes fail. Preserve prior top/side/underside transitions, quantity, edits and sparse bounded histories. Tint/composition, speed advection, other liquids, arbitrary alpha/linear packs and broader height/opacity/edit combinations remain open.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
