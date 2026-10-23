@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-23T16:19:12Z",
-  "active_until": "2026-10-23T17:20:00Z",
+  "status": "released",
+  "updated_at": "2026-10-23T16:37:42Z",
+  "active_until": null,
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Continue after publication checkpoint: record per-turn backend enqueue timing and actual2048-page GPU retirement saturation; keep production prototype unchanged while diagnosing performance.",
+  "current_gate": "Publication repair remains staged. Eight additional instrumented native retirement sessions pass data/bounds/save checks, including five2048-page32MiB sweeps. Fixture duplicate uploads were removed; synchronous staging overflow remains a measured burst cost, not normal-frame/FPS acceptance.",
   "next_items": [
-    "Restore17staged files with docs/validation/engine-continuation/water-publication-commit-2026-10-23/scripts/restore_staged.py onto575-input-verified isolated public source. Profile and reduce actual worst-case boundary GPU range submissions and262080-byte retirement CPU-enqueue outliers (46.477ms development Vulkan,35.978ms packaged Vulkan,3.778ms GL maxima in synthetic8-page32MiB tests; p95 alone is insufficient). Add matched normal-frame32MiB/2048-page cap churn, edits/height/opacity and resident-memory measurements, then long streams/ocean and side-seam acceptance. Synchronous rejected-write mirror poisoning is fixed in staged source and passes48native rejection/manual-retry cases; automatic caller retry/whole-cohort atomicity/asynchronous device-loss remain open. Preserve210000packet/SNORM cases,2420corner routes/session, bounded clocks, repeating-UV phase, quantity and geometry. Environment restored;30old wrappers recovered by exactGitSHA,73originals remain missing. Archived replay is historical output replay, not a new runtime pass. No promotion before performance and broader acceptance.",
+    "Restore17staged source files from docs/validation/engine-continuation/water-publication-commit-2026-10-23/scripts/restore_staged.py onto575-input-verified isolated public source, then apply the two validation-only overlays using docs/validation/engine-continuation/water-retirement-profile-2026-10-23/scripts/restore_profile.py and the prior17-file staged manifest. Production candidate source is unchanged since publication checkpointafa0c208. Drive one retirement turn per distinct rendered frame after controlled setup completion, recording staging occupancy plus matched total-frame and resident-memory costs, then actual admission/eviction cap churn, boundary scatter, edits/height/opacity, automatic retry policy and long streams/ocean. Eight additional instrumented burst sessions pass; five verify2048actualGPU pages/33554304bytes/129turns/2175writes, max17writes and262080bytes/turn. Duplicate setup filled64MiB staging to256bytes remaining; its firstoverflow took56.727ms. Single-setup overflow shifts toturn126 and still costs40.543ms in final backend write. These are diagnostic burst costs, not normal-frame regression/improvement or ownerGPU/FPS. Do not speculate a backend workaround before matched ordinary-frame evidence. Retain packet/corner/quantity/geometry and explicit passing save/crash/resource gates; no promotion before broader performance/visual acceptance.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
     "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
     "Identify the original recovery-marker writer. Temporary in-process events show deletion then a different inode with original mtime and one Java write; matched /tmp runs are clean. Correlation is not root cause; ptrace is denied. Preserve recovery evidence and do not ship a speculative workaround.",
@@ -29,7 +29,7 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/README.md",
   "local_validation_environment": "/workspace/scratch/a22609fabda0/water-recovery-1529",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
@@ -42,7 +42,7 @@
     "Top/direction and side/underside still/flow transitions pass controlled actual-upload near/far pixel/mip and16 rising-height routes per session. Bounded history probes, second texture fetch, textureSize and explicit-gradient side sampling remain unprofiled. Spatial different-direction continuity, tint/composition, cap churn, long streams/ocean, arbitrary alpha/linear packs, broader height/opacity/edit combinations and owner GPU/FPS remain unaccepted.",
     "Shared-corner actual-upload top rendering passes scoped software Vulkan/GL controls, but partial-neighbor new-request adoption, active cap churn, long streams/ocean, side spatial seams, tint/chemistry, arbitrary alpha/linear packs and complete height/edit coverage remain open. New24Bvarying, separate32768history cap and mixed8endpoint shader work lack broad matched frame-time/resident-memory or ownerGPU/FPS acceptance.",
     "Staggered resident-neighbor new-request seam reproduced in32actual-upload routes. Staged functional fix passes software Vulkan/GL but is not promoted: full-residency rebase alone8.54msp95 against2ms extraction target, excluding scan/copy/GPU work, plus up to32MiB retained CPU mirror/transient buffers. Need bounded efficient publication and matched broader profiling.",
-    "Current staged publication fix passes synchronous pre-backend rejection/manual retry and actualGPU32MiB readbacks. CPU-enqueue maxima46.477/35.978ms Vulkan and3.778ms GL exceed2ms despitep95<1.37ms; causesunproven. Eight syntheticpages/129diagnosticturns do not establish2048-page normal-frame saturation/churn, automaticretry, asyncdevice-loss, whole-cohort atomicity, matchedframe/memory, longstream/ocean orownerGPU/FPS acceptance. TruncatedouterJAR excluded and serialrebuildvalidated; mutation/truncationcause remainsunresolved."
+    "Synchronous pre-backend rejection/manual retry passes; automatic retry policy, whole-cohort atomicity and asyncdevice-loss remain open. New instrumented2048page32MiB burst retirement passes2175writes withmax17writes/262080bytes perturn, but overflow of64MiB native staging invokes a synchronous flush/fence path. Duplicate fixture setup removed; overflow moves toturn126 rather than disappearing. Final Vulkan burst p951.843ms/max41.398ms; final8-pageGLp952.849ms/max16.534ms is not an APIcomparison. Need distinct rendered-frame scheduling and matchedtotalframe/memory, actualadmission/evictionchurn andlongstream/ocean tests beforepromotion. PriortruncatedJARcause remainsunproven."
   ],
   "latest_accepted_solver_commit": "900ebebf67b6220ce0efab0b71abdeffe3bd1ed0",
   "staged_validation_evidence": [
@@ -56,7 +56,7 @@
     "docs/validation/engine-continuation/basin-pressure-2026-10-22/initial-build-failure.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "water-retirement-cap-profile-20261023-1618",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -108,12 +108,37 @@
     "owner_gpu_fps_accepted": false,
     "full_scene_continuity_accepted": false,
     "acceptance_complete": false,
-    "updated_utc": "2026-10-23T16:17:10Z",
+    "updated_utc": "2026-10-23T16:37:42Z",
     "source_files_recovered_exact": 17,
     "previous_original_wrappers_recovered_exact": 30,
     "previous_original_evidence_files_pending": 73,
     "archived_files_replayed_verified": 15739,
-    "rejected_truncated_archive_attempts": 1
+    "rejected_truncated_archive_attempts": 1,
+    "retirement_profile": {
+      "production_source_changes_since_publication_checkpoint": 0,
+      "validation_source_changes": 2,
+      "native_sessions": 8,
+      "native_2048page_sessions": 5,
+      "gpu_bytes_each": 33554304,
+      "turns_each": 129,
+      "cap_range_writes_each": 2175,
+      "max_writes_per_turn": 17,
+      "max_bytes_per_turn": 262080,
+      "cap_max_range_bytes": 16416,
+      "all_readback_hashes_match_independent_codec": true,
+      "final_runtime_fixture_class_identity": true,
+      "final_vulkan_p95_ms": 1.843059,
+      "final_vulkan_max_ms": 41.398218,
+      "final_gl8page_p95_ms": 2.848829,
+      "final_gl8page_max_ms": 16.534184,
+      "matched_api_comparison": false,
+      "normal_frame_acceptance": false,
+      "cap_churn_accepted": false,
+      "performance_accepted": false,
+      "new_crashes": 0,
+      "full_production_build_repeated": false,
+      "archived_replayed_members": 156
+    }
   },
   "graphics_reference_api": "vulkan",
   "graphics_validation_order": [
@@ -123,6 +148,21 @@
   "owner_update_policy": "Concise verified milestones/blockers; continue implementation after checkpoints.",
   "latest_accepted_solver_evidence": "docs/validation/engine-continuation/pressure-admission-2026-10-22/README.md",
   "latest_graphics_evidence": [
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/README.md",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/checkpoint-summary.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/strict-retirement-profile-audit.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/staging-source-audit.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/source-scope-audit.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/fixture-cleanup.patch",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/staged-overlay-manifest.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/staged-restoration-audit.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/offline-audit-replay.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/runtime-fixture-identity.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/unchanged-production-package-audit.json",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/capture-bundles.json.gz"
+  ],
+  "owner_goal": "Continue implementation and self-audit toward market-leading engine quality; establish comparative coverage, frame-time/memory and owner-GPU evidence before claiming market leadership.",
+  "previous_graphics_evidence": [
     "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
     "docs/validation/engine-continuation/water-publication-commit-2026-10-23/checkpoint-summary.json",
     "docs/validation/engine-continuation/water-publication-commit-2026-10-23/source-scope-audit.json",
@@ -139,27 +179,6 @@
     "docs/validation/engine-continuation/water-publication-commit-2026-10-23/recovery-status.json",
     "docs/validation/engine-continuation/water-publication-commit-2026-10-23/capture-bundles.json.gz"
   ],
-  "owner_goal": "Continue implementation and self-audit toward market-leading engine quality; establish comparative coverage, frame-time/memory and owner-GPU evidence before claiming market leadership.",
-  "previous_graphics_evidence": [
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/README.md",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/checkpoint-summary.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/source-scope-audit.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged-fix.patch",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged-restore-manifest.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged-restoration-audit.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/source-input-manifest.json.gz",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/offline-audit-replay.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/performance-gate.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/packet-final-budget.txt",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/budget-class-identity.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/interruption-recovery.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/preserved-artifacts.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/missing-original-artifacts.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/candidate-build/candidate-build-final.gz",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-corner-result.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-corner-result.json",
-    "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-corner-result.json"
-  ],
   "previous_production_graphics_checkpoint": "fab340ae07e9cf6a85e34b08bbaf0e53744357d8",
   "latest_production_graphics_evidence": "docs/validation/engine-continuation/water-shared-corners-2026-10-23/README.md",
   "latest_production_graphics_source_identity": "docs/validation/engine-continuation/water-shared-corners-2026-10-23/source-input-manifest.json.gz",
@@ -172,5 +191,18 @@
   ],
   "latest_staged_graphics_promoted": false,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/water-boundary-packet-1330",
-  "validation_environment_status": "available_restored_fresh_validation_completed"
+  "validation_environment_status": "available_restored_fresh_validation_completed",
+  "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
+  "latest_staged_validation_overlay": [
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+    "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterRetirementBudgetChecks.java"
+  ],
+  "staged_source_restoration": {
+    "base_public_inputs": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/source-input-manifest.json.gz",
+    "first_restore_manifest": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/staged-restore-manifest.json",
+    "validation_overlay_manifest": "docs/validation/engine-continuation/water-retirement-profile-2026-10-23/staged-overlay-manifest.json",
+    "total_staged_files": 17,
+    "production_files": 5,
+    "validation_files": 12
+  }
 }
