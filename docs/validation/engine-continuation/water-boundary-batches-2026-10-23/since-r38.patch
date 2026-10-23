@@ -1,0 +1,206 @@
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -704,20 +704,23 @@
+     }
+   }
+ 
+-  /** Only boundary quads change; height/opacity/page clocks and all geometry stay admitted. */
++  /** Only boundary quads change; contiguous changed quads share one bounded submission. */
+   private void synchronizeCornerNeighbors(Page admitted) {
+     ByteBuffer transfer = null;
++    ByteBuffer quad = ByteBuffer.allocate(144).order(ByteOrder.nativeOrder());
+     try {
+       for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
+         if (dx == 0 && dz == 0) continue;
+         Page p = pages.get(SectionPos.asLong((admitted.x >> 4) + dx, admitted.y >> 4, (admitted.z >> 4) + dz));
+         if (p == null || p.gpu == null || p.presentation == null) continue;
+         ByteBuffer accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
++        int start = -1, end = 0;
++        long pendingCleanup = p.cleanup;
+         for (int entry : p.boundaryQuads) {
+           int at = (entry >>> 12) * 144, cell = entry & 4095;
+           int cx = cell & 15, cz = (cell >> 4) & 15, y = p.y + (cell >> 8);
+           ByteBuffer patch = null;
+-          long cleanup = p.cleanup;
++          long cleanup = start >= 0 ? pendingCleanup : p.cleanup;
+           for (int n = 0; n < 4; n++) {
+             int x = p.x + cx + (n & 1), z = p.z + cz + (n >> 1);
+             if (x < admitted.x || x > admitted.x + 16 || z < admitted.z || z > admitted.z + 16
+@@ -728,9 +731,8 @@
+             if (!WaterCornerPacket.matches(patch == null ? accepted : patch, patch == null ? at : 0,
+                 n, to, from, age, clock)) {
+               if (patch == null) {
+-                if (transfer == null) transfer = MemoryUtil.memAlloc(144).order(ByteOrder.nativeOrder());
+-                transfer.clear().put(p.presentation, at, 144).flip();
+-                patch = transfer;
++                quad.clear().put(p.presentation, at, 144).flip();
++                patch = quad;
+               }
+               WaterCornerPacket.corner(patch, 0, n, to, from, age, clock);
+             }
+@@ -740,16 +742,40 @@
+             }
+           }
+           if (patch != null) {
+-            // A rejected write leaves the accepted mirror intact so a retry still sees the change.
+-            p.gpu.updateRange(at, patch);
+-            patch.get(0, p.presentation, at, 144);
+-          }
+-          p.cleanup = cleanup;
+-        }
++            if (transfer == null)
++              transfer = MemoryUtil.memAlloc(WaterCornerPacket.SLICE_BYTES).order(ByteOrder.nativeOrder());
++            // Never bridge an unchanged quad or exceed the existing range-byte bound.
++            if (start >= 0 && (at != end || transfer.remaining() < 144)) {
++              publishCornerRange(p, start, transfer, pendingCleanup);
++              start = -1;
++            }
++            if (start < 0) start = at;
++            transfer.put(patch);
++            end = at + 144;
++            pendingCleanup = cleanup;
++          } else {
++            if (start >= 0) {
++              publishCornerRange(p, start, transfer, pendingCleanup);
++              start = -1;
++            }
++            p.cleanup = cleanup;
++          }
++        }
++        if (start >= 0) publishCornerRange(p, start, transfer, pendingCleanup);
+       }
+     } finally {
+       if (transfer != null) MemoryUtil.memFree(transfer);
+     }
++  }
++
++  /** Commit the accepted CPU mirror and deadline only after the entire GPU range succeeds. */
++  private void publishCornerRange(Page p, int start, ByteBuffer transfer, long cleanup) {
++    transfer.flip();
++    int length = transfer.remaining();
++    p.gpu.updateRange(start, transfer);
++    transfer.get(0, p.presentation, start, length);
++    p.cleanup = cleanup;
++    transfer.clear();
+   }
+ 
+   /** Guaranteed service before other extraction work. At most 32 page headers and 262080 bytes.
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java
+@@ -200,6 +200,8 @@
+         return;
+       }
+       if (action.equals("water-retirement-cap-duplicate-check")) { WaterRetirementBudgetChecks.run(mc, dir, 2048, true); return; }
++      if (action.equals("water-boundary-batch-probe")) { WaterBoundaryBatchChecks.run(dir, false); return; }
++      if (action.equals("water-boundary-batch-check")) { WaterBoundaryBatchChecks.run(dir, true); return; }
+       if (action.equals("water-deadline-probe")) { WaterExtractionDeadlineChecks.start(dir, false); return; }
+       if (action.equals("water-deadline-check")) { WaterExtractionDeadlineChecks.start(dir, true); return; }
+       if (action.equals("water-frame-retirement-active")) { WaterFrameRetirementChecks.start(dir, true); return; }
+--- /dev/null
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryBatchChecks.java
+@@ -0,0 +1,105 @@
++package com.shnewbs.deepprimal.validation;
++
++import com.mojang.blaze3d.buffers.*;
++import com.mojang.blaze3d.systems.RenderSystem;
++import com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer;
++import com.shnewbs.deepprimal.core.*;
++import com.shnewbs.deepprimal.graphics.WaterGpuMesh;
++import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
++import java.lang.reflect.*;
++import java.nio.*;
++import java.nio.file.*;
++import java.util.*;
++import java.util.concurrent.ExecutorService;
++import net.minecraft.core.*;
++import org.lwjgl.system.MemoryUtil;
++
++/** Real neighbor publication, contiguous/scattered quad layout and synchronous range rejection.
++ * Private readable GPU pages; no full-scene admission/eviction or FPS acceptance. */
++final class WaterBoundaryBatchChecks {
++  private record Read(int caseId,String phase,byte[] cpu,GpuBuffer gpu) {}
++  private static Object invoke(Method m,Object target,Object[] args)throws Throwable {
++    try{return m.invoke(target,args);}catch(InvocationTargetException e){throw e.getCause();}
++  }
++  static void run(Path output,boolean requireBatches)throws Exception {
++    var rows=new ArrayList<Map<String,Object>>();var reads=new ArrayList<Read>();
++    var type=AnimatedWaterRenderer.class;var pt=Class.forName(type.getName()+"$Page");
++    var rc=type.getDeclaredConstructor();rc.setAccessible(true);var pc=pt.getDeclaredConstructor(long.class);pc.setAccessible(true);
++    var sync=type.getDeclaredMethod("synchronizeCornerNeighbors",pt);sync.setAccessible(true);
++    Field vf=WaterPublicationFailureChecks.field(WaterGpuMesh.class,"vertices");
++    int id=0;
++    try {
++      for(int count:new int[]{256,2048})for(int origin:new int[]{0,29999968})for(int axis=0;axis<2;axis++)for(int group:new int[]{256,8})for(int fail:new int[]{0,1,2}) {
++        if(group==256&&fail==2&&count==256)continue;
++        int caseId=id++;Object renderer=rc.newInstance();Object device=RenderSystem.getDevice();
++        Field backend=Arrays.stream(device.getClass().getDeclaredFields()).filter(f->f.getType().isInterface()&&f.getType().getSimpleName().equals("GpuDeviceBackend")).findFirst().orElseThrow();backend.setAccessible(true);Object original=backend.get(device);
++        try {
++          int sx=origin>>4,sz=-origin>>4;Object admitted=pc.newInstance(SectionPos.asLong(sx,0,sz));
++          Object neighbor=pc.newInstance(SectionPos.asLong(sx-(axis==0?1:0),0,sz-(axis==1?1:0)));
++          int px=WaterPublicationFailureChecks.field(pt,"x").getInt(neighbor),pz=WaterPublicationFailureChecks.field(pt,"z").getInt(neighbor);
++          int[] entries=new int[count];int quads=count+(group==256?0:(count-1)/8),bytes=quads*144;
++          byte[] initial=new byte[bytes];ByteBuffer packet=ByteBuffer.wrap(initial).order(ByteOrder.nativeOrder());
++          long pair=72L*(1+289+83521+24137569L);
++          for(int q=0;q<quads;q++)for(int v=0;v<4;v++) {
++            int at=q*144+v*36;packet.putFloat(at,(float)(q+(v&1)*.5));packet.putFloat(at+4,(float)(q%17+(v>>1)*.25));packet.putFloat(at+8,(float)-q);packet.putInt(at+12,0x1a234567);packet.putShort(at+24,(short)1234);packet.putShort(at+28,(short)176);packet.putShort(at+30,(short)240);packet.put(at+32,(byte)127);packet.put(at+34,(byte)(q%16));packet.put(at+35,(byte)91);WaterCornerPacket.write(packet,at,pair,0,0,0,0,true);
++          }
++          @SuppressWarnings("unchecked") var directions=(Long2ObjectLinkedOpenHashMap<WaterFlowTransition>)WaterPublicationFailureChecks.field(type,"cornerDirections").get(renderer);
++          int ax=WaterPublicationFailureChecks.field(pt,"x").getInt(admitted),az=WaterPublicationFailureChecks.field(pt,"z").getInt(admitted);
++          for(int y=0;y<16;y++)for(int lane=0;lane<=16;lane++) {
++            int x=axis==0?ax:ax+lane,z=axis==0?az+lane:az;var state=new WaterFlowTransition(4,0);state.target(8,100,1);state.target(12,125,2);directions.put(BlockPos.asLong(x,y,z),state);
++          }
++          for(int n=0;n<count;n++){int q=n+(group==256?0:n/group);int y=(n%256)/16,lane=n%16,cx=axis==0?15:lane,cz=axis==0?lane:15;entries[n]=(q<<12)|(y<<8)|(cz<<4)|cx;}
++          var data=MemoryUtil.memAlloc(bytes).order(ByteOrder.nativeOrder());WaterGpuMesh mesh;
++          try {data.put(initial).flip();mesh=new WaterGpuMesh(data,quads*4);((GpuBuffer)vf.get(mesh)).close();vf.set(mesh,RenderSystem.getDevice().createBuffer(()->"Boundary batch readable vertices",GpuBuffer.USAGE_VERTEX|GpuBuffer.USAGE_COPY_DST|GpuBuffer.USAGE_COPY_SRC,data));}
++          finally {MemoryUtil.memFree(data);}
++          WaterPublicationFailureChecks.field(pt,"gpu").set(neighbor,mesh);WaterPublicationFailureChecks.field(pt,"presentation").set(neighbor,initial.clone());WaterPublicationFailureChecks.field(pt,"boundaryQuads").set(neighbor,entries);WaterPublicationFailureChecks.field(type,"residentBytes").setLong(renderer,bytes);WaterPublicationFailureChecks.field(type,"clock").setLong(renderer,125);
++          @SuppressWarnings("unchecked") var pages=(Map<Long,Object>)WaterPublicationFailureChecks.field(type,"pages").get(renderer);pages.put(WaterPublicationFailureChecks.field(pt,"key").getLong(neighbor),neighbor);pages.put(WaterPublicationFailureChecks.field(pt,"key").getLong(admitted),admitted);
++          var ranges=new ArrayList<Map<String,Object>>();int[] attempts={0};boolean[] rejected={false};GpuBuffer target=(GpuBuffer)vf.get(mesh);
++          Object proxy=Proxy.newProxyInstance(backend.getType().getClassLoader(),new Class<?>[]{backend.getType()},(o,m,a)->{
++            Object value=invoke(m,original,a);if(!m.getName().equals("createCommandEncoder"))return value;
++            return Proxy.newProxyInstance(m.getReturnType().getClassLoader(),new Class<?>[]{m.getReturnType()},(enc,op,args)->{
++              if(op.getName().equals("writeToBuffer")&&args[0]instanceof GpuBufferSlice slice&&slice.buffer()==target) {
++                int number=++attempts[0];boolean reject=!rejected[0]&&fail>0&&number==fail;
++                ranges.add(Map.of("offset",slice.offset(),"bytes",((ByteBuffer)args[1]).remaining(),"rejected",reject));
++                if(reject){rejected[0]=true;throw new IllegalStateException("INJECTED_BOUNDARY_BATCH_REJECTION");}
++              }
++              return invoke(op,value,args);
++            });
++          });
++          long begin=System.nanoTime();backend.set(device,proxy);
++          try {try {WaterPublicationFailureChecks.call(sync,renderer,admitted);}catch(IllegalStateException e){if(!e.getMessage().equals("INJECTED_BOUNDARY_BATCH_REJECTION"))throw e;}}
++          finally {backend.set(device,original);}
++          long elapsed=System.nanoTime()-begin;
++          if(rejected[0]!=(fail>0))throw new AssertionError("Batch rejection route missed");
++          long cleanupAfterCall=WaterPublicationFailureChecks.field(pt,"cleanup").getLong(neighbor);
++          int firstAttempts=attempts[0];read(reads,caseId,"after-call",renderer,neighbor,pt,target);
++          backend.set(device,proxy);try {WaterPublicationFailureChecks.call(sync,renderer,admitted);}finally {backend.set(device,original);}
++          int retryAttempts=attempts[0]-firstAttempts;read(reads,caseId,"after-retry",renderer,neighbor,pt,target);
++          int beforeStable=attempts[0];backend.set(device,proxy);try {WaterPublicationFailureChecks.call(sync,renderer,admitted);}finally {backend.set(device,original);}
++          if(attempts[0]!=beforeStable)throw new AssertionError("Idempotent boundary publication wrote GPU bytes");
++          int expected=group==256?(count+1819)/1820:(count+7)/8;
++          if(requireBatches&&fail==0&&firstAttempts!=expected)throw new AssertionError("Contiguous boundary batches were not combined");
++          var row=new LinkedHashMap<String,Object>();row.put("id",caseId);row.put("cleanupAfterCall",cleanupAfterCall);row.put("cleanupAfterRetry",WaterPublicationFailureChecks.field(pt,"cleanup").getLong(neighbor));row.put("origin",origin);row.put("axis",axis);row.put("group",group);row.put("count",count);row.put("rejectWrite",fail);row.put("bytes",bytes);row.put("quads",quads);row.put("boundaryEntries",entries);row.put("initialSha256",WaterPublicationFailureChecks.sha(initial));row.put("firstWriteAttempts",firstAttempts);row.put("retryWriteAttempts",retryAttempts);row.put("idempotentWrites",attempts[0]-beforeStable);row.put("syncCpuNanos",elapsed);row.put("ranges",ranges);rows.add(row);
++        } finally {backend.set(device,original);type.getMethod("reset").invoke(renderer);((ExecutorService)WaterPublicationFailureChecks.field(type,"workers").get(renderer)).shutdownNow();}
++      }
++    }catch(Throwable failure){for(var r:reads)r.gpu.close();throw failure;}
++    RenderSystem.queueFencedTask(()->{
++      try {
++        var raw=new java.io.ByteArrayOutputStream();var metadata=new ArrayList<Map<String,Object>>();long bad=0;
++        for(var r:reads)try(var view=RenderSystem.getDevice().createCommandEncoder().mapBuffer(r.gpu,true,false)) {
++          byte[] gpu=new byte[r.cpu.length];view.data().get(0,gpu);int diff=0;for(int n=0;n<gpu.length;n++)if(gpu[n]!=r.cpu[n])diff++;
++          int at=raw.size();raw.writeBytes(r.cpu);raw.writeBytes(gpu);metadata.add(Map.of("id",r.caseId,"phase",r.phase,"offset",at,"bytes",gpu.length,"cpuSha256",WaterPublicationFailureChecks.sha(r.cpu),"gpuSha256",WaterPublicationFailureChecks.sha(gpu),"differentBytes",diff));bad+=diff;
++        }
++        if(bad!=0)throw new AssertionError("Boundary batch accepted mirror differs from GPU");
++        var result=new LinkedHashMap<String,Object>();result.put("pass",true);result.put("requireBatches",requireBatches);result.put("cases",rows);result.put("readbacks",metadata);result.put("differentBytes",bad);
++        try(var input=WaterBoundaryBatchChecks.class.getResourceAsStream("WaterBoundaryBatchChecks.class")){result.put("fixtureClassSha256",WaterPublicationFailureChecks.sha(input.readAllBytes()));}
++        result.put("scope","Private256/2048boundaryquad realGPU fixture; contiguous/scattered range submissions and synchronous rejection/manualretry/idempotence. No wholecohort/asyncfailure/fullscene/capchurn/FPS acceptance.");
++        Files.write(output.resolve("water-boundary-batch-readbacks.bin"),raw.toByteArray());Files.writeString(output.resolve("water-boundary-batch.json"),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(result)+"\n");
++        System.out.println("WATER_BOUNDARY_BATCH_PASS cases=44 readbacks=88 differentBytes=0 batched="+requireBatches);
++      }catch(Exception e){throw new RuntimeException(e);}finally {for(var r:reads)r.gpu.close();}
++    });
++  }
++  private static void read(List<Read> reads,int id,String phase,Object renderer,Object page,Class<?> pt,GpuBuffer target)throws Exception {
++    byte[] cpu=((byte[])WaterPublicationFailureChecks.field(pt,"presentation").get(page)).clone();var gpu=RenderSystem.getDevice().createBuffer(()->"Boundary batch readback",GpuBuffer.USAGE_COPY_DST|GpuBuffer.USAGE_MAP_READ,cpu.length);RenderSystem.getDevice().createCommandEncoder().copyToBuffer(target.slice(0,cpu.length),gpu.slice());reads.add(new Read(id,phase,cpu,gpu));
++  }
++}
