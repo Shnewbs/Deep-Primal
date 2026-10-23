@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "released",
-  "updated_at": "2026-10-23T21:26:05.000Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-23T22:30:00Z",
+  "active_until": "2026-10-23T23:30:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
@@ -144,7 +144,7 @@
     "docs/validation/engine-continuation/water-boundary-index-2026-10-23/sequential-job-audit.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "R43 isolated bounded boundary-retry implementation",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
