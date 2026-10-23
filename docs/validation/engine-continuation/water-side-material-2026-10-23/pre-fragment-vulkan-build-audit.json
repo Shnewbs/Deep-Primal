@@ -1,0 +1,30 @@
+{
+  "scope": "Shared still/flow material clock for all faces; half-texel atlas V guard; geometry and vertex size unchanged",
+  "non_vulkan": false,
+  "changed_source_sha256": {
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java": "89f7c7ec41ad2181d9d2b9d8c4016e4eb540869dfc59797d4250435d7a20d757",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh": "3f7a7e77d2d10aa5b45484187cb31b2f9840f331160733ff46a2552fc61d76db"
+  },
+  "archives_crc_pass": [
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+  ],
+  "compiled_class_byte_matches": {
+    "main": 104,
+    "engine-core": 59,
+    "graphics-settings": 37,
+    "lod-engine": 14,
+    "performance-engine": 14,
+    "renderer-vulkan": 181
+  },
+  "jar_bytes": 12765350,
+  "jar_sha256": "a40047e1195962cae0ec28c8f575c07d1c101ac741227a84c1a727da66b50fa2",
+  "runtime_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+  "core_source_sha256": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97",
+  "validation_and_private_agent_payload_absent": true,
+  "installer_release": false
+}

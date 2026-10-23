@@ -1,0 +1,82 @@
+[
+  {
+    "case": "vulkan-side-material-baseline",
+    "source_files": 3840,
+    "unique_pngs": 9,
+    "source_png_bytes": 394560,
+    "archive_bytes": 14363,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-order-side-material-final",
+    "source_files": 4982,
+    "unique_pngs": 351,
+    "source_png_bytes": 784150,
+    "archive_bytes": 275387,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-side-material-baseline-attempt1",
+    "source_files": 4000,
+    "unique_pngs": 20,
+    "source_png_bytes": 422256,
+    "archive_bytes": 19530,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-side-material-baseline-attempt2",
+    "source_files": 4000,
+    "unique_pngs": 40,
+    "source_png_bytes": 425376,
+    "archive_bytes": 27225,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-order-side-material-fragment-final",
+    "source_files": 5142,
+    "unique_pngs": 373,
+    "source_png_bytes": 797126,
+    "archive_bytes": 284055,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-order-side-material-fragment-final-packaged",
+    "source_files": 5142,
+    "unique_pngs": 373,
+    "source_png_bytes": 797126,
+    "archive_bytes": 284055,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-reuse-gl-side-material-fragment-final",
+    "source_files": 4000,
+    "unique_pngs": 40,
+    "source_png_bytes": 420840,
+    "archive_bytes": 26987,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-order-side-material-normalized-final",
+    "source_files": 5142,
+    "unique_pngs": 373,
+    "source_png_bytes": 797126,
+    "archive_bytes": 284055,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-order-side-material-normalized-final-packaged",
+    "source_files": 5142,
+    "unique_pngs": 373,
+    "source_png_bytes": 797126,
+    "archive_bytes": 284055,
+    "all_png_bytes_preserved": true
+  },
+  {
+    "case": "vulkan-reuse-gl-side-material-normalized-final",
+    "source_files": 5142,
+    "unique_pngs": 427,
+    "source_png_bytes": 798099,
+    "archive_bytes": 347486,
+    "all_png_bytes_preserved": true
+  }
+]

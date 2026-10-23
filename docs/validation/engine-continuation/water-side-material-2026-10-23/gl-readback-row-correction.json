@@ -1,0 +1,9 @@
+{
+  "excluded_case": "vulkan-reuse-gl-side-material-fragment-final",
+  "first320_fixed_height_routes_pass": true,
+  "height_control_failure_channels": 59392,
+  "max_error": 255,
+  "cause": "Raw OpenGL texture readback row0 is lower physicalY; Vulkan row0 isupper. The new lower-quarter geometry crop assumed Vulkan ordering.",
+  "correction": "Normalize only this diagnostic pixel readback by the explicit device backend. Record the convention, flip OpenGL rows before bothPNG output andindependentweighted comparisons. Keep actualGPUuploads,views,production andraw vertexbytes unchanged.",
+  "revalidation": "Repeat both software Vulkan sessions andOpenGL on exact finalfixture. Earlier Vulkan passes superseded,not added to finalcounts."
+}

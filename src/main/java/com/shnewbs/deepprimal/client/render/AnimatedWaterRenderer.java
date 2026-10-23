@@ -539,13 +539,11 @@ public final class AnimatedWaterRenderer {
           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
           if ((v & 3) == 0) {
             int direction = WaterPatchMesher.direction(values[i + 10]);
-            flowState = null;
-            if (face == 0) {
-              // Unchanged still water stays sparse; its accepted snapshot supplies the first endpoint.
-              int previousDirection = p.snapshot != null && p.snapshot.water(cx, cy, cz) > 0
-                  ? p.snapshot.direction(cx, cy, cz) : direction;
-              flowState = flow(cellKey, direction, faces.revision, previousDirection);
-            }
+            // All faces share the cell's admitted material and original transition clock.
+            // Unchanged still water stays sparse; the accepted snapshot seeds its first change.
+            int previousDirection = p.snapshot != null && p.snapshot.water(cx, cy, cz) > 0
+                ? p.snapshot.direction(cx, cy, cz) : direction;
+            flowState = flow(cellKey, direction, faces.revision, previousDirection);
             shownDirection = flowState == null ? direction : flowState.target();
             if (flowState != null && flowState.queued(clock)) {
               animating = true;
@@ -591,17 +589,24 @@ public final class AnimatedWaterRenderer {
           int color = Float.floatToRawIntBits(values[i + 7]),
               light = Float.floatToRawIntBits(values[i + 8]);
           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
-          boolean blend = face == 0 && flowState != null && flowState.active(clock);
-          // Alpha transitions live in Normal: reuse constant color alpha for exact cell-local UVs.
+          boolean blend = flowState != null && flowState.active(clock)
+              && (face == 0 || (flowState.source() < 16) != (shownDirection < 16));
+          // Opacity lives in Normal; active faces reuse constant color alpha for cell-local UVs.
           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
               .put((byte) (blend ? cx | (cz << 4) : 255));
-          boolean flowingFace = (face == 0 ? shownDirection : WaterPatchMesher.direction(values[i + 10])) < 16;
-          boolean side = face >= 1 && face <= 4;
+          boolean flowingFace = shownDirection < 16;
+          boolean side = face != 0;
           var sprite = flowingFace ? flowing : still;
           // Derive side V from the admitted shared height, including rejected stale captures.
           // The shader follows its displayed morph height and clamps inside this sprite's tile.
           boolean flowTop = face == 0 && flowingFace;
           float textureU = values[i + 5] + (flowTop ? phaseU : 0);
+          if (side) {
+            // Raw meshing may contain a queued/stale material. Recover its cell-local U
+            // before applying the admitted sprite's full/half-tile scale.
+            float localU = values[i + 5] * (WaterPatchMesher.direction(values[i + 10]) < 16 ? 2 : 1);
+            textureU = localU * (flowingFace ? .5f : 1);
+          }
           float topV = values[i + 6];
           if (face == 0) {
             if (flowTop) {

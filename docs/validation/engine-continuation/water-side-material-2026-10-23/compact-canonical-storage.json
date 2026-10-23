@@ -1,0 +1,6 @@
+{
+  "compressed_data_only_in_package": true,
+  "redundant_expanded_paths_excluded_from_git_tree": true,
+  "temporary_replay_removes_all_expanded_data_before_rehydration": true,
+  "reason": "Keep export compact and prove standalone replay uses the compressed payload and hash manifest even if a local inspection has restored raw files."
+}

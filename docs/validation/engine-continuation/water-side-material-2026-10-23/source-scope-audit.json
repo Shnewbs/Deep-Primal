@@ -1,0 +1,21 @@
+{
+  "parent": "d8aa5a47892ece5272549058dc61b3b6e9b814f7",
+  "guarded_parent": "7516906be08ac793f1ca090731bdd442b7ec607a",
+  "existing_inputs_checked": 568,
+  "unchanged": 563,
+  "production_changed_or_added": [
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh"
+  ],
+  "validation_changed_or_added": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMaterialTransitionChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideMaterialChecks.java"
+  ],
+  "new_files": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideMaterialChecks.java"
+  ],
+  "solver_quantity_worldgen_lod_backend_unchanged": true,
+  "installer_release": false
+}

@@ -1,0 +1,12 @@
+{
+  "case": "vulkan-side-material-baseline-attempt2",
+  "production_variant": "vertex-space half-texel guard",
+  "fixed_height_controls_pass": true,
+  "new_height_controls": "16 matched physical-pixel routes,4/16 to16/16 height plus material transition",
+  "bad_vertices": 0,
+  "channels_beyond_tolerance": 1536,
+  "max_channel_error": 9,
+  "cause": "Clamping vertex endpoint V distorts interpolated UV slope as the quad height changes.",
+  "fix": "Keep side UVs and gradients unwrapped through interpolation; clamp current andprevious atlas endpoints perfragment. Reuse existing bounds varyings withnegative width asnonperiodic tag; no new payload or varying.",
+  "excluded_earlier_fixture": "attempt1 selected nonexistent extra-route face indices;max255 not a production defect"
+}

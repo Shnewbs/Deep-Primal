@@ -53,7 +53,7 @@ void main() {
     p.y += displacement;
     relativePosition = p + ModelOffset;
     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
-    // Active top blends reuse the otherwise constant color alpha for cell coordinates.
+    // Active material blends reuse the otherwise constant color alpha for cell coordinates.
     vec4 tint = Color;
     if ((UV2.y & 32768) != 0) tint.a = 1.0;
     vertexColor = tint * ColorModulator * texelFetch(Sampler2, clamp(ivec2(UV2.x & 255, UV2.y & 255) / 16, ivec2(0), ivec2(15)), 0);
@@ -70,7 +70,21 @@ void main() {
     previousTexCoord = UV0;
     if (previousWeight > 0.0) {
         int sourceDirection = clamp((UV2.x >> 11) & 31, 0, 16);
-        if (sourceDirection < 16) {
+        if ((UV2.x & 256) != 0) {
+            bool currentFlow = (UV2.x & 512) != 0;
+            bool oldFlow = sourceDirection < 16;
+            vec4 currentTile = currentFlow ? flowTile : stillTile;
+            vec4 oldTile = oldFlow ? flowTile : stillTile;
+            float currentScale = currentFlow ? 0.5 : 1.0;
+            float oldScale = oldFlow ? 0.5 : 1.0;
+            // Convert admitted UVs to cell-local coordinates, then apply the same
+            // displayed height displacement to both material endpoints.
+            vec2 localUV = (UV0 - currentTile.xy) / (currentTile.zw * currentScale);
+            localUV.y -= displacement;
+            previousTexCoord = oldTile.xy + localUV * oldTile.zw * oldScale;
+            // Negative width marks nonperiodic side bounds for fragment-space clamping.
+            previousBounds = vec4(oldTile.xy, -oldTile.z, oldTile.w * oldScale);
+        } else if (sourceDirection < 16) {
             previousBounds = flowTile;
             previousTexCoord = previousFlow(sourceDirection, flowTile);
         } else {
@@ -83,7 +97,8 @@ void main() {
     if ((UV2.x & 256) != 0) {
         bool flowing = (UV2.x & 512) != 0;
         float span = flowing ? TextureMat[1][1] : TextureMat[1][0];
-        float start = flowing ? TextureMat[2][1] : TextureMat[2][0];
-        texCoord.y = clamp(UV0.y - displacement * span, start, start + span);
+        texCoord.y = UV0.y - displacement * span;
+        vec4 tile = flowing ? flowTile : stillTile;
+        flowBounds = vec4(tile.xy, -tile.z, span);
     }
 }

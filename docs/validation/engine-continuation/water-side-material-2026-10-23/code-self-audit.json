@@ -1,0 +1,23 @@
+{
+  "scope": "Shared100ms still/flow presentation clock for top,4sides andunderside.",
+  "admission": "All faces use admitted direction andprevious accepted nonempty snapshot. Raw queued/stale material U is converted tocell-local U before admitted full/half-tile scale. Pure flowing-direction changes avoid extra sideblend.",
+  "shader": "Both endpoints follow displayed height displacement. Current/previous existing bounds use negativewidth to mark nonperiodic sides;UVs/gradients stay unwrapped andperfragment V clamp keeps samples halftexel inside each endpoint. Oldperiodic top phase unchanged.",
+  "payload": "No new varying,vertex oruniform allocation. CPU14floats/GPU36bytes,lowlightbytes,alpha/height clocks and32768history/reset retained.",
+  "unchanged": [
+    "WaterFlowTransition/core solver",
+    "WaterRuntime/WaterTransport",
+    "WaterPatchMesher geometry/quantity",
+    "player edits",
+    "frozen V1/V2/V3 geography",
+    "LOD/backend code"
+  ],
+  "limits": [
+    "Different-direction spatial sharededges unresolved",
+    "Tint/composition andotherliquids unresolved",
+    "Rising4-to16 controls are not exhaustive height/opacity/edit combinations",
+    "Opaque nearest/mip diagnostic atlas;arbitrary alpha/linear resourcepacks remain open",
+    "Longstreams/ocean/capchurn andmatchedCPU/GPU profiling remain open",
+    "LOD cutoffs andcompleteenabledview unresolved",
+    "No ownerGPU/FPS/independent60Hz/superiority acceptance"
+  ]
+}

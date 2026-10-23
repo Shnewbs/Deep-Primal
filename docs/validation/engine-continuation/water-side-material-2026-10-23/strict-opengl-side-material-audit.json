@@ -1,0 +1,31 @@
+{
+  "case": "vulkan-reuse-gl-side-material-normalized-final",
+  "side_material": {
+    "routes": 336,
+    "shader_renders": 4000,
+    "weighted_RGBA_samples": 3360,
+    "actual_upload_readbacks": 2009,
+    "readback_bytes": 1735776,
+    "simultaneous_height_routes": 16,
+    "atlas_bleed": false,
+    "pass": true
+  },
+  "material": {
+    "routes": 64,
+    "shader_renders": 768,
+    "weighted_RGBA_samples": 640,
+    "actual_upload_readbacks": 393,
+    "readback_bytes": 282960,
+    "pass": true
+  },
+  "pass": true,
+  "backend": "OpenGL software llvmpipe",
+  "scope": "New side/underside still/flow blend:336 routes,4000 actual-upload shader draws,3360 weighted RGBA checks,2009 actual GPU readbacks/1735776 bytes including16 simultaneous4-to16 height/material routes; original deadlines, atlas V guards and sparse history. Retained top still/flow blend:64 near/far routes,768 actual-upload shader renders,640 weighted RGBA samples,393 actual GPU readbacks/282960 bytes,queued/repeated/stale/deadline/sparse-still checks. Retained prior regressions: Flow-direction single-draw blend,336 shader renders and7 real uploads with bounded history, queued/stale/reupload checks. Six exact periodic top-phase pairs plus six diagnostic mip controls with one-channel-unit rounding allowance across negative/distant/section origins. Side UV morph pixels/actual upload packing, plus real capture and before/after-reload actual GPU flow UV fix, plus page order and actual frames in three wave/LOD profiles, production-pipeline pixel A/B; not full scene acceptance. Also mixed-page fade retention, six GPU readbacks of geometry/original opacity timing, and shared water buffer update API, actual near-capacity allocations, same/smaller/regrowth/bounded growth retry, 288-byte fenced GPU readback, prior fade checks, reload/capture/normal save. Not full OpenGL performance or visual acceptance.",
+  "started_utc": "2026-10-23T09:58:55.554297+00:00",
+  "finished_utc": "2026-10-23T10:00:00.636044+00:00",
+  "console_sha256": "b0f4b344a34b195b2291bfef1acc060ac80be8b9f0570aaed95aa13e7163c2c3",
+  "sealed_console_gzip_sha256": "80a681d256a369c6e1171b6971df96f71cfe1784aba4eb6f005d8acbda2e4dcf",
+  "new_crashes": 0,
+  "save_errors": 0,
+  "owner_gpu_fps_acceptance": false
+}
