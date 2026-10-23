@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T17:33:56Z",
-  "active_until": "2026-10-23T18:40:00Z",
+  "updated_at": "2026-10-23T18:18:00Z",
+  "active_until": "2026-10-23T19:05:00Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Restore Git-preserved source/toolchain after workspace maintenance; reproduce retirement cost across distinct rendered frames and implement focused correction if supported by measurements.",
+  "current_gate": "Preserve R38 shared extraction-budget correction, eight native sessions and independently replayed evidence; guarded final checkpoint in progress.",
   "next_items": [
     "Restore17staged source files from docs/validation/engine-continuation/water-publication-commit-2026-10-23/scripts/restore_staged.py onto575-input-verified isolated public source, then apply the two validation-only overlays using docs/validation/engine-continuation/water-retirement-profile-2026-10-23/scripts/restore_profile.py and the prior17-file staged manifest. Production candidate source is unchanged since publication checkpointafa0c208. Drive one retirement turn per distinct rendered frame after controlled setup completion, recording staging occupancy plus matched total-frame and resident-memory costs, then actual admission/eviction cap churn, boundary scatter, edits/height/opacity, automatic retry policy and long streams/ocean. Eight additional instrumented burst sessions pass; five verify2048actualGPU pages/33554304bytes/129turns/2175writes, max17writes and262080bytes/turn. Duplicate setup filled64MiB staging to256bytes remaining; its firstoverflow took56.727ms. Single-setup overflow shifts toturn126 and still costs40.543ms in final backend write. These are diagnostic burst costs, not normal-frame regression/improvement or ownerGPU/FPS. Do not speculate a backend workaround before matched ordinary-frame evidence. Retain packet/corner/quantity/geometry and explicit passing save/crash/resource gates; no promotion before broader performance/visual acceptance.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
