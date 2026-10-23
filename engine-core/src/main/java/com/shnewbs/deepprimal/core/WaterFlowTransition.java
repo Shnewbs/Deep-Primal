@@ -13,10 +13,7 @@ public final class WaterFlowTransition {
     if (version < revision) return;
     revision = version;
     pending = next;
-    if (next == 16 || target == 16) {
-      from = target = next;
-      started = now;
-    } else if ((from == target || now - started >= MILLIS) && next != target) {
+    if ((from == target || now - started >= MILLIS) && next != target) {
       from = target;
       target = next;
       started = now;
@@ -25,6 +22,6 @@ public final class WaterFlowTransition {
   public int target() { return target; }
   public int source() { return from; }
   public int age(long now) { return (int)Math.clamp(now - started, 0, MILLIS); }
-  public boolean active(long now) { return from < 16 && target < 16 && from != target && age(now) < MILLIS; }
+  public boolean active(long now) { return from != target && age(now) < MILLIS; }
   public boolean queued(long now) { return active(now) && pending != target; }
 }

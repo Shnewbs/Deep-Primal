@@ -42,8 +42,8 @@ final class WaterDirectionUploadChecks {
         RenderSystem.getDevice().createCommandEncoder().copyToBuffer(((GpuBuffer)vf.get(gpu)).slice(0,count*36L),read.slice());
         samples.add(new Sample(targets[n],sources[n],ages[n],n!=0,times[n],count,read));
       }
-      var flowMethod=type.getDeclaredMethod("flow",long.class,int.class,long.class);flowMethod.setAccessible(true);
-      for(int n=0;n<33000;n++)flowMethod.invoke(renderer,1_000_000L+n,n&15,1000L+n);
+      var flowMethod=type.getDeclaredMethod("flow",long.class,int.class,long.class,int.class);flowMethod.setAccessible(true);
+      for(int n=0;n<33000;n++)flowMethod.invoke(renderer,1_000_000L+n,n&15,1000L+n,n&15);
       var history=(Map<?,?>)field(type,"flowDirections").get(renderer);if(history.size()!=32768||history.containsKey(1_000_000L))throw new AssertionError("Direction history is unbounded or not FIFO-LRU evicted");
       RenderSystem.queueFencedTask(()->{
         var rows=new ArrayList<Map<String,Object>>();var raw=new java.io.ByteArrayOutputStream();int vertices=0;

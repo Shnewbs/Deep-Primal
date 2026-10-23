@@ -1,0 +1,20 @@
+{
+  "inspected": [
+    "vulkan-order-material-final",
+    "vulkan-order-material-final-packaged",
+    "vulkan-reuse-gl-material-final"
+  ],
+  "contact_sheets": 3,
+  "live_lake_frames": 27,
+  "material_contact_sheets": [
+    "material-before-after.png",
+    "material-mip-contact.png"
+  ],
+  "observations": [
+    "Controlled baseline jumps to new sprite;candidate source/quarter/half/threequarter/target changes gradually. Mip controls stay green;no adjacent atlas tile bleed in fixture.",
+    "Near lake remains visible with stable bank/underwater geometry in these short consecutiveframes. Distant rectangular horizon/LOD cutoffs remain visible with LOD enabled;disabled view differs. Cause and completecoverage unresolved.",
+    "Actual ocean waveBytes0 even enabled;no oceanwave or sustained streamflicker acceptance.",
+    "Lake videos losslessRGB with decodedbyte equality;illustrative5fps not timing acceptance."
+  ],
+  "full_visual_acceptance": false
+}

@@ -10,6 +10,7 @@ in vec3 Normal;
 uniform sampler2D Sampler2;
 out vec2 texCoord;
 flat out vec4 flowBounds;
+flat out vec4 previousBounds;
 out vec2 previousTexCoord;
 flat out float previousWeight;
 out vec4 vertexColor;
@@ -60,13 +61,24 @@ void main() {
     float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
     vertexColor.a *= mix(Normal.x, Normal.y, alphaT);
     texCoord = UV0;
-    flowBounds = (UV2.x & 1024) != 0
-        ? vec4(TextureMat[0][1], TextureMat[0][3], TextureMat[0][2], TextureMat[1][2])
-        : vec4(0.0);
+    vec4 flowTile = vec4(TextureMat[0][1], TextureMat[0][3], TextureMat[0][2], TextureMat[1][2]);
+    vec4 stillTile = vec4(TextureMat[1][3], TextureMat[2][0], TextureMat[2][2], TextureMat[1][0]);
+    flowBounds = (UV2.x & 1024) != 0 ? flowTile : vec4(0.0);
+    previousBounds = vec4(0.0);
     previousWeight = (UV2.y & 32768) != 0
         ? clamp(1.0 - (TextureMat[0][0] + float((UV2.y >> 8) & 127)) / 100.0, 0.0, 1.0) : 0.0;
     previousTexCoord = UV0;
-    if (previousWeight > 0.0) previousTexCoord = previousFlow(clamp((UV2.x >> 11) & 31, 0, 15), flowBounds);
+    if (previousWeight > 0.0) {
+        int sourceDirection = clamp((UV2.x >> 11) & 31, 0, 16);
+        if (sourceDirection < 16) {
+            previousBounds = flowTile;
+            previousTexCoord = previousFlow(sourceDirection, flowTile);
+        } else {
+            int cellBits = int(round(Color.a * 255.0));
+            vec2 cell = vec2(cellBits & 15, cellBits >> 4);
+            previousTexCoord = stillTile.xy + (Position.xz - cell) * stillTile.zw;
+        }
+    }
 
     if ((UV2.x & 256) != 0) {
         bool flowing = (UV2.x & 512) != 0;

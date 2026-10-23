@@ -471,10 +471,10 @@ public final class AnimatedWaterRenderer {
     return result;
   }
 
-  private WaterFlowTransition flow(long key, int direction, long revision) {
+  private WaterFlowTransition flow(long key, int direction, long revision, int previousDirection) {
     var value = flowDirections.getAndMoveToLast(key);
-    if (value == null && direction < 16) {
-      value = new WaterFlowTransition(direction, clock);
+    if (value == null && (direction < 16 || previousDirection < 16)) {
+      value = new WaterFlowTransition(previousDirection, clock);
       flowDirections.put(key, value);
     }
     if (value != null) value.target(direction, clock, revision);
@@ -539,7 +539,13 @@ public final class AnimatedWaterRenderer {
           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
           if ((v & 3) == 0) {
             int direction = WaterPatchMesher.direction(values[i + 10]);
-            flowState = face == 0 ? flow(cellKey, direction, faces.revision) : null;
+            flowState = null;
+            if (face == 0) {
+              // Unchanged still water stays sparse; its accepted snapshot supplies the first endpoint.
+              int previousDirection = p.snapshot != null && p.snapshot.water(cx, cy, cz) > 0
+                  ? p.snapshot.direction(cx, cy, cz) : direction;
+              flowState = flow(cellKey, direction, faces.revision, previousDirection);
+            }
             shownDirection = flowState == null ? direction : flowState.target();
             if (flowState != null && flowState.queued(clock)) {
               animating = true;
@@ -585,7 +591,7 @@ public final class AnimatedWaterRenderer {
           int color = Float.floatToRawIntBits(values[i + 7]),
               light = Float.floatToRawIntBits(values[i + 8]);
           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
-          boolean blend = face == 0 && shownDirection < 16 && flowState != null && flowState.active(clock);
+          boolean blend = face == 0 && flowState != null && flowState.active(clock);
           // Alpha transitions live in Normal: reuse constant color alpha for exact cell-local UVs.
           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
               .put((byte) (blend ? cx | (cz << 4) : 255));
@@ -597,10 +603,16 @@ public final class AnimatedWaterRenderer {
           boolean flowTop = face == 0 && flowingFace;
           float textureU = values[i + 5] + (flowTop ? phaseU : 0);
           float topV = values[i + 6];
-          if (flowTop) {
-            float a = values[i] - cx - .5f, b = values[i + 2] - cz - .5f;
-            textureU = .5f + .5f * (WaterPatchMesher.flowZ(shownDirection) * a - WaterPatchMesher.flowX(shownDirection) * b) + phaseU;
-            topV = .5f + .5f * (WaterPatchMesher.flowX(shownDirection) * a + WaterPatchMesher.flowZ(shownDirection) * b);
+          if (face == 0) {
+            if (flowTop) {
+              float a = values[i] - cx - .5f, b = values[i + 2] - cz - .5f;
+              textureU = .5f + .5f * (WaterPatchMesher.flowZ(shownDirection) * a - WaterPatchMesher.flowX(shownDirection) * b) + phaseU;
+              topV = .5f + .5f * (WaterPatchMesher.flowX(shownDirection) * a + WaterPatchMesher.flowZ(shownDirection) * b);
+            } else {
+              // Raw captures may request flow while the admitted endpoint is still.
+              textureU = values[i] - cx;
+              topV = values[i + 2] - cz;
+            }
           }
           float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : topV + (flowTop ? phaseV : 0);
           data.putFloat(sprite.getU(textureU)).putFloat(sprite.getV(textureV));
@@ -634,6 +646,7 @@ public final class AnimatedWaterRenderer {
       // Existing uniform storage carries sprite bounds; no vertex/uniform allocation growth.
       p.texture.m10(still.getV(1) - still.getV(0)).m11((flowing.getV(1) - flowing.getV(0)) * .5f);
       p.texture.m20(still.getV(0)).m21(flowing.getV(0));
+      p.texture.m13(still.getU(0)).m22(still.getU(1) - still.getU(0));
       p.texture.m01(flowing.getU(0)).m02(flowing.getU(1) - flowing.getU(0));
       p.texture.m03(flowing.getV(0)).m12(flowing.getV(1) - flowing.getV(0));
       p.texture.m30(p.x).m31(p.z);
