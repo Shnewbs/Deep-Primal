@@ -1,0 +1,16 @@
+{
+  "parent": "fab340ae07e9cf6a85e34b08bbaf0e53744357d8",
+  "existing_inputs_checked": 569,
+  "existing_inputs_unchanged": 568,
+  "production_files_changed": 0,
+  "existing_validation_changed": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java"
+  ],
+  "new_validation": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSpatialSeamChecks.java"
+  ],
+  "staged_reference": "SharedFlowReference.java",
+  "staged_only": true,
+  "solver_quantity_worldgen_lod_backend_gpu_shader_unchanged": true,
+  "installer_released": false
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 26.03
+  },
+  {
+    "action": "water-spatial-seam-check",
+    "completed": true,
+    "elapsed": 32.03
+  },
+  {
+    "action": "water-flow-phase-check",
+    "completed": true,
+    "elapsed": 33.03
+  },
+  {
+    "action": "water-direction-upload-check",
+    "completed": true,
+    "elapsed": 34.03
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 35.03
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 36.03
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 37.03
+  }
+]

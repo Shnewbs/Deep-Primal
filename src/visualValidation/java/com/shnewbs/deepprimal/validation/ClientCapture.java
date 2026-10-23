@@ -197,6 +197,7 @@ public final class ClientCapture {
         WaterDirectionBlendChecks.run(mc, dir);
         return;
       }
+      if (action.equals("water-spatial-seam-check")) { WaterSpatialSeamChecks.run(mc, dir); return; }
       if (action.equals("water-flow-phase-check")) {
         WaterFlowPhaseChecks.run(mc, dir);
         return;

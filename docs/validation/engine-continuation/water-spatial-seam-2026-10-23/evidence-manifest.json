@@ -1,0 +1,926 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 7400,
+    "sha256": "018bac4f5cae7d536a731f3c025bc570cca3f2137a8977e236c07d672d6ddd6b",
+    "git_blob": "f9a6ecfdb1ee55b83656de9de3a805cd85911687"
+  },
+  {
+    "path": "SharedFlowReference.java",
+    "bytes": 4126,
+    "sha256": "1b54d9a1fdb5eecf7efc209c5ab00153089c7a3b40e53f723fcd84e66a899926",
+    "git_blob": "f9248e7bfd7f8beb83c703f53ffd5c24fcbbd00d"
+  },
+  {
+    "path": "audit_spatial.py",
+    "bytes": 5666,
+    "sha256": "687dc27e20f4da4f8c600aba65bb6c3bb7d205696ca81d32a008cb01e5dec903",
+    "git_blob": "3b79916ae173ad380a7fb5917ce5ee82e550efa4"
+  },
+  {
+    "path": "build/candidate-build-final.gz",
+    "bytes": 3649,
+    "sha256": "7e08c940f7d2e77b81b2a3bbc29ea9ea5d3a5b4e936e50c7007aed6c22b1bc96",
+    "git_blob": "6f109405d282b8162606a7bdd1418d183313d47a"
+  },
+  {
+    "path": "build/candidate-build-result.json",
+    "bytes": 2447,
+    "sha256": "a4d8884f42c23c871032d488760383f85b10bcb89e05662d3d11e94bf1986ba2",
+    "git_blob": "bd625d843fa0a232a0e0ea0fcaef8d2201d32e26"
+  },
+  {
+    "path": "build/package-audit.json",
+    "bytes": 2074,
+    "sha256": "b89946810d0613378886d68cda739d36a5a8bfa00f39165ccbd79971f10c11fc",
+    "git_blob": "27d9d7e99fa138f71ed7963618829240e5b594c9"
+  },
+  {
+    "path": "checkpoint-summary.json",
+    "bytes": 1592,
+    "sha256": "8114b31936f294d88843e9035b8c05a47a0929480bafd8d74d2f518c9a6b4459",
+    "git_blob": "ff5eda59a60d863856e9ecaec89dab9a2c69cca1"
+  },
+  {
+    "path": "code-self-audit.json",
+    "bytes": 2410,
+    "sha256": "835da37a3ec63d697cc402119da3926fdcbd45c5eef66a278897aebc3eee3740",
+    "git_blob": "67ae6869f5ac695c3918080e773d6a7af274243e"
+  },
+  {
+    "path": "compressed-data-manifest.json",
+    "bytes": 1813,
+    "sha256": "c677a3fe5d5beb27f66f2d81e78ed4fde4f54becf2c66123d37ec10beb8f0f4f",
+    "git_blob": "d79835098d93348f0882863b2c4635fbf2f63b51"
+  },
+  {
+    "path": "early-native-launch-excluded.json",
+    "bytes": 372,
+    "sha256": "6bf80176c8b13fc6effcc4336c00ae8e50620a657b7394ed5d3567bc7bd1671b",
+    "git_blob": "297860f8611c5c596fc091e253209e83c682b59d"
+  },
+  {
+    "path": "excluded/action-history.json",
+    "bytes": 565,
+    "sha256": "72ca1cb9017af53bbb41c5681868110105c71805a0de27fd5226f55af818c993",
+    "git_blob": "22980d1cefbe787a1e4004fb3b9570b9c2fd9639"
+  },
+  {
+    "path": "excluded/command.json",
+    "bytes": 1382,
+    "sha256": "b18e4d7e9f413295bc90152b1941c40975cbbe6ed0eefc177597f82e54895d5d",
+    "git_blob": "3d140a132a4678ad7c740ce47ee73b9ceabb3ce4"
+  },
+  {
+    "path": "excluded/console-final.gz",
+    "bytes": 7923,
+    "sha256": "c0fdbc5e30fc50bee71080b1e549f639f8398b2f37721e18ce6a58d57b6620ce",
+    "git_blob": "518ec3b6f4790a88db4c1241ad4e66bf4b06e329"
+  },
+  {
+    "path": "excluded/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c",
+    "git_blob": "4cae74dff69d3ad40e5db4cbf9d94163aacc5be2"
+  },
+  {
+    "path": "excluded/first-WaterSpatialSeamChecks.java",
+    "bytes": 10017,
+    "sha256": "4a4f47c3a91e6bcb393ee7163bb8a01e4843ef503f401558e958494cdcd9dd51",
+    "git_blob": "a29f23905fcb026002088f2354ce432181907918"
+  },
+  {
+    "path": "excluded/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "496437cfacaa95c5230662a9729243ac11395f29181e463066f5d499e26fb06e",
+    "git_blob": "4c44adf529d5c1b09a2f877a488bd4591c8c2746"
+  },
+  {
+    "path": "excluded/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+    "git_blob": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40"
+  },
+  {
+    "path": "excluded/water-spatial-result.json",
+    "bytes": 547,
+    "sha256": "3c1b6ad7cc906245980fb2e92c736b7d7991a38a69bcbe47634d01731b9f255b",
+    "git_blob": "3ec852e6d918ecc42fce8099f27597b03a288ca9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/action-history.json",
+    "bytes": 640,
+    "sha256": "921244e2e774c25efcacaa7233541be62f4e3e890f4dee6178db2bb77595fbe2",
+    "git_blob": "637ed2d16b18b4099b717df0736252cfadc6af21"
+  },
+  {
+    "path": "native/vulkan-spatial-final/command.json",
+    "bytes": 1382,
+    "sha256": "60461123ec4dc2b21e3a95fb2c51b627b4ac1de530d21d23061086cb0b1b7c66",
+    "git_blob": "5d4be61315a6a99dbdac1e865de61d8a0164bdf0"
+  },
+  {
+    "path": "native/vulkan-spatial-final/console-final.gz",
+    "bytes": 7644,
+    "sha256": "0eb5a648ee387fcbdaa38b3a1aecc514a51ff7fa008a4ed8566b994551d85e3c",
+    "git_blob": "11ab5562a4882a1ef1c81185fae76a17166f43dd"
+  },
+  {
+    "path": "native/vulkan-spatial-final/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c",
+    "git_blob": "4cae74dff69d3ad40e5db4cbf9d94163aacc5be2"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-0.png",
+    "bytes": 123,
+    "sha256": "ffc51fa69a9e18f1f4382600c87f922efa0c44328bb6e0d9f7965ffa84104340",
+    "git_blob": "9dbc3e89513eec48b8687a4ef20289fb91411eca"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-1.png",
+    "bytes": 123,
+    "sha256": "ffc51fa69a9e18f1f4382600c87f922efa0c44328bb6e0d9f7965ffa84104340",
+    "git_blob": "9dbc3e89513eec48b8687a4ef20289fb91411eca"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-10.png",
+    "bytes": 563,
+    "sha256": "1281f27ffec35daeae67cc9af1c655f19c841a3601d16eab43212a07fa6c339d",
+    "git_blob": "0a347fe4c283456bc347a87c1f04e3000140b405"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-11.png",
+    "bytes": 563,
+    "sha256": "1281f27ffec35daeae67cc9af1c655f19c841a3601d16eab43212a07fa6c339d",
+    "git_blob": "0a347fe4c283456bc347a87c1f04e3000140b405"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-12.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-13.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-14.png",
+    "bytes": 260,
+    "sha256": "e193d502cc50098cb8fc6be9d340c96d7c00977233a1c9001f52f29058e65e79",
+    "git_blob": "af32efd79a087aaf695829e88196fa1b72739ca4"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-15.png",
+    "bytes": 453,
+    "sha256": "4756a7bcab0d34ce91c907da525d5a8b85cc0a67a28396f46b0ca149930c509c",
+    "git_blob": "d20be986633fdfa8fb15119f486c25a4f707eddb"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-16.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-17.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-18.png",
+    "bytes": 293,
+    "sha256": "38caeb801eadc515a8cc1390894645891990e7cfecc7c63f1aa019068c9f43c8",
+    "git_blob": "d2fe1b5eee46da8730caa2df68a0b99bb2a0bb0c"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-19.png",
+    "bytes": 331,
+    "sha256": "43b42c8fec133476715e942b91947d13fb08c5f001f042d335d1bad534b29726",
+    "git_blob": "1c2376734177023ff601b79f8e2bb8b889ddf92e"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-2.png",
+    "bytes": 655,
+    "sha256": "57a583af79f9ddef7244bf1bbed87a511e6037d3e205bc952cabcf36f7e7ba10",
+    "git_blob": "2ae4329b5ae78b16be8fa764643327dd27896b0d"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-20.png",
+    "bytes": 422,
+    "sha256": "0724c24ac7eba63b8a3b16b5fa9fa3df105431f322bed0629c6ae364afdaa810",
+    "git_blob": "80a64aef6bf748ab68979d98380caca97edc7a8c"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-21.png",
+    "bytes": 298,
+    "sha256": "d9cb9c01d590df19ebc4a0a2c4430f860a0086fbd2a1766ee02bfbad4d99b9ae",
+    "git_blob": "d24308f2dc0069d9315a7754884d327d2c945768"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-22.png",
+    "bytes": 330,
+    "sha256": "0e3228c64a56fdd070cb6d5f628084f2c81f4110fef19ecf10bd0a21037d2426",
+    "git_blob": "fb35db9114857b767ffa997f81d414d728d26f77"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-23.png",
+    "bytes": 344,
+    "sha256": "98af8197d2344494be067e59554420f77920a881b19db8ecf2150bbfb43036f8",
+    "git_blob": "6c2626fe425531b92c27d32f8d225da33d39604b"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-3.png",
+    "bytes": 655,
+    "sha256": "57a583af79f9ddef7244bf1bbed87a511e6037d3e205bc952cabcf36f7e7ba10",
+    "git_blob": "2ae4329b5ae78b16be8fa764643327dd27896b0d"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-4.png",
+    "bytes": 125,
+    "sha256": "a8936e164fa34b3a5d94561d7e20c6df2f399bc819677b4057d8d7254a9dd4dd",
+    "git_blob": "e8a9c3cbce414b86ab0b5b9a6510e4f7070ae9fd"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-5.png",
+    "bytes": 125,
+    "sha256": "a8936e164fa34b3a5d94561d7e20c6df2f399bc819677b4057d8d7254a9dd4dd",
+    "git_blob": "e8a9c3cbce414b86ab0b5b9a6510e4f7070ae9fd"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-6.png",
+    "bytes": 502,
+    "sha256": "8b95ca1183d405ca44462235b5587b3e9113124b92e8898e37102d2cc2efc0fd",
+    "git_blob": "50716672f4db30137e075aa542502697a42550f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-7.png",
+    "bytes": 502,
+    "sha256": "8b95ca1183d405ca44462235b5587b3e9113124b92e8898e37102d2cc2efc0fd",
+    "git_blob": "50716672f4db30137e075aa542502697a42550f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-8.png",
+    "bytes": 604,
+    "sha256": "cb6eecf3c3d93ce40488fc9bd8c02c108dfd49be3eb0fe8abda27b1e2e564db8",
+    "git_blob": "7b4ea5d945bb699056f9d7c74c8063aefcf323f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/flow-phase-9.png",
+    "bytes": 604,
+    "sha256": "cb6eecf3c3d93ce40488fc9bd8c02c108dfd49be3eb0fe8abda27b1e2e564db8",
+    "git_blob": "7b4ea5d945bb699056f9d7c74c8063aefcf323f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc",
+    "git_blob": "e3de829947e7c16d91a48bbb18d083fb88269f42"
+  },
+  {
+    "path": "native/vulkan-spatial-final/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb",
+    "git_blob": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96"
+  },
+  {
+    "path": "native/vulkan-spatial-final/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc",
+    "git_blob": "da439cdc19d48d4dd2afc0cc341df0d42f6e494c"
+  },
+  {
+    "path": "native/vulkan-spatial-final/result.json",
+    "bytes": 6739,
+    "sha256": "4238be70fdb87fe55c6f1f3323c09252cacff4793cf383bbf1668c77d270caa8",
+    "git_blob": "d78f9db39b02008e5b10bc3fd827dca200f09004"
+  },
+  {
+    "path": "native/vulkan-spatial-final/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4",
+    "git_blob": "a10d3c809faea3a11ea75b822ad543d8ed168fb8"
+  },
+  {
+    "path": "native/vulkan-spatial-final/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "64815fad62f05db0331eaf55b6306a865041b24e68a38a0aeb5776d64d285f4a",
+    "git_blob": "45326b8b1ca192d35b613227c58d3aff911441be"
+  },
+  {
+    "path": "native/vulkan-spatial-final/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+    "git_blob": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-0-0-0.png",
+    "bytes": 96,
+    "sha256": "f5a0fb2705732df475672df3ae5d3d158bc6fb0c3c598fbb195fafb685e04e2a",
+    "git_blob": "43897a15c3ecfab8a48c952182a949036cdbc56b"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-0-0-1.png",
+    "bytes": 96,
+    "sha256": "cbf6748b9cea111653938a544bfac3250e267b65931f826f9fc8b9f2dc23c845",
+    "git_blob": "0455656dbbe0fa68c19042b6488196027735d7a1"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-0-1-0.png",
+    "bytes": 95,
+    "sha256": "c8466c04596f31470127685fa462db21d03802a3d1d06a36f54a702e63f9859a",
+    "git_blob": "eecb171f7dc086bae3e058e352048fad4dc729bd"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-0-1-1.png",
+    "bytes": 96,
+    "sha256": "4c9b12c644fea8aefc9cc9bba05bad4b3c96c3b280773cc1dfb75befe4a682db",
+    "git_blob": "7208618fe3ac4aad6c2b178bfd4f9f0c5914337f"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-1-0-0.png",
+    "bytes": 98,
+    "sha256": "2a6bfacdcde41e56d2b33fab4d43659ca4f71c91283b4677a508debbe82b82b3",
+    "git_blob": "98e369a42fa2e42534b4073cb0926d01ed356dc0"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-1-0-1.png",
+    "bytes": 98,
+    "sha256": "2a6bfacdcde41e56d2b33fab4d43659ca4f71c91283b4677a508debbe82b82b3",
+    "git_blob": "98e369a42fa2e42534b4073cb0926d01ed356dc0"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-1-1-0.png",
+    "bytes": 98,
+    "sha256": "54aa33db673a717529836b022cd3ef90e79e16139186986af2183f2f7c5b0eb8",
+    "git_blob": "6923b67150cf84d09789f976ea2299e76d1323e9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-1-1-1.png",
+    "bytes": 98,
+    "sha256": "54aa33db673a717529836b022cd3ef90e79e16139186986af2183f2f7c5b0eb8",
+    "git_blob": "6923b67150cf84d09789f976ea2299e76d1323e9"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-2-0-0.png",
+    "bytes": 99,
+    "sha256": "219704d10d9014ab2f6ae15e85feb6c11312e6fb2591a610af112786e2102275",
+    "git_blob": "85e2fa83a7b1b3101f0bdc0eb17a54d3278be47c"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-2-0-1.png",
+    "bytes": 99,
+    "sha256": "58a043c04a2866a333a574ad9209985d8765215df0fc78c9566efcf820758761",
+    "git_blob": "3a6031b0e5dda9aaaeaa300f62be8b49398671c8"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-3-0-0.png",
+    "bytes": 95,
+    "sha256": "9e872e8e358653caca8ce8a6692e35e4d0a9e6b16c7d71ed7a445256e52a5a93",
+    "git_blob": "e1ae44853b4f7e363897f812ae4a5bc460ecab24"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-3-0-1.png",
+    "bytes": 95,
+    "sha256": "9e872e8e358653caca8ce8a6692e35e4d0a9e6b16c7d71ed7a445256e52a5a93",
+    "git_blob": "e1ae44853b4f7e363897f812ae4a5bc460ecab24"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-3-1-0.png",
+    "bytes": 96,
+    "sha256": "752f937e4d36053487123990769ea089cb0e489e94136bf123b2782edd547089",
+    "git_blob": "8880a244e68d67a186b041b7bc99da28cc2bc5bf"
+  },
+  {
+    "path": "native/vulkan-spatial-final/spatial-3-1-1.png",
+    "bytes": 96,
+    "sha256": "752f937e4d36053487123990769ea089cb0e489e94136bf123b2782edd547089",
+    "git_blob": "8880a244e68d67a186b041b7bc99da28cc2bc5bf"
+  },
+  {
+    "path": "native/vulkan-spatial-final/startup-lifecycle.txt",
+    "bytes": 827,
+    "sha256": "5fc244bd45e5437da7756f2acd4b169f5b22d193491b6f628ce6c1be6bd15ebb",
+    "git_blob": "b202e905042ccc51876c5d32f820c57ea047a2b8"
+  },
+  {
+    "path": "native/vulkan-spatial-final/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4",
+    "git_blob": "6c78657360c5996c65522349fc1afb5d70c93a49"
+  },
+  {
+    "path": "native/vulkan-spatial-final/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900",
+    "git_blob": "677f68bd205d822c5d788dfeb602fab4a25d14f4"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-direction-upload-details.json",
+    "bytes": 797,
+    "sha256": "b461da99a19804319dd1d2dddb6c0bdd1781ea7b193d32073f8c360320ec2844",
+    "git_blob": "d316cdd4196502026770a720a5f711154652edd4"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-direction-upload-pass.txt",
+    "bytes": 270,
+    "sha256": "9fdde7ffec82f0de599f5e244d93b4e857cbd9f5985ab32361ebb80a61ca942a",
+    "git_blob": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-direction-upload.bin",
+    "bytes": 5040,
+    "sha256": "5dfab94f416fe27202c4bff813e2291204fe8c695a690a9dfe12ffd2d1aed48b",
+    "git_blob": "8ea4c67f2426f43f4232b5ef578e634d4bbe73d7"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-flow-phase-pass.txt",
+    "bytes": 253,
+    "sha256": "60846405ab2bddf3c02fcf01f103382b7c3cd86d7ff8e5aba216d441e7b833c2",
+    "git_blob": "071f6239dbf2e4dee3478d654f3fabf558278f1f"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-flow-phase-pixel-details.json",
+    "bytes": 2655,
+    "sha256": "247e825175a5dbc7385d2146f9cbd1a7861e731831ea10fcc25438b94d31b93d",
+    "git_blob": "73ad4621ea8a2f2536700b6bbca0c6d582b04a6c"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-flow-phase-pixels.txt",
+    "bytes": 216,
+    "sha256": "16e77957abd4585f5ba9fea0ec0b6d7190e4279d7833b3769f0220de1bc01b07",
+    "git_blob": "4665a7bdaca8cfb917072308b4e17997df2cad94"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-spatial-details.json.gz",
+    "bytes": 98620,
+    "sha256": "34a41d4306c1c4c720df04c7fd688a92ef9f55f1087e7cd0221883ebd6f1801f",
+    "git_blob": "bf90f51126738d6965110d1cff3000743be644cf"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-spatial-pixels.bin.gz",
+    "bytes": 312690,
+    "sha256": "cffa81583df1e3a0822bd4034fe912ebb7685569940c4480df67a00814a2685d",
+    "git_blob": "9ee21b086cfb9d319e78df6666e24c1a01859ac4"
+  },
+  {
+    "path": "native/vulkan-spatial-final/water-spatial-result.json",
+    "bytes": 831,
+    "sha256": "23ff80a51aeb145302d44bb79229921824a5a2fec507b01dce39fbd9596ae9d1",
+    "git_blob": "eb547cb825b6a696ec0d71ac90754378fcc3aff9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/action-history.json",
+    "bytes": 640,
+    "sha256": "9a0d71dfaae0c120a485818391fa5c6da059c44a8caf15c46fd7b68f5ef5659f",
+    "git_blob": "70e9fcd9cfde8270679721026900339f035120b5"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/command.json",
+    "bytes": 1567,
+    "sha256": "b5b66bd99c88d94c42457685068dad47a0386e6bb1d9335678dfa8f0f7f2d10e",
+    "git_blob": "9d7697000e823bc9f849599a1f8207ad009829ef"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/console-final.gz",
+    "bytes": 7805,
+    "sha256": "1adbdb2519caab25e224b97e207a54a2780b1b709d72c56468f23a701e1770d2",
+    "git_blob": "2d6db2c7c0fabff44f233de740668c5d4ee47bd5"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c",
+    "git_blob": "4cae74dff69d3ad40e5db4cbf9d94163aacc5be2"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-0.png",
+    "bytes": 123,
+    "sha256": "ffc51fa69a9e18f1f4382600c87f922efa0c44328bb6e0d9f7965ffa84104340",
+    "git_blob": "9dbc3e89513eec48b8687a4ef20289fb91411eca"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-1.png",
+    "bytes": 123,
+    "sha256": "ffc51fa69a9e18f1f4382600c87f922efa0c44328bb6e0d9f7965ffa84104340",
+    "git_blob": "9dbc3e89513eec48b8687a4ef20289fb91411eca"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-10.png",
+    "bytes": 563,
+    "sha256": "1281f27ffec35daeae67cc9af1c655f19c841a3601d16eab43212a07fa6c339d",
+    "git_blob": "0a347fe4c283456bc347a87c1f04e3000140b405"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-11.png",
+    "bytes": 563,
+    "sha256": "1281f27ffec35daeae67cc9af1c655f19c841a3601d16eab43212a07fa6c339d",
+    "git_blob": "0a347fe4c283456bc347a87c1f04e3000140b405"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-12.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-13.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-14.png",
+    "bytes": 260,
+    "sha256": "e193d502cc50098cb8fc6be9d340c96d7c00977233a1c9001f52f29058e65e79",
+    "git_blob": "af32efd79a087aaf695829e88196fa1b72739ca4"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-15.png",
+    "bytes": 453,
+    "sha256": "4756a7bcab0d34ce91c907da525d5a8b85cc0a67a28396f46b0ca149930c509c",
+    "git_blob": "d20be986633fdfa8fb15119f486c25a4f707eddb"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-16.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-17.png",
+    "bytes": 114,
+    "sha256": "8961e9612ceda6f802c14b83b299352c4919b47e86101c5bbcbc48822832c8c7",
+    "git_blob": "d89a58fa9a38f0127040c1a64bdab88eed37822e"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-18.png",
+    "bytes": 293,
+    "sha256": "38caeb801eadc515a8cc1390894645891990e7cfecc7c63f1aa019068c9f43c8",
+    "git_blob": "d2fe1b5eee46da8730caa2df68a0b99bb2a0bb0c"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-19.png",
+    "bytes": 331,
+    "sha256": "43b42c8fec133476715e942b91947d13fb08c5f001f042d335d1bad534b29726",
+    "git_blob": "1c2376734177023ff601b79f8e2bb8b889ddf92e"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-2.png",
+    "bytes": 655,
+    "sha256": "57a583af79f9ddef7244bf1bbed87a511e6037d3e205bc952cabcf36f7e7ba10",
+    "git_blob": "2ae4329b5ae78b16be8fa764643327dd27896b0d"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-20.png",
+    "bytes": 422,
+    "sha256": "0724c24ac7eba63b8a3b16b5fa9fa3df105431f322bed0629c6ae364afdaa810",
+    "git_blob": "80a64aef6bf748ab68979d98380caca97edc7a8c"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-21.png",
+    "bytes": 298,
+    "sha256": "d9cb9c01d590df19ebc4a0a2c4430f860a0086fbd2a1766ee02bfbad4d99b9ae",
+    "git_blob": "d24308f2dc0069d9315a7754884d327d2c945768"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-22.png",
+    "bytes": 330,
+    "sha256": "0e3228c64a56fdd070cb6d5f628084f2c81f4110fef19ecf10bd0a21037d2426",
+    "git_blob": "fb35db9114857b767ffa997f81d414d728d26f77"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-23.png",
+    "bytes": 344,
+    "sha256": "98af8197d2344494be067e59554420f77920a881b19db8ecf2150bbfb43036f8",
+    "git_blob": "6c2626fe425531b92c27d32f8d225da33d39604b"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-3.png",
+    "bytes": 655,
+    "sha256": "57a583af79f9ddef7244bf1bbed87a511e6037d3e205bc952cabcf36f7e7ba10",
+    "git_blob": "2ae4329b5ae78b16be8fa764643327dd27896b0d"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-4.png",
+    "bytes": 125,
+    "sha256": "a8936e164fa34b3a5d94561d7e20c6df2f399bc819677b4057d8d7254a9dd4dd",
+    "git_blob": "e8a9c3cbce414b86ab0b5b9a6510e4f7070ae9fd"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-5.png",
+    "bytes": 125,
+    "sha256": "a8936e164fa34b3a5d94561d7e20c6df2f399bc819677b4057d8d7254a9dd4dd",
+    "git_blob": "e8a9c3cbce414b86ab0b5b9a6510e4f7070ae9fd"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-6.png",
+    "bytes": 502,
+    "sha256": "8b95ca1183d405ca44462235b5587b3e9113124b92e8898e37102d2cc2efc0fd",
+    "git_blob": "50716672f4db30137e075aa542502697a42550f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-7.png",
+    "bytes": 502,
+    "sha256": "8b95ca1183d405ca44462235b5587b3e9113124b92e8898e37102d2cc2efc0fd",
+    "git_blob": "50716672f4db30137e075aa542502697a42550f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-8.png",
+    "bytes": 604,
+    "sha256": "cb6eecf3c3d93ce40488fc9bd8c02c108dfd49be3eb0fe8abda27b1e2e564db8",
+    "git_blob": "7b4ea5d945bb699056f9d7c74c8063aefcf323f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/flow-phase-9.png",
+    "bytes": 604,
+    "sha256": "cb6eecf3c3d93ce40488fc9bd8c02c108dfd49be3eb0fe8abda27b1e2e564db8",
+    "git_blob": "7b4ea5d945bb699056f9d7c74c8063aefcf323f9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc",
+    "git_blob": "e3de829947e7c16d91a48bbb18d083fb88269f42"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb",
+    "git_blob": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc",
+    "git_blob": "da439cdc19d48d4dd2afc0cc341df0d42f6e494c"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/result.json",
+    "bytes": 6748,
+    "sha256": "4f65029537b07d30bc11b10a8f334a5b3999a965429941364a931b3a4907ea73",
+    "git_blob": "b03f1e83f87b4d1d9b85d627824984c41fd76ab8"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4",
+    "git_blob": "a10d3c809faea3a11ea75b822ad543d8ed168fb8"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "f854847bde7d915be7b22bbefa1c892fb3a405f3d88ff53200e588499a098287",
+    "git_blob": "de31c37514eef863c9c3870328d72a5efe43997c"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7",
+    "git_blob": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-0-0-0.png",
+    "bytes": 96,
+    "sha256": "f5a0fb2705732df475672df3ae5d3d158bc6fb0c3c598fbb195fafb685e04e2a",
+    "git_blob": "43897a15c3ecfab8a48c952182a949036cdbc56b"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-0-0-1.png",
+    "bytes": 96,
+    "sha256": "cbf6748b9cea111653938a544bfac3250e267b65931f826f9fc8b9f2dc23c845",
+    "git_blob": "0455656dbbe0fa68c19042b6488196027735d7a1"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-0-1-0.png",
+    "bytes": 95,
+    "sha256": "c8466c04596f31470127685fa462db21d03802a3d1d06a36f54a702e63f9859a",
+    "git_blob": "eecb171f7dc086bae3e058e352048fad4dc729bd"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-0-1-1.png",
+    "bytes": 96,
+    "sha256": "4c9b12c644fea8aefc9cc9bba05bad4b3c96c3b280773cc1dfb75befe4a682db",
+    "git_blob": "7208618fe3ac4aad6c2b178bfd4f9f0c5914337f"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-1-0-0.png",
+    "bytes": 98,
+    "sha256": "2a6bfacdcde41e56d2b33fab4d43659ca4f71c91283b4677a508debbe82b82b3",
+    "git_blob": "98e369a42fa2e42534b4073cb0926d01ed356dc0"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-1-0-1.png",
+    "bytes": 98,
+    "sha256": "2a6bfacdcde41e56d2b33fab4d43659ca4f71c91283b4677a508debbe82b82b3",
+    "git_blob": "98e369a42fa2e42534b4073cb0926d01ed356dc0"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-1-1-0.png",
+    "bytes": 98,
+    "sha256": "54aa33db673a717529836b022cd3ef90e79e16139186986af2183f2f7c5b0eb8",
+    "git_blob": "6923b67150cf84d09789f976ea2299e76d1323e9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-1-1-1.png",
+    "bytes": 98,
+    "sha256": "54aa33db673a717529836b022cd3ef90e79e16139186986af2183f2f7c5b0eb8",
+    "git_blob": "6923b67150cf84d09789f976ea2299e76d1323e9"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-2-0-0.png",
+    "bytes": 99,
+    "sha256": "219704d10d9014ab2f6ae15e85feb6c11312e6fb2591a610af112786e2102275",
+    "git_blob": "85e2fa83a7b1b3101f0bdc0eb17a54d3278be47c"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-2-0-1.png",
+    "bytes": 99,
+    "sha256": "58a043c04a2866a333a574ad9209985d8765215df0fc78c9566efcf820758761",
+    "git_blob": "3a6031b0e5dda9aaaeaa300f62be8b49398671c8"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-3-0-0.png",
+    "bytes": 95,
+    "sha256": "9e872e8e358653caca8ce8a6692e35e4d0a9e6b16c7d71ed7a445256e52a5a93",
+    "git_blob": "e1ae44853b4f7e363897f812ae4a5bc460ecab24"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-3-0-1.png",
+    "bytes": 95,
+    "sha256": "9e872e8e358653caca8ce8a6692e35e4d0a9e6b16c7d71ed7a445256e52a5a93",
+    "git_blob": "e1ae44853b4f7e363897f812ae4a5bc460ecab24"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-3-1-0.png",
+    "bytes": 96,
+    "sha256": "752f937e4d36053487123990769ea089cb0e489e94136bf123b2782edd547089",
+    "git_blob": "8880a244e68d67a186b041b7bc99da28cc2bc5bf"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/spatial-3-1-1.png",
+    "bytes": 96,
+    "sha256": "752f937e4d36053487123990769ea089cb0e489e94136bf123b2782edd547089",
+    "git_blob": "8880a244e68d67a186b041b7bc99da28cc2bc5bf"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/startup-lifecycle.txt",
+    "bytes": 893,
+    "sha256": "89cbef16517938cc1102856818dae6b6440342e4388de2fbe499a8ee06d0564b",
+    "git_blob": "8433fc4c17034296ad920c3753f90472f688c2bc"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4",
+    "git_blob": "6c78657360c5996c65522349fc1afb5d70c93a49"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900",
+    "git_blob": "677f68bd205d822c5d788dfeb602fab4a25d14f4"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-direction-upload-details.json",
+    "bytes": 797,
+    "sha256": "e7c659f4bcdf63879998e7c594225090a1501cbc5ca1dd58902c84d743cf3d9f",
+    "git_blob": "22782d1a429363b8e096f2ecce74a06cae099ea6"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-direction-upload-pass.txt",
+    "bytes": 270,
+    "sha256": "9fdde7ffec82f0de599f5e244d93b4e857cbd9f5985ab32361ebb80a61ca942a",
+    "git_blob": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-direction-upload.bin",
+    "bytes": 5040,
+    "sha256": "5dfab94f416fe27202c4bff813e2291204fe8c695a690a9dfe12ffd2d1aed48b",
+    "git_blob": "8ea4c67f2426f43f4232b5ef578e634d4bbe73d7"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-flow-phase-pass.txt",
+    "bytes": 253,
+    "sha256": "60846405ab2bddf3c02fcf01f103382b7c3cd86d7ff8e5aba216d441e7b833c2",
+    "git_blob": "071f6239dbf2e4dee3478d654f3fabf558278f1f"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-flow-phase-pixel-details.json",
+    "bytes": 2655,
+    "sha256": "557d2e1fd097dcf79a838d01e854124aaeb5df7d69b106855854c2596039d479",
+    "git_blob": "626f5ac4b4b617477ae743237fb84c10fb22a989"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-flow-phase-pixels.txt",
+    "bytes": 216,
+    "sha256": "16e77957abd4585f5ba9fea0ec0b6d7190e4279d7833b3769f0220de1bc01b07",
+    "git_blob": "4665a7bdaca8cfb917072308b4e17997df2cad94"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-spatial-details.json.gz",
+    "bytes": 98620,
+    "sha256": "34a41d4306c1c4c720df04c7fd688a92ef9f55f1087e7cd0221883ebd6f1801f",
+    "git_blob": "bf90f51126738d6965110d1cff3000743be644cf"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-spatial-pixels.bin.gz",
+    "bytes": 312690,
+    "sha256": "cffa81583df1e3a0822bd4034fe912ebb7685569940c4480df67a00814a2685d",
+    "git_blob": "9ee21b086cfb9d319e78df6666e24c1a01859ac4"
+  },
+  {
+    "path": "native/vulkan-spatial-final-packaged/water-spatial-result.json",
+    "bytes": 831,
+    "sha256": "23ff80a51aeb145302d44bb79229921824a5a2fec507b01dce39fbd9596ae9d1",
+    "git_blob": "eb547cb825b6a696ec0d71ac90754378fcc3aff9"
+  },
+  {
+    "path": "offline-audit-replay.json",
+    "bytes": 322,
+    "sha256": "8970e3b19023d62dc1917a2675bf2ad967bbd3fe6c7e46453cc165c343c48b01",
+    "git_blob": "8d44f0e751d14a0e7f9ab7b7ed1ba4aa7407e00c"
+  },
+  {
+    "path": "rejected-and-excluded.json",
+    "bytes": 1232,
+    "sha256": "277d795182249d69e82f83f464ad26333dbd61852ba2edfff7759177d6b24b15",
+    "git_blob": "ed274994fdd4ac4639f51342940c4f4f4f981d7b"
+  },
+  {
+    "path": "run_reference.py",
+    "bytes": 1293,
+    "sha256": "1d5a9563a61b54936f62914cfe8050f3ffd99115ac3835726eb5a551b1879770",
+    "git_blob": "def381b88e3f3cf48cc8a972f08db3acab12e6cf"
+  },
+  {
+    "path": "screenshot-inspection.json",
+    "bytes": 652,
+    "sha256": "8b6895ca26bc90a52926cece35ed5cbd8fe2e26303a0baa373fa23c215204635",
+    "git_blob": "1b43fbb8a26e22147beb31feb44c0b6177b7c05c"
+  },
+  {
+    "path": "shared-flow-reference-result.json",
+    "bytes": 253,
+    "sha256": "19b1b2a083214f3d949b8f814e87bd6a66570413a9c41309f69a07ff2b4361c7",
+    "git_blob": "305773bf93b8ece4179cc1114c503ed961023808"
+  },
+  {
+    "path": "source-input-manifest.json.gz",
+    "bytes": 22487,
+    "sha256": "c64b781f178c7e362d1731d92ba012368bf67f97765ad650c4cb02da1687b3c9",
+    "git_blob": "60a5888fb3101f322d6d9d572b38be284775e5e8"
+  },
+  {
+    "path": "source-scope-audit.json",
+    "bytes": 581,
+    "sha256": "0e7ee045f323b13ff2a557e678000e63d7f56dfa652748fd9a6062504c9727d9",
+    "git_blob": "43161d6fece601f4ca8424c5ca7828628c3e3578"
+  },
+  {
+    "path": "spatial-contact.png",
+    "bytes": 16102,
+    "sha256": "38acfa2e71cb9c24e2edb93aafd8eb50e21dd96f7438684b691551bd72d00deb",
+    "git_blob": "ff75aa5deb4eb3bf26dfbbde53560dfcd86cba9b"
+  },
+  {
+    "path": "staged-reference-build-result.json",
+    "bytes": 998,
+    "sha256": "85b2639ca68d557965259df5762533a4366276f6eed362ca23d05f3bad8f7cc3",
+    "git_blob": "92f4f6d1c95c94567da2fd6530fcd2d62cabc1af"
+  },
+  {
+    "path": "strict-spatial-native-audit.json",
+    "bytes": 3720,
+    "sha256": "f2e0414cd6328be48ca857457d2fee54b5207e10eafdad690f601ea60f32b46d",
+    "git_blob": "cf3b36402734e1c737a898e1f781e34ae10590de"
+  },
+  {
+    "path": "tools/audit_vulkan_package.py",
+    "bytes": 4266,
+    "sha256": "b6f89521e8559dfc4d3ff5b1411cf3c7f69a7b29d9581e6775ee0addac78cf15",
+    "git_blob": "77d516205ccf2cad9021d5e1224eda287e971099"
+  },
+  {
+    "path": "tools/build_candidate.py",
+    "bytes": 2457,
+    "sha256": "ecb16fd86531aec33bde0b7485785db78459c3d50bc0d401bed5fda7622cd431",
+    "git_blob": "4e8a83ac72d8a3e72e39ef03711ddff430a5d951"
+  },
+  {
+    "path": "tools/run_vulkan.py",
+    "bytes": 22077,
+    "sha256": "e79c6269d781d98e623eab770ae5bd1a2b0bec0a32db083120511c524d319837",
+    "git_blob": "4cdf4346c587fb796e0a147a6ebe76bc2af7c83c"
+  },
+  {
+    "path": "verify_compact_evidence.py",
+    "bytes": 1446,
+    "sha256": "88ff9d139d4fd3a6b5b59bed576117916d02da4a2a254be9c156a3bde992ae27",
+    "git_blob": "01f0d2ac88a2e1cb3537536046d560c749574a3a"
+  }
+]

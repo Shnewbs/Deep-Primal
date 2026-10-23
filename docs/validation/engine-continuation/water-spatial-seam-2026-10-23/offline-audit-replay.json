@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "strict_native_reports_replayed": 2,
+  "spatial_shader_draws": 24832,
+  "spatial_pixel_comparisons": 12416,
+  "raw_data_hashes_and_lengths_checked": true,
+  "native_controls_and_shared_sample_blends_byte_exact": true,
+  "production_spatial_continuity_pass": false,
+  "production_fix_promoted": false
+}
