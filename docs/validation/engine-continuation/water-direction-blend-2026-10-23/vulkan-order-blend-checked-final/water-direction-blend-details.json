@@ -1,0 +1,1122 @@
+[
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 0,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 0
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 1
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 2
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 3
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 4
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 5
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 6
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 7
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 8
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 9
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 10
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 11
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 12
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 13
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 14
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 0,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 25,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 50,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 75,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  },
+  {
+    "maxChannelError": 0,
+    "originX": 29999984,
+    "millis": 100,
+    "channelsBeyondTolerance": 0,
+    "sourceDirection": 15
+  }
+]

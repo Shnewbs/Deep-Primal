@@ -1,0 +1,49 @@
+{
+  "case": "vulkan-blend-baseline",
+  "run_directory": "/tmp/deepprimal-travel-correct-0035",
+  "started_utc": "2026-10-23T06:48:39.516549+00:00",
+  "finished_utc": "2026-10-23T06:49:16.562190+00:00",
+  "exit_code": 0,
+  "timeout": false,
+  "elapsed_seconds": 37.05,
+  "build_successful": true,
+  "records": [
+    "[02:48:54] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[02:49:02] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[02:49:03] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=32",
+    "[02:49:05] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x9440000000944, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x9450000000945, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[02:49:08] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[02:49:10] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x9440000000944, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x9450000000945, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "[02:49:12] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x9440000000944, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x9450000000945, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "CLIENT_SAVED_DISCONNECT_PASS",
+    "VULKAN_SHUTDOWN_FAILURE_QUEUED",
+    "[02:49:14] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE savedBytes=32",
+    "[02:49:14] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_SHADER_CACHE compiled=0 hits=206 outstandingResults=0",
+    "[02:49:14] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0",
+    "[02:49:14] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCreationNanos=108959259, descriptorUpdates=12763, pipelineCacheHits=0, descriptorReuse=890, pipelineFeedbackValid=45, descriptorBinds=13647, validationErrors=0, pipelineCreates=45, descriptorBindSkips=6}"
+  ],
+  "console_sha256": "70c7366a4305d365ecd26ef6aec3f490aacb81966bc908ca7af5c1d982b7b1e6",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [
+    "direction-blend-3.png",
+    "direction-blend-1.png",
+    "direction-blend-6.png",
+    "direction-blend-5.png",
+    "direction-blend-2.png",
+    "direction-blend-4.png",
+    "direction-blend-0.png"
+  ],
+  "crash_reports": [
+    "crash-2026-10-22_20.40.04-client.txt",
+    "crash-2026-10-22_23.01.54-client.txt",
+    "crash-2026-10-22_21.38.12-client.txt",
+    "crash-2026-10-22_20.58.01-client.txt",
+    "crash-2026-10-22_22.49.13-client.txt",
+    "crash-2026-10-22_21.18.41-client.txt",
+    "crash-2026-10-22_22.06.10-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

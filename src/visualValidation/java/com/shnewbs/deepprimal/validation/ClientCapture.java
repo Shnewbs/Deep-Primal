@@ -181,6 +181,14 @@ public final class ClientCapture {
         WaterSideUvUploadChecks.run(mc, dir);
         return;
       }
+      if (action.equals("water-direction-upload-check")) {
+        WaterDirectionUploadChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-direction-blend-check")) {
+        WaterDirectionBlendChecks.run(mc, dir);
+        return;
+      }
       if (action.equals("water-flow-phase-check")) {
         WaterFlowPhaseChecks.run(mc, dir);
         return;

@@ -1,0 +1,13 @@
+{
+  "case": "vulkan-reuse-gl-blend-final",
+  "pass": true,
+  "backend": "OpenGL software llvmpipe",
+  "scope": "Flow-direction single-draw blend,336 shader renders and7 real uploads with bounded history, queued/stale/reupload checks. Six exact periodic top-phase pairs plus six diagnostic mip controls with one-channel-unit rounding allowance across negative/distant/section origins. Side UV morph pixels/actual upload packing, plus real capture and before/after-reload actual GPU flow UV fix, plus page order and actual frames in three wave/LOD profiles, production-pipeline pixel A/B; not full scene acceptance. Also mixed-page fade retention, six GPU readbacks of geometry/original opacity timing, and shared water buffer update API, actual near-capacity allocations, same/smaller/regrowth/bounded growth retry, 288-byte fenced GPU readback, prior fade checks, reload/capture/normal save. Not full OpenGL performance or visual acceptance.",
+  "started_utc": "2026-10-23T07:32:54.428621+00:00",
+  "finished_utc": "2026-10-23T07:33:55.495660+00:00",
+  "console_sha256": "6a062a633ee1ade749e693c75138209b63042feb2c32a9f8a2c199fd1a7b75ae",
+  "sealed_console_gzip_sha256": "6abcff996f6aadcfd4d16631b56c51035625f2414771281d13711041e4d7a402",
+  "new_crashes": 0,
+  "save_errors": 0,
+  "owner_gpu_fps_acceptance": false
+}

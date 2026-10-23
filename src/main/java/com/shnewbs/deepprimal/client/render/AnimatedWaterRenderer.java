@@ -4,6 +4,7 @@ import com.mojang.blaze3d.pipeline.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.shnewbs.deepprimal.core.WaterPatchMesher;
+import com.shnewbs.deepprimal.core.WaterFlowTransition;
 import com.shnewbs.deepprimal.core.WaterSurfaceTransition;
 import com.shnewbs.deepprimal.engine.*;
 import com.shnewbs.deepprimal.graphics.WaterGpuMesh;
@@ -67,6 +68,7 @@ public final class AnimatedWaterRenderer {
   private final List<Long2ObjectLinkedOpenHashMap<WaterSurfaceTransition>>
       heights = new ArrayList<>(),
       alpha = new ArrayList<>();
+  private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> flowDirections = new Long2ObjectLinkedOpenHashMap<>();
   private final ArrayList<Future<Ready>> work = new ArrayList<>();
   private final ExecutorService workers =
       Executors.newFixedThreadPool(
@@ -469,6 +471,17 @@ public final class AnimatedWaterRenderer {
     return result;
   }
 
+  private WaterFlowTransition flow(long key, int direction, long revision) {
+    var value = flowDirections.getAndMoveToLast(key);
+    if (value == null && direction < 16) {
+      value = new WaterFlowTransition(direction, clock);
+      flowDirections.put(key, value);
+    }
+    if (value != null) value.target(direction, clock, revision);
+    while (flowDirections.size() > MAX_HISTORY) flowDirections.removeFirst();
+    return value;
+  }
+
   private void upload(Ready ready) {
     Page p = ready.page;
     var parts = new ArrayList<WaterFaces>();
@@ -516,6 +529,8 @@ public final class AnimatedWaterRenderer {
       for (var faces : parts) {
         float[] values = faces.vertices;
         float phaseU = 0, phaseV = 0;
+        int shownDirection = 16;
+        WaterFlowTransition flowState = null;
         for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
           int i = v * WaterPatchMesher.STRIDE;
           int cell = (int) values[i + 9];
@@ -524,7 +539,14 @@ public final class AnimatedWaterRenderer {
           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
           if ((v & 3) == 0) {
             int direction = WaterPatchMesher.direction(values[i + 10]);
-            if (face == 0 && direction < 16) {
+            flowState = face == 0 ? flow(cellKey, direction, faces.revision) : null;
+            shownDirection = flowState == null ? direction : flowState.target();
+            if (flowState != null && flowState.queued(clock)) {
+              animating = true;
+              remaining = Math.max(remaining, WaterFlowTransition.MILLIS - flowState.age(clock));
+            }
+            if (face == 0 && shownDirection < 16) {
+              direction = shownDirection;
               phaseU = WaterPatchMesher.flowUOffset(direction, p.x + cx, p.z + cz);
               phaseV = WaterPatchMesher.flowVOffset(direction, p.x + cx, p.z + cz);
             }
@@ -563,21 +585,32 @@ public final class AnimatedWaterRenderer {
           int color = Float.floatToRawIntBits(values[i + 7]),
               light = Float.floatToRawIntBits(values[i + 8]);
           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
-          data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
-          boolean flowingFace = WaterPatchMesher.direction(values[i + 10]) < 16;
+          boolean blend = face == 0 && shownDirection < 16 && flowState != null && flowState.active(clock);
+          // Alpha transitions live in Normal: reuse constant color alpha for exact cell-local UVs.
+          data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
+              .put((byte) (blend ? cx | (cz << 4) : 255));
+          boolean flowingFace = (face == 0 ? shownDirection : WaterPatchMesher.direction(values[i + 10])) < 16;
           boolean side = face >= 1 && face <= 4;
           var sprite = flowingFace ? flowing : still;
           // Derive side V from the admitted shared height, including rejected stale captures.
           // The shader follows its displayed morph height and clamps inside this sprite's tile.
           boolean flowTop = face == 0 && flowingFace;
           float textureU = values[i + 5] + (flowTop ? phaseU : 0);
-          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : values[i + 6] + (flowTop ? phaseV : 0);
+          float topV = values[i + 6];
+          if (flowTop) {
+            float a = values[i] - cx - .5f, b = values[i + 2] - cz - .5f;
+            textureU = .5f + .5f * (WaterPatchMesher.flowZ(shownDirection) * a - WaterPatchMesher.flowX(shownDirection) * b) + phaseU;
+            topV = .5f + .5f * (WaterPatchMesher.flowX(shownDirection) * a + WaterPatchMesher.flowZ(shownDirection) * b);
+          }
+          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : topV + (flowTop ? phaseV : 0);
           data.putFloat(sprite.getU(textureU)).putFloat(sprite.getV(textureV));
           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
               .putShort((short) offset);
           // Native light coordinates occupy the low byte; reserve bits 8/9 for side mode and bit 10 for periodic flow tops.
           int presentation = side ? 256 | (flowingFace ? 512 : 0) : flowTop ? 1024 : 0;
-          data.putShort((short) ((light & 255) | presentation)).putShort((short) (light >>> 16));
+          int source = blend ? flowState.source() << 11 : 0;
+          int age = blend ? 32768 | (flowState.age(clock) << 8) : 0;
+          data.putShort((short) ((light & 255) | presentation | source)).putShort((short) (((light >>> 16) & 255) | age));
           data.put((byte) Math.round(opacity.from(clock) * 127))
               .put((byte) Math.round(opacity.target() * 127))
               .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
@@ -603,6 +636,7 @@ public final class AnimatedWaterRenderer {
       p.texture.m20(still.getV(0)).m21(flowing.getV(0));
       p.texture.m01(flowing.getU(0)).m02(flowing.getU(1) - flowing.getU(0));
       p.texture.m03(flowing.getV(0)).m12(flowing.getV(1) - flowing.getV(0));
+      p.texture.m30(p.x).m31(p.z);
       p.fading = rememberFading(p, parts);
       p.snapshot = ready.snapshot;
       p.uploaded = clock;
@@ -697,6 +731,7 @@ public final class AnimatedWaterRenderer {
     hidden.clear();
     heights.forEach(Map::clear);
     alpha.forEach(Map::clear);
+    flowDirections.clear();
     residentBytes = 0;
     discovery = 0;
     lastFrame = 0;

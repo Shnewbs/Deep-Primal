@@ -68,6 +68,9 @@ public final class WaterPatchMesher {
     return (float) (phase - Math.floor(phase));
   }
 
+  public static float flowX(int direction) { return FLOW_X[direction]; }
+  public static float flowZ(int direction) { return FLOW_Z[direction]; }
+
   private int flowMaterial;
   private float flowX, flowZ;
   private float[] vertices = new float[8192];

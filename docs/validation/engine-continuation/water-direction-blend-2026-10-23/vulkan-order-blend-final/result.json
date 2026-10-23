@@ -1,0 +1,26 @@
+{
+  "case": "vulkan-order-blend-final",
+  "run_directory": "/tmp/deepprimal-travel-correct-0035",
+  "started_utc": "2026-10-23T06:57:35.031717+00:00",
+  "finished_utc": "2026-10-23T06:57:46.045761+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 11.01,
+  "build_successful": false,
+  "records": [],
+  "console_sha256": "0fce86fac16fedcc4c3597fe12aa7ea2c2462f1710a438c60cdf447cae6b95e2",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_20.40.04-client.txt",
+    "crash-2026-10-22_23.01.54-client.txt",
+    "crash-2026-10-22_21.38.12-client.txt",
+    "crash-2026-10-22_20.58.01-client.txt",
+    "crash-2026-10-22_22.49.13-client.txt",
+    "crash-2026-10-22_21.18.41-client.txt",
+    "crash-2026-10-22_22.06.10-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

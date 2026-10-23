@@ -7,6 +7,7 @@ public final class CoreChecks {
   public static void main(String[] args) {
     WaterAnimationChecks.run();
     WaterFlowTextureChecks.run();
+    WaterFlowBlendChecks.run();
     WaterSurfaceShapeChecks.run();
     CaveColumnChecks.run();
     IntegratedEngineChecks.run();

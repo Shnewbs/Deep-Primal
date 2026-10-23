@@ -1,0 +1,15 @@
+{
+  "before": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Exception in thread \"main\" java.lang.AssertionError: Idle first retarget delayed: target=0 active=false\n\tat EarlyRetarget.main(EarlyRetarget.java:4)\n"
+  },
+  "after": {
+    "exit_code": 0,
+    "stdout": "EARLY_RETARGET_PASS millis=25 source=0 target=4 age=0\n",
+    "stderr": ""
+  },
+  "before_source": "package com.shnewbs.deepprimal.core;\n\n/** Two texture endpoints and one latest request. Never retarget an unfinished blend. */\npublic final class WaterFlowTransition {\n  public static final int MILLIS = 100;\n  private int from, target, pending;\n  private long started, revision = Long.MIN_VALUE;\n  public WaterFlowTransition(int initial, long now) {\n    from = target = pending = initial;\n    started = now;\n  }\n  public void target(int next, long now, long version) {\n    if (version < revision) return;\n    revision = version;\n    pending = next;\n    if (next == 16 || target == 16) {\n      from = target = next;\n      started = now;\n    } else if (now - started >= MILLIS && next != target) {\n      from = target;\n      target = next;\n      started = now;\n    }\n  }\n  public int target() { return target; }\n  public int source() { return from; }\n  public int age(long now) { return (int)Math.clamp(now - started, 0, MILLIS); }\n  public boolean active(long now) { return from < 16 && target < 16 && from != target && age(now) < MILLIS; }\n  public boolean queued(long now) { return active(now) && pending != target; }\n}\n",
+  "test_source": "import com.shnewbs.deepprimal.core.WaterFlowTransition;\npublic class EarlyRetarget { public static void main(String[] args) {\n var t=new WaterFlowTransition(0,0);t.target(4,25,1);\n if(t.source()!=0||t.target()!=4||!t.active(25)||t.age(25)!=0)throw new AssertionError(\"Idle first retarget delayed: target=\"+t.target()+\" active=\"+t.active(25));\n System.out.println(\"EARLY_RETARGET_PASS millis=25 source=0 target=4 age=0\");\n}}",
+  "scope": "Candidate-only edge;not parent production defect"
+}
