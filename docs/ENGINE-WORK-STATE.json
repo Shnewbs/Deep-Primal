@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T20:29:00Z",
-  "active_until": "2026-10-23T21:30:00Z",
+  "updated_at": "2026-10-23T20:42:57Z",
+  "active_until": "2026-10-23T21:42:57.000Z",
   "source_ref": "work/engine-after-alpha24",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R41: independently coalesce repeated boundary corner packet mutation per quad, reproduce current large-boundary admission CPU overrun with byte-identical baseline/candidate oracles; preserve R40 admission fix and full snapshot. Actual visible-scene cap churn remains unaccepted.",
+  "current_gate": "R41 quad packet coalescing staged:2full25task builds pass,210000newbulkcases plus210000retainedpacket cases; development/packageVulkan andGL pass132boundary cases with exact fresh-control bytes,48admission cases/432pairedreads and15336seam comparisons. Pinned ABBApacket-only benchmark confirms lower CPU work. Native large calls/retirement still exceed2ms; archiving/replay and guarded publication active.",
   "next_items": [
     "Restore583-input snapshot with docs/validation/engine-continuation/water-admission-plan-2026-10-23/scripts/restore_snapshot.py into a nonexistent isolated destination (all hashes before writes);21staged files(5production/16validation),3changed sinceR39. R40 preflights a sufficient strictly-farther nonbusy GPU reservation before releasing pages; insufficient admission is read-only and separate discovery/page-count policy remains unchanged. Next implement matched actual visible-scene discovery/admission/eviction under travel, edits and cap churn, then bound larger scattered boundary publication. Current softwareVulkan retirement maxima10.981ms development/5.071ms packaged exceed2ms target; no full-frame/ownerGPU/FPS acceptance. Preserve quantity, local corners, retry and explicit save/crash gates. Four stale fixture attempts and one empty-descriptor package startup are retained/excluded; guarded private compilation and immutable audited package retry pass, causes remain unproven.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
