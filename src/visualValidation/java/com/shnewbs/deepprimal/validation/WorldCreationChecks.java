@@ -206,7 +206,9 @@ public final class WorldCreationChecks {
         report(
             "WORLD_CREATION_JOIN_PASS revision=3 backend="
                 + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName());
+        StartupLifecycleChecks.observe("creation-joined", output());
         mc.disconnectWithSavingScreen();
+        StartupLifecycleChecks.observe("creation-disconnected", output());
         report("WORLD_CREATION_PASS");
         stage = 9;
         mc.stop();

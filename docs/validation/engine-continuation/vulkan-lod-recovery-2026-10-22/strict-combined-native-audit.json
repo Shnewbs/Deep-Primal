@@ -1,0 +1,80 @@
+{
+  "scope": "native Vulkan disk-store/upload and fenced completion fixtures; direct camera-position selection is not full physical teleport coverage",
+  "sessions": [
+    {
+      "case": "vulkan-disk-after-graceful-retry",
+      "started_utc": "2026-10-22T21:09:04.777212+00:00",
+      "finished_utc": "2026-10-22T21:10:16.854184+00:00",
+      "strict_pass": true,
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/coverage-audit-2031/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/coverage-audit-2031/project/renderer-vulkan/build/classes/java/main/"
+      ],
+      "startup_marker_before": {
+        "present": true,
+        "explicit_retry": true
+      },
+      "startup_marker_after": {
+        "present": true
+      },
+      "elapsed_seconds": 72.08,
+      "console_sha256": "f087edc870126e3732d534170942104c4f493e5847ba7dac1f6bf48c25aa9f30",
+      "explicit_regression_records_match_console": true,
+      "normal_world_save": true,
+      "forced_shutdown_record_file_pass": true,
+      "new_crashes": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "nonfatal_shader_output_warnings": 7,
+      "screenshots": [
+        {
+          "path": "vulkan-disk-after-graceful-retry/screenshots/disk-recovery.png",
+          "bytes": 719364,
+          "sha256": "3cd230fea3dd5b9f0303f09f52bdbd2a30513f623c4fc1688e193bca8e85f280"
+        }
+      ],
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false
+    },
+    {
+      "case": "vulkan-disk-after-packaged-retry",
+      "started_utc": "2026-10-22T21:11:44.774895+00:00",
+      "finished_utc": "2026-10-22T21:12:55.874489+00:00",
+      "strict_pass": true,
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/coverage-audit-2031/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/coverage-audit-2031/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+      ],
+      "startup_marker_before": {
+        "present": true,
+        "explicit_retry": true
+      },
+      "startup_marker_after": {
+        "present": true
+      },
+      "elapsed_seconds": 71.1,
+      "console_sha256": "1b5df2ace8d4531f7504e9fc965746dbc3d82415361312a3063504433f9dc2a0",
+      "explicit_regression_records_match_console": true,
+      "normal_world_save": true,
+      "forced_shutdown_record_file_pass": true,
+      "new_crashes": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "nonfatal_shader_output_warnings": 7,
+      "screenshots": [
+        {
+          "path": "vulkan-disk-after-packaged-retry/screenshots/disk-recovery.png",
+          "bytes": 719109,
+          "sha256": "96ba7125b8db8854bf6d1270f68c189a38d5e4c1af6ec614cd322777e394129c"
+        }
+      ],
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false
+    }
+  ],
+  "all_pass": true
+}

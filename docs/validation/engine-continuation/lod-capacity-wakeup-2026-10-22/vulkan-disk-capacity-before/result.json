@@ -1,0 +1,18 @@
+{
+  "case": "vulkan-disk-capacity-before",
+  "run_directory": "/tmp/deepprimal-capacity-2327",
+  "started_utc": "2026-10-22T23:37:24.935071+00:00",
+  "finished_utc": "2026-10-22T23:38:29.983817+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 65.05,
+  "build_successful": false,
+  "records": [],
+  "console_sha256": "4332db790c54fc656d4dd7d0d859e4d1c0dacc355febfa71fc8b5297b575064e",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

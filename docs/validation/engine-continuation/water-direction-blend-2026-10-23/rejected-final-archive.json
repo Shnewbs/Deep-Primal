@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-23T07:14:04.389721+00:00",
+  "archives": [
+    {
+      "path": "build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+      "bytes": 7438052,
+      "sha256": "4d9108866b3afdecd4addd7fff6480de81663e1cf207cee8a750dd44acec0aa1",
+      "header_hex": "504b030414000008080000004100000000000200000000000000090000004d45",
+      "tail_hex": "7f14e02289c063cdd5beca5520467fd76a3d3a0c571b0e92ef38d469f13f0dfc",
+      "error": "File is not a zip file"
+    },
+    {
+      "path": "lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+      "bytes": 42354,
+      "sha256": "fca58acd406a46d72be01cb36f2b639bcb54d7a3515fa680ae9aeea91f210a2b",
+      "header_hex": "504b030414000008080000004100000000000200000000000000090000004d45",
+      "tail_hex": "656c5f6c6f642e667368504b0506000000001f001f00550a0000079b00000000",
+      "error": null
+    },
+    {
+      "path": "graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+      "bytes": 90552,
+      "sha256": "777d7248ecd2c423a230fe13f9b2d2345e6e9e1a5a9fb5de2bdc1b34fb1fe115",
+      "header_hex": "504b030414000008080000004100000000000200000000000000090000004d45",
+      "tail_hex": "65727261696e2e767368504b05060000000037003700d0140000d24c01000000",
+      "error": null
+    },
+    {
+      "path": "performance-engine/build/libs/DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+      "bytes": 19660,
+      "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+      "header_hex": "504b030414000008080000004100000000000200000000000000090000004d45",
+      "tail_hex": "2e6d6f64732e746f6d6c504b05060000000018001800c3080000f34300000000",
+      "error": null
+    },
+    {
+      "path": "engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+      "bytes": 103885,
+      "sha256": "6c1d6b73ee43684de42aeaf2310a901c5b937dde183aecabffe16bdd5fe2a7fb",
+      "header_hex": "504b030414000008080000004100000000000200000000000000090000004d45",
+      "tail_hex": "746f72652e636c617373504b0506000000004200420003180000b47d01000000",
+      "error": null
+    },
+    {
+      "path": "renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+      "bytes": 12818196,
+      "sha256": "2bedfa7d34947e355c83b8672669bcf4f0bbe360402952f1ec85a25781176d81",
+      "header_hex": "504b030414000008080000004100000000000200000000000000090000004d45",
+      "tail_hex": "545245414d2e6a736f6e504b050600000000c510c510b1d206004dc4bc000000",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,962 @@
+[
+  {
+    "path": "baseline-production-proof.json",
+    "bytes": 99091,
+    "sha256": "34a4e942eb52cdc55ee54859945199fedf9fbd79cc3c9215861083259249262b",
+    "gzip_path": "baseline-production-proof.json.gz",
+    "gzip_bytes": 29545,
+    "gzip_sha256": "45a93d58bd0af909b7bbc6a2899e0a9e909dec411ec31215c316067001528abe"
+  },
+  {
+    "path": "exact-baseline/water-corner-details.json",
+    "bytes": 743779,
+    "sha256": "9280f544d933afc480dadd85b3184955ea95b2ec818ebf08a93dc6602bac2fee",
+    "gzip_path": "exact-baseline/water-corner-details.json.gz",
+    "gzip_bytes": 42547,
+    "gzip_sha256": "a4069caedd29df237b4c85af8ed2cae071b9921fbf9ba713f59c8bb3a143b3d9"
+  },
+  {
+    "path": "exact-baseline/water-corner-pixels.bin",
+    "bytes": 5890048,
+    "sha256": "5cf5e5f11ac753c33c54e29c196bd2f737e598256c44f0f604897a033e2176dd",
+    "gzip_path": "exact-baseline/water-corner-pixels.bin.gz",
+    "gzip_bytes": 208938,
+    "gzip_sha256": "fb4e24f18db4bcccf84bb923cf698c4aab7de5153fe334807400aa2683b0ce13"
+  },
+  {
+    "path": "exact-baseline/water-corner-upload-details.json",
+    "bytes": 1395736,
+    "sha256": "f97b19df3b59469f5444b8f3715ac929baf073517cfebe36c38f42ac0d5cb13c",
+    "gzip_path": "exact-baseline/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64578,
+    "gzip_sha256": "748abb875e2f2313f5d827830104b21e9c6a1386fbecdda80debb89daafdbda2"
+  },
+  {
+    "path": "exact-baseline/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "a5eb82276c84a58f3d0f703ec9aaceb0dd1c568ac3956c0e82c830446e98ea79",
+    "gzip_path": "exact-baseline/water-corner-upload.bin.gz",
+    "gzip_bytes": 76933,
+    "gzip_sha256": "d0c56c5a761e7a047413e20394962ace12230ed64769b15edd5beea8f20cb8d8"
+  },
+  {
+    "path": "isolation-proof.json",
+    "bytes": 282561,
+    "sha256": "e8bc6b508b9b115f0dc7526c9ba57900451c0aa4212a441fb081656f3514a27a",
+    "gzip_path": "isolation-proof.json.gz",
+    "gzip_bytes": 14271,
+    "gzip_sha256": "76af40b6bf385816e9656c5313cabff86a45379fa047d7f0d1b3543464f87dfe"
+  },
+  {
+    "path": "source-input-manifest.json",
+    "bytes": 143878,
+    "sha256": "5ba1b4cbc3fae7a98952c2bbea53f4b16917842d334c4215bd050094a5d2c9ff",
+    "gzip_path": "source-input-manifest.json.gz",
+    "gzip_bytes": 22757,
+    "gzip_sha256": "d68b0259794b1db9ef4a4974ea0daaf37cfa1cde997ebd3f1ddb8d574a7c2ff9"
+  },
+  {
+    "path": "vulkan-corners-baseline/water-corner-details.json",
+    "bytes": 742351,
+    "sha256": "6a7989f3db9e9b0e736100ec4d7e6014762821329413ff912fe142d8f9733386",
+    "gzip_path": "vulkan-corners-baseline/water-corner-details.json.gz",
+    "gzip_bytes": 38944,
+    "gzip_sha256": "ffced74d70b84627929a0cf841f8ccbead5311aab0f58f9b3ffbb79137950fde"
+  },
+  {
+    "path": "vulkan-corners-baseline/water-corner-pixels.bin",
+    "bytes": 5890048,
+    "sha256": "82d6fb5375891aca2da6a6cf552df6e383f932078e1b3be1c8f2ec76e9fc668a",
+    "gzip_path": "vulkan-corners-baseline/water-corner-pixels.bin.gz",
+    "gzip_bytes": 121913,
+    "gzip_sha256": "fed9c136d28cff77e5cdc50622e426a82b45178658db0d3eab84ecddb88f1b9b"
+  },
+  {
+    "path": "vulkan-corners-baseline/water-corner-upload-details.json",
+    "bytes": 1395753,
+    "sha256": "7d1d631c6e2bdf372891084127182b11e6a32554be2ba951713f036ff01eeb3e",
+    "gzip_path": "vulkan-corners-baseline/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64450,
+    "gzip_sha256": "87c3e21939e05f979db190c150843d86e3457c48e6dce305457f9e5ae3d8aa38"
+  },
+  {
+    "path": "vulkan-corners-baseline/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-corners-baseline/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-corners-clock-final/result.json",
+    "bytes": 160779,
+    "sha256": "eba9f9a4bfc66ec3490c4cfdc926134ee5127ad50073b7524a0a9d64e5298240",
+    "gzip_path": "vulkan-corners-clock-final/result.json.gz",
+    "gzip_bytes": 16751,
+    "gzip_sha256": "f575813601383ab32079a8554cf77ac324bd651a91b234c10503b940cf7072d1"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-corner-details.json",
+    "bytes": 1469267,
+    "sha256": "c45eb0cb4edbe24d55d675a9e8a80c327928240ddda10c79498aae1a31c5a05f",
+    "gzip_path": "vulkan-corners-clock-final/water-corner-details.json.gz",
+    "gzip_bytes": 74545,
+    "gzip_sha256": "99c41efb0073404550a9f963714f256c0addb6c962fb1ae9a8b076eecdda15d6"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-corner-pixels.bin",
+    "bytes": 7153664,
+    "sha256": "802ef55f2b782246260fd87b5e90c43fc52c4cc72bfd10c67471de69dac9af52",
+    "gzip_path": "vulkan-corners-clock-final/water-corner-pixels.bin.gz",
+    "gzip_bytes": 174191,
+    "gzip_sha256": "06b49e92185d60eeb21d01e749add7191c414345454b02acb93e92594cf0e6bc"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-corner-upload-details.json",
+    "bytes": 1395660,
+    "sha256": "e033388f144c2c1d7aac185ddcf2abbdf1837486dddd7766f7d173b43e7f77ae",
+    "gzip_path": "vulkan-corners-clock-final/water-corner-upload-details.json.gz",
+    "gzip_bytes": 63936,
+    "gzip_sha256": "901cfddfbb021277931bdc9b823dc0234476767fb7381d63a319c9b5d1116b4b"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "82852a03a5850a088f2c721af48d9208f643eb5352b5ce58a1af21312a6a320a",
+    "gzip_path": "vulkan-corners-clock-final/water-corner-upload.bin.gz",
+    "gzip_bytes": 86829,
+    "gzip_sha256": "f9aec9fb72617dc05da0ac3448e3010dc194576a00f0260dc041853ba5b6bb53"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2",
+    "gzip_path": "vulkan-corners-clock-final/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "bb3b006673aa16a0d32148a5ffa68490fb1d7c411ed8ae87fe78219f4ebe343b"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-clock-final/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "0d6ae9fe52d842c9cbb83da4d66600d283eb1064a5ed0a94bbf0eec8b499602e",
+    "gzip_path": "vulkan-corners-clock-final/water-material-upload.bin.gz",
+    "gzip_bytes": 13982,
+    "gzip_sha256": "873a96105c82005240718eddaff9b26ddfc9e9a1291fda9f261d36070f90e1ba"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "c624931aab455ef586d5f5759308a8ec2bba6aca3111add72b2eb91ea2032b57",
+    "gzip_path": "vulkan-corners-clock-final/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9380,
+    "gzip_sha256": "f802492afce75d8a1c75fc1e0ef7664f898806341caf9c61ec69062c9859e339"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-clock-final/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-clock-final/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "f01101bff6fe3f9f87e661c2327aec81bf8636691301df7cf997cba168665ef2",
+    "gzip_path": "vulkan-corners-clock-final/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77813,
+    "gzip_sha256": "dc5ac8d68f7749a86a8348d73f33bc96486ee1c46b16e8fe62a17241bb262e5c"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/result.json",
+    "bytes": 160788,
+    "sha256": "13b76a5bdbdad82e5167f786c6464b8dba9dc9621a5fc238c4ad773152e1bdbc",
+    "gzip_path": "vulkan-corners-clock-final-packaged/result.json.gz",
+    "gzip_bytes": 16759,
+    "gzip_sha256": "190cba12510024de93ffd8435c510af7c6f59664de164d3c49435e4b23373bf4"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-corner-details.json",
+    "bytes": 1469267,
+    "sha256": "c45eb0cb4edbe24d55d675a9e8a80c327928240ddda10c79498aae1a31c5a05f",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-corner-details.json.gz",
+    "gzip_bytes": 74545,
+    "gzip_sha256": "99c41efb0073404550a9f963714f256c0addb6c962fb1ae9a8b076eecdda15d6"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-corner-pixels.bin",
+    "bytes": 7153664,
+    "sha256": "802ef55f2b782246260fd87b5e90c43fc52c4cc72bfd10c67471de69dac9af52",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-corner-pixels.bin.gz",
+    "gzip_bytes": 174191,
+    "gzip_sha256": "06b49e92185d60eeb21d01e749add7191c414345454b02acb93e92594cf0e6bc"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-corner-upload-details.json",
+    "bytes": 1395642,
+    "sha256": "bc5bf5401df350db4597d77310ff197d535dc7b1aa24e31b2593512b91b523b1",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64133,
+    "gzip_sha256": "82ca6b20517368aeabb8cb600d776e3d83c4b153330add623bde53c9d2083092"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "82852a03a5850a088f2c721af48d9208f643eb5352b5ce58a1af21312a6a320a",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-corner-upload.bin.gz",
+    "gzip_bytes": 86829,
+    "gzip_sha256": "f9aec9fb72617dc05da0ac3448e3010dc194576a00f0260dc041853ba5b6bb53"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "bb3b006673aa16a0d32148a5ffa68490fb1d7c411ed8ae87fe78219f4ebe343b"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "0d6ae9fe52d842c9cbb83da4d66600d283eb1064a5ed0a94bbf0eec8b499602e",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-material-upload.bin.gz",
+    "gzip_bytes": 13982,
+    "gzip_sha256": "873a96105c82005240718eddaff9b26ddfc9e9a1291fda9f261d36070f90e1ba"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "2f88c9dade4dd9026bdd6012c9b3e9c6de777ecca6c6bf414f9558db002a2755",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9376,
+    "gzip_sha256": "b6da9e7058ceda6d83dac2bee17eb014e1bbea30b6c78a2b6dad5590de2197a9"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-clock-final-packaged/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "f01101bff6fe3f9f87e661c2327aec81bf8636691301df7cf997cba168665ef2",
+    "gzip_path": "vulkan-corners-clock-final-packaged/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77813,
+    "gzip_sha256": "dc5ac8d68f7749a86a8348d73f33bc96486ee1c46b16e8fe62a17241bb262e5c"
+  },
+  {
+    "path": "vulkan-corners-endpoint/result.json",
+    "bytes": 160777,
+    "sha256": "0303c2d354a0b0ac6b6273044953ee655e6f7c6d6cd60e17702e299e41c64c2d",
+    "gzip_path": "vulkan-corners-endpoint/result.json.gz",
+    "gzip_bytes": 16741,
+    "gzip_sha256": "ea41bffd3893721ecca40480ac44f3a652ef815dccbd0a05e3255bf84be31ce5"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-corner-details.json",
+    "bytes": 735393,
+    "sha256": "8386f9c3f5ba6ed1f4bd06c13dbc9553489f3b3e7817adab76d2ff5b51d5a875",
+    "gzip_path": "vulkan-corners-endpoint/water-corner-details.json.gz",
+    "gzip_bytes": 38243,
+    "gzip_sha256": "24319fcc79b7cbf944468e6f00775301e112d93141e1038372ea8415306b3033"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-corner-pixels.bin",
+    "bytes": 5890048,
+    "sha256": "efe47bbd755b40177c180eba3cb9c35e11e1b8912373ccc85fd923df97b7c520",
+    "gzip_path": "vulkan-corners-endpoint/water-corner-pixels.bin.gz",
+    "gzip_bytes": 163407,
+    "gzip_sha256": "ee261ae5c5b18afaeca56f7478945650cd1262b94cfe4f9acd7cb1225c2a7b0e"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-corner-upload-details.json",
+    "bytes": 1395673,
+    "sha256": "206fde7a3acecf28225e21f9f430a6afa9c69d7b32352dadca220f5f76d778a3",
+    "gzip_path": "vulkan-corners-endpoint/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64848,
+    "gzip_sha256": "cbf4a728834b8a4b63c53df2f4b91e5b2aeaa24695858e1cc51f364c9d9f3c1d"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-corners-endpoint/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2",
+    "gzip_path": "vulkan-corners-endpoint/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "bb3b006673aa16a0d32148a5ffa68490fb1d7c411ed8ae87fe78219f4ebe343b"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-endpoint/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-corners-endpoint/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "2f88c9dade4dd9026bdd6012c9b3e9c6de777ecca6c6bf414f9558db002a2755",
+    "gzip_path": "vulkan-corners-endpoint/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9376,
+    "gzip_sha256": "b6da9e7058ceda6d83dac2bee17eb014e1bbea30b6c78a2b6dad5590de2197a9"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-endpoint/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-endpoint/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-corners-endpoint/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  },
+  {
+    "path": "vulkan-corners-final/result.json",
+    "bytes": 160658,
+    "sha256": "f187a9ff22d5e8dbe04d61c02d89dab9e61a31b7a7e5aa1e797a18d342d7dbd8",
+    "gzip_path": "vulkan-corners-final/result.json.gz",
+    "gzip_bytes": 16697,
+    "gzip_sha256": "59577957c02216eb90e66ba171800eb5073bafa9659d03ec4ab4836aa488a6f4"
+  },
+  {
+    "path": "vulkan-corners-final/water-corner-details.json",
+    "bytes": 735393,
+    "sha256": "a76d382f2738e1b40cf64b47274fcfdd2acf49605473abb5d544ebce059bd9cf",
+    "gzip_path": "vulkan-corners-final/water-corner-details.json.gz",
+    "gzip_bytes": 38280,
+    "gzip_sha256": "8f3f6f12acd5a03a6be607f354d2b8f811406b24748df64bd41896995dfedf39"
+  },
+  {
+    "path": "vulkan-corners-final/water-corner-pixels.bin",
+    "bytes": 5890048,
+    "sha256": "b5ee13ec0b43ecfd458526d00ede463caa0f3002accaf0d5c899056cbcdecc9d",
+    "gzip_path": "vulkan-corners-final/water-corner-pixels.bin.gz",
+    "gzip_bytes": 163485,
+    "gzip_sha256": "699c57a75e7489d65bc61f9b7c42d4f4924eb0d44ec68c8aa2b0a714fa21a359"
+  },
+  {
+    "path": "vulkan-corners-final/water-corner-upload-details.json",
+    "bytes": 1395521,
+    "sha256": "5fcbd113cea43b3ac4268b4e3da5b2380cdb2b81f9a25a4a42dcd99a8bc2d8da",
+    "gzip_path": "vulkan-corners-final/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64164,
+    "gzip_sha256": "ab6597e0def278b1c3eaf6fbba38c8d3f92e89f52c3f4f68e4f42076beed3f82"
+  },
+  {
+    "path": "vulkan-corners-final/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-corners-final/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-corners-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "8af652bb95f63d8fe2ab3bf086686dfb4b166098832e1f4c26e504381847515b",
+    "gzip_path": "vulkan-corners-final/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1870,
+    "gzip_sha256": "eef50ff08c9247f4cc1e7ab7a27c6f12c653148c7af4f5cc35d5a66e2191cb48"
+  },
+  {
+    "path": "vulkan-corners-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-final/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-corners-final/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-corners-final/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "531cecdf9e35ab9826ec0dfadaa177a7ab79d51ef5905bab96259aa5b8533dd4",
+    "gzip_path": "vulkan-corners-final/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9375,
+    "gzip_sha256": "97adb5ae322c26be2cb1745044aaae70af8ee7e880adad310b1065eba7e39570"
+  },
+  {
+    "path": "vulkan-corners-final/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-final/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-final/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-corners-final/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  },
+  {
+    "path": "vulkan-corners-first/result.json",
+    "bytes": 159541,
+    "sha256": "fdda4b54b83b8ba172929a8461f7c53febd95484ce5ee3c5790f146f8275a670",
+    "gzip_path": "vulkan-corners-first/result.json.gz",
+    "gzip_bytes": 16487,
+    "gzip_sha256": "dff42f0fcc330772af59c3a2b9ad73f320d89ef0a818ab3fbbcd6eb3096f27c6"
+  },
+  {
+    "path": "vulkan-corners-first/water-corner-details.json",
+    "bytes": 412948,
+    "sha256": "e5006b96ab475db67c3b21457865cb31024646296bafe88e8fad1faebd0a7d51",
+    "gzip_path": "vulkan-corners-first/water-corner-details.json.gz",
+    "gzip_bytes": 13338,
+    "gzip_sha256": "0559c320308d2174438659b7755d8f9178038da817cdc411e3e98ec6ff400af1"
+  },
+  {
+    "path": "vulkan-corners-first/water-corner-pixels.bin",
+    "bytes": 4775936,
+    "sha256": "a7350bd1c8c0cfd8a6b910c912aca14bb88917970b48629abc9113201ff9cb76",
+    "gzip_path": "vulkan-corners-first/water-corner-pixels.bin.gz",
+    "gzip_bytes": 48688,
+    "gzip_sha256": "acf86cac1d64b5aee18b2d654cd298dc75b4fd9214d247be71502f7ec5983388"
+  },
+  {
+    "path": "vulkan-corners-first/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "6a813e56416cd41b17c79dfdcb58f4ba7ff0fad22bd13765e6ce9df4792e18be",
+    "gzip_path": "vulkan-corners-first/water-corner-upload.bin.gz",
+    "gzip_bytes": 86560,
+    "gzip_sha256": "a8b6ee9594f7f7c7041d494c50972105836fab5d82a62a66ec8441f880f7e2ce"
+  },
+  {
+    "path": "vulkan-corners-first/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "8af652bb95f63d8fe2ab3bf086686dfb4b166098832e1f4c26e504381847515b",
+    "gzip_path": "vulkan-corners-first/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1870,
+    "gzip_sha256": "eef50ff08c9247f4cc1e7ab7a27c6f12c653148c7af4f5cc35d5a66e2191cb48"
+  },
+  {
+    "path": "vulkan-corners-first/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-first/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-first/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-corners-first/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-corners-first/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "c624931aab455ef586d5f5759308a8ec2bba6aca3111add72b2eb91ea2032b57",
+    "gzip_path": "vulkan-corners-first/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9380,
+    "gzip_sha256": "f802492afce75d8a1c75fc1e0ef7664f898806341caf9c61ec69062c9859e339"
+  },
+  {
+    "path": "vulkan-corners-first/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-first/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-first/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-corners-first/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  },
+  {
+    "path": "vulkan-corners-mip-final/result.json",
+    "bytes": 160777,
+    "sha256": "0e736227fde4e2dc3850423988e916a43d2f548c4acda7352e5f0f6725f49531",
+    "gzip_path": "vulkan-corners-mip-final/result.json.gz",
+    "gzip_bytes": 16753,
+    "gzip_sha256": "269a891943dc78eec38f84bf6f8b829851e282e256909452b81afe513b3df0ab"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-corner-details.json",
+    "bytes": 1469267,
+    "sha256": "c45eb0cb4edbe24d55d675a9e8a80c327928240ddda10c79498aae1a31c5a05f",
+    "gzip_path": "vulkan-corners-mip-final/water-corner-details.json.gz",
+    "gzip_bytes": 74545,
+    "gzip_sha256": "99c41efb0073404550a9f963714f256c0addb6c962fb1ae9a8b076eecdda15d6"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-corner-pixels.bin",
+    "bytes": 7153664,
+    "sha256": "802ef55f2b782246260fd87b5e90c43fc52c4cc72bfd10c67471de69dac9af52",
+    "gzip_path": "vulkan-corners-mip-final/water-corner-pixels.bin.gz",
+    "gzip_bytes": 174191,
+    "gzip_sha256": "06b49e92185d60eeb21d01e749add7191c414345454b02acb93e92594cf0e6bc"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-corner-upload-details.json",
+    "bytes": 1395699,
+    "sha256": "3e039abf2cd08c1360164fdeab85d58930be27e65155a8c398a3c20b68b5be75",
+    "gzip_path": "vulkan-corners-mip-final/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64633,
+    "gzip_sha256": "38084f9fee7269a9d5a032cb4c42866a499e9ff33f20e7eef90030d356fd7757"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-corners-mip-final/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2",
+    "gzip_path": "vulkan-corners-mip-final/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "bb3b006673aa16a0d32148a5ffa68490fb1d7c411ed8ae87fe78219f4ebe343b"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-mip-final/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-corners-mip-final/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "2f88c9dade4dd9026bdd6012c9b3e9c6de777ecca6c6bf414f9558db002a2755",
+    "gzip_path": "vulkan-corners-mip-final/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9376,
+    "gzip_sha256": "b6da9e7058ceda6d83dac2bee17eb014e1bbea30b6c78a2b6dad5590de2197a9"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-mip-final/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-mip-final/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-corners-mip-final/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/result.json",
+    "bytes": 160786,
+    "sha256": "d5a5f91a960cc320c602cb594b90b097b2c292de7c389244a14d198cd7442a9e",
+    "gzip_path": "vulkan-corners-mip-final-packaged/result.json.gz",
+    "gzip_bytes": 16765,
+    "gzip_sha256": "359634bed5e1627c76f716d8079f1dd5c30461a2502c183e989a765e63a97bc3"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-corner-details.json",
+    "bytes": 1469267,
+    "sha256": "c45eb0cb4edbe24d55d675a9e8a80c327928240ddda10c79498aae1a31c5a05f",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-corner-details.json.gz",
+    "gzip_bytes": 74545,
+    "gzip_sha256": "99c41efb0073404550a9f963714f256c0addb6c962fb1ae9a8b076eecdda15d6"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-corner-pixels.bin",
+    "bytes": 7153664,
+    "sha256": "802ef55f2b782246260fd87b5e90c43fc52c4cc72bfd10c67471de69dac9af52",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-corner-pixels.bin.gz",
+    "gzip_bytes": 174191,
+    "gzip_sha256": "06b49e92185d60eeb21d01e749add7191c414345454b02acb93e92594cf0e6bc"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-corner-upload-details.json",
+    "bytes": 1395314,
+    "sha256": "c66a063ddba30e8f49805b7a92a15c1512d5540992a29ec1c17c5e0c46cf266b",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-corner-upload-details.json.gz",
+    "gzip_bytes": 64115,
+    "gzip_sha256": "69be849d0fb682e5efd571561250d6263f2e1bf7ad515974b384db58a5cd0db7"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "bb3b006673aa16a0d32148a5ffa68490fb1d7c411ed8ae87fe78219f4ebe343b"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "531cecdf9e35ab9826ec0dfadaa177a7ab79d51ef5905bab96259aa5b8533dd4",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9375,
+    "gzip_sha256": "97adb5ae322c26be2cb1745044aaae70af8ee7e880adad310b1065eba7e39570"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-mip-final-packaged/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-corners-mip-final-packaged/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  },
+  {
+    "path": "vulkan-corners-uniform/result.json",
+    "bytes": 160404,
+    "sha256": "4e9a481fb38779ed2b2075251a7305b8eba2491a70cb3b4b7fb243c6d37b556d",
+    "gzip_path": "vulkan-corners-uniform/result.json.gz",
+    "gzip_bytes": 16721,
+    "gzip_sha256": "9ed43bb20ecdedfdd06a1c3bc4621be346d1d19e7f403a1c50189f0393dd82d4"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-corner-details.json",
+    "bytes": 735393,
+    "sha256": "8386f9c3f5ba6ed1f4bd06c13dbc9553489f3b3e7817adab76d2ff5b51d5a875",
+    "gzip_path": "vulkan-corners-uniform/water-corner-details.json.gz",
+    "gzip_bytes": 38243,
+    "gzip_sha256": "24319fcc79b7cbf944468e6f00775301e112d93141e1038372ea8415306b3033"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-corner-pixels.bin",
+    "bytes": 5890048,
+    "sha256": "efe47bbd755b40177c180eba3cb9c35e11e1b8912373ccc85fd923df97b7c520",
+    "gzip_path": "vulkan-corners-uniform/water-corner-pixels.bin.gz",
+    "gzip_bytes": 163407,
+    "gzip_sha256": "ee261ae5c5b18afaeca56f7478945650cd1262b94cfe4f9acd7cb1225c2a7b0e"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-corner-upload-details.json",
+    "bytes": 1395688,
+    "sha256": "843e741c660eddcfe4074e2eee9980fbea77105dcd3a130c84fa9addf427eec8",
+    "gzip_path": "vulkan-corners-uniform/water-corner-upload-details.json.gz",
+    "gzip_bytes": 63755,
+    "gzip_sha256": "f7d78c4171eaa8ea2b4c9dc32b923d09e9456423965160a3d291b42620666505"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-corners-uniform/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "8d8b7df68c4d042325c40ecc486a4056df44e6b28786fe3e6fc5848a8ad4eaac",
+    "gzip_path": "vulkan-corners-uniform/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1953,
+    "gzip_sha256": "485e116ee7e1ae9cf2b4597cf47cefbd9066cb038a543fb0adcb56b88e63f44d"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-corners-uniform/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-corners-uniform/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "c624931aab455ef586d5f5759308a8ec2bba6aca3111add72b2eb91ea2032b57",
+    "gzip_path": "vulkan-corners-uniform/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9380,
+    "gzip_sha256": "f802492afce75d8a1c75fc1e0ef7664f898806341caf9c61ec69062c9859e339"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-corners-uniform/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-corners-uniform/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-corners-uniform/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/result.json",
+    "bytes": 173303,
+    "sha256": "2a57f6aecf454ede904246383d4c333da6edd8a1708932bfbe67b594a67008f9",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/result.json.gz",
+    "gzip_bytes": 18245,
+    "gzip_sha256": "699e3c55ee003b10676409371730671eb3b4c1027d78270806ca499891ddce06"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-corner-details.json",
+    "bytes": 1469267,
+    "sha256": "e278b1e710a6ef6859c217b633fd84ae64741fcf22d75ecc1bc73c3b6d9b90f0",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-corner-details.json.gz",
+    "gzip_bytes": 74548,
+    "gzip_sha256": "bc5c697a1d9f3302c847d56135b676f3862de01d2281c55fedabb245f4b37506"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-corner-pixels.bin",
+    "bytes": 7153664,
+    "sha256": "c315a084b4df7f7f86a8bb8edaee3245fd149dc9fe3b56edd9f8f249bb34d187",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-corner-pixels.bin.gz",
+    "gzip_bytes": 173967,
+    "gzip_sha256": "49f30a2de6ce0fef471cc1b8351f90f179c972927345a648f4197b8850a92cd3"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-corner-upload-details.json",
+    "bytes": 1391892,
+    "sha256": "9d5be00c61f17422f2d117d2c4d1418debda5c0bdf4e0f1533e513b104bd8acc",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-corner-upload-details.json.gz",
+    "gzip_bytes": 60671,
+    "gzip_sha256": "a963523af25da4c7ac166e6c507a67fb1a9eb89608976e95be12cbbb63bf87e4"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "82852a03a5850a088f2c721af48d9208f643eb5352b5ce58a1af21312a6a320a",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-corner-upload.bin.gz",
+    "gzip_bytes": 86829,
+    "gzip_sha256": "f9aec9fb72617dc05da0ac3448e3010dc194576a00f0260dc041853ba5b6bb53"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "f665c3090b50ec2945bb2dc2fdabe8b849ada32fb281e9427f59754da2dbd290",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "7f5693c30810adcb61bff7c502e7819b0e6fca276dbf18bb649748d58cb7ba18"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "0d6ae9fe52d842c9cbb83da4d66600d283eb1064a5ed0a94bbf0eec8b499602e",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-material-upload.bin.gz",
+    "gzip_bytes": 13982,
+    "gzip_sha256": "873a96105c82005240718eddaff9b26ddfc9e9a1291fda9f261d36070f90e1ba"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "01f2f3731bd354ea12018a6c692b017c9cdbab1c847762504d4370be6660b014",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9374,
+    "gzip_sha256": "22bbf399fda3e3c0c920df9db01c0ab440d6911e651ac41eb22727018130b28d"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-clock-final/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "f01101bff6fe3f9f87e661c2327aec81bf8636691301df7cf997cba168665ef2",
+    "gzip_path": "vulkan-reuse-gl-corners-clock-final/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77813,
+    "gzip_sha256": "dc5ac8d68f7749a86a8348d73f33bc96486ee1c46b16e8fe62a17241bb262e5c"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/result.json",
+    "bytes": 173297,
+    "sha256": "04bc64ea37ea1c4b882db0c68e72128268df1f4cfb00b2ca3ac25504ff0d9bd1",
+    "gzip_path": "vulkan-reuse-gl-corners-final/result.json.gz",
+    "gzip_bytes": 18230,
+    "gzip_sha256": "f4605aa6cacd009afe4ffdbeb45d0e708cd54ab8d0b84730a45b90c1ec21a33c"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-corner-details.json",
+    "bytes": 1469267,
+    "sha256": "e278b1e710a6ef6859c217b633fd84ae64741fcf22d75ecc1bc73c3b6d9b90f0",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-corner-details.json.gz",
+    "gzip_bytes": 74548,
+    "gzip_sha256": "bc5c697a1d9f3302c847d56135b676f3862de01d2281c55fedabb245f4b37506"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-corner-pixels.bin",
+    "bytes": 7153664,
+    "sha256": "c315a084b4df7f7f86a8bb8edaee3245fd149dc9fe3b56edd9f8f249bb34d187",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-corner-pixels.bin.gz",
+    "gzip_bytes": 173967,
+    "gzip_sha256": "49f30a2de6ce0fef471cc1b8351f90f179c972927345a648f4197b8850a92cd3"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-corner-upload-details.json",
+    "bytes": 1392100,
+    "sha256": "f4d0654b352a5509df09bc0219738aa8073067173e3a76d6aaa1031d20c5ecd4",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-corner-upload-details.json.gz",
+    "gzip_bytes": 60879,
+    "gzip_sha256": "7b8814908c39563d4b641cc80c6620f761d8ed0d200c01675313fd9b0dba8ee6"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-corner-upload.bin",
+    "bytes": 5037120,
+    "sha256": "ddc46b0157604e6a171cdbdb030503c5b3f4b5d835a72437b59b7a746c5e8d18",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-corner-upload.bin.gz",
+    "gzip_bytes": 86830,
+    "gzip_sha256": "9e8628787c0b730c198c58f7cea1a8597aed1d392f30ce64e24184e0437abae9"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "f665c3090b50ec2945bb2dc2fdabe8b849ada32fb281e9427f59754da2dbd290",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-material-pixel-details.json.gz",
+    "gzip_bytes": 1869,
+    "gzip_sha256": "7f5693c30810adcb61bff7c502e7819b0e6fca276dbf18bb649748d58cb7ba18"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-material-upload-details.json.gz",
+    "gzip_bytes": 3986,
+    "gzip_sha256": "352c4863457d020ef914a3fe8c0d3c3aafc56821d24892e39b9c3ddf0cfcfc36"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "c806d7506227c13cf1d31f47631575b50df8b0cb9a9047697d7a389da3b2ed3f",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-material-upload.bin.gz",
+    "gzip_bytes": 14015,
+    "gzip_sha256": "b4e68cfcaae651f8634eb0fca79a8d955c7655e3ea4bf10a13726cf019664576"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-side-material-pixel-details.json",
+    "bytes": 414103,
+    "sha256": "d1b4ea6f7909472770383b4a3cc60e7b638f1b494eb333f6294f04f01ed89b39",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-side-material-pixel-details.json.gz",
+    "gzip_bytes": 9363,
+    "gzip_sha256": "998e50cf5827e162593127df4f40c3d9a51ac6ed8c89c94ddc5656cc66a4ca14"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-side-material-upload-details.json",
+    "bytes": 410410,
+    "sha256": "98b25cbec4c3efe4f3340083b312e06c5cbed3e0191da9cfc80cb1d463186c70",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-side-material-upload-details.json.gz",
+    "gzip_bytes": 20756,
+    "gzip_sha256": "5edc2edacf56875ea02e50e97ae7e8ff316d923c18f919213a434715b6b9f21f"
+  },
+  {
+    "path": "vulkan-reuse-gl-corners-final/water-side-material-upload.bin",
+    "bytes": 1735776,
+    "sha256": "13b1d451daf53af36421cabb196da6cd87d91d19420ae847b006269206b798cc",
+    "gzip_path": "vulkan-reuse-gl-corners-final/water-side-material-upload.bin.gz",
+    "gzip_bytes": 77871,
+    "gzip_sha256": "891615141322a38b92e1a60e3de63e259eaddcc75399274997d36450299c896d"
+  }
+]

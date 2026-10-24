@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_item_barrels_and_more:wood/baobab/item_barrel",
+    "tfc_item_barrels_and_more:wood/cypress/item_barrel",
+    "tfc_item_barrels_and_more:wood/eucalyptus/item_barrel",
+    "tfc_item_barrels_and_more:wood/fig/item_barrel",
+    "tfc_item_barrels_and_more:wood/hevea/item_barrel",
+    "tfc_item_barrels_and_more:wood/ipe/item_barrel",
+    "tfc_item_barrels_and_more:wood/ironwood/item_barrel",
+    "tfc_item_barrels_and_more:wood/mahogany/item_barrel",
+    "tfc_item_barrels_and_more:wood/teak/item_barrel",
+    "tfc_item_barrels_and_more:wood/tualang/item_barrel"
+  ]
+}

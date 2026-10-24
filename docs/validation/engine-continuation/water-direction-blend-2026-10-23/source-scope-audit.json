@@ -1,0 +1,28 @@
+{
+  "parent": "8baffc9e89697d0abeec11345091b3f9ef95f78e",
+  "guarded_parent": "efa62206987bd49d0c3489d71bad1f3f7c23abf0",
+  "existing_inputs_checked": 563,
+  "unchanged": 557,
+  "production_changed_or_added": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java"
+  ],
+  "validation_changed_or_added": [
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowBlendChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionBlendChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionUploadChecks.java"
+  ],
+  "new_files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowBlendChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionBlendChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionUploadChecks.java"
+  ],
+  "solver_quantity_worldgen_lod_backend_unchanged": true,
+  "installer_release": false
+}

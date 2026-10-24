@@ -1,0 +1,14 @@
+{
+  "type": "tfc_item_barrels_and_more:smoke_shack",
+  "ingredient": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc:food/cooked_tropical_fish"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  }
+}

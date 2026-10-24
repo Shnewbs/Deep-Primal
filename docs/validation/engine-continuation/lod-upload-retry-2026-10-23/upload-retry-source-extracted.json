@@ -1,0 +1,7 @@
+{
+  "source_sha256": "3eced2cbfad9c4fc995b426573a8a9c08a501cf30142dd2e988b95777b37845c",
+  "exit_code": 0,
+  "stdout": "UPLOAD_RETRY_EXTRACTED_PASS blockedCalls=2000 guards=8 oversizedBudgetRecovery=true olderResidentReplacement=true indexBound=8192 existingFullIndexKey=true disabledCleanupCalls=128\n",
+  "stderr": "",
+  "scope": "Exact production retry, disk admission, eviction, edit guard and range methods with explicit world/store/GPU-accounting doubles; native cancellation is independently reproduced."
+}

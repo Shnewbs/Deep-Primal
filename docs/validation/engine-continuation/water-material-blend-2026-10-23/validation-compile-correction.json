@@ -1,0 +1,6 @@
+{
+  "error": "Wildcard org.joml import makes Math ambiguous with java.lang.Math",
+  "phase": "compileVisualValidationJava;Minecraft not started",
+  "correction": "Use explicit Matrix4f/Vector3f/Vector4f imports;full native baseline rerun",
+  "production_changed": false
+}

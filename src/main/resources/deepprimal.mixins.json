@@ -15,6 +15,7 @@
     "PrecipitationMixin",
     "FiniteWaterMixin",
     "WaterImportMixin",
+    "PressureChunkMutationMixin",
     "compat.KubeJsRegistryContextMixin"
   ],
   "client": [

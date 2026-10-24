@@ -1,0 +1,4 @@
+{
+  "accepted": false,
+  "reason": "New pixel fixture omitted USAGE_TEXTURE_BINDING on sampled atlas/light textures. OpenGL correctly rejected it. Corrected to named COPY_DST|TEXTURE_BINDING flags, plus explicit attachment/readback flags. Reran both APIs. This is a fixture error, not a production engine defect."
+}

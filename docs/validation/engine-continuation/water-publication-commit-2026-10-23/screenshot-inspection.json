@@ -1,0 +1,8 @@
+{
+  "inspected": [
+    "vulkan-corners-publication-final-packaged/screenshots/corners-scene-before.png",
+    "vulkan-reuse-gl-corners-publication-final/screenshots/reuse-gl-recovery.png"
+  ],
+  "findings": "Both show loaded lake/shore terrain with visible submerged terraces and textured water. Single still frames cannot establish seamless long-stream motion or full enabled-view coverage. Distant horizon/LOD acceptance remains open; these views do not resolve the previously observed cutoff. Different resolutions are not a matched performance comparison.",
+  "full_scene_accepted": false
+}

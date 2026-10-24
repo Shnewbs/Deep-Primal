@@ -1,0 +1,442 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/graphics-pins-source.json",
+    "bytes": 4344,
+    "sha256": "a4b6860a8e528633287936c2288ce475f0e747b60d9528fc805b2289d57e6647"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/audit_capacity_native.py",
+    "bytes": 6523,
+    "sha256": "c24520ef03a553ccb2598e59529db288fc89e9e43820b478e3e7b4cecf1d13ae"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/before-LodDiskRecoveryChecks.java",
+    "bytes": 14536,
+    "sha256": "3a8fd2cb69aea3a037a44b6f9f3328e3f142ad5adf147f2d5ff22e702494b8f3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/graphics-restoration.json",
+    "bytes": 4343,
+    "sha256": "dae0713797699d60012379e564671105d6a0efcb852ab058be7eba62c96eb5aa"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/run_vulkan.py",
+    "bytes": 11984,
+    "sha256": "f0a6eb1d07b7ee51d2857e63bf8294eb6c77b03cc6be7ff11d091864b1901d23"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/tool-restoration.json",
+    "bytes": 1191,
+    "sha256": "07de8c7865943c5d99e467b689f1be9541fb1d2a29a0de962c2ad2a28741f039"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/restore_graphics.py",
+    "bytes": 1601,
+    "sha256": "6e2d9b0fb46940c42f2a6d019f4bf6a4faf4e6fc73738804060b4e2945d167aa"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/audit_vulkan_package.py",
+    "bytes": 3486,
+    "sha256": "8e7bdac50aad25f9428695e66f5bbbfb400d579160a0ee4a0cee24b1bba33088"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/capacity-baseline-failure.json",
+    "bytes": 579,
+    "sha256": "83e1e3b4c31f2571f47e652a5eb289b15f3aa2ee3841c563e8be2fe0edd81612"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/capacity-baseline-crash-excerpt.txt",
+    "bytes": 4200,
+    "sha256": "0be81b74f4ec3a6bc330f9a3062210dc1d3646bce7b2fd6937df909ffd90bc66"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/restored-source-verification.json",
+    "bytes": 109,
+    "sha256": "9c8e586d11d741f5ed1878fb04506c5d8bba9fd455b0b2377ae0a8681834e109"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-build-audit.json",
+    "bytes": 1744,
+    "sha256": "d1e01d9aa686941693b2e628ca23a15a79be8ae0a02caef5c823d95e213e0dc1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/README.md",
+    "bytes": 6315,
+    "sha256": "6ea120ef8b2ca295e0c3b00b62f93fc41fd84b39b3d799b055362118f86c6afd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/candidate-build-result.json",
+    "bytes": 2366,
+    "sha256": "90644373d1567d7af17936aad23ed992c7296da9f85039ba3ae80daf718dfaba"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/candidate-build-final.gz",
+    "bytes": 3409,
+    "sha256": "f84c1bc5eacbdabe465287ef9713632112557437faf8b918e42b33620ef38838"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/screenshot-inspection.json",
+    "bytes": 1075,
+    "sha256": "d68b1f61888aeaeb247c0344c754de3f16ba2e6cc4049b0f01daa243744f86bb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/private-agent-checks.json",
+    "bytes": 449,
+    "sha256": "408f2507c0a124837223817c09ba522af3c60caad42762c46ccf8e2f0a9a370d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/packaged-module-identity.json",
+    "bytes": 1526,
+    "sha256": "31b319aa99e5f8e5dc7917533afff22378156d5a4182febe87fac791fe271e58"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/capacity-recovery.patch",
+    "bytes": 1681,
+    "sha256": "4224ed785e3efc5e126b4ac0bfc0f507d66893961da29086c53da92bf29e58a8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/source-scope-audit.json",
+    "bytes": 1019,
+    "sha256": "2fdaf1c85114512fb19ffa087d9c70df75f58dc5b83fb554851ca1509d9840f4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/check_capacity_recovery.py",
+    "bytes": 7887,
+    "sha256": "2a9fb14f699b77a52cec0da0fde8d4d2d824493af064a413c8bdb087d0ec115c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/rejected-baseline-setup.json",
+    "bytes": 1340,
+    "sha256": "b74b27b320448bb28832b1ea6a42c27dc6a1c2c6275ade427f40c03410a7b4b6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/capacity-source-extracted.json",
+    "bytes": 1386,
+    "sha256": "959675dc76d702ac35f425f24edb19d4ad95f097ecff8e3a957f4a22b6b570dc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/build_candidate.py",
+    "bytes": 2339,
+    "sha256": "24e4bc259238f917606eec242b3eaee90c0c4afe3e126c113a6298fe49ba4a15"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/baseline-build-log-discrepancy.json",
+    "bytes": 510,
+    "sha256": "918f0079d9f5d19fd30194dd729556a42834ca65ca3ec4ded3b5f37ffb75eba6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/strict-capacity-native-audit.json",
+    "bytes": 4505,
+    "sha256": "ee0744cf582e84b55831b745cb049a0b67d51865650540fa6cf73f090ef9731e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/before-VoxelLodRenderer.java",
+    "bytes": 26386,
+    "sha256": "affa95c8daa6d2e9378f1c06e58f02401c4ba1a9b94489d6f216ddd9e518660c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/command.json",
+    "bytes": 1508,
+    "sha256": "706f5a6dc8787b4b3353c4219bc46eea933917a61d1219646fe73704c89250e8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/action-history.json",
+    "bytes": 1090,
+    "sha256": "57beaf8e7c2a53c4014afe40af2c1654ea669e88327e72ed223251180a722d45"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/result.json",
+    "bytes": 8047,
+    "sha256": "8b72548d2766babcf9d60016fa386401d3447958e6c0a9b4f4f1188da53e6b2f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/startup-lifecycle.txt",
+    "bytes": 1679,
+    "sha256": "b231f69ef12e87d78529e5d29357d2094fff5742953c425fb53f4362a66a1e63"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/console-final.gz",
+    "bytes": 8336,
+    "sha256": "d7254dcd88d6899792b3e91edb18050593207d77fdb71f8184d1e40222c537bf"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/crash-delta.json",
+    "bytes": 156,
+    "sha256": "2986b652261ffae5298e86a782470a04dbef297b653d39fd3d81bfc85eb61731"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/live-action.json",
+    "bytes": 168,
+    "sha256": "49d0253bcbfd590e95952e897b3fd5b638059c1e5b365c52e68c2962c756265d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/selected-console-records.txt",
+    "bytes": 2717,
+    "sha256": "e2432d34d26518bb87c615030b9603e23ae40875438b378e6311dabc77701ba3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "48e1c621e4ec107893197c591e669e3541d50476f5a63b1bee8e31c19223df84"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/prior-crash-reports.json",
+    "bytes": 113,
+    "sha256": "dc672620319c6e75f43f1a273291cf1fd1b6451c8098fb89820bbc842d6c6076"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/command.json",
+    "bytes": 1322,
+    "sha256": "8b97fd826f822f675ae671be923b4f3450edcf856df5664384469025deeb8808"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/action-history.json",
+    "bytes": 3,
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/result.json",
+    "bytes": 578,
+    "sha256": "d2d3537baf132262bdb25d72fd99d8796a2c9391c7a89eef00111d5ccf7370ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/console-final.gz",
+    "bytes": 645,
+    "sha256": "ac0dafc5c162b19591243e9474026ba450011e3c43f7f75619383088db190f3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/crash-delta.json",
+    "bytes": 42,
+    "sha256": "dbed4583c48519dff8df12cc7b71572f76c72e9be4f469cf611a31efb5fbc38d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/live-action.json",
+    "bytes": 187,
+    "sha256": "c5fcb78ff2fbf4814ee9ab12f67e5277726541920d55035b60299c33478db12e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/selected-console-records.txt",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/sealed-console.json",
+    "bytes": 1064,
+    "sha256": "eda31bf67927e160c4bd8ff586833ab4e9f61b2f3a8affc9bd6b3bf71156d460"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-before/prior-crash-reports.json",
+    "bytes": 3,
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/command.json",
+    "bytes": 1342,
+    "sha256": "84b1260a69790e35b337e83290967839f6743d4cfe90b92eefa8858da0484900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/action-history.json",
+    "bytes": 187,
+    "sha256": "7f254e55c19c05ec8e77d47a0baefb1a180af84069ef928503968557cabcf2df"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/result.json",
+    "bytes": 3422,
+    "sha256": "8d1318e0071e0f5b07c4b57b5e28e0de6933000e53f4563186eb7b9bad34cdfa"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/startup-lifecycle.txt",
+    "bytes": 381,
+    "sha256": "33867de8adf01eb1b2e6be05f40d94544a279082026c8801a5e257e8409b136f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/console-final.gz",
+    "bytes": 11405,
+    "sha256": "2d15a299854ec385efcb2b0d0e527aa363ae854b6c697119a4912eb6bba7d95d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/crash-delta.json",
+    "bytes": 156,
+    "sha256": "4e1a714506d220ba79c77f6e657acc7475070cd8a4461fc90dc4b24af9303ee6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/live-action.json",
+    "bytes": 270,
+    "sha256": "4405e36ae411b74942022d220c50ffc39b1c69fbf6fe9b227ac5fdd950dd38b9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/selected-console-records.txt",
+    "bytes": 885,
+    "sha256": "0e1c29dd4957d7a77e6a9f816f92170360a42feee966effb14041679878822af"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "b30ffacb2762469f80c7b8747be495ae26da9560ad97699d19036e059b06ce58"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-baseline/prior-crash-reports.json",
+    "bytes": 3,
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/command.json",
+    "bytes": 1339,
+    "sha256": "5ff76ebecf79ef6d3aa8a5ff03ffa70656a80321dbf50365e99b9685332b1b83"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/action-history.json",
+    "bytes": 1090,
+    "sha256": "eb04f83848a36fda3a54f4a65e5b2a5dc5c0d2809f0f06d6a2799decd9377ba0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/result.json",
+    "bytes": 8042,
+    "sha256": "6ec4e9b184b42949a1ac41ad8afac8bfc57032e9a2677f0e21cb3ac835155fb8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/startup-lifecycle.txt",
+    "bytes": 1547,
+    "sha256": "78f463357eac5044ede9c0e324fa295ec540128d650c30390cb1d5dd3a906b28"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/console-final.gz",
+    "bytes": 8216,
+    "sha256": "3f2413215d5822a80945332889fdf43ae652ef00cbf963160bb5448071c64e3d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/crash-delta.json",
+    "bytes": 156,
+    "sha256": "2986b652261ffae5298e86a782470a04dbef297b653d39fd3d81bfc85eb61731"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/live-action.json",
+    "bytes": 417,
+    "sha256": "4a51d1ea306d55b509d7518fe2742dbd31a34f573ac7fa084212929e50e5ac2a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/selected-console-records.txt",
+    "bytes": 2659,
+    "sha256": "47a7c97405292f5ba76db4cf0948ad10d7a7fdc9e87b73b43ff0f6eb9cf14cd0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "7d91f3259045101aac77f63d0d5a5c623f53126765964be0b041d3ac59957d8f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/prior-crash-reports.json",
+    "bytes": 113,
+    "sha256": "dc672620319c6e75f43f1a273291cf1fd1b6451c8098fb89820bbc842d6c6076"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/screenshots/disk-recovery.png",
+    "bytes": 728804,
+    "sha256": "6e8080ac4631b8bb9237cc6785e861d7d079c362d5e2581afcc2eeb0cde6dca5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/screenshots/disk-recovery.png",
+    "bytes": 725121,
+    "sha256": "4e3aae6b4bacec9abda3bd5e39e7bdb16651914a3207851e34689da6d65d58df"
+  }
+]

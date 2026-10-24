@@ -1,0 +1,14 @@
+{
+  "staged_fix": "Retain exact accepted vertex bytes per GPU page; update at most eight same-layer resident neighbors from canonical history before next draw. No neighbor capture/remesh or new endpoint request; no clock restart. Rebase height, opacity, side-material and top-corner clocks when changing the page upload origin. Only clock/endpoint metadata and unused normal padding for cellY differ; geometry/light/quantity unchanged.",
+  "steady_path": "Compare actual admitted source/target/age and skip equivalent resident representations.",
+  "budget": "Retained CPU payload <=32MiB resident GPU bound, plus temporary copies/direct transfer buffers. Full-neighbor scanning/rebasing/copying and GPU updates remain too costly at the synthetic residency bound; not promoted.",
+  "native_scope": "Reproject actual uploaded top payloads at equal shared-edge coordinates. Near/far, X/Z, both first-page orders, same-page controls, staggered requests at0/25/50/75/100ms; far cases include20s old resident clocks.",
+  "limits": [
+    "No actual long-stream/ocean or full scene flicker acceptance",
+    "Active cap churn, GPU update exceptions/rollback and further stale/queued/height/opacity/edit combinations need coverage",
+    "CPU mirror adds retained memory and transient peaks; no broad resident/frame-time acceptance",
+    "Synthetic budget is not an owner GPU/FPS or actual full-scene measurement",
+    "Distant rectangular LOD/horizon boundaries, water budgets/chemistry, pressure and geology remain open"
+  ],
+  "production_and_public_test_sources_unchanged": true
+}

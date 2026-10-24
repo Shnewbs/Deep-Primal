@@ -1,0 +1,39 @@
+[17:50:02] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true
+[17:50:09] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:overworld
+[17:50:09] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_nether
+[17:50:09] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_end
+[17:50:09] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BACKEND_SELECTION_PASS backend=Vulkan
+STARTUP_LIFECYCLE_OBSERVATION label=joined backend=Vulkan markerPresent=false armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+[17:50:13] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:overworld
+BACKEND_SELECTION_PASS backend=Vulkan
+[17:50:13] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_nether
+[17:50:13] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_end
+RESOURCE_RELOAD_PASS
+BACKEND_SELECTION_PASS backend=Vulkan
+STARTUP_LIFECYCLE_OBSERVATION label=reloaded backend=Vulkan markerPresent=false armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+STARTUP_LIFECYCLE_OBSERVATION label=before-rearm backend=Vulkan markerPresent=false armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+STARTUP_LIFECYCLE_OBSERVATION label=armed-again backend=Vulkan markerPresent=true armed=true complete=false marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+STARTUP_LIFECYCLE_OBSERVATION label=rearm-first-frame backend=Vulkan markerPresent=false armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+STARTUP_REARM_NATIVE_PASS backend=Vulkan cycles=32 markerCleared=true
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_ATLAS_RANGE level=0 colored=2624229 total=4194304
+VULKAN_ATLAS_RANGE level=4 colored=10299 total=16384
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+STARTUP_LIFECYCLE_OBSERVATION label=before-disconnect backend=Vulkan markerPresent=false armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+[17:50:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:overworld
+[17:50:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_nether
+[17:50:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[Vulkan-primary-20261022]'/minecraft:the_end
+[17:50:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+STARTUP_LIFECYCLE_OBSERVATION label=after-disconnect backend=Vulkan markerPresent=false armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+CLIENT_SAVED_DISCONNECT_PASS
+[17:50:27] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[17:50:27] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=62654, pipelineCreationNanos=92162479, descriptorBindSkips=8, pipelineCreates=89, validationErrors=0, descriptorBinds=99041, pipelineFeedbackValid=89, descriptorReuse=36395}
+BUILD SUCCESSFUL in 40s

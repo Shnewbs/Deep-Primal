@@ -1,0 +1,19 @@
+{
+  "scope": "read-only compatibility audit; no extra solver removed or altered",
+  "engine_quantity_authority": {
+    "class": "engine/EngineWaterBlock.java",
+    "base_class": "Block",
+    "core": "WaterTransport",
+    "units_per_cell": 16
+  },
+  "optional_legacy_compatibility": {
+    "class": "water/FiniteWater.java",
+    "accepted_block_type": "LiquidBlock tagged WATER",
+    "core": "FluidVolume",
+    "units_per_cell": 8,
+    "default_enabled": false
+  },
+  "dispatch_guard": "FiniteWaterMixin returns before dispatch when the generator is EngineChunkGenerator; EngineWaterBlock is not a LiquidBlock.",
+  "cleanup_decision": "Keep these quantity adapters separate. This patch centralizes the engine pressure quantum only; blindly replacing the optional vanilla 8-unit model would change quantity semantics.",
+  "release_gates": "No regional reservoir accounting or hydrology acceptance is established by either local exchange model."
+}

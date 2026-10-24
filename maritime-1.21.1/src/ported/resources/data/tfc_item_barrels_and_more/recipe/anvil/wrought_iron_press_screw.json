@@ -1,0 +1,15 @@
+{
+  "type": "tfc:anvil",
+  "result": {
+    "id": "tfc_item_barrels_and_more:wrought_iron_press_screw"
+  },
+  "tier": 3,
+  "rules": [
+    "bend_last",
+    "bend_second_last",
+    "bend_third_last"
+  ],
+  "ingredient": {
+    "tag": "c:double_sheets/wrought_iron"
+  }
+}

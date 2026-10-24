@@ -1,0 +1,2 @@
+WATER_RESIDENT_UPLOAD_REPRODUCED old=2.0 new=4.0 source=2 target=6 elapsed=50
+WATER_PRESENTATION_CORE_PASS cases=180000 geometryLightStable=true endpointAndClockRebase=true nativeGpuAcceptance=false

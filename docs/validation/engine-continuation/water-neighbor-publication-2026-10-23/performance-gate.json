@@ -1,0 +1,11 @@
+{
+  "accepted": false,
+  "bytes": 33554304,
+  "median_nanoseconds": 7802113,
+  "p95_nanoseconds": 8536877,
+  "extraction_target_nanoseconds": 2000000,
+  "scope": "synthetic maximum-residency rebase alone; excludes scan, copy and GPU writes; not measured full-scene frame time",
+  "cpu_mirror_retained_upper_bound_bytes": 33554432,
+  "new_gpu_allocation": false,
+  "reason": "Functional candidate cannot be promoted on current performance evidence. Bound/reduce preparation and publication cost; retain existing coverage and clock tests."
+}

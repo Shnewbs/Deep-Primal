@@ -1,0 +1,7 @@
+{
+  "fluid": {
+    "fluid": "tfc:olive_oil"
+  },
+  "burn_rate": 8000,
+  "lamps": "#tfc:lamps"
+}

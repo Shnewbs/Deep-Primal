@@ -1,0 +1,37 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 31.04
+  },
+  {
+    "action": "startup-observe=joined",
+    "completed": true,
+    "elapsed": 32.05
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 40.05
+  },
+  {
+    "action": "startup-observe=reloaded",
+    "completed": true,
+    "elapsed": 41.06
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 43.06
+  },
+  {
+    "action": "marker-lifecycle",
+    "completed": true,
+    "elapsed": 45.06
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 46.06
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "case": "basin-after-a",
+  "project": "engine-continuation",
+  "exit_code": 0,
+  "explicit_pass": false,
+  "elapsed_seconds": 60.4,
+  "records": [],
+  "failures": [
+    "java.lang.AssertionError: The closed stepped basin must drain fully to its lowest available layer and settle",
+    "[09:21:54] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+    "java.lang.AssertionError: The closed stepped basin must drain fully to its lowest available layer and settle"
+  ],
+  "normal_save": true,
+  "crash_reports": [
+    "crash-2026-10-22_09.21.54-server.txt"
+  ]
+}

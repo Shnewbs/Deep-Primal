@@ -1,0 +1,160 @@
+{
+  "case": "vulkan-batch-r40-control",
+  "pass": true,
+  "baseline": false,
+  "cases": 44,
+  "paired_cpu_gpu_reads": 88,
+  "raw_readback_bytes": 33237504,
+  "raw_sha256": "cb99fca2dfac2579854eefb5fc3e33c8185e475973897cc34cdfb96f0b6b8415",
+  "all_bytes_match_independent_packet_and_rejection_oracle": true,
+  "normal_routes": [
+    {
+      "origin": 0,
+      "axis": 0,
+      "group": 256,
+      "writes": 1,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 14.925454
+    },
+    {
+      "origin": 0,
+      "axis": 0,
+      "group": 8,
+      "writes": 32,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 3.330278
+    },
+    {
+      "origin": 0,
+      "axis": 1,
+      "group": 256,
+      "writes": 1,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 0.761185
+    },
+    {
+      "origin": 0,
+      "axis": 1,
+      "group": 8,
+      "writes": 32,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 2.202703
+    },
+    {
+      "origin": 29999968,
+      "axis": 0,
+      "group": 256,
+      "writes": 1,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 1.158082
+    },
+    {
+      "origin": 29999968,
+      "axis": 0,
+      "group": 8,
+      "writes": 32,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 2.175312
+    },
+    {
+      "origin": 29999968,
+      "axis": 1,
+      "group": 256,
+      "writes": 1,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 0.77797
+    },
+    {
+      "origin": 29999968,
+      "axis": 1,
+      "group": 8,
+      "writes": 32,
+      "bytes": 36864,
+      "quads": 256,
+      "sync_cpu_ms": 1.146374
+    },
+    {
+      "origin": 0,
+      "axis": 0,
+      "group": 256,
+      "writes": 2,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 7.425536
+    },
+    {
+      "origin": 0,
+      "axis": 0,
+      "group": 8,
+      "writes": 256,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 6.932555
+    },
+    {
+      "origin": 0,
+      "axis": 1,
+      "group": 256,
+      "writes": 2,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 3.337309
+    },
+    {
+      "origin": 0,
+      "axis": 1,
+      "group": 8,
+      "writes": 256,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 3.315857
+    },
+    {
+      "origin": 29999968,
+      "axis": 0,
+      "group": 256,
+      "writes": 2,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 1.16981
+    },
+    {
+      "origin": 29999968,
+      "axis": 0,
+      "group": 8,
+      "writes": 256,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 5.147301
+    },
+    {
+      "origin": 29999968,
+      "axis": 1,
+      "group": 256,
+      "writes": 2,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 1.067095
+    },
+    {
+      "origin": 29999968,
+      "axis": 1,
+      "group": 8,
+      "writes": 256,
+      "bytes": 294912,
+      "quads": 2048,
+      "sync_cpu_ms": 8.676988
+    }
+  ],
+  "fixture_class_sha256": "bdf29438fda423de63707546e45abbe9b27cf6814f305a4a126eeb76271675ca",
+  "new_crashes": 0,
+  "normal_save_shutdown": true,
+  "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+}

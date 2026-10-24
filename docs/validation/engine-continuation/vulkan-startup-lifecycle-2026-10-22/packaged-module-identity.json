@@ -1,0 +1,37 @@
+[
+  {
+    "module": "engine-core",
+    "standalone_path": "engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "sha256": "c353c7e02fc570020d136886ce267250c06fb890336dade8207b931e301f2c06",
+    "bytes": 101978,
+    "standalone_identical_to_nested_payload": true
+  },
+  {
+    "module": "graphics-settings",
+    "standalone_path": "graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "sha256": "00ebffd0b19c675b1ec4f31dcd1da8fbe0a8b5def8b1e0c9cf796009cc6bc3f1",
+    "bytes": 89077,
+    "standalone_identical_to_nested_payload": true
+  },
+  {
+    "module": "lod-engine",
+    "standalone_path": "lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "sha256": "2d69f145ba7207f284c3a5d57d18468999a841d463d97d3cf6c8c5b2ac4a81cb",
+    "bytes": 40227,
+    "standalone_identical_to_nested_payload": true
+  },
+  {
+    "module": "performance-engine",
+    "standalone_path": "performance-engine/build/libs/DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+    "bytes": 19660,
+    "standalone_identical_to_nested_payload": true
+  },
+  {
+    "module": "renderer-vulkan",
+    "standalone_path": "renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "sha256": "2bedfa7d34947e355c83b8672669bcf4f0bbe360402952f1ec85a25781176d81",
+    "bytes": 12818196,
+    "standalone_identical_to_nested_payload": true
+  }
+]

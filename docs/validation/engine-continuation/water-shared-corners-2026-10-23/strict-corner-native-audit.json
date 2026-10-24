@@ -1,0 +1,211 @@
+{
+  "pass": true,
+  "baseline": {
+    "case": "vulkan-corners-baseline",
+    "baseline": true,
+    "pass": true,
+    "kind_counts": {
+      "0": 2332,
+      "1": 136
+    },
+    "kind_max_channel_error": {
+      "0": 255,
+      "1": 0
+    },
+    "kind_failed_routes": {
+      "0": 2204,
+      "1": 0
+    },
+    "channels_beyond_tolerance": 1171208,
+    "max_channel_error": 255,
+    "coverage_bad_pixels": 0,
+    "raw_upload_bytes": 5037120,
+    "pixel_readback_bytes": 5890048,
+    "decoded_top_vertices": 0,
+    "upload_sha256": "a5eb82276c84a58f3d0f703ec9aaceb0dd1c568ac3956c0e82c830446e98ea79",
+    "pixel_sha256": "5cf5e5f11ac753c33c54e29c196bd2f737e598256c44f0f604897a033e2176dd",
+    "sealed_console_sha256": "4d4beb10104de5f1195d22a68f54f6da8b4d989e212ce92beaf03f4628226c74",
+    "loaded_class_and_shader_identities_verified": true,
+    "source_stable": true,
+    "fresh_crashes": 0,
+    "normal_save_shutdown": true,
+    "opengl_rows_normalized": false,
+    "upload_cpu_observations": {
+      "20": {
+        "samples": 2312,
+        "median_microseconds": 18.3125,
+        "p95_microseconds": 40.551
+      },
+      "40": {
+        "samples": 2112,
+        "median_microseconds": 25.138,
+        "p95_microseconds": 55.564
+      }
+    },
+    "performance_acceptance": false,
+    "full_stream_ocean_acceptance": false,
+    "partial_neighbor_request_atomicity": false,
+    "owner_gpu_fps_acceptance": false
+  },
+  "sessions": [
+    {
+      "case": "vulkan-corners-clock-final",
+      "baseline": false,
+      "pass": true,
+      "kind_counts": {
+        "0": 2332,
+        "2": 2332,
+        "1": 136,
+        "3": 136
+      },
+      "kind_max_channel_error": {
+        "0": 0,
+        "2": 1,
+        "1": 0,
+        "3": 0
+      },
+      "kind_failed_routes": {
+        "0": 0,
+        "2": 0,
+        "1": 0,
+        "3": 0
+      },
+      "channels_beyond_tolerance": 0,
+      "max_channel_error": 1,
+      "coverage_bad_pixels": 0,
+      "raw_upload_bytes": 5037120,
+      "pixel_readback_bytes": 7153664,
+      "decoded_top_vertices": 18656,
+      "upload_sha256": "82852a03a5850a088f2c721af48d9208f643eb5352b5ce58a1af21312a6a320a",
+      "pixel_sha256": "802ef55f2b782246260fd87b5e90c43fc52c4cc72bfd10c67471de69dac9af52",
+      "sealed_console_sha256": "a714575628e1b2ae18ff309d7e9be4c692ca220d7c850f6d3a398f98e822a369",
+      "loaded_class_and_shader_identities_verified": true,
+      "source_stable": true,
+      "fresh_crashes": 0,
+      "normal_save_shutdown": true,
+      "opengl_rows_normalized": false,
+      "upload_cpu_observations": {
+        "20": {
+          "samples": 2312,
+          "median_microseconds": 18.207,
+          "p95_microseconds": 34.592
+        },
+        "40": {
+          "samples": 2112,
+          "median_microseconds": 20.2805,
+          "p95_microseconds": 34.703
+        }
+      },
+      "performance_acceptance": false,
+      "full_stream_ocean_acceptance": false,
+      "partial_neighbor_request_atomicity": false,
+      "owner_gpu_fps_acceptance": false
+    },
+    {
+      "case": "vulkan-corners-clock-final-packaged",
+      "baseline": false,
+      "pass": true,
+      "kind_counts": {
+        "0": 2332,
+        "2": 2332,
+        "1": 136,
+        "3": 136
+      },
+      "kind_max_channel_error": {
+        "0": 0,
+        "2": 1,
+        "1": 0,
+        "3": 0
+      },
+      "kind_failed_routes": {
+        "0": 0,
+        "2": 0,
+        "1": 0,
+        "3": 0
+      },
+      "channels_beyond_tolerance": 0,
+      "max_channel_error": 1,
+      "coverage_bad_pixels": 0,
+      "raw_upload_bytes": 5037120,
+      "pixel_readback_bytes": 7153664,
+      "decoded_top_vertices": 18656,
+      "upload_sha256": "82852a03a5850a088f2c721af48d9208f643eb5352b5ce58a1af21312a6a320a",
+      "pixel_sha256": "802ef55f2b782246260fd87b5e90c43fc52c4cc72bfd10c67471de69dac9af52",
+      "sealed_console_sha256": "66a34bbae83b41260f916195eb503e5d9b43c20892dc87052b9935f90dbdbcbb",
+      "loaded_class_and_shader_identities_verified": true,
+      "source_stable": true,
+      "fresh_crashes": 0,
+      "normal_save_shutdown": true,
+      "opengl_rows_normalized": false,
+      "upload_cpu_observations": {
+        "20": {
+          "samples": 2312,
+          "median_microseconds": 15.383,
+          "p95_microseconds": 30.656
+        },
+        "40": {
+          "samples": 2112,
+          "median_microseconds": 21.4825,
+          "p95_microseconds": 47.102
+        }
+      },
+      "performance_acceptance": false,
+      "full_stream_ocean_acceptance": false,
+      "partial_neighbor_request_atomicity": false,
+      "owner_gpu_fps_acceptance": false
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-clock-final",
+      "baseline": false,
+      "pass": true,
+      "kind_counts": {
+        "0": 2332,
+        "2": 2332,
+        "1": 136,
+        "3": 136
+      },
+      "kind_max_channel_error": {
+        "0": 0,
+        "2": 1,
+        "1": 0,
+        "3": 0
+      },
+      "kind_failed_routes": {
+        "0": 0,
+        "2": 0,
+        "1": 0,
+        "3": 0
+      },
+      "channels_beyond_tolerance": 0,
+      "max_channel_error": 1,
+      "coverage_bad_pixels": 0,
+      "raw_upload_bytes": 5037120,
+      "pixel_readback_bytes": 7153664,
+      "decoded_top_vertices": 18656,
+      "upload_sha256": "82852a03a5850a088f2c721af48d9208f643eb5352b5ce58a1af21312a6a320a",
+      "pixel_sha256": "c315a084b4df7f7f86a8bb8edaee3245fd149dc9fe3b56edd9f8f249bb34d187",
+      "sealed_console_sha256": "1c28bbca3b9891880f1accf102bd4145bc2a7e66ec898d280715f6f43b4ace9b",
+      "loaded_class_and_shader_identities_verified": true,
+      "source_stable": true,
+      "fresh_crashes": 0,
+      "normal_save_shutdown": true,
+      "opengl_rows_normalized": true,
+      "upload_cpu_observations": {
+        "20": {
+          "samples": 2312,
+          "median_microseconds": 5.799,
+          "p95_microseconds": 10.706
+        },
+        "40": {
+          "samples": 2112,
+          "median_microseconds": 8.783,
+          "p95_microseconds": 15.143
+        }
+      },
+      "performance_acceptance": false,
+      "full_stream_ocean_acceptance": false,
+      "partial_neighbor_request_atomicity": false,
+      "owner_gpu_fps_acceptance": false
+    }
+  ]
+}

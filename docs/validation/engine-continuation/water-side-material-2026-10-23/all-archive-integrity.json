@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "pixel_archives": 10,
+  "named_png_files_preserved": 46532,
+  "unique_png_objects_across_archives": 2379,
+  "gzip_assets_verified": 58,
+  "all_gzip_crc_and_raw_sha256_verified": true,
+  "all_zip_crc_and_png_sha256_verified": true,
+  "scope": "All final and rejected/superseded compact assets;not additional native acceptance"
+}

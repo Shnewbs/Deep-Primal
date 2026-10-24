@@ -1,0 +1,20 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/water-gpu-reuse-2026-10-23/vulkan-reuse-final/screenshots/reuse-recovery.png",
+    "sha256": "630da33ce66c76d9dc8891926b73439210f3a4aa979396b3c375be5e3df6bf2a",
+    "inspected": true,
+    "scope": "Actual active lake scene; not a video/readback of the isolated memory-pressure fixture, matched equal-state comparison or complete flicker acceptance."
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-gpu-reuse-2026-10-23/vulkan-reuse-final-packaged/screenshots/reuse-recovery.png",
+    "sha256": "7c8b5adbfa84473f49d00e87767a98471bf4ef7e4907d6211e3c445078e38d92",
+    "inspected": true,
+    "scope": "Actual active lake scene; not a video/readback of the isolated memory-pressure fixture, matched equal-state comparison or complete flicker acceptance."
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-gpu-reuse-2026-10-23/vulkan-reuse-gl-final2/screenshots/reuse-gl-recovery.png",
+    "sha256": "c452b5408eaad472ece57ab0c7857d2c62d101dbf9ad131847ea4157a66e3ad4",
+    "inspected": true,
+    "scope": "Actual active lake scene; not a video/readback of the isolated memory-pressure fixture, matched equal-state comparison or complete flicker acceptance."
+  }
+]

@@ -1,0 +1,7 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/98befbcef095/water-partial-0201/project/build/classes/java/main/
+WATER_PARTIAL_FADE_OBSERVED vertices=20 elapsed=25 originalVertices=40 originalDeadline=201
+java.lang.AssertionError: Mixed wet/dry page discarded fading faces before their deadline: vertices=20 at=125
+java.lang.AssertionError: Mixed wet/dry page discarded fading faces before their deadline: vertices=20 at=125
+java.lang.AssertionError: Mixed wet/dry page discarded fading faces before their deadline: vertices=20 at=125
+BUILD FAILED in 27s

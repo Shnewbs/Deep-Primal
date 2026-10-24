@@ -1,0 +1,11 @@
+{
+  "pass": true,
+  "logical_capture_paths": 15707,
+  "unique_content_objects": 915,
+  "original_logical_bytes": 231851784,
+  "unique_uncompressed_bytes": 96218815,
+  "original_archive_bytes": 36458204,
+  "compacted_archive_bytes": 24216463,
+  "all_original_path_hashes_preserved": true,
+  "only_own_unpublished_duplicate_archives_removed": true
+}

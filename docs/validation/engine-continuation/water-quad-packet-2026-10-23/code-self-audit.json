@@ -1,0 +1,26 @@
+{
+  "pass": true,
+  "status": "Staged focused CPU packet optimization; performance and engine acceptance incomplete",
+  "problem": "synchronizeCornerNeighbors repeated shared quad packet decode/encode once per changed corner, adding synchronous admission cost; fresh current scalar native control exceeds2ms on multiple large routes.",
+  "change": [
+    "Gather requested corner IDs/ages and a4bitmask without modifying the accepted mirror.",
+    "Read-only changedCorners computes the same semantic match mask, including expired-source and same-target clock rules.",
+    "patchCorners decodes shared fields and encodes each of four vertices once for the changed subset; old scalar APIs remain compatible.",
+    "GPU contiguous/scattered range grouping,262080byte limit, deadline commit and failure/manualretry ordering are unchanged.",
+    "No new allocation or persistent state in packet helpers; renderer retains its existing144Bheapquad and bounded native transfer buffer. No GPU count/payload/stride/shader changes."
+  ],
+  "checks": [
+    "210000new known-input mask/clock/offset cases plus exact scalar byte differential checks, preserving each vertex opacity/light/nonmaterial bytes; all16masks, wrap/long clocks and nonzero quad offsets.",
+    "Existing210000core packet cases retained; new private tests excluded from production package.",
+    "Native independent packet/range/rejection oracle and byte-identical R41fresh control/candidate before/after-retry payloads.",
+    "Pinned same-compiler baseline/candidate standalone classes, ABBAprocess order,16warmup rounds and31samples per mask; archived initial/final packets independently reconstructed in Python. Initial differing-classpath diagnostic retained separately.",
+    "Self-audit removed asymmetric per-update counters from both primary timed paths and reran pinned ABBAcontrols; earlier instrumented/classpath diagnostics are retained separately."
+  ],
+  "limits": [
+    "Standalone packet CPU arithmetic is not full boundary scan/GPU publication/frame/FPS acceptance; native cold route timings vary and some routes can regress.",
+    "The existing synchronous whole-neighbor scan, ranges and driver calls can still exceed2ms; no hard budget or incremental continuation is introduced here.",
+    "R40nominal admission reservation remains; sufficient-plan allocation/devicefailure atomicity, visible-scene discovery/travel/capchurn and deferred peak residency remain open.",
+    "Full streams/oceans, enabled-view/LOD, ownerGPU, reservoirs/chemistry, pressure/geology and broader requirements remain unfinished; catalog/species deferred.",
+    "No geometry, quantity, edit policy or frozenV1/V2/V3 geography change; no speculative fixes for prior stale-class/empty-descriptor causes."
+  ]
+}

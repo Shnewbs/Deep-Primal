@@ -1,0 +1,35 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/travel-0035/project/lod-engine/build/classes/java/main/
+LOD_UPLOAD_CANCEL_OBSERVED partialBytes=552 indexed=true resident=4194304
+LOD_UPLOAD_RETRY_GUARD_PASS control=dirty
+LOD_UPLOAD_RETRY_GUARD_PASS control=newer-revision
+LOD_UPLOAD_RETRY_GUARD_PASS control=not-persisted
+LOD_UPLOAD_RETRY_GUARD_PASS control=persistence-disabled
+LOD_UPLOAD_RETRY_GUARD_PASS control=obsolete-session
+LOD_UPLOAD_RETRY_NATIVE_PASS partialBytes=552 budgetReducedMiB=8-to-4 actualBallastBytes=4194304 blockedCalls=16 restored=true guards=5 isolatedGpuReleased=true
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/travel-0035/project/lod-engine/build/classes/java/main/
+LOD_FIXED_VIEW_CAPACITY_PASS idleCalls=16 noDiskWorkUnderPressure=true freedCapacityRecovery=true actualGpuBallast=true
+LOD_EVICTION_ADMISSION_PASS control=dirty
+LOD_EVICTION_ADMISSION_PASS control=newer-revision
+LOD_EVICTION_ADMISSION_PASS control=not-persisted
+LOD_EVICTION_ADMISSION_PASS control=persistence-disabled
+LOD_QUEUED_EDIT_GUARD_PASS dirtyDisplacement=true staleReadRejected=true metadataReleased=true
+LOD_CAPTURE_PERSISTENCE_PASS realNativeChunk=true storedRevisionMatches=true
+LOD_DISK_RECOVERY_NATIVE_PASS backend=Vulkan retainedAfterOutside=1 diskReads=6 uploadedChunks=6 restored=true evictionCycles=4 fixedViewIdleCalls=16 freedCapacityRecovery=true actualGpuBallast=true editPersistenceControls=4 nativeCapturePersisted=true queuedEditGuard=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu
+VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/travel-0035/project/renderer-vulkan/build/classes/java/main/
+VULKAN_FRAME_COMPLETION_NATIVE_PASS iterations=8 mappedBytes=128 openPassRejections=8 backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+RESOURCE_RELOAD_PASS
+CLIENT_SAVED_DISCONNECT_PASS
+[20:42:38] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[20:42:39] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=55399, pipelineCreationNanos=120114423, descriptorBindSkips=8, pipelineCreates=84, validationErrors=0, descriptorBinds=79542, pipelineFeedbackValid=84, descriptorReuse=24151}
+BUILD SUCCESSFUL in 36s

@@ -1,0 +1,25 @@
+{
+  "log_sha256": "cd15d2ca13fc1df244ac7dd20f97370cb83bb9ff2976dadd75c01c14def00b5e",
+  "uncached_tasks": true,
+  "non_vulkan": true,
+  "completion_tail": [
+    "PASS: 200000 differential surface cases, bounded-cache stress, tick-ring rollover.",
+    "",
+    "> Task :compileTestJava NO-SOURCE",
+    "> Task :testClasses UP-TO-DATE",
+    "> Task :test NO-SOURCE",
+    "> Task :check",
+    "> Task :build",
+    "",
+    "[Incubating] Problems report is available at: file:///workspace/scratch/98befbcef095/basin-audit-1706/project/build/reports/problems/problems-report.html",
+    "",
+    "Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.",
+    "",
+    "You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.",
+    "",
+    "For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.",
+    "",
+    "BUILD SUCCESSFUL in 1m 12s",
+    "20 actionable tasks: 20 executed"
+  ]
+}

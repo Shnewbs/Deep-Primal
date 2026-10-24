@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LBL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/oak"
+    },
+    "B": {
+      "tag": "c:double_ingots/brass"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/oak/vs_sails_helm_wheel"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "vs_sails"
+    }
+  ]
+}

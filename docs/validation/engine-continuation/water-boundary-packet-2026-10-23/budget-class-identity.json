@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "helper_class_sha256": "5ebff0e16dc1089f45e12010142572b2a0b172e1db02e653db6fad3b056cbbb3",
+  "loaded_origin_matches_current_compiled_output": true,
+  "nested_core_class_identical": true,
+  "quad_retirement_asserted_after_timing": true,
+  "superseded_probe_excluded": true
+}

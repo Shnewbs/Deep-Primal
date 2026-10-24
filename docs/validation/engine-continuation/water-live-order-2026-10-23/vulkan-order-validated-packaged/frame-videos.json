@@ -1,0 +1,110 @@
+[
+  {
+    "profile": "waves-off-lod-on",
+    "video": "order-live-frames.webm",
+    "video_bytes": 732519,
+    "video_sha256": "da38b645da75618e976b66a7ee86c851c7e8255176e9e9973f1347f3aaace656",
+    "frames": [
+      {
+        "png": "screenshots/order-live-frame-1.png",
+        "png_sha256": "bf12cc5e259ec6d357c59d79f1913f61a8c0dbcf95f48ca144dc26e09c63bb45",
+        "rgb_sha256": "9eb649420e26f9c12ffb8bfa1d31ec92518347f9d10587db5be4e821590c3f0b",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      },
+      {
+        "png": "screenshots/order-live-frame-2.png",
+        "png_sha256": "28adbe3bd028413aba98bcb20d827cb558f3ac5941e98357cf12a436c0423b07",
+        "rgb_sha256": "82e826ed51d52a1eb37084b30edffc50a0ae6d2e09fb7cac2d493c73195885d9",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      },
+      {
+        "png": "screenshots/order-live-frame-3.png",
+        "png_sha256": "28adbe3bd028413aba98bcb20d827cb558f3ac5941e98357cf12a436c0423b07",
+        "rgb_sha256": "82e826ed51d52a1eb37084b30edffc50a0ae6d2e09fb7cac2d493c73195885d9",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      }
+    ],
+    "decoded_rgb_pixels_bit_exact": true,
+    "playback_fps": 5,
+    "real_cadence_source": "water-page-order-frames.txt",
+    "scope": "Three actual consecutive water-stage frames with opaque alpha. VP9 RGB lossless; playback timing is illustrative, not measured FPS or independent simulation cadence. Pixel identity verified against source screenshots."
+  },
+  {
+    "profile": "waves-enabled",
+    "video": "waves-enabled/order-live-frames.webm",
+    "video_bytes": 669404,
+    "video_sha256": "f2ac6d35c3139f21aa4a290afec6709dc33ab5cb0414e47d107240c8379911a2",
+    "frames": [
+      {
+        "png": "waves-enabled/screenshots/order-live-frame-1.png",
+        "png_sha256": "3e3c7524bf13aea35f37c7141cb7b2f6b31881569dea60673d2b2b1006ed2c0b",
+        "rgb_sha256": "5eb666b763a8660746ea4ac9c1a68985acb40b775fd4c3a5d80e0b93f764d6c0",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      },
+      {
+        "png": "waves-enabled/screenshots/order-live-frame-2.png",
+        "png_sha256": "f6ff193246ada1272f8a052a57ffe4130fbf153de923a1b7a851c9ef476707a3",
+        "rgb_sha256": "0553634bce0c819f21dbe50f7d94a7c00e2bfeef398ef4079d3a0223735810e7",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      },
+      {
+        "png": "waves-enabled/screenshots/order-live-frame-3.png",
+        "png_sha256": "f6ff193246ada1272f8a052a57ffe4130fbf153de923a1b7a851c9ef476707a3",
+        "rgb_sha256": "0553634bce0c819f21dbe50f7d94a7c00e2bfeef398ef4079d3a0223735810e7",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      }
+    ],
+    "decoded_rgb_pixels_bit_exact": true,
+    "playback_fps": 5,
+    "real_cadence_source": "waves-enabled/water-page-order-frames.txt",
+    "scope": "Three actual consecutive water-stage frames with opaque alpha. VP9 RGB lossless; playback timing is illustrative, not measured FPS or independent simulation cadence. Pixel identity verified against source screenshots."
+  },
+  {
+    "profile": "lod-disabled",
+    "video": "lod-disabled/order-live-frames.webm",
+    "video_bytes": 446493,
+    "video_sha256": "2caeba661adee102c055c4f9d4f5a8736c8febed4e185febb0bfa0838f97fa79",
+    "frames": [
+      {
+        "png": "lod-disabled/screenshots/order-live-frame-1.png",
+        "png_sha256": "35c64c428972eb60f2c767bde73c066cdbf6934e340faa61f6eaf92f2b5d49c1",
+        "rgb_sha256": "92ed7708fbebfabe927a69e302130a35c6ecff8731050e280dbaab8d65657c92",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      },
+      {
+        "png": "lod-disabled/screenshots/order-live-frame-2.png",
+        "png_sha256": "2d8b97fdb72ac8b6a59547d68ebd9660b70c5fa8630479fe6f1bd77cc06fee6a",
+        "rgb_sha256": "2ebff375ecfb0f9f9b47b6a618c1a587c807381f8405c412d1b0203daa33e4e0",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      },
+      {
+        "png": "lod-disabled/screenshots/order-live-frame-3.png",
+        "png_sha256": "88023279a0e1180ede91f13f647d10d85ac358602b578e448b23dbb87185a1e4",
+        "rgb_sha256": "bc2db89b91a9f9bf545c63a1c5c2aebe5c2dffa7c35aba96268b95fc614248f7",
+        "width": 854,
+        "height": 480,
+        "alpha_all_255": true
+      }
+    ],
+    "decoded_rgb_pixels_bit_exact": true,
+    "playback_fps": 5,
+    "real_cadence_source": "lod-disabled/water-page-order-frames.txt",
+    "scope": "Three actual consecutive water-stage frames with opaque alpha. VP9 RGB lossless; playback timing is illustrative, not measured FPS or independent simulation cadence. Pixel identity verified against source screenshots."
+  }
+]

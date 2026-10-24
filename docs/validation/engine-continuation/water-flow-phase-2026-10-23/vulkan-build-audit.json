@@ -1,0 +1,32 @@
+{
+  "scope": "World-anchored periodic flow-top UV phase; unchanged geometry and vertex size",
+  "non_vulkan": false,
+  "changed_source_sha256": {
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java": "0fb4ff829c21b19292571ec56d2c2a9522409acfc9b4580dd6a5515e812dc20f",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java": "37c002276b4348cb8bd34b6c86613483d44c1f40296bc3c87c621bd8ec24f38a",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh": "e8ec0ba7560cfe22adc06a6d012a96e8d7dd3055f0592b20bbad25f4eda2fa72",
+    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh": "24bf57db6bc75416dbece9c2d74db5d16b1605c3e8014825452706ea3b29bc18"
+  },
+  "archives_crc_pass": [
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+  ],
+  "compiled_class_byte_matches": {
+    "main": 104,
+    "engine-core": 58,
+    "graphics-settings": 37,
+    "lod-engine": 14,
+    "performance-engine": 14,
+    "renderer-vulkan": 181
+  },
+  "jar_bytes": 12762251,
+  "jar_sha256": "1a3f77f40f07881fb940075f0d1509b61eccf94f462e35d18c5505eb5af7a7ac",
+  "runtime_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+  "core_source_sha256": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97",
+  "validation_and_private_agent_payload_absent": true,
+  "installer_release": false
+}

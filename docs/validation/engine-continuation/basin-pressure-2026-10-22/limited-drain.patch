@@ -1,0 +1,48 @@
+--- a/WaterRuntime.java
++++ b/WaterRuntime.java
+@@ -517,11 +517,7 @@
+       BlockPos outlet = below.relative(side);
+       if (!open(level, outlet)) continue;
+       int from = units(level, origin), to = units(level, outlet);
+-      var exchange = WaterTransport.pressure(origin.getY(), from, outlet.getY(), to);
+-      if (exchange.moved() > PRESSURE_TRANSFER)
+-        exchange =
+-            new WaterTransport.Exchange(
+-                from - PRESSURE_TRANSFER, to + PRESSURE_TRANSFER, PRESSURE_TRANSFER);
++      var exchange = WaterTransport.pressure(origin.getY(), from, outlet.getY(), to, PRESSURE_TRANSFER);
+       if (transfer(level, origin, outlet, exchange, 16)) return true;
+     }
+     return false;
+@@ -669,7 +665,12 @@
+         int dx = target.getX() - origin.getX(), dz = target.getZ() - origin.getZ();
+         int flow = target.getY() == origin.getY() && Math.abs(dx) + Math.abs(dz) == 1
+             ? dx > 0 ? 0 : dz > 0 ? 4 : dx < 0 ? 8 : 12 : 16;
+-        return transfer(l, origin, target, new WaterTransport.Exchange(from - 1, to + 1, 1), flow);
++        var exchange = WaterTransport.pressure(origin.getY(), from, target.getY(), to, PRESSURE_TRANSFER);
++        // A validated route to a lower exit still advances a one-unit film when
++        // the discrete pressure split rounds to zero. Larger heads use the same
++        // conservative transfer cap as local and retained pressure exchanges.
++        if (exchange.moved() == 0) exchange = new WaterTransport.Exchange(from - 1, to + 1, 1);
++        return transfer(l, origin, target, exchange, flow);
+       }
+       for (Direction d : SIDES) {
+         q.setWithOffset(p, d);
+@@ -828,7 +829,7 @@
+         low = lower == WaterTransport.CAPACITY ? low.above() : low;
+         if (open(l, low)) {
+           to = units(l, low);
+-          exchange = WaterTransport.pressure(high.getY(), from, low.getY(), to);
++          exchange = WaterTransport.pressure(high.getY(), from, low.getY(), to, PRESSURE_TRANSFER);
+         }
+       }
+     }
+@@ -856,9 +857,6 @@
+     budget.pressureCompleted++;
+     if (job.saturated) budget.pressureSaturated++;
+     if (exchange == null || exchange.moved() == 0) return false;
+-    if (exchange.moved() > PRESSURE_TRANSFER)
+-      exchange = new WaterTransport.Exchange(from - PRESSURE_TRANSFER,
+-          to + PRESSURE_TRANSFER, PRESSURE_TRANSFER);
+     return transfer(l, high, low, exchange, 16);
+   }
+ 

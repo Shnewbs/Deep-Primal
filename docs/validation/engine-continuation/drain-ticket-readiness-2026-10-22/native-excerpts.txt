@@ -1,0 +1,301 @@
+
+### reload-before
+[11:35:44] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+DRAIN_TICKET chunk=261,0 old=45 new=39 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=39 new=37 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=37 new=36 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=36 new=35 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=35 new=34 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=34 new=33 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=33 new=32 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=32 new=31 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=31 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=33 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=33 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=34 thread=Server thread
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+DRAIN_TICKET chunk=261,0 old=34 new=32 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=32 new=31 thread=Server thread
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+java.lang.AssertionError: Settled routes release all work/watches
+java.lang.AssertionError: Settled routes release all work/watches
+DRAIN_TICKET chunk=261,0 old=31 new=45 thread=Server thread
+[11:36:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### reload-ticket
+[11:39:43] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+DRAIN_TICKET chunk=261,0 old=45 new=39 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=39 new=37 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=37 new=36 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=36 new=35 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=35 new=34 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=34 new=33 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=33 new=32 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=32 new=31 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=31 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=33 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=33 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=34 thread=Server thread
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+DRAIN_TICKET chunk=261,0 old=34 new=32 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=32 new=31 thread=Server thread
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true physicalUnload=false
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=1, pressureVisits=0, drainVisits=258, transfers=2] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=reload ticks=480 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=759 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=df3e6b16f351ec7280c632dc789e4ed2e557607e10eda184ed3ee99507f946db flowSha=cc734f137be6d94319609bbf88ff155cbfc2fb4a74e765efd2bebbdf3822cb8c medianLevelTickMs=0.228926 p95LevelTickMs=1.201448
+DRAIN_TICKET chunk=261,0 old=31 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=36 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=36 new=45 thread=Server thread
+
+### physical-reload-ticket
+[11:40:38] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+DRAIN_TICKET chunk=261,0 old=45 new=39 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=39 new=37 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=37 new=36 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=36 new=35 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=35 new=34 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=34 new=33 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=33 new=32 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=32 new=31 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=31 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=33 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=33 new=45 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=45 new=34 thread=Server thread
+DRAIN_UNLOAD chunk=[290, 0]
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+DRAIN_TICKET chunk=261,0 old=34 new=32 thread=Server thread
+DRAIN_TICKET chunk=261,0 old=32 new=31 thread=Server thread
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true physicalUnload=true
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=500 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=600 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=700 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=800 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=900 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1000 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+
+### physical-reload-rerun
+[11:49:01] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true physicalUnload=true
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=500 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=600 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=700 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=800 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=900 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1000 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1400 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1500 pending=1 physics=Diagnostics[active=0, pressure=0, processed=1, pressureVisits=0, drainVisits=503, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1600 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=289, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1700 pending=1 physics=Diagnostics[active=0, pressure=0, processed=1, pressureVisits=0, drainVisits=451, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1800 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1900 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=343, transfers=1] upper=-1
+java.lang.AssertionError: Settled routes release all work/watches
+java.lang.AssertionError: Settled routes release all work/watches
+[11:50:46] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### physical-reload-3200
+[11:52:47] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true physicalUnload=true
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=500 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=600 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=700 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=800 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=900 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1000 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1400 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=257, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1500 pending=1 physics=Diagnostics[active=0, pressure=0, processed=1, pressureVisits=0, drainVisits=503, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1600 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=289, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1700 pending=1 physics=Diagnostics[active=0, pressure=0, processed=1, pressureVisits=0, drainVisits=451, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=1800 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=384, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=1900 pending=1 physics=Diagnostics[active=1, pressure=0, processed=0, pressureVisits=0, drainVisits=343, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=2000 pending=1 physics=Diagnostics[active=0, pressure=0, processed=1, pressureVisits=0, drainVisits=429, transfers=1] upper=-1
+CLOSED_WATER_PROGRESS tick=2100 pending=1 physics=Diagnostics[active=1, pressure=0, processed=3, pressureVisits=0, drainVisits=129, transfers=3] upper=-1
+CLOSED_WATER_PROGRESS tick=2200 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2300 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2400 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2500 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2600 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2700 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2800 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=2900 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=3000 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=3100 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=3200 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=physical-reload ticks=3200 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=1026 maxDrainSlice=128 peakDrainVisits=759 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=6aabc5562b2335907c098ee95ca6d4a63b37b347c7060f54a37ed9a134fad8a9 flowSha=d865cb3ce41d95a6bbe7a1808890f6d0d19c6505106d95ff00c4689a6de9c9c3 medianLevelTickMs=0.354487 p95LevelTickMs=0.744918
+[11:55:33] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-fixed
+[11:56:12] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=2 physics=Diagnostics[active=2, pressure=0, processed=6, pressureVisits=0, drainVisits=1056, transfers=6] upper=-1
+CLOSED_WATER_PROGRESS tick=200 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=fixed ticks=240 conservedEveryTick=true initialUnits=3 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=1488 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=false gapReloaded=false unitsSha=59006f31ee22d413f75f33b70df56b2258582576710097aab699d07e76a8f44e flowSha=7e048b32b0ecdba952e93863f7625a029e20e23ece0748a69c82eaaad9ab7d70 medianLevelTickMs=0.559216 p95LevelTickMs=3.010106
+[11:56:30] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-edit
+[11:56:50] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=200 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=edit ticks=240 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=55 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=0 gapUnloaded=false gapReloaded=false unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.227604 p95LevelTickMs=1.125283
+[11:57:07] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-reload-edit
+[11:57:25] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true physicalUnload=false
+CLOSED_WATER_PROGRESS tick=200 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=reload-edit ticks=480 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=127 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.18501 p95LevelTickMs=0.649763
+[11:57:53] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-unavailable
+[11:58:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=unload ticks=240 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=1 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=127 drainJobs=0 saturated=0 restarts=1 waitingJobs=1 waitingLinks=1 idleSamples=0 gapUnloaded=true gapReloaded=false unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.170417 p95LevelTickMs=1.055807
+[11:58:27] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-reopen
+[11:58:43] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=200 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=reopen ticks=240 conservedEveryTick=true initialUnits=3 firstVisits=0 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=0 peakDrainVisits=0 drainJobs=0 saturated=0 restarts=0 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=false gapReloaded=false unitsSha=59006f31ee22d413f75f33b70df56b2258582576710097aab699d07e76a8f44e flowSha=7e048b32b0ecdba952e93863f7625a029e20e23ece0748a69c82eaaad9ab7d70 medianLevelTickMs=0.253073 p95LevelTickMs=2.347052
+[11:58:56] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-pressure-heads
+[11:59:13] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true
+LONG_PRESSURE_HEAD_CHANGE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4190 finalUnits=4190 outletUnits=7 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=118115 peakTickPressureVisits=6144 restarts=41 coalesced=2955 completed=1253 saturated=43 headFrontierRetained=true headRefreshes=23 headDeferrals=3 idleSamples=0 finalWatchedChunks=14 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true
+[11:59:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-pressure-fixed
+[11:59:40] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true
+LONG_PRESSURE_CONTINUATION_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=2102 peakTickPressureVisits=5916 restarts=204 coalesced=4659 completed=2162 saturated=0 headFrontierRetained=false headRefreshes=49 headDeferrals=0 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true
+[11:59:54] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-pressure-edit
+[12:00:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true
+LONG_PRESSURE_EDIT_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4176 finalUnits=4176 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=119495 peakTickPressureVisits=6144 restarts=41 coalesced=2973 completed=1072 saturated=45 headFrontierRetained=false headRefreshes=14 headDeferrals=1 idleSamples=0 finalWatchedChunks=7 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true
+[12:00:22] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-pressure-unload
+[12:00:38] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true
+LONG_PRESSURE_UNLOAD_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=2 peakRetainedNodes=14506 peakTickPressureVisits=768 restarts=1 coalesced=2 completed=12 saturated=2 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=true independentComponents=1 conserved=true solverAcceptance=true
+[12:00:50] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-pressure-idle
+[12:01:09] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+SHORT_PRESSURE_CONTROL_NATIVE_PASS units=144 raisedSurface=true conserved=true
+LONG_PRESSURE_IDLE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=4 peakRetainedNodes=906 peakTickPressureVisits=1301 restarts=3 coalesced=3 completed=11 saturated=0 headFrontierRetained=false headRefreshes=2 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true
+[12:01:20] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-pressure-reopen
+[12:01:36] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+LONG_PRESSURE_REOPEN_NATIVE_PASS ticks=120 initialWaterCells=263 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=34 firstSearchVisits=0 maxSliceVisits=0 peakJobs=0 peakRetainedNodes=0 peakTickPressureVisits=0 restarts=0 coalesced=0 completed=0 saturated=0 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true
+[12:01:42] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### matrix-filling
+[12:02:02] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+java.lang.AssertionError: Thin film reaches the lower outlet without stopping
+java.lang.AssertionError: Thin film reaches the lower outlet without stopping
+[12:02:10] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### inherited-filling
+[12:06:53] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+java.lang.AssertionError: Thin film reaches the lower outlet without stopping
+java.lang.AssertionError: Thin film reaches the lower outlet without stopping
+[12:07:01] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### accepted-filling
+[12:07:45] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0
+[12:07:53] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### remaining-pressure
+[12:09:03] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+ENGINE_PRESSURE_NATIVE_PASS units=144 raisedSurface=true conserved=true disconnected=true noForceLoad=true
+[12:09:05] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### remaining-queue
+[12:09:25] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+ACTIVE_QUEUE_NATIVE_PASS cells=65536 admissions=262144 fifo=true mutableSnapshots=true negativeCoordinates=true duplicateAtCapacity=true scheduledOverflow=true allocatedBytes=304 queue=it.unimi.dsi.fastutil.longs.LongLinkedOpenHashSet
+[12:09:27] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### basin-ticket-a
+[12:09:46] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=552 physics=Diagnostics[active=546, pressure=0, processed=1639, pressureVisits=0, drainVisits=6144, transfers=68] upper=4194
+CLOSED_WATER_PROGRESS tick=200 pending=563 physics=Diagnostics[active=547, pressure=0, processed=1667, pressureVisits=0, drainVisits=6144, transfers=15] upper=4007
+CLOSED_WATER_PROGRESS tick=300 pending=592 physics=Diagnostics[active=587, pressure=0, processed=1754, pressureVisits=0, drainVisits=5398, transfers=26] upper=3881
+CLOSED_WATER_PROGRESS tick=400 pending=621 physics=Diagnostics[active=613, pressure=0, processed=1839, pressureVisits=0, drainVisits=5984, transfers=36] upper=3755
+CLOSED_WATER_PROGRESS tick=500 pending=643 physics=Diagnostics[active=635, pressure=0, processed=1893, pressureVisits=0, drainVisits=6089, transfers=41] upper=3599
+CLOSED_WATER_PROGRESS tick=600 pending=658 physics=Diagnostics[active=646, pressure=0, processed=1945, pressureVisits=0, drainVisits=6144, transfers=41] upper=3460
+CLOSED_WATER_PROGRESS tick=700 pending=659 physics=Diagnostics[active=648, pressure=0, processed=1955, pressureVisits=256, drainVisits=6144, transfers=26] upper=3326
+CLOSED_WATER_PROGRESS tick=800 pending=685 physics=Diagnostics[active=666, pressure=8, processed=2004, pressureVisits=1792, drainVisits=6144, transfers=30] upper=3183
+CLOSED_WATER_PROGRESS tick=900 pending=728 physics=Diagnostics[active=697, pressure=15, processed=2101, pressureVisits=3840, drainVisits=6144, transfers=19] upper=3042
+CLOSED_WATER_PROGRESS tick=1000 pending=720 physics=Diagnostics[active=697, pressure=12, processed=2083, pressureVisits=1920, drainVisits=6144, transfers=34] upper=2906
+CLOSED_WATER_PROGRESS tick=1100 pending=697 physics=Diagnostics[active=683, pressure=7, processed=2028, pressureVisits=1664, drainVisits=5404, transfers=22] upper=2767
+CLOSED_WATER_PROGRESS tick=1200 pending=671 physics=Diagnostics[active=659, pressure=0, processed=1994, pressureVisits=256, drainVisits=6144, transfers=12] upper=2650
+CLOSED_WATER_PROGRESS tick=1300 pending=650 physics=Diagnostics[active=637, pressure=4, processed=1915, pressureVisits=1024, drainVisits=6144, transfers=20] upper=2527
+CLOSED_WATER_PROGRESS tick=1400 pending=648 physics=Diagnostics[active=626, pressure=11, processed=1882, pressureVisits=2432, drainVisits=6144, transfers=19] upper=2400
+CLOSED_WATER_PROGRESS tick=1500 pending=626 physics=Diagnostics[active=611, pressure=4, processed=1832, pressureVisits=768, drainVisits=6144, transfers=20] upper=2302
+CLOSED_WATER_PROGRESS tick=1600 pending=561 physics=Diagnostics[active=554, pressure=1, processed=1641, pressureVisits=384, drainVisits=5759, transfers=8] upper=2196
+CLOSED_WATER_PROGRESS tick=1700 pending=526 physics=Diagnostics[active=514, pressure=1, processed=1551, pressureVisits=384, drainVisits=6144, transfers=14] upper=2094
+CLOSED_WATER_PROGRESS tick=1800 pending=550 physics=Diagnostics[active=538, pressure=0, processed=1609, pressureVisits=0, drainVisits=6144, transfers=16] upper=1992
+CLOSED_WATER_PROGRESS tick=1900 pending=521 physics=Diagnostics[active=506, pressure=2, processed=1541, pressureVisits=384, drainVisits=6144, transfers=16] upper=1912
+CLOSED_WATER_PROGRESS tick=2000 pending=520 physics=Diagnostics[active=509, pressure=1, processed=1523, pressureVisits=384, drainVisits=6144, transfers=16] upper=1813
+CLOSED_WATER_PROGRESS tick=2100 pending=622 physics=Diagnostics[active=609, pressure=1, processed=1830, pressureVisits=128, drainVisits=6144, transfers=19] upper=1696
+CLOSED_WATER_PROGRESS tick=2200 pending=580 physics=Diagnostics[active=556, pressure=9, processed=1673, pressureVisits=2048, drainVisits=6144, transfers=30] upper=1598
+CLOSED_WATER_PROGRESS tick=2300 pending=547 physics=Diagnostics[active=530, pressure=4, processed=1602, pressureVisits=640, drainVisits=6144, transfers=11] upper=1499
+CLOSED_WATER_PROGRESS tick=2400 pending=551 physics=Diagnostics[active=531, pressure=15, processed=1557, pressureVisits=4224, drainVisits=5401, transfers=19] upper=1389
+CLOSED_WATER_PROGRESS tick=2500 pending=581 physics=Diagnostics[active=544, pressure=34, processed=1607, pressureVisits=2944, drainVisits=5307, transfers=15] upper=1287
+CLOSED_WATER_PROGRESS tick=2600 pending=650 physics=Diagnostics[active=567, pressure=71, processed=1699, pressureVisits=4096, drainVisits=6141, transfers=6] upper=1184
+CLOSED_WATER_PROGRESS tick=2700 pending=598 physics=Diagnostics[active=530, pressure=57, processed=1597, pressureVisits=4224, drainVisits=6144, transfers=15] upper=1107
+CLOSED_WATER_PROGRESS tick=2800 pending=660 physics=Diagnostics[active=598, pressure=62, processed=1761, pressureVisits=3840, drainVisits=5161, transfers=14] upper=1013
+CLOSED_WATER_PROGRESS tick=2900 pending=642 physics=Diagnostics[active=575, pressure=59, processed=1705, pressureVisits=3200, drainVisits=5942, transfers=20] upper=934
+CLOSED_WATER_PROGRESS tick=3000 pending=665 physics=Diagnostics[active=582, pressure=73, processed=1726, pressureVisits=2432, drainVisits=6103, transfers=15] upper=839
+CLOSED_WATER_PROGRESS tick=3100 pending=570 physics=Diagnostics[active=512, pressure=46, processed=1552, pressureVisits=3968, drainVisits=6144, transfers=12] upper=772
+CLOSED_WATER_PROGRESS tick=3200 pending=500 physics=Diagnostics[active=453, pressure=36, processed=1357, pressureVisits=2816, drainVisits=6144, transfers=17] upper=698
+java.lang.AssertionError: The closed stepped basin must drain fully: upper=698 bottom=7457 pending=500
+java.lang.AssertionError: The closed stepped basin must drain fully: upper=698 bottom=7457 pending=500
+[12:12:28] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### packaged-reload
+[12:16:25] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true physicalUnload=false
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=1, pressure=0, processed=1, pressureVisits=0, drainVisits=258, transfers=2] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=0 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_NATIVE_PASS mode=reload ticks=480 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=759 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=df3e6b16f351ec7280c632dc789e4ed2e557607e10eda184ed3ee99507f946db flowSha=cc734f137be6d94319609bbf88ff155cbfc2fb4a74e765efd2bebbdf3822cb8c medianLevelTickMs=0.206612 p95LevelTickMs=1.067365
+[12:16:53] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+
+### packaged-filling
+[12:17:38] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+FILL_FAILURE_STATE sink=0 pending=1032 diagnostics=Diagnostics[active=888, pressure=0, processed=2664, pressureVisits=0, drainVisits=6144, transfers=0] drains=DrainDiagnostics[jobs=16, retainedNodes=8860, watchedChunks=10, restarts=32, completed=688, saturated=0, maxSliceVisits=128, waitingJobs=128, waitingChunks=5, waitingLinks=624, readyProbes=0, readyPending=0]
+java.lang.AssertionError: Thin film reaches the lower outlet without stopping
+java.lang.AssertionError: Thin film reaches the lower outlet without stopping
+[12:17:46] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved

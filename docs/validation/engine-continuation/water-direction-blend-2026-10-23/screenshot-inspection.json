@@ -1,0 +1,15 @@
+{
+  "inspected_at": "2026-10-23T07:37:31.043120+00:00",
+  "sheets": [
+    "blend-before-after.png",
+    "blend-mip-contact.png",
+    "vulkan-order-blend-cell-final-contact.png",
+    "vulkan-order-blend-cell-final-packaged-contact.png",
+    "vulkan-reuse-gl-blend-final-contact.png"
+  ],
+  "controlled_blend": "Baseline jumps to target. Candidate shows old-to-target mixture at25/50/75ms, endpoint agreement and opaque alpha. Diagnostic gradients,not representative water art.",
+  "mip": "Selected farcell15 mip controls stay green without coarse-blue wrap stripes. Tolerance1/255;not all samples pixel exact.",
+  "lake": "All27 current lake frames inspected via9-profile contact sheets. Water/shore/terrain visible. Development Vulkan has rectangular distant horizon/LOD cutoffs with LOD enabled;disabled-LOD frames differ. Cause unresolved. These are integration captures,not complete matched-state coverage or flicker acceptance.",
+  "waves": "waveBytes=0 even enabled at this lake;actual ocean geometry not exercised.",
+  "timing": "Lossless RGB video preserves pixels;illustrative5FPS playback is not measuredFPS or independent60Hz."
+}

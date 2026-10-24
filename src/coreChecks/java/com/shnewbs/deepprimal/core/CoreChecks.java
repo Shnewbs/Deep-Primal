@@ -6,6 +6,14 @@ import java.util.Random;
 public final class CoreChecks {
   public static void main(String[] args) {
     WaterAnimationChecks.run();
+    WaterFlowTextureChecks.run();
+    WaterFlowBlendChecks.run();
+    WaterFlowFieldChecks.run();
+    WaterCornerPacketChecks.run();
+    WaterCornerBulkChecks.run();
+    WaterBoundaryIndexChecks.run();
+    WaterCornerRetryChecks.run();
+    WaterRetirementStateChecks.run();
     WaterSurfaceShapeChecks.run();
     CaveColumnChecks.run();
     IntegratedEngineChecks.run();

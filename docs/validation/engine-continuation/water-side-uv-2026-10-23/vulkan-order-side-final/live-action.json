@@ -1,0 +1,1 @@
+{"index": 23, "waiting": "stop", "before_count": 0, "elapsed": 64.06, "request_exists": false, "last_console_line": ["Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html"]}

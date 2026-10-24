@@ -1,0 +1,27 @@
+[
+  {
+    "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "sha256": "c1fb89e0ef02ff38ee6c15603f98815bee4204c85d5a20763bd54a788024646d",
+    "standalone_matches": true
+  },
+  {
+    "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "sha256": "770922d2f17b2fb1c3cc4af662171c0bb7090ad1cda8a740d6785f31befd1457",
+    "standalone_matches": true
+  },
+  {
+    "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "sha256": "fca58acd406a46d72be01cb36f2b639bcb54d7a3515fa680ae9aeea91f210a2b",
+    "standalone_matches": true
+  },
+  {
+    "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+    "standalone_matches": true
+  },
+  {
+    "nested": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "sha256": "2bedfa7d34947e355c83b8672669bcf4f0bbe360402952f1ec85a25781176d81",
+    "standalone_matches": true
+  }
+]

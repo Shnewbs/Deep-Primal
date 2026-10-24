@@ -1,0 +1,17 @@
+{
+  "type": "tfc_item_barrels_and_more:smoke_shack",
+  "ingredient": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc_item_barrels_and_more:raw_pork_sausage"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "cooked_result": {
+    "id": "tfc_item_barrels_and_more:pork_sausage"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "case": "vulkan-travel-baseline",
+  "run_directory": "/tmp/deepprimal-travel-0035",
+  "started_utc": "2026-10-23T00:33:40.790770+00:00",
+  "finished_utc": "2026-10-23T00:36:08.948380+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 148.16,
+  "build_successful": false,
+  "records": [
+    "[20:34:01] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[20:34:08] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[20:34:08] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=0",
+    "[20:34:11] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x8260000000826, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x8270000000827, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[20:34:12] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[20:34:15] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x8260000000826, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x8270000000827, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "[20:34:16] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x8260000000826, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x8270000000827, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "java.lang.AssertionError: LOD travel deadline phase=2 loaded=true revision=-1 stored=ffafd5db|Block{minecraft:glass} bytes=4124728 queued=65",
+    "java.lang.AssertionError: LOD travel deadline phase=2 loaded=true revision=-1 stored=ffafd5db|Block{minecraft:glass} bytes=4124728 queued=65",
+    "[20:36:06] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 999684a5-d401-4c27-9d15-5ef5cc659b16",
+    "java.lang.AssertionError: LOD travel deadline phase=2 loaded=true revision=-1 stored=ffafd5db|Block{minecraft:glass} bytes=4124728 queued=65",
+    "[20:36:06] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID e1cedd45-ea77-4a24-9969-71871551e87d"
+  ],
+  "console_sha256": "5ca3be497f16c37c89ec5a3ef4a2f784c5de8d65c5e8b0f97c35f335b35ae74e",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_20.36.06-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

@@ -1,0 +1,7 @@
+[15:17:45] [main/WARN] [ne.vu.de.Startup/]: Previous Vulkan startup did not finish; recovering with OpenGL. Select Vulkan again to retry.
+[15:17:57] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[15:17:59] [Render thread/ERROR] [ne.ne.bu.EventBus/EVENTBUS]: Exception caught during firing event: Wrong backend OpenGL
+java.lang.AssertionError: Wrong backend OpenGL
+java.lang.AssertionError: Wrong backend OpenGL
+java.lang.AssertionError: Wrong backend OpenGL
+BUILD FAILED in 25s

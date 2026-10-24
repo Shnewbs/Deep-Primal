@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LGL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/white_cedar"
+    },
+    "G": {
+      "item": "tfc:wrought_iron_grill"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/white_cedar/smoke_shack"
+  }
+}

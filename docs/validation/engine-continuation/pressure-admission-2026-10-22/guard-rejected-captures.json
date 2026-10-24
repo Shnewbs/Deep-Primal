@@ -1,0 +1,20 @@
+[
+  {
+    "case": "guard-pressure-reopen",
+    "mode": "reopen",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [],
+    "normal_save": false,
+    "record_file_matches": false,
+    "build_successful": false,
+    "crash_reports": [],
+    "elapsed_seconds": 23.76,
+    "traced_source_sha256": "e820fb10bb6791a505a6300bbe51f9ae2f0f631ae462aeb0a9886610c0518d36",
+    "log_sha256": "9480541a7c422de3c84566900750e3549a17bdf5aafbf2d78fd0ad040945917c"
+  }
+]

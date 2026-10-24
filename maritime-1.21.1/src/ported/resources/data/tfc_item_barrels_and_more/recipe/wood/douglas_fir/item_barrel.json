@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/lumber/douglas_fir"
+    },
+    {
+      "item": "tfc:wood/barrel/douglas_fir"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/douglas_fir/item_barrel"
+  }
+}

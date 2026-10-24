@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "original_archive_bytes": 82111663,
+  "compacted_archive_bytes": 29827493,
+  "logical_paths_preserved": 15740,
+  "unique_content_objects": 1065,
+  "raw_readback_files_split_losslessly": 8,
+  "every_original_logical_file_hash_reconstructed_before_removing_own_unpublished_duplicates": true,
+  "no_build_native_or_timing_execution": true
+}

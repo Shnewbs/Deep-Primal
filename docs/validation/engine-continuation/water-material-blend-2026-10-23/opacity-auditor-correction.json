@@ -1,0 +1,6 @@
+{
+  "rejected_assertion": "Expected Normal.z opacity offset0 at every upload",
+  "observed": "Existing opacity transition retains start0;offset becomes-100 at time100 even with constant opacity1",
+  "correction": "Require from/target127,pad0 and exact signed -min(time,100) offset;shaderpixels separately require opaque alpha",
+  "production_changed": false
+}

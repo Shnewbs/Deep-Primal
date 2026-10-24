@@ -1,0 +1,75 @@
+{
+  "archive": "build-evidence.tar.gz",
+  "bytes": 22479,
+  "sha256": "c3e863d29f19fb789be2934ac112353bd0dc7e73cd23bceeb6c4caaba9244820",
+  "parts": [
+    {
+      "path": "build-evidence.tar.gz.part000",
+      "bytes": 22479,
+      "sha256": "c3e863d29f19fb789be2934ac112353bd0dc7e73cd23bceeb6c4caaba9244820",
+      "git_sha": "19ecca9dad68c1f7a09148768194ab5652348561"
+    }
+  ],
+  "members": [
+    {
+      "path": "build-baseline/candidate-build-final.gz",
+      "bytes": 3844,
+      "sha256": "4b1cae33dddc7e6fe31d0fb8743455540b5a91c2caa52e890a648ebe92062f8a"
+    },
+    {
+      "path": "build-baseline/candidate-build-result.json",
+      "bytes": 2511,
+      "sha256": "cc1901324032a65e47553ffbc4fa13f377c183fa904b6430c9a02e223938aa49"
+    },
+    {
+      "path": "build-baseline/candidate-build.log",
+      "bytes": 14941,
+      "sha256": "0d466aee3ab2bf4a41cf2a966c25fe70a2058f084c98742b3ecdea1d10dbd95e"
+    },
+    {
+      "path": "build-candidate/candidate-build-final.gz",
+      "bytes": 3844,
+      "sha256": "efe541e709f87ac1caf518775bbf51a2e4995c7fd4cba799684eb0d6644a7dd3"
+    },
+    {
+      "path": "build-candidate/candidate-build-result.json",
+      "bytes": 2511,
+      "sha256": "8f8937070baed344348ef2098690978cd889aade92784db7ce3f3ff402e3c8d8"
+    },
+    {
+      "path": "build-candidate/candidate-build.log",
+      "bytes": 14941,
+      "sha256": "f73b07fa7cc21a70aa066d25765ac424cb574525cd42462ff58ce5f50b4a5b5a"
+    },
+    {
+      "path": "build-capacity-baseline/candidate-build-final.gz",
+      "bytes": 3834,
+      "sha256": "33b843a291b9c2ac3b7f4da07adf49bc871c7464755717dcbd821f848a4343d9"
+    },
+    {
+      "path": "build-capacity-baseline/candidate-build-result.json",
+      "bytes": 2511,
+      "sha256": "53b079c58b1d1a8607eeec429eb9e662314997403b6f2e9dd3f3e7daa1908436"
+    },
+    {
+      "path": "build-capacity-baseline/candidate-build.log",
+      "bytes": 14918,
+      "sha256": "45112a08137be5d54b024ce686dbba786a02821f67cb3e67b0b6adbeec612196"
+    },
+    {
+      "path": "build-capacity-candidate/candidate-build-final.gz",
+      "bytes": 3843,
+      "sha256": "217867633afe7b556648dcb3554416e03a3e8f3e1f7f62793f2ebb8a9d661f67"
+    },
+    {
+      "path": "build-capacity-candidate/candidate-build-result.json",
+      "bytes": 2511,
+      "sha256": "7577ba5a9a4bd791d526831f1ae3545bbb7248bc016be2dffc0ef049ef61bf6d"
+    },
+    {
+      "path": "build-capacity-candidate/candidate-build.log",
+      "bytes": 14940,
+      "sha256": "f94af24a185906a06d2a5b52c2ed1540e9d3bf100b71d534e0bc4494161a6b75"
+    }
+  ]
+}

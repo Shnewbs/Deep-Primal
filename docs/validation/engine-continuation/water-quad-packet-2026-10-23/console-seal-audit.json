@@ -1,0 +1,53 @@
+{
+  "pass": true,
+  "sessions": [
+    {
+      "case": "vulkan-batch-r40-control",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "7d3772ccdd56abcb94f21d7a4d922fd406a760202f1592301107a9e1facc5a96",
+      "bytes": 35724,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-quad",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "ee9448ac63469fd96d96dcfb1fe1d3d498e0ab086d0dd0f2e1200c0ef0c6f982",
+      "bytes": 47273,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-quad-packaged",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "9fb68e1056002c5a44c76cb3faa2b1207a602adc284d5c1935b68700a8a88468",
+      "bytes": 47123,
+      "build": false
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-quad",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "9e631e2bc0c2d928cef7c2e3df95d63350e838b95ef9ce1b3c0801465022a5d3",
+      "bytes": 54140,
+      "build": false
+    },
+    {
+      "case": "build-baseline",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "cea09dda5b35489eb082b3157d22685ab52dc281a18a89299bb54c866bf75416",
+      "bytes": 14856,
+      "build": true
+    },
+    {
+      "case": "build-candidate",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "2bfd5d8cbeedd3f63f44fde3c37d97245a7a256b5890d1135e5929e3d65386c5",
+      "bytes": 15017,
+      "build": true
+    }
+  ]
+}

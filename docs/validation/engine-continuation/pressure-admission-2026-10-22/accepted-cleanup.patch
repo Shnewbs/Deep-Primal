@@ -1,0 +1,28 @@
+--- a/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java
++++ b/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java
+@@ -439,8 +439,7 @@
+     while (admission-- > 0 && budget.searches.size() < MAX_PRESSURE_JOBS
+         && !budget.pressure.isEmpty()) {
+       BlockPos origin = BlockPos.of(budget.pressure.removeFirstLong());
+-      if (level.isInWorldBounds(origin) && level.hasChunkAt(origin)
+-          && units(level, origin) > 0) startPressure(level, origin, budget);
++      startPressure(level, origin, budget);
+     }
+     int turns = budget.searches.size();
+     while (turns-- > 0 && !budget.searches.isEmpty()
+@@ -453,8 +452,13 @@
+   }
+ 
+   private static PressureJob startPressure(ServerLevel level, BlockPos origin, Budget budget) {
+-    if (!level.isInWorldBounds(origin) || !level.hasChunkAt(origin)
+-        || units(level, origin) == 0 || !surface(level, origin, units(level, origin))) return null;
++    // Keep a resident frontier if an overlapping request reaches admission.
++    // Its normal completion or invalidation owns watcher cleanup.
++    var existing = budget.searches.get(origin);
++    if (existing != null) return existing;
++    if (!level.isInWorldBounds(origin) || !level.hasChunkAt(origin)) return null;
++    int amount = units(level, origin);
++    if (amount == 0 || !surface(level, origin, amount)) return null;
+     var job = new PressureJob(origin);
+     budget.searches.put(job.origin, job);
+     watch(budget, job, origin);

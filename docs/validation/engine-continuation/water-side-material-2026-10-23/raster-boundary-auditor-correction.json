@@ -1,0 +1,8 @@
+{
+  "observed_case": "vulkan-order-side-material-fragment-final",
+  "mismatches": 256,
+  "all_at_exact_analytic_top_boundary": true,
+  "location": "8x8 profile phases25/75ms;not lower-quarter comparison region",
+  "error": "CPU mask assumed top-edge exclusion even when pixel center lies exactly on the edge",
+  "correction": "Require exact interior/exterior mask and binary alpha;permit either raster tie at exact analytic boundary only. All3360 weighted RGBA comparisons unchanged. No production/raw evidence change."
+}

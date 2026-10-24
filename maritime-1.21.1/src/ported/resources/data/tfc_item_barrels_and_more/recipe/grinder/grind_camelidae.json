@@ -1,0 +1,17 @@
+{
+  "type": "tfc_item_barrels_and_more:grinder",
+  "ingredient": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc:food/camelidae"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:raw_ground_camelidae"
+  }
+}

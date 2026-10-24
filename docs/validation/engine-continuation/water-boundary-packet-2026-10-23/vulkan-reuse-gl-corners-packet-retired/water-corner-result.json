@@ -1,0 +1,19 @@
+{
+  "pass": true,
+  "routes": 2420,
+  "uniform_routes": 136,
+  "uniform_mip_routes": 136,
+  "mip_edge_routes": 2420,
+  "comparisons": 5112,
+  "draws": 10224,
+  "packed_actual_tops": 4840,
+  "channels_beyond_tolerance": 0,
+  "max_channel_error": 1,
+  "coverage_bad_pixels": 0,
+  "tolerance": 1,
+  "readback_row_zero": "upper physical Y",
+  "opengl_rows_flipped": true,
+  "raw_upload_bytes": 5221440,
+  "pixel_readback_bytes": 7378944,
+  "scope": "actual uploaded corner payload reprojected at equal shared-edge positions; settled section halos and matched temporal requests; staggered new-request resident-neighbor publication included; no full scene/stream/cap-churn acceptance"
+}

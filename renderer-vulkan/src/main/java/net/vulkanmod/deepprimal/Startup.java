@@ -39,6 +39,8 @@ public final class Startup {
   public static void arm() throws IOException {
     Files.createDirectories(MARKER.getParent());
     Files.writeString(MARKER, "Vulkan startup in progress\n");
+    // Every device initialization starts a new attempt, even after an earlier success.
+    complete = false;
     armed = true;
   }
 

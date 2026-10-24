@@ -1,0 +1,22 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 28.05
+  },
+  {
+    "action": "startup-observe=joined",
+    "completed": true,
+    "elapsed": 29.05
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 37.06
+  },
+  {
+    "action": "startup-observe=reloaded",
+    "completed": true,
+    "elapsed": 38.06
+  }
+]

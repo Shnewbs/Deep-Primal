@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "before",
+    "source_sha256": "c7876109336f9aace3514fa1886b5d41b4ab734783f0fd147475c3f5e2490861",
+    "exit_code": 1,
+    "stdout": "DISK_RECOVERY_OBSERVED retainedAfterOutside=0 startedAfterMove=false\n",
+    "stderr": "Exception in thread \"main\" java.lang.AssertionError: Out-of-range key lost before camera move\n\tat DiskRecoveryExtracted.require(DiskRecoveryExtracted.java:53)\n\tat DiskRecoveryExtracted.main(DiskRecoveryExtracted.java:62)\n",
+    "scope": "exact production queue/range methods; explicit world/worker/store doubles"
+  },
+  {
+    "variant": "after",
+    "source_sha256": "56a270140ebd87dbae238baea6ec8399afd645c3c43b70fe2bf7ab7e1a9402fa",
+    "exit_code": 0,
+    "stdout": "DISK_RECOVERY_OBSERVED retainedAfterOutside=1 startedAfterMove=true\nDISK_RECOVERY_EXTRACTED_PASS seededMoves=1000 maxIndex=8192 idleCalls=2000 boundedCalls=2499 perCallInspections=64 smallQueueOnce=true\n",
+    "stderr": "",
+    "scope": "exact production queue/range methods; explicit world/worker/store doubles"
+  }
+]

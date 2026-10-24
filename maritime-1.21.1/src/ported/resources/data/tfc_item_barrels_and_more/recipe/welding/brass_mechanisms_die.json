@@ -1,0 +1,13 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "item": "tfc:brass_mechanisms"
+  },
+  "second_input": {
+    "tag": "c:ingots/wrought_iron"
+  },
+  "tier": 3,
+  "result": {
+    "id": "tfc_item_barrels_and_more:brass_mechanisms_die"
+  }
+}

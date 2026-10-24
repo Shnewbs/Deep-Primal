@@ -1,0 +1,37 @@
+{
+  "pass": true,
+  "public_inputs": 575,
+  "public_unmodified_except_explicit_staging": true,
+  "snapshot_inputs": 581,
+  "staged_files": 19,
+  "staged_production_files": 5,
+  "staged_validation_files": 14,
+  "changed_since_r37": [
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+      "r37_staged_sha256": "1642524e885184df3768c3dea1e5955d240d7a1accc7ffc06ce7a54e5e3639f4",
+      "candidate_sha256": "08918c7ac5647571f28f8a0e21a04695056d325c8ce78e8441609b0ad764344b",
+      "production": true
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "r37_staged_sha256": "46c7dc08d25141d58d1d46a50c02c1233e6a70e8b8c425491d8e28f188ca1f76",
+      "candidate_sha256": "4287f62f88b83786e44ae1036140738dee55f0cbd3e5dd4cb1adf1368db92229",
+      "production": false
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFrameRetirementChecks.java",
+      "r37_staged_sha256": null,
+      "candidate_sha256": "df36d5ed686fbd9518b3c9a70195d78ede67c7ea9dde4946279377e21fe86090",
+      "production": false
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterExtractionDeadlineChecks.java",
+      "r37_staged_sha256": null,
+      "candidate_sha256": "ece85204bc9011a8737f30d31360e6c059426b7089dace670e8da8787b3d8fdb",
+      "production": false
+    }
+  ],
+  "production_promoted": false,
+  "geography_or_solver_changes": false
+}

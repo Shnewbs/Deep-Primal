@@ -4,6 +4,11 @@ import com.mojang.blaze3d.pipeline.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.shnewbs.deepprimal.core.WaterPatchMesher;
+import com.shnewbs.deepprimal.core.WaterFlowField;
+import com.shnewbs.deepprimal.core.WaterCornerPacket;
+import com.shnewbs.deepprimal.core.WaterBoundaryIndex;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import com.shnewbs.deepprimal.core.WaterFlowTransition;
 import com.shnewbs.deepprimal.core.WaterSurfaceTransition;
 import com.shnewbs.deepprimal.engine.*;
 import com.shnewbs.deepprimal.graphics.WaterGpuMesh;
@@ -55,6 +60,11 @@ public final class AnimatedWaterRenderer {
   private final LinkedHashMap<Long, Page> pages = new LinkedHashMap<>();
   private final LinkedHashSet<Long> dirty = new LinkedHashSet<>();
   private final LinkedHashSet<Long> urgent = new LinkedHashSet<>();
+  private final LinkedHashSet<Long> retireQueue = new LinkedHashSet<>();
+  private static final int CORNER_RETRY_BYTES = 1024 * 1024, CORNER_RETRY_RANGES = 16;
+  private static final int CORNER_RETRY_SLICE = 65_520;
+  private final ArrayDeque<CornerRetry> cornerRetries = new ArrayDeque<>();
+  private int cornerRetryBytes;
   private final LinkedHashSet<Long> fresh = new LinkedHashSet<>();
   // Fully hidden water needs no resident page. Remember it until geometry/halo data changes.
   private final LinkedHashSet<Long> hidden = new LinkedHashSet<>();
@@ -67,6 +77,8 @@ public final class AnimatedWaterRenderer {
   private final List<Long2ObjectLinkedOpenHashMap<WaterSurfaceTransition>>
       heights = new ArrayList<>(),
       alpha = new ArrayList<>();
+  private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> flowDirections = new Long2ObjectLinkedOpenHashMap<>();
+  private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> cornerDirections = new Long2ObjectLinkedOpenHashMap<>();
   private final ArrayList<Future<Ready>> work = new ArrayList<>();
   private final ExecutorService workers =
       Executors.newFixedThreadPool(
@@ -93,8 +105,14 @@ public final class AnimatedWaterRenderer {
     DynamicUniforms.Transform transform;
     WaterPatchMesher.Snapshot snapshot;
     WaterGpuMesh gpu;
+    // Accepted vertex bytes only: total retained payload cannot exceed the 32 MiB GPU cap.
+    byte[] presentation;
+    WaterBoundaryIndex boundaryQuads = WaterBoundaryIndex.EMPTY;
+    int retireOffset;
+    boolean retirePending;
+    Map<Integer, WaterFaces> fading = Map.of();
     boolean changed = true, busy;
-    long uploaded, used, cleanup;
+    long uploaded, used, cleanup, cornerGeneration;
 
     Page(long key) {
       this.key = key;
@@ -105,6 +123,20 @@ public final class AnimatedWaterRenderer {
       bounds = new AABB(x, y - 1, z, x + 16, y + 17, z + 16);
     }
   }
+
+  private static final class CornerRetry {
+    final Page page;
+    final long generation, queuedAt, cleanup;
+    final int start;
+    final byte[] data, masks;
+    int offset, failures;
+    CornerRetry(Page page, int start, byte[] data, byte[] masks, long queuedAt, long cleanup) {
+      this.page = page; this.generation = page.cornerGeneration; this.start = start;
+      this.data = data; this.masks = masks; this.queuedAt = queuedAt; this.cleanup = cleanup;
+    }
+  }
+
+  private record WaterFaces(float[] vertices, long revision) {}
 
   private record Ready(
       long session,
@@ -123,7 +155,7 @@ public final class AnimatedWaterRenderer {
   }
 
   public int pending() {
-    return dirty.size() + urgent.size() + work.size();
+    return dirty.size() + urgent.size() + work.size() + cornerRetries.size();
   }
 
   public long animationTime() {
@@ -142,6 +174,11 @@ public final class AnimatedWaterRenderer {
   }
 
   private void release(Page page) {
+    cancelCornerRetries(page, false);
+    page.presentation = null;
+    page.boundaryQuads = WaterBoundaryIndex.EMPTY;
+    retireQueue.remove(page.key);
+    page.fading = Map.of();
     dirty.remove(page.key);
     urgent.remove(page.key);
     fresh.remove(page.key);
@@ -267,7 +304,10 @@ public final class AnimatedWaterRenderer {
     if (lastFrame != 0 && !mc.isPaused()) clockNanos += Math.min(250_000_000, now - lastFrame);
     clock = clockNanos / 1_000_000;
     lastFrame = now;
-    long deadline = System.nanoTime() + 2_000_000;
+    retirePresentation();
+    retryCornerPublications();
+    // Retirement consumes this frame's shared admission budget; expiry service is mandatory.
+    long deadline = now + 2_000_000;
     int uploadedThisFrame = 0;
     for (var it = work.iterator();
         it.hasNext() && uploadedThisFrame < 2 && System.nanoTime() < deadline; ) {
@@ -309,9 +349,9 @@ public final class AnimatedWaterRenderer {
         if (chunk
             .getSection(chunk.getSectionIndexFromSectionY(y))
             .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
-          if (pages.size() >= MAX_PAGES) evict(camera, null);
+          Page p = new Page(key);
+          if (pages.size() >= MAX_PAGES) evict(camera, p);
           if (pages.size() < MAX_PAGES) {
-            Page p = new Page(key);
             if (fresh.remove(key)) p.snapshot = EMPTY;
             pages.put(key, p);
             dirty.add(key);
@@ -386,7 +426,8 @@ public final class AnimatedWaterRenderer {
   }
 
   private WaterPatchMesher.Snapshot capture(Page page) {
-    byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
+    byte[] units = new byte[WaterPatchMesher.CELLS],
+        solid = new byte[units.length], flow = new byte[units.length];
     int[] light = new int[units.length], colors = new int[256];
     var chunks = new net.minecraft.world.level.chunk.LevelChunk[9];
     for (int dz = -1; dz <= 1; dz++)
@@ -409,6 +450,7 @@ public final class AnimatedWaterRenderer {
           var state = chunk.getBlockState(pos);
           if (state.is(EngineRegistry.WATER_BLOCK.get())) {
             units[i] = (byte) (int) state.getValue(EngineFluid.UNITS);
+            flow[i] = (byte) (int) state.getValue(EngineFluid.FLOW);
             light[i] = LevelRenderer.getLightCoords(level, pos.above());
           } else if (state.isSolid()) solid[i] = 1;
         }
@@ -417,7 +459,7 @@ public final class AnimatedWaterRenderer {
           colors[z * 16 + x] = BiomeColors.getAverageWaterColor(level, pos);
         }
       }
-    return new WaterPatchMesher.Snapshot(units, solid, light, colors);
+    return new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);
   }
 
   private WaterSurfaceTransition transition(
@@ -432,13 +474,79 @@ public final class AnimatedWaterRenderer {
     return value;
   }
 
+  private static int faceKey(float[] values, int i) {
+    return (int) values[i + 9] * 6 + WaterPatchMesher.face(values[i + 10]);
+  }
+
+  private boolean fading(Page page, int face) {
+    int cell = face / 6;
+    long key = BlockPos.asLong(page.x + (cell & 15), page.y + (cell >> 8), page.z + ((cell >> 4) & 15));
+    var value = alpha.get(face % 6).get(key);
+    return value != null && value.target() == 0 && value.at(clock) > 0;
+  }
+
+  private Map<Integer, WaterFaces> rememberFading(Page page, List<WaterFaces> parts) {
+    var result = new LinkedHashMap<Integer, WaterFaces>();
+    for (var faces : parts) {
+      float[] values = faces.vertices;
+      for (int i = 0; i < values.length; ) {
+        int key = faceKey(values, i), end = i + WaterPatchMesher.STRIDE * 4;
+        while (end < values.length && faceKey(values, end) == key)
+          end += WaterPatchMesher.STRIDE * 4;
+        if (values[i + 13] == 0 && fading(page, key))
+          result.put(
+              key,
+              i == 0 && end == values.length
+                  ? faces
+                  : new WaterFaces(Arrays.copyOfRange(values, i, end), faces.revision));
+        i = end;
+      }
+    }
+    return result;
+  }
+
+  private WaterFlowTransition flow(long key, int direction, long revision, int previousDirection) {
+    var value = flowDirections.getAndMoveToLast(key);
+    if (value == null && (direction < 16 || previousDirection < 16)) {
+      value = new WaterFlowTransition(previousDirection, clock);
+      flowDirections.put(key, value);
+    }
+    if (value != null) value.target(direction, clock, revision);
+    while (flowDirections.size() > MAX_HISTORY) flowDirections.removeFirst();
+    return value;
+  }
+
+  private WaterFlowTransition cornerFlow(long key, int direction, long revision, int previous) {
+    var value = cornerDirections.getAndMoveToLast(key);
+    if (value == null && (direction < 16 || previous < 16)) {
+      value = new WaterFlowTransition(previous, clock);
+      cornerDirections.put(key, value);
+    }
+    if (value != null) value.target(direction, clock, revision);
+    while (cornerDirections.size() > MAX_HISTORY) cornerDirections.removeFirst();
+    return value;
+  }
+
   private void upload(Ready ready) {
     Page p = ready.page;
-    float[] values = ready.mesh.vertices();
-    int count = ready.mesh.count();
+    var parts = new ArrayList<WaterFaces>();
+    parts.add(new WaterFaces(ready.mesh.vertices(), ready.revision));
+    var present = new BitSet(4096 * 6);
+    float[] incoming = ready.mesh.vertices();
+    for (int i = 0; i < incoming.length; i += WaterPatchMesher.STRIDE * 4)
+      present.set(faceKey(incoming, i));
+    // A dry cell can disappear from worker snapshots while its last faces are still fading.
+    // Retain only absent, still-dying faces; rewet/new geometry replaces them immediately.
+    for (var entry : p.fading.entrySet())
+      if (!present.get(entry.getKey()) && fading(p, entry.getKey())) parts.add(entry.getValue());
+    int count = 0;
+    for (var faces : parts) count += faces.vertices.length / WaterPatchMesher.STRIDE;
     if (count == 0) {
       // An edit during capture/meshing must get another turn before a negative result is cached.
       if (p.changed) return;
+      // The previous snapshot may already be dry while its GPU faces are still fading.
+      // Repeated empty captures must not cut that fade short or extend its deadline.
+      if (p.gpu != null && clock < p.cleanup) return;
       release(p);
       pages.remove(p.key);
       hidden.add(p.key);
@@ -447,87 +555,419 @@ public final class AnimatedWaterRenderer {
     }
     long bytes = (long) count * 36;
     var camera = Minecraft.getInstance().gameRenderer.getMainCamera().position();
-    while (residentBytes + bytes > MAX_BYTES && evict(camera, p)) {}
-    if (residentBytes + bytes > MAX_BYTES) {
+    boolean reuse = p.gpu != null && bytes <= p.gpu.bytes;
+    if (!reuse && !reserveBytes(camera, p, bytes)) {
       p.changed = true;
       return;
     }
     ByteBuffer data = MemoryUtil.memAlloc((int) bytes).order(ByteOrder.nativeOrder());
-    boolean animating = false;
+    boolean animating = false, dyingFaces = false;
+    int remaining = 0;
+    var boundary = new IntArrayList();
     WaterSurfaceTransition opacity = null;
-    var sprite =
-        ((TextureAtlas)
-                Minecraft.getInstance()
-                    .getTextureManager()
-                    .getTexture(TextureAtlas.LOCATION_BLOCKS))
-            .getSprite(Identifier.withDefaultNamespace("block/water_still"));
+    var atlas =
+        (TextureAtlas)
+            Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS);
+    var still = atlas.getSprite(Identifier.withDefaultNamespace("block/water_still"));
+    var flowing = atlas.getSprite(Identifier.withDefaultNamespace("block/water_flow"));
     try {
-      for (int v = 0; v < count; v++) {
-        int i = v * WaterPatchMesher.STRIDE;
-        int cell = (int) values[i + 9];
-        int cx = cell & 15, cz = (cell >> 4) & 15, cy = cell >> 8;
-        long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
-        if ((v & 3) == 0) {
-          opacity =
-              transition(alpha.get((int) values[i + 10]), cellKey, values[i + 12], values[i + 13]);
-          opacity.restart(clock);
-        }
-        float target = values[i + 3], from = target;
-        int offset = 0;
-        if (values[i + 11] != 0) {
-          int x2 = Math.round(values[i] * 2),
-              z2 = Math.round(values[i + 2] * 2),
-              part = (x2 & 1) | ((z2 & 1) << 1);
-          long key =
-              BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2));
-          var map = heights.get(part);
-          var h = map.getAndMoveToLast(key);
-          if (h == null) {
-            h = new WaterSurfaceTransition(values[i + 4], clock);
-            map.put(key, h);
+      for (var faces : parts) {
+        float[] values = faces.vertices;
+        int shownDirection = 16;
+        WaterFlowTransition flowState = null;
+        int cornerTargets = 0, cornerSources = 0, cornerAges = 0;
+        for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
+          int i = v * WaterPatchMesher.STRIDE;
+          int cell = (int) values[i + 9];
+          int cx = cell & 15, cz = (cell >> 4) & 15, cy = cell >> 8;
+          int face = WaterPatchMesher.face(values[i + 10]);
+          long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
+          if ((v & 3) == 0) {
+            int direction = WaterPatchMesher.direction(values[i + 10]);
+            // All faces share the cell's admitted material and original transition clock.
+            // Unchanged still water stays sparse; the accepted snapshot seeds its first change.
+            int previousDirection = p.snapshot != null && p.snapshot.water(cx, cy, cz) > 0
+                ? p.snapshot.direction(cx, cy, cz) : direction;
+            flowState = flow(cellKey, direction, faces.revision, previousDirection);
+            shownDirection = flowState == null ? direction : flowState.target();
+            if (flowState != null && flowState.queued(clock)) {
+              animating = true;
+              remaining = Math.max(remaining, WaterFlowTransition.MILLIS - flowState.age(clock));
+            }
+            if (face == 0) {
+              cornerTargets = cornerSources = cornerAges = 0;
+              for (int n = 0; n < 4; n++) {
+                int x = cx + (n & 1), z = cz + (n >> 1);
+                int directionAtCorner = WaterFlowField.direction(ready.snapshot, x, cy, z);
+                int old = WaterFlowField.direction(p.snapshot, x, cy, z);
+                if (directionAtCorner < 0) directionAtCorner = old < 0 ? direction : old;
+                if (old < 0) old = directionAtCorner;
+                var corner = cornerFlow(BlockPos.asLong(p.x + x, p.y + cy, p.z + z), directionAtCorner, faces.revision, old);
+                int to = corner == null ? directionAtCorner : corner.target();
+                int from = corner == null || !corner.active(clock) ? to : corner.source();
+                int age = corner == null ? 100 : corner.age(clock);
+                cornerTargets |= to << (n * 5); cornerSources |= from << (n * 5);
+                cornerAges |= age << (n * 8);
+                if (corner != null && corner.queued(clock)) {
+                  animating = true;
+                  remaining = Math.max(remaining, 100 - age);
+                }
+              }
+            }
+            opacity =
+                transition(alpha.get(face), cellKey, values[i + 12], values[i + 13]);
+            dyingFaces |= values[i + 13] == 0;
           }
-          h.target(target, clock, ready.revision);
-          target = h.target();
-          while (map.size() > MAX_HISTORY) map.removeFirst();
-          from = h.from(clock);
-          offset = h.offset(clock);
+          float target = values[i + 3], from = target;
+          int offset = 0;
+          if (values[i + 11] != 0) {
+            int x2 = Math.round(values[i] * 2),
+                z2 = Math.round(values[i + 2] * 2),
+                part = (x2 & 1) | ((z2 & 1) << 1);
+            long key =
+                BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2));
+            var map = heights.get(part);
+            var h = map.getAndMoveToLast(key);
+            if (h == null) {
+              h = new WaterSurfaceTransition(values[i + 4], clock);
+              map.put(key, h);
+            }
+            h.target(target, clock, faces.revision);
+            target = h.target();
+            while (map.size() > MAX_HISTORY) map.removeFirst();
+            from = h.from(clock);
+            offset = h.offset(clock);
+          }
+          if (Math.abs(from - target) > .0001) {
+            animating = true;
+            remaining = Math.max(remaining, WaterSurfaceTransition.MILLIS + offset);
+          }
+          if (Math.abs(opacity.from(clock) - opacity.target()) > .0001) {
+            animating = true;
+            remaining = Math.max(remaining, WaterSurfaceTransition.MILLIS + opacity.offset(clock));
+          }
+          int color = Float.floatToRawIntBits(values[i + 7]),
+              light = Float.floatToRawIntBits(values[i + 8]);
+          if ((v & 3) == 0 && face == 0 && (cx == 0 || cx == 15 || cz == 0 || cz == 15))
+            boundary.add(((data.position() / 144) << 12) | cell);
+          int vertexOffset = data.position();
+          data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
+          boolean blend = flowState != null && flowState.active(clock)
+              && (face == 0 || (flowState.source() < 16) != (shownDirection < 16));
+          // Opacity lives in Normal; active faces reuse constant color alpha for cell-local UVs.
+          data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
+              .put((byte) (face == 0 || blend ? cx | (cz << 4) : 255));
+          boolean flowingFace = shownDirection < 16;
+          boolean side = face != 0;
+          if (face == 0) {
+            data.putFloat(WaterFlowField.targets(cornerTargets, (cornerAges >>> 24) & 255))
+                .putFloat(WaterFlowField.sources(cornerSources, (cornerAges >>> 24) & 255));
+          } else {
+            var sprite = flowingFace ? flowing : still;
+            float scale = flowingFace ? .5f : 1;
+            float localU = values[i + 5] * (WaterPatchMesher.direction(values[i + 10]) < 16 ? 2 : 1);
+            data.putFloat(sprite.getU(localU * scale)).putFloat(sprite.getV((1 - target) * scale));
+          }
+          data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
+              .putShort((short) (face == 0 ? WaterFlowField.heightClock(offset, cornerAges & 255) : offset));
+          // Native light coordinates occupy the low byte; reserve bits 8/9 for side mode and bit 10 for periodic flow tops.
+          int presentation = side ? 256 | (flowingFace ? 512 : 0) : 0;
+          int source = blend ? flowState.source() << 11 : 0;
+          int age = blend ? 32768 | (flowState.age(clock) << 8) : 0;
+          data.putShort((short) ((light & 255) | (face == 0 ? ((cornerAges >>> 8) & 255) << 8 : presentation | source)))
+              .putShort((short) (((light >>> 16) & 255) | (face == 0 ? ((cornerAges >>> 16) & 255) << 8 : age)));
+          data.put((byte) Math.round(opacity.from(clock) * 127))
+              .put((byte) Math.round(opacity.target() * 127))
+              .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
+              .put((byte) cy);
+          if (face == 0) WaterCornerPacket.fromLegacy(data, vertexOffset, clock);
         }
-        animating |=
-            Math.abs(from - target) > .0001
-                || Math.abs(opacity.from(clock) - opacity.target()) > .0001;
-        int color = Float.floatToRawIntBits(values[i + 7]),
-            light = Float.floatToRawIntBits(values[i + 8]);
-        data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
-        data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
-        data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(values[i + 6]));
-        data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
-            .putShort((short) offset);
-        data.putShort((short) (light & 65535)).putShort((short) (light >>> 16));
-        data.put((byte) Math.round(opacity.from(clock) * 127))
-            .put((byte) Math.round(opacity.target() * 127))
-            .put((byte) 0)
-            .put((byte) 0);
       }
       data.flip();
-      var mesh = new WaterGpuMesh(data, count);
-      if (p.gpu != null) {
-        residentBytes -= p.gpu.bytes;
-        p.gpu.close();
+      byte[] accepted = new byte[data.remaining()];
+      data.duplicate().get(accepted);
+      var boundaryIndex = WaterBoundaryIndex.of(boundary.toIntArray());
+      if (reuse) {
+        // Retain allocation capacity: a smaller update can grow back without another buffer.
+        p.gpu.update(data, count);
+      } else {
+        var mesh = new WaterGpuMesh(data, count);
+        if (p.gpu != null) {
+          residentBytes -= p.gpu.bytes;
+          p.gpu.close();
+        }
+        p.gpu = mesh;
+        residentBytes += mesh.bytes;
       }
-      p.gpu = mesh;
-      residentBytes += mesh.bytes;
+      // Retained CPU faces are a subset of the admitted GPU payload; failed admission changes neither.
+      // Existing uniform storage carries sprite bounds; no vertex/uniform allocation growth.
+      p.texture.m10(still.getV(1) - still.getV(0)).m11((flowing.getV(1) - flowing.getV(0)) * .5f);
+      p.texture.m20(still.getV(0)).m21(flowing.getV(0));
+      p.texture.m13(still.getU(0)).m22(still.getU(1) - still.getU(0));
+      p.texture.m01(flowing.getU(0)).m02(flowing.getU(1) - flowing.getU(0));
+      p.texture.m03(flowing.getV(0)).m12(flowing.getV(1) - flowing.getV(0));
+      p.texture.m30(p.x).m31(p.z);
+      p.fading = rememberFading(p, parts);
       p.snapshot = ready.snapshot;
+      cancelCornerRetries(p, false);
+      p.presentation = accepted;
+      p.boundaryQuads = boundaryIndex;
+      p.retireOffset = 0;
+      p.retirePending = false;
+      retireQueue.remove(p.key);
+      retireQueue.add(p.key);
+      p.texture.m23(clock & 65535);
       p.uploaded = clock;
-      p.cleanup = animating ? clock + WaterSurfaceTransition.MILLIS + 1 : 0;
+      p.cleanup = animating || dyingFaces ? clock + Math.max(0, remaining) + 1 : 0;
       uploads++;
+      synchronizeCornerNeighbors(p, true);
     } finally {
       MemoryUtil.memFree(data);
     }
   }
 
+  /** Visit only neighbor-facing quads; contiguous changed quads share one bounded submission.
+   * Publication remains synchronous: a range bound does not establish a frame-time bound. */
+  private void synchronizeCornerNeighbors(Page admitted) {
+    synchronizeCornerNeighbors(admitted, false);
+  }
+
+  /** Ordinary publication stays within one extraction; only rejected ranges are deferred. */
+  private void synchronizeCornerNeighbors(Page admitted, boolean deferFailures) {
+    ByteBuffer transfer = null;
+    ByteBuffer quad = ByteBuffer.allocate(144).order(ByteOrder.nativeOrder());
+    try {
+      for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
+        if (dx == 0 && dz == 0) continue;
+        Page p = pages.get(SectionPos.asLong((admitted.x >> 4) + dx, admitted.y >> 4, (admitted.z >> 4) + dz));
+        if (p == null || p.gpu == null || p.presentation == null) continue;
+        cancelCornerRetries(p, true);
+        ByteBuffer accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
+        int start = -1, end = 0;
+        long pendingCleanup = p.cleanup;
+        // Relative to the resident page, the admitted page lies in the opposite direction.
+        int endIndex = p.boundaryQuads.end(-dx, -dz);
+        for (int index = p.boundaryQuads.begin(-dx, -dz); index < endIndex; index++) {
+          int entry = p.boundaryQuads.entry(index);
+          int shared = WaterBoundaryIndex.mask(entry, -dx, -dz);
+          int at = (entry >>> 12) * 144, cell = entry & 4095;
+          int cx = cell & 15, cz = (cell >> 4) & 15, y = p.y + (cell >> 8);
+          int mask = 0, targets = 0, sources = 0, ages = 0;
+          long cleanup = start >= 0 ? pendingCleanup : p.cleanup;
+          for (int n = 0; n < 4; n++) {
+            if ((shared & (1 << n)) == 0) continue;
+            int x = p.x + cx + (n & 1), z = p.z + cz + (n >> 1);
+            var c = cornerDirections.get(BlockPos.asLong(x, y, z));
+            if (c == null) continue;
+            int to = c.target(), from = c.active(clock) ? c.source() : to, age = c.age(clock);
+            mask |= 1 << n;
+            targets |= to << (n * 5); sources |= from << (n * 5); ages |= age << (n * 8);
+            if (c.queued(clock)) {
+              long next = clock + 100 - age + 1;
+              cleanup = cleanup == 0 ? next : Math.min(cleanup, next);
+            }
+          }
+          int changed = WaterCornerPacket.changedCorners(accepted, at, mask, targets, sources, ages, clock);
+          if (changed != 0) {
+            quad.clear().put(p.presentation, at, 144).flip();
+            WaterCornerPacket.patchCorners(quad, 0, changed, targets, sources, ages, clock);
+            if (transfer == null)
+              transfer = MemoryUtil.memAlloc(WaterCornerPacket.SLICE_BYTES).order(ByteOrder.nativeOrder());
+            // Never bridge an unchanged quad or exceed the existing range-byte bound.
+            if (start >= 0 && (at != end || transfer.remaining() < 144)) {
+              publishCornerRange(p, start, transfer, pendingCleanup, deferFailures);
+              start = -1;
+            }
+            if (start < 0) start = at;
+            transfer.put(quad);
+            end = at + 144;
+            pendingCleanup = cleanup;
+          } else {
+            if (start >= 0) {
+              publishCornerRange(p, start, transfer, pendingCleanup, deferFailures);
+              start = -1;
+            }
+            p.cleanup = cleanup;
+          }
+        }
+        if (start >= 0) publishCornerRange(p, start, transfer, pendingCleanup, deferFailures);
+      }
+    } finally {
+      if (transfer != null) MemoryUtil.memFree(transfer);
+    }
+  }
+
+  /** Commit the accepted CPU mirror and deadline only after the entire GPU range succeeds. */
+  private void publishCornerRange(Page p, int start, ByteBuffer transfer, long cleanup, boolean deferFailures) {
+    transfer.flip();
+    int length = transfer.remaining();
+    try {
+      p.gpu.updateRange(start, transfer);
+    } catch (RuntimeException failure) {
+      if (!deferFailures) throw failure;
+      deferCornerRange(p, start, transfer.duplicate().position(0).limit(length), cleanup);
+      transfer.clear();
+      return;
+    }
+    transfer.get(0, p.presentation, start, length);
+    p.cleanup = cleanup;
+    armRetirement(p);
+    transfer.clear();
+  }
+
+  /** A new material publication supersedes old failed data; remesh unaccepted earlier corners. */
+  private void cancelCornerRetries(Page p, boolean remesh) {
+    boolean removed = false;
+    for (var it = cornerRetries.iterator(); it.hasNext();) {
+      var retry = it.next();
+      if (retry.page != p) continue;
+      cornerRetryBytes -= retry.data.length;
+      it.remove(); removed = true;
+    }
+    p.cornerGeneration++;
+    if (removed && remesh) { p.changed = true; urgent.add(p.key); }
+  }
+
+  /** Bounded retained recovery data. Overflow schedules a fresh authoritative mesh instead. */
+  private void deferCornerRange(Page p, int start, ByteBuffer transfer, long cleanup) {
+    int length = transfer.remaining();
+    if (cornerRetries.size() >= CORNER_RETRY_RANGES || length > CORNER_RETRY_BYTES - cornerRetryBytes) {
+      p.changed = true; urgent.add(p.key);
+      return;
+    }
+    byte[] data = new byte[length], masks = new byte[length / 144];
+    transfer.get(0, data);
+    var next = ByteBuffer.wrap(data).order(ByteOrder.nativeOrder());
+    var old = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
+    for (int q = 0; q < length; q += 144) for (int n = 0; n < 4; n++) {
+      if (WaterCornerPacket.target(next, q, n) != WaterCornerPacket.target(old, start + q, n)
+          || WaterCornerPacket.source(next, q, n) != WaterCornerPacket.source(old, start + q, n)
+          || WaterCornerPacket.start(next, q, n) != WaterCornerPacket.start(old, start + q, n))
+        masks[q / 144] |= (byte)(1 << n);
+    }
+    cornerRetries.addLast(new CornerRetry(p, start, data, masks, clock, cleanup));
+    cornerRetryBytes += length;
+  }
+
+  /** Mandatory fair recovery: <=16 stale headers, one write and65520bytes per rendered frame.
+   * Rebuild only requested material corners over the latest accepted bytes, retaining retirement,
+   * height, light and opacity. A completed transition becomes steady rather than reviving on wrap.
+   * Three consecutive synchronous failures on a range remain fatal; async loss is not handled. */
+  private void retryCornerPublications() {
+    for (int headers = 0; headers < CORNER_RETRY_RANGES && !cornerRetries.isEmpty(); headers++) {
+      var retry = cornerRetries.removeFirst(); Page p = retry.page;
+      if (pages.get(p.key) != p || p.gpu == null || p.presentation == null
+          || p.cornerGeneration != retry.generation) {
+        cornerRetryBytes -= retry.data.length;
+        continue;
+      }
+      int length = Math.min(CORNER_RETRY_SLICE, retry.data.length - retry.offset);
+      ByteBuffer patch = MemoryUtil.memAlloc(length).order(ByteOrder.nativeOrder());
+      try {
+        patch.put(p.presentation, retry.start + retry.offset, length).flip();
+        var queued = ByteBuffer.wrap(retry.data).order(ByteOrder.nativeOrder());
+        for (int q = 0; q < length; q += 144) {
+          int original = retry.offset + q;
+          WaterCornerPacket.rebaseCorners(patch, q, queued, original,
+              retry.masks[original / 144] & 15, retry.queuedAt, clock);
+        }
+        try {
+          p.gpu.updateRange(retry.start + retry.offset, patch);
+        } catch (RuntimeException failure) {
+          if (++retry.failures >= 3) {
+            cornerRetryBytes -= retry.data.length;
+            throw new IllegalStateException("Water corner publication failed after three recovery attempts", failure);
+          }
+          cornerRetries.addLast(retry);
+          return;
+        }
+        patch.get(0, p.presentation, retry.start + retry.offset, length);
+        armRetirement(p);
+        if (retry.cleanup != 0) p.cleanup = p.cleanup == 0 ? retry.cleanup : Math.min(p.cleanup, retry.cleanup);
+        retry.offset += length; retry.failures = 0;
+        if (retry.offset == retry.data.length) cornerRetryBytes -= retry.data.length;
+        else cornerRetries.addLast(retry);
+        return;
+      } finally { MemoryUtil.memFree(patch); }
+    }
+  }
+
+  /** Preserve cursor progress when a write lands behind it. Such data gets a second sweep;
+   * resetting an active cursor on each publication could starve later parts of a large page. */
+  private void armRetirement(Page p) {
+    if (retireQueue.add(p.key)) { p.retireOffset = 0; p.retirePending = false; }
+    else p.retirePending = true;
+  }
+
+  /** Guaranteed service before optional extraction: <=32 page headers/262080 bytes.
+   * Remove fully steady pages. Live pairs and writes behind the cursor require another sweep.
+   * A sweep still completes within193 frames at nominal caps, before16-bit clock wrap. */
+  private void retirePresentation() {
+    int budget = WaterCornerPacket.SLICE_BYTES, pagesVisited = 0;
+    ByteBuffer transfer = null;
+    try {
+      while (budget >= 144 && pagesVisited < 32 && !retireQueue.isEmpty()) {
+        long key = retireQueue.iterator().next(); Page p = pages.get(key);
+        if (p == null || p.gpu == null || p.presentation == null) {
+          retireQueue.remove(key); pagesVisited++; continue;
+        }
+        int length = Math.min(p.presentation.length - p.retireOffset, budget); length -= length % 144;
+        int begin = p.retireOffset, end = begin + length;
+        ByteBuffer accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
+        int state = WaterCornerPacket.retirementState(accepted, begin, end, clock);
+        if ((state & WaterCornerPacket.RETIRE_EXPIRED) != 0) {
+          if (transfer == null) transfer = MemoryUtil.memAlloc(WaterCornerPacket.SLICE_BYTES).order(ByteOrder.nativeOrder());
+          transfer.clear().put(p.presentation, begin, length).flip();
+          WaterCornerPacket.retire(transfer, 0, length, clock);
+          p.gpu.updateRange(begin, transfer);
+          transfer.get(0, p.presentation, begin, length);
+        }
+        // No cursor/pending/CPU commit follows a rejected GPU write.
+        p.retirePending |= (state & WaterCornerPacket.RETIRE_LIVE) != 0;
+        budget -= length; p.retireOffset = end;
+        if (end == p.presentation.length) {
+          boolean again = p.retirePending; p.retireOffset = 0; p.retirePending = false;
+          retireQueue.remove(key);
+          if (again) retireQueue.add(key);
+          pagesVisited++;
+        }
+      }
+    } finally { if (transfer != null) MemoryUtil.memFree(transfer); }
+  }
+
+  /** Plan a sufficient farthest-first set before releasing any covering allocation.
+   * Discovery's separate page-count policy is unchanged. A denied byte reservation is read-only. */
+  private boolean reserveBytes(net.minecraft.world.phys.Vec3 camera, Page keep, long bytes) {
+    if (bytes > MAX_BYTES) return false;
+    long required = residentBytes + bytes - MAX_BYTES;
+    if (required <= 0) return true;
+    double minimumDistance = keep.bounds.distanceToSqr(camera);
+    var candidates = new ArrayList<Page>();
+    long available = 0;
+    for (Page page : pages.values()) {
+      if (page == keep || page.busy || page.gpu == null
+          || page.bounds.distanceToSqr(camera) <= minimumDistance) continue;
+      candidates.add(page);
+      available += page.gpu.bytes;
+    }
+    if (available < required) return false;
+    // Stable sorting retains the prior insertion-order rule for equal-distance victims.
+    candidates.sort(Comparator.comparingDouble((Page page) -> page.bounds.distanceToSqr(camera)).reversed());
+    for (Page page : candidates) {
+      long reclaimed = page.gpu.bytes;
+      pages.remove(page.key);
+      release(page);
+      required -= reclaimed;
+      if (required <= 0) return true;
+    }
+    throw new IllegalStateException("Water reservation accounting changed during admission");
+  }
+
   private boolean evict(net.minecraft.world.phys.Vec3 camera, Page keep) {
     Page victim = null;
-    double far = -1;
+    // Discovery/upload of a farther page must not displace a closer covering mesh.
+    // Busy farther pages are ineligible; wait rather than evict a closer idle page.
+    double far = keep == null ? -1 : keep.bounds.distanceToSqr(camera);
     for (Page p : pages.values())
       if (p != keep && !p.busy) {
         double d = p.bounds.distanceToSqr(camera);
@@ -554,7 +994,8 @@ public final class AnimatedWaterRenderer {
     for (int i = 0; i < visible.size(); i++) {
       Page p = visible.get(i);
       p.offset.set((float) (p.x - camera.x), (float) (p.y - camera.y), (float) (p.z - camera.z));
-      p.texture.m00(clock - p.uploaded);
+      float elapsed = Math.min(65536, clock - p.uploaded);
+      p.texture.m00(elapsed).m23((clock & 65535) - elapsed);
       if (p.transform == null)
         p.transform = new DynamicUniforms.Transform(viewMatrix, white, p.offset, p.texture);
       transforms[i] = p.transform;
@@ -593,18 +1034,27 @@ public final class AnimatedWaterRenderer {
     session++;
     for (var f : work) f.cancel(true);
     work.clear();
-    for (Page p : pages.values())
+    for (Page p : pages.values()) {
+      p.fading = Map.of();
+      p.presentation = null;
+      p.boundaryQuads = WaterBoundaryIndex.EMPTY;
       if (p.gpu != null) {
         p.gpu.close();
         p.gpu = null;
       }
+    }
+    cornerRetries.clear();
+    cornerRetryBytes = 0;
     pages.clear();
     dirty.clear();
     urgent.clear();
     fresh.clear();
+    retireQueue.clear();
     hidden.clear();
     heights.forEach(Map::clear);
     alpha.forEach(Map::clear);
+    flowDirections.clear();
+    cornerDirections.clear();
     residentBytes = 0;
     discovery = 0;
     lastFrame = 0;
@@ -625,3 +1075,4 @@ public final class AnimatedWaterRenderer {
     workers.shutdownNow();
   }
 }
+

@@ -1,0 +1,24 @@
+{
+  "scope": "Still/flow top-surface sprite transition;side-face material switches remain immediate.",
+  "transition": "Same two fixed endpoints and latest pending request over100ms;code16 now participates. Stale target cannot replace admitted still UV;still cell-local coordinates reconstructed.",
+  "sparse_history": "Initial stable still water creates no history;previous accepted nonempty snapshot direction seeds firstchange. Same32768-entry bound andreset.",
+  "sprites": "Current andprevious endpoint carry independent atlas tile bounds. Prior flow usesQ25 worldphase;prior still usescell-local phase. Gradients computed unwrapped outsideconditional;single-fragment RGBA crossfade.",
+  "payload": "CPU14floats,GPU36bytes unchanged. Source16 in highmetadata bits with lowlight176/240 preserved;activecellalpha restored tofull before opacity. Two spare TextureMat values reused. New flatvec4 previousBounds is16-byte varying cost.",
+  "unchanged": [
+    "WaterRuntime/WaterTransport",
+    "WaterPatchMesher quantity/geometry",
+    "player edits",
+    "frozen V1/V2/V3 geography",
+    "LOD and Vulkan/OpenGL backend code",
+    "original opacity andheight timing"
+  ],
+  "limits": [
+    "Side-face material/tint/other liquid families unresolved",
+    "Different-direction spatialedges unresolved",
+    "No speed-driven advection",
+    "Longstreams,ocean,capchurn andmatchedprofiling open",
+    "Opaque diagnostic atlas;arbitraryalpha/resourcepacks notaccepted",
+    "LOD horizoncutoffs unresolved",
+    "No ownerGPU/FPS/60Hz/superiority acceptance"
+  ]
+}

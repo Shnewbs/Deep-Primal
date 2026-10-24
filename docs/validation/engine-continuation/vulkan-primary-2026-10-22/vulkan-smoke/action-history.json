@@ -1,0 +1,12 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 27.03
+  },
+  {
+    "action": "reopened-vulkan",
+    "completed": true,
+    "elapsed": 29.03
+  }
+]

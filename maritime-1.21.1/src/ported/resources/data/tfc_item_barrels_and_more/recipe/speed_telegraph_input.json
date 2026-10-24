@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BAC",
+    "TIR",
+    " ID"
+  ],
+  "key": {
+    "T": [
+      {
+        "item": "tfc:jacks"
+      }
+    ],
+    "I": [
+      {
+        "tag": "c:double_ingots/brass"
+      }
+    ],
+    "R": [
+      {
+        "item": "tfc:brass_bell"
+      }
+    ],
+    "A": [
+      {
+        "item": "tfc:metal/double_sheet/brass"
+      }
+    ],
+    "B": [
+      {
+        "tag": "tfc:lumber"
+      }
+    ],
+    "C": [
+      {
+        "item": "tfc:brass_mechanisms"
+      }
+    ],
+    "D": [
+      {
+        "item": "create:redstone_link"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:speed_telegraph_input"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ]
+}

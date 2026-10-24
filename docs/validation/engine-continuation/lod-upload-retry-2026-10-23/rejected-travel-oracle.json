@@ -1,0 +1,9 @@
+{
+  "case": "vulkan-travel-baseline",
+  "accepted": false,
+  "reason": "Fixture used ClientLevel.hasChunk, which always returns true in this Minecraft version. Unload assertion is invalid; excluded from engine conclusions.",
+  "source_fix": "Use getChunkSource().hasChunk for bounded no-load actual client presence.",
+  "console_sha256": "5ca3be497f16c37c89ec5a3ef4a2f784c5de8d65c5e8b0f97c35f335b35ae74e",
+  "crash_sha256": "489bdced14a5eefac9aac98a3674fc75ab7894d17478e523b9a90814451fde58",
+  "native_result": 1
+}

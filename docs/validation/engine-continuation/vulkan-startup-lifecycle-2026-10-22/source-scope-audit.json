@@ -1,0 +1,40 @@
+{
+  "source_commit": "fb3b885b354cb27f97dc6d9143c16be0da79a9ff",
+  "original_build_inputs": 507,
+  "unchanged": 504,
+  "changed": [
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/Startup.java",
+      "before_blob": "b69e192b90a128d61ac58c98393ab2b2d1f045d9",
+      "after_blob": "9b4056ddf4a9c4fd4f0ddb184ff43783e5749c35",
+      "sha256": "55628fd7252f66255fd32d8b00010c91fe3d673798508ff9df94e22f49857377"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "before_blob": "6f08c66632628ae6087ea12818f55f6fa71b38cc",
+      "after_blob": "a9054b301dc03d17a754d3bd2eba818299059aa2",
+      "sha256": "59944b691d57ec622680ea8be2657736b6c85b360f472261c10f08894b0d7290"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WorldCreationChecks.java",
+      "before_blob": "92b363c6423ffa4183d769a57f7cb5c57d7d08e5",
+      "after_blob": "c8eeee89063b536c71f44355c283df5d6e4716d5",
+      "sha256": "9078695fddafe73eecb4f4f4990eb21b2db5bd0568fa4f30a602e7f25e63e7ad"
+    }
+  ],
+  "new_validation_source": {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/StartupLifecycleChecks.java",
+    "sha256": "d3a1d2a648ad0c68a86b88845bb3c3fc7abc290b79a152fada67c92370a1c43b"
+  },
+  "production_changes": 1,
+  "temporary_trace_removed": true,
+  "prior_fix_and_water_hashes": {
+    "WaterRuntime": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "WaterTransport": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97",
+    "VkCommandEncoder": "05ce52be24766bba31b5f62294e8e37b7e29193076e1f4f5a6c8b77c21809a75",
+    "VoxelLodRenderer": "56a270140ebd87dbae238baea6ec8399afd645c3c43b70fe2bf7ab7e1a9402fa"
+  },
+  "water_quantity_player_edit_geography_code_unchanged": true,
+  "performance_scope": "One completion reset per arm; no new frame-loop logic/I/O or measured FPS claim",
+  "ordinary_marker_reappearance_cause": "Not established: trace shows successful deletion then later presence without another owner arm before the explicit test."
+}

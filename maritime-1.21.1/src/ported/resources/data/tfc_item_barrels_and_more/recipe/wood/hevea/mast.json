@@ -1,0 +1,38 @@
+{
+  "type": "tfc:advanced_shaped_crafting",
+  "pattern": [
+    "XS",
+    "X ",
+    "X "
+  ],
+  "key": {
+    "X": {
+      "item": "afc:wood/stripped_log/hevea"
+    },
+    "S": {
+      "tag": "c:tools/saw"
+    }
+  },
+  "result": {
+    "stack": {
+      "count": 3,
+      "id": "tfc_item_barrels_and_more:wood/hevea/mast"
+    },
+    "modifiers": []
+  },
+  "input_row": 0,
+  "input_column": 1,
+  "remainder": {
+    "modifiers": [
+      {
+        "type": "tfc:damage_crafting_remainder"
+      }
+    ]
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "afc"
+    }
+  ]
+}

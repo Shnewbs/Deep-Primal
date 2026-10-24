@@ -1,0 +1,1 @@
+WATER_DIRECTION_BLEND_NATIVE_PASS samples=160 renders=224 directions=16 origins=2 oldAndNewEndpoints=true intermediateRGBA=true tolerance=1 isolatedGpuReleased=true scope=controlledProductionShaderNotFullStreamAcceptance

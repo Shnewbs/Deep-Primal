@@ -1,0 +1,12 @@
+[09:36:32] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+CLOSED_WATER_START mode=reload firstVisits=128 initialUnitsSha=4aade3a61bdcd076efecbd5971a75104c2a6c1e09a7a952a12c5a9c14a8d2e84
+CLOSED_WATER_PROGRESS tick=100 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_DRAIN_GAP_RELOADED noOriginInjection=true
+CLOSED_WATER_PROGRESS tick=200 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=300 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+CLOSED_WATER_PROGRESS tick=400 pending=1 physics=Diagnostics[active=0, pressure=0, processed=0, pressureVisits=0, drainVisits=0, transfers=0] upper=-1
+java.lang.AssertionError: Settled routes release all work/watches
+java.lang.AssertionError: Settled routes release all work/watches
+[09:36:57] [Server thread/ERROR] [minecraft/MinecraftServer]: This crash report has been saved to: /workspace/scratch/98befbcef095/engine-drain-reload/run-final-reload/crash-reports/crash-2026-10-22_09.36.57-server.txt
+[09:36:59] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BUILD SUCCESSFUL in 42s

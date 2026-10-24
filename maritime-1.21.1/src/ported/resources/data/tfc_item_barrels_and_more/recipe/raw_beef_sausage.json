@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "SN "
+  ],
+  "key": {
+    "M": {
+      "item": "tfc_item_barrels_and_more:raw_ground_beef"
+    },
+    "S": {
+      "item": "tfc:powder/salt"
+    },
+    "N": {
+      "item": "tfc:powder/saltpeter"
+    }
+  },
+  "result": {
+    "count": 3,
+    "id": "tfc_item_barrels_and_more:raw_beef_sausage"
+  }
+}

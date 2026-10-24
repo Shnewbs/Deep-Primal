@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "archived_files_verified": 156,
+  "sessions": 8,
+  "final_runtime_fixture_identity": true,
+  "independent_steady_packet_hash_oracle": true,
+  "scope": "Replay of retained native output, not a new native execution. Performance remains unaccepted."
+}

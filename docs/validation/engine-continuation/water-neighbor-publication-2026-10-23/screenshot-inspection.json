@@ -1,0 +1,22 @@
+{
+  "selected_route": 2409,
+  "files": [
+    "vulkan-corners-neighbor-baseline/corner-0-2409-0.png",
+    "vulkan-corners-neighbor-baseline/corner-0-2409-1.png",
+    "vulkan-corners-neighbor-candidate/corner-0-2409-0.png",
+    "vulkan-corners-neighbor-candidate/corner-0-2409-1.png",
+    "vulkan-corners-neighbor-candidate-packaged/corner-0-2409-0.png",
+    "vulkan-corners-neighbor-candidate-packaged/corner-0-2409-1.png",
+    "vulkan-corners-neighbor-baseline/screenshots/corners-scene-before.png",
+    "vulkan-corners-neighbor-candidate/screenshots/corners-scene-before.png",
+    "vulkan-corners-neighbor-candidate-packaged/screenshots/corners-scene-before.png",
+    "vulkan-reuse-gl-corners-neighbor-candidate/screenshots/order-live-frame-1.png"
+  ],
+  "scope": "controlled actual-upload edge reprojected to identical world points; fresh lake screenshots for artifact inspection, not full streams/ocean/FPS acceptance",
+  "observations": [
+    "Selected baseline route2409 has a visible left/right phase-color mismatch. Both Vulkan candidate counterparts match.",
+    "Baseline scene image follows fresh world creation and has incomplete distant loading; it is not matched scene A/B evidence.",
+    "Candidate lake/shore renders; rectangular distant LOD/horizon boundaries remain visible.",
+    "No sustained flowing stream/ocean or FPS acceptance follows from controlled edge comparisons."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/lumber/aspen"
+    },
+    {
+      "item": "tfc:wood/barrel/aspen"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/aspen/item_barrel"
+  }
+}

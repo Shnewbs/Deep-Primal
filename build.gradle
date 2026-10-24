@@ -132,7 +132,7 @@ ext.minecraftClasspath = configurations.compileClasspath.copyRecursive().files.t
 if (findProject(':renderer-vulkan') != null) evaluationDependsOn(':renderer-vulkan')
 def bundleVulkan = findProject(':renderer-vulkan') != null && (project.hasProperty('vulkanPlatform') || project.hasProperty('bundleVulkan'))
 def bundleLod = !project.hasProperty('withoutLod')
-def modules = [':engine-core', ':performance-engine', ':graphics-settings']
+def modules = [':engine-core', ':performance-engine', ':graphics-settings', ':gui-themes']
 if (bundleLod) modules.add(':lod-engine')
 if (bundleVulkan) modules.add(':renderer-vulkan')
 modules.each { path ->
@@ -152,6 +152,10 @@ dependencies {
 neoForge.mods {
  deepprimal_performance { sourceSet(project(':performance-engine').sourceSets.main) }
  deepprimal_graphics { sourceSet(project(':graphics-settings').sourceSets.main) }
+ deepprimal_themes { sourceSet(project(':gui-themes').sourceSets.main) }
+}
+if (project.hasProperty('themeValidation')) {
+ neoForge.mods.deepprimal_themes.sourceSet(project(':gui-themes').sourceSets.validation)
 }
 if (bundleLod) neoForge.mods { deepprimal_lod { sourceSet(project(':lod-engine').sourceSets.main) } }
 if (findProject(':renderer-vulkan') != null) {

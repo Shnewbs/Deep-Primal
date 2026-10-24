@@ -1,0 +1,1 @@
+WATER_SIDE_MATERIAL_RESULT pass=false routes=320 renders=3840 samples=3200 readbacks=1929 readbackBytes=1666656 badVertices=25740 channelsBeyondTolerance=3850240 maxChannelError=192 tolerance=1 stillHistoryViolations=0 scope=controlledActualProductionSideUploadsAndShaderNotFullStreamAcceptance

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:metal/sheet/brass"
+    },
+    {
+      "item": "tfc:lens"
+    },
+    {
+      "item": "tfc:metal/rod/brass"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wind_gauge"
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "path": "runtime-product-classes/candidate-renderer.class",
+    "bytes": 54595,
+    "sha256": "2d2c34f139d4f657567b1dfff059728447d8675e70f176c12caf7611573d72ba"
+  },
+  {
+    "path": "runtime-product-classes/candidate-page.class",
+    "bytes": 2265,
+    "sha256": "2cb6dc5a520295d105af0b557f104dc8248ed13580134c5bc61de7380c739230"
+  },
+  {
+    "path": "runtime-product-classes/candidate-packet.class",
+    "bytes": 8599,
+    "sha256": "1a510367eecb016d253523f46fc538840dffba303c67b8e15ed875856b6ce041"
+  },
+  {
+    "path": "runtime-product-classes/candidate-retry.class",
+    "bytes": 1125,
+    "sha256": "9f930cdb9f2ca2827c096770271ec23a4648ff3bd01b25dc803f4ef5907611f2"
+  },
+  {
+    "path": "runtime-product-classes/control-renderer.class",
+    "bytes": 50970,
+    "sha256": "215a7b48f15c324c09ed7c2a40639f95417cbb96ef72d7d37f71d8c4698f6d6e"
+  }
+]

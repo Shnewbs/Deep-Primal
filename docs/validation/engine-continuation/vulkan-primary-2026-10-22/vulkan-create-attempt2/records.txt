@@ -1,0 +1,11 @@
+[15:17:02] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true
+WORLD_CREATION_FORM_PASS mode=fresh prepareMs=1337.32085
+[15:17:15] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+WORLD_CREATION_JOIN_PASS revision=3 backend=Vulkan
+[15:17:20] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[15:17:22] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+WORLD_CREATION_PASS
+VULKAN_SHUTDOWN_FAILURE_QUEUED
+[15:17:22] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[15:17:23] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorReuse=2843, pipelineFeedbackValid=42, descriptorBinds=27474, validationErrors=0, pipelineCreates=42, descriptorBindSkips=0, pipelineCreationNanos=63415412, descriptorUpdates=24631, pipelineCacheHits=0}
+BUILD SUCCESSFUL in 38s

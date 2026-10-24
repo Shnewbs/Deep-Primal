@@ -1,0 +1,1 @@
+WATER_FADE_CONTINUITY_NATIVE_PASS retainedBytes=46080 repeatedEmptyUpdates=3 fadeMillis=100 noExtension=true rewetContinuous=true newerEditGuard=true isolatedGpuReleased=true scope=actualWaterGpuMeshesControlledClockNotCompleteSceneFlickerAcceptance

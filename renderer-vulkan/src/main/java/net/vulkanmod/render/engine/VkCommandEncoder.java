@@ -133,7 +133,6 @@ public class VkCommandEncoder implements CommandEncoderBackend {
       } else if (depthTexture != null && depthTexture.isClosed()) {
         throw new IllegalStateException("Depth texture is closed");
       } else {
-        this.inRenderPass = true;
         GpuTexture depthTexture1 = depthTexture != null ? depthTexture.texture() : null;
         VkFbo fbo = ((VkTextureView) colorAttachmentView).getFbo(depthTexture1);
         fbo.bind();
@@ -159,6 +158,9 @@ public class VkCommandEncoder implements CommandEncoderBackend {
 
         VkState._viewport(0, 0, colorAttachmentView.getWidth(0), colorAttachmentView.getHeight(0));
         this.lastPipeline = null;
+        // Binding may lazily begin a frame and drain fenced readback completions.
+        // Those completions still run outside this public render pass.
+        this.inRenderPass = true;
         return new VkRenderPass(this, depthTexture != null, true);
       }
     }

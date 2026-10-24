@@ -1,0 +1,23 @@
+{
+  "parent": "918675d09983a3856b64420d3eb542ce32a250a7",
+  "parent_inputs_checked": 510,
+  "parent_inputs_unchanged": 508,
+  "changed": [
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "before_git_blob_sha": "8de8f12071b0a1804a72fd1dcfc356586a9935b3",
+      "after_git_blob_sha": "d3094d5574e26f1742aed256c92a24060e31586f",
+      "sha256": "8419f341ff9ef17f45f2fd2cab8ab0af8adeb2ef393e3b0ba45ddae838dc5fdb"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+      "before_git_blob_sha": "592c9ee5b169675171ff6fda8a71ef3c2b288e8f",
+      "after_git_blob_sha": "3a784cc3da5230b898ae22acce21202b9f1163a9",
+      "sha256": "c27486fda78b5668af82426fb5a0811116f1f4f363e092650c09a64ffdd73e1e"
+    }
+  ],
+  "new_validation_file": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodIndexMergeChecks.java",
+  "production_files_changed": 1,
+  "validation_files_changed_or_added": 2,
+  "water_runtime_core_vulkan_and_frozen_geography_unchanged": true
+}

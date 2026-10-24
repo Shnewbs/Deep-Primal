@@ -1,0 +1,21 @@
+{
+  "pass": true,
+  "candidate_sessions": [
+    {
+      "case": "vulkan-corners-shared-final-retry",
+      "runtime_renderer_sha256": "2d2c34f139d4f657567b1dfff059728447d8675e70f176c12caf7611573d72ba"
+    },
+    {
+      "case": "vulkan-corners-shared-final-retry-packaged",
+      "runtime_renderer_sha256": "2d2c34f139d4f657567b1dfff059728447d8675e70f176c12caf7611573d72ba"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-retry",
+      "runtime_renderer_sha256": "2d2c34f139d4f657567b1dfff059728447d8675e70f176c12caf7611573d72ba"
+    }
+  ],
+  "compiled_renderer_sha256": "2d2c34f139d4f657567b1dfff059728447d8675e70f176c12caf7611573d72ba",
+  "retry_fixture_sha256": "27934bd71eed23d133dffb55a62dd366db09744866bb9cfcdfb5386a207ddc82",
+  "all_candidate_runtime_compiled_identities_match": true,
+  "baseline_source_renderer_sha256": "215a7b48f15c324c09ed7c2a40639f95417cbb96ef72d7d37f71d8c4698f6d6e"
+}

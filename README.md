@@ -1,8 +1,8 @@
 # Deep Primal
 
-**0.0.1-alpha.24 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
+**0.0.1-alpha.25-merged.1 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Deep Primal is a standalone survival total conversion under development. Alpha 24 adds version-three drainage and lake spill planning, corrects connected-ocean/lake classification and river inlet/estuary continuity, refines valley banks and coastal relief, and fixes shared water surfaces across vertical block/section boundaries. It reuses cave/column math and fluid-search storage, and protects optional Vulkan cleanup from a rejected completion. Native creation, saved geography, water, graphics, settings and packaging were audited repeatedly. The larger engine/terrain/LOD requirement register remains unfinished. Deep Primal remains the product name; the historical standalone-engine experiment is not shipped.
+Deep Primal is a standalone survival total conversion under development. This experimental consolidated build brings the engine, Vulkan, waterways and GUI work together on main. It includes the completed R44 water retirement fix and Themes alpha.8, with the Journal background fix, HUD editor and eight 4K menu scenes. The maritime-1.21.1 project is preserved in this repository as a separate Minecraft 1.21.1/TFC build; its incompatible classes are not bundled into the 26.1.2 installer. Engine completion and Windows GPU validation remain open. See [branch consolidation](docs/BRANCH-CONSOLIDATION.md) for exact inputs and verification.
 
 ## Current foundation
 
@@ -17,7 +17,7 @@ The LOD currently extends **explored/delivered chunks only**. A 208- or 512-chun
 
 ## Install and inspect
 
-Install **one** matching Deep Primal JAR in `mods`, replacing the earlier Deep Primal JAR. The default installer is the small OpenGL build. The `vulkan-windows` installer is an alternative with the optional Windows backend bundled; OpenGL remains its initial API until selected and restarted. Do not install both installers or duplicate their nested modules.
+Install **one** matching Deep Primal JAR in `mods`, replacing the earlier Deep Primal JAR. The default installer is the small OpenGL build. The `vulkan-windows` installer is an alternative with the optional Windows backend bundled; OpenGL remains its initial API until selected and restarted. Do not install both installers or duplicate their nested modules. Remove any separate Deep Primal Themes JAR when using this combined installer; the themes module is included. Choose a theme from the Themes button or Mods configuration. All eight 4K menu images are retained, so this installer is larger than the earlier engine-only JAR.
 
 Create a **new normal world** to inspect V3 geography. Existing `continental_v1` and `continental_v2` worlds retain their saved generator, explored terrain and height. The update does not migrate or delete saves. V3 geography is frozen for the supplied alpha 24 installers; further terrain changes need a new saved revision. `config/deepprimal-worldgen.toml` defaults to `builtInTerrainEngine = true`. Set `extraUndergroundDepth = true` and restart before creation for Y=-384..639 instead of -128..639. Legacy river-profile switches apply only when creating legacy terrain with the built-in engine disabled.
 
@@ -33,7 +33,7 @@ Use Java 25 and the Gradle wrapper:
 ./gradlew build -PvulkanPlatform=linux
 ```
 
-The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.24.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics and LOD. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
+The default output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-merged.1.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics, LOD and GUI themes. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
 
 ## Scope and evidence
 

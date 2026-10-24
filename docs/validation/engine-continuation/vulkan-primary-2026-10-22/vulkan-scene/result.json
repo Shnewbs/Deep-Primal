@@ -1,0 +1,23 @@
+{
+  "case": "vulkan-scene",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 27.02,
+  "build_successful": false,
+  "records": [
+    "[15:17:45] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "java.lang.AssertionError: Wrong backend OpenGL",
+    "java.lang.AssertionError: Wrong backend OpenGL",
+    "[15:18:00] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID f1e762e4-d59b-44cc-bf05-ca18977de709",
+    "java.lang.AssertionError: Wrong backend OpenGL",
+    "\tBackend API: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[15:18:00] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 021e3189-470e-41e8-ae3c-3068f407b601"
+  ],
+  "console_sha256": "3a77b0495563e59c3be41e31e563d3e391ded2e3a17fa1193921c7081759a6f6",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_15.18.00-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

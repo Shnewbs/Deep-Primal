@@ -1,0 +1,73 @@
+{
+  "pass": true,
+  "changes_since_r42": [
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+      "kind": "production",
+      "before_sha256": "dc04466472a1ec83372c03d5e78c788c3125f628ec86d98a7230c22e349cebe8",
+      "after_sha256": "e49231067c5008261e6db5f397a6a707397d2637ea759eb25acb8c19751a0355"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+      "kind": "validation",
+      "before_sha256": "d1024c7c88b9152e6c81e2d1489754d6ada6f115ec38733e8fa2acdb769cd779",
+      "after_sha256": "53f9d9142bb114829c384c0e7e69ac1e2bcf7cc0b58e81766240d6919d05c2bc"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerRetryChecks.java",
+      "kind": "validation",
+      "before_sha256": null,
+      "after_sha256": "48b26f1aee529288a46426fe123b78830a3e551a686ad614ac2177e2dbe0272d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+      "kind": "production",
+      "before_sha256": "20753c5288e2831619154fa19f3f1d3040a884a4dccde92cc4a36f7fbea1614a",
+      "after_sha256": "b2af8ba0b5e1a9209883b7bde746a26ef34664490f2a071427996502b0f6a81d"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "kind": "validation",
+      "before_sha256": "75e420b7e9e50ee00e6e6288157bdcf5a3d4bdab7e596c10d1290dd9dd7c667e",
+      "after_sha256": "6bc2358eb3c9688ae88f0ad0ee1d32185d463fd3c4f27f0db31b755a0d01c8fc"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryRetryChecks.java",
+      "kind": "validation",
+      "before_sha256": null,
+      "after_sha256": "a0ea77b05927267e594cb92db366fe8db525880bf9ab0a50f6337159e87eeabf"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPublicationFailureChecks.java",
+      "kind": "validation",
+      "before_sha256": "56e607da6043d21cd516f8f04567d7888697136de75df52937a95cd7755b6238",
+      "after_sha256": "6e5b87e6efc360a0ae69a77df8ec360dae347132c332e0ae523466bfc5d70839"
+    }
+  ],
+  "other_prior_inputs_identical": 581,
+  "source_inputs": 588,
+  "staged_files": 26,
+  "production_files": 6,
+  "validation_files": 20,
+  "retirement_method_unchanged": true,
+  "mandatory_retry_service_consumes_shared_optional_admission_time": true,
+  "defer_only_GPU_range_write_RuntimeException": true,
+  "normal_successful_publication_still_synchronous": true,
+  "retained_range_limit": 16,
+  "retained_vertex_bytes_limit": 1048576,
+  "retained_masks_raw_byte_bound": 7281,
+  "transient_retry_bytes_limit": 65520,
+  "retry_writes_per_frame": 1,
+  "stale_headers_per_frame": 16,
+  "per_page_generation_raw_bytes": 8,
+  "other_object_headers_full_process_GPU_peak_memory_not_accepted": true,
+  "queue_cancelled_on_new_full_upload_new_neighbor_material_release_reset": true,
+  "supersession_requests_fresh_mesh_for_unaccepted_old_corners": true,
+  "overflow_requests_fresh_mesh_without_dropping_existing_GPU_coverage": true,
+  "completed_retried_pairs_become_steady_using_full_elapsed_clock": true,
+  "current_nonmaterial_and_unselected_material_preserved": true,
+  "queue_retained_bytes_debited_only_when_whole_range_released": true,
+  "permanent_failure_limit": "Three consecutive recovery-write failures per retained range; original cause preserved. Initial synchronous failure is separate.",
+  "scope_limits": "Native faults occur before backend writes, including a consumed ByteBuffer position. Partial-postwrite failures and asynchronous/device loss are not atomicity acceptance. Private pages are nondrawn, and normal full-cohort/frame2ms/visible scene acceptance remains open.",
+  "solver_quantity_geometry_geography_or_vertex_shader_changes": false
+}

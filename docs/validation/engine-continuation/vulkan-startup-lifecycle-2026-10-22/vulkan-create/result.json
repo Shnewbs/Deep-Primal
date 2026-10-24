@@ -1,0 +1,32 @@
+{
+  "case": "vulkan-create",
+  "started_utc": "2026-10-22T21:31:03.175944+00:00",
+  "finished_utc": "2026-10-22T21:31:42.209021+00:00",
+  "exit_code": 0,
+  "timeout": false,
+  "elapsed_seconds": 39.03,
+  "build_successful": true,
+  "records": [
+    "[17:31:15] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[17:31:23] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[17:31:23] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=0",
+    "[17:31:26] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x9c600000009c6, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x9c700000009c7, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[17:31:28] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[17:31:30] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x9c600000009c6, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x9c700000009c7, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "WORLD_CREATION_FORM_PASS mode=fresh prepareMs=1126.41802",
+    "WORLD_CREATION_JOIN_PASS revision=3 backend=Vulkan",
+    "WORLD_CREATION_PASS",
+    "VULKAN_SHUTDOWN_FAILURE_QUEUED",
+    "[17:31:40] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE savedBytes=32",
+    "[17:31:40] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_SHADER_CACHE compiled=96 hits=108 outstandingResults=0",
+    "[17:31:40] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0",
+    "[17:31:40] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {validationErrors=0, descriptorBinds=28535, pipelineFeedbackValid=36, descriptorReuse=3031, pipelineCacheHits=0, descriptorUpdates=25504, pipelineCreationNanos=41918341, descriptorBindSkips=0, pipelineCreates=36}"
+  ],
+  "console_sha256": "435354914fb633e2fbb16231ae9be30e830cb29d79a320d068d57559fd904054",
+  "screenshots": [
+    "screenshots/creation-form.png"
+  ],
+  "crash_reports": [],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

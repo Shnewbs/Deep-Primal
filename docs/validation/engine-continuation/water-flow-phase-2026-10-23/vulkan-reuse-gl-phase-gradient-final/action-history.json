@@ -1,0 +1,97 @@
+[
+  {
+    "action": "backend-check=OpenGL",
+    "completed": true,
+    "elapsed": 22.03
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 25.03
+  },
+  {
+    "action": "audit-lake-camera",
+    "completed": true,
+    "elapsed": 30.03
+  },
+  {
+    "action": "water-flow-phase-check",
+    "completed": true,
+    "elapsed": 31.03
+  },
+  {
+    "action": "water-side-uv-check",
+    "completed": true,
+    "elapsed": 32.03
+  },
+  {
+    "action": "water-side-uv-upload-check",
+    "completed": true,
+    "elapsed": 33.04
+  },
+  {
+    "action": "water-flow-texture-check",
+    "completed": true,
+    "elapsed": 34.04
+  },
+  {
+    "action": "water-page-order-check",
+    "completed": true,
+    "elapsed": 35.04
+  },
+  {
+    "action": "water-view=true,true,true",
+    "completed": true,
+    "elapsed": 38.04
+  },
+  {
+    "action": "water-page-order-check=waves-enabled",
+    "completed": true,
+    "elapsed": 39.04
+  },
+  {
+    "action": "water-view=true,false,false",
+    "completed": true,
+    "elapsed": 42.05
+  },
+  {
+    "action": "water-page-order-check=lod-disabled",
+    "completed": true,
+    "elapsed": 43.05
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 45.05
+  },
+  {
+    "action": "water-partial-fade-check",
+    "completed": true,
+    "elapsed": 46.05
+  },
+  {
+    "action": "water-gpu-reuse-check",
+    "completed": true,
+    "elapsed": 47.06
+  },
+  {
+    "action": "water-fade-continuity-check",
+    "completed": true,
+    "elapsed": 48.06
+  },
+  {
+    "action": "reuse-gl-recovery",
+    "completed": true,
+    "elapsed": 50.06
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 55.06
+  },
+  {
+    "action": "water-flow-texture-check=after-reload",
+    "completed": true,
+    "elapsed": 56.06
+  }
+]

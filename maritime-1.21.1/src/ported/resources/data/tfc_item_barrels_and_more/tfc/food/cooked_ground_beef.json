@@ -1,0 +1,9 @@
+{
+  "ingredient": {
+    "item": "tfc_item_barrels_and_more:cooked_ground_beef"
+  },
+  "hunger": 3,
+  "saturation": 0,
+  "decay_modifier": 1.8,
+  "protein": 2
+}

@@ -1,0 +1,29 @@
+{
+  "parent": "653c5bcdf11d405bf6b591ce2f2849ae44334876",
+  "parent_inputs_checked": 512,
+  "parent_inputs_unchanged": 509,
+  "changed": [
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+      "before_git_blob_sha": "2a073d7090810add84dc50dce019f91d4ed3253c",
+      "after_git_blob_sha": "cc1b26ac85b8d9260c06307d4d56d8959b845b6a",
+      "sha256": "5233114165cbf8b68bbab5fa16312a6729b86d4d66bde09e296173892e3f26d2"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/graphics/WaterGpuMesh.java",
+      "before_git_blob_sha": "d9737413c75dc24eb8c3416bf1430ea10830c5f3",
+      "after_git_blob_sha": "0b5ce79d33b8fc8cad6fd66735f032925665faf6",
+      "sha256": "31699b64f8d115003d7221e600627e65c80cbe746d97f05dc79a9c1eda76eafa"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "before_git_blob_sha": "3125bedaade15c8fbe232feeef91b8242d96b3ec",
+      "after_git_blob_sha": "416cc1395e74e1043e9e362d48128814a9dcad9d",
+      "sha256": "3ab3b60951d52041920ae1789190c88dcb26268b1e0f48d36b1394eb3ce8de9a"
+    }
+  ],
+  "new_validation_file": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterGpuReuseChecks.java",
+  "production_files_changed": 2,
+  "validation_files_changed_or_added": 2,
+  "authoritative_water_runtime_core_lod_vulkan_and_frozen_geography_unchanged": true
+}

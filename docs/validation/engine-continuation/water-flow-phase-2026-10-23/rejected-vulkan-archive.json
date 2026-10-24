@@ -1,0 +1,10 @@
+{
+  "path": "water-flow-phase-0507/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+  "bytes": 10192270,
+  "sha256": "1b777b6e9aecd95392149612350ba38f5d8452c36d3388f79ea23e20b971ef60",
+  "head_hex": "504b030414000008080000004100000000000200000000000000090000004d4554412d494e462f0300504b030414000008080000004100b27f02ee1b00000019",
+  "tail_hex": "43895d6b6d43d7ca21259673d43b1a39d4f47dee4d5d3b3954d346b8f89c2c873226a8c205e82bccbb1dce0a3da350b8d83af80897aae1aa70d9bf8b04c90bff",
+  "accepted": false,
+  "classification": "jarJar rejected dependency; archive is not ZIP",
+  "cause": "unresolved"
+}

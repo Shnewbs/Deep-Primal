@@ -1,0 +1,1 @@
+WATER_MATERIAL_NATIVE_PASS routes=64 renders=768 samples=640 readbacks=393 readbackBytes=282960 stillToFlow=true flowToStill=true mipControls=true nearFarCells=true repeatedQueuedStale=true stillHistorySparse=true lightPreserved=true historyReset=true vertexStride=36 isolatedGpuReleased=true scope=controlledActualProductionUploadsAndShaderNotFullStreamAcceptance

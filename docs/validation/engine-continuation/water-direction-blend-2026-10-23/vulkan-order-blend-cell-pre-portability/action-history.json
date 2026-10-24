@@ -1,0 +1,137 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 29.03
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 32.03
+  },
+  {
+    "action": "audit-lake-camera",
+    "completed": true,
+    "elapsed": 37.04
+  },
+  {
+    "action": "water-direction-blend-check",
+    "completed": true,
+    "elapsed": 38.04
+  },
+  {
+    "action": "water-direction-upload-check",
+    "completed": true,
+    "elapsed": 39.04
+  },
+  {
+    "action": "water-flow-phase-check",
+    "completed": true,
+    "elapsed": 40.04
+  },
+  {
+    "action": "water-side-uv-check",
+    "completed": true,
+    "elapsed": 41.04
+  },
+  {
+    "action": "water-side-uv-upload-check",
+    "completed": true,
+    "elapsed": 42.04
+  },
+  {
+    "action": "water-flow-texture-check",
+    "completed": true,
+    "elapsed": 43.04
+  },
+  {
+    "action": "water-page-order-check",
+    "completed": true,
+    "elapsed": 45.05
+  },
+  {
+    "action": "water-view=true,true,true",
+    "completed": true,
+    "elapsed": 48.05
+  },
+  {
+    "action": "water-page-order-check=waves-enabled",
+    "completed": true,
+    "elapsed": 50.05
+  },
+  {
+    "action": "water-view=true,false,false",
+    "completed": true,
+    "elapsed": 53.05
+  },
+  {
+    "action": "water-page-order-check=lod-disabled",
+    "completed": true,
+    "elapsed": 54.05
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 56.06
+  },
+  {
+    "action": "water-partial-fade-check",
+    "completed": true,
+    "elapsed": 57.06
+  },
+  {
+    "action": "water-gpu-reuse-check",
+    "completed": true,
+    "elapsed": 58.06
+  },
+  {
+    "action": "water-fade-continuity-check",
+    "completed": true,
+    "elapsed": 59.06
+  },
+  {
+    "action": "lod-index-merge-check",
+    "completed": true,
+    "elapsed": 60.06
+  },
+  {
+    "action": "lod-upload-retry-check",
+    "completed": true,
+    "elapsed": 61.06
+  },
+  {
+    "action": "lod-disk-recovery-check",
+    "completed": true,
+    "elapsed": 62.07
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 63.07
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 65.07
+  },
+  {
+    "action": "order-recovery",
+    "completed": true,
+    "elapsed": 67.07
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 72.08
+  },
+  {
+    "action": "water-flow-texture-check=after-reload",
+    "completed": true,
+    "elapsed": 73.08
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 74.08
+  }
+]

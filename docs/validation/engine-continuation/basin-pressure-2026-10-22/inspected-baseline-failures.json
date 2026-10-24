@@ -1,0 +1,44 @@
+[
+  {
+    "case": "transfer-before",
+    "gradle_exit": 0,
+    "native_pass": false,
+    "observations": [
+      "DRAIN_TRANSFER_OBSERVED turns=3 from=15 to=0 outlet=1 source=14 total=4127 visits=257 maxSlice=128"
+    ],
+    "failures": [
+      "java.lang.AssertionError: Head-limited distant wet-path transfer: expected=4 actual=1",
+      "[13:09:30] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Head-limited distant wet-path transfer: expected=4 actual=1"
+    ],
+    "crashes": [
+      {
+        "file": "crash-2026-10-22_13.09.30-server.txt",
+        "sha256": "73c4cf7282a4d8dc43200db97ddade682060ea0a398030146193926962c0dac3",
+        "inspected_stack": "java.lang.AssertionError: Head-limited distant wet-path transfer: expected=4 actual=1\n\tat TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.DrainTransferChecks.check(DrainTransferChecks.java:20) ~[main/:?] {}\n\tat TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.DrainTransferChecks.start(DrainTransferChecks.java:55) ~[main/:?] {}\n\tat net.neoforged.bus.EventBus.post(EventBus.java:360) ~[bus-8.0.5.jar:?] {}\n\tat net.neoforged.bus.EventBus.post(EventBus.java:328) ~[bus-8.0.5.jar:?] {}\n\tat TRANSFORMER/neoforge@26.1.2.122/net.neoforged.neoforge.server.ServerLifecycleHooks.handleServerStarted(ServerLifecycleHooks.java:106) ~[neoforge-26.1.2.122-universal.jar:?] {}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:739) [minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:300) [minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat java.base/java.lang.Thread.run(Thread.java:1474) [?:?] {}"
+      }
+    ],
+    "interpretation": "Expected baseline reproduction fails native acceptance despite Gradle exit zero."
+  },
+  {
+    "case": "basin-before",
+    "gradle_exit": 0,
+    "native_pass": false,
+    "observations": [
+      "BASIN_AUDIT_FINAL ticks=3200 upper=368 bottom=7697 total=8192 pending=681 firstSettledTick=0 idleSamples=0 totalDrainVisits=18987408 totalPressureVisits=5291264 totalTransfers=84999 drain=DrainDiagnostics[jobs=14, retainedNodes=3035, watchedChunks=10, restarts=37330, completed=27308, saturated=0, maxSliceVisits=128, waitingJobs=0, waitingChunks=0, waitingLinks=0, readyProbes=0, readyPending=0, pending=522, admissionVisits=3072] medianLevelTickMs=2.791946 p95LevelTickMs=4.586631 unitsSha=261d1fc9253720f628944d5ced32cc50a1ff191da34ab894705fe60bd8cdee27 flowSha=110a00d68aeeddbb8572fafa911a8d7462ba931a4cc2c5d67f7c2a3aca890fd9"
+    ],
+    "failures": [
+      "java.lang.AssertionError: The closed stepped basin must drain fully: upper=368 bottom=7697 pending=681",
+      "[13:15:03] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: The closed stepped basin must drain fully: upper=368 bottom=7697 pending=681"
+    ],
+    "crashes": [
+      {
+        "file": "crash-2026-10-22_13.15.03-server.txt",
+        "sha256": "6d34c4293d73f8e5f76dad0ce0ea2142ddf817aedb7dd5c1670990d1aabd8187",
+        "inspected_stack": "java.lang.AssertionError: The closed stepped basin must drain fully: upper=368 bottom=7697 pending=681\n\tat TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.ClosedWaterChecks.check(ClosedWaterChecks.java:34) ~[main/:?] {}\n\tat TRANSFORMER/deepprimal@0.0.1-alpha.25-dev/com.shnewbs.deepprimal.validation.ClosedWaterChecks.post(ClosedWaterChecks.java:217) ~[main/:?] {}\n\tat net.neoforged.bus.EventBus.post(EventBus.java:360) ~[bus-8.0.5.jar:?] {}\n\tat net.neoforged.bus.EventBus.post(EventBus.java:328) ~[bus-8.0.5.jar:?] {}\n\tat TRANSFORMER/neoforge@26.1.2.122/net.neoforged.neoforge.event.EventHooks.fireLevelTickPost(EventHooks.java:1010) ~[neoforge-26.1.2.122-universal.jar:?] {}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1156) ~[minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1003) ~[minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:357) ~[minecraft-patched-26.1.2.122.jar:?] {}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1035) ~[minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:776) [minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat TRANSFORMER/minecraft@26.1.2/net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:300) [minecraft-patched-26.1.2.122.jar:?] {neoforge:access_transformer}\n\tat java.base/java.lang.Thread.run(Thread.java:1474) [?:?] {}"
+      }
+    ],
+    "interpretation": "Expected baseline reproduction fails native acceptance despite Gradle exit zero."
+  }
+]

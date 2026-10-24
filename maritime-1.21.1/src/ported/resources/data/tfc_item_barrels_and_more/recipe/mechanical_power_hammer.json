@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RAA",
+    "RAA",
+    " TT"
+  ],
+  "key": {
+    "T": [
+      {
+        "tag": "c:double_ingots/cast_iron"
+      }
+    ],
+    "R": [
+      {
+        "tag": "c:rods/cast_iron"
+      }
+    ],
+    "A": [
+      {
+        "item": "tfc:metal/double_sheet/cast_iron"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:mechanical_power_hammer"
+  }
+}

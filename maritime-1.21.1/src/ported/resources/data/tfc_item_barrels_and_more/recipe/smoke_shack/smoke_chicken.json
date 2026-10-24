@@ -1,0 +1,17 @@
+{
+  "type": "tfc_item_barrels_and_more:smoke_shack",
+  "ingredient": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc:food/chicken"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "cooked_result": {
+    "id": "tfc:food/cooked_chicken"
+  }
+}

@@ -6,7 +6,25 @@ import java.util.Arrays;
 public final class WaterPatchMesher {
   public static final int SIZE = 18, CELLS = SIZE * SIZE * SIZE, STRIDE = 14;
 
-  public record Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors) {
+  private static final float[] FLOW_X = new float[16], FLOW_Z = new float[16];
+
+  static {
+    for (int d = 0; d < 16; d++) {
+      FLOW_X[d] = (float) Math.cos(d * Math.PI / 8);
+      FLOW_Z[d] = (float) Math.sin(d * Math.PI / 8);
+    }
+  }
+
+  /** Flow is captured with quantity; null retains the legacy still-water material. */
+  public record Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors, byte[] flow) {
+    public Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors) {
+      this(units, solid, lights, colors, null);
+    }
+
+    public int direction(int x, int y, int z) {
+      return flow == null ? 16 : flow[index(x, y, z)] & 255;
+    }
+
     public int water(int x, int y, int z) {
       return units[index(x, y, z)];
     }
@@ -26,6 +44,35 @@ public final class WaterPatchMesher {
     return ((y + 1) * SIZE + z + 1) * SIZE + x + 1;
   }
 
+  // Slot 10 retains the face in its low three bits and a flowing-direction code above it.
+  // Code zero means still; codes 1..16 mean directions 0..15. All values are exact floats.
+  public static int face(float material) {
+    return (int) material & 7;
+  }
+
+  public static int direction(float material) {
+    int code = (int) material >>> 3;
+    return code == 0 ? 16 : code - 1;
+  }
+
+  /** Periodic phase at a world cell origin; double intermediates retain distant/negative seams. */
+  public static float flowUOffset(int direction, int worldX, int worldZ) {
+    if (direction < 0 || direction >= 16) return 0;
+    double phase = .5 * ((double) FLOW_Z[direction] * worldX - (double) FLOW_X[direction] * worldZ);
+    return (float) (phase - Math.floor(phase));
+  }
+
+  public static float flowVOffset(int direction, int worldX, int worldZ) {
+    if (direction < 0 || direction >= 16) return 0;
+    double phase = .5 * ((double) FLOW_X[direction] * worldX + (double) FLOW_Z[direction] * worldZ);
+    return (float) (phase - Math.floor(phase));
+  }
+
+  public static float flowX(int direction) { return FLOW_X[direction]; }
+  public static float flowZ(int direction) { return FLOW_Z[direction]; }
+
+  private int flowMaterial;
+  private float flowX, flowZ;
   private float[] vertices = new float[8192];
   private int size;
   private final Snapshot current, previous;
@@ -48,6 +95,12 @@ public final class WaterPatchMesher {
           if (Thread.currentThread().isInterrupted())
             throw new java.util.concurrent.CancellationException();
           if (current.water(x, y, z) == 0 && m.previous.water(x, y, z) == 0) continue;
+          int direction = (current.water(x, y, z) > 0 ? current : m.previous).direction(x, y, z);
+          m.flowMaterial = direction < 16 ? (direction + 1) << 3 : 0;
+          if (m.flowMaterial != 0) {
+            m.flowX = FLOW_X[direction];
+            m.flowZ = FLOW_Z[direction];
+          }
           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
           if (top || oldTop) {
             int sub =
@@ -160,6 +213,18 @@ public final class WaterPatchMesher {
             | (int) ((color & 255) * shade);
     float textureU = (face == 2 || face == 4) ? v : u,
         textureV = face == 0 ? v : Math.clamp(1 - target, 0, 1);
+    if (flowMaterial != 0) {
+      if (face == 0) {
+        // The flowing sprite covers twice the still sprite's texel width. Rotate its
+        // central half tile so increasing V follows the captured horizontal flow.
+        float a = textureU - .5f, b = textureV - .5f;
+        textureU = .5f + .5f * (flowZ * a - flowX * b);
+        textureV = .5f + .5f * (flowX * a + flowZ * b);
+      } else {
+        textureU *= .5f;
+        textureV *= .5f;
+      }
+    }
     vertices[size++] = x + u;
     vertices[size++] = y;
     vertices[size++] = z + v;
@@ -170,7 +235,7 @@ public final class WaterPatchMesher {
     vertices[size++] = Float.intBitsToFloat(color);
     vertices[size++] = Float.intBitsToFloat(light);
     vertices[size++] = x | (z << 4) | (y << 8);
-    vertices[size++] = face;
+    vertices[size++] = face | flowMaterial;
     vertices[size++] = moving ? 1 : 0;
     vertices[size++] = was ? 1 : 0;
     vertices[size++] = next ? 1 : 0;

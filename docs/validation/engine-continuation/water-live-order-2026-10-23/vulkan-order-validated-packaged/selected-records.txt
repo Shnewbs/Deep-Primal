@@ -1,0 +1,90 @@
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar
+WATER_ORDER_PIXEL_OBSERVED order=near-first rgba=128,0,0,128
+WATER_ORDER_PIXEL_OBSERVED order=far-first rgba=128,0,64,192
+WATER_PAGE_ORDER_FRAME_PASS frame=1 visible=20 nanos=47685071426210 gameTime=23830 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=657792 animationTime=9846 waveBytes=0 wavePending=0 lodActive=true lodBytes=1566484 lodVisible=1 lodTriangles=195210
+WATER_PAGE_ORDER_FRAME_PASS frame=2 visible=20 nanos=47685172703966 gameTime=23832 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=657792 animationTime=9946 waveBytes=0 wavePending=0 lodActive=true lodBytes=1566484 lodVisible=1 lodTriangles=196888
+WATER_PAGE_ORDER_FRAME_PASS frame=3 visible=20 nanos=47685257757358 gameTime=23834 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=657792 animationTime=10032 waveBytes=0 wavePending=0 lodActive=true lodBytes=1566484 lodVisible=1 lodTriangles=198566
+WATER_PAGE_ORDER_NATIVE_PASS liveFrames=3 warmupStableFrames=12 mapPermutations=near-far-near minVisible=20 screenshots=3 productionPixelAB=true originalMapOrderRestored=true noWorldEdits=true scope=pageOrderNotFullTransparencyOrFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar
+WATER_ORDER_PIXEL_OBSERVED order=near-first rgba=128,0,0,128
+WATER_ORDER_PIXEL_OBSERVED order=far-first rgba=128,0,64,192
+WATER_PAGE_ORDER_FRAME_PASS frame=1 visible=19 nanos=47690172497245 gameTime=23931 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=663408 animationTime=14948 waveBytes=0 wavePending=0 lodActive=true lodBytes=2191440 lodVisible=1 lodTriangles=359654
+WATER_PAGE_ORDER_FRAME_PASS frame=2 visible=19 nanos=47690218540573 gameTime=23932 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=663408 animationTime=14993 waveBytes=0 wavePending=0 lodActive=true lodBytes=2191440 lodVisible=1 lodTriangles=361332
+WATER_PAGE_ORDER_FRAME_PASS frame=3 visible=19 nanos=47690265736876 gameTime=23933 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=663408 animationTime=15042 waveBytes=0 wavePending=0 lodActive=true lodBytes=2191440 lodVisible=1 lodTriangles=363010
+WATER_PAGE_ORDER_NATIVE_PASS liveFrames=3 warmupStableFrames=12 mapPermutations=near-far-near minVisible=19 screenshots=3 productionPixelAB=true originalMapOrderRestored=true noWorldEdits=true scope=pageOrderNotFullTransparencyOrFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar
+WATER_ORDER_PIXEL_OBSERVED order=near-first rgba=128,0,0,128
+WATER_ORDER_PIXEL_OBSERVED order=far-first rgba=128,0,64,192
+WATER_PAGE_ORDER_FRAME_PASS frame=1 visible=19 nanos=47695004478993 gameTime=24029 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=675216 animationTime=19779 waveBytes=0 wavePending=0 lodActive=false lodBytes=0 lodVisible=0 lodTriangles=398248
+WATER_PAGE_ORDER_FRAME_PASS frame=2 visible=19 nanos=47695043743808 gameTime=24030 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=675216 animationTime=19819 waveBytes=0 wavePending=0 lodActive=false lodBytes=0 lodVisible=0 lodTriangles=398248
+WATER_PAGE_ORDER_FRAME_PASS frame=3 visible=19 nanos=47695083120236 gameTime=24030 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=675216 animationTime=19856 waveBytes=0 wavePending=0 lodActive=false lodBytes=0 lodVisible=0 lodTriangles=398248
+WATER_PAGE_ORDER_NATIVE_PASS liveFrames=3 warmupStableFrames=12 mapPermutations=near-far-near minVisible=19 screenshots=3 productionPixelAB=true originalMapOrderRestored=true noWorldEdits=true scope=pageOrderNotFullTransparencyOrFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar
+WATER_PARTIAL_CLEANUP_PASS steadyVertices=20 retainedCpuBytes=0 arraysReused=true originalRetainedBytes=1120
+WATER_PARTIAL_FADE_LIFETIME_PASS retainedVertices=40 originalDeadline=201 rewetDeadline=251 samples=6 sameAllocation=true
+WATER_PARTIAL_GPU_SAMPLE_PASS time=125 fadingVertices=20 steadyVertices=20 opacity=0.75
+WATER_PARTIAL_GPU_SAMPLE_PASS time=150 fadingVertices=20 steadyVertices=20 opacity=0.5
+WATER_PARTIAL_GPU_SAMPLE_PASS time=150 fadingVertices=20 steadyVertices=20 opacity=0.5
+WATER_PARTIAL_GPU_SAMPLE_PASS time=175 fadingVertices=20 steadyVertices=20 opacity=0.625
+WATER_PARTIAL_GPU_SAMPLE_PASS time=225 fadingVertices=20 steadyVertices=20 opacity=0.875
+WATER_PARTIAL_GPU_SAMPLE_PASS time=250 fadingVertices=20 steadyVertices=20 opacity=1.0
+WATER_PARTIAL_FADE_NATIVE_PASS samples=6 retainedVertices=40 readbackBytes=8640 originalDeadline=201 rewetDeadline=251 sameAllocation=true completedPartialReleased=true retainedArraysReused=true cpuBytes=1120 isolatedGpuReleased=true scope=controlledPageGpuGeometryOpacityNotLiveScenePixels
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar
+WATER_GPU_REUSE_CAPACITY_PASS updates=16 smaller=true regrowth=true oversizedRetry=true closerCoveragePreserved=true
+WATER_GPU_REUSE_NATIVE_PASS targetBytes=46080 ballastBytes=33508224 updates=16 smallerAndRegrowth=true boundedGrowthRetry=true actualGpuPayloadBytes=288 isolatedGpuReleased=true scope=controlledGpuPagesNotLiveSceneFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar
+WATER_DRY_FADE_LIFETIME_PASS repeatedEmptyUpdates=3 deadline=201 noExtension=true released=true
+WATER_REWET_CONTINUITY_PASS displayedAtRetarget=0.5 target=1 newerEditGuard=true
+WATER_FADE_CONTINUITY_NATIVE_PASS retainedBytes=46080 repeatedEmptyUpdates=3 fadeMillis=100 noExtension=true rewetContinuous=true newerEditGuard=true isolatedGpuReleased=true scope=actualWaterGpuMeshesControlledClockNotCompleteSceneFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar
+LOD_INDEX_MERGE_NATIVE_PASS cases=4 indexBound=8192 existingOrderAndEditGuards=true nearestRemainingSlots=true completedScanReleased=true scope=controlledScanFutureActualNativeTick
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar
+LOD_UPLOAD_RETRY_GUARD_PASS control=dirty
+LOD_UPLOAD_RETRY_GUARD_PASS control=newer-revision
+LOD_UPLOAD_RETRY_GUARD_PASS control=not-persisted
+LOD_UPLOAD_RETRY_GUARD_PASS control=persistence-disabled
+LOD_UPLOAD_RETRY_GUARD_PASS control=obsolete-session
+LOD_UPLOAD_RETRY_NATIVE_PASS partialBytes=552 budgetReducedMiB=8-to-4 actualBallastBytes=4194304 blockedCalls=16 restored=true guards=5 isolatedGpuReleased=true
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar
+LOD_FIXED_VIEW_CAPACITY_PASS idleCalls=16 noDiskWorkUnderPressure=true freedCapacityRecovery=true actualGpuBallast=true
+LOD_EVICTION_ADMISSION_PASS control=dirty
+LOD_EVICTION_ADMISSION_PASS control=newer-revision
+LOD_EVICTION_ADMISSION_PASS control=not-persisted
+LOD_EVICTION_ADMISSION_PASS control=persistence-disabled
+LOD_QUEUED_EDIT_GUARD_PASS dirtyDisplacement=true staleReadRejected=true metadataReleased=true
+LOD_CAPTURE_PERSISTENCE_PASS realNativeChunk=true storedRevisionMatches=true
+LOD_DISK_RECOVERY_NATIVE_PASS backend=Vulkan retainedAfterOutside=1 diskReads=6 uploadedChunks=6 restored=true evictionCycles=4 fixedViewIdleCalls=16 freedCapacityRecovery=true actualGpuBallast=true editPersistenceControls=4 nativeCapturePersisted=true queuedEditGuard=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu
+VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-order-0229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar
+VULKAN_FRAME_COMPLETION_NATIVE_PASS iterations=8 mappedBytes=128 openPassRejections=8 backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+RESOURCE_RELOAD_PASS
+CLIENT_SAVED_DISCONNECT_PASS
+[22:53:46] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[22:53:46] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {descriptorReuse=113622, pipelineFeedbackValid=84, descriptorBinds=262807, validationErrors=0, pipelineCreates=84, descriptorBindSkips=17, pipelineCreationNanos=111443276, descriptorUpdates=149202, pipelineCacheHits=0}
+BUILD SUCCESSFUL in 1m 5s

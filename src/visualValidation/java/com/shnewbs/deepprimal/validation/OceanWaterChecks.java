@@ -86,7 +86,7 @@ public final class OceanWaterChecks {
         for (int i = 0;
             i < data.length;
             i += com.shnewbs.deepprimal.core.WaterPatchMesher.STRIDE * 4) {
-          int face = (int) data[i + 10], cell = (int) data[i + 9];
+          int face = (int) data[i + 10] & 7, cell = (int) data[i + 9];
           if (face < 1 || face > 4) continue;
           int wx = x + (cell & 15) + (face == 2 ? 1 : face == 4 ? -1 : 0);
           int wz = z + ((cell >> 4) & 15) + (face == 3 ? 1 : face == 1 ? -1 : 0);

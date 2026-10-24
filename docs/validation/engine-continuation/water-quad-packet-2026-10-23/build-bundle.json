@@ -1,0 +1,45 @@
+{
+  "archive": "build-evidence.tar.gz",
+  "bytes": 13672,
+  "sha256": "48f29f53f866d3892dbdf3705761a1b4f1a10934c4fa2f1c04ce850b222485cf",
+  "parts": [
+    {
+      "path": "build-evidence.tar.gz.part000",
+      "bytes": 13672,
+      "sha256": "48f29f53f866d3892dbdf3705761a1b4f1a10934c4fa2f1c04ce850b222485cf",
+      "git_sha": "d6f4fecd897615db0cf8fe0bfe33433642c4e8b5"
+    }
+  ],
+  "members": [
+    {
+      "path": "build-baseline/candidate-build-final.gz",
+      "bytes": 3847,
+      "sha256": "a5b0c23f92fde89a6bcec31343831ab703a6361b60d32a29d1d9586641e5f1aa"
+    },
+    {
+      "path": "build-baseline/candidate-build-result.json",
+      "bytes": 2481,
+      "sha256": "fb5fb295024c016d16d7b207f13a60365206e8a1d4ba494ad9c8588f423b7aaa"
+    },
+    {
+      "path": "build-baseline/candidate-build.log",
+      "bytes": 14856,
+      "sha256": "cea09dda5b35489eb082b3157d22685ab52dc281a18a89299bb54c866bf75416"
+    },
+    {
+      "path": "build-candidate/candidate-build-final.gz",
+      "bytes": 3909,
+      "sha256": "849564acbb07a5bdb23afef9bdd079d04ee89521ad5549d94842bb4ce9e45ee3"
+    },
+    {
+      "path": "build-candidate/candidate-build-result.json",
+      "bytes": 2535,
+      "sha256": "29504404f364b6d9fb4e2e87a62c74f332666c6ba6e6cf30f7d85c024d827b53"
+    },
+    {
+      "path": "build-candidate/candidate-build.log",
+      "bytes": 15017,
+      "sha256": "2bfd5d8cbeedd3f63f44fde3c37d97245a7a256b5890d1135e5929e3d65386c5"
+    }
+  ]
+}

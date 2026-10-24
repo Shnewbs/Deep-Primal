@@ -1,0 +1,37 @@
+[
+  {
+    "case": "vulkan-create",
+    "names": 0,
+    "unique": 0,
+    "sha256": "6a8856e82c3419add17296997152898b970d192e8f2a22cd8bec39130156538a",
+    "archive_bytes": 128
+  },
+  {
+    "case": "vulkan-corners-neighbor-baseline",
+    "names": 4776,
+    "unique": 201,
+    "sha256": "99c874f4fdfe94b445a29fb62784a892ed88c076bc142a844a6a2883ed12033c",
+    "archive_bytes": 168273
+  },
+  {
+    "case": "vulkan-corners-neighbor-candidate",
+    "names": 4776,
+    "unique": 200,
+    "sha256": "404327a6a5a62ef92125b6ef58a8cbbc11c910eb6fb0aa7d1131d4d93c5f6e5d",
+    "archive_bytes": 167887
+  },
+  {
+    "case": "vulkan-corners-neighbor-candidate-packaged",
+    "names": 4776,
+    "unique": 200,
+    "sha256": "404327a6a5a62ef92125b6ef58a8cbbc11c910eb6fb0aa7d1131d4d93c5f6e5d",
+    "archive_bytes": 167887
+  },
+  {
+    "case": "vulkan-reuse-gl-corners-neighbor-candidate",
+    "names": 5150,
+    "unique": 430,
+    "sha256": "213a517fbe845d8af91e0c0cce43ff1dbe1b66065eb45107610a5504dfcb41b4",
+    "archive_bytes": 348621
+  }
+]

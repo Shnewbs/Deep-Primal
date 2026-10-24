@@ -1,0 +1,147 @@
+{
+  "all_focused_gates_pass": true,
+  "engine_acceptance_complete": false,
+  "scope": "Six exact periodic top-phase pairs plus six diagnostic mip controls with one-channel-unit rounding allowance across negative/distant/section origins. Side UV morph fix: six exact production-pipeline image pairs at matched displayed heights, plus12 actual upload readbacks/8640bytes checking side/still/flow flags, light coordinates, repeated uploads and stale revisions. Also retains prior flow direction fix: real client capture and six production GPU UV samples per session, before/after resource reload, restore the source cell and preserve geometry/quantity. Selected actual GPU vertex bytes and expected atlas UVs retained. Existing production page sort survives three live map-order permutations in three wave/LOD profiles, with nine real frame captures per session and production-pipeline two-layer pixel A/B. Baseline changing a real source cell FLOW produced identical UVs; candidate carries flow and selects/rotates water_flow. This does not establish per-primitive order, matched physical state, full live-flow flicker or coverage acceptance. Also mixed wet/dry page preserves 40 actual GPU vertices through recapture and original fade/rewet deadlines; six GPU readbacks check 8640 bytes of geometry and shader-input opacity timing, not scene pixels. Retained CPU floats remain 1120 bytes with packed face/flow metadata, keep original capture revision, and are discarded on rewet. Also near-capacity same/smaller water updates reuse allocation; blocked oversized update retries after actual ballast release, and separate legal COPY_SRC mesh verifies 288 GPU bytes after partial update. Controlled pages, not full live-scene pixel proof. Also actual water GPU meshes with a controlled presentation clock preserve a dry fade through three empty recaptures, release at deadline and retarget rewet opacity continuously. This is GPU ownership/transition validation, not pixel-complete live-scene flicker acceptance. Also repeats four controlled completed-scan/native-tick cases enforce the 8192-key index bound while preserving queued order/edit guards and nearest remaining slots. This is injected scan completion, not full filesystem discovery or scene coverage. Also repeats real 552-byte partial GPU upload cancelled by an 8-to-4 MiB budget reduction beside 4194304 bytes of actual GPU ballast; bounded idle retry and same-view recovery after ballast closure. Five cancellation guards use an explicit occupancy ledger. Also repeats prior eviction/edit/capture, Vulkan GPU/frame/reload/save/shutdown controls. Isolated renderer; physical travel data is audited separately. Software driver, not owner GPU/FPS or full visual coverage acceptance.",
+  "sessions": [
+    {
+      "case": "vulkan-order-phase-gradient-final",
+      "strict_pass": true,
+      "started_utc": "2026-10-23T05:28:22.897818+00:00",
+      "finished_utc": "2026-10-23T05:29:38.004651+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/graphics-settings/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/renderer-vulkan/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/classes/java/main/"
+      ],
+      "console_sha256": "34fa6ae6599dbddb267e2a1a2938bfafa673a8b3a9cc44ba38912776e05fe067",
+      "sealed_console_gzip_sha256": "b604607b385d6a0419451537d4033552605990205ac31ff5a88111d4eaebb90a",
+      "live_console_sha256_at_audit": "34fa6ae6599dbddb267e2a1a2938bfafa673a8b3a9cc44ba38912776e05fe067",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-order-phase-gradient-final/screenshots/order-recovery.png",
+          "bytes": 777681,
+          "sha256": "c32efb2aef9982c343cf090eba42e613f9458d831ce2022d419b29045dcf5a78"
+        },
+        {
+          "path": "vulkan-order-phase-gradient-final/screenshots/order-live-frame-1.png",
+          "bytes": 779372,
+          "sha256": "6931eb001de7ca552f8bd71d007a33e528f9a9a8f4ed364c3c3a7a8370c5a093"
+        },
+        {
+          "path": "vulkan-order-phase-gradient-final/screenshots/order-live-frame-3.png",
+          "bytes": 778579,
+          "sha256": "c30ac5da683a1501404c294ce8a853862740e7d827fc9a803daaf8a4a5c796cf"
+        },
+        {
+          "path": "vulkan-order-phase-gradient-final/screenshots/order-live-frame-2.png",
+          "bytes": 779413,
+          "sha256": "e08b25666c3b66df2910ab7559a6de786ed48bf5a097c093d42c4d29582d5197"
+        }
+      ]
+    },
+    {
+      "case": "vulkan-order-phase-gradient-final-packaged",
+      "strict_pass": true,
+      "started_utc": "2026-10-23T05:30:15.801208+00:00",
+      "finished_utc": "2026-10-23T05:31:26.886498+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-phase-0507/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar"
+      ],
+      "console_sha256": "35b1f7af1242c2f7b97c3597263a090b3cc593cd9399b21273bd2bc529de124d",
+      "sealed_console_gzip_sha256": "d868e31182ab08eb02941ee55cdc08fac5b8acff1fe5762cdd852033294f2d41",
+      "live_console_sha256_at_audit": "35b1f7af1242c2f7b97c3597263a090b3cc593cd9399b21273bd2bc529de124d",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-order-phase-gradient-final-packaged/screenshots/order-recovery.png",
+          "bytes": 776453,
+          "sha256": "7318f8a5986d3a866d0a462b6ecefc6c6d2a864319cd72e7d37876a97f1b8ab2"
+        },
+        {
+          "path": "vulkan-order-phase-gradient-final-packaged/screenshots/order-live-frame-1.png",
+          "bytes": 729275,
+          "sha256": "f52b2ae70f1cabfea92a5ac30abe2221fd3e40e121c895ee7a4193626b630ea2"
+        },
+        {
+          "path": "vulkan-order-phase-gradient-final-packaged/screenshots/order-live-frame-3.png",
+          "bytes": 726574,
+          "sha256": "59e644a2a2fadc38bf6f3c511582fe674b0b212252ad459b7950209a301165e8"
+        },
+        {
+          "path": "vulkan-order-phase-gradient-final-packaged/screenshots/order-live-frame-2.png",
+          "bytes": 726683,
+          "sha256": "0af049cda8e456ec1cf99a55e52e3545ed9af557362650117e4e80a589de9bac"
+        }
+      ]
+    }
+  ]
+}

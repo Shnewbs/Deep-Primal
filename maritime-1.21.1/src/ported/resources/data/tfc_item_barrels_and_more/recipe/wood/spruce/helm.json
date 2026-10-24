@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "LRL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    "R": {
+      "item": "minecraft:lead"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/spruce/vs_sails_helm"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "vs_sails"
+    }
+  ]
+}

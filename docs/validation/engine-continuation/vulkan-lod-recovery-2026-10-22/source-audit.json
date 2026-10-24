@@ -1,0 +1,39 @@
+{
+  "base_commit": "5d36e3ce4d1527be20e4f47e15c13c15896a0c22",
+  "original_build_inputs_checked": 505,
+  "unchanged": 502,
+  "changed": [
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+      "parent_blob": "1127011ab6899afda12aa16c0f5403e011f93113",
+      "current_blob": "7b5a4dde9e88fbadbc5130b8efe2237d4f8c7e2b",
+      "sha256": "56a270140ebd87dbae238baea6ec8399afd645c3c43b70fe2bf7ab7e1a9402fa"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkCommandEncoder.java",
+      "parent_blob": "074f6b7060d8e354a94840f1ad4b5e0436ae987c",
+      "current_blob": "6542d4bacebde6c2cb10a7123348a222038838d9",
+      "sha256": "05ce52be24766bba31b5f62294e8e37b7e29193076e1f4f5a6c8b77c21809a75"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "parent_blob": "a820a30d960d5815105c8bb2cb4a06273da1a52d",
+      "current_blob": "6f08c66632628ae6087ea12818f55f6fa71b38cc",
+      "sha256": "f47108c3a369e8d0af0db9ff68c480fdc72598decb142d567ded89656b8d9267"
+    }
+  ],
+  "new_validation_sources": [
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodDiskRecoveryChecks.java",
+      "sha256": "e642184d12bea14dbe08ed9163026db9431aeb3c2119d63d318faa3a52070c12"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/VulkanFrameCompletionChecks.java",
+      "sha256": "57eeb3dc53eb1ea8dd3b0d8161a50381aa402363548175e1a63126f8b58c400d"
+    }
+  ],
+  "production_changes": 2,
+  "water_runtime_core_and_geography_unchanged": true,
+  "suspected_bounds_defect_rejected": "WaterSectionBoundsMixin already supplies expanded section bounds to discovery; no water-bounds fix authored.",
+  "remaining_scope": "Retains only indexed out-of-range disk keys. Cached/dirty keys retain prior removal behavior; already-consumed/evicted keys and broader reindex recovery are not solved."
+}

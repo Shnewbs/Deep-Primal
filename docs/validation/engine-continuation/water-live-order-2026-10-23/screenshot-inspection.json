@@ -1,0 +1,92 @@
+[
+  {
+    "case": "vulkan-order-validated",
+    "profile": "waves-off-lod-on",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-order-validated",
+    "profile": "waves-enabled",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-order-validated",
+    "profile": "lod-disabled",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-order-validated-packaged",
+    "profile": "waves-off-lod-on",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-order-validated-packaged",
+    "profile": "waves-enabled",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-order-validated-packaged",
+    "profile": "lod-disabled",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-reuse-gl-order-validated",
+    "profile": "waves-off-lod-on",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-reuse-gl-order-validated",
+    "profile": "waves-enabled",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  },
+  {
+    "case": "vulkan-reuse-gl-order-validated",
+    "profile": "lod-disabled",
+    "actual_frames": 3,
+    "inspected": true,
+    "observations": "Near water has fine repeated patterns/darker bands in all profiles; terraced terrain remains. LOD-off lacks distant terrain as expected for this diagnostic. Short captures do not establish absence of flicker.",
+    "video_decodes_to_exact_source_rgb": true,
+    "not_matched_equal_physical_state": true,
+    "ocean_wave_geometry_exercised": false
+  }
+]

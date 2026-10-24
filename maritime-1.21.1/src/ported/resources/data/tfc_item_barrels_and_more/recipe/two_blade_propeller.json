@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SIS",
+    " I "
+  ],
+  "key": {
+    "S": [
+      {
+        "item": "tfc:metal/double_sheet/copper"
+      }
+    ],
+    "I": [
+      {
+        "tag": "c:double_ingots/copper"
+      }
+    ]
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:two_blade_propeller"
+  }
+}

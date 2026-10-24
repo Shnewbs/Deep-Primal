@@ -1,0 +1,14 @@
+TFC Maritime Travelers — private 1.21.1 port development
+
+Original artifact supplied by the user:
+TFCMaritimeTravelers-1.20.1-0.0.4..jar
+Original project: https://www.curseforge.com/minecraft/mc-mods/tfc-maritime-travelers
+Original author metadata: commandodonut (CurseForge: commando_donut)
+Original license metadata: All Rights Reserved
+
+This work preserves that notice and does not grant a new license to the original
+implementation or assets. The upstream jar is retained byte for byte for
+provenance, reconstruction, and original visual resources. No 1.20.1 classes are
+packaged into the port by processResources.
+
+NeoForge MDK scaffolding retains its separate TEMPLATE_LICENSE.txt.

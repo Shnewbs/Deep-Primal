@@ -1,0 +1,25 @@
+{
+  "case": "vulkan-frame-before-retry",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 33.03,
+  "build_successful": false,
+  "records": [
+    "[16:49:15] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[16:49:24] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[16:49:24] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=0",
+    "[16:49:27] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x3fc00000003fc, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x3fd00000003fd, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[16:49:29] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[16:49:31] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x3fc00000003fc, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x3fd00000003fd, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan"
+  ],
+  "console_sha256": "343868243866b527b654783ea95a95f1b017b7af1887655da143ac6841942969",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_16.45.10-client.txt",
+    "crash-2026-10-22_16.49.33-client.txt",
+    "crash-2026-10-22_16.45.44-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

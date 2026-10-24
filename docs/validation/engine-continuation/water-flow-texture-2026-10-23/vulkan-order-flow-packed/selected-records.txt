@@ -1,0 +1,80 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_FLOW_CAPTURE_OBSERVED topUvEqual=false sourceDirections=0,4,16 actualCapture=true clientStateRestored=true unitsUnchanged=true position=BlockPos{x=99, y=153, z=-235}
+WATER_FLOW_GPU_UV_PASS direction=0 topVertices=4 sprite=water_flow
+WATER_FLOW_GPU_UV_PASS direction=4 topVertices=4 sprite=water_flow
+WATER_FLOW_GPU_UV_PASS direction=16 topVertices=4 sprite=water_still
+WATER_FLOW_TEXTURE_NATIVE_PASS directions=0,4,16 samples=3 topVertices=12 readbackBytes=187920 actualCapture=true geometryAndQuantityUnchanged=true clientStateRestored=true isolatedGpuReleased=true scope=actualCapturedCellAndGpuUvsNotLiveFlowFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_PAGE_ORDER_FRAME_PASS frame=1 visible=19 nanos=49070532879319 gameTime=27604 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=615600 animationTime=9964 waveBytes=0 wavePending=0 lodActive=true lodBytes=1654896 lodVisible=1 lodTriangles=246818
+WATER_PAGE_ORDER_FRAME_PASS frame=2 visible=19 nanos=49070627395850 gameTime=27606 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=617328 animationTime=10058 waveBytes=0 wavePending=0 lodActive=true lodBytes=1662348 lodVisible=1 lodTriangles=248496
+WATER_PAGE_ORDER_FRAME_PASS frame=3 visible=19 nanos=49070719546722 gameTime=27608 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=617328 animationTime=10151 waveBytes=0 wavePending=0 lodActive=true lodBytes=1662348 lodVisible=1 lodTriangles=250174
+WATER_PAGE_ORDER_NATIVE_PASS liveFrames=3 warmupStableFrames=12 mapPermutations=near-far-near minVisible=19 screenshots=3 productionPixelAB=true originalMapOrderRestored=true noWorldEdits=true scope=pageOrderNotFullTransparencyOrFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_PAGE_ORDER_FRAME_PASS frame=1 visible=20 nanos=49075546306617 gameTime=27704 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=621648 animationTime=14980 waveBytes=0 wavePending=0 lodActive=true lodBytes=2250228 lodVisible=1 lodTriangles=406228
+WATER_PAGE_ORDER_FRAME_PASS frame=2 visible=20 nanos=49075596081861 gameTime=27705 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=621648 animationTime=15029 waveBytes=0 wavePending=0 lodActive=true lodBytes=2250228 lodVisible=1 lodTriangles=407906
+WATER_PAGE_ORDER_FRAME_PASS frame=3 visible=20 nanos=49075647884103 gameTime=27706 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=621648 animationTime=15081 waveBytes=0 wavePending=0 lodActive=true lodBytes=2264856 lodVisible=1 lodTriangles=409584
+WATER_PAGE_ORDER_NATIVE_PASS liveFrames=3 warmupStableFrames=12 mapPermutations=near-far-near minVisible=20 screenshots=3 productionPixelAB=true originalMapOrderRestored=true noWorldEdits=true scope=pageOrderNotFullTransparencyOrFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_PAGE_ORDER_FRAME_PASS frame=1 visible=19 nanos=49080470598203 gameTime=27803 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=623664 animationTime=19904 waveBytes=0 wavePending=0 lodActive=false lodBytes=0 lodVisible=0 lodTriangles=443144
+WATER_PAGE_ORDER_FRAME_PASS frame=2 visible=19 nanos=49080519848450 gameTime=27804 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=623664 animationTime=19954 waveBytes=0 wavePending=0 lodActive=false lodBytes=0 lodVisible=0 lodTriangles=443144
+WATER_PAGE_ORDER_FRAME_PASS frame=3 visible=19 nanos=49080581442588 gameTime=27805 loadedChunks=117 camera=(107.68827612381756, 178.2074998855591, -226.797007486035) waterBytes=623664 animationTime=20015 waveBytes=0 wavePending=0 lodActive=false lodBytes=0 lodVisible=0 lodTriangles=443144
+WATER_PAGE_ORDER_NATIVE_PASS liveFrames=3 warmupStableFrames=12 mapPermutations=near-far-near minVisible=19 screenshots=3 productionPixelAB=true originalMapOrderRestored=true noWorldEdits=true scope=pageOrderNotFullTransparencyOrFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_PARTIAL_CLEANUP_PASS steadyVertices=20 retainedCpuBytes=0 arraysReused=true originalRetainedBytes=1120
+WATER_PARTIAL_FADE_LIFETIME_PASS retainedVertices=40 originalDeadline=201 rewetDeadline=251 samples=6 sameAllocation=true
+WATER_PARTIAL_GPU_SAMPLE_PASS time=125 fadingVertices=20 steadyVertices=20 opacity=0.75
+WATER_PARTIAL_GPU_SAMPLE_PASS time=150 fadingVertices=20 steadyVertices=20 opacity=0.5
+WATER_PARTIAL_GPU_SAMPLE_PASS time=150 fadingVertices=20 steadyVertices=20 opacity=0.5
+WATER_PARTIAL_GPU_SAMPLE_PASS time=175 fadingVertices=20 steadyVertices=20 opacity=0.625
+WATER_PARTIAL_GPU_SAMPLE_PASS time=225 fadingVertices=20 steadyVertices=20 opacity=0.875
+WATER_PARTIAL_GPU_SAMPLE_PASS time=250 fadingVertices=20 steadyVertices=20 opacity=1.0
+WATER_PARTIAL_FADE_NATIVE_PASS samples=6 retainedVertices=40 readbackBytes=8640 originalDeadline=201 rewetDeadline=251 sameAllocation=true completedPartialReleased=true retainedArraysReused=true cpuBytes=1120 isolatedGpuReleased=true scope=controlledPageGpuGeometryOpacityNotLiveScenePixels
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/graphics-settings/build/classes/java/main/
+WATER_GPU_REUSE_CAPACITY_PASS updates=16 smaller=true regrowth=true oversizedRetry=true closerCoveragePreserved=true
+WATER_GPU_REUSE_NATIVE_PASS targetBytes=46080 ballastBytes=33508224 updates=16 smallerAndRegrowth=true boundedGrowthRetry=true actualGpuPayloadBytes=288 isolatedGpuReleased=true scope=controlledGpuPagesNotLiveSceneFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_DRY_FADE_LIFETIME_PASS repeatedEmptyUpdates=3 deadline=201 noExtension=true released=true
+WATER_REWET_CONTINUITY_PASS displayedAtRetarget=0.5 target=1 newerEditGuard=true
+WATER_FADE_CONTINUITY_NATIVE_PASS retainedBytes=46080 repeatedEmptyUpdates=3 fadeMillis=100 noExtension=true rewetContinuous=true newerEditGuard=true isolatedGpuReleased=true scope=actualWaterGpuMeshesControlledClockNotCompleteSceneFlickerAcceptance
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/lod-engine/build/classes/java/main/
+LOD_INDEX_MERGE_NATIVE_PASS cases=4 indexBound=8192 existingOrderAndEditGuards=true nearestRemainingSlots=true completedScanReleased=true scope=controlledScanFutureActualNativeTick
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/lod-engine/build/classes/java/main/
+LOD_UPLOAD_RETRY_GUARD_PASS control=dirty
+LOD_UPLOAD_RETRY_GUARD_PASS control=newer-revision
+LOD_UPLOAD_RETRY_GUARD_PASS control=not-persisted
+LOD_UPLOAD_RETRY_GUARD_PASS control=persistence-disabled
+LOD_UPLOAD_RETRY_GUARD_PASS control=obsolete-session
+LOD_UPLOAD_RETRY_NATIVE_PASS partialBytes=552 budgetReducedMiB=8-to-4 actualBallastBytes=4194304 blockedCalls=16 restored=true guards=5 isolatedGpuReleased=true
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/lod-engine/build/classes/java/main/
+LOD_FIXED_VIEW_CAPACITY_PASS idleCalls=16 noDiskWorkUnderPressure=true freedCapacityRecovery=true actualGpuBallast=true
+LOD_EVICTION_ADMISSION_PASS control=dirty
+LOD_EVICTION_ADMISSION_PASS control=newer-revision
+LOD_EVICTION_ADMISSION_PASS control=not-persisted
+LOD_EVICTION_ADMISSION_PASS control=persistence-disabled
+LOD_QUEUED_EDIT_GUARD_PASS dirtyDisplacement=true staleReadRejected=true metadataReleased=true
+LOD_CAPTURE_PERSISTENCE_PASS realNativeChunk=true storedRevisionMatches=true
+LOD_DISK_RECOVERY_NATIVE_PASS backend=Vulkan retainedAfterOutside=1 diskReads=6 uploadedChunks=6 restored=true evictionCycles=4 fixedViewIdleCalls=16 freedCapacityRecovery=true actualGpuBallast=true editPersistenceControls=4 nativeCapturePersisted=true queuedEditGuard=true isolatedGpuReleased=true scope=isolatedRendererRealStoreGpu
+VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/renderer-vulkan/build/classes/java/main/
+VULKAN_FRAME_COMPLETION_NATIVE_PASS iterations=8 mappedBytes=128 openPassRejections=8 backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+RESOURCE_RELOAD_PASS
+VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
+WATER_FLOW_CAPTURE_OBSERVED topUvEqual=false sourceDirections=0,4,16 actualCapture=true clientStateRestored=true unitsUnchanged=true position=BlockPos{x=99, y=153, z=-235}
+WATER_FLOW_GPU_UV_PASS direction=0 topVertices=4 sprite=water_flow
+WATER_FLOW_GPU_UV_PASS direction=4 topVertices=4 sprite=water_flow
+WATER_FLOW_GPU_UV_PASS direction=16 topVertices=4 sprite=water_still
+WATER_FLOW_TEXTURE_NATIVE_PASS directions=0,4,16 samples=3 topVertices=12 readbackBytes=172368 actualCapture=true geometryAndQuantityUnchanged=true clientStateRestored=true isolatedGpuReleased=true scope=actualCapturedCellAndGpuUvsNotLiveFlowFlickerAcceptance
+CLIENT_SAVED_DISCONNECT_PASS
+[23:16:53] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[23:16:53] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorReuse=116051, pipelineFeedbackValid=84, descriptorBinds=268435, validationErrors=0, pipelineCreates=84, descriptorBindSkips=17, pipelineCreationNanos=101134774, descriptorUpdates=152401}
+BUILD SUCCESSFUL in 1m 7s

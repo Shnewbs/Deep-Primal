@@ -1,0 +1,65 @@
+{
+  "jar": "DeepPrimal-26.1.2-0.0.1-alpha.25-merged.1-vulkan-windows.jar",
+  "bytes": 124855842,
+  "sha256": "44058499f53a8d9eb660b679dc4b54f6588fe1083d3af2ed93d0b43a273b7921",
+  "root_crc": true,
+  "nested_archives": [
+    {
+      "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-merged.1.jar",
+      "crc": true,
+      "module": "engine-core"
+    },
+    {
+      "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-merged.1.jar",
+      "crc": true,
+      "module": "graphics-settings"
+    },
+    {
+      "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-merged.1.jar",
+      "crc": true,
+      "module": "lod-engine"
+    },
+    {
+      "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-merged.1.jar",
+      "crc": true,
+      "module": "performance-engine"
+    },
+    {
+      "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+      "crc": true,
+      "module": "gui-themes"
+    },
+    {
+      "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-merged.1-windows.jar",
+      "crc": true,
+      "module": "renderer-vulkan"
+    }
+  ],
+  "compiled_classes_matched": 459,
+  "mods": [
+    {
+      "id": "deepprimal_graphics",
+      "version": "0.0.1-alpha.25-merged.1"
+    },
+    {
+      "id": "deepprimal_lod",
+      "version": "0.0.1-alpha.25-merged.1"
+    },
+    {
+      "id": "deepprimal_performance",
+      "version": "0.0.1-alpha.25-merged.1"
+    },
+    {
+      "id": "deepprimal_themes",
+      "version": "0.1.0-alpha.8"
+    },
+    {
+      "id": "deepprimal_vulkan",
+      "version": "0.0.1-alpha.25-merged.1"
+    }
+  ],
+  "theme_menu_4k_images": 8,
+  "private_validation_excluded": true,
+  "windows_natives": true,
+  "pass": true
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "case": "vulkan-disk-capacity-fixed",
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-fixed/screenshots/disk-recovery.png",
+    "sha256": "4e3aae6b4bacec9abda3bd5e39e7bdb16651914a3207851e34689da6d65d58df",
+    "inspected": true,
+    "observations": "Upright lake and repeated terraced banks; fine water patterns and right gravel strip remain. Actual LOD visible=2 in both observations. Counters are cumulative; these are not identical-state or full coverage proofs."
+  },
+  {
+    "case": "vulkan-disk-capacity-packaged",
+    "path": "docs/validation/engine-continuation/lod-capacity-wakeup-2026-10-22/vulkan-disk-capacity-packaged/screenshots/disk-recovery.png",
+    "sha256": "6e8080ac4631b8bb9237cc6785e861d7d079c362d5e2581afcc2eeb0cde6dca5",
+    "inspected": true,
+    "observations": "Upright lake and repeated terraced banks; fine water patterns and right gravel strip remain. Actual LOD visible=2 in both observations. Counters are cumulative; these are not identical-state or full coverage proofs."
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "before": "previousFlow reads flowBounds global out;main assigns it before helper call",
+  "actual_gl_warning": "flowBounds used uninitialized;strict auditor rejects all OpenGL debug messages",
+  "after": "tile bounds explicit helper input;all final native sessions rerun",
+  "scope": "Clarifies data dependency;do not mask warning or call prior GL strict pass"
+}

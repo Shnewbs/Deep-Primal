@@ -28,6 +28,10 @@ public final class ClientCapture {
   public ClientCapture() {
     NeoForge.EVENT_BUS.register(this);
     NeoForge.EVENT_BUS.register(new HorizonDepthChecks());
+    NeoForge.EVENT_BUS.register(new WaterPageOrderChecks());
+    NeoForge.EVENT_BUS.register(new WaterFrameRetirementChecks());
+    NeoForge.EVENT_BUS.register(new WaterBoundaryRetryChecks());
+    NeoForge.EVENT_BUS.register(new WaterExtractionDeadlineChecks());
   }
 
   @SubscribeEvent
@@ -109,6 +113,7 @@ public final class ClientCapture {
       return;
     }
     Path dir = Path.of(System.getProperty("deepprimal.validationCapture"));
+    try { LodTravelChecks.tick(mc); } catch (Exception failure) { throw new RuntimeException(failure); }
     if (rendererRequestedAt != 0) {
       var renderer = com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE;
       if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()
@@ -141,7 +146,119 @@ public final class ClientCapture {
       String action = Files.readString(request).trim();
       Files.delete(request);
       Files.createDirectories(dir);
+      if (action.startsWith("startup-observe=")) {
+        StartupLifecycleChecks.observe(action.substring("startup-observe=".length()), dir);
+        return;
+      }
+      if (action.equals("startup-rearm-check")) {
+        StartupLifecycleChecks.rearm(mc, dir);
+        return;
+      }
+      if (action.equals("vulkan-frame-completion-check")) {
+        VulkanFrameCompletionChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("lod-disk-recovery-check")) {
+        LodDiskRecoveryChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("lod-travel-check")) {
+        LodTravelChecks.start(mc, dir);
+        return;
+      }
+      if (action.equals("lod-upload-retry-check")) {
+        LodUploadRetryChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("lod-index-merge-check")) {
+        LodIndexMergeChecks.run(mc, dir);
+        return;
+      }
+      if (action.startsWith("water-page-order-check=")) {
+        String label=action.substring("water-page-order-check=".length());
+        if(!label.matches("[a-z0-9-]{1,32}"))throw new IllegalArgumentException("Page-order capture label");
+        WaterPageOrderChecks.start(mc, dir.resolve(label));
+        return;
+      }
+      if (action.equals("water-side-uv-upload-check")) {
+        WaterSideUvUploadChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-side-material-check")) {
+        WaterSideMaterialChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-material-check")) {
+        WaterMaterialTransitionChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-direction-upload-check")) {
+        WaterDirectionUploadChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-direction-blend-check")) {
+        WaterDirectionBlendChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-retirement-cap-duplicate-check")) { WaterRetirementBudgetChecks.run(mc, dir, 2048, true); return; }
+      if (action.equals("water-admission-probe")) { WaterAdmissionPlanChecks.run(mc, dir, false); return; }
+      if (action.equals("water-admission-check")) { WaterAdmissionPlanChecks.run(mc, dir, true); return; }
+      if (action.equals("water-boundary-retry-probe")) { WaterBoundaryRetryChecks.start(dir, false); return; }
+      if (action.equals("water-boundary-retry-check")) { WaterBoundaryRetryChecks.start(dir, true); return; }
+      if (action.equals("water-boundary-batch-probe")) { WaterBoundaryBatchChecks.run(dir, false); return; }
+      if (action.equals("water-boundary-batch-check")) { WaterBoundaryBatchChecks.run(dir, true); return; }
+      if (action.equals("water-deadline-probe")) { WaterExtractionDeadlineChecks.start(dir, false); return; }
+      if (action.equals("water-deadline-check")) { WaterExtractionDeadlineChecks.start(dir, true); return; }
+      if (action.equals("water-frame-retirement-active")) { WaterFrameRetirementChecks.start(dir, true); return; }
+      if (action.equals("water-frame-retirement-steady")) { WaterFrameRetirementChecks.start(dir, false); return; }
+      if (action.equals("water-retirement-cap-check")) { WaterRetirementBudgetChecks.run(mc, dir, 2048); return; }
+      if (action.equals("water-retirement-budget-check")) { WaterRetirementBudgetChecks.run(mc, dir); return; }
+      if (action.equals("water-publication-failure-check")) { WaterPublicationFailureChecks.run(mc, dir); return; }
+      if (action.equals("water-corner-field-check")) { WaterCornerFieldChecks.run(mc, dir); return; }
+      if (action.equals("water-spatial-seam-check")) { WaterSpatialSeamChecks.run(mc, dir); return; }
+      if (action.equals("water-flow-phase-check")) {
+        WaterFlowPhaseChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-side-uv-check")) {
+        WaterSideUvChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-page-order-check")) {
+        WaterPageOrderChecks.start(mc, dir);
+        return;
+      }
+      if (action.equals("water-flow-texture-check") || action.startsWith("water-flow-texture-check=")) {
+        Path destination=dir;
+        if (action.contains("=")) {
+          String label=action.substring(action.indexOf('=')+1);
+          if(!label.matches("[a-z0-9-]{1,32}"))throw new IllegalArgumentException("Flow texture capture label");
+          destination=dir.resolve(label);
+        }
+        Files.createDirectories(destination);
+        WaterFlowTextureChecks.run(mc, destination);
+        return;
+      }
+      if (action.equals("water-partial-fade-check")) {
+        WaterPartialFadeChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-gpu-reuse-check")) {
+        WaterGpuReuseChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-fade-continuity-check")) {
+        WaterFadeContinuityChecks.run(mc, dir);
+        return;
+      }
+      if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
+        StartupLifecycleChecks.observe("before-disconnect", dir);
+        mc.disconnectWithSavingScreen();
+        StartupLifecycleChecks.observe("after-disconnect", dir);
+        String record = "CLIENT_SAVED_DISCONNECT_PASS\n";
+        Files.writeString(dir.resolve("saved-disconnect.txt"), record);
+        System.out.print(record);
         mc.stop();
         return;
       }
@@ -258,6 +375,7 @@ public final class ClientCapture {
         return;
       }
       if (action.equals("vulkan-checks")) {
+        StartupLifecycleChecks.watchGpuCheck(dir);
         GpuBackendChecks.run(mc);
         return;
       }
@@ -273,7 +391,12 @@ public final class ClientCapture {
         return;
       }
       if (action.equals("reload-check")) {
-        mc.reloadResourcePacks().thenRun(() -> System.out.println("RESOURCE_RELOAD_PASS"));
+        Runnable completed = StartupLifecycleChecks.watchPhase(dir, "resource-reload");
+        mc.reloadResourcePacks().whenComplete((result, failure) -> {
+          completed.run();
+          if (failure != null) System.out.println("RESOURCE_RELOAD_FAILED " + failure);
+          else System.out.println("RESOURCE_RELOAD_PASS");
+        });
         return;
       }
       if (action.equals("resize-check")) {

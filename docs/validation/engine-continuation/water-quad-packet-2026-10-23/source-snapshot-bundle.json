@@ -1,0 +1,2941 @@
+{
+  "archive": "source-snapshot.tar.gz",
+  "bytes": 614592,
+  "sha256": "abff2b20d87030ea5342e8a8fd2381a373af2ce543854da12df749db5fdcf2d5",
+  "parts": [
+    {
+      "path": "source-snapshot.tar.gz.part000",
+      "bytes": 524288,
+      "sha256": "30b59011a11afe18fc4bfa0b2ea426a3e3838c6632eda505b5b4f71683b1b3b3",
+      "git_sha": "5112e726226aa51da7f9e2e90f5b304ef84e2d09"
+    },
+    {
+      "path": "source-snapshot.tar.gz.part001",
+      "bytes": 90304,
+      "sha256": "feb8a30e4d31ced4672382afc6741e18380d06e8962bc800c7849fb26f86bad0",
+      "git_sha": "0aac382631833eaaad7b89021b68b2aa701e56a0"
+    }
+  ],
+  "members": [
+    {
+      "path": ".gitignore",
+      "bytes": 107,
+      "sha256": "d4dc7a76e317ff4e695c9230e40134f6d823f003b97518cf233253982e52eab3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9853,
+      "sha256": "b869ed1b9d7012fa224e4abd61ab3695c09ba9638ef649e33e77ee0923054f8a"
+    },
+    {
+      "path": "build.gradle",
+      "bytes": 13043,
+      "sha256": "dbaed8664a9c0add2ccb34ee987d8d2ec9f7c15dad925cc42d36e2934fc98338"
+    },
+    {
+      "path": "engine-core/build.gradle",
+      "bytes": 378,
+      "sha256": "b803a8bb25cb838fff53ae7da0f5aafd87b3a3e376f56d619fb7385d45773c14"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/BoundedLru.java",
+      "bytes": 1104,
+      "sha256": "46152d4c2a45f7ca29e01242e5453050d94df785e4764c946e78d0f904747c0b"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ByteLru.java",
+      "bytes": 1521,
+      "sha256": "db025857ba566d57e0e924da0e2ba972b79dae0a75bbe7f892e03fc9040ec4c0"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/CaveColumn.java",
+      "bytes": 1799,
+      "sha256": "6ca7f10755340808e016af0edace14c3ad23746ab4e8d064c86a6eb327a6932e"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ColumnHeight.java",
+      "bytes": 825,
+      "sha256": "43ff53575dfc9a0d73e0fa980337c65a07b339e319a4c8ec39ed9edf1f4cb7f8"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/DistancePolicy.java",
+      "bytes": 1789,
+      "sha256": "9ca220920e5bf5952142e0e7cdf6df0671a777d6f7aa99cba8a96aa0804260d5"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/FarTerrain.java",
+      "bytes": 846,
+      "sha256": "95dc275b4d61b9b610e4f61c43929921130358b35b1237ae7ae65c47ce50a3b1"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/FluidVolume.java",
+      "bytes": 900,
+      "sha256": "b5cc94ea92e6bf685b0cab137c01b44e108c0da1037196685d74b93855a1b205"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonGeometry.java",
+      "bytes": 2091,
+      "sha256": "544e09903224f20d82574725e4216992251eab139c099122bce6dc3947f07793"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonMesh.java",
+      "bytes": 5408,
+      "sha256": "68bd11e2ada9fa20998a6c838031bb3276e872605bdd0f14c0e136420699c6b1"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonSamples.java",
+      "bytes": 1303,
+      "sha256": "8e9ec03c3f07ff05630aa8f9774560634d4848c7686c505d6b629829b289871e"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonView.java",
+      "bytes": 1171,
+      "sha256": "7f686121faa16b2c46fec08ccd7f6d9ab4375bdc25101cf516722de768c3f500"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/MemoryDistancePolicy.java",
+      "bytes": 660,
+      "sha256": "8292509bb915dddf65e5a2bc48b5e6b583e917a04b0b135e85916cc13f07b710"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/MountainDrainage.java",
+      "bytes": 15358,
+      "sha256": "8f6288264c40f55b2eb43301ee9322cac6ed2fe46cb7185907e1e8b708859e0f"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/NearestChunks.java",
+      "bytes": 2499,
+      "sha256": "66f64ab25f0614f4b18941bd3a0a790d1c2255dedff5ee9149e4ad6cf65e6545"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/RendererPolicy.java",
+      "bytes": 488,
+      "sha256": "5a700e502bbfa794ba273ece4d1ab7e73ea3ebeff68209a8617e37a4f5e68bf5"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
+      "bytes": 810,
+      "sha256": "4670031369d27091ff6a4a24cac557f061a212bbd4043edeae86c7745765c69d"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SwimmingState.java",
+      "bytes": 439,
+      "sha256": "a52ae521f0ab3d3e6d3234d2d06423afa883df0cd3c14fb037527e0ad7d06b9e"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SyncRebuildBudget.java",
+      "bytes": 571,
+      "sha256": "97afac0c0389b8850e71e1bea49bca93a21427176c09d538a7bdba6a9edafc1e"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+      "bytes": 16576,
+      "sha256": "9e4ec1d8aac6c0d39a9654a63a23c3595fd7e28e847b6ea892eb7946ab6c1b68"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainNoise.java",
+      "bytes": 2190,
+      "sha256": "06bbac5908863fbc7414a4ca95659a8e0e0174c31a8c557d0722034308903780"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
+      "bytes": 828,
+      "sha256": "8a4e2aca34bc26f4cc8e0f82c18bf159ace4af957fd00c0a610cf406933b853a"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TransitionDependencies.java",
+      "bytes": 1145,
+      "sha256": "e5d554e95ac2b59295c7e90249f0ff92ce64811b0fcd055940c7528462b7e99c"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/VerticalRange.java",
+      "bytes": 1093,
+      "sha256": "8b869e0ac5f1f684f5787ecbfc8e034b05ad516c6f0cc6ebfaf0616874b6c231"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ViewGrid.java",
+      "bytes": 338,
+      "sha256": "c797bd9fcf2ec44bda89db7a868803b9de1d2994b418fd2307126d1e5f2a33d5"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/VisualBudget.java",
+      "bytes": 935,
+      "sha256": "2984b062be11bdca72df081f6cea7bd6104d89550bcd1f14cb7ed4173b4686a4"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WakeField.java",
+      "bytes": 1643,
+      "sha256": "4e066e51af8ca83915f3db0c5f8122c5313b5588c4d8e014d815dd495de0dccc"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+      "bytes": 7884,
+      "sha256": "dc04466472a1ec83372c03d5e78c788c3125f628ec86d98a7230c22e349cebe8"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+      "bytes": 2909,
+      "sha256": "d13861b99d6804daf38a5c5e9d96b40b233967eade3ddd682c3d67b336c53ca4"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowField.java",
+      "bytes": 1419,
+      "sha256": "f6c9bf69c6bde5802e0620ed66270c67caa32dbda70fdd6d222b1d42b49d80fe"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java",
+      "bytes": 1019,
+      "sha256": "a078c8488adae8b22ac19246b313614705b212d8223b26fdd69726279241c2d9"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
+      "bytes": 9713,
+      "sha256": "e336c907ac3baabdc041e9bb3fa0008645c5b60d3762df5651b94c428053e139"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSurfaceTransition.java",
+      "bytes": 1185,
+      "sha256": "7bd7769e6e186fd01d3b8fdf3bba654f2b230d74c6effc588828eb69b9019e8a"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+      "bytes": 2047,
+      "sha256": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java",
+      "bytes": 18749,
+      "sha256": "85852c15048de7e69bfc340387361f4c2165711d10aaaaf86237242d436fb191"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterwayShape.java",
+      "bytes": 2293,
+      "sha256": "1f235c480f5434c2ace2f6b5758a6412c81660e8bf26770637c8211a4e27259c"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorkBudget.java",
+      "bytes": 755,
+      "sha256": "a2fb8531ed6e5a7c0e490843553a0fe84b1bd8d6a7dea3032a77c034ba99a023"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/ColumnarChunk.java",
+      "bytes": 4120,
+      "sha256": "9e2293d597e35c9bd47d22ed60be949819cad5d91e2f8fd7c55beb0bbf41131f"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+      "bytes": 10017,
+      "sha256": "378372dab1d9af985839df44404a7661ba3e332e639ec50dcdb75e8a5af4c263"
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodStore.java",
+      "bytes": 3659,
+      "sha256": "31db9ea07fb4c94b6c6d9804d25ffd04b65150bbc24cece2dcaf15f98f09dbd5"
+    },
+    {
+      "path": "gradle.properties",
+      "bytes": 150,
+      "sha256": "bec0dd1d200a175d53f9cc48570efff206cf9b0a0fb60b8800e752f8ab9a6792"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 45633,
+      "sha256": "423cb469ccc0ecc31f0e4e1c309976198ccb734cdcbb7029d4bda0f18f57e8d9"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 339,
+      "sha256": "61f69a60b804d70a6bc27b454d28cd5248b00f3be2e3dd7355cd10df5a884329"
+    },
+    {
+      "path": "gradlew",
+      "bytes": 8618,
+      "sha256": "fb68debc1b1acf8ec55dc0d5e5495e1dedd0bd6b61f304bee61613eeb2bd9b92"
+    },
+    {
+      "path": "gradlew.bat",
+      "bytes": 2803,
+      "sha256": "9ca26d733ada3a45f27b2151288f54e75c9f95b287d1f82ef942ec5cc2d4f006"
+    },
+    {
+      "path": "graphics-settings/build.gradle",
+      "bytes": 662,
+      "sha256": "a60fba34aaf7f5316fc84636a043cf608ea6ff09837e8080b47a03224d043540"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/graphics/GpuLighting.java",
+      "bytes": 589,
+      "sha256": "ec2e426fd88e1ca7348af47c0ddfedb46c0944e4e26491c48f866d20a19a1e1b"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/graphics/TerrainGpuMesh.java",
+      "bytes": 4605,
+      "sha256": "605a3e2da1f16f80d7b71347cd54064292787766fe02ecbc010afef4d8a1e5dd"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/graphics/WaterGpuMesh.java",
+      "bytes": 2209,
+      "sha256": "b9f9fae7570c59d4c9bf051c214a472c272817eebb80ee7be0cced13f25b8dd6"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/ClientPerformanceConfig.java",
+      "bytes": 6229,
+      "sha256": "5eca0e2395a063b3982cde0d750ee502741bef9e8b3599cc3280cbb28080ec65"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/ClientWorkPacer.java",
+      "bytes": 1064,
+      "sha256": "82d13d6a9d97884f8e934b3725bd0f009913f064e5737f50a8c2160e41f38e4a"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/GraphicsActions.java",
+      "bytes": 346,
+      "sha256": "ca3b352ff416d8e039121b1f9b57396acd0d65db9ec7673f5a7f255338109cac"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/GraphicsSettingsModule.java",
+      "bytes": 1583,
+      "sha256": "a2fea803fbb15c2dff7a2c888c36a1e5252582d53ae05880e092a103b61f724c"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/GraphicsSettingsScreen.java",
+      "bytes": 3638,
+      "sha256": "050350628e6debda601745d47df3e612fc0018e554e2a24697ae0539b4db99fc"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/LodAccess.java",
+      "bytes": 1581,
+      "sha256": "54d9dc3f6ba57592bbf92d794932ea08d79c0c5845f555bce5042f2d17a7248a"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/LodConfig.java",
+      "bytes": 1573,
+      "sha256": "970827088a4b62fd7e5668ffaf9b7615c42ce9cfb902c5421bab98c4550b7c66"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/PerformanceSettingsScreen.java",
+      "bytes": 15949,
+      "sha256": "b1e3f6366c98d10155b86cb7891f5086ed2765e15f11f8a0df160f1113e4a2dc"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/PresetCapture.java",
+      "bytes": 1056,
+      "sha256": "b69491b078852bfb3cccce67e3c44332b280f562fec7ba841451bdfa59a49547"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/PrimalGraphicsScreen.java",
+      "bytes": 42107,
+      "sha256": "25b7004e5f5bbaa33efa729114b19e4284c52745ae75cce40349ca27b5783406"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/RendererMixinPlugin.java",
+      "bytes": 1382,
+      "sha256": "f6775cba11374a9367669aa98d4f9c8da3e9c6e6ff31369388515a0da4d86d7d"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/RendererOwnership.java",
+      "bytes": 1304,
+      "sha256": "feac1eaa60506114d3bf033926852308910cb09acfc10f3724ef0109c1451285"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/RendererPreferences.java",
+      "bytes": 2024,
+      "sha256": "33f4a46bf7683e1254403c76239c7aa16b4e84a91bb86a5a8fffc3d604337a1b"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/VisualPerformance.java",
+      "bytes": 1074,
+      "sha256": "c376d25ac71bc03c483244d4cacd37ebf3ac15ff3000107220f056bd5ee9fa08"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/WaterVisualConfig.java",
+      "bytes": 1425,
+      "sha256": "866b4ea9343df4d57cb3d5b876a1a692fe628f80767abdf06ff96c022142f8e0"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/WaterVisualSettingsScreen.java",
+      "bytes": 4723,
+      "sha256": "e299f75fc68db65528a84ac40c2ed9b62d2fc1497ecdf2c8ad760d07013b9cd1"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/BlockEntityDistanceMixin.java",
+      "bytes": 2200,
+      "sha256": "2efd0e17375b5078962dfba68802487b7f6f8edf240010a474a075ac7417ed04"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/ChunkRebuildMixin.java",
+      "bytes": 2499,
+      "sha256": "8348f32eb13757f7672c0acf617d1ee38894ec9699f65f6303b93ecdad79a98c"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/CompileTaskAccess.java",
+      "bytes": 503,
+      "sha256": "b11eaeeff4f3b12a073e55e09f6294b4fb931a92eab66d7946532aad96414b87"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/EntityDistanceMixin.java",
+      "bytes": 1486,
+      "sha256": "ac65c1a66afd77a81221194f10abd3c69889942793b4891a6de04bfe49b42866"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/FrameLimitMixin.java",
+      "bytes": 1164,
+      "sha256": "82de503aa802ed9592723ea6fbde902dea57890931db80f1131ec0618bd3afdf"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/GraphicsPresetMixin.java",
+      "bytes": 800,
+      "sha256": "c3b39373ddff35ceec1a08b0a142cf82e328b82f4040d489421ebff0a4bf754d"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/OptionsParentAccess.java",
+      "bytes": 389,
+      "sha256": "478628393363a7d24cc380208863a0bd22dbb677f5b243df2d964e72afb0fb79"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/ParticleAdmissionMixin.java",
+      "bytes": 1740,
+      "sha256": "67788fe854e14cdd72a70b6bbb1c8affb8ad2afe250a4163441434e8f01bcb39"
+    },
+    {
+      "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/mixin/client/SectionRebuildMixin.java",
+      "bytes": 2283,
+      "sha256": "9a31e5f43b9f9a925bd384c57f57599d3456cd88137b3b9b8713987d66d31402"
+    },
+    {
+      "path": "graphics-settings/src/main/resources/META-INF/neoforge.mods.toml",
+      "bytes": 457,
+      "sha256": "c05b0bc2cf1658a08308325a2d88fe8be740674ef5f5ecc24cddbdad059371ae"
+    },
+    {
+      "path": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh",
+      "bytes": 5403,
+      "sha256": "39c4238ad343c0a4a3d0cabb350921cdf5cbfceb18c665beda130a6d2de76e59"
+    },
+    {
+      "path": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh",
+      "bytes": 6887,
+      "sha256": "11cc8172dc3d0358ad7bc0c24bb1647ef277a5dd0d3876a172e0d8f924b81dc8"
+    },
+    {
+      "path": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/terrain.vsh",
+      "bytes": 482,
+      "sha256": "27d964ef36b5ce45d71420dca7efa7cd21280f22e702724edfadeebe2f3c2d7f"
+    },
+    {
+      "path": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/include/water_flow.glsl",
+      "bytes": 602,
+      "sha256": "5e6ed929301a94c45d0d19213f074cafabbe5de589bf556a09478b6a004b0633"
+    },
+    {
+      "path": "graphics-settings/src/main/resources/deepprimal-graphics.mixins.json",
+      "bytes": 572,
+      "sha256": "c52497ac37df7f342c70778e29febe998f7549b5f8fe69f2693c38341eb7efaf"
+    },
+    {
+      "path": "lod-engine/build.gradle",
+      "bytes": 705,
+      "sha256": "cc4fbc6622864060a1a532ef07be4e119a0809f470e98900f1dd8a106cc95389"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/LodIdentity.java",
+      "bytes": 1843,
+      "sha256": "9b9847c13424a38388aa0d33891ee9956d8510652f619ab0bde1324b7a452319"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/LodModule.java",
+      "bytes": 945,
+      "sha256": "eb9168197ff988ce2b39cc47ba366a19f721edb96830f45dd64d6d29d22452bb"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+      "bytes": 2345,
+      "sha256": "f6abacc2a3e7a10b532f83230d107bd68c0d835db7a862f36b96a4074548f391"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodMaterialColors.java",
+      "bytes": 1563,
+      "sha256": "4b2c78b25e02c2728ab3e1e2e04cfdaf4cc841ddb22589bac230000d6f0a3797"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/NativeLodCapture.java",
+      "bytes": 4008,
+      "sha256": "5e6e61dcbcf015adff93403cd5bb4433a55c4f0d20d6e9cc79657fa84df287ff"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+      "bytes": 27870,
+      "sha256": "c27486fda78b5668af82426fb5a0811116f1f4f363e092650c09a64ffdd73e1e"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/mixin/client/LodDirtyMixin.java",
+      "bytes": 1037,
+      "sha256": "0f42f176056c2c64c326f8b3ea625659fa37422a49a1e2ca10ff68153c3dba75"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/mixin/client/SpritePixelsAccess.java",
+      "bytes": 391,
+      "sha256": "524cae6ec9176550a3d3e6884a095297bd61146553886499be12c49d5d20425b"
+    },
+    {
+      "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/network/LodWorld.java",
+      "bytes": 796,
+      "sha256": "3ad8cb94d60eded32915db6f53309eb9ce6ca857486dbce6e538bdaafae59dcd"
+    },
+    {
+      "path": "lod-engine/src/main/resources/META-INF/neoforge.mods.toml",
+      "bytes": 694,
+      "sha256": "58e2af586eccc124c3ecd580710bed849a8f117181b7d7855722ce0aa0efcfc7"
+    },
+    {
+      "path": "lod-engine/src/main/resources/assets/deepprimal_lod/shaders/core/voxel_lod.fsh",
+      "bytes": 644,
+      "sha256": "f937f15b7c359558f79382639320adef94d69e6ea4f7c7e63b8253f81ec0b3de"
+    },
+    {
+      "path": "lod-engine/src/main/resources/deepprimal-lod.mixins.json",
+      "bytes": 304,
+      "sha256": "76f6799eb103cb0fb075f496f53e5b0f666ae49c1633456f27c7c8f104337003"
+    },
+    {
+      "path": "performance-engine/build.gradle",
+      "bytes": 657,
+      "sha256": "0d0b1243aa5d0b5604b3218725d720ce9fc2a293140073b3c12ae6bf52e02fe5"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/DistanceRuntime.java",
+      "bytes": 1302,
+      "sha256": "45f193f36fbad86be42121f22d268e7f313e9a62323d2454055c3284f4ea573b"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/MemorySafety.java",
+      "bytes": 919,
+      "sha256": "b32ab14da04f50c97cd06e5421404591c2249a44c99d3e42db9a701599d66e7c"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/PerformanceConfig.java",
+      "bytes": 3513,
+      "sha256": "df7ffb1cf680d9fb1b506397f7fd031ac3f007ee6f187be082b7122d42a977be"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/PerformanceModule.java",
+      "bytes": 514,
+      "sha256": "842d00bc736964192da8c30bb09ee996aeddf932a3a95144d81bec7e6779dce3"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/RuntimeMetrics.java",
+      "bytes": 1121,
+      "sha256": "ec3b25e13640667cc5dba9facebd7e2f87e76337086c22c0f862022c6d2785ce"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/ChunkMapMixin.java",
+      "bytes": 575,
+      "sha256": "ff3a142086a9bdb8968c360a3161d3c11ab2c376fae96b45dda786a06627b712"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/ChunkSaveBudgetMixin.java",
+      "bytes": 3899,
+      "sha256": "102fab86c2ed9a15554c1ef8f2c1967b801a28fb9de46329bbc9f00e5593d67d"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/ChunkTaskPriorityQueueMixin.java",
+      "bytes": 1463,
+      "sha256": "2df39925a67738b76e5cc9a0e95c069d7cabcebcd185312ad4be60a1f4b46bcf"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/DistanceManagerMixin.java",
+      "bytes": 779,
+      "sha256": "7d76bc4c31d203d8c8de2d2627321d7eadd587a27750563781ce0960d9d1fb96"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/MobIdleMixin.java",
+      "bytes": 1165,
+      "sha256": "eaac0f56550a7119cca64284ad854f3d82035a78af6203cbae6bbc993a45e9a7"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/PlayerChunkSenderMixin.java",
+      "bytes": 2473,
+      "sha256": "146d478e2fb61a5ca63a25149e592daa9b5cc6248ffa6e10fa5da50a32c44724"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/PlayerListMixin.java",
+      "bytes": 1033,
+      "sha256": "2adc6e48d77191c1acd52bce06a57351999348d1c5e4d91fb7827765f581bb64"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/client/IntegratedMemoryMixin.java",
+      "bytes": 1011,
+      "sha256": "579be4d4215417130ccea199ea75e654d5c42a2a2c30a731c7ae8ac2feb4010e"
+    },
+    {
+      "path": "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/client/MemoryDistanceMixin.java",
+      "bytes": 848,
+      "sha256": "6b84ee65a67257f1d51ac8b557545c6079555593a2b13518907a22f8b118a16b"
+    },
+    {
+      "path": "performance-engine/src/main/resources/META-INF/neoforge.mods.toml",
+      "bytes": 459,
+      "sha256": "4697ef604e479c058dfa53d42d06a9e32b71fcea0cc333aa0d1c5c25dd0c6c74"
+    },
+    {
+      "path": "performance-engine/src/main/resources/deepprimal-performance.mixins.json",
+      "bytes": 475,
+      "sha256": "7d4b7a76a9f54f2d66a10d7829191f4b2ee20e330a9e3fa5bd662d3ed0a0f488"
+    },
+    {
+      "path": "renderer-vulkan/COPYING",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "renderer-vulkan/LICENSE",
+      "bytes": 7817,
+      "sha256": "7d3a95e5e06978064ed3f8e2b7c8f845e7fd8a405294727cc708f94cb83b8059"
+    },
+    {
+      "path": "renderer-vulkan/README.md",
+      "bytes": 1351,
+      "sha256": "5751faf7a6d4b01fce4393eaee1256867ab326a97fabd64d5b25d13977491497"
+    },
+    {
+      "path": "renderer-vulkan/UPSTREAM.json",
+      "bytes": 496,
+      "sha256": "434711195353dc69d7ba4cbf4a3e7d96550bf1327c1403c276eae314cd5629a7"
+    },
+    {
+      "path": "renderer-vulkan/build.gradle",
+      "bytes": 2162,
+      "sha256": "c64c4351366adb1e6f9bc6fdfabdabc2c266bc8d8bb5af932048b5c2c51e0e6f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/Initializer.java",
+      "bytes": 428,
+      "sha256": "3d018813f99bb019785e84989e1c7b18872361edef26f993504940d9aa523933"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/cache/BackendCaches.java",
+      "bytes": 584,
+      "sha256": "d2d41940479c645fff6cf71d24af40b5a984cbb4c20e90dc31b675ab414d09bb"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/cache/BinaryCache.java",
+      "bytes": 5067,
+      "sha256": "69c596d76d6906c7c50f8f9a02343358f1f09dd94fb2c8c4768e3750dbaeb0a5"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/cache/DriverPipelineCache.java",
+      "bytes": 3528,
+      "sha256": "787d4acd64b4ea20577be3590e18651f7e57430a068c8c3af82bb4c08759586d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/GlfwVulkanBridge.java",
+      "bytes": 1250,
+      "sha256": "7a4c7a94005ff1102d22c38d2aa925e2199eaf78ad43bd55cd76875d6f0cf319"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/Startup.java",
+      "bytes": 2432,
+      "sha256": "55628fd7252f66255fd32d8b00010c91fe3d673798508ff9df94e22f49857377"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/VulkanMixinPlugin.java",
+      "bytes": 814,
+      "sha256": "6d26bb5de91c4aec0d30cee5dfc8ef5c1894b51e03a75463919f26d5ee20ce24"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/gl/GlUtil.java",
+      "bytes": 3896,
+      "sha256": "bf8adb8c02aa65e3ddbfb5a1b4c0611c87b52956d06dd565df99f54d1e7b256e"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/gl/VkGlBuffer.java",
+      "bytes": 3669,
+      "sha256": "ee46a1afd0da82727e967c60fcc21172249b64e3c47b2f7c21c6ddaf07914790"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/gl/VkGlFramebuffer.java",
+      "bytes": 7519,
+      "sha256": "2ea15f518f98282293a37c9ffda78e28ec2c0f59130c1e572e8bdcaff5de2c4c"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/gl/VkGlRenderbuffer.java",
+      "bytes": 7598,
+      "sha256": "72b97e605414f4fd66d2def4c8ba09053d135e895ade5839249043f71fe900fb"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/gl/VkGlTexture.java",
+      "bytes": 14119,
+      "sha256": "65a5e9e1183cb331f5fd89e44a79e1b47b35ecb2e2fa60ac67a2a719d638fe4f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/gl/VkState.java",
+      "bytes": 3546,
+      "sha256": "ffa85e4fe6b1108cc055ec8f3905d9dabf1e5e71a32474be40fa2114411748c4"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/interfaces/shader/ExtendedRenderPipeline.java",
+      "bytes": 601,
+      "sha256": "cdd4f6b52d14356adf94c34d0eee19e9c2ba690d239002c7d0e6a2742bc3a4a3"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/AtlasProjectionMixin.java",
+      "bytes": 868,
+      "sha256": "baa262b261d5b976529e58162efd4cf800efbcd67ff7ae569cc8ee74e6fcca7e"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/DeviceInitializationMixin.java",
+      "bytes": 808,
+      "sha256": "32ab113ccf8a516bccd697840d9e7c2a02c5a50524ffc4c5868f1f57486f2fee"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/GuiItemAtlasOriginMixin.java",
+      "bytes": 900,
+      "sha256": "3c97e38cc8188c493f520bc78ab26e90a27a7edb9eaf9aca1fdd39e1bfcaf6ec"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/GuiPictureOriginMixin.java",
+      "bytes": 1162,
+      "sha256": "dd037570a6408c40e3b8b1c6fb6235b54bc824bc47c7b7d9082bdac8d229f6f3"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/MinecraftBackendMixin.java",
+      "bytes": 1147,
+      "sha256": "d042043a401e04be753b08034bdb9a9842f3bf6e45440b8f527f780d417997e6"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/ScreenshotOrientationMixin.java",
+      "bytes": 756,
+      "sha256": "cbaf61a575a26e957fd63680e8672e13b22a04fd9c8c59503c48481526a2245e"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/window/VulkanWindowMixin.java",
+      "bytes": 1971,
+      "sha256": "6681ee256c1d8009b4f07d76a31f56bc7ae889c0eb07342c5e2ceb90c3465e38"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/mixin/window/WindowAccessor.java",
+      "bytes": 504,
+      "sha256": "8150de2a2322070e8b7171f86843f6bda6ba4fa2d6d544b1431dde0f38cadad7"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/chunk/util/Util.java",
+      "bytes": 1473,
+      "sha256": "07cf835590bd58d1560f7805753672cde8192b8089e42656b89bbee9b87620d2"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/StorageRange.java",
+      "bytes": 332,
+      "sha256": "4bb2d643048177dc4b1f090aebdb1e52a5e635e3b8526331f86b8dea6f0f8396"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkBackend.java",
+      "bytes": 1944,
+      "sha256": "de2b6d436726cfe890a827089d5765e5b09f91203b861fabccec3243d78d46ef"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkCommandEncoder.java",
+      "bytes": 44327,
+      "sha256": "05ce52be24766bba31b5f62294e8e37b7e29193076e1f4f5a6c8b77c21809a75"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkConst.java",
+      "bytes": 641,
+      "sha256": "7b39e911dbba5ac04168427ce85306e82d5cdcc4de802f7b206c8572583d36f5"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkDebugLabel.java",
+      "bytes": 1560,
+      "sha256": "553e35327e0935945cdb664449d09e8f2e7c534fb9c9df13e3802c2bcc05d1fe"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkFbo.java",
+      "bytes": 1144,
+      "sha256": "d78dfa3dedce29c1de970f1aaa5cb0b3b0623e75214fc2dbcace6c5ce744a785"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkGpuBuffer.java",
+      "bytes": 2903,
+      "sha256": "05c8976edd9c8356f25e595e19718f843a89fed8dd4c840705394bc8433d9e40"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkGpuDevice.java",
+      "bytes": 16716,
+      "sha256": "f1f277591a07e18452ec00a6bd62ac2cfbc9fa912493a0bbe0b98bc1a996dd53"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkGpuTexture.java",
+      "bytes": 3099,
+      "sha256": "08d222a1c79a2077000cad72b689387f3581153d9c4fd36dc98efd1e7e440118"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkRenderPass.java",
+      "bytes": 7084,
+      "sha256": "388cc627366d7158d6a043461c87a896678925c7f6e7c966408cf2bd97299a41"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkSampler.java",
+      "bytes": 2520,
+      "sha256": "e9acc2c14c59acca1b51d2a8d20f788c3da6ce612c8ce9d0982ab8d46e93b6f6"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkTextureView.java",
+      "bytes": 1487,
+      "sha256": "fd48edc6d03b7cf342913f2ee1464b6d3e3d19a81c5e1ac3a0c1974900e6c7ce"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/engine/VkTimerQuery.java",
+      "bytes": 2693,
+      "sha256": "8dd9c4d21f0229e9e0aeb1e72f262a346efccba28ec49d9a04729964fc6cb052"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/profiling/Profiler.java",
+      "bytes": 6133,
+      "sha256": "479335a16cafff858fc83598733c8af8d856ca1879b2a069107b5af5662c3b7a"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/shader/ShaderLoadUtil.java",
+      "bytes": 8877,
+      "sha256": "5a8122b35be4610c4c95b9ea59cae7e2743812480ab5b952923aeafcb68792e2"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/texture/ImageUploadHelper.java",
+      "bytes": 1363,
+      "sha256": "f2529cb48c88f5e76fcd92723affa71aea275c290158a5575b9c1c845fab1bb0"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/texture/SpriteUpdateUtil.java",
+      "bytes": 1053,
+      "sha256": "8a71beab3300cf2a01ee6b643ac945f4609ae2dded3531e927c573b06e2f649f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/util/MathUtil.java",
+      "bytes": 2275,
+      "sha256": "f461d55baa44ea819e43fbbbb01d77bf984e185477eaece27c8f331a5176de8f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/render/vertex/format/I32_SNorm.java",
+      "bytes": 909,
+      "sha256": "1c131ea5c2255a66052f7d62f22548aaeba293b27e3888f344cae06eeba0da9d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/Drawer.java",
+      "bytes": 9309,
+      "sha256": "f1f0d98ce62f9aec40269b145b218df1fe5681a2beaf6678e7063819a4b60093"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/Renderer.java",
+      "bytes": 29267,
+      "sha256": "a622b6069b42d42bdebd4bff8564db8a4f1246dc021b8a8393d14661234d5d37"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/Synchronization.java",
+      "bytes": 3122,
+      "sha256": "ed02e2fc8a582de62196886506b62c120691c4803e354174c42dc35fe908c84f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/SystemInfo.java",
+      "bytes": 530,
+      "sha256": "3f444db8d5584843824349dea39fc25b3c9bd82fec0349949d336ac43f4f04e7"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/VRenderSystem.java",
+      "bytes": 10245,
+      "sha256": "26b1756cbfbaf76beb01927ad3b7afd18c74ffb1c3e6357c359c0b48d268a397"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/Vulkan.java",
+      "bytes": 16357,
+      "sha256": "c632691ed17036682193622a0cc1da11dc69381ca77b1ddc8e8d2af2ca158380"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/VulkanStatistics.java",
+      "bytes": 1126,
+      "sha256": "b1f437bdb671dcef8d9bf4bfa406f92f4293eb0c2535ff74afc9c621ab90d7b2"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/device/Device.java",
+      "bytes": 4341,
+      "sha256": "0bb138ba72c1e3ac3cbbbc40fbc287bb33dfec9896f92ff605fa98129ad3df49"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/device/DeviceManager.java",
+      "bytes": 13589,
+      "sha256": "998a01decc363cbbdc5df9c876db6735e780d1d03af12c9c2231546f32a64c24"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/device/ImageCapabilities.java",
+      "bytes": 2302,
+      "sha256": "7241bd4369a58fe9d77018d6ab8ac29134ea9e541e1e76f14108150330e981be"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/framebuffer/Framebuffer.java",
+      "bytes": 9999,
+      "sha256": "acdc6dd4e6e65b3d91ef439b18e47635bd3c53989185f5cf6291792dfa82bf7f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/framebuffer/RenderPass.java",
+      "bytes": 12286,
+      "sha256": "1beeca9973db66dd92cb5a147e7f6885623be592eaf26f20e89533f7ef4415a4"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/framebuffer/SwapChain.java",
+      "bytes": 11534,
+      "sha256": "7187d6358b7d5d7787ab1c0232e5d756941333367f68a11ebfaa832421201261"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/MemoryManager.java",
+      "bytes": 11063,
+      "sha256": "c63bbf89939c3cfa73fbfbeea1cf992abb06ca55eb4209751ac7e8a99c1a42e7"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/MemoryType.java",
+      "bytes": 1037,
+      "sha256": "6b1dc1b4b5b58f7ab40a0d7c8a4ba6dbb7068b0bc3a5c0e646d9a7b0b8cfcaf7"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/MemoryTypes.java",
+      "bytes": 5222,
+      "sha256": "a519276485f52d261e449dc4db2d79c010dbf01b7d61c71047a75fa222761389"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/Buffer.java",
+      "bytes": 2907,
+      "sha256": "2de45d9a300c48bd007c66982050056e2d049e3ea01d54d7d517b07e37b0409d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/BufferSlice.java",
+      "bytes": 612,
+      "sha256": "5573d744c8f24955b1e03f6d1ad5871126124700976783ec9192a7e9dfd7930c"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/IndexBuffer.java",
+      "bytes": 903,
+      "sha256": "7156ebaefeb96c1c3d495f9998e08d28f7ef35fa9df96cf5ca2b86b834d39d89"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/StagingBuffer.java",
+      "bytes": 1823,
+      "sha256": "57db841690e2d72e0621df38df804c01ee7cec14d569bb8f0ca7b30bd3cf035c"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/StagingBuffers.java",
+      "bytes": 2767,
+      "sha256": "cf65dd905770a148b22f1f8ebeea7bd22da1c61d50a87777ef6f2b6522947532"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/UniformBuffer.java",
+      "bytes": 1126,
+      "sha256": "481e39aa17e3203c22884ac17f2c1859e21117b514d10cab50e425c544560ef6"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/VertexBuffer.java",
+      "bytes": 562,
+      "sha256": "bd73a0400ed0f70f40ab78fa93fe578cea22f2ab59b4b52aed03891106c3efa4"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/memory/buffer/index/AutoIndexBuffer.java",
+      "bytes": 8069,
+      "sha256": "42c2d929e4407303dfe97d09cd2d1d8629cbc9e9fd52969e3afee8a2ad6fdff0"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/pass/DefaultMainPass.java",
+      "bytes": 6789,
+      "sha256": "5135da81e4a8d43e1b04e00c7aba27ce0473d4bbad4a7067d81a5b9dddcd87ba"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/pass/MainPass.java",
+      "bytes": 1060,
+      "sha256": "aeaac42da66ce68965570d413c924e3c5153606d769ce737c5809bfe3887d8b3"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/queue/CommandPool.java",
+      "bytes": 6181,
+      "sha256": "e2b4765646db6509919be964382b201d58683be4cb25ef55c15140a3d7f297dd"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/queue/GraphicsQueue.java",
+      "bytes": 1126,
+      "sha256": "1a1ec4b50c01eaaad93d9a5921ac079a38ce5c4c1d4d9b30c0eeefa9425f922f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/queue/PresentQueue.java",
+      "bytes": 391,
+      "sha256": "d28d549cef7069a4468bdccc5d472b26ec24664e61c68d2c0d31ef0173e1390d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/queue/Queue.java",
+      "bytes": 4239,
+      "sha256": "ba7a2e0b88db11049196b0cf8aecf5c8b9d24479ed69631986659c6c387b9a0d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/DescriptorBindingState.java",
+      "bytes": 1185,
+      "sha256": "144cf141bb5a8936b5fcada91bb5524bbeaa5cb4186619fe780a9bd1ce75b2cd"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/DescriptorSets.java",
+      "bytes": 7095,
+      "sha256": "8f3c820481379b4b040b1818ac1da2b516b8791b0f78828e9cc4e14d08c31b33"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/DescriptorStateCache.java",
+      "bytes": 1082,
+      "sha256": "8ce8d6a4d33ec17f08e3bb3dceb30107107e5243a4152fdb7827127641c8f7ac"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/GraphicsPipeline.java",
+      "bytes": 20114,
+      "sha256": "3a4cb1f65c7fe24df546a313b5c85c6de267f022ae7551e0170b6b393c5d89ac"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/Pipeline.java",
+      "bytes": 14104,
+      "sha256": "5ea59f6a4e02d4693deea992b27850b81c6c310a40bf73de1cf69de97eb81932"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/PipelineConfig.java",
+      "bytes": 9947,
+      "sha256": "e2cc95dfaa8fb46ffb83d730f5de362921addbc366596f3dd1a0ba9d6256d9fc"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/PipelineState.java",
+      "bytes": 11594,
+      "sha256": "11eead29d7ff6eff89c886554a9db0c1bc2cc60d08ecf708997ed40a485c8598"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/SPIRVUtils.java",
+      "bytes": 7284,
+      "sha256": "7d0c6baac58dcf488da727cc8a237cbca5e8054ccfef729e2885a8470b969012"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/Uniforms.java",
+      "bytes": 3865,
+      "sha256": "3890b36b9d93baca5b525c26482cbe8a80b69541b6a2f578fb88cc5b292c78b2"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/converter/Attribute.java",
+      "bytes": 895,
+      "sha256": "42330921cdda404e9fd4e3d7671473ae29ae85dea1478a85c38c18c97e73533f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/converter/GLSLParser.java",
+      "bytes": 22282,
+      "sha256": "63db04fe534540f8edeb784b83c571ca23811da19f51e0648e75246efc31808a"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/converter/Lexer.java",
+      "bytes": 8239,
+      "sha256": "4a323629907e66d187784cc771abfdda1a7a3d0e7c1d4c0cb54bf2182de6dc9b"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/converter/Sampler.java",
+      "bytes": 1350,
+      "sha256": "df635d840fe0889fcdc3cd6783699d8284d07af2d68bba8747dc24f0b38d2520"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/converter/Token.java",
+      "bytes": 896,
+      "sha256": "044dcfe607be6c32c0d889951211f5e360615bfc457c13f05f346a8f7edcdab8"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/converter/UniformBlock.java",
+      "bytes": 1584,
+      "sha256": "354295f68d1c67273c96c1001840a5181d7c571e847f74b75e4e17a2a54db2f4"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/descriptor/Descriptor.java",
+      "bytes": 308,
+      "sha256": "d63f13cd2273a3e581e93e3a86ae243a558709a9ce0ca2a2f537f9f492124799"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/descriptor/ImageDescriptor.java",
+      "bytes": 2955,
+      "sha256": "62c0a27d8143466b8c0bfc4b3f518657e4974ddecd0b2dafcdbc40ace5a6a1d9"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/descriptor/ManualUBO.java",
+      "bytes": 854,
+      "sha256": "2385b180332cd958bd56c90fe3961a4a09c9cda53fb179962948f73fcfcda480"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/descriptor/UBO.java",
+      "bytes": 1731,
+      "sha256": "5c2f583cf10fb9a696f86d39bde143e6bb191ca7410bd19304404967cd537fbd"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/layout/AlignedStruct.java",
+      "bytes": 2572,
+      "sha256": "d8f0c75c3ae6e40df112bd1fb0680d50b1ebbc111cf2537f75a5c21ecdfd250a"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/layout/Mat3.java",
+      "bytes": 687,
+      "sha256": "ba4921ff3b5d3d10dd04fa07d222e67d1e69df9fe6ec51f37fcdb27a98ec305e"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/layout/PushConstants.java",
+      "bytes": 459,
+      "sha256": "d366e1bc9fb287eb12b0c225a9b519b59244a1b68b88febabfd7028525beb852"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/layout/Uniform.java",
+      "bytes": 5514,
+      "sha256": "2eff8bb1196d703a57c136d13e169a0c50ee6e871e96329478ee1b5056f9ee7a"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/layout/Vec1f.java",
+      "bytes": 1092,
+      "sha256": "a0218a11bd890d6a227ca23bb827a8577346d1b7bdf0f0a9d5c1c8c0685b38a9"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/shader/layout/Vec1i.java",
+      "bytes": 1074,
+      "sha256": "a51de8e3cfedb9d0d45f4cb5e16c2788537274e1d06f042b218e26cdc5921f5e"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/texture/ImageUtil.java",
+      "bytes": 11316,
+      "sha256": "8a95afe6c71a9a7f065dab0d49d2219eafe782442621372552b8084037414dff"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/texture/SamplerInfo.java",
+      "bytes": 4783,
+      "sha256": "fa40722a144b06cff881cfbdce0ceaba750be5ff5465a5e64f1f29489e1a6330"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/texture/SamplerManager.java",
+      "bytes": 5431,
+      "sha256": "41248adbfdaa77af5e5711d7bdaeea663359eb6fadcbf766bb5e6ff1024969db"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/texture/VTextureSelector.java",
+      "bytes": 4679,
+      "sha256": "ab8f1a042383485f37e6321f24d78bc26315f34406d439ffb25f35ffb1aa80ee"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/texture/VulkanImage.java",
+      "bytes": 18397,
+      "sha256": "b5be6368740db24766284261f55c8a6323d4a986ab4740ec9ca1180985e9d63d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/ColorUtil.java",
+      "bytes": 5760,
+      "sha256": "2b1fa1a4d81403ef939c98d2af5c2fe12160bb7a51ba3cb920f41c33244c36d1"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MappedBuffer.java",
+      "bytes": 1132,
+      "sha256": "6018a67e6e00e1129755ffb9eadf2e509ff6e1748b8256315e46239161d03091"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java",
+      "bytes": 2128,
+      "sha256": "29a87e1b5792fb6fb285e704211f0801e983a1eaa613a5a7d595e998dee98f30"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/Pair.java",
+      "bytes": 347,
+      "sha256": "7a3392df967035f51142f93a825c094eb62da2ed957a5f456bd3bfa3cfe4385d"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/ScreenshotUtil.java",
+      "bytes": 3546,
+      "sha256": "558504bd964695e24116ad82a9d85ab136d4f54305e099995f93a5ad15b2ddb6"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/VUtil.java",
+      "bytes": 2791,
+      "sha256": "53af9ebfedcc106d5700ff81c1c96147231dc55443d002181b325ae658c6ebfe"
+    },
+    {
+      "path": "renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/VkResult.java",
+      "bytes": 2281,
+      "sha256": "90cd1246424fea46b675ac3673201ba77746ec4b4af8ed8fe597dc79d2ebcba7"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/META-INF/neoforge.mods.toml",
+      "bytes": 432,
+      "sha256": "fcb230483037bb86f22cc216036301a04cd968730d7cbbf0f1ccebfe54fda167"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/core/animate_sprite/animate_sprite.vsh",
+      "bytes": 773,
+      "sha256": "00850ee3a70a407bdffb04144925b0f37a087caff638fdfeb78a24ee3bf38a6f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/core/animate_sprite_blit.fsh",
+      "bytes": 362,
+      "sha256": "4c3904f6e3cfdd08765f7ef97c67606373443a01b01f077838c5b6a516da0158"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/core/rendertype_item_entity_translucent_cull/rendertype_item_entity_translucent_cull.vsh",
+      "bytes": 2860,
+      "sha256": "f5ba49d0dc331bf4e078a3f500be9959f656728a0c4b8f8bc2c6ed66ef489637"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/core/screenquad/screenquad.vsh",
+      "bytes": 232,
+      "sha256": "8f8a6d7520ee9123c12bc0c0565d32463bdc4b7cede1833014b7cc8d6b86f48e"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/include/fog.glsl",
+      "bytes": 2202,
+      "sha256": "9dc65fcb9bba9f8d79adfde63dc4474fb95bda70e43362b7474f0a77f175a39f"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/include/light.glsl",
+      "bytes": 1359,
+      "sha256": "04a0af97bb4c699159859874c285596ba15a88cc0b3df44bd6b1594774b7b945"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/include/matrix.glsl",
+      "bytes": 140,
+      "sha256": "d42d7c9284cf1b45e6b9244d6ff49f3b4889c7f4dc3b8ee53a027430eba34878"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/assets/vulkanmod/shaders/include/projection.glsl",
+      "bytes": 233,
+      "sha256": "87910f8f08dee71d0265db3ef46d1fa55c64a4e0e1204037a8a5f98307344362"
+    },
+    {
+      "path": "renderer-vulkan/src/main/resources/deepprimal-vulkan.mixins.json",
+      "bytes": 484,
+      "sha256": "a5171deb0b80855f0dd13f788acff3b02869327ecfa9957b94edc2b21c9e7618"
+    },
+    {
+      "path": "roadmap.md",
+      "bytes": 47805,
+      "sha256": "00b94e869e6965cfd283fce0bf18ae6f74e4ce0bace5906b71213c2935bd69bc"
+    },
+    {
+      "path": "settings.gradle",
+      "bytes": 424,
+      "sha256": "e60a971d3b99615894c9fc09ba2bcb4f20db4f2f843f6e4622ce965ed1904be4"
+    },
+    {
+      "path": "src/cacheChecks/java/com/shnewbs/deepprimal/validation/CacheChecks.java",
+      "bytes": 3543,
+      "sha256": "d95abb1e4bc0cffc5134fa76990e7a60a44662f40b741fec9c4b673efe758090"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CaveColumnChecks.java",
+      "bytes": 1779,
+      "sha256": "c76e200363dce96fc412f1df52aafb6dfb043f4346a595c3babca06535d6d43b"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+      "bytes": 6002,
+      "sha256": "9a08fd9c43c7e5dcce5013ff7824bc5490e9ecfcab2f02ec9c14c2e020545d56"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/DrainageChecks.java",
+      "bytes": 7662,
+      "sha256": "8f4dcb2d70da0372b52bac7e6dbfe153c03cce080ef0fd6f6271970a654e1c99"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/EngineAuditChecks.java",
+      "bytes": 8708,
+      "sha256": "c1ef025a2d212dfeb7cbe123b342b86b9efa14365afa97e6fa16ced42eeb70da"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/HorizonChecks.java",
+      "bytes": 9145,
+      "sha256": "5878fe658301155d57be88aaeba16c0be2175658de76dcbc0e03bac5a523b7b9"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/HydrologyChecks.java",
+      "bytes": 2389,
+      "sha256": "1524ee592fa0c52af96919bb57cb75457b2d2f4513c14f6ef662d83070111058"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/IntegratedEngineChecks.java",
+      "bytes": 6964,
+      "sha256": "887b26eca0cfef8b8834c2f94b2c971f2b4f1799dd1f1b1a2811a5c100d25fa0"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/LegacyHorizonMesh.java",
+      "bytes": 2896,
+      "sha256": "3c6a2d3f940f42c673391346dfa503e56bd5529b264fdf7f9d8eca023aa30d98"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/RuntimeChecks.java",
+      "bytes": 3493,
+      "sha256": "4f4187a86c8aa45ea7e48ede0f27e6b2b74484fbf4c19700fdf335ce0ebbeba7"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/TerrainRevisionChecks.java",
+      "bytes": 1736,
+      "sha256": "9f0cff3c58be90818d7f51a64fda45b2f392153d977dc7fd5eaee79b80930168"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterAnimationChecks.java",
+      "bytes": 3377,
+      "sha256": "2ce1cf19293ad645cf05cc1da0c94635b54ac83a76b9b460ff1f636e42f89fef"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerBulkChecks.java",
+      "bytes": 4446,
+      "sha256": "e60091f97350de5ee9a0e727376e53399a5c43c1c3695e7032c4342a716431ce"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPacketChecks.java",
+      "bytes": 3704,
+      "sha256": "a18536bf47cd92cc7bb0e681ce10c90314d87b23bcffe9b23c79eeb36e2281c1"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterDynamicsChecks.java",
+      "bytes": 1598,
+      "sha256": "c7315c398948c9cfa251c33a498465f9ea7b7f60de45ba19b174d9320175994d"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowBlendChecks.java",
+      "bytes": 1490,
+      "sha256": "0515bd345d9cf270cad163a0f47e4afae87a4a6056a9f29f4290244184ce9257"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowFieldChecks.java",
+      "bytes": 3129,
+      "sha256": "401d054e2df3d995ffc8c2c1b97fe3f8aedb450ac1877f168ef3cfb0214a0b0e"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowTextureChecks.java",
+      "bytes": 5020,
+      "sha256": "09cd9183dce60968babbd4786b9714e2227c1cb7bf60f3d280929a9aef5aff3c"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceShapeChecks.java",
+      "bytes": 5649,
+      "sha256": "5660630e4154b02ea5842131fe849eb6e4f5b932cefac4d280ba05b576d6485f"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WatershedChecks.java",
+      "bytes": 7864,
+      "sha256": "f6676bed1d52d299b9f68a6c03d3dba2be7f783412b9fa328a6d5ab0acb6af5d"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterwayChecks.java",
+      "bytes": 2970,
+      "sha256": "8ea190bfc5ad405468d6407a82d2126acd7907004395602e96d858cc24604e9b"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/baseline/Alpha17LodMesher.java",
+      "bytes": 6636,
+      "sha256": "e384cfe4615fc4864bfeb91f208605790deaf1e2ff6e0cafc3e8ecd02f5254d9"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/baseline/Alpha17TerrainEngine.java",
+      "bytes": 12195,
+      "sha256": "97a08ccd48adae0d2c0a876881ee6ec78390e3c9fcf6bc21ff0384852824b585"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/baseline/Alpha23TerrainEngine.java",
+      "bytes": 13901,
+      "sha256": "e02baea41b3339cfa4c88049b1c50ec0937912aa60d9e53d2a45add12c21db87"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/BenchmarkReport.java",
+      "bytes": 2689,
+      "sha256": "0e31c4991d865f33e05d8d3db1785796ea6fefa95a05d5dd78331f9e0efdd277"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/DeepPrimal.java",
+      "bytes": 3863,
+      "sha256": "558f78308062d64505e999aab7d5c571cbf640176ab5ebd036635b84c5839646"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/NoVanillaXp.java",
+      "bytes": 1780,
+      "sha256": "2fa787f8527a73c79e0ad2c516decaeef9648b535279301595332566468625a5"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/WorldgenConfig.java",
+      "bytes": 6178,
+      "sha256": "5932767cad1fb29f7fedd0b3e2c0bd354f8ea974a434cc5d055bf9e63745458f"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/WorldgenProbe.java",
+      "bytes": 17713,
+      "sha256": "7969ebb3a5b91ab8e9271831bd7cd39f280cb8ce080dfd6d5a406899301e207a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/ClientTelemetry.java",
+      "bytes": 6557,
+      "sha256": "77d77c1b590586c84053f2fe0a53a88940b1174ba2bec0b8faaba272ddba274c"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/DeepPrimalClient.java",
+      "bytes": 4621,
+      "sha256": "d2a98f9f227289ecc1546ab8320a63249b6747504962a882c1ff6db756ce14cf"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/DistanceScreen.java",
+      "bytes": 15754,
+      "sha256": "b28b020aedd59a8063851b052d810e87affd34014e43b3d71b62fcd1a8aae195"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/SnowAtmosphere.java",
+      "bytes": 1635,
+      "sha256": "368c555e74a9db8c0e3bb927c4c7c03d2d5099cc7a5922637c324a4d7f917853"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/SnowFoliage.java",
+      "bytes": 1877,
+      "sha256": "a195b7f35330863b22e3e7b19030887bd131a9975eb2172750332a9d277978fc"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/VerticalView.java",
+      "bytes": 237,
+      "sha256": "dda7d0d88a5d619a488351ee437d326541b227f15a821c749a34d6a479c6943e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/WaterColors.java",
+      "bytes": 1546,
+      "sha256": "b27e9be3924390549dc55d18cc0b5a11c1abe1bad0e7f48f00c4612de39328e9"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/WaterEffects.java",
+      "bytes": 3763,
+      "sha256": "66e70f9dcd9294eef59c96e6cb9d5d17180f25b3766b5f786b22ade56b7f6ef6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/WaterPalettes.java",
+      "bytes": 3055,
+      "sha256": "ac49396b907de7949d809cff8994f9d12e39a7b1be5d5941127466491c5c8494"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+      "bytes": 39979,
+      "sha256": "07ab9372689c9395770b7b7a051b698fe2eac520fbd6c5587f369bb39fccf43a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/HorizonGpuTimer.java",
+      "bytes": 1475,
+      "sha256": "f8f1da2692c1eefa3bed510a4f09a0bb5d2f426e0139c47e734aca210d0e498d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/HorizonRenderer.java",
+      "bytes": 29670,
+      "sha256": "5fdc58ad72afd424e1fdd27dcec232699cbcda53a6d0fd7962605b063df6b11a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
+      "bytes": 7296,
+      "sha256": "167e3d56e8eedfb0401f9a4c4218e63bec60a02b140287a932ed8b23df989835"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/WakeRenderer.java",
+      "bytes": 8417,
+      "sha256": "79172baa7608c8d896c5438281a59e6fea31bc53dbe16777c394a0b5c58ca0fc"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/client/render/WaterSurfaceRenderer.java",
+      "bytes": 9537,
+      "sha256": "c94346b00998069300b378c3ebdc5749e07b753e93c9f00fa9968a2a17e3854a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/compat/BuiltinRegistryFallback.java",
+      "bytes": 1324,
+      "sha256": "c7a3c1ba2577655e667ad2c1b9da985f2208bcc5c8aff52acf640afa37343509"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/diagnostics/DiagnosticsConfig.java",
+      "bytes": 755,
+      "sha256": "2435cf0c582384e5d4eb3dc3eb4eeef1d346ca0f6c7f38cc233f817f02ccedeb"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/diagnostics/LocalDashboard.java",
+      "bytes": 9358,
+      "sha256": "4c8ea7187a2971b36c278444f08921c2418fdc6eeb6d5e1ab91bfac30975545d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/diagnostics/ServerTelemetry.java",
+      "bytes": 4356,
+      "sha256": "d20f3ddc3948473571d8d802058d2ed35364af5e811ac424bc882e52de813912"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineBucket.java",
+      "bytes": 1235,
+      "sha256": "bb9b377a8cb9dbf7cae7bc0af1cddb3f888831f17c5faa7d21de13c5b380c163"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+      "bytes": 15577,
+      "sha256": "02745eaa5e8f3ee208700326002f4e5d0b9592bd781da4ff9b23cbab5919b7ed"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineFluid.java",
+      "bytes": 2834,
+      "sha256": "a0d2989d3eb81bd6d1a0cc0d93d09ad755ed327505e87263b988134cd8cbcce9"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java",
+      "bytes": 2279,
+      "sha256": "d3880b5fb4853a440e8da627ae0a9e744511de06572fd68f65b86bddce8e77cc"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineWaterBlock.java",
+      "bytes": 2800,
+      "sha256": "983dd7906804b16f47db43de1918a8cace7f980048778b824097d2b0083099b8"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/RegionBiomeSource.java",
+      "bytes": 1437,
+      "sha256": "bf881e5d8bf7e8ed5f3902598e4b3603b0fabbc303eda51954790545e91af3ea"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/WaterBorderWake.java",
+      "bytes": 4984,
+      "sha256": "330c0bc91dfb501a532f80b6d5b2a275c9227309081f919ecfdc846a4dee253c"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/WaterInteriorWake.java",
+      "bytes": 4029,
+      "sha256": "b97f42f6b417394b930bc7a2b74f7e11725e763bfc80d9f5abdad77d503d6af4"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "bytes": 27579,
+      "sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/FarmWaterMixin.java",
+      "bytes": 1851,
+      "sha256": "2ab2d9197a0f1a20fe28d49bf88313a3740e24b0e84e58775b4f069ae4948823"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/FiniteWaterMixin.java",
+      "bytes": 1267,
+      "sha256": "aa7f384c6c9725230869c5913656a0b2af648fbcd877b25e2fd54ae7188f9ceb"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/HorseBuoyancyMixin.java",
+      "bytes": 829,
+      "sha256": "6935160f48cea4c351a604664aeb4ce917b6df7b9c3412b59c0fbc614b107eed"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/OceanBoatMixin.java",
+      "bytes": 1380,
+      "sha256": "3329770e376e74fef3698f0365b01f978a03fb243807a7be7a7a5301999836d1"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/PrecipitationMixin.java",
+      "bytes": 629,
+      "sha256": "887cfe3955a0acc0c8c68684aef6080fd671059c39eccacbcff8e7d326dcc1c6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/PressureChunkMutationMixin.java",
+      "bytes": 1078,
+      "sha256": "6d82ef7e243931d520c0d21feee0b4867a772db3c93bb1f32ef01106ad7049fb"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/RiverCurrentMixin.java",
+      "bytes": 1111,
+      "sha256": "1ba96077b33caa2991e4d27b2861c36db25c027609cc24785f676399d5a31bfa"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/RiverImpulseMixin.java",
+      "bytes": 1361,
+      "sha256": "8386941a2dea74d36b5601f9cc565e561b787ef856e8d91aab7f083a4bd8f8bf"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/ServerLevelMetricsAccessor.java",
+      "bytes": 464,
+      "sha256": "20e373555fdfc6949d7cc42ab2ea3e0e69b2297962da88ec2786fcd1c65a3bbd"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/SwimmingMixin.java",
+      "bytes": 732,
+      "sha256": "eead9ede792b8d57d82f9f74c50094767797b5ca37c658d9344199baca270515"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/WaterImportMixin.java",
+      "bytes": 1375,
+      "sha256": "05da790ca80912ca990f6747c64ec38250acf35f64d961b4db3ad872ea8c55f5"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/WaterwayAquiferMixin.java",
+      "bytes": 2264,
+      "sha256": "390ede69c2dfc797c4b1ad60e97da8dda96db6d0d61ddbee80cc8e83b19d40b9"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/CameraMixin.java",
+      "bytes": 1371,
+      "sha256": "6ee85148a00cbb42665744e402a769fa534afe5b858ff9757003db54d9cb59e4"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/FluidModelAccess.java",
+      "bytes": 319,
+      "sha256": "8a0e6297d37a1d9da39c3a9283f35abdb886d6f40f9d5a4633e8ace8481dfe21"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/FogRendererMixin.java",
+      "bytes": 4504,
+      "sha256": "aafb52f51d12cc28b27306bdbefffc7e34f51fd61bb5fff414164f9a9d4aeb79"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/GraphStorageMixin.java",
+      "bytes": 939,
+      "sha256": "9ccca21479acdfa72fc6b8f32ffaa1fe8d5587b51422734131625aacb346ffaf"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/LevelRendererAccessor.java",
+      "bytes": 366,
+      "sha256": "085b1601b306f178e92b859f99a93ada88b74000ba4e4185c2a410b895e3e388"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/OptionsAccessor.java",
+      "bytes": 311,
+      "sha256": "6538170a5006e0cdc97872f347aea1eea5a11658decaec6010607ed47b37d7f7"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/OptionsMixin.java",
+      "bytes": 2099,
+      "sha256": "5f3f0afdfa6d296282b314a9c6795b3125da85d8170ed5747555bb4eb133be29"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/SectionOcclusionGraphMixin.java",
+      "bytes": 729,
+      "sha256": "9864a57ebb0de9460a6add7ffe27e8bbda9710fc0efe2e91e1697be57ab69ed3"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/SnowFoliageMixin.java",
+      "bytes": 1086,
+      "sha256": "73c689888dc39ea5be317566646b7464bcb6df35ac0632c3caebbe0dc628521e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/ViewAreaMixin.java",
+      "bytes": 6284,
+      "sha256": "3d029686fe091f43d62fabd20eb647dab4e401da08a53b898ba39b0c33480a3a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/WaterColorMixin.java",
+      "bytes": 1415,
+      "sha256": "df56fc756e5ed32daa947cb04ae959c63ddaa0aa206d60a5156c1a9bcff40e68"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/WaterFogMixin.java",
+      "bytes": 2218,
+      "sha256": "a9ed56293923f2831c8958c33ced3602d6b56e9d92fb66f16ed910bb3af60292"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/WaterPresentationMixin.java",
+      "bytes": 2680,
+      "sha256": "5cafc6912685959cb80909c992d1ee15c580508dcc593cf40fa6e3e3519f534d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/client/WaterSectionBoundsMixin.java",
+      "bytes": 1333,
+      "sha256": "1312f0e342f94bdc7186a36283a7b919545aa7b6a337961b0e570f56fd520d6f"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/mixin/compat/KubeJsRegistryContextMixin.java",
+      "bytes": 823,
+      "sha256": "44a93b0874b04ff81315110e34fc72e3bf4333324fa4e4cb04edae5fe70fc7ad"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/render/HorizonService.java",
+      "bytes": 11680,
+      "sha256": "4eb8eee8ef1ec676c0d5ef4a1338e9b7355eef66ec04fb0ae8bffef09e0815aa"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/render/network/HorizonRequest.java",
+      "bytes": 937,
+      "sha256": "109bd321d209879ed4c0d59907546ede06d4c7ca35b587c58cc39d6a713a682e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/render/network/HorizonTile.java",
+      "bytes": 1741,
+      "sha256": "fbd732c66cc50462a3d1df4f167d39268202a2f5f12fc385f60827b05dd8e112"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/ChannelWaterBlock.java",
+      "bytes": 671,
+      "sha256": "6d7c336000a75cf52e51e2b41020b37ea3e6bfb86631af3d15af30f562194c0e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/FiniteWater.java",
+      "bytes": 5941,
+      "sha256": "45c73e23c13f61727174efe11e5e0e7a8e230c06d8e5e2b61c8a7fb6b7bfa7e2"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/MeasuredBucket.java",
+      "bytes": 3016,
+      "sha256": "788d1883aa6f48d99b9f918dfbdbad88464181c4c900646ac89e1afc84eb580b"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/Precipitation.java",
+      "bytes": 4111,
+      "sha256": "e20f6bfac35d8e548d783e33efb882edb79ba1307ce3a2663ef82a7f78447982"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/RiverConfig.java",
+      "bytes": 3434,
+      "sha256": "5267c5555bfdbdb151ab8a55f95cba24a4005759045a1104c24a60bac73f31f2"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/RiverWater.java",
+      "bytes": 1255,
+      "sha256": "7880947ebec6519a5910f6445e12d30c3f7653e9510646ac2c3d10c5537785ee"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/RiverWaterBlock.java",
+      "bytes": 2541,
+      "sha256": "2767beae6cba5ca085ab12435343d9ca1e94e0002406c392fc3fb1e3e364699d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/SwimmingEffort.java",
+      "bytes": 1797,
+      "sha256": "5cb06d4383ac16bb704409ef466b7245f640c8023cf5d86159b76fca158f6b66"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/WaterEnvironment.java",
+      "bytes": 3039,
+      "sha256": "7d05376c27008d1c7b0065f84a7c6b760c37761991e62a78843a15f99b46e70c"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/WaterPort.java",
+      "bytes": 4799,
+      "sha256": "28c2d7661507ed25e3eccb6deb8565385f88bb0a7d24d8a5b5b8797fc18620ed"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/WeatherHydrology.java",
+      "bytes": 3799,
+      "sha256": "3e1a9d56f47f16fdc07f80a6174d91aa08bf666a5058849eb732003fd9eab05d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/worldgen/ColumnSurface.java",
+      "bytes": 2220,
+      "sha256": "27494329055ba0cae59896d76ea2528acdb686d9e03929428f57b008691a42c5"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/worldgen/OceanHeight.java",
+      "bytes": 2046,
+      "sha256": "a654a0408915de54cd6792a4e9aa221180d388a35199e32031b7ef27d3b45bb6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/worldgen/SurfaceWaterAquifer.java",
+      "bytes": 6794,
+      "sha256": "4aacd58c0229fc52a401ce25ed0d84ef23c90c7d47f22b5839940312c6a7fbef"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/worldgen/WaterwayHeight.java",
+      "bytes": 10451,
+      "sha256": "46c40243ba417b2f6161a2d81d9fd6a7dce478ae2d5cb224691b2ec08362a7e3"
+    },
+    {
+      "path": "src/main/resources/META-INF/neoforge.mods.toml",
+      "bytes": 913,
+      "sha256": "30a00cc2c69a604d0026830091b63d1018c1c615c73e9493b5ac17452187db59"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/blockstates/channel_water.json",
+      "bytes": 53,
+      "sha256": "60f4a1cae215ebc07ceb3eb6c4cc4cdc23224371eef6ceb3517719e6d977c728"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/blockstates/engine_water.json",
+      "bytes": 53,
+      "sha256": "60f4a1cae215ebc07ceb3eb6c4cc4cdc23224371eef6ceb3517719e6d977c728"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/blockstates/river_water.json",
+      "bytes": 69,
+      "sha256": "58c92556460c232b0ed55b44603e4e55d52a16a15b22a38a8c4fdc1c79ecdd87"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/items/engine_water_bucket.json",
+      "bytes": 75,
+      "sha256": "2060c969dd06f80a6b323cd1828d0e4240a087b7aa830842f668dc5c7f4b0100"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/items/measured_bucket.json",
+      "bytes": 69,
+      "sha256": "57ddee622637f5a799ae46e9c3474069beef2960d37c16dd0586cbe5d85095f0"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/lang/en_us.json",
+      "bytes": 1902,
+      "sha256": "a797065548d1c7c103b0ce8e674f45031385e9ec15b336b25512f14ad773111e"
+    },
+    {
+      "path": "src/main/resources/assets/deepprimal/models/block/water.json",
+      "bytes": 56,
+      "sha256": "ced04851ea6757f55dc3ea504c6374973f0df5b0b7567dd59411e238ad616614"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/dimension_type/prototype.json",
+      "bytes": 997,
+      "sha256": "4bb8d299db2d82f117e830a435346713f5e83e58afb9bbb514b47693f151efc0"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/dimension_type/prototype_deep.json",
+      "bytes": 999,
+      "sha256": "0083b06a7188e424de1f3be15e4222b3d41814a193c3226440d97168aa0d0356"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/recipe/measured_bucket.json",
+      "bytes": 148,
+      "sha256": "e36bb0bdc25bce602ab7f55e123421ac9f0197bbcc8a66dd1135dae30a2c158b"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/terrain_height.json",
+      "bytes": 3421,
+      "sha256": "9bc1dcedde9b622003719fff526fee25076fdfdd87352db849ddca2cffc6a9af"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v1/terrain_height.json",
+      "bytes": 606,
+      "sha256": "8d1be569c3ca51446436ee70bda158a0f206a15f9c00a76019354fd5c78ac0b2"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v2/terrain_height.json",
+      "bytes": 585,
+      "sha256": "3fb9675805ae98419bebdcac0c56a0256d890f8432aabd4f4fb9d85c8e3fab60"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v3/terrain_height.json",
+      "bytes": 608,
+      "sha256": "371f0ca780589dddb5ac801e9ecf95e850fb11fab91147b3dd818fb206e40981"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v4/terrain_height.json",
+      "bytes": 918,
+      "sha256": "59143f4e41b650890ebf6922dae4e3420e8fb8cd8eea6b3522e7ce97e5a44012"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v4/terrain_height_deep.json",
+      "bytes": 918,
+      "sha256": "206c1945a1898f681f4e0eda21e25f00a7c61b16bfb7ab46d7cb9e20b5984ac2"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v5/terrain_height.json",
+      "bytes": 945,
+      "sha256": "f0e4ae14a569679bff1307ead295e2833e5a90b0e88db18a99cfcc9e6ebf5e65"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v5/terrain_height_deep.json",
+      "bytes": 945,
+      "sha256": "975684727753b8d195b6e374a316488e7aff7ec584c6cffa8198fc0203baa544"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v5_rivers/terrain_height.json",
+      "bytes": 635,
+      "sha256": "0cb959a949685f781390452671fedeb99aadee23a49adbf1129336bf255928ae"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v6/terrain_height.json",
+      "bytes": 974,
+      "sha256": "b03ffe5afac181fba46e4c8cdb58f74d4959ffd483777fb1af0782091d06b5a4"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v6/terrain_height_deep.json",
+      "bytes": 974,
+      "sha256": "91341f89677d98dd62c41cae9bd3177a06cdedcc8de90a3421bf814829c03f43"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/density_function/waterways_v6_rivers/terrain_height.json",
+      "bytes": 664,
+      "sha256": "2d156e4a7d29dc88afcdb843681728c71174f78da01a1ab02d4963da569e4a25"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise/chambers.json",
+      "bytes": 64,
+      "sha256": "13de8c7115ee8e68122b26332dafa87d114299f80d9feb2489c2fcfc762a1f3e"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise/ocean_trenches_v4.json",
+      "bytes": 64,
+      "sha256": "36b1e20eb020e8d14589841ef085781a0aae1fad1378c0e99449c24d1eab0ddd"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise/surface_detail.json",
+      "bytes": 74,
+      "sha256": "14302255612b140392cd24129d89141d2a81c516291b50dc4dd6985d57e7e33c"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise/tributaries_v1.json",
+      "bytes": 64,
+      "sha256": "140719f6eb1fa456fd7bdcd744964aae689937a8b5e1b4f747f55b0cdae529ea"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise/tunnel_a.json",
+      "bytes": 64,
+      "sha256": "0b7c9aebc846593cfd01c87039b03eab9dcafb679d6a8a102ac67b7853dc1167"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise/tunnel_b.json",
+      "bytes": 64,
+      "sha256": "0b7c9aebc846593cfd01c87039b03eab9dcafb679d6a8a102ac67b7853dc1167"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/prototype.json",
+      "bytes": 16131,
+      "sha256": "4c015978436243b4042cbbce813730fea484e37c26e93f61188732dbe95c7cfd"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/prototype_deep.json",
+      "bytes": 16132,
+      "sha256": "10f99a9b2230cdf37e62228853c355115b07fc9b824c2b5ef90422067703d015"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v1.json",
+      "bytes": 22108,
+      "sha256": "a5bccced1730f0b8b6ef516142695cd167dca4352ebb5df31e0308f4077450ef"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v1_deep.json",
+      "bytes": 22109,
+      "sha256": "90df2059ca0057ae0ed134e11c348127a9cf2c516b5490f1b64bf9a0cef17d6e"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v2.json",
+      "bytes": 22963,
+      "sha256": "d3e17bebde433d62fb05a8898d099429ac1ff4f4a4d5c6e241dc093aa4ab7c51"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v2_deep.json",
+      "bytes": 22964,
+      "sha256": "091af18ed3d00be9797905a483188082debcb29045bdc9c72832271bc55818ef"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v3.json",
+      "bytes": 22963,
+      "sha256": "abbc75c9974894d2e3e62e4065c2ffabe02acc481be6b0fe813f138997179b8d"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v3_deep.json",
+      "bytes": 22964,
+      "sha256": "6568adcd79ceec145b7d0a16f50c2b340122b44f044e5a60b344700300b39539"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v4.json",
+      "bytes": 22963,
+      "sha256": "ac3f0c0e010a06f26faa2574781ead520c5abcf0114716ce1da68626603f7630"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v4_deep.json",
+      "bytes": 22984,
+      "sha256": "2219a1e73d294787555bdbe1f91e62d6cdb44bb6f1bea59551fa7f4f8b2d945a"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v5.json",
+      "bytes": 22963,
+      "sha256": "19b2b314d5e36759c3584706a194cdff8c8b5adc72f774d40cd1dee3da7195d0"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v5_deep.json",
+      "bytes": 22984,
+      "sha256": "538b01f789f125a5adf54a80ebb88b2321b2fa4a0aeca9696f1c393618ec777b"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v5_rivers.json",
+      "bytes": 22991,
+      "sha256": "8ab0e22be421ec2cf41e274a64f9d8b88540a6682d1eff68e186fd328f1a6c39"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v5_rivers_deep.json",
+      "bytes": 22992,
+      "sha256": "8d79e7a6c718d92d5df2610ee71aee3f34b27e41961170ed00cc3e1f104fcd7e"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v6.json",
+      "bytes": 10454,
+      "sha256": "0c9eb3688d13807497b11fb41ae8fa391a884f41cb2aae793f45a1c8b2f3b042"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v6_deep.json",
+      "bytes": 10475,
+      "sha256": "874d439060316506dde342014ff12d779cbdae9d8e2770705fab8861d15efae9"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v6_rivers.json",
+      "bytes": 10482,
+      "sha256": "737e932d7c7578c6dbb0e68f004b5e3dcb9346d8be56ae5a825f2d0a6c86e755"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/noise_settings/waterways_v6_rivers_deep.json",
+      "bytes": 10483,
+      "sha256": "8dcf8f56902db27317af4e0a4777483c44f41551217ff5c09a51f267a93583f2"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/prototype.json",
+      "bytes": 869,
+      "sha256": "4af27b70df5774f2499ffd06d2dfe6aafe25abb5614f6c39104b0584bf955c2f"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/prototype_deep.json",
+      "bytes": 879,
+      "sha256": "80534323b8ffe31e48bb98f339f22d58cce93e4005a07ae8a6f6d1c901754dd6"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v1.json",
+      "bytes": 872,
+      "sha256": "f3707847f39e1ee7e8acceb20ccdba6ab78692c5b695fd6d0e7aa29f99f3833f"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v1_deep.json",
+      "bytes": 882,
+      "sha256": "2aed7076f2038f2591f1262d1b6755c8d9055e40d16b249750bf9a3200c12ce6"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v2.json",
+      "bytes": 872,
+      "sha256": "9bc979c6ed898848507f32d144d10b4b7e0d3415569c7608fe0866543b990a79"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v2_deep.json",
+      "bytes": 882,
+      "sha256": "d6e0ae7d4b6b133118ef43a7d4dcdf1d208eb7a5b04bced228564a3c05aa074c"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v3.json",
+      "bytes": 872,
+      "sha256": "7101070b9881b69242063251522081a43fe68520c7e93f3e82c5888cbad77eee"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v3_deep.json",
+      "bytes": 882,
+      "sha256": "56843f609d523403341c5fb41519c18fbe39e9fdaa6302198a63dfafd6b76177"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v4.json",
+      "bytes": 872,
+      "sha256": "997d2d1c5e5030edfce50b4a89482d05e40b3b14701b8b3368ca7f9942d5d5bd"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v4_deep.json",
+      "bytes": 882,
+      "sha256": "4607ecbe59cf7dd0e7334eab6f30c95e058596fbea4d5afebbd996454eccc541"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v5.json",
+      "bytes": 872,
+      "sha256": "9ac8d837837a6bb7efd693e56fb0fe6901f691d96f838bff35d839ac3bbd0877"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v5_deep.json",
+      "bytes": 882,
+      "sha256": "a3d47576d02107fd5be635da43ad885c03061fdbd98d251162ef332eaaf4b666"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v5_rivers.json",
+      "bytes": 879,
+      "sha256": "6175cf2ad05d00424ed2715fb8bfd83fd07461b2fe13989f1ab7d591abadaf22"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v5_rivers_deep.json",
+      "bytes": 889,
+      "sha256": "bc9c68107160247eb8bb93974e873242628ace3bd3df82f91b822e5eb903221a"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v6.json",
+      "bytes": 585,
+      "sha256": "52cfcd22277b25211c90e4a81c22e05ad81fccbf985282da3cd9ac2de98f28bd"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v6_deep.json",
+      "bytes": 595,
+      "sha256": "abefdc8e859d4e98a5a386d6ae12cdddbf13ee6b7d6f137f811e11d22695f580"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v6_rivers.json",
+      "bytes": 592,
+      "sha256": "8750bae4bfc8e626968f4e5beff2790ba15a4fe1b0f1f9c62789279b05bf3107"
+    },
+    {
+      "path": "src/main/resources/data/deepprimal/worldgen/world_preset/waterways_v6_rivers_deep.json",
+      "bytes": 602,
+      "sha256": "5655bdb33dffabcd3145ea94e234adb1369d018e9ea4378c81899ac25ca95f99"
+    },
+    {
+      "path": "src/main/resources/data/minecraft/tags/fluid/water.json",
+      "bytes": 72,
+      "sha256": "10744ce2998d2b065ed053035e06af46930ca33642ae0578b7d91c6a52d82d02"
+    },
+    {
+      "path": "src/main/resources/data/minecraft/tags/worldgen/world_preset/normal.json",
+      "bytes": 39,
+      "sha256": "0c615d27d6e7932dab70603593b0d4b2098f06e605c17c7e8549a677ec84ef94"
+    },
+    {
+      "path": "src/main/resources/deepprimal.mixins.json",
+      "bytes": 1073,
+      "sha256": "e61521cda6e9eb08943e32383c9c46469a5a2367ed7363322ad0998958215132"
+    },
+    {
+      "path": "src/main/resources/diagnostics/dashboard.html",
+      "bytes": 13328,
+      "sha256": "ed8854798f512e26032ba1d808270403bcab46739905b5aada524a699a51bc9f"
+    },
+    {
+      "path": "src/main/resources/renderer/native/assets/deepprimal/shaders/core/horizon.fsh",
+      "bytes": 1582,
+      "sha256": "0e2da5cf441d20e10e6dbb0bb79c953afbf21add64f25801625fce766270c71b"
+    },
+    {
+      "path": "src/main/resources/renderer/native/assets/deepprimal/shaders/core/surface_water.fsh",
+      "bytes": 737,
+      "sha256": "5de17bafbea1894d805490f3db8e6b29dc6208b379ff22b3027efa13ba3f79eb"
+    },
+    {
+      "path": "src/main/resources/renderer/native/assets/deepprimal/shaders/core/surface_water.vsh",
+      "bytes": 822,
+      "sha256": "aa73fd19a88a99fed18a335b7bbd97c86d46d471f44fef971a16ee409aceb7a7"
+    },
+    {
+      "path": "src/main/resources/renderer/native/assets/deepprimal/shaders/core/wakes.fsh",
+      "bytes": 458,
+      "sha256": "b2e05ea9c556389716752f921fe73e1396154cf6d39d5e22b905b580e6bde077"
+    },
+    {
+      "path": "src/main/resources/renderer/native/assets/deepprimal/shaders/core/wakes.vsh",
+      "bytes": 329,
+      "sha256": "90ed32a4472a669e9d559fb5c8fc99226cef2c7bf2e116d06834e9855f2d750d"
+    },
+    {
+      "path": "src/main/resources/renderer/native/assets/minecraft/shaders/include/fog.glsl",
+      "bytes": 1655,
+      "sha256": "1742ca72b8f18e60801577ac0e7109e4e3749935fe0d5242bd9553703626ca0c"
+    },
+    {
+      "path": "src/main/resources/renderer/native/pack.mcmeta",
+      "bytes": 97,
+      "sha256": "fdd159617266f69509b084bc8b34ca1f2e199cd1b2fb7dd2be26ea0dbcd8aafe"
+    },
+    {
+      "path": "src/main/resources/worldgen/contained_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 882,
+      "sha256": "56843f609d523403341c5fb41519c18fbe39e9fdaa6302198a63dfafd6b76177"
+    },
+    {
+      "path": "src/main/resources/worldgen/contained_deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/contained_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 872,
+      "sha256": "7101070b9881b69242063251522081a43fe68520c7e93f3e82c5888cbad77eee"
+    },
+    {
+      "path": "src/main/resources/worldgen/contained_standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 879,
+      "sha256": "80534323b8ffe31e48bb98f339f22d58cce93e4005a07ae8a6f6d1c901754dd6"
+    },
+    {
+      "path": "src/main/resources/worldgen/deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 1144,
+      "sha256": "048c1019930e54e457085b6830084c8b66b5b57cf5f42eb883a7c274a89bf17c"
+    },
+    {
+      "path": "src/main/resources/worldgen/engine_deep/pack.mcmeta",
+      "bytes": 174,
+      "sha256": "f48c0aa57e3741386b95bc72cd5970261e2cfbf54540107e29f398ab4b129ded"
+    },
+    {
+      "path": "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 1138,
+      "sha256": "a4521d0bf85efc29ca30117609ffb549062eb4933ab122726b0aa73f397a8abf"
+    },
+    {
+      "path": "src/main/resources/worldgen/engine_standard/pack.mcmeta",
+      "bytes": 174,
+      "sha256": "f48c0aa57e3741386b95bc72cd5970261e2cfbf54540107e29f398ab4b129ded"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 882,
+      "sha256": "a3d47576d02107fd5be635da43ad885c03061fdbd98d251162ef332eaaf4b666"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_rivers_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 889,
+      "sha256": "bc9c68107160247eb8bb93974e873242628ace3bd3df82f91b822e5eb903221a"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_rivers_deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_rivers_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 879,
+      "sha256": "6175cf2ad05d00424ed2715fb8bfd83fd07461b2fe13989f1ab7d591abadaf22"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_rivers_standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 872,
+      "sha256": "9ac8d837837a6bb7efd693e56fb0fe6901f691d96f838bff35d839ac3bbd0877"
+    },
+    {
+      "path": "src/main/resources/worldgen/natural_standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/ocean_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 882,
+      "sha256": "4607ecbe59cf7dd0e7334eab6f30c95e058596fbea4d5afebbd996454eccc541"
+    },
+    {
+      "path": "src/main/resources/worldgen/ocean_deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/ocean_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 872,
+      "sha256": "997d2d1c5e5030edfce50b4a89482d05e40b3b14701b8b3368ca7f9942d5d5bd"
+    },
+    {
+      "path": "src/main/resources/worldgen/ocean_standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/routed_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 882,
+      "sha256": "d6e0ae7d4b6b133118ef43a7d4dcdf1d208eb7a5b04bced228564a3c05aa074c"
+    },
+    {
+      "path": "src/main/resources/worldgen/routed_deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/routed_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 872,
+      "sha256": "9bc979c6ed898848507f32d144d10b4b7e0d3415569c7608fe0866543b990a79"
+    },
+    {
+      "path": "src/main/resources/worldgen/routed_standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 869,
+      "sha256": "4af27b70df5774f2499ffd06d2dfe6aafe25abb5614f6c39104b0584bf955c2f"
+    },
+    {
+      "path": "src/main/resources/worldgen/standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 882,
+      "sha256": "79c0f90cb6d32a810304dbc38a4c0f7ba1d9a578c7f167844b88bacc7dfacaad"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_deep/pack.mcmeta",
+      "bytes": 174,
+      "sha256": "f48c0aa57e3741386b95bc72cd5970261e2cfbf54540107e29f398ab4b129ded"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_rivers_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 889,
+      "sha256": "6f288318bcb9c5c61ed419c2cc6f806f54c6a3638534ae6114d67fbf88ef3e9c"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_rivers_deep/pack.mcmeta",
+      "bytes": 174,
+      "sha256": "f48c0aa57e3741386b95bc72cd5970261e2cfbf54540107e29f398ab4b129ded"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_rivers_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 879,
+      "sha256": "80a2b53ee71778e7de9223a7490a64dc611b7329a485c878e6df56667c6aaefb"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_rivers_standard/pack.mcmeta",
+      "bytes": 174,
+      "sha256": "f48c0aa57e3741386b95bc72cd5970261e2cfbf54540107e29f398ab4b129ded"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 872,
+      "sha256": "17304ad0145f35cd4fd610e02cf6486aa349297ad1d266315e6b4ee08e12db84"
+    },
+    {
+      "path": "src/main/resources/worldgen/supported_standard/pack.mcmeta",
+      "bytes": 174,
+      "sha256": "f48c0aa57e3741386b95bc72cd5970261e2cfbf54540107e29f398ab4b129ded"
+    },
+    {
+      "path": "src/main/resources/worldgen/waterways_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 882,
+      "sha256": "2aed7076f2038f2591f1262d1b6755c8d9055e40d16b249750bf9a3200c12ce6"
+    },
+    {
+      "path": "src/main/resources/worldgen/waterways_deep/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/main/resources/worldgen/waterways_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 872,
+      "sha256": "f3707847f39e1ee7e8acceb20ccdba6ab78692c5b695fd6d0e7aa29f99f3833f"
+    },
+    {
+      "path": "src/main/resources/worldgen/waterways_standard/pack.mcmeta",
+      "bytes": 173,
+      "sha256": "c9b96cd5c26018bb0cc52feac6c7e4fb170aa6af77b4fe6cf2d9f3d1095bb440"
+    },
+    {
+      "path": "src/moduleValidation/java/com/shnewbs/deepprimal/validation/ModuleOnlyBoot.java",
+      "bytes": 1273,
+      "sha256": "55c03a11799cf773b883f4121418a413c4c25261a522d42d902e25edccdda011"
+    },
+    {
+      "path": "src/moduleValidation/resources/META-INF/neoforge.mods.toml",
+      "bytes": 166,
+      "sha256": "3abf86c360786690b353422a00b19718dff7a8c35465d6d38583782b1a758239"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ActiveQueueChecks.java",
+      "bytes": 4491,
+      "sha256": "9d4813bc604d9bb7c5fc3405341b5cd366ec4eb4c3a37ff3cd2c40b61d80111d"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/AnimatedWaterChecks.java",
+      "bytes": 8570,
+      "sha256": "b97edeac3c9820a39080a9acd9c5efe6489649ad56a99c2d87795ca694405320"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+      "bytes": 25648,
+      "sha256": "75e420b7e9e50ee00e6e6288157bdcf5a3d4bdab7e596c10d1290dd9dd7c667e"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DistanceClientChecks.java",
+      "bytes": 7289,
+      "sha256": "3b1eea692d864d14354b209c5092caf12c67483529289ab8a5536f23f44daedf"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DistanceLimitChecks.java",
+      "bytes": 2131,
+      "sha256": "a03784379e3101dfd461fefa0eead4cd308c6a5b26a780571447a3349e3a868e"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DrainageServerChecks.java",
+      "bytes": 20551,
+      "sha256": "fec1eb0ec80611803c07085ecc9aba748cc107c6549b4b5a35e3ac7ae7332a81"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/EnabledWaterViewChecks.java",
+      "bytes": 3665,
+      "sha256": "2c961a9f4ce93cb12621062113c7d17232ca66676130ead07767c869519ac15c"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/EnginePressureChecks.java",
+      "bytes": 3717,
+      "sha256": "7fbb54ebc7d7486ead82cc37c44453e6cba1c9646bfe8075ac9281af16fa5ddc"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/EngineSceneChecks.java",
+      "bytes": 10881,
+      "sha256": "16086799a47ade08b928f1a865eeb09a0b95c966f82769539f9bff25c0d90c31"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/GpuBackendChecks.java",
+      "bytes": 15762,
+      "sha256": "c4dd63fe9a70d67c21293ee116709f4c06018ab1ba5bbdc0125ae0e154773bac"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/GraphicsMenuChecks.java",
+      "bytes": 9596,
+      "sha256": "5aff859c02b945dfb1d4821a0cc90585d7c43bb6832704c4930e995664373b2a"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/GuiOrientationChecks.java",
+      "bytes": 4049,
+      "sha256": "a3e191cc549844b6e3ff06752f963a2ca5114d7bc5a4dd29adb43fc61501c150"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/HeadFrontierProbe.java",
+      "bytes": 3596,
+      "sha256": "bd96b0efffc5f9dcbc599b4e1d96893e56f87fac55c52fb2fb618b5c5c906bd2"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/HorizonDepthChecks.java",
+      "bytes": 3129,
+      "sha256": "e6159dff2a1b68c7b4726121f839ad7d6209ebf0c9da87bbcf026cff866307eb"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/HydrologyServerChecks.java",
+      "bytes": 8060,
+      "sha256": "ffcce46337d310441c55ff7ea9a74629e9a6f91ad1679835bcca612c0fc9e29d"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/IntegratedClientChecks.java",
+      "bytes": 13661,
+      "sha256": "c4caf5f7e9041879bfc6affc5f63cba25831d266302e27ec488b8750c57ee875"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/IntegratedServerChecks.java",
+      "bytes": 11605,
+      "sha256": "a31c628ff27ad89d351a6353a05cfcd526700df08bbafd8fefa498197bf258b5"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LakeRetentionChecks.java",
+      "bytes": 5133,
+      "sha256": "792eacf1b3a402f558513c78f79af60e93dfb19f29b1a7c84d78fbbe937ed138"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LakeWaterSnapshot.java",
+      "bytes": 4065,
+      "sha256": "5e272c9c095b3f08be6c44502d2733e244d154ae60d0e5b34c5cc0ccfc0c81f6"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodDiskRecoveryChecks.java",
+      "bytes": 16708,
+      "sha256": "1c07e8d543d8c9ffa1b11380a5614347e38dc1975aa880d0aa56a0c4c19c83a7"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodIndexMergeChecks.java",
+      "bytes": 3981,
+      "sha256": "72beec3206bc2318df4cb05033bd7941c60d1d904b6ae0c02d694684bc705589"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodTravelChecks.java",
+      "bytes": 7737,
+      "sha256": "1cb7a7c64a32cf260dfd23feb65bdc36d8f85515a3a65da445b2d6fe39a149f0"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LodUploadRetryChecks.java",
+      "bytes": 8454,
+      "sha256": "704c38a35cb6186881344315d489b79435b3d9d6329e002d112a098ca5945ced"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LongPressureChecks.java",
+      "bytes": 14823,
+      "sha256": "cd8f8725eac2b2e3704cc87d64add62b8f0359c15d4ae5d6926bc67201794998"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/OceanServerChecks.java",
+      "bytes": 2723,
+      "sha256": "cbade8ac90c3e25bf062f3623466b2a9af31c575bf5d2727f68b58a8f683db14"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/OceanWaterChecks.java",
+      "bytes": 15389,
+      "sha256": "f29e971e4399a270c35e99e1a4dcf203debfbdff3cc55e990ab816b2505ef2a7"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/PerformanceClientChecks.java",
+      "bytes": 5112,
+      "sha256": "4c321dbc1e4fdaf16cdc43483ceee2ee83d14d0233864b414d81be3b3e35c70e"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/PressureAdmissionChecks.java",
+      "bytes": 5027,
+      "sha256": "360daab3ec3e5f665b6342f45f4c5f5114ffe6819765a4d481f9c31b3f1a941e"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/QueueRegressionChecks.java",
+      "bytes": 6570,
+      "sha256": "7e53ad42c0bc8ac482e47d5f1258f6743aa8ad85611ae72d07a4688639957cad"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/QueueStartupChecks.java",
+      "bytes": 5204,
+      "sha256": "253d6fae3db3a17ea82f704db64b6ddb049393b5c4120ee9e23eb96adfc60f60"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/RendererClientChecks.java",
+      "bytes": 5980,
+      "sha256": "7900d2f7f1414d9ec34439750873d82fb7dc15ba18bbd088ded578532c0de945"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/RiverCurrentChecks.java",
+      "bytes": 6993,
+      "sha256": "a3674d12d9ae0634b350dbea64ac588b63431e18b5bd3637c63672f9fdb1e7ec"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ServerChecks.java",
+      "bytes": 1406,
+      "sha256": "e9945d93e316bf8f136ff40bf77731e01be8c6aaa5ef2f2ef5fd1db3c0574c42"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/StartupLifecycleChecks.java",
+      "bytes": 5409,
+      "sha256": "091f7374ce5e071bdbccbb99de980790d52b175dc38e0d65216739f1bd8daf20"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/TerrainClientChecks.java",
+      "bytes": 7387,
+      "sha256": "6061f3b9684a4136748ec333876e5035bc37b879e5e5dc109a3979ddf510f4aa"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/TerrainRevisionServerChecks.java",
+      "bytes": 3766,
+      "sha256": "1caab288b97a2a0276a20aca732024268999bcdae8ac6214488417d321dbc18b"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/TerrainServerChecks.java",
+      "bytes": 4273,
+      "sha256": "29a4d9d0fe9f8f69cb0aa55438ce4055929a7d576685cab181b66b573d080f5b"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/VulkanFrameCompletionChecks.java",
+      "bytes": 3868,
+      "sha256": "57eeb3dc53eb1ea8dd3b0d8161a50381aa402363548175e1a63126f8b58c400d"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/VulkanShutdownChecks.java",
+      "bytes": 1930,
+      "sha256": "ab341b5f2eeba0207451431a7ddf6688d08cef012f7197fc3f8aaf39c3a33587"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterAdmissionPlanChecks.java",
+      "bytes": 16406,
+      "sha256": "5ddb8fbefcc9c043cab738f40111675382ca53346b52f8ebf5fd5ed4320f4e91"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryBatchChecks.java",
+      "bytes": 11030,
+      "sha256": "a39d2611c8e726945440b2206d8db85d6bba879a3b90c9fd416e4cac979ca8fb"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterClientChecks.java",
+      "bytes": 5570,
+      "sha256": "3649907697ea2046e43263b99a2d01c5ce909cae87eff9c8d69786eef1d19de4"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerFieldChecks.java",
+      "bytes": 26912,
+      "sha256": "1186d1a3dd53143385a080aecb3fe24c1769f5673b6e65cd610123df4da76bf1"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerPacking.java",
+      "bytes": 2706,
+      "sha256": "08a8334d0ef6669184ab0ae18f5abab1916de28cef6a22233dc5fb3f7c98d965"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionBlendChecks.java",
+      "bytes": 8696,
+      "sha256": "9548199c9826c6a8dbb838e3df1e7c6df0921872fe009f28cd37e2c87ccd5866"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionUploadChecks.java",
+      "bytes": 6848,
+      "sha256": "f5e441a8e9371517b139d8ed13ef57bf5b9d0f6444eac65dbf2cc886fffe1500"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterEnvironmentChecks.java",
+      "bytes": 7866,
+      "sha256": "9d1fd1e65a0777825d6b910774d2547d39ae7716bd932d53a84fda1d8ab3aa14"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterExtractionDeadlineChecks.java",
+      "bytes": 10036,
+      "sha256": "ece85204bc9011a8737f30d31360e6c059426b7089dace670e8da8787b3d8fdb"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFadeContinuityChecks.java",
+      "bytes": 6200,
+      "sha256": "7fb4c81206b41e83dace7659de57b2c1fb8b25ee3423f82cc78e676149724413"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFillingChecks.java",
+      "bytes": 8430,
+      "sha256": "9c3f8afab96f73ad8bfb307d0bd2c0ad164043eece7c8fb4dfbc73f112a58dae"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFlowPhaseChecks.java",
+      "bytes": 9481,
+      "sha256": "06046343d09a9ddfae28090216c756f7a528e75596d85ebe14c09884dad363d0"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFlowTextureChecks.java",
+      "bytes": 10059,
+      "sha256": "e5dd971d2ebded1b0dc0bc1d36d1b023f77a023d8721cd57c2e3618bbcc6d38a"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFrameRetirementChecks.java",
+      "bytes": 15981,
+      "sha256": "df36d5ed686fbd9518b3c9a70195d78ede67c7ea9dde4946279377e21fe86090"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterGpuReuseChecks.java",
+      "bytes": 8526,
+      "sha256": "902a106c6f3e990db312d024b113c8ef02a43b0e4349dbf07ce76580c106279e"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMaterialTransitionChecks.java",
+      "bytes": 16251,
+      "sha256": "aa30216afcbde0ef572bfbbf2d28d0d3a6155a7a883effe6aed12c656bf42a98"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMeshChecks.java",
+      "bytes": 8811,
+      "sha256": "656112c2fa8b87bc3a717f8412188b88c36f3a066e80d72633030f95ef14e3e4"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPageOrderChecks.java",
+      "bytes": 12427,
+      "sha256": "d6962bdb92503949da995cbc84941e997627232a2b6b8ab4aab69863ea6c5960"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPartialFadeChecks.java",
+      "bytes": 9283,
+      "sha256": "4912154e6b82130c3f086fab865a8e0a2b153a5d98d3d4fbdec164cc418af0a5"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPublicationFailureChecks.java",
+      "bytes": 9412,
+      "sha256": "56e607da6043d21cd516f8f04567d7888697136de75df52937a95cd7755b6238"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterRetirementBudgetChecks.java",
+      "bytes": 11970,
+      "sha256": "6f4af8d1f6fe83b09882df0812458e4b3fcc71b73e219444c0987f3c547a7e1b"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterShapeChecks.java",
+      "bytes": 8031,
+      "sha256": "ba57dd61f93e9fbc5d629928ea149127e66ae10f6185d88b7b0efbb57ae61da8"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideMaterialChecks.java",
+      "bytes": 21835,
+      "sha256": "b861ca2b6064c0d5929f0f4a74d7d515393275d3fc0970db9b05cc0131563073"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideUvChecks.java",
+      "bytes": 7270,
+      "sha256": "167980176cc241b45a8bfa5979624bc5a07c95ab2f3cc89d64185ea425a73754"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideUvUploadChecks.java",
+      "bytes": 7781,
+      "sha256": "6c07dc60f37d6f6507e98eeac6f05d3f513ba1bc050c4bb8f276aefeb8cb3485"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSpatialSeamChecks.java",
+      "bytes": 11475,
+      "sha256": "2531e074faed6d831c0ddbf472a9591837907c296420211860251d871c799d6f"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WatershedServerChecks.java",
+      "bytes": 8169,
+      "sha256": "28035a1b35813a4e97dba312193dd5060559229ce84e4e4201debb5708e5ae8c"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterwayServerChecks.java",
+      "bytes": 16952,
+      "sha256": "e32ed8a0c00da791abcc2f0b0b0e6f7567ed23c0ddb4db802a38fe0c19608a86"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WorldCreationChecks.java",
+      "bytes": 9189,
+      "sha256": "9078695fddafe73eecb4f4f4990eb21b2db5bd0568fa4f30a602e7f25e63e7ad"
+    },
+    {
+      "path": "standalone-engine/README.md",
+      "bytes": 7973,
+      "sha256": "6c2f46f20ca710372bb0c96946b2f7d44935cd85c66d7cbc6f4eadf32a49cc8a"
+    },
+    {
+      "path": "standalone-engine/VALIDATION.md",
+      "bytes": 4615,
+      "sha256": "11049e98c43a18e85617f6d3fca3a07842a5256b925b09b7acbeebf8690065f7"
+    },
+    {
+      "path": "standalone-engine/build.gradle",
+      "bytes": 3502,
+      "sha256": "099af79bc183ad3df6f23e4111c2d7c390f5e61de8815e4dff406bb725078368"
+    },
+    {
+      "path": "standalone-engine/gradle.properties",
+      "bytes": 128,
+      "sha256": "f2d761006d69d1c8c3a901e4323879f507432bf01c2389ae26fbd785e1a40950"
+    },
+    {
+      "path": "standalone-engine/lod-core/build.gradle",
+      "bytes": 401,
+      "sha256": "7625af6dcb23389dc877b09e0baba79faa1b4a9c101bbf66ba7520f0deb6884e"
+    },
+    {
+      "path": "standalone-engine/lod-core/src/main/java/com/shnewbs/primalengine/lod/ColumnarChunk.java",
+      "bytes": 4117,
+      "sha256": "dccc6ed9b2ea43a129a6487905f314ffe44c0242bf5a65c75e24fc5ce21554fb"
+    },
+    {
+      "path": "standalone-engine/lod-core/src/main/java/com/shnewbs/primalengine/lod/LodStore.java",
+      "bytes": 3656,
+      "sha256": "4f61a3d3ada5f1d11a584e0e973e8d363b9fc9d80216b3bdac79ea945c1ff507"
+    },
+    {
+      "path": "standalone-engine/packaging-audit.json",
+      "bytes": 373,
+      "sha256": "030e7b16c8fcca8425d0e2e43d614fc38f687818b2af2f2e444cfa423fcd035f"
+    },
+    {
+      "path": "standalone-engine/settings.gradle",
+      "bytes": 275,
+      "sha256": "027e8de66a5e4600f47a0107df6e5dc410dbca9b2ba6e466ddaa4aa454492b07"
+    },
+    {
+      "path": "standalone-engine/src/engineChecks/java/com/shnewbs/primalengine/checks/EngineChecks.java",
+      "bytes": 5113,
+      "sha256": "f45d397a9834669bed17b629dcde2067a9999f3d527f18d2a38abff8a694ca10"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/ChunkCapture.java",
+      "bytes": 1892,
+      "sha256": "2095927772d96c40a6305bed165a439c9cac55223cb7ffa7e4ba0f00ef653eea"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/ContinentalGenerator.java",
+      "bytes": 7971,
+      "sha256": "610b855011d0bd683c5bdcaaf35cdee629e2d3659a4bd9872671077939cd508f"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/EngineBucket.java",
+      "bytes": 1228,
+      "sha256": "a99a6274642c9442c7dbca16c222c9aed942b47401328dddb29593e34aa1cf88"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/EngineFluid.java",
+      "bytes": 2568,
+      "sha256": "5ad2a41520c6dcaf5064825fee914d57c744c61e87bb77b8570a4851f71619ef"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/EngineWaterBlock.java",
+      "bytes": 2463,
+      "sha256": "351c0d41a25dbb5ca39b4704d180bae8f6ebbfbd8582bb092ab40ba1f022abd0"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/PrimalEngine.java",
+      "bytes": 1975,
+      "sha256": "8be05d39a7cf467f34038370dddd3e3434c3572f23c5a6af468c1f30e74a7f52"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/RegionalBiomes.java",
+      "bytes": 1757,
+      "sha256": "a0cc466b7339281e1cbb94b348f09dfa7bb792664297295261bebc3f08a3cd9a"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/WaterRuntime.java",
+      "bytes": 2667,
+      "sha256": "897de793feb951a79af41780ae8209203c72e0f3ce676a4d2fe5f5c26c5eadd0"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/client/EngineClient.java",
+      "bytes": 1137,
+      "sha256": "54437333bed5a6d4ba5ed273e001f4bc57238fb457904fab3c70a45b30a6de9a"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/client/SmoothWaterRenderer.java",
+      "bytes": 6898,
+      "sha256": "71177f90f6a9847d3b27d33f9e891097f195e736eec18d469e137e54240abf03"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/core/ContinentalWorld.java",
+      "bytes": 6779,
+      "sha256": "36820f29d270a88679a8f5c88083d03c689d53ccea5b0e4cf31a631ca48e75a4"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/core/SeedField.java",
+      "bytes": 1424,
+      "sha256": "21fc49fa32276cb639ba70f727866d41b622d4c52402674a3916463b2144cea3"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/core/WaterTransport.java",
+      "bytes": 1090,
+      "sha256": "cf48d942f47929d8e289aca69156d79fdc0d89eb6f695ff426285c4e3d1328f7"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/mixin/WaterImportMixin.java",
+      "bytes": 1372,
+      "sha256": "007c8b29087ac3ead8ff8aa77ed77b02f299affea07d2d14a59cc1198d648d17"
+    },
+    {
+      "path": "standalone-engine/src/main/java/com/shnewbs/primalengine/mixin/client/FluidModelAccess.java",
+      "bytes": 323,
+      "sha256": "3651cbbe708e4f1ed684af2065405084975152248ef8da46e32f5e7332574afc"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/META-INF/neoforge.mods.toml",
+      "bytes": 812,
+      "sha256": "d7b86ad2ff947750f5bfef4b2d0c71c7a7e4a47e4b757d9ca36de2c4f064ec87"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/assets/primalengine/items/water_bucket.json",
+      "bytes": 95,
+      "sha256": "8d0eb2a77430f4f3f7d43116e8f68282f15de362b71bfef2999f9043091533e7"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/assets/primalengine/lang/en_us.json",
+      "bytes": 154,
+      "sha256": "32aa86984c70c2e16b9f68792fcdb087781ded0e4e189e43e102788cde3bda69"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/data/minecraft/tags/fluid/water.json",
+      "bytes": 67,
+      "sha256": "92fbd947433ac883bc2e2e09971b41394b343804bb254d5b275bc1b2591cc03a"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/data/minecraft/worldgen/world_preset/normal.json",
+      "bytes": 950,
+      "sha256": "89b7609097119eb0ed31e4e00e0125a0426254ebf2fe448907244bb8d939e73c"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/data/primalengine/dimension_type/continental.json",
+      "bytes": 747,
+      "sha256": "470df9d5402322dac521d803b2a0e2ab68b9c1b53ffafd56456aae211dd0fbdd"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/data/primalengine/worldgen/world_preset/continental.json",
+      "bytes": 950,
+      "sha256": "89b7609097119eb0ed31e4e00e0125a0426254ebf2fe448907244bb8d939e73c"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/primalengine.common.mixins.json",
+      "bytes": 155,
+      "sha256": "1da316ecf8c7cc8788e54ca4acc5b50a59fc38d42cda31638f1243927ecf6f95"
+    },
+    {
+      "path": "standalone-engine/src/main/resources/primalengine.mixins.json",
+      "bytes": 200,
+      "sha256": "d3540bfd46b9c4c0117a8c4895209df0451781726707160d10838d08c0bbc67d"
+    },
+    {
+      "path": "standalone-engine/src/nativeChecks/java/com/shnewbs/primalengine/checks/ClientChecks.java",
+      "bytes": 5874,
+      "sha256": "923a083c4fdaddf9ab93f9c5b36e7dd269d4d4910c37bcec400efb4cf68077bb"
+    },
+    {
+      "path": "standalone-engine/src/nativeChecks/java/com/shnewbs/primalengine/checks/NativeChecks.java",
+      "bytes": 7640,
+      "sha256": "c6699e75a6f5ba820dfab19d834afdb567579b1ffb4a799cffc69078fd34f2e2"
+    },
+    {
+      "path": "standalone-engine/validation/native-client.txt",
+      "bytes": 179,
+      "sha256": "c88afbf6e3308bc380785cdc7545334cdc64f5da4bd5ed219d89cd2a7ec83bf6"
+    },
+    {
+      "path": "standalone-engine/validation/native-fresh.txt",
+      "bytes": 293,
+      "sha256": "e6555b1aeb3df21375f508c905a031f6fc71a0d9ee73c847a0a8b56e5c01cc7c"
+    },
+    {
+      "path": "standalone-engine/validation/native-reopen.txt",
+      "bytes": 56,
+      "sha256": "65d9929a88b6c1cb24d23af56c9137f3460687f36aaf054c607220866741c236"
+    },
+    {
+      "path": "tools/build_with_current_proxy.py",
+      "bytes": 3127,
+      "sha256": "54ac049a8f22fab15cde893323e1674bf02488a20352b7430ab2006c3bbe0254"
+    },
+    {
+      "path": "tools/compare_benchmarks.py",
+      "bytes": 1623,
+      "sha256": "e1c3b4af8aec6188a14b4d7e9963f364b0beefc39e5f24ebfcb6153a89855db7"
+    },
+    {
+      "path": "tools/compat/ProcessCommandFallback.java",
+      "bytes": 4009,
+      "sha256": "1192c345d87923178f0553029d8e3bdc16e24b0e2ce7e39f3580a815a58a5219"
+    },
+    {
+      "path": "tools/compat/ProcessCommandFallbackChecks.java",
+      "bytes": 2756,
+      "sha256": "4d85179369b3ce83dc137f81c1cf179d7869539c3473320c1e416451b71dc674"
+    },
+    {
+      "path": "tools/compat/build_process_fallback.py",
+      "bytes": 2965,
+      "sha256": "406fe4c8a04d2c62d26d638379896608ab2bb93839e0b40acfafc39c69e7b36d"
+    },
+    {
+      "path": "tools/generate_supported_waterways.py",
+      "bytes": 1358,
+      "sha256": "bc0e97e9964bca1d40711345f958a21f32ac528b23f25b713b37ffd5b0e8566d"
+    },
+    {
+      "path": "tools/generate_worldgen.py",
+      "bytes": 16758,
+      "sha256": "9c62b236ab9868bdbbab2d14bedaff000788085cd3ae4d79d6f98bd07ab3f22d"
+    },
+    {
+      "path": "tools/lod/MeshOptimizerProbe.java",
+      "bytes": 4907,
+      "sha256": "d7237b1a41521f3cb210f90e864a16ca8384ca0399dbc4b47b4044193a5102e1"
+    },
+    {
+      "path": "tools/lod/run_meshoptimizer_probe.py",
+      "bytes": 2696,
+      "sha256": "bf95015cb6752d77dcacf8c0c732814a29d0aebd1075a02b1300a51eddc4be54"
+    },
+    {
+      "path": "tools/renderer_audit.py",
+      "bytes": 1807,
+      "sha256": "c252f118c6855176179bc0091c089a93760b2f50115d69e3e0540add3d1d0d3b"
+    },
+    {
+      "path": "tools/restore_validation_toolchain.py",
+      "bytes": 5296,
+      "sha256": "d536cb26b1be296cd82520c66c35e2ea398657bd48989f5b64f00b5396148d51"
+    },
+    {
+      "path": "tools/server_smoke.py",
+      "bytes": 9277,
+      "sha256": "b9f60fc0cc700906a7be1dd2d4051e99a6ddaa54daf7710ab0eb600e5a93b10f"
+    },
+    {
+      "path": "tools/validate_mountain_rivers.py",
+      "bytes": 6157,
+      "sha256": "97ad2718a408a9249cb643766c080baed484020a7d7f287d71b8390044f4a19b"
+    },
+    {
+      "path": "tools/validate_waterways.py",
+      "bytes": 4711,
+      "sha256": "3ee2254e06fd5a2ac42b3fb87a79be88baa512d540fcf3c6f2b41f7da746b8b4"
+    },
+    {
+      "path": "tools/vulkan_probe.py",
+      "bytes": 2605,
+      "sha256": "35c541f516fe94a32e8642779396e28eacc46b2cf39517181db30dd9ae1ebc5f"
+    },
+    {
+      "path": "tools/water/WaterJfrSummary.java",
+      "bytes": 3581,
+      "sha256": "153ce4c9d6f7d45303a86d5418aa6dc7dd6714fad66f44e2e4dfcc42207753d9"
+    },
+    {
+      "path": "tools/water/reproduce_pressure_cutoff.py",
+      "bytes": 8566,
+      "sha256": "525eac7bbb070a7c09d638c54c320cc6d61ea8ccc39bcdd58cf2b0b0524e9010"
+    },
+    {
+      "path": "tools/water/run_page_admission_check.py",
+      "bytes": 7783,
+      "sha256": "48c09667b968d0ffac85f51b907e50ab8fab0070db971f489c81549e0cb2f19d"
+    }
+  ]
+}

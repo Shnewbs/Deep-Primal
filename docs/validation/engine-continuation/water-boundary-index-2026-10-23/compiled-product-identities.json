@@ -1,0 +1,22 @@
+[
+  {
+    "path": "runtime-product-classes/candidate-renderer.class",
+    "bytes": 50970,
+    "sha256": "215a7b48f15c324c09ed7c2a40639f95417cbb96ef72d7d37f71d8c4698f6d6e"
+  },
+  {
+    "path": "runtime-product-classes/candidate-page.class",
+    "bytes": 2238,
+    "sha256": "0331c0039ab469d83e7ba5b8f0d4a83d5b8918a72ddf7bb3e1118935e6a3ca8f"
+  },
+  {
+    "path": "runtime-product-classes/candidate-index.class",
+    "bytes": 2197,
+    "sha256": "adfd714aa1a1deabc0d2e07118769cf099b05e6b57672211a9c98856bf705006"
+  },
+  {
+    "path": "runtime-product-classes/control-renderer.class",
+    "bytes": 50681,
+    "sha256": "f982fbd71ed0cb5b5087bff9eca82308ddf42e07f347af4c16ea059a6d822514"
+  }
+]

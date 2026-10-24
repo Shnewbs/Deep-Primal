@@ -1,0 +1,6 @@
+{
+  "premature_audit": "Failed before final result existed; no acceptance credited. Waited for launcher completion.",
+  "action_history": "Original exact length 11 rejected legitimate recorded stop at position 12; now validates all 11 required actions in exact order plus optional stop. Final save/shutdown/exit/hash/crash gates remain required.",
+  "postprocessing_paths": "Two root-relative paths were used from an audit subdirectory (initial JFR read and package-audit metadata edit); failed, corrected, no production or acceptance effect.",
+  "diagnostic_helper": "Render thread is selected first before the 64-thread capture bound; only a pending reload is sampled at most three times."
+}

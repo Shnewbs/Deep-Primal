@@ -1,0 +1,394 @@
+--- a/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java
++++ b/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java
+@@ -22,6 +22,9 @@
+   // Explicit residency caps keep independent components from retaining a whole ocean.
+   private static final int MAX_PRESSURE_JOBS = 16, MAX_PRESSURE_NODES = 8192;
+   private static final int MAX_ACTIVE = 65536, DRAIN_VISITS_PER_TICK = 2048, DRAIN_SEARCH = 128;
++  private static final int MAX_DRAIN_JOBS = 16, MAX_DRAIN_NODES = 8192;
++  private static final int MAX_DRAIN_CHUNKS = 4096;
++  private static final int MAX_DRAIN_WAITERS = 128, MAX_DRAIN_WAIT_LINKS = 1024;
+   // Three transport substeps per 50 ms host tick: nominal 60 Hz solver resolution.
+   // World commits stay on the owning thread; presentation interpolates every rendered frame.
+   public static final int SUBSTEPS = 3;
+@@ -32,17 +35,123 @@
+   private static final class Budget {
+     long time = Long.MIN_VALUE;
+     int count, pressureVisits, drainVisits, transfers;
+-    final long[] searchQueue = new long[PRESSURE_SEARCH];
+-    final int[] firstStep = new int[PRESSURE_SEARCH];
+-    final LongOpenHashSet seen = new LongOpenHashSet(PRESSURE_SEARCH);
+     int pressureLimit = PRESSURE_VISITS_PER_TICK, drainLimit = DRAIN_VISITS_PER_TICK;
+     boolean stepped;
+     final LongLinkedOpenHashSet active = new LongLinkedOpenHashSet();
+     final LongLinkedOpenHashSet pressure = new LongLinkedOpenHashSet();
+     final LinkedHashMap<BlockPos, PressureJob> searches = new LinkedHashMap<>();
+     final HashMap<Long, HashSet<PressureJob>> watchedChunks = new HashMap<>();
++    final LinkedHashMap<BlockPos, DrainJob> drains = new LinkedHashMap<>();
++    final HashMap<Long, HashSet<DrainJob>> drainChunks = new HashMap<>();
++    final LinkedHashMap<BlockPos, LongOpenHashSet> waitingDrains = new LinkedHashMap<>();
++    final HashMap<Long, HashSet<BlockPos>> drainWakeChunks = new HashMap<>();
++    int drainWaitLinks;
++    int drainRestarts, drainCompleted, drainSaturated, maxDrainSlice;
+     int pressureRestarts, pressureCompleted, pressureSaturated, maxPressureSlice, pressureCoalesced;
+     int pressureHeadRefreshes, pressureHeadDeferrals;
++  }
++
++  private static final class DrainJob {
++    final BlockPos origin;
++    long[] queue = new long[DRAIN_SEARCH];
++    // Origin is the sentinel for a path whose entire prefix is still wet. A dry
++    // prefix advances only to its first empty cell, never across an empty corridor.
++    long[] firstDry = new long[DRAIN_SEARCH];
++    final LongOpenHashSet seen = new LongOpenHashSet(DRAIN_SEARCH);
++    final LongOpenHashSet chunks = new LongOpenHashSet();
++    final LongOpenHashSet missingChunks = new LongOpenHashSet();
++    int head, tail;
++    boolean invalidated, saturated;
++
++    DrainJob(BlockPos origin) {
++      this.origin = origin.immutable();
++      seen.add(origin.asLong());
++    }
++  }
++
++  private static boolean watch(Budget budget, DrainJob job, BlockPos p) {
++    long key = net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4);
++    if (!job.chunks.contains(key) && job.chunks.size() >= MAX_DRAIN_CHUNKS) {
++      job.saturated = true;
++      return false;
++    }
++    if (job.chunks.add(key))
++      budget.drainChunks.computeIfAbsent(key, unused -> new HashSet<>()).add(job);
++    return true;
++  }
++
++  private static void finish(Budget budget, DrainJob job) {
++    budget.drains.remove(job.origin, job);
++    for (long key : job.chunks) {
++      var watchers = budget.drainChunks.get(key);
++      if (watchers != null) {
++        watchers.remove(job);
++        if (watchers.isEmpty()) budget.drainChunks.remove(key);
++      }
++    }
++  }
++
++  private static void changedDrain(Budget budget, BlockPos p) {
++    var watchers = budget.drainChunks.get(
++        net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4));
++    if (watchers == null) return;
++    var neighbor = new BlockPos.MutableBlockPos();
++    for (var job : watchers) {
++      if (job.invalidated) continue;
++      if (job.seen.contains(p.asLong())) { job.invalidated = true; continue; }
++      for (Direction direction : ALL) {
++        neighbor.setWithOffset(p, direction);
++        if (job.seen.contains(neighbor.asLong())) { job.invalidated = true; break; }
++      }
++    }
++  }
++
++  private static void forgetDrainWait(Budget budget, BlockPos origin) {
++    var missing = budget.waitingDrains.remove(origin);
++    if (missing == null) return;
++    budget.drainWaitLinks -= missing.size();
++    for (long key : missing) {
++      var origins = budget.drainWakeChunks.get(key);
++      if (origins != null) {
++        origins.remove(origin);
++        if (origins.isEmpty()) budget.drainWakeChunks.remove(key);
++      }
++    }
++  }
++
++  private static void waitForDrainChunks(ServerLevel level, BlockPos origin,
++      LongOpenHashSet missing, Budget budget) {
++    forgetDrainWait(budget, origin);
++    if (budget.waitingDrains.size() >= MAX_DRAIN_WAITERS
++        || budget.drainWaitLinks + missing.size() > MAX_DRAIN_WAIT_LINKS) {
++      // Retain backpressure in the bounded active/native wake queues; never drop volume/work.
++      activate(level, origin);
++      return;
++    }
++    var saved = origin.immutable();
++    budget.waitingDrains.put(saved, missing);
++    budget.drainWaitLinks += missing.size();
++    for (long key : missing)
++      budget.drainWakeChunks.computeIfAbsent(key, unused -> new HashSet<>()).add(saved);
++  }
++
++  private static void resumeDrainWaiters(ServerLevel level, Budget budget, long key) {
++    var origins = budget.drainWakeChunks.get(key);
++    if (origins == null) return;
++    for (var origin : List.copyOf(origins)) {
++      forgetDrainWait(budget, origin);
++      activate(level, origin);
++    }
++  }
++
++  private static boolean drainOpen(ServerLevel level, BlockPos p, DrainJob job, Budget budget) {
++    if (!watch(budget, job, p)) return false;
++    if (!level.isInWorldBounds(p)) return false;
++    if (!level.hasChunkAt(p)) {
++      job.missingChunks.add(net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4));
++      return false;
++    }
++    return open(level, p);
+   }
+ 
+   private static final class PressureJob {
+@@ -85,11 +194,19 @@
+       net.minecraft.world.level.block.state.BlockState before,
+       net.minecraft.world.level.block.state.BlockState after) {
+     Budget budget = BUDGETS.get(level);
+-    if (budget == null || budget.watchedChunks.isEmpty() || before == null || before == after) return;
++    if (budget != null && !budget.waitingDrains.isEmpty() && before != null
++        && before.is(EngineRegistry.WATER_BLOCK.get()) && !after.is(EngineRegistry.WATER_BLOCK.get()))
++      forgetDrainWait(budget, p);
++    if (budget == null || (budget.watchedChunks.isEmpty() && budget.drainChunks.isEmpty())
++        || before == null || before == after) return;
+     // Current-direction animation alone cannot change hydraulic connectivity or head.
+     boolean volumeOnly = before.is(EngineRegistry.WATER_BLOCK.get())
+         && after.is(EngineRegistry.WATER_BLOCK.get());
+     if (volumeOnly && before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))) return;
++    // Drain witnesses depend on open passages and available capacity, not the exact
++    // positive volume in a still-partial cell. Full/partial transitions do change exits.
++    if (!volumeOnly || (before.getValue(EngineFluid.UNITS) == WaterTransport.CAPACITY)
++        != (after.getValue(EngineFluid.UNITS) == WaterTransport.CAPACITY)) changedDrain(budget, p);
+     var watchers = budget.watchedChunks.get(
+         net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4));
+     if (watchers == null) return;
+@@ -116,6 +233,21 @@
+   private static void invalidateChunk(Budget budget, long key) {
+     var watchers = budget.watchedChunks.get(key);
+     if (watchers != null) for (var job : watchers) job.invalidated = true;
++    var drains = budget.drainChunks.get(key);
++    if (drains != null) for (var job : drains) job.invalidated = true;
++  }
++
++  public record DrainDiagnostics(int jobs, int retainedNodes, int watchedChunks, int restarts,
++      int completed, int saturated, int maxSliceVisits, int waitingJobs, int waitingChunks, int waitingLinks) {}
++
++  public static DrainDiagnostics drainDiagnostics(ServerLevel level) {
++    Budget budget = BUDGETS.get(level);
++    if (budget == null) return new DrainDiagnostics(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
++    int nodes = 0;
++    for (var job : budget.drains.values()) nodes += job.seen.size();
++    return new DrainDiagnostics(budget.drains.size(), nodes, budget.drainChunks.size(),
++        budget.drainRestarts, budget.drainCompleted, budget.drainSaturated, budget.maxDrainSlice,
++        budget.waitingDrains.size(), budget.drainWakeChunks.size(), budget.drainWaitLinks);
+   }
+ 
+   public record PressureDiagnostics(int jobs, int retainedNodes, int watchedChunks, int restarts,
+@@ -234,6 +366,7 @@
+   public static void activate(ServerLevel level, BlockPos p) {
+     if (!level.isInWorldBounds(p) || !level.hasChunkAt(p)) return;
+     Budget budget = budget(level);
++    if (!budget.waitingDrains.isEmpty()) forgetDrainWait(budget, p);
+     long key = p.asLong();
+     if (budget.active.contains(key)) return;
+     if (budget.active.size() >= MAX_ACTIVE) {
+@@ -245,7 +378,7 @@
+ 
+   public static int queued(ServerLevel level) {
+     Budget b = BUDGETS.get(level);
+-    return b == null ? 0 : b.active.size() + b.pressure.size() + b.searches.size();
++    return b == null ? 0 : b.active.size() + b.pressure.size() + b.searches.size() + b.drains.size() + b.waitingDrains.size();
+   }
+ 
+   public record Diagnostics(
+@@ -291,8 +424,10 @@
+         cursor.set(budget.active.removeFirstLong());
+         advance(level, cursor, budget);
+       }
++      runDrains(level, budget);
+       runPressure(level, budget);
+-      if (budget.active.isEmpty() && budget.pressure.isEmpty() && budget.searches.isEmpty()) break;
++      if (budget.active.isEmpty() && budget.pressure.isEmpty() && budget.searches.isEmpty()
++          && budget.drains.isEmpty()) break;
+     }
+   }
+ 
+@@ -350,70 +485,122 @@
+     return false;
+   }
+ 
+-  /** A thin film follows a bounded downhill path instead of stopping at one unit. */
++  /** A thin film retains its open-path frontier across bounded scheduling turns. */
+   private static boolean drain(ServerLevel l, BlockPos origin, Budget budget) {
+-    // Full submerged cells with no lateral capacity have no horizontal route to begin.
+-    // Check before budget admission: they must not requeue merely because other films used it.
++    var job = budget.drains.get(origin);
++    if (job != null) return continueDrain(l, job, budget);
+     boolean exit = false;
++    LongOpenHashSet missing = null;
+     for (Direction d : SIDES) {
+       BlockPos q = origin.relative(d);
+-      if (open(l, q) && units(l, q) < WaterTransport.CAPACITY) {
+-        exit = true;
+-        break;
+-      }
+-    }
+-    if (!exit) return false;
+-    if (budget.drainVisits >= budget.drainLimit) {
++      if (l.isInWorldBounds(q) && !l.hasChunkAt(q)) {
++        if (missing == null) missing = new LongOpenHashSet();
++        missing.add(net.minecraft.world.level.ChunkPos.pack(q.getX() >> 4, q.getZ() >> 4));
++      }
++      if (open(l, q) && (units(l, q) < WaterTransport.CAPACITY
++          || units(l, origin) < WaterTransport.CAPACITY)) { exit = true; break; }
++    }
++    // Keep enclosed full interiors idle even when another component used the budget.
++    if (!exit) {
++      if (missing != null) waitForDrainChunks(l, origin, missing, budget);
++      return false;
++    }
++    if (budget.drainVisits >= budget.drainLimit || budget.drains.size() >= MAX_DRAIN_JOBS) {
+       activate(l, origin);
+       return false;
+     }
+-    int head = 0, tail = 0;
+-    var seen = budget.seen;
+-    seen.clear();
+-    seen.add(origin.asLong());
+-    long[] queue = budget.searchQueue;
+-    int[] first = budget.firstStep;
++    job = new DrainJob(origin);
++    budget.drains.put(job.origin, job);
++    watch(budget, job, origin);
++    for (int side = 0; side < SIDES.length; side++) {
++      var p = origin.relative(SIDES[side]);
++      if (drainOpen(l, p, job, budget) && job.seen.add(p.asLong())) {
++        job.queue[job.tail] = p.asLong();
++        job.firstDry[job.tail++] = units(l, p) == 0 ? p.asLong() : origin.asLong();
++      }
++    }
++    return continueDrain(l, job, budget);
++  }
++
++  private static void runDrains(ServerLevel level, Budget budget) {
++    int turns = budget.drains.size();
++    while (turns-- > 0 && !budget.drains.isEmpty() && budget.drainVisits < budget.drainLimit) {
++      var entry = budget.drains.pollFirstEntry();
++      budget.drains.put(entry.getKey(), entry.getValue());
++      continueDrain(level, entry.getValue(), budget);
++    }
++  }
++
++  private static boolean continueDrain(ServerLevel l, DrainJob job, Budget budget) {
++    var origin = job.origin;
++    if (job.invalidated) {
++      finish(budget, job);
++      budget.drainRestarts++;
++      activate(l, origin);
++      return false;
++    }
++    if (!l.isInWorldBounds(origin) || !l.hasChunkAt(origin) || units(l, origin) == 0) {
++      finish(budget, job);
++      return false;
++    }
++    int visits = 0;
+     var p = new BlockPos.MutableBlockPos();
+     var q = new BlockPos.MutableBlockPos();
+-    for (int side = 0; side < SIDES.length; side++) {
+-      p.setWithOffset(origin, SIDES[side]);
+-      if (open(l, p) && units(l, p) < WaterTransport.CAPACITY) {
+-        long key = p.asLong();
+-        if (seen.add(key)) {
+-          queue[tail] = key;
+-          first[tail++] = side;
++    while (job.head < job.tail && visits < DRAIN_SEARCH && budget.drainVisits < budget.drainLimit) {
++      p.set(job.queue[job.head]);
++      long firstDry = job.firstDry[job.head++];
++      visits++; budget.drainVisits++;
++      if (!open(l, p)) { job.invalidated = true; break; }
++      q.set(p.getX(), p.getY() - 1, p.getZ());
++      if (drainOpen(l, q, job, budget) && units(l, q) < WaterTransport.CAPACITY) {
++        var target = firstDry == origin.asLong() ? q.immutable() : BlockPos.of(firstDry);
++        int from = units(l, origin);
++        budget.maxDrainSlice = Math.max(budget.maxDrainSlice, visits);
++        if (job.invalidated) return false;
++        boolean available = open(l, target);
++        int to = available ? units(l, target) : WaterTransport.CAPACITY;
++        finish(budget, job);
++        budget.drainCompleted++;
++        if (job.saturated) budget.drainSaturated++;
++        // The whole read witness stayed watched, including silent edits and chunk gaps.
++        // Across a continuously wet witness, a conservative pressure exchange can
++        // reach the outlet. Dry paths advance only into their first empty cell.
++        // Requiring non-increasing head prevents an equal-height push/undo cycle.
++        long fromHead = (long) origin.getY() * WaterTransport.CAPACITY + from;
++        long toHead = (long) target.getY() * WaterTransport.CAPACITY + to;
++        if (from == 0 || !available || to >= WaterTransport.CAPACITY || fromHead <= toHead) {
++          activate(l, origin);
++          return false;
+         }
+-      }
+-    }
+-    while (head < tail && budget.drainVisits < budget.drainLimit) {
+-      p.set(queue[head]);
+-      int direction = first[head++];
+-      budget.drainVisits++;
+-      q.set(p.getX(), p.getY() - 1, p.getZ());
+-      if (open(l, q) && units(l, q) < WaterTransport.CAPACITY) {
+-        BlockPos target = origin.relative(SIDES[direction]);
+-        int from = units(l, origin), to = units(l, target);
+-        int flow =
+-            switch (SIDES[direction]) {
+-              case EAST -> 0;
+-              case SOUTH -> 4;
+-              case WEST -> 8;
+-              default -> 12;
+-            };
++        int dx = target.getX() - origin.getX(), dz = target.getZ() - origin.getZ();
++        int flow = target.getY() == origin.getY() && Math.abs(dx) + Math.abs(dz) == 1
++            ? dx > 0 ? 0 : dz > 0 ? 4 : dx < 0 ? 8 : 12 : 16;
+         return transfer(l, origin, target, new WaterTransport.Exchange(from - 1, to + 1, 1), flow);
+       }
+       for (Direction d : SIDES) {
+-        if (seen.size() >= DRAIN_SEARCH) break;
+         q.setWithOffset(p, d);
+         long key = q.asLong();
+-        if (!seen.contains(key) && open(l, q)) {
+-          seen.add(key);
+-          queue[tail] = key;
+-          first[tail++] = direction;
++        if (job.seen.contains(key)) continue;
++        if (!drainOpen(l, q, job, budget)) continue;
++        if (job.seen.size() >= MAX_DRAIN_NODES) { job.saturated = true; continue; }
++        job.seen.add(key);
++        if (job.tail == job.queue.length) {
++          int size = Math.min(MAX_DRAIN_NODES, job.queue.length * 2);
++          job.queue = Arrays.copyOf(job.queue, size);
++          job.firstDry = Arrays.copyOf(job.firstDry, size);
+         }
+-      }
+-    }
+-    if (head < tail) activate(l, origin);
++        job.queue[job.tail] = key;
++        job.firstDry[job.tail++] = firstDry == origin.asLong() && units(l, q) == 0
++            ? key : firstDry;
++      }
++    }
++    budget.maxDrainSlice = Math.max(budget.maxDrainSlice, visits);
++    if (!job.invalidated && job.head == job.tail) {
++      finish(budget, job);
++      budget.drainCompleted++;
++      if (job.saturated) budget.drainSaturated++;
++      if (!job.missingChunks.isEmpty()) waitForDrainChunks(l, origin, job.missingChunks, budget);
++    }
+     return false;
+   }
+ 
+@@ -600,8 +787,10 @@
+     public void chunkLoaded(net.neoforged.neoforge.event.level.ChunkEvent.Load event) {
+       if (event.getLevel() instanceof ServerLevel level && level.getServer().isSameThread()) {
+         Budget budget = BUDGETS.get(level);
+-        if (budget == null || budget.watchedChunks.isEmpty()) return;
++        if (budget == null || (budget.watchedChunks.isEmpty() && budget.drainChunks.isEmpty()
++            && budget.waitingDrains.isEmpty())) return;
+         var pos = event.getChunk().getPos();
++        resumeDrainWaiters(level, budget, pos.pack());
+         invalidateChunk(budget, pos.pack());
+         // A newly loaded neighbor changes a previously sealed search boundary.
+         for (Direction side : SIDES)

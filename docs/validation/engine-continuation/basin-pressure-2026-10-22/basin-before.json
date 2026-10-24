@@ -1,0 +1,22 @@
+{
+  "case": "basin-before",
+  "mode": "basin-fixed",
+  "suite": "closed",
+  "trace_enabled": false,
+  "packaged": false,
+  "exit_code": 0,
+  "explicit_pass": false,
+  "records": [],
+  "failures": [
+    "java.lang.AssertionError: The closed stepped basin must drain fully: upper=368 bottom=7697 pending=681",
+    "[13:15:03] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+    "java.lang.AssertionError: The closed stepped basin must drain fully: upper=368 bottom=7697 pending=681"
+  ],
+  "normal_save": true,
+  "crash_reports": [
+    "crash-2026-10-22_13.15.03-server.txt"
+  ],
+  "elapsed_seconds": 182.77,
+  "traced_source_sha256": "8ca0d657c403d4a65118202ad34cd9e6ffa0aee5ff5f125861f98e9a41ae3ee8",
+  "log_sha256": "a802cbb0cdb30b8f13f481d1ac8f5a26b43b018bce2d1bb2f667d9540d29275f"
+}

@@ -1,0 +1,249 @@
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java
+@@ -67,6 +67,9 @@
+     double phase = .5 * ((double) FLOW_X[direction] * worldX + (double) FLOW_Z[direction] * worldZ);
+     return (float) (phase - Math.floor(phase));
+   }
++
++  public static float flowX(int direction) { return FLOW_X[direction]; }
++  public static float flowZ(int direction) { return FLOW_Z[direction]; }
+ 
+   private int flowMaterial;
+   private float flowX, flowZ;
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -4,6 +4,7 @@
+ import com.mojang.blaze3d.systems.RenderSystem;
+ import com.mojang.blaze3d.vertex.*;
+ import com.shnewbs.deepprimal.core.WaterPatchMesher;
++import com.shnewbs.deepprimal.core.WaterFlowTransition;
+ import com.shnewbs.deepprimal.core.WaterSurfaceTransition;
+ import com.shnewbs.deepprimal.engine.*;
+ import com.shnewbs.deepprimal.graphics.WaterGpuMesh;
+@@ -67,6 +68,7 @@
+   private final List<Long2ObjectLinkedOpenHashMap<WaterSurfaceTransition>>
+       heights = new ArrayList<>(),
+       alpha = new ArrayList<>();
++  private final Long2ObjectLinkedOpenHashMap<WaterFlowTransition> flowDirections = new Long2ObjectLinkedOpenHashMap<>();
+   private final ArrayList<Future<Ready>> work = new ArrayList<>();
+   private final ExecutorService workers =
+       Executors.newFixedThreadPool(
+@@ -467,6 +469,17 @@
+       }
+     }
+     return result;
++  }
++
++  private WaterFlowTransition flow(long key, int direction, long revision) {
++    var value = flowDirections.getAndMoveToLast(key);
++    if (value == null && direction < 16) {
++      value = new WaterFlowTransition(direction, clock);
++      flowDirections.put(key, value);
++    }
++    if (value != null) value.target(direction, clock, revision);
++    while (flowDirections.size() > MAX_HISTORY) flowDirections.removeFirst();
++    return value;
+   }
+ 
+   private void upload(Ready ready) {
+@@ -516,6 +529,8 @@
+       for (var faces : parts) {
+         float[] values = faces.vertices;
+         float phaseU = 0, phaseV = 0;
++        int shownDirection = 16;
++        WaterFlowTransition flowState = null;
+         for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
+           int i = v * WaterPatchMesher.STRIDE;
+           int cell = (int) values[i + 9];
+@@ -524,7 +539,14 @@
+           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
+           if ((v & 3) == 0) {
+             int direction = WaterPatchMesher.direction(values[i + 10]);
+-            if (face == 0 && direction < 16) {
++            flowState = face == 0 ? flow(cellKey, direction, faces.revision) : null;
++            shownDirection = flowState == null ? direction : flowState.target();
++            if (flowState != null && flowState.queued(clock)) {
++              animating = true;
++              remaining = Math.max(remaining, WaterFlowTransition.MILLIS - flowState.age(clock));
++            }
++            if (face == 0 && shownDirection < 16) {
++              direction = shownDirection;
+               phaseU = WaterPatchMesher.flowUOffset(direction, p.x + cx, p.z + cz);
+               phaseV = WaterPatchMesher.flowVOffset(direction, p.x + cx, p.z + cz);
+             }
+@@ -563,21 +585,32 @@
+           int color = Float.floatToRawIntBits(values[i + 7]),
+               light = Float.floatToRawIntBits(values[i + 8]);
+           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
+-          data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
+-          boolean flowingFace = WaterPatchMesher.direction(values[i + 10]) < 16;
++          boolean blend = face == 0 && shownDirection < 16 && flowState != null && flowState.active(clock);
++          // Alpha transitions live in Normal: reuse constant color alpha for exact cell-local UVs.
++          data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
++              .put((byte) (blend ? cx | (cz << 4) : 255));
++          boolean flowingFace = (face == 0 ? shownDirection : WaterPatchMesher.direction(values[i + 10])) < 16;
+           boolean side = face >= 1 && face <= 4;
+           var sprite = flowingFace ? flowing : still;
+           // Derive side V from the admitted shared height, including rejected stale captures.
+           // The shader follows its displayed morph height and clamps inside this sprite's tile.
+           boolean flowTop = face == 0 && flowingFace;
+           float textureU = values[i + 5] + (flowTop ? phaseU : 0);
+-          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : values[i + 6] + (flowTop ? phaseV : 0);
++          float topV = values[i + 6];
++          if (flowTop) {
++            float a = values[i] - cx - .5f, b = values[i + 2] - cz - .5f;
++            textureU = .5f + .5f * (WaterPatchMesher.flowZ(shownDirection) * a - WaterPatchMesher.flowX(shownDirection) * b) + phaseU;
++            topV = .5f + .5f * (WaterPatchMesher.flowX(shownDirection) * a + WaterPatchMesher.flowZ(shownDirection) * b);
++          }
++          float textureV = side ? (1 - target) * (flowingFace ? .5f : 1) : topV + (flowTop ? phaseV : 0);
+           data.putFloat(sprite.getU(textureU)).putFloat(sprite.getV(textureV));
+           data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
+               .putShort((short) offset);
+           // Native light coordinates occupy the low byte; reserve bits 8/9 for side mode and bit 10 for periodic flow tops.
+           int presentation = side ? 256 | (flowingFace ? 512 : 0) : flowTop ? 1024 : 0;
+-          data.putShort((short) ((light & 255) | presentation)).putShort((short) (light >>> 16));
++          int source = blend ? flowState.source() << 11 : 0;
++          int age = blend ? 32768 | (flowState.age(clock) << 8) : 0;
++          data.putShort((short) ((light & 255) | presentation | source)).putShort((short) (((light >>> 16) & 255) | age));
+           data.put((byte) Math.round(opacity.from(clock) * 127))
+               .put((byte) Math.round(opacity.target() * 127))
+               .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
+@@ -603,6 +636,7 @@
+       p.texture.m20(still.getV(0)).m21(flowing.getV(0));
+       p.texture.m01(flowing.getU(0)).m02(flowing.getU(1) - flowing.getU(0));
+       p.texture.m03(flowing.getV(0)).m12(flowing.getV(1) - flowing.getV(0));
++      p.texture.m30(p.x).m31(p.z);
+       p.fading = rememberFading(p, parts);
+       p.snapshot = ready.snapshot;
+       p.uploaded = clock;
+@@ -697,6 +731,7 @@
+     hidden.clear();
+     heights.forEach(Map::clear);
+     alpha.forEach(Map::clear);
++    flowDirections.clear();
+     residentBytes = 0;
+     discovery = 0;
+     lastFrame = 0;
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
+@@ -10,8 +10,40 @@
+ uniform sampler2D Sampler2;
+ out vec2 texCoord;
+ flat out vec4 flowBounds;
++out vec2 previousTexCoord;
++flat out float previousWeight;
+ out vec4 vertexColor;
+ out vec3 relativePosition;
++// Q25 coefficients keep world-origin phase exact using uint modular arithmetic.
++const ivec2 FLOW_Q25[16] = ivec2[16](
++    ivec2(33554432, 0),
++    ivec2(31000252, 12840725),
++    ivec2(23726566, 23726566),
++    ivec2(12840725, 31000252),
++    ivec2(0, 33554432),
++    ivec2(-12840725, 31000252),
++    ivec2(-23726566, 23726566),
++    ivec2(-31000252, 12840725),
++    ivec2(-33554432, 0),
++    ivec2(-31000252, -12840725),
++    ivec2(-23726566, -23726566),
++    ivec2(-12840725, -31000252),
++    ivec2(0, -33554432),
++    ivec2(12840725, -31000252),
++    ivec2(23726566, -23726566),
++    ivec2(31000252, -12840725));
++vec2 previousFlow(int direction, vec4 tile) {
++    ivec2 c = FLOW_Q25[direction];
++    int cellBits = int(round(Color.a * 255.0));
++    ivec2 cell = ivec2(cellBits & 15, cellBits >> 4);
++    uvec2 world = uvec2(ivec2(TextureMat[3][0], TextureMat[3][1]) + cell);
++    uvec2 phase = uvec2(uint(c.y) * world.x - uint(c.x) * world.y,
++                       uint(c.x) * world.x + uint(c.y) * world.y) & uvec2(67108863u);
++    vec2 f = vec2(c) / 33554432.0, local = Position.xz - vec2(cell) - vec2(0.5);
++    vec2 uv = vec2(0.5) + 0.5 * vec2(f.y * local.x - f.x * local.y, f.x * local.x + f.y * local.y)
++              + vec2(phase) / 67108864.0;
++    return tile.xy + uv * tile.zw;
++}
+ void main() {
+     // TextureMat carries elapsed milliseconds since this mesh was uploaded.
+     float t = clamp((TextureMat[0][0] - float(UV1.y)) / 100.0, 0.0, 1.0);
+@@ -20,7 +52,10 @@
+     p.y += displacement;
+     relativePosition = p + ModelOffset;
+     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
+-    vertexColor = Color * ColorModulator * texelFetch(Sampler2, clamp(ivec2(UV2.x & 255, UV2.y) / 16, ivec2(0), ivec2(15)), 0);
++    // Active top blends reuse the otherwise constant color alpha for cell coordinates.
++    vec4 tint = Color;
++    if ((UV2.y & 32768) != 0) tint.a = 1.0;
++    vertexColor = tint * ColorModulator * texelFetch(Sampler2, clamp(ivec2(UV2.x & 255, UV2.y & 255) / 16, ivec2(0), ivec2(15)), 0);
+     // Signed normalized Normal.z stores the original opacity start offset in milliseconds.
+     float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
+     vertexColor.a *= mix(Normal.x, Normal.y, alphaT);
+@@ -28,6 +63,11 @@
+     flowBounds = (UV2.x & 1024) != 0
+         ? vec4(TextureMat[0][1], TextureMat[0][3], TextureMat[0][2], TextureMat[1][2])
+         : vec4(0.0);
++    previousWeight = (UV2.y & 32768) != 0
++        ? clamp(1.0 - (TextureMat[0][0] + float((UV2.y >> 8) & 127)) / 100.0, 0.0, 1.0) : 0.0;
++    previousTexCoord = UV0;
++    if (previousWeight > 0.0) previousTexCoord = previousFlow(clamp((UV2.x >> 11) & 31, 0, 15), flowBounds);
++
+     if ((UV2.x & 256) != 0) {
+         bool flowing = (UV2.x & 512) != 0;
+         float span = flowing ? TextureMat[1][1] : TextureMat[1][0];
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh
+@@ -3,6 +3,8 @@
+ uniform sampler2D Sampler0;
+ in vec2 texCoord;
+ flat in vec4 flowBounds;
++in vec2 previousTexCoord;
++flat in float previousWeight;
+ in vec4 vertexColor;
+ in vec3 relativePosition;
+ out vec4 fragColor;
+@@ -14,6 +16,11 @@
+     // Derive LOD from the unwrapped phase so wrap boundaries do not select coarse mips.
+     vec2 dx = dFdx(texCoord), dy = dFdy(texCoord);
+     vec4 sampled = flowBounds.z > 0.0 ? textureGrad(Sampler0, uv, dx, dy) : texture(Sampler0, uv);
++    vec2 oldDx = dFdx(previousTexCoord), oldDy = dFdy(previousTexCoord);
++    if (previousWeight > 0.0) {
++        vec2 oldUV = flowBounds.xy + fract((previousTexCoord - flowBounds.xy) / flowBounds.zw) * flowBounds.zw;
++        sampled = mix(sampled, textureGrad(Sampler0, oldUV, oldDx, oldDy), previousWeight);
++    }
+     vec4 color = sampled * vertexColor;
+     if (color.a < 0.003) discard;
+     fragColor = apply_fog(color, length(relativePosition), length(relativePosition.xz), FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java
+@@ -0,0 +1,30 @@
++package com.shnewbs.deepprimal.core;
++
++/** Two texture endpoints and one latest request. Never retarget an unfinished blend. */
++public final class WaterFlowTransition {
++  public static final int MILLIS = 100;
++  private int from, target, pending;
++  private long started, revision = Long.MIN_VALUE;
++  public WaterFlowTransition(int initial, long now) {
++    from = target = pending = initial;
++    started = now;
++  }
++  public void target(int next, long now, long version) {
++    if (version < revision) return;
++    revision = version;
++    pending = next;
++    if (next == 16 || target == 16) {
++      from = target = next;
++      started = now;
++    } else if ((from == target || now - started >= MILLIS) && next != target) {
++      from = target;
++      target = next;
++      started = now;
++    }
++  }
++  public int target() { return target; }
++  public int source() { return from; }
++  public int age(long now) { return (int)Math.clamp(now - started, 0, MILLIS); }
++  public boolean active(long now) { return from < 16 && target < 16 && from != target && age(now) < MILLIS; }
++  public boolean queued(long now) { return active(now) && pending != target; }
++}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/lumber/oak"
+    },
+    {
+      "item": "tfc:wood/barrel/oak"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/oak/item_barrel"
+  }
+}

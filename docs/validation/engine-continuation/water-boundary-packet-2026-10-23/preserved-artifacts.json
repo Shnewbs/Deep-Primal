@@ -1,0 +1,1832 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/PacketBudget.java",
+    "sha": "83ef87d2a45c9e56010f72ac31c6d14f0a79e811",
+    "bytes": 1857,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/budget-class-identity.json",
+    "sha": "e580c7310480c368d08dd36e0e4b6791602a4059",
+    "bytes": 294,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/candidate-build/candidate-build-final.gz",
+    "sha": "f0a1ad61468a37b163f0fd425a518c7b27ff4f91",
+    "bytes": 3844,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/checkpoint-summary.json",
+    "sha": "4b87939f69b9a413850833c9c4a06de9370cce83",
+    "bytes": 1155,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/failed-first-WaterPartialFadeChecks.java",
+    "sha": "bc537fed0e8cb343c6ca711d04bcce25bbbb6e32",
+    "bytes": 9257,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/failed-marker-build/candidate-build-final.gz",
+    "sha": "2d2410e8cbff572e2a081281e44c12d8d2c6b0e8",
+    "bytes": 2260,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/failed-marker-core-compile.java",
+    "sha": "e1f84c100855f89a7e2d7035efe0b1b0c570c215",
+    "bytes": 3218,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/offline-audit-replay.json",
+    "sha": "2581e49c193e7f66b61a6adf56d864eaf0592aff",
+    "bytes": 274,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/packet-final-budget.txt",
+    "sha": "62b6e7b00c7c648b2ccae4b0bf8bb7a5e021503a",
+    "bytes": 450,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/performance-gate.json",
+    "sha": "906bba7d7763c990f10fef750ca06d647d7d0f7c",
+    "bytes": 999,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/pre-retirement-WaterCornerFieldChecks.java",
+    "sha": "dece895b6ca1e50b8658226ee5f6d7062650a38e",
+    "bytes": 26155,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/rejected-uv-marker/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+    "sha": "fce93b4f7938a1066545757ff6628ebed85d0360",
+    "bytes": 4715,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/rejected-uv-marker/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh",
+    "sha": "a4c3fcd641caeb752a7cb3b2d9130f166463831f",
+    "bytes": 6696,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/rejected-uv-marker/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPacketChecks.java",
+    "sha": "8613bdd31d97ed86ae7b49150963372156277ea1",
+    "bytes": 3004,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/rejected-uv-marker/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerPacking.java",
+    "sha": "c7db9f52a6e85321771a83d62d70b37976ab9409",
+    "bytes": 2712,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/scripts/build_candidate.py",
+    "sha": "43876fb8b7d4178e751466d0d729e3f16bcf560a",
+    "bytes": 2487,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/scripts/historical-r34-audit.py",
+    "sha": "74a3130f3438b5121062eefc45ec3a8e2eeaa1aa",
+    "bytes": 7043,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/scripts/restore_staged.py",
+    "sha": "a46ce54b5ca147437a223566c39a3059098d3808",
+    "bytes": 1405,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/source-input-manifest.json.gz",
+    "sha": "63193aa54ce7e7109f628e6a6a208d5de46b301c",
+    "bytes": 22906,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/source-scope-audit.json",
+    "sha": "2fe43c0170795bae67194c7688cdb9f2ccce878d",
+    "bytes": 1822,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged-fix.patch",
+    "sha": "17b7b16d48ca3459e18655fb6b1f5cf0ba163d93",
+    "bytes": 45630,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged-restoration-audit.json",
+    "sha": "b1e26c56a730db521f580eca8fff9c1002623e73",
+    "bytes": 193,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged-restore-manifest.json",
+    "sha": "f870edff7e82c13a1b1682f42fc07bbbbfcdf854",
+    "bytes": 4370,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+    "sha": "f7094edcd7ac44b6ca08ddfda055c502aee41b51",
+    "bytes": 4860,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/graphics-settings/src/main/java/com/shnewbs/deepprimal/graphics/WaterGpuMesh.java",
+    "sha": "a193c3b26465f04676a4901f78471c49687fb630",
+    "bytes": 2209,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh",
+    "sha": "a96085367195fc062c0067ab4d64b84848728a7c",
+    "bytes": 5403,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh",
+    "sha": "2d8e3bee1d51729f7af63c473057fa486981879b",
+    "bytes": 6887,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "sha": "3b50cf4cd77780760edb78f15fbcc9ed7f6ed59b",
+    "bytes": 5969,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPacketChecks.java",
+    "sha": "bad12aa5edaeaa0cfdde55c82c199c8ebe375391",
+    "bytes": 3246,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "sha": "6d85fc1b56f46801fb13ab6356989ebc3137a20a",
+    "bytes": 36695,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerFieldChecks.java",
+    "sha": "e44012c946bae9d46e28d43d424c1336931dd860",
+    "bytes": 26912,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerPacking.java",
+    "sha": "50f830d030efb23b1cb09acd0ffc377b057c84dc",
+    "bytes": 2706,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionUploadChecks.java",
+    "sha": "61a46bc274ea7aa3979bc4f5619ee94134c161e3",
+    "bytes": 6848,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMaterialTransitionChecks.java",
+    "sha": "226852da798215059bd59eee6e2c62144c85f68d",
+    "bytes": 16251,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPartialFadeChecks.java",
+    "sha": "f3bc6ba848830a79fc10ca809baf785f87b137c4",
+    "bytes": 9283,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideMaterialChecks.java",
+    "sha": "7ab35cf6cdba36d2795972880a99bfa447312bad",
+    "bytes": 21835,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/staged/src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideUvUploadChecks.java",
+    "sha": "614fd5fa56721d56dea95fbaca174b3ef377af7c",
+    "bytes": 7781,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/superseded-build/candidate-build-final.gz",
+    "sha": "ca8b0f2238cbf9cc30a4f31e81a8ed3880d413c1",
+    "bytes": 3858,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged-pixels.zip",
+    "sha": "b0630d05b6a1cd0077f071d1a702de4e8c052070",
+    "bytes": 991998,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/console-final.gz",
+    "sha": "26fffb7e8c29b706180e3855a7c24036c21d607d",
+    "bytes": 9206,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/frame-completion.txt",
+    "sha": "e3de829947e7c16d91a48bbb18d083fb88269f42",
+    "bytes": 101,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/result.json.gz",
+    "sha": "27eff9338f387b8dde136541cd060aa7eb18c92e",
+    "bytes": 18511,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/saved-disconnect.txt",
+    "sha": "a10d3c809faea3a11ea75b822ad543d8ed168fb8",
+    "bytes": 29,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/selected-flow-gpu-vertices.bin",
+    "sha": "4426ddb7bbd3c1c340e958e464dd936527656012",
+    "bytes": 432,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/shutdown.txt",
+    "sha": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-corner-details.json.gz",
+    "sha": "7eb5a17f048ebd6292cdbf3c6a17471fc68e4fb4",
+    "bytes": 76963,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-corner-pixels.bin.gz",
+    "sha": "3da1947ad9a49bae0e5d24a3a1baf5a1527c5a76",
+    "bytes": 177156,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-corner-result.json",
+    "sha": "5887ee17da2054aa4eb005f4ad10fb1edc6e76e5",
+    "bytes": 682,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-corner-upload-details.json.gz",
+    "sha": "7453abb0afc9fbc8a0bd1e8822308135e73e6e52",
+    "bytes": 67621,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-corner-upload.bin.gz",
+    "sha": "f98234b38fb83a1d4deee5b7358a1f9f8e5509b7",
+    "bytes": 85491,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-direction-blend-details.json",
+    "sha": "88c95e9cd56d6542fe99bac3b1c43259e83f4795",
+    "bytes": 46333,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-direction-blend-pass.txt",
+    "sha": "c98ea22555a0293753d3b0fd16adc1c3365a978b",
+    "bytes": 238,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-direction-blend-pixels.txt",
+    "sha": "9b4fd6ec64bf6479e120c5b103ef9686b58ef0b2",
+    "bytes": 181,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-direction-upload-details.json",
+    "sha": "d316cdd4196502026770a720a5f711154652edd4",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-direction-upload.bin",
+    "sha": "485924e01c1f290afda82717563287c1cd9e3fd8",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-fade-continuity.txt",
+    "sha": "fc2f2143bb528ecc5d30ce9752bfac6f002d3274",
+    "bytes": 250,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-flow-phase-pass.txt",
+    "sha": "071f6239dbf2e4dee3478d654f3fabf558278f1f",
+    "bytes": 253,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-flow-phase-pixel-details.json",
+    "sha": "73ad4621ea8a2f2536700b6bbca0c6d582b04a6c",
+    "bytes": 2655,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-flow-phase-pixels.txt",
+    "sha": "4665a7bdaca8cfb917072308b4e17997df2cad94",
+    "bytes": 216,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-gpu-reuse.txt",
+    "sha": "ad3c06ec2b791be22e2510fd8474a255b8b33004",
+    "bytes": 232,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-material-atlas.json",
+    "sha": "d35095292c20192de8100b0458e0c15bb7fabbbd",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-material-pixel-details.json.gz",
+    "sha": "66ee7b69e4cc6f1a49cb76eda0cd4d0599e93815",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-material-upload.bin.gz",
+    "sha": "86def44498ef93bdf56a1dccf2c7f8f420e79b51",
+    "bytes": 11817,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-partial-fade.txt",
+    "sha": "716122ec646b7beb4268678f7bd5f024cdce8fad",
+    "bytes": 291,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-atlas.json",
+    "sha": "d35095292c20192de8100b0458e0c15bb7fabbbd",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-pixel-details.json.gz",
+    "sha": "bf8e9f393aeecbccedfc2f63c4deb26a4cb6facd",
+    "bytes": 9374,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-readback-convention.json",
+    "sha": "87e5c7c8102b73b91e47588cf444d33e7fdbde95",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-material-upload.bin.gz",
+    "sha": "a3b4af5b9b7e185b0d40ed30d2b58a707640696a",
+    "bytes": 67437,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-uv-pass.txt",
+    "sha": "5b11570b02a6f0d9e0f76a617350b6598e64c4cf",
+    "bytes": 185,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-uv-pixel-details.json",
+    "sha": "6486c4f2ad2a53a962c027c225bf0e03fcf2bb90",
+    "bytes": 732,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-uv-pixels.txt",
+    "sha": "9242ebe377b23e2e05b617f4b3208ad96b109083",
+    "bytes": 170,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-uv-upload-pass.txt",
+    "sha": "a8f3e5c1c0fc10482a5dd21d16f8749522f42365",
+    "bytes": 260,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-packaged/water-side-uv-upload.bin",
+    "sha": "edc544d77b72ad9c052db18d09898001615ba98e",
+    "bytes": 8640,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final-pixels.zip",
+    "sha": "bea773d2317262be0085971a9823267c723dc389",
+    "bytes": 1006226,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/console-final.gz",
+    "sha": "5c072bda320f64ba26019e901bdfdd77a6626121",
+    "bytes": 9258,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/frame-completion.txt",
+    "sha": "e3de829947e7c16d91a48bbb18d083fb88269f42",
+    "bytes": 101,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/result.json.gz",
+    "sha": "b4952a5f95de1d7696b9454ecf854ca4bb02847c",
+    "bytes": 18507,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/saved-disconnect.txt",
+    "sha": "a10d3c809faea3a11ea75b822ad543d8ed168fb8",
+    "bytes": 29,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/selected-flow-gpu-vertices.bin",
+    "sha": "dbbb71f28878c9563279f1f32d400c641abdae13",
+    "bytes": 1728,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/shutdown.txt",
+    "sha": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-corner-details.json.gz",
+    "sha": "7eb5a17f048ebd6292cdbf3c6a17471fc68e4fb4",
+    "bytes": 76963,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-corner-pixels.bin.gz",
+    "sha": "3da1947ad9a49bae0e5d24a3a1baf5a1527c5a76",
+    "bytes": 177156,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-corner-result.json",
+    "sha": "5887ee17da2054aa4eb005f4ad10fb1edc6e76e5",
+    "bytes": 682,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-corner-upload-details.json.gz",
+    "sha": "fed61001f6aca4c09700f8dc79a359504bc657f0",
+    "bytes": 66468,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-corner-upload.bin.gz",
+    "sha": "f98234b38fb83a1d4deee5b7358a1f9f8e5509b7",
+    "bytes": 85491,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-direction-blend-details.json",
+    "sha": "435232ffe98a6bed867ee8f1464f8b2b1efb07fe",
+    "bytes": 46333,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-direction-blend-pass.txt",
+    "sha": "c98ea22555a0293753d3b0fd16adc1c3365a978b",
+    "bytes": 238,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-direction-blend-pixels.txt",
+    "sha": "9b4fd6ec64bf6479e120c5b103ef9686b58ef0b2",
+    "bytes": 181,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-direction-upload-details.json",
+    "sha": "a520b6fb72f6ae6e8e1153d384ce6098a77732b0",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-direction-upload.bin",
+    "sha": "485924e01c1f290afda82717563287c1cd9e3fd8",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-fade-continuity.txt",
+    "sha": "fc2f2143bb528ecc5d30ce9752bfac6f002d3274",
+    "bytes": 250,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-flow-phase-pass.txt",
+    "sha": "071f6239dbf2e4dee3478d654f3fabf558278f1f",
+    "bytes": 253,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-flow-phase-pixel-details.json",
+    "sha": "d7507e1c671ffaf1af70588d0d162245eac2e0f7",
+    "bytes": 2655,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-flow-phase-pixels.txt",
+    "sha": "4665a7bdaca8cfb917072308b4e17997df2cad94",
+    "bytes": 216,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-gpu-reuse.txt",
+    "sha": "ad3c06ec2b791be22e2510fd8474a255b8b33004",
+    "bytes": 232,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-material-atlas.json",
+    "sha": "42b392dd52a9e03bf07f16e253bef5491a75c946",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-material-pixel-details.json.gz",
+    "sha": "66ee7b69e4cc6f1a49cb76eda0cd4d0599e93815",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-material-upload.bin.gz",
+    "sha": "86def44498ef93bdf56a1dccf2c7f8f420e79b51",
+    "bytes": 11817,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-partial-fade.txt",
+    "sha": "716122ec646b7beb4268678f7bd5f024cdce8fad",
+    "bytes": 291,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-atlas.json",
+    "sha": "42b392dd52a9e03bf07f16e253bef5491a75c946",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-pixel-details.json.gz",
+    "sha": "e55d167fb32d4593c2fe5a32f4160df2a7b7fb2e",
+    "bytes": 9375,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-readback-convention.json",
+    "sha": "87e5c7c8102b73b91e47588cf444d33e7fdbde95",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-material-upload.bin.gz",
+    "sha": "a3b4af5b9b7e185b0d40ed30d2b58a707640696a",
+    "bytes": 67437,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-uv-pass.txt",
+    "sha": "5b11570b02a6f0d9e0f76a617350b6598e64c4cf",
+    "bytes": 185,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-uv-pixel-details.json",
+    "sha": "60775b2633d0be58294f44a2a0d5551a21e5a70f",
+    "bytes": 732,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-uv-pixels.txt",
+    "sha": "9242ebe377b23e2e05b617f4b3208ad96b109083",
+    "bytes": 170,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-uv-upload-details.json",
+    "sha": "3d10eb5ea01f01e4ae16b2e4389fd69a045c5873",
+    "bytes": 2147,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-uv-upload-pass.txt",
+    "sha": "a8f3e5c1c0fc10482a5dd21d16f8749522f42365",
+    "bytes": 260,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-marker-final/water-side-uv-upload.bin",
+    "sha": "edc544d77b72ad9c052db18d09898001615ba98e",
+    "bytes": 8640,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first-pixels.zip",
+    "sha": "86ec771a7b5f641a26f3c6bb75b209cc897756c3",
+    "bytes": 879887,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/console-final.gz",
+    "sha": "936dace8187fbb097fea36e7a6c953b2093c8ba1",
+    "bytes": 12119,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/prior-crash-reports.json",
+    "sha": "0967ef424bce6791893e9a57bb952f80fd536e93",
+    "bytes": 3,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/result.json.gz",
+    "sha": "572311744bee5620c1aae7e7ceafba253c5ba88d",
+    "bytes": 15705,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-corner-details.json.gz",
+    "sha": "1ff53a3c9d77b497c18630614fcec0a57a57d1fb",
+    "bytes": 76751,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-corner-pixels.bin.gz",
+    "sha": "23d6a50040bcc6dfb6d25d506ac943918a34bef3",
+    "bytes": 176981,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-corner-result.json",
+    "sha": "cf5ad0e5bf55b8d7d3ad5c309cde08b0641332f6",
+    "bytes": 682,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-corner-upload-details.json.gz",
+    "sha": "681b5236b3d2f653115bd3bc51d747b05b6326e8",
+    "bytes": 67171,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-corner-upload.bin.gz",
+    "sha": "a5adc827a848a999458e9c5cc635524bca56ac4a",
+    "bytes": 85143,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-direction-upload-details.json",
+    "sha": "bf41d525642c89d947f7a2998b0a9fa930b21b67",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-direction-upload.bin",
+    "sha": "7d1d82ff688de18747d357a6329d77a8ffee5b01",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-material-atlas.json",
+    "sha": "8cc6e892ddc9f0e949c7b43f2fa69e2a26ec8724",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-material-pixel-details.json.gz",
+    "sha": "66ee7b69e4cc6f1a49cb76eda0cd4d0599e93815",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-material-upload.bin.gz",
+    "sha": "148ce39ea43e404308c53e28cdb8138972aa71c2",
+    "bytes": 11814,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-atlas.json",
+    "sha": "8cc6e892ddc9f0e949c7b43f2fa69e2a26ec8724",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-pixel-details.json.gz",
+    "sha": "1e7ee6d387c3c7c6b2c894bdffd527528638b1d1",
+    "bytes": 9383,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-readback-convention.json",
+    "sha": "b760cd2e9caf668fb87e83d3110c3dbaf7e44388",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-material-upload.bin.gz",
+    "sha": "6100398af655c30af172853796dfcf663203b1c0",
+    "bytes": 67418,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-uv-upload-pass.txt",
+    "sha": "a8f3e5c1c0fc10482a5dd21d16f8749522f42365",
+    "bytes": 260,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-first/water-side-uv-upload.bin",
+    "sha": "e5ebe5ccdc65e9ba6b7bdc629c3f419dd0c9e1ee",
+    "bytes": 8640,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged-pixels.zip",
+    "sha": "9057fa4925ab35543f1816a4c638361257a9846e",
+    "bytes": 883398,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/console-final.gz",
+    "sha": "86877a5d88d22a2b8b6be445894c4acdbedcf00e",
+    "bytes": 8749,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/frame-completion.txt",
+    "sha": "e3de829947e7c16d91a48bbb18d083fb88269f42",
+    "bytes": 101,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/result.json.gz",
+    "sha": "280ed4746e1499e4ba0ec4c330c84f3802ffa349",
+    "bytes": 16669,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/saved-disconnect.txt",
+    "sha": "a10d3c809faea3a11ea75b822ad543d8ed168fb8",
+    "bytes": 29,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/selected-flow-gpu-vertices.bin",
+    "sha": "06e96560522b31c8e3cc4312d3d8323eb42cd11e",
+    "bytes": 432,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/shutdown.txt",
+    "sha": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-corner-details.json.gz",
+    "sha": "7eb5a17f048ebd6292cdbf3c6a17471fc68e4fb4",
+    "bytes": 76963,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-corner-pixels.bin.gz",
+    "sha": "3da1947ad9a49bae0e5d24a3a1baf5a1527c5a76",
+    "bytes": 177156,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-corner-result.json",
+    "sha": "5887ee17da2054aa4eb005f4ad10fb1edc6e76e5",
+    "bytes": 682,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-corner-upload-details.json.gz",
+    "sha": "a505debcb4cb266f3b0a6f63d5763fab33c58f07",
+    "bytes": 67650,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-corner-upload.bin.gz",
+    "sha": "923316c2c92eef818bbfea80961d2eb9fec30cc2",
+    "bytes": 85370,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-direction-upload-details.json",
+    "sha": "26bc3273b059f4838a8b848a19a2995d70126858",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-direction-upload.bin",
+    "sha": "7d1d82ff688de18747d357a6329d77a8ffee5b01",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-gpu-reuse.txt",
+    "sha": "ad3c06ec2b791be22e2510fd8474a255b8b33004",
+    "bytes": 232,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-material-pixel-details.json.gz",
+    "sha": "66ee7b69e4cc6f1a49cb76eda0cd4d0599e93815",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-material-upload.bin.gz",
+    "sha": "148ce39ea43e404308c53e28cdb8138972aa71c2",
+    "bytes": 11814,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-partial-fade.txt",
+    "sha": "716122ec646b7beb4268678f7bd5f024cdce8fad",
+    "bytes": 291,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-material-pixel-details.json.gz",
+    "sha": "e55d167fb32d4593c2fe5a32f4160df2a7b7fb2e",
+    "bytes": 9375,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-material-readback-convention.json",
+    "sha": "87e5c7c8102b73b91e47588cf444d33e7fdbde95",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-material-upload.bin.gz",
+    "sha": "6100398af655c30af172853796dfcf663203b1c0",
+    "bytes": 67418,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-uv-upload-details.json",
+    "sha": "56762227c164ebb6d8556dd17373449520dd842f",
+    "bytes": 2147,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-uv-upload-pass.txt",
+    "sha": "a8f3e5c1c0fc10482a5dd21d16f8749522f42365",
+    "bytes": 260,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-packaged/water-side-uv-upload.bin",
+    "sha": "e5ebe5ccdc65e9ba6b7bdc629c3f419dd0c9e1ee",
+    "bytes": 8640,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired-pixels.zip",
+    "sha": "3fef6bb36ee89965afa5b3e1a88fb79a0382094e",
+    "bytes": 879878,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/console-final.gz",
+    "sha": "ebd7718e8829f0e4ced7a0bb74995b724cf9794e",
+    "bytes": 8823,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/frame-completion.txt",
+    "sha": "e3de829947e7c16d91a48bbb18d083fb88269f42",
+    "bytes": 101,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/result.json.gz",
+    "sha": "8717ee67bb3f748030133fd23a073bf3f825e608",
+    "bytes": 16673,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/saved-disconnect.txt",
+    "sha": "a10d3c809faea3a11ea75b822ad543d8ed168fb8",
+    "bytes": 29,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/selected-flow-gpu-vertices.bin",
+    "sha": "06e96560522b31c8e3cc4312d3d8323eb42cd11e",
+    "bytes": 432,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/shutdown.txt",
+    "sha": "a6f4c25cbde4236e5f2630ef07b37a8b2f7f0f40",
+    "bytes": 83,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-corner-details.json.gz",
+    "sha": "7eb5a17f048ebd6292cdbf3c6a17471fc68e4fb4",
+    "bytes": 76963,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-corner-pixels.bin.gz",
+    "sha": "3da1947ad9a49bae0e5d24a3a1baf5a1527c5a76",
+    "bytes": 177156,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-corner-result.json",
+    "sha": "5887ee17da2054aa4eb005f4ad10fb1edc6e76e5",
+    "bytes": 682,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-corner-upload-details.json.gz",
+    "sha": "95195e54e8b5f173be5fdf985a00dc43143f3448",
+    "bytes": 66467,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-corner-upload.bin.gz",
+    "sha": "923316c2c92eef818bbfea80961d2eb9fec30cc2",
+    "bytes": 85370,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-direction-upload-details.json",
+    "sha": "f673e9f63eb9aa0b1190768ada72bca6a9f13632",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-direction-upload.bin",
+    "sha": "7d1d82ff688de18747d357a6329d77a8ffee5b01",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-gpu-reuse.txt",
+    "sha": "ad3c06ec2b791be22e2510fd8474a255b8b33004",
+    "bytes": 232,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-material-atlas.json",
+    "sha": "b6a82ce93b4ff5379897f1682416df7bc4802e8d",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-material-pixel-details.json.gz",
+    "sha": "66ee7b69e4cc6f1a49cb76eda0cd4d0599e93815",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-material-upload.bin.gz",
+    "sha": "148ce39ea43e404308c53e28cdb8138972aa71c2",
+    "bytes": 11814,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-partial-fade.txt",
+    "sha": "716122ec646b7beb4268678f7bd5f024cdce8fad",
+    "bytes": 291,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-material-atlas.json",
+    "sha": "b6a82ce93b4ff5379897f1682416df7bc4802e8d",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-material-pixel-details.json.gz",
+    "sha": "0152ffbb75e2c739f57e46e35a68f74fe41bf696",
+    "bytes": 9363,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-material-upload.bin.gz",
+    "sha": "6100398af655c30af172853796dfcf663203b1c0",
+    "bytes": 67418,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-uv-upload-details.json",
+    "sha": "5843322c4747f410ab7e3c14e9d8b335f466a369",
+    "bytes": 2147,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-uv-upload-pass.txt",
+    "sha": "a8f3e5c1c0fc10482a5dd21d16f8749522f42365",
+    "bytes": 260,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-corners-packet-retired/water-side-uv-upload.bin",
+    "sha": "e5ebe5ccdc65e9ba6b7bdc629c3f419dd0c9e1ee",
+    "bytes": 8640,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final-pixels.zip",
+    "sha": "5420a42870a8df8efb93ee0cef9ae10f3cf2e815",
+    "bytes": 5281477,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/console-final.gz",
+    "sha": "28a7338e598d5a9634ce468a250830796402c834",
+    "bytes": 8911,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/result.json.gz",
+    "sha": "22be8acabe8be00458db8addc20fde42c1027d43",
+    "bytes": 18194,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/saved-disconnect.txt",
+    "sha": "a10d3c809faea3a11ea75b822ad543d8ed168fb8",
+    "bytes": 29,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/selected-flow-gpu-vertices.bin",
+    "sha": "f6b7365ec1f7393ca5519b03deac10d75f3aa2b9",
+    "bytes": 1728,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-corner-details.json.gz",
+    "sha": "2c29db39e7d93c8fa7b29aacde08c1be3f224190",
+    "bytes": 76967,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-corner-pixels.bin.gz",
+    "sha": "b5ac7a5e4e100e5e619c8628bc415394e68241af",
+    "bytes": 176929,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-corner-result.json",
+    "sha": "fa228bb7ec975070cd35422380f22a44d31ee6b6",
+    "bytes": 681,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-corner-upload-details.json.gz",
+    "sha": "73bd443d437e8ab9aa4504f0ec217b61dc6756fe",
+    "bytes": 65077,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-corner-upload.bin.gz",
+    "sha": "f98234b38fb83a1d4deee5b7358a1f9f8e5509b7",
+    "bytes": 85491,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-direction-blend-details.json",
+    "sha": "da766de9a758eb8735030aa917fb618bb5bdfbbe",
+    "bytes": 46333,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-direction-blend-pass.txt",
+    "sha": "c98ea22555a0293753d3b0fd16adc1c3365a978b",
+    "bytes": 238,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-direction-blend-pixels.txt",
+    "sha": "9b4fd6ec64bf6479e120c5b103ef9686b58ef0b2",
+    "bytes": 181,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-direction-upload-details.json",
+    "sha": "bf41d525642c89d947f7a2998b0a9fa930b21b67",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-direction-upload.bin",
+    "sha": "485924e01c1f290afda82717563287c1cd9e3fd8",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-fade-continuity.txt",
+    "sha": "fc2f2143bb528ecc5d30ce9752bfac6f002d3274",
+    "bytes": 250,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-flow-phase-pass.txt",
+    "sha": "071f6239dbf2e4dee3478d654f3fabf558278f1f",
+    "bytes": 253,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-flow-phase-pixel-details.json",
+    "sha": "040f91b83f93f93a8beec2e140208c111c6f8f78",
+    "bytes": 2655,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-flow-phase-pixels.txt",
+    "sha": "930192ed9697526e89cac082e15c81ac63bfa0d3",
+    "bytes": 216,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-gpu-reuse.txt",
+    "sha": "ad3c06ec2b791be22e2510fd8474a255b8b33004",
+    "bytes": 232,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-material-atlas.json",
+    "sha": "8cc6e892ddc9f0e949c7b43f2fa69e2a26ec8724",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-material-pixel-details.json.gz",
+    "sha": "bdc2076a22b4a7d02415ed4214952ff7ad0251d5",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-material-upload.bin.gz",
+    "sha": "86def44498ef93bdf56a1dccf2c7f8f420e79b51",
+    "bytes": 11817,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-order-pixels.txt",
+    "sha": "f8918057e20f979e162b60ca7060efb8ac1959b0",
+    "bytes": 135,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-page-order-state.txt",
+    "sha": "d2c86b1d640bd40b103ac4227ea58480aec9e532",
+    "bytes": 117,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-page-order.txt",
+    "sha": "9b9f23cc1ded0ac3fdce58cba78ec5209fa6bb0a",
+    "bytes": 247,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-partial-fade.txt",
+    "sha": "716122ec646b7beb4268678f7bd5f024cdce8fad",
+    "bytes": 291,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-atlas.json",
+    "sha": "8cc6e892ddc9f0e949c7b43f2fa69e2a26ec8724",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-pixel-details.json.gz",
+    "sha": "1e7ee6d387c3c7c6b2c894bdffd527528638b1d1",
+    "bytes": 9383,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-readback-convention.json",
+    "sha": "ffbc2dbbd35170a738508b5277fb3d0ff4e5aa3c",
+    "bytes": 82,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-material-upload.bin.gz",
+    "sha": "a3b4af5b9b7e185b0d40ed30d2b58a707640696a",
+    "bytes": 67437,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-uv-pass.txt",
+    "sha": "5b11570b02a6f0d9e0f76a617350b6598e64c4cf",
+    "bytes": 185,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-uv-pixel-details.json",
+    "sha": "24776cb1546962246302494eb44f141951ae891b",
+    "bytes": 732,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-uv-pixels.txt",
+    "sha": "9242ebe377b23e2e05b617f4b3208ad96b109083",
+    "bytes": 170,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-uv-upload-details.json",
+    "sha": "12a35e0c07bcf95113bf81f0e655ad7feb1eba57",
+    "bytes": 2147,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-uv-upload-pass.txt",
+    "sha": "a8f3e5c1c0fc10482a5dd21d16f8749522f42365",
+    "bytes": 260,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-marker-final/water-side-uv-upload.bin",
+    "sha": "edc544d77b72ad9c052db18d09898001615ba98e",
+    "bytes": 8640,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired-pixels.zip",
+    "sha": "60d52f44b77dc0eb7fcf150fa5563a22cf0edb17",
+    "bytes": 345303,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/console-final.gz",
+    "sha": "724c79f553c5382b4773650625aa2e076670c7f7",
+    "bytes": 6456,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/module-prelaunch-audit.json",
+    "sha": "bd241d00b634a12e32d96a80f4bf6cbf6f4b4a96",
+    "bytes": 196,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/result.json.gz",
+    "sha": "1a4dc4c72ff751b9cae7e8d4a066f80cf82577d7",
+    "bytes": 16294,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/startup-marker-after.json",
+    "sha": "6c78657360c5996c65522349fc1afb5d70c93a49",
+    "bytes": 19,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/startup-marker-before.json",
+    "sha": "677f68bd205d822c5d788dfeb602fab4a25d14f4",
+    "bytes": 44,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-corner-details.json.gz",
+    "sha": "2c29db39e7d93c8fa7b29aacde08c1be3f224190",
+    "bytes": 76967,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-corner-pixels.bin.gz",
+    "sha": "b5ac7a5e4e100e5e619c8628bc415394e68241af",
+    "bytes": 176929,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-corner-result.json",
+    "sha": "fa228bb7ec975070cd35422380f22a44d31ee6b6",
+    "bytes": 681,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-corner-upload-details.json.gz",
+    "sha": "adf227a8ccc7f83cb285be324c61fd662c4595f8",
+    "bytes": 65239,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-corner-upload.bin.gz",
+    "sha": "923316c2c92eef818bbfea80961d2eb9fec30cc2",
+    "bytes": 85370,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-direction-blend-details.json",
+    "sha": "3b7990cc10f3a99441dc9d1282b1c192b7c17cda",
+    "bytes": 46333,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-direction-blend-pass.txt",
+    "sha": "c98ea22555a0293753d3b0fd16adc1c3365a978b",
+    "bytes": 238,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-direction-blend-pixels.txt",
+    "sha": "9b4fd6ec64bf6479e120c5b103ef9686b58ef0b2",
+    "bytes": 181,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-direction-upload-details.json",
+    "sha": "f673e9f63eb9aa0b1190768ada72bca6a9f13632",
+    "bytes": 797,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-direction-upload-pass.txt",
+    "sha": "f125f33cea1ec4373d297fa0fb3d01c5a181d36e",
+    "bytes": 270,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-direction-upload.bin",
+    "sha": "7d1d82ff688de18747d357a6329d77a8ffee5b01",
+    "bytes": 5040,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-flow-phase-pixels.txt",
+    "sha": "5af77d3481dba27e8f85c381ef669e1b0e99f536",
+    "bytes": 220,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-material-atlas.json",
+    "sha": "b6a82ce93b4ff5379897f1682416df7bc4802e8d",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-material-pass.txt",
+    "sha": "91e8f66751c98a788d0a7a092f8503d3a5eff57e",
+    "bytes": 365,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-material-pixel-details.json.gz",
+    "sha": "bdc2076a22b4a7d02415ed4214952ff7ad0251d5",
+    "bytes": 1869,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-material-result.txt",
+    "sha": "1b39fbf95544593a2a16df9d143862595d46ee4c",
+    "bytes": 268,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-material-upload-details.json.gz",
+    "sha": "b11fdd9621feb90f77b2fca97b95e5e4718668a3",
+    "bytes": 3986,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-material-upload.bin.gz",
+    "sha": "148ce39ea43e404308c53e28cdb8138972aa71c2",
+    "bytes": 11814,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-side-material-atlas.json",
+    "sha": "b6a82ce93b4ff5379897f1682416df7bc4802e8d",
+    "bytes": 230,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-side-material-pass.txt",
+    "sha": "20fdf2d6b08c73a280ea6baae7c60a1db474df04",
+    "bytes": 442,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-side-material-pixel-details.json.gz",
+    "sha": "e55d167fb32d4593c2fe5a32f4160df2a7b7fb2e",
+    "bytes": 9375,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-side-material-result.txt",
+    "sha": "b8795e9532306c7092c02b259f3f6f9a1c3f8ee6",
+    "bytes": 282,
+    "binary": false
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-side-material-upload-details.json.gz",
+    "sha": "aa192c2259392382f932e918fc2696958122fe9c",
+    "bytes": 20756,
+    "binary": true
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-boundary-packet-2026-10-23/vulkan-reuse-gl-corners-packet-retired/water-side-material-upload.bin.gz",
+    "sha": "6100398af655c30af172853796dfcf663203b1c0",
+    "bytes": 67418,
+    "binary": true
+  }
+]

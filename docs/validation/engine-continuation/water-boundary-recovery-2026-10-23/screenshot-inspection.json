@@ -1,0 +1,36 @@
+{
+  "pass": true,
+  "captures": [
+    {
+      "path": "vulkan-corners-shared-final-retry/screenshots/corners-scene-before.png",
+      "sha256": "b6f0e38ba0d8475cec96d0e611012b0aa7c3d670ca2d25ef5de429ef8829020f",
+      "dimensions": [
+        854,
+        480
+      ],
+      "manually_viewed": true,
+      "observation": "Lake water, bank, hillside and terrain visible; no error screen. Static phase/load states and dimensions differ; distant coverage and temporal flicker remain unaccepted."
+    },
+    {
+      "path": "vulkan-corners-shared-final-retry-packaged/screenshots/corners-scene-before.png",
+      "sha256": "245243375b4f511281f5783ef2c6bbd5070980e9faa41fd1456660d1baa44faa",
+      "dimensions": [
+        854,
+        480
+      ],
+      "manually_viewed": true,
+      "observation": "Lake water, bank, hillside and terrain visible; no error screen. Static phase/load states and dimensions differ; distant coverage and temporal flicker remain unaccepted."
+    },
+    {
+      "path": "vulkan-reuse-gl-corners-shared-final-retry/screenshots/reuse-gl-recovery.png",
+      "sha256": "31a585a1bf56f8cfd1a0f7fa018f8490c9d6b1589d71954547c01c70343febd4",
+      "dimensions": [
+        1200,
+        800
+      ],
+      "manually_viewed": true,
+      "observation": "Lake water, bank, hillside and terrain visible; no error screen. Static phase/load states and dimensions differ; distant coverage and temporal flicker remain unaccepted."
+    }
+  ],
+  "scope": "Not complete enabled-view, cap churn, failure-cohort pixels, full-stream/API-parity or ownerGPU acceptance."
+}
