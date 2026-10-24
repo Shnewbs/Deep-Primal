@@ -1,0 +1,35 @@
+--- a/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java
++++ b/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java
+@@ -17,11 +17,14 @@
+ public final class HydrologyRuntime {
+   private static final WeakHashMap<ServerLevel, Work> WORK = new WeakHashMap<>();
+   private static int internalWrites;
++  private static final int REGIONAL_DISCHARGE_UNITS = 32;
+   private static final class Cursor { int column; final long[] visited = new long[256]; }
+   private static final class RegionWork {
+     final double datum;
+     long tick = Long.MIN_VALUE;
+-    int discharged;
++    // Cache reconstruction cannot grant another allowance inside an existing aquifer step.
++    // Fail closed until aquifer.step authorizes the next environmental interval.
++    int discharged = REGIONAL_DISCHARGE_UNITS;
+     RegionWork(double datum) { this.datum = datum; }
+   }
+   private static final class Work {
+@@ -233,14 +236,14 @@
+     if (state.is(EngineRegistry.WATER_BLOCK.get()) && p.getY() + state.getValue(EngineFluid.UNITS) / 16. > head + .5) {
+       if (Math.floorMod(x * 31L + z * 17L + l.getGameTime() / 20, 8) < Math.ceil(permeable * 8))
+         infiltrate(l, p, aquifer, 1);
+-    } else if (regional.discharged < 32) {
++    } else if (regional.discharged < REGIONAL_DISCHARGE_UNITS) {
+       var outlet = state.is(EngineRegistry.WATER_BLOCK.get()) ? p : p.above();
+       boolean naturalWaterway = sample.wet() && outlet.getY() < sample.water();
+       // Seeded groundwater supports existing waterways. A new dry-land outlet needs
+       // sustained additional recharge, not merely visiting an untouched chunk.
+       if (!aquifer.canSupply(naturalWaterway)) return;
+       long before = aquifer.ground.water();
+-      emit(l, outlet, aquifer, regional.datum, Math.min(HydrologyConfig.SOURCE_RATE.get(), 32 - regional.discharged));
++      emit(l, outlet, aquifer, regional.datum, Math.min(HydrologyConfig.SOURCE_RATE.get(), REGIONAL_DISCHARGE_UNITS - regional.discharged));
+       regional.discharged += (int) ((before - aquifer.ground.water()) / WaterAccount.SCALE);
+     }
+   }
