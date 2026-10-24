@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T18:40:54.272Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T18:52:47.039Z",
+  "active_until": "2026-10-24T19:52:47.040Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.2",
   "candidate_released": false,
@@ -286,7 +286,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "foreground-builder-restore",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -627,7 +627,7 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 7,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.28.md",
-  "foreground_task": null,
+  "foreground_task": "Separate hourly auditor/JAR build from builder; restore current pinned core and rerun scoped gates",
   "latest_isolated_validation": "/workspace/scratch/a22609fabda0/density-mask-r61",
   "latest_verification_summary": "Final build32tasks; independent51core sources/89class matches;504packaged project classes;7archive CRCs;158private class exclusions;7137identical common Linux/Windows entries after archive-path normalization. Water6144stair cases/24576supported vertices/512page seam vertices. V7 eight seeds/2312columns/127840reaches/29biomeIDs. Legacy5202core points identical;20native V6 chunk digests identical. Standard3062331 and Deep5945915 native block comparisons per candidate run, saved profiles/edits. UI seed20261020 joins V7; Vulkan candidate/reopen and explicit OpenGL smooth fallback save normally. No FPS/Windows execution claim.",
   "latest_core_runtime_fix": {
