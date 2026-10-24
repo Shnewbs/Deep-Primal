@@ -1,0 +1,8 @@
+{
+  "exit": 0,
+  "full_core_main_pass": true,
+  "log_sha256": "714c4a60267fc67015e532ee4e8fb44cd23343cfe321f5fa65c5159be9620234",
+  "production_sources": 57,
+  "recompiled_debug_options": "-g matches Gradle local variable tables",
+  "independent_product_core_class_matches": 101
+}

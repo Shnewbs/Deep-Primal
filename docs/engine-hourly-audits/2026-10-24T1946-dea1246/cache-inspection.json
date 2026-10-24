@@ -1,0 +1,10 @@
+{
+  "preProcessJar_8376668bdb66efb5f796d4e58cf934077f679472_output.jar": {
+    "entries": 30596,
+    "crc_failure": null,
+    "villager": []
+  },
+  "decompile_4705a48b658978b51492e788ddc8ebb9746a71e1_output.jar": {
+    "error": "File is not a zip file"
+  }
+}
