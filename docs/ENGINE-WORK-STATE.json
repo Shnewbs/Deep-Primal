@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T03:36:32.702Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T04:26:02.947Z",
+  "active_until": "2026-10-24T05:26:02.948Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.26",
   "candidate_released": true,
@@ -230,7 +230,7 @@
     "docs/validation/engine-continuation/regional-budget-native-2026-10-24/server-reopen/result.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "R48 isolated physical chunk eviction/reload and regional budget validation",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
