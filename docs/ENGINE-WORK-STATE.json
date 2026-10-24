@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T00:34:38.175Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T01:31:01.791Z",
+  "active_until": "2026-10-24T02:31:01.792Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.25-merged.1",
   "candidate_released": true,
@@ -213,7 +213,7 @@
     "docs/validation/engine-continuation/r44-main-reconciliation-2026-10-24/audit-corrections.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "R45 isolated root-client validation task isolation reproduction and fix",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
