@@ -1,0 +1,315 @@
+--- a/engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositField.java
++++ b/engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositField.java
+@@ -3,6 +3,8 @@
+ /** Bounded neighboring deposit lookup for opt-in V5; never used for saved V1-V4. */
+ public final class DepositField {
+   public static final int CANDIDATES = 9;
++  private static final double[] NO_BODIES = new double[0];
++  private static final int[] NO_TYPES = new int[0];
+   private final TerrainNoise noise;
+   public DepositField(TerrainNoise noise) { this.noise = java.util.Objects.requireNonNull(noise); }
+ 
+@@ -32,22 +34,34 @@
+ 
+   /** Nine regional candidates are sufficient: max horizontal semiaxes13.6/8 < cell width32.
+    * Centers lie8..24 inside each cell. No body can reach a cell two steps away.
+-   * Build once per column, then reuse for all heights; raw arrays contain324 bytes. */
++   * Build once per column, then reuse for all heights; arrays contain at most324 raw bytes.
++   * Empty columns reuse private zero-length arrays; metadata is allocated only on a hit. */
+   public Column column(int x, int z, Geology.Column host) {
+-    var bodies = new double[CANDIDATES * 4];
+-    var types = new int[CANDIDATES];
++    java.util.Objects.requireNonNull(host);
++    double[] bodies = NO_BODIES;
++    int[] types = NO_TYPES;
+     int gx = Math.floorDiv(x, 32), gz = Math.floorDiv(z, 32), i = 0, footprintMask = 0;
+     for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++, i++) {
+       int cx = gx + dx, cz = gz + dz, at = i * 4;
+-      bodies[at] = x - ((long) cx * 32 + 8 + noise.hash(cx, cz, 1810) * 16);
+-      bodies[at + 1] = z - ((long) cz * 32 + 8 + noise.hash(cx, cz, 1811) * 16);
+-      bodies[at + 2] = -96 + noise.hash(cx, cz, 1812) * 352;
+-      types[i] = (int) (noise.hash(cx, cz, 1813) * 8);
+-      bodies[at + 3] = 3 + noise.hash(cx, cz, 1814) * 5;
+-      double ax = bodies[at] / (bodies[at + 3] * 1.7), az = bodies[at + 1] / bodies[at + 3];
+-      // A nonnegative vertical term cannot reduce this horizontal sum.
+-      // Retain the original oreFrom arithmetic/order for every surviving source.
+-      if (ax * ax + az * az <= 1) footprintMask |= 1 << i;
++      // Keep the R50 source-hash work/order; this change isolates array allocation.
++      double offsetX = x - ((long) cx * 32 + 8 + noise.hash(cx, cz, 1810) * 16);
++      double offsetZ = z - ((long) cz * 32 + 8 + noise.hash(cx, cz, 1811) * 16);
++      double centerY = -96 + noise.hash(cx, cz, 1812) * 352;
++      int type = (int) (noise.hash(cx, cz, 1813) * 8);
++      double radius = 3 + noise.hash(cx, cz, 1814) * 5;
++      double ax = offsetX / (radius * 1.7), az = offsetZ / radius;
++      // Nonnegative vertical distance cannot make a rejected horizontal sum intersect.
++      if (ax * ax + az * az > 1) continue;
++      if (footprintMask == 0) {
++        bodies = new double[CANDIDATES * 4];
++        types = new int[CANDIDATES];
++      }
++      bodies[at] = offsetX;
++      bodies[at + 1] = offsetZ;
++      bodies[at + 2] = centerY;
++      types[i] = type;
++      bodies[at + 3] = radius;
++      footprintMask |= 1 << i;
+     }
+     return new Column(host, bodies, types, footprintMask);
+   }
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java
+@@ -8,6 +8,7 @@
+     WaterBudgetChecks.run();
+     TerrainV4Checks.run();
+     DepositFieldChecks.run();
++    DepositAllocationChecks.run();
+     WaterAnimationChecks.run();
+     WaterFlowTextureChecks.run();
+     WaterFlowBlendChecks.run();
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/DepositAllocationChecks.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/DepositAllocationChecks.java
+@@ -0,0 +1,33 @@
++package com.shnewbs.deepprimal.core;
++
++final class DepositAllocationChecks {
++  static void run() {
++    var random=new java.util.Random(202610240702L);
++    var sample=new TerrainEngine.Sample(400,Double.NaN,.5,.5,.1,.1,0,0,0,0);
++    long cases=0,hits=0;int empty=0,active=0;
++    for(int seedIndex=0;seedIndex<32;seedIndex++) {
++      long seed=seedIndex==0?Long.MIN_VALUE:seedIndex==1?Long.MAX_VALUE:random.nextLong();
++      var noise=new TerrainNoise(seed);var geo=new Geology(noise);
++      var control=new R50DepositField(noise);var candidate=new DepositField(noise);
++      var held=new DepositField.Column[2048];var prior=new R50DepositField.Column[2048];
++      for(int i=0;i<2048;i++) {
++        int x=i<2?i==0?Integer.MIN_VALUE:Integer.MAX_VALUE:random.nextInt(60000001)-30000000;
++        int z=i<2?i==0?Integer.MAX_VALUE:Integer.MIN_VALUE:random.nextInt(60000001)-30000000;
++        var host=geo.column(x,z,sample);held[i]=candidate.column(x,z,host);prior[i]=control.column(x,z,host);
++        if(held[i].activeCandidateCount()!=prior[i].activeCandidateCount())throw new AssertionError("footprint changed");
++        if(held[i].activeCandidateCount()==0)empty++;else active++;
++      }
++      // Query after all later columns have been constructed, testing retained/empty isolation too.
++      for(int i=0;i<held.length;i++)for(int j=0;j<64;j++) {
++        int y=-128+j*7,bed=100+(i%400);var expected=prior[i].ore(y,bed);
++        if(held[i].ore(y,bed)!=expected)throw new AssertionError("R50 output changed seed="+seed+" column="+i+" y="+y);
++        if(expected!=Geology.Ore.NONE)hits++;cases++;
++      }
++      try {candidate.column(0,0,null);throw new AssertionError("null host accepted");}
++      catch(NullPointerException expected) {}
++    }
++    if(hits<100||empty==0||active==0)throw new AssertionError("insufficient footprint coverage");
++    System.out.println("DEPOSIT_ALLOCATION_CORE_PASS cases="+cases+" oreHits="+hits+" emptyColumns="+empty+" activeColumns="+active+" integerExtremes=true retainedColumns=true nullHostRejected=true");
++  }
++  public static void main(String[] args){run();}
++}
+--- a/src/coreChecks/java/com/shnewbs/deepprimal/core/R50DepositField.java
++++ b/src/coreChecks/java/com/shnewbs/deepprimal/core/R50DepositField.java
+@@ -0,0 +1,54 @@
++package com.shnewbs.deepprimal.core;
++
++/** Bounded neighboring deposit lookup for opt-in V5; never used for saved V1-V4. */
++public final class R50DepositField {
++  public static final int CANDIDATES = 9;
++  private final TerrainNoise noise;
++  public R50DepositField(TerrainNoise noise) { this.noise = java.util.Objects.requireNonNull(noise); }
++
++  public static final class Column {
++    private final Geology.Column host;
++    private final double[] bodies;
++    private final int[] types;
++    private final int footprintMask;
++    private Column(Geology.Column host, double[] bodies, int[] types, int footprintMask) {
++      this.host = java.util.Objects.requireNonNull(host);
++      this.bodies = bodies;
++      this.types = types;
++      this.footprintMask = footprintMask;
++    }
++    public int candidateCount() { return CANDIDATES; }
++    public int activeCandidateCount() { return Integer.bitCount(footprintMask); }
++    /** No allocation or world/chunk lookup. Overlap priority is absolute grid X then Z. */
++    public Geology.Ore ore(int y, int bed) {
++      for (int mask = footprintMask; mask != 0; mask &= mask - 1) {
++        int i = Integer.numberOfTrailingZeros(mask), at = i * 4;
++        var ore = host.oreFrom(bodies[at], bodies[at + 1], bodies[at + 2], types[i], bodies[at + 3], y, bed);
++        if (ore != Geology.Ore.NONE) return ore;
++      }
++      return Geology.Ore.NONE;
++    }
++  }
++
++  /** Nine regional candidates are sufficient: max horizontal semiaxes13.6/8 < cell width32.
++   * Centers lie8..24 inside each cell. No body can reach a cell two steps away.
++   * Build once per column, then reuse for all heights; raw arrays contain324 bytes. */
++  public Column column(int x, int z, Geology.Column host) {
++    var bodies = new double[CANDIDATES * 4];
++    var types = new int[CANDIDATES];
++    int gx = Math.floorDiv(x, 32), gz = Math.floorDiv(z, 32), i = 0, footprintMask = 0;
++    for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++, i++) {
++      int cx = gx + dx, cz = gz + dz, at = i * 4;
++      bodies[at] = x - ((long) cx * 32 + 8 + noise.hash(cx, cz, 1810) * 16);
++      bodies[at + 1] = z - ((long) cz * 32 + 8 + noise.hash(cx, cz, 1811) * 16);
++      bodies[at + 2] = -96 + noise.hash(cx, cz, 1812) * 352;
++      types[i] = (int) (noise.hash(cx, cz, 1813) * 8);
++      bodies[at + 3] = 3 + noise.hash(cx, cz, 1814) * 5;
++      double ax = bodies[at] / (bodies[at + 3] * 1.7), az = bodies[at + 1] / bodies[at + 3];
++      // A nonnegative vertical term cannot reduce this horizontal sum.
++      // Retain the original oreFrom arithmetic/order for every surviving source.
++      if (ax * ax + az * az <= 1) footprintMask |= 1 << i;
++    }
++    return new Column(host, bodies, types, footprintMask);
++  }
++}
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositNativeChecks.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositNativeChecks.java
+@@ -31,7 +31,7 @@
+     return BYTES.computeIfAbsent(s, k -> (k.toString()+"\n").getBytes(java.nio.charset.StandardCharsets.UTF_8));
+   }
+   private static String hex(byte[] b) { return HexFormat.of().formatHex(b); }
+-  private static EngineChunkGenerator generator(ServerLevel l, JsonObject template, int rev, long seed) {
++  static EngineChunkGenerator generator(ServerLevel l, JsonObject template, int rev, long seed) {
+     var json=template.deepCopy(); json.addProperty("type", "deepprimal:continental_v"+rev);
+     var ops=l.registryAccess().createSerializationContext(JsonOps.INSTANCE);
+     var g=(EngineChunkGenerator)ChunkGenerator.CODEC.parse(ops,json).getOrThrow();
+@@ -40,18 +40,18 @@
+     g.createState(l.registryAccess().lookupOrThrow(Registries.STRUCTURE_SET),l.getChunkSource().randomState(),seed);
+     return g;
+   }
+-  private static ProtoChunk chunk(ServerLevel l, EngineChunkGenerator g, int[] at) {
++  static ProtoChunk chunk(ServerLevel l, EngineChunkGenerator g, int[] at) {
+     var c=new ProtoChunk(new ChunkPos(at[0],at[1]),UpgradeData.EMPTY,l,PalettedContainerFactory.create(l.registryAccess()),null);
+     g.fillFromNoise(Blender.empty(),l.getChunkSource().randomState(),l.structureManager(),c).join();
+     return c;
+   }
+-  private static String digest(ProtoChunk c) throws Exception {
++  static String digest(ProtoChunk c) throws Exception {
+     var hash=MessageDigest.getInstance("SHA-256");
+     for(var section:c.getSections()) for(int y=0;y<16;y++)for(int z=0;z<16;z++)for(int x=0;x<16;x++)
+       hash.update(bytes(section.getBlockState(x,y,z)));
+     return hex(hash.digest());
+   }
+-  private static Geology.Ore oracle(TerrainNoise n, Geology.Column host,int x,int y,int z,int bed) {
++  static Geology.Ore oracle(TerrainNoise n, Geology.Column host,int x,int y,int z,int bed) {
+     if(y>=bed-5)return Geology.Ore.NONE;
+     int gx=Math.floorDiv(x,32),gz=Math.floorDiv(z,32);
+     for(int dx=-3;dx<=3;dx++)for(int dz=-3;dz<=3;dz++) {
+@@ -76,7 +76,7 @@
+     }
+     return Geology.Ore.NONE;
+   }
+-  private static BlockState material(Geology.Ore ore,Geology.Rock rock,int y) {
++  static BlockState material(Geology.Ore ore,Geology.Rock rock,int y) {
+     if(ore!=Geology.Ore.NONE) {
+       Block b=switch(ore) {
+         case COAL -> y<0?Blocks.DEEPSLATE_COAL_ORE:Blocks.COAL_ORE;
+--- a/src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositCoverageChecks.java
++++ b/src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositCoverageChecks.java
+@@ -0,0 +1,109 @@
++package com.shnewbs.deepprimal.validation;
++
++import com.google.gson.*;
++import com.mojang.serialization.JsonOps;
++import com.shnewbs.deepprimal.core.*;
++import com.shnewbs.deepprimal.engine.EngineChunkGenerator;
++import java.lang.management.ManagementFactory;
++import java.nio.file.*;
++import java.security.MessageDigest;
++import java.util.*;
++import net.minecraft.core.*;
++import net.minecraft.core.registries.BuiltInRegistries;
++import net.minecraft.world.level.ChunkPos;
++import net.minecraft.world.level.block.Blocks;
++import net.minecraft.world.level.chunk.*;
++import net.minecraft.world.level.levelgen.blending.Blender;
++import net.neoforged.api.distmarker.Dist;
++import net.neoforged.bus.api.SubscribeEvent;
++import net.neoforged.fml.common.Mod;
++import net.neoforged.neoforge.common.NeoForge;
++
++/** Private all-ore native witnesses and matched synchronous generation cost measurements. */
++@Mod(value="deepprimal",dist=Dist.DEDICATED_SERVER)
++public final class DepositCoverageChecks {
++  public DepositCoverageChecks(){NeoForge.EVENT_BUS.register(this);}
++  @SubscribeEvent public void started(net.neoforged.neoforge.event.server.ServerStartedEvent event)throws Exception {
++    String output=System.getenv("DEEPPRIMAL_COVERAGE_RECORD");if(output==null)return;
++    String productionHash;
++    try(var in=DepositField.class.getResourceAsStream("DepositField.class")) {
++      productionHash=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(in.readAllBytes()));
++    }
++    if(!productionHash.equals(System.getenv("DEEPPRIMAL_EXPECT_DEPOSIT_CLASS_SHA")))
++      throw new AssertionError("production class/source mismatch "+productionHash);
++    var l=event.getServer().overworld();var ops=l.registryAccess().createSerializationContext(JsonOps.INSTANCE);
++    var template=ChunkGenerator.CODEC.encodeStart(ops,l.getChunkSource().getGenerator()).getOrThrow().getAsJsonObject();
++    var sites=JsonParser.parseString(Files.readString(Path.of(System.getenv("DEEPPRIMAL_COVERAGE_SITES")))).getAsJsonArray();
++    var generators=new LinkedHashMap<Long,EngineChunkGenerator>();var hashes=new JsonObject();
++    var seen=new EnumMap<Geology.Ore,Integer>(Geology.Ore.class);var hosts=new TreeSet<String>();
++    var nativeCounts=new long[9];var footprints=new long[10];long columns=0,witnesses=0;
++    var pos=new BlockPos.MutableBlockPos();
++    for(var element:sites) {
++      var site=element.getAsJsonObject();long seed=site.get("seed").getAsLong();
++      var g=generators.computeIfAbsent(seed,s->DepositNativeChecks.generator(l,template,5,s));
++      int cx=site.get("cx").getAsInt(),cz=site.get("cz").getAsInt();
++      var c=DepositNativeChecks.chunk(l,g,new int[]{cx,cz});
++      String key=seed+":"+cx+":"+cz;String digest=DepositNativeChecks.digest(c);
++      if(hashes.has(key)&&!hashes.get(key).getAsString().equals(digest))throw new AssertionError("repeated chunk");
++      hashes.addProperty(key,digest);
++      int x=site.get("x").getAsInt(),y=site.get("y").getAsInt(),z=site.get("z").getAsInt();
++      var s=g.geography().column(x,z);var host=new Geology(g.geography().noise).column(x,z,s);
++      var expected=Geology.Ore.valueOf(site.get("ore").getAsString());
++      if(DepositNativeChecks.oracle(g.geography().noise,host,x,y,z,(int)Math.floor(s.ground()))!=expected)
++        throw new AssertionError("wider ore oracle "+site);
++      if(!c.getBlockState(pos.set(x,y,z)).equals(DepositNativeChecks.material(expected,host.rock(y),y)))
++        throw new AssertionError("native ore/host "+site+" "+c.getBlockState(pos));
++      if(!g.getBaseColumn(x,z,l,l.getChunkSource().randomState()).getBlock(y).equals(c.getBlockState(pos)))
++        throw new AssertionError("native witness column "+site);
++      seen.merge(expected,1,Integer::sum);hosts.add(expected+":"+host.rock(y));witnesses++;
++      var field=new DepositField(g.geography().noise);var geo=new Geology(g.geography().noise);
++      var sample=new TerrainEngine.Sample(512,0,.6,.5,.2,.4,0,0,0,0);int active=0;
++      for(int zz=cz*16;zz<cz*16+16;zz++)for(int xx=cx*16;xx<cx*16+16;xx++) {
++        int count=field.column(xx,zz,geo.column(xx,zz,sample)).activeCandidateCount();footprints[count]++;
++        if(count>0)active++;columns++;
++      }
++      if(active!=site.get("active_columns").getAsInt())throw new AssertionError("source footprint changed");
++      for(var section:c.getSections())for(int yy=0;yy<16;yy++)for(int zz=0;zz<16;zz++)for(int xx=0;xx<16;xx++) {
++        String name=BuiltInRegistries.BLOCK.getKey(section.getBlockState(xx,yy,zz).getBlock()).getPath();
++        if(name.startsWith("deepslate_"))name=name.substring(10);
++        if(name.endsWith("_ore"))nativeCounts[Geology.Ore.valueOf(name.substring(0,name.length()-4).toUpperCase(Locale.ROOT)).ordinal()]++;
++      }
++    }
++    if(witnesses!=128||generators.size()!=16||seen.size()!=8||seen.values().stream().anyMatch(n->n!=16))
++      throw new AssertionError("all-ore coverage "+seen);
++    // Choose the same four dense-to-sparse chunk inputs for both variants.
++    var ordered=new ArrayList<JsonObject>();sites.forEach(s->ordered.add(s.getAsJsonObject()));
++    ordered.sort(Comparator.comparingInt(s->s.get("active_columns").getAsInt()));
++    var profileSites=List.of(ordered.get(0),ordered.get(ordered.size()/3),ordered.get(ordered.size()*2/3),ordered.get(ordered.size()-1));
++    var samples=new JsonArray();var factory=PalettedContainerFactory.create(l.registryAccess());
++    var bean=(com.sun.management.ThreadMXBean)ManagementFactory.getThreadMXBean();bean.setThreadAllocatedMemoryEnabled(true);
++    long tid=Thread.currentThread().threadId();
++    for(int turn=-5;turn<12;turn++)for(int index=0;index<profileSites.size();index++) {
++      int selected=turn%2==0?index:profileSites.size()-1-index;var site=profileSites.get(selected);
++      long seed=site.get("seed").getAsLong();int cx=site.get("cx").getAsInt(),cz=site.get("cz").getAsInt();
++      var g=generators.get(seed);long bytes=bean.getThreadAllocatedBytes(tid),began=System.nanoTime();
++      var c=new ProtoChunk(new ChunkPos(cx,cz),UpgradeData.EMPTY,l,factory,null);
++      g.fillFromNoise(Blender.empty(),l.getChunkSource().randomState(),l.structureManager(),c).join();
++      long elapsed=System.nanoTime()-began,allocated=bean.getThreadAllocatedBytes(tid)-bytes;
++      if(!DepositNativeChecks.digest(c).equals(hashes.get(seed+":"+cx+":"+cz).getAsString()))throw new AssertionError("profile changed output");
++      if(turn>=0) {
++        var sample=new JsonObject();sample.addProperty("turn",turn);sample.addProperty("site_index",selected);
++        sample.addProperty("active_columns",site.get("active_columns").getAsInt());sample.addProperty("generation_ns",elapsed);
++        sample.addProperty("thread_allocated_bytes",allocated);samples.add(sample);
++      }
++    }
++    var result=new JsonObject();result.addProperty("fixture_schema",2);
++    result.addProperty("deposit_class_sha256",productionHash);
++    result.addProperty("pass",true);
++    result.addProperty("witnesses",witnesses);result.addProperty("seeds",generators.size());result.add("ore_types",new Gson().toJsonTree(seen));
++    result.add("ore_hosts",new Gson().toJsonTree(hosts));result.add("native_counts",new Gson().toJsonTree(nativeCounts));
++    result.add("footprints",new Gson().toJsonTree(footprints));result.addProperty("columns",columns);result.add("hashes",hashes);
++    result.add("profile_sites",new Gson().toJsonTree(profileSites));result.add("profile_samples",samples);
++    result.addProperty("profile_scope","Server thread ProtoChunk construction plus synchronous full fill/decorate, warm regional caches; no lighting, biome pipeline, network, renderer, process peak or FPS acceptance");
++    try(var in=DepositCoverageChecks.class.getResourceAsStream("DepositCoverageChecks.class")) {
++      result.addProperty("fixture_class_sha256",HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(in.readAllBytes())));
++    }
++    Files.writeString(Path.of(output),new GsonBuilder().setPrettyPrinting().create().toJson(result)+"\n");
++    System.out.println("DEPOSIT_COVERAGE_NATIVE_PASS witnesses="+witnesses+" seeds="+generators.size()+" oreTypes="+seen.size()+" profileSamples="+samples.size());
++  }
++}

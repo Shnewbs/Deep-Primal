@@ -1,0 +1,13 @@
+{
+  "mode": "baseline-2-reopen",
+  "exit_code": 0,
+  "elapsed_seconds": 37.63,
+  "raw_sha256": "2810c647700e326db15457f005de453c2c9a3c5fd13d80d77efd578c5c2e15fc",
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "pass": true,
+  "deposit_record_file": "deposits.json",
+  "coverage_record_file": "coverage.json",
+  "original_full_result_sha256": "f7012cdeea31a0735e32cfc5e1f0a0ef7679a22e884c20520b2067c9ede5907f"
+}

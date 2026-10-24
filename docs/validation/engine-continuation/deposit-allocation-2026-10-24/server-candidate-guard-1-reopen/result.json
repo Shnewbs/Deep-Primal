@@ -1,0 +1,13 @@
+{
+  "mode": "candidate-guard-1-reopen",
+  "exit_code": 0,
+  "elapsed_seconds": 34.55,
+  "raw_sha256": "ac454116b68f125acae49c6f1253c656a2a5a844b320229979dfd5af3ab189d1",
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "pass": true,
+  "deposit_record_file": "deposits.json",
+  "coverage_record_file": "coverage.json",
+  "original_full_result_sha256": "94d3c2fcc3e5688fcde1914914fa7930f9ac657c991d38ae7ba476cdefb4f364"
+}

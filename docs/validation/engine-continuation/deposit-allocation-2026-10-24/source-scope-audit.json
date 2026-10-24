@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "parent": "02afc23d5241be07704a653905503ed6b7bd8eda",
+  "original_inputs_verified": 679,
+  "changed_existing_inputs": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java"
+  ],
+  "staged_production_files": 5,
+  "production_files_changed_since_R50": 1,
+  "staged_private_files": 6,
+  "public_production_changed": false,
+  "default_or_saved_geography_changed": false
+}
