@@ -1,0 +1,223 @@
+{
+  "native-baseline": {
+    "exit_code": 0,
+    "saved": true,
+    "stopped": true,
+    "crashes": [],
+    "seconds": 21.92910499700065,
+    "pass": true,
+    "blocks": 1419669,
+    "chunks": 20,
+    "logs": 100,
+    "water": 6141,
+    "biome_checks": 320
+  },
+  "native-initial": {
+    "pass": true,
+    "saved": true,
+    "crashes": [],
+    "legacy_native_digests": 20,
+    "reporter_correction": "First postprocessor assumed optional default min_y was explicitly encoded; native PASS and normal save/exit preceded the reporter KeyError. Defaults resolved and all archive/loaded-class/native digest checks rerun.",
+    "blocks": 3062331,
+    "chunks": 44,
+    "logs": 139,
+    "water": 51181,
+    "biome_checks": 704
+  },
+  "native-reopen": {
+    "exit_code": 0,
+    "saved": true,
+    "stopped": true,
+    "crashes": [],
+    "seconds": 25.40876403599941,
+    "pass": true,
+    "legacy_native_digests": 20,
+    "blocks": 3062331,
+    "chunks": 44,
+    "logs": 139,
+    "water": 51181,
+    "biome_checks": 704
+  },
+  "native-legacy-reopen": {
+    "exit_code": 0,
+    "saved": true,
+    "stopped": true,
+    "crashes": [],
+    "seconds": 20.742945122000492,
+    "pass": true,
+    "legacy_native_digests": 20,
+    "blocks": 1419669,
+    "chunks": 20,
+    "logs": 100,
+    "water": 6141,
+    "biome_checks": 320
+  },
+  "native-deep-initial": {
+    "exit_code": 0,
+    "saved": true,
+    "stopped": true,
+    "crashes": [],
+    "seconds": 25.032560329999797,
+    "pass": true,
+    "blocks": 5945915,
+    "chunks": 44,
+    "logs": 139,
+    "water": 100596,
+    "biome_checks": 704
+  },
+  "native-deep-reopen": {
+    "console_bytes": 20875,
+    "console_sha256": "577f3d849e4bdea52e94be0b253d58fffb9fe3d4b1b2f70a70ba8dea23e11745",
+    "exit_code": 0,
+    "saved": true,
+    "stopped": true,
+    "crashes": [],
+    "seconds": 33.899619658999654,
+    "pass": true,
+    "blocks": 5945915,
+    "chunks": 44,
+    "logs": 139,
+    "water": 100596,
+    "biome_checks": 704
+  },
+  "client-create": {
+    "console_bytes": 32450,
+    "console_sha256": "6164aa4529c056cf0bf97a34aa95048f9cbdc7cf8fd04226e72c79c4ab14012c",
+    "exit_code": 0,
+    "seconds": 41.67738221499985,
+    "crashes": [],
+    "saved": true,
+    "actions": [],
+    "images": [
+      "screenshots/creation-form.png"
+    ],
+    "vuid_lines": [],
+    "software_vulkan": true,
+    "pass": true
+  },
+  "client-baseline-bed": {
+    "console_bytes": 35448,
+    "console_sha256": "5db296f771b5af6375f6cece6622642047956e127047e35024ef72affe04463a",
+    "exit_code": 0,
+    "seconds": 89.75720549800008,
+    "crashes": [],
+    "saved": true,
+    "actions": [
+      "backend-check=Vulkan",
+      "audit=water-bed",
+      "water-bed",
+      "audit=water-bed-full",
+      "water-bed-full",
+      "vulkan-checks",
+      "stop"
+    ],
+    "images": [
+      "screenshots/water-bed.png",
+      "screenshots/water-bed-full.png"
+    ],
+    "vuid_lines": [],
+    "software_vulkan": true,
+    "released_resources": true,
+    "shutdown_continuation": true,
+    "pass": true
+  },
+  "client-candidate-bed": {
+    "console_bytes": 36238,
+    "console_sha256": "1c63d4cf40d948009fa8c7d8d82ee662a91bd5e7c11f6659f607431c6e015eb0",
+    "exit_code": 0,
+    "seconds": 86.69821829300054,
+    "crashes": [],
+    "saved": true,
+    "actions": [
+      "backend-check=Vulkan",
+      "audit=water-bed",
+      "water-bed",
+      "audit=water-bed-full",
+      "water-bed-full",
+      "vulkan-checks",
+      "stop"
+    ],
+    "images": [
+      "screenshots/water-bed.png",
+      "screenshots/water-bed-full.png"
+    ],
+    "vuid_lines": [],
+    "software_vulkan": true,
+    "recovery_marker_present_after_run": false,
+    "released_resources": true,
+    "shutdown_continuation": true,
+    "pass": true
+  },
+  "client-scenes": {
+    "console_bytes": 39745,
+    "console_sha256": "522a7d00029754d203d02a8adbb5ebf49a0cc6136f7ec536930de4f7629befbf",
+    "exit_code": 0,
+    "seconds": 141.07651379100025,
+    "crashes": [],
+    "saved": true,
+    "actions": [
+      "backend-check=Vulkan",
+      "audit=forest",
+      "forest",
+      "audit=dry",
+      "dry",
+      "audit=mountain",
+      "mountain",
+      "audit=river",
+      "river",
+      "vulkan-checks",
+      "stop"
+    ],
+    "images": [
+      "screenshots/river.png",
+      "screenshots/forest.png",
+      "screenshots/mountain.png",
+      "screenshots/dry.png"
+    ],
+    "vuid_lines": [],
+    "software_vulkan": true,
+    "recovery_marker_present_after_run": false,
+    "released_resources": true,
+    "shutdown_continuation": true,
+    "pass": true
+  },
+  "client-gl-bed": {
+    "console_bytes": 30809,
+    "console_sha256": "e70191175f1af8d70b3b025eb38245bc02ef4f3bbcc722a578787689b20ca069",
+    "exit_code": 0,
+    "seconds": 86.61759646700011,
+    "crashes": [],
+    "saved": true,
+    "actions": [
+      "backend-check=OpenGL",
+      "audit=water-bed-fallback",
+      "water-bed-fallback",
+      "audit=water-bed-full-fallback",
+      "water-bed-full-fallback",
+      "audit=smooth-check",
+      "stop"
+    ],
+    "images": [
+      "screenshots/water-bed-full-fallback.png",
+      "screenshots/water-bed-fallback.png"
+    ],
+    "vuid_lines": [],
+    "software_vulkan": false,
+    "recovery_marker_present_after_run": false,
+    "released_resources": false,
+    "shutdown_continuation": false,
+    "pass": true
+  },
+  "water-bed-matched-input": {
+    "state_sha256": "936408174242c608ac92d5b40006e6ed400764a697fcaefc6ea56dfd59679eb1",
+    "water_units": 325,
+    "frozen": true,
+    "biome": "minecraft:plains"
+  },
+  "water-bed-full-matched-input": {
+    "state_sha256": "16347bac3990423dca06bdd4e67d715586f916532e2bcdb501384b970f9c1033",
+    "water_units": 3900,
+    "frozen": true,
+    "biome": "minecraft:plains"
+  }
+}

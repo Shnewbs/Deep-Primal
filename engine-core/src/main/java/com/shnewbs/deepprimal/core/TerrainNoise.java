@@ -3,9 +3,17 @@ package com.shnewbs.deepprimal.core;
 /** Seeded gradient fields owned by Deep Primal; no platform noise router. */
 public final class TerrainNoise {
   private final long seed;
+  private final double phaseX, phaseZ;
 
   public TerrainNoise(long seed) {
+    this(seed, false);
+  }
+
+  /** V7 shifts the sampling lattice; V1–V6 retain their exact original fields. */
+  public TerrainNoise(long seed, boolean shifted) {
     this.seed = seed;
+    phaseX = shifted ? .125 + hash(0, 0, 0x7139L) * 1024 : 0;
+    phaseZ = shifted ? .125 + hash(0, 0, 0x7193L) * 1024 : 0;
   }
 
   public static long mix(long v) {
@@ -45,6 +53,8 @@ public final class TerrainNoise {
   public double noise(double x, double z, double scale, long salt) {
     x /= scale;
     z /= scale;
+    x += phaseX;
+    z += phaseZ;
     int a = (int) Math.floor(x), b = (int) Math.floor(z);
     double dx = x - a, dz = z - b;
     return lerp(

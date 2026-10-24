@@ -31,13 +31,14 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public static final MapCodec<EngineChunkGenerator> CODEC_V5 = codecFor(5);
 
   public static final MapCodec<EngineChunkGenerator> CODEC_V6 = codecFor(6);
+  public static final MapCodec<EngineChunkGenerator> CODEC_V7 = codecFor(7);
   private static MapCodec<EngineChunkGenerator> codecFor(int revision) {
-    if(revision==6) return RecordCodecBuilder.mapCodec(i->i.group(
+    if(revision>=6) return RecordCodecBuilder.mapCodec(i->i.group(
         BiomeSource.CODEC.fieldOf("biome_source").forGetter((EngineChunkGenerator g)->g.biomeSource),
         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile))
-    ).apply(i,(source,min,height,profile)->new EngineChunkGenerator(source,min,height,6,profile.orElseGet(TerrainConfig::creationProfile))));
+    ).apply(i,(source,min,height,profile)->new EngineChunkGenerator(source,min,height,revision,profile.orElseGet(TerrainConfig::creationProfile))));
     return RecordCodecBuilder.mapCodec(
         i ->
             i.group(
@@ -87,7 +88,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       case 3 -> CODEC_V3;
       case 4 -> CODEC_V4;
       case 5 -> CODEC_V5;
-      default -> CODEC_V6;
+      case 6 -> CODEC_V6;
+      default -> CODEC_V7;
     };
   }
 
@@ -216,11 +218,12 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         .setValue(EngineFluid.SPEED,(int)Math.clamp(Math.round((s.speed()-.1)*10),0,7));
   }
   private final class V6Column {
-    final int x,z,bed,iceBase;final boolean tunnel,ocean;
+    final int x,z,bed,iceBase,biome;final boolean tunnel,ocean;
     final TerrainEngine.Sample s,hydraulic;final Geology.Column geology;
     final SoilProfile soil;final CaveNetwork.Column cave;final DepositPlan.Column deposits;
     V6Column(int x,int z,TerrainEngine.Sample s,DepositPlan.Chunk deposits) {
       this.x=x;this.z=z;this.s=s;bed=(int)Math.floor(s.ground());
+      biome=revision>=7?engine.biome(x,z):-1;
       hydraulic=engine.hydraulicColumn(x,z);double uncut=engine.raw(x,z);
       tunnel=engine.tunnel(x,z);ocean=engine.ocean(x,z);
       iceBase=(int)Math.floor(engine.surfaceWithoutIce(x,z));
@@ -240,6 +243,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         int depth=bed-y;
         if(depth<soil.depth()) {
           if(s.wet())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:soil.kind()==SoilProfile.Kind.GRAVEL?Blocks.GRAVEL:Blocks.SAND).defaultBlockState();
+          if(biome==9)return (depth==0&&s.slope()<.45?Blocks.RED_SAND:
+              Math.floorMod(y,12)<3?Blocks.ORANGE_TERRACOTTA:Math.floorMod(y,12)<5?Blocks.YELLOW_TERRACOTTA:Blocks.TERRACOTTA).defaultBlockState();
+          if((biome==6||biome==28)&&depth>0)return Blocks.MUD.defaultBlockState();
+          if(biome==13&&depth==0)return Blocks.PODZOL.defaultBlockState();
           if(soil.kind()==SoilProfile.Kind.SAND)return (depth<soil.topsoil()+soil.subsoil()?Blocks.SAND:Blocks.SANDSTONE).defaultBlockState();
           if(depth<soil.topsoil())return (depth==0?(soil.kind()==SoilProfile.Kind.PODZOL?Blocks.PODZOL:soil.kind()==SoilProfile.Kind.FROZEN?Blocks.SNOW_BLOCK:Blocks.GRASS_BLOCK):Blocks.DIRT).defaultBlockState();
           if(depth<soil.topsoil()+soil.subsoil())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:Blocks.DIRT).defaultBlockState();
@@ -434,12 +441,14 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         if (revision >= 3 && (x < ox || z < oz || x > ox + 15 || z > oz + 15))
           s = surfaceSample(x, z);
         double density = engine.forest(x, z);
+        int biome = revision>=7?engine.biome(x,z):-1;
+        double chance=revision>=7?Vegetation.treeChance(biome,density):Math.max(0,density-.20)*.66;
         if (s.wet()
             || s.ground() < getSeaLevel() + 5
-            || s.slope() > .8
+            || s.slope() > (revision>=7?1.5:.8)
             || s.temperature() < .1
             || s.rain() < .38
-            || engine.noise.hash(gx, gz, 313) > Math.max(0, density - .20) * .66) continue;
+            || engine.noise.hash(gx, gz, 313) > chance) continue;
         if(revision>=6 && engine.landscape.ice(x,z,s)>0)continue;
         boolean pine = s.temperature() < .36;
         int y = (int) Math.floor(s.ground()) + 1,
@@ -453,8 +462,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                     : 2 + (int) (engine.noise.hash(gx, gz, 315) * 2);
         if (revision >= 2) {
           boolean supported = true;
-          for (int dz = -radius; dz <= radius && supported; dz++)
-            for (int dx = -radius; dx <= radius; dx++) {
+          int supportRadius=revision>=7?1:radius;
+          for (int dz = -supportRadius; dz <= supportRadius && supported; dz++)
+            for (int dx = -supportRadius; dx <= supportRadius; dx++) {
               var neighbor = column(columns, ox, oz, x + dx, z + dz);
               if ((revision >= 3 && neighbor.sediment() > .85)
                   || neighbor.wet()
@@ -474,7 +484,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                 ? Blocks.SPRUCE_LEAVES
                 : log == Blocks.BIRCH_LOG ? Blocks.BIRCH_LEAVES : Blocks.OAK_LEAVES;
         if(revision>=6) {
-          int biome=engine.biome(x,z);
+          if(revision<7)biome=engine.biome(x,z);
           if(biome==8) {log=Blocks.ACACIA_LOG;leaves=Blocks.ACACIA_LEAVES;}
           else if(biome==10||biome==11||biome==12) {log=Blocks.JUNGLE_LOG;leaves=Blocks.JUNGLE_LEAVES;}
           else if(biome==13) {log=Blocks.DARK_OAK_LOG;leaves=Blocks.DARK_OAK_LEAVES;}
@@ -528,8 +538,19 @@ public final class EngineChunkGenerator extends ChunkGenerator {
           var p = new BlockPos(ox + x, y, oz + z);
           if (!s.wet()
               && c.getBlockState(p.below()).is(Blocks.GRASS_BLOCK)
-              && c.getBlockState(p).isAir())
-            c.setBlockState(p, Blocks.SHORT_GRASS.defaultBlockState());
+              && c.getBlockState(p).isAir()) {
+            Block cover=Blocks.SHORT_GRASS;
+            if(revision>=7) {
+              int biome=engine.biome(ox+x,oz+z);double pick=engine.noise.hash(ox+x,oz+z,4401);
+              if(biome==4||biome==15||biome==16||biome==10||biome==11)cover=Blocks.FERN;
+              else if(biome==21||biome==22)cover=pick<.32?Blocks.DANDELION:pick<.54?Blocks.POPPY:pick<.68?Blocks.OXEYE_DAISY:Blocks.SHORT_GRASS;
+              else if(biome==8&&pick<.30)cover=Blocks.DEAD_BUSH;
+            }
+            c.setBlockState(p, cover.defaultBlockState());
+          } else if(revision>=7&&!s.wet()&&c.getBlockState(p).isAir()
+              && (c.getBlockState(p.below()).is(Blocks.SAND)||c.getBlockState(p.below()).is(Blocks.RED_SAND))
+              && s.ground()>getSeaLevel()+6 && s.rain()<.32)
+            c.setBlockState(p,Blocks.DEAD_BUSH.defaultBlockState());
         }
     Heightmap.primeHeightmaps(
         c, java.util.EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));

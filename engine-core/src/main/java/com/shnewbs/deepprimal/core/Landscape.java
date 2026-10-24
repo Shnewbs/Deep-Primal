@@ -6,15 +6,23 @@ import static com.shnewbs.deepprimal.core.TerrainNoise.*;
 public final class Landscape {
   private final TerrainNoise noise;
   private final TerrainOptions options;
-  public Landscape(TerrainNoise noise, TerrainOptions options) { this.noise = noise; this.options = options; }
+  private final int revision;
+  private final double equator;
+  public Landscape(TerrainNoise noise, TerrainOptions options) { this(noise,options,6); }
+  public Landscape(TerrainNoise noise, TerrainOptions options,int revision) {
+    this.noise=noise;this.options=options;this.revision=revision;
+    equator=revision>=7?(noise.hash(0,0,4320)-.5)*options.polarDistance()*1.1:0;
+  }
   public double temperature(double x, double z, double height) {
-    double latitude = Math.min(1, Math.abs(z) / options.polarDistance());
+    double latitude = Math.min(1, Math.abs(z-equator) / options.polarDistance());
     return Math.clamp(.94 - .91 * smooth(latitude) + noise.field(x,z,4800,3100)*.17
         - Math.max(0,height-110)/410, 0, 1);
   }
   public double rain(double x, double z) {
-    double latitude = Math.abs(z) / options.polarDistance();
+    double latitude = Math.abs(z-equator) / options.polarDistance();
     double dryBelt = Math.exp(-Math.pow((latitude-.38)/.15,2))*.20;
+    if(revision>=7)return Math.clamp(.61+noise.field(x,z,2100,81)*.95
+        +noise.field(x,z,650,4322)*.22-dryBelt,.08,1);
     return Math.clamp(.64 + noise.field(x,z,3100,81)*.60 - dryBelt, .08, 1);
   }
   public double wind(double x, double z) {

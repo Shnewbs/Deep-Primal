@@ -114,11 +114,24 @@ tasks.named('runServer') { standardInput = System.in }
 if (project.hasProperty('packagedValidation')) {
     ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {
         dependsOn tasks.named('jar')
+        // Filter the ModDev launch provider during configuration, before Gradle finalizes it.
+        // Filtering JavaExec.classpath in doFirst is too late: RunGameTask appends this provider.
+        def developmentOutputs = rootProject.allprojects.collectMany { p ->
+            ['build/libs', 'build/classes/java/main', 'build/resources/main'].collect {
+                p.file(it).canonicalPath
+            }
+        }
+        def originalClasspath = files(new ArrayList(classpathProvider.from))
+        classpathProvider.setFrom(originalClasspath.filter { f ->
+            def path = f.canonicalPath
+            !developmentOutputs.any { path == it || path.startsWith(it + File.separator) }
+        })
         doFirst {
             String paths = 'deepprimal%%' + project.file(findProperty('validationJar') ?: tasks.named('jar').get().archiveFile.get().asFile).absolutePath
             if (project.hasProperty('visualValidation'))
                 paths += File.pathSeparator + 'deepprimal%%' + sourceSets.visualValidation.output.classesDirs.singleFile.absolutePath
             environment 'MOD_CLASSES', paths
+            systemProperty 'fml.modFolders', paths
         }
     } }
 }

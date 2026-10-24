@@ -1,0 +1,27 @@
+# Terrain V7 — alpha.28
+
+V7 addresses the owner's report of narrow streams, similar-looking biomes and similar terrain across seeds. Create a **new normal world** with the built-in engine enabled to use `deepprimal:continental_v7`. Standard remains Y=-128..639; Deep remains Y=-384..639. Existing V1–V6 worlds retain their saved generator, terrain profile, water amounts and player edits, including newly explored chunks in those worlds. They do not silently switch to V7. V7 geography is frozen after this release; further geographic changes require a new saved revision.
+
+## Changes
+
+The previous gradient fields sampled an integer lattice at the world origin. For eight tested seeds, V6's raw height, rain and temperature at (0,0) were identical: 165.42108, 0.63967 and 0.80483. This was a real local seed-aliasing defect; the whole previous world was not seed-independent. V7 adds a deterministic, seed-derived sampling phase. All eight origins now differ in raw height and rainfall, and actual saved-world/UI-entered seed binding is checked in the packaged game.
+
+V7 uses continuous regional blends between lowlands, rolling hills, plateau rims and folded mountain ridges. Seed-varied continent lobes sit inside drainage domains with an ocean margin. Climate has a seed-varied equator, broader rainfall variation and elevation cooling. These are authored controls on the existing terrain/drainage architecture, not a claim of complete geological simulation.
+
+Channel radius grows faster with contributing area. Across the fixed eight-seed central-domain ensemble, median planned channel width increases from approximately 2.8–2.9 blocks to 5.1–5.8 blocks; larger reaches grow further. Width here is twice the continuous plan radius, not a guarantee that every rasterized or partly drained water cross-section has that many wet blocks. Headwater tips and finite streams can still be narrow, shrink or dry out. The new width/depth is established during generation, with no perpetual runtime refill.
+
+Canopy density follows the selected biome. Forest/jungle trees can root on modest slopes without requiring the entire canopy footprint to be flat. Plains retain sparse trees. Badlands use red sand and shallow terracotta layers; wetlands gain mud horizons, dark forests podzol, and biome ground cover includes ferns, meadow flowers and dead bushes. Existing Minecraft biome/block assets remain temporary palettes. This is not a completed species/content catalog.
+
+V7 inherits V6's saved creation-time profile, geological caves, river tunnels, deposits, glaciers, finite melt, dunes and bounded cave-ins. See [V6 mechanics and configuration](TERRAIN-V6.md). No deposit default, transport budget or recharge law is changed in this release.
+
+## Water rendering, including existing saves
+
+A corner average could pull a thin upper water layer below its solid bed when its downhill neighbor occupied the layer below. The mesher now applies a shared-corner support constraint, keeping a supported film at least 1/256 block above its floor. Both animated water and the smooth fallback use it. The shared-corner rule preserves independently meshed page agreement; it does not add water, place sources, alter the riverbed or prevent real drainage.
+
+Matched native stair fixtures contain the same 325 units (thin) or 3,900 units (fuller), identical block-state hashes and plains biome in alpha.27 and alpha.28. The previous package shows clipped dry-looking strips; the candidate exposes the supported thin surface. This diagnoses one cause of the reported appearance, not every possible water artifact. Small visual flecks, transparent overlaps, distant page/LOD coverage and temporal behavior across broad editable worlds still need separate acceptance. A static frozen fixture is not a live hydrology endurance test.
+
+## Compatibility and limits
+
+The release retains finite environmental water accounting. Streams may exhaust; rainfall/recharge can feed suitable locations elsewhere under the existing rules. There is no unlimited source conversion or flood-to-fill operation. Installing the JAR does not widen rivers in old worlds or regenerate player edits.
+
+[Validation](VALIDATION-0.0.1-alpha.28.md) records the exact packages, native tests and rejected runs. These checks cover eight core seeds, four native seeds, Standard/Deep save/reload, an actual Create World flow and software OpenGL/Vulkan views. They do not establish every-seed quality, long-duration storm/drought balance, large-region hydraulic continuation, finished LOD/transparency, Windows GPU execution or FPS guarantees. The mountain view is limited by the short test render distance; the river view includes a broad mouth. Those screenshots are illustrative, not comprehensive landscape acceptance.

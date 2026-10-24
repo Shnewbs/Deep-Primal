@@ -166,9 +166,11 @@ public final class WaterPatchMesher {
     if (!Float.isNaN(cached)) return cached;
     float sum = 0;
     int count = 0;
+    boolean supportedFilm = false;
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         int n = s.water(x + dx, y, z + dz);
+        supportedFilm |= n > 0 && s.solid(x + dx, y - 1, z + dz);
         double height =
             WaterTransport.surfaceColumn(
                 n == 0 ? s.water(x + dx, y - 1, z + dz) : 0,
@@ -178,7 +180,9 @@ public final class WaterPatchMesher {
         sum += (float) height;
         count++;
       }
-    return corners[key] = count == 0 ? 0 : sum / count;
+    // A downhill neighbour may pull the average beneath a wet cell's solid bed.
+    // Apply the shared corner's support constraint, never a per-cell clamp.
+    return corners[key] = (float)WaterTransport.supportedSurface(count==0?0:sum/count,supportedFilm);
   }
 
   private float height(Snapshot s, int x, int y, int z, float u, float v) {

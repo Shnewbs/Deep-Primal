@@ -12,6 +12,7 @@ public final class WatershedRegion {
   private static final double STREAM_AREA = 18_000;
   private static final int[] ORTHOGONAL = {-SIDE, SIDE, -1, 1};
   private final double ox, oz;
+  private final boolean broadChannels;
   private final double[] raw = new double[N],
       flood = new double[N],
       area = new double[N],
@@ -73,6 +74,11 @@ public final class WatershedRegion {
 
   public WatershedRegion(
       double ox, double oz, DoubleBinaryOperator height, DoubleBinaryOperator rain) {
+    this(ox,oz,height,rain,false);
+  }
+  public WatershedRegion(
+      double ox, double oz, DoubleBinaryOperator height, DoubleBinaryOperator rain, boolean broadChannels) {
+    this.broadChannels=broadChannels;
     this.ox = ox;
     this.oz = oz;
     Arrays.fill(parent, -1);
@@ -290,7 +296,11 @@ public final class WatershedRegion {
       if (buckets[n] != null) index[n] = buckets[n].stream().mapToInt(Integer::intValue).toArray();
   }
 
-  private static double radius(double area, boolean source, double t) {
+  private double radius(double area, boolean source, double t) {
+    if(broadChannels) {
+      double r=Math.clamp(1.4+Math.sqrt(area)/185,2.1,32);
+      return source?lerp(1.3,r,smooth(t*2)):r;
+    }
     double r = Math.clamp(.7 + Math.sqrt(area) / 410, 1.05, 26);
     return source ? lerp(.9, r, smooth(t * 2)) : r;
   }

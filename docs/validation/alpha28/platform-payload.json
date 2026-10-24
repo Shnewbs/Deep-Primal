@@ -1,0 +1,32 @@
+{
+  "pass": true,
+  "normalization": "Only Vulkan nested archive filename and matching jarjar metadata path; no runtime class/asset normalization",
+  "common_identical_entries": 7137,
+  "common_differences": [],
+  "linux_only": [
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-PLATFORM.jar/META-INF/linux/x64/org/lwjgl/shaderc/libshaderc.so.git",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-PLATFORM.jar/linux/x64/org/lwjgl/shaderc/libshaderc.so",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-PLATFORM.jar/linux/x64/org/lwjgl/vma/liblwjgl_vma.so"
+  ],
+  "windows_only": [
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-PLATFORM.jar/META-INF/windows/x64/org/lwjgl/shaderc/shaderc.dll.git",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-PLATFORM.jar/windows/x64/org/lwjgl/shaderc/shaderc.dll",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-PLATFORM.jar/windows/x64/org/lwjgl/vma/lwjgl_vma.dll"
+  ],
+  "linux_nested": [
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-linux.jar"
+  ],
+  "windows_nested": [
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.28.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+    "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.28-windows.jar"
+  ]
+}

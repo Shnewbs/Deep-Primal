@@ -252,6 +252,7 @@ public final class ClientCapture {
         return;
       }
       if (TerrainV6Scenes.handle(mc,action,dir))return;
+      if (TerrainAuditScenes.handle(mc,action,dir))return;
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
         StartupLifecycleChecks.observe("before-disconnect", dir);

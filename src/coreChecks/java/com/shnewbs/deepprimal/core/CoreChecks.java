@@ -7,6 +7,8 @@ public final class CoreChecks {
   public static void main(String[] args) throws Exception {
     com.shnewbs.deepprimal.core.lod.LodStoreBudgetChecks.main(new String[0]);
     TerrainV6Checks.run();
+    TerrainV7Checks.run();
+    WaterBedChecks.run();
     DepositPlanChecks.run();
     WaterBudgetChecks.run();
     TerrainV4Checks.run();

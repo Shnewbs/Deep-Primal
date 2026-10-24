@@ -202,9 +202,13 @@ public final class WorldCreationChecks {
         var generator =
             (EngineChunkGenerator)
                 mc.getSingleplayerServer().overworld().getChunkSource().getGenerator();
-        require(generator.geography().revision == 6, "Fresh creation selects V6 geography");
+        require(generator.geography().revision == 7, "Fresh creation selects V7 geography");
+        var level=mc.getSingleplayerServer().overworld();
+        require(level.getSeed()==20261020L,"Entered seed is the saved world seed");
+        var expected=new com.shnewbs.deepprimal.core.TerrainEngine(level.getSeed(),7,generator.terrainProfile().options());
+        require(generator.geography().sample(341,-217).equals(expected.sample(341,-217)),"UI world binds the actual saved seed");
         report(
-            "WORLD_CREATION_JOIN_PASS revision=6 backend="
+            "WORLD_CREATION_JOIN_PASS revision=7 seed=20261020 backend="
                 + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName());
         StartupLifecycleChecks.observe("creation-joined", output());
         mc.disconnectWithSavingScreen();

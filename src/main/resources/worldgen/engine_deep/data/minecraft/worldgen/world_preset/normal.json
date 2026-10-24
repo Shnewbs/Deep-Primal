@@ -3,7 +3,7 @@
     "minecraft:overworld": {
       "type": "deepprimal:prototype_deep",
       "generator": {
-        "type": "deepprimal:continental_v6",
+        "type": "deepprimal:continental_v7",
         "min_y": -384,
         "height": 1024,
         "biome_source": {

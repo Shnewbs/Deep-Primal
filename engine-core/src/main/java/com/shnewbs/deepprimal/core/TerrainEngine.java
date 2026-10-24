@@ -38,6 +38,7 @@ public final class TerrainEngine {
   public final int revision;
   public final TerrainOptions options;
   public final Landscape landscape;
+  private final Landforms landforms;
   private final LinkedHashMap<Long, Sample> foundations = new LinkedHashMap<>();
   private record BiomeColumn(Sample sample,Geology.Column geology,int surface) {}
   private final LinkedHashMap<Long,BiomeColumn> biomeColumns=new LinkedHashMap<>();
@@ -58,11 +59,12 @@ public final class TerrainEngine {
   public TerrainEngine(long seed, int revision) { this(seed, revision, TerrainOptions.DEFAULT); }
 
   public TerrainEngine(long seed, int revision, TerrainOptions options) {
-    if (revision < 1 || revision > 6) throw new IllegalArgumentException("Terrain revision");
+    if (revision < 1 || revision > 7) throw new IllegalArgumentException("Terrain revision");
     this.revision = revision;
-    noise = new TerrainNoise(seed);
+    noise = new TerrainNoise(seed, revision >= 7);
     this.options = java.util.Objects.requireNonNull(options);
-    landscape = new Landscape(noise, options);
+    landscape = new Landscape(noise, options, revision);
+    landforms = new Landforms(noise, options);
   }
 
   private Land land(int x, int z) {
@@ -80,6 +82,11 @@ public final class TerrainEngine {
 
   private Land createLand(int x, int z) {
     double angle = noise.hash(x, z, 5) * Math.PI;
+    if (revision >= 7) return new Land(x,z,
+        x*(double)CELL+(noise.hash(x,z,1)-.5)*900,
+        z*(double)CELL+(noise.hash(x,z,2)-.5)*900,
+        2200+noise.hash(x,z,3)*1500,2100+noise.hash(x,z,4)*1500,
+        Math.cos(angle),Math.sin(angle));
     return new Land(
         x,
         z,
@@ -100,6 +107,17 @@ public final class TerrainEngine {
   private double mask(Land i, double wx, double wz, double coast) {
     double dx = wx - i.cx, dz = wz - i.cz, c = i.cos, s = i.sin;
     double nx = (dx * c - dz * s) / i.rx, nz = (dx * s + dz * c) / i.rz;
+    if (revision >= 7) {
+      double width=.52+noise.hash(i.x,i.z,4300)*.28;
+      double branch=.30+noise.hash(i.x,i.z,4301)*.25;
+      double bend=(noise.hash(i.x,i.z,4302)-.5)*.7;
+      double core=1-Math.hypot(nx/.80,nz/width);
+      double a=(1-Math.hypot((nx-.40)/.53,(nz+bend)/branch))*.75;
+      double b=(1-Math.hypot((nx+.48)/.48,(nz-bend)/(.75-branch)))*.75;
+      // Keep varied lobes inside their own drainage domain, with an ocean margin.
+      double envelope=1-Math.hypot(dx,dz)/2950;
+      return Math.min(envelope,Math.max(core,Math.max(a,b)))+coast;
+    }
     // Connected overlapping provinces produce bays and peninsulas rather than circular islands.
     double core = 1 - Math.hypot(nx / .80, nz / .67);
     double north = (1 - Math.hypot((nx - .42) / .51, (nz + .25) / .55)) * .7;
@@ -166,6 +184,11 @@ public final class TerrainEngine {
           - 42 * smooth(-m / .12)
           - 85 * smooth((-m - .12) / .55)
           + noise.field(x, z, 270, 33) * 13;
+    if (revision >= 7) {
+      double inland=smooth(m/.24);
+      double height=SEA-3+inland*landforms.relief(x,z)+Math.min(m,.15)*30+coastalDetail;
+      return landscape.relief(x,z,height,inland);
+    }
     double inland = smooth(m / .22), plateau = 22 + noise.field(x, z, 1100, 35) * 28;
     double province = smooth((noise.field(x, z, 2200, 39) + .30) / .65);
     double warpX = x + noise.field(x, z, 430, 44) * 130,
@@ -207,7 +230,7 @@ public final class TerrainEngine {
     if (d == null) {
       d =
           new WatershedRegion(
-              l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall);
+              l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall, revision >= 7);
       watersheds.put(key, d);
       while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
     }

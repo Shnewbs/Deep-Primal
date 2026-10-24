@@ -40,5 +40,10 @@ public final class WaterTransport {
     return below > 0 ? -1 + below / 16.0 : Double.NaN;
   }
 
+  /** Rendering only: a shared thin-water corner must remain above its solid floor. */
+  public static double supportedSurface(double average, boolean supportedFilm) {
+    return supportedFilm ? Math.max(1.0/256,average) : average;
+  }
+
   private WaterTransport() {}
 }

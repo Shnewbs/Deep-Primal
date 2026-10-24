@@ -1,0 +1,8 @@
+gradle.projectsEvaluated {
+  rootProject.tasks.named('runServer') {
+    doFirst {
+      def target=new File(rootProject.projectDir.parentFile,'evidence/runtime-classpath.txt')
+      target.text='taskType='+getClass().name+'\n'+classpath.files.join('\n')+'\nJVM='+allJvmArgs+'\n'
+    }
+  }
+}

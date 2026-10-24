@@ -1,5 +1,7 @@
 # Active Deep Primal engine audit
 
+Current foreground release (2026-10-24): **alpha.28 / V7 terrain**. Read [the V7 scope](TERRAIN-V7.md), [release validation](VALIDATION-0.0.1-alpha.28.md) and ENGINE-WORK-STATE.json. Reproduced thin-water bed clipping and seed-origin aliasing are fixed; new V7 worlds add broader channels, regional landforms and biome-based surfaces/canopy. Freeze delivered V1–V7 geography. Standard/Deep/native legacy save-reload, actual UI seed binding, matched Vulkan beds and OpenGL smooth fallback pass. Full engine, broad live water/LOD/transparency, recovery-marker root cause and Windows/owner-GPU acceptance remain open. R57 LOD staging is preserved and unpromoted. The packaged-validation classpath filter and loaded-class identity guard are mandatory for future selected-JAR comparisons.
+
 Current continuation (2026-10-24): use **main** after branch consolidation. R44 retirement source is integrated experimentally; its589-input snapshot is historical engine-only evidence and must not overwrite merged source. Read the R44/reconciliation entry below and ENGINE-WORK-STATE.json. Full engine, hard2ms and Windows/ownerGPU acceptance remain open.
 
 Alpha.24 development installers have been built, checked and supplied. The default is 606,553 bytes; optional Windows Vulkan is 11,537,948 bytes. V3 geography is now frozen. The full engine acceptance remains open.

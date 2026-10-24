@@ -30,10 +30,12 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
   private static double corner(BlockAndTintGetter l, BlockPos corner) {
     double sum = 0;
     int count = 0;
+    boolean supportedFilm=false;
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         var p = corner.offset(dx, 0, dz);
         int n = units(l, p);
+        supportedFilm |= n>0 && l.getBlockState(p.below()).isSolid();
         double height =
             WaterTransport.surfaceColumn(
                 n == 0 ? units(l, p.below()) : 0, n, n > 0 ? units(l, p.above()) : 0);
@@ -41,7 +43,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         sum += height;
         count++;
       }
-    return count == 0 ? 0 : sum / count;
+    return WaterTransport.supportedSurface(count==0?0:sum/count,supportedFilm);
   }
 
   @Override
