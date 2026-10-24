@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-23T23:30:00Z",
-  "active_until": "2026-10-24T00:30:00Z",
-  "source_ref": "work/engine-after-alpha24",
+  "updated_at": "2026-10-24T00:29:00.541Z",
+  "active_until": "2026-10-24T01:29:00.542Z",
+  "source_ref": "main",
   "candidate_version": "0.0.1-alpha.24",
   "candidate_released": true,
   "acceptance_complete": false,
@@ -179,7 +179,7 @@
     "docs/validation/engine-continuation/water-boundary-recovery-2026-10-23/strict-retry-audit.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "R44 isolated normal-cohort publication design, defect reproduction and focused implementation; no competing native jobs",
+  "worker": "R44 validation preservation and consolidated-main audit; isolated workspace; no competing native jobs",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -712,5 +712,6 @@
     "unique_capture_objects": 944,
     "baseline584_source_reconstruction_verified": true,
     "offline_replay_pass": true
-  }
+  },
+  "continuation_note": "Owner consolidated all branches into main at 28b2625. Preserve R44 standalone evidence and verify integration without restoring the historical snapshot over merged source."
 }
