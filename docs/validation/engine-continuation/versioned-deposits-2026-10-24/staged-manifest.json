@@ -1,0 +1,50 @@
+[
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+    "bytes": 3646,
+    "sha256": "be695826440c15daa634ba1ed5fe0aaae2869304019dbdc6958244263d86ad56",
+    "git_sha": "c6610e29f1382b68e6bfdbaef363d59932a0f24a"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositField.java",
+    "bytes": 2709,
+    "sha256": "f803b1d5fa9525bae253270b8e8876effac11d76b2d85675f1ed82c0400d78b2",
+    "git_sha": "6d2dfd9cd17c28884c4e41284dca41b2685ae2c6"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+    "bytes": 17738,
+    "sha256": "de7eb40fdd82b3973c07c4247612eeb595bca6391b7dc414d699d44c3de07854",
+    "git_sha": "b8696dc7e49c0032e3472492d348b626b610d38c"
+  },
+  {
+    "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+    "bytes": 18465,
+    "sha256": "f9018d7592aaaecf750fa486fb329eacd745471bf3f410de160c60f34336790d",
+    "git_sha": "909b714746f96d9220af82cd160d0a8bd662d15a"
+  },
+  {
+    "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java",
+    "bytes": 2439,
+    "sha256": "c44bb482ff5988391ac04b64c65412275c424f79d197c892098404877595bac8",
+    "git_sha": "cabc58d70779ae1bcd77018ee523d60379f89ba3"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "bytes": 6196,
+    "sha256": "ea9e36cace4df64d751590884dde8bc56f950839443b24abaee16e58825413ab",
+    "git_sha": "bd12c2547eb5de9a24db5cf8a5255c40eaa09bfd"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/DepositFieldChecks.java",
+    "bytes": 3979,
+    "sha256": "14b96d64b5ded2386eabe1668eaa631face527b86cdb0822a23c114a0b81b39c",
+    "git_sha": "e9e7580b560608ecaf3f8f597b2255855e638af2"
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositNativeChecks.java",
+    "bytes": 12807,
+    "sha256": "122fdab2993c80feeed5c2332fd91901635f4a910abbb487a4292c47c1e8a6e0",
+    "git_sha": "32fbf78055d7dbcfe4cf6cad7f2bc63ee46b47cb"
+  }
+]

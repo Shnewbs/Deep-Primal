@@ -1,0 +1,11 @@
+{"columns":8192,"heights_per_column":384,"samples":[
+{"legacy_build_ns_bytes":[3064476, 720896],"candidate_build_ns_bytes":[4633915, 3932160],"legacy_query_ns_bytes_sum":[13153069, 0, 4994],"candidate_query_ns_bytes_sum":[6934332, 0, 5064]},
+{"legacy_build_ns_bytes":[3637196, 720896],"candidate_build_ns_bytes":[8509660, 3932160],"legacy_query_ns_bytes_sum":[13340692, 0, 4994],"candidate_query_ns_bytes_sum":[7027873, 0, 5064]},
+{"legacy_build_ns_bytes":[3029985, 720896],"candidate_build_ns_bytes":[4268815, 3932160],"legacy_query_ns_bytes_sum":[14415146, 0, 4994],"candidate_query_ns_bytes_sum":[13951820, 0, 5064]},
+{"legacy_build_ns_bytes":[6199488, 720896],"candidate_build_ns_bytes":[4768227, 3932160],"legacy_query_ns_bytes_sum":[13912312, 0, 4994],"candidate_query_ns_bytes_sum":[12268189, 0, 5064]},
+{"legacy_build_ns_bytes":[2742102, 720896],"candidate_build_ns_bytes":[3456395, 3932160],"legacy_query_ns_bytes_sum":[13149935, 0, 4994],"candidate_query_ns_bytes_sum":[7167734, 0, 5064]},
+{"legacy_build_ns_bytes":[2916433, 720896],"candidate_build_ns_bytes":[3687142, 3932160],"legacy_query_ns_bytes_sum":[13517978, 0, 4994],"candidate_query_ns_bytes_sum":[7174053, 0, 5064]},
+{"legacy_build_ns_bytes":[2940420, 720896],"candidate_build_ns_bytes":[3510926, 3932160],"legacy_query_ns_bytes_sum":[13171798, 0, 4994],"candidate_query_ns_bytes_sum":[6800932, 0, 5064]},
+{"legacy_build_ns_bytes":[2646298, 720896],"candidate_build_ns_bytes":[3540732, 3932160],"legacy_query_ns_bytes_sum":[12188643, 0, 4994],"candidate_query_ns_bytes_sum":[6545773, 0, 5064]},
+{"legacy_build_ns_bytes":[2620454, 720896],"candidate_build_ns_bytes":[3672600, 3932160],"legacy_query_ns_bytes_sum":[12484545, 0, 4994],"candidate_query_ns_bytes_sum":[6917960, 0, 5064]}
+]}

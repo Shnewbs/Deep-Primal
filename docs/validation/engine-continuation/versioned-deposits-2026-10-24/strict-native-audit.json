@@ -1,0 +1,146 @@
+{
+  "pass": true,
+  "final_sessions": [
+    {
+      "session": "baseline-verified",
+      "pass": true,
+      "fixture_class_sha256": "d814ec9cb37c28bcc7e446e051a3817f3c44997f5aae84f64825066e7c8fd5da",
+      "compiled_fixture_matches_runtime": true,
+      "root_jar_sha256": "7e32b1d42719cbd2dc8f9acdd065fb9609d1bce89b90252b37b97ba564f84a36",
+      "core_members_match_embedded": true,
+      "explicit_stop_and_saves": true,
+      "crashes": 0
+    },
+    {
+      "session": "v5-verified-reopen",
+      "pass": true,
+      "fixture_class_sha256": "6ee3a25b1a5dfe6f29d79ee0197f6e35733a1c3867fc6d77641eff06fb9d6199",
+      "compiled_fixture_matches_runtime": true,
+      "root_jar_sha256": "a81383ab77ce8635f2c4425b9b1975d5cdf219189a5e5081d1318437459ca098",
+      "core_members_match_embedded": true,
+      "explicit_stop_and_saves": true,
+      "crashes": 0
+    }
+  ],
+  "legacy_chunk_digest_matches": 96,
+  "base_column_blocks_per_candidate": 8393529,
+  "oracle_blocks_per_candidate": 1305522,
+  "protected_blocks_per_candidate": 3406926,
+  "first_changed": "seed=0 MutableBlockPos{x=-1184, y=-11, z=-506} old=Block{minecraft:calcite} new=Block{minecraft:deepslate_emerald_ore}",
+  "native_density_counts": {
+    "0:1": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "0:2": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "0:3": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "0:4": [
+      0,
+      0,
+      0,
+      114,
+      0,
+      0,
+      0,
+      0,
+      686
+    ],
+    "0:5": [
+      0,
+      0,
+      0,
+      114,
+      0,
+      0,
+      0,
+      0,
+      721
+    ],
+    "20261020:1": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "20261020:2": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "20261020:3": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "20261020:4": [
+      0,
+      0,
+      489,
+      1041,
+      0,
+      128,
+      0,
+      0,
+      0
+    ],
+    "20261020:5": [
+      0,
+      0,
+      512,
+      1041,
+      0,
+      128,
+      0,
+      0,
+      0
+    ]
+  },
+  "saved_revision": 5,
+  "player_edit_reopen": true,
+  "full_saved_chunk_blocks": 240260,
+  "broad_density_balance_or_visual_acceptance": false
+}

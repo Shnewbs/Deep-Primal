@@ -1,0 +1,21 @@
+{
+  "pass": true,
+  "source_parent": "75cdb6f057cacdccac41fc4155d0621b747d5822",
+  "verified_original_inputs": 679,
+  "changed_existing_inputs": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java"
+  ],
+  "new_files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositField.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/DepositFieldChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositNativeChecks.java"
+  ],
+  "production_files_staged": 5,
+  "validation_files_staged": 3,
+  "public_production_source_changed": false,
+  "default_presets_unchanged": true
+}
