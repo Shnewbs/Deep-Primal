@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-24T18:52:47.039Z",
-  "active_until": "2026-10-24T19:52:47.040Z",
+  "status": "idle",
+  "updated_at": "2026-10-24T18:56:09.770Z",
+  "active_until": null,
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.2",
   "candidate_released": false,
@@ -40,7 +40,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/masked-density-2026-10-24/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/density-mask-r61",
+  "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/current-engine",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -286,7 +286,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "foreground-builder-restore",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -417,8 +417,8 @@
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java"
   ],
   "latest_staged_graphics_promoted": true,
-  "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/density-reuse-r60",
-  "validation_environment_status": "Restored full private toolchain beside isolated density-stage2 checkout. Full build/native/benchmark/determinism processes completed. Exact timing source, diagnostics, raw native console and compact evidence retained under docs/engine-stage2-2026-10-24. All processes exited; no background worker implied between scheduled runs.",
+  "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/density-mask-r61",
+  "validation_environment_status": "Workspace maintenance pruned prior full project/cache. Restored pinned JDK25/JDK21/Gradle9.2.1/NeoForm/ASM at /workspace/scratch/1a7cb29b04a2/resume-tools/toolchain. All57 current core Git blobs verified; R61 staged core compiled and original reuse/noise/graph gates pass in /workspace/scratch/1a7cb29b04a2/resume-candidate. Full project/dependency/native restoration remains required; no current JAR built in this coordination run. All local validation processes completed.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -493,7 +493,7 @@
     "last_verified_score": 50,
     "acceptance_complete": false
   },
-  "continuation_note": "Owner explicitly requests continued implementation/audit until average>=8.0 and hourly updates. Existing automation is enabled and updated. This is a continuation checkpoint, not engine completion. Resume graph evaluation/refinement/nativeV8 gates while preserving frozen geography and all R57/historical staged work.",
+  "continuation_note": "Owner separates builder from auditor: builder continues during active runs; separate hourly auditor grades committed progress and builds a fresh current development JAR in isolation. Neither an audit nor checkpoint is a builder stop gate. Preserve actual finite-run limits and timing reservations, use guarded writer leases, no shared mutable outputs. Current R61 staged work and last50/100 grade unchanged. Continue current next_items; auditor restores full project/dependencies before fresh JAR build.",
   "graphics_promotion_scope": "Owner-requested experimental source integration at 28b2625; all27 R44 staged source hashes match root main. This is not performance/full-engine/Windows-runtime acceptance.",
   "latest_preview": {
     "version": "0.0.1-alpha.28",
@@ -627,7 +627,7 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 7,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.28.md",
-  "foreground_task": "Separate hourly auditor/JAR build from builder; restore current pinned core and rerun scoped gates",
+  "foreground_task": null,
   "latest_isolated_validation": "/workspace/scratch/a22609fabda0/density-mask-r61",
   "latest_verification_summary": "Final build32tasks; independent51core sources/89class matches;504packaged project classes;7archive CRCs;158private class exclusions;7137identical common Linux/Windows entries after archive-path normalization. Water6144stair cases/24576supported vertices/512page seam vertices. V7 eight seeds/2312columns/127840reaches/29biomeIDs. Legacy5202core points identical;20native V6 chunk digests identical. Standard3062331 and Deep5945915 native block comparisons per candidate run, saved profiles/edits. UI seed20261020 joins V7; Vulkan candidate/reopen and explicit OpenGL smooth fallback save normally. No FPS/Windows execution claim.",
   "latest_core_runtime_fix": {
@@ -742,6 +742,39 @@
     "last_verified_total": 50,
     "evidence": "docs/engine-review-2026-10-24/REVIEW.md",
     "hourly_updates": true,
-    "automation_id": "6ad974bdc204819195e5465aeea9dca2"
+    "automation_id": "6ad974bdc204819195e5465aeea9dca2",
+    "auditor_task_id": "6adcfe07f3888191aa478160f40027da",
+    "hourly_graded_update": true,
+    "current_audit_jar_required": true
+  },
+  "builder_auditor_coordination": {
+    "builder_task_id": "6ad974bdc204819195e5465aeea9dca2",
+    "auditor_task_id": "6adcfe07f3888191aa478160f40027da",
+    "builder_enabled": true,
+    "auditor_enabled": true,
+    "auditor_schedule": "BEGIN:VEVENT\nDTSTART:20261024T185047Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+    "auditor_timezone": "America/Los_Angeles",
+    "builder_continues_during_audits": true,
+    "auditor_builds_fresh_current_jar": true,
+    "auditor_pins_committed_snapshot": true,
+    "separate_checkouts_outputs_and_caches": true,
+    "no_continuous_execution_claim_between_runs": true,
+    "policy": "docs/ENGINE-BUILDER-AUDITOR.md"
+  },
+  "latest_environment_recovery": {
+    "source_commit": "7f314d34caaff2931f6bbb7e5c40671dd299d3ef",
+    "toolchain_restoration": "docs/validation/engine-continuation/builder-auditor-coordination-2026-10-24/toolchain-restoration.json",
+    "core_validation": "docs/validation/engine-continuation/builder-auditor-coordination-2026-10-24/core-validation.json",
+    "verified_current_core_inputs": 57,
+    "candidate": "R61 staged, unpromoted",
+    "core_product_classes": 102,
+    "reuse_checks": 1581340,
+    "noise_checks": 183806,
+    "graph_checks": 40987,
+    "new_engine_source_changes": false,
+    "full_project_restored": false,
+    "full_gradle_build": false,
+    "owner_jar_built": false,
+    "grade_changed": false
   }
 }

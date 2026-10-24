@@ -1,0 +1,312 @@
+{
+  "ref": "7f314d34caaff2931f6bbb7e5c40671dd299d3ef",
+  "core": [
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Aquifer.java",
+      "sha": "3e807f7730bd4e3fc2507a502dccb02dd170607d",
+      "size": 2661
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/BoundedLru.java",
+      "sha": "ae5ae68d1a6b325156bfba757ef1e57165867544",
+      "size": 1104
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ByteLru.java",
+      "sha": "bd148077543646b1beafc277cf2c3cd22b5363f7",
+      "size": 1521
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/CaveColumn.java",
+      "sha": "16b6b61da4ad01fdb64e7e39850c8333e8b8cac4",
+      "size": 1799
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/CaveNetwork.java",
+      "sha": "a97e6f295d860b786171585d2750876595ef7181",
+      "size": 2182
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ColumnHeight.java",
+      "sha": "b48533c85e846ee39184e8f10efbf24c0f035dc7",
+      "size": 825
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositField.java",
+      "sha": "c62286473582d83f79d6750a9909def0bfd91443",
+      "size": 3220
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositPlan.java",
+      "sha": "9fc5da42607d17f55e17a7d8533dc8a611cda8c6",
+      "size": 6789
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/DistancePolicy.java",
+      "sha": "ec952430f75c15812ed64d82f9bf15faac6ac681",
+      "size": 1789
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/FarTerrain.java",
+      "sha": "dab0e72284152dadf32a7666dd891a3b3fa10030",
+      "size": 846
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/FluidVolume.java",
+      "sha": "65ad5c85173976553caf3029826b90edc3fc0fda",
+      "size": 900
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+      "sha": "c6610e29f1382b68e6bfdbaef363d59932a0f24a",
+      "size": 3646
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonGeometry.java",
+      "sha": "4c6f3b230fec14bad36eb377e44b51fc1f71f429",
+      "size": 2091
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonMesh.java",
+      "sha": "3c252bc0d9febf42cb7881ddd11aa14bf67e5f8d",
+      "size": 5408
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonSamples.java",
+      "sha": "f592eb0dcd68fa618ff32334485f26ba79c10799",
+      "size": 1303
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonView.java",
+      "sha": "b2a2e50c767880e6edd89d4e58f3e9713a10ea5b",
+      "size": 1171
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Landforms.java",
+      "sha": "e871ba780f058f5ecb18060984a0fafed8496eda",
+      "size": 1443
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Landscape.java",
+      "sha": "3c7b31e84c952878671511924188175f2b5181a0",
+      "size": 4894
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/MemoryDistancePolicy.java",
+      "sha": "d3363c1f2602f62f3e212ee854ecbd9fc62015ef",
+      "size": 660
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/MountainDrainage.java",
+      "sha": "ff64ba8d3aadd62ac457b53789e1508ff72a5b8d",
+      "size": 15358
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/NearestChunks.java",
+      "sha": "9b9a9e3ddebd6a203bf6a0c3707417fcc19373b1",
+      "size": 2499
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/RendererPolicy.java",
+      "sha": "a7055afeab44c2083d5a4051beac5cfcbc700d9f",
+      "size": 488
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
+      "sha": "20dd04e231591b47ac969438a239b14a21690e90",
+      "size": 810
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SoilProfile.java",
+      "sha": "726a7e60785f9ba56e4a46b5514983d125016e25",
+      "size": 914
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SwimmingState.java",
+      "sha": "3a2d8ee0571b5f866c154ff69feb76210ef89fbd",
+      "size": 439
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/SyncRebuildBudget.java",
+      "sha": "5c6da623fc052f1aedfb44c6025717935cb6c474",
+      "size": 571
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+      "sha": "eca666127431a98686817b82dd5c18530262e953",
+      "size": 22557
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainNoise.java",
+      "sha": "cd107471d6700d7491b865a7dbec0e254af46df2",
+      "size": 2552
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainOptions.java",
+      "sha": "62c92fec60876d3e220b47acfe5d2b1e5c7ae61a",
+      "size": 706
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
+      "sha": "381f49c14d725d6b7dd56e4faab361b6ee7853e1",
+      "size": 828
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TransitionDependencies.java",
+      "sha": "fa1177425109fafca5d17a6abe48540510e7ad58",
+      "size": 1145
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Vegetation.java",
+      "sha": "e24fe02419202158fda62f3d7fcc8df18da9498e",
+      "size": 561
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/VerticalRange.java",
+      "sha": "61721b77424022b795a360b857d8251a381074d3",
+      "size": 1093
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ViewGrid.java",
+      "sha": "dda6ca5a0cffbcffcd9f2bf8529549de3b7c2da6",
+      "size": 338
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/VisualBudget.java",
+      "sha": "a0ce7d63afe62aadcbf6e42f705d16f0eff39489",
+      "size": 935
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WakeField.java",
+      "sha": "571dac721de68ae2021b82f547822f974124eaac",
+      "size": 1643
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
+      "sha": "c856a26f68b0ad9ac2f8a72b564480091d161ff4",
+      "size": 2773
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java",
+      "sha": "c1aa1b9a286f91bb8d35f6328c8640afbe634386",
+      "size": 2163
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+      "sha": "4fe8b5a28edff0d883dc52e0a03d79e7c5a12625",
+      "size": 9255
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+      "sha": "645532d2ce5e2f65964979a57701c9dc833426bd",
+      "size": 2909
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowField.java",
+      "sha": "943cee26227e1d3901a625a894bdf86a3bd7b4e6",
+      "size": 1419
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java",
+      "sha": "c535ba95955b1743995e425e665063f0495e7133",
+      "size": 1019
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
+      "sha": "5ef48b5bb645d9934abce4839c4608719e2569c9",
+      "size": 10018
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSurfaceTransition.java",
+      "sha": "ffdd9b9787fc34a4123b3b6e74b989dffe116638",
+      "size": 1185
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+      "sha": "0ee92c68a41e0a30509b8d58e9927a79f021930d",
+      "size": 2284
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java",
+      "sha": "acd61d144081581f117eddbc4759996f436d41d0",
+      "size": 20755
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterwayShape.java",
+      "sha": "8e9f3a8bf000f20fb81f747fb04fc13dfadeee95",
+      "size": 2293
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorkBudget.java",
+      "sha": "1f7676281c562e82269ec998b2ac27a565600c82",
+      "size": 755
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityField.java",
+      "sha": "ae21097a27fe21b1992b2c2790245436de97649b",
+      "size": 247
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
+      "sha": "d361878058920bddce96828101b307fb7a9cffc7",
+      "size": 8737
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGrid.java",
+      "sha": "34505742314106ff8e5e0e7692c69f7d4eed3654",
+      "size": 3151
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/NoiseSpec.java",
+      "sha": "67af7fba4b55aad858034fcc9cf2655271c95dc4",
+      "size": 1157
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/SeededNoise3D.java",
+      "sha": "130e339ae8fd8536fd91118de9e8d3ba848d09af",
+      "size": 5647
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/TerrainShapeV8.java",
+      "sha": "2c63c39e9d4c03a6582a82e0788ade6a136e3e90",
+      "size": 4604
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/ColumnarChunk.java",
+      "sha": "402a89d7b8da4ad90bd3759355f87f7191a06b6f",
+      "size": 4120
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+      "sha": "b18f93f2e0efe8549e673f353b92d3d8ba5d2080",
+      "size": 10017
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodStore.java",
+      "sha": "c3ddd1a8a3effe2989481e45fc4cbed9e010a89a",
+      "size": 3941
+    }
+  ],
+  "checks": [
+    {
+      "path": "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/run.py",
+      "sha": "533236ba5073ee1aae3c75985c3be2b9e2f808f6"
+    },
+    {
+      "path": "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/ReuseChecks.java",
+      "sha": "1bf8802dd12e596181c17da1386f831b77471be0"
+    },
+    {
+      "path": "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/DensityGraphChecks.java",
+      "sha": "544aa6e3a685e5cc0a211b5d6c9bc8fa6538bf27"
+    },
+    {
+      "path": "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/NoiseCoreChecks.java",
+      "sha": "511d82eb6f2a9da4e0e7201c054a65d5d3aa3599"
+    },
+    {
+      "path": "docs/validation/engine-continuation/masked-density-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
+      "sha": "0e9292b4321677ca6d0dd291698bcd566accf3e3"
+    }
+  ]
+}
