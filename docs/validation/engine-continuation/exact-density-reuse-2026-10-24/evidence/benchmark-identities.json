@@ -1,0 +1,19 @@
+{
+  "source_sha256": "1cb3e4558cb2136b1aa2ee97a7a59f1b91eb7427fe8b6df41df7fb66a09a96a6",
+  "class_sha256": {
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+    "com/shnewbs/deepprimal/core/density/DensityGrid.class": "ba2c4f0667492df2bc2b98de0e36f1ca4a9a50e6adbda874a6108364ccb7ff92",
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+    "com/shnewbs/deepprimal/core/density/DensityGraph.class": "8bd02228b4f896b9763a113f590920f9eba9b3e45dcb65384e4c41d2291923d6",
+    "com/shnewbs/deepprimal/core/density/TerrainShapeV8$Builder.class": "6382084ec6ffb1bb44e4ea91ea06ad170839826ca1f516b1acf093d6b1afe471",
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "704f2d8210232e41a8bfd06b60791f61489c7bfffe7c27703e4e49b808095d19",
+    "com/shnewbs/deepprimal/core/density/NoiseSpec.class": "6eae6ec1f30d47e2c37070ffd8335a230f00d89ed3c6e8bc75dedaf357047c79",
+    "com/shnewbs/deepprimal/core/density/TerrainShapeV8.class": "2b3f808df19613ff6caed803a7507ab72e9c37f7ef16903f71288701141920d3",
+    "com/shnewbs/deepprimal/core/density/DensityField.class": "8aef45d733aca77797077498b76b8e338a1f336722adf8475c16be83d7aab804",
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b",
+    "com/shnewbs/deepprimal/core/density/SeededNoise3D.class": "2e6d5747dd130de52872d6e6fdcd8a78efb74261105d4d6d187f0f0918b4424d"
+  },
+  "benchmark_class_sha256": "a903d7b5c47681605f74cbcc41c0c536f0575ad68b3c12abcf908968562c85dc"
+}
