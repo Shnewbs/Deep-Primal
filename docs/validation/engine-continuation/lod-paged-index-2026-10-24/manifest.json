@@ -1,0 +1,72 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/README.md",
+    "bytes": 5937,
+    "sha256": "badfc579ca07f5d2f45a9c361ec81bd3b497c89e07c08adb8d4122316983f71f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/BaselineIndex.java",
+    "bytes": 1080,
+    "sha256": "9ad7cda6bf6c02c636f568249ae708f305e0d7e1cb23b0db26e8aa56faec454f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/ColumnarChunk.java",
+    "bytes": 4120,
+    "sha256": "9e2293d597e35c9bd47d22ed60be949819cad5d91e2f8fd7c55beb0bbf41131f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/IndexChecks.java",
+    "bytes": 5529,
+    "sha256": "97167ed605117e09a9a8991dd7ca0263fb5bbc7f3fde76017f26cfcee502b2bc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/LodStore.java",
+    "bytes": 3941,
+    "sha256": "b8c453020c10458b884d8eaaebd4d91a76303deaa3d279295411d911e9cd9dad"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/VoxelLodRenderer.java",
+    "bytes": 27870,
+    "sha256": "c27486fda78b5668af82426fb5a0811116f1f4f363e092650c09a64ffdd73e1e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/compile.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/identity.json",
+    "bytes": 2626,
+    "sha256": "1a316103039e482bcaaf0c641398a54a9a89d65d8458328449d79ec128ee6697"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/initial-compile.json",
+    "bytes": 517,
+    "sha256": "369a17dc511aefdca436adbaa13c612a5998c6bde386f960a9d671e1f7f34dbd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/result.txt",
+    "bytes": 915,
+    "sha256": "3f5957b34aea66ca5377e61888f4f3fbed0943837351cc2ae365da68574347bd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/run.py",
+    "bytes": 2376,
+    "sha256": "554ab277c83a81fff5b3e50cca3088e4407272c503e56d0ac2599e47dcd24ee3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/source-manifest.json",
+    "bytes": 671,
+    "sha256": "ccd6ed3112d48ef1734fd1d5c71ea54fec4eca9fc34a467ab90a3c8d66a6677a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/summary.json",
+    "bytes": 1419,
+    "sha256": "06070007308a6ddc2649077d93a5c9927fec9d3a0b67a3cd28f3dc6dd01c7492"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java",
+    "bytes": 4744,
+    "sha256": "d7e62afc327d0c43ed2c602edc4e40593e5a01847751470d7e812569ef2fce5a"
+  }
+]
