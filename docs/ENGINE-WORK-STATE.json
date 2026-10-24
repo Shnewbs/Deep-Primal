@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T16:15:35.843633+00:00",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T16:20:55.110Z",
+  "active_until": "2026-10-24T19:20:55.110Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev",
   "candidate_released": false,
@@ -20,7 +20,7 @@
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
     "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
     "Identify the original recovery-marker writer. Temporary in-process events show deletion then a different inode with original mtime and one Java write; matched /tmp runs are clean. Correlation is not root cause; ptrace is denied. Preserve recovery evidence and do not ship a speculative workaround.",
-    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26\u20135.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
+    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
     "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
     "Alpha26 implements finite groundwater/snow/ocean/atmosphere accounts, head-limited dynamic outlets and sparse salt/sediment transport. Complete long-duration storm/drought and editable-world acceptance, surface evaporation, independent per-liquid compatibility and bounded coarse unloaded-border transfer; retain once-only initialization and no catch-up. Owner permits streams to exhaust and later reappear elsewhere under sufficient recharge.",
@@ -51,7 +51,7 @@
     "Staggered resident-neighbor new-request seam reproduced in32actual-upload routes. Staged functional fix passes software Vulkan/GL but is not promoted: full-residency rebase alone8.54msp95 against2ms extraction target, excluding scan/copy/GPU work, plus up to32MiB retained CPU mirror/transient buffers. Need bounded efficient publication and matched broader profiling.",
     "Synchronous pre-backend rejection/manual retry passes; automatic retry policy, whole-cohort atomicity and asyncdevice-loss remain open. New instrumented2048page32MiB burst retirement passes2175writes withmax17writes/262080bytes perturn, but overflow of64MiB native staging invokes a synchronous flush/fence path. Duplicate fixture setup removed; overflow moves toturn126 rather than disappearing. Final Vulkan burst p951.843ms/max41.398ms; final8-pageGLp952.849ms/max16.534ms is not an APIcomparison. Need distinct rendered-frame scheduling and matchedtotalframe/memory, actualadmission/evictionchurn andlongstream/ocean tests beforepromotion. PriortruncatedJARcause remainsunproven.",
     "R38 optional extraction-budget restart defect is fixed in staging and9controlled nativecases pass, but mandatory retirement outliers remain11.126ms development/3.763ms packaged Vulkan. Distinct-frame scheduling has no predicted overflow in private2048page32MiB fixture; this does not replace actual cap admission/eviction/churn, boundaryscatter, matchedscene/frame/resident-memory or ownerGPU/FPS acceptance. Scene keysets differ andLODtiles0; distant cutoff remains. Initial generatedNeoFormJARcorruption reproduced andretained; retry/final25taskbuildspass, rootcauseunproven. Mesaunchanged; Xvfb1.9repinexplicitlydifferentfromprior1.6.",
-    "R39 boundary-range batching is staged and passes132expanded candidate cases/264CPU-GPU reads, with unchanged payloads and queued deadlines under synchronous rejected-range retry. It reduces contiguous256/2048quad writes to1/2 and caps each range262080bytes; transient native scratch grows144\u2192262080bytes plus144heapbytes. Whole-cohort scanning still exceeds2ms in larger private fixtures; development scattered2048quad calls6.04\u201310.43ms and packaged retirement max15.202327ms. No workload-matched actual discovery/admission/eviction capchurn, full-scene/resident-memory/stream/ocean/LOD/ownerGPU/FPS acceptance. Source/geography/quantity preserved; no public-source promotion or installer release.",
+    "R39 boundary-range batching is staged and passes132expanded candidate cases/264CPU-GPU reads, with unchanged payloads and queued deadlines under synchronous rejected-range retry. It reduces contiguous256/2048quad writes to1/2 and caps each range262080bytes; transient native scratch grows144→262080bytes plus144heapbytes. Whole-cohort scanning still exceeds2ms in larger private fixtures; development scattered2048quad calls6.04–10.43ms and packaged retirement max15.202327ms. No workload-matched actual discovery/admission/eviction capchurn, full-scene/resident-memory/stream/ocean/LOD/ownerGPU/FPS acceptance. Source/geography/quantity preserved; no public-source promotion or installer release.",
     "R40 fixes nominal budget-denied coverage destruction in controlled production upload, with actual32MiB allocations and real mesher neighbors, but private nondrawn pages bypass discovery/visible scene churn and near ballast/deferred frees do not establish process/GPU peak memory acceptance. A sufficient plan followed by allocation/device failure can still lose selected victims. Four stale fixture attempts and one zero-byte built graphics descriptor startup are retained/excluded; guarded compile/runtime identity checks and a byte-identical full-build package retry pass, underlying artifact causes remain unproven. Full-scene/latency/streams/oceans/LOD/ownerGPU/FPS and broader engine acceptance remain unfinished.",
     "R41 reduces repeated per-corner packet decoding/encoding with exact scalar/native byte equivalence, but whole-neighbor scanning/publication is still synchronous and unbounded against the 2 ms elapsed target. Candidate Vulkan boundary maxima are 5.591 ms development/5.722 ms packaged; private retirement maxima are 6.711/10.144 ms. Primary counter-free packet arithmetic medians are lower after benchmark self-audit, not full-scene/GPU/FPS or market acceptance. Actual visible cap churn, sufficient-plan allocation/device-failure atomicity, streams/oceans, complete enabled-view/LOD and owner-GPU evidence remain open; original R40 artifact causes remain unproven.",
     "R42 indexed boundary traversal passes all8directions, unrelated-quad preservation and exact packet/range/retry controls, but publication is still synchronous. Full-suite Vulkan control maximum2.538ms versus candidate3.108ms development/2.439ms packaged is mixed, not robust latency improvement; retirement maxima5.896/17.417ms remain over budget. Index construction CPU and full-scene total memory are unaccepted; raw index payload bound2,878,112bytes excludes object/transient/peak memory. Visible cap churn, cross-frame cohort visibility, automatic retry/allocation/device-loss behavior, streams/oceans/LOD and ownerGPU/FPS remain open. No public production-source promotion or installer release.",
@@ -274,7 +274,7 @@
     "docs/validation/engine-continuation/lod-future-cancellation-2026-10-24/evidence/jdk25-repeats.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "foreground-density-stage2",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -480,7 +480,7 @@
     "evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
     "evidence_library_file_id": "libfile_c7c0c6a815508191b26f1f91dcb05bc0"
   },
-  "previous_feature_gate": "R51 staged lazy deposit arrays pass final31task build,4.19millionR50 comparisons,90960oracle cases and independently compiled44sources/71classes per variant. Four guarded native V5 reopens retain edits and all120prior+128expanded digests; all8implemented ores/16seeds and14of21host pairs pass. Native allocation lower13320\u201380280B/tested chunk; latency remains mixed (one final p95 worse7.23%). Two builds rejected including stale class despite Gradle0. Public production/defaults/installers unchanged. Missing host pairs, Vulkan visuals, density/overlap and broader performance acceptance remain open.",
+  "previous_feature_gate": "R51 staged lazy deposit arrays pass final31task build,4.19millionR50 comparisons,90960oracle cases and independently compiled44sources/71classes per variant. Four guarded native V5 reopens retain edits and all120prior+128expanded digests; all8implemented ores/16seeds and14of21host pairs pass. Native allocation lower13320–80280B/tested chunk; latency remains mixed (one final p95 worse7.23%). Two builds rejected including stale class despite Gradle0. Public production/defaults/installers unchanged. Missing host pairs, Vulkan visuals, density/overlap and broader performance acceptance remain open.",
   "previous_continuation_evidence": "docs/validation/engine-continuation/lod-renderer-adapter-2026-10-24/README.md",
   "latest_staged_hydrology_source": "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
   "latest_hydrology_native_evidence": "docs/validation/engine-continuation/regional-budget-physical-2026-10-24/summary.json",
@@ -573,7 +573,7 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 7,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.28.md",
-  "foreground_task": null,
+  "foreground_task": "Continue engine toward verified 8/10: bounded density graph and V8 shape stage",
   "latest_isolated_validation": "/workspace/scratch/a22609fabda0/lod-future-r57",
   "latest_verification_summary": "Final build32tasks; independent51core sources/89class matches;504packaged project classes;7archive CRCs;158private class exclusions;7137identical common Linux/Windows entries after archive-path normalization. Water6144stair cases/24576supported vertices/512page seam vertices. V7 eight seeds/2312columns/127840reaches/29biomeIDs. Legacy5202core points identical;20native V6 chunk digests identical. Standard3062331 and Deep5945915 native block comparisons per candidate run, saved profiles/edits. UI seed20261020 joins V7; Vulkan candidate/reopen and explicit OpenGL smooth fallback save normally. No FPS/Windows execution claim.",
   "latest_core_runtime_fix": {
@@ -652,5 +652,16 @@
       "bytes": 1034653,
       "sha256": "457f83bd97941c57432e7387702dd5e7af98adf2ca3166c0a76e26c0d3471487"
     }
+  },
+  "owner_acceptance_target": {
+    "average_score_minimum": 8,
+    "maximum_score": 10,
+    "categories": 10,
+    "equal_weights": true,
+    "last_verified_average": 5,
+    "last_verified_total": 50,
+    "evidence": "docs/engine-review-2026-10-24/REVIEW.md",
+    "hourly_updates": true,
+    "automation_id": "6ad974bdc204819195e5465aeea9dca2"
   }
 }
