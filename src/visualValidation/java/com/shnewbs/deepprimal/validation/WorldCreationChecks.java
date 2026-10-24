@@ -202,9 +202,9 @@ public final class WorldCreationChecks {
         var generator =
             (EngineChunkGenerator)
                 mc.getSingleplayerServer().overworld().getChunkSource().getGenerator();
-        require(generator.geography().revision == 3, "Fresh creation selects V3 geography");
+        require(generator.geography().revision == 6, "Fresh creation selects V6 geography");
         report(
-            "WORLD_CREATION_JOIN_PASS revision=3 backend="
+            "WORLD_CREATION_JOIN_PASS revision=6 backend="
                 + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName());
         StartupLifecycleChecks.observe("creation-joined", output());
         mc.disconnectWithSavingScreen();

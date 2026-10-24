@@ -26,7 +26,7 @@ public final class WorldgenConfig {
     var b = new ModConfigSpec.Builder();
     OWN_ENGINE =
         b.comment(
-                "Use Deep Primal continental_v3 for new worlds. Saved worlds retain their"
+                "Use Deep Primal continental_v6 for new worlds. Saved worlds retain their"
                     + " generator.")
             .define("builtInTerrainEngine", true);
     EXTRA_DEPTH =

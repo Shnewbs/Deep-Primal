@@ -251,6 +251,7 @@ public final class ClientCapture {
         WaterFadeContinuityChecks.run(mc, dir);
         return;
       }
+      if (TerrainV6Scenes.handle(mc,action,dir))return;
       if (EnabledWaterViewChecks.handle(mc, action, dir)) return;
       if (action.equals("stop")) {
         StartupLifecycleChecks.observe("before-disconnect", dir);

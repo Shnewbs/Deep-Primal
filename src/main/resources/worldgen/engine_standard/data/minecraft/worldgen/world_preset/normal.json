@@ -3,7 +3,7 @@
     "minecraft:overworld": {
       "type": "deepprimal:prototype",
       "generator": {
-        "type": "deepprimal:continental_v4",
+        "type": "deepprimal:continental_v6",
         "min_y": -128,
         "height": 768,
         "biome_source": {
@@ -16,7 +16,39 @@
             "minecraft:taiga",
             "minecraft:snowy_plains",
             "minecraft:swamp",
-            "minecraft:stony_peaks"
+            "minecraft:stony_peaks",
+            "minecraft:savanna",
+            "minecraft:badlands",
+            "minecraft:jungle",
+            "minecraft:bamboo_jungle",
+            "minecraft:sparse_jungle",
+            "minecraft:dark_forest",
+            "minecraft:birch_forest",
+            "minecraft:old_growth_pine_taiga",
+            "minecraft:snowy_taiga",
+            "minecraft:grove",
+            "minecraft:snowy_slopes",
+            "minecraft:frozen_peaks",
+            "minecraft:jagged_peaks",
+            "minecraft:meadow",
+            "minecraft:cherry_grove",
+            "minecraft:windswept_hills",
+            "minecraft:windswept_forest",
+            "minecraft:beach",
+            "minecraft:snowy_beach",
+            "minecraft:stony_shore",
+            "minecraft:mangrove_swamp",
+            "minecraft:warm_ocean",
+            "minecraft:lukewarm_ocean",
+            "minecraft:cold_ocean",
+            "minecraft:frozen_ocean",
+            "minecraft:deep_ocean",
+            "minecraft:deep_cold_ocean",
+            "minecraft:deep_frozen_ocean",
+            "minecraft:river",
+            "minecraft:frozen_river",
+            "minecraft:lush_caves",
+            "minecraft:dripstone_caves"
           ]
         }
       }

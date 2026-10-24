@@ -36,6 +36,8 @@ public final class EngineRegistry {
     GENERATORS.register("continental_v2", () -> EngineChunkGenerator.CODEC_V2);
     GENERATORS.register("continental_v3", () -> EngineChunkGenerator.CODEC_V3);
     GENERATORS.register("continental_v4", () -> EngineChunkGenerator.CODEC_V4);
+    GENERATORS.register("continental_v5", () -> EngineChunkGenerator.CODEC_V5);
+    GENERATORS.register("continental_v6", () -> EngineChunkGenerator.CODEC_V6);
     BIOMES.register("regional_v1", () -> RegionBiomeSource.CODEC);
     GENERATORS.register(bus);
     BIOMES.register(bus);

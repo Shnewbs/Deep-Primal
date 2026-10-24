@@ -55,6 +55,10 @@ public final class DeepPrimal {
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.WaterEnvironment());
     container.registerConfig(ModConfig.Type.SERVER,
         com.shnewbs.deepprimal.engine.HydrologyConfig.SPEC, "deepprimal-hydrology.toml");
+    container.registerConfig(ModConfig.Type.STARTUP,
+        com.shnewbs.deepprimal.engine.TerrainConfig.SPEC, "deepprimal/worldgen/terrain.toml");
+    container.registerConfig(ModConfig.Type.SERVER, com.shnewbs.deepprimal.engine.StabilityRuntime.SPEC, "deepprimal/hazards/stability.toml");
+    NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.StabilityRuntime());
     com.shnewbs.deepprimal.engine.EngineRegistry.register(modBus);
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.HydrologyRuntime());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.WaterBorderWake());

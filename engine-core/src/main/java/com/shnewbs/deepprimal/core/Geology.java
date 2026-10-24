@@ -19,12 +19,17 @@ public final class Geology {
       };
     }
     public Ore ore(int y, int bed) {
+      return oreFrom(veinX, veinZ, veinY, veinType, veinRadius, y, bed);
+    }
+    // Shared exact predicate for a separately versioned bounded deposit field.
+    Ore oreFrom(double offsetX, double offsetZ, double centerY, int type, double radius,
+        int y, int bed) {
       if (y >= bed - 5) return Ore.NONE;
-      double dx = veinX / (veinRadius * 1.7), dz = veinZ / veinRadius,
-          dy = (y - veinY) / (veinRadius * .45);
+      double dx = offsetX / (radius * 1.7), dz = offsetZ / radius,
+          dy = (y - centerY) / (radius * .45);
       if (dx * dx + dy * dy + dz * dz > 1) return Ore.NONE;
       Rock host = rock(y);
-      return switch (veinType) {
+      return switch (type) {
         case 0 -> host == Rock.SANDSTONE || host == Rock.TUFF ? Ore.COAL : Ore.NONE;
         case 1 -> host == Rock.ANDESITE || host == Rock.CALCITE ? Ore.COPPER : Ore.NONE;
         case 2 -> Ore.IRON;

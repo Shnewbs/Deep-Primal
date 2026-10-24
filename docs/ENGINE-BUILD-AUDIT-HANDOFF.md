@@ -1,5 +1,8 @@
 # Deep Primal build/audit continuation
 
+Current foreground release (2026-10-24): **alpha.27 / V6 terrain is delivered on main**. Read [the V6 scope](TERRAIN-V6.md), [accepted evidence](VALIDATION-0.0.1-alpha.27.md) and ENGINE-WORK-STATE.json before continuing. Freeze delivered V1–V6 geography. The older R51 staged snapshot below is historical and must not overwrite V6 production. Standard/Deep creation and reopen, environmental accounting, authored ores, supported river tunnels, finite melt, local cave-ins and software Vulkan captures pass; broader engine/owner-GPU and deferred mechanics remain open.
+
+
 Current continuation (2026-10-24): use **main**. R51's lazy V5 deposit metadata remains staged. Final build, independently compiled core bytes and guarded all-ore/native/save checks pass; allocation is lower but latency is mixed. Read ENGINE-WORK-STATE.json and the R51 entry below. Missing host pairs, Vulkan client visuals and broader balance/performance gate promotion. Default/saved V1–V4, public production and installers remain unchanged; full engine acceptance is incomplete.
 
 The owner requested repeated implementation, audit and rebuild work on the independent terrain, water, graphics and LOD engine, with hourly evidence-based updates. This is a long-running engineering task; an arbitrary claim of perfection is not its completion criterion.

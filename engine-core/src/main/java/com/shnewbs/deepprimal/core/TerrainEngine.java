@@ -36,6 +36,11 @@ public final class TerrainEngine {
 
   public final TerrainNoise noise;
   public final int revision;
+  public final TerrainOptions options;
+  public final Landscape landscape;
+  private final LinkedHashMap<Long, Sample> foundations = new LinkedHashMap<>();
+  private record BiomeColumn(Sample sample,Geology.Column geology,int surface) {}
+  private final LinkedHashMap<Long,BiomeColumn> biomeColumns=new LinkedHashMap<>();
   private final java.util.concurrent.ConcurrentHashMap<Long, Land> shapes =
       new java.util.concurrent.ConcurrentHashMap<>();
   private final LinkedHashMap<Long, Drainage> cache = new LinkedHashMap<>(16, .75f, true);
@@ -50,10 +55,14 @@ public final class TerrainEngine {
     this(seed, 1);
   }
 
-  public TerrainEngine(long seed, int revision) {
-    if (revision < 1 || revision > 4) throw new IllegalArgumentException("Terrain revision");
+  public TerrainEngine(long seed, int revision) { this(seed, revision, TerrainOptions.DEFAULT); }
+
+  public TerrainEngine(long seed, int revision, TerrainOptions options) {
+    if (revision < 1 || revision > 6) throw new IllegalArgumentException("Terrain revision");
     this.revision = revision;
     noise = new TerrainNoise(seed);
+    this.options = java.util.Objects.requireNonNull(options);
+    landscape = new Landscape(noise, options);
   }
 
   private Land land(int x, int z) {
@@ -119,6 +128,7 @@ public final class TerrainEngine {
   }
 
   public double rainfall(double x, double z) {
+    if (revision >= 6) return landscape.rain(x, z);
     return Math.clamp(.57 + noise.field(x, z, 3100, 81) * .55, .08, 1);
   }
 
@@ -162,11 +172,16 @@ public final class TerrainEngine {
         warpZ = z + noise.field(x, z, 430, 48) * 130;
     double ridge = 1 - Math.abs(noise.field(warpX, warpZ, 780, 51));
     double peaks = Math.pow(ridge, 3) * province * (110 + noise.field(x, z, 1800, 57) * 80);
+    if (revision >= 6) {
+      double resistance = .75 + .25 * noise.field(x, z, 2300, 1803);
+      peaks *= options.mountainScale() * resistance;
+    }
     double hills =
         noise.field(x, z, 240, 61) * 24
             + noise.field(x, z, 65, 65) * 6
             + noise.noise(x, z, 19, 70) * 1.3;
     double ground = SEA - 3 + inland * (plateau + peaks + hills) + Math.min(m, .15) * 30;
+    if (revision >= 6) return landscape.relief(x, z, ground + coastalDetail, inland);
     return revision >= 3 ? ground + coastalDetail : ground;
   }
 
@@ -210,6 +225,7 @@ public final class TerrainEngine {
   }
 
   public int biome(double x, double z) {
+    if (revision >= 6) return biomeColumn(x,z).surface;
     double h = raw(x, z),
         r = rainfall(x, z),
         t = revision >= 4 ? temperature(x, z, h) : .62 + noise.field(x, z, 6500, 85) * .40 - Math.max(0, h - 160) / 420;
@@ -222,23 +238,77 @@ public final class TerrainEngine {
     return forest(x, z) > .45 && r > .5 ? 1 : 0;
   }
 
+  public int biome(double x, double y, double z) {
+    if (revision < 6) return biome(x,z);
+    var column=biomeColumn(x,z);var s=column.sample;
+    if (options.caves() && y < s.ground()-CaveNetwork.ROOF) {
+      var rock = column.geology.rock((int)y);
+      if (rock == Geology.Rock.CALCITE) return 39;
+      if (s.rain()>.70 && s.temperature()>.4) return 38;
+    }
+    return column.surface;
+  }
+  private BiomeColumn biomeColumn(double x,double z) {
+    boolean cacheable=x==(int)x&&z==(int)z;
+    long key=((long)(int)x<<32)|((int)z&0xffffffffL);
+    if(cacheable)synchronized(biomeColumns){var cached=biomeColumns.get(key);if(cached!=null)return cached;}
+    var s=sample(x,z);var created=new BiomeColumn(s,new Geology(noise).column((int)x,(int)z,s),landscape.biome(x,z,s,ocean(x,z)));
+    if(cacheable)synchronized(biomeColumns){if(biomeColumns.size()>=4096)biomeColumns.remove(biomeColumns.keySet().iterator().next());biomeColumns.put(key,created);}
+    return created;
+  }
+
   public Sample sample(double x, double z) {
+    if (revision >= 6) {
+      var s=column(x,z);
+      return s.withSlope(Math.hypot(column(x+1,z).ground()-column(x-1,z).ground(),column(x,z+1).ground()-column(x,z-1).ground())*.5);
+    }
     return revision >= 4 ? contained(x, z, true) : sample(x, z, true);
   }
 
   /** Bulk V3 callers derive shaped slope from a shared halo; legacy metadata remains exact. */
   public Sample column(double x, double z) {
+    if (revision >= 6) {
+      var s=hydraulicColumn(x,z);
+      double uncut=raw(x,z);
+      return landscape.surface(x,z,s,uncut,tunnelSupport(x,z,uncut));
+    }
     return revision >= 4 ? contained(x, z, false) : sample(x, z, revision < 3);
+  }
+
+  private boolean tunnelSupport(double x,double z,double uncut) {
+    return revision>=6&&options.riverTunnels()&&waterways(x,z).tunnelSupport(x,z,uncut,this::raw);
+  }
+  public boolean tunnel(double x,double z) {
+    var h=hydraulicColumn(x,z);double uncut=raw(x,z);
+    return landscape.tunnel(x,z,h,uncut)&&tunnelSupport(x,z,uncut);
+  }
+  public double surfaceWithoutIce(double x,double z) {
+    var h=hydraulicColumn(x,z);double uncut=raw(x,z);
+    return tunnelSupport(x,z,uncut)&&(!h.wet()||landscape.tunnel(x,z,h,uncut))?Math.max(uncut,h.ground()):h.ground();
+  }
+  public Sample hydraulicColumn(double x,double z) { return contained(x,z,false); }
+  private Sample foundation(double x,double z) {
+    if (revision < 6 || x!=Math.rint(x) || z!=Math.rint(z) || x<Integer.MIN_VALUE || x>Integer.MAX_VALUE || z<Integer.MIN_VALUE || z>Integer.MAX_VALUE)
+      return sample(x,z,false);
+    long key=((long)(int)x<<32)|((int)z&0xffffffffL);
+    synchronized(foundations) { var old=foundations.get(key);if(old!=null)return old; }
+    var result=sample(x,z,false);
+    synchronized(foundations) {
+      var old=foundations.get(key);if(old!=null)return old;
+      if(foundations.size()>=8192)foundations.pollFirstEntry();
+      foundations.put(key,result);
+    }
+    return result;
   }
 
   /** Bank tops must contain the actual discretized fluid, including diagonal bends. */
   private Sample contained(double x, double z, boolean gradient) {
-    Sample s = sample(x, z, gradient);
+    Sample s = revision >= 6 ? foundation(x,z) : sample(x, z, gradient);
     if (s.wet()) return s;
     double bank = s.ground();
     for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
       if (dx == 0 && dz == 0) continue;
-      Sample n = sample(x + dx, z + dz, false);
+      Sample n = revision >= 6 ? foundation(x+dx,z+dz) : sample(x + dx, z + dz, false);
       if (n.wet()) bank = Math.max(bank, Math.ceil(n.water()) - .001);
     }
     return bank == s.ground() ? s : new Sample(bank, s.water(), s.rain(), s.temperature(),
@@ -249,6 +319,7 @@ public final class TerrainEngine {
   public boolean ocean(double x, double z) { return locate(x, z).mask < 0 && raw(x, z) < SEA; }
 
   public double temperature(double x, double z, double height) {
+    if (revision >= 6) return landscape.temperature(x,z,height);
     double latitude = revision >= 4 ? .18 * Math.cos(z / 12000.) : 0;
     return Math.clamp(.62 + latitude + noise.field(x, z, 6500, 85) * .4
         - Math.max(0, height - 160) / 420, 0, 1);

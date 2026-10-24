@@ -112,3 +112,7 @@ Existing speculative items not explicitly approved in this discussion retain the
 
 New worlds now use saved `continental_v4`: bank containment, folded/faulted rock provinces, intrusions, finite host-dependent deposits, variable soil cover and latitude-adjusted temperature extend the existing independent continent/watershed/cave/vegetation pipeline. V1–V3 remain frozen. This is partial progress on the larger mechanics inventory, not acceptance of every checkbox above. Cave networks through mountains, deposit authoring, expanded catalogs, dunes, instability and natural-obstruction generation remain open. See [implementation scope](ENVIRONMENTAL-WATER-AND-TERRAIN-V4.md) and [validation](VALIDATION-0.0.1-alpha.26.md).
 
+
+## Alpha.27 implementation update
+
+V6 now implements the generation and bounded runtime mechanics described in [Terrain V6](TERRAIN-V6.md). Existing V1–V5 generators remain unchanged. The release adds geological cave routes and supported river tunnels, soil horizons, dunes, glacial relief and finite seasonal melt, authored deposit profiles, climate palettes, debris and local underground failures. Surface landslide dynamics, a moving ice-sheet solver, optional KubeJS authoring, external editor and the deferred natural-content catalogs remain outside this release. The validation record distinguishes native acceptance from broader engine/GPU work.

@@ -158,6 +158,15 @@ public final class HydrologyRuntime {
     HydrologyData.get(l).setDirty();
     store(l, p, water.snapshot()); WaterRuntime.activate(l, p); return true;
   }
+  /** One actual solid block becomes one finite water block; no source or reservoir is copied. */
+  public static boolean meltIce(ServerLevel l,BlockPos p,double temperature) {
+    if(temperature<=.25||l.getChunkSource().getChunkNow(Math.floorDiv(p.getX(),16),Math.floorDiv(p.getZ(),16))==null)return false;
+    var state=l.getBlockState(p);
+    if(!(state.is(Blocks.ICE)||state.is(Blocks.PACKED_ICE)||state.is(Blocks.BLUE_ICE)||state.is(Blocks.SNOW_BLOCK)))return false;
+    if(l.getHeight(Heightmap.Types.WORLD_SURFACE,p.getX(),p.getZ())>p.getY()+1)return false;
+    if(!write(l,p,EngineRegistry.WATER_BLOCK.get().defaultBlockState()))return false;
+    store(l,p,new WaterAccount.Parcel(4096,0,0));WaterRuntime.activate(l,p);return true;
+  }
   private static double permeability(BlockState bed, Geology.Column g) {
     if (bed.is(Blocks.CLAY) || bed.is(Blocks.BEDROCK)) return 0;
     if (bed.is(Blocks.SAND) || bed.is(Blocks.GRAVEL)) return .9;
@@ -202,7 +211,8 @@ public final class HydrologyRuntime {
     BlockPos bed = state.is(EngineRegistry.WATER_BLOCK.get()) ? p.below() : p;
     // Deep lakes infiltrate at their floor; finding it is strictly capped.
     for (int i = 0; i < 16 && l.getBlockState(bed).is(EngineRegistry.WATER_BLOCK.get()); i++) bed = bed.below();
-    double permeable = permeability(l.getBlockState(bed), geology);
+    boolean ice=t.revision>=6 && (state.is(Blocks.ICE)||state.is(Blocks.PACKED_ICE)||state.is(Blocks.BLUE_ICE)||state.is(Blocks.SNOW_BLOCK));
+    double permeable = ice ? geology.permeability() : permeability(l.getBlockState(bed), geology);
     if (permeable == 0) return;
     var d = HydrologyData.get(l);
     var aquifer = d.aquifer(x, z, sample.rain(), l.getGameTime());
@@ -210,7 +220,9 @@ public final class HydrologyRuntime {
     boolean environmentalStep = aquifer.step(l.getGameTime());
     if (environmentalStep) {
       regional.tick = l.getGameTime(); regional.discharged = 0;
-      if (sample.temperature() > .25) WaterAccount.move(aquifer.snow, aquifer.ground, 4096);
+      double seasonal=sample.temperature()+(t.revision>=6?.18*Math.sin(2*Math.PI*Math.floorMod(l.getGameTime(),24000L*96)/(24000.*96)):0);
+      if (seasonal > .25) WaterAccount.move(aquifer.snow, aquifer.ground, 4096);
+      if(ice)meltIce(l,p,seasonal);
       // Coarse ocean evaporation closes the circulation account; salt stays in the ocean.
       d.ocean.evaporateInto(d.atmosphere, Math.min(4096,
           Math.max(0, WaterAccount.MAX / 4 - d.atmosphere.water())));
@@ -231,6 +243,7 @@ public final class HydrologyRuntime {
         WaterAccount.move(d.atmosphere, target, (long) (HydrologyConfig.RAIN_QUANTA.get() * permeable * loadedColumns));
       d.setDirty();
     }
+    if(ice)return; // Solid ice is never treated as an outlet/recharge block after the one-time melt.
     // A higher surface recharges; a lower exposed outlet can discharge. Never both on one visit.
     double head = aquifer.head(regional.datum);
     if (state.is(EngineRegistry.WATER_BLOCK.get()) && p.getY() + state.getValue(EngineFluid.UNITS) / 16. > head + .5) {

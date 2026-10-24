@@ -31,20 +31,21 @@ public final class EnvironmentalWaterChecks {
       Files.writeString(Path.of(destination), "ENVIRONMENT_V3_COMPATIBILITY_PASS savedGenerator=continental_v3 noMigration=true savedEdit=true\n");
       server.halt(false); return;
     }
+    int expectedRevision=Integer.parseInt(System.getenv().getOrDefault("DEEPPRIMAL_ENVIRONMENT_REVISION","4"));
     var persisted = new BlockPos(20, 500, 20);
     boolean reopen = "reopen".equals(System.getenv("DEEPPRIMAL_ENVIRONMENT_MODE"));
     if (reopen) {
-      check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == 4, "Saved V4 codec");
+      check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == expectedRevision, "Saved terrain codec");
       var loaded = d.aquifers.get(HydrologyData.key(1000000, -1000000));
       check(loaded != null && loaded.ground.water() == 123456 && loaded.ground.snapshot().salt() == 789 && loaded.dynamicWetSteps() == 7,
           "Actual saved dimension groundwater survives restart");
       check(HydrologyRuntime.contents(level, persisted, level.getBlockState(persisted)).salt() == 12345,
           "Actual saved surface chemistry survives restart");
       check(level.getBlockState(persisted.west()).is(Blocks.GOLD_BLOCK), "Player edit survives restart");
-      Files.writeString(Path.of(destination), "ENVIRONMENT_REOPEN_PASS aquifer=true chemistry=true savedV4=true edits=true\n");
+      Files.writeString(Path.of(destination), "ENVIRONMENT_REOPEN_PASS aquifer=true chemistry=true savedRevision=true edits=true\n");
       return;
     }
-    check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == 4, "Default uses V4");
+    check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == expectedRevision, "Default terrain revision");
     level.getChunk(1,1);
     for (int z=16;z<32;z++) for(int x=16;x<32;x++) for(int y=498;y<504;y++)
       level.setBlock(new BlockPos(x,y,z), Blocks.BEDROCK.defaultBlockState(), 2);

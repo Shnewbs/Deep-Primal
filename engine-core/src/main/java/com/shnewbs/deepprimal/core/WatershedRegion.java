@@ -22,6 +22,7 @@ public final class WatershedRegion {
   private final Segment[] segments;
   private final int[][] index;
   private final int streams;
+  private volatile boolean[] supportedTunnels;
 
   public record Surface(
       double ground, double water, double sediment, double flowX, double flowZ, double speed) {}
@@ -321,6 +322,36 @@ public final class WatershedRegion {
     if (!Double.isFinite(level)) return Double.NaN;
     double coarse = lerp(lerp(raw[a], raw[a + 1], u), lerp(raw[a + SIDE], raw[a + SIDE + 1], u), v);
     return coarse < level ? level : Double.NaN;
+  }
+
+  /** V6-only roof footprint. A whole cross-section must have rock cover before its valley cut is suppressed. */
+  public boolean tunnelSupport(double x,double z,double uncut,DoubleBinaryOperator height) {
+    boolean[] eligible=supportedTunnels;
+    if(eligible==null)synchronized(this){
+      eligible=supportedTunnels;
+      if(eligible==null){
+        eligible=new boolean[segments.length];
+        for(int id=0;id<segments.length;id++) {
+          var s=segments[id];double vx=s.bx-s.ax,vz=s.bz-s.az,len=Math.hypot(vx,vz);
+          if(Math.min(s.sa,s.sb)<=TerrainEngine.SEA+8||height.applyAsDouble((s.ax+s.bx)*.5,(s.az+s.bz)*.5)-(s.sa+s.sb)*.5<9)continue;
+          boolean covered=true;
+          for(int n=0;n<3&&covered;n++) {
+            double t=n*.5,cx=lerp(s.ax,s.bx,t),cz=lerp(s.az,s.bz,t),r=lerp(s.ra,s.rb,t)+2,stage=lerp(s.sa,s.sb,t);
+            for(int side=-1;side<=1;side++)if(height.applyAsDouble(cx-vz/len*r*side,cz+vx/len*r*side)<stage+7){covered=false;break;}
+          }
+          eligible[id]=covered;
+        }
+        supportedTunnels=eligible;
+      }
+    }
+    var candidates=index[tile(z,oz)*TILES+tile(x,ox)];if(candidates==null)return false;
+    for(int id:candidates)if(eligible[id]) {
+      var s=segments[id];double vx=s.bx-s.ax,vz=s.bz-s.az,len=vx*vx+vz*vz;
+      double t=Math.clamp(((x-s.ax)*vx+(z-s.az)*vz)/len,0,1),r=lerp(s.ra,s.rb,t),stage=lerp(s.sa,s.sb,t);
+      double bank=Math.clamp(5+r*.4+Math.sqrt(Math.max(0,uncut-stage))*2,5,24);
+      if(Math.hypot(x-s.ax-vx*t,z-s.az-vz*t)<r+bank+1.5)return true;
+    }
+    return false;
   }
 
   public Surface sample(double x, double z, double uncut) {

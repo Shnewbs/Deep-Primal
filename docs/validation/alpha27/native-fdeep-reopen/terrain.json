@@ -1,0 +1,405 @@
+{
+  "generator": {
+    "biome_source": {
+      "palette": [
+        "minecraft:plains",
+        "minecraft:forest",
+        "minecraft:desert",
+        "minecraft:ocean",
+        "minecraft:taiga",
+        "minecraft:snowy_plains",
+        "minecraft:swamp",
+        "minecraft:stony_peaks",
+        "minecraft:savanna",
+        "minecraft:badlands",
+        "minecraft:jungle",
+        "minecraft:bamboo_jungle",
+        "minecraft:sparse_jungle",
+        "minecraft:dark_forest",
+        "minecraft:birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:grove",
+        "minecraft:snowy_slopes",
+        "minecraft:frozen_peaks",
+        "minecraft:jagged_peaks",
+        "minecraft:meadow",
+        "minecraft:cherry_grove",
+        "minecraft:windswept_hills",
+        "minecraft:windswept_forest",
+        "minecraft:beach",
+        "minecraft:snowy_beach",
+        "minecraft:stony_shore",
+        "minecraft:mangrove_swamp",
+        "minecraft:warm_ocean",
+        "minecraft:lukewarm_ocean",
+        "minecraft:cold_ocean",
+        "minecraft:frozen_ocean",
+        "minecraft:deep_ocean",
+        "minecraft:deep_cold_ocean",
+        "minecraft:deep_frozen_ocean",
+        "minecraft:river",
+        "minecraft:frozen_river",
+        "minecraft:lush_caves",
+        "minecraft:dripstone_caves"
+      ],
+      "type": "deepprimal:regional_v1"
+    },
+    "min_y": -384,
+    "height": 1024,
+    "terrain": {
+      "deposits": [
+        {
+          "id": "deepprimal:coal",
+          "spacing": 64,
+          "occurrence": 0.4,
+          "density": 0.43,
+          "geometry": {
+            "shape": "lens",
+            "radius_x": 14.0,
+            "radius_y": 5.0,
+            "radius_z": 9.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 12,
+            "max": 100
+          },
+          "hosts": [
+            "sandstone",
+            "tuff"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:coal_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:copper",
+          "spacing": 64,
+          "occurrence": 0.4,
+          "density": 0.43,
+          "geometry": {
+            "shape": "lens",
+            "radius_x": 14.0,
+            "radius_y": 5.0,
+            "radius_z": 9.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 12,
+            "max": 100
+          },
+          "hosts": [
+            "andesite",
+            "calcite"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:copper_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:iron",
+          "spacing": 64,
+          "occurrence": 0.4,
+          "density": 0.43,
+          "geometry": {
+            "shape": "lens",
+            "radius_x": 14.0,
+            "radius_y": 5.0,
+            "radius_z": 9.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 12,
+            "max": 100
+          },
+          "hosts": [
+            "granite",
+            "andesite",
+            "diorite",
+            "basalt",
+            "tuff",
+            "sandstone",
+            "calcite",
+            "deepslate"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:iron_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:gold",
+          "spacing": 96,
+          "occurrence": 0.22,
+          "density": 0.25,
+          "geometry": {
+            "shape": "vein",
+            "radius_x": 8.0,
+            "radius_y": 3.0,
+            "radius_z": 5.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 25,
+            "max": 180
+          },
+          "hosts": [
+            "granite",
+            "diorite"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:gold_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:redstone",
+          "spacing": 96,
+          "occurrence": 0.22,
+          "density": 0.25,
+          "geometry": {
+            "shape": "lens",
+            "radius_x": 8.0,
+            "radius_y": 3.0,
+            "radius_z": 5.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 25,
+            "max": 180
+          },
+          "hosts": [
+            "basalt",
+            "granite"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Properties": {
+                  "lit": "false"
+                },
+                "Name": "minecraft:redstone_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:lapis",
+          "spacing": 96,
+          "occurrence": 0.22,
+          "density": 0.25,
+          "geometry": {
+            "shape": "disc",
+            "radius_x": 8.0,
+            "radius_y": 3.0,
+            "radius_z": 5.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 25,
+            "max": 180
+          },
+          "hosts": [
+            "calcite"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:lapis_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:diamond",
+          "spacing": 96,
+          "occurrence": 0.22,
+          "density": 0.25,
+          "geometry": {
+            "shape": "pipe",
+            "radius_x": 8.0,
+            "radius_y": 3.0,
+            "radius_z": 5.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 25,
+            "max": 180
+          },
+          "hosts": [
+            "basalt",
+            "deepslate"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:diamond_ore"
+              }
+            }
+          ]
+        },
+        {
+          "id": "deepprimal:emerald",
+          "spacing": 96,
+          "occurrence": 0.22,
+          "density": 0.25,
+          "geometry": {
+            "shape": "lens",
+            "radius_x": 8.0,
+            "radius_y": 3.0,
+            "radius_z": 5.0
+          },
+          "vertical": {
+            "reference": "depth",
+            "min": 25,
+            "max": 180
+          },
+          "hosts": [
+            "calcite",
+            "granite"
+          ],
+          "contents": [
+            {
+              "block": {
+                "Name": "minecraft:emerald_ore"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "type": "deepprimal:continental_v6"
+  },
+  "loaded_classes": {
+    "com.shnewbs.deepprimal.core.TerrainEngine": "e3d4ac528c059c4be1523579fa04fc223552a690721911d14e7b0234e72e7cc0",
+    "com.shnewbs.deepprimal.core.Landscape": "07f8b8b6f8a8ce2d3febf118b1ad80496e7b8be3ce98ee38eae5efb42ce86177",
+    "com.shnewbs.deepprimal.core.DepositPlan": "d1d619711d01ac7276235a53177b9647ec67ae4048ce523dd845a792b39bf76d",
+    "com.shnewbs.deepprimal.core.CaveNetwork": "7ebcc8371f90c9304c28136b6cfadb626c8616c31b6bd8f45400dc80cdddf3d5",
+    "com.shnewbs.deepprimal.engine.EngineChunkGenerator": "f1c0a145b9771e0fe3b54d96fe38fd7b66b364acf4c70219c47be838abb6c4fb",
+    "com.shnewbs.deepprimal.engine.TerrainProfile": "97548c587bb97c9634dd1539b74271c6f8b9dd0a27ce6728300f63df7f726bee",
+    "com.shnewbs.deepprimal.engine.HydrologyRuntime": "0ea5ae9928211d2d74957053a7a80789a22b5825dff9cce2744e53bb7aaeea31",
+    "com.shnewbs.deepprimal.validation.TerrainV6NativeChecks": "75cc62efd18e997622765d7fdd4e18ff9911046f92135979185667895d19ff39"
+  },
+  "glacier": [
+    -1408,
+    14336
+  ],
+  "tunnel": [
+    -577,
+    -1368
+  ],
+  "lateral_roof_support_columns": 16,
+  "ore_sites": {
+    "0": [
+      22,
+      -128
+    ],
+    "1": [
+      91,
+      -128
+    ],
+    "2": [
+      -31,
+      -128
+    ],
+    "3": [
+      -99,
+      -125
+    ],
+    "4": [
+      118,
+      -81
+    ],
+    "5": [
+      20,
+      -100
+    ],
+    "6": [
+      -89,
+      -99
+    ],
+    "7": [
+      -87,
+      -113
+    ]
+  },
+  "stability": true,
+  "protochunk_hashes": {
+    "0,0": "df84446766026daa0c2df49d41e82769a9db5f2202c710557f84721be289e27a",
+    "-1,-1": "4a70e89ade0c9f918961a3baf347bfe17d6131b8e13847e9f4556987028401b6",
+    "-2,-1": "100bf714dbc274f04c60c3245db9c495573d534c2ece71fc8b31e2db6a6dff48",
+    "1,0": "2b37a941d536b3b1f77fb6bfbad8b92a2df4ca207014d7fd1e35997710b47c14",
+    "0,1": "7c14dcece156a158cd59aa6a4b2d900c29516a58b8ad603f52a877c5c64c1c59",
+    "0,512": "4bbcc82963576041f39df08df64e47170d81a866d4a98c2a3c8405ed48ba8d99",
+    "0,1024": "cab4429099720b74780e4394e0b1e70bd17e134bf61dc609632f585634d5ac8b",
+    "-88,896": "1c02292590bcad59b598fd98ce4cc3da354b51bc1318ff7e432887cf3d4c0417",
+    "-38,-87": "c652055c45054d20ac8853c5373d9a9c5626424fab1bf39591ae020b8d4dd599",
+    "-37,-87": "2beee8b45d7a95ad87a0ceededb8b15d6854ebb3bcf9e6cdba3b31e7474012cc",
+    "-36,-87": "9410b04f654f56aa8f63d9de90f0fee1632fa9c950c9518386502d257b2acf13",
+    "-38,-86": "32b9b8db9660c128bb6ee9f9cc5fcc548fd8c27469ed387d021d43fcabc10e82",
+    "-37,-86": "e579881a245c0124d07349513b610a7b69993af3dfd432367845d2f9f8dcb8a0",
+    "-36,-86": "5dc3502b7898371501cd385c50531f3f74ec54ecd57257b384e845a87150c017",
+    "-38,-85": "549b8d6b86a5fb77dd85a9605a697d0cff77a7f4976202e9ef19f015642f229e",
+    "-37,-85": "7f47792a7ebca1a6e95954af17510f94ae3dc33cc4129c9b3ecbce554cd9b6e6",
+    "-36,-85": "c7fed1a84ac53cea88d3a18d2cd2bd2f5176aee22704d3d52cdda9f34232d9dc",
+    "22,-128": "e4f012967f0b94f73a7ecfc2e5678b8eca163d47f80ec08e4f02ef6b863b963e",
+    "91,-128": "289ace4ff72100110ff82401bcb17a0c82f7fd18afb649c040976cd836031bc4",
+    "-31,-128": "71a93e0db343fe7e4e638feb928a93d77a6dbd6e1c0986b9f5a53b634ea69a97",
+    "-99,-125": "a97d6f9fd1e38fe5c36bdde11ac02c85c44c72ca5a57bc0ab8cce5d0067bf529",
+    "118,-81": "32bced85759bc25d0747f23ffdeb6e298200e739da7f9472569718069e1e44ba",
+    "20,-100": "8ea7d522880393678caaed51ee1dcb643f7b143b6755be77f6f4de07211dbfa9",
+    "-89,-99": "1bd31ec118bfb9f4b2321de650cd6b44b205a5f9635926e920db5db133493638",
+    "-87,-113": "2d56d153c6993ea9d8acac6804b2c00a07f1292c374a511a45be02a5d5dafafa"
+  },
+  "columns": 6400,
+  "block_comparisons": 3533277,
+  "cave_air": 84608,
+  "ice_blocks": 4598,
+  "water_blocks": 61954,
+  "ore_blocks": 1916,
+  "tunnel_columns": 63,
+  "generation_ms": [
+    72.308848,
+    25.931698,
+    36.227904,
+    21.694089,
+    31.642983,
+    154.644682,
+    24.78884,
+    19.552424,
+    21.956774,
+    21.219065,
+    28.617195,
+    31.788812,
+    19.856116,
+    49.39363,
+    20.238671,
+    19.635014,
+    20.599243,
+    20.433384,
+    16.968726,
+    16.695706,
+    15.172116,
+    18.357944,
+    17.215367,
+    15.378245,
+    15.813149
+  ],
+  "reopen": true,
+  "pass": true
+}
