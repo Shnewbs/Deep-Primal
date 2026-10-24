@@ -1,0 +1,12 @@
+{
+  "mode": "initial2",
+  "exit_code": 0,
+  "elapsed_seconds": 23.53,
+  "environment": "ENVIRONMENT_NATIVE_PASS sharedAquifer=true dynamicOutlets=true headBlocked=true infiltration=true bucketChemistry=true advection=true oceanStage=true inlandFinite=true weatherDebit=true codec=true onceOnlyInitialization=true noForcedChunks=true\n",
+  "regional": "REGIONAL_CACHE_NATIVE_PASS ordinary=32 afterInjectedUnload=32 volume=true aquiferIntervalUnchanged=true physicalEviction=false\n",
+  "raw_sha256": "accba5d4cb5f24e72fe7debfe2980e1641ed22a3102ba609e7bafdf379a2c707",
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "pass": true
+}
