@@ -1,0 +1,42 @@
+{
+  "pass": true,
+  "jar": "DeepPrimal-26.1.2-0.0.1-alpha.26-vulkan-linux.jar",
+  "bytes": 126102673,
+  "sha256": "7e32b1d42719cbd2dc8f9acdd065fb9609d1bce89b90252b37b97ba564f84a36",
+  "root_and_nested_crcs": 7,
+  "compiled_class_matches": 475,
+  "nested": [
+    {
+      "module": "engine-core",
+      "path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.26.jar",
+      "sha256": "7e0128ef93226206db3e147777077a4243ce76b501dd464f106ac9b84308d9a7"
+    },
+    {
+      "module": "graphics-settings",
+      "path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.26.jar",
+      "sha256": "b59b47876736e9e1bb03f4084eb6d595d9fe5fa518046d806cd03fd825683d7e"
+    },
+    {
+      "module": "lod-engine",
+      "path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.26.jar",
+      "sha256": "8e8b260b60d8833414208331abe44b3858fa53439eaf646b76566a0f436eb239"
+    },
+    {
+      "module": "performance-engine",
+      "path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.26.jar",
+      "sha256": "fe9359fe14528e9bff63a6ed6746df4d3589ba28517d88823421bdc06b3147d4"
+    },
+    {
+      "module": "gui-themes",
+      "path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+      "sha256": "36f80179b7d0900ab5964e16ac7e0137fc831d707eee445e9d11c7cc3f3276bf"
+    },
+    {
+      "module": "renderer-vulkan",
+      "path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.26-linux.jar",
+      "sha256": "62004f84ef5c31fd5c50a123f45481f6136783a38985aecdbb55588388e06971"
+    }
+  ],
+  "private_validation_absent": true,
+  "windows_execution": false
+}

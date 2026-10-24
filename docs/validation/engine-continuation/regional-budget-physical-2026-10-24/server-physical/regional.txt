@@ -1,0 +1,1 @@
+PHYSICAL_REGIONAL_PASS regions=2 cycles=2 evicted=64 reloaded=32 mainReloaded=4 events=64 sameIntervalUnitsEach=32 nextIntervalTotalEach=64 waterSaltSediment=true syntheticEvents=false physicalFULL=true controlledClockAdvance=true

@@ -1,0 +1,12 @@
+{
+  "mode": "physical",
+  "exit_code": 0,
+  "elapsed_seconds": 46.06,
+  "environment": "ENVIRONMENT_NATIVE_PASS sharedAquifer=true dynamicOutlets=true headBlocked=true infiltration=true bucketChemistry=true advection=true oceanStage=true inlandFinite=true weatherDebit=true codec=true onceOnlyInitialization=true noForcedChunks=true\n",
+  "regional": "PHYSICAL_REGIONAL_PASS regions=2 cycles=2 evicted=64 reloaded=32 mainReloaded=4 events=64 sameIntervalUnitsEach=32 nextIntervalTotalEach=64 waterSaltSediment=true syntheticEvents=false physicalFULL=true controlledClockAdvance=true\n",
+  "raw_sha256": "97bc90d4d7258725fcba3e3957a25b08dc495d588c9ac19c1ce26de358effe78",
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "pass": true
+}
