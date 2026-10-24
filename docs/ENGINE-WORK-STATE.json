@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "status": "idle",
-  "updated_at": "2026-10-24T01:35:45.103Z",
+  "updated_at": "2026-10-24T01:42:06.263Z",
   "active_until": null,
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.25-merged.1",
+  "candidate_version": "0.0.1-alpha.26",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R45 validation launcher isolation: opt-in --root-game-task selects only the root client/server and rejects competing game selectors. Three real offline Gradle task graphs and eight argument controls pass. No engine runtime changes, full build or native session this checkpoint. R44 water timing/full-scene/ownerGPU gates remain open.",
+  "current_gate": "Alpha26 experimental preview: finite environmental accounts, recharge-qualified dynamic outlets, measured chemistry/buckets and accounted sea stage; new-world continental_v4 geology/banks/soil/climate extension. Full build, packaged native/restart/long-pressure and six fresh software-Vulkan scenes pass. Entire terrain/performance/Windows-ownerGPU acceptance remains incomplete.",
   "next_items": [
+    "Continue the owner-requested terrain-engine revision from saved V4: expand biome/material/deposit authoring, geology-linked caves and supported through-mountain rivers, soil horizons, wind-shaped terrain and natural obstructions. Keep sinkholes excluded, budgets conserved, player edits intact and V1/V2/V3 frozen. See docs/ENVIRONMENTAL-WATER-AND-TERRAIN-V4.md for implemented scope versus open mechanics; do not equate the working generator pipeline with completion of all accepted mechanics.",
     "Use --root-game-task runClient before the proxy helper's -- separator (omit any game selector after --), or explicit :runClient, to isolate merged packaged Vulkan validation. Run separately attributed root water/save/crash/resource/shutdown gates when the foreground native job is closed. Then implement bounded normal cross-frame cohort publication with explicit visibility/edit/unload/supersession; preserve R44 retirement reactivation, R43 retry, quantity, edits, frozen geography and merged Themes. Continue actual visible stream/ocean travel/edit/cap churn, overflow-to-remesh and active recovery/retirement overlap. Continue from main; historical589input snapshot must not overwrite merged source.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
     "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
@@ -16,7 +17,7 @@
     "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26–5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
     "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
-    "Implement explicit renewable regional reservoirs plus finite local water, perennial/seasonal supply, depletable wells and accounted ocean recycling; source safety/strict depletion remain optional Owner clarified metered headwater source outlets and shared compatible river/ocean chemistry/volume separation; implement sparse conserved constituent state, mixing/advection and explicit per-liquid compatibility under docs/WATER-BUDGET-REQUIREMENTS.md.",
+    "Alpha26 implements finite groundwater/snow/ocean/atmosphere accounts, head-limited dynamic outlets and sparse salt/sediment transport. Complete long-duration storm/drought and editable-world acceptance, surface evaporation, independent per-liquid compatibility and bounded coarse unloaded-border transfer; retain once-only initialization and no catch-up. Owner permits streams to exhaust and later reappear elsewhere under sufficient recharge.",
     "Improve terrain variety and coherent geology/material fields; preserve delivered V1/V2/V3 geography and require a new saved revision for geographic changes",
     "Continue LOD hierarchy/coverage and editable-world performance acceptance; catalog/species work remains separately deferred"
   ],
@@ -29,12 +30,12 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/water-cohort-2328",
+  "latest_continuation_evidence": "docs/VALIDATION-0.0.1-alpha.26.md",
+  "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/next-rev",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
-    "Explicit renewable/finite regional reservoirs, accounted hydrological budgets and coherent geology remain unfinished.",
+    "Alpha26 adds finite regional hydrology and V4 geology; full terrain catalogs/mechanics, sustained editable-world storm/drought acceptance, surface evaporation and coarse unloaded transfers remain unfinished.",
     "Scoped partial-upload retry and real-scene authoritative travel/edit data recovery pass software Vulkan with clean /tmp sample opens. Complete pixel coverage/transparency, player-input/server physical unload/reopen, index saturation/coarser hierarchy and owner GPU/FPS remain open. Workspace console mutation/marker writer and prior reload/atlas/direct-stop save failures remain unexplained. Substeps are not independent 60 Hz.",
     "New flow-aware UV CPU comparison records about24microseconds/25% higher median for the small sloped meshing fixture; flat patches about3-5% higher. No frame/FPS or owner GPU acceptance follows from these CPU observations. Optimize/profile alongside smooth UV retarget and real-stream coverage before a release claim.",
     "World-phase fix has no full temporal/different-direction acceptance. Added flat varying, phase arithmetic and explicit-gradient sampling require matched CPU/GPU frame-time checks; no owner GPU/FPS or complete filtering/resource-pack coverage. New compile/artifact mismatch and truncated archive attempts were excluded; their root causes remain unproven.",
@@ -326,7 +327,7 @@
   ],
   "latest_staged_graphics_promoted": true,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/water-boundary-retry-2230",
-  "validation_environment_status": "R44 two full25task builds and five independently sealed native sessions pass explicit save/crash/resource/shutdown gates, with 60000 new core cases. One interrupted build exit unknown is retained and not counted. Offline replay verifies1093 archive members,15757 logical captures and589/588 source snapshots. Host timing parity across context interruption is not established. Reconciliation adds no build/native run: verifies existing merged31task build,669 engine/Themes source files,459 compiled classes,7CRC gates,40 GUI capture hashes. Combined GUI shutdown marker absent and root/standalone attribution incomplete. Windows/ownerGPU/FPS acceptance open. No Java/Xvfb jobs remain. R45 copied669 engine/Themes files into an isolated project with Git hash checks; only helper and README change. Three task-graph dry runs and eight subprocess-isolated argument checks pass, with sealed raw log hashes. No full build/native game/timing claim. Foreground native activity was observed despite work-state retaining this worker's lease; owned validation process cleanup requested and no further Gradle/native job started. Final results show all three dry-runs completed before cleanup; initial interrupted-third assumption corrected. No other checkout or process modified. Own lease released.",
+  "validation_environment_status": "Alpha26 full31task build, packaged native fresh/reopen, long head-changing passage and six fresh software-Vulkan scenes pass. 114 root compiled classes, six nested module identities and seven CRC gates pass. Final screenshot/console/config/source hashes recorded. Unique client destinations exclude reused-world state anomalies; external restoration/writer cause remains unproven. Windows native, ownerGPU/FPS, full terrain/performance acceptance open. Prior R44 evidence and blockers preserved. Concurrent R45 launcher-only changes and their evidence are retained; these runs already used explicit :runClient/:runServer selectors.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -622,20 +623,21 @@
     "timing_host_parity_established": false,
     "same_fixture_pins_are_not_host_timing_equivalence": true
   },
-  "continuation_note": "Only main remains after owner-requested consolidation. Repaired deleted source_ref and preserved R44 evidence without changing integrated engine/Themes/Maritime files. Historical checkpoint statements that main/source/installers were unchanged describe their original dates. Stable Alpha24 release identity retained separately from experimental merged Alpha25 preview.",
+  "continuation_note": "Only main remains after owner-requested consolidation. Repaired deleted source_ref and preserved R44 evidence without changing integrated engine/Themes/Maritime files. Historical checkpoint statements that main/source/installers were unchanged describe their original dates. Stable Alpha24 release identity retained separately from experimental merged Alpha25 preview. Alpha26 advances finite environmental recovery and new-world V4 without rewriting saved V1/V2/V3 terrain. It is an experimental functional preview, not full engine acceptance.",
   "graphics_promotion_scope": "Owner-requested experimental source integration at 28b2625; all27 R44 staged source hashes match root main. This is not performance/full-engine/Windows-runtime acceptance.",
   "latest_preview": {
-    "version": "0.0.1-alpha.25-merged.1",
+    "version": "0.0.1-alpha.26",
     "platform": "Windows Vulkan",
-    "jar": "DeepPrimal-26.1.2-0.0.1-alpha.25-merged.1-vulkan-windows.jar",
-    "sha256": "44058499f53a8d9eb660b679dc4b54f6588fe1083d3af2ed93d0b43a273b7921",
-    "bytes": 124855842,
-    "library_file_id": "libfile_287e230467208191bb54fb5f462e460f",
-    "source_commit": "28b2625d13971f735eacc10e928b0e1f87eef259",
+    "jar": "DeepPrimal-26.1.2-0.0.1-alpha.26-vulkan-windows.jar",
+    "sha256": "f282128baa482759571f5478c25d95f494a0615491181b60132f8affb91c4d5d",
+    "bytes": 124893144,
+    "library_file_id": "libfile_f4806e3d84048191974a084afca67263",
+    "source_ref": "main",
+    "source_parent": "3a15c0b9b7e7ae53a2c7080a70ecf2c9a32aa1c5",
+    "source_manifest": "docs/validation/alpha26/changed-source-manifest.json",
     "experimental": true,
     "windows_native_execution": false,
-    "evidence": "docs/validation/branch-consolidation/archive-audit.json",
-    "reconciliation": "docs/validation/engine-continuation/r44-main-reconciliation-2026-10-24/integration-audit.json"
+    "evidence": "docs/VALIDATION-0.0.1-alpha.26.md"
   },
   "latest_production_graphics_checkpoint": "28b2625d13971f735eacc10e928b0e1f87eef259",
   "stable_release": {
@@ -897,5 +899,20 @@
     "timing_host_parity_established": false,
     "same_fixture_pins_are_not_host_timing_equivalence": true
   },
-  "latest_validation_tool_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/summary.json"
+  "latest_validation_tool_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/summary.json",
+  "previous_preview": {
+    "version": "0.0.1-alpha.25-merged.1",
+    "platform": "Windows Vulkan",
+    "jar": "DeepPrimal-26.1.2-0.0.1-alpha.25-merged.1-vulkan-windows.jar",
+    "sha256": "44058499f53a8d9eb660b679dc4b54f6588fe1083d3af2ed93d0b43a273b7921",
+    "bytes": 124855842,
+    "library_file_id": "libfile_287e230467208191bb54fb5f462e460f",
+    "source_commit": "28b2625d13971f735eacc10e928b0e1f87eef259",
+    "experimental": true,
+    "windows_native_execution": false,
+    "evidence": "docs/validation/branch-consolidation/archive-audit.json",
+    "reconciliation": "docs/validation/engine-continuation/r44-main-reconciliation-2026-10-24/integration-audit.json"
+  },
+  "previous_feature_gate": "R45 validation launcher isolation: opt-in --root-game-task selects only the root client/server and rejects competing game selectors. Three real offline Gradle task graphs and eight argument controls pass. No engine runtime changes, full build or native session this checkpoint. R44 water timing/full-scene/ownerGPU gates remain open.",
+  "previous_continuation_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/README.md"
 }

@@ -51,7 +51,7 @@ public final class TerrainEngine {
   }
 
   public TerrainEngine(long seed, int revision) {
-    if (revision < 1 || revision > 3) throw new IllegalArgumentException("Terrain revision");
+    if (revision < 1 || revision > 4) throw new IllegalArgumentException("Terrain revision");
     this.revision = revision;
     noise = new TerrainNoise(seed);
   }
@@ -212,7 +212,7 @@ public final class TerrainEngine {
   public int biome(double x, double z) {
     double h = raw(x, z),
         r = rainfall(x, z),
-        t = .62 + noise.field(x, z, 6500, 85) * .40 - Math.max(0, h - 160) / 420;
+        t = revision >= 4 ? temperature(x, z, h) : .62 + noise.field(x, z, 6500, 85) * .40 - Math.max(0, h - 160) / 420;
     if (h < SEA) return 3;
     if (h > 245) return 7;
     if (t < .20) return 5;
@@ -223,12 +223,35 @@ public final class TerrainEngine {
   }
 
   public Sample sample(double x, double z) {
-    return sample(x, z, true);
+    return revision >= 4 ? contained(x, z, true) : sample(x, z, true);
   }
 
   /** Bulk V3 callers derive shaped slope from a shared halo; legacy metadata remains exact. */
   public Sample column(double x, double z) {
-    return sample(x, z, revision < 3);
+    return revision >= 4 ? contained(x, z, false) : sample(x, z, revision < 3);
+  }
+
+  /** Bank tops must contain the actual discretized fluid, including diagonal bends. */
+  private Sample contained(double x, double z, boolean gradient) {
+    Sample s = sample(x, z, gradient);
+    if (s.wet()) return s;
+    double bank = s.ground();
+    for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
+      if (dx == 0 && dz == 0) continue;
+      Sample n = sample(x + dx, z + dz, false);
+      if (n.wet()) bank = Math.max(bank, Math.ceil(n.water()) - .001);
+    }
+    return bank == s.ground() ? s : new Sample(bank, s.water(), s.rain(), s.temperature(),
+        s.slope(), s.sediment(), s.flowX(), s.flowZ(), s.speed(), s.rock());
+  }
+
+  /** This tests continental ocean geometry, never the elevation of an inland lake. */
+  public boolean ocean(double x, double z) { return locate(x, z).mask < 0 && raw(x, z) < SEA; }
+
+  public double temperature(double x, double z, double height) {
+    double latitude = revision >= 4 ? .18 * Math.cos(z / 12000.) : 0;
+    return Math.clamp(.62 + latitude + noise.field(x, z, 6500, 85) * .4
+        - Math.max(0, height - 160) / 420, 0, 1);
   }
 
   private Sample sample(double x, double z, boolean gradient) {
@@ -236,7 +259,7 @@ public final class TerrainEngine {
     Land l = location.land;
     double ground = raw(location.mask, x, z), uncut = ground, rain = rainfall(x, z);
     double temperature =
-        Math.clamp(.62 + noise.field(x, z, 6500, 85) * .4 - Math.max(0, ground - 160) / 420, 0, 1);
+        temperature(x, z, ground);
     double slope =
         gradient
             ? Math.hypot(raw(l, x + 3, z) - raw(l, x - 3, z), raw(l, x, z + 3) - raw(l, x, z - 3))

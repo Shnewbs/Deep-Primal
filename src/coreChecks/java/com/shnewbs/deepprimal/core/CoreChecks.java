@@ -5,6 +5,8 @@ import java.util.Random;
 /** Dependency-free differential checks for hot-path math and bounded memory behavior. */
 public final class CoreChecks {
   public static void main(String[] args) {
+    WaterBudgetChecks.run();
+    TerrainV4Checks.run();
     WaterAnimationChecks.run();
     WaterFlowTextureChecks.run();
     WaterFlowBlendChecks.run();

@@ -1,0 +1,1 @@
+ENVIRONMENT_NATIVE_PASS sharedAquifer=true dynamicOutlets=true headBlocked=true infiltration=true bucketChemistry=true advection=true oceanStage=true inlandFinite=true weatherDebit=true codec=true onceOnlyInitialization=true noForcedChunks=true

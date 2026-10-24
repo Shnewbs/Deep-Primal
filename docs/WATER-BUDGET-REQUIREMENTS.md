@@ -146,3 +146,8 @@ Additional acceptance:
 - [ ] Immiscible layering and configured reactions preserve their declared material/product budgets with bounded work and deterministic saved-state recovery.
 
 These requirements complement the finite/renewable watershed model and remain open. Chemistry changes alone do not alter stored terrain geography; introducing new generated source locations still follows the frozen-geography rule.
+
+## Alpha 26 implementation update — 2026-10-24
+
+The owner's latest clarification permits finite stream depletion and recovery at new locations when groundwater head/storage and sustained environmental inflow support an outlet. Alpha 26 implements this finite environmental model, shared aquifers, accounted ocean/atmosphere exchanges and advected bucket/cell chemistry. It does not implement an unconditional designated-major-river allocation, full seasonal climate, composition-only diffusion, machine chemistry adapters or all acceptance items above. See [implemented behavior and limits](ENVIRONMENTAL-WATER-AND-TERRAIN-V4.md) and [validation](VALIDATION-0.0.1-alpha.26.md). Earlier planning statements remain historical requirements; they are not a claim that every listed feature now ships.
+

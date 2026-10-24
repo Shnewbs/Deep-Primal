@@ -1,0 +1,32 @@
+[
+  {
+    "name": "scene-coast.png",
+    "sha256": "4f6ae7614a50e29018eca99ae660214afe9f475f01f8c096fc7e923d2f9e7c3f",
+    "bytes": 1059149
+  },
+  {
+    "name": "scene-headwater.png",
+    "sha256": "612e216bffed802195a4ac0161d0c8468e83cf2f77d4a28b042f40d6a2806838",
+    "bytes": 1866091
+  },
+  {
+    "name": "scene-lake.png",
+    "sha256": "dd972982bfc8c902f6dce3f2d1372c995233d16700f72c57d0741668413e440c",
+    "bytes": 1701800
+  },
+  {
+    "name": "scene-outlet.png",
+    "sha256": "0e8cb58aa6c8a2b6809847468ede47e32f211f29d4addb9e77ac15e56e237172",
+    "bytes": 2004602
+  },
+  {
+    "name": "scene-ridge.png",
+    "sha256": "f5af474728d594f639f27d9a59e6404b13e91e635cd5a165fdcb11dd8b8ac0c6",
+    "bytes": 548088
+  },
+  {
+    "name": "scene-river.png",
+    "sha256": "281f4cbcb27b3ff236bea4efa82319df3300c8f469b6efaf051c7aa27737887c",
+    "bytes": 1335379
+  }
+]

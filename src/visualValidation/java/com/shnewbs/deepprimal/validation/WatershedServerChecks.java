@@ -25,7 +25,7 @@ public final class WatershedServerChecks {
     var level = e.getServer().overworld();
     var generator = (EngineChunkGenerator) level.getChunkSource().getGenerator();
     var terrain = generator.geography();
-    if (terrain.revision != 3) throw new AssertionError("V3 required");
+    if (terrain.revision < 3) throw new AssertionError("V3 or newer required");
     long began = System.nanoTime();
     var region = terrain.waterways(0, 0);
     var sites = new ArrayList<int[]>();

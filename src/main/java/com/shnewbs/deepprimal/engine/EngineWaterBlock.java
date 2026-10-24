@@ -12,12 +12,15 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.*;
 
 public final class EngineWaterBlock extends Block implements BucketPickup {
+  public static final net.minecraft.world.level.block.state.properties.BooleanProperty OCEAN =
+      net.minecraft.world.level.block.state.properties.BooleanProperty.create("ocean_origin");
   public static final MapCodec<EngineWaterBlock> CODEC = simpleCodec(EngineWaterBlock::new);
 
   public EngineWaterBlock(BlockBehaviour.Properties p) {
     super(p);
     registerDefaultState(
         defaultBlockState()
+            .setValue(OCEAN, false)
             .setValue(EngineFluid.UNITS, 16)
             .setValue(EngineFluid.FLOW, 16)
             .setValue(EngineFluid.SPEED, 3));
@@ -28,7 +31,7 @@ public final class EngineWaterBlock extends Block implements BucketPickup {
   }
 
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) {
-    b.add(EngineFluid.UNITS, EngineFluid.FLOW, EngineFluid.SPEED);
+    b.add(EngineFluid.UNITS, EngineFluid.FLOW, EngineFluid.SPEED, OCEAN);
   }
 
   protected RenderShape getRenderShape(BlockState s) {
@@ -71,7 +74,10 @@ public final class EngineWaterBlock extends Block implements BucketPickup {
   public ItemStack pickupBlock(
       LivingEntity user, LevelAccessor level, BlockPos pos, BlockState state) {
     if (state.getValue(EngineFluid.UNITS) != 16) return ItemStack.EMPTY;
-    if (!level.isClientSide()) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+    if (level instanceof net.minecraft.server.level.ServerLevel server) {
+      var parcel = HydrologyRuntime.pickup(server, pos);
+      return parcel == null ? ItemStack.EMPTY : EngineBucket.filled(parcel);
+    }
     return EngineRegistry.BUCKET.get().getDefaultInstance();
   }
 

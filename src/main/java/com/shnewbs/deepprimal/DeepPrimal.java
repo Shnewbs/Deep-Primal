@@ -53,7 +53,10 @@ public final class DeepPrimal {
     modBus.addListener(com.shnewbs.deepprimal.render.HorizonService::register);
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.render.HorizonService());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.water.WaterEnvironment());
+    container.registerConfig(ModConfig.Type.SERVER,
+        com.shnewbs.deepprimal.engine.HydrologyConfig.SPEC, "deepprimal-hydrology.toml");
     com.shnewbs.deepprimal.engine.EngineRegistry.register(modBus);
+    NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.HydrologyRuntime());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.WaterBorderWake());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.WaterRuntime.Events());
     NeoForge.EVENT_BUS.register(new com.shnewbs.deepprimal.engine.WaterInteriorWake());

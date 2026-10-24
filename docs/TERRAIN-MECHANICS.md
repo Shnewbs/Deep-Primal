@@ -107,3 +107,8 @@ Cache immutable versioned geology/terrain results once per region. Resolve share
 Implementation remains open until each mechanic has a native owner, effective configuration/defaults, persistence/network semantics, deterministic generation and named-hardware performance/visual evidence. Add selected mechanics to the [roadmap](../roadmap.md); retain [environmental inventory](ENVIRONMENTAL-COVERAGE-INVENTORY.md) coverage and [biome layers](BIOME-VARIANTS-AND-COVERAGE.md) without interpreting names as implementation.
 
 Existing speculative items not explicitly approved in this discussion retain their previous status. No new release scope, literal global tectonic simulation or mandatory sediment solver follows merely from the realism direction.
+
+## Alpha 26 implementation update — 2026-10-24
+
+New worlds now use saved `continental_v4`: bank containment, folded/faulted rock provinces, intrusions, finite host-dependent deposits, variable soil cover and latitude-adjusted temperature extend the existing independent continent/watershed/cave/vegetation pipeline. V1–V3 remain frozen. This is partial progress on the larger mechanics inventory, not acceptance of every checkbox above. Cave networks through mountains, deposit authoring, expanded catalogs, dunes, instability and natural-obstruction generation remain open. See [implementation scope](ENVIRONMENTAL-WATER-AND-TERRAIN-V4.md) and [validation](VALIDATION-0.0.1-alpha.26.md).
+

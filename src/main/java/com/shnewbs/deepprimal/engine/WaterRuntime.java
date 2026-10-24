@@ -37,6 +37,7 @@ public final class WaterRuntime {
     final LongOpenHashSet seen = new LongOpenHashSet(PRESSURE_SEARCH);
     int pressureLimit = PRESSURE_VISITS_PER_TICK, drainLimit = DRAIN_VISITS_PER_TICK;
     boolean stepped;
+    final LinkedHashMap<Long, com.shnewbs.deepprimal.core.TerrainEngine.Sample> geography = new LinkedHashMap<>();
     final LongLinkedOpenHashSet active = new LongLinkedOpenHashSet();
     final LongLinkedOpenHashSet pressure = new LongLinkedOpenHashSet();
     final LinkedHashMap<BlockPos, PressureJob> searches = new LinkedHashMap<>();
@@ -84,6 +85,7 @@ public final class WaterRuntime {
   public static void changed(ServerLevel level, BlockPos p,
       net.minecraft.world.level.block.state.BlockState before,
       net.minecraft.world.level.block.state.BlockState after) {
+    HydrologyRuntime.externalChange(level, p, before, after);
     Budget budget = BUDGETS.get(level);
     if (budget == null || budget.watchedChunks.isEmpty() || before == null || before == after) return;
     // Current-direction animation alone cannot change hydraulic connectivity or head.
@@ -204,14 +206,17 @@ public final class WaterRuntime {
     if (exchange.moved() == 0) return false;
     var beforeA = l.getBlockState(a);
     var beforeB = l.getBlockState(b);
+    var contentsA = HydrologyRuntime.contents(l, a, beforeA);
+    var contentsB = HydrologyRuntime.contents(l, b, beforeB);
     // Commit both volumes before notifying neighbors; failed writes retain the original volume.
-    if (!l.setBlock(a, state(beforeA, exchange.from(), flow), 2 | 16)) return false;
-    if (!l.setBlock(b, state(beforeB, exchange.to(), flow), 2 | 16)) {
-      l.setBlock(a, beforeA, 2 | 16);
+    if (!HydrologyRuntime.write(l, a, state(beforeA, exchange.from(), flow))) return false;
+    if (!HydrologyRuntime.write(l, b, state(beforeB, exchange.to(), flow))) {
+      HydrologyRuntime.write(l, a, beforeA);
       return false;
     }
     if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))
       net.minecraft.world.level.block.Block.dropResources(beforeB, l, b);
+    HydrologyRuntime.transferred(l, a, b, contentsA, contentsB, exchange.moved(), beforeA);
     budget(l).transfers++;
     wake(l, a);
     wake(l, b);
@@ -419,6 +424,7 @@ public final class WaterRuntime {
 
   private static boolean move(ServerLevel l, BlockPos a, BlockPos b, boolean down) {
     if (!open(l, b)) return false;
+    if (HydrologyRuntime.oceanSink(l, a, b)) return true;
     int from = units(l, a), to = units(l, b);
     // Avoid creating zero-move exchanges, and reuse the same authoritative read for the cap.
     if (from == 0 || to == WaterTransport.CAPACITY || (!down && from <= to + 1)) return false;
@@ -559,6 +565,14 @@ public final class WaterRuntime {
     // Preserve the frontier only while no useful pair is known; stable components still
     // finish their bounded search. This avoids rescanning a whole body before every 4 units.
     if (job.invalidated) return false;
+    if (exchange != null && exchange.moved() > 0
+        && (openChannel(l, high, budget) || openChannel(l, low, budget))) {
+      // Keep local gravity/routing and its conserved flux. Remote hydrostatic transfers
+      // otherwise pile upstream river water above downstream banks or above sea stage.
+      finish(budget, job);
+      budget.pressureCompleted++;
+      return false;
+    }
     if ((exchange == null || exchange.moved() == 0) && job.head < job.tail) return false;
     if ((exchange == null || exchange.moved() == 0) && job.headsDirty) {
       if (job.refreshes < 2) refreshHeads(job, budget);
@@ -583,6 +597,24 @@ public final class WaterRuntime {
       exchange = new WaterTransport.Exchange(from - PRESSURE_TRANSFER,
           to + PRESSURE_TRANSFER, PRESSURE_TRANSFER);
     return transfer(l, high, low, exchange, 16);
+  }
+
+  /** Open natural reaches carry a sloping current; they are not one static communicating tank. */
+  private static boolean openChannel(ServerLevel level, BlockPos p, Budget budget) {
+    if (!(level.getChunkSource().getGenerator() instanceof EngineChunkGenerator generator)) return false;
+    long key = ((long) p.getX() << 32) | (p.getZ() & 0xffffffffL);
+    var sample = budget.geography.get(key);
+    if (sample == null) {
+      sample = generator.geography().column(p.getX(), p.getZ());
+      if (budget.geography.size() >= 1024) budget.geography.pollFirstEntry();
+      budget.geography.put(key, sample);
+    }
+    if (!sample.wet() || sample.speed() == 0 || Math.abs(p.getY() - sample.water()) > 8
+        || !level.canSeeSky(p.above())) return false;
+    // An enclosed pipe/well built through the old channel still communicates under pressure.
+    int walls = 0;
+    for (Direction side : SIDES) if (!open(level, p.relative(side))) walls++;
+    return walls < 3;
   }
 
   /** Only a completed, unchanged component can discharge its duplicate pressure requests. */

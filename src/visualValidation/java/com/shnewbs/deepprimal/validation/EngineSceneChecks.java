@@ -171,6 +171,10 @@ final class EngineSceneChecks {
               instanceof EngineChunkGenerator g
           && g.geography().revision >= 3)
         names = new String[] {"coast", "headwater", "river", "lake", "outlet", "ridge"};
+      if (System.getenv("DEEPPRIMAL_HYDRO_COMPARE_DISABLED") != null)
+        com.shnewbs.deepprimal.engine.HydrologyConfig.ENABLED.set(false);
+      if (System.getenv("DEEPPRIMAL_HEADWATER_ONLY") != null)
+        names = new String[] {"coast", "headwater"};
       if (Boolean.parseBoolean(System.getenv("DEEPPRIMAL_COAST_ONLY")))
         names = new String[] {"coast"};
       LodConfig.ENABLED.set(false);

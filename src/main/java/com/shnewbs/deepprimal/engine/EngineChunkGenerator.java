@@ -3,6 +3,7 @@ package com.shnewbs.deepprimal.engine;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.shnewbs.deepprimal.core.CaveColumn;
+import com.shnewbs.deepprimal.core.Geology;
 import com.shnewbs.deepprimal.core.TerrainEngine;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -25,6 +26,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
   public static final MapCodec<EngineChunkGenerator> CODEC_V2 = codecFor(2);
   public static final MapCodec<EngineChunkGenerator> CODEC_V3 = codecFor(3);
+  public static final MapCodec<EngineChunkGenerator> CODEC_V4 = codecFor(4);
 
   private static MapCodec<EngineChunkGenerator> codecFor(int revision) {
     return RecordCodecBuilder.mapCodec(
@@ -64,7 +66,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return switch (revision) {
       case 1 -> CODEC;
       case 2 -> CODEC_V2;
-      default -> CODEC_V3;
+      case 3 -> CODEC_V3;
+      default -> CODEC_V4;
     };
   }
 
@@ -147,6 +150,35 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return (y == bed ? Blocks.GRASS_BLOCK : Blocks.DIRT).defaultBlockState();
   }
 
+  private BlockState solidV4(TerrainEngine.Sample s, Geology.Column g, int y) {
+    int bed = (int) Math.floor(s.ground());
+    if (y < minY + 2) return Blocks.BEDROCK.defaultBlockState();
+    if (y > bed - g.soilDepth()) return surfaceV3(s, y, bed);
+    var ore = g.ore(y, bed);
+    boolean deep = y < 0;
+    if (ore != Geology.Ore.NONE) return switch (ore) {
+      case COAL -> (deep ? Blocks.DEEPSLATE_COAL_ORE : Blocks.COAL_ORE).defaultBlockState();
+      case COPPER -> (deep ? Blocks.DEEPSLATE_COPPER_ORE : Blocks.COPPER_ORE).defaultBlockState();
+      case IRON -> (deep ? Blocks.DEEPSLATE_IRON_ORE : Blocks.IRON_ORE).defaultBlockState();
+      case GOLD -> (deep ? Blocks.DEEPSLATE_GOLD_ORE : Blocks.GOLD_ORE).defaultBlockState();
+      case REDSTONE -> (deep ? Blocks.DEEPSLATE_REDSTONE_ORE : Blocks.REDSTONE_ORE).defaultBlockState();
+      case LAPIS -> (deep ? Blocks.DEEPSLATE_LAPIS_ORE : Blocks.LAPIS_ORE).defaultBlockState();
+      case DIAMOND -> (deep ? Blocks.DEEPSLATE_DIAMOND_ORE : Blocks.DIAMOND_ORE).defaultBlockState();
+      case EMERALD -> (deep ? Blocks.DEEPSLATE_EMERALD_ORE : Blocks.EMERALD_ORE).defaultBlockState();
+      default -> throw new AssertionError(ore);
+    };
+    return switch (g.rock(y)) {
+      case GRANITE -> Blocks.GRANITE.defaultBlockState();
+      case ANDESITE -> Blocks.ANDESITE.defaultBlockState();
+      case DIORITE -> Blocks.DIORITE.defaultBlockState();
+      case BASALT -> Blocks.BASALT.defaultBlockState();
+      case TUFF -> Blocks.TUFF.defaultBlockState();
+      case SANDSTONE -> Blocks.SANDSTONE.defaultBlockState();
+      case CALCITE -> Blocks.CALCITE.defaultBlockState();
+      case DEEPSLATE -> Blocks.DEEPSLATE.defaultBlockState();
+    };
+  }
+
   private BlockState surfaceV3(TerrainEngine.Sample s, int y, int bed) {
     if (s.sediment() > .65 && s.slope() > 1.15 && bed <= 270)
       return Blocks.GRAVEL.defaultBlockState();
@@ -170,9 +202,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         : null;
   }
 
-  private BlockState at(TerrainEngine.Sample s, CaveColumn caves, int y) {
+  private BlockState at(TerrainEngine.Sample s, CaveColumn caves, Geology.Column geology, boolean ocean, int y) {
     if (y <= (int) Math.floor(s.ground()))
-      return caves != null && caves.contains(y) ? Blocks.AIR.defaultBlockState() : solid(s, y);
+      return caves != null && caves.contains(y) ? Blocks.AIR.defaultBlockState() : geology == null ? solid(s, y) : solidV4(s, geology, y);
     if (s.wet() && y < s.water()) {
       int direction =
           Math.abs(s.flowX()) + Math.abs(s.flowZ()) < .01
@@ -181,6 +213,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       return EngineRegistry.WATER_BLOCK
           .get()
           .defaultBlockState()
+          .setValue(EngineWaterBlock.OCEAN, ocean)
           .setValue(EngineFluid.UNITS, (int) Math.clamp(Math.round((s.water() - y) * 16), 1, 16))
           .setValue(EngineFluid.FLOW, direction)
           .setValue(EngineFluid.SPEED, (int) Math.clamp(Math.round((s.speed() - .1) * 10), 0, 7));
@@ -191,8 +224,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor l, RandomState r) {
     var s = surfaceSample(x, z);
     var caves = caves(s, x, z, l.getMaxY() - 1);
+    var geology = revision >= 4 ? new Geology(engine.noise).column(x, z, s) : null;
+    boolean ocean = revision >= 4 && engine.ocean(x, z);
     BlockState[] a = new BlockState[l.getHeight()];
-    for (int j = 0; j < a.length; j++) a[j] = at(s, caves, l.getMinY() + j);
+    for (int j = 0; j < a.length; j++) a[j] = at(s, caves, geology, ocean, l.getMinY() + j);
     return new NoiseColumn(l.getMinY(), a);
   }
 
@@ -252,8 +287,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                 c.getMaxY() - 1,
                 (int) Math.ceil(Math.max(s.ground(), s.wet() ? s.water() : s.ground())));
         var caves = caves(s, ox + x, oz + z, max);
+        var geology = revision >= 4 ? new Geology(engine.noise).column(ox + x, oz + z, s) : null;
+        boolean ocean = revision >= 4 && engine.ocean(ox + x, oz + z);
         for (int y = c.getMinY(); y <= max; y++) {
-          BlockState state = at(s, caves, y);
+          BlockState state = at(s, caves, geology, ocean, y);
           if (!state.isAir()) {
             c.setBlockState(pos.set(ox + x, y, oz + z), state);
             floor.update(x, y, z, state);

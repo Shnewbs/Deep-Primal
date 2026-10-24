@@ -71,13 +71,27 @@ public final class WorldgenProbe {
                                       + ", generator="
                                       + (level.getChunkSource().getGenerator()
                                               instanceof
-                                              com.shnewbs.deepprimal.engine.EngineChunkGenerator
-                                          ? "deepprimal:continental_v1"
+                                              com.shnewbs.deepprimal.engine.EngineChunkGenerator engine
+                                          ? "deepprimal:continental_v" + engine.geography().revision
                                           : "saved legacy/native profile")
-                                      + ". Terrain/materials remain alpha; renewable groundwater is"
-                                      + " unfinished.");
+                                      + ". Finite environmental hydrology="
+                                      + com.shnewbs.deepprimal.engine.HydrologyRuntime.enabled(level)
+                                      + "; terrain/materials remain alpha.");
                               return 1;
                             }))
+                .then(Commands.literal("water").executes(c -> {
+                  var level = c.getSource().getLevel();
+                  var pos = net.minecraft.core.BlockPos.containing(c.getSource().getPosition());
+                  var data = com.shnewbs.deepprimal.engine.HydrologyData.get(level);
+                  var aquifer = data.aquifers.get(com.shnewbs.deepprimal.engine.HydrologyData.key(pos.getX(),pos.getZ()));
+                  reply(c.getSource(), "Environmental water: enabled="
+                      + com.shnewbs.deepprimal.engine.HydrologyRuntime.enabled(level)
+                      + ", aquifer=" + (aquifer == null ? "unvisited" : aquifer.ground.water()/4096. + " blocks; active=" + aquifer.active()
+                          + "; snow=" + aquifer.snow.water()/4096. + " blocks")
+                      + ", ocean=" + data.ocean.water()/4096. + " blocks; atmosphere="
+                      + data.atmosphere.water()/4096. + " blocks. Loaded columns only; no offline catch-up.");
+                  return 1;
+                }))
                 .then(Commands.literal("perf").executes(c -> performance(c.getSource())))
                 .then(
                     Commands.literal("sample")

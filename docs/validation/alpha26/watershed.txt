@@ -1,0 +1,1 @@
+WATERSHED_NATIVE_PASS sites=5 waterCells=12213 dryColumns=2976 materialColumns=80 sealedBanks=187 trunks=4 faceConnectedSourceReaches=55 estuaryReaches=33 generationAndAuditMs=41096.905074

@@ -19,6 +19,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 public final class Precipitation {
   public static void tick(ServerLevel level, BlockPos column) {
     if (!level.hasChunkAt(column)) return;
+    if (level.getChunkSource().getGenerator() instanceof com.shnewbs.deepprimal.engine.EngineChunkGenerator) return;
     BlockPos top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, column);
     var biome = level.getBiome(top).value();
     var kind = biome.getPrecipitationAt(top, level.getSeaLevel());
