@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T07:49:54.711Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T08:17:31.464Z",
+  "active_until": "2026-10-24T10:17:31.465Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.26",
   "candidate_released": true,
@@ -32,7 +32,7 @@
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/deposit-allocation-2026-10-24/README.md",
-  "local_validation_environment": "/workspace/scratch/a22609fabda0/deposit-allocation-0702",
+  "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/terrain-next",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -609,5 +609,6 @@
   "latest_staged_geology_promoted": false,
   "latest_staged_geology_revision": 5,
   "latest_staged_geology_native_evidence": "docs/validation/engine-continuation/deposit-allocation-2026-10-24/strict-native-audit.json",
-  "production_source_bytecode_guards_required": true
+  "production_source_bytecode_guards_required": true,
+  "foreground_task": "Owner-requested terrain completion: V6 terrain/cave/glacial/wind/soil/biome/authoring implementation and native validation in isolated terrain-next checkout. Do not start competing build/native jobs."
 }
