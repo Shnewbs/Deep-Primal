@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-24T09:29:22.176Z",
-  "active_until": "2026-10-24T10:44:22.176Z",
+  "status": "idle",
+  "updated_at": "2026-10-24T09:37:08.878Z",
+  "active_until": null,
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.27",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Owner-requested alpha.27 V6 terrain revision delivered. Full32task build; independent49core sources/87classes; Standard+Deep packaged creation/reopen/profile/edit/environment/melt/support gates pass; 248 older native digests unchanged; actual Create World and corrected supported-tunnel/glacier/dune/relief Vulkan captures pass. Seven archive CRCs, Windows native segregation and common-payload equality pass. Broader engine/performance/owner-GPU and deferred content/hazards remain open. Delivered V1-V6 generation is now frozen.",
+  "current_gate": "Owner-requested alpha.27 V6 terrain revision delivered. Full32task build; independent49core sources/87classes; Standard+Deep packaged creation/reopen/profile/edit/environment/melt/support gates pass; 248 older native digests unchanged; actual Create World and corrected supported-tunnel/glacier/dune/relief Vulkan captures pass. Seven archive CRCs, Windows native segregation and common-payload equality pass. Broader engine/performance/owner-GPU and deferred content/hazards remain open. Delivered V1-V6 generation is now frozen. R52 verification-only continuation passes116279272 default-deposit oracle/definition-order queries across1024 fixed stratified chunks and fresh existing V6/deposit core checks. Five of8ore kinds/14host pairs observed; not native density/balance acceptance. No production changes or new installer; frozen V1–V6 retained.",
   "next_items": [
-    "Freeze delivered V1-V6 generation and preserve saved profiles, heights, quantities and edits. Broaden V6 seed/climate/ore-host/overlap/balance, rare tunnels/caves/debris and owner-GPU visual/performance evidence. New geography requires V7. Do not copy the older staged V5 snapshot over current production; its backward-compatible field is now included alongside V6 authored deposits.",
+    "Freeze delivered V1-V6 generation and preserve saved profiles, heights, quantities and edits. Broaden V6 seed/climate/ore-host/overlap/balance, rare tunnels/caves/debris and owner-GPU visual/performance evidence. New geography requires V7. Do not copy the older staged V5 snapshot over current production; its backward-compatible field is now included alongside V6 authored deposits. R52's fixed stratified core sample has116279272 matching queries,51370ore voxels and91eligible overlaps, but gold/redstone/lapis absent and only14host pairs. This is pre-carving field evidence with Deep-like Y bounds, not native density; broaden separately attributed native rare-host/climate/overlap coverage rather than infer an ore absence or change frozen V6 defaults. See v6-ensemble-2026-10-24.",
     "Continue the broader outstanding mechanics in TERRAIN-V6.md and existing water/LOD audits: long-region hydraulics, real-world temporal water/page quality, material/host authoring extensions, bounded surface landslides and dynamic ice-sheet behavior where required. Optional KubeJS authoring, external editor and catalogs remain deferred. The owner received a tested terrain alpha, not a claim of perfection.",
     "Use --root-game-task runClient before the proxy helper's -- separator (omit any game selector after --), or explicit :runClient, to isolate merged packaged Vulkan validation. Run separately attributed root water/save/crash/resource/shutdown gates when the foreground native job is closed. Then implement bounded normal cross-frame cohort publication with explicit visibility/edit/unload/supersession; preserve R44 retirement reactivation, R43 retry, quantity, edits, frozen geography and merged Themes. Continue actual visible stream/ocean travel/edit/cap churn, overflow-to-remesh and active recovery/retirement overlap. Continue from main; historical589input snapshot must not overwrite merged source.",
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
@@ -31,7 +31,7 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/v6-ensemble-2026-10-24/README.md",
   "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/terrain-next",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
@@ -253,7 +253,7 @@
     "docs/validation/engine-continuation/deposit-allocation-2026-10-24/world-input-manifest.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "isolated-alpha27-audit",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -603,5 +603,39 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 6,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
-  "foreground_task": "Isolated alpha27 mechanics/authoring audit; no active-checkout mutation."
+  "foreground_task": null,
+  "latest_isolated_validation": "/workspace/scratch/a22609fabda0/alpha27-balance-0936",
+  "latest_verification_summary": {
+    "checkpoint": "R52",
+    "source_parent": "65705ec9f6eed1c9ecc26e6e8d54cd908707babc",
+    "scope": "Verification-only frozen V6 deposit ensemble and fresh existing core checks",
+    "production_files_changed": 0,
+    "new_validation_fixture_files": 1,
+    "new_full_gradle_build": false,
+    "new_native_execution": false,
+    "new_graphics_execution": false,
+    "installer_released": false,
+    "no_new_runtime_defect_reproduced": true,
+    "oracle_cases": 116279272,
+    "columns": 262144,
+    "chunks": 1024,
+    "seeds": 4,
+    "latitude_bands": 8,
+    "ore_voxels": 51370,
+    "multi_body_eligible_voxels": 91,
+    "host_pairs": 14,
+    "ore_types_observed": 5,
+    "missing_ore_types": [
+      "gold",
+      "redstone",
+      "lapis"
+    ],
+    "core_terrain_columns": 8712,
+    "core_protected_cave_cells": 110398,
+    "existing_deposit_oracle_cases": 1559040,
+    "production_geography_unchanged": true,
+    "balance_acceptance": false,
+    "engine_acceptance_complete": false,
+    "remaining": "Broader rare-host native distribution, geology/caves, Vulkan water publication/LOD, pressure, budgets and owner GPU acceptance. Frozen V1–V6; new geography requires V7."
+  }
 }

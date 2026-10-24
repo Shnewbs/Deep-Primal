@@ -1,0 +1,166 @@
+{
+  "commit": "65705ec9f6eed1c9ecc26e6e8d54cd908707babc",
+  "scope": "Read-only review of already committed alpha27 records; no new native/graphics execution or screenshot inspection in R52.",
+  "records": [
+    {
+      "path": "docs/validation/alpha27/client-final-create/result.json",
+      "blob": "5c988b8c96da83cc0a680e2a3dc3552024f5a768",
+      "result": {
+        "exit_code": 0,
+        "seconds": 41.60548660700442,
+        "crashes": [],
+        "saved": true,
+        "actions": [],
+        "images": [
+          "screenshots/creation-form.png"
+        ],
+        "vuid_lines": [],
+        "software_vulkan": true,
+        "pass": true
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/client-final-scenes/result.json",
+      "blob": "3973ff9be42a4c851b45965cb46b95beeb453e16",
+      "result": {
+        "exit_code": 0,
+        "seconds": 164.25519752400578,
+        "crashes": [],
+        "saved": true,
+        "actions": [
+          "backend-check=Vulkan",
+          "terrain-v6=relief",
+          "relief",
+          "terrain-v6=glacier",
+          "glacier",
+          "terrain-v6=dunes",
+          "dunes",
+          "terrain-v6=tunnel",
+          "tunnel",
+          "vulkan-checks",
+          "stop"
+        ],
+        "images": [
+          "screenshots/relief.png",
+          "screenshots/glacier.png",
+          "screenshots/dunes.png",
+          "screenshots/tunnel.png"
+        ],
+        "vuid_lines": [],
+        "software_vulkan": true,
+        "pass": true
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/native-f-initial/result.json",
+      "blob": "9d48c74d633d8e1d6b494e8bba44aca24cc0cdda",
+      "result": {
+        "exit_code": 0,
+        "saved": true,
+        "stopped": true,
+        "crashes": [],
+        "seconds": 28.530870980990585,
+        "pass": true
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/native-f-reopen/result.json",
+      "blob": "e232588953d50360ad4868aaf876efaa1fd9350a",
+      "result": {
+        "exit_code": 0,
+        "saved": true,
+        "stopped": true,
+        "crashes": [],
+        "seconds": 27.035215210999013,
+        "pass": true
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/native-fdeep-initial/result.json",
+      "blob": "091bb4f0f5f64588ec76a94732229e866ad61050",
+      "result": {
+        "exit_code": 0,
+        "saved": true,
+        "stopped": true,
+        "crashes": [],
+        "seconds": 29.524994871011586,
+        "pass": true
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/native-fdeep-reopen/result.json",
+      "blob": "466312230b6393067363e5382ccfc278e16f8958",
+      "result": {
+        "exit_code": 0,
+        "saved": true,
+        "stopped": true,
+        "crashes": [],
+        "seconds": 28.04182061100437,
+        "pass": true
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/windows-artifact.json",
+      "blob": "5be5a4d4b41bab44bb26d5158dcc851b841f4125",
+      "result": {
+        "filename": "DeepPrimal-26.1.2-0.0.1-alpha.27-vulkan-windows.jar",
+        "bytes": 124952383,
+        "sha256": "c37d5c493ce90dfdf7e74fd049eff8b972e00ef7a2f893f845d00686d0ea7c10",
+        "outer_crc": true,
+        "nested_crc_archives": 6,
+        "linux_windows_identical_root_and_vulkan_classes": 4257,
+        "all_other_modules_byte_identical": true,
+        "modules": {
+          "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.27.jar": {
+            "sha256": "015e2656f27a8714a160f799419ddc1ff55a1c01869f24a3312f4770b83d5b07",
+            "bytes": 154326,
+            "native_files": []
+          },
+          "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.27.jar": {
+            "sha256": "94f034be2d28104019e5372a4034c29c6dce8abd26070ba755b9821741e8e3db",
+            "bytes": 93510,
+            "native_files": []
+          },
+          "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.27.jar": {
+            "sha256": "aaa5926a31d0ebc569c6d84a6401ec106ebb9f761100d5a29489907efcd32df0",
+            "bytes": 42351,
+            "native_files": []
+          },
+          "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.27.jar": {
+            "sha256": "49cb8a69e9d5d8f4c97239e329f4d6e0118dc5f857b7c4b62b57cb05c4d61b84",
+            "bytes": 19658,
+            "native_files": []
+          },
+          "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar": {
+            "sha256": "36f80179b7d0900ab5964e16ac7e0137fc831d707eee445e9d11c7cc3f3276bf",
+            "bytes": 114062026,
+            "native_files": []
+          },
+          "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.27-windows.jar": {
+            "sha256": "42b67338657fa6a69d6cf254b1493d3ee312d3ee6e998f840b4cf2d6d521a4fb",
+            "bytes": 11595100,
+            "native_files": [
+              "windows/x64/org/lwjgl/shaderc/shaderc.dll",
+              "windows/x64/org/lwjgl/vma/lwjgl_vma.dll"
+            ]
+          }
+        },
+        "windows_runtime_tested": false
+      }
+    },
+    {
+      "path": "docs/validation/alpha27/legacy-compatibility.json",
+      "blob": "f6b1ec25bc35baec66e8898931d705568fdd738e",
+      "result": {
+        "legacy_v1_to_v5_chunk_digests": 120,
+        "all_digests_unchanged": true,
+        "saved_revision": 5,
+        "native_base_blocks": 8393529,
+        "oracle_blocks": 1305522,
+        "full_saved_chunk_blocks": 240260,
+        "expanded_ore_coverage_digests": 128,
+        "expanded_digests_unchanged": true
+      }
+    }
+  ]
+}
