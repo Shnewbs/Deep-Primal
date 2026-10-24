@@ -26,6 +26,16 @@ The native server verifies selected-JAR hashes for the graph, recipe, codec and 
 
 Across default JIT, `-Xint` and `-XX:UseAVX=0`, 2,048 density samples over four seeds and floating off/on configurations produce the same SHA256: `d5b932bd0699645d461e8a939e0760c7759ab0dc9565866623d225e4a283f10f`. This is one Linux x86_64 host, not cross-machine certification.
 
+## Windows isolated native preview
+
+On 2026-10-24, the opt-in dedicated-server check ran against a temporary `ProtoChunk` at chunk `(-2, 3)` with V8 seed `20261020`. It compared every checked block against both the exact occupancy and the independent base-column adapter, then checked the two worldgen heightmaps and the two-layer bedrock floor:
+
+```text
+DENSITY_CHUNK_NATIVE_PASS blocks=196352 columns=256 baseColumnParity=true occupancyExact=true bedrockBarrier=true heightmaps=true
+```
+
+This is a passing adapter parity check for one chunk, not a registered generator, multi-seed/chunk-boundary acceptance, visual review or whole-engine performance result. `.\gradlew.bat coreChecks build -PvulkanPlatform=windows --no-daemon` also passed; the produced Windows Vulkan development JAR is 124,999,338 bytes with SHA256 `f43f6ad9db0e2d3ee87ee1aacaf4326bbd9d58c1b3b802f52f20959305841cfa`. Its outer and nested archives pass CRC checks, and the packaged materializer, hydrology refill, boat fix and animated-water shader were verified. The artifact is staged in the session Library; no live client/GPU acceptance is claimed.
+
 ## Benchmark results
 
 Same Linux AMD EPYC 9V74 container / Java 25.0.4.1 as stage one; not the owner's 8060S system. No competing timed workload. Component workload is a full 16×768×16 volume, 196,608 consumed scalar results per iteration, six warmups/mode and 16 measured unique positions/mode with alternating order, three fresh JVMs. The recipe has 56 nodes, depth 20 and a maximum 164 node visits/sample. The lattice includes construction and interpolation of all requested samples. There is no native block, surface, feature, water, lighting or IO work in these numbers.
@@ -54,9 +64,9 @@ rms=0.007190563 max=0.106991034 signMismatches=906
 
 ## Next implementation priorities
 
-1. Remove repeated horizontal/common-expression evaluation with bounded job-owned storage and exact scalar output oracles. Measure allocation and full-volume distributions; do not change the recipe to hide the cost.
+1. Continue optimizing exact job-owned graph sampling; current full-volume sampling remains above the component target. Measure allocation and full-volume distributions against exact scalar output oracles; do not change the recipe to hide the cost.
 2. Define a conservative refinement/topology policy; compare exact final occupancy around roofs/surfaces and planned hydraulic barriers. An observed error threshold alone is not a safety proof.
-3. Implement isolated native V8 materialization, base columns and heightmaps with identical semantics; snapshot the complete graph into a distinct saved revision. Test negative/far chunk boundaries, order and reopen before registration/default changes.
+3. Extend native V8 parity coverage across seeds, chunk boundaries, order and reopen, then snapshot the complete graph into a distinct saved revision before registration/default changes.
 4. Couple planned river/basin carving and aquifer barriers, then continue climate/ecotones, cave families, structures and the current-version/optimization stage. Preserve all V1–V7 geography and the unpromoted R57 LOD experiment.
 
 No new client/GPU, playable V8, latest-version, cross-machine, full-engine or owner-hardware acceptance is claimed.

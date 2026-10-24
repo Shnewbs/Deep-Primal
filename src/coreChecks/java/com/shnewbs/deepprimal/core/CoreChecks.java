@@ -10,9 +10,14 @@ public final class CoreChecks {
     TerrainV7Checks.run();
     com.shnewbs.deepprimal.core.density.NoiseCoreChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityGraphChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.density.ReuseChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.density.AdversarialChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.density.DensityChunkChecks.run();
     WaterBedChecks.run();
     DepositPlanChecks.run();
     WaterBudgetChecks.run();
+    StreamSourceCapacityChecks.run();
+    BoatBuoyancyChecks.run();
     TerrainV4Checks.run();
     DepositFieldChecks.run();
     DepositAllocationChecks.run();

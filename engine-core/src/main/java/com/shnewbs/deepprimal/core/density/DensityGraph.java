@@ -48,6 +48,9 @@ public final class DensityGraph implements DensityField {
   private final Program[] program;
   private final Map<String,Integer> ids;
   private final int root;
+  private final int[] dependencies;
+  private static final int[] NO_FACTORS = new int[0];
+  private final int[][] zeroFactors;
 
   private DensityGraph(Definition definition,long seed) {
     this.definition=definition; var index=new LinkedHashMap<String,Integer>();
@@ -56,6 +59,18 @@ public final class DensityGraph implements DensityField {
     root=r; ids=Map.copyOf(index); program=new Program[index.size()];
     build(root,new byte[index.size()],seed);
     for (int i=0;i<program.length;i++) if(program[i]==null) throw new IllegalArgumentException("unreachable node: "+definition.nodes().get(i).id());
+    dependencies=new int[program.length];
+    Arrays.fill(dependencies,-1);
+    dependencies(root);
+    byte[] has3D=new byte[program.length];
+    int[] scratch=new int[4];
+    zeroFactors=new int[program.length][];
+    for(int i=0;i<program.length;i++) {
+      int count=0;
+      if(program[i].node().op()==Op.ADD&&contains3D(program[i].inputs()[1],has3D))
+        count=collectFactors(program[i].inputs()[1],scratch,0,has3D);
+      zeroFactors[i]=count==0?NO_FACTORS:Arrays.copyOf(scratch,count);
+    }
   }
 
   private Program build(int at,byte[] state,long seed) {
@@ -121,5 +136,86 @@ public final class DensityGraph implements DensityField {
       case WARP -> {double amplitude=n.parameters().getFirst();yield evaluate(i[0],x+amplitude*evaluate(i[1],x,y,z),y+amplitude*evaluate(i[2],x,y,z),z+amplitude*evaluate(i[3],x,y,z));}
     };
   }
+
+  private int dependencies(int at) {
+    if(dependencies[at]>=0)return dependencies[at];
+    Program p=program[at];int mask=switch(p.node().op()) {
+      case CONSTANT -> 0; case X -> 1; case Y -> 2; case Z -> 4;
+      case NOISE_2D -> 5; case NOISE_3D -> 7;
+      default -> {int m=0;for(int input:p.inputs())m|=dependencies(input);yield m;}
+    };
+    return dependencies[at]=mask;
+  }
+
+  private boolean contains3D(int at,byte[] memo) {
+    if(memo[at]!=0)return memo[at]==2;
+    boolean found=program[at].node().op()==Op.NOISE_3D;
+    if(!found)for(int child:program[at].inputs())if(contains3D(child,memo)){found=true;break;}
+    memo[at]=(byte)(found?2:1);return found;
+  }
+
+  private int collectFactors(int at,int[] factors,int count,byte[] has3D) {
+    if(count==4)return count;
+    Program p=program[at];
+    if(p.node().op()==Op.MULTIPLY) {
+      count=collectFactors(p.inputs()[1],factors,count,has3D);
+      return collectFactors(p.inputs()[0],factors,count,has3D);
+    }
+    if(!contains3D(at,has3D)&&!(p.node().op()==Op.CONSTANT&&p.node().parameters().getFirst()!=0)) {
+      for(int i=0;i<count;i++)if(factors[i]==at)return count;
+      factors[count++]=at;
+    }
+    return count;
+  }
+
+  /** Creates bounded exact memo storage owned by the calling job/thread. */
+  public Sampler newSampler() { return new Sampler(); }
+
+  public final class Sampler implements DensityField {
+    private final double[] values=new double[program.length];
+    private final long[] xs=new long[program.length],ys=new long[program.length],zs=new long[program.length];
+    private final boolean[] valid=new boolean[program.length];
+    private final Thread owner=Thread.currentThread();
+
+    private void owned() {
+      if(owner!=Thread.currentThread())throw new IllegalStateException("Density sampler changed job thread");
+    }
+    @Override public double sample(double x,double y,double z) {
+      owned();coordinates(x,y,z);return cached(root,x,y,z);
+    }
+    public double channel(String id,double x,double y,double z) {
+      owned();Integer at=ids.get(id);if(at==null)throw new IllegalArgumentException("unknown channel: "+id);
+      coordinates(x,y,z);return cached(at,x,y,z);
+    }
+    private double cached(int at,double x,double y,double z) {
+      int mask=dependencies[at];
+      long xb=Double.doubleToLongBits(x),yb=Double.doubleToLongBits(y),zb=Double.doubleToLongBits(z);
+      if(valid[at]&&((mask&1)==0||xs[at]==xb)&&((mask&2)==0||ys[at]==yb)&&((mask&4)==0||zs[at]==zb))return values[at];
+      double value=compute(at,x,y,z);
+      xs[at]=xb;ys[at]=yb;zs[at]=zb;values[at]=value;valid[at]=true;
+      return value;
+    }
+    private double compute(int at,double x,double y,double z) {
+      Program p=program[at];var n=p.node();int[] i=p.inputs();
+      return switch(n.op()) {
+        case CONSTANT -> n.parameters().getFirst(); case X -> x; case Y -> y; case Z -> z;
+        case NOISE_2D -> p.noise().sample(x,0,z); case NOISE_3D -> p.noise().sample(x,y,z);
+        case ADD -> {
+          double a=cached(i[0],x,y,z);boolean zero=false;
+          if(a!=0)for(int factor:zeroFactors[at])if(cached(factor,x,y,z)==0){zero=true;break;}
+          yield zero?a:a+cached(i[1],x,y,z);
+        }
+        case MULTIPLY -> cached(i[0],x,y,z)*cached(i[1],x,y,z);
+        case MIN -> Math.min(cached(i[0],x,y,z),cached(i[1],x,y,z));
+        case MAX -> Math.max(cached(i[0],x,y,z),cached(i[1],x,y,z));
+        case ABS -> Math.abs(cached(i[0],x,y,z));
+        case CLAMP -> clamp(cached(i[0],x,y,z),n.parameters().get(0),n.parameters().get(1));
+        case SMOOTHSTEP -> {double t=clamp((cached(i[0],x,y,z)-n.parameters().get(0))/(n.parameters().get(1)-n.parameters().get(0)),0,1);yield t*t*(3-2*t);}
+        case LERP -> {double a=cached(i[0],x,y,z),b=cached(i[1],x,y,z),t=clamp(cached(i[2],x,y,z),0,1);yield t==0?a:t==1?b:a+(b-a)*t;}
+        case WARP -> {double amplitude=n.parameters().getFirst();yield cached(i[0],x+amplitude*cached(i[1],x,y,z),y+amplitude*cached(i[2],x,y,z),z+amplitude*cached(i[3],x,y,z));}
+      };
+    }
+  }
+
   private static double clamp(double value,double min,double max) { return Math.max(min,Math.min(max,value)); }
 }

@@ -7,26 +7,47 @@ import java.util.*;
 /** Component latency and topology error; excludes native block, surface, water, features and lighting. */
 public final class DensityBenchmark {
   private static volatile double sink;
-  private static double run(DensityGraph graph,boolean lattice,int chunk) {
+  private static double run(DensityGraph graph,int mode,int chunk,boolean verticalInner) {
     int x=(chunk*71-250)*16,z=(chunk*31-150)*16;double sum=0;
-    DensityField field=lattice?DensityGrid.sample(graph,x,-128,z,4,8,4,5,97,5):graph;
-    for(int iz=0;iz<16;iz++)for(int y=-128;y<640;y++)for(int ix=0;ix<16;ix++)sum+=field.sample(x+ix,y,z+iz);
+    DensityField field=switch(mode) {
+      case 0 -> graph;
+      case 1 -> DensityGrid.sample(graph,x,-128,z,4,8,4,5,97,5);
+      case 2 -> graph.newSampler();
+      default -> throw new IllegalArgumentException("sampling mode");
+    };
+    if(verticalInner) {
+      for(int iz=0;iz<16;iz++)for(int ix=0;ix<16;ix++)for(int y=-128;y<640;y++)sum+=field.sample(x+ix,y,z+iz);
+    } else {
+      for(int iz=0;iz<16;iz++)for(int y=-128;y<640;y++)for(int ix=0;ix<16;ix++)sum+=field.sample(x+ix,y,z+iz);
+    }
     return sum;
+  }
+  private static int runChunk(DensityGraph graph,int chunk) {
+    int x=(chunk*71-250)*16,z=(chunk*31-150)*16;
+    var density=DensityChunk.sample(graph,x,-128,z,768);
+    long[] checksum={0};
+    density.forEachSolid((vx,y,vz)->checksum[0]+=((long)vx*31+y)*31+vz);
+    return density.solidCount()+(int)(checksum[0]&0x7fffffff);
   }
   public static void main(String[] args) {
     if(args.length>0&&args[0].equals("error")){errorCorpus();return;}
     var graph=TerrainShapeV8.definition(false).compile(20261020);
     var bean=(com.sun.management.ThreadMXBean)ManagementFactory.getThreadMXBean();bean.setThreadAllocatedMemoryEnabled(true);long thread=Thread.currentThread().threadId();
-    for(int i=0;i<6;i++){sink=run(graph,false,i);sink=run(graph,true,i);}
-    double[][] times=new double[2][16];long[][] allocation=new long[2][16];
-    for(int i=0;i<16;i++)for(int shift=0;shift<2;shift++){
-      int mode=(i+shift)%2;long before=bean.getThreadAllocatedBytes(thread),start=System.nanoTime();
-      sink=run(graph,mode==1,i+6);times[mode][i]=(System.nanoTime()-start)*1e-6;allocation[mode][i]=bean.getThreadAllocatedBytes(thread)-before;
+    for(int i=0;i<6;i++)for(int mode=0;mode<5;mode++)
+      sink=mode==4?runChunk(graph,i):run(graph,mode==0?0:mode==3?1:2,i,mode<2);
+    double[][] times=new double[5][16],checksums=new double[5][16];long[][] allocation=new long[5][16];
+    for(int i=0;i<16;i++)for(int shift=0;shift<5;shift++){
+      int mode=(i+shift)%5;long before=bean.getThreadAllocatedBytes(thread),start=System.nanoTime();
+      double result=mode==4?runChunk(graph,i+6):run(graph,mode==0?0:mode==3?1:2,i+6,mode<2);
+      sink=result;checksums[mode][i]=result;
+      times[mode][i]=(System.nanoTime()-start)*1e-6;allocation[mode][i]=bean.getThreadAllocatedBytes(thread)-before;
     }
     System.out.println("mode,samples,iterations,mean_ms,p50_ms,p95_ms,p99_ms,max_ms,mean_thread_allocated_bytes");
-    for(int mode=0;mode<2;mode++){
-      Arrays.sort(times[mode]);var a=times[mode];System.out.printf(Locale.ROOT,"%s,196608,16,%.6f,%.6f,%.6f,%.6f,%.6f,%.1f%n",mode==0?"exact_graph":"lattice_graph",Arrays.stream(a).average().orElseThrow(),a[7],a[15],a[15],a[15],Arrays.stream(allocation[mode]).average().orElseThrow());
+    for(int mode=0;mode<5;mode++){
+      Arrays.sort(times[mode]);var a=times[mode];System.out.printf(Locale.ROOT,"%s,196608,16,%.6f,%.6f,%.6f,%.6f,%.6f,%.1f%n",new String[]{"exact_graph_y_inner","exact_sampler_y_inner","exact_sampler_x_inner","lattice_graph_x_inner","exact_chunk_occupancy"}[mode],Arrays.stream(a).average().orElseThrow(),a[7],a[15],a[15],a[15],Arrays.stream(allocation[mode]).average().orElseThrow());
     }
+    for(int i=0;i<16;i++)if(Double.doubleToLongBits(checksums[0][i])!=Double.doubleToLongBits(checksums[1][i]))
+      throw new AssertionError("Exact sampler checksum differs from scalar graph");
     double squares=0,max=0;int count=0,signs=0;
     for(int c=0;c<4;c++){
       int x=c*256-512,z=c*176-384;var tile=DensityGrid.sample(graph,x,-128,z,4,8,4,5,97,5);

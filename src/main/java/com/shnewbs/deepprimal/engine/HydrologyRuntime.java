@@ -18,7 +18,13 @@ public final class HydrologyRuntime {
   private static final WeakHashMap<ServerLevel, Work> WORK = new WeakHashMap<>();
   private static int internalWrites;
   private static final int REGIONAL_DISCHARGE_UNITS = 32;
-  private static final class Cursor { int column; final long[] visited = new long[256]; }
+  private static final class Cursor {
+    int column;
+    final long[] visited = new long[256];
+    final double[] streamSurface = new double[256];
+    final int[] streamOutletY = new int[256];
+    final boolean[] streamCandidate = new boolean[256];
+  }
   private static final class RegionWork {
     final double datum;
     long tick = Long.MIN_VALUE;
@@ -186,8 +192,8 @@ public final class HydrologyRuntime {
       return new RegionWork(low + 1);
     });
   }
-  private static void visit(ServerLevel l, Work work, int x, int z) {
-    var t = ((EngineChunkGenerator) l.getChunkSource().getGenerator()).geography();
+  private static void visit(ServerLevel l, Work work, Cursor cursor, int column,
+      TerrainEngine t, int x, int z) {
     var top = l.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(x, 0, z));
     var p = top.below();
     // Ignore sparse plants/snow, but never tunnel through structures or a forest roof.
@@ -206,7 +212,15 @@ public final class HydrologyRuntime {
       if (sea) { write(l, p, state.setValue(EngineWaterBlock.OCEAN, true)); return; }
     }
     var sample = t.column(x, z);
-    if (sample.water() == TerrainEngine.SEA && t.ocean(x, z)) return;
+    if (sample.water() == TerrainEngine.SEA && t.ocean(x, z)) {
+      cursor.streamCandidate[column] = false;
+      return;
+    }
+    cursor.streamCandidate[column] = sample.wet();
+    if (sample.wet()) {
+      cursor.streamSurface[column] = sample.water();
+      cursor.streamOutletY[column] = (int) Math.ceil(sample.water()) - 1;
+    }
     var geology = new Geology(t.noise).column(x, z, sample);
     BlockPos bed = state.is(EngineRegistry.WATER_BLOCK.get()) ? p.below() : p;
     // Deep lakes infiltrate at their floor; finding it is strictly capped.
@@ -246,19 +260,47 @@ public final class HydrologyRuntime {
     if(ice)return; // Solid ice is never treated as an outlet/recharge block after the one-time melt.
     // A higher surface recharges; a lower exposed outlet can discharge. Never both on one visit.
     double head = aquifer.head(regional.datum);
-    if (state.is(EngineRegistry.WATER_BLOCK.get()) && p.getY() + state.getValue(EngineFluid.UNITS) / 16. > head + .5) {
+    if (state.is(EngineRegistry.WATER_BLOCK.get())
+        && p.getY() + state.getValue(EngineFluid.UNITS) / 16. > head + .5) {
       if (Math.floorMod(x * 31L + z * 17L + l.getGameTime() / 20, 8) < Math.ceil(permeable * 8))
         infiltrate(l, p, aquifer, 1);
     } else if (regional.discharged < REGIONAL_DISCHARGE_UNITS) {
       var outlet = state.is(EngineRegistry.WATER_BLOCK.get()) ? p : p.above();
       boolean naturalWaterway = sample.wet() && outlet.getY() < sample.water();
+      if (naturalWaterway) return;
       // Seeded groundwater supports existing waterways. A new dry-land outlet needs
       // sustained additional recharge, not merely visiting an untouched chunk.
-      if (!aquifer.canSupply(naturalWaterway)) return;
+      if (!aquifer.canSupply(false)) return;
+      int outletUnits = WaterRuntime.units(l, outlet);
+      int sourceCapacity = 16 - outletUnits;
+      if (sourceCapacity <= 0) return;
       long before = aquifer.ground.water();
-      emit(l, outlet, aquifer, regional.datum, Math.min(HydrologyConfig.SOURCE_RATE.get(), REGIONAL_DISCHARGE_UNITS - regional.discharged));
+      emit(l, outlet, aquifer, regional.datum, Math.min(sourceCapacity,
+          Math.min(HydrologyConfig.SOURCE_RATE.get(), REGIONAL_DISCHARGE_UNITS - regional.discharged)));
       regional.discharged += (int) ((before - aquifer.ground.water()) / WaterAccount.SCALE);
     }
+  }
+  private static void replenishStream(ServerLevel l, Work work, TerrainEngine t,
+      Cursor cursor, int column, int x, int z) {
+    if (!cursor.streamCandidate[column]) return;
+    var outlet = new BlockPos(x, cursor.streamOutletY[column], z);
+    if (!l.isInWorldBounds(outlet) || !l.hasChunkAt(outlet)) return;
+    var state = l.getBlockState(outlet);
+    if ((!state.isAir() && !state.is(EngineRegistry.WATER_BLOCK.get())) || boundary(state)) return;
+    var data = HydrologyData.get(l);
+    var aquifer = data.aquifers.get(HydrologyData.key(x, z));
+    if (aquifer == null || !aquifer.canSupply(true)) return;
+    var regional = region(work, t, x, z);
+    if (regional.discharged >= REGIONAL_DISCHARGE_UNITS) return;
+    int units = WaterRuntime.units(l, outlet);
+    int sourceCapacity =
+        StreamSourceCapacity.remainingUnits(cursor.streamSurface[column], outlet.getY(), units);
+    if (sourceCapacity <= 0) return;
+    long before = aquifer.ground.water();
+    emit(l, outlet, aquifer, regional.datum,
+        Math.min(sourceCapacity, Math.min(HydrologyConfig.SOURCE_RATE.get(),
+            REGIONAL_DISCHARGE_UNITS - regional.discharged)));
+    regional.discharged += (int) ((before - aquifer.ground.water()) / WaterAccount.SCALE);
   }
   @SubscribeEvent public void loaded(ChunkEvent.Load e) {
     if (e.getLevel() instanceof ServerLevel l && e.getChunk() instanceof LevelChunk
@@ -268,6 +310,7 @@ public final class HydrologyRuntime {
   @SubscribeEvent public void tick(LevelTickEvent.Post e) {
     if (!(e.getLevel() instanceof ServerLevel l) || !enabled(l)) return;
     var work = WORK.get(l); if (work == null) return;
+    var t = ((EngineChunkGenerator) l.getChunkSource().getGenerator()).geography();
     int limit = HydrologyConfig.COLUMNS.get();
     long deadline = System.nanoTime() + 2_000_000;
     for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() < deadline; i++) {
@@ -275,14 +318,21 @@ public final class HydrologyRuntime {
       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
       var chunk = l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false);
       if (!(chunk instanceof LevelChunk)) continue;
-      var c = entry.getValue(); int col = c.column++ & 255;
+      var c = entry.getValue();
       work.chunks.putIfAbsent(entry.getKey(), c);
       long now = l.getGameTime();
-      if (now - c.visited[col] < 20 || now <= c.visited[col]) continue;
-      c.visited[col] = now;
+      // Rotate allocation order each aquifer interval; 73 is coprime with 256.
+      int scanOffset = (int) ((now / 20 * 73L) & 255);
+      int col = (c.column++ + scanOffset) & 255;
       // Multiplication by an odd number is a permutation, avoiding repeated strip sampling.
       int shuffled = col * 73 & 255;
-      visit(l, work, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
+      int x = cp.getMinBlockX() + (shuffled & 15);
+      int z = cp.getMinBlockZ() + (shuffled >> 4);
+      if (now > c.visited[col] && now - c.visited[col] >= 20) {
+        c.visited[col] = now;
+        visit(l, work, c, col, t, x, z);
+      }
+      replenishStream(l, work, t, c, col, x, z);
     }
   }
   @SubscribeEvent public void unloaded(ChunkEvent.Unload e) {

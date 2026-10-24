@@ -13,6 +13,9 @@ in vec2 cornerSourceTexCoord;
 in vec4 vertexColor;
 in vec3 relativePosition;
 out vec4 fragColor;
+float flowTransitionWeight(float age) {
+    return smoothstep(0.0, 100.0, age);
+}
 vec4 spatialSample(int direction, vec2 local, vec2 dx, vec2 dy) {
     int to = waterCorners.x, from = waterCorners.y;
     if ((to == ((to & 31) * 33825) && direction == (to & 31))
@@ -53,7 +56,7 @@ vec4 spatialColor(vec2 local, vec2 dx, vec2 dy) {
         float t = 0.0;
         for (int n = 0; n < 4; n++) {
             float weight = ((n&1)==0 ? 1.0-w.x : w.x) * ((n&2)==0 ? 1.0-w.y : w.y);
-            t += weight * clamp((elapsed + float((ages >> (n*8)) & 255)) / 100.0, 0.0, 1.0);
+            t += weight * flowTransitionWeight(elapsed + float((ages >> (n*8)) & 255));
         }
         return mix(spatialSample(from & 31, local, dx, dy), spatialSample(to & 31, local, dx, dy), t);
     }
@@ -66,7 +69,7 @@ vec4 spatialColor(vec2 local, vec2 dx, vec2 dy) {
         if (weight > 0.0) {
             vec4 sampled = spatialSample(target, local, dx, dy);
             if (source != target && age < 100.0)
-                sampled = mix(spatialSample(source, local, dx, dy), sampled, clamp(age/100.0,0.0,1.0));
+                sampled = mix(spatialSample(source, local, dx, dy), sampled, flowTransitionWeight(age));
             result += sampled * weight;
         }
     }

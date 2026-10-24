@@ -13,6 +13,10 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class NoiseProfileChecks {
   public NoiseProfileChecks(){NeoForge.EVENT_BUS.register(this);}
   @SubscribeEvent public void started(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
+    if(System.getenv("DEEPPRIMAL_DENSITY_CHUNK_NATIVE_CHECK")!=null) {
+      DensityChunkNativeChecks.run(event.getServer().overworld());
+      if(System.getenv("DEEPPRIMAL_NOISE_CODEC_CHECK")==null)event.getServer().halt(false);
+    }
     if(System.getenv("DEEPPRIMAL_NOISE_CODEC_CHECK")==null)return;
     int count=0;
     for(long salt:new long[]{0,1,-1,9007199254740993L,Long.MIN_VALUE,Long.MAX_VALUE}) {
