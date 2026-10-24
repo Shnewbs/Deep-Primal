@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T01:42:06.263Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T02:34:48.238Z",
+  "active_until": "2026-10-24T03:34:48.238Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.26",
   "candidate_released": true,
@@ -218,7 +218,7 @@
     "docs/validation/engine-continuation/root-client-isolation-2026-10-24/argument-checks.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "R46 isolated environmental regional-discharge cache-churn reproduction",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
