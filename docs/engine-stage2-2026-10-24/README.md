@@ -2,7 +2,7 @@
 
 This is a **partial stage-two checkpoint**, not a playable V8 release. The graph compiler, strict JSON codec and experimental shape recipe are implemented. The isolated native preview writer now passes a bounded dedicated-server parity check, but production generator registration, saved generator snapshots, coupled drainage and visual acceptance remain open. Existing V1–V7 generator registrations and delivered alpha.28 installers remain frozen.
 
-The owner's acceptance target is an evidence-supported **average of at least 8.0/10 across the ten equally weighted review categories**. The last complete audit remains 50/100, average 5.0. No new full regrade is claimed for unused core geometry. The existing hourly build/audit task is enabled with the new target; completing this checkpoint does not complete that goal.
+The owner's updated acceptance target is an evidence-supported **average of at least 8.5/10 across the ten equally weighted review categories**, with **9.5/10 the ideal stretch target**. A perfect 10/10 is aspirational, not promised. The earlier 8.0/10 target is superseded. Score only implemented and verified behavior; an average does not excuse an unresolved severe weakness in an individual category. The last complete audit remains 50/100, average 5.0. No new full regrade is claimed for unused core geometry. The existing hourly build/audit task is enabled with the updated target; completing this checkpoint does not complete that goal.
 
 ## Setup
 
