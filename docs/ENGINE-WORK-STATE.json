@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-24T06:29:48.560Z",
-  "active_until": "2026-10-24T07:19:48.560Z",
+  "updated_at": "2026-10-24T06:48:21.044Z",
+  "active_until": "2026-10-24T07:28:21.044Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.26",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R49 staged deposit-field candidate reproduces1072 clipped V4 core lookups. Bounded9source lookup matches a49source oracle across90960 cases/25000 signed seams;4.28million legacy geology results per version retain identical digest. Final31task build and intermediate31task build pass;7CRCs/477class identities pass. No failed checks or native sessions. Four candidate files are staged only; no active worldgen/default pack/saved revision or public production source changed. New versioned native integration and profiling remain required.",
+  "current_gate": "R50 active isolated opt-in V5 integration: fresh96legacy native digests pass; final nonincremental build/native reopen/profile in progress. No promotion or installer.",
   "next_items": [
     "Integrate the R49 bounded deposit field behind an explicit new opt-in saved terrain revision, preserving existing V1-V4 output. Apply four staged files at docs/validation/engine-continuation/deposit-field-2026-10-24/staged-manifest.json in an isolated current-main checkout; do not silently switch V4 saves. Validate native base-column/chunk generation equality, chunk/order seams, codec/save roundtrip, host/cave/soil and density/overlap balance, plus constructor/query/allocation cost before promotion. Prototype has9candidate/324rawarray-byte bounds and90960 oracle cases, not native visual/performance acceptance.",
     "Continue the owner-requested terrain-engine revision from saved V4: expand biome/material/deposit authoring, geology-linked caves and supported through-mountain rivers, soil horizons, wind-shaped terrain and natural obstructions. Keep sinkholes excluded, budgets conserved, player edits intact and V1/V2/V3 frozen. See docs/ENVIRONMENTAL-WATER-AND-TERRAIN-V4.md for implemented scope versus open mechanics; do not equate the working generator pipeline with completion of all accepted mechanics.",
