@@ -1,0 +1,14 @@
+{
+  "console_bytes": 20586,
+  "console_sha256": "8f85a8cd36d2de0eb6b38c875e06ec3b925fa3ab9e92a8e3af6c99a58a8e2e94",
+  "exit_code": 0,
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "seconds": 23.575513380999837,
+  "jar_sha256": "44080119987c5b45a6100de669f055c1964757071f61c607566779ccbde8dbc1",
+  "profile_recording": false,
+  "pass": true,
+  "loaded_class_hashes_verified": true,
+  "codec_checks": false
+}

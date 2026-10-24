@@ -1,0 +1,1351 @@
+{
+  "scope": "Native ProtoChunk fillFromNoise including authored decoration; excludes construction, biome population, lighting, IO and host status graph",
+  "invocation_thread": "Server thread",
+  "min_y": -128,
+  "height": 768,
+  "java": "25.0.4.1+1-LTS",
+  "os_arch": "amd64",
+  "processors": 8,
+  "loaded_classes": {
+    "com.shnewbs.deepprimal.engine.EngineChunkGenerator": "63eba40a9c0fead37da2b04a6e2468b97fa7d20d9d701a529c8a805986e528bc",
+    "com.shnewbs.deepprimal.core.TerrainEngine": "53cbcfdd0006b714955b478e209be33d27f3711254c361ebfa862f435c227da2",
+    "com.shnewbs.deepprimal.validation.WorldgenBenchmarkChecks": "1744f6bec5f5a3bf8bc5097eb11fbf2f769d5055bf91a12b20050db3c7934fa3"
+  },
+  "samples": [
+    {
+      "seed": 0,
+      "chunk_x": -3,
+      "chunk_z": -3,
+      "phase": "cold",
+      "fill_ms": 224.553899,
+      "call_return_ms": 224.54674799999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 10642752
+    },
+    {
+      "seed": 0,
+      "chunk_x": -2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 25.143922999999997,
+      "call_return_ms": 25.141018,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1744240
+    },
+    {
+      "seed": 0,
+      "chunk_x": -1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 20.473618,
+      "call_return_ms": 20.470834,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1717760
+    },
+    {
+      "seed": 0,
+      "chunk_x": 0,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 14.38849,
+      "call_return_ms": 14.386256999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1709016
+    },
+    {
+      "seed": 0,
+      "chunk_x": 1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 13.360375,
+      "call_return_ms": 13.359423999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1713296
+    },
+    {
+      "seed": 0,
+      "chunk_x": 2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 14.321128999999999,
+      "call_return_ms": 14.319386,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1769440
+    },
+    {
+      "seed": 0,
+      "chunk_x": -3,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 14.002469999999999,
+      "call_return_ms": 14.000527,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1770616
+    },
+    {
+      "seed": 0,
+      "chunk_x": -2,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 13.991508,
+      "call_return_ms": 13.989424999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1722928
+    },
+    {
+      "seed": 0,
+      "chunk_x": -1,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 14.234288,
+      "call_return_ms": 14.232154,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1698072
+    },
+    {
+      "seed": 0,
+      "chunk_x": 0,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 13.686264999999999,
+      "call_return_ms": 13.684111999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1707608
+    },
+    {
+      "seed": 0,
+      "chunk_x": 1,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 14.583062,
+      "call_return_ms": 14.580819,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1757376
+    },
+    {
+      "seed": 0,
+      "chunk_x": 2,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 17.906107,
+      "call_return_ms": 17.904484,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1761240
+    },
+    {
+      "seed": 0,
+      "chunk_x": -3,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 13.680677,
+      "call_return_ms": 13.678844,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1728816
+    },
+    {
+      "seed": 0,
+      "chunk_x": -2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.931270999999999,
+      "call_return_ms": 12.929758999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1720048
+    },
+    {
+      "seed": 0,
+      "chunk_x": -1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 13.539705999999999,
+      "call_return_ms": 13.538564,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1718736
+    },
+    {
+      "seed": 0,
+      "chunk_x": 0,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 18.631591,
+      "call_return_ms": 18.629278,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 2111832
+    },
+    {
+      "seed": 0,
+      "chunk_x": 1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 16.067252,
+      "call_return_ms": 16.065168,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 2741760
+    },
+    {
+      "seed": 0,
+      "chunk_x": 2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 14.764063,
+      "call_return_ms": 14.761489,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3043536
+    },
+    {
+      "seed": 0,
+      "chunk_x": -3,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 13.259654,
+      "call_return_ms": 13.258151999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1751816
+    },
+    {
+      "seed": 0,
+      "chunk_x": -2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 13.212062999999999,
+      "call_return_ms": 13.210431,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1718560
+    },
+    {
+      "seed": 0,
+      "chunk_x": -1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 16.052188,
+      "call_return_ms": 16.050055,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1857544
+    },
+    {
+      "seed": 0,
+      "chunk_x": 0,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 15.824045,
+      "call_return_ms": 15.822213,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3226976
+    },
+    {
+      "seed": 0,
+      "chunk_x": 1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 15.365126,
+      "call_return_ms": 15.363273,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3239768
+    },
+    {
+      "seed": 0,
+      "chunk_x": 2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 14.968430999999999,
+      "call_return_ms": 14.966567999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3237184
+    },
+    {
+      "seed": 0,
+      "chunk_x": -3,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 14.588099,
+      "call_return_ms": 14.586345999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 2078888
+    },
+    {
+      "seed": 0,
+      "chunk_x": -2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 13.646875999999999,
+      "call_return_ms": 13.644532,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 2194064
+    },
+    {
+      "seed": 0,
+      "chunk_x": -1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 14.986286999999999,
+      "call_return_ms": 14.983403,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 2549648
+    },
+    {
+      "seed": 0,
+      "chunk_x": 0,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 14.927798999999998,
+      "call_return_ms": 14.926105999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 2317944
+    },
+    {
+      "seed": 0,
+      "chunk_x": 1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 18.065447,
+      "call_return_ms": 18.062873,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3231216
+    },
+    {
+      "seed": 0,
+      "chunk_x": 2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 18.026823999999998,
+      "call_return_ms": 18.023849,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3283792
+    },
+    {
+      "seed": 0,
+      "chunk_x": -3,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 17.144768,
+      "call_return_ms": 17.141883999999997,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3325080
+    },
+    {
+      "seed": 0,
+      "chunk_x": -2,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 20.730304,
+      "call_return_ms": 20.728030999999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3357576
+    },
+    {
+      "seed": 0,
+      "chunk_x": -1,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 17.252781,
+      "call_return_ms": 17.170257,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3235256
+    },
+    {
+      "seed": 1,
+      "chunk_x": -3,
+      "chunk_z": -3,
+      "phase": "cold",
+      "fill_ms": 137.308889,
+      "call_return_ms": 137.305784,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 12164280
+    },
+    {
+      "seed": 1,
+      "chunk_x": -2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 12.207284,
+      "call_return_ms": 12.205622,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1740184
+    },
+    {
+      "seed": 1,
+      "chunk_x": -1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 12.300714,
+      "call_return_ms": 12.299161999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1773280
+    },
+    {
+      "seed": 1,
+      "chunk_x": 0,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 12.769618,
+      "call_return_ms": 12.767805,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1732144
+    },
+    {
+      "seed": 1,
+      "chunk_x": 1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 12.354204,
+      "call_return_ms": 12.353072,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1748048
+    },
+    {
+      "seed": 1,
+      "chunk_x": 2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 12.088194999999999,
+      "call_return_ms": 12.086292,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1726800
+    },
+    {
+      "seed": 1,
+      "chunk_x": -3,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 12.627865,
+      "call_return_ms": 12.627234,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1745104
+    },
+    {
+      "seed": 1,
+      "chunk_x": -2,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 12.846915,
+      "call_return_ms": 12.845191999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1743128
+    },
+    {
+      "seed": 1,
+      "chunk_x": -1,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 13.644421,
+      "call_return_ms": 13.642427999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1694200
+    },
+    {
+      "seed": 1,
+      "chunk_x": 0,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 13.424722,
+      "call_return_ms": 13.42302,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1714184
+    },
+    {
+      "seed": 1,
+      "chunk_x": 1,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 14.067266,
+      "call_return_ms": 14.065463999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1757192
+    },
+    {
+      "seed": 1,
+      "chunk_x": 2,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 13.065432999999999,
+      "call_return_ms": 13.063329,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1748480
+    },
+    {
+      "seed": 1,
+      "chunk_x": -3,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.396438,
+      "call_return_ms": 12.395185999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1732928
+    },
+    {
+      "seed": 1,
+      "chunk_x": -2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.252170999999999,
+      "call_return_ms": 12.250949,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1706016
+    },
+    {
+      "seed": 1,
+      "chunk_x": -1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.025511,
+      "call_return_ms": 12.024039,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1686136
+    },
+    {
+      "seed": 1,
+      "chunk_x": 0,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.612290999999999,
+      "call_return_ms": 12.611059,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1712888
+    },
+    {
+      "seed": 1,
+      "chunk_x": 1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.297589,
+      "call_return_ms": 12.296016999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1714776
+    },
+    {
+      "seed": 1,
+      "chunk_x": 2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 13.380856,
+      "call_return_ms": 13.379494,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1736216
+    },
+    {
+      "seed": 1,
+      "chunk_x": -3,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.584268999999999,
+      "call_return_ms": 12.583587999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1765464
+    },
+    {
+      "seed": 1,
+      "chunk_x": -2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.244239,
+      "call_return_ms": 12.242467,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1738688
+    },
+    {
+      "seed": 1,
+      "chunk_x": -1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.186212,
+      "call_return_ms": 12.18477,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1746976
+    },
+    {
+      "seed": 1,
+      "chunk_x": 0,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 11.967051999999999,
+      "call_return_ms": 11.96519,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1725336
+    },
+    {
+      "seed": 1,
+      "chunk_x": 1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 13.845645,
+      "call_return_ms": 13.843392,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1782944
+    },
+    {
+      "seed": 1,
+      "chunk_x": 2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.674005,
+      "call_return_ms": 12.672652999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1693632
+    },
+    {
+      "seed": 1,
+      "chunk_x": -3,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.76423,
+      "call_return_ms": 12.762768,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1759064
+    },
+    {
+      "seed": 1,
+      "chunk_x": -2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.280895,
+      "call_return_ms": 12.279142,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1705792
+    },
+    {
+      "seed": 1,
+      "chunk_x": -1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.083827999999999,
+      "call_return_ms": 12.082586,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1734872
+    },
+    {
+      "seed": 1,
+      "chunk_x": 0,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 11.563156,
+      "call_return_ms": 11.561985,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1719696
+    },
+    {
+      "seed": 1,
+      "chunk_x": 1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.421626,
+      "call_return_ms": 12.420043999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1717112
+    },
+    {
+      "seed": 1,
+      "chunk_x": 2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.436717999999999,
+      "call_return_ms": 12.436017,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1734504
+    },
+    {
+      "seed": 1,
+      "chunk_x": -3,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 12.076718,
+      "call_return_ms": 12.075686,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1751296
+    },
+    {
+      "seed": 1,
+      "chunk_x": -2,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 11.771118999999999,
+      "call_return_ms": 11.770047,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1733216
+    },
+    {
+      "seed": 1,
+      "chunk_x": -1,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 11.751699,
+      "call_return_ms": 11.750197,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1738152
+    },
+    {
+      "seed": 73,
+      "chunk_x": -3,
+      "chunk_z": -3,
+      "phase": "cold",
+      "fill_ms": 145.68642,
+      "call_return_ms": 145.683696,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 9986928
+    },
+    {
+      "seed": 73,
+      "chunk_x": -2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 13.832305,
+      "call_return_ms": 13.829189999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1722280
+    },
+    {
+      "seed": 73,
+      "chunk_x": -1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 14.12903,
+      "call_return_ms": 14.125425,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1719056
+    },
+    {
+      "seed": 73,
+      "chunk_x": 0,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 13.697261999999998,
+      "call_return_ms": 13.694268,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1736904
+    },
+    {
+      "seed": 73,
+      "chunk_x": 1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 13.108587,
+      "call_return_ms": 13.106062999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1773536
+    },
+    {
+      "seed": 73,
+      "chunk_x": 2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 20.069682,
+      "call_return_ms": 20.065976,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1765424
+    },
+    {
+      "seed": 73,
+      "chunk_x": -3,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 18.774185,
+      "call_return_ms": 18.771461,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1747816
+    },
+    {
+      "seed": 73,
+      "chunk_x": -2,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 12.472501999999999,
+      "call_return_ms": 12.469857999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1719824
+    },
+    {
+      "seed": 73,
+      "chunk_x": -1,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 12.067634,
+      "call_return_ms": 12.066391999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1684760
+    },
+    {
+      "seed": 73,
+      "chunk_x": 0,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 12.040934,
+      "call_return_ms": 12.039382,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1711032
+    },
+    {
+      "seed": 73,
+      "chunk_x": 1,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 12.308826999999999,
+      "call_return_ms": 12.307675,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1749000
+    },
+    {
+      "seed": 73,
+      "chunk_x": 2,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 12.387234,
+      "call_return_ms": 12.385200999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1742296
+    },
+    {
+      "seed": 73,
+      "chunk_x": -3,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.253993999999999,
+      "call_return_ms": 12.252801999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1724424
+    },
+    {
+      "seed": 73,
+      "chunk_x": -2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 11.869285999999999,
+      "call_return_ms": 11.867814,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1680520
+    },
+    {
+      "seed": 73,
+      "chunk_x": -1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 11.842606,
+      "call_return_ms": 11.841453999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1699280
+    },
+    {
+      "seed": 73,
+      "chunk_x": 0,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 12.395807,
+      "call_return_ms": 12.394525,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1702000
+    },
+    {
+      "seed": 73,
+      "chunk_x": 1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 11.924569,
+      "call_return_ms": 11.923627,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1699360
+    },
+    {
+      "seed": 73,
+      "chunk_x": 2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 11.89876,
+      "call_return_ms": 11.897929,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1702768
+    },
+    {
+      "seed": 73,
+      "chunk_x": -3,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.450688999999999,
+      "call_return_ms": 12.449607,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1757912
+    },
+    {
+      "seed": 73,
+      "chunk_x": -2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.353242999999999,
+      "call_return_ms": 12.351799999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1739096
+    },
+    {
+      "seed": 73,
+      "chunk_x": -1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.064169,
+      "call_return_ms": 12.063087,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1702880
+    },
+    {
+      "seed": 73,
+      "chunk_x": 0,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.465572,
+      "call_return_ms": 12.46443,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1728712
+    },
+    {
+      "seed": 73,
+      "chunk_x": 1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 13.141836999999999,
+      "call_return_ms": 13.140545,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1816664
+    },
+    {
+      "seed": 73,
+      "chunk_x": 2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 12.499132,
+      "call_return_ms": 12.4978,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1703816
+    },
+    {
+      "seed": 73,
+      "chunk_x": -3,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.419272,
+      "call_return_ms": 12.418360999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1759528
+    },
+    {
+      "seed": 73,
+      "chunk_x": -2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 13.019782999999999,
+      "call_return_ms": 13.018571,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1747952
+    },
+    {
+      "seed": 73,
+      "chunk_x": -1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.141615999999999,
+      "call_return_ms": 12.140264,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1706488
+    },
+    {
+      "seed": 73,
+      "chunk_x": 0,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.094123999999999,
+      "call_return_ms": 12.093053,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1731664
+    },
+    {
+      "seed": 73,
+      "chunk_x": 1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.860814999999999,
+      "call_return_ms": 12.859753,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1779624
+    },
+    {
+      "seed": 73,
+      "chunk_x": 2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 12.030588,
+      "call_return_ms": 12.029926999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1726088
+    },
+    {
+      "seed": 73,
+      "chunk_x": -3,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 12.670658999999999,
+      "call_return_ms": 12.669106999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1781912
+    },
+    {
+      "seed": 73,
+      "chunk_x": -2,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 12.709598,
+      "call_return_ms": 12.708516999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1746464
+    },
+    {
+      "seed": 73,
+      "chunk_x": -1,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 12.476156999999999,
+      "call_return_ms": 12.475045999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 1719680
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -3,
+      "chunk_z": -3,
+      "phase": "cold",
+      "fill_ms": 156.02031599999998,
+      "call_return_ms": 156.00053599999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 12246432
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 16.541812999999998,
+      "call_return_ms": 16.538489,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3224816
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 17.725331,
+      "call_return_ms": 17.722116,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3263736
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 0,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 20.231714999999998,
+      "call_return_ms": 20.227669,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3274904
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 1,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 17.276628,
+      "call_return_ms": 17.272612,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3241984
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 2,
+      "chunk_z": -3,
+      "phase": "warmup",
+      "fill_ms": 19.249435,
+      "call_return_ms": 19.245489,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3257480
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -3,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 18.70355,
+      "call_return_ms": 18.700445,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3410632
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -2,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 18.239822999999998,
+      "call_return_ms": 18.236728,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3375448
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -1,
+      "chunk_z": -2,
+      "phase": "warmup",
+      "fill_ms": 18.411862,
+      "call_return_ms": 18.408296999999997,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3366328
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 0,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 17.654363999999998,
+      "call_return_ms": 17.651609999999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3249048
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 1,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 19.740367,
+      "call_return_ms": 19.737733,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3297352
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 2,
+      "chunk_z": -2,
+      "phase": "warm_unique",
+      "fill_ms": 17.578941999999998,
+      "call_return_ms": 17.576487999999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3325976
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -3,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 18.98333,
+      "call_return_ms": 18.980836,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3448536
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 18.576048999999998,
+      "call_return_ms": 18.574306,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3398344
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 20.346227,
+      "call_return_ms": 20.342632,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3292816
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 0,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 20.446769,
+      "call_return_ms": 20.443944,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3261488
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 1,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 18.810301,
+      "call_return_ms": 18.807676999999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3307888
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 2,
+      "chunk_z": -1,
+      "phase": "warm_unique",
+      "fill_ms": 17.782667,
+      "call_return_ms": 17.779071,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3284464
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -3,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 17.889402,
+      "call_return_ms": 17.886518,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3454288
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 17.088143,
+      "call_return_ms": 17.085319,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3460088
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 15.596143999999999,
+      "call_return_ms": 15.593359999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3332928
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 0,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 16.836125,
+      "call_return_ms": 16.833862,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3279248
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 1,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 16.910878,
+      "call_return_ms": 16.909406,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3307096
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 2,
+      "chunk_z": 0,
+      "phase": "warm_unique",
+      "fill_ms": 16.915173,
+      "call_return_ms": 16.913591,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3360712
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -3,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 16.215324,
+      "call_return_ms": 16.214171999999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3388048
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 15.732126999999998,
+      "call_return_ms": 15.730293999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3287104
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 15.701070999999999,
+      "call_return_ms": 15.699537999999999,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3284688
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 0,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 16.129404,
+      "call_return_ms": 16.127981,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3267632
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 1,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 16.342745,
+      "call_return_ms": 16.341041999999998,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3322320
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": 2,
+      "chunk_z": 1,
+      "phase": "warm_unique",
+      "fill_ms": 16.114521,
+      "call_return_ms": 16.112268,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3319264
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -3,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 16.763517,
+      "call_return_ms": 16.761204,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3490128
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -2,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 16.379289,
+      "call_return_ms": 16.377276,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3392752
+    },
+    {
+      "seed": 20261020,
+      "chunk_x": -1,
+      "chunk_z": 2,
+      "phase": "warm_unique",
+      "fill_ms": 16.527623,
+      "call_return_ms": 16.524979,
+      "completed_at_return": true,
+      "thread_allocated_bytes": 3364368
+    }
+  ],
+  "replay_hashes": {
+    "0:-3:-3": "a0819611402c04a42ac8835981a3c35ad49a72e1d8d60b9793b26bfdbec08418",
+    "0:2:-1": "f8f5cf727131659c3774f47d3f22c4be863b8717b8b1192035a4caa823539c2c",
+    "0:-1:2": "7c50eeba9ea3038a30ef695915f0e2a98ec6c0dbc0e2d2af8738af6aa17370b3",
+    "1:-3:-3": "a6f3e7c24f49573f063dd33b4680a6516353402986a8e3a36d9d0784d909af17",
+    "1:2:-1": "202721f45024fb0eac311ba46098a6ca5fdd1a0f32a9652c28a5cc11765d020e",
+    "1:-1:2": "4243a03f479ec06252d1f819d277f70c03eab98b44472b1aa1d2f06cd3858818",
+    "73:-3:-3": "55e7cb3f43ccda652a68da12920935f63d965c2b47e0ca962479b84087724749",
+    "73:2:-1": "6edb557333a72e38a12b225429b15acd167c1bd921f96aafde2f65ad692e58bc",
+    "73:-1:2": "4bf38d3cc687a507d7f7e3744e9252ec5a23e1f2fabf5ddbfe397fa96d1827a2",
+    "20261020:-3:-3": "9545f626dc672df7b358a469a067c9a6a5f3872632513f37934f35eb5810054a",
+    "20261020:2:-1": "5ee789a03f9e611b118e5ca7bf4f42c944aaa150bf4b6f23e0339df98c927396",
+    "20261020:-1:2": "441c40aaa60f306518e45d33e9052c71656f6360e91023d0ede5dcb3b8f09f03"
+  },
+  "pass": true
+}

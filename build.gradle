@@ -240,3 +240,16 @@ tasks.named('jar') {
 if (bundleVulkan || !bundleLod) {
  tasks.named('jar') { archiveClassifier.set((bundleVulkan ? 'vulkan-' + (project.findProperty('vulkanPlatform') ?: 'universal') : '') + (!bundleLod ? (bundleVulkan ? '-no-lod' : 'no-lod') : '')) }
 }
+
+// Stage-one component benchmark: excludes native chunk materialization and host status/lighting.
+sourceSets {
+    noiseBenchmark {
+        compileClasspath += project(':engine-core').sourceSets.main.output
+        runtimeClasspath += project(':engine-core').sourceSets.main.output
+    }
+}
+tasks.register('noiseBenchmark', JavaExec) {
+    dependsOn noiseBenchmarkClasses
+    classpath = sourceSets.noiseBenchmark.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.benchmark.NoiseBenchmark'
+}
