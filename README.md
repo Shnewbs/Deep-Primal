@@ -2,7 +2,9 @@
 
 **Delivered preview: 0.0.1-alpha.28 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
-Current development source is **0.0.1-alpha.29-dev**. The [staged engine work](docs/engine-review-2026-10-24/README.md) adds an unused, independently checked 3D noise library, strict configuration codec and reproducible benchmarks. Read the [architecture](docs/engine-review-2026-10-24/ARCHITECTURE.md), [stage-one results](docs/engine-review-2026-10-24/STAGE-1.md) and [strict technical review](docs/engine-review-2026-10-24/REVIEW.md). The review grades the current engine **50/100, Tier 2 of 5**. V8 integration, stages 2–6 and the latest-game-version adapter remain open; no new owner installer is released at this checkpoint.
+Current development source is **0.0.1-alpha.29-dev.2**. The [staged engine work](docs/engine-review-2026-10-24/README.md) adds an unused, independently checked 3D noise library, strict configuration codec and reproducible benchmarks. Read the [architecture](docs/engine-review-2026-10-24/ARCHITECTURE.md), [stage-one results](docs/engine-review-2026-10-24/STAGE-1.md) and [strict technical review](docs/engine-review-2026-10-24/REVIEW.md). The review grades the current engine **50/100, Tier 2 of 5**. V8 integration, stages 2–6 and the latest-game-version adapter remain open; no new owner installer is released at this checkpoint.
+
+The [stage-two partial checkpoint](docs/engine-stage2-2026-10-24/README.md) adds validated density programs and an experimental V8 shape recipe. [Measured latency and 906 occupancy disagreements](docs/engine-stage2-2026-10-24/RESULTS.md) block integration. The owner target is a verified average of at least **8/10**; the last complete audit remains **5/10**.
 
 Deep Primal is a standalone survival total conversion under development. Alpha.28 adds V7 terrain with seed-varied origin/climate, regional lowlands/plateaus/mountains, wider drainage channels and biome-based vegetation/surfaces. It fixes supported thin water rendering below its bed without adding water. Saved V1–V6 worlds retain their generation and edits. See [terrain scope and configuration](docs/TERRAIN-V7.md) and [release validation](docs/VALIDATION-0.0.1-alpha.28.md).
 
@@ -45,7 +47,7 @@ Use Java 25 and the Gradle wrapper:
 ./gradlew build -PvulkanPlatform=linux
 ```
 
-The default development output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics, LOD and GUI themes. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
+The default development output is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2.jar`, without Vulkan native libraries. Platform bundles have distinct `-vulkan-<platform>.jar` filenames. `-PwithoutVulkan` also excludes the optional Vulkan project from the build. `-PbundleVulkan` explicitly requests the larger universal bundle. Default installers include core, common performance, graphics, LOD and GUI themes. `-PwithoutLod` omits the LOD runtime and produces a separate `-no-lod.jar` profile. No new runtime dependency was added for terrain/LOD/UI.
 
 ## Scope and evidence
 

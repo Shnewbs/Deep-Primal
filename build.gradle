@@ -253,3 +253,8 @@ tasks.register('noiseBenchmark', JavaExec) {
     classpath = sourceSets.noiseBenchmark.runtimeClasspath
     mainClass = 'com.shnewbs.deepprimal.benchmark.NoiseBenchmark'
 }
+tasks.register('densityBenchmark', JavaExec) {
+    dependsOn noiseBenchmarkClasses
+    classpath = sourceSets.noiseBenchmark.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.benchmark.DensityBenchmark'
+}

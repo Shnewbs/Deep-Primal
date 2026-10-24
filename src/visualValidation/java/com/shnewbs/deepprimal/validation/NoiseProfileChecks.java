@@ -27,5 +27,6 @@ public final class NoiseProfileChecks {
       if(NoiseProfileCodec.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString(bad)).result().isPresent())throw new AssertionError("invalid profile accepted "+bad);count++;
     }
     System.out.println("NOISE_PROFILE_CODEC_PASS cases="+count+" longSaltExact=true invalidRejected=true");
+    DensityGraphProfileChecks.run();
   }
 }

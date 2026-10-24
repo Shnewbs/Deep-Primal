@@ -9,6 +9,7 @@ public final class CoreChecks {
     TerrainV6Checks.run();
     TerrainV7Checks.run();
     com.shnewbs.deepprimal.core.density.NoiseCoreChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.density.DensityGraphChecks.main(new String[0]);
     WaterBedChecks.run();
     DepositPlanChecks.run();
     WaterBudgetChecks.run();

@@ -29,7 +29,9 @@ public final class WorldgenBenchmarkChecks {
     long thread=Thread.currentThread().threadId();
     var records=new JsonArray();var hashes=new JsonObject();
     var classes=new JsonObject();
-    for(Class<?> type:List.of(EngineChunkGenerator.class,com.shnewbs.deepprimal.core.TerrainEngine.class,WorldgenBenchmarkChecks.class))
+    for(Class<?> type:List.of(EngineChunkGenerator.class,com.shnewbs.deepprimal.core.TerrainEngine.class,WorldgenBenchmarkChecks.class,
+        com.shnewbs.deepprimal.core.density.DensityGraph.class,com.shnewbs.deepprimal.core.density.TerrainShapeV8.class,
+        com.shnewbs.deepprimal.engine.DensityGraphCodec.class,DensityGraphProfileChecks.class))
       try(var in=type.getResourceAsStream(type.getSimpleName()+".class")){classes.addProperty(type.getName(),HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(in.readAllBytes())));}
     for(long seed:new long[]{0,1,73,20261020}) {
       var g=DepositNativeChecks.generator(level,template,7,seed);
