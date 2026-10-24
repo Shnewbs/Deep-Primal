@@ -1,0 +1,6 @@
+from pathlib import Path
+import subprocess,json,hashlib
+r=Path(__file__).resolve().parent;p=r/'project';e=r/'evidence';java=r/'toolchain/jdk-25.0.4.1+1/bin';out=r/'packaged-check-classes';out.mkdir(exist_ok=True);core=r/'packaged-core.jar';private=p/'build/classes/java/coreChecks';cp=str(core)+':'+str(private)
+a=subprocess.run([str(java/'javac'),'-g','-cp',cp,'-d',str(out),str(e/'PackagedChecks.java')],capture_output=True,text=True);assert a.returncode==0,a.stderr
+expected=json.loads((r/'expected-loaded.json').read_text());classes=['LodStore','LodDiskIndex','LodIndexRequest'];hashes=[expected['com/shnewbs/deepprimal/core/lod/'+n+'.class'] for n in classes];jar=p/'build/libs/DeepPrimal-26.1.2-0.0.1-alpha.27-vulkan-linux.jar';before=hashlib.sha256(jar.read_bytes()).hexdigest()
+cmd=[str(java/'java'),'-Xmx256m','-cp',str(core)+':'+str(private)+':'+str(out),'PackagedChecks',*hashes];a=subprocess.run(cmd,capture_output=True,text=True);(e/'packaged-result.txt').write_text(a.stdout+a.stderr);assert a.returncode==0,a.stdout+a.stderr;assert before==hashlib.sha256(jar.read_bytes()).hexdigest();(e/'packaged-check.json').write_text(json.dumps({'pass':True,'exit':a.returncode,'jar_sha256':before,'loaded_hashes':dict(zip(classes,hashes)),'command':cmd},indent=2)+'\n');print(a.stdout)

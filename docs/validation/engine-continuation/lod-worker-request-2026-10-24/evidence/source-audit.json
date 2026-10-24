@@ -1,0 +1,15 @@
+{
+  "parent": "669380658114459001bebd0dcf588501059c7dfa",
+  "verified_parent_inputs": 661,
+  "changed_existing_inputs": [
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java"
+  ],
+  "added_candidate_core_files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexRequest.java"
+  ],
+  "added_private_file": "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/RequestChecks.java",
+  "public_source_promoted": false,
+  "renderer_changed": false,
+  "geography_or_water_changed": false
+}

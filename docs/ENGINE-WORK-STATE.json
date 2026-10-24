@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-24T12:29:35.568Z",
-  "active_until": "2026-10-24T13:59:35.569Z",
+  "status": "idle",
+  "updated_at": "2026-10-24T13:01:58.349Z",
+  "active_until": null,
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.27",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R54 stages one worker-owned bounded nearest-key LodDiskIndex after reproducing actual renderer prefix omission among8205valid readable cache pages. 14303JDK17real-file/oracle/bounds/cancel checks pass;33calls at256entries recover omitted camera page and exact8192nearest keys. Public renderer still uses prefix scan: adapter/session/camera/edit/native integration is unfinished. One initial missing-input compile attempt rejected and immutable sources restored. Pinned build/native environment pruned; no full/native/graphics build or installer. R53 production palette fix and delivered alpha27/frozen V1–V6 retained; engine acceptance incomplete.",
+  "current_gate": "R55 restores pinned toolchains/full661input checkout and stages one new LodIndexRequest around unchanged R54cursor.347actual single-worker/two-slot executor checks pass directly/full-build/packaged, including worker-owned close/cancel, rejection/retry and request/session/camera publication guards. R54JDK25replay14303checks and fresh terminal-backed31task build pass; independent51sources/92classes and7CRC/507product identities pass. Initial stdout capture incomplete/rejected, then complete fresh capture succeeds; cause unproven. No public source promotion, renderer wiring, Minecraft/graphics test or installer. Production prefix cutoff persists; frozen V1–V6 and R53 retained; engine incomplete.",
   "next_items": [
-    "Restore pinned JDK25/JDK21/Gradle/native dependencies after workspace pruning, then integrate only R54 staged LodDiskIndex into isolated current-main renderer. Resubmit at most one256entry worker turn, interleave geometry work, preserve shared8192key recovery/edit guards, and handle worker-owned close/cancel/reset/camera/session supersession. Current production still truncates at first8192directory matches. Candidate full nearest set passes14303real-file/BigInteger checks but no Minecraft/fullbuild/graphics acceptance; final8192key sort/copy and filesystem latency are not2ms guarantees. Test actual Vulkan travel/edit/save/shutdown/visibility plus cap-full recovery before promotion; spatial hierarchy/rediscovery/coarser fallback remain open. See docs/validation/engine-continuation/lod-paged-index-2026-10-24/README.md.",
+    "Continue R55 staged LodDiskIndex + new LodIndexRequest in isolated current main. Restored project/tools/cache are at /workspace/scratch/a22609fabda0/lod-lifecycle-1232;661parent inputs verified. Apply only the four staged files from docs/validation/engine-continuation/lod-worker-request-2026-10-24/ before actual renderer adapter work. Wire one bounded256entry worker turn fairly with geometry; use currentRequest.canPublish with live epoch/camera plus existing edit/recovery guards; retain shared8192key bound. Change/reset lifecycle carefully: current public shutdownNow can discard required cleanup. Prove saturated cleanup/rejection, queued/running/camera/world supersession, save/reopen/shutdown and visible Vulkan travel/edit coverage before promotion.347worker/14303cursor checks and31task/507class package gates pass but are packaged JVM checks, not Minecraft/graphics. Spatial hierarchy, rediscovery, coarser fallback, total frame/peak memory and2ms remain open.",
     "Freeze delivered V1-V6 generation and preserve saved profiles, heights, quantities and edits. Broaden V6 seed/climate/ore-host/overlap/balance, rare tunnels/caves/debris and owner-GPU visual/performance evidence. New geography requires V7. Do not copy the older staged V5 snapshot over current production; its backward-compatible field is now included alongside V6 authored deposits. R52's fixed stratified core sample has116279272 matching queries,51370ore voxels and91eligible overlaps, but gold/redstone/lapis absent and only14host pairs. This is pre-carving field evidence with Deep-like Y bounds, not native density; broaden separately attributed native rare-host/climate/overlap coverage rather than infer an ore absence or change frozen V6 defaults. See v6-ensemble-2026-10-24.",
     "Continue the broader outstanding mechanics in TERRAIN-V6.md and existing water/LOD audits: long-region hydraulics, real-world temporal water/page quality, material/host authoring extensions, bounded surface landslides and dynamic ice-sheet behavior where required. Optional KubeJS authoring, external editor and catalogs remain deferred. The owner received a tested terrain alpha, not a claim of perfection.",
     "Use --root-game-task runClient before the proxy helper's -- separator (omit any game selector after --), or explicit :runClient, to isolate merged packaged Vulkan validation. Run separately attributed root water/save/crash/resource/shutdown gates when the foreground native job is closed. Then implement bounded normal cross-frame cohort publication with explicit visibility/edit/unload/supersession; preserve R44 retirement reactivation, R43 retry, quantity, edits, frozen geography and merged Themes. Continue actual visible stream/ocean travel/edit/cap churn, overflow-to-remesh and active recovery/retirement overlap. Continue from main; historical589input snapshot must not overwrite merged source.",
@@ -32,8 +32,8 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/README.md",
-  "local_validation_environment": null,
+  "latest_continuation_evidence": "docs/validation/engine-continuation/lod-worker-request-2026-10-24/README.md",
+  "local_validation_environment": "/workspace/scratch/a22609fabda0/lod-lifecycle-1232/project",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -54,7 +54,8 @@
     "R43 implements bounded recovery for synchronous pre-backend boundary-write rejection only, with 120 candidate private-page cases/360 paired reads over 240 distinct recovery frames. Ordinary successful cohort publication is still synchronous; whole-cohort visibility, actual scene cap churn, overflow-to-real-remesh completion, pending-recovery/retirement interleavings, full-upload/allocation partial-write and asynchronous loss remain unaccepted. Queue bounds:16 ranges/1MiB raw vertex bytes; recovery<=1write/65520B per frame, plus mask/object/page-generation storage. Development/packaged Vulkan private retirement maxima10.224964/9.923411ms still exceed2ms. Software driver/private pages/static lake images do not establish ownerGPU/FPS, seamless real streams/oceans, full enabled-view/LOD or market acceptance. One corrected private fixture compile and independent-oracle corrections are retained; no new crash. Main, public source and installers unchanged.",
     "R44 removes mandatory polling of steady private water pages and validates lifecycle/retry wake and rollback. Hard2ms remains unmet: private steady Vulkan retirement max16.692ms; full development/packaged/GL max4.315/4.811/4.850ms. Execution context changed between control/candidate, so no controlled latency/API comparison. Normal successful neighbor/cohort publication remains synchronous. Static lake screenshots retain page-like water bands; actual stream/ocean temporal continuity, cap churn, all enabled-view/LOD and ownerGPU/FPS remain unaccepted. Combined merged GUI session is not a repeat of sealed water suite; missing separate shutdown-completion record and independent client attribution require the merged packaged water gates.",
     "R48 closes the scoped cache-reconstruction functional gate, not full natural hydrology/performance. Physical churn used bounded chunk-manager service loops while level time stayed unchanged, then a controlled20tick saved-clock advance. Larger natural-region/weather/season/repeated long-duration churn, wall-clock/memory and ownerGPU/graphics remain open. Three private test crashes are excluded even though Gradle exited0. Existing Alpha26 owner JAR predates the fix; no installer released.",
-    "R51 staged V5 source retains96V1-V4/128expanded V5 native digests and passes all8current ore kinds across16seeds, but only14of21host pairs and targeted density samples. Missing host cases, client Vulkan visuals, broader balance/overlap and full pipeline/peak memory remain open. Warm thread allocation lower13-80kB/chunk; final p95 worse7.23%in one of4cases, so no general latency acceptance. A Gradle0 nonincremental build retained stale source bytes; final independent44source/71class and loaded-class guards pass after own-output cleanup, cause unproven. No public production promotion or new owner installer."
+    "R51 staged V5 source retains96V1-V4/128expanded V5 native digests and passes all8current ore kinds across16seeds, but only14of21host pairs and targeted density samples. Missing host cases, client Vulkan visuals, broader balance/overlap and full pipeline/peak memory remain open. Warm thread allocation lower13-80kB/chunk; final p95 worse7.23%in one of4cases, so no general latency acceptance. A Gradle0 nonincremental build retained stale source bytes; final independent44source/71class and loaded-class guards pass after own-output cleanup, cause unproven. No public production promotion or new owner installer.",
+    "R55 LodIndexRequest/cursor remain staged and not wired into production renderer. Actual queue saturation during cleanup, shutdownNow/worker loss/IO faults, live camera/world/edit supersession and native Vulkan travel/save/shutdown/visible coverage remain unaccepted. Initial cold-build stdout incomplete with daemon registry integrity warning; complete PTY retry and source/package guards pass, cause unproven. No new installer or ownerGPU/FPS acceptance."
   ],
   "latest_accepted_solver_commit": "900ebebf67b6220ce0efab0b71abdeffe3bd1ed0",
   "staged_validation_evidence": [
@@ -253,42 +254,48 @@
     "docs/validation/engine-continuation/deposit-allocation-2026-10-24/staged-manifest.json",
     "docs/validation/engine-continuation/deposit-allocation-2026-10-24/world-input-manifest.json",
     "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/summary.json",
-    "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/identity.json"
+    "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/identity.json",
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/evidence/summary.json",
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/evidence/independent-core.json",
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/evidence/package-audit.json",
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/evidence/packaged-check.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "r55-lod-lifecycle",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
   "latest_test_summary": {
-    "checkpoint": "R54",
-    "source_parent": "c8f37b813da28fe769fc479f50eaaaa120bfa310",
-    "scope": "Staged pure-Java bounded nearest-key LOD scan; renderer integration incomplete",
-    "new_staged_component_files": 1,
+    "checkpoint": "R55",
+    "parent": "669380658114459001bebd0dcf588501059c7dfa",
+    "scope": "Restored environment and staged worker-owned LOD request lifecycle/publication guards",
+    "new_staged_runtime_files_since_R54": 1,
+    "reused_R54_cursor_files": 1,
+    "new_private_fixture_files": 1,
     "public_production_files_changed": 0,
     "promoted": false,
-    "real_readable_snapshot_inputs": 8205,
-    "baseline_prefix_keys": 8192,
-    "baseline_omits_readable_camera_page": true,
-    "candidate_recovers_camera_page": true,
-    "candidate_checks": 14303,
-    "candidate_turn_entry_limit": 256,
-    "candidate_maximum_retained_keys": 8192,
-    "large_case_turns": 33,
-    "independent_BigInteger_nearest_oracle": true,
-    "travel_rescans": 4,
-    "signed_extreme_coordinate_cases": 3,
-    "normal_cancellation_and_close_checked": true,
-    "initial_missing_input_compile_rejected": true,
-    "final_compile_and_IO_pass": true,
-    "compiler": "System jdk.compiler17.0.20 via java module entry point",
-    "full_JDK25_Gradle_or_packaged_Minecraft_run": false,
-    "new_graphics_visual_performance_or_ownerGPU_check": false,
+    "toolchain_archive_checksums_verified": 5,
+    "restored_verified_project_inputs": 661,
+    "resources_recovered_and_git_verified": 158,
+    "full_build_pass": true,
+    "full_build_tasks": 31,
+    "accepted_build_capture": "fresh terminal-backed stdout+stderr",
+    "initial_incomplete_stdout_capture_rejected": true,
+    "worker_lifecycle_checks": 347,
+    "packaged_worker_lifecycle_checks": 347,
+    "R54_JDK25_replay_checks": 14303,
+    "independent_core_sources": 51,
+    "independent_core_class_matches": 92,
+    "archive_crcs": 7,
+    "product_class_matches": 507,
+    "private_class_paths_excluded": 46,
+    "failed_behavioral_or_game_checks": 0,
+    "minecraft_client_server_execution": false,
+    "new_graphics_or_FPS_validation": false,
     "installer_released": false,
     "production_prefix_cutoff_remains": true,
     "engine_acceptance_complete": false,
-    "blocker": "Pinned JDK25/JDK21, Gradle/native/dependency caches pruned; restore before full integration validation.",
-    "next": "Worker-turn/lifecycle/camera/session adapter, shared key/edit guards and native Vulkan travel/save/shutdown/coverage gates before promoting the staged cursor."
+    "next": "Wire staged request/cursor into renderer with one-turn fairness, live camera/session/edit guards, saturation-safe cleanup and native Vulkan travel/save/shutdown checks before promotion."
   },
   "graphics_reference_api": "vulkan",
   "graphics_validation_order": [
@@ -382,7 +389,7 @@
   ],
   "latest_staged_graphics_promoted": true,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/water-boundary-retry-2230",
-  "validation_environment_status": "Workspace maintenance pruned retained pinned JDK25/JDK21, Gradle and native/dependency caches. System Java17.0.20 retains jdk.compiler despite absent javac CLI. R54 uses module compiler for staged pure-Java real-file checks only; full build/current JDK25/native/graphics remain blocked until environment restoration.",
+  "validation_environment_status": "R55 restores five checksum-pinned JDK25/JDK21/Gradle/NeoForm/ASM assets and verifies private build compatibility. All661current engine/Themes inputs restored/Git-verified, including158resource inputs from the hash-verified delivered alpha27 artifact. Fresh terminal-backed forced31task candidate build passes; independent51source/92class and7CRC/507product-class audits plus347packaged worker checks pass. Initial ordinary stdout capture incomplete/rejected despite daemon success; retained separately. No new Minecraft or software-driver/graphics session; private OS graphics dependencies/native acceptance not established by a build.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -542,6 +549,14 @@
       "previous": "Writer accepted a 1052672-character palette over the reader's1048576-character aggregate limit and replaced a readable previous snapshot with an unreadable file.",
       "evidence": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/README.md",
       "broader_engine_acceptance": false
+    },
+    {
+      "checkpoint": "R55",
+      "scope": "R54 pinned build/source restoration blocker only",
+      "previous": "Retained JDK25/JDK21/Gradle/native/dependency caches and source inputs pruned by workspace maintenance.",
+      "evidence": "docs/validation/engine-continuation/lod-worker-request-2026-10-24/README.md",
+      "resolution": "Pinned compiler/build tools, verified661input project and dependency/core build cache restored; full candidate build/identity/packaged JVM checks pass. Minecraft and graphics/OS acceptance still unrun.",
+      "broader_engine_acceptance": false
     }
   ],
   "latest_staged_engine_test_summary": {
@@ -604,8 +619,8 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 6,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
-  "foreground_task": "Isolated toolchain recovery and staged bounded LOD lifecycle integration; no active checkout mutation.",
-  "latest_isolated_validation": "/workspace/scratch/a22609fabda0/lod-index-1130",
+  "foreground_task": null,
+  "latest_isolated_validation": "/workspace/scratch/a22609fabda0/lod-lifecycle-1232",
   "latest_verification_summary": {
     "checkpoint": "R52",
     "source_parent": "65705ec9f6eed1c9ecc26e6e8d54cd908707babc",
@@ -667,8 +682,13 @@
   },
   "latest_preview_contains_r53_cache_fix": false,
   "latest_staged_lod_index_sources": [
-    "docs/validation/engine-continuation/lod-paged-index-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java"
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java",
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexRequest.java"
   ],
   "latest_staged_lod_index_promoted": false,
-  "latest_staged_lod_index_evidence": "docs/validation/engine-continuation/lod-paged-index-2026-10-24/evidence/summary.json"
+  "latest_staged_lod_index_evidence": "docs/validation/engine-continuation/lod-worker-request-2026-10-24/evidence/summary.json",
+  "latest_staged_lod_index_validation": [
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/lod-worker-request-2026-10-24/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/lod/RequestChecks.java"
+  ]
 }
