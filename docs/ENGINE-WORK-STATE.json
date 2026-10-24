@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-24T07:01:55.231Z",
-  "active_until": "2026-10-24T07:51:55.231Z",
+  "updated_at": "2026-10-24T07:18:33.472Z",
+  "active_until": "2026-10-24T07:58:33.472Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.26",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "R50 staged opt-in V5 native integration and footprint mask pass final nonincremental31task build,90960core oracle cases,96matching legacy chunk digests,1.305millionnative ore checks and actualV5 save/reopen/edit retention.58material blocks recover neighbor deposits; cave/water/soil states remain unchanged. Sparse CPU query probe improves94.07% with6.55% construction cost/+8B; no broad generation/visual acceptance. Four attempts excluded, including one Gradle0 game crash and stale private fixture. Public production/defaults/installers unchanged; broader balance/client/profiling gates remain before promotion.",
+  "current_gate": "R51 active: lazy deposit-array allocation matches4.19millionR50 core cases and90960oracle cases; final31task build passes. Four matched packaged V5 reopen processes pass128all-ore witnesses/16seeds and preserve output/edits. Sparse/dense CPU probes and final audit in progress. No promotion/installer.",
   "next_items": [
     "Continue the R50 opt-in saved V5 deposit candidate from its eight staged files at docs/validation/engine-continuation/versioned-deposits-2026-10-24/staged-manifest.json in an isolated current-main checkout. Native version/column/chunk/order/save/edit gates and sparse CPU query pruning pass. Before promotion, expand all-ore/host/density/overlap ensembles and native visual transects, and measure matched full-chunk generation/allocation including dense footprints. The sparse microprobe has83.5%empty columns and does not establish full-generation/frame/peak memory acceptance. Preserve all V1-V4 output and defaultV4. Keep nonincremental rebuild/runtime-class identity gates after the stale private fixture; do not silently activate V5 inside V4 saves.",
     "Continue the owner-requested terrain-engine revision from saved V4: expand biome/material/deposit authoring, geology-linked caves and supported through-mountain rivers, soil horizons, wind-shaped terrain and natural obstructions. Keep sinkholes excluded, budgets conserved, player edits intact and V1/V2/V3 frozen. See docs/ENVIRONMENTAL-WATER-AND-TERRAIN-V4.md for implemented scope versus open mechanics; do not equate the working generator pipeline with completion of all accepted mechanics.",
