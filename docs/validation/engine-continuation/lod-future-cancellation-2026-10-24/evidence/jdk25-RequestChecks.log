@@ -1,0 +1,1 @@
+LOD_REQUEST_PASS checks=347 directoryEntries=8205 turnsPerCompleteScan=33 geometryInterleaves=32 workerThreads=1 executorQueueCap=2 quota=256 epochCameraAttribution=true midScanAndQueuedCancel=true wrongThreadCloseRejected=true rejectionRetry=true gracefulClose=true
