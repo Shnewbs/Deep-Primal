@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T09:37:08.878Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T10:31:26.223Z",
+  "active_until": "2026-10-24T11:46:26.223Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.27",
   "candidate_released": true,
@@ -253,7 +253,7 @@
     "docs/validation/engine-continuation/deposit-allocation-2026-10-24/world-input-manifest.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "r53-lod-store-audit",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -603,7 +603,7 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 6,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
-  "foreground_task": null,
+  "foreground_task": "Isolated LOD persistence budget/replacement audit; no active-checkout mutation.",
   "latest_isolated_validation": "/workspace/scratch/a22609fabda0/alpha27-balance-0936",
   "latest_verification_summary": {
     "checkpoint": "R52",
