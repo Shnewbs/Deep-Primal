@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-24T19:24:00.078Z",
+  "updated_at": "2026-10-24T19:29:28.937Z",
   "active_until": "2026-10-24T22:24:00.079Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.2",
@@ -776,5 +776,13 @@
     "full_gradle_build": false,
     "owner_jar_built": false,
     "grade_changed": false
+  },
+  "performance_measurement": {
+    "owner": "foreground-r62-density-metadata",
+    "status": "active",
+    "scope": "R62 three paired fresh JVM constructor and exact-volume measurements; shared CPU must be otherwise idle",
+    "started_at": "2026-10-24T19:29:28.937Z",
+    "active_until": "2026-10-24T19:49:28.937Z",
+    "auditor_policy": "Defer only auditor heavy work on the same CPU/cache while this measurement is active; do not pause builder. Read-only audit may proceed."
   }
 }
