@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T13:01:58.349Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T13:34:53.222Z",
+  "active_until": "2026-10-24T14:19:53.223Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.27",
   "candidate_released": true,
@@ -261,7 +261,7 @@
     "docs/validation/engine-continuation/lod-worker-request-2026-10-24/evidence/packaged-check.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": null,
+  "worker": "R56 isolated LOD renderer adapter",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
