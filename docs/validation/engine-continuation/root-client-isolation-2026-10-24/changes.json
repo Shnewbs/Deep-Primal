@@ -1,0 +1,12 @@
+[
+  {
+    "path": "tools/build_with_current_proxy.py",
+    "before_sha256": "54ac049a8f22fab15cde893323e1674bf02488a20352b7430ab2006c3bbe0254",
+    "after_sha256": "ad0ca8f1faf20f34a882ac3b0dd0a00588850e1fb4d4aa9f165ad3d6abe4f87f"
+  },
+  {
+    "path": "README.md",
+    "before_sha256": "46fb1dd2d69e034e5efd9f2ad9244e74a64465056bfd5521266d2c5ed86c38ec",
+    "after_sha256": "07e055722a1d358af1aaea97114d775eca6c75858e637603669072f02de3a054"
+  }
+]

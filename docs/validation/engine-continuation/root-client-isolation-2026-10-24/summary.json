@@ -1,0 +1,20 @@
+{
+  "checkpoint": "R45",
+  "pass": true,
+  "parent": "c0f311a1abcbe3230d27430f955ce45019075f66",
+  "scope": "validation launcher only; no engine runtime/solver/shader changes",
+  "real_gradle_dry_runs_passed": 3,
+  "baseline_selected_clients": 2,
+  "opt_in_selected_clients": 1,
+  "standalone_task_preserved": true,
+  "argument_controls_passed": 8,
+  "full_builds": 0,
+  "native_sessions": 0,
+  "foreground_activity": "Observed another foreground native job while lease state still named this worker. Requested owned-process cleanup; final sealed records show all three dry-runs had already completed successfully. No other checkout or jobs modified. No host timings accepted.",
+  "self_audit": "Initial summary assumed the third dry-run was interrupted; final raw/hash/results inspection corrected it to completed. Optional psutil was absent; cleanup used standard library ownership checks.",
+  "root_task_option": "--root-game-task runClient before --; no game selector after --",
+  "legacy_unqualified_calls_unchanged": true,
+  "limitation": "New opt-in or explicit :runClient required. Legacy unqualified selectors still dispatch matching subprojects.",
+  "full_engine_acceptance": false,
+  "next_step": "Scoped merged packaged Vulkan water/save/resource/shutdown suite; bounded cross-frame publication and visible stream/edit/cap-churn work."
+}

@@ -6,6 +6,14 @@ Deep Primal is a standalone survival total conversion under development. This ex
 
 ## Current foundation
 
+For engine-only game validation, use the proxy helper's `--root-game-task runClient`
+before its `--` separator and omit game selectors after it. With plain Gradle,
+use `:runClient`. Unqualified `runClient` selects both the engine and standalone
+Themes clients in this combined build, mixing their capture/output records.
+Explicit `:gui-themes:runClient` remains available for standalone Themes tests.
+Dry-run task isolation verifies dispatch only; native water/save/shutdown gates
+must still run separately on the selected client.
+
 - **Original Overworld generation:** `deepprimal:continental_v3` and `deepprimal:regional_v1` determine continents, relief, climate/palettes, drainage, cave tunnels and tree placement. The selected generator extends `ChunkGenerator`, not `NoiseBasedChunkGenerator`, and does not delegate those decisions to Minecraft's Overworld noise router or multi-noise biome source. Existing Minecraft blocks and biome assets are temporary palettes; Minecraft/NeoForge still provide storage, lighting, scheduling and host APIs. Nether/End remain native.
 - **Original liquids:** a separate fluid type with 16 saved units per block, bounded conservative gravity/pooling and connected-pool equalization, stored currents, full-volume buckets and shared-corner curved water meshes. This path does not use `WaterFluid`/`FlowingFluid` for transport. Native water introduced into engine worlds is imported before native spreading. Lava and waterlogged solids are not replaced.
 - **Actual-chunk LOD:** immutable vertical block runs preserve roofs, air gaps, trees and player edits. Three mesh resolutions, projected-size selection, native-ready handoff, bounded worker/uploads/GPU storage and world-scoped persistent caches run through the common GPU API on OpenGL and optional Vulkan.
