@@ -4,7 +4,8 @@ import java.util.Random;
 
 /** Dependency-free differential checks for hot-path math and bounded memory behavior. */
 public final class CoreChecks {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
+    com.shnewbs.deepprimal.core.lod.LodStoreBudgetChecks.main(new String[0]);
     TerrainV6Checks.run();
     DepositPlanChecks.run();
     WaterBudgetChecks.run();

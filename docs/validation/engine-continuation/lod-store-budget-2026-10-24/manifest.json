@@ -1,0 +1,182 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/baseline/ColumnarChunk.java",
+    "bytes": 4120,
+    "sha256": "9e2293d597e35c9bd47d22ed60be949819cad5d91e2f8fd7c55beb0bbf41131f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/baseline/LodStore.java",
+    "bytes": 3659,
+    "sha256": "31db9ea07fb4c94b6c6d9804d25ffd04b65150bbc24cece2dcaf15f98f09dbd5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/candidate/ColumnarChunk.java",
+    "bytes": 4120,
+    "sha256": "9e2293d597e35c9bd47d22ed60be949819cad5d91e2f8fd7c55beb0bbf41131f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/candidate/LodStore.java",
+    "bytes": 3941,
+    "sha256": "b8c453020c10458b884d8eaaebd4d91a76303deaa3d279295411d911e9cd9dad"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/LodStoreBudgetChecks.java",
+    "bytes": 3770,
+    "sha256": "6c3a9fdb738033ebd9002d8b3e8b812d4f439e836cb00e287f16e128a3ef27c1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/PackagedLodBudget.java",
+    "bytes": 647,
+    "sha256": "3fa3b761e934f89da204e2f93a03aeef8d6ff099d78108d25c040531ae2293a9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/baseline-compile.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/baseline-result.txt",
+    "bytes": 141,
+    "sha256": "66603c15872c06f0841699c948ebc8184629f7afea290435c3e20d04a20a2030"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/build-reporter-original.py",
+    "bytes": 1789,
+    "sha256": "10fb24847ec576d0d74a2376c587e13612f3187557119a55d8819b144d497648"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/build-result-original.json",
+    "bytes": 1811,
+    "sha256": "06d42379a47510bf5e751486f6dadf807fd73cb09836d377c4a9449a1871a276"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/build-result.json",
+    "bytes": 2069,
+    "sha256": "692ae36c154c9c476020e5500c5e916085b34a570b255383359253ac04d1b3f4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/build.log",
+    "bytes": 17877,
+    "sha256": "adff5211479cbd95dc6a3d0f6bc96e2c621fbca4ce53b7039b2aea5db4c1fb8e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/candidate-compile.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/candidate-result.txt",
+    "bytes": 211,
+    "sha256": "9921803efc738196b9f885525a1e7dafeb224595e67110debfb71a47f4e1b20c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/direct-checks.json",
+    "bytes": 2188,
+    "sha256": "f4e0bb06095e49a9909dec4c0c2cdceff4f35659125e65baf34fa1ee7177424a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/independent-compile.json",
+    "bytes": 146,
+    "sha256": "1e49144bd9a340f0038acc05621b9ada4848ce419e2d60dc5aa317e3681dbf8a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/independent-core-audit.json",
+    "bytes": 25587,
+    "sha256": "c72aff3f6443d6db324e03f2dc26cbe2e492e96c4a6e6b67aebf62d0f39f61cb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/package-audit.json",
+    "bytes": 1734,
+    "sha256": "0e60c32a8c6b12523a5a0ddceff2ce58866e298ccaf16d7449b2e2d05a8813d3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/packaged-check.json",
+    "bytes": 804,
+    "sha256": "47236715bff56ec08150e49e729f8e6f45865f18c4c1754fb142b2cf278bd06b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/packaged-result.txt",
+    "bytes": 393,
+    "sha256": "e02e0a924b9c326d3f1aa1667321c2987024c48de079487c0188d0d2e97e5acd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/run.py",
+    "bytes": 1258,
+    "sha256": "650ba3dbe67f3e777d1d41c8224a218362313031e8e9aca8c56ee1744f783f7e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/runtime.patch",
+    "bytes": 662,
+    "sha256": "571a121edb3afdc47cdee2348a550ac346050e66e39a6b7c827bb0bca6506daa"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/source-audit.json",
+    "bytes": 762,
+    "sha256": "27be2bc86634900f5f0080161114ea3d5e87c0732c616819a63497edb1b9af9b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/source-manifest.json",
+    "bytes": 187522,
+    "sha256": "d6993a218f3cde5f81e3ec3912bf78f69e7692feaf0c3f30a02b92dbdd8f42bb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/summary.json",
+    "bytes": 1026,
+    "sha256": "2e86b9eb86cda1c4238855d2b67decacfac03efd3c84d08f639ebd7237d302d6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/evidence/task-record.json",
+    "bytes": 2283,
+    "sha256": "4515b1b92b564e280b253d39461130c380e2a62766d375d96f212e266f16e1cf"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/README.md",
+    "bytes": 5581,
+    "sha256": "2acc10a932080f43ef55e478c1d2ecb2f9a1195558022c2456bc18b54efe1fbd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/build.py",
+    "bytes": 1789,
+    "sha256": "caacc706ab157b08a261a32c5464757ad5b80286405e27afe99093cad8e9dccd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/fresh-compile.gradle",
+    "bytes": 90,
+    "sha256": "f032815e1f637cf975a06396e641b2edb9f414c516350457f7ac890041247e30"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/verify_core.py",
+    "bytes": 1599,
+    "sha256": "55f166642fc5d92b0afb3e5ea87d88e266e7f1726c8461cca64b1cd7b4d83e31"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/audit_package.py",
+    "bytes": 1800,
+    "sha256": "ff1b127da6c875e44d0b503c04f29948cd39c729eb7ef0ab219cf13066b6a0ad"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/verify_package.py",
+    "bytes": 1443,
+    "sha256": "09eabd51413255f914d1f9cf931fd6e2337bd545d406bc5636be19a36e6f69cc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/lod-store-budget-2026-10-24/finalize.py",
+    "bytes": 2458,
+    "sha256": "f228ae92ff9b2ed8f9be6ccf5187e4dfe8e5fe077a00607ec2f69b69690cd69c"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodStore.java",
+    "bytes": 3941,
+    "sha256": "b8c453020c10458b884d8eaaebd4d91a76303deaa3d279295411d911e9cd9dad"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "bytes": 6382,
+    "sha256": "b920da85dc745ca61e4e728b403730baa261aa370d8134d5761caaa906bb64e3"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodStoreBudgetChecks.java",
+    "bytes": 3770,
+    "sha256": "6c3a9fdb738033ebd9002d8b3e8b812d4f439e836cb00e287f16e128a3ef27c1"
+  }
+]

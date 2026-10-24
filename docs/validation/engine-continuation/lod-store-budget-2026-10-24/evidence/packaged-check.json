@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "command": [
+    "/workspace/scratch/a22609fabda0/lod-store-1035/toolchain/jdk-25.0.4.1+1/bin/java",
+    "-Xmx256m",
+    "-cp",
+    "/workspace/scratch/a22609fabda0/lod-store-1035/packaged-core.jar:/workspace/scratch/a22609fabda0/lod-store-1035/classes-candidate",
+    "com.shnewbs.deepprimal.core.lod.PackagedLodBudget",
+    "05b61026b3df7c5599a204b927ead8f7427523ea0421bb6312fefd93b91e6475"
+  ],
+  "root_sha256": "b786aa3a1f47889d4f34e38bbffdad7ed3595c382347452834651ffd397b0ab9",
+  "embedded_core_sha256": "ced5e824c3d23d29dfc5646043ad1494c0fc56f3ca88af0e48b2142e214d509e",
+  "expected_loaded_class_sha256": "05b61026b3df7c5599a204b927ead8f7427523ea0421bb6312fefd93b91e6475",
+  "exit": 0,
+  "raw_result_sha256": "e02e0a924b9c326d3f1aa1667321c2987024c48de079487c0188d0d2e97e5acd"
+}

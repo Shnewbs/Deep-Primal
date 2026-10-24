@@ -19,6 +19,13 @@ public final class LodStore {
   }
 
   public synchronized boolean write(ColumnarChunk chunk) throws IOException {
+    // Validate the reader's palette budget before replacing a complete snapshot.
+    long names = 0;
+    for (String s : chunk.palette()) {
+      names += s.length();
+      if (s.length() > 4096 || names > 1_048_576)
+        throw new IOException("LOD palette byte budget");
+    }
     Path target = path(chunk.x, chunk.z);
     Files.createDirectories(root);
     if (Files.exists(target)) {
