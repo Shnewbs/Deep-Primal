@@ -1,14 +1,16 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-24T19:29:28.937Z",
+  "updated_at": "2026-10-24T19:38:30.007Z",
   "active_until": "2026-10-24T22:24:00.079Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.2",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "R61 stages one exact DensityGraph sampler mask shortcut atop R60.57current-parent core inputs and R60baseline blobs verified;102product core classes compile/JDK25.1581340exact/ownership plus183806noise/40987graph checks pass. Diagnostic3Dcalls196608->45056 with samechecksum.3paired component JVMs give R60means52.86-58.34ms versus candidate31.38-32.72ms,1968B/job. Separate constructor probe cost increases80.5->127.7microseconds/21141->41337B; limitedsinglefork. Initial unreachable-nodeNPE rejected/fixed and earlier timings retained. Staged/unenabled, no fullGradle/native/package/visual/JAR; still above5ms. Last full grade50/100,Tier2/5 unchanged; V1-V7 frozen;80point engine target open.",
+  "current_gate": "R62 staged constructor-only density metadata optimization preserves scalar and full Sampler source.57core/102independent classes and1,911,605 checks per control/candidate pass, including180new graph layouts/3orders/full128nodes.3paired JVMs reduce terrain constructor allocation~37-44KB to~18-21KB; sampler latency mixed, strongly order-dependent and above5ms. Packed intermediate kept/excluded after timing concern; private generator bug corrected. No production promotion/fullGradle/native/JAR/regrade. Builder now restoring full source/dependencies for next gates; frozenV1-V7/R57 preserved; lastfullgrade50/100.",
   "next_items": [
+    "Continue full source/dependency restoration using current immutable main snapshot and verified retained Themes assets; then full module/codec/package gates for isolated R62 candidate. Pinned tools and57current core inputs are restored. R62 checks and allocation acceptance are staged only; do not promote experiments into the auditor's current JAR without required gates.",
+    "Address order-sensitive density latency: R62 sampling code is identical to R61, yet broad column means~32-47ms and X-inner~255-307ms. Keep exact scalar oracles, bounded job-owned storage and ownership. Restore native V8 block/base-column/heightmap/saved-profile/routed-water/topology and Vulkan gates;906 coarse sign disagreements remain open.",
     "Continue partialstage2 from R61 docs/validation/engine-continuation/masked-density-2026-10-24/README.md. One stagedGraph includes R60reuse and safe zero-mask shortcut; scalar/recipe unchanged.57sourceJDK25/1.58mexact+originalnoise/graph checks pass. Final component means31.38-32.72ms stillfail5ms; metadata compilation singleprobe increases~20KB/~47microseconds. Broaden adversarial graph/order/cold/tail and compile-cost checks, reduce metadata overhead if justified, then fullGradle/module/codec/package checks and nativeV8 materialization/base-column/heightmap/savedgraph/routedhydrology/topology/Vulkan gates. R61 remains unpromoted and coarse906sign mismatches unresolved; no unusedcode score increase.",
     "Implement conservative density refinement/topology policy; expanded16-site/four-seed corpus has906 occupancy mismatches in1572864 samples. Do not enable coarse lattice for roofs/aquifers based on measured error alone. Then implement isolated native V8 block/base-column/heightmap parity and saved graph snapshots, planned river/basin coupling and chunk-order/reopen/native visual gates.",
     "Continue stages3-6 after the recorded stage2 gates: weighted climate/ecotones, connected drainage/cave/aquifer density, structures/features, bounded scheduler/caches and verified latest-version integration. Regrade allten categories only against built and executed evidence. Keep the enabled hourly task active until verifiedaverage>=8 or explicit user cancellation.",
@@ -39,8 +41,8 @@
     "Keep hourly updates active and report only verified progress"
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/masked-density-2026-10-24/README.md",
-  "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/current-engine",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/density-metadata-2026-10-24/README.md",
+  "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/density-r62",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
     "The experiment's unpinned filling retains 1024 pending entries; accepted solver cleanup freshly has pending=0 in its fixture. Larger-region continuation, residency, broad output/latency acceptance remain open.",
@@ -291,40 +293,32 @@
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
   "latest_test_summary": {
-    "checkpoint": "R61",
-    "parent": "81a113275ac8e2849d75e47c7f055e8c151c9c4f",
-    "staged_changed_runtime_files": 1,
-    "public_production_files_changed": 0,
-    "scalar_and_recipe_unchanged": true,
-    "current_git_verified_core_sources": 57,
-    "candidate_product_core_classes": 102,
-    "JDK": 25,
-    "exact_ownership_checks": 1581340,
+    "checkpoint": "R62",
+    "core_sources": 57,
+    "independent_core_classes": 102,
+    "exact_reuse_checks": 1581340,
     "noise_checks": 183806,
     "graph_checks": 40987,
-    "diagnostic_control_3D_calls": 196608,
-    "diagnostic_candidate_3D_calls": 45056,
-    "paired_benchmark_jvm_forks": 3,
-    "measured_volumes_per_mode_per_fork": 8,
-    "control_mean_ms_range": [
-      52.859289125,
-      58.341751
+    "adversarial_checks": 105472,
+    "generated_graphs": 180,
+    "sample_orders": 3,
+    "control_and_candidate_pass": true,
+    "paired_constructor_jvm_forks": 3,
+    "paired_sampler_jvm_forks": 3,
+    "terrain_graph_constructor_control_bytes_range": [
+      37187.8,
+      43981.8
     ],
-    "candidate_mean_ms_range": [
-      31.37974225,
-      32.72245275
+    "terrain_graph_constructor_candidate_bytes_range": [
+      17602.2,
+      20875.4
     ],
-    "sample_job_allocated_bytes": 1968,
-    "constructor_probe_control_mean_bytes": 21140.88,
-    "constructor_probe_candidate_mean_bytes": 41337.2,
-    "constructor_probe_scope": "SingleJVMpervariant50warm200measured; not robustlatencyacceptance",
-    "first_candidate_unreachable_node_failure_corrected": true,
-    "full_gradle_native_package_visual_checks": false,
-    "installer_released": false,
-    "full_regrade": false,
-    "last_verified_score": 50,
-    "five_ms_target_met": false,
-    "acceptance_complete": false
+    "sampler_source_unchanged": true,
+    "scalar_source_unchanged": true,
+    "component_sampling_latency": "mixed, strongly order-dependent, above5ms",
+    "public_runtime_promoted": false,
+    "full_gradle_native_jar_checks": false,
+    "last_verified_score": 50
   },
   "graphics_reference_api": "vulkan",
   "graphics_validation_order": [
@@ -418,7 +412,7 @@
   ],
   "latest_staged_graphics_promoted": true,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/density-mask-r61",
-  "validation_environment_status": "Workspace maintenance pruned prior full project/cache. Restored pinned JDK25/JDK21/Gradle9.2.1/NeoForm/ASM at /workspace/scratch/1a7cb29b04a2/resume-tools/toolchain. All57 current core Git blobs verified; R61 staged core compiled and original reuse/noise/graph gates pass in /workspace/scratch/1a7cb29b04a2/resume-candidate. Full project/dependency/native restoration remains required; no current JAR built in this coordination run. All local validation processes completed.",
+  "validation_environment_status": "R62 control/candidate isolated57source core workspaces, restored pinned tools, checks and paired measurements completed; full source/retained Themes recovery in progress under /workspace/scratch/1a7cb29b04a2/full-restoration. No full Gradle/native/JAR acceptance yet.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -461,36 +455,39 @@
     "restore_warning": "For reproducing R44 standalone tests only. Never restore over current merged main; it excludes newer Themes/consolidation inputs."
   },
   "previous_checkpoint_test_summary": {
-    "checkpoint": "R60",
-    "parent": "44b89f541ae098f0ad6c16f622c7bffb058ffcc7",
-    "staged_modified_runtime_files": 1,
-    "staged_reused_runtime_files": 1,
+    "checkpoint": "R61",
+    "parent": "81a113275ac8e2849d75e47c7f055e8c151c9c4f",
+    "staged_changed_runtime_files": 1,
     "public_production_files_changed": 0,
-    "recipe_and_scalar_text_unchanged": true,
-    "git_verified_core_sources": 57,
-    "JDK": 25,
+    "scalar_and_recipe_unchanged": true,
+    "current_git_verified_core_sources": 57,
     "candidate_product_core_classes": 102,
-    "new_checks": 1580860,
-    "bit_exact_recipe_voxels": 1572864,
+    "JDK": 25,
+    "exact_ownership_checks": 1581340,
     "noise_checks": 183806,
     "graph_checks": 40987,
-    "benchmark_jvm_forks": 3,
+    "diagnostic_control_3D_calls": 196608,
+    "diagnostic_candidate_3D_calls": 45056,
+    "paired_benchmark_jvm_forks": 3,
     "measured_volumes_per_mode_per_fork": 8,
-    "scalar_mean_ms_range": [
-      1016.465396125,
-      1038.541982125
+    "control_mean_ms_range": [
+      52.859289125,
+      58.341751
     ],
-    "memo_mean_ms_range": [
-      53.9597775,
-      55.697884375
+    "candidate_mean_ms_range": [
+      31.37974225,
+      32.72245275
     ],
-    "memo_measured_allocation_bytes_per_volume": 1968,
-    "benchmark_scope": "component196608samples, column-major Y-inner, one recipe/seed; not native chunk/frame",
-    "five_ms_target_met": false,
-    "full_gradle_module_or_native_run": false,
+    "sample_job_allocated_bytes": 1968,
+    "constructor_probe_control_mean_bytes": 21140.88,
+    "constructor_probe_candidate_mean_bytes": 41337.2,
+    "constructor_probe_scope": "SingleJVMpervariant50warm200measured; not robustlatencyacceptance",
+    "first_candidate_unreachable_node_failure_corrected": true,
+    "full_gradle_native_package_visual_checks": false,
     "installer_released": false,
     "full_regrade": false,
     "last_verified_score": 50,
+    "five_ms_target_met": false,
     "acceptance_complete": false
   },
   "continuation_note": "Owner separates builder from auditor: builder continues during active runs; separate hourly auditor grades committed progress and builds a fresh current development JAR in isolation. Neither an audit nor checkpoint is a builder stop gate. Preserve actual finite-run limits and timing reservations, use guarded writer leases, no shared mutable outputs. Current R61 staged work and last50/100 grade unchanged. Continue current next_items; auditor restores full project/dependencies before fresh JAR build.",
@@ -627,7 +624,7 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 7,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.28.md",
-  "foreground_task": "R62: compact sampler guard metadata, broaden graph/order equivalence and constructor/component measurements",
+  "foreground_task": "R62 allocation checkpoint verified; restore full project for module/native gates",
   "latest_isolated_validation": "/workspace/scratch/a22609fabda0/density-mask-r61",
   "latest_verification_summary": "Final build32tasks; independent51core sources/89class matches;504packaged project classes;7archive CRCs;158private class exclusions;7137identical common Linux/Windows entries after archive-path normalization. Water6144stair cases/24576supported vertices/512page seam vertices. V7 eight seeds/2312columns/127840reaches/29biomeIDs. Legacy5202core points identical;20native V6 chunk digests identical. Standard3062331 and Deep5945915 native block comparisons per candidate run, saved profiles/edits. UI seed20261020 joins V7; Vulkan candidate/reopen and explicit OpenGL smooth fallback save normally. No FPS/Windows execution claim.",
   "latest_core_runtime_fix": {
@@ -708,6 +705,16 @@
       "No native V8 materialization, block/base-column parity, saved profile replay, hydrology coupling or visuals"
     ],
     "staged_optimization": {
+      "checkpoint": "R62",
+      "promoted": false,
+      "source": "docs/validation/engine-continuation/density-metadata-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
+      "evidence": "docs/validation/engine-continuation/density-metadata-2026-10-24/README.md",
+      "exact_scalar_output_preserved": true,
+      "sampler_source_identical_to_r61": true,
+      "constructor_allocation_reduced": true,
+      "native_integrated": false
+    },
+    "previous_staged_optimization": {
       "checkpoint": "R61",
       "promoted": false,
       "source": "docs/validation/engine-continuation/masked-density-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
@@ -720,18 +727,20 @@
       "native_integrated": false,
       "additional_initialization_cost": true
     },
-    "previous_staged_optimization": {
-      "checkpoint": "R60",
-      "promoted": false,
-      "source": "docs/validation/engine-continuation/exact-density-reuse-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
-      "evidence": "docs/validation/engine-continuation/exact-density-reuse-2026-10-24/README.md",
-      "exact_scalar_output_preserved": true,
-      "mean_component_ms_range": [
-        53.9597775,
-        55.697884375
-      ],
-      "native_integrated": false
-    }
+    "staged_optimization_history": [
+      {
+        "checkpoint": "R60",
+        "promoted": false,
+        "source": "docs/validation/engine-continuation/exact-density-reuse-2026-10-24/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
+        "evidence": "docs/validation/engine-continuation/exact-density-reuse-2026-10-24/README.md",
+        "exact_scalar_output_preserved": true,
+        "mean_component_ms_range": [
+          53.9597775,
+          55.697884375
+        ],
+        "native_integrated": false
+      }
+    ]
   },
   "owner_acceptance_target": {
     "average_score_minimum": 8,
@@ -779,10 +788,11 @@
   },
   "performance_measurement": {
     "owner": "foreground-r62-density-metadata",
-    "status": "active",
+    "status": "completed",
     "scope": "R62 three paired fresh JVM constructor and exact-volume measurements; shared CPU must be otherwise idle",
     "started_at": "2026-10-24T19:29:28.937Z",
     "active_until": "2026-10-24T19:49:28.937Z",
-    "auditor_policy": "Defer only auditor heavy work on the same CPU/cache while this measurement is active; do not pause builder. Read-only audit may proceed."
+    "auditor_policy": "Defer only auditor heavy work on the same CPU/cache while this measurement is active; do not pause builder. Read-only audit may proceed.",
+    "completed_at": "2026-10-24T19:38:30.007Z"
   }
 }
