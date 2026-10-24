@@ -1,0 +1,126 @@
+{
+  "pass": true,
+  "audited_at": "2026-10-24T00:33:14.857291+00:00",
+  "integrated_commit": "28b2625d13971f735eacc10e928b0e1f87eef259",
+  "integrated_tree": "2e1cc9e4b9947750e5d46d68a11a81d819943bbe",
+  "code_changes_during_reconciliation": 0,
+  "local_engine_and_theme_repository_files_match_git_tree": 669,
+  "scope_exclusions": {
+    "independent_maritime_project": 915,
+    "gui_standalone_wrapper_files_absent_from_build_checkout": [
+      "gui-themes/.gitignore",
+      "gui-themes/gradle/wrapper/gradle-wrapper.jar",
+      "gui-themes/gradle/wrapper/gradle-wrapper.properties",
+      "gui-themes/gradlew",
+      "gui-themes/gradlew.bat"
+    ]
+  },
+  "r44_staged_sources_match_main": 27,
+  "root_and_nested_archive_crcs": 7,
+  "compiled_product_classes_match": 459,
+  "jar": {
+    "jar": "DeepPrimal-26.1.2-0.0.1-alpha.25-merged.1-vulkan-windows.jar",
+    "bytes": 124855842,
+    "sha256": "44058499f53a8d9eb660b679dc4b54f6588fe1083d3af2ed93d0b43a273b7921",
+    "root_crc": true,
+    "nested_archives": [
+      {
+        "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-merged.1.jar",
+        "crc": true,
+        "module": "engine-core"
+      },
+      {
+        "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-merged.1.jar",
+        "crc": true,
+        "module": "graphics-settings"
+      },
+      {
+        "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-merged.1.jar",
+        "crc": true,
+        "module": "lod-engine"
+      },
+      {
+        "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-merged.1.jar",
+        "crc": true,
+        "module": "performance-engine"
+      },
+      {
+        "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+        "crc": true,
+        "module": "gui-themes"
+      },
+      {
+        "archive": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-merged.1-windows.jar",
+        "crc": true,
+        "module": "renderer-vulkan"
+      }
+    ],
+    "compiled_classes_matched": 459,
+    "mods": [
+      {
+        "id": "deepprimal_graphics",
+        "version": "0.0.1-alpha.25-merged.1"
+      },
+      {
+        "id": "deepprimal_lod",
+        "version": "0.0.1-alpha.25-merged.1"
+      },
+      {
+        "id": "deepprimal_performance",
+        "version": "0.0.1-alpha.25-merged.1"
+      },
+      {
+        "id": "deepprimal_themes",
+        "version": "0.1.0-alpha.8"
+      },
+      {
+        "id": "deepprimal_vulkan",
+        "version": "0.0.1-alpha.25-merged.1"
+      }
+    ],
+    "theme_menu_4k_images": 8,
+    "private_validation_excluded": true,
+    "windows_natives": true,
+    "pass": true
+  },
+  "existing_build_31_tasks_passed": true,
+  "combined_gui_existing_session": {
+    "success_marker": true,
+    "captures_hashed": 40,
+    "crash_reports": 0,
+    "save_all_dimensions": true,
+    "stop_logged": true,
+    "vulkan_validation_errors": 0,
+    "final_buffers": 0,
+    "final_images": 0,
+    "shutdown_record_exists": false,
+    "both_root_and_standalone_clients_were_dispatched": true,
+    "distinct_clients_not_independently_attributed": true,
+    "not_a_repeat_of_r44_water_native_suite": true
+  },
+  "manual_review": "Eight Journal-tab contact-sheet captures inspected: readable panels and world visible behind dimming. No crash screen. Not a water-flow visual test.",
+  "observed_messages": [
+    "OpenAL unavailable; sound disabled",
+    "X11 standard cursor shape unavailable",
+    "Vulkan shader-output-not-consumed performance warnings",
+    "Gradle deprecated features"
+  ],
+  "sealed_raw_evidence": [
+    {
+      "path": "merged-build.log.gz",
+      "sha256": "2767d054cc019566a8aa3f28b6787905da8fa7cc540b4864318d5c76f96bb992",
+      "raw_sha256": "d8bb7deb1ac86609b8112a2e38022e5fa730c1e07c30137b0ef2578788554bd8",
+      "raw_bytes": 18135
+    },
+    {
+      "path": "combined-client-console.log.gz",
+      "sha256": "106d13ce73c681d833796609f35d137229a945910b3dfb8e15b93a77621035d4",
+      "raw_sha256": "2ec7045bbbc7c5d17eba893f3423c3c18e55829381cd5dcc687e989fec96d159",
+      "raw_bytes": 212462
+    }
+  ],
+  "new_build_or_native_execution": false,
+  "windows_gpu_execution": false,
+  "hard_2ms_or_full_scene_or_engine_acceptance": false,
+  "restore_rule": "Continue from current main. Never overwrite merged source with the historical 589-input engine-only R44 snapshot."
+}

@@ -1,0 +1,61 @@
+{
+  "pass": true,
+  "sessions": [
+    {
+      "case": "vulkan-frame-retire-steady-r43-control-retry",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "78e2690f91d117509caffc77b304b8e87d75a9b8974cf33627562987520b0b41",
+      "bytes": 36942,
+      "build": false
+    },
+    {
+      "case": "vulkan-frame-retire-steady-idle-retry",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "20445c11ef6442c840d41eb6fa8f4ba5e19efe3defc5589e85afa138fe0be849",
+      "bytes": 36908,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-idle-retry",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "c007daadbd632665831421db3c1b214c65e562890fb2cc9e2e3252b3bcc61fa1",
+      "bytes": 46905,
+      "build": false
+    },
+    {
+      "case": "vulkan-corners-shared-final-idle-packaged-retry",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "c562ec015c42bd550c329146429a4c9d483d9cb79aaa5a2e56874abb436ae864",
+      "bytes": 47018,
+      "build": false
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-idle-retry",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "50990c1433da0ada51673192f0a40b8cd14ee1edc246b480a1a62256db772478",
+      "bytes": 54076,
+      "build": false
+    },
+    {
+      "case": "build-baseline",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "b233bf021c4b19353cceb68e2d3e9b6bececaaf0addc26d52a034e63c17a8e4e",
+      "bytes": 15230,
+      "build": true
+    },
+    {
+      "case": "build-candidate-retry",
+      "pass": true,
+      "raw_and_sealed_bytes_identical": true,
+      "sha256": "50e0ce896f7312403a88b3a321f14b18372bf280fc9bde9749159aa2b75b95b5",
+      "bytes": 15265,
+      "build": true
+    }
+  ]
+}

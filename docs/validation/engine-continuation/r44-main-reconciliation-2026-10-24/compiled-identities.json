@@ -1,0 +1,2297 @@
+[
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/BenchmarkReport.class",
+    "sha256": "d58dba7a85ee8da5cb26839b69103201bb2a05f6439e6440a5198434da76f9c9"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/DeepPrimal.class",
+    "sha256": "ad77200b1de69d553dd78b903ce403c6ca12547884c98780ea677aa6a61bccf1"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/NoVanillaXp.class",
+    "sha256": "5bc428a081bd570407f293fe929bcf2bab86c2b4a76680aeb97b33306d80e279"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/WorldgenConfig.class",
+    "sha256": "856d56b8e0b793bf56cd7e07671469d09803bef5b60dd3329aa0779ae02a1c63"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/WorldgenProbe$Run.class",
+    "sha256": "7c06d4d282c6749431a197262b573da83dfd3657c96049b23422f7720f1015cd"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/WorldgenProbe$Sample.class",
+    "sha256": "8963aff4bdfd4284f21ecbd5bb9b5c5934ff4671800e60e50bec792e0fc2c06f"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/WorldgenProbe$SampleKey.class",
+    "sha256": "2bd0991ec43a8b40cc8870ab0761ec93240ea5973bc78fbf90c8461d37ab0ff8"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/WorldgenProbe.class",
+    "sha256": "5d78a37d3acb293540e4c4fbfe7eaa13875bc0a9e25a7565ff4d075db8231614"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/ClientTelemetry.class",
+    "sha256": "4be05655ea0051d3144c7ce88e173323b5451dc053772fa0b848ffb050b16fa0"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/DeepPrimalClient.class",
+    "sha256": "90783646c38237c6c8424900f0d89864767a7d8de413fe8944d76c60b7bd47f9"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/DistanceScreen$DistanceSlider.class",
+    "sha256": "e80ec0e8cbb1a707e6bff91e2b30e50e616676b130bd9be45163a15335417ed7"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/DistanceScreen.class",
+    "sha256": "dbbee50ab75be38c4daf82666ecac3aa5a06cf7c0dfb150b077f26d57cf3f54f"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/SnowAtmosphere.class",
+    "sha256": "eb8a94bfd09be2f5a58f48f23a2b6b6599e58f4bd62be376c3387a1ecbaf3da1"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/SnowFoliage.class",
+    "sha256": "49b310ff09f6f4f7b17a806448061f0b9588315a47b770c8b31638cd1a4f4cf0"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/VerticalView.class",
+    "sha256": "01ebdeb66270de68fa48973b7b56bda97ef2a826a0f7d9a17d1bd8769adbed92"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/WaterColors.class",
+    "sha256": "c241230e7c7ab081164c66c5bb689157216a71a1cdcbfa7848c7567c25291339"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/WaterEffects.class",
+    "sha256": "4a5e39f508a012bfc31574cac370557fc80450888c901a15fd4134298928cddf"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/WaterPalettes$Palette.class",
+    "sha256": "098a2ff96d13dd814e828af94ea1ec9ced2fa9c7c2a0805a773475f822efd12d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/WaterPalettes.class",
+    "sha256": "349f9d003b6cf1b7caf5b9de6c6019c1e7875675227e3656e5e61fe48d4ffcef"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer$CornerRetry.class",
+    "sha256": "6bd695a967cd35feadf384b10197bb63946cb0eec25f2e7b2be3a3f8a4032bfe"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer$Page.class",
+    "sha256": "9cded54e1a1700a160ff41b802f20d203933ead03b0ea7660da71d65278307e3"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer$Ready.class",
+    "sha256": "b61b6aa238d707d849592386b986b12c67b37152a17ebc1c0967e865bcc3aeb5"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer$WaterFaces.class",
+    "sha256": "30ce9a875f55452f04ecde6197afde67dfca31f30ea29ca478f0205de18f586b"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.class",
+    "sha256": "bc71af73a6c22de6a2d8a4e3b21041518c710de38f90208bcba5e2309ba48c5d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/HorizonGpuTimer.class",
+    "sha256": "3ecc8401f6da5a0677465223cce433e073530b3dca6f6ad4fccb5c7b0697e58b"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/HorizonRenderer$PendingUpload.class",
+    "sha256": "ad048936240742cee336c8784c93d481ffbf8d65a100dc6c62ec6570d1b554c6"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/HorizonRenderer.class",
+    "sha256": "e79b3d4f2dcc66c569c267edfb200f9e1a9227f5409d09f83597a293826fe00b"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.class",
+    "sha256": "4dac0c80dae9c33a843fc86e3590bd61c213df8b0e8b28caae3b32989784351f"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/WakeRenderer.class",
+    "sha256": "e62b5f320e5ab7a2a253b3f47e61df1dff86b9996fb7e53a1c50aec18c728b8d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/WaterSurfaceRenderer$PatchBuild.class",
+    "sha256": "d5032790b88c7beaf6e698404c1039a6a26dd314cbc37f5ecb7b756629aa995d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/client/render/WaterSurfaceRenderer.class",
+    "sha256": "9f2f0b556c8515e4439c58f2de5b2d8d24a31489b627e4fab3411abfbdc7e99f"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/compat/BuiltinRegistryFallback$1.class",
+    "sha256": "d87e42ee4decbfc4a5db888426ca0da801e9fd4a3fb01540c8ce55e180ced9ac"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/compat/BuiltinRegistryFallback.class",
+    "sha256": "88783a4a7b44a62ec4a8b35d5d815a235ba4d05cea48ca2cb43ba711e523d45e"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/diagnostics/DiagnosticsConfig.class",
+    "sha256": "76915f4dbb4027ee373c3a62ccaff1652f1dc5945e2e888989e8bbd6746c64c1"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/diagnostics/LocalDashboard$Point.class",
+    "sha256": "00d28ea77487aa48fdb93733587f9d93867c06a78cc4335e59de41540bd52808"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/diagnostics/LocalDashboard.class",
+    "sha256": "216321674e238f1bf7d6131809149f19debea9ee02b6afdeb9d5716868b34c1c"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/diagnostics/ServerTelemetry.class",
+    "sha256": "e122ade1915f030f5ccc357449342ca000cc9d80da88286f983b92c011b5cacd"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/EngineBucket.class",
+    "sha256": "df6847b30fee21943808bedcd590215c316cc8f8813c5c880d3b5eac27a6903c"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/EngineChunkGenerator.class",
+    "sha256": "260e470b8537727e7ac5c24e3b5b1a37b9be8ad9ea7780a2d9b1fa810f5a791d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/EngineFluid.class",
+    "sha256": "ee29738c8b9c6e1327253c4297cd94c810fd7f89b725770e3a53a8aea8c4201a"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/EngineRegistry.class",
+    "sha256": "7e69af4749df790b14ffc4e3eddb68eb1ebd861644fe82e389fb54f48fb7a197"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/EngineWaterBlock.class",
+    "sha256": "3e3bd7f24e6f736078696110258bbcd1509eae71b2c9c25f850dd9a4d24ba4b0"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/RegionBiomeSource.class",
+    "sha256": "3de089d44bd0a7aa3dc739ccfa71d461c5b0bfc33324ce0d778f5d3c1d7d755d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterBorderWake$Edge.class",
+    "sha256": "9cba844cabc9aad976514d69f33378cffba6ec151e2923a05433fbdc9d413495"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterBorderWake$Job.class",
+    "sha256": "8b46fde8fcfa2d2ebaf9ddeb1c79b15891e9e9bca6a9ea2f13480bac1a6a3bcb"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterBorderWake.class",
+    "sha256": "acbadb4888393e5e03db147fb0be4ef9449cc28dd0e110916d5bb8e02b7931a2"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterInteriorWake$Cursor.class",
+    "sha256": "17bcfa63b65d4d6440d1553dd7fb5ec7cf1b7582746daf63c5b587cf26b9c9b1"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterInteriorWake.class",
+    "sha256": "3158f366cb3ba63f0b0a47dab3c957368647d3609264f077d91e210f0599022b"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime$1.class",
+    "sha256": "2052259592f51a5ceb8b2ed883191442696cc5081eb4fbc57d7ba811f7726ff5"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime$Budget.class",
+    "sha256": "f3d0b550977718a627e6ca02efea3c8373d4553c79e62301c8639c5973c13ad8"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime$Diagnostics.class",
+    "sha256": "b4c81fc98ca898223ca87b790da5f451420170a4485db78181377df66d8e207e"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime$Events.class",
+    "sha256": "3af31b43bf6c5e16ca44c38f98714d377af44496e64aa1e17a56be7d4f8f8b30"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime$PressureDiagnostics.class",
+    "sha256": "0104c3ee960b40b7acf1a392c6987b60f30e6d671d8f2ecae1aec2fe01d68317"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime$PressureJob.class",
+    "sha256": "d51539cde623c158d42c49d4cb9b958ae308b3a49d250622723b5c8856895cd2"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/engine/WaterRuntime.class",
+    "sha256": "468f6a3f94c872c58b25a20de0e805b80f51c03f5414c91154b0710224eabb7f"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/FarmWaterMixin.class",
+    "sha256": "55002c9e7a2a52eeda448a29ec5974cc9841c3a21edf541f7fee8f34f4f39872"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/FiniteWaterMixin.class",
+    "sha256": "d8bb0ddee553af57385947ac1d73b1d9a13ec5ecb07ddce182af1b175c319adb"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/HorseBuoyancyMixin.class",
+    "sha256": "036c50304026f8cbd697e1f8156100d164d5f59b8b3e176d6689e52ddbbdf132"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/OceanBoatMixin.class",
+    "sha256": "ffe2da9fa7f7945cbffd5eb090325c7229f36ab1105ce66f3c15035d78b197f6"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/PrecipitationMixin.class",
+    "sha256": "33e18de90b22a669f314ba8545428dac8bef7edadcf8bbcba63fa30f61868339"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/PressureChunkMutationMixin.class",
+    "sha256": "5b08f9f48d6a47d82b342df55623ae8b3a1e57626ff38ea9d2a750c23ec46265"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/RiverCurrentMixin.class",
+    "sha256": "356dabd3d5b6dfd03b67d25358238f740566f558ba5bfc427715e207d637b418"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/RiverImpulseMixin.class",
+    "sha256": "ffed0cbeee872915e9b7c09ac001210f97b579702795830449f167f09a6c6872"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/ServerLevelMetricsAccessor.class",
+    "sha256": "8d8aef7f1a739fdde2a77628a51d672509b4396e4411467855b1cfe830940dda"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/SwimmingMixin.class",
+    "sha256": "84449463eef07a4b914f5c010453b4dab5fb87233a745a2d0612fbaca9911a5c"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/WaterImportMixin.class",
+    "sha256": "9d2e7eb19bb14685d80cf5cdf5e6686720e3a157ad3bea02e7e3f35aa64fb394"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/WaterwayAquiferMixin.class",
+    "sha256": "066764af6d029c4fa8e92abcf636eff9bf2546d1009a6404eaff7b6bff15b224"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/CameraMixin.class",
+    "sha256": "cf7a812648a498d78a1c41a1eae418d954157ecce24d4e38ae8d3c2a9ccf1cab"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/FluidModelAccess.class",
+    "sha256": "68273ba602e58d45624b8c1c714f4a185bea5d553339e0591a07935fda7a48b4"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/FogRendererMixin.class",
+    "sha256": "e7deeb4d56280b4b9d9ac1b768ca2fdf93e70ee8a15a0f12c3482d1c97c57110"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/GraphStorageMixin.class",
+    "sha256": "051090cda43621767a620c17f57e40d1d3118b82270ee03340266ad44e891890"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/LevelRendererAccessor.class",
+    "sha256": "8246a38ddb7bdb215b15e97363b85a752109ad92d85370db638a37a2ec0bd015"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/OptionsAccessor.class",
+    "sha256": "669dade3a2fb271609b50659f4effa0fe2145347dd9a786f0d68b4651446d708"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/OptionsMixin.class",
+    "sha256": "8635abef58e3ab0f00241fd2bbcb4eac12dd05b89c71d4d70b4c710f13dd8518"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/SectionOcclusionGraphMixin.class",
+    "sha256": "f1e1308edb597863b274da6f2c9cd1c607466990ddb748de66e8fd34183fabe9"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/SnowFoliageMixin.class",
+    "sha256": "23737bae7610219bc2c6f78ca96bdc88f6cef263598372e103cea4f3ae284ae4"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/ViewAreaMixin.class",
+    "sha256": "6c37411d5064a0e36b5edbb320a337c49d2328f881397a6a13e46beab4b7010e"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/WaterColorMixin.class",
+    "sha256": "64e0ca0db5d5a29b0f1743c7a3afcb73e16192a947f6bbab2268a9b21e9260f3"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/WaterFogMixin.class",
+    "sha256": "f322612efd989a657313e5e25a01ba4a5d6467a0abc8152df54592dbebedffb2"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/WaterPresentationMixin.class",
+    "sha256": "ce869414be827838b7ea27e5dd8b727435f9860f392055e7b688eb74ec5630f6"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/client/WaterSectionBoundsMixin.class",
+    "sha256": "b611373a4e98c78f12568d97f045f445fff878c251ebe31372a26e619b84120f"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/mixin/compat/KubeJsRegistryContextMixin.class",
+    "sha256": "a3e46152a109ebaf2943884e981bcc2aae4415ac4dc045d4417a37fc0f4ce163"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/render/HorizonService$Job.class",
+    "sha256": "e62d82e7717a79346cee00da6d2b239450ea05c5cbc22bedbda643b4fb8a013c"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/render/HorizonService$TileKey.class",
+    "sha256": "d2b249ebdace804d57f5c9e5ad94cff7437ee54c4a967a336bd81df889fd57d6"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/render/HorizonService$Waiter.class",
+    "sha256": "6791acfac82d2144077b32b550c7079da76097133b0ced919c537deffb3de1e4"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/render/HorizonService.class",
+    "sha256": "d9998cd6a6ebcff599162308789099f38d19f3fea2de0c5c2150e9352a6edc20"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/render/network/HorizonRequest.class",
+    "sha256": "96a7eac9a7a63e41d592c690c8254128c0b0093b638463e84d0ab019358bffde"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/render/network/HorizonTile.class",
+    "sha256": "5730a714840f51b4872c0fff78fa7eb53f98f851bda457a53db7b97efba3f9f4"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/ChannelWaterBlock.class",
+    "sha256": "cc1329113a92f6cac312a041bf722ebc645c1557ab10fbc2753514dfcba3d6ee"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/FiniteWater$Budget.class",
+    "sha256": "06140162548fcf623ea50a810970d5e84c361f55a991eb61f153ab88e942a2b7"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/FiniteWater.class",
+    "sha256": "c8d72bf8712e99c52edcc6df1cb8af33338f15bbaff51e8b9464330c86310957"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/MeasuredBucket.class",
+    "sha256": "4d3fc9690ceb687f03078788c055df1a57254d3a147829f6ed9b82ada9abbead"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/Precipitation.class",
+    "sha256": "20b2028b88892a1691be945779ff10a4bb44cb6fdb33152eb6dfe2e164009313"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/RiverConfig.class",
+    "sha256": "41a4fe18f390b7fb258711d44915d9d4d7b1965ba3313a33559088446bf54f47"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/RiverWater.class",
+    "sha256": "c0f47063cfcc114e0cb6585c6764d7cc8a56d5833ffa51595df25771db8074f2"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/RiverWaterBlock.class",
+    "sha256": "415de7d3d0ea4714648cf25379c4a70b767c172cc0bfc7e4dabd6a11db92b66c"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/SwimmingEffort.class",
+    "sha256": "d083aa8fa8f626107e9571a5da167a85664332f4a79011ac35d4322d2c4fcf5d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/WaterEnvironment.class",
+    "sha256": "7d92d33ec40684011cb3ff39eedf3da003ab101300a0592770ac8e80dea42b19"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/WaterPort.class",
+    "sha256": "62bae76accfe21e8ccbeaf871fcad68003ef09391596beaa7cf7198156b599f5"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/water/WeatherHydrology.class",
+    "sha256": "a2cd28e3cd7f5e4ade2c95d4c7daa67e37db078d420a9ca1f2e55e90204d1628"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/worldgen/ColumnSurface.class",
+    "sha256": "1322d634dd69453efcb8ea7356735d7f6c1abeef193427df4f61ea391ce7c67d"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/worldgen/OceanHeight.class",
+    "sha256": "34118e83d0b96ebd7e2cbbce8c6ded4cc0ea05506d0d19a03f836fdc9ce27ffc"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/worldgen/SurfaceWaterAquifer.class",
+    "sha256": "65ee810577e54c8784ece08f595751dcfbcb1bbfc5e7b30456a7267c3a7d6b44"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/worldgen/WaterwayHeight$1.class",
+    "sha256": "2d9e35cf3dcfdb69287a7682e1717d8a32947b207684a25a49bf90aa4a76669c"
+  },
+  {
+    "module": "root",
+    "path": "com/shnewbs/deepprimal/worldgen/WaterwayHeight.class",
+    "sha256": "ffa9a58f60b7ec9eb86e798936332351d63124962f75622b11fbd22a4f8dd362"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/BoundedLru.class",
+    "sha256": "938350f1387908781f542eb950cae5ff10f4916d89aca0d46f77bd31b7f0fc1e"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/ByteLru.class",
+    "sha256": "61cc09eba6686196c0cfb53ac1bc883d10a6161d830a269b748fc090d808b79a"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/CaveColumn.class",
+    "sha256": "2e271caa7e3e33dfdc8cbfd7bb2efc6e2f292692f78de7d8530b5fccad4cf880"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/ColumnHeight.class",
+    "sha256": "e2ed67be78b948cab9a457574c50709d58b6c189247f4eafca90a3cc79e1a395"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/DistancePolicy.class",
+    "sha256": "2c2551a3ce8340153e3a62a68b32ead7aa21603f13060472abe828552e0badbb"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/FarTerrain.class",
+    "sha256": "b0d88c1dd8932af5c5fad10d0f48d05844ef839075d9577a7a66d27247073e67"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/FluidVolume.class",
+    "sha256": "8417b3a9186a95dafe1063246d61d6a9cd9fcb17879ed202ef735cd64f632b71"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/HorizonGeometry.class",
+    "sha256": "8011ac78cc28f44a3a67d5884baf484c9510073ea63386a0bbfcf2629108bef9"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/HorizonMesh$Builder.class",
+    "sha256": "8224460e7f0da5df68adaf95bb9b89a9502bc75dd6463529f9aadf97b9ed03e4"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/HorizonMesh.class",
+    "sha256": "1c6d3bac2f4f265e29b0793763dbe0cce1271d182809151f819931f2914f429a"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/HorizonSamples.class",
+    "sha256": "f429161cf4df91a6b95a747f79157a2300eaa3fa3f0057260977c2722beb5bda"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/HorizonView.class",
+    "sha256": "077a34cbad8835a3a6bd075aaf660bfbf0acd2a807449aec6733534dd01a0e23"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/MemoryDistancePolicy.class",
+    "sha256": "5e2bdf4ab7c019729d378da872360403ee3d54e5ff9de9acb2c6e1348e9ad307"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/MountainDrainage$Node.class",
+    "sha256": "c8a1a7e03c533f73c4121dabaa7d3401f15d558eeb4dd3ae96587f763eb1942b"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/MountainDrainage$Region.class",
+    "sha256": "6885d405a116071cea67d1255706b17cd35e7d7541763b478adb269874e01d21"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/MountainDrainage$Sample.class",
+    "sha256": "d2c8bd57656bc20a0d22d14c6f5779f143a56606f84eacbd03819ebba142c03f"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/MountainDrainage.class",
+    "sha256": "fc988858bd3f7b883d0c7083b3c91c80dc1dd9f23207b531208ff3f175b0e19d"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/NearestChunks.class",
+    "sha256": "3ff657458c67cc3ff4d578d6b9d132a4054c88ae7078d3af5e20c6dff2b1fe22"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/RendererPolicy.class",
+    "sha256": "92ed28a79060443c694859296d07003ebb3efd5275ab2a17df2df9c038f664ec"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/SampleStats.class",
+    "sha256": "dab6728a5cbe9ebf091dc70824ac949e066bab135e0fb3a08876eb6d8b493bf5"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/SwimmingState.class",
+    "sha256": "6edbec84a379d2d9a8ac480d0bd15f86e5eac927a1f6431a9386d2161f70d668"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/SyncRebuildBudget.class",
+    "sha256": "b8ea9ac39a8a726dda57eb0239909edfcf861c90fba0c7590dce84eb96e8815f"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainEngine$Drainage.class",
+    "sha256": "71ec694a90e89b3f4a8be0c0df48bfc6b206d8e4cb19414605294e1caf9b28bd"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainEngine$Land.class",
+    "sha256": "facb1f714f60ccf4ea18813e24f69386c20399ec2c7b01ac9e8464788257520c"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainEngine$Location.class",
+    "sha256": "25d64249ca71c24e045d2208765fbca452f16e45f35dcf3ff61fed33736a0015"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainEngine$Planned.class",
+    "sha256": "4a17c3f74406a309fa9523012a5ad11b81c7210a2929cd369a242966e7738cc2"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainEngine$Sample.class",
+    "sha256": "87fcded0cdf3dceaa3541cecd0e7b43303a951a7f3e4436859aa0dcfab6f5582"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainEngine.class",
+    "sha256": "c5c866103a23cdfc14b353bdefb36b00b3f2a4ae1799dc795c30600374029576"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TerrainNoise.class",
+    "sha256": "69d634db749de9e7ae638c0cb7faca10af7e9a292fcf5de52b84e007cf075112"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TickWindow.class",
+    "sha256": "5ecdffb2e8b20edc8d96ccc5965f9c17e52327e05d6d7f352ee79fc6c58b83d7"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/TransitionDependencies.class",
+    "sha256": "bed84baf2a26613368c631e4fe5ec5cca8e66fc9800b3319d73031f9725379e9"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/VerticalRange.class",
+    "sha256": "20e91412f1ab7a236b401b2f97da807acc728502a9bcc4d05c34b3147f42c284"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/ViewGrid.class",
+    "sha256": "0922729a630ca26cc075d92310294949c39040c54bf826be86c88a7163734255"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/VisualBudget.class",
+    "sha256": "c4a1d0066eea1ad1c564c944d2df47d1854910684b6c608ce3e2299b15898322"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WakeField.class",
+    "sha256": "000d2b678634e3be2a662439aa1815f44a40b916989515eeecc1972b66d3c18c"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterBoundaryIndex.class",
+    "sha256": "adfd714aa1a1deabc0d2e07118769cf099b05e6b57672211a9c98856bf705006"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterCornerPacket.class",
+    "sha256": "d235a3aadc71ff9110689e1acd573adaef6c1dc219dd959ca80c3adaa72fd402"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterDynamics.class",
+    "sha256": "79647fba611c2c46fa418e336390c1993bb60dfd22375f2cb3d4d1397b2c27e7"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterFlowField.class",
+    "sha256": "404d5c17f5ad57824b7631b4114c8cabae79032d9a75f512f116d8bb6dc273c5"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterFlowTransition.class",
+    "sha256": "8057c293fda31bbac233ef8860f1545e965f4ea24db3690f5e789bad1b794ea4"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterPatchMesher$Mesh.class",
+    "sha256": "3ab258092d01c79618805bc60efd6f97a64bb20842888ba4891b25670ddf6078"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterPatchMesher$Snapshot.class",
+    "sha256": "1d6797e809edb27eeb8f0f9bd6fc7d64454875642ccc9c9d6a4737b13f3984f0"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterPatchMesher.class",
+    "sha256": "69d9b754f71ee9b2e83359596b8b9d04776e5eab6b11cc7b530ea50353e08fbb"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterSurfaceTransition.class",
+    "sha256": "7aa2da751ff8beb5413366065fbb40b08796e575567b370365de26da956a3009"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterTransport$Exchange.class",
+    "sha256": "320dd8e93ff42010da80113f51ecefd8897164acb6d5c4c5572661e03f2309f9"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterTransport.class",
+    "sha256": "1036a33536dd8a385ad8400896dcd29912d74301e6ec328593f0bd86a1f1efaa"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion$Lake.class",
+    "sha256": "7d28b3fbc6365df09c2a8e57a58bd9739cbfeb4f81b9e64ae1ea7aa5080a793a"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion$LakeProbe.class",
+    "sha256": "a40b53a2215a221a870440ef17047224828fb8fae4188dbc2b18f2df5eafa252"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion$Probe.class",
+    "sha256": "c84d1df98e314f084bec3a838abf127245b183b0955d4740025191fd01569e3d"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion$Segment.class",
+    "sha256": "885a2a63043ad94628de05bff018aee79fb826ada988e9534941f33c04e2e7f5"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion$Statistics.class",
+    "sha256": "03e9bbd05d30feddab4e3dd5beb26ffd4e683c23ae0e2674b37ed2e3442527bc"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion$Surface.class",
+    "sha256": "d6c54feeb2e7ee207c921024547062a64969cbc78b19d61f1454d4510976a259"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WatershedRegion.class",
+    "sha256": "4be418dd72351884d7603614641a0a56f3f6b5f469e515d8b7d8bce82499fc0b"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WaterwayShape.class",
+    "sha256": "22116aabfea472f4dfd419107105694b04ba762a061f9964c360fd24e08bee06"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/WorkBudget.class",
+    "sha256": "9703f92546afa2c17ced1d94bf25513988b740243d94aec548ba7ed0cda1e59a"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/ColumnarChunk$Builder.class",
+    "sha256": "d4e0bdb996681c4e04725c9c328aeeb7daf8de0c87df87040e3cb6061deb9420"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/ColumnarChunk.class",
+    "sha256": "b7e294430bd1915d35c040b0c2ef8fe19c277fa28953446cf5300d16e41efe88"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/LodMesher$Builder.class",
+    "sha256": "d37354921428b80dd5502a509363dedde7f9c24d87f7470ad96ae46f73deab97"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/LodMesher$Levels.class",
+    "sha256": "1d0282a558572abda1b9ec39590465caa81ce1f4a612350731c902cc6f64615d"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/LodMesher$Rectangle.class",
+    "sha256": "e2826920a7668c7c6967cfecedab990ef48e7f901fdaa44fc31746a6e5c73c13"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/LodMesher.class",
+    "sha256": "7ee3a3e6aa4a43cc48e42be1d8c6e822d70a8a6818f7424fe16fe186a618f24a"
+  },
+  {
+    "module": "engine-core",
+    "path": "com/shnewbs/deepprimal/core/lod/LodStore.class",
+    "sha256": "3db0a7c076592da820fa32a313edcd59c6868e7dfce49b4b831e6bc90764bc9a"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/graphics/GpuLighting.class",
+    "sha256": "35ead7eaf00475c118da85a3e0997dea3de80bd5d4893e49911a90e31e3c73ac"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/graphics/TerrainGpuMesh.class",
+    "sha256": "9fc4fdbf5cb7532f3b579273e60b940b681a470adfc44a895dcee7e956d2c698"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/graphics/WaterGpuMesh.class",
+    "sha256": "2162581ce790e23463e5b7c1e34ccdc5d815aab6d24dfab5469f99b01b30737a"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/ClientPerformanceConfig.class",
+    "sha256": "997811a673f398bfb4b01529a982624467f2201c12f25c25a653569ba0c588b2"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/ClientWorkPacer.class",
+    "sha256": "3b24a67c9ace7e974720c13e726c6ab06c3f238e607d49972e3f63b4fef6e000"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/GraphicsActions.class",
+    "sha256": "1f87dd21a921daee879c74cfa16c93a35e61333726dec74f02a1b2a458f9ee53"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/GraphicsSettingsModule.class",
+    "sha256": "edc60d638454fab362609e0922b3ca5dd139957cc1f560eff92b6a62c6fd7c11"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/GraphicsSettingsScreen.class",
+    "sha256": "7467e8fe580dff339b27361567b2f51ca8a095a276a112595f4b1cd459395e04"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/LodAccess$1.class",
+    "sha256": "f2066d5f0f3137d59cc2aa84452d71717b3c4c6aed65e253dc827216b398209f"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/LodAccess$View.class",
+    "sha256": "ab62303b7e9af9000f7f8570e37881042ae83ed6df4cc96bd39f5bca58bc11ee"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/LodAccess.class",
+    "sha256": "e3d4194c49dfcbb2d4052bb0f1367f7189adb692a0c1344209c9703e5b323a13"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/LodConfig.class",
+    "sha256": "cd95a95520bea6341308dab914ae13140edb341757d79b1281cc4039240f8c8c"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PerformanceSettingsScreen$Control.class",
+    "sha256": "e124b480572215484e78253965e8e58265e1b1c02bbeae912cb9d5dd2e4ca723"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PerformanceSettingsScreen.class",
+    "sha256": "4f2e4b47857b052d3898a0170e80b9dbde1be8c91c5dc2394ecd7c0bc1d9f776"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PresetCapture.class",
+    "sha256": "92abaf0b07021b103c8c4edf54d32c3a872bdb4e465bc25b76606c44bd2b853d"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PrimalGraphicsScreen$Control.class",
+    "sha256": "0b5b86d40cc56fd822ba0d24fabacad0bd9fa39b2bc6389076ad32d89a7fcf81"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PrimalGraphicsScreen$Display.class",
+    "sha256": "1527ed0071c85236e3e6f44eaec3a19aab0759b7c9b3c5cf2a6bbd8bc79dc4fe"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PrimalGraphicsScreen$FlatButton.class",
+    "sha256": "3e060452549d962beb9669738a6802f6cd8dd8f50d84ed366d542ac645fa3098"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PrimalGraphicsScreen$ValueSlider.class",
+    "sha256": "012a0070a89309340c7739af5c9eaae0e04028b3dc3bad7e634b6258a6f3bc0e"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/PrimalGraphicsScreen.class",
+    "sha256": "50e3e2ed450d566e5ea116b30e456ffbd74a2704fdbac8d72b1a4d177b46dd7e"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/RendererMixinPlugin.class",
+    "sha256": "08d98d911c3e7bf87d8bcf03fe8942db0ef2f04d3aea231a701e59e1ec7bf645"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/RendererOwnership$Detection.class",
+    "sha256": "67d28f60663d3f3316503cba9129fb90d4f7a42877fdaf1e40fc17721af1eaaa"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/RendererOwnership.class",
+    "sha256": "39567e990d52aac9e6313b084f0ff351c4e55310309cb3b1c79ad4cfd7f454bd"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/RendererPreferences$Backend.class",
+    "sha256": "6e543ad29c34922e8d96389b5544f9c896e3d9c32d8ea128ce6188cab1ce61a4"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/RendererPreferences.class",
+    "sha256": "ac289cfc5b9305b25e8c2e972db327a80e6429a77806c9c665ff9f38627aa5c3"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/VisualPerformance.class",
+    "sha256": "2f98e2f8c3f692a4959d9dddd4e9afec125b56fe127478cded8f01a149c35c23"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/WaterVisualConfig.class",
+    "sha256": "85dc9a77f3a1d523e2f98d5d9ed81b63ba13ab632a75606aa6b1b6a178c4d860"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/WaterVisualSettingsScreen.class",
+    "sha256": "16e5ecb2b21674a531fbfc452597d43daf1dd764ebc0d315dc2cd242a1d991f1"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/BlockEntityDistanceMixin.class",
+    "sha256": "98c4de2288512e401d3262bb7c782df67217c94e3eebd281740db00eba948498"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/ChunkRebuildMixin.class",
+    "sha256": "a3184492921135aa3b45c2ea4446fea55bbc1e210c6ee7e9c353025ed367b8d0"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/CompileTaskAccess.class",
+    "sha256": "01274b0fb1acad64aa2074d1c737798c73441d95f35ba2403406f9be0f7e9e43"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/EntityDistanceMixin.class",
+    "sha256": "e002018d4ebaa4e76ddf8a3ccec69034aa9d4fb3eae3a51db510c3c5eaba59db"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/FrameLimitMixin.class",
+    "sha256": "71a3655dc8a6c8724b7dab5254ce47f1a64c6d43c5b6cf440e76e8b81a0634b9"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/GraphicsPresetMixin.class",
+    "sha256": "b32293dbf86290e0123d64d7ac99cc7c9a958d5ef326665ec656957cc388d401"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/OptionsParentAccess.class",
+    "sha256": "7137ed46cb977dd478846cbe7525b7c9d5f0c3d558ce256c1f3de541b671742d"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/ParticleAdmissionMixin.class",
+    "sha256": "d87280fd3a9cc2004bae96598c865fe0de44ad823133ab1a5bc4e77d78cb60e8"
+  },
+  {
+    "module": "graphics-settings",
+    "path": "com/shnewbs/deepprimal/settings/mixin/client/SectionRebuildMixin.class",
+    "sha256": "11e4b23c8446f9a2ebe7e9a9797805188e2e3e7e3bcfa91122aaa534b4746a02"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/LodIdentity.class",
+    "sha256": "efbbecb608762b494e51289780b9150c8b03d9215434e2dd512ccc8985617a6f"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/LodModule.class",
+    "sha256": "c9d6c494b45e9366082b5a3554015189e5a429f236f283a098e1199290dbfa56"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/LodClient$1.class",
+    "sha256": "84354898146f88d2b7d5eb054d6d86f8806a5c75c7e648d6cdf2f08e7a788789"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/LodClient.class",
+    "sha256": "81122303da632f433bbaa16d7d9e5833d4730c73d97329eba8c9725a089c21b3"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/LodMaterialColors.class",
+    "sha256": "d7e05716aa1d933b55c5616fb14adefea3409028fa225692f07c9088a9ee5ccb"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/NativeLodCapture.class",
+    "sha256": "5e47fd83fee5d61d5956ea9b5fe3fdecf348c2b7fba9faa9391318a338198849"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$DeferredView.class",
+    "sha256": "f12c4b51d28a8e86d90e130965cc9654db514c12b5a0e10a35a40c3d2355642a"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$Entry.class",
+    "sha256": "a208583d88924dc420df2684eeb61f420dd24848b75584a67831f1f78cf58e9d"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$PendingGpu.class",
+    "sha256": "e64caf16db3cf95a1d3d2a4980d776382fa89afdf91e4434b5004d598eac4e08"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$Ready.class",
+    "sha256": "ba9a02730db054e8a3a6e93d956856cd04a9e43c37adb001a008792ca7e6642c"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.class",
+    "sha256": "d600205bd8ebff765b0a0bd6e85baf927f2788d2026d72a0a94a979d13bf4d10"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/mixin/client/LodDirtyMixin.class",
+    "sha256": "b2626ed0bf0b36dbfee66c506058b32d54dc6b59d84b9ef0281593b3d0a9752a"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/mixin/client/SpritePixelsAccess.class",
+    "sha256": "cc616ceba6b0fcb7ce387352a3b634520e0ccd57c141417af46fb62b39a2412b"
+  },
+  {
+    "module": "lod-engine",
+    "path": "com/shnewbs/deepprimal/lod/network/LodWorld.class",
+    "sha256": "0044ef92de9fc5ee3569df9b927d38541d23be7cfab37bc7db855176b0e98581"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/DistanceRuntime.class",
+    "sha256": "808275aa8d3d114bb62887477ebcf8683629a62d8efea0c353afd835f56c8255"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/MemorySafety.class",
+    "sha256": "05725bcc0bcb4755392baac1a1bcbce681749b5a2090792066ae9f8d9c566eb5"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/PerformanceConfig.class",
+    "sha256": "ef32a2ae653af33f91861076177abcf36371439caabfbf9e9ccb1302a64e542a"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/PerformanceModule.class",
+    "sha256": "c5c0931e43b4fd7699307796c26f4891b55273fde4ec261e3f4d0a0c679e3964"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/RuntimeMetrics.class",
+    "sha256": "6c32789223ab0b7e29d34f72d74ce403500b83d4b9bb21fe49f4b7f7b7b6a6f2"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/ChunkMapMixin.class",
+    "sha256": "579bfce2fbe56f2a59cfc83f5c1229a30d28c4131c4ba50fa580c8f21f1f9b36"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/ChunkSaveBudgetMixin.class",
+    "sha256": "71155b97f0cdb25b91caddcb7a930f9e7a6be70dde31b08b253cef5a2669f17c"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/ChunkTaskPriorityQueueMixin.class",
+    "sha256": "c38e5d90570a9edc924cd019c31b1f19a1038a51ef4fcaec3e8de96fed56ed6e"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/DistanceManagerMixin.class",
+    "sha256": "5f95a7302196ef33ca889dc7dfe99e1b4c32dabaf02416f492565e9e5a46e805"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/MobIdleMixin.class",
+    "sha256": "4de6b941ce989a7cddaefdb46d36ff261886a990bab99f21ca593cbc36ec1635"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/PlayerChunkSenderMixin.class",
+    "sha256": "9275141d52b2b048e26bc1688f3a7ead9b59591659a9d87c8684604d5ac7924e"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/PlayerListMixin.class",
+    "sha256": "57acd0e5e376e8084ba7c0e4ff25375afef2bd6fc0970893ae94222be909e7f0"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/client/IntegratedMemoryMixin.class",
+    "sha256": "6606b93e0a09ea17661269d8c2f154149d2816e74937d11c0867e195d129cd58"
+  },
+  {
+    "module": "performance-engine",
+    "path": "com/shnewbs/deepprimal/performance/mixin/client/MemoryDistanceMixin.class",
+    "sha256": "3530425363254889d56527bceeabefdac74a614093db89a522b0f4ee7dd4cb22"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/Theme.class",
+    "sha256": "4f0f3b751fce102e22cfc194ce128f06770ed082e23609e3a7577768a9f2f646"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeActions.class",
+    "sha256": "d082d01086b7ae360226154f1a2da36484535d21a89e0a282eff93ca8a616434"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeArt$1.class",
+    "sha256": "d80c0f71bae27227736a3c0edd6e131259573d3a708081a56beaa6ce976f2313"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeArt$Art.class",
+    "sha256": "3adf99fc10748e635bab9da01134f8aa24bfc4b42c210bcca461b87aed1fca78"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeArt$Rect.class",
+    "sha256": "770f0314fb0d099475a4927f3a0d0f7089729b4eb15b6b6f84233ab2bbf66a58"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeArt.class",
+    "sha256": "0337bb3482887708ae713e12dfe9e04e8c1131a347fc8fbb75129f325eb798df"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeButton.class",
+    "sha256": "e58305480aac0279d32161e8388c36f9b2fbe4f5325160f549226f16829d82eb"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeConfig.class",
+    "sha256": "3680de8f2ae9aa54f44f65f68a89ddf5579fce82eb3fc096f224fb53c5840cc6"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeContainerArt.class",
+    "sha256": "109e217b22add919176899b637e7e975f04167d179bdc8d85c610271ed205d38"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeCraftingScreen.class",
+    "sha256": "f45c598f12135675bac7122ff60b04bb3b4b7b10d6726c50e97776f5c2855aac"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeDayBadge$Bounds.class",
+    "sha256": "84c7a6a8157ba73aa2b0e3f902c162407e52f5d030f26d1ec4f2ff1af2a24b63"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeDayBadge.class",
+    "sha256": "8e1d4204351d84744c97726f85357002b49187da831d5bea205d6344693e9329"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeFurnaceScreen.class",
+    "sha256": "d1355f18d6cfb2da1e289da1c2255592e4e8c0f0ec6cd0d9e5c7f7235ca1d507"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeHud$Hint.class",
+    "sha256": "b4bb6485be72faa1f61ce92ab21d2366c09192021bc46a897788ed7204540158"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeHud.class",
+    "sha256": "0d15723ded99ce41f76267c6b9cdb650d44e3f16ae6c7ab526c318a1fee05499"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeHudEditorScreen$1.class",
+    "sha256": "7c335493ad423aa0a7c14bde0c2edff17054e5b4b5b396164cdbf3f667b5aa53"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeHudEditorScreen.class",
+    "sha256": "7026a3c945c36eb0c26f1a4241f3a6bf4aa1f99d46b7e5110af4de50eb84da23"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeInventoryScreen.class",
+    "sha256": "77b373020ec613568fdc3f4db7502d6cc2b229cf60e1ce9cb9093d6347ac12b7"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeJournalScreen.class",
+    "sha256": "952cfae13e28a039e91c1bf71b20138d87d748aa9d8153e9ec90bd2874c728e6"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeMenuArt$1.class",
+    "sha256": "8fd2b341074b3096e1d6873027ff4a5007a69fea6355f68d4fcfbf84e9ff6d1e"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeMenuArt$Layout.class",
+    "sha256": "29d07555193cf3ec356e16383596e25a95407f6f2be872aa6eb3ca5543a37408"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeMenuArt.class",
+    "sha256": "386a12e741c0054136d6229acb11aeca6452e452270607a98234e5584041a4de"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeMod.class",
+    "sha256": "044f66610d1690566fcfca7f546d34a1c20d01082b51e14ca89c0c28447ccbeb"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemePacks.class",
+    "sha256": "f068890182fb5d54e8b1405f379ca3675b643bb05b4f94b902a34326ba8271f7"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeRecipes.class",
+    "sha256": "b0c19dfe83ca101e920d45943ca5db566eb7cb42ac6c3eea32d276ada46b4ad1"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeScreen.class",
+    "sha256": "8ed0404a53e32be06cbf87868903ced23a0a6069a10ce18379b7c82d78d23678"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeScreens$RecipeBackButton.class",
+    "sha256": "ad0dd63d510a745d227f1e2910692d7d61821297281cc6e5c35b301d51372ee1"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeScreens.class",
+    "sha256": "52ce37260363be82239fd2c7c3c29b66199c1690586c7c6309049b9195807011"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeSlotLayout.class",
+    "sha256": "54f4878cce504c7761a5cd94826ee0b930a7fd393679a7887b5f0d088c5c3de7"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/ThemeTitleScreen.class",
+    "sha256": "ec815fbd2429141052ce0aef8c9f04764b3a70b3483fd85fe2d287290c175bf7"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/api/ThemeIntegration$Action.class",
+    "sha256": "1099ce2e47d457fcaccb253e4627e31f072e476796977c491b8d97ec8cc3ff91"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/api/ThemeIntegration$Provider.class",
+    "sha256": "92438702ade0aabc9eb769342442bf7b05dc4f71261a3c6ec66dab847302ab1c"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/api/ThemeIntegration$SurvivalState.class",
+    "sha256": "4e2b92b40353e4e59def5ab73a09ff3d36dc4bda541747928e090643a4218cb7"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/api/ThemeIntegration.class",
+    "sha256": "5661f03d74c6d94b08a05f9a9f643fc49ba7932b498fcb02d9241195355d906b"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeButtonLabelMixin.class",
+    "sha256": "b5d5e496aca951d00f335b07b359e60d15fffaf000929a1eac5fec90aa194c83"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeContainerAccessor.class",
+    "sha256": "6e5315643f30365617aabca826326e035e16b59e6e0e00cfeff39c8f51dd171e"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeGraphicsMixin.class",
+    "sha256": "1ad70598946f52521fff9c8f2ce7b3f63d5591c30b8808b7cbedf6fb92dffb12"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeLabelMixin.class",
+    "sha256": "0c1c4014b140e83e5489d054289386c5cee2cdf9847b4e90223a4457d0df0d31"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeMenuMixin.class",
+    "sha256": "17af8c111e321dfdafdd79124196b72a71b8eabd93ddb4b550286a8284ab14fa"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeRecipeAccessor.class",
+    "sha256": "437760ed262310272179db3cc926fa44d691e0b1d3d7e518587a862dcfcf5fb9"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeRecipeBookMixin.class",
+    "sha256": "5fe57a6db697370ace800cbc03e307ac3eacf1e2abb04512eaada633080076a2"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeRecipeScreenMixin.class",
+    "sha256": "d2830e03979ee12f748cc5770dfeadaf2def60cf79bcc7b88004e101460336da"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeRecoveryMixin.class",
+    "sha256": "2f87bcaea57a29da5020369c35bd685f2c27c0db49091bbfaeb6218574de8898"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeSlotAccessor.class",
+    "sha256": "dcf6a710436b25e9d7e3bf1464cd52540f29adb5a60a4a737dfd53bd4e796538"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeToastMixin.class",
+    "sha256": "b23c12a0618b8f6523bef35d55bf0dd69144ed1c4845779c84e1ddf407ae173d"
+  },
+  {
+    "module": "gui-themes",
+    "path": "com/shnewbs/deepprimal/themes/mixin/ThemeWidgetAccessor.class",
+    "sha256": "079c84a0dcad832613380d1aa46fceb9a94a50c3a6b443b10412fc1858bfd82c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/Initializer$Configuration.class",
+    "sha256": "77b5d8d471eb502f259bf012ed8c94c7d2f0b7da1a1afe10d44ba0af4c2f0d5b"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/Initializer.class",
+    "sha256": "b761d90961b01ad2eadae31337d777273602ef00792839e8e0c58ae312fe3512"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/cache/BackendCaches.class",
+    "sha256": "aec7f31bde1c225e96331a915c9124d090dbb7e1976d5bc87edfc74da746f1e2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/cache/BinaryCache$Entry.class",
+    "sha256": "cd18552718ad414e9effbb5b8305b1808a7ac8cc7193c8998a2dacf9080a56cf"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/cache/BinaryCache.class",
+    "sha256": "d7bc44fc3687911e1266576263ef2b504248b22850a1a966482d4164203bbefc"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/cache/DriverPipelineCache.class",
+    "sha256": "78f5ee88f560d177934321c78e7da0127a8aa4b27578433b4794d067f0568555"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/deepprimal/GlfwVulkanBridge.class",
+    "sha256": "14e60eaa2ff6620ba8e998e3036f85f6beb7c6889e1b939f00576d28028352dd"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/deepprimal/Startup.class",
+    "sha256": "161d09670b8df52b3eda51aaae452d46e5a6f8691ad36e1bbf54c75e941e6736"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/deepprimal/VulkanMixinPlugin.class",
+    "sha256": "858cd93b1c5c011f47a938ac6810dcf9533f531c865f159de75d5d3ca7bbfb40"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/gl/GlUtil.class",
+    "sha256": "b4030cb40127d1ae419ca494a4f74f2e4cc44f20eb9b6c1a6dbb47d48ae74148"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/gl/VkGlBuffer.class",
+    "sha256": "d9cad8d8f01209eb046dfaf9f4b06b27f733fffb4e7ebda02cb7c31dbc37756b"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/gl/VkGlFramebuffer.class",
+    "sha256": "d7b023d75ae4b11a1ffc87652699408d9b0720c1363cdb80937494c17c60e31e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/gl/VkGlRenderbuffer.class",
+    "sha256": "ff964bd039f5fce9e1a5fd874ddc36ffe6531eea281763cc9963e2267e62c927"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/gl/VkGlTexture.class",
+    "sha256": "17ffaab4cadd1d1b24df64a599b18e15f784a7a246a6ca417f741d17c0b62ada"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/gl/VkState.class",
+    "sha256": "0fc40f36178d6f288d4e08e7121f099c74e3f23f567f10ff9f4b32afd2ee55c2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/interfaces/shader/ExtendedRenderPipeline.class",
+    "sha256": "c9a137c5317e1b110406826dd1f9983dcae88d71385c5dd629598a4765b489da"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/AtlasProjectionMixin.class",
+    "sha256": "07f715a9220a0893f9fb76fa4ce77f70bfe8802ffd8b8919b268f0ab77ca477e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/DeviceInitializationMixin.class",
+    "sha256": "c3e7bc4ab5c17849bceae01cf14aa01ba3f2069c68aee1d5d4d846f6402d8979"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/GuiItemAtlasOriginMixin.class",
+    "sha256": "8ab4bf3ced51893ec4d3510b01a50a9290cb49b67fe253dcfb2a4f94e780c272"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/GuiPictureOriginMixin.class",
+    "sha256": "6fbcd703021ac1c77399d7979a29df40db451678e7064f2e842b60644c9bf65a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/MinecraftBackendMixin.class",
+    "sha256": "64eba844c12323e195f477c4ec574bdfeb0b90728c00b2468b2e937f586847a8"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/ScreenshotOrientationMixin.class",
+    "sha256": "96b08432d407cef4824d12e7847ad3c61983da85107aefb1d4e93421084abfce"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/window/VulkanWindowMixin.class",
+    "sha256": "3fc7de8e384c6dc4e7a7cc801e8a8e528d7a7096d97e28a4f86c857e2e4eb0a6"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/mixin/window/WindowAccessor.class",
+    "sha256": "46ba0e28e9f36d9a883464df9c99738d80209de0ae911689d914586972c32ad1"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/chunk/util/Util.class",
+    "sha256": "69acd480ecb31a517ffdb0014a8c1104294975adc109d6981b3e9b78cf8bc77c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/StorageRange.class",
+    "sha256": "a7f586b00c4fdda6f39e6dec4a7ac8d13eaeac224f62e8a257f8b29d9bd676a2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkBackend.class",
+    "sha256": "d72399230488ba869f3d4f467623a0d308a5f02e69b498c0807f958d94c219bb"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkCommandEncoder$1.class",
+    "sha256": "5dd632fcdd2e1fddc6794d403d8b13b5d82db62acab3340246a00f3b3fc0a5aa"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkCommandEncoder.class",
+    "sha256": "b55fa7f04a50208b0afdf96a04f5446dc8fdd111cae01294bbe0acd3f0bc9b56"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkConst$1.class",
+    "sha256": "c5ba8d894458d71f252367ece49079558b02c28d82d36e89f10db24aafb42797"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkConst.class",
+    "sha256": "730b93c45e954838ff438e0bc8220c5935bc5ba0e6204651544e55f6c7c5e55e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkDebugLabel.class",
+    "sha256": "bc897c6e58f53c5b3caa69cb9aae538d96eece7735d1a908d8b3ffc655620377"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkFbo.class",
+    "sha256": "32c5313d69edf37e54412c39f087329d35b8bf1a681f5e9cb447cc417f812692"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuBuffer$MappedView.class",
+    "sha256": "f8333bf2b01342b843a08c97e7f94321f26deba9efbc81f478a21f91148c11d1"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuBuffer.class",
+    "sha256": "d96bda435c871d9abe0c3266a63e2249f7a2dbe59f37ec2f584c7e814bc15664"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuDevice$1.class",
+    "sha256": "8c400fc5856e4228f3b05b303840331b9272705e72e8648a47ff92c4bf07303b"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuDevice$PipelineBinding.class",
+    "sha256": "053189696dadcdfd25c8dd94ae83876ec0e9576cbd756f8489e1e7c02386c1ad"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuDevice$ShaderCompilationKey.class",
+    "sha256": "5b9804f9cfab4304bca438cfb985f136d0a1dff9964a96c2dadc05b1b0fb7175"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuDevice$VkRenderPipeline.class",
+    "sha256": "21dcb1287a560711fbb1221cecf1a1b261bbe7486c33b7a9a67651425c0c4106"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuDevice.class",
+    "sha256": "1160471f38d10b74700e8d2a3d1f64bdb4dfb3354462c50d32961be0e2f1c149"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuTexture$1.class",
+    "sha256": "b7a0c2213ec35aae67bb492df1c2d1ad44d6f651de52eb6582e0d17015a143e6"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkGpuTexture.class",
+    "sha256": "c3b0fdf6d1395f5aa45d2ce7d40424194a463ab1df74c4e73103fa8778e964a2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkRenderPass$TextureViewAndSampler.class",
+    "sha256": "85ce309d2b48af6b7fdc71ac7d7b5b744baed0bfab49704f4841742f8f96975e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkRenderPass.class",
+    "sha256": "9377dc8bb8141192449e7cf9c53e206ebf04626763cf2ce70831039ca176407c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkSampler.class",
+    "sha256": "30935e81bc8d340969ad59dd0b24d0cad8db1711b520d142b8413389ea7fffb3"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkTextureView.class",
+    "sha256": "60deb18e9e6e2d6898fcb9401f4bce4538143cecbfb5f5b678c3c9fafb40b41d"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/engine/VkTimerQuery.class",
+    "sha256": "f27087caa01f6f9a9b6b901935a3bc90286b8ecff96f053574d5311d809e3c55"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/profiling/Profiler$Node.class",
+    "sha256": "de5e413c6211738ed4c710719168abfe9bffa3f9634dabf4a5f82666539e0076"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/profiling/Profiler$ProfilerResults.class",
+    "sha256": "1774df586785286e03d9bd90f0e6f6fa4370af5c0289c508c4d45823a3e08239"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/profiling/Profiler$Result.class",
+    "sha256": "968ba1f61b279fad0a8fa96f34346c156ed78bdbadea388f60587f39d99bd375"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/profiling/Profiler.class",
+    "sha256": "d1a2250bf0bbece1cb340b4f34cc85dda9aef494c976db474d9b31209167da10"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/shader/ShaderLoadUtil$1.class",
+    "sha256": "d64bf29dc4f64b69bdd6fc6dea6ab2512c3fe683ebce0fad5bcf916ea9eaed7c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/shader/ShaderLoadUtil.class",
+    "sha256": "816016340d075e776e0f916470c201391e86816c009be53a0752b398a2c591e1"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/texture/ImageUploadHelper.class",
+    "sha256": "7c537ba179135fbc23b733c0f3701bb8191b8398f4ad419cb7980a18b23f037e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/texture/SpriteUpdateUtil.class",
+    "sha256": "1fc9a9d360839df542685d5bd5dbd7121a57151fb3b46a3c36ce4addccacd52e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/util/MathUtil.class",
+    "sha256": "c48c2fadf1ecc80d60c5933f796f67e4b722e996c254cad709bb4e7eaa692d37"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/render/vertex/format/I32_SNorm.class",
+    "sha256": "1da77ece4980c265cdd9fe6bd9661a29ae279c3fd7bf6fffeca08d60531bb03e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Drawer$1.class",
+    "sha256": "4bd19dd3b798e3d4e6a1b9c46d33f0e2d902a6ff39d95233d256b8fcca6e9498"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Drawer$GpuBuffers.class",
+    "sha256": "e33117e7ce7b17e2c599536c216cdd777e759647640ef7060953bbf467840f9d"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Drawer.class",
+    "sha256": "39db727e61467e22f44b08f85bc8dda602f0ed70e2d6dded74d215e1f96508af"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Renderer$1.class",
+    "sha256": "92c810d14c96d1441fa7ac84625da31613cc7bdc3d2a0129765f706d38311fcf"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Renderer.class",
+    "sha256": "a2b224246419b30f8aa5fb280c1a33b17a98bab534029c8810571ce5dc63ce22"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Synchronization.class",
+    "sha256": "fd14fe8871d023bd6bc2abf2b2f3351d602f25b4919eb07607f6f3a459e8a14a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/SystemInfo.class",
+    "sha256": "4b0b02337b76e76bb3761b0c7969703f08527aae1316d0ebf18955e06ae153a7"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/VRenderSystem.class",
+    "sha256": "a2043ad5b10c43c5ba0509f261580e639246de85bf9c5fe89e00c432f50ab81a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/Vulkan.class",
+    "sha256": "37b91ef316643cb0d3f48fb4ebb5dcf9c5c84b80908976696af8f2b516f21c92"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/VulkanStatistics.class",
+    "sha256": "c289b1d7cef9a9e3eb4b44dab2779fddb7b126c5e7125c1c81f828bd21d44539"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/device/Device.class",
+    "sha256": "d3e7d1f422a3fd12b3831f2cb5bf4833dbffccdeb5f03d8e25f515c7bcda044b"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/device/DeviceManager$SurfaceProperties.class",
+    "sha256": "b9cba5eae97416ac4f9e203e166434faa2d8de3a0951fbed35b2665c7955817f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/device/DeviceManager.class",
+    "sha256": "8969a69546eee9ec7a2a859beb7a8073b63abc015747ef616178f3e8437bbb54"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/device/ImageCapabilities$Key.class",
+    "sha256": "8228c94aa0c252fac42ae0cb8e29d3759192bb274551bcfa592fbc5ed01bb755"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/device/ImageCapabilities$Limits.class",
+    "sha256": "6d1bbd2a10b0f57f44d2e890e905eb0ac2f32a14403de4998f53615368489fb4"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/device/ImageCapabilities.class",
+    "sha256": "3e22da0a02d0f261074015b4f6a7dc1bcca13966bc557ab458f232f36f36d3b6"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/Framebuffer$Builder.class",
+    "sha256": "32657502a4c216e687bd256bddad0f4e31c21a82b3f5475cca835db6d5f405a0"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/Framebuffer.class",
+    "sha256": "df25755699b4f6363d7bb39a97717bd82684d52c4d40a51d24f1ee5d5d53279c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/RenderPass$AttachmentInfo$Type.class",
+    "sha256": "04e15fee1192eff4f08b7dffb6e13b70e784cc91c25e6ee554bd4f0425d6125d"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/RenderPass$AttachmentInfo.class",
+    "sha256": "4cbb332dded8073bda9f0843575b574d6e5653159003c30d681756b050f2c1bd"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/RenderPass$Builder.class",
+    "sha256": "b180e5651b3a0d0e4af7cfd1b090c48ca57ea8e3716342aba61f7f8435c17916"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/RenderPass.class",
+    "sha256": "32e7a8506dea872657b5aac12b8bef30b9da41124dffa4ed0aa32428ac700798"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/framebuffer/SwapChain.class",
+    "sha256": "acad6e22085778205387a498a2cf798c07134cfaa46d7d238d4875afa93c035f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryManager.class",
+    "sha256": "8ecf61e83e2904b41045315f5c3b6a78a9049db9cadcc7773fd7b8223a70a4ac"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryType$Type.class",
+    "sha256": "59209e3b763c41db9d1635b603f07446dc727b386a26c681593db0b9a91ee9b2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryType.class",
+    "sha256": "f008340740732c30ff2b47ed08019f699bfdc7816c26a223ed92507405d586a7"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryTypes$DeviceLocalMemory.class",
+    "sha256": "0795f555b9d516c7620416867af4d8cf6e5c11eaf303637981e92529aaf26ada"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryTypes$DeviceMappableMemory.class",
+    "sha256": "0016f1df034639018bd6c2647cb3df9b487708acdb8f3890b2e19574f893f50a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryTypes$HostCoherentMemory.class",
+    "sha256": "aab5df82b463d178a26fd5522fea73ccf6d75f0d10028685e7d99cc94ff65720"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryTypes$MappableMemory.class",
+    "sha256": "134ad899dbf556ac456755bbb15adf08b694259a9adbbb83ceed8259b1b732b2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/MemoryTypes.class",
+    "sha256": "7b8b44a92c5eab4dee9a484f02251a25212637ae4eb4ae202303d9ae04fa638a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/Buffer$BufferInfo.class",
+    "sha256": "bcd53796dcf537dc5bbea6874e181678a09a8f62396cbfc40e239efcfd9a6e97"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/Buffer.class",
+    "sha256": "065d7b7ade849c181b99f954e7d059555965a6c7068415292dc820887be2833e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/BufferSlice.class",
+    "sha256": "b446704d07cd729b34aa5609186f2a50a0803a718909bf748df173cf39c9b8c4"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/IndexBuffer$IndexType.class",
+    "sha256": "834157a06f68c67d37ef3745846aa212afdb7b4176d194f2259cdfea5d269bda"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/IndexBuffer.class",
+    "sha256": "2abe88d4401e6f18915a8d9d9535f69d99eba6f5c4fadc5d962cd85eb79add72"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/StagingBuffer.class",
+    "sha256": "a951a73bdba7b9735bfc9383ed2c78bf05b404d609fae46072a8684f197b830f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/StagingBuffers.class",
+    "sha256": "056d4e7aa32d614b60598dce967abaac7588158cdd46bf38d033b9174b16ef44"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/UniformBuffer.class",
+    "sha256": "15e96a76c024c6837470891c29ca6b64223e28eab7a8cdbea2d78aa60ad7a53a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/VertexBuffer.class",
+    "sha256": "2d83055b0f276e12471c2140fae0ab3a1939f085f0ea85aa9e40617034d6064c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/index/AutoIndexBuffer$DrawType.class",
+    "sha256": "c52ca3b1cea6a29a4d23c5fb1c64902ba066efd10c231839de72aef725fa6e7e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/memory/buffer/index/AutoIndexBuffer.class",
+    "sha256": "c86bdc60bbeed6ffb099ba569f44429baf1fffb564306145a256a3b6821b4212"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/pass/DefaultMainPass.class",
+    "sha256": "0effe10833014bd5c65fba53bd9eb7423f6c139f2bebbf87d3c84001b20b3752"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/pass/MainPass.class",
+    "sha256": "c2d62361a8f9ac239d46b807654626d0b68062cf45bf6180d6a2924725252bd0"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/queue/CommandPool$CommandBuffer.class",
+    "sha256": "fecc6ac0c0e8328ba38b7c55fe556641929706056e59e45ff58c0decfb91c7a4"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/queue/CommandPool.class",
+    "sha256": "6910b64c4c810f430f987592b4fd1dc9ac62b8460e38e9cdd93ede30ff6dbc7c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/queue/GraphicsQueue.class",
+    "sha256": "ff8ba04ff9702e0bbd7668f1abd21957217ece4c47fab05228110ae924034400"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/queue/PresentQueue.class",
+    "sha256": "de840a9d4e8fb8e81acd81fb0379ed2ed9eef500e96eaa1663532e41ef604236"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/queue/Queue$QueueFamilyIndices.class",
+    "sha256": "ef4428957490771dec7d03543b28c6def132895e41f13a1aff952a3f3d28b6f0"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/queue/Queue.class",
+    "sha256": "8ac4e1f37e33be3da99e16e0bee25c878a742d8983006261c9ef4f0799ab607c"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/DescriptorBindingState.class",
+    "sha256": "e4a52fa814971b02470e4c279b494d5246ea442fd8d6ee21c5ca13dfd95693dc"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/DescriptorSets.class",
+    "sha256": "e2a22968b983a3453a56192a6ef5c707e540f99a3fe1d7a6bf9d1152518a2271"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/DescriptorStateCache.class",
+    "sha256": "c8e34bc8c2d4949b0ff8d90b6d31f50198d59eb96b6ba65c1ee4024b344f2d35"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/GraphicsPipeline$1.class",
+    "sha256": "56775052fe70979de19a48874988668c9d835f10d8ebc7d91561f2da67cd52d2"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/GraphicsPipeline$VertexInputDescription.class",
+    "sha256": "e1bae3c58f546fe11940697aefb382dce499073a00e03b08865221678a0afaa3"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/GraphicsPipeline.class",
+    "sha256": "24950076e4f91d402f967a017d2e3d6f6754e355b8fe9ae735f2713e1cd89c23"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/Pipeline$Builder.class",
+    "sha256": "179735401d2ccc87b58c6461d7b0792e3612d785f5a423784bcd8fa0657d2bfc"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/Pipeline.class",
+    "sha256": "21032d14306e02918ce538f8e93ea8898fd93b259d0820da1f9c920ba2bacd12"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig$Builder.class",
+    "sha256": "9d12cbbd7692dddfa2f5516a9986286bdc615f18d7d5f3b27c3d8b09d0757e41"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig$DescriptorBinding.class",
+    "sha256": "f56084fd3415ff4377df657143531f0afa994710342fad585d7f8aaadad38fb4"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig$ImageDescriptorInfo.class",
+    "sha256": "561b25ac518a70d75281372f3c164323ffca21e852936390da4cd71c9a822f5f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig$UB$Builder.class",
+    "sha256": "6dc07a53444daa6a1699c8b496cc0dfb7412478a36f2b698a70fa0203a68a190"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig$UB.class",
+    "sha256": "d9573b6a91bffb6d0b6260a08809007a641b63c5705fdacf7282ef0916548abb"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig$Uniform.class",
+    "sha256": "3f9b2db86ec0ed10f70eced086a5742728767277c3c8de02797b205b480f969f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineConfig.class",
+    "sha256": "97caa3a3255369afee78815d68cdf98360d1b3faa7c98474fdb1125f8d3ae218"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState$AssemblyRasterState.class",
+    "sha256": "5a3c892a777df2aa27d381b12a62d7ddb7ce21307ffca33ff318b5453f64ebbc"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState$BlendInfo.class",
+    "sha256": "dde83f530478c90ea34d79c367a3638548cb11286ccd5272fbe87b6086b34542"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState$BlendState.class",
+    "sha256": "2985d3142fe66db89a607eb5ab19272485b9dd1457fde9cfe43df288b5643b9f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState$ColorMask.class",
+    "sha256": "0e5c796198fdd9336ea7c20e296d810d5329854f2e02bc26ece50b14b13cbcad"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState$DepthState.class",
+    "sha256": "a462d1ea62b33108ea9c0d24455584f2c16bc2b0419ed98df7eee95b7143263b"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState$LogicOpState.class",
+    "sha256": "0f38444f9b16e469824a8addad0f1e193ebe60cd60f7fef70182a652f4aa0cd3"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/PipelineState.class",
+    "sha256": "29d371a73b308520253fe60013de48e1e7b482dde906ad09bb2ae782e7ab2652"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/SPIRVUtils$SPIRV.class",
+    "sha256": "421155c96fee6c2954ac063c65e3c3d75a792bba0b7dde059989ac63651e0b12"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/SPIRVUtils$ShaderKind.class",
+    "sha256": "bb821b77b33c3861187d7acc0c1a5c1596d2b2e428650d15a8ac384fa55a55b7"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/SPIRVUtils.class",
+    "sha256": "1af358807ce07dd1bf0ee939200f8392f33af155b2fc56a347a6806aed86ca94"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/Uniforms.class",
+    "sha256": "6caa4d074e18a69dd246fee766d0f4a50f4381433377203a3c03bcf4ef3db2fb"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Attribute.class",
+    "sha256": "3e7c0177f8de9a683b3dae22210cf67c5af6de7d0610a39bf38c1356be824d6a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser$1.class",
+    "sha256": "0c3173171b0297a63d6d2f668876ef6521b2f7418db51d25603b27b6eaf896b6"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser$Node.class",
+    "sha256": "df68fe1021331933aa7eaa9b133f459978a7450f736e7d30765da2f198db2f57"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser$PreprocessorState.class",
+    "sha256": "f4e60440f4200df10edab69e62132a150ce10f14472b4a20c6ad25476d1914bb"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser$Stage.class",
+    "sha256": "3efb9b54c29d9f44b5d566406f32b4396410b3786795a3af7bf38029e9bbae13"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser$State.class",
+    "sha256": "919524b278d06f00a550f1582661a4d3a479ef85d01884736333a1eeec750134"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser$TokenNode.class",
+    "sha256": "541793f1354639d545ca512fd91688ccc063bd895155b7b64e4ead6e8c2b6463"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/GLSLParser.class",
+    "sha256": "8fde2823ccf031b2ec8826017c4bdb8c242ab9a4a0c5dde859e3b5dcd29843ee"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Lexer$State.class",
+    "sha256": "8954a45de266ccafb70413636cc5830ea36786fe6e76bb6a2b21f4b51babb7a4"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Lexer.class",
+    "sha256": "2f4164fa8f0cff1e6aaf22119870ccced92ca6608808365b75a702cd6eb4d1ef"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Sampler$Type.class",
+    "sha256": "e47039dd537ec870b8c6b19014dbc2538cd0e1a2f42e4722d4e5de78ddd9889d"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Sampler.class",
+    "sha256": "c6c36b69589f8306439bc8e2c5d5bbe37d52e1fd550a21533c05a21d602a1983"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Token$TokenType.class",
+    "sha256": "5a7b00b84880729d661636b0f0a73cb91ec9ee11b18ce750d846e72cd322f26b"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/Token.class",
+    "sha256": "34142f3fcaa4fe4e7f684f5a5966a0d46bd3f6824710f7136a782e1f601622ab"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/UniformBlock$Field.class",
+    "sha256": "30ac3cb3a8b48b957c4da7859bbd3a803923c1035288c1b704176c4f981e7468"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/converter/UniformBlock.class",
+    "sha256": "0a719293938742bd4d0b3386fe947356c2b3d3192b0f30e56f9ad74f3595a999"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/descriptor/Descriptor.class",
+    "sha256": "84c46548e59e749045a15b1ee49872d564dc9103275eff3b0e26f9b09b65baa1"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/descriptor/ImageDescriptor$State.class",
+    "sha256": "758c52cde9ede76251ba65f46c034a8cdb60e70598697f6da430b73b9405b8b7"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/descriptor/ImageDescriptor.class",
+    "sha256": "b98363dee978318d1126e001130f90212bbdded852cc47bed0b3f2e1bc7ee786"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/descriptor/ManualUBO.class",
+    "sha256": "3f420200aade5515dce7ba2a0cacc7df7b0d2d64c0d4bdcf3c7b4bd8d316ca75"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/descriptor/UBO.class",
+    "sha256": "8f42ed9b2ab8879fecf6712432990d963bfc1f2ce596fa1e2875070528781d5f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/AlignedStruct$Builder.class",
+    "sha256": "e1051125d01f471499de846ca0b8b0280b6215b4544ce7874a2526cd00c08f2f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/AlignedStruct.class",
+    "sha256": "29d7873e7b37471d017960dd96cb47adf73031c6da93fea1bdaf395610cadbb5"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/Mat3.class",
+    "sha256": "195634db18bb081685dd2d9b997371318061dbd11478fb605eece9334854d277"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/PushConstants.class",
+    "sha256": "f2b395bf7918fbdf68902f5311682f033cff165ce1d947fb16593d946d0e1917"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/Uniform$Info.class",
+    "sha256": "1b511c21a2bb1a4365cf72a0b60727eda7752bf6b4430c1eabd46c3eb1a2883d"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/Uniform.class",
+    "sha256": "fa8fdfa07df62a145ff364e4b58fc682fa9afa58711a7f9f9674815f0882c77f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/Vec1f.class",
+    "sha256": "3507159c716eab10ed46ff8e87f8276c5a59ed50d9aedd7f896ebdf5d9855b34"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/shader/layout/Vec1i.class",
+    "sha256": "644d66384d31843bee69de7132d27e82f703aa462c9d49c8d941329dcd17cc00"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/ImageUtil.class",
+    "sha256": "d5f4fce6973bf9549d18b7f680fde57aaaa37b590d0b3f894037efd752633edd"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/SamplerInfo$Builder.class",
+    "sha256": "7e28fadd79b4e41f953eb654eed2c5404c9e089f4898f8af90173fedf985176a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/SamplerInfo.class",
+    "sha256": "b4b9a5fda56ab4a1b8ea487eed3b12e7f6e87acb4dc1b4f52e85645d7b8c0b18"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/SamplerManager.class",
+    "sha256": "4ddac8fd0021a6c6dd4f72fadaa86d62f3538376511ed741c0e105e1fde1e9df"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/VTextureSelector.class",
+    "sha256": "92a692c530a0352a4429202c93212a4ba503ae334c24caaa5fe609ad4d34356a"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/VulkanImage$Builder.class",
+    "sha256": "8da0429809ef829873307e28acdc0c3ef3e973967630c67e19061a6b20bf43c6"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/texture/VulkanImage.class",
+    "sha256": "3a14fef3e81964c18ce1d59876563c12d11e2dafaabf29835480584af952b5af"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ColorUtil$ARGB.class",
+    "sha256": "75f3302fed0e9461e843b2bb77d0d50f0ac6ee2e22981e84ba25621108e8b320"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ColorUtil$ColorConsumer.class",
+    "sha256": "4f9b76a31ec1db199c141236a46c4af3ef94e16ccc35635889631a48ab362358"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ColorUtil$DefaultColorConsumer.class",
+    "sha256": "1f366bd814919c618d3613b3d8825690cedf80a8787b75fa47dcb6f44edec612"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ColorUtil$GammaColorConsumer.class",
+    "sha256": "4397a30da274b13dddcaf112526bf0449a726acf6fe59b82fafac9d7c83707ad"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ColorUtil$RGBA.class",
+    "sha256": "844a40fb4139f034d97fd275c00f74ab8aee5e36d1577920275fcf8fefcfa94e"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ColorUtil.class",
+    "sha256": "5443e6a7b8701f75535b2aff61edffb24a572ff6e74a20fb9122d70b7a5d284f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/MappedBuffer.class",
+    "sha256": "fbecfcef1e3f3ea48b564096adc66d472da55b23636febcee055a114f6e1afbf"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/MemoryAccess.class",
+    "sha256": "82afe2667b118506187f7aaa015fdc070f16d75b8ea9d9430862fc9c5827ddc3"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/Pair.class",
+    "sha256": "dd2c15e584badf4f80e400693d88f07f0e0c9fb86ed85187b0ee9d06840ce517"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/ScreenshotUtil.class",
+    "sha256": "f287a24268716714d7885d2d520a9a4abc2760ff43806931c6a7861e203c293f"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/VUtil.class",
+    "sha256": "28b21a002cbf4ca8292e4370f8dd5264f8c315234b865f3b5a1b25fa508b97ee"
+  },
+  {
+    "module": "renderer-vulkan",
+    "path": "net/vulkanmod/vulkan/util/VkResult.class",
+    "sha256": "fb22076eb639cf83a214104ffbddf80343e18e52affb857c483db987e048856b"
+  }
+]

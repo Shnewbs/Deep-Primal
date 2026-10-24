@@ -1,0 +1,37 @@
+{
+  "inspection_complete": true,
+  "captures": [
+    {
+      "path": "vulkan-corners-shared-final-idle-retry/screenshots/corners-scene-before.png",
+      "sha256": "12d35b0c8115b4d0ad63cdc4bef83270c826d516736bcc22484644e5304a98e6",
+      "dimensions": [
+        854,
+        480
+      ],
+      "manually_viewed": true,
+      "observation": "Lake, banks and hills visible without an error screen. Page-like water bands remain visible in the lake captures and need matched attribution; these stills do not establish seamless streams, temporal flicker, complete distant LOD or API parity."
+    },
+    {
+      "path": "vulkan-corners-shared-final-idle-packaged-retry/screenshots/corners-scene-before.png",
+      "sha256": "0f1edb17074a9737e48020a3cc31aba18169c40d1aea1197284945f57c05dc0b",
+      "dimensions": [
+        854,
+        480
+      ],
+      "manually_viewed": true,
+      "observation": "Lake, banks and hills visible without an error screen. Page-like water bands remain visible in the lake captures and need matched attribution; these stills do not establish seamless streams, temporal flicker, complete distant LOD or API parity."
+    },
+    {
+      "path": "vulkan-reuse-gl-corners-shared-final-idle-retry/screenshots/reuse-gl-recovery.png",
+      "sha256": "a4000a4ffbca4cc9ce29a70213fbeebb4070e641631325a731b4ddf6263804a4",
+      "dimensions": [
+        1200,
+        800
+      ],
+      "manually_viewed": true,
+      "observation": "Lake, banks and hills visible without an error screen. Page-like water bands remain visible in the lake captures and need matched attribution; these stills do not establish seamless streams, temporal flicker, complete distant LOD or API parity."
+    }
+  ],
+  "full_scene_visual_accepted": false,
+  "scope": "Static captures/private GPU pages do not replace sustained streams, cap churn, enabled-view or owner-GPU validation."
+}
