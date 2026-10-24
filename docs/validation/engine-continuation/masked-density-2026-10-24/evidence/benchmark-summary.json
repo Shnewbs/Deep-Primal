@@ -1,0 +1,126 @@
+{
+  "runs": [
+    {
+      "fork": 0,
+      "mode": "control",
+      "n": 8,
+      "mean_ms": 58.341751,
+      "p50_ms": 54.9948585,
+      "p95_ms": 68.711967,
+      "max_ms": 68.711967,
+      "mean_allocated_bytes": 1968,
+      "class_sha256": {
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+        "com/shnewbs/deepprimal/core/density/DensityGraph.class": "8bd02228b4f896b9763a113f590920f9eba9b3e45dcb65384e4c41d2291923d6",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "704f2d8210232e41a8bfd06b60791f61489c7bfffe7c27703e4e49b808095d19",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b"
+      }
+    },
+    {
+      "fork": 0,
+      "mode": "candidate",
+      "n": 8,
+      "mean_ms": 31.37974225,
+      "p50_ms": 31.030258500000002,
+      "p95_ms": 33.007429,
+      "max_ms": 33.007429,
+      "mean_allocated_bytes": 1968,
+      "class_sha256": {
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+        "com/shnewbs/deepprimal/core/density/DensityGraph.class": "a457c37a9bbee7b7c73e229a4e5282c917027d8e0cc0428c4975c8cbac8ba310",
+        "com/shnewbs/deepprimal/core/density/DensityGraphChecks.class": "7f51d345035553b3dd8541fceb5803980fe9a59892bc76001bfe48db7337ac15",
+        "com/shnewbs/deepprimal/core/density/DensityGraphChecks$1.class": "74a46b0c15400a5fcfeee022edf48ca621ba53bc3823936fdcb516cbf93c3870",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "eebccfdc42c765da4b1c862df87d34ed8fbc0c03f02d354b8b8fa5c4ebdb07d7",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b"
+      }
+    },
+    {
+      "fork": 1,
+      "mode": "candidate",
+      "n": 8,
+      "mean_ms": 32.72245275,
+      "p50_ms": 32.6018445,
+      "p95_ms": 33.72085,
+      "max_ms": 33.72085,
+      "mean_allocated_bytes": 1968,
+      "class_sha256": {
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+        "com/shnewbs/deepprimal/core/density/DensityGraph.class": "a457c37a9bbee7b7c73e229a4e5282c917027d8e0cc0428c4975c8cbac8ba310",
+        "com/shnewbs/deepprimal/core/density/DensityGraphChecks.class": "7f51d345035553b3dd8541fceb5803980fe9a59892bc76001bfe48db7337ac15",
+        "com/shnewbs/deepprimal/core/density/DensityGraphChecks$1.class": "74a46b0c15400a5fcfeee022edf48ca621ba53bc3823936fdcb516cbf93c3870",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "eebccfdc42c765da4b1c862df87d34ed8fbc0c03f02d354b8b8fa5c4ebdb07d7",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b"
+      }
+    },
+    {
+      "fork": 1,
+      "mode": "control",
+      "n": 8,
+      "mean_ms": 55.63699375,
+      "p50_ms": 55.0802555,
+      "p95_ms": 62.905683,
+      "max_ms": 62.905683,
+      "mean_allocated_bytes": 1968,
+      "class_sha256": {
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+        "com/shnewbs/deepprimal/core/density/DensityGraph.class": "8bd02228b4f896b9763a113f590920f9eba9b3e45dcb65384e4c41d2291923d6",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "704f2d8210232e41a8bfd06b60791f61489c7bfffe7c27703e4e49b808095d19",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b"
+      }
+    },
+    {
+      "fork": 2,
+      "mode": "control",
+      "n": 8,
+      "mean_ms": 52.859289125000004,
+      "p50_ms": 52.8877155,
+      "p95_ms": 53.031291,
+      "max_ms": 53.031291,
+      "mean_allocated_bytes": 1968,
+      "class_sha256": {
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+        "com/shnewbs/deepprimal/core/density/DensityGraph.class": "8bd02228b4f896b9763a113f590920f9eba9b3e45dcb65384e4c41d2291923d6",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "704f2d8210232e41a8bfd06b60791f61489c7bfffe7c27703e4e49b808095d19",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b"
+      }
+    },
+    {
+      "fork": 2,
+      "mode": "candidate",
+      "n": 8,
+      "mean_ms": 32.314119875,
+      "p50_ms": 31.2542275,
+      "p95_ms": 39.440299,
+      "max_ms": 39.440299,
+      "mean_allocated_bytes": 1968,
+      "class_sha256": {
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Definition.class": "bc0e0b77d97fa1ee31f79a84ac16feb0dbe5a24fc7ffffab626f5c298c9826ad",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Bounds.class": "720201ca34c9a75178a93067367c10f8952003e56136439af486e5d52b03c0d3",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Node.class": "04187b6f653d4483578d56757d0f885ad5136564d61dcd6ae221898f573de97c",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Program.class": "0f189152909be8c9ee9d3fcf5443cb92c7a0a752e11f56f50d6458d67117b4ce",
+        "com/shnewbs/deepprimal/core/density/DensityGraph.class": "a457c37a9bbee7b7c73e229a4e5282c917027d8e0cc0428c4975c8cbac8ba310",
+        "com/shnewbs/deepprimal/core/density/DensityGraphChecks.class": "7f51d345035553b3dd8541fceb5803980fe9a59892bc76001bfe48db7337ac15",
+        "com/shnewbs/deepprimal/core/density/DensityGraphChecks$1.class": "74a46b0c15400a5fcfeee022edf48ca621ba53bc3823936fdcb516cbf93c3870",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class": "eebccfdc42c765da4b1c862df87d34ed8fbc0c03f02d354b8b8fa5c4ebdb07d7",
+        "com/shnewbs/deepprimal/core/density/DensityGraph$Op.class": "07c1785b14aa07555f49efe55ed5a691fb72032771bd990d066cce714c73713b"
+      }
+    }
+  ],
+  "all_paired_checksums_match": true,
+  "scope": "component-only196608samples pervolume,Yinner,1seed/defaultrecipe,4warm8measured per fork/mode,3separate paired JVMs; not native or owner hardware"
+}
