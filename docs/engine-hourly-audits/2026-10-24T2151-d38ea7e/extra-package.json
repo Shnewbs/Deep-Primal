@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "private_class_exclusions": 164,
+  "themes_resource_hash_matches": 2508,
+  "notices": [
+    "META-INF/licenses/vulkanmod/LICENSE",
+    "META-INF/licenses/vulkanmod/COPYING",
+    "META-INF/licenses/vulkanmod/UPSTREAM.json"
+  ],
+  "opengl_fallback_present": true,
+  "sha256": "cb6e251a95abdec0f3d92bcadf3360750f9e055bceea282da1ccd1e69d70be86"
+}
