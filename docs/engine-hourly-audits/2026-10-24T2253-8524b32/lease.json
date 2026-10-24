@@ -1,0 +1,11 @@
+{
+  "role": "auditor",
+  "run": "20261024T2253",
+  "source_sha": "8524b32749b9df2e922f3e2069ca62ea689d1c62",
+  "status": "completed",
+  "builder_mutated": false,
+  "performance_reservation": "none; fresh owner-paused state",
+  "tools": "read-only retained pinned tools; own cache, daemon, outputs",
+  "current_jar_native_gate": true,
+  "publication_parent": "8524b32749b9df2e922f3e2069ca62ea689d1c62"
+}

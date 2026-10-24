@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/1a7cb29b04a2/audit-8524b32-20261024T2253/validate_archives.py", line 3, in <module>
+    r=Path(__file__).resolve().parent;p=r/'project';jars=list((p/'build/libs').glob('*vulkan-windows.jar'));assert len(jars)==1,jars
+                                                                                                                   ^^^^^^^^^^^^
+AssertionError: [PosixPath('/workspace/scratch/1a7cb29b04a2/audit-8524b32-20261024T2253/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2-audit-20261024T2151-d38ea7e-vulkan-windows.jar'), PosixPath('/workspace/scratch/1a7cb29b04a2/audit-8524b32-20261024T2253/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2-audit-20261024T2253-8524b32-vulkan-windows.jar')]
