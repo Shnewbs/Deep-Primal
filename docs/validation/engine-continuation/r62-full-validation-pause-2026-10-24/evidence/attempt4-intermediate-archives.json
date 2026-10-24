@@ -1,0 +1,98 @@
+[
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045231_applyNeoforgePatches/outputRejects.zip",
+    "bytes": 22,
+    "valid_zip": true,
+    "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045231_applyNeoforgePatches/output.zip",
+    "bytes": 16718164,
+    "valid_zip": false,
+    "sha256": "ebcca0c2477385b2a5edce71cdfb2fc1bff5f5261bf55268eab260359f3928b1"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-044530_patch/outputRejects.zip",
+    "bytes": 85995,
+    "valid_zip": true,
+    "sha256": "31555f01b172d3b0797795e6bba525e99557ef853a453f0990d6c8b0bd3e922e"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-044530_patch/output.zip",
+    "bytes": 9133212,
+    "valid_zip": true,
+    "sha256": "293f3508ea20e45a9ec277f289f18b7764b7e4c178cee8a13188a8e869658f93"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045240_recompile/output.jar",
+    "bytes": 670656,
+    "valid_zip": true,
+    "sha256": "e11fb4115a8b8a79e13916434d55576e69ec8f2137b34b4b913fd7d23554684f"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-044455_decompile/output.jar",
+    "bytes": 7760332,
+    "valid_zip": false,
+    "sha256": "9663fe86324f20d87ed3b5ad9edb4583836b9b4f9e20fb48c3d7dda56dc34b98"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045147_preProcessJar/output.jar",
+    "bytes": 34372583,
+    "valid_zip": true,
+    "sha256": "67a47dfe634073fcd2b4cbdc10a34f1506d897e46314ee4aaa52a0fa03e61bef"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045234_transformSources/output.zip",
+    "bytes": 19952883,
+    "valid_zip": true,
+    "sha256": "2daf49425bf73ebb3e3502c6d672d2677e583c6295cc78b0a3f2ff6a0da09f5e"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045234_transformSources/stubs.jar",
+    "bytes": 22,
+    "valid_zip": true,
+    "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-044718_patch/outputRejects.zip",
+    "bytes": 85995,
+    "valid_zip": true,
+    "sha256": "7f292df269fd5af2721e65cb43422316b6894ebb4d2ffad3082a5c25b8902ba4"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-044718_patch/output.zip",
+    "bytes": 9133212,
+    "valid_zip": true,
+    "sha256": "603bcccbcb273e0ab8690b2b87b5373ed5ac74bb5ce62a3f412e95960f51b78f"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045228_patch/outputRejects.zip",
+    "bytes": 22,
+    "valid_zip": true,
+    "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045228_patch/output.zip",
+    "bytes": 19332554,
+    "valid_zip": true,
+    "sha256": "7787010c5c34b10cfc06d924d4123f1335c9dbe3dc55986a0e8ec0a4c9f0a3d5"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045150_decompile/output.jar",
+    "bytes": 21549208,
+    "valid_zip": true,
+    "sha256": "1f3af55be178d6997135ed2f4cc7406c7c716d2dca00051f555648c2ed8ca9dc"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045019_patch/outputRejects.zip",
+    "bytes": 85995,
+    "valid_zip": true,
+    "sha256": "7c32fe84ef66f63b5846c056a29fa7019764f6a41d6ccf513d4ee5260424441e"
+  },
+  {
+    "path": "full-restoration/candidate/build/tmp/neoformruntime/20261025-045019_patch/output.zip",
+    "bytes": 9133212,
+    "valid_zip": true,
+    "sha256": "6cc6653a8d1ca2bc6bfecdc855bd4886f017b1a5c2719de140ef95419dc35d31"
+  }
+]

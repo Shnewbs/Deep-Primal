@@ -1,0 +1,13 @@
+{
+  "exit": 0,
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "seconds": 32.04550957199899,
+  "console_sha256": "3f17dec3b8211e945fddf9a21ac89cbda41d6cafef777e6b92de81e832b8e0bb",
+  "jar_sha256": "106598e136dcb557531a6fb1bde7370acda0b1b36b1965e5fd947fb2f71a6fd0",
+  "performance_measurement_accepted": false,
+  "scope": "packaged codec/V7 replay/save smoke; no V8 blocks, client, Windows or performance acceptance",
+  "pass": true,
+  "selected_class_bytes_verified": true
+}

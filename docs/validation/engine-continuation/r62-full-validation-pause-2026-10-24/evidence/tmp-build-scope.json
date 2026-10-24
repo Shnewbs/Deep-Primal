@@ -1,0 +1,8 @@
+{
+  "path": "/tmp/deepprimal-r62-build-jqctbjzn",
+  "project": "/tmp/deepprimal-r62-build-jqctbjzn/project",
+  "gradle_cache": "/tmp/deepprimal-r62-build-jqctbjzn/gradle-cache",
+  "verified_maven_inputs": 373,
+  "intermediate_neoform_results_reused": false,
+  "scope": "isolated /tmp builder experiment; source/overlays unchanged; corruption root cause unproven"
+}

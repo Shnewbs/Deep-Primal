@@ -1,0 +1,12 @@
+{
+  "exit": 1,
+  "seconds": 89.33251880199896,
+  "build_success_marker": false,
+  "noise_pass": false,
+  "graph_pass": false,
+  "reuse_pass": false,
+  "adversarial_pass": false,
+  "source_snapshot": "dea1246899f52c3392a094ab389e91416bc57b71",
+  "candidate_overlay": "R62 staged Graph plus private regression harness wiring",
+  "owner_installer": false
+}

@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "unchanged_existing_production_classes": 517,
+  "changed_existing_classes": [
+    "com/shnewbs/deepprimal/core/density/DensityGraph.class"
+  ],
+  "added_classes": [
+    "com/shnewbs/deepprimal/core/density/DensityGraph$Sampler.class"
+  ],
+  "released_v7_replay_hashes_match": 12,
+  "scope": "No geography/default/water runtime class changed; V8 remains disabled"
+}

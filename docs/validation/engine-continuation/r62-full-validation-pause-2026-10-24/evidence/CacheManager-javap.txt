@@ -1,0 +1,1033 @@
+Compiled from "CacheManager.java"
+public class net.neoforged.neoform.runtime.cache.CacheManager implements java.lang.AutoCloseable {
+  private static final net.neoforged.neoform.runtime.utils.Logger LOG;
+
+  private static final java.time.format.DateTimeFormatter WORKSPACE_NAME_FORMAT;
+
+  private final java.nio.file.Path homeDir;
+
+  private final java.nio.file.Path artifactCacheDir;
+
+  private final java.nio.file.Path intermediateResultsDir;
+
+  private final java.nio.file.Path assetsDir;
+
+  private final java.nio.file.Path workspacesDir;
+
+  private long maxAgeInHours;
+
+  private long maxSize;
+
+  private boolean disabled;
+
+  private boolean analyzeMisses;
+
+  private boolean verbose;
+
+  public net.neoforged.neoform.runtime.cache.CacheManager(java.nio.file.Path, java.nio.file.Path, java.nio.file.Path) throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: ldc2_w        #7                  // long 744l
+         8: putfield      #9                  // Field maxAgeInHours:J
+        11: aload_0
+        12: ldc2_w        #15                 // long 10737418240l
+        15: putfield      #17                 // Field maxSize:J
+        18: aload_0
+        19: aload_1
+        20: putfield      #20                 // Field homeDir:Ljava/nio/file/Path;
+        23: aload_1
+        24: iconst_0
+        25: anewarray     #24                 // class java/nio/file/attribute/FileAttribute
+        28: invokestatic  #26                 // Method java/nio/file/Files.createDirectories:(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;
+        31: pop
+        32: aload_0
+        33: aload_1
+        34: ldc           #32                 // String artifacts
+        36: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+        41: putfield      #40                 // Field artifactCacheDir:Ljava/nio/file/Path;
+        44: aload_0
+        45: aload_1
+        46: ldc           #43                 // String intermediate_results
+        48: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+        53: putfield      #45                 // Field intermediateResultsDir:Ljava/nio/file/Path;
+        56: aload_0
+        57: aload_2
+        58: aload_1
+        59: ldc           #48                 // String assets
+        61: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+        66: invokestatic  #50                 // Method java/util/Objects.requireNonNullElse:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+        69: checkcast     #35                 // class java/nio/file/Path
+        72: putfield      #56                 // Field assetsDir:Ljava/nio/file/Path;
+        75: aload_0
+        76: aload_3
+        77: putfield      #59                 // Field workspacesDir:Ljava/nio/file/Path;
+        80: return
+
+  public void performMaintenance() throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: getfield      #20                 // Field homeDir:Ljava/nio/file/Path;
+         4: iconst_0
+         5: anewarray     #62                 // class java/nio/file/LinkOption
+         8: invokestatic  #64                 // Method java/nio/file/Files.exists:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Z
+        11: ifne          15
+        14: return
+        15: aload_0
+        16: getfield      #20                 // Field homeDir:Ljava/nio/file/Path;
+        19: ldc           #68                 // String nfrt_cache_cleanup.state
+        21: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+        26: astore_1
+        27: aload_1
+        28: iconst_2
+        29: anewarray     #70                 // class java/nio/file/OpenOption
+        32: dup
+        33: iconst_0
+        34: getstatic     #72                 // Field java/nio/file/StandardOpenOption.CREATE:Ljava/nio/file/StandardOpenOption;
+        37: aastore
+        38: dup
+        39: iconst_1
+        40: getstatic     #78                 // Field java/nio/file/StandardOpenOption.WRITE:Ljava/nio/file/StandardOpenOption;
+        43: aastore
+        44: invokestatic  #81                 // Method java/nio/channels/FileChannel.open:(Ljava/nio/file/Path;[Ljava/nio/file/OpenOption;)Ljava/nio/channels/FileChannel;
+        47: astore_2
+        48: aload_2
+        49: invokevirtual #87                 // Method java/nio/channels/FileChannel.tryLock:()Ljava/nio/channels/FileLock;
+        52: astore_3
+        53: goto          60
+        56: astore        4
+        58: aconst_null
+        59: astore_3
+        60: aload_3
+        61: ifnull        197
+        64: aload_1
+        65: iconst_1
+        66: anewarray     #62                 // class java/nio/file/LinkOption
+        69: dup
+        70: iconst_0
+        71: getstatic     #93                 // Field java/nio/file/LinkOption.NOFOLLOW_LINKS:Ljava/nio/file/LinkOption;
+        74: aastore
+        75: invokestatic  #97                 // Method java/nio/file/Files.getLastModifiedTime:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Ljava/nio/file/attribute/FileTime;
+        78: astore        4
+        80: aload         4
+        82: invokevirtual #101                // Method java/nio/file/attribute/FileTime.toInstant:()Ljava/time/Instant;
+        85: invokestatic  #107                // Method java/time/Instant.now:()Ljava/time/Instant;
+        88: invokestatic  #112                // Method java/time/Duration.between:(Ljava/time/temporal/Temporal;Ljava/time/temporal/Temporal;)Ljava/time/Duration;
+        91: astore        5
+        93: ldc2_w        #118                // long 24l
+        96: invokestatic  #120                // Method java/time/Duration.ofHours:(J)Ljava/time/Duration;
+        99: astore        6
+       101: aload         5
+       103: aload         6
+       105: invokevirtual #124                // Method java/time/Duration.compareTo:(Ljava/time/Duration;)I
+       108: ifge          155
+       111: aload_0
+       112: getfield      #128                // Field verbose:Z
+       115: ifeq          146
+       118: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       121: getstatic     #136                // Field net/neoforged/neoform/runtime/utils/AnsiColor.BOLD:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       124: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       127: aload         5
+       129: invokestatic  #148                // Method net/neoforged/neoform/runtime/utils/StringUtil.formatDuration:(Ljava/time/Duration;)Ljava/lang/String;
+       132: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       135: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       138: invokedynamic #157,  0            // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       143: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       146: aload_2
+       147: ifnull        154
+       150: aload_2
+       151: invokevirtual #167                // Method java/nio/channels/FileChannel.close:()V
+       154: return
+       155: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       158: aload_0
+       159: getfield      #20                 // Field homeDir:Ljava/nio/file/Path;
+       162: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       165: invokedynamic #170,  0            // InvokeDynamic #1:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+       170: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       173: aload_0
+       174: invokevirtual #173                // Method cleanUpIntermediateResults:()V
+       177: aload_1
+       178: invokestatic  #107                // Method java/time/Instant.now:()Ljava/time/Instant;
+       181: invokestatic  #176                // Method java/nio/file/attribute/FileTime.from:(Ljava/time/Instant;)Ljava/nio/file/attribute/FileTime;
+       184: invokestatic  #180                // Method java/nio/file/Files.setLastModifiedTime:(Ljava/nio/file/Path;Ljava/nio/file/attribute/FileTime;)Ljava/nio/file/Path;
+       187: pop
+       188: aload_2
+       189: ifnull        196
+       192: aload_2
+       193: invokevirtual #167                // Method java/nio/channels/FileChannel.close:()V
+       196: return
+       197: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       200: ldc           #184                // String Cache maintenance is already performed by another process.
+       202: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       205: aload_2
+       206: ifnull        238
+       209: aload_2
+       210: invokevirtual #167                // Method java/nio/channels/FileChannel.close:()V
+       213: goto          238
+       216: astore_3
+       217: aload_2
+       218: ifnull        236
+       221: aload_2
+       222: invokevirtual #167                // Method java/nio/channels/FileChannel.close:()V
+       225: goto          236
+       228: astore        4
+       230: aload_3
+       231: aload         4
+       233: invokevirtual #188                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+       236: aload_3
+       237: athrow
+       238: return
+      Exception table:
+         from    to  target type
+            48    53    56   Class java/nio/channels/OverlappingFileLockException
+            48   146   216   Class java/lang/Throwable
+           155   188   216   Class java/lang/Throwable
+           197   205   216   Class java/lang/Throwable
+           221   225   228   Class java/lang/Throwable
+
+  public void cleanUpAll() throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: invokevirtual #173                // Method cleanUpIntermediateResults:()V
+         4: return
+
+  public void cleanUpIntermediateResults() throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: getfield      #45                 // Field intermediateResultsDir:Ljava/nio/file/Path;
+         4: iconst_0
+         5: anewarray     #62                 // class java/nio/file/LinkOption
+         8: invokestatic  #64                 // Method java/nio/file/Files.exists:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Z
+        11: ifne          15
+        14: return
+        15: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+        18: aload_0
+        19: getfield      #45                 // Field intermediateResultsDir:Ljava/nio/file/Path;
+        22: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        25: invokedynamic #192,  0            // InvokeDynamic #2:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+        30: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+        33: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+        36: aload_0
+        37: getfield      #9                  // Field maxAgeInHours:J
+        40: invokedynamic #193,  0            // InvokeDynamic #3:makeConcatWithConstants:(J)Ljava/lang/String;
+        45: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+        48: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+        51: aload_0
+        52: getfield      #17                 // Field maxSize:J
+        55: invokestatic  #196                // Method net/neoforged/neoform/runtime/utils/StringUtil.formatBytes:(J)Ljava/lang/String;
+        58: invokedynamic #199,  0            // InvokeDynamic #4:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+        63: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+        66: new           #200                // class java/util/ArrayList
+        69: dup
+        70: sipush        1000
+        73: invokespecial #202                // Method java/util/ArrayList."<init>":(I)V
+        76: astore_1
+        77: new           #205                // class java/util/HashSet
+        80: dup
+        81: invokespecial #207                // Method java/util/HashSet."<init>":()V
+        84: astore_2
+        85: invokestatic  #107                // Method java/time/Instant.now:()Ljava/time/Instant;
+        88: astore_3
+        89: aload_0
+        90: getfield      #45                 // Field intermediateResultsDir:Ljava/nio/file/Path;
+        93: invokestatic  #208                // InterfaceMethod java/util/Set.of:()Ljava/util/Set;
+        96: iconst_1
+        97: new           #214                // class net/neoforged/neoform/runtime/cache/CacheManager$1
+       100: dup
+       101: aload_0
+       102: aload_1
+       103: aload_3
+       104: aload_2
+       105: invokespecial #216                // Method net/neoforged/neoform/runtime/cache/CacheManager$1."<init>":(Lnet/neoforged/neoform/runtime/cache/CacheManager;Ljava/util/ArrayList;Ljava/time/Instant;Ljava/util/HashSet;)V
+       108: invokestatic  #219                // Method java/nio/file/Files.walkFileTree:(Ljava/nio/file/Path;Ljava/util/Set;ILjava/nio/file/FileVisitor;)Ljava/nio/file/Path;
+       111: pop
+       112: aload_1
+       113: invokevirtual #223                // Method java/util/ArrayList.stream:()Ljava/util/stream/Stream;
+       116: invokedynamic #227,  0            // InvokeDynamic #5:applyAsLong:()Ljava/util/function/ToLongFunction;
+       121: invokeinterface #231,  2          // InterfaceMethod java/util/stream/Stream.mapToLong:(Ljava/util/function/ToLongFunction;)Ljava/util/stream/LongStream;
+       126: invokeinterface #237,  1          // InterfaceMethod java/util/stream/LongStream.sum:()J
+       131: lstore        4
+       133: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       136: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       139: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       142: aload_1
+       143: invokevirtual #246                // Method java/util/ArrayList.size:()I
+       146: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       149: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       152: invokedynamic #250,  0            // InvokeDynamic #6:makeConcatWithConstants:(Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
+       157: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       160: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       163: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       166: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       169: lload         4
+       171: invokestatic  #196                // Method net/neoforged/neoform/runtime/utils/StringUtil.formatBytes:(J)Ljava/lang/String;
+       174: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       177: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       180: invokedynamic #253,  0            // InvokeDynamic #7:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       185: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       188: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       191: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       194: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       197: aload_2
+       198: invokevirtual #254                // Method java/util/HashSet.size:()I
+       201: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       204: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       207: invokedynamic #255,  0            // InvokeDynamic #8:makeConcatWithConstants:(Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
+       212: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       215: aload_2
+       216: invokevirtual #256                // Method java/util/HashSet.isEmpty:()Z
+       219: ifne          401
+       222: lconst_0
+       223: lstore        6
+       225: lconst_0
+       226: lstore        8
+       228: aload_1
+       229: invokevirtual #260                // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+       232: astore        10
+       234: aload         10
+       236: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       241: ifeq          352
+       244: aload         10
+       246: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       251: checkcast     #273                // class net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry
+       254: astore        11
+       256: aload_2
+       257: aload         11
+       259: getfield      #275                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.cacheKey:Ljava/lang/String;
+       262: invokevirtual #279                // Method java/util/HashSet.contains:(Ljava/lang/Object;)Z
+       265: ifeq          349
+       268: aload_0
+       269: getfield      #128                // Field verbose:Z
+       272: ifeq          291
+       275: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       278: aload         11
+       280: getfield      #283                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.filename:Ljava/lang/String;
+       283: invokedynamic #286,  0            // InvokeDynamic #9:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+       288: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       291: aload         11
+       293: getfield      #287                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.file:Ljava/nio/file/Path;
+       296: invokestatic  #290                // Method java/nio/file/Files.delete:(Ljava/nio/file/Path;)V
+       299: goto          326
+       302: astore        12
+       304: getstatic     #296                // Field java/lang/System.err:Ljava/io/PrintStream;
+       307: aload         11
+       309: getfield      #287                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.file:Ljava/nio/file/Path;
+       312: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       315: invokedynamic #302,  0            // InvokeDynamic #10:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+       320: invokevirtual #303                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       323: goto          234
+       326: lload         6
+       328: aload         11
+       330: getfield      #306                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.size:J
+       333: ladd
+       334: lstore        6
+       336: lload         8
+       338: lconst_1
+       339: ladd
+       340: lstore        8
+       342: aload         10
+       344: invokeinterface #308,  1          // InterfaceMethod java/util/Iterator.remove:()V
+       349: goto          234
+       352: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       355: getstatic     #136                // Field net/neoforged/neoform/runtime/utils/AnsiColor.BOLD:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       358: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       361: lload         6
+       363: invokestatic  #196                // Method net/neoforged/neoform/runtime/utils/StringUtil.formatBytes:(J)Ljava/lang/String;
+       366: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       369: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       372: getstatic     #136                // Field net/neoforged/neoform/runtime/utils/AnsiColor.BOLD:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       375: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       378: lload         8
+       380: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       383: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       386: invokedynamic #311,  0            // InvokeDynamic #11:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;)Ljava/lang/String;
+       391: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       394: lload         4
+       396: lload         6
+       398: lsub
+       399: lstore        4
+       401: lload         4
+       403: aload_0
+       404: getfield      #17                 // Field maxSize:J
+       407: lcmp
+       408: ifgt          412
+       411: return
+       412: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       415: ldc_w         #314                // String Cache size exceeds target size. Deleting least-recently-used entries first.
+       418: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       421: new           #200                // class java/util/ArrayList
+       424: dup
+       425: aload_1
+       426: invokevirtual #223                // Method java/util/ArrayList.stream:()Ljava/util/stream/Stream;
+       429: invokedynamic #316,  0            // InvokeDynamic #12:apply:()Ljava/util/function/Function;
+       434: invokestatic  #320                // Method java/util/stream/Collectors.groupingBy:(Ljava/util/function/Function;)Ljava/util/stream/Collector;
+       437: invokeinterface #326,  2          // InterfaceMethod java/util/stream/Stream.collect:(Ljava/util/stream/Collector;)Ljava/lang/Object;
+       442: checkcast     #330                // class java/util/Map
+       445: invokeinterface #332,  1          // InterfaceMethod java/util/Map.values:()Ljava/util/Collection;
+       450: invokespecial #336                // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+       453: astore        6
+       455: aload         6
+       457: invokedynamic #339,  0            // InvokeDynamic #13:applyAsLong:()Ljava/util/function/ToLongFunction;
+       462: invokestatic  #340                // InterfaceMethod java/util/Comparator.comparingLong:(Ljava/util/function/ToLongFunction;)Ljava/util/Comparator;
+       465: invokevirtual #346                // Method java/util/ArrayList.sort:(Ljava/util/Comparator;)V
+       468: lconst_0
+       469: lstore        7
+       471: iconst_0
+       472: istore        9
+       474: aload         6
+       476: invokevirtual #260                // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+       479: astore        10
+       481: aload         10
+       483: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       488: ifeq          634
+       491: aload         10
+       493: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       498: checkcast     #350                // class java/util/List
+       501: astore        11
+       503: lload         4
+       505: aload_0
+       506: getfield      #17                 // Field maxSize:J
+       509: lcmp
+       510: ifgt          516
+       513: goto          634
+       516: aload         11
+       518: invokeinterface #352,  1          // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+       523: astore        12
+       525: aload         12
+       527: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       532: ifeq          631
+       535: aload         12
+       537: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       542: checkcast     #273                // class net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry
+       545: astore        13
+       547: aload_0
+       548: getfield      #128                // Field verbose:Z
+       551: ifeq          570
+       554: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       557: aload         13
+       559: getfield      #283                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.filename:Ljava/lang/String;
+       562: invokedynamic #286,  0            // InvokeDynamic #9:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+       567: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       570: aload         13
+       572: getfield      #287                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.file:Ljava/nio/file/Path;
+       575: invokestatic  #290                // Method java/nio/file/Files.delete:(Ljava/nio/file/Path;)V
+       578: goto          605
+       581: astore        14
+       583: getstatic     #296                // Field java/lang/System.err:Ljava/io/PrintStream;
+       586: aload         13
+       588: getfield      #287                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.file:Ljava/nio/file/Path;
+       591: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       594: invokedynamic #302,  0            // InvokeDynamic #10:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+       599: invokevirtual #303                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       602: goto          525
+       605: lload         7
+       607: aload         13
+       609: getfield      #306                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.size:J
+       612: ladd
+       613: lstore        7
+       615: lload         4
+       617: aload         13
+       619: getfield      #306                // Field net/neoforged/neoform/runtime/cache/CacheManager$1CacheEntry.size:J
+       622: lsub
+       623: lstore        4
+       625: iinc          9, 1
+       628: goto          525
+       631: goto          481
+       634: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       637: getstatic     #136                // Field net/neoforged/neoform/runtime/utils/AnsiColor.BOLD:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       640: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       643: lload         7
+       645: invokestatic  #196                // Method net/neoforged/neoform/runtime/utils/StringUtil.formatBytes:(J)Ljava/lang/String;
+       648: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       651: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       654: getstatic     #136                // Field net/neoforged/neoform/runtime/utils/AnsiColor.BOLD:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       657: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       660: iload         9
+       662: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       665: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       668: invokedynamic #353,  0            // InvokeDynamic #14:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;
+       673: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       676: return
+      Exception table:
+         from    to  target type
+           291   299   302   Class java/io/IOException
+           570   578   581   Class java/io/IOException
+
+  public boolean restoreOutputsFromCache(net.neoforged.neoform.runtime.graph.ExecutionNode, net.neoforged.neoform.runtime.cache.CacheKey, java.util.Map<java.lang.String, java.nio.file.Path>) throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: getfield      #356                // Field disabled:Z
+         4: ifeq          9
+         7: iconst_0
+         8: ireturn
+         9: aload_0
+        10: invokevirtual #359                // Method getIntermediateResultsDir:()Ljava/nio/file/Path;
+        13: astore        4
+        15: aload_0
+        16: aload_2
+        17: invokevirtual #363                // Method getCacheMarkerFile:(Lnet/neoforged/neoform/runtime/cache/CacheKey;)Ljava/nio/file/Path;
+        20: astore        5
+        22: aload         4
+        24: iconst_0
+        25: anewarray     #24                 // class java/nio/file/attribute/FileAttribute
+        28: invokestatic  #26                 // Method java/nio/file/Files.createDirectories:(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;
+        31: pop
+        32: aload         5
+        34: iconst_0
+        35: anewarray     #62                 // class java/nio/file/LinkOption
+        38: invokestatic  #367                // Method java/nio/file/Files.isRegularFile:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Z
+        41: ifeq          223
+        44: iconst_1
+        45: istore        6
+        47: aload_1
+        48: invokevirtual #370                // Method net/neoforged/neoform/runtime/graph/ExecutionNode.outputs:()Ljava/util/Map;
+        51: invokeinterface #376,  1          // InterfaceMethod java/util/Map.entrySet:()Ljava/util/Set;
+        56: invokeinterface #379,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+        61: astore        7
+        63: aload         7
+        65: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+        70: ifeq          203
+        73: aload         7
+        75: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        80: checkcast     #380                // class java/util/Map$Entry
+        83: astore        8
+        85: aload_2
+        86: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        89: aload         8
+        91: invokeinterface #382,  1          // InterfaceMethod java/util/Map$Entry.getKey:()Ljava/lang/Object;
+        96: checkcast     #143                // class java/lang/String
+        99: aload_1
+       100: aload         8
+       102: invokeinterface #382,  1          // InterfaceMethod java/util/Map$Entry.getKey:()Ljava/lang/Object;
+       107: checkcast     #143                // class java/lang/String
+       110: invokevirtual #385                // Method net/neoforged/neoform/runtime/graph/ExecutionNode.getRequiredOutput:(Ljava/lang/String;)Lnet/neoforged/neoform/runtime/graph/NodeOutput;
+       113: invokevirtual #389                // Method net/neoforged/neoform/runtime/graph/NodeOutput.type:()Lnet/neoforged/neoform/runtime/graph/NodeOutputType;
+       116: invokevirtual #395                // Method net/neoforged/neoform/runtime/graph/NodeOutputType.getExtension:()Ljava/lang/String;
+       119: invokedynamic #401,  0            // InvokeDynamic #15:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       124: astore        9
+       126: aload         4
+       128: aload         9
+       130: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+       135: astore        10
+       137: aload         10
+       139: iconst_0
+       140: anewarray     #62                 // class java/nio/file/LinkOption
+       143: invokestatic  #367                // Method java/nio/file/Files.isRegularFile:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Z
+       146: ifeq          171
+       149: aload_3
+       150: aload         8
+       152: invokeinterface #382,  1          // InterfaceMethod java/util/Map$Entry.getKey:()Ljava/lang/Object;
+       157: checkcast     #143                // class java/lang/String
+       160: aload         10
+       162: invokeinterface #402,  3          // InterfaceMethod java/util/Map.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+       167: pop
+       168: goto          200
+       171: getstatic     #296                // Field java/lang/System.err:Ljava/io/PrintStream;
+       174: aload_1
+       175: invokevirtual #405                // Method net/neoforged/neoform/runtime/graph/ExecutionNode.id:()Ljava/lang/String;
+       178: aload         9
+       180: invokedynamic #408,  0            // InvokeDynamic #16:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       185: invokevirtual #303                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       188: aload_3
+       189: invokeinterface #411,  1          // InterfaceMethod java/util/Map.clear:()V
+       194: iconst_0
+       195: istore        6
+       197: goto          203
+       200: goto          63
+       203: iload         6
+       205: ifeq          220
+       208: aload         5
+       210: invokestatic  #107                // Method java/time/Instant.now:()Ljava/time/Instant;
+       213: invokestatic  #176                // Method java/nio/file/attribute/FileTime.from:(Ljava/time/Instant;)Ljava/nio/file/attribute/FileTime;
+       216: invokestatic  #180                // Method java/nio/file/Files.setLastModifiedTime:(Ljava/nio/file/Path;Ljava/nio/file/attribute/FileTime;)Ljava/nio/file/Path;
+       219: pop
+       220: iload         6
+       222: ireturn
+       223: aload_0
+       224: getfield      #414                // Field analyzeMisses:Z
+       227: ifeq          235
+       230: aload_0
+       231: aload_2
+       232: invokevirtual #417                // Method analyzeCacheMiss:(Lnet/neoforged/neoform/runtime/cache/CacheKey;)V
+       235: iconst_0
+       236: ireturn
+
+  public void saveOutputs(net.neoforged.neoform.runtime.graph.ExecutionNode, net.neoforged.neoform.runtime.cache.CacheKey, java.util.HashMap<java.lang.String, java.nio.file.Path>) throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: getfield      #356                // Field disabled:Z
+         4: ifeq          8
+         7: return
+         8: aload_0
+         9: invokevirtual #359                // Method getIntermediateResultsDir:()Ljava/nio/file/Path;
+        12: astore        4
+        14: new           #421                // class java/util/HashMap
+        17: dup
+        18: aload_3
+        19: invokevirtual #423                // Method java/util/HashMap.size:()I
+        22: invokespecial #424                // Method java/util/HashMap."<init>":(I)V
+        25: astore        5
+        27: aload_3
+        28: invokevirtual #425                // Method java/util/HashMap.entrySet:()Ljava/util/Set;
+        31: invokeinterface #379,  1          // InterfaceMethod java/util/Set.iterator:()Ljava/util/Iterator;
+        36: astore        6
+        38: aload         6
+        40: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+        45: ifeq          148
+        48: aload         6
+        50: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        55: checkcast     #380                // class java/util/Map$Entry
+        58: astore        7
+        60: aload_2
+        61: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        64: aload         7
+        66: invokeinterface #382,  1          // InterfaceMethod java/util/Map$Entry.getKey:()Ljava/lang/Object;
+        71: checkcast     #143                // class java/lang/String
+        74: aload_1
+        75: aload         7
+        77: invokeinterface #382,  1          // InterfaceMethod java/util/Map$Entry.getKey:()Ljava/lang/Object;
+        82: checkcast     #143                // class java/lang/String
+        85: invokevirtual #385                // Method net/neoforged/neoform/runtime/graph/ExecutionNode.getRequiredOutput:(Ljava/lang/String;)Lnet/neoforged/neoform/runtime/graph/NodeOutput;
+        88: invokevirtual #389                // Method net/neoforged/neoform/runtime/graph/NodeOutput.type:()Lnet/neoforged/neoform/runtime/graph/NodeOutputType;
+        91: invokevirtual #395                // Method net/neoforged/neoform/runtime/graph/NodeOutputType.getExtension:()Ljava/lang/String;
+        94: invokedynamic #401,  0            // InvokeDynamic #15:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+        99: astore        8
+       101: aload         4
+       103: aload         8
+       105: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+       110: astore        9
+       112: aload         7
+       114: invokeinterface #426,  1          // InterfaceMethod java/util/Map$Entry.getValue:()Ljava/lang/Object;
+       119: checkcast     #35                 // class java/nio/file/Path
+       122: aload         9
+       124: invokestatic  #429                // Method net/neoforged/neoform/runtime/utils/FileUtil.atomicMove:(Ljava/nio/file/Path;Ljava/nio/file/Path;)V
+       127: aload         5
+       129: aload         7
+       131: invokeinterface #382,  1          // InterfaceMethod java/util/Map$Entry.getKey:()Ljava/lang/Object;
+       136: checkcast     #143                // class java/lang/String
+       139: aload         9
+       141: invokevirtual #435                // Method java/util/HashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+       144: pop
+       145: goto          38
+       148: aload_3
+       149: aload         5
+       151: invokevirtual #436                // Method java/util/HashMap.putAll:(Ljava/util/Map;)V
+       154: aload_2
+       155: aload_0
+       156: aload_2
+       157: invokevirtual #363                // Method getCacheMarkerFile:(Lnet/neoforged/neoform/runtime/cache/CacheKey;)Ljava/nio/file/Path;
+       160: invokevirtual #440                // Method net/neoforged/neoform/runtime/cache/CacheKey.write:(Ljava/nio/file/Path;)V
+       163: return
+
+  private java.nio.file.Path getCacheMarkerFile(net.neoforged.neoform.runtime.cache.CacheKey);
+    Code:
+         0: aload_0
+         1: invokevirtual #359                // Method getIntermediateResultsDir:()Ljava/nio/file/Path;
+         4: aload_1
+         5: invokevirtual #445                // Method net/neoforged/neoform/runtime/cache/CacheKey.type:()Ljava/lang/String;
+         8: aload_1
+         9: invokevirtual #447                // Method net/neoforged/neoform/runtime/cache/CacheKey.hashValue:()Ljava/lang/String;
+        12: invokedynamic #450,  0            // InvokeDynamic #17:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+        17: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+        22: areturn
+
+  private java.nio.file.Path getIntermediateResultsDir();
+    Code:
+         0: aload_0
+         1: getfield      #45                 // Field intermediateResultsDir:Ljava/nio/file/Path;
+         4: areturn
+
+  public java.nio.file.Path getArtifactCacheDir();
+    Code:
+         0: aload_0
+         1: getfield      #40                 // Field artifactCacheDir:Ljava/nio/file/Path;
+         4: areturn
+
+  public java.nio.file.Path getAssetsDir();
+    Code:
+         0: aload_0
+         1: getfield      #56                 // Field assetsDir:Ljava/nio/file/Path;
+         4: areturn
+
+  private void analyzeCacheMiss(net.neoforged.neoform.runtime.cache.CacheKey);
+    Code:
+         0: aload_0
+         1: invokevirtual #359                // Method getIntermediateResultsDir:()Ljava/nio/file/Path;
+         4: astore_2
+         5: new           #200                // class java/util/ArrayList
+         8: dup
+         9: aload_2
+        10: aload_1
+        11: invokevirtual #445                // Method net/neoforged/neoform/runtime/cache/CacheKey.type:()Ljava/lang/String;
+        14: invokestatic  #451                // Method getCacheEntries:(Ljava/nio/file/Path;Ljava/lang/String;)Ljava/util/List;
+        17: invokespecial #336                // Method java/util/ArrayList."<init>":(Ljava/util/Collection;)V
+        20: astore_3
+        21: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+        24: aload_3
+        25: invokevirtual #246                // Method java/util/ArrayList.size:()I
+        28: aload_1
+        29: invokevirtual #445                // Method net/neoforged/neoform/runtime/cache/CacheKey.type:()Ljava/lang/String;
+        32: invokedynamic #455,  0            // InvokeDynamic #18:makeConcatWithConstants:(ILjava/lang/String;)Ljava/lang/String;
+        37: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+        40: new           #458                // class java/util/IdentityHashMap
+        43: dup
+        44: aload_3
+        45: invokevirtual #246                // Method java/util/ArrayList.size:()I
+        48: invokespecial #460                // Method java/util/IdentityHashMap."<init>":(I)V
+        51: astore        4
+        53: aload_3
+        54: invokevirtual #260                // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+        57: astore        5
+        59: aload         5
+        61: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+        66: ifeq          101
+        69: aload         5
+        71: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        76: checkcast     #461                // class net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry
+        79: astore        6
+        81: aload         4
+        83: aload         6
+        85: aload_1
+        86: aload         6
+        88: invokevirtual #463                // Method net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry.cacheKey:()Lnet/neoforged/neoform/runtime/cache/CacheKey;
+        91: invokevirtual #466                // Method net/neoforged/neoform/runtime/cache/CacheKey.getDiff:(Lnet/neoforged/neoform/runtime/cache/CacheKey;)Ljava/util/List;
+        94: invokevirtual #470                // Method java/util/IdentityHashMap.put:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+        97: pop
+        98: goto          59
+       101: aload_3
+       102: aload         4
+       104: invokedynamic #471,  0            // InvokeDynamic #19:applyAsInt:(Ljava/util/IdentityHashMap;)Ljava/util/function/ToIntFunction;
+       109: invokestatic  #475                // InterfaceMethod java/util/Comparator.comparingInt:(Ljava/util/function/ToIntFunction;)Ljava/util/Comparator;
+       112: invokevirtual #346                // Method java/util/ArrayList.sort:(Ljava/util/Comparator;)V
+       115: aload_3
+       116: invokevirtual #260                // Method java/util/ArrayList.iterator:()Ljava/util/Iterator;
+       119: astore        5
+       121: aload         5
+       123: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       128: ifeq          189
+       131: aload         5
+       133: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       138: checkcast     #461                // class net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry
+       141: astore        6
+       143: aload         4
+       145: aload         6
+       147: invokevirtual #479                // Method java/util/IdentityHashMap.get:(Ljava/lang/Object;)Ljava/lang/Object;
+       150: checkcast     #350                // class java/util/List
+       153: invokeinterface #483,  1          // InterfaceMethod java/util/List.size:()I
+       158: istore        7
+       160: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       163: aload         6
+       165: getfield      #484                // Field net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry.filename:Ljava/lang/String;
+       168: aload         6
+       170: getfield      #485                // Field net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry.lastModified:Ljava/nio/file/attribute/FileTime;
+       173: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       176: iload         7
+       178: invokedynamic #489,  0            // InvokeDynamic #20:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;
+       183: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       186: goto          121
+       189: aload_3
+       190: invokevirtual #492                // Method java/util/ArrayList.isEmpty:()Z
+       193: ifne          339
+       196: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       199: ldc_w         #493                // String   Detailed delta for cache entry with best match:
+       202: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       205: aload         4
+       207: aload_3
+       208: invokevirtual #495                // Method java/util/ArrayList.getFirst:()Ljava/lang/Object;
+       211: invokevirtual #479                // Method java/util/IdentityHashMap.get:(Ljava/lang/Object;)Ljava/lang/Object;
+       214: checkcast     #350                // class java/util/List
+       217: invokeinterface #352,  1          // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+       222: astore        5
+       224: aload         5
+       226: invokeinterface #264,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       231: ifeq          339
+       234: aload         5
+       236: invokeinterface #269,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       241: checkcast     #498                // class net/neoforged/neoform/runtime/cache/CacheKey$Delta
+       244: astore        6
+       246: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       249: getstatic     #500                // Field net/neoforged/neoform/runtime/utils/AnsiColor.UNDERLINE:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       252: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       255: aload         6
+       257: invokevirtual #503                // Method net/neoforged/neoform/runtime/cache/CacheKey$Delta.key:()Ljava/lang/String;
+       260: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       263: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       266: invokedynamic #506,  0            // InvokeDynamic #21:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       271: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       274: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       277: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       280: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       283: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       286: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       289: aload         6
+       291: invokevirtual #507                // Method net/neoforged/neoform/runtime/cache/CacheKey$Delta.ours:()Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue;
+       294: invokestatic  #511                // Method print:(Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue;)Ljava/lang/String;
+       297: invokedynamic #515,  0            // InvokeDynamic #22:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       302: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       305: getstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+       308: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       311: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       314: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+       317: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       320: aload         6
+       322: invokevirtual #516                // Method net/neoforged/neoform/runtime/cache/CacheKey$Delta.theirs:()Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue;
+       325: invokestatic  #511                // Method print:(Lnet/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue;)Ljava/lang/String;
+       328: invokedynamic #519,  0            // InvokeDynamic #23:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       333: invokevirtual #161                // Method net/neoforged/neoform/runtime/utils/Logger.println:(Ljava/lang/String;)V
+       336: goto          224
+       339: return
+
+  private static java.lang.String print(net.neoforged.neoform.runtime.cache.CacheKey$AnnotatedValue);
+    Code:
+         0: aload_0
+         1: ifnonnull     22
+         4: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+         7: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        10: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+        13: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        16: invokedynamic #520,  0            // InvokeDynamic #24:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+        21: areturn
+        22: aload_0
+        23: invokevirtual #521                // Method net/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue.annotation:()Ljava/lang/String;
+        26: ifnull        55
+        29: aload_0
+        30: invokevirtual #526                // Method net/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue.value:()Ljava/lang/String;
+        33: getstatic     #243                // Field net/neoforged/neoform/runtime/utils/AnsiColor.MUTED:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+        36: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        39: aload_0
+        40: invokevirtual #521                // Method net/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue.annotation:()Ljava/lang/String;
+        43: getstatic     #154                // Field net/neoforged/neoform/runtime/utils/AnsiColor.RESET:Lnet/neoforged/neoform/runtime/utils/AnsiColor;
+        46: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        49: invokedynamic #529,  0            // InvokeDynamic #25:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+        54: areturn
+        55: aload_0
+        56: invokevirtual #526                // Method net/neoforged/neoform/runtime/cache/CacheKey$AnnotatedValue.value:()Ljava/lang/String;
+        59: areturn
+
+  private static java.util.List<net.neoforged.neoform.runtime.cache.CacheManager$CacheEntry> getCacheEntries(java.nio.file.Path, java.lang.String);
+    Code:
+         0: aload_1
+         1: invokestatic  #532                // Method java/util/regex/Pattern.quote:(Ljava/lang/String;)Ljava/lang/String;
+         4: invokedynamic #537,  0            // InvokeDynamic #26:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+         9: invokestatic  #538                // Method java/util/regex/Pattern.compile:(Ljava/lang/String;)Ljava/util/regex/Pattern;
+        12: astore_2
+        13: aload_0
+        14: invokestatic  #542                // Method java/nio/file/Files.list:(Ljava/nio/file/Path;)Ljava/util/stream/Stream;
+        17: astore_3
+        18: aload_3
+        19: aload_2
+        20: invokedynamic #546,  0            // InvokeDynamic #27:test:(Ljava/util/regex/Pattern;)Ljava/util/function/Predicate;
+        25: invokeinterface #550,  2          // InterfaceMethod java/util/stream/Stream.filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
+        30: invokedynamic #554,  0            // InvokeDynamic #28:apply:()Ljava/util/function/Function;
+        35: invokeinterface #555,  2          // InterfaceMethod java/util/stream/Stream.map:(Ljava/util/function/Function;)Ljava/util/stream/Stream;
+        40: invokedynamic #559,  0            // InvokeDynamic #29:test:()Ljava/util/function/Predicate;
+        45: invokeinterface #550,  2          // InterfaceMethod java/util/stream/Stream.filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
+        50: invokeinterface #562,  1          // InterfaceMethod java/util/stream/Stream.toList:()Ljava/util/List;
+        55: astore        4
+        57: aload_3
+        58: ifnull        67
+        61: aload_3
+        62: invokeinterface #566,  1          // InterfaceMethod java/util/stream/Stream.close:()V
+        67: aload         4
+        69: areturn
+        70: astore        4
+        72: aload_3
+        73: ifnull        94
+        76: aload_3
+        77: invokeinterface #566,  1          // InterfaceMethod java/util/stream/Stream.close:()V
+        82: goto          94
+        85: astore        5
+        87: aload         4
+        89: aload         5
+        91: invokevirtual #188                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+        94: aload         4
+        96: athrow
+        97: astore_3
+        98: invokestatic  #567                // InterfaceMethod java/util/List.of:()Ljava/util/List;
+       101: areturn
+      Exception table:
+         from    to  target type
+            18    57    70   Class java/lang/Throwable
+            76    82    85   Class java/lang/Throwable
+            13    67    97   Class java/io/IOException
+            70    97    97   Class java/io/IOException
+
+  public java.nio.file.Path createWorkspace(java.lang.String) throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: getfield      #59                 // Field workspacesDir:Ljava/nio/file/Path;
+         4: iconst_0
+         5: anewarray     #24                 // class java/nio/file/attribute/FileAttribute
+         8: invokestatic  #26                 // Method java/nio/file/Files.createDirectories:(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;
+        11: pop
+        12: getstatic     #569                // Field WORKSPACE_NAME_FORMAT:Ljava/time/format/DateTimeFormatter;
+        15: invokestatic  #573                // Method java/time/LocalDateTime.now:()Ljava/time/LocalDateTime;
+        18: invokevirtual #578                // Method java/time/format/DateTimeFormatter.format:(Ljava/time/temporal/TemporalAccessor;)Ljava/lang/String;
+        21: astore_2
+        22: aload_2
+        23: aload_1
+        24: invokestatic  #584                // Method net/neoforged/neoform/runtime/utils/FilenameUtil.sanitizeForFilename:(Ljava/lang/String;)Ljava/lang/String;
+        27: invokedynamic #589,  0            // InvokeDynamic #30:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+        32: astore_3
+        33: aload_0
+        34: getfield      #59                 // Field workspacesDir:Ljava/nio/file/Path;
+        37: aload_3
+        38: invokeinterface #34,  2           // InterfaceMethod java/nio/file/Path.resolve:(Ljava/lang/String;)Ljava/nio/file/Path;
+        43: astore        4
+        45: iconst_1
+        46: istore        5
+        48: iload         5
+        50: sipush        999
+        53: if_icmpgt     113
+        56: aload         4
+        58: iconst_0
+        59: anewarray     #24                 // class java/nio/file/attribute/FileAttribute
+        62: invokestatic  #590                // Method java/nio/file/Files.createDirectory:(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;
+        65: pop
+        66: goto          113
+        69: astore        6
+        71: aload         4
+        73: aload_3
+        74: getstatic     #595                // Field java/util/Locale.ROOT:Ljava/util/Locale;
+        77: ldc_w         #601                // String %03d
+        80: iconst_1
+        81: anewarray     #2                  // class java/lang/Object
+        84: dup
+        85: iconst_0
+        86: iload         5
+        88: invokestatic  #603                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+        91: aastore
+        92: invokestatic  #608                // Method java/lang/String.format:(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+        95: invokedynamic #589,  0            // InvokeDynamic #30:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       100: invokeinterface #611,  2          // InterfaceMethod java/nio/file/Path.resolveSibling:(Ljava/lang/String;)Ljava/nio/file/Path;
+       105: astore        4
+       107: iinc          5, 1
+       110: goto          48
+       113: aload         4
+       115: iconst_0
+       116: anewarray     #62                 // class java/nio/file/LinkOption
+       119: invokestatic  #614                // Method java/nio/file/Files.isDirectory:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Z
+       122: ifne          143
+       125: new           #294                // class java/io/IOException
+       128: dup
+       129: aload         4
+       131: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       134: invokedynamic #617,  0            // InvokeDynamic #31:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+       139: invokespecial #618                // Method java/io/IOException."<init>":(Ljava/lang/String;)V
+       142: athrow
+       143: aload         4
+       145: areturn
+      Exception table:
+         from    to  target type
+            56    66    69   Class java/nio/file/FileAlreadyExistsException
+
+  public boolean isDisabled();
+    Code:
+         0: aload_0
+         1: getfield      #356                // Field disabled:Z
+         4: ireturn
+
+  public void setDisabled(boolean);
+    Code:
+         0: aload_0
+         1: iload_1
+         2: putfield      #356                // Field disabled:Z
+         5: return
+
+  public boolean isAnalyzeMisses();
+    Code:
+         0: aload_0
+         1: getfield      #414                // Field analyzeMisses:Z
+         4: ireturn
+
+  public void setAnalyzeMisses(boolean);
+    Code:
+         0: aload_0
+         1: iload_1
+         2: putfield      #414                // Field analyzeMisses:Z
+         5: return
+
+  public boolean isVerbose();
+    Code:
+         0: aload_0
+         1: getfield      #128                // Field verbose:Z
+         4: ireturn
+
+  public void setVerbose(boolean);
+    Code:
+         0: aload_0
+         1: iload_1
+         2: putfield      #128                // Field verbose:Z
+         5: return
+
+  public void close() throws java.lang.Exception;
+    Code:
+         0: return
+
+  private static net.neoforged.neoform.runtime.cache.CacheManager$CacheEntry lambda$getCacheEntries$3(java.nio.file.Path);
+    Code:
+         0: new           #461                // class net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry
+         3: dup
+         4: aload_0
+         5: invokeinterface #620,  1          // InterfaceMethod java/nio/file/Path.getFileName:()Ljava/nio/file/Path;
+        10: invokeinterface #623,  1          // InterfaceMethod java/nio/file/Path.toString:()Ljava/lang/String;
+        15: aload_0
+        16: iconst_0
+        17: anewarray     #62                 // class java/nio/file/LinkOption
+        20: invokestatic  #97                 // Method java/nio/file/Files.getLastModifiedTime:(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Ljava/nio/file/attribute/FileTime;
+        23: aload_0
+        24: invokestatic  #626                // Method net/neoforged/neoform/runtime/cache/CacheKey.read:(Ljava/nio/file/Path;)Lnet/neoforged/neoform/runtime/cache/CacheKey;
+        27: invokespecial #630                // Method net/neoforged/neoform/runtime/cache/CacheManager$CacheEntry."<init>":(Ljava/lang/String;Ljava/nio/file/attribute/FileTime;Lnet/neoforged/neoform/runtime/cache/CacheKey;)V
+        30: areturn
+        31: astore_1
+        32: getstatic     #296                // Field java/lang/System.err:Ljava/io/PrintStream;
+        35: aload_0
+        36: invokestatic  #142                // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+        39: invokedynamic #635,  0            // InvokeDynamic #32:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+        44: invokevirtual #303                // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        47: aconst_null
+        48: areturn
+      Exception table:
+         from    to  target type
+             0    30    31   Class java/lang/Exception
+
+  private static boolean lambda$getCacheEntries$2(java.util.regex.Pattern, java.nio.file.Path);
+    Code:
+         0: aload_0
+         1: aload_1
+         2: invokeinterface #620,  1          // InterfaceMethod java/nio/file/Path.getFileName:()Ljava/nio/file/Path;
+         7: invokeinterface #623,  1          // InterfaceMethod java/nio/file/Path.toString:()Ljava/lang/String;
+        12: invokevirtual #636                // Method java/util/regex/Pattern.matcher:(Ljava/lang/CharSequence;)Ljava/util/regex/Matcher;
+        15: invokevirtual #640                // Method java/util/regex/Matcher.matches:()Z
+        18: ireturn
+
+  private static int lambda$analyzeCacheMiss$1(java.util.IdentityHashMap, net.neoforged.neoform.runtime.cache.CacheManager$CacheEntry);
+    Code:
+         0: aload_0
+         1: aload_1
+         2: invokevirtual #479                // Method java/util/IdentityHashMap.get:(Ljava/lang/Object;)Ljava/lang/Object;
+         5: checkcast     #350                // class java/util/List
+         8: invokeinterface #483,  1          // InterfaceMethod java/util/List.size:()I
+        13: ireturn
+
+  private static long lambda$cleanUpIntermediateResults$0(java.util.List);
+    Code:
+         0: aload_0
+         1: invokeinterface #645,  1          // InterfaceMethod java/util/List.stream:()Ljava/util/stream/Stream;
+         6: invokedynamic #646,  0            // InvokeDynamic #33:applyAsLong:()Ljava/util/function/ToLongFunction;
+        11: invokeinterface #231,  2          // InterfaceMethod java/util/stream/Stream.mapToLong:(Ljava/util/function/ToLongFunction;)Ljava/util/stream/LongStream;
+        16: invokeinterface #647,  1          // InterfaceMethod java/util/stream/LongStream.max:()Ljava/util/OptionalLong;
+        21: lconst_0
+        22: invokevirtual #651                // Method java/util/OptionalLong.orElse:(J)J
+        25: lreturn
+
+  static {};
+    Code:
+         0: invokestatic  #657                // Method net/neoforged/neoform/runtime/utils/Logger.create:()Lnet/neoforged/neoform/runtime/utils/Logger;
+         3: putstatic     #132                // Field LOG:Lnet/neoforged/neoform/runtime/utils/Logger;
+         6: ldc_w         #661                // String yyyyMMdd-HHmmss
+         9: invokestatic  #663                // Method java/time/format/DateTimeFormatter.ofPattern:(Ljava/lang/String;)Ljava/time/format/DateTimeFormatter;
+        12: putstatic     #569                // Field WORKSPACE_NAME_FORMAT:Ljava/time/format/DateTimeFormatter;
+        15: return
+}

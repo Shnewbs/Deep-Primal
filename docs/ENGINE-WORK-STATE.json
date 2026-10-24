@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-24T19:38:30.007Z",
-  "active_until": "2026-10-24T22:24:00.079Z",
+  "status": "paused_by_owner",
+  "updated_at": "2026-10-24T20:13:10.285Z",
+  "active_until": "2026-10-24T20:13:10.285Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.2",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "R62 staged constructor-only density metadata optimization preserves scalar and full Sampler source.57core/102independent classes and1,911,605 checks per control/candidate pass, including180new graph layouts/3orders/full128nodes.3paired JVMs reduce terrain constructor allocation~37-44KB to~18-21KB; sampler latency mixed, strongly order-dependent and above5ms. Packed intermediate kept/excluded after timing concern; private generator bug corrected. No production promotion/fullGradle/native/JAR/regrade. Builder now restoring full source/dependencies for next gates; frozenV1-V7/R57 preserved; lastfullgrade50/100.",
+  "current_gate": "Owner-paused after R62 staged full Gradle/package/codec/V7 replay/save/shutdown checks passed. R62 remains unpromoted; no V8 gameplay, Windows client, target-performance or higher-grade acceptance.",
   "next_items": [
     "Continue full source/dependency restoration using current immutable main snapshot and verified retained Themes assets; then full module/codec/package gates for isolated R62 candidate. Pinned tools and57current core inputs are restored. R62 checks and allocation acceptance are staged only; do not promote experiments into the auditor's current JAR without required gates.",
     "Address order-sensitive density latency: R62 sampling code is identical to R61, yet broad column means~32-47ms and X-inner~255-307ms. Keep exact scalar oracles, bounded job-owned storage and ownership. Restore native V8 block/base-column/heightmap/saved-profile/routed-water/topology and Vulkan gates;906 coarse sign disagreements remain open.",
@@ -288,7 +288,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "foreground-r62-density-metadata",
+  "worker": "none (owner-paused)",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -325,7 +325,7 @@
     "vulkan",
     "opengl_fallback"
   ],
-  "owner_update_policy": "Concise verified milestones/blockers; continue implementation after checkpoints.",
+  "owner_update_policy": "Builder paused by owner. Separate hourly auditor remains enabled and continues graded updates/current development JARs.",
   "latest_accepted_solver_evidence": "docs/validation/engine-continuation/pressure-admission-2026-10-22/README.md",
   "latest_graphics_evidence": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/README.md",
@@ -624,8 +624,41 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 7,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.28.md",
-  "foreground_task": "R62 allocation checkpoint verified; restore full project for module/native gates",
-  "latest_isolated_validation": "/workspace/scratch/a22609fabda0/density-mask-r61",
+  "foreground_task": "Owner requested stop and upload all work; builder paused, separate hourly auditor remains enabled.",
+  "latest_isolated_validation": {
+    "source_sha": "dea1246899f52c3392a094ab389e91416bc57b71",
+    "candidate": "R62 staged density graph plus private regression wiring",
+    "full_build": {
+      "exit": 0,
+      "executed_tasks": 33
+    },
+    "package": {
+      "archives_crc_checked": 7,
+      "project_classes_matched": 519,
+      "independent_core_classes": 102,
+      "private_classes_excluded": 169
+    },
+    "native": {
+      "codec": true,
+      "scalar_sampler": true,
+      "v7_replay": true,
+      "save": true,
+      "normal_shutdown": true,
+      "performance_measurement_accepted": false
+    },
+    "jar": {
+      "platform": "Linux Vulkan development validation only",
+      "sha256": "106598e136dcb557531a6fb1bde7370acda0b1b36b1965e5fd947fb2f71a6fd0",
+      "bytes": 126200385,
+      "owner_installer": false
+    },
+    "not_run": [
+      "V8 native materialization/topology/saved-profile/hydrology/visual acceptance",
+      "Windows client/owner GPU",
+      "Fresh whole-engine regrade"
+    ],
+    "evidence": "docs/validation/engine-continuation/r62-full-validation-pause-2026-10-24/README.md"
+  },
   "latest_verification_summary": "Final build32tasks; independent51core sources/89class matches;504packaged project classes;7archive CRCs;158private class exclusions;7137identical common Linux/Windows entries after archive-path normalization. Water6144stair cases/24576supported vertices/512page seam vertices. V7 eight seeds/2312columns/127840reaches/29biomeIDs. Legacy5202core points identical;20native V6 chunk digests identical. Standard3062331 and Deep5945915 native block comparisons per candidate run, saved profiles/edits. UI seed20261020 joins V7; Vulkan candidate/reopen and explicit OpenGL smooth fallback save normally. No FPS/Windows execution claim.",
   "latest_core_runtime_fix": {
     "checkpoint": "R53",
@@ -759,7 +792,7 @@
   "builder_auditor_coordination": {
     "builder_task_id": "6ad974bdc204819195e5465aeea9dca2",
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da",
-    "builder_enabled": true,
+    "builder_enabled": false,
     "auditor_enabled": true,
     "auditor_schedule": "BEGIN:VEVENT\nDTSTART:20261024T185047Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
     "auditor_timezone": "America/Los_Angeles",
@@ -768,7 +801,9 @@
     "auditor_pins_committed_snapshot": true,
     "separate_checkouts_outputs_and_caches": true,
     "no_continuous_execution_claim_between_runs": true,
-    "policy": "docs/ENGINE-BUILDER-AUDITOR.md"
+    "policy": "docs/ENGINE-BUILDER-AUDITOR.md",
+    "builder_paused_by_owner": true,
+    "owner_pause_instruction": "Stop development and upload current work; keep the auditor running. Resume builder only when the owner asks."
   },
   "latest_environment_recovery": {
     "source_commit": "7f314d34caaff2931f6bbb7e5c40671dd299d3ef",
@@ -794,5 +829,11 @@
     "active_until": "2026-10-24T19:49:28.937Z",
     "auditor_policy": "Defer only auditor heavy work on the same CPU/cache while this measurement is active; do not pause builder. Read-only audit may proceed.",
     "completed_at": "2026-10-24T19:38:30.007Z"
+  },
+  "owner_pause_checkpoint": {
+    "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
+    "file_name": "DeepPrimal_Complete_Work_Checkpoint_2026-10-24.zip",
+    "bytes": 366751956,
+    "sha256": "1fe82f95acbd3bb8fb769a91ca480e0328e347114af8d607b51019e3bb285d69"
   }
 }
