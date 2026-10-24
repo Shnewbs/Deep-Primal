@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "idle",
-  "updated_at": "2026-10-24T14:34:06.668Z",
-  "active_until": null,
+  "status": "active",
+  "updated_at": "2026-10-24T14:36:38.375Z",
+  "active_until": "2026-10-24T17:06:38.375Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.27",
   "candidate_released": true,
@@ -461,7 +461,7 @@
     "production_prefix_cutoff_remains": true,
     "engine_acceptance_complete": false
   },
-  "continuation_note": "Foreground owner-requested V6 implementation and alpha.27 delivery complete; no own native/Gradle job left running. Resume existing hourly work on the documented open gates. Retain independent source/class and archive guards. Broad engine acceptance remains incomplete.",
+  "continuation_note": "Owner foreground audit in progress; do not run competing native/Gradle jobs or mutate its checkout. Preserve R57 staged LOD work.",
   "graphics_promotion_scope": "Owner-requested experimental source integration at 28b2625; all27 R44 staged source hashes match root main. This is not performance/full-engine/Windows-runtime acceptance.",
   "latest_preview": {
     "version": "0.0.1-alpha.27",
@@ -615,7 +615,11 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 6,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
-  "foreground_task": null,
+  "foreground_task": {
+    "task": "Owner screenshot audit: thin-water bed clipping, seed-origin aliasing, V7 terrain/vegetation/channel variety",
+    "workspace": "/workspace/scratch/1a7cb29b04a2/water-audit",
+    "source_parent": "7fc204b0a78028d15c8856336933b5657a62b0cb"
+  },
   "latest_isolated_validation": "/workspace/scratch/a22609fabda0/lod-future-r57",
   "latest_verification_summary": {
     "checkpoint": "R52",
