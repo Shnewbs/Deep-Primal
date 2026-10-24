@@ -1,0 +1,3 @@
+JDK 25; actual Minecraft 26.1.2 client classes, standalone headless JVM.
+PASS actual Minecraft 26.1.2 lookup checks=198147
+This is not a running game or renderer visual validation.

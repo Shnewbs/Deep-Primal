@@ -1,0 +1,45 @@
+{
+  "source_commit": "f24515d0f2a949f92019ddbce8e151a8c04b9ece",
+  "maps": {
+    "grass": {
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGB",
+      "pixels": 65536,
+      "max_adjacent_channel_step": 2,
+      "sha256": "8bafdfd93c0a76362afe1e3f3ec23baee97c1c9dface8e8235443a0441080aa8"
+    },
+    "foliage": {
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGB",
+      "pixels": 65536,
+      "max_adjacent_channel_step": 2,
+      "sha256": "07c3302d3decc2f071a494a4e097d1a147b54d01e0e37c656b27adaa71f9dffb"
+    },
+    "dry_foliage": {
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGB",
+      "pixels": 65536,
+      "max_adjacent_channel_step": 1,
+      "sha256": "8dacfb7a834023db0636b25572e4053a4b8ee0e8d6179fed9f04d06c0ea3fd6b"
+    }
+  },
+  "water_palette_count": 40,
+  "engine_biome_coverage": "40/40",
+  "resource_format": 84,
+  "native_client_visual_test": false,
+  "mod_jar_build": false,
+  "actual_minecraft_lookup_checks": 198147,
+  "actual_minecraft_lookup_pass": true,
+  "standard_and_deep_palette_match": true,
+  "reproduced_resource_files": 43,
+  "preview_visually_inspected": true
+}
