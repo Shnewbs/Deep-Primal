@@ -14,7 +14,7 @@ Java 25, current NeoForge 26.1.2 adapter:
 ./gradlew :visualValidationClasses
 ```
 
-The latest-version port is still open. The current development version is `0.0.1-alpha.29-dev.2`. No new owner installer is supplied. See the [original architecture](../engine-review-2026-10-24/ARCHITECTURE.md) and [strict baseline review](../engine-review-2026-10-24/REVIEW.md).
+The latest-version port is still open. The current development version is `0.0.1-alpha.29-dev.3`. See the [original architecture](../engine-review-2026-10-24/ARCHITECTURE.md) and [strict baseline review](../engine-review-2026-10-24/REVIEW.md).
 
 ## Code and API
 
@@ -81,6 +81,20 @@ Unknown keys, null/wrong types, invalid arity, missing references, cycles, dupli
 | `warp` | 4 | amplitude | Source, displacement X/Y/Z; source samples at displaced world coordinates |
 
 Graphs have maximum depth 24 and maximum 4,096 node visits per scalar evaluation. This includes repeated DAG references; noise octaves add their own bounded work inside a noise visit. These are resource bounds, not latency guarantees. Conservative interval analysis rejects output ranges beyond ±1e12 and requires warp displacement fields to remain within [-1,1]. Warp amplitudes are 0..65,536 blocks. Public graph coordinates are finite and within ±30,000,000; the depth/amplitude limits keep nested noise coordinates within the noise core's ±32,000,000 domain.
+
+## Ground surface preview
+
+The explicit `DensityChunkMaterializer.fill(GroundSurfaceProfile.Compiled, chunk)` overload coats the topmost connected density surface with the owner's registered ground material samples. The original graph-only overload remains stone/deepslate. Neither overload is called by a registered terrain generator, and V1-V7 geography remains frozen.
+
+[`GroundSurfaceProfile`](examples/ground-surface-profile.json) is a complete version-1 inline snapshot. It contains 2-64 ordered material IDs from the three supported ground samples, strictly increasing boundaries in (0,1), coherent displacement in 0..0.25, scale in 8..8192 blocks, an exact decimal-string signed-long salt, soil depth in 1..16 blocks, and a named density channel with finite increasing normalization limits within +/-1e12. Every field is required; unknown keys, wrong JSON types, unknown materials, fractional integer fields and oversized lists fail explicitly. Lists are defensively copied. Compiling checks the channel against the supplied graph and binds immutable block states. Supply the same world seed for both graph and surface compilation.
+
+The channel is evaluated at `(worldX, 0, worldZ)`, normalized/clamped to 0..1, then passed to the coherent gradient. The example uses `eroded` solely as a spatial authoring control: it is **not** a physical soil, moisture or ecological model. Real climate/substrate progression and final material families remain open. No world access, mutable random sequence or chunk-local coordinate controls selection.
+
+Only connected solids below the highest exposed density voxel receive soil, stopping at the first air gap and above the two-layer bedrock floor. Lower cave floors and air gaps are untouched. A solid column cut off at the world's inclusive maximum Y is not treated as an exposed soil surface. Base-column queries apply the same policy, and both native heightmaps retain density geometry. This does not yet solve slopes, soil horizons on every overhang, aquifers or hydrology.
+
+`groundMaterialResources` runs headlessly and is included in `check`; it validates the ten owner-image hashes, grayscale/repeat/mask invariants, models/items/tint indices and strict profile codec cases. Dedicated-server validation is opt-in with `DEEPPRIMAL_GROUND_MATERIAL_CHECK=fresh` or `reopen` and `-PvisualValidation`. The fixture checks actual registries, self drops, shovel/substrate tags and saved material identities, then exact native/base-column parity and reversed generation order on adjacent signed-coordinate V8 chunks across two seeds. Thin roofs, cave gaps, empty/full columns, ceiling clipping and bedrock get separate controls.
+
+The fixture writes surface/graph JSON snapshots and stable block-name fingerprints into its isolated test world for a separate-process replay. These are **validation files**, not a gameplay generator save codec, level.dat integration or datapack loader. Selected-JAR fresh/reopen runs now pass 1,572,864 block/reverse-order comparisons each, with identical stored fingerprints for seeds 20261020 and Long.MIN_VALUE. Packaged Windows OpenGL/Vulkan inventory material/reload previews also pass with pixel-identical captures; this is not a V8 terrain-world visual or performance pass. See the [executed material validation and rejected attempts](../art/ground-textures-v2/README.md#integration-validation-alpha29-dev3). No promotion, performance improvement or higher engine grade follows from this surface preview.
 
 ## Limitations and next acceptance gate
 

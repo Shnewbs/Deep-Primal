@@ -27,6 +27,7 @@ public final class DeepPrimalClient {
     NeoForge.EVENT_BUS.register(new ClientTelemetry());
     modBus.addListener(DeepPrimalClient::packs);
     modBus.addListener(WaterPalettes::register);
+    modBus.addListener(GroundMaterialColors::register);
     modBus.addListener(DeepPrimalClient::engineFluid);
     modBus.addListener(DeepPrimalClient::payloads);
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {

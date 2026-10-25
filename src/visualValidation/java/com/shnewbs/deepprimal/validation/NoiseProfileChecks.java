@@ -14,6 +14,16 @@ public final class NoiseProfileChecks {
   public NoiseProfileChecks(){NeoForge.EVENT_BUS.register(this);}
   @SubscribeEvent public void started(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
     boolean nativeCheck = false;
+    String groundCheck = System.getenv("DEEPPRIMAL_GROUND_MATERIAL_CHECK");
+    if(groundCheck!=null) {
+      GroundMaterialChecks.run(event.getServer().overworld(), groundCheck.equals("reopen"));
+      try {
+        GroundSurfaceNativeChecks.run(event.getServer().overworld(), groundCheck.equals("reopen"));
+      } catch (java.io.IOException | java.security.NoSuchAlgorithmException failure) {
+        throw new RuntimeException("Ground surface snapshot IO failed", failure);
+      }
+      nativeCheck = true;
+    }
     if(System.getenv("DEEPPRIMAL_DENSITY_CHUNK_NATIVE_CHECK")!=null) {
       DensityChunkNativeChecks.run(event.getServer().overworld());
       nativeCheck = true;

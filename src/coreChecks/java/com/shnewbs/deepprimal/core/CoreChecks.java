@@ -8,6 +8,7 @@ public final class CoreChecks {
     com.shnewbs.deepprimal.core.lod.LodStoreBudgetChecks.main(new String[0]);
     TerrainV6Checks.run();
     TerrainV7Checks.run();
+    GradientPaletteChecks.run();
     com.shnewbs.deepprimal.core.density.NoiseCoreChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityGraphChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.ReuseChecks.main(new String[0]);

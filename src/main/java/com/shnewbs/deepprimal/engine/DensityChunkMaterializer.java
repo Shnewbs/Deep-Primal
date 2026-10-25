@@ -14,6 +14,30 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 /** Isolated native adapter for exact V8 occupancy; not registered as a world generator. */
 public final class DensityChunkMaterializer {
+  /** Explicit material-preview path; keeps air, density signs and the bedrock floor unchanged. */
+  public static DensityChunk fill(GroundSurfaceProfile.Compiled profile, ChunkAccess chunk) {
+    Objects.requireNonNull(profile, "profile");
+    var density = fill(profile.graph(), chunk);
+    var origin = chunk.getPos();
+    var pos = new BlockPos.MutableBlockPos();
+    for (int z = 0; z < DensityChunk.WIDTH; z++)
+      for (int x = 0; x < DensityChunk.WIDTH; x++) {
+        int top = density.surfaceExclusive(x, z) - 1;
+        if (top < chunk.getMinY() + 2 || top == chunk.getMaxY()) continue;
+        int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
+        var surface = profile.surface(worldX, worldZ);
+        for (int depth = 0; depth < profile.soilDepth() && top - depth >= chunk.getMinY() + 2; depth++) {
+          int y = top - depth;
+          if (!density.solid(x, y, z)) break;
+          chunk.setBlockState(pos.set(worldX, y, worldZ),
+              depth == 0 ? surface : GroundMaterials.DIRT.get().defaultBlockState());
+        }
+      }
+    Heightmap.primeHeightmaps(
+        chunk, EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
+    return density;
+  }
+
   public static DensityChunk fill(DensityGraph graph, ChunkAccess chunk) {
     Objects.requireNonNull(graph, "graph");
     Objects.requireNonNull(chunk, "chunk");
@@ -48,6 +72,28 @@ public final class DensityChunkMaterializer {
     for (int dy = 0; dy < height; dy++) {
       int y = minY + dy;
       states[dy] = material(sampler.sample(x, y, z) > 0.0, minY, y);
+    }
+    return new NoiseColumn(minY, states);
+  }
+
+  public static NoiseColumn baseColumn(
+      GroundSurfaceProfile.Compiled profile, int x, int z, LevelHeightAccessor level) {
+    Objects.requireNonNull(profile, "profile");
+    var base = baseColumn(profile.graph(), x, z, level);
+    int minY = level.getMinY(), height = level.getHeight();
+    var states = new BlockState[height];
+    int top = -1;
+    for (int dy = 0; dy < height; dy++) {
+      states[dy] = base.getBlock(minY + dy);
+      if (!states[dy].isAir()) top = dy;
+    }
+    if (top >= 2 && top < height - 1) {
+      var surface = profile.surface(x, z);
+      for (int depth = 0; depth < profile.soilDepth() && top - depth >= 2; depth++) {
+        int dy = top - depth;
+        if (states[dy].isAir()) break;
+        states[dy] = depth == 0 ? surface : GroundMaterials.DIRT.get().defaultBlockState();
+      }
     }
     return new NoiseColumn(minY, states);
   }

@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "deepprimal:block/ground_grass",
+    "tints": [
+      {"type": "minecraft:grass", "temperature": 0.5, "downfall": 1.0},
+      {"type": "minecraft:constant", "value": 11968640}
+    ]
+  }
+}

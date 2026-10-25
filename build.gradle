@@ -28,6 +28,13 @@ neoForge {
         client {
             client()
             gameDirectory = project.file(findProperty('clientRunDir') ?: 'run')
+            if (project.hasProperty('groundMaterialClient')) {
+                systemProperty 'deepprimal.validationGroundMaterials', 'true'
+                systemProperty 'deepprimal.graphicsBackend', project.property('groundMaterialClient')
+                systemProperty 'deepprimal.validationCapture', project.file(
+                    findProperty('captureDir') ?: 'build/ground-material-client-captures').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+            }
             if (project.hasProperty('worldCreationValidation')) {
                 systemProperty 'deepprimal.validationWorldCreation','true'
                 if(project.hasProperty('creationName')) systemProperty 'deepprimal.validationCreationName',project.property('creationName')
@@ -110,6 +117,16 @@ tasks.register('coreChecks', JavaExec) {
     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
 }
 tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
+tasks.register('groundMaterialResources', JavaExec) {
+    dependsOn visualValidationClasses
+    classpath = sourceSets.visualValidation.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.validation.GroundResourceChecks'
+    args project.file('docs/art/ground-textures-v2/validation.json').absolutePath
+    args project.file('docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json').absolutePath
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+    jvmArgs '-Djava.awt.headless=true'
+}
+tasks.named('check') { dependsOn 'groundMaterialResources' }
 tasks.named('runServer') { standardInput = System.in }
 if (project.hasProperty('packagedValidation')) {
     ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {

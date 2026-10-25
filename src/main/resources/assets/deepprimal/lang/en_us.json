@@ -22,5 +22,8 @@
   "item.deepprimal.measured_bucket.amount": "Water: %s/%s units",
   "deepprimal.swimming.remaining": "Swimming stamina: %ss",
   "item.deepprimal.engine_water_bucket": "Water Bucket (16 units)",
-  "block.deepprimal.engine_water": "Water"
+  "block.deepprimal.engine_water": "Water",
+  "block.deepprimal.ground_grass": "Grass Material",
+  "block.deepprimal.ground_dirt": "Dirt Material",
+  "block.deepprimal.ground_podzol": "Podzol Material"
 }
