@@ -1,6 +1,59 @@
 # Active Deep Primal engine audit
 
+## 2026-10-25 channel revision 4 staged: oxbow lakes on delta fans
+
+No artifact, release or score change. On top of channel revision 3, `WatershedRegion`
+revision 4 adds abandoned-meander (oxbow) lakes beside flat, unincised lowland
+trunks. The two opt-in packs now save `channel_revision: 4`; the default
+`engine_standard` / `engine_deep` presets still save 2, and revisions 0–3 are
+unchanged.
+
+- Scope: at most 24 oxbows per 8192-block region, chosen from mid-node trunk
+  reaches with catchment ≥ 160,000, incision ≤ 0.5, braid ≤ 0.05, grade ≤ 0.0035
+  and stage ≥ SEA+1.5. Each cut-off is a tapering crescent offset from the reach;
+  its level is floored to at least 1.2 below the lowest sampled rim and at most
+  1.5 above the river stage. Candidates are rejected near channels, deltas, lakes,
+  the sea or the region edge, when loops overlap, when rim relief exceeds 8, or
+  when the rim is more than 9 above the reach stage. Inside the crescent the
+  surface is still water (zero flow) with a bowl-shaped bed; a short bank band
+  rises to `level + 0.35` and adds sediment. Oxbows share the 64-block channel/
+  delta tile index.
+- Opt-in: `riverDeltas` (default false) selects `engine_deltas_standard` or
+  `engine_deltas_deep`, which save `channel_revision: 4`. The generator codec
+  accepts 0..4, and revisions 3/4 still require V7 geography. Revision 3 remains
+  reachable through the codec but no preset selects it.
+- Core evidence (JDK 25, dependency-free suite, full `CoreChecks` via offline
+  Gradle): exit 0 with
+  `DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111
+  depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0`,
+  `DELTA_CORE_PASS revision2Replay=true fansBounded=true
+  distributariesContained=true`, and
+  `OXBOW_PASS lakes=20 wet=5455 floodEdges=0
+  lowestRimAboveWater=0.5521525533873728 maxStageGap=2.25 replayGrid=12261
+  changedInsideFootprints=0`. Coverage is three seeds × nine regions.
+  `OxbowChecks` verifies plan replay, that revision 3 plans no oxbows, that every
+  arc midpoint is still water at its planned level with zero flow, zero flooded
+  bank edges, no inverted columns, no change outside oxbow footprints, at least
+  nine lakes and a sampled stage gap ≤ 3. Frozen revision-2 digests for seeds
+  0/73/20261020 (`e01bcdaeec5dcbb3`, `7d3ee65224b2359a`, `2bafc04ee1ebe957`)
+  remain asserted and unchanged.
+- Build: `gradlew --offline build` passes (35 tasks, 5m 37s: core and cache
+  checks, visual-validation compilation, module boundaries, jarJar). The local
+  non-Vulkan artifact is `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.21.jar`,
+  114,299,696 bytes, SHA-256
+  `c69edab82de69caff43dbceffd9d8bb59d1e78a9b89ec469c390a39ce67d61b9`; it contains
+  both revision-4 packs and is a local build, not a release. The earlier
+  revision-3 jar (`ac9bb39e…`) is superseded.
+- Not claimed: native generation, save/reopen, visual acceptance, seaward
+  progradation into `mask < 0` ocean (V7 ocean geography stays frozen), avulsion,
+  dynamic meander migration, anastomosing reaches, separately budgeted
+  distributary discharge, delta-channel navigation behaviour. Revision 4 is in no
+  delivered artifact; grade remains 50/100.
+
 ## 2026-10-25 channel revision 3 staged: river-mouth delta fans
+
+Revision 4 above supersedes the pack/codec values below; this section records the
+revision-3 checkpoint.
 
 No artifact, release or score change. `WatershedRegion` channel revision 3 is
 implemented and checked; production access is opt-in through a new creation-time

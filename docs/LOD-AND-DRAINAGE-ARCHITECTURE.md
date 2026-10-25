@@ -300,10 +300,11 @@ rivers, and braided rivers (high sediment load, moderate slope, weak banks).
   `EarthRiverChecks` gates replay, size classes, canyon depth/benches, absent
   canyon tunnels, braid bars and zero flood edges in the core suite.
 
-Remaining, not claimed: distributary deltas, anastomosing channels,
-oxbow/cutoff lakes, separately budgeted branch discharges in braids, glacial
-outwash-specific placement (LAY-061) and visual/gameplay acceptance of the new
-forms.
+Remaining in delivered revisions 0–2, not claimed: distributary deltas,
+anastomosing channels, oxbow/cutoff lakes, separately budgeted branch discharges
+in braids, glacial outwash-specific placement (LAY-061) and visual/gameplay
+acceptance of the new forms. Revisions 3–4 stage deltas and static oxbow lakes as
+opt-in, core-checked options only.
 
 ### Running-world height publication failure - dev.18 follow-up (historical)
 

@@ -1,20 +1,41 @@
 {
   "schema": 1,
   "status": "ready_for_hourly_engine_builds",
-  "updated_at": "2026-10-25T19:54:50Z",
-  "active_until": "2026-10-25T19:54:50Z",
+  "updated_at": "2026-10-25T20:04:48Z",
+  "active_until": "2026-10-25T20:04:48Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.20",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Full isolated build capacity and staged finite-density qualification; core delta fixture corrected; channel revision 3 delta fans staged opt-in, not released or visually accepted",
-  "latest_channel_revision_three": {
+  "current_gate": "Full isolated build capacity and staged finite-density qualification; core delta fixture corrected; channel revisions 3-4 (delta fans, oxbow lakes) staged opt-in, not released or visually accepted",
+  "latest_channel_revision_four": {
     "status": "staged_opt_in_not_released",
+    "revision": 4,
+    "source_version": "0.0.1-alpha.29-dev.21",
+    "scope": "Channel revision 3 delta fans plus at most 24 oxbow lakes per region beside flat, unincised lowland trunks (area >= 160000, incision <= 0.5, braid <= 0.05, grade <= 0.0035, stage >= SEA+1.5); tapering still-water crescents with bowl beds and a +0.35 bank band, rejected near channels, deltas, lakes, the sea or the region edge",
+    "opt_in": "riverDeltas (default false) selects engine_deltas_standard/engine_deltas_deep packs, now saving channel_revision 4; existing engine presets stay channel_revision 2; generator codec accepts 0..4; revision 3 remains codec-reachable but has no preset",
+    "evidence": "OXBOW_PASS lakes=20 wet=5455 floodEdges=0 lowestRimAboveWater=0.5521525533873728 maxStageGap=2.25 replayGrid=12261 changedInsideFootprints=0; DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0; DELTA_CORE_PASS revision2Replay=true fansBounded=true distributariesContained=true; full CoreChecks exit 0 via offline Gradle build (35 tasks, 5m37s, JDK 25); frozen revision-2 digests unchanged; local non-Vulkan dev.21 jar 114299696 bytes sha256 c69edab82de69caff43dbceffd9d8bb59d1e78a9b89ec469c390a39ce67d61b9 (not a release)",
+    "not_claimed": [
+      "native revision-4 gates",
+      "save/reopen",
+      "visual acceptance",
+      "seaward progradation into mask<0 ocean",
+      "avulsion",
+      "dynamic meander migration",
+      "anastomosing",
+      "budgeted distributary discharge",
+      "release artifact",
+      "regrade"
+    ]
+  },
+  "latest_channel_revision_three": {
+    "status": "superseded_by_revision_4",
+    "superseded_by": "channel revision 4",
     "revision": 3,
     "source_version": "0.0.1-alpha.29-dev.21",
     "scope": "WatershedRegion river-mouth delta fans: at most six great-trunk mouths per region (area >= 1800000, stage <= SEA+6), inland depositional fan rising from SEA+0.35 at the shore to mouth stage+0.45 at the apex, three distributary reaches, containment and spill checks",
-    "opt_in": "riverDeltas (default false) selects engine_deltas_standard/engine_deltas_deep packs; existing engine presets stay channel_revision 2; generator codec accepts 0..3",
-    "evidence": "DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0; DELTA_CORE_PASS; full CoreChecks exit 0 via offline Gradle build (35 tasks, 4m51s, JDK 25); frozen revision-2 digests unchanged; engine_deltas_* resources packaged; local non-Vulkan dev.21 jar 114294083 bytes sha256 ac9bb39e62258f2fcb2c0cda26549c18cae3accb463a9ae039ea2452361d66c4 reproduced exactly (not a release)",
+    "opt_in": "historical: first staged with the packs saving channel_revision 3 and codec 0..3; revision 4 now saves 4 and the codec accepts 0..4",
+    "evidence": "DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0; DELTA_CORE_PASS; full CoreChecks exit 0 via offline Gradle build; frozen revision-2 digests unchanged; engine_deltas_* resources packaged; revision-3 jar 114294083 bytes sha256 ac9bb39e62258f2fcb2c0cda26549c18cae3accb463a9ae039ea2452361d66c4 was superseded by revision 4",
     "not_claimed": [
       "seaward progradation into mask<0 ocean",
       "avulsion",
@@ -120,6 +141,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-25 builder: channel revision 4 (oxbow lakes on top of delta fans) is staged opt-in; the engine_deltas_standard/engine_deltas_deep packs now save channel_revision 4 and the codec accepts 0..4. Default presets stay channel_revision 2; revisions 0-3 replay unchanged. Core evidence: OXBOW_PASS lakes=20 wet=5455 floodEdges=0 maxStageGap=2.25 changedInsideFootprints=0, DELTA_REVISION_PASS/DELTA_CORE_PASS, full CoreChecks exit 0, offline Gradle build. Next: native revision-4 save/reopen and visual acceptance after owner approval; do not claim revision 4 in the dev.20 artifact. Remaining gaps: no seaward progradation, avulsion, dynamic meander migration, anastomosing or budgeted distributary discharge.",
     "2026-10-25 builder: delta fixture now surveys dry banks; native smoke rejects crashes despite Gradle zero and clears stale/partial receipts. Full Java25 core suite passes; see docs/validation/engine-continuation/delta-shutdown-gates-2026-10-25/README.md. Auditor dev20 native legacy qualification accepted at31dd0b2. Full build/native storage remains blocking; finite-grid runtime remains staged. Preserve b4359f4 delta work and current production dev20.",
     "2026-10-25 builder: channel revision 3 (river-mouth delta fans) is staged opt-in behind the new riverDeltas setting and the engine_deltas_standard/engine_deltas_deep packs. Default engine presets still save channel_revision 2 and revisions 0/1/2 replay unchanged. Core evidence only: DELTA_REVISION_PASS, full core suite, offline Gradle build. Next: native revision-3 save/reopen and visual acceptance after owner approval; do not claim deltas in the dev.20 artifact. Remaining gaps: no seaward progradation, avulsion, oxbows, anastomosing or budgeted distributary discharge.",
     "2026-10-25 builder: staged finite DensityGrid interpolation overflow repair and complete passing core evidence at docs/validation/engine-continuation/density-grid-finite-2026-10-25/README.md. No promotion/full build/JAR: filesystem still zero available after verified duplicate cleanup. Recover isolated build storage and qualify candidate; preserve finalized dev.19 and owner v4 art.",

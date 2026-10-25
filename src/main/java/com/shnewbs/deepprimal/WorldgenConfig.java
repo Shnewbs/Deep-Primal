@@ -82,8 +82,9 @@ public final class WorldgenConfig {
     RIVER_DELTAS =
         b.comment(
                 "Build sediment fans with three distributary channels where great rivers reach a"
-                    + " low coast in NEW Deep Primal worlds (channel revision 3).",
-                "Saved worlds keep their serialized channel revision; revisions 0-2 are unchanged.",
+                    + " low coast, and leave oxbow lakes beside flat lowland trunks, in NEW Deep"
+                    + " Primal worlds (channel revision 4).",
+                "Saved worlds keep their serialized channel revision; revisions 0-3 are unchanged.",
                 "The fan extends inland from the mouth, so no land is added to the open ocean.")
             .define("riverDeltas", false);
     SPEC = b.build();

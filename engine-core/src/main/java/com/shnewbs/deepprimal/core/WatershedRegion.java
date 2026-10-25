@@ -16,8 +16,13 @@ public final class WatershedRegion {
   /** Channel revision 3: only great trunks on a low coastal plain build a delta fan. */
   private static final double DELTA_AREA = 1_800_000, DELTA_MAX_STAGE = TerrainEngine.SEA + 6;
   private static final int DELTA_LIMIT = 6, DELTA_BRANCHES = 3;
+  /** Channel revision 4: abandoned meander loops beside flat, unconfined lowland trunks. */
+  private static final double OXBOW_AREA = 160_000, OXBOW_GRADE = .0035;
+  private static final int OXBOW_LIMIT = 24;
   private final double ox, oz;
-  private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas;
+  private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas, floodplainLakes;
+  private final Oxbow[] oxbows;
+  private final int[][] oxbowIndex;
   private final TerrainNoise riverNoise;
   private final double[] incision = new double[N], chainage = new double[N], braiding = new double[N];
   private final double[] raw = new double[N],
@@ -80,6 +85,26 @@ public final class WatershedRegion {
       double trunkRadius) {}
 
   private record DeltaHit(double ground, double weight) {}
+
+  /** A cut-off meander loop: a still-water crescent whose tips point back toward the river. */
+  public record OxbowProbe(
+      double x, double z, double level, double radius, double halfWidth, double riverStage) {}
+
+  /**
+   * {@code (ux,uz)} points from the loop centre through the middle of the arc (away from the
+   * river); the arc spans {@code halfSpan} radians either side of it.
+   */
+  private record Oxbow(
+      double cx,
+      double cz,
+      double ux,
+      double uz,
+      double radius,
+      double halfWidth,
+      double halfSpan,
+      double level,
+      double depth,
+      double riverStage) {}
 
   private static final class Lake {
     final int id;
@@ -159,6 +184,19 @@ public final class WatershedRegion {
   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
       TerrainNoise riverNoise, boolean riverDeltas) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas, false);
+  }
+
+  /**
+   * {@code floodplainLakes} selects channel revision 4: flat, unconfined lowland trunks leave
+   * oxbow lakes on their floodplain. Revisions 0-3 pass {@code false} and replay exactly.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes) {
+    this.floodplainLakes = floodplainLakes;
+    if (floodplainLakes && !riverDeltas)
+      throw new IllegalArgumentException("Oxbow lakes require channel revision 3");
     this.broadChannels=broadChannels;
     this.cascadeBeds=cascadeBeds;
     this.riverNoise=riverNoise;
@@ -445,6 +483,133 @@ public final class WatershedRegion {
     for (int n = 0; n < index.length; n++)
       if (buckets[n] != null) index[n] = buckets[n].stream().mapToInt(Integer::intValue).toArray();
     deltaIndex = indexDeltas();
+    oxbows = floodplainLakes ? planOxbows(height) : new Oxbow[0];
+    oxbowIndex = indexOxbows();
+  }
+
+  /**
+   * Places at most {@link #OXBOW_LIMIT} abandoned loops beside flat, unincised, unbraided trunk
+   * reaches. Every candidate is rejected unless its whole footprint plus bank band stays clear of
+   * channels, deltas, lakes, the sea and the region edge, and its sampled rim is flat enough to
+   * hold still water at least one block below the lowest rim point.
+   */
+  private Oxbow[] planOxbows(DoubleBinaryOperator height) {
+    var planned = new ArrayList<Oxbow>();
+    for (int i = 3; i < segments.length && planned.size() < OXBOW_LIMIT; i += 8) {
+      var s = segments[i];
+      if (s.delta || s.source || s.aa < OXBOW_AREA || Math.max(s.ka, s.kb) > .5
+          || Math.max(s.wa, s.wb) > .05 || s.sill != 0)
+        continue;
+      double vx = s.bx - s.ax, vz = s.bz - s.az, len = Math.hypot(vx, vz);
+      if (len < 1 || (s.sa - s.sb) / len > OXBOW_GRADE || s.sb < TerrainEngine.SEA + 1.5) continue;
+      double px = (s.ax + s.bx) * .5, pz = (s.az + s.bz) * .5;
+      if (riverNoise.field(px, pz, 700, 9161) < -.25) continue;
+      int node = Math.clamp((int) Math.round((pz - oz) / STEP), 0, SIDE - 1) * SIDE
+          + Math.clamp((int) Math.round((px - ox) / STEP), 0, SIDE - 1);
+      if (lakeHalo[node] || lakeAt[node] > 0) continue;
+      double tx = vx / len, tz = vz / len;
+      double side = riverNoise.field(px, pz, 300, 9163) >= 0 ? 1 : -1;
+      double r = (s.ra + s.rb) * .5;
+      double radius = Math.clamp(r * 1.5 + 8, 14, 64), halfWidth = Math.clamp(r * .45, 3, 14);
+      double bank = Math.clamp(5 + r * .4, 5, 24);
+      // The loop turns slightly with the old flow, as real cut-offs rarely sit square to a reach.
+      double turn = riverNoise.field(px, pz, 500, 9165) * .45;
+      double nx = -tz * side, nz = tx * side;
+      double ux = nx * Math.cos(turn) - nz * Math.sin(turn),
+          uz = nx * Math.sin(turn) + nz * Math.cos(turn);
+      double offset = r + bank + 8 + radius + halfWidth;
+      double cx = px + nx * offset, cz = pz + nz * offset;
+      double halfSpan = 1.75 + riverNoise.field(px, pz, 400, 9167) * .25;
+      double outer = radius + halfWidth + 6;
+      if (cx - outer < ox + 48 || cz - outer < oz + 48
+          || cx + outer > ox + TerrainEngine.CELL - 48 || cz + outer > oz + TerrainEngine.CELL - 48)
+        continue;
+      boolean clear = true;
+      for (var o : planned)
+        if (Math.hypot(o.cx - cx, o.cz - cz) < o.radius + o.halfWidth + outer + 12) clear = false;
+      double rim = Double.POSITIVE_INFINITY, high = Double.NEGATIVE_INFINITY;
+      for (int k = 0; k <= 32 && clear; k++) {
+        double phi = (k / 16. - 1) * (halfSpan + .25);
+        double dx = ux * Math.cos(phi) - uz * Math.sin(phi), dz = ux * Math.sin(phi) + uz * Math.cos(phi);
+        for (double ring : new double[] {radius - halfWidth - 3, radius, radius + halfWidth + 3}) {
+          double x = cx + dx * ring, z = cz + dz * ring;
+          int g = Math.clamp((int) Math.round((z - oz) / STEP), 0, SIDE - 1) * SIDE
+              + Math.clamp((int) Math.round((x - ox) / STEP), 0, SIDE - 1);
+          if (ocean[g] || lakeAt[g] > 0 || lakeHalo[g] || nearChannel(x, z, 6)
+              || deltaSurface(x, z, height.applyAsDouble(x, z)) != null) {
+            clear = false;
+            break;
+          }
+          double h = height.applyAsDouble(x, z);
+          high = Math.max(high, h);
+          if (ring != radius) rim = Math.min(rim, h);
+        }
+      }
+      if (!clear || high - rim > 8 || rim - s.sb > 9) continue;
+      double level = Math.floor(Math.min(rim - 1.2, s.sb + 1.5));
+      if (level < TerrainEngine.SEA + 1) continue;
+      planned.add(
+          new Oxbow(cx, cz, ux, uz, radius, halfWidth, halfSpan, level,
+              Math.clamp(halfWidth * .35, 1.4, 3.4), s.sb));
+    }
+    return planned.toArray(Oxbow[]::new);
+  }
+
+  /** True when {@code (x,z)} lies within a channel or its bank band plus {@code margin}. */
+  private boolean nearChannel(double x, double z, double margin) {
+    int[] ids = index[tile(z, oz) * TILES + tile(x, ox)];
+    if (ids == null) return false;
+    for (int id : ids) {
+      var s = segments[id];
+      double vx = s.bx - s.ax, vz = s.bz - s.az, len = vx * vx + vz * vz;
+      double t = len == 0 ? 0 : Math.clamp(((x - s.ax) * vx + (z - s.az) * vz) / len, 0, 1);
+      double r = lerp(s.ra, s.rb, t);
+      if (Math.hypot(x - s.ax - vx * t, z - s.az - vz * t)
+          < r + Math.clamp(5 + r * .4, 5, 24) + s.reach + margin)
+        return true;
+    }
+    return false;
+  }
+
+  private int[][] indexOxbows() {
+    int[][] out = new int[TILES * TILES][];
+    for (int n = 0; n < oxbows.length; n++) {
+      var o = oxbows[n];
+      double extent = o.radius + o.halfWidth + 8;
+      for (int z = tile(o.cz - extent, oz); z <= tile(o.cz + extent, oz); z++)
+        for (int x = tile(o.cx - extent, ox); x <= tile(o.cx + extent, ox); x++) {
+          int i = z * TILES + x;
+          int[] old = out[i];
+          out[i] = old == null ? new int[] {n} : Arrays.copyOf(old, old.length + 1);
+          out[i][out[i].length - 1] = n;
+        }
+    }
+    return out;
+  }
+
+  /**
+   * Signed distance outside the crescent (negative inside) and the local half-width. Tips taper
+   * to points, so the lake closes without square ends.
+   */
+  private static double[] oxbowDistance(Oxbow o, double x, double z) {
+    double dx = x - o.cx, dz = z - o.cz, rho = Math.hypot(dx, dz);
+    double along = dx * o.ux + dz * o.uz, across = -dx * o.uz + dz * o.ux;
+    double phi = Math.atan2(across, along);
+    double taper = Math.sqrt(Math.max(0, 1 - Math.pow(Math.abs(phi) / o.halfSpan, 4)));
+    double half = o.halfWidth * taper;
+    if (Math.abs(phi) <= o.halfSpan && half > .5) return new double[] {Math.abs(rho - o.radius) - half, half};
+    double end = Math.copySign(o.halfSpan, phi);
+    double ex = o.cx + o.radius * (o.ux * Math.cos(end) - o.uz * Math.sin(end));
+    double ez = o.cz + o.radius * (o.ux * Math.sin(end) + o.uz * Math.cos(end));
+    return new double[] {Math.max(0, Math.hypot(x - ex, z - ez) - .5), .5};
+  }
+
+  public List<OxbowProbe> oxbowProbes() {
+    var out = new ArrayList<OxbowProbe>();
+    for (var o : oxbows)
+      out.add(new OxbowProbe(o.cx + o.ux * o.radius, o.cz + o.uz * o.radius, o.level, o.radius,
+          o.halfWidth, o.riverStage));
+    return List.copyOf(out);
   }
 
   /**
@@ -815,6 +980,28 @@ public final class WatershedRegion {
                 (1 - smooth((dist - r) / (bank + 8)))
                     * (earthRivers ? 1 - smooth((lerp(s.ka, s.kb, t) - 2) / 6) * .8 : 1));
       }
+    if (oxbows.length > 0 && !Double.isFinite(water) && delta == null) {
+      int[] ids = oxbowIndex[tile(z, oz) * TILES + tile(x, ox)];
+      if (ids != null)
+        for (int id : ids) {
+          var o = oxbows[id];
+          double[] hit = oxbowDistance(o, x, z);
+          double e = hit[0];
+          if (e < 0) {
+            // Still water: a silted, bowl-shaped bed, deepest along the old thalweg.
+            double edge = Math.clamp(1 + e / hit[1], 0, 1);
+            ground = Math.min(ground, o.level - o.depth + (o.depth - .3) * Math.pow(edge, 3));
+            water = o.level;
+            sediment = 1;
+            fx = fz = speed = 0;
+            break;
+          }
+          if (e < 6) {
+            bankFloor = Math.max(bankFloor, lerp(o.level + .35, base, smooth((e - 1.5) / 4.5)));
+            sediment = Math.max(sediment, 1 - smooth(e / 6));
+          }
+        }
+    }
     if (Double.isFinite(water) && bar > 0) {
       // An emergent bar stays dry above the rounded stage; contained banks surround it.
       double stage = Math.rint(Math.max(TerrainEngine.SEA, water) * 16) / 16;

@@ -5,7 +5,7 @@
       "generator": {
         "type": "deepprimal:continental_v7",
         "material_revision": 2,
-        "channel_revision": 3,
+        "channel_revision": 4,
         "min_y": -128,
         "height": 768,
         "biome_source": {
