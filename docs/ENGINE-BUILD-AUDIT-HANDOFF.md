@@ -1,5 +1,106 @@
 # Deep Primal build/audit continuation
 
+Latest local checkpoint (2026-10-25): **dev.18 Exact Stopped Water is in the Library**.
+125,179,617 bytes; SHA-256
+`3bf64519fa70de18bcf3cd7344e0a3db36f9b9c8ca2a733d6606a69e47565ddf`.
+
+The dev.15 midpoint filter could remain stuck after oscillation stopped:
+duplicate raw heights returned before any exact-height recovery. Reproduced
+before the fix in `build\dev17-settle-repro.log`. Holds now expire 400 ms after
+the last real reversal, followed by a continuous 100 ms return to the actual
+height. `remaining` keeps renderer cleanup alive while a midpoint is still;
+duplicate/stale publications do not extend it. Opacity remains unfiltered.
+No physical water, saved geography or owner-art change.
+
+Full build and 150 release cases pass. Both packaged APIs pass actual GPU
+upload lifetime/exact-height checks, resource reload and waterfall readbacks;
+environment/reopen, finite source/reserve, three reaches and six soil gates
+pass. Package checks retain seven archives/545 classes/333 resources and four
+identical captures. Initial client runs failed only on the new fixture's absent
+output directory after the midpoint assertions; fixed directory creation and
+both complete retries pass. See ACTIVE-ENGINE-AUDIT for evidence paths.
+The follow-up `*-readback.log` clients additionally fence/copy/map three actual
+GPU buffers per API at hold/release/idle: all bytes match, twelve interior corner
+witnesses per API have exact target/displacement, and both complete clients
+shut down cleanly. The preview waits on both water readback futures before
+reload/exit. This is private validation only; the Library JAR is unchanged.
+
+The next gate now has a running-world reproduction: private
+`water-live-continuity-check` samples 600 client ticks of visible resident
+top-boundary mirrors. OpenGL 25,256/122,425 unique page-corner comparisons
+disagree, maximum 0.203125 blocks; Vulkan repeat 27,513/124,581 disagree,
+maximum 0.33333302. Same-page duplicates agree exactly in both; neither run
+paused. Both save/shutdown cleanly. See `build\water-live-dev18-{opengl,vulkan-repeat}.log`
+and their `*-captures\water-live-continuity.json`.
+
+Prioritize resident shared-height endpoint/clock publication: the current
+neighbor synchronization only updates direction packets. Shared history is
+not sufficient to keep already uploaded geometry coherent. Do not "fix" this
+by disabling interpolation, freezing the solver or snapping boundaries.
+Preserve stale/edit guards and failure recovery, and measure any whole-page
+rebase/cohort approach against runtime budgets before promotion. This remains
+unfixed; probe observations are CPU upload mirrors using shader arithmetic,
+not GPU pixel acceptance. The first Vulkan probe counted duplicate vertices;
+use the later deduplicated results above for comparison counts.
+
+Next: live-stream displayed-height/shared-edge and wet/dry face continuity,
+full-tick many-region storm latency, world ledger, physical source unload/reopen/
+edit and menu-close reproduction. The isolated GPU fixture is not proof that
+the owner's whole flicker report is solved. Preserve dev.12-17 semantics,
+uncommitted main and owner edits; bump beyond dev.18 before production edits.
+Last full grade remains 50/100; engine acceptance incomplete.
+
+Previous local checkpoint (2026-10-25): **dev.17 Leaner Weather Sampling is in the Library**.
+125,179,328 bytes; SHA-256
+`f78c983ab7fe5b513fb79aa31e383c3417a85d162e6c41b358e7a6330d97b811`.
+
+Precipitation previously built terrain/full geology for soil, glass and ice;
+it now reads fixed material permeability or the exact two-field geological
+subset. Ordinary hydrology visits reuse that subset. No saved terrain or water
+accounting policy change. 40,000 core oracle cases are bit exact. Four-region,
+64-center native component benchmarks retain exact recharge/chemistry; repeated
+p50 soil/rock-ice/glass costs are 0.1347/0.0746/0.0287 ms versus dev.16
+0.3752/0.3655/0.2850 ms. These exclude fixture setup and do not certify real tick
+latency. See LOD-AND-DRAINAGE-ARCHITECTURE for method, hardware and p95.
+
+Full build/environment/reopen/source/reserve/reaches/dual APIs/package identities
+pass. Update `GroundMaterialChecks`' reflection signature with the helper:
+its first six soil runs failed before testing output, then all six retry gates
+passed with a null-noise provider proving soil permeability is independent.
+The new `StormSamplingChecks` is private validation code, excluded from the JAR;
+enable with DEEPPRIMAL_STORM_PROFILE plus DEEPPRIMAL_ENVIRONMENT_RECORD in a
+disposable server fixture. Its controlled chunk skylight must be enabled and
+completed before measuring, without blocking the server task executor.
+
+Next: full-tick multi-region storm latency or live-stream displayed-height/edge
+continuity; retain complete ledger, physical unload/reopen/edit and menu-close
+reproduction gaps. Preserve dev.12-16 behavior and all owner edits. Bump beyond
+dev.17 before production edits. Grade remains 50/100; engine acceptance incomplete.
+Earlier version/candidate and upload-availability statements below are historical.
+
+Latest local checkpoint (2026-10-25): **dev.16 Fair Rain/Snow is in the Library**.
+125,179,290 bytes, SHA-256
+`306599c5004cd0790a9ba562c57a5225d48684ec332140872483ac6f1fc4927c`.
+The original dev.11 artifact was verified against its recorded hash and added
+without rebuilding. Dev.12-15 remain delivered historical artifacts.
+
+Reproduced mixed-biome rain-first starvation against the packaged dev.15 runtime.
+Dev.16 proportionally splits finite atmosphere by capacity-limited rain/snow
+demand, conserving exact water/salt/sediment with atomic constituent-capacity
+preflight. Native 24-case warm/cold/capacity matrix, 10,000 core oracle cases,
+full build, environment save/reopen, source/reserve, three reaches, six soil
+revision/save checks, both rendering APIs and package identities all pass.
+See ACTIVE-ENGINE-AUDIT for scope and raw evidence paths.
+
+Preserve dev.12 deep/legacy aquifer depths and channel revisions, dev.13 material
+revision 2 with 0/1 replay, dev.14 per-tick cumulative source allowance and
+dev.15 presentation-only surface settling. No saved format/geography change.
+Next finite run: many-region storm latency or live-stream displayed-height/edge
+continuity; also retain world-ledger, physical unload/reopen/edit and menu-close
+reproduction gaps. Do not treat the earlier inferred parcel oscillation as
+proof that the owner's complete flicker report is fixed. Grade remains 50/100;
+no engine-complete claim. Bump the production version before further code edits.
+
 Latest local checkpoint (2026-10-25): **dev.11 Spatial Recharge JAR verified and staged**.
 125,177,114 bytes, SHA-256
 `10b1839c697861de3051cb55c953835d60fd1bf6e5799c2a30afb5b618a375e5`.

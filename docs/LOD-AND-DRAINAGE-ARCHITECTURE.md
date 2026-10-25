@@ -143,10 +143,115 @@ The finite atmosphere pays accepted transfers; unloaded chunks are never request
 
 This is a coarse representative estimate, not exact integration over all 4,096
 columns. A snapshot is consumed even if all sampled roofs are sealed; roof edits
-apply next interval. Rain transfers precede snow when atmospheric water is scarce;
-mixed-biome fairness and many-region storm latency need further acceptance.
+apply next interval. Since dev.16, rain and snow share scarce atmospheric water
+in proportion to their requested amounts capped by each destination's free
+capacity. Full stores have no claim on that interval's supply; unused demand
+does not become a backlog. Integer division leaves less than one quantum of
+rounding remainder to snow. Both transfers are preflighted together and preserve
+exact total water, salt and sediment. Single-phase and sufficiently funded
+weather retain their requested amounts.
 Native grass/sand visit-order checks reproduce the previous bias and verify the
 new weighted sum, finite atmospheric exhaustion and absent-region behavior.
+Dev.16 additionally checks 24 mixed-biome/capacity cases with swapped jungle and
+snowy-plains samples and 10,000 randomized core splits against an independent
+integer oracle. Many-region storm latency, full-column integration and broader
+catchment/seasonal calibration remain unaccepted.
+
+### Exact hydraulic sampling subset - dev.17
+
+Precipitation no longer evaluates a terrain column and the entire strata/deposit
+column to obtain one permeability number. Soil textures, sand/gravel, dirt/grass
+and impermeable structures use the same live block rules directly. Rock and ice
+query `Geology.permeability(x,z)`, the exact two-field province/fault subset of
+`Geology.column`. Ordinary environmental visits use that subset too, while their
+terrain sample remains necessary for waterway planning, climate and aquifer
+initialization. No terrain revision, precipitation weight, storage rule or
+sampling/cadence policy changes.
+
+`GEOLOGY_PERMEABILITY_SUBSET_PASS` checks 40,000 coordinates/four seeds against
+both the original noise formula and full columns, bit for bit, including
+negative/distant coordinates and all province/fault values. The private
+`StormSamplingChecks` fixture compares packaged dev.16/dev.17 on the same four
+loaded regions (64 centers), including all 36 soil forms, four vanilla soil
+controls, nine rock controls, four ice/snow controls and sealed glass.
+It checks exact recharge and chemistry against the full-column oracle on every
+batch. Fixture skylight is explicitly enabled and completed before timing; no
+generation, biome editing or lighting setup is counted as sampling work.
+
+Repeated same-host timings, 100 warm-up and 200 measured batches per scenario:
+
+| Four-region component | dev.16 p50/p95 (ms) | dev.17 p50/p95 (ms) |
+| --- | --- | --- |
+| Soil | 0.3752 / 0.5832 | 0.1347 / 0.2519 |
+| Rock/ice | 0.3655 / 1.5246 | 0.0746 / 0.0950 |
+| Sealed glass | 0.2850 / 0.4157 | 0.0287 / 0.0609 |
+
+Evidence: `build\storm-dev16-baseline.json`, `build\storm-dev17-candidate.json`,
+`build\storm-dev16-repeat.json`, `build\storm-dev17-repeat.json` and their logs.
+Host: AMD64 Family 26 Model 112 Stepping 0, AuthenticAMD; Java 25.0.4.1+1-LTS.
+These are warmed, synchronous sampling-component distributions in a controlled
+playerless fixture, not real storm tick/frame latency or a hard 2 ms guarantee.
+Full-tick scheduling/contention, cold region work and large loaded-world storm
+acceptance remain open.
+
+### Bounded presentation settling - dev.18
+
+Finite one-unit parcel reversals can hold the displayed height at their midpoint
+without changing the authoritative 16-unit simulation. That hold must not become
+permanent when flow stops. Versioned `WaterSurfaceTransition` samples now expire
+the hold 400 ms after the last real reversal and retarget from the currently
+displayed value to the last raw height over 100 ms. Duplicate shared-corner
+publications neither restart the raw clock nor extend expiry; stale revisions
+are rejected before expiry handling. Monotonic/large/slow changes retain exact
+targets, and unversioned opacity retains its ordinary interpolation.
+
+The renderer includes hold expiry in each uploaded page's cleanup deadline,
+even when its visible height is currently still. Cleanup recapture services
+expiry, then schedules the final interpolation cleanup; settled water returns
+to exact height with no perpetual cleanup. No solver, mesh topology, quantities,
+source quotas, terrain revision or saved-state format changes.
+
+The old code fails `build\dev17-settle-repro.log`. Core checks cover 150 release
+cases. `WaterFadeContinuityChecks`, also run by the no-world material preview,
+uses an isolated real GPU renderer/mesh with a controlled clock on OpenGL and
+Vulkan: 8/9/8 units settle at 0.53125, retain the original 1501 cleanup through
+an identical recapture, return continuously to 0.5, then have zero displacement
+and cleanup at 1602. Existing dry/rewet/edit guards and GPU release pass.
+Evidence: `build\gates-dev18-client-{OpenGL,Vulkan}-retry.log` and
+`build\stream-dev18-packaged-{opengl,vulkan}-captures\water-fade-continuity.txt`.
+Follow-up `build\gates-dev18-client-{OpenGL,Vulkan}-readback.log` verifies three
+fenced GPU copies per API at hold/release/idle against every accepted byte,
+including twelve interior corner target/displacement witnesses per API. The
+fixture adds copy-source capability only to its private GPU allocation and waits
+for readback before preview reload/exit; production allocations are unchanged.
+These are actual-upload/readback functional checks, not complete rendered live-stream/
+shared-edge/connected-waterfall or frame-time acceptance.
+
+### Running-world height publication failure - dev.18 follow-up
+
+The private `water-live-continuity-check` follows visible resident top-boundary
+corners for 600 client ticks in a cloned natural high-creek world. It decodes
+retained upload bytes with the production shader's elapsed-time/height formula,
+deduplicates each page/corner within a tick and compares neighboring pages at
+the same world position and base layer. Fully opaque tops only; no water edits
+or simulation freezing. Same-page repeated vertices are a consistency control.
+
+OpenGL produces 25,256 disagreements in 122,425 comparisons, maximum 0.203125
+blocks, across 37 pages. A Vulkan repeat produces 27,513 in 124,581, maximum
+0.33333302, across 38 pages. Both same-page controls have zero disagreements.
+Both saves/shutdowns complete; no paused ticks. See the live evidence in
+ACTIVE-ENGINE-AUDIT. Different scheduling means these counts are not an API
+comparison, and CPU mirror observations are not rendered GPU pixel gaps.
+
+The current shared `heights` map is consulted only when each page uploads.
+Neighbor publication patches shared material-direction packets but not the
+resident height endpoints/clocks, so sharing history does not make resident
+geometry coherent. The next repair must update compatible height trajectories
+without replaying opacity/material clocks, accepting stale edits or losing
+failed-upload recovery. Whole-page rebasing/cohort publication must be measured,
+not assumed to meet the extraction budget. Disabling interpolation or snapping
+all boundaries would trade one visible defect for another and is not acceptance.
+This publication failure remains open; no candidate fix is promoted here.
 
 ## Accepted terrain scope — 2026-10-21 PDT
 

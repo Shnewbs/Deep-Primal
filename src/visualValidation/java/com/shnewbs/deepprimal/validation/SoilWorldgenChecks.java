@@ -30,13 +30,13 @@ final class SoilWorldgenChecks {
           java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject().getAsJsonObject("dimensions")
           .getAsJsonObject("minecraft:overworld").getAsJsonObject("generator");
     }
-    require(template.get("material_revision").getAsInt() == 1, "New worlds select soil material revision");
+    require(template.get("material_revision").getAsInt() == 2, "New worlds select soil material revision");
     var saved = level.getServer().getWorldPath(LevelResource.ROOT).resolve("soil-material-validation.json");
     if (reopen) template = com.google.gson.JsonParser.parseString(Files.readString(saved)).getAsJsonObject();
     var current = (EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, template).getOrThrow();
-    require(current.materialRevision() == 1, "Saved material revision");
+    require(current.materialRevision() == 2, "Saved material revision");
     var encoded = ChunkGenerator.CODEC.encodeStart(ops, current).getOrThrow().getAsJsonObject();
-    require(((EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, encoded).getOrThrow()).materialRevision() == 1,
+    require(((EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, encoded).getOrThrow()).materialRevision() == 2,
         "Codec material roundtrip");
     if (!reopen) Files.writeString(saved, encoded.toString());
     var legacyJson = encoded.deepCopy();
@@ -46,12 +46,12 @@ final class SoilWorldgenChecks {
     var explicitLegacy = legacyJson.deepCopy();
     explicitLegacy.addProperty("material_revision", 0);
     var control = (EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, explicitLegacy).getOrThrow();
-    for (int invalid : new int[] {-1, 2}) {
+    for (int invalid : new int[] {-1, 3}) {
       var bad = encoded.deepCopy();
       bad.addProperty("material_revision", invalid);
       require(ChunkGenerator.CODEC.parse(ops, bad).result().isEmpty(), "Invalid material revision rejected");
     }
-    long blocks = 0, changed = 0, decorations = 0;
+    long blocks = 0, changed = 0, decorations = 0, outcrops = 0;
     var cursor = new BlockPos.MutableBlockPos();
     for (long seed : new long[] {20261020, Long.MIN_VALUE}) {
       for (var generator : List.of(current, legacy, control))
@@ -67,28 +67,38 @@ final class SoilWorldgenChecks {
           for (int x = 0; x < 16; x++) {
             int wx = candidate.getPos().getMinBlockX() + x, wz = candidate.getPos().getMinBlockZ() + z;
             var column = current.getBaseColumn(wx, wz, level, level.getChunkSource().randomState());
+            boolean decorationShift = false;
             for (int y = level.getMinY(); y <= level.getMaxY(); y++) {
               cursor.set(wx, y, wz);
               var next = candidate.getBlockState(cursor);
               var previous = old.getBlockState(cursor);
               require(previous.equals(original.getBlockState(cursor)), "Missing-field legacy compatibility");
-              if (!next.equals(column.getBlock(y))) {
-                require(next.equals(previous) && !(next.getBlock() instanceof GroundMaterials.SoilBlock),
+              boolean decoration = !next.equals(column.getBlock(y));
+              if (decoration) {
+                require((next.equals(previous) || current.materialRevision() >= 2) && !(next.getBlock() instanceof GroundMaterials.SoilBlock),
                     "Only unchanged decorations may differ from base columns at " + cursor);
                 decorations++;
+                if (!next.equals(previous)) decorationShift = true;
               }
               require(!next.is(Blocks.DIRT) && !next.is(Blocks.GRASS_BLOCK) && !next.is(Blocks.PODZOL)
                   && !next.is(Blocks.MUD) && !next.is(Blocks.CLAY) && !next.is(Blocks.SAND)
                   && !next.is(Blocks.RED_SAND), "No vanilla soil output in new material revision");
-              if (!next.equals(previous)) {
-                require(next.getBlock() instanceof GroundMaterials.SoilBlock, "Only material blocks may change");
+              if (!next.equals(previous) && !decoration) {
+                if (!(next.getBlock() instanceof GroundMaterials.SoilBlock)) {
+                  require(current.materialRevision() >= 2 && previous.isSolidRender()
+                      && (LEGACY_HORIZONS.contains(previous.getBlock()) || LEGACY_HORIZONS.contains(next.getBlock()))
+                      && next.equals(column.getBlock(y)),
+                      "Only material blocks or revision-2 horizon/outcrop shifts may change at " + cursor
+                          + " " + previous + " -> " + next);
+                  outcrops++;
+                }
                 require(previous.isSolidRender() && next.isSolidRender(), "Material replacement preserves occupancy");
                 changed++;
               }
               blocks++;
             }
             for (var heightmap : List.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG))
-              require(candidate.getHeight(heightmap, x, z) == old.getHeight(heightmap, x, z),
+              require(decorationShift || candidate.getHeight(heightmap, x, z) == old.getHeight(heightmap, x, z),
                   "Material revision preserves heightmaps");
           }
         fingerprints.add(digest(candidate));
@@ -101,9 +111,14 @@ final class SoilWorldgenChecks {
     System.out.println("SOIL_WORLDGEN_PASS blocks=" + blocks + " changed=" + changed
         + " unchangedDecorations=" + decorations
         + " seeds=2 sites=4 legacyDefaults=true occupancyPreserved=true materialBaseColumns=true heightmaps=true"
-        + " reverseOrder=true savedMaterialRevision=1 actualWorldMaterialRevision=" + actualWorldRevision
+        + " reverseOrder=true outcrops=" + outcrops + " savedMaterialRevision=2 actualWorldMaterialRevision=" + actualWorldRevision
         + " reopen=" + reopen);
   }
+
+  private static final java.util.Set<net.minecraft.world.level.block.Block> LEGACY_HORIZONS = java.util.Set.of(
+      Blocks.GRAVEL, Blocks.SANDSTONE, Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.CLAY, Blocks.MUD,
+      Blocks.SAND, Blocks.RED_SAND, Blocks.SNOW_BLOCK, Blocks.TERRACOTTA, Blocks.ORANGE_TERRACOTTA,
+      Blocks.YELLOW_TERRACOTTA);
 
   private static String digest(net.minecraft.world.level.chunk.ProtoChunk chunk) {
     try {

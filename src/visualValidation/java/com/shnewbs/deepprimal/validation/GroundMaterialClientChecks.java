@@ -65,7 +65,8 @@ public final class GroundMaterialClientChecks {
             com.shnewbs.deepprimal.client.GroundSideSpriteSource.class,
             com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.class);
         check(mc);
-        waterfallUploads = WaterfallUploadChecks.run(output());
+        waterfallUploads = java.util.concurrent.CompletableFuture.allOf(
+            WaterFadeContinuityChecks.run(mc, output()), WaterfallUploadChecks.run(output()));
         mc.setScreen(new Preview());
         stage = 1;
         ticks = 0;

@@ -40,15 +40,40 @@ public final class WaterAccount {
     return p;
   }
   public boolean add(Parcel p) {
-    if (p.water() > room() || salt + p.salt() > MAX * 1024
-        || sediment + p.sediment() > MAX * 1024) return false;
+    if (!accepts(p)) return false;
     water += p.water(); salt += p.salt(); sediment += p.sediment(); return true;
+  }
+  private boolean accepts(Parcel p) {
+    return p.water() <= room() && salt + p.salt() <= MAX * 1024
+        && sediment + p.sediment() <= MAX * 1024;
   }
   public static long move(WaterAccount from, WaterAccount to, long requested) {
     if (from == to) return 0;
     var p = from.preview(Math.min(Math.max(0, requested), to.room()));
     if (!to.add(p)) return 0;
     from.take(p.water()); return p.water();
+  }
+  /** Split a finite supply by capacity-limited demand; the second store receives rounding dust. */
+  public static long distribute(WaterAccount from, WaterAccount first, WaterAccount second,
+      long firstDemand, long secondDemand) {
+    if (from == first || from == second || first == second)
+      throw new IllegalArgumentException("Split transfer requires distinct water accounts");
+    long a = Math.min(Math.max(0, firstDemand), first.room());
+    long b = Math.min(Math.max(0, secondDemand), second.room());
+    long total = Math.min(from.water(), a + b);
+    if (total == 0) return 0;
+    long firstWater = portion(total, a, a + b);
+    var parcel = from.preview(total);
+    var firstParcel = new Parcel(firstWater, portion(parcel.salt(), firstWater, total),
+        portion(parcel.sediment(), firstWater, total));
+    var secondParcel = new Parcel(total - firstWater, parcel.salt() - firstParcel.salt(),
+        parcel.sediment() - firstParcel.sediment());
+    if (!first.accepts(firstParcel) || !second.accepts(secondParcel))
+      throw new IllegalStateException("Split transfer exceeds constituent capacity");
+    first.add(firstParcel);
+    second.add(secondParcel);
+    from.take(total);
+    return total;
   }
   /** Evaporation moves water alone; dissolved/entrained constituents remain in the source. */
   public long evaporateInto(WaterAccount atmosphere, long requested) {

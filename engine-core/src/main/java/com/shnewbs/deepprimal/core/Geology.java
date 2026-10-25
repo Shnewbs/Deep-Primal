@@ -43,6 +43,16 @@ public final class Geology {
   }
   private final TerrainNoise noise;
   public Geology(TerrainNoise noise) { this.noise = noise; }
+  /** Exact hydraulic subset; no terrain, strata, deposit or soil-horizon evaluation. */
+  public double permeability(int x, int z) {
+    double faultField = noise.field(x, z, 1400, 1802);
+    int province = Math.clamp((int) ((noise.field(x, z, 2300, 1803) + 1) * 1.5), 0, 2);
+    return permeability(province, faultField);
+  }
+  private static double permeability(int province, double faultField) {
+    double value = province == 0 ? .65 : province == 1 ? .16 : .30;
+    return Math.abs(faultField) < .07 ? Math.max(value, .8) : value;
+  }
   public Column column(int x, int z, TerrainEngine.Sample sample) {
     double fold = noise.field(x, z, 720, 1801) * 32 + Math.sin(x * .006 + z * .003) * 9;
     double faultField = noise.field(x, z, 1400, 1802);
@@ -54,8 +64,7 @@ public final class Geology {
     double cx = gx * 32 + 8 + noise.hash(gx, gz, 1810) * 16,
         cz = gz * 32 + 8 + noise.hash(gx, gz, 1811) * 16;
     double cy = -96 + noise.hash(gx, gz, 1812) * 352;
-    double permeability = province == 0 ? .65 : province == 1 ? .16 : .30;
-    if (Math.abs(faultField) < .07) permeability = Math.max(permeability, .8);
+    double permeability = permeability(province, faultField);
     return new Column(fold, fault, province, intrusion, soil, permeability,
         x - cx, z - cz, cy, (int) (noise.hash(gx, gz, 1813) * 8), 3 + noise.hash(gx, gz, 1814) * 5);
   }

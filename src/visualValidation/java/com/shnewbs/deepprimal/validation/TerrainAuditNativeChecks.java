@@ -25,7 +25,7 @@ public final class TerrainAuditNativeChecks {
     int expected=Integer.parseInt(System.getenv("DEEPPRIMAL_AUDIT_REV"));
     var level=event.getServer().overworld();var own=(EngineChunkGenerator)level.getChunkSource().getGenerator();
     require(own.geography().revision==expected,"actual saved revision");
-    var actualSeed=new TerrainEngine(level.getSeed(),expected,own.terrainProfile().options());
+    var actualSeed=new TerrainEngine(level.getSeed(),expected,own.terrainProfile().options(),own.channelRevision());
     require(own.geography().sample(341,-217).equals(actualSeed.sample(341,-217)),"actual saved-world seed binding");
     var ops=level.registryAccess().createSerializationContext(JsonOps.INSTANCE);
     var encoded=ChunkGenerator.CODEC.encodeStart(ops,own).getOrThrow();
@@ -39,7 +39,7 @@ public final class TerrainAuditNativeChecks {
     for(int revision:expected==7?new int[]{6,7}:new int[]{6})for(long seed:new long[]{0,1,73,20261020}) {
       var template=encoded.getAsJsonObject().deepCopy();template.addProperty("type","deepprimal:continental_v"+revision);
       var g=DepositNativeChecks.generator(level,template,revision,seed);var t=g.geography();
-      var independent=new TerrainEngine(seed,revision,g.terrainProfile().options());
+      var independent=new TerrainEngine(seed,revision,g.terrainProfile().options(),g.channelRevision());
       require(t.sample(0,0).equals(independent.sample(0,0)),"native world seed binding");
       var origin=new JsonObject();origin.addProperty("seed",seed);origin.addProperty("revision",revision);origin.addProperty("height",t.raw(0,0));origin.addProperty("rain",t.rainfall(0,0));origins.add(origin);
       var sites=new LinkedHashSet<String>();Collections.addAll(sites,"0,0","-1,-1","1,0","0,1");

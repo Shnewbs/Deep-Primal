@@ -113,6 +113,8 @@ public final class ClientCapture {
       return;
     }
     Path dir = Path.of(System.getProperty("deepprimal.validationCapture"));
+    try { WaterLiveContinuityChecks.tick(mc); }
+    catch (ReflectiveOperationException | java.io.IOException failure) { throw new RuntimeException(failure); }
     try { LodTravelChecks.tick(mc); } catch (Exception failure) { throw new RuntimeException(failure); }
     if (rendererRequestedAt != 0) {
       var renderer = com.shnewbs.deepprimal.client.render.HorizonRenderer.INSTANCE;
@@ -249,6 +251,10 @@ public final class ClientCapture {
       }
       if (action.equals("water-fade-continuity-check")) {
         WaterFadeContinuityChecks.run(mc, dir);
+        return;
+      }
+      if (action.equals("water-live-continuity-check")) {
+        WaterLiveContinuityChecks.start(mc, dir);
         return;
       }
       if (TerrainV6Scenes.handle(mc,action,dir))return;

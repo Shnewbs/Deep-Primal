@@ -2,6 +2,7 @@ package com.shnewbs.deepprimal.core;
 
 final class TerrainV4Checks {
   static void run() {
+    permeabilitySubset();
     int banks = 0, ores = 0, rocks = 0;
     for (long seed : new long[] {20261020, -914}) {
       var t = new TerrainEngine(seed, 4); var replay = new TerrainEngine(seed, 4);
@@ -37,5 +38,32 @@ final class TerrainV4Checks {
     }
     if (banks < 20 || ores < 100 || rocks < 6) throw new AssertionError("V4 coverage " + banks + "/" + ores + "/" + rocks);
     System.out.println("TERRAIN_V4_PASS banks="+banks+" oreSamples="+ores+" rockSuites="+rocks+" deterministic=true");
+  }
+  private static void permeabilitySubset() {
+    var random = new java.util.Random(261017);
+    var seen = new java.util.HashSet<Double>();
+    int cases = 0;
+    for (long seed : new long[] {0, 73, 20261020, -914}) {
+      var terrain = new TerrainEngine(seed, 4);
+      var geology = new Geology(terrain.noise);
+      var sample = terrain.sample(0, 0);
+      for (int i = 0; i < 10000; i++) {
+        int x = i < 10 ? -65 + i * 16 : random.nextInt(-30000000, 30000001);
+        int z = i < 10 ? 65 - i * 16 : random.nextInt(-30000000, 30000001);
+        double fault = terrain.noise.field(x, z, 1400, 1802);
+        int province = Math.clamp((int) ((terrain.noise.field(x, z, 2300, 1803) + 1) * 1.5), 0, 2);
+        double expected = province == 0 ? .65 : province == 1 ? .16 : .30;
+        if (Math.abs(fault) < .07) expected = Math.max(expected, .8);
+        if (Double.doubleToLongBits(geology.permeability(x, z)) != Double.doubleToLongBits(expected)
+            || Double.doubleToLongBits(geology.column(x, z, sample).permeability())
+                != Double.doubleToLongBits(expected))
+          throw new AssertionError("Permeability subset changed legacy geography at " + x + "," + z);
+        seen.add(expected);
+        cases++;
+      }
+    }
+    if (seen.size() != 4) throw new AssertionError("Missing province/fault permeability coverage " + seen);
+    System.out.println("GEOLOGY_PERMEABILITY_SUBSET_PASS cases=" + cases
+        + " bitExact=true provincesAndFaults=true negativeDistantCoordinates=true");
   }
 }

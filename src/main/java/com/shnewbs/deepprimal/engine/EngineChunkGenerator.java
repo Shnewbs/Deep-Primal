@@ -38,9 +38,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
-        Codec.intRange(0,1).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision)
-    ).apply(i,(source,min,height,profile,materials)->new EngineChunkGenerator(source,min,height,revision,
-        profile.orElseGet(TerrainConfig::creationProfile),materials)));
+        Codec.intRange(0,2).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
+        Codec.intRange(0,1).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
+    ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
+        profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
     return RecordCodecBuilder.mapCodec(
         i ->
             i.group(
@@ -54,7 +55,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   }
 
   private final int minY, height, revision;
-  private final int materialRevision;
+  private final int materialRevision, channelRevision;
   private volatile TerrainEngine engine;
   private final TerrainProfile profile;
   private final List<BlockState> orePalette;
@@ -68,18 +69,19 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     this(source,minY,height,revision,null);
   }
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,TerrainProfile profile) {
-    this(source,minY,height,revision,profile,0);
+    this(source,minY,height,revision,profile,0,0);
   }
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,
-      TerrainProfile profile,int materialRevision) {
+      TerrainProfile profile,int materialRevision,int channelRevision) {
     super(source);
-    if(materialRevision<0||materialRevision>1||(materialRevision!=0&&revision!=7))
+    if(materialRevision<0||materialRevision>2||(materialRevision!=0&&revision!=7))
       throw new IllegalArgumentException("Soil material revision requires V7 geography");
     this.materialRevision=materialRevision;
+    this.channelRevision=channelRevision;
     this.profile=profile;
     orePalette=profile==null?List.of():profile.palette();
     this.revision = revision;
-    engine = new TerrainEngine(0, revision, profile==null?TerrainOptions.DEFAULT:profile.options());
+    engine = new TerrainEngine(0, revision, profile==null?TerrainOptions.DEFAULT:profile.options(), channelRevision);
     if(profile!=null)depositPlan=profile.plan(engine.noise);
     if (minY % 16 != 0 || height % 16 != 0 || height < 256 || height > 2048)
       throw new IllegalArgumentException("Engine height");
@@ -91,6 +93,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return engine;
   }
   public int materialRevision() { return materialRevision; }
+  public int channelRevision() { return channelRevision; }
 
   protected MapCodec<? extends ChunkGenerator> codec() {
     return switch (revision) {
@@ -106,7 +109,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
 
   public ChunkGeneratorStructureState createState(
       HolderLookup<StructureSet> sets, RandomState random, long seed) {
-    engine = new TerrainEngine(seed, revision, profile==null?TerrainOptions.DEFAULT:profile.options());
+    engine = new TerrainEngine(seed, revision, profile==null?TerrainOptions.DEFAULT:profile.options(), channelRevision);
     if(profile!=null)depositPlan=profile.plan(engine.noise);
     if (biomeSource instanceof RegionBiomeSource b) b.bind(engine);
     return ChunkGeneratorStructureState.createForFlat(
@@ -239,8 +242,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       hydraulic=engine.hydraulicColumn(x,z);double uncut=engine.raw(x,z);
       tunnel=engine.tunnel(x,z);ocean=engine.ocean(x,z);
       iceBase=(int)Math.floor(engine.surfaceWithoutIce(x,z));
-      geology=new Geology(engine.noise).column(x,z,s);soil=SoilProfile.at(s,geology);
-      texture=materialRevision==1?SoilTexture.at(engine.noise,x,z,s,geology):null;
+      geology=new Geology(engine.noise).column(x,z,s);soil=materialRevision>=2?SoilProfile.at(engine.noise,x,z,s,geology):SoilProfile.at(s,geology);
+      texture=materialRevision>=1?SoilTexture.at(engine.noise,x,z,s,geology):null;
       this.deposits=deposits.column(x,z,geology,iceBase);
       double roof=Math.min(iceBase,hydraulic.ground());
       cave=profile.options().caves()?new CaveNetwork(engine.noise).column(x,z,roof,minY,minY+height-1,geology):null;
@@ -256,7 +259,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         int depth=bed-y;
         if(depth<soil.depth()) {
           var original=legacySoil(depth,y);
-          return materialRevision==1?soilMaterial(original):original;
+          return materialRevision>=1?soilMaterial(original):original;
         }
         int ore=deposits.at(y);
         return ore<0?rock(geology.rock(y)):orePalette.get(ore);

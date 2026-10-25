@@ -93,6 +93,7 @@ public final class AnimatedWaterRenderer {
   private long session, clock, clockNanos, lastFrame;
   private int discovery, captureTurn;
   public long residentBytes, uploads, captures, drawnPages, terrainInvalidationsAvoided, staleJobs;
+  public long heightBoundaryWrites, heightBoundaryBytes, lastHeightBoundaryNanos, maxHeightBoundaryNanos;
   private final Matrix4f viewMatrix = new Matrix4f();
   private final Vector4f white = new Vector4f(1, 1, 1, 1);
 
@@ -108,7 +109,7 @@ public final class AnimatedWaterRenderer {
     // Accepted vertex bytes only: total retained payload cannot exceed the 32 MiB GPU cap.
     byte[] presentation;
     WaterBoundaryIndex boundaryQuads = WaterBoundaryIndex.EMPTY;
-    int retireOffset;
+    int retireOffset, heightFailures;
     boolean retirePending;
     Map<Integer, WaterFaces> fading = Map.of();
     boolean changed = true, busy;
@@ -421,8 +422,90 @@ public final class AnimatedWaterRenderer {
                       snapshot,
                       WaterPatchMesher.build(snapshot, before, smooth))));
     }
+    synchronizeVisibleHeights(visible);
     visible.sort(Comparator.comparingDouble((Page p) -> p.bounds.distanceToSqr(camera)).reversed());
     event.getRenderState().setRenderData(VISIBLE, List.copyOf(visible));
+  }
+
+  /** Sample shared trajectories at this frame's clock instead of replaying a neighbor's
+   * older upload clock. Only boundary position/displacement bytes change. */
+  private void synchronizeVisibleHeights(List<Page> visible) {
+    long started = System.nanoTime();
+    ByteBuffer transfer = null;
+    var quad = ByteBuffer.allocate(144).order(ByteOrder.nativeOrder());
+    try {
+      pages:
+      for (var p : visible) {
+        if (p.gpu == null || p.presentation == null) continue;
+        var accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
+        for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
+          if (dx == 0 && dz == 0) continue;
+          int start = -1, end = 0;
+          for (int at = p.boundaryQuads.begin(dx, dz); at < p.boundaryQuads.end(dx, dz); at++) {
+            int entry = p.boundaryQuads.entry(at), offset = (entry >>> 12) * 144;
+            quad.clear().put(p.presentation, offset, 144).flip();
+            boolean changed = false;
+            for (int v = 0; v < 4; v++) {
+              int vertex = v * 36, source = offset + vertex;
+              float x = accepted.getFloat(source), z = accepted.getFloat(source + 8);
+              if (x != 0 && x != 16 && z != 0 && z != 16) continue;
+              int x2 = Math.round(x * 2), z2 = Math.round(z * 2);
+              int cy = Byte.toUnsignedInt(accepted.get(source + 35));
+              var h = heights.get((x2 & 1) | ((z2 & 1) << 1)).get(
+                  BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2)));
+              if (h == null) continue;
+              h.advance(clock);
+              int heightOffset = (byte) accepted.getShort(source + 26);
+              float progress = Math.clamp((clock - p.uploaded - heightOffset) / 100f, 0, 1);
+              float shown = accepted.getFloat(source + 4)
+                  + accepted.getShort(source + 24) / 16384f * (1 - progress);
+              float shared = cy + h.at(clock);
+              if (Math.abs(shown - shared) <= .00001f) continue;
+              quad.putFloat(vertex + 4, shared).putShort(vertex + 24, (short) 0);
+              changed = true;
+            }
+            if (changed) {
+              if (transfer == null)
+                transfer = MemoryUtil.memAlloc(WaterCornerPacket.SLICE_BYTES).order(ByteOrder.nativeOrder());
+              if (start >= 0 && (offset != end || transfer.remaining() < 144)) {
+                if (!publishHeightRange(p, start, transfer)) continue pages;
+                start = -1;
+              }
+              if (start < 0) start = offset;
+              transfer.put(quad);end = offset + 144;
+            } else if (start >= 0) {
+              if (!publishHeightRange(p, start, transfer)) continue pages;
+              start = -1;
+            }
+          }
+          if (start >= 0 && !publishHeightRange(p, start, transfer)) continue pages;
+        }
+        p.heightFailures = 0;
+      }
+    } finally {
+      if (transfer != null) MemoryUtil.memFree(transfer);
+      lastHeightBoundaryNanos = System.nanoTime() - started;
+      maxHeightBoundaryNanos = Math.max(maxHeightBoundaryNanos, lastHeightBoundaryNanos);
+    }
+  }
+
+  private boolean publishHeightRange(Page p, int start, ByteBuffer transfer) {
+    transfer.flip();
+    int length = transfer.remaining();
+    try {
+      p.gpu.updateRange(start, transfer);
+    } catch (RuntimeException failure) {
+      if (++p.heightFailures >= 3)
+        throw new IllegalStateException("Repeated shared water height upload failure", failure);
+      com.mojang.logging.LogUtils.getLogger().warn(
+          "Shared water height upload failed for page {}; retrying from live history next frame", p.key, failure);
+      transfer.clear();
+      return false;
+    }
+    transfer.get(0, p.presentation, start, length);
+    heightBoundaryWrites++;heightBoundaryBytes += length;
+    transfer.clear();
+    return true;
   }
 
   private WaterPatchMesher.Snapshot capture(Page page) {
@@ -644,6 +727,11 @@ public final class AnimatedWaterRenderer {
             while (map.size() > (wall ? MAX_HISTORY / 4 : MAX_HISTORY)) map.removeFirst();
             from = h.from(clock);
             offset = h.offset(clock);
+            int heightRemaining = h.remaining(clock);
+            if (heightRemaining > 0) {
+              animating = true;
+              remaining = Math.max(remaining, heightRemaining);
+            }
           }
           if (Math.abs(from - target) > .0001) {
             animating = true;

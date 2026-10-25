@@ -146,12 +146,12 @@ final class StreamSourceNativeChecks {
     require(level.getBlockState(first).is(Blocks.GOLD_BLOCK) && aquifer.ground.water() == paidGround,
         "Blocked natural outlet preserves edits and groundwater");
     require(HydrologyRuntime.write(level, first, Blocks.AIR.defaultBlockState()), "Reopen source dam");
-    aquifer.ground.take(Aquifer.CAPACITY);
+    aquifer.ground.take(aquifer.capacity());
     aquifer.step(aquifer.lastTick() + 20);
     java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
     require(!aquifer.canSupply(true) && level.getBlockState(first).isAir(),
         "Exhausted natural source remains dry");
-    aquifer.ground.add(new WaterAccount.Parcel(Aquifer.START, 0, 0));
+    aquifer.ground.add(new WaterAccount.Parcel(aquifer.start(), 0, 0));
     for (int i = 0; i < Aquifer.WET_STEPS - 1; i++) {
       aquifer.step(aquifer.lastTick() + 20);
       java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
@@ -167,7 +167,21 @@ final class StreamSourceNativeChecks {
     long paid = aquifer.ground.water();
     replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
     require(level.getBlockState(first).getValue(EngineFluid.UNITS) == restartedUnits && aquifer.ground.water() == paid,
-        "Natural source accepted a second top-up inside one aquifer interval");
+        "Natural source accepted a second top-up inside one tick");
+
+    Method allowance = HydrologyRuntime.class.getDeclaredMethod("streamAllowance", int.class, long.class, long.class);
+    allowance.setAccessible(true);
+    int quota = Aquifer.baseflowUnits(com.shnewbs.deepprimal.engine.HydrologyConfig.RAIN_QUANTA.get());
+    require((int) allowance.invoke(null, quota, Long.MIN_VALUE, 5L) == quota
+        && (int) allowance.invoke(null, quota, 100L, 99L) == quota
+        && (int) allowance.invoke(null, quota, 100L, 119L) == quota
+        && (int) allowance.invoke(null, quota, 100L, 400L) == quota, "Stream allowance must reach exactly one quota");
+    for (long tick = 100, previous = 0; tick < 120; tick++) {
+      int released = (int) allowance.invoke(null, quota, 100L, tick);
+      require(released >= previous && released - previous <= (quota + 19) / 20 + 1 && released > 0,
+          "Stream allowance is not a smooth monotonic ramp at phase " + (tick - 100));
+      previous = released;
+    }
 
     Object ordered = instance("Cursor");
     double[] orderedSurface = (double[]) field(ordered.getClass(), "streamSurface").get(ordered);
@@ -208,7 +222,7 @@ final class StreamSourceNativeChecks {
         + " secondOutletUnits=" + secondUnits + " noOverfill=true"
         + " noRepeatDebit=true unrelatedWaterPreserved=true aquiferDebit=" + expectedDebit
         + " firstVisits=" + visits + " secondVisits=" + secondVisits
-        + " outletY=" + y + " regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true headwaterFirst=true deficitCellUnits=" + repaid);
+        + " outletY=" + y + " regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true smoothRelease=true headwaterFirst=true deficitCellUnits=" + repaid);
   }
 
   private StreamSourceNativeChecks() {}

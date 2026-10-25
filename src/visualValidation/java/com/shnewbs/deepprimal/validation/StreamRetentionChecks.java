@@ -56,7 +56,7 @@ public final class StreamRetentionChecks {
       lastDischarged = now;
       var aquifer = com.shnewbs.deepprimal.engine.HydrologyData.get(level).aquifers.get(siteRegion);
       if (aquifer != null) {
-        double fill = aquifer.ground.water() / (double) com.shnewbs.deepprimal.core.Aquifer.CAPACITY;
+        double fill = aquifer.ground.water() / (double) aquifer.capacity();
         minFill = Math.min(minFill, fill); lastFill = fill;
         if (!aquifer.canSupply(true)) unsuppliedTicks++;
       }
@@ -65,6 +65,38 @@ public final class StreamRetentionChecks {
     }
   }
   private long dryColumnTicks;
+  // Temporal surface metrics over every column wet at start or later.
+  private double[] lastSurface;
+  private int[] lastSign, lastChangeTick, lastDryTick;
+  private long surfaceChanges, surfaceReversals, wetToggles;
+
+  private void flickerSample(ServerLevel level) {
+    if (lastSurface == null) {
+      int n = columns.size();
+      lastSurface = new double[n];
+      lastSign = new int[n];
+      lastChangeTick = new int[n];
+      lastDryTick = new int[n];
+      java.util.Arrays.fill(lastDryTick, Integer.MIN_VALUE / 2);
+      for (int i = 0; i < n; i++) lastSurface[i] = columns.get(i).initial;
+      return;
+    }
+    for (int i = 0; i < columns.size(); i++) {
+      var c = columns.get(i);
+      double now = surface(level, c.x, c.z, c.planned), before = lastSurface[i];
+      boolean wetNow = Double.isFinite(now), wetBefore = Double.isFinite(before);
+      if (wetBefore && !wetNow) lastDryTick[i] = ticks;
+      else if (!wetBefore && wetNow && ticks - lastDryTick[i] <= 20) wetToggles++;
+      if (wetNow && wetBefore && now != before) {
+        surfaceChanges++;
+        int sign = now > before ? 1 : -1;
+        if (lastSign[i] == -sign && ticks - lastChangeTick[i] <= 4) surfaceReversals++;
+        lastSign[i] = sign;
+        lastChangeTick[i] = ticks;
+      }
+      lastSurface[i] = now;
+    }
+  }
 
   public StreamRetentionChecks() {
     NeoForge.EVENT_BUS.register(this);
@@ -92,6 +124,9 @@ public final class StreamRetentionChecks {
     var site = "widest".equals(selected)
         ? probes.stream().filter(p -> p.stage() > 110 && terrain.sample(p.x(), p.z()).speed() > 0)
             .max(java.util.Comparator.comparingDouble(p -> p.radius())).orElseThrow()
+        : "steepest".equals(selected)
+        ? probes.stream().filter(p -> p.stage() > 110 && terrain.sample(p.x(), p.z()).speed() > 0)
+            .max(java.util.Comparator.comparingDouble(p -> terrain.sample(p.x(), p.z()).speed())).orElseThrow()
         : "highest".equals(selected)
         ? candidates.stream().max(java.util.Comparator.comparingDouble(p -> p.stage())).orElseThrow()
         : candidates.stream().findFirst().orElseThrow(() -> new AssertionError("No generated source reach"));
@@ -192,6 +227,7 @@ public final class StreamRetentionChecks {
     minimumWet = Math.min(minimumWet, wet);
     dryColumnTicks += expectedWet - wet;
     quotaSample(level);
+    flickerSample(level);
     if (++ticks % 100 != 0) return;
     String result = report(level);
     Files.writeString(Path.of(System.getenv("DEEPPRIMAL_STREAM_RETENTION_RECORD")),
@@ -207,7 +243,9 @@ public final class StreamRetentionChecks {
         + " sourceRegionQuotaTicks=" + quotaTicks + " saturatedQuotaTicks=" + saturatedTicks
         + " maxScannedChunks=" + scannedChunks + " regionDeliveredUnits=" + deliveredUnits
         + " quotaIntervals=" + intervals + " aquiferMinFill=" + minFill + " aquiferFinalFill=" + lastFill
-        + " unsuppliedTicks=" + unsuppliedTicks);
+        + " unsuppliedTicks=" + unsuppliedTicks
+        + " surfaceChanges=" + surfaceChanges + " surfaceReversals=" + surfaceReversals
+        + " wetToggles=" + wetToggles);
     columns.clear();
     System.out.println("STREAM_RETENTION_OBSERVATION_COMPLETE ticks=" + target
         + " scope=loadedGeneratedReach notFullConservationAudit=true");

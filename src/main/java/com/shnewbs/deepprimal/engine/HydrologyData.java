@@ -20,12 +20,13 @@ public final class HydrologyData extends SavedData {
       bounded(WaterAccount.MAX * 1024).fieldOf("sediment").forGetter(WaterAccount.Parcel::sediment)
   ).apply(i, WaterAccount.Parcel::new));
   private record Region(long key, WaterAccount.Parcel ground, WaterAccount.Parcel snow,
-      int wet, boolean active, long tick, int dynamicWet) {
+      int wet, boolean active, long tick, int dynamicWet, int depth) {
     static final Codec<Region> CODEC = RecordCodecBuilder.create(i -> i.group(
       Codec.LONG.fieldOf("key").forGetter(Region::key), PARCEL.fieldOf("ground").forGetter(Region::ground),
       PARCEL.fieldOf("snow").forGetter(Region::snow), Codec.intRange(0, Aquifer.WET_STEPS).fieldOf("wet").forGetter(Region::wet),
       Codec.BOOL.fieldOf("active").forGetter(Region::active), Codec.LONG.fieldOf("tick").forGetter(Region::tick),
-      Codec.intRange(0, Aquifer.WET_STEPS).optionalFieldOf("dynamicWet", 0).forGetter(Region::dynamicWet)
+      Codec.intRange(0, Aquifer.WET_STEPS).optionalFieldOf("dynamicWet", 0).forGetter(Region::dynamicWet),
+      Codec.intRange(1, Aquifer.MAX_DEPTH).optionalFieldOf("depth", 1).forGetter(Region::depth)
     ).apply(i, Region::new));
   }
   private record Cell(long key, WaterAccount.Parcel contents) {
@@ -55,7 +56,7 @@ public final class HydrologyData extends SavedData {
   private HydrologyData(int schema, List<Region> regions, List<Cell> cells,
       WaterAccount.Parcel ocean, WaterAccount.Parcel atmosphere, long initialized) {
     for (var r : regions) {
-      if (aquifers.put(r.key, new Aquifer(r.ground, r.snow, r.wet, r.active, r.tick, r.dynamicWet)) != null)
+      if (aquifers.put(r.key, new Aquifer(r.ground, r.snow, r.wet, r.active, r.tick, r.dynamicWet, r.depth)) != null)
         throw new IllegalArgumentException("Duplicate aquifer");
     }
     for (var c : cells) if (composition.put(c.key, c.contents) != null)
@@ -67,7 +68,8 @@ public final class HydrologyData extends SavedData {
   private List<Region> regions() {
     return aquifers.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(e ->
       new Region(e.getKey(), e.getValue().ground.snapshot(), e.getValue().snow.snapshot(),
-          e.getValue().wetSteps(), e.getValue().active(), e.getValue().lastTick(), e.getValue().dynamicWetSteps())).toList();
+          e.getValue().wetSteps(), e.getValue().active(), e.getValue().lastTick(), e.getValue().dynamicWetSteps(),
+          e.getValue().depth())).toList();
   }
   private List<Cell> cells() {
     return composition.entrySet().stream().sorted(Map.Entry.comparingByKey())
@@ -80,9 +82,10 @@ public final class HydrologyData extends SavedData {
     var old = aquifers.get(key);
     if (old != null) return old;
     // Explicit finite seeded groundwater is initialized once, never on every chunk load.
-    long initial = (long) (Aquifer.CAPACITY * (.3 + Math.clamp(rain, 0, 1) * .40));
+    // New regions are deep so perennial baseflow survives ordinary dry spells; saves keep depth.
+    long initial = (long) (Aquifer.CAPACITY * Aquifer.DEEP * (.3 + Math.clamp(rain, 0, 1) * .40));
     old = new Aquifer(new WaterAccount.Parcel(initial, 0, 0), WaterAccount.Parcel.EMPTY,
-        Aquifer.WET_STEPS, true, tick);
+        Aquifer.WET_STEPS, true, tick, 0, Aquifer.DEEP);
     aquifers.put(key, old); initialized += initial; setDirty(); return old;
   }
 }

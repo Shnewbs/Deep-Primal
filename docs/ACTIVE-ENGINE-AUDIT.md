@@ -1,5 +1,154 @@
 # Active Deep Primal engine audit
 
+Current water checkpoint (2026-10-25): **dev.18 Exact Stopped Water is in the Library.**
+125,179,617 bytes; SHA-256
+`3bf64519fa70de18bcf3cd7344e0a3db36f9b9c8ca2a733d6606a69e47565ddf`.
+
+Reproduced a dev.15-17 presentation defect: once one-unit oscillation stopped,
+identical raw samples returned early forever, leaving the displayed surface at
+the pair's midpoint. The 400 ms hold now expires after the last real reversal,
+then retargets continuously over 100 ms to the authoritative height. Unchanged
+publications cannot extend the hold; stale revisions cannot service or restart
+it. GPU page cleanup stays scheduled even while the midpoint is visually still.
+This changes presentation only, not water quantities, source supply or terrain.
+
+- [x] Pre-fix regression fails in `build\dev17-settle-repro.log`; full dev.18
+  build passes, including 150 exact-release cases across levels, directions and
+  cadences, shared-corner duplicates, stale samples and unchanged opacity behavior.
+- [x] Packaged OpenGL and Vulkan actual-upload checks: midpoint cleanup at 1501,
+  continuous release, exact 0.5-block GPU position/zero displacement at 1602,
+  final cleanup zero. Existing dry-fade, rewet and newer-edit guards still pass.
+- [x] Follow-up GPU readback, not just the retained upload mirror: three fenced
+  copies per API at hold/release/idle match all accepted bytes. Twelve interior
+  corner witnesses per API verify target/displacement pairs
+  `(0.53125,0)`, `(0.5,512/16384)` and `(0.5,0)`.
+- [x] Environment/save/reopen, finite source/reserve, three 1,200-tick reaches,
+  material revisions 2/1/0 fresh/reopen, dual-API reload and 60 waterfall
+  readbacks per API pass. Reaches retain 67/67, 115/115 and 655/655 wet columns
+  every tick, with zero dry-column ticks or sampled bank overtopping.
+- [x] Seven archives, 545 compiled classes, 333 root resources, 36 soil
+  blockstates and four identical API/reload previews.
+- [ ] Actual live-stream displayed-height/edge/wet-dry continuity, connected
+  waterfalls and the owner's complete flicker/menu report remain unaccepted.
+- [ ] Full-tick storm latency, complete world ledger and physical source
+  unload/reopen/edit acceptance remain open.
+
+Evidence: `build\dev18-build.log`, `build\gates-dev18-*`,
+`build\gates-dev18-client-{OpenGL,Vulkan}-retry.log`,
+`build\stream-dev18-packaged-{opengl,vulkan}-captures\water-fade-continuity.txt`,
+`build\stream-dev18-package.json`. First client attempts completed the midpoint
+assertions but failed writing a nonexistent fixture output directory; the
+fixture now creates it, and both complete retries pass with clean shutdown.
+Stronger readback evidence: `build\gates-dev18-client-{OpenGL,Vulkan}-readback.log`
+and `build\stream-dev18-readback-{opengl,vulkan}-captures\water-fade-continuity.txt`.
+Private readback capability is added only to fixture buffers; distributed
+production classes/resources and the supplied JAR are unchanged.
+Controlled upload/clock checks are not rendered live-scene acceptance or a
+performance claim. Last full grade remains **50/100**; engine incomplete.
+
+### Live shared-edge reproduction after dev.18
+
+- [x] Added private read-only `water-live-continuity-check`: 600 client ticks of
+  visible resident top-boundary upload mirrors, decoded with the production
+  shader's height/time arithmetic. Cloned disposable high-creek world, seed
+  20261020; source x638.953/z1447.820, natural stage 288.25; render/simulation
+  distances 8/5, 30-second camera warm-up, no paused ticks.
+- [x] OpenGL: 37 sampled pages, 122,425 distinct page-corner comparisons across
+  ticks, 25,256 disagreements above one displacement quantum plus epsilon;
+  maximum 0.203125 blocks. Same-page duplicate-vertex disagreements: zero.
+- [x] Vulkan repeat: 38 pages, 124,581 comparisons, 27,513 disagreements;
+  maximum 0.33333302 blocks. Same-page duplicate disagreements: zero.
+- [x] Both live clients save/disconnect/shut down cleanly. Vulkan releases
+  buffers/images to zero. No production change or replacement JAR in this probe.
+- [ ] Repair resident shared-height publication/clock consistency. Shared CPU
+  `heights` history alone does not update already uploaded neighbor endpoints;
+  `synchronizeCornerNeighbors` currently patches material-direction packets,
+  not their height/displacement clocks. Require continuous interpolation,
+  stale/edit guards, failed-write recovery and measured bounded work.
+
+Evidence: `build\water-live-dev18-opengl-captures\water-live-continuity.json`,
+`build\water-live-dev18-vulkan-repeat-captures\water-live-continuity.json`,
+`build\water-live-dev18-{opengl,vulkan-repeat}.log`. The first Vulkan diagnostic
+(`build\water-live-dev18-captures`) also reproduced disagreement but counted
+duplicate vertices; use the later per-page/corner-deduplicated runs above.
+These are running-world CPU upload-mirror observations, not GPU pixel gaps or
+a measurement of every frame, sides or opacity transitions. Runs are not
+tick/frame matched across APIs; counts are not an API performance comparison.
+This is a confirmed acceptance failure, not a passing visual test or a complete
+explanation of the owner's flicker. No inflated grade follows from reproduction.
+
+Previous water checkpoint (2026-10-25): **dev.17 Leaner Weather Sampling is in the Library.**
+125,179,328 bytes; SHA-256
+`f78c983ab7fe5b513fb79aa31e383c3417a85d162e6c41b358e7a6330d97b811`.
+
+Removed redundant full terrain/strata/deposit evaluation from representative
+precipitation. Soil and sealed surfaces use their existing material rules;
+rock/ice query the exact province/fault permeability subset. Ordinary hydrology
+visits use the subset too, retaining their required planning/climate sample.
+Saved geography, sample weights, chemistry, cadence and source limits are unchanged.
+
+- [x] `GEOLOGY_PERMEABILITY_SUBSET_PASS`: 40,000 bit-exact oracle/full-column
+  comparisons across four seeds, negative/distant coordinates and all four
+  province/fault permeability values.
+- [x] Same-world packaged dev.16/dev.17 four-region component comparison, repeated
+  twice: 64 loaded centers, 100 warm-up and 200 measured batches per scenario.
+  Exact recharge/constituents retained for all 36 soil forms, vanilla soil
+  controls, nine rocks, four ice/snow blocks and glass.
+- [x] Repeated batch p50: soil 0.3752 -> 0.1347 ms; rock/ice 0.3655 -> 0.0746 ms;
+  glass 0.2850 -> 0.0287 ms. See architecture for p95, method and host identity.
+- [x] Full build; packaged environment/save/reopen/source/reserve/three reaches,
+  OpenGL/Vulkan and six saved-soil gates. The first six soil attempts failed on
+  a test-only reflective signature; the updated null-noise soil fixture passes
+  all six on retry (`build\gates-dev17-soil*-retry.log`).
+- [x] Package identity: seven archives, 545 compiled classes, 333 root resources,
+  36 soil blockstates and four API/reload previews with zero differing pixels.
+- [ ] Full-tick many-region storm latency, scheduling/contention and cold regions.
+- [ ] Complete world ledger, physical source unload/reopen/edit and live-stream
+  temporal mesh acceptance, including the owner's unresolved flicker/menu report.
+
+Evidence: `build\dev17-build.log`, `build\storm-dev16-baseline.json`,
+`build\storm-dev17-candidate.json`, `build\storm-dev{16,17}-repeat.json`,
+`build\gates-dev17-*`, `build\stream-dev17-package.json`.
+The benchmark explicitly enables and completes disposable fixture skylight before
+timing, and excludes setup/generation/lighting. It is not full server tick
+latency, player-scene performance or a hard 2 ms guarantee. Last full grade
+remains 50/100. Older checkpoint statements below are historical.
+
+Current water checkpoint (2026-10-25): **dev.16 Fair Rain/Snow JAR verified and in the Library.**
+125,179,290 bytes; SHA-256
+`306599c5004cd0790a9ba562c57a5225d48684ec332140872483ac6f1fc4927c`.
+Dev.12-15 are earlier delivered checkpoints; the following dev.11 narrative is
+historical. Its original artifact was hash-verified and added to the Library too.
+
+The dev.15 packaged runtime reproduced rain-first atmospheric starvation in a
+controlled mixed jungle/snowy-plains region: with one quantum available and ten
+quanta of groundwater room, rain took one and snow took zero, whereas the
+capacity-limited proportional share was rain zero, snow one.
+`WaterAccount.distribute` now allocates the finite available supply between
+capacity-limited rain/snow demands in one preflighted transfer. Rounding gives
+snow less than one extra quantum. Chemistry rejection leaves all accounts intact.
+No terrain, saved-state format, quota, recharge cadence, owner PNG or fluid
+transport change is included in dev.16.
+
+- [x] Mixed-biome precipitation respects finite supply and destination capacity:
+  `ENVIRONMENT_MIXED_PRECIPITATION_PASS cases=24`, swapping warm/cold samples,
+  atmosphere 0/1/100/100000 and groundwater room 0/10/full.
+- [x] Independent integer-oracle core checks: 10,000 randomized splits including
+  overflow-safe chemistry, exact totals and atomic rejection.
+- [x] Full build; packaged environment fresh/reopen, source/reserve, three
+  1,200-tick reaches, soil revisions 2/1/0 fresh/reopen, OpenGL and Vulkan gates.
+- [x] Package checks: seven archives, 545 compiled classes, 333 root resources,
+  36 soil blockstates; four API/reload previews with zero differing pixels.
+- [ ] Many-region storm tick-latency acceptance and full catchment ledger.
+- [ ] Live-stream displayed-height/edge continuity, physical source unload/reopen
+  and the owner's intermittent menu-close reproduction.
+
+Evidence: `build\env-dev15-mixed-repro2-fresh.log`, `build\dev16-build.log`,
+`build\env-dev16-{fresh,reopen}.txt`, `build\env-dev16-fresh.log`,
+`build\gates-dev16-*`, `build\stream-dev16-package.json`.
+These are scoped functional checks, not storm performance, complete worldgen,
+owner-scene flicker or full visual acceptance. Last full grade remains 50/100.
+
 Current water checkpoint (2026-10-25): **dev.11 Spatial Recharge JAR verified and staged.**
 The Library-upload contribution was unavailable in this run; dev.10 remains the
 latest Library item. Dev.11 is retained in this session's files folder.

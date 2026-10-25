@@ -197,14 +197,15 @@ public final class HydrologyRuntime {
     if(!write(l,p,EngineRegistry.WATER_BLOCK.get().defaultBlockState()))return false;
     store(l,p,new WaterAccount.Parcel(4096,0,0));WaterRuntime.activate(l,p);return true;
   }
-  private static double permeability(BlockState bed, Geology.Column g) {
+  private static double permeability(BlockState bed, TerrainNoise noise, int x, int z) {
     if (bed.getBlock() instanceof GroundMaterials.SoilBlock soil) return soil.texture().permeability();
     if (bed.is(Blocks.CLAY) || bed.is(Blocks.BEDROCK)) return 0;
     if (bed.is(Blocks.SAND) || bed.is(Blocks.GRAVEL)) return .9;
     if (bed.is(Blocks.DIRT) || bed.is(Blocks.GRASS_BLOCK)) return .5;
     if (bed.is(Blocks.STONE) || bed.is(Blocks.GRANITE) || bed.is(Blocks.ANDESITE)
         || bed.is(Blocks.DIORITE) || bed.is(Blocks.BASALT) || bed.is(Blocks.TUFF)
-        || bed.is(Blocks.SANDSTONE) || bed.is(Blocks.CALCITE) || bed.is(Blocks.DEEPSLATE)) return g.permeability();
+        || bed.is(Blocks.SANDSTONE) || bed.is(Blocks.CALCITE) || bed.is(Blocks.DEEPSLATE))
+      return new Geology(noise).permeability(x, z);
     return 0; // Constructed floors, glass, leaves and roofs are not recharge soils.
   }
   private static RegionWork region(Work work, TerrainEngine t, int x, int z) {
@@ -238,19 +239,17 @@ public final class HydrologyRuntime {
       var bedState = l.getBlockState(bed);
       // Reject common roofs before doing any terrain/geology work.
       if (bedState.is(Blocks.BEDROCK)) continue;
-      var sample = t.column(sx, sz);
-      var geology = new Geology(t.noise).column(sx, sz, sample);
       boolean ice = t.revision >= 6 && (state.is(Blocks.ICE) || state.is(Blocks.PACKED_ICE)
           || state.is(Blocks.BLUE_ICE) || state.is(Blocks.SNOW_BLOCK));
-      double permeable = ice ? geology.permeability() : permeability(bedState, geology);
+      double permeable = ice ? new Geology(t.noise).permeability(sx, sz)
+          : permeability(bedState, t.noise, sx, sz);
       if (permeable <= 0) continue;
       var kind = l.getBiome(top).value().getPrecipitationAt(top, l.getSeaLevel());
       long amount = (long) (HydrologyConfig.RAIN_QUANTA.get() * permeable * 256);
       if (kind == net.minecraft.world.level.biome.Biome.Precipitation.SNOW) snow += amount;
       else if (kind == net.minecraft.world.level.biome.Biome.Precipitation.RAIN) rain += amount;
     }
-    WaterAccount.move(data.atmosphere, aquifer.ground, rain);
-    WaterAccount.move(data.atmosphere, aquifer.snow, snow);
+    WaterAccount.distribute(data.atmosphere, aquifer.ground, aquifer.snow, rain, snow);
     data.setDirty();
   }
   private static void visit(ServerLevel l, Work work, Cursor cursor, int column,
@@ -279,12 +278,12 @@ public final class HydrologyRuntime {
     }
     if (sample.wet()) plan(cursor, column, sample.water());
     cursor.candidate(column, sample.wet());
-    var geology = new Geology(t.noise).column(x, z, sample);
     BlockPos bed = state.is(EngineRegistry.WATER_BLOCK.get()) ? p.below() : p;
     // Deep lakes infiltrate at their floor; finding it is strictly capped.
     for (int i = 0; i < 16 && l.getBlockState(bed).is(EngineRegistry.WATER_BLOCK.get()); i++) bed = bed.below();
     boolean ice=t.revision>=6 && (state.is(Blocks.ICE)||state.is(Blocks.PACKED_ICE)||state.is(Blocks.BLUE_ICE)||state.is(Blocks.SNOW_BLOCK));
-    double permeable = ice ? geology.permeability() : permeability(l.getBlockState(bed), geology);
+    double permeable = ice ? new Geology(t.noise).permeability(x, z)
+        : permeability(l.getBlockState(bed), t.noise, x, z);
     var d = HydrologyData.get(l);
     // A sealed column cannot seed groundwater, but must not freeze an existing regional clock.
     var aquifer = permeable == 0 ? d.aquifers.get(HydrologyData.key(x, z))
@@ -370,8 +369,15 @@ public final class HydrologyRuntime {
       Cursor cursor, int column, int x, int z) {
     if (!cursor.streamCandidate[column]) return;
     long now = l.getGameTime(), last = cursor.replenished[column];
-    // One finite top-up per planned column per aquifer interval, independent of scan size.
-    if (last != Long.MIN_VALUE && now >= last && now - last < 20) return;
+    // At most one top-up per planned column per tick.
+    if (last == now) return;
+    var regional = region(work, t, x, z);
+    int quota = Aquifer.baseflowUnits(HydrologyConfig.RAIN_QUANTA.get());
+    // The interval's finite baseflow is released linearly across its 20 ticks instead of as a
+    // single headwater slug, which travelled down steep reaches as a wave and dried the bed
+    // between pulses. The per-interval total and its debit are unchanged.
+    int allowance = streamAllowance(quota, regional.tick, now);
+    if (regional.natural >= allowance) return;
     cursor.replenished[column] = now;
     var outlet = new BlockPos(x, cursor.streamOutletY[column], z);
     if (!l.isInWorldBounds(outlet) || !l.hasChunkAt(outlet)) return;
@@ -380,9 +386,6 @@ public final class HydrologyRuntime {
     var data = HydrologyData.get(l);
     var aquifer = data.aquifers.get(HydrologyData.key(x, z));
     if (aquifer == null || !aquifer.canSupply(true)) return;
-    var regional = region(work, t, x, z);
-    int quota = Aquifer.baseflowUnits(HydrologyConfig.RAIN_QUANTA.get());
-    if (regional.natural >= quota) return;
     int units = WaterRuntime.units(l, outlet);
     int sourceCapacity =
         StreamSourceCapacity.remainingUnits(cursor.streamSurface[column], outlet.getY(), units);
@@ -401,8 +404,14 @@ public final class HydrologyRuntime {
     // Natural springs are limited by aquifer head pressure, planned capacity and the regional
     // baseflow quota; the fixed SOURCE_RATE only meters dry-land outlets.
     emit(l, target, aquifer, Aquifer.naturalDatum(cursor.streamSurface[column]),
-        Math.min(sourceCapacity, quota - regional.natural));
+        Math.min(sourceCapacity, allowance - regional.natural));
     regional.natural += (int) ((before - aquifer.ground.water()) / WaterAccount.SCALE);
+  }
+  /** Cumulative baseflow released by tick {@code now} of the interval that began at {@code start}. */
+  static int streamAllowance(int quota, long start, long now) {
+    if (start == Long.MIN_VALUE || now < start) return quota;
+    long phase = Math.min(19, now - start);
+    return (int) (quota * (phase + 1) / 20);
   }
   @SubscribeEvent public void loaded(ChunkEvent.Load e) {
     if (e.getLevel() instanceof ServerLevel l && e.getChunk() instanceof LevelChunk

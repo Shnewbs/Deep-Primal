@@ -43,6 +43,85 @@ public final class WaterAnimationChecks {
       t.target(c, start + elapsed + 1000);
       require(t.from(start + elapsed + 1000) == c, "unchanged samples do not replay motion");
     }
+    float unit = 1 / 16f;
+    var parcel = new WaterSurfaceTransition(.5f, 0);
+    long version = 0;
+    for (int n = 1; n <= 40; n++)
+      parcel.target(n % 2 == 1 ? .5f + unit : .5f, n * 75L, ++version);
+    float settled = parcel.at(40 * 75L + 100);
+    require(Math.abs(settled - (.5f + unit / 2)) < .00001f, "parcel ping-pong settles at midpoint");
+    for (int n = 41; n <= 60; n++) {
+      parcel.target(n % 2 == 1 ? .5f + unit : .5f, n * 75L, ++version);
+      require(Math.abs(parcel.at(n * 75L + 37) - settled) < .00001f, "settled parcel surface stays still");
+    }
+    var fill = new WaterSurfaceTransition(.25f, 0);
+    for (int n = 1; n <= 8; n++) {
+      fill.target(.25f + n * unit, n * 50L, n);
+      require(fill.target() == .25f + n * unit, "monotonic fill is never held back");
+    }
+    var slow = new WaterSurfaceTransition(.5f, 0);
+    slow.target(.5f + unit, 0, 1);
+    slow.target(.5f, WaterSurfaceTransition.SETTLE_MILLIS + 1, 2);
+    require(slow.target() == .5f, "slow genuine reversals are exact");
+    var jump = new WaterSurfaceTransition(.5f, 0);
+    jump.target(.75f, 0, 1);
+    jump.target(.5f, 50, 2);
+    require(jump.target() == .5f, "large reversals are exact");
+    var stopped = new WaterSurfaceTransition(.5f, 0);
+    stopped.target(.5f + unit, 50, 1);
+    stopped.target(.5f, 100, 2);
+    require(stopped.remaining(100) == 400, "midpoint schedules cleanup beyond initial interpolation");
+    stopped.target(.5f, 300, 3);
+    require(stopped.remaining(300) == 200, "unchanged recapture cannot extend hold cleanup");
+    require(stopped.target() == .5f + unit / 2, "unchanged recapture retains active parcel smoothing");
+    stopped.target(.5f, 500, 4);
+    require(stopped.target() == .5f, "stopped flow releases the midpoint at its original deadline");
+    require(Math.abs(stopped.at(500) - (.5f + unit / 2)) < .00001,
+        "midpoint release remains visually continuous");
+    require(stopped.at(600) == .5f, "stopped flow settles to the authoritative height");
+    require(stopped.remaining(500) == 100 && stopped.remaining(600) == 0,
+        "release interpolation completes without perpetual cleanup");
+    int releases = 0;
+    for (int level = 1; level < 16; level++)
+      for (int direction : new int[] {-1, 1})
+        for (int cadence : new int[] {25, 50, 100, 200, 400}) {
+          float original = level / 16f, other = original + direction * unit;
+          var transition = new WaterSurfaceTransition(original, 0);
+          transition.target(other, cadence, 1);
+          transition.target(original, 2L * cadence, 2);
+          long deadline = 2L * cadence + WaterSurfaceTransition.SETTLE_MILLIS;
+          float midpoint = (original + other) * .5f;
+          for (int duplicate = 1; duplicate <= 3; duplicate++) {
+            long at = 2L * cadence + duplicate * 100;
+            transition.target(original, at, 2);
+            require(transition.target() == midpoint && transition.remaining(at) == deadline - at,
+                "duplicate shared-corner publications retain original expiry");
+          }
+          transition.target(other, deadline - 1, 1);
+          require(transition.target() == midpoint, "stale page cannot restart hold");
+          float displayed = transition.at(deadline);
+          transition.target(original, deadline, 3);
+          require(transition.at(deadline) == displayed, "expiry is C0 continuous");
+          require(transition.target() == original && transition.at(deadline + 100) == original
+              && transition.remaining(deadline + 100) == 0, "exact authoritative release");
+          transition.target(original, deadline + 1000, 4);
+          require(transition.remaining(deadline + 1000) == 0, "static height stays idle");
+          releases++;
+        }
+    var opacity = new WaterSurfaceTransition(.5f, 0);
+    var hiddenSource = new WaterSurfaceTransition(.5f, 0);
+    hiddenSource.target(.5f + unit, 50, 1);
+    hiddenSource.target(.5f, 100, 2);
+    hiddenSource.advance(500);
+    require(hiddenSource.target() == .5f && hiddenSource.at(500) == .5f + unit / 2,
+        "visible neighbor services expiry without an upload from the hidden source page");
+    hiddenSource.advance(600);
+    require(hiddenSource.at(600) == .5f && hiddenSource.remaining(600) == 0,
+        "frame-serviced hold returns exactly without changing raw sample history");
+    opacity.target(.5f + unit, 50);
+    opacity.target(.5f, 100);
+    require(opacity.remaining(100) == 100 && opacity.at(200) == .5f,
+        "unversioned opacity remains an ordinary 100 ms interpolation");
     var left = strip(0);
     var right = strip(16);
     var a = WaterPatchMesher.build(left, null, true);
@@ -71,6 +150,6 @@ public final class WaterAnimationChecks {
     System.out.println(
         "WATER_ANIMATION_CORE_PASS retargets=10000 sharedEdges="
             + shared
-            + " dryFade=true immutableSnapshots=true");
+            + " dryFade=true immutableSnapshots=true parcelSettle=true exactReleaseCases=" + releases);
   }
 }

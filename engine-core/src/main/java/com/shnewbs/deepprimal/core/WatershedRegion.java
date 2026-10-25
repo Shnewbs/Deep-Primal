@@ -12,7 +12,7 @@ public final class WatershedRegion {
   private static final double STREAM_AREA = 18_000;
   private static final int[] ORTHOGONAL = {-SIDE, SIDE, -1, 1};
   private final double ox, oz;
-  private final boolean broadChannels;
+  private final boolean broadChannels, cascadeBeds;
   private final double[] raw = new double[N],
       flood = new double[N],
       area = new double[N],
@@ -78,7 +78,17 @@ public final class WatershedRegion {
   }
   public WatershedRegion(
       double ox, double oz, DoubleBinaryOperator height, DoubleBinaryOperator rain, boolean broadChannels) {
+    this(ox,oz,height,rain,broadChannels,false);
+  }
+  /**
+   * {@code cascadeBeds} (saved channel revision 1) keeps steep reaches shallow: a channel bed
+   * never sits deeper than its designed cross-section plus one downstream step below the stage.
+   * Without it, fine terrain gullies under a coarse-routed stage become deep finite troughs.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds) {
     this.broadChannels=broadChannels;
+    this.cascadeBeds=cascadeBeds;
     this.ox = ox;
     this.oz = oz;
     Arrays.fill(parent, -1);
@@ -376,7 +386,7 @@ public final class WatershedRegion {
     double sill = Double.NEGATIVE_INFINITY,
         joinedBed = Double.POSITIVE_INFINITY,
         bankFloor = Double.NEGATIVE_INFINITY;
-    double lakeLevel = Double.NaN;
+    double lakeLevel = Double.NaN, channelFloor = Double.NEGATIVE_INFINITY, channelStage = Double.NaN;
     for (int corner = 0; corner < 4; corner++) {
       int c = a + (corner & 1) + (corner >>> 1) * SIDE;
       if (lakeAt[c] > 0 && Double.isFinite(lakes[lakeAt[c]].level))
@@ -441,6 +451,11 @@ public final class WatershedRegion {
           }
           if (Double.isNaN(water) || level < water) {
             water = level;
+            // Steep mountain creeks are shallow; flat rivers keep their full designed depth.
+            // Revision 1 holds about the film its runtime baseflow sustains, so new creeks do not
+            // surge and drain the generated volume before settling.
+            channelFloor = level - depth / (1 + 4 * grade) - Math.min(grade, 1) * .5 - .25;
+            channelStage = level;
             double l = Math.sqrt(len);
             fx = vx / l;
             fz = vz / l;
@@ -457,7 +472,12 @@ public final class WatershedRegion {
       }
     if (Double.isFinite(water)) {
       water = Math.rint(Math.max(TerrainEngine.SEA, water) * 16) / 16;
-      ground = Math.min(Math.min(ground, joinedBed), Math.ceil(water) - 1.001);
+      ground = Math.min(ground, joinedBed);
+      // A steep junction is a short fall onto the lower reach, not a pit below this stage.
+      if (cascadeBeds && channelFloor > TerrainEngine.SEA - 1
+          && (Double.isNaN(lakeLevel) || channelStage < lakeLevel))
+        ground = Math.max(ground, channelFloor);
+      ground = Math.min(ground, Math.ceil(water) - 1.001);
       if (Double.isFinite(sill))
         ground = Math.max(ground, Math.min(sill, Math.ceil(water) - 1.001));
     } else if (Double.isFinite(bankFloor)) ground = Math.max(ground, bankFloor);

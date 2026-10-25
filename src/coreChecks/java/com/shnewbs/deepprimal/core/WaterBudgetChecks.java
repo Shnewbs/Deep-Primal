@@ -4,8 +4,47 @@ import java.util.*;
 
 final class WaterBudgetChecks {
   private static void check(boolean ok, String what) { if (!ok) throw new AssertionError(what); }
+
+  /** Driest seeded deep region sustains full baseflow without rain for at least one MC day. */
+  private static void deepStorage() {
+    int baseflow = Aquifer.baseflowUnits(64);
+    long driest = (long) (Aquifer.CAPACITY * Aquifer.DEEP * .3);
+    var deep = new Aquifer(new WaterAccount.Parcel(driest, 0, 0), WaterAccount.Parcel.EMPTY,
+        Aquifer.WET_STEPS, true, 0, 0, Aquifer.DEEP);
+    var legacy = new Aquifer(new WaterAccount.Parcel(Aquifer.CAPACITY * 3 / 10, 0, 0),
+        WaterAccount.Parcel.EMPTY, Aquifer.WET_STEPS, true, 0);
+    int deepIntervals = 0, legacyIntervals = 0;
+    double datum = Aquifer.naturalDatum(100);
+    for (int i = 1; i <= 24_000 / 20 * 8; i++) {
+      for (var a : new Aquifer[] {deep, legacy}) {
+        if (!a.canSupply(true)) continue;
+        int out = 0;
+        while (out < baseflow) {
+          int n = a.dischargeUnits(datum, 100 - 1, 16, 16);
+          if (n == 0) break;
+          a.ground.take(n * (long) WaterAccount.SCALE); out += n;
+        }
+        if (out == baseflow) { if (a == deep) deepIntervals++; else legacyIntervals++; }
+        a.step(i * 20L);
+      }
+    }
+    check(deep.depth() == Aquifer.DEEP && legacy.depth() == 1, "Aquifer depth");
+    check(deepIntervals >= 24_000 / 20, "Deep region sustains a dry MC day of baseflow: " + deepIntervals);
+    check(legacyIntervals < deepIntervals / 16, "Legacy depth keeps its saved shallow behavior");
+    check(deep.ground.water() >= deep.stop() && deep.ground.water() < deep.stop() + WaterAccount.SCALE, "Deep drought still ends finitely at its reserve");
+    var full = new Aquifer(new WaterAccount.Parcel(Aquifer.CAPACITY * Aquifer.DEEP, 0, 0),
+        WaterAccount.Parcel.EMPTY, Aquifer.WET_STEPS, true, 0, 0, Aquifer.DEEP);
+    check(full.head(10) == new Aquifer(new WaterAccount.Parcel(Aquifer.CAPACITY, 0, 0),
+        WaterAccount.Parcel.EMPTY, Aquifer.WET_STEPS, true, 0).head(10), "Head uses fill fraction");
+    try { new Aquifer(WaterAccount.Parcel.EMPTY, WaterAccount.Parcel.EMPTY, 0, false, 0, 0, 0); check(false, "Zero depth"); }
+    catch (IllegalArgumentException expected) {}
+    System.out.println("AQUIFER_DEEP_STORAGE_PASS depth=" + Aquifer.DEEP + " baseflow=" + baseflow
+        + " deepIntervals=" + deepIntervals + " legacyIntervals=" + legacyIntervals);
+  }
   static void run() {
     droughtReserve();
+    deepStorage();
+    precipitationSplit();
     var random = new Random(26);
     WaterAccount[] stores = new WaterAccount[12];
     long water = 0, salt = 0, sediment = 0;
@@ -78,6 +117,52 @@ final class WaterBudgetChecks {
     System.out.println("NATURAL_BASEFLOW_QUOTA_PASS default=80 floor=32 monotonic=true");
     weatherCycles();
     System.out.println("WATER_BUDGET_PASS transfers=200000 exactVolumeSaltSediment=true hysteresis=true blocked=true noCatchup=true");
+  }
+
+  private static void precipitationSplit() {
+    var random = new Random(261016);
+    for (int i = 0; i < 10000; i++) {
+      long available = random.nextLong(WaterAccount.MAX + 1);
+      long firstRoom = random.nextLong(WaterAccount.MAX + 1);
+      long secondRoom = random.nextLong(WaterAccount.MAX + 1);
+      long firstDemand = random.nextLong(WaterAccount.MAX + 1);
+      long secondDemand = random.nextLong(WaterAccount.MAX + 1);
+      var source = new WaterAccount(WaterAccount.MAX, new WaterAccount.Parcel(available,
+          random.nextLong(WaterAccount.MAX * 512), random.nextLong(WaterAccount.MAX * 512)));
+      var first = new WaterAccount(firstRoom, WaterAccount.Parcel.EMPTY);
+      var second = new WaterAccount(secondRoom, WaterAccount.Parcel.EMPTY);
+      long[] before = totals(source, first, second);
+      long a = Math.min(firstRoom, firstDemand), b = Math.min(secondRoom, secondDemand);
+      long paid = Math.min(available, a + b);
+      long expectedFirst = paid == 0 ? 0 : java.math.BigInteger.valueOf(paid)
+          .multiply(java.math.BigInteger.valueOf(a)).divide(java.math.BigInteger.valueOf(a + b)).longValueExact();
+      check(WaterAccount.distribute(source, first, second, firstDemand, secondDemand) == paid,
+          "Weather split exact total");
+      check(first.water() == expectedFirst && second.water() == paid - expectedFirst,
+          "Weather split proportional to available destination capacity");
+      check(Arrays.equals(before, totals(source, first, second)), "Weather split exact constituents");
+      check(source.water() == available - paid, "Weather split cannot invent supply");
+    }
+    var source = new WaterAccount(100, new WaterAccount.Parcel(100, 100, 100));
+    var blocked = new WaterAccount(100, new WaterAccount.Parcel(0, WaterAccount.MAX * 1024, 0));
+    var other = new WaterAccount(100, WaterAccount.Parcel.EMPTY);
+    var original = source.snapshot();
+    try {
+      WaterAccount.distribute(source, blocked, other, 50, 50);
+      throw new AssertionError("Constituent overflow accepted");
+    } catch (IllegalStateException expected) {
+      check(source.snapshot().equals(original) && other.snapshot().equals(WaterAccount.Parcel.EMPTY)
+          && blocked.water() == 0, "Rejected split is atomic");
+    }
+    try {
+      WaterAccount.distribute(source, other, other, 50, 50);
+      throw new AssertionError("Aliased split accepted");
+    } catch (IllegalArgumentException expected) {
+      check(source.snapshot().equals(original), "Aliased split retains source");
+    }
+    check(WaterAccount.distribute(source, blocked, other, 0, 0) == 0, "Zero weather demand");
+    System.out.println("PRECIPITATION_SPLIT_PASS randomized=10000 overflowSafe=true exactConstituents=true"
+        + " capacityAware=true atomicRejection=true");
   }
 
   private static void droughtReserve() {

@@ -22,10 +22,12 @@ final class GroundMaterialChecks {
     var ids = blocks.stream().map(block -> BuiltInRegistries.BLOCK.getKey(block).getPath()).toList();
     try {
       var permeability = com.shnewbs.deepprimal.engine.HydrologyRuntime.class.getDeclaredMethod(
-          "permeability", BlockState.class, com.shnewbs.deepprimal.core.Geology.Column.class);
+          "permeability", BlockState.class, com.shnewbs.deepprimal.core.TerrainNoise.class,
+          int.class, int.class);
       permeability.setAccessible(true);
       for (var soil : GroundMaterials.soilsList())
-        require((double) permeability.invoke(null, soil.defaultBlockState(), null) == soil.texture().permeability(),
+        require((double) permeability.invoke(null, soil.defaultBlockState(), null, 0, 0)
+                == soil.texture().permeability(),
             "Hydrology reads each soil family's permeability independently of cover");
     } catch (ReflectiveOperationException failure) {
       throw new AssertionError("Production soil permeability contract", failure);

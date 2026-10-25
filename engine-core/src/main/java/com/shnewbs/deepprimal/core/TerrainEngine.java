@@ -36,6 +36,7 @@ public final class TerrainEngine {
 
   public final TerrainNoise noise;
   public final int revision;
+  public final int channelRevision;
   public final TerrainOptions options;
   public final Landscape landscape;
   private final Landforms landforms;
@@ -58,9 +59,15 @@ public final class TerrainEngine {
 
   public TerrainEngine(long seed, int revision) { this(seed, revision, TerrainOptions.DEFAULT); }
 
-  public TerrainEngine(long seed, int revision, TerrainOptions options) {
+  public TerrainEngine(long seed, int revision, TerrainOptions options) { this(seed, revision, options, 0); }
+
+  /** {@code channelRevision} 1 is a saved V7 world option; 0 replays every existing world exactly. */
+  public TerrainEngine(long seed, int revision, TerrainOptions options, int channelRevision) {
     if (revision < 1 || revision > 7) throw new IllegalArgumentException("Terrain revision");
+    if (channelRevision < 0 || channelRevision > 1 || channelRevision != 0 && revision != 7)
+      throw new IllegalArgumentException("Channel revision requires V7 geography");
     this.revision = revision;
+    this.channelRevision = channelRevision;
     noise = new TerrainNoise(seed, revision >= 7);
     this.options = java.util.Objects.requireNonNull(options);
     landscape = new Landscape(noise, options, revision);
@@ -230,7 +237,7 @@ public final class TerrainEngine {
     if (d == null) {
       d =
           new WatershedRegion(
-              l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall, revision >= 7);
+              l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall, revision >= 7, channelRevision >= 1);
       watersheds.put(key, d);
       while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
     }

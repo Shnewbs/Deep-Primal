@@ -15,6 +15,63 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class EnvironmentalWaterChecks {
   public EnvironmentalWaterChecks() { NeoForge.EVENT_BUS.register(this); }
   private static void check(boolean ok, String what) { if (!ok) throw new AssertionError(what); }
+  private static void mixedPrecipitation(net.minecraft.server.level.ServerLevel level,
+      TerrainEngine terrain, java.lang.reflect.Method precipitation) throws Exception {
+    var grassTop = new BlockPos(8, 500, 8);
+    var sandTop = new BlockPos(24, 500, 8);
+    String grassBiome = level.getBiome(grassTop).unwrapKey().orElseThrow().identifier().toString();
+    String sandBiome = level.getBiome(sandTop).unwrapKey().orElseThrow().identifier().toString();
+    int cases = 0;
+    try {
+      for (boolean snowOnGrass : new boolean[] {false, true}) {
+        sampleBiome(level, grassTop, snowOnGrass ? "minecraft:snowy_plains" : "minecraft:jungle");
+        sampleBiome(level, sandTop, snowOnGrass ? "minecraft:jungle" : "minecraft:snowy_plains");
+        var rain = net.minecraft.world.level.biome.Biome.Precipitation.RAIN;
+        var snow = net.minecraft.world.level.biome.Biome.Precipitation.SNOW;
+        check(level.getBiome(grassTop).value().getPrecipitationAt(grassTop, level.getSeaLevel())
+            == (snowOnGrass ? snow : rain), "Mixed grass precipitation fixture");
+        check(level.getBiome(sandTop).value().getPrecipitationAt(sandTop, level.getSeaLevel())
+            == (snowOnGrass ? rain : snow), "Mixed sand precipitation fixture");
+        long grassDemand = (long) (HydrologyConfig.RAIN_QUANTA.get() * .5 * 256);
+        long sandDemand = (long) (HydrologyConfig.RAIN_QUANTA.get() * .9 * 256);
+        long rainDemand = snowOnGrass ? sandDemand : grassDemand;
+        long snowDemand = snowOnGrass ? grassDemand : sandDemand;
+        for (long available : new long[] {0, 1, 100, 100000})
+          for (long room : new long[] {0, 10, Aquifer.CAPACITY}) {
+            var data = new HydrologyData();
+            data.atmosphere.take(WaterAccount.MAX);
+            check(data.atmosphere.add(new WaterAccount.Parcel(available, 127, 251)), "Mixed atmosphere");
+            var store = new Aquifer(new WaterAccount.Parcel(Aquifer.CAPACITY - room, 17, 31),
+                new WaterAccount.Parcel(0, 23, 43), 0, false, 0);
+            long eligibleRain = Math.min(rainDemand, room);
+            long paid = Math.min(available, eligibleRain + snowDemand);
+            long expectedRain = paid == 0 ? 0 : paid * eligibleRain / (eligibleRain + snowDemand);
+            precipitation.invoke(null, level, terrain, 8, 8, data, store);
+            long actualRain = store.ground.water() - (Aquifer.CAPACITY - room);
+            check(actualRain == expectedRain && store.snow.water() == paid - expectedRain,
+                "Mixed precipitation allocation: available=" + available + " room=" + room
+                    + " snowOnGrass=" + snowOnGrass + " expectedRain=" + expectedRain
+                    + " actualRain=" + actualRain + " snow=" + store.snow.water());
+            check(data.atmosphere.water() == available - paid
+                && data.atmosphere.snapshot().salt() + store.ground.snapshot().salt()
+                    + store.snow.snapshot().salt() == 167
+                && data.atmosphere.snapshot().sediment() + store.ground.snapshot().sediment()
+                    + store.snow.snapshot().sediment() == 325, "Mixed weather exact ledger");
+            cases++;
+          }
+      }
+    } finally {
+      sampleBiome(level, grassTop, grassBiome);
+      sampleBiome(level, sandTop, sandBiome);
+    }
+    System.out.println("ENVIRONMENT_MIXED_PRECIPITATION_PASS cases=" + cases
+        + " swappedBiomes=true finiteAtmosphere=true capacityAware=true exactConstituents=true");
+  }
+  private static void sampleBiome(net.minecraft.server.level.ServerLevel level, BlockPos p, String biome) {
+    level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),
+        "fillbiome " + (p.getX() - 4) + " " + (p.getY() - 4) + " " + (p.getZ() - 4) + " "
+            + (p.getX() + 3) + " " + (p.getY() + 3) + " " + (p.getZ() + 3) + " " + biome);
+  }
   @SubscribeEvent public void start(net.neoforged.neoforge.event.server.ServerStartedEvent event) throws Exception {
     String destination = System.getenv("DEEPPRIMAL_ENVIRONMENT_RECORD");
     if (destination == null) return;
@@ -22,6 +79,12 @@ public final class EnvironmentalWaterChecks {
       System.out.println("ENVIRONMENT_CLASS_ORIGIN class="+type.getName()+" source="+type.getProtectionDomain().getCodeSource().getLocation());
     var server = event.getServer(); var level = server.overworld();
     var d = HydrologyData.get(level);
+    String stormProfile = System.getenv("DEEPPRIMAL_STORM_PROFILE");
+    if (stormProfile != null) {
+      StormSamplingChecks.run(level, Path.of(stormProfile));
+      server.halt(false);
+      return;
+    }
     if ("legacy3".equals(System.getenv("DEEPPRIMAL_ENVIRONMENT_MODE"))) {
       check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == 3, "Delivered V3 world preserves its saved generator");
       level.getChunk(0,0);
@@ -165,6 +228,7 @@ public final class EnvironmentalWaterChecks {
         "Regional precipitation loaded an absent chunk or credited an unloaded region");
     System.out.println("ENVIRONMENT_SPATIAL_RAIN_PASS orderIndependent=true samplesPerRegionAtMost=16"
         + " grassSandQuanta="+expectedRain+" sealedExcluded=true exactDebit=true finiteAtmosphere=true noForceLoad=true");
+    mixedPrecipitation(level, terrain, precipitationMethod);
     level.setBlock(new BlockPos(24,499,8),Blocks.BEDROCK.defaultBlockState(),2);
     level.setBlock(rainBed,Blocks.BEDROCK.defaultBlockState(),2);
     var sealedStore=new Aquifer(new WaterAccount.Parcel(Aquifer.STOP,789,123),

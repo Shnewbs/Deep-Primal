@@ -5,7 +5,10 @@ public final class Aquifer {
   public static final long CAPACITY = 1L << 22;
   public static final long START = CAPACITY / 4, STOP = CAPACITY / 8;
   public static final int WET_STEPS = 30;
+  /** Storage depth of newly seeded regions: about 2-6 dry MC days of baseflow above STOP. */
+  public static final int DEEP = 64, MAX_DEPTH = 64;
   public final WaterAccount ground, snow;
+  private final int depth;
   private int wetSteps, dynamicWetSteps;
   private boolean active;
   private long lastTick;
@@ -15,36 +18,47 @@ public final class Aquifer {
   }
   public Aquifer(WaterAccount.Parcel ground, WaterAccount.Parcel snow, int wetSteps,
       boolean active, long lastTick, int dynamicWetSteps) {
-    this.ground = new WaterAccount(CAPACITY, ground);
-    this.snow = new WaterAccount(CAPACITY, snow);
+    this(ground, snow, wetSteps, active, lastTick, dynamicWetSteps, 1);
+  }
+  /** Legacy saves load at depth 1; thresholds stay the same fractions of the deeper store. */
+  public Aquifer(WaterAccount.Parcel ground, WaterAccount.Parcel snow, int wetSteps,
+      boolean active, long lastTick, int dynamicWetSteps, int depth) {
+    if (depth < 1 || depth > MAX_DEPTH) throw new IllegalArgumentException("Aquifer depth");
+    this.depth = depth;
+    this.ground = new WaterAccount(CAPACITY * depth, ground);
+    this.snow = new WaterAccount(CAPACITY * depth, snow);
     if (wetSteps < 0 || wetSteps > WET_STEPS) throw new IllegalArgumentException("Wet age");
     if (dynamicWetSteps < 0 || dynamicWetSteps > WET_STEPS) throw new IllegalArgumentException("Dynamic wet age");
     this.dynamicWetSteps = dynamicWetSteps;
     this.wetSteps = wetSteps; this.active = active; this.lastTick = lastTick;
   }
+  public int depth() { return depth; }
+  public long capacity() { return CAPACITY * depth; }
+  public long stop() { return STOP * depth; }
+  public long start() { return START * depth; }
   public int wetSteps() { return wetSteps; }
   public boolean active() { return active; }
   public int dynamicWetSteps() { return dynamicWetSteps; }
   public boolean canSupply(boolean naturalWaterway) {
-    return active && ground.water() > STOP && (naturalWaterway || dynamicWetSteps == WET_STEPS);
+    return active && ground.water() > stop() && (naturalWaterway || dynamicWetSteps == WET_STEPS);
   }
   public long lastTick() { return lastTick; }
   /** At most one fixed-duration step, even after long unload/offline gaps. */
   public boolean step(long tick) {
     if (tick <= lastTick || tick - lastTick < 20) return false;
     lastTick = tick;
-    if (ground.water() <= STOP) dynamicWetSteps = 0;
+    if (ground.water() <= stop()) dynamicWetSteps = 0;
     else if (dynamicWetSteps < WET_STEPS)
-      dynamicWetSteps = ground.water() >= CAPACITY * 3 / 4 ? dynamicWetSteps + 1 : 0;
-    if (ground.water() <= STOP) { active = false; wetSteps = 0; }
+      dynamicWetSteps = ground.water() >= capacity() * 3 / 4 ? dynamicWetSteps + 1 : 0;
+    if (ground.water() <= stop()) { active = false; wetSteps = 0; }
     else if (!active) {
-      wetSteps = ground.water() >= START ? Math.min(WET_STEPS, wetSteps + 1) : 0;
+      wetSteps = ground.water() >= start() ? Math.min(WET_STEPS, wetSteps + 1) : 0;
       if (wetSteps == WET_STEPS) active = true;
     }
     return true;
   }
   public double head(double datum) {
-    return datum - 5 + 8 * ground.water() / (double) CAPACITY;
+    return datum - 5 + 8 * ground.water() / (double) capacity();
   }
   /** Planned perched waterways lose their supply head at the same reserve as drought shutdown. */
   public static double naturalDatum(double surface) {
@@ -60,10 +74,10 @@ public final class Aquifer {
     return (int) Math.max(32, Math.max(0, rainQuantaPerColumnSecond) * 4096L * 18_000 / 114_000 / 2 / WaterAccount.SCALE);
   }
   public int dischargeUnits(double datum, double surface, int receivingCapacity, int rate) {
-    if (!active || ground.water() <= STOP || head(datum) <= surface || receivingCapacity <= 0) return 0;
+    if (!active || ground.water() <= stop() || head(datum) <= surface || receivingCapacity <= 0) return 0;
     int pressure = (int) Math.ceil((head(datum) - surface) * 2);
     // Multiple outlets can deliver before step() next updates the drought latch.
-    return (int) Math.min((ground.water() - STOP) / WaterAccount.SCALE,
+    return (int) Math.min((ground.water() - stop()) / WaterAccount.SCALE,
         Math.min(receivingCapacity, Math.min(Math.max(0, rate), pressure)));
   }
 }
