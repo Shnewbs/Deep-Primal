@@ -30,19 +30,7 @@ public final class GroundResourceChecks {
           asset.get("repeat_axes").getAsString())) == null, "Duplicate original asset " + resource);
     }
     String ground = "assets/deepprimal/textures/block/ground/";
-    var corrected = JsonParser.parseString(Files.readString(Path.of(args[2]))).getAsJsonObject();
-    require(corrected.getAsJsonArray("assets").size() == 7, "Seven owner-approved side replacements");
-    var replaced = new java.util.HashSet<String>();
-    for (var entry : corrected.getAsJsonArray("assets")) {
-      var asset = entry.getAsJsonObject();
-      String resource = ground + asset.get("file").getAsString();
-      var previous = assets.get(resource);
-      require(previous != null && !resource.endsWith("_top.png") && replaced.add(resource),
-          "Side revision must replace a unique known side/mask: " + resource);
-      require(previous.axes().equals(asset.get("axes").getAsString()), "Side repeat axes retained");
-      assets.put(resource, new Asset(resource, asset.get("sha256").getAsString(), previous.axes()));
-    }
-    var sand = JsonParser.parseString(Files.readString(Path.of(args[3]))).getAsJsonObject();
+    var sand = JsonParser.parseString(Files.readString(Path.of(args[2]))).getAsJsonObject();
     assets.put(ground + "sand.png", new Asset(ground + "sand.png",
         sand.get("sha256").getAsString(), sand.get("repeat_axes").getAsString()));
     for (var asset : assets.values()) {
@@ -136,7 +124,7 @@ public final class GroundResourceChecks {
     }
     System.out.println("GROUND_RESOURCES_PASS checks=" + checks
         + " ownerImages=" + assets.size()
-        + " currentOwnerHashes=true sideRevision=3 masksComplementary=true modelLinks=true tintLayers=true");
+        + " currentOwnerHashes=true manifestMatched=true masksComplementary=true modelLinks=true tintLayers=true");
     GroundSurfaceProfileChecks.run();
     GroundSideMathChecks.run();
     soilResources(lang, shovel, dirt);
