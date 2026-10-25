@@ -1,0 +1,322 @@
+engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java
+62:   public TerrainEngine(long seed, int revision, TerrainOptions options) { this(seed, revision, options, 0); }
+63: 
+64:   /** {@code channelRevision} 1 is a saved V7 world option; 0 replays every existing world exactly. */
+65:   public TerrainEngine(long seed, int revision, TerrainOptions options, int channelRevision) {
+66:     if (revision < 1 || revision > 7) throw new IllegalArgumentException("Terrain revision");
+67:     if (channelRevision < 0 || channelRevision > 3 || channelRevision != 0 && revision != 7)
+68:       throw new IllegalArgumentException("Channel revision requires V7 geography");
+69:     this.revision = revision;
+70:     this.channelRevision = channelRevision;
+71:     noise = new TerrainNoise(seed, revision >= 7);
+72:     this.options = java.util.Objects.requireNonNull(options);
+73:     landscape = new Landscape(noise, options, revision);
+74:     landforms = new Landforms(noise, options);
+75:   }
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java
+145:    * braided reaches with emergent bars. Revisions 0/1 pass null and replay exactly.
+146:    */
+147:   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+148:       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+149:       TerrainNoise riverNoise) {
+150:     this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, false);
+151:   }
+152: 
+153:   /**
+154:    * A non-null {@code riverNoise} selects saved channel revision 2 (Earth-scaled rivers). Adding
+155:    * {@code riverDeltas} selects channel revision 3: great trunks that meet the sea on a low
+156:    * coastal plain build a sediment fan with a small distributary network. Revisions 0/1/2 pass
+157:    * {@code false} and replay exactly.
+158:    */
+159:   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+160:       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+161:       TerrainNoise riverNoise, boolean riverDeltas) {
+162:     this.broadChannels=broadChannels;
+163:     this.cascadeBeds=cascadeBeds;
+164:     this.riverNoise=riverNoise;
+165:     this.earthRivers=riverNoise!=null;
+166:     this.riverDeltas=riverDeltas;
+167:     if (earthRivers && !(broadChannels && cascadeBeds))
+168:       throw new IllegalArgumentException("Earth rivers require V7 broad cascade channels");
+169:     if (riverDeltas && !earthRivers)
+170:       throw new IllegalArgumentException("River deltas require Earth rivers");
+171:     this.ox = ox;
+172:     this.oz = oz;
+173:     Arrays.fill(parent, -1);
+174:     Arrays.fill(order, -1);
+175:     boolean[] seen = new boolean[N];
+176:     int[] sorted = new int[N];
+177:     var queue =
+178:         new PriorityQueue<Integer>(
+179:             Comparator.<Integer>comparingDouble(a -> flood[a]).thenComparingInt(a -> a));
+180:     for (int z = 0; z < SIDE; z++)
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java
+447:     deltaIndex = indexDeltas();
+448:   }
+449: 
+450:   /**
+451:    * Great trunks that meet the ocean on a low coastal plain. The fan extends inland from the
+452:    * mouth, so it only reworks existing land/shallow coast inside the existing drainage domain.
+453:    */
+454:   private Delta[] planDeltas() {
+455:     var mouths = new ArrayList<Integer>();
+456:     for (int a = 0; a < N; a++) {
+457:       int b = parent[a];
+458:       if (b < 0 || !ocean[b] || area[a] < DELTA_AREA || stage[a] > DELTA_MAX_STAGE) continue;
+459:       mouths.add(a);
+460:     }
+461:     if (mouths.isEmpty()) return new Delta[0];
+462:     mouths.sort(
+463:         Comparator.<Integer>comparingDouble(a -> -area[a]).thenComparingInt(a -> a));
+464:     if (mouths.size() > DELTA_LIMIT) mouths = new ArrayList<>(mouths.subList(0, DELTA_LIMIT));
+465:     mouths.sort(Comparator.naturalOrder());
+466:     var planned = new ArrayList<Delta>();
+467:     for (int a : mouths) {
+468:       int b = parent[a];
+469:       double mx = px(a), mz = pz(a), sx = px(b), sz = pz(b);
+470:       double length = Math.hypot(sx - mx, sz - mz);
+471:       if (length < 1e-6) continue;
+472:       double seaX = (sx - mx) / length, seaZ = (sz - mz) / length;
+473:       double trunk = earthRadius(area[a], stage[a], 0, false, 1);
+474:       double reach = Math.clamp(trunk * 1.1 + 24, 30, 180);
+475:       double halfWidth = Math.clamp(trunk * 1.8 + reach * .4, 24, 220);
+476:       planned.add(
+477:           new Delta(
+478:               mx,
+479:               mz,
+480:               -seaX,
+481:               -seaZ,
+482:               -seaZ,
+483:               seaX,
+484:               stage[a],
+485:               reach,
+486:               halfWidth,
+487:               trunk));
+488:     }
+489:     return planned.toArray(Delta[]::new);
+490:   }
+491: 
+492:   private int[][] indexDeltas() {
+493:     if (deltas.length == 0) return new int[TILES * TILES][];
+494:     @SuppressWarnings("unchecked")
+495:     ArrayList<Integer>[] buckets = new ArrayList[TILES * TILES];
+496:     for (int n = 0; n < deltas.length; n++) {
+497:       var d = deltas[n];
+498:       double extent = Math.max(d.reach, d.halfWidth) + 8;
+499:       int x0 = tile(d.mouthX - extent, ox), x1 = tile(d.mouthX + extent, ox);
+500:       int z0 = tile(d.mouthZ - extent, oz), z1 = tile(d.mouthZ + extent, oz);
+501:       for (int z = z0; z <= z1; z++)
+502:         for (int x = x0; x <= x1; x++) {
+503:           int i = z * TILES + x;
+504:           if (buckets[i] == null) buckets[i] = new ArrayList<>();
+505:           buckets[i].add(n);
+506:         }
+507:     }
+508:     int[][] out = new int[buckets.length][];
+509:     for (int n = 0; n < out.length; n++)
+510:       if (buckets[n] != null) out[n] = buckets[n].stream().mapToInt(Integer::intValue).toArray();
+511:     return out;
+512:   }
+513: 
+514:   /** Three distributary reaches per fan, from a fork on the trunk down to the shoreline. */
+515:   private void addDistributaries(List<Segment> lines) {
+516:     for (var d : deltas) {
+517:       double fork = Math.min(d.reach * .45, 220);
+518:       double startRadius = Math.clamp(1.8 + d.trunkRadius * .09, 2.4, 7.5);
+519:       double endRadius = Math.max(1.6, startRadius * .55);
+520:       double startStage = d.stage + .10, endStage = TerrainEngine.SEA + .30;
+521:       for (int branch = 0; branch < DELTA_BRANCHES; branch++) {
+src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java
+35:   private static MapCodec<EngineChunkGenerator> codecFor(int revision) {
+36:     if(revision>=6) return RecordCodecBuilder.mapCodec(i->i.group(
+37:         BiomeSource.CODEC.fieldOf("biome_source").forGetter((EngineChunkGenerator g)->g.biomeSource),
+38:         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
+39:         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
+40:         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
+41:         Codec.intRange(0,2).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
+42:         Codec.intRange(0,2).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
+43:     ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
+44:         profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
+45:     return RecordCodecBuilder.mapCodec(
+46:         i ->
+47:             i.group(
+src/coreChecks/java/com/shnewbs/deepprimal/core/DeltaChecks.java
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: /**
+4:  * Channel revision 3: delta fans. Revisions 0/1/2 must replay exactly, and a fan may only raise
+5:  * low coastal ground into a contained distributary network that stays above sea level.
+6:  */
+7: final class DeltaChecks {
+8:   private DeltaChecks() {}
+9: 
+10:   /** Frozen revision-2 fingerprints captured before delta work began. */
+11:   private static final long[][] REVISION_TWO = {
+12:     {0L, 0xe01bcdaeec5dcbb3L},
+13:     {73L, 0x7d3ee65224b2359aL},
+14:     {20261020L, 0x2bafc04ee1ebe957L}
+15:   };
+16: 
+17:   static void run() {
+18:     frozenRevisions();
+19:     inventory();
+20:     System.out.println("DELTA_CORE_PASS revision2Replay=true fansBounded=true distributariesContained=true");
+21:   }
+22: 
+23:   /** Revision 2 must not move when revision 3 is added. */
+24:   private static void frozenRevisions() {
+25:     for (long[] expected : REVISION_TWO) {
+26:       long hash = digest(expected[0]);
+27:       if (hash != expected[1])
+28:         throw new AssertionError(
+29:             "Channel revision 2 changed for seed " + expected[0] + ": " + Long.toHexString(hash));
+30:     }
+31:   }
+32: 
+33:   private static long digest(long seed) {
+34:     var t = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 2);
+35:     long hash = 0xcbf29ce484222325L, wet = 0, cols = 0;
+36:     for (int z = -3000; z <= 3000; z += 193)
+37:       for (int x = -3000; x <= 3000; x += 193) {
+38:         var s = t.column(x, z);
+39:         hash = mix(hash, Double.doubleToLongBits(s.ground()));
+40:         hash = mix(hash, Double.doubleToLongBits(s.water()));
+41:         hash = mix(hash, Double.doubleToLongBits(s.sediment()));
+42:         hash = mix(hash, Double.doubleToLongBits(s.speed()));
+43:         hash = mix(hash, Double.doubleToLongBits(t.raw(x, z)));
+44:         cols++;
+45:         if (s.wet()) wet++;
+46:       }
+47:     if (cols != 1024 || wet == 0) throw new AssertionError("Revision-2 fingerprint grid");
+48:     return mix(hash, t.waterways(0, 0).statistics().segments());
+49:   }
+50: 
+51:   private static void inventory() {
+52:     int fans = 0, endpoints = 0, wetEndpoints = 0, deposited = 0, changedOutside = 0;
+53:     double deepest = 0, widest = 0, longest = 0;
+54:     for (long seed : new long[] {0, 73, 20261020}) {
+55:       var earth = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 3);
+56:       var replay = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 3);
+57:       var previous = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 2);
+58:       if (!earth.column(-17, 31).equals(replay.column(-17, 31)))
+59:         throw new AssertionError("Delta seed replay");
+60:       for (int cz = -1; cz <= 1; cz++)
+61:         for (int cx = -1; cx <= 1; cx++) {
+62:           var region = earth.waterways(cx * 8192, cz * 8192);
+63:           var probes = region.deltaProbes();
+64:           if (!probes.equals(replay.waterways(cx * 8192, cz * 8192).deltaProbes()))
+65:             throw new AssertionError("Delta probe replay");
+66:           if (!previous.waterways(cx * 8192, cz * 8192).deltaProbes().isEmpty())
+67:             throw new AssertionError("Channel revision 2 produced a delta fan");
+68:           for (var d : probes) {
+69:             fans++;
+70:             widest = Math.max(widest, d.halfWidth());
+71:             longest = Math.max(longest, d.reach());
+72:             if (d.branches() != 3) throw new AssertionError("Distributary branch count");
+73:             if (d.halfWidth() > 220 || d.reach() > 180 || d.trunkRadius() < 8)
+74:               throw new AssertionError("Unbounded or undersized delta fan " + d);
+75:             if (d.stage() < TerrainEngine.SEA || d.stage() > TerrainEngine.SEA + 6)
+76:               throw new AssertionError("Delta fan not on a low coastal plain " + d);
+77:             // The original five near-trunk probes are all wet in this corpus. Survey
+78:             // the two-dimensional fan as well, including banks beyond the trunk.
+79:             // Keep those original water/ground guards below and the same minimum
+80:             // deposition count; do not mistake trunk coverage for dry-bank coverage.
+81:             for (int along = 1; along <= 9; along++)
+82:               for (int across = -10; across <= 10; across++) {
+83:                 double u = along / 10.0, v = across * .09;
+84:                 double x = d.mouthX() - d.seawardX() * u * d.reach()
+85:                     - d.seawardZ() * v * d.halfWidth();
+86:                 double z = d.mouthZ() - d.seawardZ() * u * d.reach()
+87:                     + d.seawardX() * v * d.halfWidth();
+88:                 var now = earth.column(x, z);
+89:                 var before = previous.column(x, z);
+90:                 if (!now.wet() && now.ground() >= TerrainEngine.SEA + .2
+91:                     && now.ground() > before.ground() + .05) deposited++;
+92:               }
+93:             // The fan is a depositional plain: low ground inside it is raised, never lowered.
+94:             double spread = Math.max(d.reach(), d.halfWidth()) * .5;
+95:             for (int n = -2; n <= 2; n++) {
+96:               double x = d.mouthX() - d.seawardX() * spread * .4 + -d.seawardZ() * n * spread * .3;
+97:               double z = d.mouthZ() - d.seawardZ() * spread * .4 + d.seawardX() * n * spread * .3;
+98:               var now = earth.column(x, z);
+99:               var before = previous.column(x, z);
+100:               if (now.wet() != before.wet() && before.wet())
+101:                 throw new AssertionError("Delta fan removed generated water at " + x + "," + z);
+102:               if (!now.wet() && now.ground() < before.ground() - 1e-9)
+103:                 throw new AssertionError("Delta fan lowered dry ground at " + x + "," + z);
+104:               if (!now.wet() && now.ground() >= TerrainEngine.SEA + .2
+105:                   && now.ground() > before.ground() + .05) deposited++;
+106:             }
+107:             // Beyond the fan, revision 3 must be identical to revision 2.
+108:             double outside = Math.max(d.reach(), d.halfWidth()) * 1.5 + 40;
+109:             for (int n = 0; n < 8; n++) {
+110:               double angle = n * Math.PI / 4;
+111:               double x = d.mouthX() + Math.cos(angle) * outside;
+112:               double z = d.mouthZ() + Math.sin(angle) * outside;
+113:               if (!earth.column(x, z).equals(previous.column(x, z))) changedOutside++;
+114:             }
+115:           }
+116:           for (var p : region.deltaCenterline()) {
+117:             endpoints++;
+118:             double x = Math.floor(p.x()), z = Math.floor(p.z());
+119:             var c = earth.column(x, z);
+120:             if (!c.wet()) continue;
+121:             wetEndpoints++;
+122:             deepest = Math.max(deepest, c.water() - c.ground());
+123:             if (c.water() < TerrainEngine.SEA - 1e-9)
+124:               throw new AssertionError("Delta channel below sea level at " + x + "," + z);
+125:             if (c.water() - c.ground() > 8.5)
+126:               throw new AssertionError("Delta channel trench " + (c.water() - c.ground()));
+127:             for (int dz = -1; dz <= 1; dz++)
+128:               for (int dx = -1; dx <= 1; dx++) {
+129:                 var n = earth.column(x + dx, z + dz);
+130:                 if (!n.wet() && n.ground() < Math.ceil(c.water()) - .001 - 1e-9)
+131:                   throw new AssertionError("Delta channel spills at " + (x + dx) + "," + (z + dz));
+132:               }
+133:           }
+134:         }
+135:     }
+136:     if (fans < 6) throw new AssertionError("Too few great-river delta fans: " + fans);
+137:     if (endpoints == 0 || wetEndpoints != endpoints)
+138:       throw new AssertionError("Dry distributary endpoints " + wetEndpoints + "/" + endpoints);
+139:     if (deposited < fans * 4) throw new AssertionError("No depositional delta plain: " + deposited);
+140:     if (changedOutside != 0)
+141:       throw new AssertionError("Delta fan changed land outside its footprint: " + changedOutside);
+142:     try {
+143:       new TerrainEngine(7, 3, TerrainOptions.DEFAULT, 3);
+144:       throw new AssertionError("Delta revision accepted non-V7 geography");
+145:     } catch (IllegalArgumentException expected) {
+146:       // Revision 3 remains V7-only.
+147:     }
+148:     System.out.printf(
+149:         "DELTA_REVISION_PASS fans=%d endpoints=%d depositedColumns=%d widest=%.1f longest=%.1f"
+150:             + " deepest=%.2f outsideChanges=0%n",
+151:         fans, endpoints, deposited, widest, longest, deepest);
+tools/server_smoke.py
+18: def verify_server_shutdown(content, returncode, required_markers=()):
+19:     """Verify the completed game session, not just its Gradle launcher exit code.
+20: 
+21:     Crash cleanup can save every dimension and still make Gradle exit zero. Failures
+22:     therefore take precedence over both fixture PASS lines and shutdown messages.
+23:     This is a log/lifecycle gate, not archive identity or gameplay acceptance.
+24:     """
+25:     if returncode != 0:
+26:         raise RuntimeError(f'Server launcher exited {returncode}')
+27:     failure = re.search(
+28:         r'(?m)^.*(?:\[(?:Server thread|main)/(?:ERROR|FATAL)\]'
+29:         r'|Exception in thread |Encountered an unexpected exception'
+30:         r'|Preparing crash report|This crash report has been saved'
+31:         r'|Failed to save|Error stopping the server).*$', content)
+32:     if failure:
+33:         raise RuntimeError('Native server failure: ' + failure.group(0).strip())
+34:     cursor = -1
+35:     for marker in ('RCON running on', 'Stopping server',
+36:                    'ThreadedAnvilChunkStorage: All dimensions are saved', 'Closing FML Loader'):
+37:         cursor = content.find(marker, cursor + 1)
+38:         if cursor < 0:
+39:             raise RuntimeError('Missing or out-of-order native lifecycle marker: ' + marker)
+40:     for marker in required_markers:
+41:         # Require a complete token; e.g. FOO_PASS must not accept FOO_PASS_PENDING.
+42:         if not marker or not re.search(r'(?<![\w])' + re.escape(marker) + r'(?![\w])', content):
+43:             raise RuntimeError('Missing required native fixture marker: ' + marker)
+44: 
