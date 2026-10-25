@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_hourly_engine_builds",
-  "updated_at": "2026-10-25T17:29:07.574Z",
-  "active_until": "2026-10-25T17:29:07.574Z",
+  "status": "builder_active",
+  "updated_at": "2026-10-25T17:31:50.265Z",
+  "active_until": "2026-10-25T18:16:50.265Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.19",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Resume current main after finalized alpha.29-dev.19. Consume the latest independent engine audit, fix highest-impact engine findings, then use engine roadmaps. Preserve historical validation limits; last full externally verified grade remains 50/100. Qualified fresh build/release/JAR delivery required at cycle completion; stop only after fresh complete external average >8.5/10.",
+  "current_gate": "Audit-driven bounded engine repair; isolated validation; disk capacity preflight",
   "owner_pause": {
     "instruction": "STOP AFTER YOU FINALIZE WHAT YOUR DOING NEXT",
     "automation_removed": true,
@@ -381,7 +381,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "none; existing hourly builder resumption being configured",
+  "worker": "hourly-engine-builder-20261025T1730",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -952,5 +952,13 @@
     "build_process_observed": false,
     "builder_task_id": "6ad974bdc204819195e5465aeea9dca2",
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
+  },
+  "builder_cycle": {
+    "source_sha": "48063e8020fa94b38e841ca3b2add9b966e6655a",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T1646-ec687c2/REVIEW.md",
+    "audit_source_sha": "ec687c2158563f03c8f6737cade635f7e2de66b9",
+    "last_external_grade": 5,
+    "coordination": "Personal Context searched: relevant pause/resumption and audit context, no live writer evidence; unrelated Cecil result excluded. Auditor peek last run completed 16:51:33Z. Git lease expired. No Java/Gradle process observed.",
+    "blocker": "Filesystem 100% full at preflight; no heavy job started."
   }
 }
