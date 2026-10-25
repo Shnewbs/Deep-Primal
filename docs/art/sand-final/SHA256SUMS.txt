@@ -1,0 +1,9 @@
+772c0b84f394cc3f6f0f7f36d3d3e6d6308ede17b7b565fc39258a23042a9593  docs/art/sand-final/README.md
+6f1da8e1cfd3827df4453d53ac7f16e401ac4c8aebf12020a0938f1ae0659aa5  docs/art/sand-final/master.png
+3b49c9ed0074299d74c015e31cac1d8e6e90e1ac9e494eccef853c0b8f0701d1  docs/art/sand-final/preview.png
+50d9ede8fe40e7c165ccd86b2957e341046f3c2afd1eb0d8048efd079bcfd746  docs/art/sand-final/prompt.txt
+2d1f262784e591316adba4390dfdfca42f21b170f4f155ff8824d7c8a970b797  docs/art/sand-final/repeat-8x8.png
+6442df6f4a232187770a21c7b0b97fb7adc8cd5d923adc89f4edb7d08d90ccee  docs/art/sand-final/repeat-proof.png
+7f154e902c319fa3b7a5573f52c1901535998acd487882630203c7785869b8a6  docs/art/sand-final/validation.json
+9c2ccaf4d828b946192d03d3ba58f047d513c84f7d2d720a7f3040c833898a57  src/main/resources/assets/deepprimal/textures/block/ground/sand.png
+10c6b19c29c5dd12c32f401e326fa1a4b67f5b3b1676efbcc9815d86e454f8ba  tools/ground-textures/export-sand.mjs
