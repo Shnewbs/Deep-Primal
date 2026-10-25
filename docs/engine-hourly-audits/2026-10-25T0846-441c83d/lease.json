@@ -1,0 +1,10 @@
+{
+  "role": "auditor",
+  "run": "20261025T0846",
+  "source_sha": "441c83dceb3942f7efc5a71294183ee5a7f9de77",
+  "status": "completed",
+  "builder_mutated": false,
+  "performance_reservation": "No active timing reservation observed; no Java/benchmark process at start",
+  "isolated_cache_outputs": true,
+  "result": "build failed; no accepted artifact"
+}
