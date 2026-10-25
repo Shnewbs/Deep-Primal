@@ -1,0 +1,7 @@
+{
+  "setup.py": "67338c0c5444af4bb4e5bb8e8fdcb33bbcb3fbda1b3dc4092ef1ea60e5b9b09e",
+  "independent.py": "a2f3a14feb63d448149ae1e07d347d59537039b9694559ecf2d9a7a4ce8f5d35",
+  "module.py": "07190494d9a802a4b8b9049d61e6da99d6363a5275cc0d25cd71059c2401235c",
+  "validate_archives.py": "aaea45dbff0d2b72b14fac6d4e0ff5a8039cb3fb0b0da79f3bb4736b2235e723",
+  "extra_package.py": "868276e3edfb98e342500903dbbd852063734c2291923a76f356679df156b257"
+}
