@@ -13,8 +13,11 @@ public final class WatershedRegion {
   private static final int[] ORTHOGONAL = {-SIDE, SIDE, -1, 1};
   /** Channel revision 2: trunk reaches with at least this catchment keep a graded bed. */
   private static final double TRUNK_AREA = 400_000, GRADED_SLOPE = 22.1, GREAT_AREA = 1_200_000;
+  /** Channel revision 3: only great trunks on a low coastal plain build a delta fan. */
+  private static final double DELTA_AREA = 1_800_000, DELTA_MAX_STAGE = TerrainEngine.SEA + 6;
+  private static final int DELTA_LIMIT = 6, DELTA_BRANCHES = 3;
   private final double ox, oz;
-  private final boolean broadChannels, cascadeBeds, earthRivers;
+  private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas;
   private final TerrainNoise riverNoise;
   private final double[] incision = new double[N], chainage = new double[N], braiding = new double[N];
   private final double[] raw = new double[N],
@@ -26,6 +29,8 @@ public final class WatershedRegion {
   private final Lake[] lakes;
   private final Segment[] segments;
   private final int[][] index;
+  private final Delta[] deltas;
+  private final int[][] deltaIndex;
   private final int streams;
   private volatile boolean[] supportedTunnels;
 
@@ -49,6 +54,32 @@ public final class WatershedRegion {
 
   public record Statistics(
       int reaches, int headwaters, int lakes, int segments, long estimatedBytes) {}
+
+  /** A planned distributary fan; {@code seaward} points from the mouth toward the ocean. */
+  public record DeltaProbe(
+      double mouthX,
+      double mouthZ,
+      double seawardX,
+      double seawardZ,
+      double stage,
+      double reach,
+      double halfWidth,
+      double trunkRadius,
+      int branches) {}
+
+  private record Delta(
+      double mouthX,
+      double mouthZ,
+      double inlandX,
+      double inlandZ,
+      double acrossX,
+      double acrossZ,
+      double stage,
+      double reach,
+      double halfWidth,
+      double trunkRadius) {}
+
+  private record DeltaHit(double ground, double weight) {}
 
   private static final class Lake {
     final int id;
@@ -81,10 +112,11 @@ public final class WatershedRegion {
       double wb,
       double ka,
       double kb,
-      double reach) {
+      double reach,
+      boolean delta) {
     Segment(double ax, double az, double bx, double bz, double sa, double sb, double ra,
         double rb, double aa, double ab, int sill, double crest, boolean source) {
-      this(ax, az, bx, bz, sa, sb, ra, rb, aa, ab, sill, crest, source, 0, 0, 0, 0, 0, 0, 0);
+      this(ax, az, bx, bz, sa, sb, ra, rb, aa, ab, sill, crest, source, 0, 0, 0, 0, 0, 0, 0, false);
     }
   }
 
@@ -115,12 +147,27 @@ public final class WatershedRegion {
   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
       TerrainNoise riverNoise) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, false);
+  }
+
+  /**
+   * A non-null {@code riverNoise} selects saved channel revision 2 (Earth-scaled rivers). Adding
+   * {@code riverDeltas} selects channel revision 3: great trunks that meet the sea on a low
+   * coastal plain build a sediment fan with a small distributary network. Revisions 0/1/2 pass
+   * {@code false} and replay exactly.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas) {
     this.broadChannels=broadChannels;
     this.cascadeBeds=cascadeBeds;
     this.riverNoise=riverNoise;
     this.earthRivers=riverNoise!=null;
+    this.riverDeltas=riverDeltas;
     if (earthRivers && !(broadChannels && cascadeBeds))
       throw new IllegalArgumentException("Earth rivers require V7 broad cascade channels");
+    if (riverDeltas && !earthRivers)
+      throw new IllegalArgumentException("River deltas require Earth rivers");
     this.ox = ox;
     this.oz = oz;
     Arrays.fill(parent, -1);
@@ -304,6 +351,7 @@ public final class WatershedRegion {
           }
       }
     var lines = new ArrayList<Segment>();
+    deltas = riverDeltas ? planDeltas() : new Delta[0];
     int heads = 0;
     for (int a = 0; a < N; a++) {
       int b = parent[a];
@@ -350,7 +398,7 @@ public final class WatershedRegion {
                   lerp(area[a], area[b], t),
                   sill != 0 && k >= 5 && k <= 7 ? sill : 0,
                   sill == 0 ? 0 : Math.floor(lakes[sill].level),
-                  source, ca, cb, ba, bb, ka, kb, canyonReach(Math.max(ka, kb))));
+                  source, ca, cb, ba, bb, ka, kb, canyonReach(Math.max(ka, kb)), false));
           lastX = x;
           lastZ = z;
           continue;
@@ -374,6 +422,7 @@ public final class WatershedRegion {
         lastZ = z;
       }
     }
+    addDistributaries(lines);
     streams = heads;
     segments = lines.toArray(Segment[]::new);
     @SuppressWarnings("unchecked")
@@ -395,6 +444,132 @@ public final class WatershedRegion {
     index = new int[buckets.length][];
     for (int n = 0; n < index.length; n++)
       if (buckets[n] != null) index[n] = buckets[n].stream().mapToInt(Integer::intValue).toArray();
+    deltaIndex = indexDeltas();
+  }
+
+  /**
+   * Great trunks that meet the ocean on a low coastal plain. The fan extends inland from the
+   * mouth, so it only reworks existing land/shallow coast inside the existing drainage domain.
+   */
+  private Delta[] planDeltas() {
+    var mouths = new ArrayList<Integer>();
+    for (int a = 0; a < N; a++) {
+      int b = parent[a];
+      if (b < 0 || !ocean[b] || area[a] < DELTA_AREA || stage[a] > DELTA_MAX_STAGE) continue;
+      mouths.add(a);
+    }
+    if (mouths.isEmpty()) return new Delta[0];
+    mouths.sort(
+        Comparator.<Integer>comparingDouble(a -> -area[a]).thenComparingInt(a -> a));
+    if (mouths.size() > DELTA_LIMIT) mouths = new ArrayList<>(mouths.subList(0, DELTA_LIMIT));
+    mouths.sort(Comparator.naturalOrder());
+    var planned = new ArrayList<Delta>();
+    for (int a : mouths) {
+      int b = parent[a];
+      double mx = px(a), mz = pz(a), sx = px(b), sz = pz(b);
+      double length = Math.hypot(sx - mx, sz - mz);
+      if (length < 1e-6) continue;
+      double seaX = (sx - mx) / length, seaZ = (sz - mz) / length;
+      double trunk = earthRadius(area[a], stage[a], 0, false, 1);
+      double reach = Math.clamp(trunk * 1.1 + 24, 30, 180);
+      double halfWidth = Math.clamp(trunk * 1.8 + reach * .4, 24, 220);
+      planned.add(
+          new Delta(
+              mx,
+              mz,
+              -seaX,
+              -seaZ,
+              -seaZ,
+              seaX,
+              stage[a],
+              reach,
+              halfWidth,
+              trunk));
+    }
+    return planned.toArray(Delta[]::new);
+  }
+
+  private int[][] indexDeltas() {
+    if (deltas.length == 0) return new int[TILES * TILES][];
+    @SuppressWarnings("unchecked")
+    ArrayList<Integer>[] buckets = new ArrayList[TILES * TILES];
+    for (int n = 0; n < deltas.length; n++) {
+      var d = deltas[n];
+      double extent = Math.max(d.reach, d.halfWidth) + 8;
+      int x0 = tile(d.mouthX - extent, ox), x1 = tile(d.mouthX + extent, ox);
+      int z0 = tile(d.mouthZ - extent, oz), z1 = tile(d.mouthZ + extent, oz);
+      for (int z = z0; z <= z1; z++)
+        for (int x = x0; x <= x1; x++) {
+          int i = z * TILES + x;
+          if (buckets[i] == null) buckets[i] = new ArrayList<>();
+          buckets[i].add(n);
+        }
+    }
+    int[][] out = new int[buckets.length][];
+    for (int n = 0; n < out.length; n++)
+      if (buckets[n] != null) out[n] = buckets[n].stream().mapToInt(Integer::intValue).toArray();
+    return out;
+  }
+
+  /** Three distributary reaches per fan, from a fork on the trunk down to the shoreline. */
+  private void addDistributaries(List<Segment> lines) {
+    for (var d : deltas) {
+      double fork = Math.min(d.reach * .45, 220);
+      double startRadius = Math.clamp(1.8 + d.trunkRadius * .09, 2.4, 7.5);
+      double endRadius = Math.max(1.6, startRadius * .55);
+      double startStage = d.stage + .10, endStage = TerrainEngine.SEA + .30;
+      for (int branch = 0; branch < DELTA_BRANCHES; branch++) {
+        double lateral =
+            (DELTA_BRANCHES == 1 ? 0 : branch / (double) (DELTA_BRANCHES - 1) * 1.24 - .62)
+                + riverNoise.field(d.mouthX, d.mouthZ, 640, 9181 + branch) * .10;
+        double forkX = d.mouthX + d.inlandX * fork, forkZ = d.mouthZ + d.inlandZ * fork;
+        double midX =
+            d.mouthX + d.inlandX * fork * .45 + d.acrossX * lateral * d.halfWidth * .5;
+        double midZ =
+            d.mouthZ + d.inlandZ * fork * .45 + d.acrossZ * lateral * d.halfWidth * .5;
+        double endX = d.mouthX + d.acrossX * lateral * d.halfWidth + d.inlandX * .02;
+        double endZ = d.mouthZ + d.acrossZ * lateral * d.halfWidth + d.inlandZ * .02;
+        double midStage = lerp(startStage, endStage, .5);
+        double midRadius = (startRadius + endRadius) * .5;
+        lines.add(
+            new Segment(
+                forkX, forkZ, midX, midZ, startStage, midStage, startRadius, midRadius,
+                d.halfWidth * 40, d.halfWidth * 30, 0, 0, false,
+                fork, fork * .55, 0, 0, 0, 0, 0, true));
+        lines.add(
+            new Segment(
+                midX, midZ, endX, endZ, midStage, endStage, midRadius, endRadius,
+                d.halfWidth * 30, d.halfWidth * 22, 0, 0, false,
+                fork * .55, 0, 0, 0, 0, 0, 0, true));
+      }
+    }
+  }
+
+  /**
+   * Depositional fan surface at a point, or {@code null} outside every delta. The fan only raises
+   * low ground just below the mouth stage; it never buries higher terrain.
+   */
+  private DeltaHit deltaSurface(double x, double z, double uncut) {
+    if (deltaIndex.length == 0) return null;
+    int[] ids = deltaIndex[tile(z, oz) * TILES + tile(x, ox)];
+    if (ids == null) return null;
+    double raised = uncut, weight = 0;
+    for (int id : ids) {
+      var d = deltas[id];
+      double dx = x - d.mouthX, dz = z - d.mouthZ;
+      double u = (dx * d.inlandX + dz * d.inlandZ) / d.reach;
+      if (u < -.12 || u > 1) continue;
+      double v = (dx * d.acrossX + dz * d.acrossZ) / d.halfWidth;
+      if (Math.abs(v) > 1) continue;
+      double w = 1 - smooth((Math.abs(v) - .70) / .30);
+      w *= smooth((u + .12) / .12);
+      if (w <= 0) continue;
+      double top = Math.max(TerrainEngine.SEA + .4, d.stage - .14 + .11 * smooth(u));
+      double blended = lerp(uncut, Math.max(uncut, top), w);
+      if (blended > raised) raised = blended;
+      weight = Math.max(weight, w);
+    }
+    return raised == uncut && weight == 0 ? null : new DeltaHit(raised, weight);
   }
 
   private double radius(double area, boolean source, double t) {
@@ -517,10 +692,13 @@ public final class WatershedRegion {
         gz = Math.clamp((int) Math.floor((z - oz) / STEP), 0, SIDE - 2);
     double u = Math.clamp((x - ox) / STEP - gx, 0, 1), v = Math.clamp((z - oz) / STEP - gz, 0, 1);
     int a = gz * SIDE + gx;
+    DeltaHit delta = deltaSurface(x, z, uncut);
+    double base = delta == null ? uncut : delta.ground();
     boolean seaNear = ocean[a] || ocean[a + 1] || ocean[a + SIDE] || ocean[a + SIDE + 1];
-    if (uncut < TerrainEngine.SEA && seaNear)
-      return new Surface(Math.min(uncut, TerrainEngine.SEA - 1.001), TerrainEngine.SEA, 1, 0, 0, 0);
-    double water = Double.NaN, ground = uncut, sediment = 0, fx = 0, fz = 0, speed = 0;
+    if (base < TerrainEngine.SEA && seaNear)
+      return new Surface(Math.min(base, TerrainEngine.SEA - 1.001), TerrainEngine.SEA, 1, 0, 0, 0);
+    double water = Double.NaN, ground = base, sediment = delta == null ? 0 : delta.weight() * .95,
+        fx = 0, fz = 0, speed = 0;
     double sill = Double.NEGATIVE_INFINITY,
         joinedBed = Double.POSITIVE_INFINITY,
         bankFloor = Double.NEGATIVE_INFINITY;
@@ -538,7 +716,7 @@ public final class WatershedRegion {
       double coarse =
           lerp(lerp(raw[a], raw[a + 1], u), lerp(raw[a + SIDE], raw[a + SIDE + 1], u), v);
       double detail = smooth((coarse - lakeLevel - 1) / 4);
-      ground = lerp(coarse, uncut, detail);
+      ground = lerp(coarse, base, detail);
       sediment = 1 - detail;
       double shoreStep =
           Math.max(
@@ -574,7 +752,7 @@ public final class WatershedRegion {
                 earthRivers
                     ? Math.clamp(.6 + 1.1 * Math.sqrt(r), 1.5, 8) * (1 - .45 * braid)
                     : Math.clamp(1.35 + r * .17, 1.5, 6),
-            bank = Math.clamp(5 + r * .4 + Math.sqrt(Math.max(0, uncut - level)) * 2, 5, 24);
+            bank = Math.clamp(5 + r * .4 + Math.sqrt(Math.max(0, base - level)) * 2, 5, 24);
         if (dist < r + 1.01) {
           double grade = Math.max(0, (s.sa - s.sb) / Math.sqrt(len));
           joinedBed = Math.min(joinedBed, Math.floor(level - grade) - 1.001);
@@ -582,14 +760,14 @@ public final class WatershedRegion {
         double grade = Math.max(0, (s.sa - s.sb) / Math.sqrt(len)),
             guard = level + .35 + grade * 1.5;
         if (dist < r + 1.5) bankFloor = Math.max(bankFloor, guard);
-        else if (dist < r + bank + 1.5 && uncut < guard)
-          bankFloor = Math.max(bankFloor, lerp(guard, uncut, smooth((dist - r - 1.5) / bank)));
+        else if (dist < r + bank + 1.5 && base < guard)
+          bankFloor = Math.max(bankFloor, lerp(guard, base, smooth((dist - r - 1.5) / bank)));
         if (dist < r) {
           double edge = Math.clamp(dist / r, 0, 1);
           ground = Math.min(ground, level - depth + (depth - .3) * Math.pow(edge, 3));
           if (dist < Math.max(.8, r * .7)) {
             ground = Math.min(ground, Math.floor(level - grade) - 1.001);
-            if (seaNear && uncut < TerrainEngine.SEA + 1)
+            if (seaNear && base < TerrainEngine.SEA + 1)
               ground = Math.min(ground, TerrainEngine.SEA - 1.001);
           }
           if (Double.isNaN(water) || level < water) {
@@ -621,11 +799,11 @@ public final class WatershedRegion {
           if (s.sill > 0) sill = Math.max(sill, s.crest - 1 + .001);
         } else {
           double blend = smooth((dist - r) / bank);
-          double wall = lerp(level + .35, uncut, blend);
+          double wall = lerp(level + .35, base, blend);
           double cut = earthRivers ? lerp(s.ka, s.kb, t) : 0;
           if (cut > 2) {
             double canyon =
-                Math.min(uncut, level + .35 + canyonWall(x, z, dist - r, uncut - level - .35, cut));
+                Math.min(base, level + .35 + canyonWall(x, z, dist - r, base - level - .35, cut));
             wall = lerp(wall, canyon, smooth((cut - 2) / 6));
           }
           ground = Math.min(ground, wall);
@@ -674,6 +852,34 @@ public final class WatershedRegion {
     return List.copyOf(out);
   }
 
+  /** Distributary reach endpoints only; revision 3 fans expose three branches per mouth. */
+  public List<Probe> deltaCenterline() {
+    var out = new ArrayList<Probe>();
+    for (var s : segments) {
+      if (!s.delta) continue;
+      out.add(new Probe(s.ax, s.az, s.sa, s.ra, s.aa, false));
+      out.add(new Probe(s.bx, s.bz, s.sb, s.rb, s.ab, false));
+    }
+    return List.copyOf(out);
+  }
+
+  public List<DeltaProbe> deltaProbes() {
+    var out = new ArrayList<DeltaProbe>(deltas.length);
+    for (var d : deltas)
+      out.add(
+          new DeltaProbe(
+              d.mouthX,
+              d.mouthZ,
+              -d.inlandX,
+              -d.inlandZ,
+              d.stage,
+              d.reach,
+              d.halfWidth,
+              d.trunkRadius,
+              DELTA_BRANCHES));
+    return List.copyOf(out);
+  }
+
   public List<LakeProbe> lakeProbes() {
     var out = new ArrayList<LakeProbe>();
     for (int i = 1; i < lakes.length; i++) {
@@ -704,9 +910,11 @@ public final class WatershedRegion {
         lakeProbes().size(),
         segments.length,
         N * (8L * 4 + 4 * 3 + 2 + (earthRivers ? 24 : 0))
-            + segments.length * (earthRivers ? 168L : 112L)
+            + segments.length * (earthRivers ? 176L : 112L)
             + index.length * 8L
-            + refs * 4);
+            + refs * 4
+            + deltas.length * 80L
+            + deltaIndex.length * 8L);
   }
 
   public void verify() {
