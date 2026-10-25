@@ -1,0 +1,22 @@
+fan seed=0 mouth=(-9878.97,-8526.81) raisedDry=7 originalWet=5/5
+fan seed=0 mouth=(-6742.97,-7118.81) raisedDry=3 originalWet=5/5
+fan seed=0 mouth=(1919.68,-8552.16) raisedDry=0 originalWet=5/5
+fan seed=0 mouth=(-2400.32,-7752.16) raisedDry=5 originalWet=5/5
+fan seed=0 mouth=(6354.81,-9609.93) raisedDry=11 originalWet=5/5
+fan seed=0 mouth=(-7605.39,1636.08) raisedDry=5 originalWet=5/5
+fan seed=0 mouth=(10018.55,-1869.93) raisedDry=4 originalWet=5/5
+fan seed=0 mouth=(-571.55,9898.66) raisedDry=0 originalWet=5/5
+fan seed=0 mouth=(6761.03,7761.19) raisedDry=7 originalWet=5/5
+fan seed=73 mouth=(-6946.38,-6523.04) raisedDry=5 originalWet=5/5
+fan seed=73 mouth=(10327.71,-8974.36) raisedDry=0 originalWet=5/5
+fan seed=73 mouth=(6615.71,-8878.36) raisedDry=1 originalWet=5/5
+fan seed=73 mouth=(-7347.31,-2513.42) raisedDry=0 originalWet=5/5
+fan seed=73 mouth=(770.17,-935.48) raisedDry=0 originalWet=5/5
+fan seed=73 mouth=(-8552.29,10129.64) raisedDry=0 originalWet=5/5
+fan seed=73 mouth=(2321.78,7720.99) raisedDry=0 originalWet=5/5
+fan seed=73 mouth=(9053.62,6244.96) raisedDry=0 originalWet=5/5
+fan seed=20261020 mouth=(-7260.54,-9473.85) raisedDry=1 originalWet=5/5
+fan seed=20261020 mouth=(-7919.81,-2259.19) raisedDry=0 originalWet=5/5
+fan seed=20261020 mouth=(-10063.81,940.81) raisedDry=0 originalWet=5/5
+fan seed=20261020 mouth=(-302.86,5721.99) raisedDry=1 originalWet=5/5
+DELTA_DIAGNOSTIC fans=21 surveyed=756 raisedDry=50 dry=437 wet=319

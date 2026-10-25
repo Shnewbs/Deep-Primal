@@ -74,6 +74,22 @@ final class DeltaChecks {
               throw new AssertionError("Unbounded or undersized delta fan " + d);
             if (d.stage() < TerrainEngine.SEA || d.stage() > TerrainEngine.SEA + 6)
               throw new AssertionError("Delta fan not on a low coastal plain " + d);
+            // The original five near-trunk probes are all wet in this corpus. Survey
+            // the two-dimensional fan as well, including banks beyond the trunk.
+            // Keep those original water/ground guards below and the same minimum
+            // deposition count; do not mistake trunk coverage for dry-bank coverage.
+            for (int along = 1; along <= 9; along++)
+              for (int across = -10; across <= 10; across++) {
+                double u = along / 10.0, v = across * .09;
+                double x = d.mouthX() - d.seawardX() * u * d.reach()
+                    - d.seawardZ() * v * d.halfWidth();
+                double z = d.mouthZ() - d.seawardZ() * u * d.reach()
+                    + d.seawardX() * v * d.halfWidth();
+                var now = earth.column(x, z);
+                var before = previous.column(x, z);
+                if (!now.wet() && now.ground() >= TerrainEngine.SEA + .2
+                    && now.ground() > before.ground() + .05) deposited++;
+              }
             // The fan is a depositional plain: low ground inside it is raised, never lowered.
             double spread = Math.max(d.reach(), d.halfWidth()) * .5;
             for (int n = -2; n <= 2; n++) {

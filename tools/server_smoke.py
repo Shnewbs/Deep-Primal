@@ -7,12 +7,40 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import socket
 import struct
 import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+
+def verify_server_shutdown(content, returncode, required_markers=()):
+    """Verify the completed game session, not just its Gradle launcher exit code.
+
+    Crash cleanup can save every dimension and still make Gradle exit zero. Failures
+    therefore take precedence over both fixture PASS lines and shutdown messages.
+    This is a log/lifecycle gate, not archive identity or gameplay acceptance.
+    """
+    if returncode != 0:
+        raise RuntimeError(f'Server launcher exited {returncode}')
+    failure = re.search(
+        r'(?m)^.*(?:\[(?:Server thread|main)/(?:ERROR|FATAL)\]'
+        r'|Exception in thread |Encountered an unexpected exception'
+        r'|Preparing crash report|This crash report has been saved'
+        r'|Failed to save|Error stopping the server).*$', content)
+    if failure:
+        raise RuntimeError('Native server failure: ' + failure.group(0).strip())
+    cursor = -1
+    for marker in ('RCON running on', 'Stopping server',
+                   'ThreadedAnvilChunkStorage: All dimensions are saved', 'Closing FML Loader'):
+        cursor = content.find(marker, cursor + 1)
+        if cursor < 0:
+            raise RuntimeError('Missing or out-of-order native lifecycle marker: ' + marker)
+    for marker in required_markers:
+        # Require a complete token; e.g. FOO_PASS must not accept FOO_PASS_PENDING.
+        if not marker or not re.search(r'(?<![\w])' + re.escape(marker) + r'(?![\w])', content):
+            raise RuntimeError('Missing required native fixture marker: ' + marker)
 
 class Rcon:
     def __init__(self, port):
@@ -45,9 +73,14 @@ class Rcon:
         print(text + ' => ' + answer, flush=True)
         return answer
 
-def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=((200, 200),), restarts=2, runtime_checks=False):
+def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=((200, 200),), restarts=2, runtime_checks=False, required_markers=()):
+    if restarts < 2:
+        raise ValueError('At least two sessions are required to verify save/reopen')
     work = ROOT / ('run-smoke-' + suffix)
     work.mkdir(exist_ok=True)
+    # An interrupted/failed rerun must not leave an earlier successful receipt behind.
+    receipt = work / 'smoke-results.json'
+    receipt.unlink(missing_ok=True)
     # Only invoke this script after accepting the Minecraft EULA.
     (work / 'eula.txt').write_text('eula=true\n')
     (work / 'server.properties').write_text(
@@ -139,15 +172,19 @@ def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=(
                     assert 'benchmark=idle' in perf, perf
                     time.sleep(3)
                     assert 'No force loaded chunks were found' in rcon.command('forceload query')
-                results.append({'iteration': iteration, 'info': info, 'samples': samples})
-                rcon.command('save-all flush')
+                saved = rcon.command('save-all flush')
+                if 'Saved the game' not in saved:
+                    raise RuntimeError('Save flush did not acknowledge success: ' + saved)
                 try:
                     rcon.command('stop')
                 except (OSError, RuntimeError):
                     pass
                 rcon.sock.close()
                 process.wait(timeout=90)
-                assert process.returncode == 0, process.returncode
+                verify_server_shutdown(log.read_text(errors='replace'), process.returncode, required_markers)
+                results.append({'iteration': iteration, 'info': info, 'samples': samples,
+                                'native_shutdown_verified': True,
+                                'required_markers': list(required_markers)})
             finally:
                 if process.poll() is None:
                     process.terminate()
@@ -155,7 +192,7 @@ def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=(
                         process.wait(timeout=20)
                     except subprocess.TimeoutExpired:
                         process.kill()
-        (work / 'smoke-results.json').write_text(json.dumps(results, indent=2) + '\n')
+    receipt.write_text(json.dumps(results, indent=2) + '\n')
     return work
 
 if __name__ == '__main__':
@@ -170,8 +207,10 @@ if __name__ == '__main__':
     parser.add_argument('--restarts', type=int, default=2)
     parser.add_argument('--comparison', action='store_true')
     parser.add_argument('--runtime-checks', action='store_true')
+    parser.add_argument('--require-marker', action='append', default=[],
+                        help='Native fixture PASS token required in every fresh/reopen session')
     args = parser.parse_args()
     if not args.accept_eula:
         parser.error('Read the Minecraft EULA and pass --accept-eula before starting the server.')
     centers = ((200, 200), (-240, 160), (320, -280)) if args.comparison else ((200, 200),)
-    run(args.launcher, args.preset, args.suffix or args.preset, args.port, args.radius, args.seed, centers, args.restarts, args.runtime_checks)
+    run(args.launcher, args.preset, args.suffix or args.preset, args.port, args.radius, args.seed, centers, args.restarts, args.runtime_checks, args.require_marker)

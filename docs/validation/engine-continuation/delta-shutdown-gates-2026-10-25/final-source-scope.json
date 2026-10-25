@@ -1,0 +1,17 @@
+{
+  "source_sha": "b4359f4ace9cad1b482b03192c87d017eccb291c",
+  "checked": 831,
+  "changed": [
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/DeltaChecks.java",
+    "tools/server_smoke.py"
+  ],
+  "added": [
+    "tools/test_server_smoke.py"
+  ],
+  "runtime_version": "0.0.1-alpha.29-dev.20",
+  "production_changes": false,
+  "java_sources": 110,
+  "fresh_clean_compiled_classes_match_executed": 172,
+  "core_exit": 0,
+  "core_log_sha256": "67bd34da0563c314120f94d9c501f8794c4a4da33d6a42f875d49bb5e3b8678a"
+}
