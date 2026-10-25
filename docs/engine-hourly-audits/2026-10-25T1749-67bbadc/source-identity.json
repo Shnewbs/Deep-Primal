@@ -1,0 +1,7 @@
+{
+  "source_sha": "67bbadc14d74d515a250f537bd8f3c3cef273bd8",
+  "verified_inputs": 867,
+  "mismatches": [],
+  "missing_build_inputs": [],
+  "restored_required_manifest": "docs/art/sand-final/validation.json"
+}

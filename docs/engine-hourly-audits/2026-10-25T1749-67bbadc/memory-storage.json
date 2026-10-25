@@ -1,0 +1,14 @@
+{
+  "only_auditor_private_outputs_moved": [
+    {
+      "original": "/workspace/scratch/1a7cb29b04a2/audit-67bbadc-20261025T1749/project/gui-themes/build",
+      "audit_private_memory_output": "/dev/shm/deepprimal-audit-67bbadc-1749/themes-build"
+    },
+    {
+      "original": "/workspace/scratch/1a7cb29b04a2/audit-67bbadc-20261025T1749/project/build/generated",
+      "audit_private_memory_output": "/dev/shm/deepprimal-audit-67bbadc-1749/generated-build"
+    }
+  ],
+  "native_cache": "/dev/shm/deepprimal-audit-67bbadc-1749/native-cache",
+  "builder_untouched": true
+}
