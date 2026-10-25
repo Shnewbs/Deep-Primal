@@ -1,0 +1,37 @@
+{
+  "source_sha": "c5794ea222902761ea897e8767617c434efb0e81",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-25T2055-cf46cf7/REVIEW.md",
+  "audit_source_sha": "cf46cf7e58760e0af1aa5f68edc021c91ab9b150",
+  "change": "Ten smoke acceptance asserts replaced with unconditional RuntimeError gates",
+  "baseline_normal": {
+    "tests": 16,
+    "pass": true
+  },
+  "baseline_optimized": {
+    "tests": 16,
+    "failures": 10,
+    "expected_failure": true
+  },
+  "candidate_modes": [
+    "normal",
+    "-O",
+    "-OO"
+  ],
+  "candidate_tests_per_mode": 16,
+  "candidate_pass": true,
+  "native_game_rerun": false,
+  "full_gradle_build": false,
+  "new_jar": false,
+  "release": false,
+  "last_external_grade": 5.0,
+  "fresh_regrade": false,
+  "file_sha256": {
+    "server_smoke.py": "b9a1d2443c25faea812381373ce1532f85ec20d1f3380935bdcedd195b2eec52",
+    "test_server_smoke.py": "337d56c1281d391e0d238a08c397fbbac9ba279706aaa3259e1924b1f3e1c819",
+    "baseline-normal.log": "40ec370221b83ae78ecbce0fdb086c8a4f5c057b4d82f078afd14e2b7ebef123",
+    "baseline-optimized.log": "c17df49bbeb24f0c290267054d97bb8272ae67a423b82dcfd975ee5c16c07056",
+    "candidate-tests.log": "c070368092c2ca2428f274db1f8f35ae2d0a8680035db34f700a92f68b8c6514",
+    "candidate-optimized.log": "e56b95d206fb0d453be85f91248b1b610bf9a7e8937ffd358bef5e185b05ef75",
+    "candidate-double-optimized.log": "69c6293f2fb6ff598935161888629d9c33e37cfbd2b1d2bb5f5252fc01eeff85"
+  }
+}

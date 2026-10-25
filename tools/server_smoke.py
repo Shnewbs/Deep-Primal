@@ -116,10 +116,13 @@ def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=(
                 info = rcon.command('deepprimal info')
                 samples = [rcon.command(f'deepprimal sample {x} {z}')
                            for x, z in [(0, 0), (1024, 1024), (-1024, 2048), (8192, -4096)]]
-                assert f'seed={seed}' in info, info
-                assert all('preliminary surface=' in sample for sample in samples), samples
+                if not (f'seed={seed}' in info):
+                    raise RuntimeError(info)
+                if not (all('preliminary surface=' in sample for sample in samples)):
+                    raise RuntimeError(samples)
                 if expected is not None:
-                    assert samples == expected, 'Sampler changed after save/restart'
+                    if not (samples == expected):
+                        raise RuntimeError('Sampler changed after save/restart')
                 expected = samples
                 if iteration == 0:
                     survey = []
@@ -144,16 +147,19 @@ def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=(
                     time.sleep(1)
                     floor = -384 if preset == 'prototype_deep' else -128
                     check = rcon.command(f'execute if block 3200 {floor} 3200 minecraft:bedrock')
-                    assert 'Test passed' in check, check
+                    if not ('Test passed' in check):
+                        raise RuntimeError(check)
                     rcon.command('forceload remove 3200 3200')
                 if runtime_checks and iteration == 0:
                     # Verify bounded diagnostics and reload/cancel lifecycle through the live server.
                     before_perf = rcon.command('deepprimal perf')
-                    assert 'benchmark=idle' in before_perf, before_perf
+                    if not ('benchmark=idle' in before_perf):
+                        raise RuntimeError(before_perf)
                     rcon.command('deepprimal sample 12345 -12345')
                     rcon.command('deepprimal sample 12345 -12345')
                     perf = rcon.command('deepprimal perf')
-                    assert 'cacheHits=0 ' not in perf, perf
+                    if not ('cacheHits=0 ' not in perf):
+                        raise RuntimeError(perf)
                     rcon.command('reload')
                     deadline = time.monotonic() + 30
                     while True:
@@ -162,16 +168,20 @@ def run(launcher, preset, suffix, port, radius=1, seed=20261018, batch_centers=(
                         if time.monotonic() > deadline: raise RuntimeError('Sampler cache did not clear on reload')
                         time.sleep(1)
                     rejected = rcon.command('deepprimal bench 400 400 5')
-                    assert 'exceeds maxBenchmarkRadius' in rejected, rejected
+                    if not ('exceeds maxBenchmarkRadius' in rejected):
+                        raise RuntimeError(rejected)
                     rcon.command('deepprimal bench 400 400 4')
                     time.sleep(0.25)
                     rejected = rcon.command('deepprimal bench 500 500 0')
-                    assert 'request is active' in rejected, rejected
+                    if not ('request is active' in rejected):
+                        raise RuntimeError(rejected)
                     rcon.command('deepprimal cancel')
                     perf = rcon.command('deepprimal perf')
-                    assert 'benchmark=idle' in perf, perf
+                    if not ('benchmark=idle' in perf):
+                        raise RuntimeError(perf)
                     time.sleep(3)
-                    assert 'No force loaded chunks were found' in rcon.command('forceload query')
+                    if not ('No force loaded chunks were found' in rcon.command('forceload query')):
+                        raise RuntimeError('Forced chunks remain after benchmark cancellation')
                 saved = rcon.command('save-all flush')
                 if 'Saved the game' not in saved:
                     raise RuntimeError('Save flush did not acknowledge success: ' + saved)

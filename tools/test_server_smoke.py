@@ -18,7 +18,7 @@ BUILD SUCCESSFUL
 '''
 
 
-def simulate(module, logs, saved='Saved the game', codes=None):
+def simulate(module, logs, saved='Saved the game', codes=None, overrides=None, runtime_checks=False):
     """Exercise the real run() receipt path with a controlled completed launcher."""
     codes = codes or [0] * len(logs)
     sessions = iter(zip(logs, codes))
@@ -43,8 +43,13 @@ def simulate(module, logs, saved='Saved the game', codes=None):
         def terminate(self):
             self.returncode = -15
 
+    session_number = 0
+
     class Rcon:
         def __init__(self, port):
+            nonlocal session_number
+            self.iteration = session_number
+            session_number += 1
             self.sock = self
 
         def close(self):
@@ -54,6 +59,10 @@ def simulate(module, logs, saved='Saved the game', codes=None):
             return 'preliminary surface=64 ' + text
 
         def command(self, text):
+            if overrides:
+                reply = overrides(text, self.iteration)
+                if reply is not None:
+                    return reply
             if text == 'deepprimal info':
                 return 'seed=20261018'
             if text.startswith('deepprimal sample'):
@@ -73,7 +82,7 @@ def simulate(module, logs, saved='Saved the game', codes=None):
                 patch.object(module.subprocess, 'Popen', Process), \
                 patch.object(module.time, 'sleep'), contextlib.redirect_stdout(io.StringIO()):
             try:
-                module.run(['unused'], 'prototype', 'test', 25567, batch_centers=(), restarts=2)
+                module.run(['unused'], 'prototype', 'test', 25567, batch_centers=(), restarts=2, runtime_checks=runtime_checks)
             except (RuntimeError, AssertionError) as error:
                 return str(error), json.loads(receipt.read_text()) if receipt.exists() else None
         return None, json.loads(receipt.read_text())
@@ -141,6 +150,63 @@ class ShutdownChecks(unittest.TestCase):
         self.assertIn('Save flush did not acknowledge', error)
         self.assertIsNone(receipt)
 
+
+
+class AcceptanceChecks(unittest.TestCase):
+    def reject(self, overrides, runtime=False):
+        error, receipt = simulate(smoke, [GOOD, GOOD], overrides=overrides,
+                                  runtime_checks=runtime)
+        self.assertIsNotNone(error, 'Invalid game reply accepted')
+        self.assertIsNone(receipt, 'Invalid game reply left a success receipt')
+
+    def test_wrong_seed(self):
+        self.reject(lambda command, i: 'seed=99' if command == 'deepprimal info' else None)
+
+    def test_missing_sample(self):
+        self.reject(lambda command, i: 'Command failed' if command.startswith('deepprimal sample') else None)
+
+    def test_changed_sample_after_reopen(self):
+        self.reject(lambda command, i: 'preliminary surface=999 ' + command
+                    if i == 1 and command.startswith('deepprimal sample') else None)
+
+    def test_missing_bedrock(self):
+        self.reject(lambda command, i: 'Test failed' if command.startswith('execute if block') else None)
+
+    def test_valid_runtime_receipt(self):
+        perf = iter(['benchmark=idle', 'cacheHits=2 ', 'sampleCache=0/', 'benchmark=idle'])
+        def replies(command, iteration):
+            if command == 'deepprimal perf': return next(perf)
+            return {'deepprimal bench 400 400 5': 'exceeds maxBenchmarkRadius',
+                    'deepprimal bench 500 500 0': 'request is active',
+                    'forceload query': 'No force loaded chunks were found'}.get(command)
+        error, receipt = simulate(smoke, [GOOD, GOOD], overrides=replies, runtime_checks=True)
+        self.assertIsNone(error)
+        self.assertEqual(2, len(receipt))
+
+    def test_runtime_acceptance_gates(self):
+        # Valid responses reach every gate; change one command occurrence per trial.
+        good = {
+            'deepprimal perf': ['benchmark=idle', 'cacheHits=2 ', 'sampleCache=0/', 'benchmark=idle'],
+            'deepprimal bench 400 400 5': ['exceeds maxBenchmarkRadius'],
+            'deepprimal bench 500 500 0': ['request is active'],
+            'forceload query': ['No force loaded chunks were found'],
+        }
+        trials = [('deepprimal perf', 0, 'benchmark=active'),
+                  ('deepprimal perf', 1, 'cacheHits=0 '),
+                  ('deepprimal perf', 3, 'benchmark=active'),
+                  ('deepprimal bench 400 400 5', 0, 'accepted'),
+                  ('deepprimal bench 500 500 0', 0, 'accepted'),
+                  ('forceload query', 0, 'Found forced chunks')]
+        for target, occurrence, bad in trials:
+            counters = {}
+            def replies(command, iteration):
+                if command not in good: return None
+                n = counters.get(command, 0)
+                counters[command] = n + 1
+                if command == target and n == occurrence: return bad
+                return good[command][min(n, len(good[command])-1)]
+            with self.subTest(target=target, occurrence=occurrence):
+                self.reject(replies, runtime=True)
 
 if __name__ == '__main__':
     unittest.main()

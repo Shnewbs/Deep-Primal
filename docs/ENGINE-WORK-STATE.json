@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-25T21:25:45.717Z",
-  "active_until": "2026-10-25T21:55:45.717Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-25T21:27:50Z",
+  "active_until": "2026-10-25T21:27:50Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.20",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Reproduce and correct optimized-Python smoke acceptance bypass; independent tools-only work",
+  "current_gate": "Qualify staged ByteLru/finite-grid repairs with isolated full build/package/native capacity; then native V8 integration",
   "latest_channel_revision_four": {
     "status": "staged_opt_in_not_released",
     "revision": 4,
@@ -141,6 +141,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-25 builder: native smoke acceptance checks now survive Python optimization; 16 tests pass normal/-O/-OO, baseline -O wrongly accepts ten malformed scenarios. docs/validation/engine-continuation/smoke-optimization-gates-2026-10-25/README.md. No runtime/version/JAR change. Latest auditor confirms default2 and opt-in4 save/reopen at cf46cf7; footprint visuals/discharge and overflow promotions still open.",
     "2026-10-25 builder: staged ByteLru byte-budget overflow repair, expected baseline failure, 3,379,936 BigInteger-oracle assertions and complete current Java25 core suite pass. docs/validation/engine-continuation/byte-lru-overflow-2026-10-25/README.md. Runtime unpromoted; full build/native/JAR blocked by zero overlay storage. Last external grade5.0 unchanged.",
     "2026-10-25 builder: channel revision 4 (oxbow lakes on top of delta fans) is staged opt-in; the engine_deltas_standard/engine_deltas_deep packs now save channel_revision 4 and the codec accepts 0..4. Default presets stay channel_revision 2; revisions 0-3 replay unchanged. Core evidence: OXBOW_PASS lakes=20 wet=5455 floodEdges=0 maxStageGap=2.25 changedInsideFootprints=0, DELTA_REVISION_PASS/DELTA_CORE_PASS, full CoreChecks exit 0, offline Gradle build. Next: native revision-4 save/reopen and visual acceptance after owner approval; do not claim revision 4 in the dev.20 artifact. Remaining gaps: no seaward progradation, avulsion, dynamic meander migration, anastomosing or budgeted distributary discharge.",
     "2026-10-25 builder: delta fixture now surveys dry banks; native smoke rejects crashes despite Gradle zero and clears stale/partial receipts. Full Java25 core suite passes; see docs/validation/engine-continuation/delta-shutdown-gates-2026-10-25/README.md. Auditor dev20 native legacy qualification accepted at31dd0b2. Full build/native storage remains blocking; finite-grid runtime remains staged. Preserve b4359f4 delta work and current production dev20.",
@@ -441,7 +442,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "hourly-engine-builder-20261025T2125",
+  "worker": null,
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1004,31 +1005,29 @@
     "path": "docs/ENGINE-HOURLY-BUILDS.md",
     "authorized_at": "2026-10-25T17:29:07.574Z",
     "direct_branch": "main",
-    "latest_audit_checked": "docs/engine-hourly-audits/2026-10-25T1953-2854805/REVIEW.md",
+    "latest_audit_checked": "docs/engine-hourly-audits/2026-10-25T2055-cf46cf7/REVIEW.md",
     "coordination_base_sha": "65dbbb81a2dadf4fdf594f19535ae83806c9da2a",
     "other_chat_checked": true,
-    "other_chat_evidence": "Personal Context searched; no reliable live writer claim. Auditor last run completed20:01:38Z. Git leases expired; no Java process observed. Preserve current opt-in channel3/4 work.",
+    "other_chat_evidence": "Personal Context searched, no reliable live writer claim; auditor completed21:06:39Z; expired main lease/completed timing reservation/no Java observed at acquisition.",
     "writer_lease_observed_expired": true,
     "build_process_observed": false,
     "builder_task_id": "6ad974bdc204819195e5465aeea9dca2",
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "source_sha": "65dbbb81a2dadf4fdf594f19535ae83806c9da2a",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T1953-2854805/REVIEW.md",
-    "audit_source_sha": "28548052886603214914c5d6fd49ffbfe85d2a02",
+    "source_sha": "c5794ea222902761ea897e8767617c434efb0e81",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T2055-cf46cf7/REVIEW.md",
+    "audit_source_sha": "cf46cf7e58760e0af1aa5f68edc021c91ab9b150",
     "last_external_grade": 5,
-    "coordination": "Personal Context searched; no reliable live writer claim. Auditor last run completed20:01:38Z. Git leases expired; no Java process observed. Preserve current opt-in channel3/4 work.",
     "lease_released": true,
-    "completed_at": "2026-10-25T20:33:31Z",
-    "evidence": "docs/validation/engine-continuation/byte-lru-overflow-2026-10-25/README.md",
-    "staged_runtime_fix": "ByteLru pre-admission eviction avoids signed-long byte-count overflow",
+    "completed_at": "2026-10-25T21:27:50Z",
+    "evidence": "docs/validation/engine-continuation/smoke-optimization-gates-2026-10-25/README.md",
+    "changes": "Ten native smoke acceptance asserts replaced with unconditional RuntimeError checks; six regression methods added",
     "production_runtime_changed": false,
-    "core_checks_pass": true,
-    "regression_checks": 3379936,
-    "full_build": false,
+    "tests": "16 tests pass in normal, -O and -OO Python; baseline -O fails ten malformed-response cases",
     "new_jar": false,
-    "blocker": "Overlay filesystem zero available bytes; full isolated build/native qualification unavailable",
-    "next": "Qualify staged ByteLru and finite-grid repairs with full build/package gates when isolated storage is restored; preserve opt-in channel revisions 3/4."
+    "full_build": false,
+    "blocker": "Zero available overlay storage; full independent build/native workspace unavailable",
+    "coordination": "Personal Context searched, no reliable live writer claim; auditor completed21:06:39Z; expired main lease/completed timing reservation/no Java observed at acquisition."
   }
 }
