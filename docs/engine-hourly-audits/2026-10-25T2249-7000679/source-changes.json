@@ -1,0 +1,31 @@
+{
+  "previous_source_sha": "19491a10187e679eebf5731aa6fc3bd8079ce786",
+  "source_sha": "70006796ac665d8113cdfe1520281a956fef346a",
+  "runtime_source_changed": false,
+  "changes": [
+    "docs/art/BLOCK-TEXTURE-PLAN.md",
+    "docs/art/block-texture-families.json",
+    "docs/art/block-textures-32-batch01/README.md",
+    "docs/art/block-textures-32-batch01/assets.json",
+    "docs/art/block-textures-32-batch01/export.mjs",
+    "docs/art/block-textures-32-batch01/inspect.py",
+    "docs/art/block-textures-32-batch01/manifest.json",
+    "docs/art/block-textures-32-batch01/preview.mjs",
+    "docs/art/block-textures-32-batch01/review.json",
+    "docs/art/block-textures-32-batch01/source-bundle.json",
+    "docs/art/block-textures-32-batch01/validation.json",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/PackagedOverflowChecks.java",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/README.md",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/core.log",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/environment.txt",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/inputs.json",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/overlays.json",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/regression.log",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/result.json",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/run_package_checks.py",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/shadow-rejection.log",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/source-rejection.log",
+    "docs/validation/engine-continuation/combined-overflow-package-2026-10-25/summary.json"
+  ],
+  "unmaterialized_optional_docs": "new PNG art candidates remain on Git; not product inputs"
+}
