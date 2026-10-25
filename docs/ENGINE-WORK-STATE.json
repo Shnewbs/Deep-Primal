@@ -1,17 +1,20 @@
 {
   "schema": 1,
-  "status": "paused_by_owner",
-  "updated_at": "2026-10-25T16:20:00Z",
-  "active_until": "2026-10-25T08:51:00Z",
+  "status": "ready_for_hourly_engine_builds",
+  "updated_at": "2026-10-25T17:29:07.574Z",
+  "active_until": "2026-10-25T17:29:07.574Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.19",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "STOPPED per owner after finalizing dev.19 Continuous Water Edges. Hourly automation removed. Library JAR 125181395 bytes SHA256 dbbf7fa87c9d4b94d8cc12fe87f08c808c94bbdd4bc2b254aa4cccabd6480574. Current-frame shared continuous top-boundary heights correct resident upload-clock seams. Initial live OpenGL/Vulkan runs have zero above-tolerance disagreements; final full build/core, both APIs eleven GPU readbacks/recovery/hidden-source-expiry, package identities and reload pass. Earlier dev19 environment/source/reaches/six soil gates pass; final change is presentation expiry only. Final Vulkan live recheck exited cleanly before measuring and is not a pass. Component p99 exceeds2ms; performance and complete flicker/menu/worldgen acceptance remain open; grade50/100. No new development without owner instruction.",
+  "current_gate": "Resume current main after finalized alpha.29-dev.19. Consume the latest independent engine audit, fix highest-impact engine findings, then use engine roadmaps. Preserve historical validation limits; last full externally verified grade remains 50/100. Qualified fresh build/release/JAR delivery required at cycle completion; stop only after fresh complete external average >8.5/10.",
   "owner_pause": {
     "instruction": "STOP AFTER YOU FINALIZE WHAT YOUR DOING NEXT",
     "automation_removed": true,
-    "resume_requires_owner_instruction": true
+    "resume_requires_owner_instruction": false,
+    "status": "superseded_by_owner_resume",
+    "resumed_at": "2026-10-25T17:29:07.574Z",
+    "resume_instruction": "Hourly engine and engine mechanics only; reflect latest separate graded audit in next build, check Git/other chat for overlap, push directly to main, release and send latest testing build, until grade is over 8.5."
   },
   "latest_shared_height_correction": {
     "artifact": "DeepPrimal-Windows-Vulkan-alpha.29-dev.19-Continuous-Water-Edges.jar",
@@ -83,7 +86,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
-    "OWNER PAUSE takes precedence over every historical continuation below. Current dev19 task finalized and supplied; automation removed. Do not resume until the owner explicitly requests it. Engine acceptance remains incomplete.",
+    "OWNER RESUMED engine-only builder on 2026-10-25. Read docs/ENGINE-HOURLY-BUILDS.md. Latest finalized main includes alpha.29-dev.19; do not repeat already corrected dev18 shared-height defects. Read latest independent audit; prioritize its open engine work, then engine roadmaps. Preserve all recorded unaccepted gates.",
     "New priority: repair confirmed resident shared-height publication failure, reproduced in 600-tick OpenGL/Vulkan running creek probes. Shared history does not patch already resident neighbor height/clock bytes. Do not disable interpolation or snap boundaries. Preserve failed-write recovery/edit guards, profile coherent publication before promotion and rerun live plus actual GPU controls. Dev.18 Library artifact unchanged; bump beyond dev.18 before production edits.",
     "Dev.18 delivered to Library. Continue live-stream displayed-height/shared-edge and wet/dry face continuity or full-tick multi-region storm latency. Preserve bounded midpoint expiry, ordinary opacity interpolation, dev.12-17 water/geography semantics and owner edits. World ledger, physical source unload/reopen/edits and menu-close reproduction remain open. Bump beyond dev.18 before production edits; engine acceptance remains incomplete.",
     "Dev.17 delivered to Library. Continue full-tick many-region storm latency or live-stream displayed-height/edge continuity. Sampling-only exact-output optimization is verified, not full storm acceptance. Preserve dev.12-16 state/cadence/chemistry/saved geography and owner edits. Complete world ledger, source physical unload/reopen/edits and menu-close reproduction remain open. Bump beyond dev.17 before production edits.",
@@ -123,11 +126,12 @@
   ],
   "rules": [
     "Use docs/ENGINE-BUILD-AUDIT-HANDOFF.md and the requirement register",
-    "Use this existing local main checkout; preserve unrelated/user changes and do not create branches, commit or push without explicit owner authorization",
     "Keep the stable branch and supplied installers intact until new work passes its acceptance checks",
     "Preserve published V1/V2/V3 geography and player edits; bump saved terrain revision for changed geography",
     "Do not declare engine completion or performance superiority from isolated fixtures",
-    "Hourly continuation is disabled by the owner's stop instruction; resume only on a new explicit request"
+    "Owner authorized direct main commits/pushes and qualified development testing releases; use current expected-parent/ref guards and preserve concurrent/user work.",
+    "Work only on engine/engine mechanics; consume the independent audit next cycle and use engine roadmaps, checking Git and other-chat ownership before each cycle.",
+    "Continue hourly builder until a fresh complete independent ten-category average is strictly greater than 8.5/10; a score of exactly 8.5 does not satisfy the target."
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/density-metadata-2026-10-24/README.md",
@@ -377,7 +381,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "none (owner-paused)",
+  "worker": "none; existing hourly builder resumption being configured",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -713,7 +717,7 @@
   "production_source_bytecode_guards_required": true,
   "latest_terrain_revision": 7,
   "latest_terrain_evidence": "docs/VALIDATION-0.0.1-alpha.28.md",
-  "foreground_task": "Owner requested stop and upload all work; builder paused, separate hourly auditor remains enabled.",
+  "foreground_task": "Owner resumed engine-only implementation, direct main pushes and qualified end-of-cycle testing builds/releases. Check current Git/other-chat claims before acquiring the next writer lease.",
   "latest_isolated_validation": {
     "source_sha": "dea1246899f52c3392a094ab389e91416bc57b71",
     "candidate": "R62 staged density graph plus private regression wiring",
@@ -865,7 +869,7 @@
     ]
   },
   "owner_acceptance_target": {
-    "average_score_minimum": 8,
+    "average_score_minimum": 8.5,
     "maximum_score": 10,
     "categories": 10,
     "equal_weights": true,
@@ -876,12 +880,17 @@
     "automation_id": "6ad974bdc204819195e5465aeea9dca2",
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da",
     "hourly_graded_update": true,
-    "current_audit_jar_required": true
+    "current_audit_jar_required": true,
+    "comparison": "strictly_greater_than",
+    "required_average_expression": "> 8.5/10",
+    "source": "Owner instruction 2026-10-25; docs/ENGINE-HOURLY-BUILDS.md",
+    "builder_cycle_jar_required": true,
+    "builder_cycle_development_release_required": true
   },
   "builder_auditor_coordination": {
     "builder_task_id": "6ad974bdc204819195e5465aeea9dca2",
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da",
-    "builder_enabled": false,
+    "builder_enabled": true,
     "auditor_enabled": true,
     "auditor_schedule": "BEGIN:VEVENT\nDTSTART:20261024T185047Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
     "auditor_timezone": "America/Los_Angeles",
@@ -891,8 +900,14 @@
     "separate_checkouts_outputs_and_caches": true,
     "no_continuous_execution_claim_between_runs": true,
     "policy": "docs/ENGINE-BUILDER-AUDITOR.md",
-    "builder_paused_by_owner": true,
-    "owner_pause_instruction": "Stop development and upload current work; keep the auditor running. Resume builder only when the owner asks."
+    "builder_paused_by_owner": false,
+    "owner_pause_instruction": "Historical stop superseded by the owner's 2026-10-25 explicit engine-only hourly resumption.",
+    "builder_resume_authorized_at": "2026-10-25T17:29:07.574Z",
+    "builder_builds_fresh_current_jar": true,
+    "builder_publishes_qualified_development_release": true,
+    "builder_reads_latest_external_audit_each_cycle": true,
+    "scope": "engine_and_engine_mechanics_only",
+    "target_average": ">8.5/10"
   },
   "latest_environment_recovery": {
     "source_commit": "7f314d34caaff2931f6bbb7e5c40671dd299d3ef",
@@ -924,5 +939,18 @@
     "file_name": "DeepPrimal_Complete_Work_Checkpoint_2026-10-24.zip",
     "bytes": 366751956,
     "sha256": "1fe82f95acbd3bb8fb769a91ca480e0328e347114af8d607b51019e3bb285d69"
+  },
+  "hourly_engine_build_policy": {
+    "path": "docs/ENGINE-HOURLY-BUILDS.md",
+    "authorized_at": "2026-10-25T17:29:07.574Z",
+    "direct_branch": "main",
+    "latest_audit_checked": "docs/engine-hourly-audits/2026-10-25T1646-ec687c2/REVIEW.md",
+    "coordination_base_sha": "d247f1a6a46bdca3045091c3b415f3de9b510115",
+    "other_chat_checked": true,
+    "other_chat_evidence": "Personal Context checked latest builder pause/auditor-active state; automation peek confirms paused existing builder and enabled independent auditor.",
+    "writer_lease_observed_expired": true,
+    "build_process_observed": false,
+    "builder_task_id": "6ad974bdc204819195e5465aeea9dca2",
+    "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   }
 }
