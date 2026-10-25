@@ -20,10 +20,12 @@ public final class ByteLru<K,V> {
         if (size < 0) throw new IllegalArgumentException("Negative payload size");
         V old = entries.remove(key); if (old != null) bytes -= weigh.applyAsLong(old);
         if (size > limit || maximum == 0) return;
-        entries.put(key, value); bytes += size;
-        while (bytes > limit || entries.size() > maximum) {
+        // Reserve room before adding: bytes + size can overflow even when each
+        // payload is individually within the configured nonnegative long budget.
+        while (bytes > limit - size || entries.size() >= maximum) {
             var it = entries.entrySet().iterator(); bytes -= weigh.applyAsLong(it.next().getValue()); it.remove();
         }
+        entries.put(key, value); bytes += size;
     }
     public long bytes() { return bytes; }
     public long hits() { return hits; }

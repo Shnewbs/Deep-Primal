@@ -1,0 +1,81 @@
+#version 460 core
+
+layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
+
+layout(set = 0, binding = 0) uniform sampler2D uInputTexture;
+layout(set = 0, binding = 1) uniform image2D uOutputTexture;
+
+layout(push_constant) uniform EASUConstants {
+    ivec2 renderSize;
+    ivec2 displaySize;
+    float sharpness;
+    float rcpRenderWidth;
+    float rcpRenderHeight;
+    float rcpDisplayWidth;
+    float rcpDisplayHeight;
+} push;
+
+// Lanczos2 kernel
+float lanczos2(float x) {
+    if (x == 0.0) return 1.0;
+    float pix = x * 3.14159265359;
+    float pix2 = pix * 2.0;
+    return (sin(pix) / pix - sin(pix2) / pix2) * 0.5;
+}
+
+void main() {
+    ivec2 displayPos = ivec2(gl_GlobalInvocationID.xy);
+    if (displayPos.x >= push.displaySize.x || displayPos.y >= push.displaySize.y) {
+        return;
+    }
+    
+    // Map display position to render space
+    vec2 renderPos = vec2(displayPos) * vec2(push.rcpDisplayWidth, push.rcpDisplayHeight) * vec2(push.renderSize);
+    
+    // Center of texel
+    renderPos -= 0.5;
+    
+    ivec2 base = ivec2(floor(renderPos));
+    vec2 frac = fract(renderPos);
+    
+    vec4 result = vec4(0.0);
+    float weightSum = 0.0;
+    
+    // 4x4 Lanczos2 kernel
+    for (int y = -1; y <= 2; y++) {
+        for (int x = -1; x <= 2; x++) {
+            ivec2 samplePos = base + ivec2(x, y);
+            
+            // Clamp to edge
+            samplePos.x = clamp(samplePos.x, 0, push.renderSize.x - 1);
+            samplePos.y = clamp(samplePos.y, 0, push.renderSize.y - 1);
+            
+            vec4 sample = texelFetch(uInputTexture, samplePos, 0);
+            float wx = lanczos2(x - frac.x + 0.5);
+            float wy = lanczos2(y - frac.y + 0.5);
+            float weight = wx * wy;
+            
+            result += sample * weight;
+            weightSum += weight;
+        }
+    }
+    
+    result /= weightSum;
+    
+    // RCAS sharpening
+    vec2 rcpRender = vec2(push.rcpRenderWidth, push.rcpRenderHeight);
+    vec4 n = texelFetch(uInputTexture, clamp(base + ivec2(-1, 0), 0, push.renderSize - 1), 0);
+    vec4 s = texelFetch(uInputTexture, clamp(base + ivec2(1, 0), 0, push.renderSize - 1), 0);
+    vec4 w = texelFetch(uInputTexture, clamp(base + ivec2(0, -1), 0, push.renderSize - 1), 0);
+    vec4 e = texelFetch(uInputTexture, clamp(base + ivec2(0, 1), 0, push.renderSize - 1), 0);
+    
+    vec4 horz = (n + s) * 0.5;
+    vec4 vert = (w + e) * 0.5;
+    float horzDiff = length(n - s);
+    float vertDiff = length(w - e);
+    
+    vec4 sharp = mix(horz, vert, step(vertDiff, horzDiff));
+    result = mix(result, sharp, push.sharpness);
+    
+    imageStore(uOutputTexture, displayPos, result);
+}
