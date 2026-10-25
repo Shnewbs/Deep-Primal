@@ -184,7 +184,7 @@ For each profile, fill the following later planning fields without adding balanc
 
 ## Visual and asset direction from this conversation
 
-- **World block/item texture tiles: up to 64×64.** This records the current planning ceiling; dedicated UI art has a separate existing design context.
+- **World block texture tiles: 32×32 by default; 64×64 only where necessary detail requires it.** See the [block texture plan](art/BLOCK-TEXTURE-PLAN.md) for ownership, family coverage and exception evidence. Dedicated UI art has a separate existing design context.
 - Use shared neutral/grayscale texture families with per-material palettes/tints. Soil patterns can distinguish crumbly loam, granular sand, compact clay-rich surfaces and fibrous organic ground.
 - Rock grain/fracture, wood bark/grain, canopy forms, soil layers, grass structure and litter should distinguish material families as well as colors.
 - Grass, stones, litter, roots, wetness and snow can use appropriate separate masks/overlays/state appearance. The exact renderer representation is still a design choice.
