@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_hourly_engine_builds",
-  "updated_at": "2026-10-25T17:38:26.460Z",
-  "active_until": "2026-10-25T17:38:26.460Z",
+  "status": "builder_active",
+  "updated_at": "2026-10-25T18:28:33.854Z",
+  "active_until": "2026-10-25T18:48:33.854Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.20",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Visual acceptance of channel revision 2 rivers; deltas/oxbows/anastomosing not built",
+  "current_gate": "Nonconflicting legacy fixture V1-V5 schema regression; dev20 V6 fix retained",
   "latest_earth_rivers": {
     "artifact": "DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar",
     "bytes": 125215496,
@@ -15,7 +15,13 @@
     "channel_revision": 2,
     "evidence": "EARTH_RIVER_PASS; full core checks; 13 native gates; TERRAIN_AUDIT_NATIVE_PASS fresh+reopen; revision 0/1 survey identical",
     "fixture_repair": "DepositNativeChecks.generator strips V7-only material_revision/channel_revision for non-V7 generators",
-    "not_claimed": ["deltas", "anastomosing", "oxbows", "budgeted braid discharge", "visual acceptance"]
+    "not_claimed": [
+      "deltas",
+      "anastomosing",
+      "oxbows",
+      "budgeted braid discharge",
+      "visual acceptance"
+    ]
   },
   "owner_pause": {
     "instruction": "STOP AFTER YOU FINALIZE WHAT YOUR DOING NEXT",
@@ -391,7 +397,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "hourly-engine-builder-20261025T1730",
+  "worker": "hourly-engine-builder-20261025T1825",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -964,23 +970,11 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "source_sha": "48063e8020fa94b38e841ca3b2add9b966e6655a",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T1646-ec687c2/REVIEW.md",
-    "audit_source_sha": "ec687c2158563f03c8f6737cade635f7e2de66b9",
+    "source_sha": "6299c572d320f6a5169c3894e2ff0de6c9b6b97b",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T1749-67bbadc/REVIEW.md",
+    "audit_source_sha": "67bbadc14d74d515a250f537bd8f3c3cef273bd8",
     "last_external_grade": 5,
-    "coordination": "Personal Context searched: relevant pause/resumption and audit context, no live writer evidence; unrelated Cecil result excluded. Auditor peek last run completed 16:51:33Z. Git lease expired. No Java/Gradle process observed.",
-    "blocker": "Filesystem zero available bytes even after removing 484338664 bytes of hash-verified duplicate own tool archives; isolated core checks used /dev/shm.",
-    "completed_at": "2026-10-25T17:38:26.460Z",
-    "evidence": "docs/validation/engine-continuation/density-grid-finite-2026-10-25/README.md",
-    "candidate": "DensityGrid finite interpolation overflow fix",
-    "promoted": false,
-    "current_production_version": "0.0.1-alpha.29-dev.19",
-    "checks": "Baseline fails; 11728 regression checks and complete current-main Java25 core suite pass. 108 pinned inputs verified.",
-    "full_gradle_build": false,
-    "native_execution": false,
-    "jar_built": false,
-    "release_published": false,
-    "next": "Restore isolated build capacity, apply candidate with regression integration and next free version > dev.19, run full module/build/package gates. Then native V8 topology/profile/hydrology and dev.19 live-water performance gates.",
-    "lease_released": true
+    "coordination": "First lease update failed during concurrent dev20 commit; ref reread and fresh state used. Personal Context did not retrieve live dev20 ownership. Git confirms V6 repair already committed. Auditor last run completed. No heavy job; separate texture work untouched.",
+    "next": "Check V1-V5 fixture schema without repeating dev20 V6 repair; production and art preserved"
   }
 }
