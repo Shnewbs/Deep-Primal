@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "scope": "direct core-only JAR, not Minecraft/full Gradle",
+  "inputs_verified": 111,
+  "product_classes": 113,
+  "fixture_classes_excluded": 65,
+  "crc": true,
+  "packaged_classes_match": true,
+  "loaded_candidate_locations_checked": true,
+  "regression_exit": 0,
+  "core_exit": 0,
+  "jar_bytes": 212429,
+  "jar_sha256": "5b6f450f285679507d27f08debc927cc9ea83a4b2af1491ac65e35c65cccb4ae"
+}
