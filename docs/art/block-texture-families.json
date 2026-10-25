@@ -19,8 +19,26 @@
       "family": "raw_stone",
       "treatment": "Raw stone surfaces and derived worked-stone families",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "stone/granite",
+          "stone/basalt",
+          "stone/gabbro",
+          "stone/limestone",
+          "stone/sandstone",
+          "stone/shale",
+          "stone/slate",
+          "stone/marble",
+          "stone/quartzite",
+          "stone/chert",
+          "mineral/coal",
+          "volcanic/scoria"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "ROCK-ADD",
@@ -47,8 +65,16 @@
       "family": "minerals_ores",
       "treatment": "Shared mineral/ore overlays on compatible host rock",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "mineral/coal",
+          "mineral/ore_vein"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "SEDIMENT",
@@ -61,8 +87,17 @@
       "family": "sediment",
       "treatment": "Sand, gravel, silt, mixed and coastal deposits",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "sediment/rounded_gravel",
+          "sediment/angular_gravel",
+          "sediment/silt"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "TEXTURE",
@@ -75,8 +110,16 @@
       "family": "soil",
       "treatment": "Twelve soil texture classes; shared pattern families and tints",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "soil/compact_clay",
+          "soil/crumbly_loam"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "SOIL-ORDER",
@@ -131,8 +174,15 @@
       "family": "clay",
       "treatment": "Shared compact/granular clay patterns with material palettes",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "soil/compact_clay"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "CLAY-USE",
@@ -145,8 +195,15 @@
       "family": "ceramic",
       "treatment": "Clay bodies and ceramic preparations; later fired variants",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "ceramic/fired_clay"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "SOIL-STRUCT",
@@ -173,8 +230,23 @@
       "family": "wood",
       "treatment": "Bark, end grain, stripped grain, planks and foliage families",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "wood/oak_bark",
+          "wood/oak_endgrain",
+          "wood/oak_planks",
+          "wood/pine_bark",
+          "wood/pine_endgrain",
+          "wood/pine_planks",
+          "wood/birch_bark",
+          "foliage/broadleaf",
+          "foliage/needles"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "WOODY-ADD",
@@ -187,8 +259,16 @@
       "family": "wood",
       "treatment": "Resolve species/group aliases; preserve palms/bamboo anatomical differences",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "foliage/broadleaf",
+          "foliage/needles"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "GRAMINOID",
@@ -201,8 +281,15 @@
       "family": "groundcover",
       "treatment": "Grass/sedge/reed cutouts, cover and later growth states",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "plant/grass_tuft"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "UNDERSTORY",
@@ -215,8 +302,15 @@
       "family": "vegetation",
       "treatment": "Herb/shrub/vine cutouts and growth-form textures",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "plant/fern"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "CROP",
@@ -243,8 +337,15 @@
       "family": "fungi",
       "treatment": "Cap, stem, underside, bracket and surface growth textures",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "fungi/mushroom_cap"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "CRYPTOGAM",
@@ -257,8 +358,16 @@
       "family": "surface_growth",
       "treatment": "Moss, lichen, liverwort and soil-crust overlays",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "growth/lichen",
+          "growth/moss"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "AQUATIC",
@@ -271,8 +380,15 @@
       "family": "aquatic",
       "treatment": "Aquatic plant cutouts and biogenic surfaces",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "aquatic/kelp"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "ORGANIC-TYPE",
@@ -285,8 +401,16 @@
       "family": "organic",
       "treatment": "Litter, peat, humus, fibers and decay overlays",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "organic/fibrous_peat",
+          "building/thatch"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "WOOD-FORM",
@@ -299,8 +423,17 @@
       "family": "wood_forms",
       "treatment": "Reuse source wood grain for shapes, decay and moisture states",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "wood/oak_planks",
+          "wood/pine_planks",
+          "wood/stripped_grain"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "ANIMAL-MAT",
@@ -341,8 +474,15 @@
       "family": "snow_ice",
       "treatment": "Snow, compacted forms, ice, frost and sediment overlays",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "frozen/glacier_ice"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "VOLCANIC-FORM",
@@ -355,8 +495,15 @@
       "family": "volcanic",
       "treatment": "Reuse canonical rocks/deposits; separate crust/ash/geothermal surfaces",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "sample_exports_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "sample_exports": {
+        "batch": "block-textures-32-batch01",
+        "assets": [
+          "volcanic/scoria"
+        ],
+        "complete_family": false
+      }
     },
     {
       "prefix": "AIR-FORM",
@@ -440,6 +587,22 @@
       "ROCK-LEGACY-038",
       "ROCK-LEGACY-025"
     ],
-    "prompt": "stone-family-32-v1/prompt.txt"
-  }
+    "prompt": "stone-family-32-v1/prompt.txt",
+    "followup": "block-textures-32-batch01/README.md"
+  },
+  "production_batches": [
+    {
+      "id": "block-textures-32-batch01",
+      "status": "exported_pending_native_review",
+      "manifest": "block-textures-32-batch01/manifest.json",
+      "review": "block-textures-32-batch01/review.json",
+      "assets": 40,
+      "tile_size": 32,
+      "opaque": 34,
+      "binary_cutout": 6,
+      "exceptions_64": [],
+      "runtime_integrated": false,
+      "catalog_complete": false
+    }
+  ]
 }

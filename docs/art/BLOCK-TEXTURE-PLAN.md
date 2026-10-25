@@ -57,6 +57,14 @@ The first review board targets 32×32 and covers Granite, Basalt, Gabbro, Limest
 
 Status: **design preview only**. It was generated with the built-in image-generation tool using the approved ground-direction board as a style reference. The exact [prompt](stone-family-32-v1/prompt.txt) is retained. No individual 32×32 PNGs, repeat/seam acceptance, mipmap checks, in-game lighting checks, runtime integration or release is claimed. The generated board is retained in the originating conversation.
 
+## First 40 individual exports
+
+[Batch 01](block-textures-32-batch01/README.md) now supplies **40 actual 32×32 PNG candidates**: ten raw stones, six sediment/soil/organic bases, eight wood faces, four building materials, five mineral/growth/ice surfaces, five foliage/plant/aquatic cutouts, a mushroom cap and scoria. Thirty-four are opaque; six use binary alpha. No 64×64 exception was needed.
+
+Each master was generated individually, then mechanically exported and checked. The batch includes exact prompts, source and tile hashes, export/preview scripts, validation results, actual-export contact sheets, repeat proofs and cutout scale studies. Pine planks were revised after seam screening flagged the first export. All 40 pass dimensions, neutral-channel, alpha, uniqueness and hash checks; no repeat-screening flags remain. Repeated surfaces and actual-size art were inspected, but those checks do not replace native rendering review.
+
+Status: **exported; native game review and model/tint assignment pending**. Thin foliage and ore features lose coverage in the mechanical 16/8/4px scale studies and need in-game cutout/mipmap checks. This is representative family coverage, not completion of catalog species, faces, growth states or machinery. Existing approved ground art remains untouched. See the batch README for the downloadable original masters and full source bundle.
+
 ## Per-family delivery and acceptance
 
 1. Review the complete proposed family together, using actual native-size exports and enlarged nearest-neighbor views when exports exist. Identify concept boards explicitly.
@@ -67,4 +75,5 @@ Status: **design preview only**. It was generated with the built-in image-genera
 
 ## Coordination
 
-Check current main and relevant art/engine work state before each change. Use guarded main updates; reconcile concurrent commits. Texture ownership is recorded here for the other workstreams, with production statuses in the family map. Preserve existing accepted art and the engine's audit/build schedules. This setup changes documentation and review planning only; no engine source or runtime texture is replaced.
+Check current main and relevant art/engine work state before each change. Use guarded main updates; reconcile concurrent commits. Texture ownership is recorded here for the other workstreams, with production statuses in the family map. Preserve existing accepted art and the engine's audit/build schedules. Production candidates remain under docs/art with their review state. No engine source or runtime texture is replaced by the current batch.
+
