@@ -62,5 +62,12 @@ public final class DensityGrid implements DensityField {
 
   private double at(int x,int y,int z) { return values[(z*sizeY+y)*sizeX+x]; }
   // Exact endpoints are necessary for bit-identical neighboring grid faces.
-  private static double lerp(double a,double b,double t) { return t==0?a:t==1?b:a+(b-a)*t; }
+  private static double lerp(double a,double b,double t) {
+    if (t==0) return a;
+    if (t==1) return b;
+    double delta=b-a;
+    // Finite opposite-sign endpoints can overflow their difference. Weighted terms
+    // remain finite and have opposite signs. Preserve ordinary interpolation bits.
+    return Double.isFinite(delta) ? a+delta*t : a*(1-t)+b*t;
+  }
 }
