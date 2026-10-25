@@ -111,7 +111,8 @@ public final class GroundResourceChecks {
           "Self-drop resource " + id);
     }
     System.out.println("GROUND_RESOURCES_PASS checks=" + checks
-        + " ownerImages=10 unchanged=true masksComplementary=true modelLinks=true tintLayers=true");
+        + " groundImages=" + manifest.getAsJsonArray("assets").size()
+        + " manifestMatched=true masksComplementary=true modelLinks=true tintLayers=true");
     GroundSurfaceProfileChecks.run();
     GroundSideMathChecks.run();
     var example = GroundSurfaceProfile.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE,
@@ -138,3 +139,4 @@ public final class GroundResourceChecks {
 
   private GroundResourceChecks() {}
 }
+
