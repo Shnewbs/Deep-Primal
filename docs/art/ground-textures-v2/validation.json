@@ -1,0 +1,200 @@
+{
+  "source": {
+    "name": "image(20261025-001516).png",
+    "sha256": "324bcdedd1452e42afe6fa593d50a3f4a0ed7075bf48c19e4a318d883825558f",
+    "size": [
+      1476,
+      903
+    ],
+    "owner_selected": true
+  },
+  "operations": [
+    "Exact panel extraction from owner-selected sheet",
+    "Neutral grayscale conversion and 64x64 resampling",
+    "Preserve side-strip aspect ratio as upper 14 rows; extend below using approved dirt",
+    "Blend narrow 3-row side junction",
+    "Match wrap edges through 4-texel bands",
+    "Complementary surface/soil masks for grass and podzol sides"
+  ],
+  "assets": [
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/grass_top.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": false,
+      "repeat_axes": "xy",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 0
+      },
+      "unique_gray_levels": 103,
+      "sha256": "c1a5fc2c808088e183d6303a620989eef7ffbaaa3187c281c1c2a8c31644dfb9"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/dirt_top.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": false,
+      "repeat_axes": "xy",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 0
+      },
+      "unique_gray_levels": 115,
+      "sha256": "aece8a3a2841d5f7975ca8d5691a436da603af389fe5c2ecf85b3c02185166cb"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/podzol_top.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": false,
+      "repeat_axes": "xy",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 0
+      },
+      "unique_gray_levels": 113,
+      "sha256": "e6a3d2b3e8342e0598641f4e74b4066cf8ea71c8762df4716433e519ca3751cd"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/grass_side.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": false,
+      "repeat_axes": "x",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 42
+      },
+      "unique_gray_levels": 116,
+      "sha256": "3e9af97dbc815c2e4c01485c6d0a034a957273eb8b197e1fe83bd3d8b5c346a9"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/dirt_side.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": false,
+      "repeat_axes": "xy",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 0
+      },
+      "unique_gray_levels": 110,
+      "sha256": "0d7e25a80523a324c3232eefd483cf466405f03e9856fe777806bfba4d0b5e41"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/podzol_side.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": false,
+      "repeat_axes": "x",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 59
+      },
+      "unique_gray_levels": 125,
+      "sha256": "58aa70894c2b6f65c899ce1edd9aa9c598c4d9923bba07df2e10984aaf49b618"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/masks/grass_side_surface.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": true,
+      "repeat_axes": "x",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 255
+      },
+      "unique_gray_levels": 165,
+      "sha256": "d8789463d6ae5fac74b785d0cacc5f1524628a519694a115be3b9ecc8cf5762f"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/masks/grass_side_soil.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": true,
+      "repeat_axes": "x",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 255
+      },
+      "unique_gray_levels": 165,
+      "sha256": "3a06a5ad3c506aa683ef0c6fba7f06445d4803cb726523b308c1ca2c5062bca0"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/masks/podzol_side_surface.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": true,
+      "repeat_axes": "x",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 255
+      },
+      "unique_gray_levels": 165,
+      "sha256": "ec16948ca900de30b72c3a8a9ad2517d492d81dc4cf930f6e16ea5d909cb3a1f"
+    },
+    {
+      "file": "src/main/resources/assets/deepprimal/textures/block/ground/masks/podzol_side_soil.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "8-bit grayscale",
+      "opaque": true,
+      "mask": true,
+      "repeat_axes": "x",
+      "edge_max_difference": {
+        "x": 0,
+        "y": 255
+      },
+      "unique_gray_levels": 165,
+      "sha256": "7979138694deb1c9306ea00786cc907302d1ced38f649a56d5bac51bbb63a4b3"
+    }
+  ],
+  "exact_original_crop_files": 6,
+  "mask_partition_checks": 8192,
+  "full_build": false,
+  "in_game_validation": false,
+  "live_models_or_tint_providers": false,
+  "connected_material_transitions": false,
+  "reproduced_runtime_pngs": 10,
+  "preview_inspected": true,
+  "export_correction": "Initial two byte-reproduction attempts differed only in ancillary PNG date:timestamp metadata (pixels identical); final ancillary-free PNGs reproduce byte-for-byte."
+}
