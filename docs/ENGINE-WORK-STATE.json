@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "builder_active",
-  "updated_at": "2026-10-25T17:31:50.265Z",
-  "active_until": "2026-10-25T18:16:50.265Z",
+  "status": "ready_for_hourly_engine_builds",
+  "updated_at": "2026-10-25T17:38:26.460Z",
+  "active_until": "2026-10-25T17:38:26.460Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.19",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Audit-driven bounded engine repair; isolated validation; disk capacity preflight",
+  "current_gate": "Recover isolated full-build storage; qualify staged finite-grid fix before promotion",
   "owner_pause": {
     "instruction": "STOP AFTER YOU FINALIZE WHAT YOUR DOING NEXT",
     "automation_removed": true,
@@ -86,6 +86,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-25 builder: staged finite DensityGrid interpolation overflow repair and complete passing core evidence at docs/validation/engine-continuation/density-grid-finite-2026-10-25/README.md. No promotion/full build/JAR: filesystem still zero available after verified duplicate cleanup. Recover isolated build storage and qualify candidate; preserve finalized dev.19 and owner v4 art.",
     "OWNER RESUMED engine-only builder on 2026-10-25. Read docs/ENGINE-HOURLY-BUILDS.md. Latest finalized main includes alpha.29-dev.19; do not repeat already corrected dev18 shared-height defects. Read latest independent audit; prioritize its open engine work, then engine roadmaps. Preserve all recorded unaccepted gates.",
     "New priority: repair confirmed resident shared-height publication failure, reproduced in 600-tick OpenGL/Vulkan running creek probes. Shared history does not patch already resident neighbor height/clock bytes. Do not disable interpolation or snap boundaries. Preserve failed-write recovery/edit guards, profile coherent publication before promotion and rerun live plus actual GPU controls. Dev.18 Library artifact unchanged; bump beyond dev.18 before production edits.",
     "Dev.18 delivered to Library. Continue live-stream displayed-height/shared-edge and wet/dry face continuity or full-tick multi-region storm latency. Preserve bounded midpoint expiry, ordinary opacity interpolation, dev.12-17 water/geography semantics and owner edits. World ledger, physical source unload/reopen/edits and menu-close reproduction remain open. Bump beyond dev.18 before production edits; engine acceptance remains incomplete.",
@@ -959,6 +960,18 @@
     "audit_source_sha": "ec687c2158563f03c8f6737cade635f7e2de66b9",
     "last_external_grade": 5,
     "coordination": "Personal Context searched: relevant pause/resumption and audit context, no live writer evidence; unrelated Cecil result excluded. Auditor peek last run completed 16:51:33Z. Git lease expired. No Java/Gradle process observed.",
-    "blocker": "Filesystem 100% full at preflight; no heavy job started."
+    "blocker": "Filesystem zero available bytes even after removing 484338664 bytes of hash-verified duplicate own tool archives; isolated core checks used /dev/shm.",
+    "completed_at": "2026-10-25T17:38:26.460Z",
+    "evidence": "docs/validation/engine-continuation/density-grid-finite-2026-10-25/README.md",
+    "candidate": "DensityGrid finite interpolation overflow fix",
+    "promoted": false,
+    "current_production_version": "0.0.1-alpha.29-dev.19",
+    "checks": "Baseline fails; 11728 regression checks and complete current-main Java25 core suite pass. 108 pinned inputs verified.",
+    "full_gradle_build": false,
+    "native_execution": false,
+    "jar_built": false,
+    "release_published": false,
+    "next": "Restore isolated build capacity, apply candidate with regression integration and next free version > dev.19, run full module/build/package gates. Then native V8 topology/profile/hydrology and dev.19 live-water performance gates.",
+    "lease_released": true
   }
 }
