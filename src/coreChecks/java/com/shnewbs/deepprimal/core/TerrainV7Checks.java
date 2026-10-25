@@ -25,6 +25,7 @@ final class TerrainV7Checks {
     for(int b:new int[]{1,10,13,14,15})if(Vegetation.treeChance(b,.5)<Vegetation.treeChance(0,.5)*10)throw new AssertionError("Forest canopy density does not follow biome");
     System.out.println("TERRAIN_V7_PASS seeds=8 columns="+columns+" biomeIds="+biomes+" uniqueOriginHeights=8 uniqueOriginRain=8 reaches="+streams);
     channels();
+    EarthRiverChecks.run();
     soilOutcrops();
   }
   /** Material revision 2 removes iso-slope weathered ribbons; revisions 0/1 replay exact legacy horizons. */

@@ -141,6 +141,8 @@ Layers can combine only when their physical/biological prerequisites hold. Gener
 
 The glacial additions are detailed in [Glacial landscapes](GLACIAL-LANDSCAPES.md). The current lists contain **54 community variants and 63 local layers**; all existing IDs retain their meanings.
 
+LAY-061 engine status (dev.20, channel revision 2): generic braided reaches with emergent dry bars generate on moderate-gradient, unconfined rivers. They share one stage and water budget. Glacial-outwash placement and separately budgeted branch discharges remain open.
+
 ## Existing habitat crosswalk
 
 Every one of the **62 existing HABITAT-TYPE entries** in [NATURAL-TYPES-ENVIRONMENTS.md](NATURAL-TYPES-ENVIRONMENTS.md#habitat-type) is accounted for here. A mapping is a planning disposition, not implementation completion.

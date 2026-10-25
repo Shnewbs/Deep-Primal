@@ -11,8 +11,12 @@ public final class WatershedRegion {
   private static final int N = SIDE * SIDE, TILE = 64, TILES = TerrainEngine.CELL / TILE;
   private static final double STREAM_AREA = 18_000;
   private static final int[] ORTHOGONAL = {-SIDE, SIDE, -1, 1};
+  /** Channel revision 2: trunk reaches with at least this catchment keep a graded bed. */
+  private static final double TRUNK_AREA = 400_000, GRADED_SLOPE = 22.1, GREAT_AREA = 1_200_000;
   private final double ox, oz;
-  private final boolean broadChannels, cascadeBeds;
+  private final boolean broadChannels, cascadeBeds, earthRivers;
+  private final TerrainNoise riverNoise;
+  private final double[] incision = new double[N], chainage = new double[N], braiding = new double[N];
   private final double[] raw = new double[N],
       flood = new double[N],
       area = new double[N],
@@ -70,7 +74,19 @@ public final class WatershedRegion {
       double ab,
       int sill,
       double crest,
-      boolean source) {}
+      boolean source,
+      double ca,
+      double cb,
+      double wa,
+      double wb,
+      double ka,
+      double kb,
+      double reach) {
+    Segment(double ax, double az, double bx, double bz, double sa, double sb, double ra,
+        double rb, double aa, double ab, int sill, double crest, boolean source) {
+      this(ax, az, bx, bz, sa, sb, ra, rb, aa, ab, sill, crest, source, 0, 0, 0, 0, 0, 0, 0);
+    }
+  }
 
   public WatershedRegion(
       double ox, double oz, DoubleBinaryOperator height, DoubleBinaryOperator rain) {
@@ -87,8 +103,24 @@ public final class WatershedRegion {
    */
   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, null);
+  }
+
+  /**
+   * A non-null {@code riverNoise} selects saved channel revision 2 (Earth-scaled rivers): graded
+   * trunk beds that incise canyons (steady-state stream power, slope ~ area^-1/2), hydraulic
+   * geometry that widens great lowland rivers and estuary mouths, node-consistent meanders and
+   * braided reaches with emergent bars. Revisions 0/1 pass null and replay exactly.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise) {
     this.broadChannels=broadChannels;
     this.cascadeBeds=cascadeBeds;
+    this.riverNoise=riverNoise;
+    this.earthRivers=riverNoise!=null;
+    if (earthRivers && !(broadChannels && cascadeBeds))
+      throw new IllegalArgumentException("Earth rivers require V7 broad cascade channels");
     this.ox = ox;
     this.oz = oz;
     Arrays.fill(parent, -1);
@@ -231,7 +263,37 @@ public final class WatershedRegion {
         }
         if (Double.isFinite(lake.level)) stage[a] = Math.max(downstream, lake.level);
       }
+      if (earthRivers && b >= 0) {
+        double d = Math.hypot(px(a) - px(b), pz(a) - pz(b));
+        chainage[a] = chainage[b] + d;
+        boolean pool = lakeAt[a] > 0 && Double.isFinite(lakes[lakeAt[a]].level);
+        if (!pool && area[a] >= TRUNK_AREA) {
+          // A trunk river keeps pace with uplift: its bed stays graded through rising ground.
+          double graded =
+              Math.floor((stage[b] + GRADED_SLOPE / Math.sqrt(area[a]) * d) * 16) / 16;
+          if (graded < stage[a]) {
+            double lowered = Math.max(downstream, graded);
+            incision[a] = stage[a] - lowered;
+            stage[a] = lowered;
+          }
+        }
+      }
     }
+    if (earthRivers)
+      for (int a = 0; a < N; a++) {
+        int b = parent[a];
+        if (b < 0 || area[a] < STREAM_AREA || ocean[a]) continue;
+        double grade = (stage[a] - stage[b]) / Math.hypot(px(a) - px(b), pz(a) - pz(b));
+        double base = Math.clamp(1.4 + Math.sqrt(area[a]) / 185, 2.1, 32);
+        // Braided reaches: moderate gradient, enough discharge, not confined in a canyon.
+        braiding[a] =
+            smooth((grade - .002) / .003)
+                * (1 - smooth((grade - .04) / .03))
+                * smooth((base - 3) / 3)
+                * (1 - smooth(incision[a] / 3))
+                * smooth((stage[a] - TerrainEngine.SEA - 3) / 3)
+                * smooth((riverNoise.field(px(a), pz(a), 1400, 9131) + .25) / .3);
+      }
     for (int a = 0; a < N; a++)
       if (lakeAt[a] > 0 && Double.isFinite(lakes[lakeAt[a]].level)) {
         int x = a % SIDE, z = a / SIDE;
@@ -256,6 +318,10 @@ public final class WatershedRegion {
       double c1x = ax + tx / tl * len * .28, c1z = az + tz / tl * len * .28;
       double c2x = bx - ux / ul * len * .28, c2z = bz - uz / ul * len * .28;
       double lastX = ax, lastZ = az;
+      if (earthRivers) {
+        lastX += warp(ax, az, area[a], stage[a], 0);
+        lastZ += warp(ax, az, area[a], stage[a], 1);
+      }
       int sill =
           lakeAt[a] > 0 && lakes[lakeAt[a]].outlet == a && Double.isFinite(lakes[lakeAt[a]].level)
               ? lakeAt[a]
@@ -264,6 +330,31 @@ public final class WatershedRegion {
         double t = k / 8., s = 1 - t, before = (k - 1) / 8.;
         double x = s * s * s * ax + 3 * s * s * t * c1x + 3 * s * t * t * c2x + t * t * t * bx;
         double z = s * s * s * az + 3 * s * s * t * c1z + 3 * s * t * t * c2z + t * t * t * bz;
+        if (earthRivers) {
+          // Shared nodes take identical displacements, so confluences stay joined.
+          double wa = k == 8 ? area[b] : lerp(area[a], area[b], t);
+          double ws = k == 8 ? stage[b] : lerp(stage[a], stage[b], t);
+          double wx = warp(x, z, wa, ws, 0), wz = warp(x, z, wa, ws, 1);
+          x += wx;
+          z += wz;
+          double ka = lerp(incision[a], incision[b], before), kb = lerp(incision[a], incision[b], t);
+          double ca = lerp(chainage[a], chainage[b], before), cb = lerp(chainage[a], chainage[b], t);
+          double ba = lerp(braiding[a], braiding[b], before), bb = lerp(braiding[a], braiding[b], t);
+          double sa = lerp(stage[a], stage[b], before), sb = lerp(stage[a], stage[b], t);
+          lines.add(
+              new Segment(
+                  lastX, lastZ, x, z, sa, sb,
+                  earthRadius(lerp(area[a], area[b], before), sa, ba, source, before),
+                  earthRadius(lerp(area[a], area[b], t), sb, bb, source, t),
+                  lerp(area[a], area[b], before),
+                  lerp(area[a], area[b], t),
+                  sill != 0 && k >= 5 && k <= 7 ? sill : 0,
+                  sill == 0 ? 0 : Math.floor(lakes[sill].level),
+                  source, ca, cb, ba, bb, ka, kb, canyonReach(Math.max(ka, kb))));
+          lastX = x;
+          lastZ = z;
+          continue;
+        }
         lines.add(
             new Segment(
                 lastX,
@@ -289,7 +380,7 @@ public final class WatershedRegion {
     ArrayList<Integer>[] buckets = new ArrayList[TILES * TILES];
     for (int n = 0; n < segments.length; n++) {
       var s = segments[n];
-      double margin = Math.max(s.ra, s.rb) + 36;
+      double margin = Math.max(s.ra, s.rb) + 36 + s.reach;
       int x0 = tile(Math.min(s.ax, s.bx) - margin, ox),
           x1 = tile(Math.max(s.ax, s.bx) + margin, ox);
       int z0 = tile(Math.min(s.az, s.bz) - margin, oz),
@@ -317,6 +408,46 @@ public final class WatershedRegion {
 
   private double px(int a) {
     return ox + (a % SIDE) * STEP;
+  }
+
+  /**
+   * Hydraulic geometry (width ~ discharge^1/2) with great-river and estuary widening. Great
+   * lowland trunks reach 128-220 blocks; canyon and upland reaches stay comparatively narrow.
+   */
+  private static double earthRadius(
+      double area, double stage, double braid, boolean source, double t) {
+    double base = Math.clamp(1.4 + Math.sqrt(area) / 185, 2.1, 32);
+    double great = smooth((area - GREAT_AREA) / 4_800_000);
+    double lowland = 1 - smooth((stage - TerrainEngine.SEA - 4) / 40);
+    double estuary = 1 + .7 * great * (1 - smooth((stage - TerrainEngine.SEA) / 2.5));
+    double r = Math.min(112, base * (1 + 3.2 * great * lowland) * estuary * (1 + .6 * braid));
+    return source ? lerp(1.3, r, smooth(t * 2)) : r;
+  }
+
+  /** Meander displacement from a shared vector field; wavelength grows with river size. */
+  private double warp(double x, double z, double area, double stage, int axis) {
+    double r = Math.clamp(1.4 + Math.sqrt(area) / 185, 2.1, 32);
+    double fade = smooth((stage - TerrainEngine.SEA - .5) / 3);
+    if (fade <= 0) return 0;
+    double large = smooth((r - 3) / 20);
+    return fade
+        * ((1 - large) * Math.min(9, 2 + r * 1.4) * riverNoise.noise(x, z, 110, 9101 + axis)
+            + large * Math.min(48, 8 + r * 1.6) * riverNoise.noise(x, z, 420, 9103 + axis));
+  }
+
+  /** Horizontal reach of terraced canyon walls beyond the channel. */
+  private static double canyonReach(double incision) {
+    return incision <= 2 ? 0 : Math.min(96, 20 + incision * 1.2);
+  }
+
+  /** Stepped cliff-and-bench wall height above the water at distance {@code d} from the bank. */
+  private double canyonWall(double x, double z, double d, double relief, double incision) {
+    double rise = 7 + 3 * riverNoise.field(x, z, 300, 9141);
+    double u = d / (rise * .7) + .5;
+    double step = Math.floor(u);
+    double terraces = rise * (step + smooth((u - step - .5) / .5));
+    double reach = canyonReach(incision);
+    return terraces + Math.max(0, relief) * smooth((d - reach * .55) / (reach * .45));
   }
 
   private double pz(int a) {
@@ -353,6 +484,7 @@ public final class WatershedRegion {
         eligible=new boolean[segments.length];
         for(int id=0;id<segments.length;id++) {
           var s=segments[id];double vx=s.bx-s.ax,vz=s.bz-s.az,len=Math.hypot(vx,vz);
+          if(Math.max(s.ka,s.kb)>2)continue; // an incised canyon stays open to the sky
           if(Math.min(s.sa,s.sb)<=TerrainEngine.SEA+8||height.applyAsDouble((s.ax+s.bx)*.5,(s.az+s.bz)*.5)-(s.sa+s.sb)*.5<9)continue;
           boolean covered=true;
           for(int n=0;n<3&&covered;n++) {
@@ -365,6 +497,12 @@ public final class WatershedRegion {
       }
     }
     var candidates=index[tile(z,oz)*TILES+tile(x,ox)];if(candidates==null)return false;
+    if(earthRivers)for(int id:candidates) {
+      var s=segments[id];if(s.reach<=0)continue;
+      double vx=s.bx-s.ax,vz=s.bz-s.az,len=vx*vx+vz*vz;
+      double t=Math.clamp(((x-s.ax)*vx+(z-s.az)*vz)/len,0,1);
+      if(Math.hypot(x-s.ax-vx*t,z-s.az-vz*t)<lerp(s.ra,s.rb,t)+s.reach)return false;
+    }
     for(int id:candidates)if(eligible[id]) {
       var s=segments[id];double vx=s.bx-s.ax,vz=s.bz-s.az,len=vx*vx+vz*vz;
       double t=Math.clamp(((x-s.ax)*vx+(z-s.az)*vz)/len,0,1),r=lerp(s.ra,s.rb,t),stage=lerp(s.sa,s.sb,t);
@@ -387,6 +525,7 @@ public final class WatershedRegion {
         joinedBed = Double.POSITIVE_INFINITY,
         bankFloor = Double.NEGATIVE_INFINITY;
     double lakeLevel = Double.NaN, channelFloor = Double.NEGATIVE_INFINITY, channelStage = Double.NaN;
+    double bar = Double.NEGATIVE_INFINITY;
     for (int corner = 0; corner < 4; corner++) {
       int c = a + (corner & 1) + (corner >>> 1) * SIDE;
       if (lakeAt[c] > 0 && Double.isFinite(lakes[lakeAt[c]].level))
@@ -428,9 +567,13 @@ public final class WatershedRegion {
         double vx = s.bx - s.ax, vz = s.bz - s.az, len = vx * vx + vz * vz;
         double t = Math.clamp(((x - s.ax) * vx + (z - s.az) * vz) / len, 0, 1);
         double dist = Math.hypot(x - s.ax - vx * t, z - s.az - vz * t), r = lerp(s.ra, s.rb, t);
-        if (dist > r + 36) continue;
+        if (dist > r + 36 + s.reach) continue;
         double level = lerp(s.sa, s.sb, t),
-            depth = Math.clamp(1.35 + r * .17, 1.5, 6),
+            braid = earthRivers ? lerp(s.wa, s.wb, t) : 0,
+            depth =
+                earthRivers
+                    ? Math.clamp(.6 + 1.1 * Math.sqrt(r), 1.5, 8) * (1 - .45 * braid)
+                    : Math.clamp(1.35 + r * .17, 1.5, 6),
             bank = Math.clamp(5 + r * .4 + Math.sqrt(Math.max(0, uncut - level)) * 2, 5, 24);
         if (dist < r + 1.01) {
           double grade = Math.max(0, (s.sa - s.sb) / Math.sqrt(len));
@@ -461,15 +604,44 @@ public final class WatershedRegion {
             fz = vz / l;
             speed =
                 Math.clamp(
-                    .08 + Math.sqrt(Math.max(0, (s.sa - s.sb) / l)) * .9 + r * .006, .08, .85);
+                    .08 + Math.sqrt(Math.max(0, (s.sa - s.sb) / l)) * .9
+                        + (earthRivers ? Math.min(r, 12) : r) * .006,
+                    .08,
+                    .85);
+            bar = Double.NEGATIVE_INFINITY;
+            if (earthRivers && braid > .2 && dist < r * .82 && Double.isNaN(lakeLevel) && !lakeHalo[a]) {
+              // Braid bars: flow-elongated emergent islands, continuous along the chainage.
+              double along = lerp(s.ca, s.cb, t);
+              double across = ((x - s.ax) * -vz + (z - s.az) * vx) / l;
+              double field = riverNoise.noise(along / (r * 2.4), across / (r * .6), 1, 9151);
+              bar = (field - (.55 - .35 * braid)) / .3;
+              bar *= 1 - smooth((dist / r - .6) / .22);
+            }
           }
           if (s.sill > 0) sill = Math.max(sill, s.crest - 1 + .001);
         } else {
           double blend = smooth((dist - r) / bank);
-          ground = Math.min(ground, lerp(level + .35, uncut, blend));
+          double wall = lerp(level + .35, uncut, blend);
+          double cut = earthRivers ? lerp(s.ka, s.kb, t) : 0;
+          if (cut > 2) {
+            double canyon =
+                Math.min(uncut, level + .35 + canyonWall(x, z, dist - r, uncut - level - .35, cut));
+            wall = lerp(wall, canyon, smooth((cut - 2) / 6));
+          }
+          ground = Math.min(ground, wall);
         }
-        sediment = Math.max(sediment, 1 - smooth((dist - r) / (bank + 8)));
+        sediment =
+            Math.max(
+                sediment,
+                (1 - smooth((dist - r) / (bank + 8)))
+                    * (earthRivers ? 1 - smooth((lerp(s.ka, s.kb, t) - 2) / 6) * .8 : 1));
       }
+    if (Double.isFinite(water) && bar > 0) {
+      // An emergent bar stays dry above the rounded stage; contained banks surround it.
+      double stage = Math.rint(Math.max(TerrainEngine.SEA, water) * 16) / 16;
+      return new Surface(
+          Math.floor(stage) + .999 + (smooth(bar) > .65 ? 1 : 0), Double.NaN, 1, 0, 0, 0);
+    }
     if (Double.isFinite(water)) {
       water = Math.rint(Math.max(TerrainEngine.SEA, water) * 16) / 16;
       ground = Math.min(ground, joinedBed);
@@ -531,7 +703,10 @@ public final class WatershedRegion {
         streams,
         lakeProbes().size(),
         segments.length,
-        N * (8L * 4 + 4 * 3 + 2) + segments.length * 112L + index.length * 8L + refs * 4);
+        N * (8L * 4 + 4 * 3 + 2 + (earthRivers ? 24 : 0))
+            + segments.length * (earthRivers ? 168L : 112L)
+            + index.length * 8L
+            + refs * 4);
   }
 
   public void verify() {

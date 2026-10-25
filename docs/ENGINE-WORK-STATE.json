@@ -4,10 +4,19 @@
   "updated_at": "2026-10-25T17:38:26.460Z",
   "active_until": "2026-10-25T17:38:26.460Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.19",
-  "candidate_released": false,
+  "candidate_version": "0.0.1-alpha.29-dev.20",
+  "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Recover isolated full-build storage; qualify staged finite-grid fix before promotion",
+  "current_gate": "Visual acceptance of channel revision 2 rivers; deltas/oxbows/anastomosing not built",
+  "latest_earth_rivers": {
+    "artifact": "DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar",
+    "bytes": 125215496,
+    "sha256": "d3d861949725c06f0b5ef78549a93a3747da8c26742432be11652a8364282f01",
+    "channel_revision": 2,
+    "evidence": "EARTH_RIVER_PASS; full core checks; 13 native gates; TERRAIN_AUDIT_NATIVE_PASS fresh+reopen; revision 0/1 survey identical",
+    "fixture_repair": "DepositNativeChecks.generator strips V7-only material_revision/channel_revision for non-V7 generators",
+    "not_claimed": ["deltas", "anastomosing", "oxbows", "budgeted braid discharge", "visual acceptance"]
+  },
   "owner_pause": {
     "instruction": "STOP AFTER YOU FINALIZE WHAT YOUR DOING NEXT",
     "automation_removed": true,

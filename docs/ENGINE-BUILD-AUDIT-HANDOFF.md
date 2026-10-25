@@ -1,6 +1,21 @@
 # Deep Primal build/audit continuation
 
-**Owner stop instruction, 2026-10-25: finalize the current dev.19 task, then stop.**
+**Latest, 2026-10-26: dev.20 Earth-Scaled Rivers is released to main and the Library.**
+Owner request: "perfect water engine part, including all water types and river
+sizes, including super wide rivers, and canyon rivers." New worlds save
+`channel_revision: 2`; revisions 0/1 replay unchanged (survey identical).
+Artifact `DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar`,
+125,215,496 bytes, SHA-256
+`d3d861949725c06f0b5ef78549a93a3747da8c26742432be11652a8364282f01`.
+Adds hydraulic-geometry widths (great rivers to 214 blocks, estuary flare),
+graded trunk incision with stepped canyon walls (deepest 76 blocks), meanders
+and braided reaches with dry bars. Evidence: `EARTH_RIVER_PASS`, full core
+checks, 13 native gates, `TERRAIN_AUDIT_NATIVE_PASS` fresh+reopen (the
+`DepositNativeChecks` V6 fixture now strips V7-only revisions). Not claimed:
+deltas, anastomosing rivers, oxbows, separately budgeted braid discharge,
+visual acceptance. Grade unchanged at 50/100 pending a fresh full regrade.
+
+Historical dev.19 note: owner stop instruction, 2026-10-25: finalize the current dev.19 task, then stop.
 Dev.19 Continuous Water Edges is finalized and in the Library; hourly automation
 has been removed. Do not restart development without a new owner instruction.
 All user/uncommitted work remains on existing main, with no commit or push.

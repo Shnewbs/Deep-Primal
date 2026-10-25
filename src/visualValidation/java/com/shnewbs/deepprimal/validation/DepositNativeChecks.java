@@ -33,6 +33,7 @@ public final class DepositNativeChecks {
   private static String hex(byte[] b) { return HexFormat.of().formatHex(b); }
   static EngineChunkGenerator generator(ServerLevel l, JsonObject template, int rev, long seed) {
     var json=template.deepCopy(); json.addProperty("type", "deepprimal:continental_v"+rev);
+    if(rev!=7){json.remove("material_revision");json.remove("channel_revision");} // saved revisions are V7-only
     var ops=l.registryAccess().createSerializationContext(JsonOps.INSTANCE);
     var g=(EngineChunkGenerator)ChunkGenerator.CODEC.parse(ops,json).getOrThrow();
     var encoded=ChunkGenerator.CODEC.encodeStart(ops,g).getOrThrow();

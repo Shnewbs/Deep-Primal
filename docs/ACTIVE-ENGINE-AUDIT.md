@@ -1,5 +1,31 @@
 # Active Deep Primal engine audit
 
+## 2026-10-26 dev.20 Earth-Scaled Rivers (channel revision 2)
+
+Artifact `DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar`, 125,215,496
+bytes, SHA-256 `d3d861949725c06f0b5ef78549a93a3747da8c26742432be11652a8364282f01`;
+nested Core/LOD/Performance/Graphics/Vulkan jars are dev.20.
+
+- Scope: `WatershedRegion` revision 2 (hydraulic-geometry width, great-river and
+  estuary flare, graded trunk incision to 22.1/sqrt(area), stepped canyon walls,
+  meander warp, braided reaches with dry bars; bars excluded near lakes). Presets
+  save `channel_revision: 2`; codec accepts 0..2.
+- Survey: revision 1 identical to baseline. Rev 2 width buckets
+  [<4,<12,<32,<64,<128,>=128] = [21614, 680074, 68185, 5206, 3147, 318], max 214.6;
+  incision buckets [<2,<8,<16,<32,<64,>=64] = [553, 877, 238, 108, 15, 1], max 73.1;
+  940 braided nodes. ChannelAudit: 168,309 wet columns, 0 inverted, 0 flood edges,
+  137 dry bar columns, 34 canyon transects.
+- Core: `EARTH_RIVER_PASS` (327 incised centres, deepest 76.3, 0 tunnelled, 0 flood
+  edges) and the full core suite pass.
+- Native: full Gradle build; `run_gates.ps1 -Tag dev20` all 13 gates true (fresh
+  world records `channel_revision=2`); `TERRAIN_AUDIT_NATIVE_PASS` fresh and reopen
+  (blocks=3069816 chunks=44 water=47088 biomes=704). The previously failing audit
+  fixture was repaired: `DepositNativeChecks.generator` strips V7-only
+  `material_revision`/`channel_revision` for non-V7 generators.
+- Not claimed: deltas, anastomosing channels, oxbows, separately budgeted braid
+  discharge, glacial outwash placement, visual acceptance. Tributaries above
+  incised trunks become hanging cascades by design. Grade remains 50/100.
+
 Current checkpoint (2026-10-25): **dev.19 Continuous Water Edges is in the Library;
 development stopped at the owner's request after finalizing this correction.**
 Hourly continuation automation is removed. All changes remain uncommitted on main.

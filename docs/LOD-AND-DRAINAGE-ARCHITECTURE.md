@@ -264,6 +264,47 @@ Maximum-residency scanning, allocation/driver tails, sides, opacity transitions,
 other seeds and connected waterfalls remain open. Do not describe this
 functional correction as completed rendering/performance acceptance.
 
+### Earth-scaled rivers - channel revision 2 (dev.20)
+
+New Standard/Deep worlds save `channel_revision: 2`. Saved revision 0/1 worlds
+replay exactly: a 778,544-probe survey (5 seeds x 9 regions) is identical to
+the dev.19 baseline at revision 1. Revision 2 is V7-only and requires the
+revision 1 broad/cascade beds. References: stream-power law (`E = K A^m S^n`,
+m/n ~ 0.5), Leopold-Maddock hydraulic geometry (width ~ Q^0.5, depth ~ Q^0.4;
+domain knowledge, not a fetched source), Grand Canyon (446 km long, 6.4-29 km
+rim width, stepped cliff/slope walls), Amazon/Mississippi-style lowland great
+rivers, and braided rivers (high sediment load, moderate slope, weak banks).
+
+- **Size classes.** Width follows `sqrt(drained area x rain)`; drainage areas
+  above 1.2M add a great-river lowland widening and a small estuary flare at sea
+  level. Measured widths `[<4,<12,<32,<64,<128,>=128]`: rev1
+  `[21614,686803,70127,0,0,0]`, max 30.1; rev2
+  `[21614,680074,68185,5206,3147,318]`, max 214.6 blocks. Radius is capped at 112.
+- **Canyon rivers.** Trunk reaches (area >= 400k) keep a graded bed
+  (`slope = 22.1 / sqrt(area)`, a stream-power steady state). Where uplifted
+  terrain is higher, the trunk incises instead of following the surface. The
+  cut depth (up to 73 blocks) is carried per segment and drives stepped
+  cliff/bench walls up to 96 blocks from the bank, with low sediment (rock). Such
+  segments are excluded from river-tunnel eligibility, so canyons stay open.
+  Tributaries above an incised trunk enter as hanging-valley cascades.
+- **Meanders.** Centerlines are displaced by a shared two-scale vector field
+  whose amplitude and wavelength grow with river size. Shared nodes use exactly
+  the same displacement, so confluences stay joined.
+- **Braided reaches.** Moderate-gradient, unconfined, sufficiently large reaches
+  in noise-selected regions widen, become shallower and expose flow-elongated dry
+  bars. Bars sit above the rounded stage, are never in lakes or lake halos, and
+  are contained by the existing bank guards.
+- **Flooding.** The bank floor/containment rules are unchanged. Session transect
+  audits find 0 flood edges and 0 inverted wet columns across 168,309 wet columns
+  (137 dry braid-bar columns, 34 canyon transects with walls over 24 blocks).
+  `EarthRiverChecks` gates replay, size classes, canyon depth/benches, absent
+  canyon tunnels, braid bars and zero flood edges in the core suite.
+
+Remaining, not claimed: distributary deltas, anastomosing channels,
+oxbow/cutoff lakes, separately budgeted branch discharges in braids, glacial
+outwash-specific placement (LAY-061) and visual/gameplay acceptance of the new
+forms.
+
 ### Running-world height publication failure - dev.18 follow-up (historical)
 
 The private `water-live-continuity-check` follows visible resident top-boundary
