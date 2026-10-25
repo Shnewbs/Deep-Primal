@@ -20,9 +20,11 @@ public final class WatershedRegion {
   private static final double OXBOW_AREA = 160_000, OXBOW_GRADE = .0035;
   private static final int OXBOW_LIMIT = 24;
   private final double ox, oz;
-  private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas, floodplainLakes;
+  private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas, floodplainLakes,
+      budgetedDistributaries;
   private final Oxbow[] oxbows;
   private final int[][] oxbowIndex;
+  private final Distributary[] distributaries;
   private final TerrainNoise riverNoise;
   private final double[] incision = new double[N], chainage = new double[N], braiding = new double[N];
   private final double[] raw = new double[N],
@@ -85,6 +87,39 @@ public final class WatershedRegion {
       double trunkRadius) {}
 
   private record DeltaHit(double ground, double weight) {}
+
+  /**
+   * A planned distributary branch and its share of the trunk discharge. Shares across one fan sum
+   * to one, and the branch width follows sqrt(share) hydraulic geometry.
+   */
+  private record Distributary(
+      int fan,
+      int branch,
+      double share,
+      double startRadius,
+      double endRadius,
+      double forkX,
+      double forkZ,
+      double midX,
+      double midZ,
+      double endX,
+      double endZ) {}
+
+  /** A distributary branch's planned discharge share and geometry. */
+  public record DistributaryProbe(
+      int fan,
+      int branch,
+      double share,
+      boolean budgeted,
+      double startRadius,
+      double midRadius,
+      double endRadius,
+      double forkX,
+      double forkZ,
+      double midX,
+      double midZ,
+      double endX,
+      double endZ) {}
 
   /** A cut-off meander loop: a still-water crescent whose tips point back toward the river. */
   public record OxbowProbe(
@@ -194,9 +229,25 @@ public final class WatershedRegion {
   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, false);
+  }
+
+  /**
+   * {@code budgetedDistributaries} selects channel revision 5: each delta fan splits its trunk's
+   * discharge into conserved branch shares, and every branch is widened according to
+   * sqrt(discharge) hydraulic geometry. Revisions 0-4 pass {@code false} and replay exactly.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries) {
     this.floodplainLakes = floodplainLakes;
+    this.budgetedDistributaries = budgetedDistributaries;
     if (floodplainLakes && !riverDeltas)
       throw new IllegalArgumentException("Oxbow lakes require channel revision 3");
+    if (budgetedDistributaries && !riverDeltas)
+      throw new IllegalArgumentException("Distributary budgets require channel revision 3");
     this.broadChannels=broadChannels;
     this.cascadeBeds=cascadeBeds;
     this.riverNoise=riverNoise;
@@ -460,7 +511,7 @@ public final class WatershedRegion {
         lastZ = z;
       }
     }
-    addDistributaries(lines);
+    distributaries = addDistributaries(lines);
     streams = heads;
     segments = lines.toArray(Segment[]::new);
     @SuppressWarnings("unchecked")
@@ -677,13 +728,22 @@ public final class WatershedRegion {
   }
 
   /** Three distributary reaches per fan, from a fork on the trunk down to the shoreline. */
-  private void addDistributaries(List<Segment> lines) {
-    for (var d : deltas) {
+  private Distributary[] addDistributaries(List<Segment> lines) {
+    var planned = new ArrayList<Distributary>();
+    for (int fan = 0; fan < deltas.length; fan++) {
+      var d = deltas[fan];
+      double[] shares = budgetedDistributaries ? distributaryShares(d) : null;
       double fork = Math.min(d.reach * .45, 220);
-      double startRadius = Math.clamp(1.2 + d.trunkRadius * .04, 1.6, 4.6);
-      double endRadius = Math.max(1.1, startRadius * .6);
+      double base = Math.clamp(1.2 + d.trunkRadius * .04, 1.6, 4.6);
       double startStage = d.stage + .45 * (fork / d.reach), endStage = TerrainEngine.SEA + .30;
       for (int branch = 0; branch < DELTA_BRANCHES; branch++) {
+        double share = shares == null ? 1. / DELTA_BRANCHES : shares[branch];
+        // Wider branch, more discharge: width ~ sqrt(Q) about the capacity-fair split.
+        double startRadius =
+            budgetedDistributaries
+                ? Math.clamp(base * Math.sqrt(share * DELTA_BRANCHES), 1.2, 6.4)
+                : base;
+        double endRadius = Math.max(1.1, startRadius * .6);
         double lateral =
             (DELTA_BRANCHES == 1 ? 0 : branch / (double) (DELTA_BRANCHES - 1) * 1.24 - .62)
                 + riverNoise.field(d.mouthX, d.mouthZ, 640, 9181 + branch) * .10;
@@ -706,8 +766,51 @@ public final class WatershedRegion {
                 midX, midZ, endX, endZ, midStage, endStage, midRadius, endRadius,
                 d.halfWidth * 30, d.halfWidth * 22, 0, 0, false,
                 fork * .55, 0, 0, 0, 0, 0, 0, true));
+        planned.add(
+            new Distributary(
+                fan, branch, share, startRadius, endRadius,
+                forkX, forkZ, midX, midZ, endX, endZ));
       }
     }
+    return planned.toArray(Distributary[]::new);
+  }
+
+  /**
+   * Deterministic discharge split for a fan. The middle branch takes the largest share and the
+   * side branches less; every share is positive and the set sums to one, so no branch gains water
+   * the trunk does not carry.
+   */
+  private double[] distributaryShares(Delta d) {
+    double[] w = new double[DELTA_BRANCHES];
+    double sum = 0;
+    for (int b = 0; b < DELTA_BRANCHES; b++) {
+      double bias = 1 - .42 * Math.abs(b - (DELTA_BRANCHES - 1) * .5);
+      w[b] = bias * (1 + .22 * riverNoise.field(d.mouthX, d.mouthZ, 512, 9277 + b));
+      sum += w[b];
+    }
+    for (int b = 0; b < DELTA_BRANCHES; b++) w[b] /= sum;
+    return w;
+  }
+
+  public List<DistributaryProbe> distributaryProbes() {
+    var out = new ArrayList<DistributaryProbe>(distributaries.length);
+    for (var d : distributaries)
+      out.add(
+          new DistributaryProbe(
+              d.fan,
+              d.branch,
+              d.share,
+              budgetedDistributaries,
+              d.startRadius,
+              (d.startRadius + d.endRadius) * .5,
+              d.endRadius,
+              d.forkX,
+              d.forkZ,
+              d.midX,
+              d.midZ,
+              d.endX,
+              d.endZ));
+    return List.copyOf(out);
   }
 
   /**

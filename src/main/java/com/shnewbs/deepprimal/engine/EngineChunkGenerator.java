@@ -39,7 +39,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
         Codec.intRange(0,2).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
-        Codec.intRange(0,4).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
+        Codec.intRange(0,5).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
     ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
         profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
     return RecordCodecBuilder.mapCodec(

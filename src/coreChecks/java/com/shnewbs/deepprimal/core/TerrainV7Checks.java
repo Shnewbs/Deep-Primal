@@ -28,6 +28,7 @@ final class TerrainV7Checks {
     EarthRiverChecks.run();
     DeltaChecks.run();
     OxbowChecks.run();
+    DistributaryChecks.run();
     soilOutcrops();
   }
   /** Material revision 2 removes iso-slope weathered ribbons; revisions 0/1 replay exact legacy horizons. */

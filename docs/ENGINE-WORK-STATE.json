@@ -7,14 +7,36 @@
   "candidate_version": "0.0.1-alpha.29-dev.20",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Full mod build/module/native qualification of unchanged combined overflow candidates remains blocked by isolated storage capacity",
-  "latest_channel_revision_four": {
+  "current_gate": "Restore isolated build capacity; qualify staged ByteLru and finite DensityGrid repairs, then resume native V8 and revision-5 gates",
+  "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
+    "revision": 5,
+    "source_version": "0.0.1-alpha.29-dev.21",
+    "scope": "Channel revisions 3-4 plus a conserved discharge budget for each delta fan: three branches share the trunk discharge (middle branch largest, measured 0.242-0.490), shares sum to one, and branch width follows sqrt(share) about the revision-4 capacity-fair width (measured widest/narrowest 1.27)",
+    "opt_in": "riverDeltas (default false) selects engine_deltas_standard/engine_deltas_deep packs, now saving channel_revision 5; existing engine presets stay channel_revision 2; generator codec accepts 0..5; revisions 3 and 4 remain codec-reachable but have no preset",
+    "evidence": "DISTRIBUTARY_PASS fans=21 branches=63 wetSamples=126 minShare=0.242 maxShare=0.490 widestRatio=1.27 outsideChanges=0; DISTRIBUTARY_CORE_PASS revisions3And4Replay=true sharesConserved=true; frozen revision-3 digests b36cbb0e0952981f/ae3c3d455f133775/e87ab03e934ed8da and revision-4 digests 92066ccbe2e6047d/5a93f362020c1e9f/d91bf3554721eec4 unchanged; OXBOW_PASS lakes=20 wet=5455 floodEdges=0 maxStageGap=2.25 changedInsideFootprints=0; DELTA_REVISION_PASS/DELTA_CORE_PASS unchanged",
+    "not_claimed": [
+      "native revision-5 gates",
+      "save/reopen for revision 5",
+      "visual acceptance",
+      "routed discharge state or time-varying allocation",
+      "braid discharge budgeting",
+      "seaward progradation into mask<0 ocean",
+      "avulsion",
+      "dynamic meander migration",
+      "anastomosing",
+      "release artifact",
+      "regrade"
+    ]
+  },
+  "latest_channel_revision_four": {
+    "status": "superseded_by_revision_5",
+    "superseded_by": "channel revision 5",
     "revision": 4,
     "source_version": "0.0.1-alpha.29-dev.21",
     "scope": "Channel revision 3 delta fans plus at most 24 oxbow lakes per region beside flat, unincised lowland trunks (area >= 160000, incision <= 0.5, braid <= 0.05, grade <= 0.0035, stage >= SEA+1.5); tapering still-water crescents with bowl beds and a +0.35 bank band, rejected near channels, deltas, lakes, the sea or the region edge",
-    "opt_in": "riverDeltas (default false) selects engine_deltas_standard/engine_deltas_deep packs, now saving channel_revision 4; existing engine presets stay channel_revision 2; generator codec accepts 0..4; revision 3 remains codec-reachable but has no preset",
-    "evidence": "OXBOW_PASS lakes=20 wet=5455 floodEdges=0 lowestRimAboveWater=0.5521525533873728 maxStageGap=2.25 replayGrid=12261 changedInsideFootprints=0; DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0; DELTA_CORE_PASS revision2Replay=true fansBounded=true distributariesContained=true; full CoreChecks exit 0 via offline Gradle build (35 tasks, 5m37s, JDK 25); frozen revision-2 digests unchanged; local non-Vulkan dev.21 jar 114299696 bytes sha256 c69edab82de69caff43dbceffd9d8bb59d1e78a9b89ec469c390a39ce67d61b9 (not a release)",
+    "opt_in": "historical: while revision 4 was head, the packs saved channel_revision 4 and the codec accepted 0..4; revision 5 now saves 5 and the codec accepts 0..5",
+    "evidence": "OXBOW_PASS lakes=20 wet=5455 floodEdges=0 lowestRimAboveWater=0.5521525533873728 maxStageGap=2.25 replayGrid=12261 changedInsideFootprints=0; DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0; DELTA_CORE_PASS revision2Replay=true fansBounded=true distributariesContained=true; full CoreChecks exit 0 via offline Gradle build (35 tasks, 5m37s, JDK 25); frozen revision-2 digests unchanged; local non-Vulkan dev.21 jar 114299696 bytes sha256 c69edab82de69caff43dbceffd9d8bb59d1e78a9b89ec469c390a39ce67d61b9 (not a release); an independent Linux dedicated-server audit at cf46cf7 reported actual_saved_channel_revision=4 with creation_toggle_disabled_before_reopen=true for the revision-4 packs",
     "not_claimed": [
       "native revision-4 gates",
       "save/reopen",
@@ -141,6 +163,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-25 builder: channel revision 5 (conserved distributary discharge budgets) is staged opt-in on top of revisions 3-4; the engine_deltas_standard/engine_deltas_deep packs now save channel_revision 5 and the codec accepts 0..5. Default presets stay channel_revision 2; revisions 0-4 replay unchanged and revisions 3-4 match frozen digests. Core evidence: DISTRIBUTARY_PASS fans=21 branches=63 wetSamples=126 minShare=0.242 maxShare=0.490 widestRatio=1.27 outsideChanges=0, DISTRIBUTARY_CORE_PASS revisions3And4Replay=true sharesConserved=true, OXBOW_PASS/DELTA_REVISION_PASS/DELTA_CORE_PASS unchanged, full CoreChecks exit 0. Next: native revision-5 save/reopen and visual acceptance after owner approval; the cf46cf7 Linux revision-4 save/reopen receipt predates the packs saving 5. Remaining gaps: no routed discharge state, braid budgeting, seaward progradation, avulsion, dynamic meander migration or anastomosing.",
     "2026-10-25 combined overflow core-package gate passes: 113 product classes/65 fixture exclusions,3379936 cache+11728 density assertions and complete core suite. docs/validation/engine-continuation/combined-overflow-package-2026-10-25/README.md. Runtime candidates unchanged/unpromoted. Full Gradle/module/native/installer still blocked by isolated build storage; no grade change.",
     "2026-10-25 builder: native smoke acceptance checks now survive Python optimization; 16 tests pass normal/-O/-OO, baseline -O wrongly accepts ten malformed scenarios. docs/validation/engine-continuation/smoke-optimization-gates-2026-10-25/README.md. No runtime/version/JAR change. Latest auditor confirms default2 and opt-in4 save/reopen at cf46cf7; footprint visuals/discharge and overflow promotions still open.",
     "2026-10-25 builder: staged ByteLru byte-budget overflow repair, expected baseline failure, 3,379,936 BigInteger-oracle assertions and complete current Java25 core suite pass. docs/validation/engine-continuation/byte-lru-overflow-2026-10-25/README.md. Runtime unpromoted; full build/native/JAR blocked by zero overlay storage. Last external grade5.0 unchanged.",
