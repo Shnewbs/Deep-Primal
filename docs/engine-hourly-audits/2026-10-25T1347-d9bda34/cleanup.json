@@ -1,0 +1,20 @@
+{
+  "removed_completed_auditor_restorable_source_copies": [
+    "audit-8524b32-20261024T2253/project",
+    "audit-89e7cf0-20261025T0254/project",
+    "audit-3cfb730-20261025T0746/project",
+    "audit-10a6d7a-20261025T0646/project",
+    "audit-5c54904-20261025T0055/project",
+    "audit-e2cc2b1-20261025T1155/project",
+    "audit-d8a38d9-20261025T0555/project",
+    "audit-2d53a92-20261025T0350/project",
+    "audit-e061ee2-20261025T0949/project",
+    "audit-eba73bd-20261024T2352/project",
+    "audit-88f2bba-20261025T0450/project",
+    "audit-441c83d-20261025T0846/project",
+    "audit-4cb8b0d-20261025T1046/project",
+    "audit-670ddd9-20261025T0148/project",
+    "audit-75c7fff-20261025T0247/project"
+  ],
+  "verified_exports_receipts_worlds_preserved": true
+}
