@@ -1,5 +1,24 @@
 # Deep Primal build/audit continuation
 
+**Owner stop instruction, 2026-10-25: finalize the current dev.19 task, then stop.**
+Dev.19 Continuous Water Edges is finalized and in the Library; hourly automation
+has been removed. Do not restart development without a new owner instruction.
+All user/uncommitted work remains on existing main, with no commit or push.
+
+Artifact: 125,181,395 bytes, SHA-256
+`dbbf7fa87c9d4b94d8cc12fe87f08c808c94bbdd4bc2b254aa4cccabd6480574`.
+Visible resident top boundaries now use current-frame shared continuous height
+samples, preserving nonheight bytes and finite physics. Hidden last-changing
+pages no longer prevent visible-neighbor hold expiry. Initial live runs have
+zero above-tolerance disagreements on both APIs; final GPU/recovery/expiry,
+full build and package checks pass. See ACTIVE-ENGINE-AUDIT for scope/evidence,
+including the incomplete final live recheck and excluded fixture failures.
+
+Performance is not accepted: p99 component samples exceed 2 ms, and maximum
+residency/driver tails remain open. Broader flicker/menu/worldgen acceptance is
+incomplete; last full grade 50/100. Historical next-item instructions below
+do not override the owner's stop.
+
 Latest local checkpoint (2026-10-25): **dev.18 Exact Stopped Water is in the Library**.
 125,179,617 bytes; SHA-256
 `3bf64519fa70de18bcf3cd7344e0a3db36f9b9c8ca2a733d6606a69e47565ddf`.

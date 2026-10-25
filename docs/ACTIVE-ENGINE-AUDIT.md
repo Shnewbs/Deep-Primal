@@ -1,5 +1,58 @@
 # Active Deep Primal engine audit
 
+Current checkpoint (2026-10-25): **dev.19 Continuous Water Edges is in the Library;
+development stopped at the owner's request after finalizing this correction.**
+Hourly continuation automation is removed. All changes remain uncommitted on main.
+Artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.19-Continuous-Water-Edges.jar`,
+125,181,395 bytes; SHA-256
+`dbbf7fa87c9d4b94d8cc12fe87f08c808c94bbdd4bc2b254aa4cccabd6480574`.
+
+Resident visible water top boundaries now sample shared continuous height
+history at the current frame clock. Updates change only boundary position and
+height displacement, not opacity/material clocks, topology, terrain or finite
+water. This fixes the shared-edge upload-clock defect reproduced below.
+Unchanged edges issue no writes. Rejected writes retain accepted CPU bytes,
+warn and recompute next frame; the third consecutive page failure is fatal.
+Visible neighbors also expire holds when the last-changing page is hidden.
+
+- [x] Initial candidate live creek: OpenGL 0/121,794 and Vulkan 0/110,781
+  above-tolerance shared-corner disagreements, down from 25,256/122,425 and
+  27,513/124,581 respectively. Maximum residual 0.000009775162 blocks.
+- [x] Final full build/core checks, including hidden-source expiry.
+- [x] Final packaged OpenGL/Vulkan: eleven fenced GPU readbacks each, zero
+  differing bytes, 28 corner witnesses, continuous shared heights, unchanged
+  material/light/opacity/clock bytes, no idle writes, rejected-write recovery,
+  third-failure escalation and hidden-source expiry.
+- [x] Environment/reopen/source/reserve, three 1,200-tick reaches and six soil
+  revision/save gates passed before the final presentation-only expiry change.
+  All reaches retain 67/67, 115/115 and 655/655 wet, zero dry-column ticks or
+  sampled bank overtopping. No physical hydrology code changed in dev.19.
+- [x] Final package: seven archives, 545 compiled classes, 333 resources,
+  36 soil blockstates and four identical API/reload captures. Both final API
+  clients complete reload, waterfall readbacks and clean shutdown.
+- [ ] Hard 2 ms runtime budget: initial component p99 is 2.1028 ms OpenGL /
+  2.3944 ms Vulkan; lifetime maxima 13.2385 / 59.3759 ms. Functional correction
+  is not performance acceptance. Full-residency/driver-tail work remains.
+- [ ] Complete owner-scene flicker, sides, opacity/wet-dry transitions, connected
+  waterfalls, other seeds and menu-close acceptance remain open.
+
+Final evidence: `build\dev19-build-final.log`,
+`build\gates-dev19-client-{OpenGL,Vulkan}-release.log`,
+`build\stream-dev19-package.json`; earlier native gates `build\gates-dev19-*`.
+Live initial-candidate evidence:
+`build\water-live-dev19-{opengl,vulkan}-captures\water-live-continuity.json`.
+A final Vulkan live recheck exited cleanly after camera placement but before
+measurement; `build\water-live-dev19-final-vulkan.log` is not a continuity pass.
+It does not replace the earlier successful live runs or final isolated GPU
+checks. No cause is assigned to that early exit.
+
+Validation-only failed attempts were retained/excluded: a boundary witness
+initially included side-wall vertices; another fixture passed a heap buffer
+to native upload and Vulkan crashed. The fixture now uses native direct memory
+and checks packed top vertices; both final complete clients pass. No production
+workaround was added for those fixture errors. Last full grade stays **50/100**;
+engine completion and all unaccepted roadmap items remain explicitly open.
+
 Current water checkpoint (2026-10-25): **dev.18 Exact Stopped Water is in the Library.**
 125,179,617 bytes; SHA-256
 `3bf64519fa70de18bcf3cd7344e0a3db36f9b9c8ca2a733d6606a69e47565ddf`.

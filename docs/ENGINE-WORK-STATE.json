@@ -1,13 +1,35 @@
 {
   "schema": 1,
-  "status": "development_enabled",
-  "updated_at": "2026-10-25T15:38:00Z",
+  "status": "paused_by_owner",
+  "updated_at": "2026-10-25T16:20:00Z",
   "active_until": "2026-10-25T08:51:00Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.18",
+  "candidate_version": "0.0.1-alpha.29-dev.19",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev.18 Exact Stopped Water Windows Vulkan JAR verified and in Library: 125179617 bytes, SHA256 3bf64519fa70de18bcf3cd7344e0a3db36f9b9c8ca2a733d6606a69e47565ddf. Reproduced permanently held midpoint after flow stopped; 400ms hold now expires without duplicate extension and returns continuously over 100ms to exact height. Renderer schedules hold/final cleanup. Core 150 release cases and both packaged API actual-upload lifetime checks pass. Full build/environment/reopen/source/reserve/three reaches/six soil gates/package pass. First clients failed writing missing fixture output directory after midpoint assertions; fixed fixture and both complete retries pass. Package: 7 archives, 545 classes, 333 resources, four identical captures. No physical water/geography/owner-art change. Live-scene flicker/menu, world ledger, physical source lifecycle and full tick/storm acceptance remain open; grade unchanged 50/100.",
+  "current_gate": "STOPPED per owner after finalizing dev.19 Continuous Water Edges. Hourly automation removed. Library JAR 125181395 bytes SHA256 dbbf7fa87c9d4b94d8cc12fe87f08c808c94bbdd4bc2b254aa4cccabd6480574. Current-frame shared continuous top-boundary heights correct resident upload-clock seams. Initial live OpenGL/Vulkan runs have zero above-tolerance disagreements; final full build/core, both APIs eleven GPU readbacks/recovery/hidden-source-expiry, package identities and reload pass. Earlier dev19 environment/source/reaches/six soil gates pass; final change is presentation expiry only. Final Vulkan live recheck exited cleanly before measuring and is not a pass. Component p99 exceeds2ms; performance and complete flicker/menu/worldgen acceptance remain open; grade50/100. No new development without owner instruction.",
+  "owner_pause": {
+    "instruction": "STOP AFTER YOU FINALIZE WHAT YOUR DOING NEXT",
+    "automation_removed": true,
+    "resume_requires_owner_instruction": true
+  },
+  "latest_shared_height_correction": {
+    "artifact": "DeepPrimal-Windows-Vulkan-alpha.29-dev.19-Continuous-Water-Edges.jar",
+    "bytes": 125181395,
+    "sha256": "dbbf7fa87c9d4b94d8cc12fe87f08c808c94bbdd4bc2b254aa4cccabd6480574",
+    "build": "build/dev19-build-final.log",
+    "gpu_evidence": "build/gates-dev19-client-{OpenGL,Vulkan}-release.log",
+    "package_evidence": "build/stream-dev19-package.json",
+    "live_candidate_evidence": "build/water-live-dev19-{opengl,vulkan}-captures/water-live-continuity.json",
+    "opengl_comparisons": 121794,
+    "vulkan_comparisons": 110781,
+    "mismatches_both_apis": 0,
+    "gpu_readbacks_per_api": 11,
+    "gpu_differing_bytes": 0,
+    "hidden_source_expiry": true,
+    "failure_recovery": "Accepted bytes preserved on rejection; live-history next-frame retry; third consecutive page failure fatal",
+    "limitations": "Final isolated GPU checks pass; live counts from initial dev19 before hidden-source expiry refinement. Final live recheck exited before measuring, no continuity pass. CPU mirror probes not all-frame/pixel/sides/opacity acceptance. Component p99 >2ms and maximum-residency/tail acceptance open."
+  },
   "latest_midpoint_release": {
     "reproduction": "build/dev17-settle-repro.log",
     "build_evidence": "build/dev18-build.log",
@@ -25,7 +47,7 @@
     "limitations": "Isolated real GPU meshes and controlled presentation clock; not complete rendered live-stream/shared-edge/connected-waterfall or performance acceptance."
   },
   "latest_live_water_continuity": {
-    "status": "reproduced_unfixed",
+    "status": "historical_dev18_reproduction_corrected_in_dev19_scoped_checks",
     "opengl_evidence": "build/water-live-dev18-opengl-captures/water-live-continuity.json",
     "vulkan_evidence": "build/water-live-dev18-vulkan-repeat-captures/water-live-continuity.json",
     "ticks_per_run": 600,
@@ -61,6 +83,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "OWNER PAUSE takes precedence over every historical continuation below. Current dev19 task finalized and supplied; automation removed. Do not resume until the owner explicitly requests it. Engine acceptance remains incomplete.",
     "New priority: repair confirmed resident shared-height publication failure, reproduced in 600-tick OpenGL/Vulkan running creek probes. Shared history does not patch already resident neighbor height/clock bytes. Do not disable interpolation or snap boundaries. Preserve failed-write recovery/edit guards, profile coherent publication before promotion and rerun live plus actual GPU controls. Dev.18 Library artifact unchanged; bump beyond dev.18 before production edits.",
     "Dev.18 delivered to Library. Continue live-stream displayed-height/shared-edge and wet/dry face continuity or full-tick multi-region storm latency. Preserve bounded midpoint expiry, ordinary opacity interpolation, dev.12-17 water/geography semantics and owner edits. World ledger, physical source unload/reopen/edits and menu-close reproduction remain open. Bump beyond dev.18 before production edits; engine acceptance remains incomplete.",
     "Dev.17 delivered to Library. Continue full-tick many-region storm latency or live-stream displayed-height/edge continuity. Sampling-only exact-output optimization is verified, not full storm acceptance. Preserve dev.12-16 state/cadence/chemistry/saved geography and owner edits. Complete world ledger, source physical unload/reopen/edits and menu-close reproduction remain open. Bump beyond dev.17 before production edits.",
@@ -104,7 +127,7 @@
     "Keep the stable branch and supplied installers intact until new work passes its acceptance checks",
     "Preserve published V1/V2/V3 geography and player edits; bump saved terrain revision for changed geography",
     "Do not declare engine completion or performance superiority from isolated fixtures",
-    "Keep hourly updates active and report only verified progress"
+    "Hourly continuation is disabled by the owner's stop instruction; resume only on a new explicit request"
   ],
   "unreleased_changes": true,
   "latest_continuation_evidence": "docs/validation/engine-continuation/density-metadata-2026-10-24/README.md",

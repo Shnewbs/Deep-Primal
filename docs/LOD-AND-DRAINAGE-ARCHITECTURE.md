@@ -227,7 +227,44 @@ for readback before preview reload/exit; production allocations are unchanged.
 These are actual-upload/readback functional checks, not complete rendered live-stream/
 shared-edge/connected-waterfall or frame-time acceptance.
 
-### Running-world height publication failure - dev.18 follow-up
+### Continuous resident height publication - dev.19
+
+Before visible pages draw, their boundary vertices sample the same shared
+`WaterSurfaceTransition` at the current presentation clock. Only a differing
+boundary vertex's local Y and height displacement are updated; its displayed
+height is the continuously interpolated value, not a snap to the raw/final
+target. A zero displacement prevents replay under that page's older upload
+clock. Interior geometry, opacity/material timestamps, light, UV packets,
+topology, finite water and source budgets remain unchanged.
+
+Adjacent changed quads share existing bounded staging ranges. CPU mirrors
+commit only after the corresponding GPU write succeeds. A rejected range
+keeps accepted bytes and is recomputed from live history next frame; warnings
+surface the first two consecutive page failures and a third is fatal. Material
+retry rebasing already starts from current accepted bytes and preserves height.
+Unchanged displayed boundaries issue no GPU writes. A visible boundary also
+services hold expiry if the last-changing page is hidden, without inventing a
+new raw sample or extending the hold.
+
+The initial candidate's two 600-tick natural-creek runs eliminate all
+above-quantum shared-corner disagreements: OpenGL 0/121,794 across 40 pages,
+Vulkan 0/110,781 across 37; maximum residual 0.000009775162 blocks. The runs
+are CPU upload-mirror probes at client-tick cadence, not all-frame/pixel
+acceptance. Eleven fenced GPU readbacks per API independently verify four
+continuous boundary sample times, original midpoint release, unchanged-byte
+preservation and idempotence. Failure-injection and hidden-source-expiry gates
+are part of final candidate verification; see ACTIVE-ENGINE-AUDIT for final logs.
+
+Initial component samples (milliseconds, last extraction duration sampled per
+client tick): OpenGL p50/p95/p99 0.2603/0.5899/2.1028, Vulkan
+0.2825/0.6669/2.3944. Warm-up-inclusive lifetime maxima were 13.2385/59.3759.
+CPU submissions are included; GPU completion and full frame/tick cost are not.
+This does not meet a hard 2 ms target or establish owner-scene/FPS acceptance.
+Maximum-residency scanning, allocation/driver tails, sides, opacity transitions,
+other seeds and connected waterfalls remain open. Do not describe this
+functional correction as completed rendering/performance acceptance.
+
+### Running-world height publication failure - dev.18 follow-up (historical)
 
 The private `water-live-continuity-check` follows visible resident top-boundary
 corners for 600 client ticks in a cloned natural high-creek world. It decodes
