@@ -395,6 +395,7 @@ public class VkGpuDevice implements GpuDeviceBackend {
     try {
       this.compilePipeline(renderPipeline, shaderSourceGetter);
     } catch (Exception var4) {
+      LOGGER.error("Vulkan shader precompile failed for {}", renderPipeline.getLocation(), var4);
       throw new RuntimeException(
           "Caught exception compiling pipeline: %s".formatted(renderPipeline.toString()), var4);
     }
@@ -427,6 +428,11 @@ public class VkGpuDevice implements GpuDeviceBackend {
     String fshSrc =
         this.getCachedShaderSrc(
             fragmentShaderLocation, ShaderType.FRAGMENT, shaderDefines, shaderSrcGetter);
+    if (vshSrc == null || fshSrc == null)
+      throw new IllegalStateException("Vulkan pipeline " + renderPipeline.getLocation()
+          + " has unavailable shader source: vertex=" + vertexShaderLocation
+          + " (" + (vshSrc != null) + "), fragment=" + fragmentShaderLocation
+          + " (" + (fshSrc != null) + ")");
     vshSrc = GlslPreprocessor.injectDefines(vshSrc, shaderDefines);
     fshSrc = GlslPreprocessor.injectDefines(fshSrc, shaderDefines);
     Lexer lexer = new Lexer(vshSrc);

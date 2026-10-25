@@ -69,6 +69,7 @@ public final class GroundMaterialClientChecks {
         stage = 2;
         ticks = 0;
       } else if (stage == 2 && captured && ticks > 5) {
+        checkCapture(mc, "materials.png");
         mc.reloadResourcePacks().whenComplete((nothing, failure) -> {
           reloadFailure = failure;
           reloaded = true;
@@ -82,8 +83,9 @@ public final class GroundMaterialClientChecks {
         stage = 4;
         ticks = 0;
       } else if (stage == 4 && captured && ticks > 5) {
+        checkCapture(mc, "materials-reloaded.png");
         String result = "GROUND_MATERIAL_CLIENT_PASS backend=" + RenderSystem.getDevice().getBackendName()
-            + " blocks=3 quads=18 tintIndices=true sprites=true items=true resourceReload=true captures=2\n";
+            + " blocks=3 quads=18 tintIndices=true sprites=true items=true resourceReload=true captures=2 opaqueFacePixels=true\n";
         Files.writeString(output().resolve("result.txt"), result);
         System.out.print(result);
         stage = 5;
@@ -100,7 +102,7 @@ public final class GroundMaterialClientChecks {
     for (int i = 0; i < blocks().size(); i++) {
       var state = blocks().get(i).defaultBlockState();
       var sources = mc.getBlockColors().getTintSources(state);
-      require(sources.size() == 2 && sources.get(1).color(state) == GroundMaterialColors.SOIL,
+      require(sources.size() == 3 && sources.get(1).color(state) == GroundMaterialColors.SOIL,
           "Registered soil tint sources");
       int expectedTop = switch (i) {
         case 0 -> net.minecraft.world.level.GrassColor.getDefaultColor();
@@ -123,9 +125,13 @@ public final class GroundMaterialClientChecks {
           var quad = faces.getFirst();
           String texture = face == Direction.DOWN ? "dirt_top"
               : names[i] + (face == Direction.UP ? "_top" : "_side");
+          if (face.getAxis().isHorizontal() && i != 1) texture += "_material";
           require(quad.materialInfo().sprite().contents().name().equals(
               Identifier.fromNamespaceAndPath("deepprimal", "block/ground/" + texture)), "Baked ground sprite");
-          require(quad.materialInfo().tintIndex() == (face == Direction.UP ? 0 : 1), "Baked tint index");
+          require(quad.materialInfo().tintIndex() == (face == Direction.UP ? 0 : face == Direction.DOWN ? 1 : 2), "Baked tint index");
+          require(quad.materialInfo().layer() == net.minecraft.client.renderer.chunk.ChunkSectionLayer.SOLID,
+              "Opaque material stays in the solid pass");
+          if (face.getAxis().isHorizontal() && i != 1) GroundSideNativeChecks.quad(quad);
           quads++;
         }
       }
@@ -151,6 +157,26 @@ public final class GroundMaterialClientChecks {
     return Path.of(System.getProperty("deepprimal.validationCapture"));
   }
 
+  private static void checkCapture(Minecraft mc, String name) throws java.io.IOException {
+    var image = javax.imageio.ImageIO.read(output().resolve("screenshots").resolve(name).toFile());
+    require(image != null, "Readable material screenshot");
+    int width = mc.screen.width;
+    float scale = Math.max(1, Math.min(5, (width - 48) / 80F));
+    double pixelsX = (double) image.getWidth() / width;
+    double pixelsY = (double) image.getHeight() / mc.screen.height;
+    for (int i = 0; i < blocks().size(); i++) {
+      int origin = 24 + (width - 48) * i / 3;
+      for (double[] point : new double[][] {{8, 4}, {4.5, 10.5}, {11.5, 10.5}}) {
+        int x = (int) Math.round((origin + point[0] * scale) * pixelsX);
+        int y = (int) Math.round((60 + point[1] * scale) * pixelsY);
+        for (int dy = -2; dy <= 2; dy++)
+          for (int dx = -2; dx <= 2; dx++)
+            require((image.getRGB(x + dx, y + dy) & 0xffffff) != 0x20242a,
+                "Missing opaque material face: " + name + " block=" + i + " x=" + x + " y=" + y);
+      }
+    }
+  }
+
   private static void require(boolean condition, String message) {
     if (!condition) throw new AssertionError(message);
   }
@@ -164,7 +190,7 @@ public final class GroundMaterialClientChecks {
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
       graphics.fill(0, 0, width, height, 0xff20242a);
       graphics.text(font, "Deep Primal - approved ground textures", 16, 16, 0xffffffff, false);
-      graphics.text(font, "Material samples: organic side strips still use soil tint.", 16, 30, 0xffc6cbd0, false);
+      graphics.text(font, "Opaque sides blend biome surface and soil through the authored masks.", 16, 30, 0xffc6cbd0, false);
       float scale = Math.max(1, Math.min(5, (width - 48) / 80F));
       for (int i = 0; i < blocks().size(); i++) {
         int x = 24 + (width - 48) * i / 3;

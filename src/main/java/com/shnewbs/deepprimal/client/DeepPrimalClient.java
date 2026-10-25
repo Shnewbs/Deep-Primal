@@ -28,6 +28,7 @@ public final class DeepPrimalClient {
     modBus.addListener(DeepPrimalClient::packs);
     modBus.addListener(WaterPalettes::register);
     modBus.addListener(GroundMaterialColors::register);
+    modBus.addListener(GroundSideSpriteSource::register);
     modBus.addListener(DeepPrimalClient::engineFluid);
     modBus.addListener(DeepPrimalClient::payloads);
     if (com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {

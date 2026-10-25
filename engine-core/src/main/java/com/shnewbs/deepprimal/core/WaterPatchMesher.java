@@ -207,6 +207,11 @@ public final class WaterPatchMesher {
     if (size + STRIDE > vertices.length) vertices = Arrays.copyOf(vertices, vertices.length * 2);
     float target = moving ? height(current, x, y, z, u, v) : 0,
         old = moving ? height(previous, x, y, z, u, v) : 0;
+    if (moving && face >= 1 && face <= 4) {
+      // A stacked cell's wall ends at the next cell, not at its higher free surface.
+      if (current.water(x, y + 1, z) > 0) target = Math.min(1, target);
+      if (previous.water(x, y + 1, z) > 0) old = Math.min(1, old);
+    }
     Snapshot material = current.water(x, y, z) > 0 ? current : previous;
     int color = material.colors[z * 16 + x], light = material.lights[index(x, y, z)];
     float shade = face == 0 ? 1 : face == 5 ? .5f : face == 2 || face == 4 ? .8f : .9f;

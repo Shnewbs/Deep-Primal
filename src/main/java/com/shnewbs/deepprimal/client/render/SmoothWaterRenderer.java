@@ -123,6 +123,10 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         float x0 = ax, z0 = az, x1 = bx, z1 = bz;
         float h0 = (float) WaterTransport.surface(nw, ne, sw, se, 0, x0, z0),
             h1 = (float) WaterTransport.surface(nw, ne, sw, se, 0, x1, z1);
+        if (water(l, p.above())) {
+          h0 = Math.min(1, h0);
+          h1 = Math.min(1, h1);
+        }
         face(
             out,
             sprite,

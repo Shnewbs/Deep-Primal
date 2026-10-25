@@ -32,7 +32,10 @@
     "client.WaterFogMixin",
     "client.FluidModelAccess",
     "client.WaterPresentationMixin",
-    "client.WaterSectionBoundsMixin"
+    "client.WaterSectionBoundsMixin",
+    "client.GroundSideLightingMixin",
+    "client.GroundSideVertexMixin",
+    "client.GroundMaterialShaderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -146,7 +146,7 @@ public final class AnimatedWaterRenderer {
       WaterPatchMesher.Mesh mesh) {}
 
   private AnimatedWaterRenderer() {
-    for (int i = 0; i < 4; i++) heights.add(new Long2ObjectLinkedOpenHashMap<>());
+    for (int i = 0; i < 8; i++) heights.add(new Long2ObjectLinkedOpenHashMap<>());
     for (int i = 0; i < 6; i++) alpha.add(new Long2ObjectLinkedOpenHashMap<>());
   }
 
@@ -626,6 +626,13 @@ public final class AnimatedWaterRenderer {
                 part = (x2 & 1) | ((z2 & 1) << 1);
             long key =
                 BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2));
+            boolean wall = face >= 1 && face <= 4;
+            if (wall) {
+              // Clipped stacked walls and free surfaces can meet at the same world corner.
+              // They need independent histories or the top packet re-extends the wall.
+              part = 4 + Math.round(values[i] - cx) + 2 * Math.round(values[i + 2] - cz);
+              key = cellKey;
+            }
             var map = heights.get(part);
             var h = map.getAndMoveToLast(key);
             if (h == null) {
@@ -634,7 +641,7 @@ public final class AnimatedWaterRenderer {
             }
             h.target(target, clock, faces.revision);
             target = h.target();
-            while (map.size() > MAX_HISTORY) map.removeFirst();
+            while (map.size() > (wall ? MAX_HISTORY / 4 : MAX_HISTORY)) map.removeFirst();
             from = h.from(clock);
             offset = h.offset(clock);
           }
@@ -1075,4 +1082,3 @@ public final class AnimatedWaterRenderer {
     workers.shutdownNow();
   }
 }
-

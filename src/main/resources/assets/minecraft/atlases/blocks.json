@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "type": "deepprimal:ground_side",
+      "sprite": "deepprimal:block/ground/grass_side_material",
+      "texture": "deepprimal:block/ground/grass_side",
+      "surface_mask": "deepprimal:block/ground/masks/grass_side_surface",
+      "soil_mask": "deepprimal:block/ground/masks/grass_side_soil",
+      "soil_color": 11968640
+    },
+    {
+      "type": "deepprimal:ground_side",
+      "sprite": "deepprimal:block/ground/podzol_side_material",
+      "texture": "deepprimal:block/ground/podzol_side",
+      "surface_mask": "deepprimal:block/ground/masks/podzol_side_surface",
+      "soil_mask": "deepprimal:block/ground/masks/podzol_side_soil",
+      "soil_color": 11968640
+    }
+  ]
+}

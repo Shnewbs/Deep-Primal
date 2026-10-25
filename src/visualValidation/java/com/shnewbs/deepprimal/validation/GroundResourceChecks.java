@@ -70,18 +70,23 @@ public final class GroundResourceChecks {
       for (String name : List.of("top", "side", "bottom")) {
         String texture = textures.get(name).getAsString();
         require(texture.startsWith("deepprimal:"), "Texture namespace " + texture);
-        bytes("assets/deepprimal/textures/" + texture.substring("deepprimal:".length()) + ".png");
+        if (name.equals("side") && !material.equals("dirt")) {
+          require(texture.equals("deepprimal:block/ground/" + material + "_side_material"),
+              "Generated dual-tint side " + id);
+        } else {
+          bytes("assets/deepprimal/textures/" + texture.substring("deepprimal:".length()) + ".png");
+        }
       }
       var item = json("assets/deepprimal/items/" + id + ".json").getAsJsonObject("model");
       require(item.get("type").getAsString().equals("minecraft:model")
           && item.get("model").getAsString().equals("deepprimal:block/" + id), "Item model " + id);
       var tints = item.getAsJsonArray("tints");
-      require(tints.size() == 2, "Two tint layers " + id);
+      require(tints.size() == 3, "Three tint layers " + id);
       require(tints.get(1).getAsJsonObject().get("value").getAsInt() == GroundMaterialColors.SOIL,
           "Inventory soil matches block default " + id);
       for (var face : faces.entrySet()) {
         var value = face.getValue().getAsJsonObject();
-        int expected = face.getKey().equals("up") ? 0 : 1;
+        int expected = face.getKey().equals("up") ? 0 : face.getKey().equals("down") ? 1 : 2;
         require(value.get("tintindex").getAsInt() == expected, "Face tint layer " + id);
         require(value.get("cullface").getAsString().equals(face.getKey()), "Face culling " + id);
       }
@@ -108,6 +113,7 @@ public final class GroundResourceChecks {
     System.out.println("GROUND_RESOURCES_PASS checks=" + checks
         + " ownerImages=10 unchanged=true masksComplementary=true modelLinks=true tintLayers=true");
     GroundSurfaceProfileChecks.run();
+    GroundSideMathChecks.run();
     var example = GroundSurfaceProfile.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE,
         JsonParser.parseString(Files.readString(Path.of(args[1])))).getOrThrow();
     require(example.version() == 1 && example.salt() == 34001 && example.soilDepth() == 4,

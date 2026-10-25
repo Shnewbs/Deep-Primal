@@ -15,9 +15,14 @@ public final class GroundMaterialColors {
 
   public static void register(RegisterColorHandlersEvent.BlockTintSources event) {
     var soil = BlockTintSources.constant(SOIL);
-    event.register(List.of(surface(BlockTintSources.grass()), soil), GroundMaterials.GRASS.get());
-    event.register(List.of(soil, soil), GroundMaterials.DIRT.get());
-    event.register(List.of(surface(BlockTintSources.dryFoliage()), soil), GroundMaterials.PODZOL.get());
+    event.register(List.of(surface(BlockTintSources.grass()), soil, side(BlockTintSources.grass())), GroundMaterials.GRASS.get());
+    event.register(List.of(soil, soil, soil), GroundMaterials.DIRT.get());
+    event.register(List.of(surface(BlockTintSources.dryFoliage()), soil, side(BlockTintSources.dryFoliage())), GroundMaterials.PODZOL.get());
+  }
+
+  private static BlockTintSource side(BlockTintSource delegate) {
+    return com.shnewbs.deepprimal.settings.RendererOwnership.owned()
+        ? surface(delegate) : BlockTintSources.constant(0xffffffff);
   }
 
   private static BlockTintSource surface(BlockTintSource delegate) {

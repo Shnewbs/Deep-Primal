@@ -4,7 +4,8 @@
     "model": "deepprimal:block/ground_podzol",
     "tints": [
       {"type": "minecraft:constant", "value": -10732494},
-      {"type": "minecraft:constant", "value": 11968640}
+      {"type": "minecraft:constant", "value": 11968640},
+      {"type": "minecraft:constant", "value": -10732494}
     ]
   }
 }

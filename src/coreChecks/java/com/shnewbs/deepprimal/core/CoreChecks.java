@@ -32,6 +32,7 @@ public final class CoreChecks {
     WaterCornerRetryChecks.run();
     WaterRetirementStateChecks.run();
     WaterSurfaceShapeChecks.run();
+    WaterfallSideChecks.run();
     CaveColumnChecks.run();
     IntegratedEngineChecks.run();
     EngineAuditChecks.run();
