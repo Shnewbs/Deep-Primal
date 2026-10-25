@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: V1 codec cannot round-trip inherited terrain profile
+	at LegacyTemplateChecks.main(LegacyTemplateChecks.java:16)

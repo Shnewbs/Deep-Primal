@@ -1,0 +1,121 @@
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:35: error: cannot find symbol
+    var json=template.deepCopy(); json.addProperty("type", "deepprimal:continental_v"+rev);
+                     ^
+  symbol:   method deepCopy()
+  location: variable template of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:117: error: cannot find symbol
+    result.addProperty("fixture_schema",2);result.addProperty("sites_count",SITES.length);
+          ^
+  symbol:   method addProperty(String,int)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:117: error: cannot find symbol
+    result.addProperty("fixture_schema",2);result.addProperty("sites_count",SITES.length);
+                                                 ^
+  symbol:   method addProperty(String,int)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:118: error: cannot find symbol
+    try(var in=DepositNativeChecks.class.getResourceAsStream("DepositNativeChecks.class")){result.addProperty("fixture_class_sha256",hex(MessageDigest.getInstance("SHA-256").digest(in.readAllBytes())));} var hashes=new JsonObject(); var density=new JsonObject();
+                                                                                                 ^
+  symbol:   method addProperty(String,String)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:130: error: cannot find symbol
+          hashes.addProperty(seed+":"+rev+":"+i,hash); if(rev==4)v4.add(c);
+                ^
+  symbol:   method addProperty(String,String)
+  location: variable hashes of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:168: error: cannot find symbol
+        density.add(seed+":"+rev,new Gson().toJsonTree(counts));
+                                           ^
+  symbol:   method toJsonTree(long[])
+  location: class Gson
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:195: error: cannot find symbol
+    result.addProperty("full_saved_chunk_blocks",fullChunkChecks);
+          ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:197: error: cannot find symbol
+    result.addProperty("saved_revision",((EngineChunkGenerator)l.getChunkSource().getGenerator()).geography().revision);
+          ^
+  symbol:   method addProperty(String,int)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:198: error: cannot find symbol
+    result.addProperty("reopen_edit_verified",reopen&&l.getBlockState(marker).is(Blocks.GOLD_BLOCK));
+          ^
+  symbol:   method addProperty(String,boolean)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:199: error: cannot find symbol
+    result.addProperty("pass",true);result.add("hashes",hashes);result.add("density",density);
+          ^
+  symbol:   method addProperty(String,boolean)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:200: error: cannot find symbol
+    result.addProperty("base_column_blocks",baseChecks);result.addProperty("oracle_blocks",oracleChecks);
+          ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:200: error: cannot find symbol
+    result.addProperty("base_column_blocks",baseChecks);result.addProperty("oracle_blocks",oracleChecks);
+                                                              ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:201: error: cannot find symbol
+    result.addProperty("changed_material_blocks",changed);result.addProperty("first_changed",firstChanged);result.addProperty("protected_blocks",protectedChecks);
+          ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:201: error: cannot find symbol
+    result.addProperty("changed_material_blocks",changed);result.addProperty("first_changed",firstChanged);result.addProperty("protected_blocks",protectedChecks);
+                                                                ^
+  symbol:   method addProperty(String,String)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:201: error: cannot find symbol
+    result.addProperty("changed_material_blocks",changed);result.addProperty("first_changed",firstChanged);result.addProperty("protected_blocks",protectedChecks);
+                                                                                                                 ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:202: error: cannot find symbol
+    result.addProperty("cave_air_blocks",caveAirChecks);result.addProperty("water_blocks",waterChecks);
+          ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:202: error: cannot find symbol
+    result.addProperty("cave_air_blocks",caveAirChecks);result.addProperty("water_blocks",waterChecks);
+                                                              ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:203: error: cannot find symbol
+    result.addProperty("soil_band_blocks",soilChecks);result.addProperty("bedrock_band_blocks",bedrockChecks);
+          ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:203: error: cannot find symbol
+    result.addProperty("soil_band_blocks",soilChecks);result.addProperty("bedrock_band_blocks",bedrockChecks);
+                                                            ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:204: error: cannot find symbol
+    result.addProperty("reversed_chunks",orderChecks);result.addProperty("elapsed_ms",(System.nanoTime()-started)/1e6);
+          ^
+  symbol:   method addProperty(String,long)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:204: error: cannot find symbol
+    result.addProperty("reversed_chunks",orderChecks);result.addProperty("elapsed_ms",(System.nanoTime()-started)/1e6);
+                                                            ^
+  symbol:   method addProperty(String,double)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:205: error: cannot find symbol
+    result.addProperty("root_origin",EngineChunkGenerator.class.getProtectionDomain().getCodeSource().getLocation().toString());
+          ^
+  symbol:   method addProperty(String,String)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:206: error: cannot find symbol
+    result.addProperty("core_origin",Geology.class.getProtectionDomain().getCodeSource().getLocation().toString());
+          ^
+  symbol:   method addProperty(String,String)
+  location: variable result of type JsonObject
+/dev/shm/deepprimal-builder-1825/DepositNativeChecks.java:207: error: cannot find symbol
+    Files.writeString(Path.of(output),new GsonBuilder().setPrettyPrinting().create().toJson(result)+"\n");
+                                                       ^
+  symbol:   method setPrettyPrinting()
+  location: class GsonBuilder
+24 errors
