@@ -25,7 +25,9 @@ public final class Aquifer {
   public int wetSteps() { return wetSteps; }
   public boolean active() { return active; }
   public int dynamicWetSteps() { return dynamicWetSteps; }
-  public boolean canSupply(boolean naturalWaterway) { return active && (naturalWaterway || dynamicWetSteps == WET_STEPS); }
+  public boolean canSupply(boolean naturalWaterway) {
+    return active && ground.water() > STOP && (naturalWaterway || dynamicWetSteps == WET_STEPS);
+  }
   public long lastTick() { return lastTick; }
   /** At most one fixed-duration step, even after long unload/offline gaps. */
   public boolean step(long tick) {
@@ -44,10 +46,24 @@ public final class Aquifer {
   public double head(double datum) {
     return datum - 5 + 8 * ground.water() / (double) CAPACITY;
   }
+  /** Planned perched waterways lose their supply head at the same reserve as drought shutdown. */
+  public static double naturalDatum(double surface) {
+    if (!Double.isFinite(surface)) throw new IllegalArgumentException("Natural waterway surface");
+    return surface + 5 - 8 * STOP / (double) CAPACITY;
+  }
+  /**
+   * Long-run regional baseflow in native units per 20-tick interval: mean rain recharge of a
+   * 64x64 region at vanilla's mean weather duty (18,000 rain of 114,000 ticks) and half
+   * permeability. Never below the 32-unit dry-land quota; still debited from this finite store.
+   */
+  public static int baseflowUnits(int rainQuantaPerColumnSecond) {
+    return (int) Math.max(32, Math.max(0, rainQuantaPerColumnSecond) * 4096L * 18_000 / 114_000 / 2 / WaterAccount.SCALE);
+  }
   public int dischargeUnits(double datum, double surface, int receivingCapacity, int rate) {
-    if (!active || head(datum) <= surface || receivingCapacity <= 0) return 0;
+    if (!active || ground.water() <= STOP || head(datum) <= surface || receivingCapacity <= 0) return 0;
     int pressure = (int) Math.ceil((head(datum) - surface) * 2);
-    return (int) Math.min(ground.water() / WaterAccount.SCALE,
+    // Multiple outlets can deliver before step() next updates the drought latch.
+    return (int) Math.min((ground.water() - STOP) / WaterAccount.SCALE,
         Math.min(receivingCapacity, Math.min(Math.max(0, rate), pressure)));
   }
 }

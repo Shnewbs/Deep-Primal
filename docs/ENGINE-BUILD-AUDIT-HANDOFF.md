@@ -1,5 +1,157 @@
 # Deep Primal build/audit continuation
 
+Latest local checkpoint (2026-10-25): **dev.11 Spatial Recharge JAR verified and staged**.
+125,177,114 bytes, SHA-256
+`10b1839c697861de3051cb55c953835d60fd1bf6e5799c2a30afb5b618a375e5`.
+Artifact is in this session's files directory. Library-upload tool unavailable;
+dev.10 remains the latest Library item. Add the existing verified dev.11 artifact
+when that contribution is available; do not rebuild or overwrite it.
+
+Reproduced first-visited soil bias: grass-first49,152 versus sand-first88,473
+quanta for the same region. Replaced that extrapolation with at most16 fixed
+loaded-chunk center samples, each weighted256 and using local bed/biome. Native
+post-fix orders both yield22,937, with finite atmosphere and no forced chunks.
+All server/soil/dual-API/package gates pass. See ACTIVE-ENGINE-AUDIT.
+
+Regional rain is a once-per-interval spatial snapshot: edits after sampling apply
+next step, not a second scan during the same step. Preserve clock/reserve/quota/
+cadence guards. Next: mixed-biome/capacity weather and storm performance evidence,
+physical source unload/reopen, complete world ledger and temporal flicker.
+Dev.12 is next production version. Grade remains50/100.
+
+Previous local checkpoint (2026-10-25): **dev.10 Regional Weather Clock JAR is in the Library**.
+125,176,661 bytes, SHA-256
+`2a6b0872e19c3d67a070ded6298c205753143b9ad077236a7cb46b89adbff64d`.
+Native fixture reproduced a frozen drought clock beneath bedrock. Existing
+regional aquifers now advance even on impermeable visits, without seeding new
+groundwater there. Per-step rain accounting allows a later permeable visit to
+recharge exactly once; repeated visits/cache reconstruction cannot duplicate it.
+Dev.7 scheduling, dev.8 allowances and dev.9 drought reserve protection retained.
+
+Environmental fresh/reopen, native clock/source/reserve, full build/core,
+soil 1/0 fresh/reopen, both APIs and package gates pass. Three 1,200-tick reaches
+keep 67/67, 115/115, 655/655 wet; final falls 0.125/0/0.0625; no sampled overtopping.
+See ACTIVE-ENGINE-AUDIT for before/after evidence and scope.
+
+Next: precipitation still extrapolates one eligible column's permeability/biome
+over the loaded region; reproduce spatial sampling bias before replacing it
+with bounded representative accounting. Native catchment weather/full ledger,
+source unload/reopen and temporal flicker remain open. Dev.11 is the next
+production version. Last full grade **50/100**.
+
+Previous local checkpoint (2026-10-25): **dev.9 Drought Reserve JAR is in the Library**.
+125,176,563 bytes, SHA-256
+`281c0122763b54e75f839f2a2f4a2ec78fdeaeab8d503c90e88f0159ff18dcf2`.
+Reproduced reserve overspend (`remaining=0 units=5`) at a depressed outlet before
+the next aquifer step. `Aquifer` now checks current STOP on supply and caps each
+delivery to whole units above STOP. Evaporation can still lower inactive reserves.
+Preserve dev.7 scheduling and dev.8 headwater allocation/quotas.
+
+Core weather-cycle checks run 180,000 intervals across six scenarios with exact
+water/salt/sediment totals, six drought stops, four storm restarts and 186 state
+reconstructions. Native reserve and source checks, environmental fresh/reopen,
+soil 1/0 fresh/reopen, dual-API and package checks all pass.
+High creek extended to 5,000 ticks keeps 67/67 wet with no sampled overtopping;
+final fall is 0.125. This does not resolve the startup dip or visible flicker.
+See ACTIVE-ENGINE-AUDIT for evidence and scope.
+
+Next: native full-catchment weather and ledger checks, additional seeds, physical
+source unload/reopen and connected waterfall/flicker scenes. Core weather-cycle
+coverage is not a native storm acceptance claim. Dev.10 is the next production
+version. Last full grade remains **50/100**.
+
+Previous local checkpoint (2026-10-25): **dev.8 Headwater Baseflow JAR is in the Library**.
+It is 125,176,558 bytes, SHA-256
+`eaf29368806cf81ee0c888d108741d733213fa1c180df804510365dc86708afb`.
+
+What changed:
+- Planned waterways use a separate finite regional natural quota,
+  `Aquifer.baseflowUnits`: mean regional rain recharge, 80 units/interval by default, floor 32.
+- Dry springs keep the 32-unit quota and `sourceRate`.
+- Planned columns are served headwater-first.
+
+Results:
+- High creek peak dip is 0.625 (was 0.94); final fall is 0.1875; quota is no longer saturated.
+- High, low and wide reaches keep all columns wet with no flooding.
+- Native, environmental, soil, dual-API and package gates all pass.
+
+Next: long drought/storm aquifer trajectory, seeds/catchments, ledger, flicker.
+Bump to dev.9 before production edits. Last full grade remains **50/100**.
+
+Previous local checkpoint (2026-10-25): **dev.7 Steady Stream Sources JAR is in the Library**,
+125,175,702 bytes, SHA-256
+`8a85abdc2c6a374b170f2a2066cdf3dcc7462d6331a3f97f9ab50f6c0f1bfbf2`.
+The remaining high-creek loss came from scan cadence, not the budget. A source
+column was refilled about every 196 ticks because the scan covers 49 chunks.
+Planned waterway columns are now surveyed after load and listed per chunk.
+They receive one finite top-up per 20-tick interval into the actual deficit cell.
+Delivery is head-, stage- and 32-unit-quota-limited.
+High/low/wide 1,200-tick REQUIRE runs keep 67/67, 115/115 and 655/655 wet columns with zero
+dry ticks and no flooding. Final high fall is 0.3125 (was 1.0625), but a
+transient peak of about 0.94 blocks remains around ticks 300–500. All native,
+environmental, soil, dual-API and package gates pass; see ACTIVE-ENGINE-AUDIT. Next: startup
+transient, discharge-scaled quota, seeds/catchments, ledger, weather, flicker.
+Bump to dev.8 before production edits. Last full grade remains **50/100**.
+
+Previous local checkpoint (2026-10-25): **dev.6 Natural Stream Head JAR is in the Library**,
+125,173,983 bytes, SHA-256
+`443acc2a1c8b43679d9a7c4e39f7c5a6b39413bd5f9c5e68f859c8cb8d61f555`.
+The sealed dev.5 high creek reproduced 67 to 40 wet columns over 1,200 ticks:
+an active aquifer referenced a regional terrain minimum below its elevated
+outlets. Natural infiltration and replenishment now share a local planned head
+at the finite drought-stop reserve. Unplanned springs, finite chemistry/accounts,
+32-unit regional quota, fractional cap, saved terrain and player edits are preserved.
+This simplified perched-head correction is not infinite refill or a completed
+regional water cycle.
+
+Fresh selected-JAR high/low/wide reaches retain 67/67, 115/115 and 655/655 wet
+columns on every one of 1,200 ticks, with zero dry-column ticks. All 100-tick
+bank samples show no newly wet monitored dry columns/overtopping. High-creek
+stage still falls up to 1.0625 blocks; the fresh low creek falls 0.3125.
+Full 35-task Windows build, native source debit/quota/dam/drought/recharge,
+environmental fresh/reopen, material1/legacy0 fresh/reopen, both API inventory/
+reload and controlled waterfall upload/readback gates pass. Seven recursive
+archives, 545 production classes, 333 resources and four pixel-identical
+1200x800 previews pass final packaging checks. Dev.5/dev.4 remain separate.
+See the newest ACTIVE-ENGINE-AUDIT entry for exact logs.
+
+Continue real stage/flow continuity, complete water/salt/sediment accounting,
+other seeds/larger catchments, sustained drought/storm/recharge, unload/reopen/
+player edits and actual connected waterfall/temporal scenes. The owner screenshot's
+exact cause and visible flicker are still open. Continue soil profile mechanics
+and saved V8/topology/performance gates without claiming complete worldgen.
+Last full grade remains **50/100**. Work remains on local main; no branch,
+commit, push or owner PNG edit was made.
+
+Previous local checkpoint (2026-10-25): **dev.5 Soil Families JAR is in the Library**,
+125,173,842 bytes, SHA-256
+`c9675e958e7fa66cd6ca28c2af14d006303f912d9384c491615e073bf45acc55`.
+Twelve documented texture classes now have 36 registered bare/grass/podzol forms,
+generated content, provisional mineral tints and infiltration values. New
+Standard/Deep worlds save material revision 1; actual legacy worlds remain revision
+0. Full 35-task build, selected-JAR native new/legacy fresh/reopen, all family
+permeabilities, both API inventory/reload, archive/class/resource and exact-pixel
+gates pass. A three-seed, 12,675-column terrain distribution reaches all twelve;
+the initial additive selector failed and was replaced before delivery. Details
+and unfinished profile/gameplay mechanics are in ACTIVE-ENGINE-AUDIT.md and the
+soil catalog implementation checklist. No branch, commit, push or owner PNG edit.
+
+The owner's latest water screenshot is an open bug report: repeated diagonal/
+stepped bands. Controlled native Vulkan basin captures show the bed steps through
+a mathematically flat surface in both animated/fallback paths; no owner-world
+root cause, stream conservation/flooding or flicker fix is established.
+The new stepped-bed core check excludes internal faces and preserves the flat
+surface across signed sections. The in-game fixture was initially blocked by
+first-run accessibility onboarding, now explicitly accepted. Six selected-JAR
+water-shape captures and normal save/stop/GPU release pass. Preserve that evidence;
+next isolate the actual owner-world geometry/transport/appearance rather than
+masking bands with opaque water or changing frozen terrain. Last full grade is
+still **50/100**, not a claim that the 8.5 target is reached.
+
+Current local continuation (2026-10-25): **dev.4 development JAR delivered from main.** The owner's v3 side artwork and final sand from `670ddd9` are preserved. Single-pass dual-tint side materials now cover terrain, moving blocks, entities, inventory and NeoForge's unlit inventory shader pair. Actual OpenGL/Vulkan inventory/reload captures include opaque-face pixel assertions; earlier model-only checks missed absent sides. The Vulkan startup failure was traced to unsupported `~` syntax in the converter, then a missing paired unlit vertex interface; the apparent missing GUI shader was a secondary reload failure. Stacked waterfall side walls are clipped independently of shared free surfaces, with separate animation histories. The full 33-task Windows build and selected-JAR native fresh/reopen/client checks pass. Seven archive CRCs, 141 root classes, 399 nested classes and 186 resources match; OpenGL/Vulkan captures match exactly before/after reload. Each API passes 60 controlled production waterfall upload/readback cases, not complete stream simulation or scene acceptance. The unique dev.4 JAR is in the Library (125,120,400 bytes; SHA-256 `60eb6dae7dbaa2f19e98befc4cb256cec58045f26417cd573b023a95f4f98691`). This is a development checkpoint, not complete worldgen.
+
+The owner authorizes the soil catalog work and requests worldgen/terrain priority, continued checklist implementation, no new branches and working JARs approximately hourly when practical. Historical "catalog deferred" and separate-branch instructions below do not override that direction. Implement the twelve texture classes with cover/tint/placement and a saved material revision; preserve existing worlds and vanilla registry identities. Native world lighting/mips, waterfall scenes, drainage/flooding and V8 gameplay remain open. Last full engine grade stays **50/100, Tier 2**, with target average **at least 8.5**, ideally 9.5. The supplied [Planet Smith rendering reference](LOD-AND-DRAINAGE-ARCHITECTURE.md#planet-smith-rendering-reference) adds measured renderer work, not a reason to defer hydrology or silently rewrite the host renderer.
+
 Current continuation (2026-10-24): **owner target average ≥8/10; alpha.29-dev.2 partial stage 2**. The existing hourly build/audit task is enabled with this target and the same strict ten-category rubric. Last verified full grade remains50/100. Read [stage-two scope](engine-stage2-2026-10-24/README.md), [executed results](engine-stage2-2026-10-24/RESULTS.md) and ENGINE-WORK-STATE.json. Bounded density programs, strict JSON profiles and an experimental V8 shape recipe pass full33-task build,40987 graph checks,34 codec cases, independent/package identities and native V7 replay/save/stop. All509 prior production class files are unchanged. No V8 registration or owner installer. Exact component evaluation1.06–1.14s/full volume, lattice17.67–18.88ms and906 occupancy disagreements block promotion. Next optimize repeated expressions and prove conservative topology refinement, then native V8 block/base-column/heightmap/saved-profile/hydrology/visual gates. Stages3–6 and latest-version support stay open. Freeze V1–V7, preserve unpromoted R57 and all historical requirements. A checkpoint does not finish the goal; report only actual progress and do not imply continuous activity between finite scheduled runs.
 
 
@@ -19,9 +171,9 @@ The owner requested repeated implementation, audit and rebuild work on the indep
 
 Read `ENGINE-WORK-STATE.json`, this record, `ACTIVE-ENGINE-AUDIT.md` and the current source branch before continuing. If a foreground lease is current, report progress only. Do not edit the foreground checkout, start competing Gradle/native processes, or claim an idle foreground worker is doing background development. If the source advances during a run, preserve work on a separate branch and report the conflict; never overwrite another worker's changes.
 
-When the foreground lease has ended or the work state explicitly permits continuation, take one concrete highest-priority unfinished item through reproduction, implementation, focused checks and a reviewable checkpoint. Work in an isolated checkout/directory. Use a normal authenticated Git checkout when available; the connected GitHub API supports private source reads and guarded tree/commit/ref writes when CLI authentication is unavailable. Do not reconstruct or expose credentials. Do not spawn sub-agents.
+When the foreground lease has ended or the work state explicitly permits continuation, take one concrete highest-priority unfinished item through reproduction, implementation, focused checks and a reviewable checkpoint. The owner's current direction is to use this existing local main checkout, preserving all uncommitted/user changes. Do not create branches, commit, push, stash, reset, rebase or pull without explicit owner authorization. Older isolated-branch instructions below are historical. Do not reconstruct or expose credentials. Do not spawn sub-agents.
 
-Checkpoint meaningful source, regression fixtures and compact evidence on the working branch. Use the latest tree and expected parent/ref, preserving unrelated files and the owner's documentation/catalog work. Do not publish an unvalidated installer or merge a failing experiment into the stable branch. Report exactly what ran, what failed, what changed and what remains.
+Record meaningful source, regression fixtures and compact evidence in the current checkout and existing audit/checklist files; this does not authorize a commit. Preserve unrelated files and the owner's documentation/catalog work. Do not publish an unvalidated installer or overwrite a previously supplied artifact. Report exactly what ran, what failed, what changed and what remains.
 
 ## Current acceptance and evidence
 

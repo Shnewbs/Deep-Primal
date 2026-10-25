@@ -10,22 +10,46 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.HexFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.imageio.ImageIO;
 
 /** Headless checks of the actual runtime resources, including original-art identity. */
 public final class GroundResourceChecks {
   private static int checks;
+  private record Asset(String resource, String sha256, String axes) {}
 
   public static void main(String[] args) throws Exception {
     var manifest = JsonParser.parseString(Files.readString(Path.of(args[0]))).getAsJsonObject();
+    var assets = new LinkedHashMap<String, Asset>();
     for (var entry : manifest.getAsJsonArray("assets")) {
       var asset = entry.getAsJsonObject();
       String resource = asset.get("file").getAsString()
           .replace('\\', '/').replace("src/main/resources/", "");
+      require(assets.put(resource, new Asset(resource, asset.get("sha256").getAsString(),
+          asset.get("repeat_axes").getAsString())) == null, "Duplicate original asset " + resource);
+    }
+    String ground = "assets/deepprimal/textures/block/ground/";
+    var corrected = JsonParser.parseString(Files.readString(Path.of(args[2]))).getAsJsonObject();
+    require(corrected.getAsJsonArray("assets").size() == 7, "Seven owner-approved side replacements");
+    var replaced = new java.util.HashSet<String>();
+    for (var entry : corrected.getAsJsonArray("assets")) {
+      var asset = entry.getAsJsonObject();
+      String resource = ground + asset.get("file").getAsString();
+      var previous = assets.get(resource);
+      require(previous != null && !resource.endsWith("_top.png") && replaced.add(resource),
+          "Side revision must replace a unique known side/mask: " + resource);
+      require(previous.axes().equals(asset.get("axes").getAsString()), "Side repeat axes retained");
+      assets.put(resource, new Asset(resource, asset.get("sha256").getAsString(), previous.axes()));
+    }
+    var sand = JsonParser.parseString(Files.readString(Path.of(args[3]))).getAsJsonObject();
+    assets.put(ground + "sand.png", new Asset(ground + "sand.png",
+        sand.get("sha256").getAsString(), sand.get("repeat_axes").getAsString()));
+    for (var asset : assets.values()) {
+      String resource = asset.resource();
       byte[] data = bytes(resource);
       require(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(data))
-          .equals(asset.get("sha256").getAsString()), "Owner asset changed: " + resource);
+          .equals(asset.sha256()), "Owner asset changed: " + resource);
       var image = ImageIO.read(new java.io.ByteArrayInputStream(data));
       require(image != null && image.getWidth() == 64 && image.getHeight() == 64,
           "Ground image dimensions: " + resource);
@@ -38,7 +62,7 @@ public final class GroundResourceChecks {
         }
       for (int i = 0; i < 64; i++) {
         require(image.getRGB(0, i) == image.getRGB(63, i), "Horizontal repeat: " + resource);
-        if (asset.get("repeat_axes").getAsString().equals("xy"))
+        if (asset.axes().equals("xy"))
           require(image.getRGB(i, 0) == image.getRGB(i, 63), "Vertical repeat: " + resource);
       }
     }
@@ -111,10 +135,11 @@ public final class GroundResourceChecks {
           "Self-drop resource " + id);
     }
     System.out.println("GROUND_RESOURCES_PASS checks=" + checks
-        + " groundImages=" + manifest.getAsJsonArray("assets").size()
-        + " manifestMatched=true masksComplementary=true modelLinks=true tintLayers=true");
+        + " ownerImages=" + assets.size()
+        + " currentOwnerHashes=true sideRevision=3 masksComplementary=true modelLinks=true tintLayers=true");
     GroundSurfaceProfileChecks.run();
     GroundSideMathChecks.run();
+    soilResources(lang, shovel, dirt);
     var example = GroundSurfaceProfile.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE,
         JsonParser.parseString(Files.readString(Path.of(args[1])))).getOrThrow();
     require(example.version() == 1 && example.salt() == 34001 && example.soilDepth() == 4,
@@ -128,6 +153,34 @@ public final class GroundResourceChecks {
     }
   }
 
+    private static void soilResources(JsonObject lang, com.google.gson.JsonArray shovel,
+        com.google.gson.JsonArray dirt) throws IOException {
+      var soils = json("data/deepprimal/tags/block/soils.json").getAsJsonArray("values");
+      require(soils.size() == 36, "Twelve soil families with three covers");
+      for (var tag : List.of(shovel, dirt))
+        require(tag.asList().stream().anyMatch(v -> v.getAsString().equals("#deepprimal:soils")),
+            "Soil substrate/mining integration");
+      for (var texture : com.shnewbs.deepprimal.core.SoilTexture.values())
+        for (String cover : List.of("", "_grass", "_podzol")) {
+          String name = "soil_" + texture.id() + cover, id = "deepprimal:" + name;
+          require(soils.asList().stream().anyMatch(v -> v.getAsString().equals(id)), "Soil tag " + id);
+          require(lang.has("block.deepprimal." + name), "Soil language " + id);
+          var state = json("assets/deepprimal/blockstates/" + name + ".json");
+          require(state.getAsJsonObject("variants").getAsJsonObject("").get("model").getAsString()
+              .equals("deepprimal:block/" + name), "Soil blockstate " + id);
+          var model = json("assets/deepprimal/models/block/" + name + ".json");
+          require(model.get("parent").getAsString().equals("deepprimal:block/ground_material"), "Soil model " + id);
+          var item = json("assets/deepprimal/items/" + name + ".json").getAsJsonObject("model");
+          require(item.get("model").getAsString().equals("deepprimal:block/" + name), "Soil item " + id);
+          require(item.getAsJsonArray("tints").get(1).getAsJsonObject().get("value").getAsInt() == texture.color(),
+              "Soil palette " + id);
+          require(json("data/deepprimal/loot_table/blocks/" + name + ".json").getAsJsonArray("pools").get(0)
+              .getAsJsonObject().getAsJsonArray("entries").get(0).getAsJsonObject().get("name").getAsString().equals(id),
+              "Soil loot " + id);
+        }
+      System.out.println("SOIL_RESOURCES_PASS families=12 blocks=36 covers=3 modelLootTintTags=true");
+    }
+
   private static JsonObject json(String name) throws IOException {
     return JsonParser.parseString(new String(bytes(name), StandardCharsets.UTF_8)).getAsJsonObject();
   }
@@ -139,4 +192,3 @@ public final class GroundResourceChecks {
 
   private GroundResourceChecks() {}
 }
-

@@ -18,14 +18,32 @@ public final class GroundMaterialColors {
     event.register(List.of(surface(BlockTintSources.grass()), soil, side(BlockTintSources.grass())), GroundMaterials.GRASS.get());
     event.register(List.of(soil, soil, soil), GroundMaterials.DIRT.get());
     event.register(List.of(surface(BlockTintSources.dryFoliage()), soil, side(BlockTintSources.dryFoliage())), GroundMaterials.PODZOL.get());
+    for (var block : GroundMaterials.soilsList()) {
+      var mineral = BlockTintSources.constant(block.texture().color());
+      var top = switch (block.cover()) {
+        case BARE -> mineral;
+        case GRASS -> BlockTintSources.grass();
+        case PODZOL -> BlockTintSources.dryFoliage();
+      };
+      event.register(List.of(soilParticle(top, block.texture().color()), mineral,
+          block.cover() == GroundMaterials.Cover.BARE ? mineral : side(top, block.texture().color())), block);
+    }
   }
 
   private static BlockTintSource side(BlockTintSource delegate) {
+    return side(delegate, SOIL);
+  }
+
+  private static BlockTintSource side(BlockTintSource delegate, int soil) {
     return com.shnewbs.deepprimal.settings.RendererOwnership.owned()
-        ? surface(delegate) : BlockTintSources.constant(0xffffffff);
+        ? soilParticle(delegate, soil) : BlockTintSources.constant(0xffffffff);
   }
 
   private static BlockTintSource surface(BlockTintSource delegate) {
+    return soilParticle(delegate, SOIL);
+  }
+
+  private static BlockTintSource soilParticle(BlockTintSource delegate, int soil) {
     return new BlockTintSource() {
       public int color(BlockState state) {
         return delegate.color(state);
@@ -36,7 +54,7 @@ public final class GroundMaterialColors {
       }
 
       public int colorAsTerrainParticle(BlockState state, BlockAndTintGetter level, BlockPos pos) {
-        return SOIL;
+        return soil;
       }
     };
   }

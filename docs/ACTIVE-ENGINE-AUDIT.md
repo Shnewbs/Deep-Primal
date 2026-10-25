@@ -1,6 +1,342 @@
 # Active Deep Primal engine audit
 
-Current local continuation (2026-10-24): **alpha.29-dev.3; development resumed by owner on main, not paused.** Owner texture update `5c54904` is fast-forwarded without overwriting existing gradient work. Three opt-in ground material samples and a strict versioned surface profile now connect the ordered gradient to the isolated V8 native preview. The full 33-task Windows Vulkan build passes. Selected-JAR native fresh/reopen runs verify material drops/tags/identities and 1,572,864 block/reverse-order comparisons per run; stored graph/surface snapshots replay identical block-name fingerprints across two seeds. Packaged OpenGL and Vulkan model/inventory/reload previews pass, with pixel-identical 1200x800 captures before/after reload and between APIs; Vulkan reports zero validation errors and tracked resources at shutdown. This is bounded material-preview acceptance, not V8 gameplay, terrain-world visual/performance acceptance or complete worldgen. Side-mask dual tint, actual soil/ecological profiles, saved generator integration and coupled hydrology remain open. See [material limits and evidence](art/ground-textures-v2/README.md) and [surface preview](engine-stage2-2026-10-24/README.md#ground-surface-preview). The development JAR is supplied; **the last full engine grade remains 50/100, not regraded**.
+Current water checkpoint (2026-10-25): **dev.11 Spatial Recharge JAR verified and staged.**
+The Library-upload contribution was unavailable in this run; dev.10 remains the
+latest Library item. Dev.11 is retained in this session's files folder.
+
+Native pre-fix reproduction: identical grass/sand regional fixtures received
+49,152 quanta when grass was visited first versus 88,473 with sand first.
+`HydrologyRuntime.precipitation` now sums one fixed chunk-center sample per
+currently loaded chunk, at most 16 per 64x64 region. Each represents 256 columns
+and uses its own live surface/bed permeability and precipitation biome. Ocean
+boundaries and impermeable roofs contribute nothing. Only already-loaded chunks
+are examined; rain and snow debit the finite atmosphere into their respective
+regional accounts. Existing quotas, STOP protection and saved terrain are unchanged.
+
+Rain is now a regional snapshot once per authorized environmental interval, even
+when all samples are sealed. Opening a sampled roof after that snapshot takes
+effect next interval; it cannot trigger another scan/payment in the same interval.
+This replaces dev.10's later-eligible-visit behavior with spatially ordered sampling.
+Runtime-cache reconstruction remains fail-closed.
+
+Native post-fix `ENVIRONMENT_SPATIAL_RAIN_PASS`: both visit orders yield exactly
+22,937 quanta (one grass sample plus one sand sample), sealed samples excluded,
+exact atmospheric debit, 100-quanta limited-atmosphere case and absent negative
+region without forced loading. `ENVIRONMENT_SEALED_REGION_PASS` retains drought
+clock/no-seeding/repeat-visit/cache-rebuild and exact constituent checks.
+
+All candidate gates passed:
+- Full Windows build and core 180,000 weather intervals.
+- Environmental fresh/reopen and native source/drought reserve.
+- Three 1,200-tick REQUIRE reaches: 67/67, 115/115, 655/655 wet every tick,
+  zero dry-column ticks, no newly wet or sampled overtopped columns. Final falls
+  0.1875/0/0.0625; these do not establish a startup-dip improvement.
+- Soil material1/legacy0 fresh/reopen; OpenGL/Vulkan resource reload and
+  60 waterfall readbacks each; Vulkan buffers=0/images=0.
+- Seven archives, 545 compiled classes, 333 resources, 36 soil blockstates and
+  four pixel-identical previews.
+
+Evidence: `build/stream-dev11-spatial-before-fresh.log`,
+`build/stream-dev11-build-final.log`, `build/stream-dev11-environment-{fresh,reopen}.*`,
+`build/stream-dev11-source-native.log`, `build/stream-dev11-{high,low,wide}.log`,
+`build/stream-dev11-soil-{0,1}-{fresh,reopen}.log`,
+`build/stream-dev11-final-{opengl,vulkan}.log`, `build/stream-dev11-package.json`.
+Artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.11-Spatial-Recharge.jar`,
+125,177,114 bytes, SHA-256
+`10b1839c697861de3051cb55c953835d60fd1bf6e5799c2a30afb5b618a375e5`.
+
+Limits: one representative column per chunk is a coarse spatial estimate, not
+exact roof/soil area integration. End-to-end storm tick latency across many
+regions, mixed rain/snow capacity fairness, additional seeds, complete world
+ledger, physical source unload/reopen and temporal flicker remain open.
+Last full grade **50/100**; no branch/commit/push or owner-art edits.
+
+Previous water checkpoint (2026-10-25): **dev.10 Regional Weather Clock JAR supplied in the Library.**
+Reproduced `Impermeable surface froze the existing regional drought clock` through
+the actual dedicated-server `HydrologyRuntime.visit` path before the fix.
+An early permeability return skipped `Aquifer.step`, regional discharge allowance
+renewal, snowmelt and circulation for an existing aquifer under sealed ground.
+
+Regional updates now advance for an existing aquifer even on an impermeable
+column. Sealed ground still cannot initialize a new aquifer, recharge groundwater
+or become an outlet. Rain has a separate per-regional-step allowance: a sealed
+first visit does not consume a later permeable column's precipitation opportunity.
+Repeated visits and runtime-cache reconstruction cannot grant a second rain
+allowance in that step. No offline catch-up, reserve or geography change.
+
+Executed evidence:
+- Before: `build/stream-dev10-sealed-before-fresh.log` reports the clock assertion.
+- After: `ENVIRONMENT_SEALED_REGION_PASS` checks drought advancement, no rain
+  through bedrock, no initialization, later rain exactly once, cache rebuild and
+  exact water/salt/sediment accounting across 16 repeated visits.
+- Environmental fresh/reopen, native source/drought reserve checks, core
+  180,000-interval weather tests and full Windows build pass.
+- Fresh 1,200-tick REQUIRE reaches retain high 67/67, low 115/115, wide 655/655
+  wet every tick, zero dry-column ticks, no newly wet or sampled overtopped columns.
+  Final falls: 0.125, 0, 0.0625. High rise 0.25, wide rise 0.3125 remain diagnostics;
+  this is a regional-clock fix, not an established startup-dip improvement.
+- Soil material1/legacy0 fresh/reopen and OpenGL/Vulkan inventory/reload pass.
+  Each API passes 60 waterfall readbacks; Vulkan releases all buffers/images.
+  Package: seven archives, 545 classes, 333 resources, 36 soil blockstates,
+  four pixel-identical previews.
+
+Logs: `build/stream-dev10-build.log`,
+`build/stream-dev10-environment-final-{fresh,reopen}.{log,txt}`,
+`build/stream-dev10-source-native.log`, `build/stream-dev10-{high,low,wide}.log`,
+`build/stream-dev10-soil-{0,1}-{fresh,reopen}.log`,
+`build/stream-dev10-final-{opengl,vulkan}.log`, `build/stream-dev10-package.json`.
+Artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.10-Regional-Weather-Clock.jar`,
+125,176,661 bytes, SHA-256
+`2a6b0872e19c3d67a070ded6298c205753143b9ad077236a7cb46b89adbff64d`.
+
+Open: precipitation still extrapolates one eligible column's permeability/biome
+to the loaded region. Spatially representative native catchment weather,
+complete world ledger, physical source unload/reopen and visible flicker are
+not accepted by these fixtures. Last full grade stays **50/100**.
+Local main retained; no branch, commit, push or owner-art change.
+
+Previous water checkpoint (2026-10-25): **dev.9 Drought Reserve JAR supplied in the Library.**
+Reproduced a drought-boundary defect before editing production code:
+`stream-dev9-reserve-before.log` fails with `remaining=0 units=5`. A drained outlet
+below planned stage still has positive pressure when groundwater reaches STOP,
+and the active latch only updates on the next environmental step. Several outlets
+could therefore spend the drought reserve within the same interval.
+
+`Aquifer.dischargeUnits` now limits every delivery to whole native units above
+STOP, and `canSupply` checks the current reserve immediately. This protects both
+natural and dry-land outlets without changing saved state, head law, quotas,
+terrain or the 30-step reactivation requirement. Evaporation may still deplete
+the inactive reserve; the fix limits outlet discharge, not every environmental loss.
+
+Executed on the dev.9 candidate:
+- Before/after reserve regression: six balances from STOP through STOP+768 quanta,
+  depressed outlets, repeated delivery without a step and sub-unit remainders.
+- `AQUIFER_WEATHER_CYCLE_PASS`: six scenarios, 180,000 simulated 20-tick intervals,
+  rain rates 0/64/4096, loaded areas 256/4096 columns, rain/snow/melt, long drought,
+  six drought stops, four storm restarts and 186 state reconstructions. Exact
+  water/salt/sediment totals checked each interval, with interval quota/debit checks.
+- `STREAM_DROUGHT_RESERVE_NATIVE_PASS`: six balances, 16 actual block-write attempts
+  per balance, exact water/salt/sediment accounting and no between-step overspend.
+  Existing `STREAM_SOURCE_NATIVE_PASS` also passes.
+- High creek extended to 5,000 ticks: 67/67 wet each tick, zero dry-column ticks,
+  no newly wet or sampled overtopped columns; final fall 0.125, rise 0.25,
+  aquifer final fill 0.4062. Sampled startup peak fall 0.6875 is not a demonstrated
+  improvement over dev.8's 0.625; this fix addresses drought correctness.
+- Low/wide 1,200-tick reaches: 115/115 and 655/655 wet each tick, no sampled
+  overtopping, final falls 0 and 0.0625.
+- Environmental fresh/reopen, soil material1/legacy0 fresh/reopen, full build,
+  OpenGL/Vulkan clients and 60 waterfall readbacks per API pass. Vulkan releases
+  all buffers/images. Seven archives, 545 compiled classes, 333 resources,
+  36 soil blockstates and four pixel-identical previews verified.
+
+Evidence: `build/stream-dev9-{reserve-before,core,build,source-native,high,low,wide}.log`,
+`build/stream-dev9-environment-{fresh,reopen}.*`,
+`build/stream-dev9-soil-{0,1}-{fresh,reopen}.log`,
+`build/stream-dev9-final-{opengl,vulkan}.log`, `build/stream-dev9-package.json`.
+Artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.9-Drought-Reserve.jar`,
+125,176,563 bytes, SHA-256
+`281c0122763b54e75f839f2a2f4a2ec78fdeaeab8d503c90e88f0159ff18dcf2`.
+
+Scope limits: weather-cycle checks exercise the real core accounts, head and
+drought rules, not native biome/sky/permeability sampling or a complete world
+ledger. Full-catchment native storms/droughts, additional seeds, physical
+unload/reopen source continuity and temporal flicker remain open. Last full
+grade stays **50/100**. No branch, commit, push or owner-art edit.
+
+Previous water checkpoint (2026-10-25): **dev.8 Headwater Baseflow JAR supplied in the Library.**
+Dev.7 reach diagnostics showed that the high creek's remaining startup dip came from the
+32-unit regional quota. It saturated on 776 of 1,180 ticks, while the source pool's own head
+pressure and stage capacity could accept more. Two changes follow:
+
+1. Planned waterways now draw from a separate regional natural quota,
+   `Aquifer.baseflowUnits(rainQuantaPerColumnSecond)`. This is the long-run mean rain recharge
+   of a 64x64 region: vanilla mean weather duty is 18,000 rain ticks of 114,000, at half
+   permeability. That gives 80 units per 20-tick interval at the default 64 quanta, with a floor
+   of 32.
+   - It is still paid from the same finite aquifer. Head pressure, drought shutdown and the
+     fractional stage cap still apply.
+   - Dry-land springs keep the separate 32-unit quota and `sourceRate`.
+   - The natural quota fails closed until the first aquifer step.
+2. Planned columns are kept headwater-first by planned surface, and the maintenance pass offers
+   quota to the highest chunks first. This ordering alone did not measurably change the dip
+   (peak 0.875 vs 0.94). It is kept as the physically ordered allocation.
+
+The unordered main-scan top-up was removed. Fresh packaged REQUIRE runs over 1,200 ticks:
+
+| Reach | Wet columns kept | Peak fall | Final fall | Above plan | Quota saturation |
+|-------|------------------|-----------|------------|------------|------------------|
+| High creek | 67/67 | 0.625 (dev.7: 0.94) | 0.1875 (dev.7: 0.3125) | up to 0.3125 | 20 fail-closed ticks only; 1,161 units |
+| Low creek | 115/115 | 0.125 | 0 | 0.125 | — |
+| Wide river | 655/655 | — | 0.0625 | 0.3125 | — |
+
+- Every reach had zero dry-column ticks and no newly wet or overtopped columns.
+- The high creek now sits up to 0.3125 above plan. This is surface levelling between neighbouring
+  columns of different planned stage within the same block, with no bank overtopping.
+- The low and wide results are unchanged from dev.7.
+
+Other gates on this JAR:
+- Core `NATURAL_BASEFLOW_QUOTA_PASS`.
+- Native source check, including `headwaterFirst=true` and the exact quota boundary.
+- Environmental fresh/reopen.
+- Soil material1/legacy0 fresh/reopen.
+- OpenGL and Vulkan clients with 60 waterfall readbacks each; Vulkan reported buffers=0 images=0.
+- Package checks: 7 archives, 545 classes, 333 resources, 36 soil blockstates and 4
+  pixel-identical captures.
+
+Evidence: `build/stream-dev8-{high,high2,low,wide}.log`, `build/stream-dev8-source-native.log`,
+`build/stream-dev8-environment-{fresh,reopen}.*`, `build/stream-dev8-soil-{0,1}-{fresh,reopen}.log`,
+`build/stream-dev8-final-{opengl,vulkan}.log`, `build/stream-dev8-build2.log`, `build/stream-dev8-package.json`.
+
+Supplied artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.8-Headwater-Baseflow.jar`, 125,176,558 bytes,
+SHA-256 `eaf29368806cf81ee0c888d108741d733213fa1c180df804510365dc86708afb`.
+
+Open:
+- Long-run aquifer trajectory under the higher natural quota: sustained drought and storm runs.
+- Broader seeds and catchments.
+- A complete ledger.
+- Unload/reopen and player edits.
+- Visible flicker acceptance.
+
+No branch, commit or push was made. Last full grade remains **50/100**.
+
+Previous water checkpoint (2026-10-25): **dev.7 Steady Stream Sources JAR supplied in the Library.**
+Dev.6 diagnostics on the high creek near `(639,1448)` showed the 1.0625-block
+source-pool loss was not quota or reserve exhaustion. Only 20 of 1,180 ticks were
+quota-saturated (the fail-closed start interval); the aquifer stayed about 57% full
+and could always supply. The broad scan covered 49 loaded chunks, so each source
+column got a 4-unit top-up into its top outlet cell about every 196 ticks.
+
+Planned waterway columns now have a compact per-chunk list. A deadline-bounded
+survey of visible engine water after chunk load fills that list, along with ordinary
+visits. Each listed column gets at most one top-up per 20-tick interval, with a
+`Long.MIN_VALUE` sentinel so game time 0 cannot allow repeats. Delivery targets
+the real deficit cell up to two blocks below the outlet. That cell is wholly below
+the planned stage. Natural delivery is limited by head pressure, fractional
+capacity, finite groundwater and the unchanged 32-unit regional quota.
+`sourceRate` still meters dry-land springs. There is no new reservoir or infinite refill.
+
+Fresh packaged REQUIRE runs, 1,200 ticks: high 67/67, low 115/115 and wide 655/655
+wet on every tick, with zero dry-column ticks and no newly wet or overtopped
+monitored dry columns. Final high-creek fall is 0.3125 blocks (dev.6: 1.0625).
+The source region's quota now saturates for 776 ticks, and it delivered 1,691 units
+over 58 intervals (previously 1,229 units). Peak fall is still about 0.94 blocks
+around ticks 300–500 before recovery, so the startup transient remains open.
+Low and wide final falls are 0 and 0.0625.
+The wide reach stands up to 0.3125 above per-column plan from tick 100, while its
+flow solver is idle. Dev.6 showed 0.25, which indicates level-basin generation
+quantization, not the new supply; it remains a diagnostic, not a gate.
+Native source check adds exact deficit-cell repayment (8 to 16 units) and rejects
+same-interval repeat top-ups. Environmental fresh/reopen, material1/legacy0
+fresh/reopen, OpenGL/Vulkan inventory/reload plus 60 waterfall readbacks each,
+Vulkan buffers=0 images=0, full 35-task build and package checks all pass.
+The checks cover seven archives, 545 classes, 333 resources and four
+pixel-identical previews.
+Evidence: `build/stream-dev7-{high4,low,wide2}.log`, `build/stream-dev7-source-native3.log`,
+`build/stream-dev7-environment-{fresh,reopen}.{log,txt}`, `build/stream-dev7-soil-{0,1}-{fresh,reopen}.log`,
+`build/stream-dev7-final-{opengl,vulkan,build}.log`, `build/stream-dev7-package.json`.
+
+Supplied artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.7-Steady-Stream-Sources.jar`,
+125,175,702 bytes, SHA-256
+`8a85abdc2c6a374b170f2a2066cdf3dcc7462d6331a3f97f9ab50f6c0f1bfbf2`.
+Dev.6/dev.5 remain separately retained. No branch, commit, push or owner PNG edit.
+Open: startup transient, quota sizing by planned discharge, broader seeds/catchments,
+complete ledger, weather, unload/reopen/edits and visible flicker acceptance.
+`sourceRate` config comment wording is deferred to dev.8 to keep source identical to
+the tested JAR. Last full grade remains **50/100**.
+
+Previous water checkpoint (2026-10-25): **dev.6 Natural Stream Head JAR supplied in the Library.**
+A live nine-chunk V7 creek near `(639,1448)`, stage 288.25, reproduced drainage
+with the sealed dev.5 JAR: 67 initially wet monitored columns fell to 40 after
+1,200 server ticks. At 64 columns, an active regional aquifer could not reach the
+planned outlet because its head used the minimum of sixteen terrain samples
+across a 64x64 region. This is evidence for one draining cause, not a diagnosis
+of every screenshot or temporal artifact.
+
+The candidate gives planned natural waterways a local perched-head reference:
+their original planned surface is the head at the aquifer's drought-stop reserve.
+The same reference now governs infiltration and source delivery, avoiding an
+artificial low-region drain/replenish cycle. Unplanned dry-land springs keep the
+regional datum and sustained-recharge rule. Saved terrain/initial water,
+composition, finite groundwater, 32-unit regional discharge quota and fractional
+surface cap are unchanged. Supply still falls with depletion and stops; this is
+not an infinite source or a promised permanent river.
+
+Full 35-task build passes. The packaged high-altitude source check verifies exact
+10-unit debit, no overfill/repeat debit, regional quota, dam/player edits, drought
+and sustained-recharge restart at Y288. Environmental rain/infiltration/chemistry/
+ocean/no-force-load and separate-process ledger/edit reopen checks pass. Their
+old private `visit` reflection signature was stale and is corrected; an initial
+stdin `/stop` attempt hit a host command-source error and was stopped/excluded.
+The isolated fixture now has an explicit clean-stop flag.
+
+Fresh packaged runs now check every server tick, not just 100-tick snapshots.
+Over 1,200 ticks, high/low creeks and a wider river retain 67/67, 115/115 and
+655/655 initially wet columns respectively, with zero dry-column ticks.
+The wider reach has planned radius 8.168. At every 100-tick bank observation,
+all three have zero newly wet monitored dry columns or overtopping. Maximum
+final stage loss is still 1.0625 blocks in the high creek, 0.3125 in the fresh
+low-creek run and 0.125 in the wider river. An earlier low-creek run lost 0.125;
+these bounded runs do not establish identical temporal behavior.
+Evidence: `build/stream-dev6-continuity-{highest,first,widest}.log`.
+
+The final full 35-task Windows build passes, followed by selected-JAR native
+material1/legacy0 fresh/reopen checks and both OpenGL/Vulkan inventory/reload
+checks. Each API also passes 60 production waterfall upload/readback cases,
+not an actual connected falling-water scene. Vulkan releases all tracked buffers/
+images. Seven recursive archive CRCs, 545 compiled production class identities
+and 333 root resources match; four 1200x800 previews are pixel-identical.
+Final evidence: `build/stream-dev6-final-build.log`,
+`build/stream-dev6-soil-{0,1}-{fresh,reopen}.log`,
+`build/stream-dev6-final-{opengl,vulkan}.log` and
+`build/stream-dev6-package.json`.
+
+Supplied artifact: `DeepPrimal-Windows-Vulkan-alpha.29-dev.6-Natural-Stream-Head.jar`,
+125,173,983 bytes, SHA-256
+`443acc2a1c8b43679d9a7c4e39f7c5a6b39413bd5f9c5e68f859c8cb8d61f555`.
+Dev.5/dev.4 remain separately retained. No branch, commit, push or owner PNG edit.
+Full stage preservation, larger catchments/other seeds, sustained depletion/
+weather, complete budget accounting, long-duration transport and visible temporal/
+flicker acceptance remain required. A wet-column count is not complete stage or
+conservation acceptance. Last full grade remains **50/100**, not a new water grade.
+
+Current soil checkpoint (2026-10-25): **dev.5 Windows Vulkan development JAR supplied.**
+All twelve USDA texture families now have bare/grass/podzol forms (36 blocks/items),
+generated models/loot/names/tags and family mineral/infiltration values. The owner
+PNGs are unchanged. New Standard/Deep worlds save material revision 1; actual old
+worlds remain revision 0. The full 35-task Windows build passes, followed by
+selected-JAR native material1/legacy fresh/reopen and OpenGL/Vulkan inventory/reload
+checks. Each native soil comparison covers 1,572,864 blocks; 3,749 material changes
+preserve occupancy/heights, with 539 separately counted unchanged decorations.
+All 39 placed identities reopen and all 36 soil permeability routes match their
+family. All twelve families occur on selectable dry ground across 12,675 actual
+V7 columns/three seeds; the initial narrower field failed this gate and was replaced
+before packaging. Seven recursive archive CRCs, 545 compiled production classes and
+333 root resources match; four 1200x800 previews are pixel-identical. Artifact:
+125,173,842 bytes, SHA-256
+`c9675e958e7fa66cd6ca28c2af14d006303f912d9384c491615e073bf45acc55`.
+This is not complete soil ecology: palettes/infiltration remain provisional;
+orders/horizons/modifiers, wet/organic behavior, farming and granular simulation
+are open. Last full engine grade remains **50/100**, not a new partial-feature grade.
+
+Owner screenshot follow-up: pronounced diagonal/stepped water bands are recorded
+as an **open visual defect**, not diagnosed as flooding from a still image.
+A controlled stepped-bed mesher check produces 6,144 flat free-surface vertices
+across signed sections and both smooth modes, with no internal faces; it does not
+reproduce the screenshot's cause. Selected-JAR Vulkan captures now cover checker
+quantities, a cross-layer slope and a stepped basin in both animated/fallback
+modes. The level basin visibly retains bed-step bands beneath a flat water surface;
+this establishes a controlled lookalike, not the diagnosis of the owner's world
+or a solver/flicker fix. Initial launch attempts were stopped/excluded: one lacked
+the parent fixture flag; subsequent diagnostics identified the first-run
+AccessibilityOnboardingScreen. The fixture now explicitly accepts its Continue
+button. Final run saves/stops and releases tracked GPU buffers/images.
+`build/water-bands-vulkan-4.log` and its six captures are the accepted evidence.
+Do not alter saved terrain,
+transparent-water visibility or finite quantities speculatively.
+
+Current continuation (2026-10-25): **dev.4 development JAR supplied; full engine acceptance remains open.** Owner v3 side art and final sand are preserved. Dual-tint materials now render opaque sides through the actual inventory shader pair as well as terrain/block/entity paths. OpenGL and Vulkan inventory/reload previews pass opaque-face pixel assertions. The previously observed Vulkan GUI failure was secondary to converter rejection of bitwise-complement syntax and an unmatched NeoForge unlit vertex shader interface; both source contracts are corrected. Stacked side-wall clipping preserves uncapped shared free surfaces. Each API passes 60 production GPU upload/readbacks covering repeated quantities, adjacent free surfaces, smooth modes and signed vertical pages, not a full waterfall scene or drainage/flooding fix. Full Windows build/current-art hashes and selected-JAR native fresh/reopen/client gates pass. The 7 archive CRCs, 141 root/399 nested classes and 186 resources match compiled outputs. All four inventory/reload captures match exactly across OpenGL/Vulkan. Vulkan releases tracked buffers/images; operation counters are not full validation-layer coverage. World lighting/AO/mips, soil catalog placement, native V8/save/hydrology and target performance remain open; **last full grade remains 50/100**. See [current material contract](art/ground-textures-v2/README.md) and [the owner's new renderer reference](LOD-AND-DRAINAGE-ARCHITECTURE.md#planet-smith-rendering-reference).
+
+Previous local continuation (2026-10-24): **alpha.29-dev.3; development resumed by owner on main, not paused.** Owner texture update `5c54904` is fast-forwarded without overwriting existing gradient work. Three opt-in ground material samples and a strict versioned surface profile now connect the ordered gradient to the isolated V8 native preview. The full 33-task Windows Vulkan build passes. Selected-JAR native fresh/reopen runs verify material drops/tags/identities and 1,572,864 block/reverse-order comparisons per run; stored graph/surface snapshots replay identical block-name fingerprints across two seeds. Packaged OpenGL and Vulkan model/inventory/reload previews pass, with pixel-identical 1200x800 captures before/after reload and between APIs; Vulkan reports zero validation errors and tracked resources at shutdown. This is bounded material-preview acceptance, not V8 gameplay, terrain-world visual/performance acceptance or complete worldgen. Side-mask dual tint, actual soil/ecological profiles, saved generator integration and coupled hydrology remain open. See [material limits and evidence](art/ground-textures-v2/README.md) and [surface preview](engine-stage2-2026-10-24/README.md#ground-surface-preview). The development JAR is supplied; **the last full engine grade remains 50/100, not regraded**.
 
 Earlier continuation (owner clarification, 2026-10-24): **minimum acceptance target average ≥8.5/10 across all ten equally weighted categories; ideal stretch target ≥9.5/10; alpha.29-dev.2 partial stage 2**. A 10/10 is an aspirational perfect score, not a promise. The previous 8.0 target is superseded. Score only implemented and verified behavior; do not average away a weak category or credit unintegrated previews. The existing hourly build/audit task remains enabled but does not itself complete this goal. Last verified full grade remains50/100. Read [stage-two scope](engine-stage2-2026-10-24/README.md), [executed results](engine-stage2-2026-10-24/RESULTS.md) and ENGINE-WORK-STATE.json. Bounded density programs, strict JSON profiles and an experimental V8 shape recipe pass full33-task build,40987 graph checks,34 codec cases, independent/package identities and native V7 replay/save/stop. All509 prior production class files are unchanged. No V8 registration or owner installer. Exact component evaluation1.06–1.14s/full volume, lattice17.67–18.88ms and906 occupancy disagreements block promotion. Next optimize repeated expressions and prove conservative topology refinement, then native V8 block/base-column/heightmap/saved-profile/hydrology/visual gates. Stages3–6 and latest-version support stay open. Freeze V1–V7, preserve unpromoted R57 and all historical requirements. A checkpoint does not finish the goal; report only actual progress and do not imply continuous activity between finite scheduled runs.
 

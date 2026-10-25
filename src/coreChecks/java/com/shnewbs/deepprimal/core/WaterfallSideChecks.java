@@ -42,6 +42,37 @@ public final class WaterfallSideChecks {
     }
     System.out.println("WATERFALL_SIDE_PASS vertices=" + checked
         + " amounts=16 previousAmounts=16 smoothModes=2 verticalPages=true");
+    basin();
+  }
+
+  private static void basin() {
+    int checked = 0;
+    for (int origin : new int[] {-16, 0, 16})
+      for (boolean smooth : new boolean[] {false, true}) {
+        byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
+        for (int z = -1; z <= 16; z++)
+          for (int x = -1; x <= 16; x++) {
+            int floor = 7 - Math.floorMod(origin + x + z, 12);
+            for (int y = -1; y <= 16; y++) {
+              int index = WaterPatchMesher.index(x, y, z);
+              if (y <= floor) solid[index] = 1;
+              else if (y <= 8) units[index] = (byte) (y == 8 ? 8 : 16);
+            }
+          }
+        var snapshot = new WaterPatchMesher.Snapshot(units, solid, new int[units.length], new int[256]);
+        var mesh = WaterPatchMesher.build(snapshot, snapshot, smooth);
+        if (mesh.count() != 16 * 16 * 4)
+          throw new AssertionError("Stepped lake bed generated internal water faces: " + mesh.count());
+        for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
+          var v = mesh.vertices();
+          if (WaterPatchMesher.face(v[i + 10]) != 0 || v[i + 1] + v[i + 3] != 8.5F
+              || v[i + 1] + v[i + 4] != 8.5F)
+            throw new AssertionError("Stepped lake bed changed a level free surface");
+          checked++;
+        }
+      }
+    System.out.println("STEPPED_BASIN_MESH_PASS vertices=" + checked
+        + " signedSections=3 smoothModes=2 internalFaces=0 levelSurface=true");
   }
 
   private static WaterPatchMesher.Snapshot column(int amount, int originY) {

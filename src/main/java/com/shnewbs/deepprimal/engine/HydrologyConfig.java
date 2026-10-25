@@ -13,7 +13,7 @@ public final class HydrologyConfig {
         .define("existingEngineWorlds", true);
     COLUMNS = b.comment("Maximum loaded surface columns examined per server tick; no remote chunks are loaded.")
         .defineInRange("columnsPerTick", 64, 1, 256);
-    SOURCE_RATE = b.comment("Maximum native sixteenth-block units delivered per outlet per hydrology visit.")
+    SOURCE_RATE = b.comment("Maximum native sixteenth-block units delivered per dry-land outlet per hydrology visit; planned waterways are head-, stage- and regional-quota-limited.")
         .defineInRange("outletUnitsPerVisit", 4, 1, 16);
     RAIN_QUANTA = b.comment("Recharge per exposed column per second of active rain; 256 quanta = one native unit.")
         .defineInRange("rainQuantaPerColumnSecond", 64, 0, 4096);

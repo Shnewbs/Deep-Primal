@@ -43,6 +43,7 @@ public final class EnvironmentalWaterChecks {
           "Actual saved surface chemistry survives restart");
       check(level.getBlockState(persisted.west()).is(Blocks.GOLD_BLOCK), "Player edit survives restart");
       Files.writeString(Path.of(destination), "ENVIRONMENT_REOPEN_PASS aquifer=true chemistry=true savedRevision=true edits=true\n");
+      if (Boolean.parseBoolean(System.getenv("DEEPPRIMAL_ENVIRONMENT_STOP"))) server.halt(false);
       return;
     }
     check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == expectedRevision, "Default terrain revision");
@@ -98,13 +99,128 @@ public final class EnvironmentalWaterChecks {
     d.aquifers.put(HydrologyData.key(8,8),rainStore);
     var field=HydrologyRuntime.class.getDeclaredField("WORK"); field.setAccessible(true);
     var work=((java.util.Map<?,?>)field.get(null)).get(level);
-    var visit=HydrologyRuntime.class.getDeclaredMethod("visit",net.minecraft.server.level.ServerLevel.class,work.getClass(),int.class,int.class);
+    check(work != null, "Loaded chunks have environmental work");
+    var cursorType=Class.forName(HydrologyRuntime.class.getName()+"$Cursor");
+    var cursorConstructor=cursorType.getDeclaredConstructor(); cursorConstructor.setAccessible(true);
+    var cursor=cursorConstructor.newInstance();
+    var visit=HydrologyRuntime.class.getDeclaredMethod("visit",net.minecraft.server.level.ServerLevel.class,
+        work.getClass(),cursorType,int.class,TerrainEngine.class,int.class,int.class);
     visit.setAccessible(true);
+    var terrain=((EngineChunkGenerator)level.getChunkSource().getGenerator()).geography();
     level.setRainLevel(1);
     long airBefore=d.atmosphere.water()+d.ocean.water();
-    visit.invoke(null,level,work,8,8);
+    visit.invoke(null,level,work,cursor,0,terrain,8,8);
     long precipitation=rainStore.ground.water()+rainStore.snow.water()-1000;
     check(precipitation>0 && airBefore-d.atmosphere.water()-d.ocean.water()==precipitation,"Actual rain/snow recharge debits atmospheric water");
+    // Fixed chunk-center samples: seal every loaded center except grass and sand controls.
+    for(int cz=0;cz<4;cz++) for(int cx=0;cx<4;cx++) {
+      if(level.getChunkSource().getChunkNow(cx,cz)==null) continue;
+      int sx=cx*16+8, sz=cz*16+8;
+      for(int sy=500;sy<level.getMaxY();sy++)
+        level.setBlock(new BlockPos(sx,sy,sz),Blocks.AIR.defaultBlockState(),2);
+      level.setBlock(new BlockPos(sx,499,sz),Blocks.BEDROCK.defaultBlockState(),2);
+    }
+    level.getChunk(1,0);
+    for(int sy=500;sy<level.getMaxY();sy++)
+      level.setBlock(new BlockPos(24,sy,8),Blocks.AIR.defaultBlockState(),2);
+    level.setBlock(rainBed,Blocks.GRASS_BLOCK.defaultBlockState(),2);
+    level.setBlock(new BlockPos(24,499,8),Blocks.SAND.defaultBlockState(),2);
+    var workConstructor=work.getClass().getDeclaredConstructor(); workConstructor.setAccessible(true);
+    long[] orderRecharge=new long[2];
+    for(int order=0;order<2;order++) {
+      var orderedStore=new Aquifer(new WaterAccount.Parcel(1000,0,0),
+          WaterAccount.Parcel.EMPTY,0,false,level.getGameTime()-20);
+      d.aquifers.put(HydrologyData.key(8,8),orderedStore);
+      var orderedWork=workConstructor.newInstance();
+      long beforeWeather=d.atmosphere.water()+d.ocean.water();
+      visit.invoke(null,level,orderedWork,cursor,0,terrain,order==0?8:24,8);
+      orderRecharge[order]=orderedStore.ground.water()+orderedStore.snow.water()-1000;
+      check(beforeWeather-d.atmosphere.water()-d.ocean.water()==orderRecharge[order],
+          "Spatial recharge was not paid from atmospheric circulation");
+    }
+    check(orderRecharge[0]==orderRecharge[1],
+        "Regional rain depends on first visited soil: grass="+orderRecharge[0]+" sand="+orderRecharge[1]);
+    long expectedRain=(long)(HydrologyConfig.RAIN_QUANTA.get()*.5*256)
+        +(long)(HydrologyConfig.RAIN_QUANTA.get()*.9*256);
+    check(orderRecharge[0]==expectedRain,"Spatial rain did not match grass and sand sample weights");
+    var precipitationMethod=HydrologyRuntime.class.getDeclaredMethod("precipitation",
+        net.minecraft.server.level.ServerLevel.class,TerrainEngine.class,int.class,int.class,
+        HydrologyData.class,Aquifer.class);
+    precipitationMethod.setAccessible(true);
+    var limitedData=new HydrologyData();
+    limitedData.atmosphere.take(WaterAccount.MAX);
+    check(limitedData.atmosphere.add(new WaterAccount.Parcel(100,0,0)),"Limited weather fixture");
+    var limitedStore=new Aquifer(new WaterAccount.Parcel(1000,17,31),WaterAccount.Parcel.EMPTY,0,false,0);
+    precipitationMethod.invoke(null,level,terrain,8,8,limitedData,limitedStore);
+    check(limitedData.atmosphere.water()==0
+        && limitedStore.ground.water()+limitedStore.snow.water()==1100
+        && limitedStore.ground.snapshot().salt()==17 && limitedStore.ground.snapshot().sediment()==31,
+        "Spatial rain exceeded the finite atmosphere or changed groundwater constituents");
+    var unloadedStore=new Aquifer(new WaterAccount.Parcel(1000,17,31),WaterAccount.Parcel.EMPTY,0,false,0);
+    long noLoadAir=d.atmosphere.water();
+    check(!level.hasChunk(-62500,-62500),"Unloaded negative-region fixture was already loaded");
+    precipitationMethod.invoke(null,level,terrain,-1000000,-1000000,d,unloadedStore);
+    check(unloadedStore.ground.water()==1000 && unloadedStore.snow.water()==0
+        && d.atmosphere.water()==noLoadAir && !level.hasChunk(-62500,-62500),
+        "Regional precipitation loaded an absent chunk or credited an unloaded region");
+    System.out.println("ENVIRONMENT_SPATIAL_RAIN_PASS orderIndependent=true samplesPerRegionAtMost=16"
+        + " grassSandQuanta="+expectedRain+" sealedExcluded=true exactDebit=true finiteAtmosphere=true noForceLoad=true");
+    level.setBlock(new BlockPos(24,499,8),Blocks.BEDROCK.defaultBlockState(),2);
+    level.setBlock(rainBed,Blocks.BEDROCK.defaultBlockState(),2);
+    var sealedStore=new Aquifer(new WaterAccount.Parcel(Aquifer.STOP,789,123),
+        WaterAccount.Parcel.EMPTY,Aquifer.WET_STEPS,true,level.getGameTime()-20);
+    d.aquifers.put(HydrologyData.key(8,8),sealedStore);
+    work=workConstructor.newInstance();
+    var sealedBefore=sealedStore.ground.snapshot();
+    long sealedTotal=d.atmosphere.water()+d.ocean.water()+sealedStore.ground.water();
+    visit.invoke(null,level,work,cursor,0,terrain,8,8);
+    check(sealedStore.lastTick()==level.getGameTime() && !sealedStore.active(),
+        "Impermeable surface froze the existing regional drought clock");
+    check(sealedStore.ground.snapshot().equals(sealedBefore)
+        && d.atmosphere.water()+d.ocean.water()+sealedStore.ground.water()==sealedTotal,
+        "Impermeable surface admitted precipitation or lost accounted water");
+    var airAfterSealed=d.atmosphere.snapshot();
+    var oceanAfterSealed=d.ocean.snapshot();
+    for(int attempt=0;attempt<16;attempt++) visit.invoke(null,level,work,cursor,0,terrain,8,8);
+    check(d.atmosphere.snapshot().equals(airAfterSealed) && d.ocean.snapshot().equals(oceanAfterSealed),
+        "Repeated impermeable visits duplicated a regional environmental step");
+    level.setBlock(rainBed,Blocks.GRASS_BLOCK.defaultBlockState(),2);
+    // A roof edit after sampling takes effect on the next interval, not a second scan this step.
+    visit.invoke(null,level,work,cursor,0,terrain,8,8);
+    check(sealedStore.ground.snapshot().equals(sealedBefore),
+        "Opening a sampled surface granted a second regional rain scan in one interval");
+    sealedStore=new Aquifer(sealedStore.ground.snapshot(),sealedStore.snow.snapshot(),
+        sealedStore.wetSteps(),sealedStore.active(),level.getGameTime()-20,sealedStore.dynamicWetSteps());
+    d.aquifers.put(HydrologyData.key(8,8),sealedStore);
+    work=workConstructor.newInstance();
+    visit.invoke(null,level,work,cursor,0,terrain,8,8);
+    check(sealedStore.ground.water()+sealedStore.snow.water()>sealedBefore.water(),
+        "Sealed first visit consumed the rain allowance of later permeable ground");
+    var groundAfterRain=sealedStore.ground.snapshot();
+    var snowAfterRain=sealedStore.snow.snapshot();
+    var airAfterRain=d.atmosphere.snapshot();
+    for(int attempt=0;attempt<16;attempt++) visit.invoke(null,level,work,cursor,0,terrain,8,8);
+    check(sealedStore.ground.snapshot().equals(groundAfterRain)
+        && sealedStore.snow.snapshot().equals(snowAfterRain) && d.atmosphere.snapshot().equals(airAfterRain),
+        "Permeable visits duplicated the rain allowance after a sealed first visit");
+    check(d.atmosphere.water()+d.ocean.water()+sealedStore.ground.water()+sealedStore.snow.water()==sealedTotal
+        && sealedStore.ground.snapshot().salt()+sealedStore.snow.snapshot().salt()==sealedBefore.salt()
+        && sealedStore.ground.snapshot().sediment()+sealedStore.snow.snapshot().sediment()==sealedBefore.sediment(),
+        "Delayed precipitation lost water or groundwater constituents");
+    var rebuiltWork=workConstructor.newInstance();
+    visit.invoke(null,level,rebuiltWork,cursor,0,terrain,8,8);
+    check(sealedStore.ground.snapshot().equals(groundAfterRain)
+        && sealedStore.snow.snapshot().equals(snowAfterRain) && d.atmosphere.snapshot().equals(airAfterRain),
+        "Rebuilt runtime cache granted another precipitation allowance");
+    level.setBlock(rainBed,Blocks.BEDROCK.defaultBlockState(),2);
+    long sealedInitialized=d.initialized;
+    d.aquifers.remove(HydrologyData.key(8,8));
+    visit.invoke(null,level,work,cursor,0,terrain,8,8);
+    check(!d.aquifers.containsKey(HydrologyData.key(8,8)) && d.initialized==sealedInitialized,
+        "Impermeable surface seeded a new groundwater reserve");
+    d.aquifers.put(HydrologyData.key(8,8),sealedStore);
+    System.out.println("ENVIRONMENT_SEALED_REGION_PASS droughtClock=true noRecharge=true"
+        + " noSeed=true laterRainOnce=true cacheRebuild=true exactWaterSaltSediment=true repeatVisits=16");
     level.setRainLevel(0);
     long seeded=d.initialized;
     d.aquifers.remove(HydrologyData.key(-100,200));
@@ -123,5 +239,6 @@ public final class EnvironmentalWaterChecks {
     check(!level.hasChunk(3000000>>4,3000000>>4),"Hydrology never force-loads outlet");
     server.saveAllChunks(false,true,true);
     Files.writeString(Path.of(destination),"ENVIRONMENT_NATIVE_PASS sharedAquifer=true dynamicOutlets=true headBlocked=true infiltration=true bucketChemistry=true advection=true oceanStage=true inlandFinite=true weatherDebit=true codec=true onceOnlyInitialization=true noForcedChunks=true\n");
+    if (Boolean.parseBoolean(System.getenv("DEEPPRIMAL_ENVIRONMENT_STOP"))) server.halt(false);
   }
 }

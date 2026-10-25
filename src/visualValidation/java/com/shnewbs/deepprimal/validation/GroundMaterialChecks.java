@@ -16,9 +16,20 @@ import net.minecraft.world.level.block.state.BlockState;
 /** Native registry, loot, placement and separate-process reopen contract for material samples. */
 final class GroundMaterialChecks {
   static void run(ServerLevel level, boolean reopen) {
-    var blocks = List.of(GroundMaterials.GRASS.get(), GroundMaterials.DIRT.get(),
-        GroundMaterials.PODZOL.get());
-    var ids = List.of("ground_grass", "ground_dirt", "ground_podzol");
+    var blocks = new java.util.ArrayList<Block>(List.of(GroundMaterials.GRASS.get(), GroundMaterials.DIRT.get(),
+        GroundMaterials.PODZOL.get()));
+    blocks.addAll(GroundMaterials.soilsList());
+    var ids = blocks.stream().map(block -> BuiltInRegistries.BLOCK.getKey(block).getPath()).toList();
+    try {
+      var permeability = com.shnewbs.deepprimal.engine.HydrologyRuntime.class.getDeclaredMethod(
+          "permeability", BlockState.class, com.shnewbs.deepprimal.core.Geology.Column.class);
+      permeability.setAccessible(true);
+      for (var soil : GroundMaterials.soilsList())
+        require((double) permeability.invoke(null, soil.defaultBlockState(), null) == soil.texture().permeability(),
+            "Hydrology reads each soil family's permeability independently of cover");
+    } catch (ReflectiveOperationException failure) {
+      throw new AssertionError("Production soil permeability contract", failure);
+    }
     int checks = 0;
     var tool = new ItemStack(Items.IRON_SHOVEL);
     for (int i = 0; i < blocks.size(); i++) {
@@ -47,7 +58,8 @@ final class GroundMaterialChecks {
       checks += reopen ? 9 : 10;
     }
     System.out.println("GROUND_MATERIAL_NATIVE_PASS checks=" + checks
-        + " materials=3 reopen=" + reopen + " selfDrops=true plantSupport=true");
+        + " materials=" + blocks.size() + " reopen=" + reopen
+        + " selfDrops=true plantSupport=true soilPermeabilities=36");
   }
 
   private static void require(boolean condition, String message) {

@@ -1,5 +1,6 @@
 {
   "sources": [
+    {"type": "deepprimal:soil_sides"},
     {
       "type": "deepprimal:ground_side",
       "sprite": "deepprimal:block/ground/grass_side_material",

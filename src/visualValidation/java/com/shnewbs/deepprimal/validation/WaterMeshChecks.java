@@ -31,6 +31,8 @@ public final class WaterMeshChecks {
 
   public WaterMeshChecks() {
     NeoForge.EVENT_BUS.register(this);
+    if (Boolean.getBoolean("deepprimal.validationWaterShape"))
+      System.out.println("WATER_SHAPE_CONTROLLER_READY filling=" + Boolean.getBoolean("deepprimal.validationFilling"));
   }
 
   private static void require(boolean b, String m) {

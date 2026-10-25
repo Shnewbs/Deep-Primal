@@ -19,6 +19,7 @@ public final class NoiseProfileChecks {
       GroundMaterialChecks.run(event.getServer().overworld(), groundCheck.equals("reopen"));
       try {
         GroundSurfaceNativeChecks.run(event.getServer().overworld(), groundCheck.equals("reopen"));
+        SoilWorldgenChecks.run(event.getServer().overworld(), groundCheck.equals("reopen"));
       } catch (java.io.IOException | java.security.NoSuchAlgorithmException failure) {
         throw new RuntimeException("Ground surface snapshot IO failed", failure);
       }

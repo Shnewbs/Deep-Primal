@@ -37,8 +37,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         BiomeSource.CODEC.fieldOf("biome_source").forGetter((EngineChunkGenerator g)->g.biomeSource),
         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
-        TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile))
-    ).apply(i,(source,min,height,profile)->new EngineChunkGenerator(source,min,height,revision,profile.orElseGet(TerrainConfig::creationProfile))));
+        TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
+        Codec.intRange(0,1).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision)
+    ).apply(i,(source,min,height,profile,materials)->new EngineChunkGenerator(source,min,height,revision,
+        profile.orElseGet(TerrainConfig::creationProfile),materials)));
     return RecordCodecBuilder.mapCodec(
         i ->
             i.group(
@@ -52,6 +54,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   }
 
   private final int minY, height, revision;
+  private final int materialRevision;
   private volatile TerrainEngine engine;
   private final TerrainProfile profile;
   private final List<BlockState> orePalette;
@@ -65,7 +68,14 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     this(source,minY,height,revision,null);
   }
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,TerrainProfile profile) {
+    this(source,minY,height,revision,profile,0);
+  }
+  private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,
+      TerrainProfile profile,int materialRevision) {
     super(source);
+    if(materialRevision<0||materialRevision>1||(materialRevision!=0&&revision!=7))
+      throw new IllegalArgumentException("Soil material revision requires V7 geography");
+    this.materialRevision=materialRevision;
     this.profile=profile;
     orePalette=profile==null?List.of():profile.palette();
     this.revision = revision;
@@ -80,6 +90,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public TerrainEngine geography() {
     return engine;
   }
+  public int materialRevision() { return materialRevision; }
 
   protected MapCodec<? extends ChunkGenerator> codec() {
     return switch (revision) {
@@ -221,6 +232,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     final int x,z,bed,iceBase,biome;final boolean tunnel,ocean;
     final TerrainEngine.Sample s,hydraulic;final Geology.Column geology;
     final SoilProfile soil;final CaveNetwork.Column cave;final DepositPlan.Column deposits;
+    final SoilTexture texture;
     V6Column(int x,int z,TerrainEngine.Sample s,DepositPlan.Chunk deposits) {
       this.x=x;this.z=z;this.s=s;bed=(int)Math.floor(s.ground());
       biome=revision>=7?engine.biome(x,z):-1;
@@ -228,6 +240,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       tunnel=engine.tunnel(x,z);ocean=engine.ocean(x,z);
       iceBase=(int)Math.floor(engine.surfaceWithoutIce(x,z));
       geology=new Geology(engine.noise).column(x,z,s);soil=SoilProfile.at(s,geology);
+      texture=materialRevision==1?SoilTexture.at(engine.noise,x,z,s,geology):null;
       this.deposits=deposits.column(x,z,geology,iceBase);
       double roof=Math.min(iceBase,hydraulic.ground());
       cave=profile.options().caves()?new CaveNetwork(engine.noise).column(x,z,roof,minY,minY+height-1,geology):null;
@@ -242,20 +255,36 @@ public final class EngineChunkGenerator extends ChunkGenerator {
           return cave.flooded(y)?EngineRegistry.WATER_BLOCK.get().defaultBlockState():Blocks.AIR.defaultBlockState();
         int depth=bed-y;
         if(depth<soil.depth()) {
-          if(s.wet())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:soil.kind()==SoilProfile.Kind.GRAVEL?Blocks.GRAVEL:Blocks.SAND).defaultBlockState();
-          if(biome==9)return (depth==0&&s.slope()<.45?Blocks.RED_SAND:
-              Math.floorMod(y,12)<3?Blocks.ORANGE_TERRACOTTA:Math.floorMod(y,12)<5?Blocks.YELLOW_TERRACOTTA:Blocks.TERRACOTTA).defaultBlockState();
-          if((biome==6||biome==28)&&depth>0)return Blocks.MUD.defaultBlockState();
-          if(biome==13&&depth==0)return Blocks.PODZOL.defaultBlockState();
-          if(soil.kind()==SoilProfile.Kind.SAND)return (depth<soil.topsoil()+soil.subsoil()?Blocks.SAND:Blocks.SANDSTONE).defaultBlockState();
-          if(depth<soil.topsoil())return (depth==0?(soil.kind()==SoilProfile.Kind.PODZOL?Blocks.PODZOL:soil.kind()==SoilProfile.Kind.FROZEN?Blocks.SNOW_BLOCK:Blocks.GRASS_BLOCK):Blocks.DIRT).defaultBlockState();
-          if(depth<soil.topsoil()+soil.subsoil())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:Blocks.DIRT).defaultBlockState();
-          return (geology.rock(y)==Geology.Rock.SANDSTONE?Blocks.SANDSTONE:Blocks.GRAVEL).defaultBlockState();
+          var original=legacySoil(depth,y);
+          return materialRevision==1?soilMaterial(original):original;
         }
         int ore=deposits.at(y);
         return ore<0?rock(geology.rock(y)):orePalette.get(ore);
       }
       return s.wet()&&y<s.water()?water(s,y,ocean):Blocks.AIR.defaultBlockState();
+    }
+
+    private BlockState legacySoil(int depth,int y) {
+      if(s.wet())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:soil.kind()==SoilProfile.Kind.GRAVEL?Blocks.GRAVEL:Blocks.SAND).defaultBlockState();
+      if(biome==9)return (depth==0&&s.slope()<.45?Blocks.RED_SAND:
+          Math.floorMod(y,12)<3?Blocks.ORANGE_TERRACOTTA:Math.floorMod(y,12)<5?Blocks.YELLOW_TERRACOTTA:Blocks.TERRACOTTA).defaultBlockState();
+      if((biome==6||biome==28)&&depth>0)return Blocks.MUD.defaultBlockState();
+      if(biome==13&&depth==0)return Blocks.PODZOL.defaultBlockState();
+      if(soil.kind()==SoilProfile.Kind.SAND)return (depth<soil.topsoil()+soil.subsoil()?Blocks.SAND:Blocks.SANDSTONE).defaultBlockState();
+      if(depth<soil.topsoil())return (depth==0?(soil.kind()==SoilProfile.Kind.PODZOL?Blocks.PODZOL:soil.kind()==SoilProfile.Kind.FROZEN?Blocks.SNOW_BLOCK:Blocks.GRASS_BLOCK):Blocks.DIRT).defaultBlockState();
+      if(depth<soil.topsoil()+soil.subsoil())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:Blocks.DIRT).defaultBlockState();
+      return (geology.rock(y)==Geology.Rock.SANDSTONE?Blocks.SANDSTONE:Blocks.GRAVEL).defaultBlockState();
+    }
+
+    private BlockState soilMaterial(BlockState original) {
+      if(!(original.is(Blocks.DIRT)||original.is(Blocks.GRASS_BLOCK)||original.is(Blocks.PODZOL)
+          ||original.is(Blocks.MUD)||original.is(Blocks.CLAY)||original.is(Blocks.SAND)||original.is(Blocks.RED_SAND)))
+        return original;
+      SoilTexture selected=original.is(Blocks.SAND)||original.is(Blocks.RED_SAND)?SoilTexture.SAND
+          :original.is(Blocks.CLAY)?SoilTexture.CLAY:texture;
+      var cover=original.is(Blocks.GRASS_BLOCK)?GroundMaterials.Cover.GRASS
+          :original.is(Blocks.PODZOL)?GroundMaterials.Cover.PODZOL:GroundMaterials.Cover.BARE;
+      return GroundMaterials.soil(selected,cover).defaultBlockState();
     }
   }
   /** Canonical anchors are evaluated in each intersected chunk; writes remain local and one-time. */
@@ -537,7 +566,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
           int y = (int) Math.floor(s.ground()) + 1;
           var p = new BlockPos(ox + x, y, oz + z);
           if (!s.wet()
-              && c.getBlockState(p.below()).is(Blocks.GRASS_BLOCK)
+              && (c.getBlockState(p.below()).is(Blocks.GRASS_BLOCK)
+                  || c.getBlockState(p.below()).getBlock() instanceof GroundMaterials.SoilBlock soil
+                      && soil.cover()==GroundMaterials.Cover.GRASS)
               && c.getBlockState(p).isAir()) {
             Block cover=Blocks.SHORT_GRASS;
             if(revision>=7) {
@@ -548,7 +579,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
             }
             c.setBlockState(p, cover.defaultBlockState());
           } else if(revision>=7&&!s.wet()&&c.getBlockState(p).isAir()
-              && (c.getBlockState(p.below()).is(Blocks.SAND)||c.getBlockState(p.below()).is(Blocks.RED_SAND))
+              && (c.getBlockState(p.below()).is(Blocks.SAND)||c.getBlockState(p.below()).is(Blocks.RED_SAND)
+                  || c.getBlockState(p.below()).getBlock() instanceof GroundMaterials.SoilBlock soil
+                      && soil.texture()==SoilTexture.SAND)
               && s.ground()>getSeaLevel()+6 && s.rain()<.32)
             c.setBlockState(p,Blocks.DEAD_BUSH.defaultBlockState());
         }

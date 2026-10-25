@@ -33,6 +33,7 @@ public final class GroundMaterialClientChecks {
   private long started;
   private volatile boolean captured, reloaded;
   private volatile Throwable reloadFailure;
+  private java.util.concurrent.CompletableFuture<Void> waterfallUploads;
 
   public GroundMaterialClientChecks() {
     NeoForge.EVENT_BUS.register(this);
@@ -59,8 +60,12 @@ public final class GroundMaterialClientChecks {
         net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.openFresh(mc, () -> {});
         require(mc.screen instanceof net.minecraft.client.gui.screens.worldselection.CreateWorldScreen,
             "Native world-data load binds item components before inventory preview");
-        GroundPackageChecks.verify(GroundMaterials.class, GroundMaterialColors.class);
+        GroundPackageChecks.verify(GroundMaterials.class, GroundMaterialColors.class,
+            com.shnewbs.deepprimal.client.GroundMaterialShaders.class,
+            com.shnewbs.deepprimal.client.GroundSideSpriteSource.class,
+            com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.class);
         check(mc);
+        waterfallUploads = WaterfallUploadChecks.run(output());
         mc.setScreen(new Preview());
         stage = 1;
         ticks = 0;
@@ -69,6 +74,8 @@ public final class GroundMaterialClientChecks {
         stage = 2;
         ticks = 0;
       } else if (stage == 2 && captured && ticks > 5) {
+        if (!waterfallUploads.isDone()) return;
+        waterfallUploads.join();
         checkCapture(mc, "materials.png");
         mc.reloadResourcePacks().whenComplete((nothing, failure) -> {
           reloadFailure = failure;
@@ -85,7 +92,7 @@ public final class GroundMaterialClientChecks {
       } else if (stage == 4 && captured && ticks > 5) {
         checkCapture(mc, "materials-reloaded.png");
         String result = "GROUND_MATERIAL_CLIENT_PASS backend=" + RenderSystem.getDevice().getBackendName()
-            + " blocks=3 quads=18 tintIndices=true sprites=true items=true resourceReload=true captures=2 opaqueFacePixels=true\n";
+            + " sampleBlocks=3 soilBlocks=36 quads=234 tintIndices=true sprites=true items=true resourceReload=true captures=2 opaqueFacePixels=true\n";
         Files.writeString(output().resolve("result.txt"), result);
         System.out.print(result);
         stage = 5;
@@ -93,6 +100,8 @@ public final class GroundMaterialClientChecks {
       }
     } catch (java.io.IOException failure) {
       throw new RuntimeException("Ground client validation output failed", failure);
+    } catch (ReflectiveOperationException failure) {
+      throw new RuntimeException("Waterfall production upload fixture failed", failure);
     }
   }
 
@@ -145,6 +154,32 @@ public final class GroundMaterialClientChecks {
           Identifier.fromNamespaceAndPath("deepprimal", "block/ground/" + names[i] + "_side")),
           "Inventory item uses actual ground model");
     }
+    for (var block : GroundMaterials.soilsList()) {
+      var state = block.defaultBlockState();
+      var sources = mc.getBlockColors().getTintSources(state);
+      require(sources.size() == 3 && sources.get(1).color(state) == block.texture().color(),
+          "Soil family mineral tint");
+      var model = models.get(state);
+      require(model != models.missingModel(), "Soil family baked model");
+      var parts = new ArrayList<BlockStateModelPart>();
+      model.collectParts(RandomSource.create(0), parts);
+      int quads = 0;
+      for (var part : parts)
+        for (var face : Direction.values()) {
+          var faces = part.getQuads(face);
+          require(faces.size() == 1, "One soil quad per face");
+          var quad = faces.getFirst();
+          require(quad.materialInfo().layer() == net.minecraft.client.renderer.chunk.ChunkSectionLayer.SOLID,
+              "Opaque soil family");
+          if (face.getAxis().isHorizontal() && block.cover() != GroundMaterials.Cover.BARE)
+            GroundSideNativeChecks.quad(quad);
+          quads++;
+        }
+      require(quads == 6, "Six soil cube quads");
+      var item = new ItemStackRenderState();
+      mc.getItemModelResolver().updateForTopItem(item, new ItemStack(block), ItemDisplayContext.GUI, null, null, 0);
+      require(!item.isEmpty(), "Soil family inventory model");
+    }
   }
 
   private void capture(Minecraft mc, String name) throws java.io.IOException {
@@ -175,6 +210,15 @@ public final class GroundMaterialClientChecks {
                 "Missing opaque material face: " + name + " block=" + i + " x=" + x + " y=" + y);
       }
     }
+    for (int i = 0; i < GroundMaterials.soilsList().size(); i++) {
+      double originX = 16 + (i / 3) * (width - 32) / 12.;
+      int originY = 160 + (i % 3) * 30;
+      for (double[] point : new double[][] {{8, 4}, {4.5, 10.5}, {11.5, 10.5}}) {
+        int x = (int) Math.round((originX + point[0] * 1.35) * pixelsX);
+        int y = (int) Math.round((originY + point[1] * 1.35) * pixelsY);
+        require((image.getRGB(x, y) & 0xffffff) != 0x20242a, "Missing soil family face " + i);
+      }
+    }
   }
 
   private static void require(boolean condition, String message) {
@@ -200,6 +244,15 @@ public final class GroundMaterialClientChecks {
         graphics.item(new ItemStack(blocks().get(i)), 0, 0);
         graphics.pose().popMatrix();
         graphics.text(font, blocks().get(i).getName(), x, (int) (66 + 16 * scale), 0xffffffff, false);
+      }
+      var soils = GroundMaterials.soilsList();
+      for (int i = 0; i < soils.size(); i++) {
+        int column = i / 3, row = i % 3;
+        graphics.pose().pushMatrix();
+        graphics.pose().translate(16 + column * (width - 32) / 12F, 160 + row * 30);
+        graphics.pose().scale(1.35F, 1.35F);
+        graphics.item(new ItemStack(soils.get(i)), 0, 0);
+        graphics.pose().popMatrix();
       }
     }
   }

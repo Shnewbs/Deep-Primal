@@ -18,6 +18,7 @@ final class WaterShapeChecks {
   private static long began;
   private static volatile boolean prepared, pending;
   private static net.minecraft.client.gui.screens.Screen warning;
+  private static String waitingScreen;
   private static final int Y = 512;
 
   static void tick(Minecraft mc) {
@@ -25,6 +26,19 @@ final class WaterShapeChecks {
     if (System.nanoTime() - began > 240_000_000_000L)
       throw new AssertionError("Water shape timeout " + stage);
     if (mc.level == null || mc.player == null) {
+      String screen = mc.screen == null ? "null" : mc.screen.getClass().getName();
+      if (!screen.equals(waitingScreen)) {
+        waitingScreen = screen;
+        System.out.println("WATER_SHAPE_WAITING_SCREEN " + screen);
+      }
+      if (mc.screen instanceof net.minecraft.client.gui.screens.AccessibilityOnboardingScreen) {
+        for (var child : mc.screen.children())
+          if (child instanceof Button button && button.getMessage().getString().equals("Continue")) {
+            button.onPress(null);
+            return;
+          }
+        throw new AssertionError("Missing accessibility onboarding Continue button");
+      }
       if (mc.screen != warning
           && (mc.screen
                   instanceof
@@ -111,7 +125,8 @@ final class WaterShapeChecks {
       }
       Path out = Path.of(System.getProperty("deepprimal.validationCapture"));
       out.toFile().mkdirs();
-      String name = (view < 2 ? "checker" : "slope") + (view % 2 == 0 ? "-animated" : "-fallback");
+      String name = (view < 2 ? "checker" : view < 4 ? "slope" : "stepped-basin")
+          + (view % 2 == 0 ? "-animated" : "-fallback");
       pending = true;
       Screenshot.grab(
           out.toFile(),
@@ -128,7 +143,7 @@ final class WaterShapeChecks {
       return;
     }
     if (stage == 3 && !pending && ticks > 10) {
-      if (view < 4) {
+      if (view < 6) {
         surface(mc, view);
         stage = 2;
         ticks = 0;
@@ -152,7 +167,7 @@ final class WaterShapeChecks {
                 + " kernel="
                 + WaterTransport.surface(1, 1, 1, 1, .0625, .5, .5)
                 + " crossLayerCorners=true fallbackBounds=true"
-                + " captures=checker-animated,checker-fallback,slope-animated,slope-fallback"
+                + " captures=checker-animated,checker-fallback,slope-animated,slope-fallback,stepped-basin-animated,stepped-basin-fallback"
                 + " validationErrors="
                 + validation
                 + "\n";
@@ -173,6 +188,18 @@ final class WaterShapeChecks {
     WaterVisualConfig.INTERPOLATE.set(view % 2 == 0);
     for (int z = 0; z < 16; z++)
       for (int x = 0; x < 32; x++) {
+        if (view >= 4) {
+          int floor = Y - 1 - (x + z) / 5;
+          for (int y = Y - 10; y <= Y + 5; y++) {
+            var state = y <= floor || ((x == 0 || x == 31 || z == 0 || z == 15) && y <= Y)
+                ? Blocks.STONE.defaultBlockState()
+                : y > Y ? Blocks.AIR.defaultBlockState()
+                : EngineRegistry.WATER_BLOCK.get().defaultBlockState()
+                    .setValue(EngineFluid.UNITS, y == Y ? 8 : 16);
+            mc.level.setBlock(new BlockPos(x, y, z), state, 2 | 16);
+          }
+          continue;
+        }
         mc.level.setBlock(new BlockPos(x, Y - 1, z), Blocks.STONE.defaultBlockState(), 2 | 16);
         for (int y = Y; y < Y + 5; y++)
           mc.level.setBlock(new BlockPos(x, y, z), Blocks.AIR.defaultBlockState(), 2 | 16);

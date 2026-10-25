@@ -8,6 +8,7 @@ version = project.mod_version
 base.archivesName = 'DeepPrimal-26.1.2'
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 sourceSets {
+    soilData {}
     coreChecks {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
@@ -19,6 +20,30 @@ sourceSets {
     visualValidation {
         compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
         runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
+dependencies { soilDataImplementation project(':engine-core') }
+
+def soilResources = layout.buildDirectory.dir('generated/soilResources')
+tasks.register('generateSoilResources', JavaExec) {
+    dependsOn soilDataClasses
+    classpath = sourceSets.soilData.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.data.SoilResources'
+    args soilResources.get().asFile.absolutePath
+    args project.file('src/main/resources/assets/deepprimal/lang/en_us.json').absolutePath
+    inputs.files(sourceSets.soilData.allSource)
+    inputs.file('engine-core/src/main/java/com/shnewbs/deepprimal/core/SoilTexture.java')
+    inputs.file('src/main/resources/assets/deepprimal/lang/en_us.json')
+    outputs.dir(soilResources)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('processResources') {
+    dependsOn 'generateSoilResources'
+    from(soilResources)
+    eachFile { entry ->
+        if (entry.file == project.file('src/main/resources/assets/deepprimal/lang/en_us.json'))
+            entry.exclude()
     }
 }
 
@@ -123,6 +148,8 @@ tasks.register('groundMaterialResources', JavaExec) {
     mainClass = 'com.shnewbs.deepprimal.validation.GroundResourceChecks'
     args project.file('docs/art/ground-textures-v4/validation.json').absolutePath
     args project.file('docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json').absolutePath
+    args project.file('docs/art/ground-textures-v3/export-validation.json').absolutePath
+    args project.file('docs/art/sand-final/validation.json').absolutePath
     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
     jvmArgs '-Djava.awt.headless=true'
 }

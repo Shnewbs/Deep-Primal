@@ -50,6 +50,104 @@ The [terrain/water/snow/LOD completeness audit](TERRAIN-WATER-SNOW-LOD-AUDIT-202
 
 The [water mechanics contract](WATER-BUDGET-REQUIREMENTS.md) is now owner-approved design: finite physical water locally, metered renewable regional reservoirs, perennial major-river allocations, seasonal glacial/desert surface waters, depletable wells, and accounted ocean/atmosphere recycling at stable average sea level. Local backwater/flooding remains meaningful; strict depletion and source safety are optional. Evaporation/infiltration/drainage drive real recession rather than hiding fluid. Implement coarse/loaded ownership with bounded work and no double accounting. Alpha 21 presentation does not implement these reservoir/cycle mechanics.
 
+### Natural waterway head correction — dev.6
+
+An elevated generated creek reproduced a supply failure: the regional minimum
+terrain datum put groundwater head below its outlets even while finite reserves
+were active. `Aquifer.naturalDatum` now references each planned natural surface
+at the drought-stop reserve. `HydrologyRuntime` uses that same head reference
+for infiltration and metered replenishment. This is a simplified perched-waterway
+model sharing the existing finite regional account, not a new reservoir, infinite
+refill or calibrated three-dimensional groundwater simulation. Unplanned
+dry-land springs retain the regional terrain datum and sustained-recharge rule.
+The 32-unit regional quota, fractional stage cap, chemistry, drought shutdown,
+saved terrain and player edits remain in force.
+
+Real-server checks monitor high/low creeks and a wider river for 1,200 ticks;
+every-tick wet-column continuity supplements 100-tick bank/stage observations.
+These are bounded loaded-reach checks, not full catchment conservation, storm/
+drought acceptance, perennial-river allocation or temporal rendering acceptance.
+The high creek still loses up to 1.0625 blocks of stage. See
+`ACTIVE-ENGINE-AUDIT.md` for executed results and outstanding gates.
+
+### Steady natural-source scheduling — dev.7
+
+Dev.6 diagnostics showed the remaining high-creek loss was not the regional
+quota or reserve: the broad hydrology scan covered 49 loaded chunks, so one
+planned source column was topped up roughly every 196 ticks, only 4 units at a
+time and only into the top outlet cell. `HydrologyRuntime` now keeps a compact
+per-chunk list of planned waterway columns, found by a deadline-bounded survey
+of visible engine water after chunk load and by ordinary visits. Each listed
+column gets at most one top-up per 20-tick aquifer interval. The top-up targets
+the actual deficit cell up to two blocks below the planned outlet. That
+cell is wholly below the planned stage, so it cannot raise the reach above plan.
+Natural delivery is limited by aquifer head pressure, fractional stage capacity,
+finite groundwater and the unchanged 32-unit regional quota. `sourceRate` still
+meters dry-land springs. This changes scheduling and placement, not the finite
+budget; quota saturation now limits recovery as intended.
+
+### Headwater baseflow quota — dev.8
+
+The remaining startup dip was bounded by the 32-unit dry-spring quota, which planned waterways
+shared. Planned waterways now draw on a separate regional natural quota,
+`Aquifer.baseflowUnits(rainQuantaPerColumnSecond)`. It equals the long-run mean rain recharge of
+the 64x64 region: vanilla's mean weather duty is 18,000 rain ticks of 114,000, taken at half
+permeability. With the default 64 quanta that is 80 units per interval, and it is never below 32.
+
+The quota is still debited from the finite aquifer and is still limited by head pressure, drought
+shutdown and the planned stage cap. The cap per interval matches the region's modeled mean
+recharge at half permeability; actual recharge varies with permeability and weather. The
+cap cannot fill a reach above plan.
+
+Columns are ordered headwater-first because springs feed the head of a reach and lower columns are
+fed by flow. Dry-land springs keep the 32-unit quota.
+
+### Between-step drought protection - dev.9
+
+Pressure alone cannot enforce the drought reserve: an outlet below planned stage
+can have positive head even at STOP. `Aquifer.dischargeUnits` therefore caps each
+delivery to whole native units above STOP, and `canSupply` checks the current
+balance as well as the active latch. Multiple outlets within an interval cannot
+spend the protected reserve. The next environmental step still latches drought
+and requires sustained recharge before reactivation. Evaporation remains allowed
+to draw down inactive groundwater; no water is created or discarded by this cap.
+
+Six core scenarios exercise long drought/rain/snow/melt sequences and exact
+water/salt/sediment totals across 180,000 intervals. Native block-write checks
+cover six reserve boundaries and repeated delivery without an intervening step.
+These do not replace native catchment-scale weather, permeability and ledger gates.
+
+### Regional clock versus local permeability - dev.10
+
+An impermeable surface blocks local recharge and outlets, not the drought clock
+of groundwater that already exists below it. Loaded-column visits now advance
+that regional account before returning for sealed surfaces. They do not seed a
+new aquifer under sealed ground. Rain allowance is tracked separately against
+the regional environmental step, allowing the next eligible permeable visit to
+collect rain once without rerunning snowmelt/circulation or resetting discharge.
+Runtime-cache reconstruction remains fail-closed until the next aquifer step.
+
+Native checks cover sealed-first visitation, subsequent permeable rain,
+duplicate visits, no new reserve and exact accounted constituents. Rain amount
+still extrapolates one eligible column to the loaded region; spatial sampling
+and complete catchment acceptance remain unfinished.
+
+### Loaded-chunk representative precipitation - dev.11
+
+The first eligible visited soil no longer sets rainfall for the entire region.
+Once per environmental interval, sum fixed chunk-center samples for at most
+16 already-loaded chunks. Each contributes its permeability times 256 columns
+and the configured rain rate, routed by that sample's precipitation biome to
+groundwater or snow. Live impermeable roofs and ocean boundaries are excluded.
+The finite atmosphere pays accepted transfers; unloaded chunks are never requested.
+
+This is a coarse representative estimate, not exact integration over all 4,096
+columns. A snapshot is consumed even if all sampled roofs are sealed; roof edits
+apply next interval. Rain transfers precede snow when atmospheric water is scarce;
+mixed-biome fairness and many-region storm latency need further acceptance.
+Native grass/sand visit-order checks reproduce the previous bias and verify the
+new weighted sum, finite atmospheric exhaustion and absent-region behavior.
+
 ## Accepted terrain scope — 2026-10-21 PDT
 
 The [terrain mechanics contract](TERRAIN-MECHANICS.md) governs realistic structural geology and host-controlled ores/gems, accepted erosion resistance, soil profiles, wind-shaped terrain, cave/karst mountain rivers and springs, slope stability with underground cave-ins, and natural obstructions. No sinkholes or sinkhole-producing live collapse. Full live sediment transport is optional/default-off; recipe-based panning/sluices are the baseline, with optional useful local provenance. Generated wear/material context and coarse water-composition blending do not require that live solver. IDs TERRAIN-05–10 provide the detailed acceptance requirements.
@@ -84,6 +182,23 @@ These are references for one coherent Deep Primal generator, not three generator
 The engine is a built-in terrain/liquid/LOD subsystem, not a separate game or a replacement of every Minecraft API. Near-block mesh generation, lighting, entities and game storage still use host APIs. The optional graphics API backend remains a separate retained Vulkan module. Alpha 17 adds no new terrain/LOD native dependency.
 
 ## Tool and reference decisions
+
+### Planet Smith rendering reference
+
+The owner supplied [this devlog at 10:25](https://www.youtube.com/watch?v=LzivS_KzffY&t=625s) and its transcript on 2026-10-25. The transcript, not video footage or source code, was inspected. Its transferable design is direct vertex/index uploads into paged GPU arenas, indexed indirect draw commands, hierarchical frustum rejection and a compact, explicitly bounded vertex format. This is still mesh geometry: it removes engine mesh objects, not triangles or meshing work. No code or assets from the project are incorporated.
+
+Our current paths already upload immutable worker mesh output directly and update water allocations in place. `AnimatedWaterRenderer` owns bounded pages and history; `WaterGpuMesh` uses a 36-byte native vertex layout with packed animation/light fields. `VoxelLodRenderer` performs individual part-bound frustum tests. The Vulkan adapter's `VkRenderPass.drawMultipleIndexed` reaches `VkCommandEncoder.executeDrawMultiple`, which loops over ordinary indexed draws; that API name is **not** evidence of GPU multi-draw indirect submission. Near terrain remains host-generated and is not replaced by this reference.
+
+Renderer work checklist, after the outstanding water/material correctness gates:
+
+- [ ] Establish matched camera/travel/edit baselines: CPU culling, allocation search, uploads, draw/descriptor counts, GPU time, frame p50/p95/p99 and RAM/VRAM. Record hardware, enabled LOD/water, geometry/coverage and warm/cold state.
+- [ ] Evaluate a maintained spatial hierarchy for LOD/water page bounds, including an inside-frustum fast path. Prove exact visible coverage under edits, negative coordinates, teleport, unload and memory pressure before claiming a gain. Compare against the current individual tests; do not assume GPU culling is faster.
+- [ ] Evaluate bounded paged arenas with reusable allocation ranges and fence-safe retirement. Exhaustion must retain covering geometry or explicitly defer admission, never silently drop chunks. No whole-world mega-buffer rebuild after a block edit.
+- [ ] Evaluate indirect submission only for compatible opaque batches sharing actual pipeline, vertex/index buffers and bindings. Per-page transforms/materials need a defined instance/draw-data contract and capability fallback. Preserve translucent water sorting rather than blindly coalescing draws.
+- [ ] Derive any compact format from our real block/UV/lighting/tint/animation requirements and error bounds. Keep world positions camera/chunk relative; test distant and negative seams, UV/mips, AO and saved/edit behavior. Do not transplant the video's half-float or lookup-table limits without measuring our data.
+- [ ] Accept improvements only after output-equivalent OpenGL/Vulkan, reload/shutdown, native editable-world and matched performance runs. Retain quantity, simulation budgets and generation determinism.
+
+The video's reported frame rates, chunk counts and byte reductions describe that project's workload, not Deep Primal measurements. Hierarchical culling, indirect draws and packing are candidates, not implemented features or a new engine grade. Terrain/worldgen, stream containment and the authorized soil catalog retain priority.
 
 | Reference | Decision |
 | --- | --- |

@@ -1,4 +1,4 @@
 {
   "replace": false,
-  "values": ["deepprimal:ground_grass", "deepprimal:ground_dirt", "deepprimal:ground_podzol"]
+  "values": ["deepprimal:ground_grass", "deepprimal:ground_dirt", "deepprimal:ground_podzol", "#deepprimal:soils"]
 }

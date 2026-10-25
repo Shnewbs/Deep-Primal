@@ -277,6 +277,26 @@ Grain size, composition and depositional setting can overlap. These entries are 
 
 A complete named texture-class list at this classification level. Soil texture is one axis; it does not replace horizons, chemistry, organic content or soil orders.
 
+Implementation checkpoint (2026-10-25): `SoilTexture` defines these twelve classes,
+with bare, grass and podzol block/item forms (`deepprimal:soil_<texture>`,
+`soil_<texture>_grass`, `soil_<texture>_podzol`). Models, loot, names and tags are
+generated from that catalog. The owner's grayscale dirt/sand and cover masks are
+shared; twelve provisional mineral tints are code, not twelve new PNGs.
+Positive normalized mineral fields combine world-coordinate noise, parent rock,
+sediment and rainfall before USDA classification. The initial additive field
+failed the terrain reachability gate; the replacement reaches all twelve on
+selectable dry ground across 12,675 real V7 columns and three seeds. This is a
+bounded distribution check, not scientific soil calibration.
+
+- [x] Register all twelve texture classes and their three cover forms.
+- [x] Connect per-family mineral tint, climate cover tint, self-loot, shovel/plant tags and hydrology permeability.
+- [x] Enable `material_revision: 1` for new Standard/Deep worlds while missing/zero retains legacy V7 material output.
+- [x] Preserve original solid occupancy, heights, caves, deposits and nonsoil decorations in the native comparison corpus.
+- [x] Verify inventory faces and resource reload on both OpenGL and Vulkan.
+- [x] Complete packaged candidate and separate-process compatibility checks for delivery (dev.5).
+- [ ] Implement separate soil-order/horizon/modifier mechanics, wetness/organic states, farming, spreading and granular behavior.
+- [ ] Calibrate field distribution, palette and erosion/infiltration against broader ecological and live hydrology evidence.
+
 | Catalog ID | Name | Kind | Role or relationship to specify | Provenance |
 | --- | --- | --- | --- | --- |
 | TEXTURE-001 | Sand | Texture class | Sand-dominated texture. | Planning expansion |

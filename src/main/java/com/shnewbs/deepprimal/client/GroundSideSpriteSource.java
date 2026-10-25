@@ -31,6 +31,7 @@ public record GroundSideSpriteSource(
 
   public static void register(RegisterSpriteSourcesEvent event) {
     event.register(Identifier.fromNamespaceAndPath(DeepPrimal.ID, "ground_side"), CODEC);
+    event.register(Identifier.fromNamespaceAndPath(DeepPrimal.ID, "soil_sides"), SoilSideSpriteSource.CODEC);
   }
 
   @Override
