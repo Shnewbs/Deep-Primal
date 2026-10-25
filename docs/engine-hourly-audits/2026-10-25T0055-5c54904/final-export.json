@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "source_sha": "5c54904a1316b27d6512aa219f938867d31a49f5",
+  "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2-audit-20261025T0055-5c54904-vulkan-windows.jar",
+  "sha256": "c2856811221c37c9dc1ba57fbf3b19f47113ecfccf9c3b8a185f0557831b99ad",
+  "size": 125072670,
+  "producer_completed": true,
+  "build_output_matches_export": true,
+  "native_logs": [
+    {
+      "file": "native-0.txt",
+      "sha256": "d66f842cdeb5507251139717a113fb517be62f3ebbd0b2ff4b9e147a02bfd5b5",
+      "save_shutdown_pass": true,
+      "errors": [
+        "[10:02:34] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key"
+      ]
+    },
+    {
+      "file": "native-1.txt",
+      "sha256": "00174264c5a9a3dcf8da4f909a7ed0ab531c467dc66c65834d40eedc70b9549f",
+      "save_shutdown_pass": true,
+      "errors": [
+        "[10:03:01] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key"
+      ]
+    }
+  ],
+  "windows_execution": false,
+  "online_authentication_tested": false
+}
