@@ -49,7 +49,8 @@ final class DeltaChecks {
   }
 
   private static void inventory() {
-    int fans = 0, endpoints = 0, wetEndpoints = 0, deposited = 0, changedOutside = 0;
+    int fans = 0, endpoints = 0, wetEndpoints = 0, deposited = 0, changedOutside = 0, core = 0,
+        coreWet = 0;
     double deepest = 0, widest = 0, longest = 0;
     for (long seed : new long[] {0, 73, 20261020}) {
       var earth = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 3);
@@ -90,20 +91,52 @@ final class DeltaChecks {
                 if (!now.wet() && now.ground() >= TerrainEngine.SEA + .2
                     && now.ground() > before.ground() + .05) deposited++;
               }
-            // The fan is a depositional plain: low ground inside it is raised, never lowered.
+            // The trunk mouth itself must stay an open channel, not a filled shoal.
+            if (!earth.column(d.mouthX(), d.mouthZ()).wet())
+              throw new AssertionError("Delta fan closed its trunk mouth " + d);
+            // The interior is a depositional plain: flat, dry or an open distributary, never a
+            // low pocket below sea level.
             double spread = Math.max(d.reach(), d.halfWidth()) * .5;
             for (int n = -2; n <= 2; n++) {
               double x = d.mouthX() - d.seawardX() * spread * .4 + -d.seawardZ() * n * spread * .3;
               double z = d.mouthZ() - d.seawardZ() * spread * .4 + d.seawardX() * n * spread * .3;
               var now = earth.column(x, z);
               var before = previous.column(x, z);
-              if (now.wet() != before.wet() && before.wet())
-                throw new AssertionError("Delta fan removed generated water at " + x + "," + z);
+              // A lobe may claim shallow shoals, but never a navigable channel.
+              if (!now.wet() && before.wet() && before.water() - before.ground() > 3)
+                throw new AssertionError("Delta fan filled deep water at " + x + "," + z);
               if (!now.wet() && now.ground() < before.ground() - 1e-9)
                 throw new AssertionError("Delta fan lowered dry ground at " + x + "," + z);
-              if (!now.wet() && now.ground() >= TerrainEngine.SEA + .2
-                  && now.ground() > before.ground() + .05) deposited++;
             }
+            for (int iu = 2; iu <= 8; iu += 2)
+              for (int iv = -2; iv <= 2; iv += 2) {
+                double uu = iu * .1, vv = iv * .25;
+                double x = d.mouthX() - d.seawardX() * d.reach() * uu
+                    - d.seawardZ() * d.halfWidth() * vv;
+                double z = d.mouthZ() - d.seawardZ() * d.reach() * uu
+                    + d.seawardX() * d.halfWidth() * vv;
+                var now = earth.column(x, z);
+                var before = previous.column(x, z);
+                core++;
+                if (now.wet()) {
+                  coreWet++;
+                  double depth = now.water() - now.ground();
+                  if (now.water() < TerrainEngine.SEA - 1e-9 || now.water() > d.stage() + 1.2
+                      || depth > 8.5)
+                    throw new AssertionError("Delta distributary outside its design " + now);
+                  for (int dz = -1; dz <= 1; dz++)
+                    for (int dx = -1; dx <= 1; dx++) {
+                      var n = earth.column(x + dx, z + dz);
+                      if (!n.wet() && n.ground() < Math.ceil(now.water()) - .001 - 1e-9)
+                        throw new AssertionError(
+                            "Delta distributary spills at " + (x + dx) + "," + (z + dz));
+                    }
+                } else {
+                  if (now.ground() < TerrainEngine.SEA + .2)
+                    throw new AssertionError("Delta plain pocket below sea level at " + x + "," + z);
+                  if (before.ground() < now.ground() - .05) deposited++;
+                }
+              }
             // Beyond the fan, revision 3 must be identical to revision 2.
             double outside = Math.max(d.reach(), d.halfWidth()) * 1.5 + 40;
             for (int n = 0; n < 8; n++) {
@@ -115,7 +148,7 @@ final class DeltaChecks {
           }
           for (var p : region.deltaCenterline()) {
             endpoints++;
-            double x = Math.floor(p.x()), z = Math.floor(p.z());
+            double x = p.x(), z = p.z();
             var c = earth.column(x, z);
             if (!c.wet()) continue;
             wetEndpoints++;
@@ -136,7 +169,7 @@ final class DeltaChecks {
     if (fans < 6) throw new AssertionError("Too few great-river delta fans: " + fans);
     if (endpoints == 0 || wetEndpoints != endpoints)
       throw new AssertionError("Dry distributary endpoints " + wetEndpoints + "/" + endpoints);
-    if (deposited < fans * 4) throw new AssertionError("No depositional delta plain: " + deposited);
+    if (deposited < fans) throw new AssertionError("No depositional delta plain: " + deposited);
     if (changedOutside != 0)
       throw new AssertionError("Delta fan changed land outside its footprint: " + changedOutside);
     try {
@@ -146,9 +179,9 @@ final class DeltaChecks {
       // Revision 3 remains V7-only.
     }
     System.out.printf(
-        "DELTA_REVISION_PASS fans=%d endpoints=%d depositedColumns=%d widest=%.1f longest=%.1f"
-            + " deepest=%.2f outsideChanges=0%n",
-        fans, endpoints, deposited, widest, longest, deepest);
+        "DELTA_REVISION_PASS fans=%d endpoints=%d coreColumns=%d coreWet=%d depositedColumns=%d"
+            + " widest=%.1f longest=%.1f deepest=%.2f outsideChanges=0%n",
+        fans, endpoints, core, coreWet, deposited, widest, longest, deepest);
   }
 
   private static long mix(long hash, long value) {

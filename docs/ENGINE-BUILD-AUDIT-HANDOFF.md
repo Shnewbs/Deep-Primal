@@ -15,6 +15,13 @@ checks, 13 native gates, `TERRAIN_AUDIT_NATIVE_PASS` fresh+reopen (the
 deltas, anastomosing rivers, oxbows, separately budgeted braid discharge,
 visual acceptance. Grade unchanged at 50/100 pending a fresh full regrade.
 
+Staged 2026-10-25: channel revision 3 (river-mouth delta fans) is implemented
+behind a new `riverDeltas` creation switch and `engine_deltas_standard` /
+`engine_deltas_deep` packs; default engine presets and revisions 0/1/2 are
+untouched. Evidence is core-only (`DELTA_REVISION_PASS`, full core suite,
+offline Gradle build); no artifact, native gate, visual acceptance or regrade.
+See `ACTIVE-ENGINE-AUDIT.md` and the revision-3 section of `TERRAIN-V7.md`.
+
 Historical dev.19 note: owner stop instruction, 2026-10-25: finalize the current dev.19 task, then stop.
 Dev.19 Continuous Water Edges is finalized and in the Library; hourly automation
 has been removed. Do not restart development without a new owner instruction.

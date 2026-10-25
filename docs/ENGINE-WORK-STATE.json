@@ -1,13 +1,32 @@
 {
   "schema": 1,
   "status": "ready_for_hourly_engine_builds",
-  "updated_at": "2026-10-25T19:45:09Z",
-  "active_until": "2026-10-25T19:45:09Z",
+  "updated_at": "2026-10-25T19:54:50Z",
+  "active_until": "2026-10-25T19:54:50Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.20",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Full isolated build capacity and staged finite-density qualification; core delta fixture corrected",
+  "current_gate": "Full isolated build capacity and staged finite-density qualification; core delta fixture corrected; channel revision 3 delta fans staged opt-in, not released or visually accepted",
+  "latest_channel_revision_three": {
+    "status": "staged_opt_in_not_released",
+    "revision": 3,
+    "source_version": "0.0.1-alpha.29-dev.21",
+    "scope": "WatershedRegion river-mouth delta fans: at most six great-trunk mouths per region (area >= 1800000, stage <= SEA+6), inland depositional fan rising from SEA+0.35 at the shore to mouth stage+0.45 at the apex, three distributary reaches, containment and spill checks",
+    "opt_in": "riverDeltas (default false) selects engine_deltas_standard/engine_deltas_deep packs; existing engine presets stay channel_revision 2; generator codec accepts 0..3",
+    "evidence": "DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252 coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82 outsideChanges=0; DELTA_CORE_PASS; full CoreChecks exit 0 via offline Gradle build (35 tasks, 4m51s, JDK 25); frozen revision-2 digests unchanged; engine_deltas_* resources packaged; local non-Vulkan dev.21 jar 114294083 bytes sha256 ac9bb39e62258f2fcb2c0cda26549c18cae3accb463a9ae039ea2452361d66c4 reproduced exactly (not a release)",
+    "not_claimed": [
+      "seaward progradation into mask<0 ocean",
+      "avulsion",
+      "oxbows",
+      "anastomosing",
+      "budgeted distributary discharge",
+      "native revision-3 gates",
+      "visual acceptance",
+      "release artifact",
+      "regrade"
+    ]
+  },
   "latest_earth_rivers": {
     "artifact": "DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar",
     "bytes": 125215496,
@@ -102,6 +121,7 @@
   },
   "next_items": [
     "2026-10-25 builder: delta fixture now surveys dry banks; native smoke rejects crashes despite Gradle zero and clears stale/partial receipts. Full Java25 core suite passes; see docs/validation/engine-continuation/delta-shutdown-gates-2026-10-25/README.md. Auditor dev20 native legacy qualification accepted at31dd0b2. Full build/native storage remains blocking; finite-grid runtime remains staged. Preserve b4359f4 delta work and current production dev20.",
+    "2026-10-25 builder: channel revision 3 (river-mouth delta fans) is staged opt-in behind the new riverDeltas setting and the engine_deltas_standard/engine_deltas_deep packs. Default engine presets still save channel_revision 2 and revisions 0/1/2 replay unchanged. Core evidence only: DELTA_REVISION_PASS, full core suite, offline Gradle build. Next: native revision-3 save/reopen and visual acceptance after owner approval; do not claim deltas in the dev.20 artifact. Remaining gaps: no seaward progradation, avulsion, oxbows, anastomosing or budgeted distributary discharge.",
     "2026-10-25 builder: staged finite DensityGrid interpolation overflow repair and complete passing core evidence at docs/validation/engine-continuation/density-grid-finite-2026-10-25/README.md. No promotion/full build/JAR: filesystem still zero available after verified duplicate cleanup. Recover isolated build storage and qualify candidate; preserve finalized dev.19 and owner v4 art.",
     "OWNER RESUMED engine-only builder on 2026-10-25. Read docs/ENGINE-HOURLY-BUILDS.md. Latest finalized main includes alpha.29-dev.19; do not repeat already corrected dev18 shared-height defects. Read latest independent audit; prioritize its open engine work, then engine roadmaps. Preserve all recorded unaccepted gates.",
     "New priority: repair confirmed resident shared-height publication failure, reproduced in 600-tick OpenGL/Vulkan running creek probes. Shared history does not patch already resident neighbor height/clock bytes. Do not disable interpolation or snap boundaries. Preserve failed-write recovery/edit guards, profile coherent publication before promotion and rerun live plus actual GPU controls. Dev.18 Library artifact unchanged; bump beyond dev.18 before production edits.",

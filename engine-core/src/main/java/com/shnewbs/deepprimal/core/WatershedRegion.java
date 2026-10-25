@@ -471,8 +471,8 @@ public final class WatershedRegion {
       if (length < 1e-6) continue;
       double seaX = (sx - mx) / length, seaZ = (sz - mz) / length;
       double trunk = earthRadius(area[a], stage[a], 0, false, 1);
-      double reach = Math.clamp(trunk * 1.1 + 24, 30, 180);
-      double halfWidth = Math.clamp(trunk * 1.8 + reach * .4, 24, 220);
+      double reach = Math.clamp(trunk * 1.1 + 24, 40, 170);
+      double halfWidth = Math.clamp(trunk * 1.8 + reach * .55, 44, 220);
       planned.add(
           new Delta(
               mx,
@@ -515,9 +515,9 @@ public final class WatershedRegion {
   private void addDistributaries(List<Segment> lines) {
     for (var d : deltas) {
       double fork = Math.min(d.reach * .45, 220);
-      double startRadius = Math.clamp(1.8 + d.trunkRadius * .09, 2.4, 7.5);
-      double endRadius = Math.max(1.6, startRadius * .55);
-      double startStage = d.stage + .10, endStage = TerrainEngine.SEA + .30;
+      double startRadius = Math.clamp(1.2 + d.trunkRadius * .04, 1.6, 4.6);
+      double endRadius = Math.max(1.1, startRadius * .6);
+      double startStage = d.stage + .45 * (fork / d.reach), endStage = TerrainEngine.SEA + .30;
       for (int branch = 0; branch < DELTA_BRANCHES; branch++) {
         double lateral =
             (DELTA_BRANCHES == 1 ? 0 : branch / (double) (DELTA_BRANCHES - 1) * 1.24 - .62)
@@ -546,8 +546,9 @@ public final class WatershedRegion {
   }
 
   /**
-   * Depositional fan surface at a point, or {@code null} outside every delta. The fan only raises
-   * low ground just below the mouth stage; it never buries higher terrain.
+   * Depositional fan surface at a point, or {@code null} outside every delta (or where the fan
+   * would not raise the ground). The surface slopes from sea level + 0.35 at the shoreline to the
+   * mouth stage + 0.45 at the inland apex, so it only claims low coastal ground and shallows.
    */
   private DeltaHit deltaSurface(double x, double z, double uncut) {
     if (deltaIndex.length == 0) return null;
@@ -564,12 +565,12 @@ public final class WatershedRegion {
       double w = 1 - smooth((Math.abs(v) - .70) / .30);
       w *= smooth((u + .12) / .12);
       if (w <= 0) continue;
-      double top = Math.max(TerrainEngine.SEA + .4, d.stage - .14 + .11 * smooth(u));
+      double top = lerp(TerrainEngine.SEA + .35, d.stage + .45, smooth(u));
       double blended = lerp(uncut, Math.max(uncut, top), w);
       if (blended > raised) raised = blended;
       weight = Math.max(weight, w);
     }
-    return raised == uncut && weight == 0 ? null : new DeltaHit(raised, weight);
+    return raised > uncut + 1e-12 && weight > 0 ? new DeltaHit(raised, weight) : null;
   }
 
   private double radius(double area, boolean source, double t) {

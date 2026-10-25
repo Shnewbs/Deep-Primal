@@ -14,6 +14,14 @@ Canopy density follows the selected biome. Forest/jungle trees can root on modes
 
 V7 inherits V6's saved creation-time profile, geological caves, river tunnels, deposits, glaciers, finite melt, dunes and bounded cave-ins. See [V6 mechanics and configuration](TERRAIN-V6.md). No deposit default, transport budget or recharge law is changed in this release.
 
+## Channel revision 3 (staged, opt-in)
+
+Channel revision 3 is an opt-in development option for new worlds, selected by the `riverDeltas` creation setting and the `engine_deltas_standard` / `engine_deltas_deep` presets. It is not part of the released alpha.28 V7 world: the default engine presets still save `channel_revision: 2`, and revisions 0–2 produce identical output.
+
+Where a routed trunk with at least 1,800,000 blocks of catchment reaches the ocean with its water surface no more than six blocks above sea level, the generator plans a sediment fan (at most six per 8192-block region, largest first). The fan surface rises gently inland from sea level + 0.35 to the mouth stage + 0.45, and only raises ground below that surface; it never lowers or buries higher terrain. Three distributary reaches fork from the trunk at 45% of the fan and spread to about 62% of its half-width, ending just above sea level with roughly 1–3 blocks of water. Low ground, shallow estuary and shoals inside the fan become a flat delta plain; deeper water and the open ocean are left alone.
+
+Limitations: geography remains frozen, so the fan does not prograde into `mask < 0` ocean; there is no avulsion, oxbow or anastomosing behaviour, and no separately budgeted distributary discharge. Core checks verify determinism, frozen revisions, fan bounds, wet and contained distributaries, no deep-water fill and no change outside the footprint; native generation and visual acceptance for revision 3 are not done.
+
 ## Water rendering, including existing saves
 
 A corner average could pull a thin upper water layer below its solid bed when its downhill neighbor occupied the layer below. The mesher now applies a shared-corner support constraint, keeping a supported film at least 1/256 block above its floor. Both animated water and the smooth fallback use it. The shared-corner rule preserves independently meshed page agreement; it does not add water, place sources, alter the riverbed or prevent real drainage.

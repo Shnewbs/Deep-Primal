@@ -1,5 +1,53 @@
 # Active Deep Primal engine audit
 
+## 2026-10-25 channel revision 3 staged: river-mouth delta fans
+
+No artifact, release or score change. `WatershedRegion` channel revision 3 is
+implemented and checked; production access is opt-in through a new creation-time
+switch and two new preset packs. Existing `engine_standard` / `engine_deep`
+presets still save `channel_revision: 2`, and revision 0/1/2 output is unchanged.
+
+- Scope: a routed node whose parent is ocean, catchment ≥ 1,800,000 and stage
+  ≤ SEA+6 becomes a delta mouth (at most six per 8192-block region, largest
+  first). The fan extends inland from the mouth: its surface rises from
+  SEA+0.35 at the shoreline to mouth stage+0.45 at the apex and only raises
+  ground below that surface, never lowering or burying higher terrain. Three
+  distributary reaches fork at 45% of the fan and spread to ±0.62 of its
+  half-width, with 1.6–4.6 block radii and about 1–3 blocks of water, ending
+  just above sea level. Fans and branches join the tile index, so sampling stays
+  local and bounded.
+- Opt-in: `riverDeltas` (default false) selects `engine_deltas_standard` or
+  `engine_deltas_deep`, which save `channel_revision: 3`. The generator codec
+  accepts 0..3 and revision 3 still requires V7 geography.
+- Core evidence (JDK 25, dependency-free suite): full `CoreChecks` exit 0 in
+  285.8 s with `DELTA_REVISION_PASS fans=21 endpoints=252 coreColumns=252
+  coreWet=111 depositedColumns=350 widest=220.0 longest=129.2 deepest=7.82
+  outsideChanges=0` and `DELTA_CORE_PASS revision2Replay=true
+  fansBounded=true distributariesContained=true`. Coverage is three seeds × nine
+  regions: all 252 distributary endpoints are wet; every sampled fan column is
+  either an open channel or dry above sea level; no sampled channel spills into
+  a lower dry neighbour; no water deeper than 3 blocks is filled; no channel
+  water is below sea level; nothing changes outside the fan footprint; and
+  revision 3 rejects non-V7 geography. Frozen revision-2 digests for seeds
+  0/73/20261020 (`e01bcdaeec5dcbb3`, `7d3ee65224b2359a`, `2bafc04ee1ebe957`)
+  are asserted in `DeltaChecks` and unchanged.
+- Build: `gradlew --offline build` passes on this checkout (35 tasks, 4m 51s:
+  core and cache checks, visual-validation compilation, module boundaries,
+  jarJar). The engine-core compile and jarJar tasks were up to date because the
+  resolved revision-3 source reproduces the already-built artifact byte for byte;
+  `CoreChecks` re-ran against the merged delta checks. The local non-Vulkan artifact is
+  `build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.21.jar`, 114,294,083 bytes,
+  SHA-256 `ac9bb39e62258f2fcb2c0cda26549c18cae3accb463a9ae039ea2452361d66c4`;
+  it contains both new packs and is a local build, not a release. An earlier
+  build in this session rewrote the local non-Vulkan `...dev.20.jar` from this
+  source; the released `-vulkan-windows` dev.20 artifact and its recorded hashes
+  are untouched, so never use the rewritten local dev.20 file as dev.20
+  evidence.
+- Not claimed: seaward progradation into `mask < 0` ocean (V7 ocean geography
+  stays frozen), avulsion, oxbows, anastomosing reaches, separately budgeted
+  distributary discharge, delta-channel navigation behaviour, native or visual
+  acceptance. Revision 3 is in no delivered artifact; grade remains 50/100.
+
 ## 2026-10-26 dev.20 Earth-Scaled Rivers (channel revision 2)
 
 Artifact `DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar`, 125,215,496
