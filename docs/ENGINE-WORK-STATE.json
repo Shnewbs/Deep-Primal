@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "ready_for_hourly_engine_builds",
-  "updated_at": "2026-10-25T18:30:55.100Z",
-  "active_until": "2026-10-25T18:30:55.100Z",
+  "status": "active",
+  "updated_at": "2026-10-25T19:30:59Z",
+  "active_until": "2026-10-25T20:15:59.000Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.20",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Full packaged legacy fixture rerun and isolated build capacity recovery",
+  "current_gate": "Isolated capacity recovery and finite DensityGrid qualification; preserve concurrent delta work",
   "latest_earth_rivers": {
     "artifact": "DeepPrimal-Windows-Vulkan-alpha.29-dev.20-Earth-Rivers.jar",
     "bytes": 125215496,
@@ -397,7 +397,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "hourly-engine-builder-20261025T1825",
+  "worker": "hourly-engine-builder-20261025T1927",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -970,22 +970,12 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "source_sha": "6299c572d320f6a5169c3894e2ff0de6c9b6b97b",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T1749-67bbadc/REVIEW.md",
-    "audit_source_sha": "67bbadc14d74d515a250f537bd8f3c3cef273bd8",
+    "source_sha": "b4359f4ace9cad1b482b03192c87d017eccb291c",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-25T1849-31dd0b2/REVIEW.md",
+    "audit_source_sha": "31dd0b2f528d8c21e9f1eb3c4c00679f7f4d9545",
     "last_external_grade": 5,
-    "coordination": "First lease update failed during concurrent dev20 commit; ref reread and fresh state used. Personal Context did not retrieve live dev20 ownership. Git confirms V6 repair already committed. Auditor last run completed. No heavy job; separate texture work untouched.",
-    "next": "Complete packaged V1-V7 native fresh/reopen checks; qualify staged finite-grid fix; native V8 and water/LOD acceptance.",
-    "completed_at": "2026-10-25T18:30:55.100Z",
-    "evidence": "docs/validation/engine-continuation/legacy-fixture-schema-2026-10-25/README.md",
-    "changes": "Private DepositNativeChecks strips unsupported terrain profile for V1-V5; preserves dev20 V6 repair and V7 fields.",
-    "current_production_version": "0.0.1-alpha.29-dev.20",
-    "checks": "126 extracted-template cases pass; complete private fixture compiles on Java25 retained dev19 API classpath. Baseline regression fails.",
-    "full_gradle_build": false,
-    "native_execution": false,
-    "jar_built": false,
-    "release_published": false,
-    "lease_released": true,
-    "blocker": "Workspace zero available bytes; isolated full build/package/native gates unrun. Small checks in /dev/shm."
+    "coordination": "Personal Context searched twice; no current delta-writer ownership available. Git main includes b4359f4 delta changes, preserved. Auditor latest recorded run completed 18:59:32Z; no Java jobs observed; measured reservation completed.",
+    "next": "Qualify staged finite interpolation repair; preserve delta engine files; test current core before production promotion.",
+    "lease_released": false
   }
 }
