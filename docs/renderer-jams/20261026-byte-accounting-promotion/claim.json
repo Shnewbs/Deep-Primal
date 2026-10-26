@@ -1,7 +1,7 @@
 {
   "owner": "renderer-20261026-byte-accounting-promotion",
-  "status": "active",
-  "active_until": "2026-10-27T00:00:00Z",
+  "status": "completed",
+  "active_until": null,
   "parent": "4a8b0fb52e7473a816655096c42f089dd340e735",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
@@ -12,7 +12,14 @@
   ],
   "measurement": {
     "exclusive_benchmark": false,
-    "status": "functional_only"
+    "status": "completed_functional_and_scoped_allocation",
+    "timed_frame_benchmark": false
   },
-  "packaging_correction": "Exclude tracked temporary/hidden inputs from the nested Themes artifact; no authored art edits"
+  "packaging_correction": "Exclude tracked temporary/hidden inputs from the nested Themes artifact; no authored art edits",
+  "completed_at": "2026-10-26 23:31:22 UTC",
+  "lease_released": true,
+  "final_source": "c5abe457c4c7b36a11307128486c240e0b40d508",
+  "build_execution_source": "dba66620bc6af6282f721f2cc2ab49085d572657",
+  "version": "0.0.1-alpha.29-dev.31-renderer.6",
+  "evidence": "REVIEW.md"
 }

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/c748d58856d9/qualification/native_smoke.py", line 7, in <module>
+    label='optin' if optin else 'default';work=r/('native-world-'+label);work.mkdir();(work/'.cache').symlink_to(cache,target_is_directory=True);(work/'config').mkdir();(work/'eula.txt').write_text('eula=true\n')
+                                                                         ^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/workspace/scratch/c748d58856d9/qualification/native-world-default'

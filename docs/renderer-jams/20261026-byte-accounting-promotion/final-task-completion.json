@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "source_sha": "dba66620bc6af6282f721f2cc2ab49085d572657",
+  "producer_exit": 0,
+  "executed_tasks": 35,
+  "forced_tasks": true,
+  "authoritative_log": "final-daemon.txt",
+  "client_console_note": "Client stdout retained only startup lines; successful task counts and complete core markers retained in final daemon log."
+}

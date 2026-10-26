@@ -1,0 +1,26 @@
+CWD /workspace/scratch/c748d58856d9
+Final build source dba66620bc6af6282f721f2cc2ab49085d572657; pushed runtime c5abe457c4c7b36a11307128486c240e0b40d508; rebase-input-identity.json proves unchanged product/build inputs.
+
+python3 restore_validation_toolchain.py --output renderer-toolchain
+  Fresh pinned size/SHA verification; toolchain-restore-result.json.
+python3 renderer-work/tools/compat/build_process_fallback.py --java-home renderer-toolchain/jdk-25.0.4.1+1 --asm-jar renderer-toolchain/checked-agent/asm-9.9.1.jar --neoform-jar renderer-toolchain/checked-agent/neoform-runtime-2.0.31-all.jar --output renderer-toolchain/checked-agent/neoform-process-fallback.jar
+  BUILD_COMPAT_CHECKS_PASS.
+python3 qualification/run_build.py
+  Exact argv in build-command.json. Final exit0,305.704s,35/35tasks executed with --rerun-tasks.
+  Client stdout only startup; final-daemon.txt retains successful5m5s/fulltask/core markers.
+Java25 javac -g (exact139-source argv in independent-compile-command.json)
+Java25 java -Xmx512m -Xverify:all -cp qualification/independent-core com.shnewbs.deepprimal.core.CoreChecks
+  Run from renderer-work; exit0, complete core PASS including500000 finite transfers and new LOD oracle/ownership checks.
+python3 qualification/validate_package.py
+  Final ARCHIVE_PACKAGE_PASS 592 146 224;7archives;2508Themes;no hidden/generator/fixture payload.
+Extract actual nested core to qualification/packaged-core.jar; javac -g baseline/private check/wrapper using that JAR and independent fixtures.
+Java25 java -Xmx512m -Xverify:all -cp qualification/packaged-core.jar:qualification/probe-classes:qualification/independent-core PackagedByteChecks qualification/packaged-core.jar
+  Exact absolute argv packaged-check-command.json; code-source guard + byte/geometry/ownership/allocation passes.
+python3 qualification/native_smoke.py
+  Final exit0, NATIVE_PROFILE_PASS default and optin;4fresh/reopen Linux sessions.
+  Unique worlds,seed20261020,privateports26231/26232,save-allflush/error precedence/orderedshutdown/replay/classidentity.
+Post-native checker:7CRCs,2PEAMD64DLLs,all6nested selections in4logs,Themes entries/bytes equal previous qualified bundle,producer/exportSHA/sizeequal.
+python3 qualification/library-tools/library_upload.py (one prepared create batch for final unique renderer.6 JAR)
+  Succeeded libfile_37bc578622e48191999c4426e7a21247;local_metadata_applied=true;postsaveproducer/exportSHAequal.
+Superseded:initial hidden-file archive; preliminary native harness rejected mutable producer; first final-native setup existing-dir error before server. None counted as final acceptance.
+Unrun:actualGPU/client/Windows/named-deviceframe/VRAM/lifecycle/races/soak. No stable/GitHubRelease/CurseForge publication.

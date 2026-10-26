@@ -1,0 +1,18 @@
+{
+  "source": "c5abe457c4c7b36a11307128486c240e0b40d508",
+  "type": "renderer jam self-audit; not independent external audit",
+  "scores": [
+    4,
+    6,
+    4,
+    0,
+    4,
+    4
+  ],
+  "average": 3.6666666666666665,
+  "previous_average": 3.6666666666666665,
+  "delta": 0,
+  "production_grade_scope": "broader numbers carried with fresh scoped implementation/validation below",
+  "evidence": "REVIEW.md",
+  "whole_engine_external_grade_changed": false
+}
