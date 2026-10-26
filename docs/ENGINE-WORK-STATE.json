@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T14:25:00Z",
+  "updated_at": "2026-10-26T14:42:00Z",
   "active_until": "2026-10-26T15:10:00Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.29",
-  "candidate_released": true,
+  "candidate_version": "0.0.1-alpha.29-dev.30",
+  "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Restore current source deltas in private builder checkout; full Gradle qualification of staged hydrology deadline candidate.",
+  "current_gate": "Deadline promotion validated; finish exact committed-source producer/package and development delivery.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "Finish committed-source producer and delivery receipt. Then reproduce scheduling resume/fairness under tight budgets; continue loaded/unloaded ownership and V8 saved-profile/topology gates.",
     "Incorporate qualified foreground cliff continuity work; continue loaded/unloaded water ledger and V8 saved-profile/topology. Preserve dev.28 constituent admission and dev.27 bounded aquifer clock.",
     "Restore complete pinned project via authorized connector; validate water loaded/unloaded ownership and V8 saved-profile/topology. Recheck foreground water claim before runtime edits.",
     "Dev.25 terminal cache closure and outside-lock dispatch pass full build, packaged regressions and four Linux native save/reopen sessions. Next registered V8 saved-profile/topology/routed-water gates; channel-5 visual/hydrology and owner GPU acceptance remain open. docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
@@ -215,7 +216,7 @@
     "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
     "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
     "Identify the original recovery-marker writer. Temporary in-process events show deletion then a different inode with original mtime and one Java write; matched /tmp runs are clean. Correlation is not root cause; ptrace is denied. Preserve recovery evidence and do not ship a speculative workaround.",
-    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26â€“5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
+    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26\u00e2\u20ac\u201c5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
     "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
     "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
     "Alpha26 implements finite groundwater/snow/ocean/atmosphere accounts, head-limited dynamic outlets and sparse salt/sediment transport. Complete long-duration storm/drought and editable-world acceptance, surface evaporation, independent per-liquid compatibility and bounded coarse unloaded-border transfer; retain once-only initialization and no catch-up. Owner permits streams to exhaust and later reappear elsewhere under sufficient recharge.",
@@ -247,7 +248,7 @@
     "Staggered resident-neighbor new-request seam reproduced in32actual-upload routes. Staged functional fix passes software Vulkan/GL but is not promoted: full-residency rebase alone8.54msp95 against2ms extraction target, excluding scan/copy/GPU work, plus up to32MiB retained CPU mirror/transient buffers. Need bounded efficient publication and matched broader profiling.",
     "Synchronous pre-backend rejection/manual retry passes; automatic retry policy, whole-cohort atomicity and asyncdevice-loss remain open. New instrumented2048page32MiB burst retirement passes2175writes withmax17writes/262080bytes perturn, but overflow of64MiB native staging invokes a synchronous flush/fence path. Duplicate fixture setup removed; overflow moves toturn126 rather than disappearing. Final Vulkan burst p951.843ms/max41.398ms; final8-pageGLp952.849ms/max16.534ms is not an APIcomparison. Need distinct rendered-frame scheduling and matchedtotalframe/memory, actualadmission/evictionchurn andlongstream/ocean tests beforepromotion. PriortruncatedJARcause remainsunproven.",
     "R38 optional extraction-budget restart defect is fixed in staging and9controlled nativecases pass, but mandatory retirement outliers remain11.126ms development/3.763ms packaged Vulkan. Distinct-frame scheduling has no predicted overflow in private2048page32MiB fixture; this does not replace actual cap admission/eviction/churn, boundaryscatter, matchedscene/frame/resident-memory or ownerGPU/FPS acceptance. Scene keysets differ andLODtiles0; distant cutoff remains. Initial generatedNeoFormJARcorruption reproduced andretained; retry/final25taskbuildspass, rootcauseunproven. Mesaunchanged; Xvfb1.9repinexplicitlydifferentfromprior1.6.",
-    "R39 boundary-range batching is staged and passes132expanded candidate cases/264CPU-GPU reads, with unchanged payloads and queued deadlines under synchronous rejected-range retry. It reduces contiguous256/2048quad writes to1/2 and caps each range262080bytes; transient native scratch grows144â†’262080bytes plus144heapbytes. Whole-cohort scanning still exceeds2ms in larger private fixtures; development scattered2048quad calls6.04â€“10.43ms and packaged retirement max15.202327ms. No workload-matched actual discovery/admission/eviction capchurn, full-scene/resident-memory/stream/ocean/LOD/ownerGPU/FPS acceptance. Source/geography/quantity preserved; no public-source promotion or installer release.",
+    "R39 boundary-range batching is staged and passes132expanded candidate cases/264CPU-GPU reads, with unchanged payloads and queued deadlines under synchronous rejected-range retry. It reduces contiguous256/2048quad writes to1/2 and caps each range262080bytes; transient native scratch grows144\u00e2\u2020\u2019262080bytes plus144heapbytes. Whole-cohort scanning still exceeds2ms in larger private fixtures; development scattered2048quad calls6.04\u00e2\u20ac\u201c10.43ms and packaged retirement max15.202327ms. No workload-matched actual discovery/admission/eviction capchurn, full-scene/resident-memory/stream/ocean/LOD/ownerGPU/FPS acceptance. Source/geography/quantity preserved; no public-source promotion or installer release.",
     "R40 fixes nominal budget-denied coverage destruction in controlled production upload, with actual32MiB allocations and real mesher neighbors, but private nondrawn pages bypass discovery/visible scene churn and near ballast/deferred frees do not establish process/GPU peak memory acceptance. A sufficient plan followed by allocation/device failure can still lose selected victims. Four stale fixture attempts and one zero-byte built graphics descriptor startup are retained/excluded; guarded compile/runtime identity checks and a byte-identical full-build package retry pass, underlying artifact causes remain unproven. Full-scene/latency/streams/oceans/LOD/ownerGPU/FPS and broader engine acceptance remain unfinished.",
     "R41 reduces repeated per-corner packet decoding/encoding with exact scalar/native byte equivalence, but whole-neighbor scanning/publication is still synchronous and unbounded against the 2 ms elapsed target. Candidate Vulkan boundary maxima are 5.591 ms development/5.722 ms packaged; private retirement maxima are 6.711/10.144 ms. Primary counter-free packet arithmetic medians are lower after benchmark self-audit, not full-scene/GPU/FPS or market acceptance. Actual visible cap churn, sufficient-plan allocation/device-failure atomicity, streams/oceans, complete enabled-view/LOD and owner-GPU evidence remain open; original R40 artifact causes remain unproven.",
     "R42 indexed boundary traversal passes all8directions, unrelated-quad preservation and exact packet/range/retry controls, but publication is still synchronous. Full-suite Vulkan control maximum2.538ms versus candidate3.108ms development/2.439ms packaged is mixed, not robust latency improvement; retirement maxima5.896/17.417ms remain over budget. Index construction CPU and full-scene total memory are unaccepted; raw index payload bound2,878,112bytes excludes object/transient/peak memory. Visible cap churn, cross-frame cohort visibility, automatic retry/allocation/device-loss behavior, streams/oceans/LOD and ownerGPU/FPS remain open. No public production-source promotion or installer release.",
@@ -678,7 +679,7 @@
     "released": true
   },
   "candidate_release_class": "experimental owner preview; full engine/performance/Windows native acceptance incomplete",
-  "latest_engine_test_summary": "Final build32tasks; independent51core sources/89class matches;504packaged project classes;7archive CRCs;158private class exclusions;7137identical common Linux/Windows entries after archive-path normalization. Water6144stair cases/24576supported vertices/512page seam vertices. V7 eight seeds/2312columns/127840reaches/29biomeIDs. Legacy5202core points identical;20native V6 chunk digests identical. Standard3062331 and Deep5945915 native block comparisons per candidate run, saved profiles/edits. UI seed20261020 joins V7; Vulkan candidate/reopen and explicit OpenGL smooth fallback save normally. No FPS/Windows execution claim.",
+  "latest_engine_test_summary": "Full35-task Java25 build/core/module/resource passes;134-source independent compile;7archive CRC/590class/144independent/218private checks;10packaged Linux native sessions; exact tick1266+survey158 candidate cases and packaged accounting/mesh regressions pass.",
   "latest_validation_tool_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/summary.json",
   "previous_preview": {
     "version": "0.0.1-alpha.27",
@@ -695,7 +696,7 @@
     "evidence": "docs/VALIDATION-0.0.1-alpha.27.md",
     "evidence_library_file_id": "libfile_c7c0c6a815508191b26f1f91dcb05bc0"
   },
-  "previous_feature_gate": "R51 staged lazy deposit arrays pass final31task build,4.19millionR50 comparisons,90960oracle cases and independently compiled44sources/71classes per variant. Four guarded native V5 reopens retain edits and all120prior+128expanded digests; all8implemented ores/16seeds and14of21host pairs pass. Native allocation lower13320â€“80280B/tested chunk; latency remains mixed (one final p95 worse7.23%). Two builds rejected including stale class despite Gradle0. Public production/defaults/installers unchanged. Missing host pairs, Vulkan visuals, density/overlap and broader performance acceptance remain open.",
+  "previous_feature_gate": "R51 staged lazy deposit arrays pass final31task build,4.19millionR50 comparisons,90960oracle cases and independently compiled44sources/71classes per variant. Four guarded native V5 reopens retain edits and all120prior+128expanded digests; all8implemented ores/16seeds and14of21host pairs pass. Native allocation lower13320\u00e2\u20ac\u201c80280B/tested chunk; latency remains mixed (one final p95 worse7.23%). Two builds rejected including stale class despite Gradle0. Public production/defaults/installers unchanged. Missing host pairs, Vulkan visuals, density/overlap and broader performance acceptance remain open.",
   "previous_continuation_evidence": "docs/validation/engine-continuation/exact-density-reuse-2026-10-24/README.md",
   "latest_staged_hydrology_source": "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
   "latest_hydrology_native_evidence": "docs/validation/engine-continuation/regional-budget-physical-2026-10-24/summary.json",
@@ -1024,18 +1025,18 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "base_code_sha": "d6c9674070d8bed83e79e9b7a6551172d9246f9b",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0653-0818658/REVIEW.md",
-    "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
+    "base_code_sha": "de95ee27dece40a76b15dd1e3a30a657eca50997",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1433-9b26b86/REVIEW.md",
+    "consumed_audit_sha": "9b26b8619b3a44c1542cc10f40a11658c4cd3cf0",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": true,
-    "coordination": "Current foreground cliff claim read;09:35 context says fallback patch ongoing. Auditor last completed07:20, no live-worker inference. Version/rendering files untouched.",
-    "evidence": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/QUALIFICATION.md",
-    "actual_changes": "Added and compiled native precipitation persistence fixture; actual-call positive control, atomic rejection, codec roundtrip and process-reopen checks. No production promotion.",
-    "checks": "Complete core suite passes at600s deadline/768MiB; new cliff core plus accounting regressions pass. Two diagnostic packaged native sessions pass with explicit records/save ack/shutdown. Unpatched actual native baseline crashes despite Gradle0 and is rejected.",
-    "next_implementation": "Restore full current main including6cd9971 cliff files; reconcile754MiB remaining build storage; uniquely versioned full combined build/module/package/native gates before promoting staged precipitation repair.",
-    "production_runtime_changed": false
+    "lease_released": false,
+    "coordination": "Root writer lease current. Water foreground checkpointed. Renderer-only LodMesher/LodReductionChecks claim read at9b26b861; nonconflicting files preserved. Personal context checked14:24; auditor record completed13:54, not inferred live coordination. No timing benchmark.",
+    "evidence": "docs/validation/engine-continuation/stream-deadline-release-2026-10-26/README.md",
+    "actual_changes": "Promote validated stream-column deadline admission and wrap-safe survey/tick comparisons; version dev.30. Fix replay harness stale hardcoded source-pin metadata.",
+    "checks": "Full35-task Java25 build/core/module/resource passes;134-source independent compile;7archive CRC/590class/144independent/218private checks;10packaged Linux native sessions; exact tick1266+survey158 candidate cases and packaged accounting/mesh regressions pass.",
+    "next_implementation": "Finish committed-source producer and delivery receipt. Then reproduce scheduling resume/fairness under tight budgets; continue loaded/unloaded ownership and V8 saved-profile/topology gates.",
+    "production_runtime_changed": true
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1062,17 +1063,18 @@
     "windows_execution": false
   },
   "previous_builder_cycle": {
-    "base_code_sha": "d6d7fc5c0fc317debc31a9b9556eb4e7d2e67eb1",
+    "base_code_sha": "d6c9674070d8bed83e79e9b7a6551172d9246f9b",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0653-0818658/REVIEW.md",
     "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
     "lease_released": true,
-    "coordination": "Git foreground cliff claim through10:02Z includes gradle.properties. Personal context09:27 reports full/Vulkan running on foreground Windows host. Auditor latest completed run07:20; no liveness assumed.",
-    "actual_changes": "Staged nonthrowing atomic precipitation split rejection at constituent limits, revised overflow contract test, 80,000-case regression and isolated runner. Production files/version unchanged.",
-    "next_implementation": "Qualify actual precipitation caller with persisted saturated ground/snow and constituent-bearing atmosphere; reconcile foreground version reservation, full build/native save/reopen before promotion.",
-    "evidence": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/README.md",
-    "checks": "131 Java inputs compiled; focused80,000 cases, water budget200,000 transfers/10,000 splits/180,000 weather intervals pass. Initial broad test interrupted130, bounded retry timed out124 after180seconds; full core NOT passed. Native/full Gradle/artifact qualification unrun."
+    "coordination": "Current foreground cliff claim read;09:35 context says fallback patch ongoing. Auditor last completed07:20, no live-worker inference. Version/rendering files untouched.",
+    "evidence": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/QUALIFICATION.md",
+    "actual_changes": "Added and compiled native precipitation persistence fixture; actual-call positive control, atomic rejection, codec roundtrip and process-reopen checks. No production promotion.",
+    "checks": "Complete core suite passes at600s deadline/768MiB; new cliff core plus accounting regressions pass. Two diagnostic packaged native sessions pass with explicit records/save ack/shutdown. Unpatched actual native baseline crashes despite Gradle0 and is rejected.",
+    "next_implementation": "Restore full current main including6cd9971 cliff files; reconcile754MiB remaining build storage; uniquely versioned full combined build/module/package/native gates before promoting staged precipitation repair.",
+    "production_runtime_changed": false
   },
   "latest_continue_integration": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
@@ -1181,32 +1183,32 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1247-68b2278/REVIEW.md",
-    "source_sha": "68b227868701967908bd5e3b7b46443a207fce7c",
+    "path": "docs/engine-hourly-audits/2026-10-26T1433-9b26b86/REVIEW.md",
+    "source_sha": "9b26b8619b3a44c1542cc10f40a11658c4cd3cf0",
     "provisional_average": 5,
     "last_full_average": 5,
-    "chosen_repair": "Close missing actual survey-method validation before staged scheduler promotion.",
+    "chosen_repair": "New audit is static/deferred and repeats native scheduler qualification priority; finish validated deadline promotion. No new grade.",
     "fresh_grade_awarded": false
   },
   "lease_released": false,
   "latest_stream_deadline_stage": {
-    "status": "staged_not_promoted",
+    "status": "promoted_dev30_pending_delivery",
     "source_sha": "53b4d82f351352f52384f55d6f384cf8694f378a",
-    "evidence": "docs/validation/engine-continuation/stream-clock-wrap-2026-10-26/README.md",
+    "evidence": "docs/validation/engine-continuation/stream-deadline-release-2026-10-26/README.md",
     "reproduction": "Exact production tick with deterministic boundary doubles: 256 callbacks, 255 after deadline; candidate 1 callback, 0 late.",
-    "checks": "216 baseline characterization; 1266 candidate exact tick checks and 1200000 arithmetic checks pass.",
-    "blocker": "Filesystem 100% full; disk compilation failed ENOSPC, isolated memory-backed compile passed. Full Gradle/native gates not run.",
-    "next": "Restore safe isolated build headroom; run full Java25/core/module plus actual packaged natural-source/budget/persistence/shutdown fixtures before promotion.",
+    "checks": "Full35-task Java25 build/core/module/resource passes;134-source independent compile;7archive CRC/590class/144independent/218private checks;10packaged Linux native sessions; exact tick1266+survey158 candidate cases and packaged accounting/mesh regressions pass.",
+    "blocker": "No remaining build/native promotion blocker; real GPU/Windows/long-soak and fairness gates remain open.",
+    "next": "Finish committed-source producer and delivery receipt. Then reproduce scheduling resume/fairness under tight budgets; continue loaded/unloaded ownership and V8 saved-profile/topology gates.",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
     "audit_source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
     "fresh_grade_awarded": false
   },
   "latest_survey_qualification": {
-    "evidence": "docs/validation/engine-continuation/survey-qualification-2026-10-26/README.md",
+    "evidence": "docs/validation/engine-continuation/stream-deadline-release-2026-10-26/README.md",
     "source_sha": "dd00cee27160a358ddeed2d46ed9528f655d3afb",
-    "status": "staged_not_promoted",
+    "status": "promoted_dev30_pending_delivery",
     "checks": "Actual survey extraction: baseline38cases/5973assertions, candidate158cases/27752assertions; full candidate API javac exit0/fiveclasses.",
-    "blocker": "499MB disk headroom; full Gradle/native qualification not attempted.",
-    "native_execution": false
+    "blocker": "Full build and Linux native qualification now passed; visual/Windows/performance acceptance remains open.",
+    "native_execution": true
   }
 }

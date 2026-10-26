@@ -348,7 +348,7 @@ public final class HydrologyRuntime {
   }
   /** Finds generated waterway columns soon after load; only visible engine water is sampled. */
   private static void survey(ServerLevel l, Work work, TerrainEngine t, long deadline) {
-    while (!work.survey.isEmpty() && System.nanoTime() < deadline) {
+    while (!work.survey.isEmpty() && System.nanoTime() - deadline < 0) {
       long key = work.survey.removeFirst();
       var c = work.chunks.get(key);
       if (c == null) continue;
@@ -356,7 +356,7 @@ public final class HydrologyRuntime {
       if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) {
         work.survey.addLast(key); return;
       }
-      for (; c.surveyed < 256 && System.nanoTime() < deadline; c.surveyed++) {
+      for (; c.surveyed < 256 && System.nanoTime() - deadline < 0; c.surveyed++) {
         int col = c.surveyed, shuffled = col * 73 & 255;
         int x = cp.getMinBlockX() + (shuffled & 15), z = cp.getMinBlockZ() + (shuffled >> 4);
         var p = l.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(x, 0, z)).below();
@@ -443,17 +443,17 @@ public final class HydrologyRuntime {
         || work.chunks.get(en.getKey()) != en.getValue());
     var order = new ArrayList<>(work.streamChunks.entrySet());
     order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
-    for (int i = 0, n = order.size(); i < n && System.nanoTime() < deadline; i++) {
+    for (int i = 0, n = order.size(); i < n && System.nanoTime() - deadline < 0; i++) {
       var entry = order.get(i);
       var c = entry.getValue();
       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
       if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
-      for (int s = 0; s < c.streamCount; s++) {
+      for (int s = 0; s < c.streamCount && System.nanoTime() - deadline < 0; s++) {
         int col = c.streams[s], shuffled = col * 73 & 255;
         replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
       }
     }
-    for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() < deadline; i++) {
+    for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() - deadline < 0; i++) {
       var entry = work.chunks.pollFirstEntry();
       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
       var chunk = l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false);
