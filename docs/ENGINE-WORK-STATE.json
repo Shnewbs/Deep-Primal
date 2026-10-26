@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T20:04:54.118Z",
-  "active_until": "2026-10-26T20:04:54.118Z",
+  "status": "active",
+  "updated_at": "2026-10-26T21:07:56.493Z",
+  "active_until": "2026-10-26T21:37:56.493Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Staged source registration priority preserved across dry/re-add windows; full mod/native capacity gate remains open",
+  "current_gate": "Qualify and repair reentrant staged source iteration; isolated outputs, no exclusive benchmark",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -481,7 +481,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T2000",
+  "worker": "builder-20261026T2108",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -999,10 +999,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "released",
+    "status": "functional_only",
     "exclusive_benchmark": false,
-    "owner": "builder-20261026T2000",
-    "active_until": "2026-10-26T20:04:54.118Z"
+    "owner": "builder-20261026T2108",
+    "active_until": "2026-10-26T21:37:56.493Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1024,19 +1024,14 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "base_code_sha": "cbc9ed5b9ad4dff93b8554584b738900208c2069",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1934-e528d06/REVIEW.md",
-    "consumed_audit_sha": "e528d066d8202ac1a2822de700099a34ce67d470",
+    "base_code_sha": "23eafba3ea7bf0f6544870ea34dd5fbe3729b7a0",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T2032-0a936f9/REVIEW.md",
+    "consumed_audit_sha": "0a936f9dbacf9bc363ae01c317f64060cc7587b3",
     "last_external_grade": 5,
-    "scope": "Staged hydrology source index tie-order semantics",
-    "lease_released": true,
-    "production_runtime_changed": false,
-    "evidence": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/README.md",
-    "actual_changes": "Lazy dormant registration markers preserve equal-height priority until the original post-survey source-pass boundary; unload releases dormant entries.",
-    "checks": "100000 lifecycle transitions,1000 actual-runtime priority cases,5512 lifecycle,20008 index,144 loop,1445 allowance; fresh138-source complete core suite pass",
-    "blocker": "Overlay free0; full Gradle/package/native not started; no new JAR.",
-    "next_implementation": "Full combined index native quota/partial-survey/reentrancy/load-unload/weather/save/reopen qualification before promotion",
-    "coordination": "Read latest audit; renderer active scoped claim respected and3947797 preserved. Personal Context did not establish fresh direct original-other-chat ownership."
+    "fresh_complete_regrade": false,
+    "lease_released": false,
+    "scope": "Combined staged hydrology source index callback/lifecycle qualification",
+    "coordination": "Auditor20:30 completed20:52. Root and foreground water leases released. Personal Context original chats unavailable; no fresh conflicting claim retrieved. Functional-only own /dev/shm/dp-builder2108 output, retained builder dependencies read-only."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1078,20 +1073,19 @@
     "evidence": "docs/validation/engine-continuation/hydrology-qualified-dev31-2026-10-26/DELIVERY.md"
   },
   "previous_builder_cycle": {
-    "base_code_sha": "094033d41147693e0ba3881026d009ca37fc895b",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1834-8665e07/REVIEW.md",
-    "consumed_audit_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
+    "base_code_sha": "cbc9ed5b9ad4dff93b8554584b738900208c2069",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1934-e528d06/REVIEW.md",
+    "consumed_audit_sha": "e528d066d8202ac1a2822de700099a34ce67d470",
     "last_external_grade": 5,
-    "fresh_complete_regrade": false,
+    "scope": "Staged hydrology source index tie-order semantics",
     "lease_released": true,
-    "scope": "Staged hydrology source-index lifecycle, private tests and compact evidence only",
-    "coordination": "Auditor18:34 run completed18:55; renderer byte-accounting checkpointed; own root lease released. Original other-chat fresh ownership not established by Personal Context. Read-only prior builder deps; unique memory-backed outputs.",
     "production_runtime_changed": false,
-    "actual_changes": "Shared staged chunk/source/survey invalidation on missing-FULL and unload; generation-conditional source removal.",
-    "checks": "144 actual extracted loop cases,5512 actual-runtime lifecycle checks,20000 index mutations,1445 actual-runtime allowance cases; fresh138-source complete core suite pass",
-    "evidence": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/README.md",
-    "blocker": "Overlay free0; full Gradle/module/package/native build not started for lack of independent capacity. No new JAR.",
-    "next_implementation": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison."
+    "evidence": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/README.md",
+    "actual_changes": "Lazy dormant registration markers preserve equal-height priority until the original post-survey source-pass boundary; unload releases dormant entries.",
+    "checks": "100000 lifecycle transitions,1000 actual-runtime priority cases,5512 lifecycle,20008 index,144 loop,1445 allowance; fresh138-source complete core suite pass",
+    "blocker": "Overlay free0; full Gradle/package/native not started; no new JAR.",
+    "next_implementation": "Full combined index native quota/partial-survey/reentrancy/load-unload/weather/save/reopen qualification before promotion",
+    "coordination": "Read latest audit; renderer active scoped claim respected and3947797 preserved. Personal Context did not establish fresh direct original-other-chat ownership."
   },
   "latest_continue_integration": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
@@ -1223,7 +1217,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Preserve source registration tie priority across dry/re-add transitions without whole-index cleanup"
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
