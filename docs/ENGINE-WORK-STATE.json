@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T01:49:01Z",
-  "active_until": "2026-10-26T02:04:01.000Z",
+  "updated_at": "2026-10-26T01:55:47Z",
+  "active_until": "2026-10-26T02:15:47.000Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.24",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Qualified dev.24 cache lifecycle fix; committing source and saving testing JAR",
+  "current_gate": "Dev.25 qualification: outside-lock pipeline dispatch plus terminal cache closure; first dispatch-only candidate rejected for late admission",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1016,12 +1016,11 @@
   },
   "performance_measurement": {
     "owner": "hourly-engine-builder-20261026T0128",
-    "status": "completed",
-    "scope": "Full build and packaged lifecycle/save checks; not a performance benchmark",
-    "started_at": "2026-10-26T01:36:30Z",
-    "active_until": "2026-10-26T01:49:01Z",
-    "auditor_policy": "Separate checkout and cache required. Defer shared-host heavy measurements until completion; pinned read-only audit may proceed.",
-    "completed_at": "2026-10-26T01:49:01Z"
+    "status": "active",
+    "scope": "Dev.25 full build and packaged native lifecycle validation; no timing benchmark",
+    "started_at": "2026-10-26T01:55:47Z",
+    "active_until": "2026-10-26T02:15:47.000Z",
+    "auditor_policy": "Independent pinned checkout/cache; defer shared-resource heavy benchmarks until validation completes."
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1089,12 +1088,16 @@
     "development_testing_only": true,
     "producer_completed": true,
     "local_verified_artifact_available": true,
-    "library_save_verified": false,
+    "library_save_verified": true,
     "github_release_published": false,
     "native_linux_save_reopen_sessions": 4,
     "windows_execution": false,
     "gpu_tested": false,
-    "evidence": "docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md"
+    "evidence": "docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
+    "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
+    "library_file_id": "libfile_ee4d7ea243e48191a6e48c879838a072",
+    "superseded_by_followup_defect": true,
+    "remaining_defect": "Inline executor holds pipeline monitor; dispatch-only correction exposes post-shutdown density cache admission. Dev.25 fixes in qualification."
   },
   "previous_builder_cycle": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
