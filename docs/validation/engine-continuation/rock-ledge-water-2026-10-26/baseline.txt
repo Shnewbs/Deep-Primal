@@ -1,0 +1,3 @@
+WATERFALL_SIDE_PASS vertices=131072
+STEPPED_BASIN_MESH_PASS vertices=6144
+Expected failure on unmodified mesher at 1317b6f: Rock ledge disconnect: axis=0 sign=-1 y=-16 cellY=-17 film=1 pool=1 blend=0.0 actual=-16.0 expected=-15.5

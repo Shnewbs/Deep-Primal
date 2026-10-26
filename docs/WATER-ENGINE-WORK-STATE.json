@@ -3,21 +3,33 @@
   "owner": "foreground-water-ledge-20261026T0208",
   "status": "active",
   "started_at": "2026-10-26T02:08:00Z",
-  "active_until": "2026-10-26T02:38:00Z",
+  "active_until": "2026-10-26T02:49:06.101Z",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
     "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
-    "docs/validation/engine-continuation/rock-ledge-water-2026-10-26"
+    "docs/validation/engine-continuation/rock-ledge-water-2026-10-26",
+    "gradle.properties"
   ],
   "coordination": "Preserve hourly cache/pipeline builder lease and dev.25 qualification. Separate Windows checkout/cache; no cache/pipeline/root state edits. Water-only visual ledge reproduction/fix authorized by owner resume.",
-  "baseline": "1317b6f95e9905fc368e8095a7803615d43cc1cd",
-  "current_evidence": "Baseline regression fails at a rock ledge; candidate passes 8192 ledge cases plus waterfall sides and stepped basins. Full checks pending.",
+  "baseline": "61dc78571e754155fde6f7362d6d53840cb5d001",
+  "current_evidence": "Combined dev.25 + water full build/core/cache/resource/module gates pass; 8192 ledge cases; seven CRCs and 587 product class identities pass. Normal assembly identical. GPU validation next.",
   "not_claimed": [
     "GPU pixels",
     "owner screenshot scene acceptance",
     "water engine completion",
     "grade change"
-  ]
+  ],
+  "updated_at": "2026-10-26T02:34:19.592Z",
+  "owner_goal": "Continue water engine alongside broader engine until independently evidenced completion; existing hourly builder updated",
+  "completion_gates": {
+    "continuous_surfaces": "CPU ledges pass; GPU/real scenes incomplete",
+    "volume_and_constituents": "existing scoped checks pass; world ledger/long soak incomplete",
+    "loaded_unloaded_persistence": "incomplete broad acceptance",
+    "seasonal_groundwater_and_oceans": "incomplete broad acceptance",
+    "performance": "named-hardware tail/frame/tick comparison incomplete"
+  },
+  "automation_id": "6ad974bdc204819195e5465aeea9dca2",
+  "engine_complete": false
 }

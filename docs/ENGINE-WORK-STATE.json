@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T02:24:06.101Z",
+  "updated_at": "2026-10-26T02:34:19.592Z",
   "active_until": "2026-10-26T02:49:06.101Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.25",
+  "candidate_version": "0.0.1-alpha.29-dev.26-water.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Foreground water ledge fix: final combined dev.25 + water build in Windows checkout; preserve all other staged engine work and the independent auditor",
+  "current_gate": "Water ledge CPU/combined dev.25 build qualified; continue production GPU upload and real-scene validation. Broader water acceptance remains incomplete.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1197,5 +1197,21 @@
     "average": 5,
     "fresh_complete_regrade": false,
     "scope": "Scoped reassessment restores full accepted baseline; not a fresh whole-engine regrade."
+  },
+  "latest_water_patch": {
+    "version": "0.0.1-alpha.29-dev.26-water.1",
+    "source_parent": "61dc78571e754155fde6f7362d6d53840cb5d001",
+    "artifact": "DeepPrimal-dev.26-water.1-Windows.jar",
+    "bytes": 125290359,
+    "sha256": "67756258cb9620012c218a6c192011828f8a9937dae3a2433915ba43b1003137",
+    "evidence": "docs/validation/engine-continuation/rock-ledge-water-2026-10-26/README.md",
+    "full_build": true,
+    "core_cases": 8192,
+    "gpu_visual_acceptance": false,
+    "library_save_verified": false,
+    "library_blocker": "Hosted upload helper tools/list failed DNS",
+    "github_release_published": false,
+    "owner_goal": "Continue water engine alongside broader engine until independently evidenced completion; existing hourly builder updated",
+    "completed_at": "2026-10-26T02:34:19.592Z"
   }
 }

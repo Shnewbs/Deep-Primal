@@ -40,6 +40,18 @@ public final class WaterTransport {
     return below > 0 ? -1 + below / 16.0 : Double.NaN;
   }
 
+  /** A ledge's solid cell still contributes the water film resting immediately above it. */
+  public static double surfaceColumn(int below, int here, int above, boolean solidHere) {
+    return here == 0 && solidHere && above > 0 ? 1 + above / 16.0
+        : surfaceColumn(below, here, above);
+  }
+
+  /** The lower surface shares the upper film's floor constraint in world coordinates. */
+  public static double supportedSurface(double average, boolean supportedFilm, boolean supportedAbove) {
+    return supportedAbove ? Math.max(1 + 1.0 / 256, average)
+        : supportedSurface(average, supportedFilm);
+  }
+
   /** Rendering only: a shared thin-water corner must remain above its solid floor. */
   public static double supportedSurface(double average, boolean supportedFilm) {
     return supportedFilm ? Math.max(1.0/256,average) : average;

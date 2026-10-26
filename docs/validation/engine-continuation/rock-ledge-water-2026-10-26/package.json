@@ -1,0 +1,28 @@
+{
+  "archive_count": 7,
+  "class_count": 4540,
+  "native_dlls": 2,
+  "modules": [
+    "deepprimal",
+    "deepprimal_graphics",
+    "deepprimal_lod",
+    "deepprimal_performance",
+    "deepprimal_themes",
+    "deepprimal_vulkan"
+  ],
+  "classes_match_compiler_output": {
+    "host": 147,
+    "engine-core": 142,
+    "graphics-settings": 38,
+    "renderer-vulkan": 186,
+    "performance-engine": 14,
+    "lod-engine": 14,
+    "gui-themes": 46
+  },
+  "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.26-water.1-vulkan-windows.jar",
+  "size": 125290359,
+  "sha256": "67756258cb9620012c218a6c192011828f8a9937dae3a2433915ba43b1003137",
+  "crc": "pass",
+  "fixture_exclusion": "pass",
+  "windows_payload": "pass"
+}

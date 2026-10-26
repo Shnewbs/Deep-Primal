@@ -26,3 +26,16 @@ Keep the existing independent grader and its rubric. It may read/build pinned co
 ## Resumption checks
 
 At 2026-10-25T17:29:07.574Z, main was `d247f1a6a46bdca3045091c3b415f3de9b510115`. The other engine conversation reported paused builder/active auditor; the automation inventory independently confirmed those states. The main writer lease had expired, its timed measurement was completed, and no Deep Primal Java/Gradle process was observed. These are point-in-time checks and must be repeated by each cycle. Historical dev.19 limitations and the 5.0 baseline remain open; no engine code/build/release is claimed by this coordination change.
+
+## Water-engine continuation
+
+Latest owner direction, October 25, 2026: continue the water engine alongside the
+broader engine until it is state of the art and done. Reuse the existing builder
+and independent auditor. Keep the builder enabled while either the original
+strictly-greater-than-8.5 engine threshold or the recorded water acceptance gates
+remains incomplete. A successful bug fix, JAR or partial test does not close the
+water engine. Read WATER-ENGINE-WORK-STATE.json for scoped ownership and evidence;
+continue actual implementation of conservation, connected flows/waterfalls,
+seasonal/coarse-to-fine accounts, save/restart/edits/unloading, multiplayer/soak
+and measured GPU/frame/tick/memory gates. Preserve the original rubric and honest
+finite-run reporting; no claim of uninterrupted execution between scheduled runs.

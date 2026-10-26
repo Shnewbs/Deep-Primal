@@ -43,6 +43,69 @@ public final class WaterfallSideChecks {
     System.out.println("WATERFALL_SIDE_PASS vertices=" + checked
         + " amounts=16 previousAmounts=16 smoothModes=2 verticalPages=true");
     basin();
+    ledge();
+  }
+
+
+  /** Supported films and the pool below must meet at one world-space edge. */
+  private static void ledge() {
+    int checked = 0;
+    for (int axis = 0; axis < 2; axis++)
+      for (int sign : new int[] {-1, 1})
+        for (int upperY : new int[] {-16, 0, 8, 16})
+          for (boolean smooth : new boolean[] {false, true})
+            for (int amount = 1; amount <= 16; amount++)
+              for (int pool = 1; pool <= 16; pool++) {
+                int[] witnesses = new int[2];
+                int lowerOrigin = Math.floorDiv(upperY - 1, 16) * 16;
+                int upperOrigin = Math.floorDiv(upperY, 16) * 16;
+                for (int origin : lowerOrigin == upperOrigin ? new int[] {lowerOrigin}
+                    : new int[] {lowerOrigin, upperOrigin}) {
+                  var current = ledgeSnapshot(axis, sign, origin, upperY, amount, pool);
+                  var previous = ledgeSnapshot(axis, sign, origin, upperY, 17 - amount, 17 - pool);
+                  var mesh = WaterPatchMesher.build(current, previous, smooth).vertices();
+                  for (int i = 0; i < mesh.length; i += WaterPatchMesher.STRIDE) {
+                    if (WaterPatchMesher.face(mesh[i + 10]) != 0 || mesh[i] != 8 || mesh[i + 2] != 8)
+                      continue;
+                    int y = origin + (int) mesh[i + 1];
+                    if (y != upperY && y != upperY - 1) continue;
+                    for (int t = 0; t <= 4; t++) {
+                      float blend = t / 4f;
+                      float height = y + mesh[i + 4] + (mesh[i + 3] - mesh[i + 4]) * blend;
+                      float to = upperY + Math.max(1 / 256f, -.5f + (amount + pool) / 32f);
+                      float from = upperY + Math.max(1 / 256f, -.5f + (34 - amount - pool) / 32f);
+                      float expected = from + (to - from) * blend;
+                      if (Math.abs(height - expected) > .00001f)
+                        throw new AssertionError("Rock ledge disconnect: axis=" + axis + " sign=" + sign
+                            + " y=" + upperY + " cellY=" + y + " film=" + amount + " pool=" + pool
+                            + " blend=" + blend + " actual=" + height + " expected=" + expected);
+                    }
+                    witnesses[y == upperY ? 1 : 0]++;
+                  }
+                }
+                if (witnesses[0] == 0 || witnesses[1] == 0)
+                  throw new AssertionError("Missing ledge surface witness");
+                checked++;
+              }
+    System.out.println("ROCK_LEDGE_PASS cases=" + checked
+        + " axes=2 signs=2 verticalSections=true interpolationSamples=5");
+  }
+
+  private static WaterPatchMesher.Snapshot ledgeSnapshot(int axis, int sign, int origin,
+      int upperY, int film, int pool) {
+    byte[] water = new byte[WaterPatchMesher.CELLS], solid = new byte[water.length];
+    for (int z = -1; z <= 16; z++)
+      for (int x = -1; x <= 16; x++)
+        for (int y = -1; y <= 16; y++) {
+          int coordinate = axis == 0 ? x : z;
+          boolean high = sign > 0 ? coordinate >= 8 : coordinate < 8;
+          int worldY = origin + y;
+          int bed = high ? upperY - 1 : upperY - 2;
+          if (worldY <= bed) solid[WaterPatchMesher.index(x, y, z)] = 1;
+          else if (worldY == (high ? upperY : upperY - 1))
+            water[WaterPatchMesher.index(x, y, z)] = (byte) (high ? film : pool);
+        }
+    return new WaterPatchMesher.Snapshot(water, solid, new int[water.length], new int[256]);
   }
 
   private static void basin() {
