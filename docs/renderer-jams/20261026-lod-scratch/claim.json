@@ -1,0 +1,12 @@
+{
+  "owner": "renderer-20261026-lod-scratch",
+  "status": "active",
+  "active_until": "2026-10-26T16:35:41.092Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodScratchChecks.java",
+    "docs/renderer-jams/20261026-lod-scratch"
+  ],
+  "parent": "591bf64d36d6c41157aa2dcc4b4ffe85f893cc01",
+  "measurement": "Functional geometry/allocation check and exploratory CPU component benchmark; no GPU timing reservation"
+}
