@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T08:39:06.267Z",
-  "active_until": "2026-10-26T09:14:06.267Z",
+  "updated_at": "2026-10-26T08:57:00.977Z",
+  "active_until": "2026-10-26T09:32:00.977Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.27",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Native-qualified aquifer fix promoted; final exact-source rebuild/delivery pending",
+  "current_gate": "Dev.27 qualified/saved; repairing newly reproduced native constituent-capacity rejection after block writes",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1026,8 +1026,8 @@
   "performance_measurement": {
     "owner": "builder-20261026T0838",
     "status": "active",
-    "scope": "Packaged native functional qualification; no controlled benchmark. Private builder0731 output/cache. Avoid competing heavy native work on this host.",
-    "active_until": "2026-10-26T09:14:06.267Z"
+    "scope": "Dev.28 conservation repair functional build/native; private builder0731 outputs/cache; no benchmark",
+    "active_until": "2026-10-26T09:32:00.977Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1061,7 +1061,8 @@
     "production_runtime_changed": true,
     "candidate_native_qualified": true,
     "native_sessions": 7,
-    "full_build": true
+    "full_build": true,
+    "next_implementation": "Qualify pre-write constituent admission for infiltration/ocean/native cell transfers; seven new native receiver controls and exact-capacity positive controls"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1075,25 +1076,16 @@
     "library_file_id": "libfile_45cd48e8eaf48191ab971863062c873a"
   },
   "latest_development_delivery": {
-    "version": "0.0.1-alpha.29-dev.25",
-    "source_parent": "eeb907b0bcbd3430e73a1da86ce18863ac3ca07e",
-    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.25-vulkan-windows.jar",
-    "sha256": "a6555b12db16916c445659302f21b32d0e455716bb9d72b852d2b552b3c89a4d",
-    "bytes": 125288863,
-    "development_testing_only": true,
-    "producer_completed": true,
-    "local_verified_artifact_available": true,
-    "library_save_verified": true,
+    "version": "0.0.1-alpha.29-dev.27",
+    "source_sha": "b3e2f7a465ce3032eceb19f7ed894586fd572f17",
+    "sha256": "6f7fdf17717b2557c5f905e02bca87e5c809e463d56a5e66f130d30657dc481f",
+    "bytes": 125289190,
+    "library_file_id": "libfile_a28f704cd7348191863dd654b04bcdc0",
+    "full_build_tasks": 35,
+    "native_sessions": 7,
     "github_release_published": false,
-    "native_linux_save_reopen_sessions": 4,
-    "windows_execution": false,
-    "gpu_tested": false,
-    "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
-    "source_sha": "f57000053205142297e9e2858e6844464c4b9a9e",
-    "library_file_id": "libfile_ac868d2ba71c8191b851b8697c5b3aff",
-    "library_url": "https://chatgpt.com/library?file_id=libfile_ac868d2ba71c8191b851b8697c5b3aff&account_id=personal",
-    "completed_at": "2026-10-26T02:18:53Z",
-    "post_upload_sha256_unchanged": true
+    "publication_blocker": "No connected release-write/upload capability or gh executable",
+    "new_followup_defect": "Valid full-constituent receiver can reject after block writes; four native failures reproduced. Dev.28 repair under qualification."
   },
   "previous_builder_cycle": {
     "base_code_sha": "044aa85fd1ecdc9f62faa33ee6a3ca38aaa7221b",
