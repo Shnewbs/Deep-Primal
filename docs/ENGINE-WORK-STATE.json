@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T19:15:34.233Z",
-  "active_until": "2026-10-26T19:15:34.233Z",
+  "status": "active",
+  "updated_at": "2026-10-26T19:58:12.165Z",
+  "active_until": "2026-10-26T20:28:12.165Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Staged incremental source-index lifecycle repaired; fresh full core and scoped runtime checks pass; full mod/package/native capacity gate open",
+  "current_gate": "Staged hydrology equal-height lifecycle ordering qualification",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -480,7 +480,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T1905",
+  "worker": "builder-20261026T2000",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -998,10 +998,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "released",
-    "owner": "builder-20261026T1905",
-    "active_until": "2026-10-26T19:15:34.233Z",
-    "exclusive_benchmark": false
+    "status": "functional_only",
+    "exclusive_benchmark": false,
+    "owner": "builder-20261026T2000",
+    "active_until": "2026-10-26T20:28:12.165Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1023,20 +1023,12 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "base_code_sha": "094033d41147693e0ba3881026d009ca37fc895b",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1834-8665e07/REVIEW.md",
-    "consumed_audit_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
+    "base_code_sha": "cbc9ed5b9ad4dff93b8554584b738900208c2069",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1934-e528d06/REVIEW.md",
+    "consumed_audit_sha": "e528d066d8202ac1a2822de700099a34ce67d470",
     "last_external_grade": 5,
-    "fresh_complete_regrade": false,
-    "lease_released": true,
-    "scope": "Staged hydrology source-index lifecycle, private tests and compact evidence only",
-    "coordination": "Auditor18:34 run completed18:55; renderer byte-accounting checkpointed; own root lease released. Original other-chat fresh ownership not established by Personal Context. Read-only prior builder deps; unique memory-backed outputs.",
-    "production_runtime_changed": false,
-    "actual_changes": "Shared staged chunk/source/survey invalidation on missing-FULL and unload; generation-conditional source removal.",
-    "checks": "144 actual extracted loop cases,5512 actual-runtime lifecycle checks,20000 index mutations,1445 actual-runtime allowance cases; fresh138-source complete core suite pass",
-    "evidence": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/README.md",
-    "blocker": "Overlay free0; full Gradle/module/package/native build not started for lack of independent capacity. No new JAR.",
-    "next_implementation": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison."
+    "scope": "Staged hydrology source index tie-order semantics",
+    "lease_released": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1078,19 +1070,20 @@
     "evidence": "docs/validation/engine-continuation/hydrology-qualified-dev31-2026-10-26/DELIVERY.md"
   },
   "previous_builder_cycle": {
-    "base_code_sha": "e056cf942927d355be8fd12e20ba13e423ccffb6",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1730-a1583a5/REVIEW.md",
-    "consumed_audit_sha": "a1583a508b0d67130d387bc018defd5758acd496",
+    "base_code_sha": "094033d41147693e0ba3881026d009ca37fc895b",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1834-8665e07/REVIEW.md",
+    "consumed_audit_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
     "lease_released": true,
+    "scope": "Staged hydrology source-index lifecycle, private tests and compact evidence only",
+    "coordination": "Auditor18:34 run completed18:55; renderer byte-accounting checkpointed; own root lease released. Original other-chat fresh ownership not established by Personal Context. Read-only prior builder deps; unique memory-backed outputs.",
     "production_runtime_changed": false,
-    "actual_changes": "Integrated incremental headwater index into staged HydrologyRuntime to eliminate per-tick full scan/copy/sort.",
-    "checks": "Final memory-backed full candidate APIcompile,20000mutation oracle/20008checks,actual-runtime registration/dry/stale lifecycle pass",
-    "evidence": "docs/validation/engine-continuation/hydrology-incremental-index-2026-10-26/README.md",
-    "blocker": "Disk26MB then0; final disk compile failed, clean memory-backed retrypassed. Fullbuild/native notrun; noJAR.",
-    "next_implementation": "Full Gradle/core/module/package/native source quota,load/unload,partial-survey,weather/save/reopen and performance",
-    "coordination": "Preserved renderer bbf7061 docs-only checkpoint, read latestaudit; no other mutable resources modified."
+    "actual_changes": "Shared staged chunk/source/survey invalidation on missing-FULL and unload; generation-conditional source removal.",
+    "checks": "144 actual extracted loop cases,5512 actual-runtime lifecycle checks,20000 index mutations,1445 actual-runtime allowance cases; fresh138-source complete core suite pass",
+    "evidence": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/README.md",
+    "blocker": "Overlay free0; full Gradle/module/package/native build not started for lack of independent capacity. No new JAR.",
+    "next_implementation": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison."
   },
   "latest_continue_integration": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
@@ -1222,7 +1215,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Qualify staged incremental source index; repair missing-FULL cleanup and stale cursor invalidation of replacement sources."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
