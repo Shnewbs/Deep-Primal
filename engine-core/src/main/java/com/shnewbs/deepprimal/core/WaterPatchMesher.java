@@ -159,6 +159,28 @@ public final class WaterPatchMesher {
         && (!s.solid(x + dx, y + dy, z + dz) || (face == 0 && amount < 16));
   }
 
+
+  /**
+   * Presentation identity of a vertex on a one-cell step. Bit zero raises its
+   * history anchor to the upper layer; bit one marks a connection across layers.
+   * Half-cell vertices use the corners with nonzero bilinear weight.
+   */
+  public static int surfaceConnection(Snapshot s, int x2, int y, int z2) {
+    if (s == null) return 0;
+    int result = 0;
+    for (int gz = z2 / 2; gz <= (z2 + 1) / 2; gz++)
+      for (int gx = x2 / 2; gx <= (x2 + 1) / 2; gx++)
+        for (int dz = -1; dz <= 0; dz++)
+          for (int dx = -1; dx <= 0; dx++) {
+            int x = gx + dx, z = gz + dz, here = s.water(x, y, z);
+            if ((here > 0 || s.solid(x, y, z)) && s.water(x, y + 1, z) > 0)
+              result |= 3;
+            else if (here == 0 && s.water(x, y - 1, z) > 0)
+              result |= 2;
+          }
+    return result;
+  }
+
   private float corner(Snapshot s, int x, int y, int z) {
     int key = (y * 17 + z) * 17 + x;
     float[] corners = s == current ? currentCorners : previousCorners;
@@ -211,9 +233,10 @@ public final class WaterPatchMesher {
     float target = moving ? height(current, x, y, z, u, v) : 0,
         old = moving ? height(previous, x, y, z, u, v) : 0;
     if (moving && face >= 1 && face <= 4) {
-      // A stacked cell's wall ends at the next cell, not at its higher free surface.
-      if (current.water(x, y + 1, z) > 0) target = Math.min(1, target);
-      if (previous.water(x, y + 1, z) > 0) old = Math.min(1, old);
+      // A connected falling column fills the wall up to the next cell exactly.
+      // Averaging a lower tributary into this endpoint opens a gap beneath that cell.
+      if (current.water(x, y + 1, z) > 0) target = 1;
+      if (previous.water(x, y + 1, z) > 0) old = 1;
     }
     Snapshot material = current.water(x, y, z) > 0 ? current : previous;
     int color = material.colors[z * 16 + x], light = material.lights[index(x, y, z)];

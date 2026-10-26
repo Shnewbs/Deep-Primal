@@ -68,6 +68,10 @@ public final class AnimatedWaterChecks {
           }
       return;
     }
+    if (Boolean.getBoolean("deepprimal.validationCliffScene")) {
+      WaterCliffSceneChecks.tick(mc);
+      return;
+    }
     var r = AnimatedWaterRenderer.INSTANCE;
     ticks++;
     if (stage == 0) {
@@ -204,6 +208,10 @@ public final class AnimatedWaterChecks {
   }
 
   public static void frame() {
+    if (Boolean.getBoolean("deepprimal.validationCliffScene")) {
+      WaterCliffSceneChecks.frame();
+      return;
+    }
     if (stage != 3) return;
     float h = AnimatedWaterRenderer.INSTANCE.displayedHeight(8, Y, 8);
     if (h > .1251 && h < .9999 && h != last) {

@@ -36,6 +36,7 @@ final class WaterfallUploadChecks {
     for (int y = -1; y <= 16; y++) water[WaterPatchMesher.index(3, y, 3)] = (byte) amount;
     // This free surface shares a corner with a clipped wall in the adjacent column.
     water[WaterPatchMesher.index(4, 15, 3)] = (byte) amount;
+    water[WaterPatchMesher.index(4, 6, 3)] = (byte) amount;
     // Supported one-block rock ledge, separate from the falling-column controls.
     for (int z = 6; z <= 11; z++)
       for (int x = 8; x <= 13; x++) {
@@ -168,7 +169,7 @@ final class WaterfallUploadChecks {
       ((ExecutorService) field(type, "workers").get(renderer)).shutdownNow();
       if (!queued) for (var read : reads) read.buffer.close();
     }
-    return result;
+    return CompletableFuture.allOf(result, WaterCliffContinuityChecks.run(output));
   }
 
   private WaterfallUploadChecks() {}

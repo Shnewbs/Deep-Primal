@@ -44,6 +44,7 @@ public final class WaterfallSideChecks {
         + " amounts=16 previousAmounts=16 smoothModes=2 verticalPages=true");
     basin();
     ledge();
+    cliff();
   }
 
 
@@ -144,6 +145,49 @@ public final class WaterfallSideChecks {
       if (originY + y < 32) units[WaterPatchMesher.index(8, y, 8)] = (byte) amount;
     return new WaterPatchMesher.Snapshot(
         units, new byte[units.length], new int[units.length], new int[256]);
+  }
+
+
+  /** A tributary below a falling column must not pull its connected wall below the next layer. */
+  private static void cliff() {
+    int vertices = 0;
+    for (int lowerY : new int[] {-1, 7, 15})
+      for (boolean smooth : new boolean[] {false, true})
+        for (int amount = 1; amount <= 16; amount++)
+          for (int pool = 1; pool <= 16; pool++) {
+            int origin = Math.floorDiv(lowerY, 16) * 16;
+            var mesh = WaterPatchMesher.build(cliffSnapshot(origin, lowerY, amount, pool),
+                cliffSnapshot(origin, lowerY, 17 - amount, 17 - pool), smooth).vertices();
+            int witnesses = 0;
+            for (int i = 0; i < mesh.length; i += WaterPatchMesher.STRIDE) {
+              int face = WaterPatchMesher.face(mesh[i + 10]);
+              if (origin + (int) mesh[i + 1] != lowerY || face < 1 || face > 4
+                  || mesh[i + 11] == 0) continue;
+              for (int frame = 0; frame <= 12; frame++) {
+                float t = frame / 12f;
+                float shown = mesh[i + 4] + (mesh[i + 3] - mesh[i + 4]) * t;
+                if (Math.abs(shown - 1) > .00001f)
+                  throw new AssertionError("Cliff waterfall has open seam: lowerY=" + lowerY
+                      + " amount=" + amount + " pool=" + pool + " frame=" + frame
+                      + " wallTop=" + shown + " nextWallBottom=1");
+              }
+              witnesses++; vertices++;
+            }
+            if (witnesses == 0) throw new AssertionError("No mixed-height cliff wall witnesses");
+          }
+    System.out.println("CLIFF_WALL_CONTINUITY_PASS vertices=" + vertices
+        + " volumePairs=256 smoothModes=2 verticalSections=3 interpolationFrames=13");
+  }
+
+  private static WaterPatchMesher.Snapshot cliffSnapshot(int origin, int lowerY, int amount, int pool) {
+    byte[] water = new byte[WaterPatchMesher.CELLS];
+    for (int y = -1; y <= 16; y++) {
+      int worldY = origin + y;
+      if (worldY == lowerY || worldY == lowerY + 1)
+        water[WaterPatchMesher.index(7, y, 8)] = (byte) amount;
+      if (worldY == lowerY - 1) water[WaterPatchMesher.index(8, y, 8)] = (byte) pool;
+    }
+    return new WaterPatchMesher.Snapshot(water, new byte[water.length], new int[water.length], new int[256]);
   }
 
   private WaterfallSideChecks() {}

@@ -109,6 +109,7 @@ public final class AnimatedWaterRenderer {
     // Accepted vertex bytes only: total retained payload cannot exceed the 32 MiB GPU cap.
     byte[] presentation;
     WaterBoundaryIndex boundaryQuads = WaterBoundaryIndex.EMPTY;
+    int[] heightQuads = new int[0];
     int retireOffset, heightFailures;
     boolean retirePending;
     Map<Integer, WaterFaces> fading = Map.of();
@@ -178,6 +179,7 @@ public final class AnimatedWaterRenderer {
     cancelCornerRetries(page, false);
     page.presentation = null;
     page.boundaryQuads = WaterBoundaryIndex.EMPTY;
+    page.heightQuads = new int[0];
     retireQueue.remove(page.key);
     page.fading = Map.of();
     dirty.remove(page.key);
@@ -428,7 +430,8 @@ public final class AnimatedWaterRenderer {
   }
 
   /** Sample shared trajectories at this frame's clock instead of replaying a neighbor's
-   * older upload clock. Only boundary position/displacement bytes change. */
+   * older upload clock. Horizontal borders and stepped surfaces share one trajectory.
+   * Only indexed position/displacement bytes change; material and opacity stay intact. */
   private void synchronizeVisibleHeights(List<Page> visible) {
     long started = System.nanoTime();
     ByteBuffer transfer = null;
@@ -438,17 +441,15 @@ public final class AnimatedWaterRenderer {
       for (var p : visible) {
         if (p.gpu == null || p.presentation == null) continue;
         var accepted = ByteBuffer.wrap(p.presentation).order(ByteOrder.nativeOrder());
-        for (int dz = -1; dz <= 1; dz++) for (int dx = -1; dx <= 1; dx++) {
-          if (dx == 0 && dz == 0) continue;
+        {
           int start = -1, end = 0;
-          for (int at = p.boundaryQuads.begin(dx, dz); at < p.boundaryQuads.end(dx, dz); at++) {
-            int entry = p.boundaryQuads.entry(at), offset = (entry >>> 12) * 144;
+          for (int heightQuad : p.heightQuads) {
+            int offset = heightQuad * 144;
             quad.clear().put(p.presentation, offset, 144).flip();
             boolean changed = false;
             for (int v = 0; v < 4; v++) {
               int vertex = v * 36, source = offset + vertex;
               float x = accepted.getFloat(source), z = accepted.getFloat(source + 8);
-              if (x != 0 && x != 16 && z != 0 && z != 16) continue;
               int x2 = Math.round(x * 2), z2 = Math.round(z * 2);
               int cy = Byte.toUnsignedInt(accepted.get(source + 35));
               var h = heights.get((x2 & 1) | ((z2 & 1) << 1)).get(
@@ -647,6 +648,7 @@ public final class AnimatedWaterRenderer {
     boolean animating = false, dyingFaces = false;
     int remaining = 0;
     var boundary = new IntArrayList();
+    var heightQuads = new IntArrayList();
     WaterSurfaceTransition opacity = null;
     var atlas =
         (TextureAtlas)
@@ -702,13 +704,22 @@ public final class AnimatedWaterRenderer {
             dyingFaces |= values[i + 13] == 0;
           }
           float target = values[i + 3], from = target;
+          int heightLayer = cy, connection = 0;
           int offset = 0;
           if (values[i + 11] != 0) {
             int x2 = Math.round(values[i] * 2),
                 z2 = Math.round(values[i + 2] * 2),
                 part = (x2 & 1) | ((z2 & 1) << 1);
+            if (face == 0) {
+              connection = WaterPatchMesher.surfaceConnection(ready.snapshot, x2, cy, z2)
+                  | WaterPatchMesher.surfaceConnection(p.snapshot, x2, cy, z2);
+              // Retained drying faces can outlive both wet snapshots. Their endpoints
+              // still identify a supported upper ledge. Padding stores the anchor only.
+              int raised = (connection & 1) != 0 || Math.max(target, values[i + 4]) > 1 ? 1 : 0;
+              heightLayer += raised;
+            }
             long key =
-                BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2));
+                BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + heightLayer, p.z + Math.floorDiv(z2, 2));
             boolean wall = face >= 1 && face <= 4;
             if (wall) {
               // Clipped stacked walls and free surfaces can meet at the same world corner.
@@ -719,13 +730,13 @@ public final class AnimatedWaterRenderer {
             var map = heights.get(part);
             var h = map.getAndMoveToLast(key);
             if (h == null) {
-              h = new WaterSurfaceTransition(values[i + 4], clock);
+              h = new WaterSurfaceTransition(values[i + 4] - (heightLayer - cy), clock);
               map.put(key, h);
             }
-            h.target(target, clock, faces.revision);
-            target = h.target();
+            h.target(target - (heightLayer - cy), clock, faces.revision);
+            target = h.target() + (heightLayer - cy);
             while (map.size() > (wall ? MAX_HISTORY / 4 : MAX_HISTORY)) map.removeFirst();
-            from = h.from(clock);
+            from = h.from(clock) + (heightLayer - cy);
             offset = h.offset(clock);
             int heightRemaining = h.remaining(clock);
             if (heightRemaining > 0) {
@@ -745,6 +756,12 @@ public final class AnimatedWaterRenderer {
               light = Float.floatToRawIntBits(values[i + 8]);
           if ((v & 3) == 0 && face == 0 && (cx == 0 || cx == 15 || cz == 0 || cz == 15))
             boundary.add(((data.position() / 144) << 12) | cell);
+          if (face == 0 && ((connection & 2) != 0 || heightLayer != cy
+              || cx == 0 || cx == 15 || cz == 0 || cz == 15)) {
+            int quad = data.position() / 144;
+            if (heightQuads.isEmpty() || heightQuads.getInt(heightQuads.size() - 1) != quad)
+              heightQuads.add(quad);
+          }
           int vertexOffset = data.position();
           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
           boolean blend = flowState != null && flowState.active(clock)
@@ -774,7 +791,7 @@ public final class AnimatedWaterRenderer {
           data.put((byte) Math.round(opacity.from(clock) * 127))
               .put((byte) Math.round(opacity.target() * 127))
               .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
-              .put((byte) cy);
+              .put((byte) heightLayer);
           if (face == 0) WaterCornerPacket.fromLegacy(data, vertexOffset, clock);
         }
       }
@@ -807,6 +824,7 @@ public final class AnimatedWaterRenderer {
       cancelCornerRetries(p, false);
       p.presentation = accepted;
       p.boundaryQuads = boundaryIndex;
+      p.heightQuads = heightQuads.toIntArray();
       p.retireOffset = 0;
       p.retirePending = false;
       retireQueue.remove(p.key);

@@ -72,7 +72,7 @@ final class WaterLiveContinuityChecks {
             if(x!=0&&x!=16&&z!=0&&z!=16)continue;
             int age=(byte)(data.getShort(offset+26)&255);
             float progress=Math.clamp((clock-uploaded-age)/100f,0,1);
-            float displayed=data.getFloat(offset+4)+data.getShort(offset+24)/16384f*(1-progress);
+            float displayed=py+data.getFloat(offset+4)+data.getShort(offset+24)/16384f*(1-progress);
             var corner=new Corner(px*2+Math.round(x*2),py+Byte.toUnsignedInt(data.get(offset+35)),
                 pz*2+Math.round(z*2));
             sampledPages.add(entry.getKey());sampledVertices++;

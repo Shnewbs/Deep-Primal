@@ -1,32 +1,34 @@
 {
   "schema": 1,
   "owner": "foreground-cliff-continuity-20261026",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-26T09:03:46.235Z",
-  "active_until": "2026-10-26T10:02:13.989Z",
+  "active_until": null,
   "scope": [
+    "gradle.properties",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
     "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterfallUploadChecks.java",
-    "docs/validation/engine-continuation/cliff-continuity-2026-10-26",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCliffContinuityChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCliffSceneChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/AnimatedWaterChecks.java",
-    "gradle.properties"
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterLiveContinuityChecks.java",
+    "docs/validation/engine-continuation/cliff-continuity-2026-10-26"
   ],
-  "coordination": "Root builder checkpointed/released at 09:24Z. Dev.28 conservation changes incorporated. Reserve gradle.properties for unique dev.28-water.2 alongside scoped presentation fixes; root state remains owned by hourly builder.",
-  "baseline": "314afbccce11de74cbe3268009e3599f1f26f74a",
-  "current_evidence": "Both defects reproduced: mixed-height wall gap and actual OpenGL asynchronous ledge seam 0.12402344 blocks. Fixed wall core checks and OpenGL 312 readbacks/468 comparisons pass with zero gap. Full build/Vulkan and rendered cliff scene underway.",
+  "coordination": "Scoped foreground changes completed; root builder retains ENGINE-WORK-STATE.json. Dev.28 runtime included; staged precipitation-admission candidate remains unpromoted. Existing hourly builder/auditor continue.",
+  "baseline": "d6c9674070d8bed83e79e9b7a6551172d9246f9b",
+  "current_evidence": "Mixed-height wall closure and asynchronous stepped-height defects reproduced and fixed. Core wall matrix, OpenGL/Vulkan GPU readbacks, complete build, normal-version assembly and live Vulkan cliff fixture passed. Final dev.28-water.2 local export verified; hosted upload failed at DNS discovery.",
   "not_claimed": [
-    "cliff fix complete",
+    "broad natural-cliff flicker acceptance",
     "water engine completion",
     "new grade"
   ],
-  "updated_at": "2026-10-26T09:32:13.989Z",
+  "updated_at": "2026-10-26T09:57:03.778Z",
   "owner_goal": "Continue water engine alongside broader engine until independently evidenced completion; existing hourly builder updated",
   "completion_gates": {
-    "continuous_surfaces": "CPU ledges pass; GPU/real scenes incomplete",
+    "continuous_surfaces": "Two cliff discontinuities fixed; actual GPU controlled readbacks and live controlled scene pass. Natural cliff temporal/pixel acceptance remains open.",
     "volume_and_constituents": "existing scoped checks pass; world ledger/long soak incomplete",
     "loaded_unloaded_persistence": "incomplete broad acceptance",
     "seasonal_groundwater_and_oceans": "incomplete broad acceptance",
@@ -34,5 +36,20 @@
   },
   "automation_id": "6ad974bdc204819195e5465aeea9dca2",
   "engine_complete": false,
-  "milestone_source_sha": "3acffb22a996876a57ce2cfb73eee60747358acc"
+  "milestone_source_sha": "3acffb22a996876a57ce2cfb73eee60747358acc",
+  "latest_delivery": {
+    "version": "0.0.1-alpha.29-dev.28-water.2",
+    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar",
+    "export": "C:/workspace/deepprimal-deliverables/DeepPrimal-dev.28-water.2-Windows.jar",
+    "size": 125292084,
+    "sha256": "012ede8a138058b7a1fda66dd9c0fcd3bba414159322b98c6757feada5052ed3",
+    "producerEqualsExport": true,
+    "libraryTransfer": {
+      "status": "failed-before-transfer",
+      "reason": "hosted apps tools/list request failed: DNS"
+    },
+    "publicationParent": "d6c9674070d8bed83e79e9b7a6551172d9246f9b",
+    "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
+  },
+  "next_priority": "Prioritize the owner's remaining cliff fluidity acceptance: natural mountain waterfalls and cascades, wet/dry fronts, overhangs, world-space side texture/advection continuity, multi-layer junctions, travel and frame tails. Then world conservation/unloaded persistence/multiplayer. Do not call the water engine done from these scoped checks."
 }
