@@ -1,0 +1,23 @@
+{
+  "scope": "completed own renderer outputs/cache and verified-upload local duplicate only",
+  "removed": [
+    "jam3/project/engine-core/build",
+    "jam3/project/graphics-settings/build",
+    "jam3/project/renderer-vulkan/build",
+    "jam3/project/lod-engine/build",
+    "jam3/project/performance-engine/build",
+    "jam3/project/build",
+    "jam3/native-cache",
+    "/workspace/scratch/c748d58856d9/jam2/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.29-renderer.2-vulkan-windows.jar"
+  ],
+  "other_jobs_touched": false,
+  "removed_verified_durable_export": "/workspace/scratch/c748d58856d9/jam3/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-renderer.3-vulkan-windows.jar",
+  "durable_file_id": "libfile_abf1214694f48191a9de1ec96dd4632b",
+  "sha256_verified_before_removal": "9fcca4f2693c0e509440708cbd7133ed647b71d3287ae43d25e6f9e665086375",
+  "completed_duplicate_checkouts_removed": {
+    "jam/project": "5f879e7996606b73fa4e72008626f9200adcea5a",
+    "jam2/project": "53b4d82f351352f52384f55d6f384cf8694f378a",
+    "jam3/project": "08b9ae940f3897e98efa7b1bbd32a6f0a2e17271"
+  },
+  "current_git_verified_source_art_and_all_prior_receipts_retained": true
+}
