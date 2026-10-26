@@ -1,16 +1,14 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-25T23:50:17Z",
-  "active_until": "2026-10-25T23:50:17Z",
+  "status": "active",
+  "updated_at": "2026-10-26T00:30:30Z",
+  "active_until": "2026-10-26T00:55:30.000Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.22",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Restore isolated build capacity; qualify staged ByteLru and finite DensityGrid repairs, then resume native V8 and revision-5 gates",
+  "current_gate": "Repair work-state structural corruption and add strict coordination validation; preserve newer owner engine changes",
   "latest_channel_revision_five": {
-  "current_gate": "Dev.22 delivered; resume unfinished V8/native topology and saved-profile gates",
-  "latest_channel_revision_four": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
     "source_version": "0.0.1-alpha.29-dev.21",
@@ -165,11 +163,8 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
-
     "2026-10-25 builder: channel revision 5 (conserved distributary discharge budgets) is staged opt-in on top of revisions 3-4; the engine_deltas_standard/engine_deltas_deep packs now save channel_revision 5 and the codec accepts 0..5. Default presets stay channel_revision 2; revisions 0-4 replay unchanged and revisions 3-4 match frozen digests. Core evidence: DISTRIBUTARY_PASS fans=21 branches=63 wetSamples=126 minShare=0.242 maxShare=0.490 widestRatio=1.27 outsideChanges=0, DISTRIBUTARY_CORE_PASS revisions3And4Replay=true sharesConserved=true, OXBOW_PASS/DELTA_REVISION_PASS/DELTA_CORE_PASS unchanged, full CoreChecks exit 0. Next: native revision-5 save/reopen and visual acceptance after owner approval; the cf46cf7 Linux revision-4 save/reopen receipt predates the packs saving 5. Remaining gaps: no routed discharge state, braid budgeting, seaward progradation, avulsion, dynamic meander migration or anastomosing.",
-
     "Dev.22 promotes both overflow repairs with full35-task build,550class/113independent comparisons,7archive CRCs and four packaged native save/reopen passes. docs/validation/engine-continuation/overflow-full-qualification-2026-10-25/README.md. Old overflow/core-only/storage blockers below are historical. Next resume staged V8 topology/native saved-profile integration; R57/R60/R61/R62 remain unpromoted. No regrade.",
-
     "2026-10-25 combined overflow core-package gate passes: 113 product classes/65 fixture exclusions,3379936 cache+11728 density assertions and complete core suite. docs/validation/engine-continuation/combined-overflow-package-2026-10-25/README.md. Runtime candidates unchanged/unpromoted. Full Gradle/module/native/installer still blocked by isolated build storage; no grade change.",
     "2026-10-25 builder: native smoke acceptance checks now survive Python optimization; 16 tests pass normal/-O/-OO, baseline -O wrongly accepts ten malformed scenarios. docs/validation/engine-continuation/smoke-optimization-gates-2026-10-25/README.md. No runtime/version/JAR change. Latest auditor confirms default2 and opt-in4 save/reopen at cf46cf7; footprint visuals/discharge and overflow promotions still open.",
     "2026-10-25 builder: staged ByteLru byte-budget overflow repair, expected baseline failure, 3,379,936 BigInteger-oracle assertions and complete current Java25 core suite pass. docs/validation/engine-continuation/byte-lru-overflow-2026-10-25/README.md. Runtime unpromoted; full build/native/JAR blocked by zero overlay storage. Last external grade5.0 unchanged.",
@@ -472,7 +467,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "hourly-engine-builder-20261025T2330",
+  "worker": "hourly-engine-builder-20261026T0030",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1125,4 +1120,4 @@
     "evidence": "docs/validation/engine-continuation/overflow-full-qualification-2026-10-25/README.md",
     "completed_at": "2026-10-25T23:50:17Z"
   }
-}}
+}
