@@ -1,0 +1,234 @@
+{
+  "tested_source": "b8e69b632d6b45be94b08143d25186f3eee0e942",
+  "fresh_parent": "af8e1c1e501d474138b4ec6a072c71a8020e9f79",
+  "tested_tree": "3ecad8cea62fb38d0fc494ec4d4bccc415780869",
+  "rebased_tree": "7f724fb5b7794fb4626ff5a87c2dd2572ec6f4ec",
+  "only_docs_differ": true,
+  "entries": [
+    {
+      "path": ".gitignore",
+      "tested": "bc192560b2106b2e62179b2c2917705c884a5c74",
+      "rebased": "bc192560b2106b2e62179b2c2917705c884a5c74"
+    },
+    {
+      "path": ".vscode",
+      "tested": "3d72ecc8a965221f05dc2add6e6a36dc55363693",
+      "rebased": "3d72ecc8a965221f05dc2add6e6a36dc55363693"
+    },
+    {
+      "path": "ENGINE_CORE_SUMMARY.md",
+      "tested": "1ff24126ff8d76dd751068ac59475338d47ddeb6",
+      "rebased": "1ff24126ff8d76dd751068ac59475338d47ddeb6"
+    },
+    {
+      "path": "README.md",
+      "tested": "10ff92c727b0827c049632a8a4e807ab9139d9ea",
+      "rebased": "10ff92c727b0827c049632a8a4e807ab9139d9ea"
+    },
+    {
+      "path": "build.gradle",
+      "tested": "3fd248d01b60ae1690430c10caa74b5daa53d203",
+      "rebased": "3fd248d01b60ae1690430c10caa74b5daa53d203"
+    },
+    {
+      "path": "engine-core",
+      "tested": "6b217a520d2707f6bda78d66440e38d8c0018454",
+      "rebased": "6b217a520d2707f6bda78d66440e38d8c0018454"
+    },
+    {
+      "path": "gradle.properties",
+      "tested": "750f283f602e2678dfb2d316f0df13a72659fdc0",
+      "rebased": "750f283f602e2678dfb2d316f0df13a72659fdc0"
+    },
+    {
+      "path": "gradle",
+      "tested": "1baf30cf580f96464a0de358eaef0f318333bb8d",
+      "rebased": "1baf30cf580f96464a0de358eaef0f318333bb8d"
+    },
+    {
+      "path": "gradlew",
+      "tested": "adff685a0348c64b2b64f0b302f1f82b28eeaaea",
+      "rebased": "adff685a0348c64b2b64f0b302f1f82b28eeaaea"
+    },
+    {
+      "path": "gradlew.bat",
+      "tested": "c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39",
+      "rebased": "c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39"
+    },
+    {
+      "path": "graphics-settings",
+      "tested": "2ff539d5252bf916a16af53edbffacf69305a218",
+      "rebased": "2ff539d5252bf916a16af53edbffacf69305a218"
+    },
+    {
+      "path": "gui-themes",
+      "tested": "8881f6a98c5654721971d67deff75c586033a68e",
+      "rebased": "8881f6a98c5654721971d67deff75c586033a68e"
+    },
+    {
+      "path": "lod-engine",
+      "tested": "6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8",
+      "rebased": "6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8"
+    },
+    {
+      "path": "maritime-1.21.1",
+      "tested": "72006208f45b971396160f050916faaff1819302",
+      "rebased": "72006208f45b971396160f050916faaff1819302"
+    },
+    {
+      "path": "performance-engine",
+      "tested": "4d93cca2e09acdb132f1a0377d9e10231f5db014",
+      "rebased": "4d93cca2e09acdb132f1a0377d9e10231f5db014"
+    },
+    {
+      "path": "renderer-vulkan",
+      "tested": "a781ad176d0f455626d1e6daf191b5dfa6c2dc6c",
+      "rebased": "a781ad176d0f455626d1e6daf191b5dfa6c2dc6c"
+    },
+    {
+      "path": "roadmap.md",
+      "tested": "ea7a174154f710f5bbff2d756405b047bb750a77",
+      "rebased": "ea7a174154f710f5bbff2d756405b047bb750a77"
+    },
+    {
+      "path": "settings.gradle",
+      "tested": "92ab970c19f8beda4b3ecfb89d1eb5b85056ea86",
+      "rebased": "92ab970c19f8beda4b3ecfb89d1eb5b85056ea86"
+    },
+    {
+      "path": "src",
+      "tested": "1e28212c6f15173c35025549d2cb492a5f341272",
+      "rebased": "1e28212c6f15173c35025549d2cb492a5f341272"
+    },
+    {
+      "path": "standalone-engine",
+      "tested": "1745890a43d4adc0fdb7e239a481955f7ac56a96",
+      "rebased": "1745890a43d4adc0fdb7e239a481955f7ac56a96"
+    },
+    {
+      "path": "tools",
+      "tested": "72611fa7cda71295c0cbf3df1edff402c7756f6b",
+      "rebased": "72611fa7cda71295c0cbf3df1edff402c7756f6b"
+    }
+  ],
+  "docs_changes": [
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/RollingTimingChecks-direct.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/RollingTimingChecks-packaged.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/SplitAdmissionChecks.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/allocation-probe.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/allocation-probe.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/allowance-overflow-characterization.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/allowance-source-identity.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/aquifer-fresh.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/aquifer-harness.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/aquifer-native-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/aquifer-reopen.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/aquifer-verify.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/allocation-probe/AllocationProbe.java",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/allowance-probe/AllowanceAudit.java",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/aquifer_native_smoke.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/audit-version.gradle",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/extra_gates.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/finish_gates.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/native-memory.init.gradle",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/native_smoke.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/packaged_regressions.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/post_native_verify.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/precipitation-native/run_native.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/receiver-native/run_native.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/repeat_native_gates.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/run_build.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/run_checks.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/source-excerpts.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/strict-compile.init.gradle",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/audit-tools/validate_package.py",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/build-command.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/build-output.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/build-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/class-identity.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/coordination.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-deposit-0.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-deposit-1.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-native-0.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-native-0.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-native-1.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-native-1.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/default-native-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/delivery.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/extra-gates.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-native-resume-orchestrator-finish_gates.py.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-native-resume-orchestrator-post_native_verify.py.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-native-resume-qualification-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-ram-attempt-build-output.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-ram-attempt-build-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-ram-attempt-orchestrator-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/first-ram-attempt-orchestrator-run_build.py.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/grade.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/host.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/independent-compile.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/independent-core-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/independent-core.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/lease.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/lod.LodPartBoundsChecks.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/lod.LodReductionChecks-direct.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/lod.LodReductionChecks-packaged.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/lod.LodScratchChecks-direct.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/lod.LodScratchChecks-packaged.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/native-harness.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/native-packaging-correction.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/newer-main.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-deposit-0.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-deposit-1.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-native-0.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-native-0.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-native-1.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-native-1.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/optin-native-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/orchestrator-post_native_verify.py.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/orchestrator-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/orchestrator-run_build.py.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/output-layout.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/owner-retention-library.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/owner-retention-local.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/package.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/packaged-regressions-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/packaged-regressions.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/post-native-archive.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/precipitation-fresh-harness.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/precipitation-native-fresh-observations.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/precipitation-native-fresh-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/precipitation-native-reopen-observations.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/precipitation-native-reopen-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/precipitation-reopen-harness.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/publication-parent.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/python-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/qualification-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/rcon-tests-double-optimized.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/rcon-tests-optimized.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/rcon-tests.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/receiver-harness.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/receiver-native-candidate-observations.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/receiver-native-candidate-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/repeat-native-gates.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/second-path-attempt-build-output.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/second-path-attempt-build-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/second-path-attempt-orchestrator-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/shutdown-tests-double-optimized.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/shutdown-tests-optimized.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/shutdown-tests.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/source-identity.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/source-inspection.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/state-tests-double-optimized.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/state-tests-optimized.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/state-tests.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/third-path-attempt-build-output.txt",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/third-path-attempt-build-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/third-path-attempt-orchestrator-result.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/toolchain-verification.json",
+    "docs/engine-hourly-audits/2026-10-26T1627-b198804/workstate.txt"
+  ],
+  "pushed_source": "02eb0d8f3739cf036717abf82d03dc7e2a325081",
+  "pushed": true
+}

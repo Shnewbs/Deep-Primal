@@ -1,0 +1,27 @@
+{
+  "type": "renderer jam self-audit",
+  "source_sha": "02eb0d8f3739cf036717abf82d03dc7e2a325081",
+  "categories": [
+    "distance/LOD correctness and usable coverage",
+    "mesh generation/reuse/scheduling",
+    "GPU culling/submission/memory",
+    "actual FSR/DLSS implementation",
+    "visual/backend/settings compatibility",
+    "validation and measured performance"
+  ],
+  "scores": [
+    4,
+    6,
+    4,
+    0,
+    4,
+    4
+  ],
+  "average": 3.6666666666666665,
+  "previous_average": 3.6666666666666665,
+  "delta": 0,
+  "fresh_complete_engine_regrade": false,
+  "evidence": "REVIEW.md",
+  "performance_gain_claimed": false,
+  "missing": "GPU/client/race/frame/camera/travel/edit/VRAM/Windows gates unrun; prior allocation carried only"
+}

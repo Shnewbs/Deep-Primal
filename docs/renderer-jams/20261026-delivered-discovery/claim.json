@@ -1,7 +1,7 @@
 {
   "owner": "renderer-20261026-delivered-discovery",
-  "status": "active",
-  "active_until": "2026-10-26T17:11:05.052Z",
+  "status": "completed",
+  "active_until": null,
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
@@ -14,5 +14,11 @@
     "exclusive_benchmark": false,
     "status": "functional_only",
     "scope": "Bounded traversal/admission correctness; no performance reservation"
-  }
+  },
+  "completed_at": "2026-10-26 17:12:48 UTC",
+  "lease_released": true,
+  "final_source": "02eb0d8f3739cf036717abf82d03dc7e2a325081",
+  "build_execution_source": "b8e69b632d6b45be94b08143d25186f3eee0e942",
+  "version": "0.0.1-alpha.29-dev.30-renderer.5",
+  "evidence": "REVIEW.md"
 }

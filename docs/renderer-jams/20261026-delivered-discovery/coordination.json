@@ -1,0 +1,52 @@
+{
+  "last_main_before_runtime": "af8e1c1e501d474138b4ec6a072c71a8020e9f79",
+  "own_claim_before_integration": {
+    "owner": "renderer-20261026-delivered-discovery",
+    "status": "active",
+    "active_until": "2026-10-26T17:11:05.052Z",
+    "scope": [
+      "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
+      "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+      "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScanChecks.java",
+      "docs/renderer-jams/20261026-delivered-discovery"
+    ],
+    "parent": "b198804f19db960fba6efc52a76b18c603d50601",
+    "measurement": {
+      "exclusive_benchmark": false,
+      "status": "functional_only",
+      "scope": "Bounded traversal/admission correctness; no performance reservation"
+    }
+  },
+  "other_engine_worker": "builder-20261026T1700",
+  "engine_active_until": "2026-10-26T17:33:00Z",
+  "engine_gate": "Qualify combined recharge/allowance candidate in fresh builder1700 checkout/cache/output.",
+  "engine_performance_measurement": {
+    "status": "functional_only",
+    "owner": "builder-20261026T1700",
+    "active_until": "2026-10-26T17:33:00Z",
+    "exclusive_benchmark": false,
+    "resources": "builder1700 isolated Java25/Gradle/native; no timed benchmark"
+  },
+  "water_scope": [
+    "gradle.properties",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterfallUploadChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCliffContinuityChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCliffSceneChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/AnimatedWaterChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterLiveContinuityChecks.java",
+    "docs/validation/engine-continuation/cliff-continuity-2026-10-26"
+  ],
+  "water_status": "checkpointed",
+  "no_overlap": true,
+  "no_other_schedules_edited": true,
+  "no_subagents": true,
+  "scored_review_source": "02eb0d8f3739cf036717abf82d03dc7e2a325081",
+  "published_four_file_readback_matches": true,
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1627-b198804/REVIEW.md",
+  "consumed_renderer": "docs/renderer-jams/20261026-lod-scratch/REVIEW.md"
+}
