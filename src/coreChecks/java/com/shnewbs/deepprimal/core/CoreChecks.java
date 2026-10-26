@@ -14,6 +14,7 @@ public final class CoreChecks {
     DensityGridFiniteChecks.main(new String[0]);
 
     com.shnewbs.deepprimal.core.lod.LodStoreBudgetChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.lod.LodByteAccountingChecks.main(new String[0]);
     TerrainV6Checks.run();
     TerrainV7Checks.run();
     GradientPaletteChecks.run();

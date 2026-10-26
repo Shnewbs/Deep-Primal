@@ -34,6 +34,8 @@ tasks.register('generateThemeAssets', JavaExec) {
 }
 sourceSets.main.resources.srcDir generatedThemes
 tasks.named('processResources') {
+    // Keep interrupted-sync files out of the nested module and distributable bundle.
+    exclude '**/.rsync-tmp/**', '**/.*'
     dependsOn 'generateThemeAssets'
     inputs.property 'mod_version', project.mod_version
     filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
@@ -42,7 +44,11 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.incremental = false
 }
-tasks.named('jar') { preserveFileTimestamps = false; reproducibleFileOrder = true }
+tasks.named('jar') {
+    exclude '**/.rsync-tmp/**', '**/.*'
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
 
 // Opt-in client smoke harness. Its classes are never included in the release JAR.
 if (providers.gradleProperty('themeValidation').isPresent()) {

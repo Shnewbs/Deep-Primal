@@ -14,10 +14,18 @@ public final class LodMesher {
     }
 
     public long bytes() {
-      return java.util.stream.Stream.of(fine, medium, coarse)
-          .flatMap(List::stream)
-          .mapToLong(HorizonMesh::gpuBytes)
-          .sum();
+      return bytes(fine) + bytes(medium) + bytes(coarse);
+    }
+
+    private static long bytes(List<HorizonMesh> meshes) {
+      long bytes = 0;
+      // Indexed traversal avoids stream/iterator allocation during repeated budget checks.
+      if (meshes instanceof RandomAccess) {
+        for (int i = 0, size = meshes.size(); i < size; i++) bytes += meshes.get(i).gpuBytes();
+      } else {
+        for (HorizonMesh mesh : meshes) bytes += mesh.gpuBytes();
+      }
+      return bytes;
     }
   }
 
