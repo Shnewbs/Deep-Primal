@@ -1,0 +1,18 @@
+{
+  "owner": "renderer-20261026-delivered-discovery",
+  "status": "active",
+  "active_until": "2026-10-26T17:11:05.052Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScanChecks.java",
+    "docs/renderer-jams/20261026-delivered-discovery"
+  ],
+  "parent": "b198804f19db960fba6efc52a76b18c603d50601",
+  "measurement": {
+    "exclusive_benchmark": false,
+    "status": "functional_only",
+    "scope": "Bounded traversal/admission correctness; no performance reservation"
+  }
+}
