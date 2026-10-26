@@ -1,0 +1,1 @@
+{"role":"auditor","source_sha":"8665e07be705c9cf6470adf3d6a6d325cea094fc","status":"checkpointed","exclusive_benchmark":false,"builder_mutated":false,"output":"/dev/shm/audit-8665e07-20261026T1834","full_build_completed":false,"new_qualified_jar":false,"fresh_core_pass":true,"completed_utc":"2026-10-26T18:54:05.263746+00:00","grade":5.0}
