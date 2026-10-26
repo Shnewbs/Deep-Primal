@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T19:58:12.165Z",
-  "active_until": "2026-10-26T20:28:12.165Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T20:04:54.118Z",
+  "active_until": "2026-10-26T20:04:54.118Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Staged hydrology equal-height lifecycle ordering qualification",
+  "current_gate": "Staged source registration priority preserved across dry/re-add windows; full mod/native capacity gate remains open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "Full combined index native quota/partial-survey/reentrancy/load-unload/weather/save/reopen qualification before promotion",
     "Recover sufficient private build/output headroom; qualify staged recharge reservation via full Gradle/module/native source-quota/recharge/save/reopen gates before promotion.",
     "Incorporate qualified foreground cliff continuity work; continue loaded/unloaded water ledger and V8 saved-profile/topology. Preserve dev.28 constituent admission and dev.27 bounded aquifer clock.",
     "Restore complete pinned project via authorized connector; validate water loaded/unloaded ownership and V8 saved-profile/topology. Recheck foreground water claim before runtime edits.",
@@ -998,10 +999,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "functional_only",
+    "status": "released",
     "exclusive_benchmark": false,
     "owner": "builder-20261026T2000",
-    "active_until": "2026-10-26T20:28:12.165Z"
+    "active_until": "2026-10-26T20:04:54.118Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1028,7 +1029,14 @@
     "consumed_audit_sha": "e528d066d8202ac1a2822de700099a34ce67d470",
     "last_external_grade": 5,
     "scope": "Staged hydrology source index tie-order semantics",
-    "lease_released": false
+    "lease_released": true,
+    "production_runtime_changed": false,
+    "evidence": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/README.md",
+    "actual_changes": "Lazy dormant registration markers preserve equal-height priority until the original post-survey source-pass boundary; unload releases dormant entries.",
+    "checks": "100000 lifecycle transitions,1000 actual-runtime priority cases,5512 lifecycle,20008 index,144 loop,1445 allowance; fresh138-source complete core suite pass",
+    "blocker": "Overlay free0; full Gradle/package/native not started; no new JAR.",
+    "next_implementation": "Full combined index native quota/partial-survey/reentrancy/load-unload/weather/save/reopen qualification before promotion",
+    "coordination": "Read latest audit; renderer active scoped claim respected and3947797 preserved. Personal Context did not establish fresh direct original-other-chat ownership."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1209,13 +1217,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1834-8665e07/REVIEW.md",
-    "source_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
+    "path": "docs/engine-hourly-audits/2026-10-26T1934-e528d06/REVIEW.md",
+    "source_sha": "e528d066d8202ac1a2822de700099a34ce67d470",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Qualify staged incremental source index; repair missing-FULL cleanup and stale cursor invalidation of replacement sources."
+    "chosen_repair": "Preserve source registration tie priority across dry/re-add transitions without whole-index cleanup"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1284,11 +1292,11 @@
   },
   "latest_staged_source_index": {
     "promoted": false,
-    "base_source_sha": "094033d41147693e0ba3881026d009ca37fc895b",
-    "evidence": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/README.md",
-    "candidate": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/stage/HydrologyRuntime.java",
-    "helper": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/stage/StreamSourceIndex.java",
-    "checks": "144 actual extracted loop cases,5512 actual-runtime lifecycle checks,20000 index mutations,1445 actual-runtime allowance cases; fresh138-source complete core suite pass",
+    "base_source_sha": "cbc9ed5b9ad4dff93b8554584b738900208c2069",
+    "evidence": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/README.md",
+    "candidate": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/stage/HydrologyRuntime.java",
+    "helper": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/stage/StreamSourceIndex.java",
+    "checks": "100000 lifecycle transitions,1000 actual-runtime priority cases,5512 lifecycle,20008 index,144 loop,1445 allowance; fresh138-source complete core suite pass",
     "remaining_gate": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison.",
     "in_delivered_jar": false
   }

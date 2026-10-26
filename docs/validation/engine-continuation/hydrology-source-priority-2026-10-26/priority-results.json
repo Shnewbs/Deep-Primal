@@ -1,0 +1,12 @@
+[
+  {
+    "variant": "baseline",
+    "exit": 1,
+    "output": "Exception in thread \"main\" java.lang.AssertionError: source priority changed after dry/re-add\n\tat com.shnewbs.deepprimal.engine.StreamSourcePriorityChecks.check(StreamSourcePriorityChecks.java:15)\n\tat com.shnewbs.deepprimal.engine.StreamSourcePriorityChecks.main(StreamSourcePriorityChecks.java:21)\n"
+  },
+  {
+    "variant": "candidate",
+    "exit": 0,
+    "output": "SOURCE_PRIORITY_PASS checks=100003 transitions=100000 sameWindow=true nextPass=true unloadReleasesDormant=true\n"
+  }
+]
