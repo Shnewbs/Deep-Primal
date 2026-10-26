@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T13:14:10Z",
-  "active_until": "2026-10-26T13:14:10Z",
+  "status": "active",
+  "updated_at": "2026-10-26T14:25:00Z",
+  "active_until": "2026-10-26T15:10:00Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.29",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Actual survey extraction and full staged HydrologyRuntime API compile passed; full current Gradle/core/module/package and actual native source/quota/restart gates still required before promotion.",
+  "current_gate": "Restore current source deltas in private builder checkout; full Gradle qualification of staged hydrology deadline candidate.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -479,7 +479,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T1310",
+  "worker": "builder-20261026T1425",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -997,12 +997,12 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "completed",
-    "owner": "builder-20261026T1310",
-    "active_until": "2026-10-26T13:14:10Z",
+    "status": "active",
+    "owner": "builder-20261026T1425",
+    "active_until": "2026-10-26T15:10:00Z",
     "exclusive_benchmark": false,
-    "resources": "isolated survey1310 functional fixture",
-    "kind": "functional_survey_checks"
+    "resources": "builder0731 private cache/project; builder1425 receipt",
+    "kind": "functional_build"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1188,7 +1188,7 @@
     "chosen_repair": "Close missing actual survey-method validation before staged scheduler promotion.",
     "fresh_grade_awarded": false
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "staged_not_promoted",
     "source_sha": "53b4d82f351352f52384f55d6f384cf8694f378a",
