@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/a2f7076b7762/audit-68b2278-20261026T1247/precipitation-native/run_native.py", line 8, in <module>
+    if not (work/'.cache').exists(): (work/'.cache').symlink_to(r/'native-cache', target_is_directory=True)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1386, in symlink_to
+    os.symlink(target, self, target_is_directory)
+FileExistsError: [Errno 17] File exists: '/workspace/scratch/a2f7076b7762/audit-68b2278-20261026T1247/native-cache' -> '/workspace/scratch/a2f7076b7762/audit-68b2278-20261026T1247/precipitation-native/world-persistence/.cache'
