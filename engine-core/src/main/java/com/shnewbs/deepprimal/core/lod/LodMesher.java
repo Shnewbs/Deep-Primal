@@ -36,7 +36,7 @@ public final class LodMesher {
     int[] offsets = c.offsets(), runs = c.runs(), dense = new int[c.height * 256];
     for (int col = 0; col < 256; col++)
       for (int j = offsets[col]; j < offsets[col + 1]; j += 3)
-        Arrays.fill(
+        if (colors[runs[j + 2]] != 0) Arrays.fill(
             dense,
             col * c.height + runs[j] - c.minY,
             col * c.height + runs[j + 1] - c.minY,
@@ -60,10 +60,15 @@ public final class LodMesher {
         for (int x = 0; x < n; x++)
           for (int y = 0; y < h; y++) {
             int selected = 0;
+            samples:
             for (int dz = 0; dz < step; dz++)
               for (int dx = 0; dx < step; dx++) {
                 int v = source[((z * step + dz) * 16 + x * step + dx) * h + y];
-                if (v != 0 && (selected == 0 || water(selected) && !water(v))) selected = v;
+                if (v != 0 && (selected == 0 || water(selected) && !water(v))) {
+                  selected = v;
+                  // The first opaque sample wins; later samples cannot replace it.
+                  if (!water(v)) break samples;
+                }
               }
             data[(z * n + x) * h + y] = selected;
           }
