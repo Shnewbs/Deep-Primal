@@ -266,11 +266,11 @@ public final class VoxelLodRenderer {
         ? 0 : 128;
     deliveredScan.drain(discoveryBudget, (x, z) -> {
       // Discovery must not displace live edits or flood the existing bounded dirty queue.
-      if (dirty.size() >= 512) return false;
       long k = key(x, z);
-      if (level.hasChunk(x, z) && !dirty.containsKey(k)
-          && (workingKey == null || workingKey != k)
-          && (pendingGpu == null || pendingGpu.ready.key != k)) dirty(x, z);
+      if (dirty.containsKey(k)) return true;
+      if (dirty.size() >= 512) return false;
+      // Native rediscovery must supersede disk work, including in-flight results/uploads.
+      if (level.hasChunk(x, z)) dirty(x, z);
       return true;
     });
     discoveryVisited = deliveredScan.visited();
