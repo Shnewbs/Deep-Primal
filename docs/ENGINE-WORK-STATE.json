@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T12:10:12Z",
-  "active_until": "2026-10-26T12:40:12Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T12:13:35Z",
+  "active_until": "2026-10-26T12:13:35Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.29",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Extend staged stream deadline admission to wrap-safe monotonic comparisons and verify exact-method regressions; full build/native promotion still gated.",
+  "current_gate": "Restore isolated build headroom, qualify combined staged stream deadline/wrap repair with full build and packaged native budgets/restart, then version and promote; broader water ownership/V8 gates remain.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -998,8 +998,8 @@
   },
   "performance_measurement": {
     "owner": "builder-20261026T1210",
-    "status": "active",
-    "active_until": "2026-10-26T12:40:12Z",
+    "status": "completed",
+    "active_until": "2026-10-26T12:13:35Z",
     "exclusive_benchmark": false,
     "kind": "functional_clock_boundary_checks",
     "resources": "isolated stream1210; no measured latency"
@@ -1117,10 +1117,10 @@
     "new_followup_defect": "Valid full-constituent receiver can reject after block writes; four native failures reproduced. Dev.28 repair under qualification."
   },
   "latest_provisional_audit": {
-    "source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
-    "evidence": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
-    "score_out_of_100": 48,
-    "average": 4.8,
+    "source_sha": "93ac6cbc8b0377e6a08e3bcc847a41edcd54da0a",
+    "evidence": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
+    "score_out_of_100": 50,
+    "average": 5,
     "fresh_complete_regrade": false,
     "last_full_average": 5
   },
@@ -1181,25 +1181,24 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
-    "source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
-    "provisional_average": 4.8,
+    "path": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
+    "source_sha": "93ac6cbc8b0377e6a08e3bcc847a41edcd54da0a",
+    "provisional_average": 5,
     "last_full_average": 5,
-    "chosen_repair": "Promote precipitation receiver admission only after full combined and native qualification.",
-    "coordination": "Auditor recorded completed 10:44UTC. Personal context checked; no independent live cross-chat claim inferred. Root and water leases checkpointed.",
-    "implemented_repairs": "Capacity-rejected precipitation returns zero atomically; 80000 regression cases now in regular CoreChecks; private actual native fresh/reopen fixture added.",
+    "chosen_repair": "Extend staged natural-stream budget admission with wrap-safe comparisons; full/native promotion gated.",
+    "coordination": "Git root/water leases checked; auditor recorded completed 11:50Z. Personal context lacks new live cross-chat claim.",
     "fresh_grade_awarded": false
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "staged_not_promoted",
-    "source_sha": "b1db1bbbef903d33feecf32af986761abe2de5b7",
-    "evidence": "docs/validation/engine-continuation/stream-deadline-2026-10-26/README.md",
+    "source_sha": "53b4d82f351352f52384f55d6f384cf8694f378a",
+    "evidence": "docs/validation/engine-continuation/stream-clock-wrap-2026-10-26/README.md",
     "reproduction": "Exact production tick with deterministic boundary doubles: 256 callbacks, 255 after deadline; candidate 1 callback, 0 late.",
-    "checks": "215 baseline characterization and 215 candidate checks passed; no native timing claim.",
-    "blocker": "717 MB filesystem headroom at checkpoint; full candidate Gradle/native qualification not started.",
+    "checks": "216 baseline characterization; 1266 candidate exact tick checks and 1200000 arithmetic checks pass.",
+    "blocker": "Filesystem 100% full; disk compilation failed ENOSPC, isolated memory-backed compile passed. Full Gradle/native gates not run.",
     "next": "Restore safe isolated build headroom; run full Java25/core/module plus actual packaged natural-source/budget/persistence/shutdown fixtures before promotion.",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
     "audit_source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
     "fresh_grade_awarded": false
   }
