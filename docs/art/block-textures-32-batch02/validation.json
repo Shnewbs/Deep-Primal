@@ -1,0 +1,1057 @@
+{
+  "assets_checked": 70,
+  "pass_dimensions_channels_alpha_hashes": true,
+  "repeat_note": "Wrap statistics are screening data, not proof of seamless artwork; inspect actual tiled proofs. No native render validation claimed.",
+  "assets": [
+    {
+      "id": "stone/diorite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        90,
+        222
+      ],
+      "interior_mean_step": 23.458,
+      "wrap_x_mean_step": 22.438,
+      "wrap_y_mean_step": 21.75,
+      "max_wrap_to_interior_ratio": 0.957,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/andesite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        85,
+        163
+      ],
+      "interior_mean_step": 12.644,
+      "wrap_x_mean_step": 6.094,
+      "wrap_y_mean_step": 8.688,
+      "max_wrap_to_interior_ratio": 0.687,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/rhyolite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        105,
+        186
+      ],
+      "interior_mean_step": 12.672,
+      "wrap_x_mean_step": 5.75,
+      "wrap_y_mean_step": 13.188,
+      "max_wrap_to_interior_ratio": 1.041,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/obsidian",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        17,
+        75
+      ],
+      "interior_mean_step": 9.532,
+      "wrap_x_mean_step": 5.688,
+      "wrap_y_mean_step": 6.719,
+      "max_wrap_to_interior_ratio": 0.705,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/pumice",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        54,
+        174
+      ],
+      "interior_mean_step": 20.948,
+      "wrap_x_mean_step": 17.531,
+      "wrap_y_mean_step": 18.094,
+      "max_wrap_to_interior_ratio": 0.864,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/tuff",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        78,
+        175
+      ],
+      "interior_mean_step": 16.474,
+      "wrap_x_mean_step": 14,
+      "wrap_y_mean_step": 14.906,
+      "max_wrap_to_interior_ratio": 0.905,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/peridotite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        44,
+        136
+      ],
+      "interior_mean_step": 17.145,
+      "wrap_x_mean_step": 12.438,
+      "wrap_y_mean_step": 18.031,
+      "max_wrap_to_interior_ratio": 1.052,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/pegmatite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        52,
+        211
+      ],
+      "interior_mean_step": 25.95,
+      "wrap_x_mean_step": 26.219,
+      "wrap_y_mean_step": 23,
+      "max_wrap_to_interior_ratio": 1.01,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/dolerite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        43,
+        146
+      ],
+      "interior_mean_step": 22.451,
+      "wrap_x_mean_step": 18.094,
+      "wrap_y_mean_step": 18.688,
+      "max_wrap_to_interior_ratio": 0.832,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/syenite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        67,
+        198
+      ],
+      "interior_mean_step": 21.381,
+      "wrap_x_mean_step": 18.75,
+      "wrap_y_mean_step": 21.656,
+      "max_wrap_to_interior_ratio": 1.013,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/chalk",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        161,
+        221
+      ],
+      "interior_mean_step": 11.247,
+      "wrap_x_mean_step": 5.969,
+      "wrap_y_mean_step": 7.812,
+      "max_wrap_to_interior_ratio": 0.695,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/dolostone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        135,
+        214
+      ],
+      "interior_mean_step": 14.484,
+      "wrap_x_mean_step": 11.5,
+      "wrap_y_mean_step": 13.062,
+      "max_wrap_to_interior_ratio": 0.902,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/mudstone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        58,
+        129
+      ],
+      "interior_mean_step": 10.74,
+      "wrap_x_mean_step": 5.719,
+      "wrap_y_mean_step": 11.344,
+      "max_wrap_to_interior_ratio": 1.056,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/siltstone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        91,
+        149
+      ],
+      "interior_mean_step": 8.708,
+      "wrap_x_mean_step": 5.844,
+      "wrap_y_mean_step": 9.344,
+      "max_wrap_to_interior_ratio": 1.073,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/conglomerate",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        67,
+        192
+      ],
+      "interior_mean_step": 19.24,
+      "wrap_x_mean_step": 18.5,
+      "wrap_y_mean_step": 13.031,
+      "max_wrap_to_interior_ratio": 0.962,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/breccia",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        58,
+        182
+      ],
+      "interior_mean_step": 22.054,
+      "wrap_x_mean_step": 25.125,
+      "wrap_y_mean_step": 24.688,
+      "max_wrap_to_interior_ratio": 1.139,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/greywacke",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        54,
+        139
+      ],
+      "interior_mean_step": 11.361,
+      "wrap_x_mean_step": 6.344,
+      "wrap_y_mean_step": 8.375,
+      "max_wrap_to_interior_ratio": 0.737,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/flint",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        46,
+        128
+      ],
+      "interior_mean_step": 13.161,
+      "wrap_x_mean_step": 10.062,
+      "wrap_y_mean_step": 9.625,
+      "max_wrap_to_interior_ratio": 0.765,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/gypsum",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        117,
+        207
+      ],
+      "interior_mean_step": 16.939,
+      "wrap_x_mean_step": 6.625,
+      "wrap_y_mean_step": 16.906,
+      "max_wrap_to_interior_ratio": 0.998,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/halite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        96,
+        227
+      ],
+      "interior_mean_step": 19.091,
+      "wrap_x_mean_step": 15.938,
+      "wrap_y_mean_step": 14.438,
+      "max_wrap_to_interior_ratio": 0.835,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/travertine",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        112,
+        193
+      ],
+      "interior_mean_step": 9.427,
+      "wrap_x_mean_step": 4.75,
+      "wrap_y_mean_step": 6.594,
+      "max_wrap_to_interior_ratio": 0.699,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/ironstone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        58,
+        139
+      ],
+      "interior_mean_step": 15.145,
+      "wrap_x_mean_step": 10.969,
+      "wrap_y_mean_step": 14.219,
+      "max_wrap_to_interior_ratio": 0.939,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/coquina",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        77,
+        192
+      ],
+      "interior_mean_step": 22.453,
+      "wrap_x_mean_step": 13.781,
+      "wrap_y_mean_step": 18.031,
+      "max_wrap_to_interior_ratio": 0.803,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/laterite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        47,
+        131
+      ],
+      "interior_mean_step": 15.221,
+      "wrap_x_mean_step": 10.281,
+      "wrap_y_mean_step": 13.906,
+      "max_wrap_to_interior_ratio": 0.914,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/schist",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        62,
+        156
+      ],
+      "interior_mean_step": 14.513,
+      "wrap_x_mean_step": 6.562,
+      "wrap_y_mean_step": 15.938,
+      "max_wrap_to_interior_ratio": 1.098,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/gneiss",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        63,
+        193
+      ],
+      "interior_mean_step": 19.847,
+      "wrap_x_mean_step": 15.156,
+      "wrap_y_mean_step": 17.094,
+      "max_wrap_to_interior_ratio": 0.861,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/phyllite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        51,
+        118
+      ],
+      "interior_mean_step": 9.888,
+      "wrap_x_mean_step": 6.125,
+      "wrap_y_mean_step": 11.188,
+      "max_wrap_to_interior_ratio": 1.131,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/hornfels",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        42,
+        104
+      ],
+      "interior_mean_step": 11.751,
+      "wrap_x_mean_step": 9.531,
+      "wrap_y_mean_step": 8.969,
+      "max_wrap_to_interior_ratio": 0.811,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/amphibolite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        46,
+        164
+      ],
+      "interior_mean_step": 18.04,
+      "wrap_x_mean_step": 17.125,
+      "wrap_y_mean_step": 20.25,
+      "max_wrap_to_interior_ratio": 1.122,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/serpentinite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        48,
+        128
+      ],
+      "interior_mean_step": 13.01,
+      "wrap_x_mean_step": 10.312,
+      "wrap_y_mean_step": 10.312,
+      "max_wrap_to_interior_ratio": 0.793,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/soapstone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        105,
+        179
+      ],
+      "interior_mean_step": 10.283,
+      "wrap_x_mean_step": 5.938,
+      "wrap_y_mean_step": 8.656,
+      "max_wrap_to_interior_ratio": 0.842,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/eclogite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        72,
+        148
+      ],
+      "interior_mean_step": 16.355,
+      "wrap_x_mean_step": 13.406,
+      "wrap_y_mean_step": 11.406,
+      "max_wrap_to_interior_ratio": 0.82,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/granulite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        67,
+        172
+      ],
+      "interior_mean_step": 21.874,
+      "wrap_x_mean_step": 18.656,
+      "wrap_y_mean_step": 18.75,
+      "max_wrap_to_interior_ratio": 0.857,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/granodiorite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        62,
+        188
+      ],
+      "interior_mean_step": 23.39,
+      "wrap_x_mean_step": 19.031,
+      "wrap_y_mean_step": 19.656,
+      "max_wrap_to_interior_ratio": 0.84,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/tonalite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        49,
+        205
+      ],
+      "interior_mean_step": 31.262,
+      "wrap_x_mean_step": 17.25,
+      "wrap_y_mean_step": 28.969,
+      "max_wrap_to_interior_ratio": 0.927,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/monzonite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        51,
+        170
+      ],
+      "interior_mean_step": 27.137,
+      "wrap_x_mean_step": 15.875,
+      "wrap_y_mean_step": 22.781,
+      "max_wrap_to_interior_ratio": 0.84,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/anorthosite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        93,
+        214
+      ],
+      "interior_mean_step": 20.891,
+      "wrap_x_mean_step": 15.906,
+      "wrap_y_mean_step": 16.438,
+      "max_wrap_to_interior_ratio": 0.787,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/dunite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        82,
+        160
+      ],
+      "interior_mean_step": 14.408,
+      "wrap_x_mean_step": 10.531,
+      "wrap_y_mean_step": 14.406,
+      "max_wrap_to_interior_ratio": 1.0,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/harzburgite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        61,
+        162
+      ],
+      "interior_mean_step": 24.108,
+      "wrap_x_mean_step": 18.125,
+      "wrap_y_mean_step": 22.031,
+      "max_wrap_to_interior_ratio": 0.914,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/lherzolite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        50,
+        172
+      ],
+      "interior_mean_step": 18.427,
+      "wrap_x_mean_step": 13.031,
+      "wrap_y_mean_step": 13.344,
+      "max_wrap_to_interior_ratio": 0.724,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/pyroxenite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        30,
+        113
+      ],
+      "interior_mean_step": 13.913,
+      "wrap_x_mean_step": 11.031,
+      "wrap_y_mean_step": 10.219,
+      "max_wrap_to_interior_ratio": 0.793,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/dacite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        74,
+        170
+      ],
+      "interior_mean_step": 14.714,
+      "wrap_x_mean_step": 10.5,
+      "wrap_y_mean_step": 11.125,
+      "max_wrap_to_interior_ratio": 0.756,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/trachyte",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        76,
+        161
+      ],
+      "interior_mean_step": 14.183,
+      "wrap_x_mean_step": 13.188,
+      "wrap_y_mean_step": 13.594,
+      "max_wrap_to_interior_ratio": 0.958,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/phonolite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        71,
+        151
+      ],
+      "interior_mean_step": 10.755,
+      "wrap_x_mean_step": 6.312,
+      "wrap_y_mean_step": 9.875,
+      "max_wrap_to_interior_ratio": 0.918,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/trachyandesite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        65,
+        165
+      ],
+      "interior_mean_step": 18.097,
+      "wrap_x_mean_step": 12.219,
+      "wrap_y_mean_step": 12.062,
+      "max_wrap_to_interior_ratio": 0.675,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/komatiite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        36,
+        123
+      ],
+      "interior_mean_step": 18.901,
+      "wrap_x_mean_step": 10.75,
+      "wrap_y_mean_step": 15.312,
+      "max_wrap_to_interior_ratio": 0.81,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/kimberlite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        36,
+        147
+      ],
+      "interior_mean_step": 15.941,
+      "wrap_x_mean_step": 16,
+      "wrap_y_mean_step": 12.719,
+      "max_wrap_to_interior_ratio": 1.004,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/lamproite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        39,
+        142
+      ],
+      "interior_mean_step": 15.375,
+      "wrap_x_mean_step": 20.469,
+      "wrap_y_mean_step": 11.719,
+      "max_wrap_to_interior_ratio": 1.331,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/ignimbrite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        70,
+        171
+      ],
+      "interior_mean_step": 21.533,
+      "wrap_x_mean_step": 7.406,
+      "wrap_y_mean_step": 16.375,
+      "max_wrap_to_interior_ratio": 0.76,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/volcanic_agglomerate",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        55,
+        144
+      ],
+      "interior_mean_step": 19.841,
+      "wrap_x_mean_step": 13.375,
+      "wrap_y_mean_step": 12.844,
+      "max_wrap_to_interior_ratio": 0.674,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/arkose",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        82,
+        171
+      ],
+      "interior_mean_step": 16.428,
+      "wrap_x_mean_step": 12.781,
+      "wrap_y_mean_step": 14.688,
+      "max_wrap_to_interior_ratio": 0.894,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/quartz_arenite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        161,
+        213
+      ],
+      "interior_mean_step": 10.47,
+      "wrap_x_mean_step": 8.188,
+      "wrap_y_mean_step": 11.562,
+      "max_wrap_to_interior_ratio": 1.104,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/claystone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        96,
+        143
+      ],
+      "interior_mean_step": 6.781,
+      "wrap_x_mean_step": 5,
+      "wrap_y_mean_step": 6.594,
+      "max_wrap_to_interior_ratio": 0.972,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/marlstone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        103,
+        178
+      ],
+      "interior_mean_step": 11.776,
+      "wrap_x_mean_step": 7.75,
+      "wrap_y_mean_step": 9.875,
+      "max_wrap_to_interior_ratio": 0.839,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/diatomite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        146,
+        210
+      ],
+      "interior_mean_step": 11.354,
+      "wrap_x_mean_step": 11.375,
+      "wrap_y_mean_step": 9.406,
+      "max_wrap_to_interior_ratio": 1.002,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/radiolarite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        80,
+        127
+      ],
+      "interior_mean_step": 9.034,
+      "wrap_x_mean_step": 6.844,
+      "wrap_y_mean_step": 9.438,
+      "max_wrap_to_interior_ratio": 1.045,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/phosphorite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        62,
+        137
+      ],
+      "interior_mean_step": 12.029,
+      "wrap_x_mean_step": 5.844,
+      "wrap_y_mean_step": 13.031,
+      "max_wrap_to_interior_ratio": 1.083,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/oil_shale",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        26,
+        95
+      ],
+      "interior_mean_step": 9.629,
+      "wrap_x_mean_step": 4.281,
+      "wrap_y_mean_step": 9.062,
+      "max_wrap_to_interior_ratio": 0.941,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/lignite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        33,
+        90
+      ],
+      "interior_mean_step": 10.429,
+      "wrap_x_mean_step": 5.875,
+      "wrap_y_mean_step": 10.719,
+      "max_wrap_to_interior_ratio": 1.028,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/subbituminous_coal",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        27,
+        75
+      ],
+      "interior_mean_step": 8.529,
+      "wrap_x_mean_step": 5.25,
+      "wrap_y_mean_step": 10.125,
+      "max_wrap_to_interior_ratio": 1.187,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/bituminous_coal",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        23,
+        108
+      ],
+      "interior_mean_step": 11.689,
+      "wrap_x_mean_step": 9.375,
+      "wrap_y_mean_step": 10.406,
+      "max_wrap_to_interior_ratio": 0.89,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/anthracite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        19,
+        77
+      ],
+      "interior_mean_step": 8.437,
+      "wrap_x_mean_step": 5.375,
+      "wrap_y_mean_step": 11.656,
+      "max_wrap_to_interior_ratio": 1.382,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/banded_iron_formation",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        64,
+        175
+      ],
+      "interior_mean_step": 21.055,
+      "wrap_x_mean_step": 7.562,
+      "wrap_y_mean_step": 25.594,
+      "max_wrap_to_interior_ratio": 1.216,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/migmatite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        62,
+        186
+      ],
+      "interior_mean_step": 22.546,
+      "wrap_x_mean_step": 12.062,
+      "wrap_y_mean_step": 20.281,
+      "max_wrap_to_interior_ratio": 0.9,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/skarn",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        61,
+        156
+      ],
+      "interior_mean_step": 15.91,
+      "wrap_x_mean_step": 8.969,
+      "wrap_y_mean_step": 13.312,
+      "max_wrap_to_interior_ratio": 0.837,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/greenschist",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        59,
+        135
+      ],
+      "interior_mean_step": 11.245,
+      "wrap_x_mean_step": 6.781,
+      "wrap_y_mean_step": 9.812,
+      "max_wrap_to_interior_ratio": 0.873,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/blueschist",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        46,
+        137
+      ],
+      "interior_mean_step": 12.747,
+      "wrap_x_mean_step": 9.062,
+      "wrap_y_mean_step": 11.938,
+      "max_wrap_to_interior_ratio": 0.936,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/mylonite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        67,
+        174
+      ],
+      "interior_mean_step": 17.175,
+      "wrap_x_mean_step": 9.281,
+      "wrap_y_mean_step": 13.25,
+      "max_wrap_to_interior_ratio": 0.771,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/cataclasite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        56,
+        135
+      ],
+      "interior_mean_step": 14.398,
+      "wrap_x_mean_step": 12.188,
+      "wrap_y_mean_step": 12.969,
+      "max_wrap_to_interior_ratio": 0.901,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/metaconglomerate",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        87,
+        176
+      ],
+      "interior_mean_step": 17.671,
+      "wrap_x_mean_step": 15.062,
+      "wrap_y_mean_step": 18.75,
+      "max_wrap_to_interior_ratio": 1.061,
+      "repeat_attention": false
+    }
+  ]
+}

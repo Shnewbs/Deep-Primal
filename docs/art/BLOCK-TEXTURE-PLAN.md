@@ -65,6 +65,16 @@ Each master was generated individually, then mechanically exported and checked. 
 
 Status: **exported; native game review and model/tint assignment pending**. Thin foliage and ore features lose coverage in the mechanical 16/8/4px scale studies and need in-game cutout/mipmap checks. This is representative family coverage, not completion of catalog species, faces, growth states or machinery. Existing approved ground art remains untouched. See the batch README for the downloadable original masters and full source bundle.
 
+## Rock base coverage: 70 more individual exports
+
+[Batch 02](block-textures-32-batch02/README.md) adds **70 opaque 32×32 candidates**, bringing the two production batches to **110 distinct individual exports**. All 88 retained and expanded rock catalog rows now have base-art assignments through 81 unique candidates: 70 new here and 11 reused unchanged from batch 01. The [complete crosswalk](block-textures-32-batch02/ROCK-COVERAGE.md) retains the source names and explains shared assignments. This pass used catalog snapshot `7f1d6310accf40649f25bf2f6698cec1949940f3`.
+
+Grouped mudstone/claystone, eclogite/granulite and ironstone/banded-iron entries now have distinct surfaces. Lignite, subbituminous coal, bituminous coal and anthracite have separate exports. Dolomite as a rock label shares dolostone art; the mineral remains a separate subject. Evaporite selects halite or gypsum. **Argillite has a provisional shared mudstone assignment pending a terminology decision.** No catalog classification or gameplay registration is changed.
+
+All 70 pass dimensions, neutral channels, opacity, uniqueness and hashes. No automated wrap-screening flags remain. All seven contact and repeat sheets were visually reviewed, along with selected 32/16/8/4px scale comparisons. Coarse motifs and banding need large-surface orientation review, while fine grains and coal-rank differences fade at small scales. These checks do not establish native acceptance.
+
+Status: **base candidates mapped; native game review, tint, model assignment and complete directional/state families pending**. No new 64×64 exception was needed. Original masters, individual proofs and reproduction scripts are retained in the downloadable source bundle. The family map continues to distinguish art coverage from runtime implementation and from completion of the wider 1,013-row inventory. Sediment, clay and soil families remain next in the production queue, alongside native review of this rock set.
+
 ## Per-family delivery and acceptance
 
 1. Review the complete proposed family together, using actual native-size exports and enlarged nearest-neighbor views when exports exist. Identify concept boards explicitly.
@@ -76,4 +86,5 @@ Status: **exported; native game review and model/tint assignment pending**. Thin
 ## Coordination
 
 Check current main and relevant art/engine work state before each change. Use guarded main updates; reconcile concurrent commits. Texture ownership is recorded here for the other workstreams, with production statuses in the family map. Preserve existing accepted art and the engine's audit/build schedules. Production candidates remain under docs/art with their review state. No engine source or runtime texture is replaced by the current batch.
+
 

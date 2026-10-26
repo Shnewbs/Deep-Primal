@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "source_commit": "df270704bcc261fac12324031c9aa978226f06ed",
   "scope": "Deep Primal block texture ownership; catalog rows retain their existing approval and implementation status",
   "default_tile_size": 32,
@@ -19,7 +19,7 @@
       "family": "raw_stone",
       "treatment": "Raw stone surfaces and derived worked-stone families",
       "default_tile_size": 32,
-      "art_status": "sample_exports_pending_native_review",
+      "art_status": "base_candidates_mapped_pending_native_review",
       "runtime_status": "not_asserted_by_this_inventory",
       "sample_exports": {
         "batch": "block-textures-32-batch01",
@@ -38,6 +38,14 @@
           "volcanic/scoria"
         ],
         "complete_family": false
+      },
+      "base_candidate_coverage": {
+        "batch": "block-textures-32-batch02",
+        "crosswalk": "block-textures-32-batch02/rock-coverage.json",
+        "mapped_rows": 44,
+        "provisional_rows": [],
+        "complete_family": false,
+        "native_review_complete": false
       }
     },
     {
@@ -51,8 +59,18 @@
       "family": "raw_stone",
       "treatment": "Resolve aliases and parent types before new patterns",
       "default_tile_size": 32,
-      "art_status": "queued_or_shared_mapping",
-      "runtime_status": "not_asserted_by_this_inventory"
+      "art_status": "base_candidates_mapped_pending_native_review",
+      "runtime_status": "not_asserted_by_this_inventory",
+      "base_candidate_coverage": {
+        "batch": "block-textures-32-batch02",
+        "crosswalk": "block-textures-32-batch02/rock-coverage.json",
+        "mapped_rows": 44,
+        "provisional_rows": [
+          "ROCK-ADD-043"
+        ],
+        "complete_family": false,
+        "native_review_complete": false
+      }
     },
     {
       "prefix": "MINERAL",
@@ -603,6 +621,34 @@
       "exceptions_64": [],
       "runtime_integrated": false,
       "catalog_complete": false
+    },
+    {
+      "id": "block-textures-32-batch02",
+      "status": "exported_pending_native_review",
+      "manifest": "block-textures-32-batch02/manifest.json",
+      "review": "block-textures-32-batch02/review.json",
+      "coverage": "block-textures-32-batch02/rock-coverage.json",
+      "assets": 70,
+      "tile_size": 32,
+      "opaque": 70,
+      "binary_cutout": 0,
+      "exceptions_64": [],
+      "runtime_integrated": false,
+      "catalog_complete": false
     }
-  ]
+  ],
+  "latest_art_review_source_commit": "7f1d6310accf40649f25bf2f6698cec1949940f3",
+  "production_summary": {
+    "individual_exports": 110,
+    "opaque": 104,
+    "binary_cutout": 6,
+    "tile_size": 32,
+    "new_exceptions_64": [],
+    "runtime_integration_claimed": false,
+    "all_catalog_families_complete": false,
+    "rock_catalog_rows_mapped": 88,
+    "rock_provisional_rows": [
+      "ROCK-ADD-043"
+    ]
+  }
 }
