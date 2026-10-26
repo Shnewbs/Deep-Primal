@@ -18,7 +18,7 @@ import net.minecraft.core.SectionPos;
 
 /** Actual production upload/readback, including adjacent uncapped surface histories. */
 final class WaterfallUploadChecks {
-  private record Readback(GpuBuffer buffer, WaterPatchMesher.Mesh mesh, int pageY) {}
+  private record Readback(GpuBuffer buffer, WaterPatchMesher.Mesh mesh, int pageY, int amount) {}
 
   private static Field field(Class<?> type, String name) throws ReflectiveOperationException {
     var result = type.getDeclaredField(name);
@@ -36,6 +36,14 @@ final class WaterfallUploadChecks {
     for (int y = -1; y <= 16; y++) water[WaterPatchMesher.index(3, y, 3)] = (byte) amount;
     // This free surface shares a corner with a clipped wall in the adjacent column.
     water[WaterPatchMesher.index(4, 15, 3)] = (byte) amount;
+    // Supported one-block rock ledge, separate from the falling-column controls.
+    for (int z = 6; z <= 11; z++)
+      for (int x = 8; x <= 13; x++) {
+        boolean high = x < 11;
+        int surface = high ? 8 : 7;
+        for (int y = -1; y < surface; y++) solid[WaterPatchMesher.index(x, y, z)] = 1;
+        water[WaterPatchMesher.index(x, surface, z)] = (byte) amount;
+      }
     return new WaterPatchMesher.Snapshot(water, solid, lights, colors, flow);
   }
 
@@ -93,19 +101,21 @@ final class WaterfallUploadChecks {
               }
               var read = RenderSystem.getDevice().createBuffer(() -> "Waterfall readback",
                   GpuBuffer.USAGE_COPY_DST | GpuBuffer.USAGE_MAP_READ, mesh.count() * 36L);
-              reads.add(new Readback(read, mesh, pageY));
+              reads.add(new Readback(read, mesh, pageY, amount));
               RenderSystem.getDevice().createCommandEncoder()
                   .copyToBuffer(original.slice(0, mesh.count() * 36L), read.slice());
               previous = current;
             }
           }
       RenderSystem.queueFencedTask(() -> {
-        int wallVertices = 0, freeVertices = 0;
+        int wallVertices = 0, freeVertices = 0, ledgeVertices = 0;
         try {
           for (var read : reads)
             try (var mapped = RenderSystem.getDevice().createCommandEncoder().mapBuffer(read.buffer, true, false)) {
               var data = mapped.data().order(ByteOrder.nativeOrder());
               var mesh = read.mesh.vertices();
+              float[] ledgeTarget = {Float.NaN, Float.NaN};
+              float[] ledgeFrom = {Float.NaN, Float.NaN};
               for (int vertex = 0; vertex < read.mesh.count(); vertex++) {
                 int source = vertex * WaterPatchMesher.STRIDE, target = vertex * 36;
                 int cell = (int) mesh[source + 9], cy = cell >> 8;
@@ -120,12 +130,26 @@ final class WaterfallUploadChecks {
                     throw new AssertionError("Animated waterfall wall overlaps its cell at pageY=" + read.pageY);
                   wallVertices++;
                 } else if (face == 0 && height > cy + 1) freeVertices++;
+                if (face == 0 && mesh[source] == 11 && mesh[source + 2] == 8
+                    && (cy == 7 || cy == 8)) {
+                  float expected = 8 + Math.max(1 / 256f, -.5f + read.amount / 16f);
+                  if (Math.abs(height - expected) > .00001f)
+                    throw new AssertionError("Rock ledge GPU target differs from shared edge");
+                  int side = cy - 7;
+                  ledgeTarget[side] = height;
+                  ledgeFrom[side] = height + data.getShort(target + 24) / 16384f;
+                  ledgeVertices++;
+                }
               }
+              if (!Float.isFinite(ledgeTarget[0]) || !Float.isFinite(ledgeTarget[1])
+                  || Math.abs(ledgeTarget[0] - ledgeTarget[1]) > .00001f
+                  || Math.abs(ledgeFrom[0] - ledgeFrom[1]) > .0001f)
+                throw new AssertionError("Rock ledge GPU interpolation endpoints disconnect");
             }
-          if (wallVertices == 0 || freeVertices == 0)
+          if (wallVertices == 0 || freeVertices == 0 || ledgeVertices == 0)
             throw new AssertionError("Waterfall controls did not exercise walls and uncapped shared surfaces");
           String record = "WATERFALL_UPLOAD_PASS samples=" + reads.size() + " wallVertices=" + wallVertices
-              + " uncappedSurfaceVertices=" + freeVertices
+              + " rockLedgeVertices=" + ledgeVertices + " uncappedSurfaceVertices=" + freeVertices
               + " smoothModes=2 directions=2 verticalPages=3 repeatedUpload=true scope=productionGpuReadback\n";
           Files.createDirectories(output);
           Files.writeString(output.resolve("waterfall-upload-pass.txt"), record);

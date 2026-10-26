@@ -1,0 +1,1 @@
+ANIMATED_WATER_NATIVE_PASS backend=Vulkan intermediateFrames=2 uploads=7 terrainInvalidationsAvoided=24955 dry=true fallback=true reenable=true resourceReload=true validationErrors=0

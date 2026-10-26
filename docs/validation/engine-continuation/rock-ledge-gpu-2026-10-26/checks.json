@@ -1,0 +1,28 @@
+{
+  "artifact_source": "3acffb22a996876a57ce2cfb73eee60747358acc",
+  "artifact_sha256": "67756258cb9620012c218a6c192011828f8a9937dae3a2433915ba43b1003137",
+  "artifact_unchanged_after_clients": true,
+  "fixture_source_sha256": "02378daaf7b6ca65c16dde963d8463351e0470d66db6d96207e2e4dfb50c23ed",
+  "host": "Windows; AMD Radeon(TM) 8060S Graphics",
+  "apis": [
+    "OpenGL",
+    "Vulkan"
+  ],
+  "samples_per_api": 60,
+  "rock_ledge_vertices_per_api": 240,
+  "falling_wall_vertices_per_api": 15120,
+  "fade_gpu_readbacks_per_api": 11,
+  "fade_differing_bytes": 0,
+  "vulkan_validation_errors": 0,
+  "vulkan_tracked_buffers_after_stop": 0,
+  "vulkan_tracked_images_after_stop": 0,
+  "scope": "Production GPU buffer uploads and mapped readbacks, current/previous ledge endpoints; existing fade controls and material preview/reload",
+  "not_claimed": [
+    "water scene pixels",
+    "all-frame live waterfall continuity",
+    "cross-page asynchronous stepped ledges",
+    "physical world budget and source persistence",
+    "performance/FPS or long-soak acceptance",
+    "water engine completion"
+  ]
+}
