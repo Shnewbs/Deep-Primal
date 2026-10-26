@@ -1,0 +1,62 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/workspace/scratch/a2f7076b7762/audit-6bd85c6-20261026T1533/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=36641 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=36641 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a2f7076b7762/audit-0818658-20261026T0653/toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :createMinecraftArtifacts
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/workspace/scratch/a2f7076b7762/audit-6bd85c6-20261026T1533/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=36641 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=36641 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a2f7076b7762/audit-0818658-20261026T0653/toolchain/checked-agent/neoform-process-fallback.jar
+Loaded 127 artifacts from /workspace/scratch/a2f7076b7762/audit-6bd85c6-20261026T1533/project/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties
+*** Started working on downloadManifest
+  ↓ https://piston-meta.mojang.com/mc/game/version_manifest_v2.json
+ ✓ Completed downloadManifest in 4.17s
+*** Started working on downloadJson
+ ✓ Completed downloadJson in 0.00s
+*** Started working on downloadServer
+*** Started working on downloadClient
+ ✓ Completed downloadClient in 0.03s
+ ✓ Completed downloadServer in 0.03s
+*** Started working on preProcessJar
+ ♻ Used cache of preProcessJar in 0.00s
+*** Started working on decompile
+ ♻ Used cache of decompile in 0.00s
+*** Started working on patch
+ ♻ Used cache of patch in 0.00s
+*** Started working on applyNeoforgePatches
+ ♻ Used cache of applyNeoforgePatches in 0.00s
+*** Started working on transformSources
+ ♻ Used cache of transformSources in 0.00s
+*** Started working on recompile
+ ♻ Used cache of recompile in 0.00s
+*** Started working on mergeWithSources
+ ♻ Used cache of mergeWithSources in 0.00s
+Total runtime: 5.41s
+
+
+> Task :engine-core:compileJava
+> Task :graphics-settings:compileJava
+> Task :gui-themes:createMinecraftArtifacts FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':gui-themes:createMinecraftArtifacts'.
+> Failed to create parent directory '/workspace/scratch/a2f7076b7762/audit-6bd85c6-20261026T1533/project/gui-themes/build' when creating directory '/workspace/scratch/a2f7076b7762/audit-6bd85c6-20261026T1533/project/gui-themes/build/moddev/artifacts'
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 21s
+4 actionable tasks: 4 executed

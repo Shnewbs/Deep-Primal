@@ -1,0 +1,1 @@
+{"pass":true,"rows":[{"mode":"normal","expected_jvm_exit":23,"harness_exit":1,"pass_receipt_written":false,"pass":true},{"mode":"-O","expected_jvm_exit":23,"harness_exit":1,"pass_receipt_written":false,"pass":true},{"mode":"-OO","expected_jvm_exit":23,"harness_exit":1,"pass_receipt_written":false,"pass":true}],"expected_negative_controls":true}
