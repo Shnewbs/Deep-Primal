@@ -1,0 +1,186 @@
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40685 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40685 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a22609fabda0/toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :createMinecraftArtifacts
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40685 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40685 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a22609fabda0/toolchain/checked-agent/neoform-process-fallback.jar
+Loaded 127 artifacts from /workspace/scratch/a22609fabda0/builder0731/project/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties
+*** Started working on downloadManifest
+  ↓ https://piston-meta.mojang.com/mc/game/version_manifest_v2.json
+ ✓ Completed downloadManifest in 3.50s
+*** Started working on downloadJson
+ ✓ Completed downloadJson in 0.00s
+*** Started working on downloadServer
+*** Started working on downloadClient
+ ✓ Completed downloadServer in 0.03s
+ ✓ Completed downloadClient in 0.03s
+*** Started working on preProcessJar
+ ♻ Used cache of preProcessJar in 0.00s
+*** Started working on decompile
+ ♻ Used cache of decompile in 0.00s
+*** Started working on patch
+ ♻ Used cache of patch in 0.00s
+*** Started working on applyNeoforgePatches
+ ♻ Used cache of applyNeoforgePatches in 0.00s
+*** Started working on transformSources
+ ♻ Used cache of transformSources in 0.00s
+*** Started working on recompile
+ ♻ Used cache of recompile in 0.00s
+*** Started working on mergeWithSources
+ ♻ Used cache of mergeWithSources in 0.00s
+Total runtime: 4.70s
+
+
+> Task :engine-core:compileJava
+> Task :graphics-settings:compileJava
+
+> Task :gui-themes:createMinecraftArtifacts
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40685 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40685 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a22609fabda0/toolchain/checked-agent/neoform-process-fallback.jar
+Loaded 127 artifacts from /workspace/scratch/a22609fabda0/builder0731/project/gui-themes/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties
+*** Started working on downloadManifest
+  ↓ https://piston-meta.mojang.com/mc/game/version_manifest_v2.json
+ ✓ Completed downloadManifest in 3.41s
+*** Started working on downloadJson
+ ✓ Completed downloadJson in 0.00s
+*** Started working on downloadServer
+*** Started working on downloadClient
+ ✓ Completed downloadServer in 0.03s
+ ✓ Completed downloadClient in 0.04s
+*** Started working on preProcessJar
+ ♻ Used cache of preProcessJar in 0.00s
+*** Started working on decompile
+ ♻ Used cache of decompile in 0.00s
+*** Started working on patch
+ ♻ Used cache of patch in 0.00s
+*** Started working on applyNeoforgePatches
+ ♻ Used cache of applyNeoforgePatches in 0.00s
+*** Started working on transformSources
+ ♻ Used cache of transformSources in 0.00s
+*** Started working on recompile
+ ♻ Used cache of recompile in 0.00s
+*** Started working on mergeWithSources
+ ♻ Used cache of mergeWithSources in 0.00s
+Total runtime: 4.75s
+
+
+> Task :gui-themes:compileJava
+> Task :lod-engine:compileJava
+> Task :performance-engine:compileJava
+
+> Task :renderer-vulkan:compileJava
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:14: warning: [removal] getByte(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getByte(null, ptr) != 0;
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:18: warning: [removal] getByte(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getByte(null, ptr);
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:22: warning: [removal] getShort(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getShort(null, ptr);
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:26: warning: [removal] getInt(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getInt(null, ptr);
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:30: warning: [removal] getLong(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getLong(null, ptr);
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:34: warning: [removal] getFloat(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getFloat(null, ptr);
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:38: warning: [removal] getDouble(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getDouble(null, ptr);
+                   ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:42: warning: [removal] getLong(Object,long) in Unsafe has been deprecated and marked for removal
+      return BITS64 ? UNSAFE.getLong(null, ptr) : UNSAFE.getInt(null, ptr) & 4294967295L;
+                            ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:42: warning: [removal] getInt(Object,long) in Unsafe has been deprecated and marked for removal
+      return BITS64 ? UNSAFE.getLong(null, ptr) : UNSAFE.getInt(null, ptr) & 4294967295L;
+                                                        ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:46: warning: [removal] putByte(Object,long,byte) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putByte(null, ptr, value);
+            ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:50: warning: [removal] putShort(Object,long,short) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putShort(null, ptr, value);
+            ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:54: warning: [removal] putInt(Object,long,int) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putInt(null, ptr, value);
+            ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:58: warning: [removal] putLong(Object,long,long) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putLong(null, ptr, value);
+            ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:62: warning: [removal] putFloat(Object,long,float) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putFloat(null, ptr, value);
+            ^
+/workspace/scratch/a22609fabda0/builder0731/project/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:66: warning: [removal] putDouble(Object,long,double) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putDouble(null, ptr, value);
+            ^
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+15 warnings
+
+> Task :compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :compileSoilDataJava
+> Task :processSoilDataResources NO-SOURCE
+> Task :soilDataClasses
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes
+> Task :engine-core:jar
+
+> Task :generateSoilResources
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40685 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40685 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a22609fabda0/toolchain/checked-agent/neoform-process-fallback.jar
+SOIL_RESOURCES_GENERATED families=12 blocks=36 texturesReused=true
+
+> Task :processResources
+> Task :classes
+> Task :graphics-settings:processResources
+> Task :graphics-settings:classes
+> Task :graphics-settings:jar
+> Task :gui-themes:compileThemeAssetsJava
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses
+
+> Task :gui-themes:generateThemeAssets
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40685 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40685 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a22609fabda0/toolchain/checked-agent/neoform-process-fallback.jar
+basalt_copper: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+field_journal: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+rawhide_flint: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+riverstone_moss: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+timber_iron: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+clay_ember: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+obsidian_ash: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+frost_slate: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
+
+> Task :gui-themes:processResources
+> Task :gui-themes:classes
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar
+> Task :lod-engine:processResources
+> Task :lod-engine:classes
+> Task :lod-engine:jar
+> Task :performance-engine:processResources
+> Task :performance-engine:classes
+> Task :performance-engine:jar
+> Task :renderer-vulkan:processResources
+> Task :renderer-vulkan:classes
+> Task :renderer-vulkan:jar
+> Task :jarJar
+> Task :jar
+> Task :assemble
+> Task :verifyCoreBoundary
+> Task :verifyModuleBoundaries
+
+[Incubating] Problems report is available at: file:///workspace/scratch/a22609fabda0/builder0731/project/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 42s
+29 actionable tasks: 29 executed

@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T11:27:00Z",
-  "active_until": "2026-10-26T11:45:00Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T11:30:44Z",
+  "active_until": "2026-10-26T11:30:44Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.28",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Dev.29 precipitation admission passes full combined build and ten native sessions; final exact pushed-source producer/export and delivery pending.",
+  "current_gate": "Dev.29 precipitation admission qualified and delivered. Next: bounded loaded/unloaded water ownership/restart/edit accounting and V8 saved-profile/topology gates; natural GPU/soak/performance acceptance remains open.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -576,7 +576,7 @@
   ],
   "latest_staged_graphics_promoted": true,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/density-mask-r61",
-  "validation_environment_status": "Private Java25/Gradle full forced nonincremental build (35 tasks), core/module checks, 7 archive CRCs, 588 compiled/product and 142 independent core identities, 211 fixture exclusions, and eight Linux native sessions passed for dev.28. Windows/AMD8060S/client graphics for this exact artifact unrun; older foreground GPU receipts not reused as dev.28 qualification.",
+  "validation_environment_status": "Full current combined Java25/Gradle build35tasks, core/module checks, independent132sources/142core identities,588product classes,217private exclusions,7archive CRCs and10Linux native sessions pass. Exact pushed-source29task producer rebuild returns identical tested bytes. No fresh Windows/AMD8060S/GPU or controlled performance acceptance.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -997,8 +997,8 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "active",
-    "active_until": "2026-10-26T11:45:00Z",
+    "status": "completed",
+    "active_until": "2026-10-26T11:30:44Z",
     "kind": "functional_build_and_native",
     "exclusive_benchmark": false,
     "resources": "builder0731 private project/cache/output; no timed performance claims"
@@ -1048,17 +1048,17 @@
     "library_file_id": "libfile_45cd48e8eaf48191ab971863062c873a"
   },
   "latest_development_delivery": {
-    "version": "0.0.1-alpha.29-dev.28",
-    "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
-    "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
-    "bytes": 125290369,
-    "library_file_id": "libfile_052d5a1e0c2081919f3e1c60829ed5dd",
-    "full_build_tasks": 35,
-    "native_sessions": 8,
-    "github_release_published": false,
-    "publication_blocker": "No available authorized GitHub release-write/asset-upload capability or gh executable",
-    "windows_execution": false,
-    "final_rebuild_identical_to_native_tested_candidate": true
+    "version": "0.0.1-alpha.29-dev.29",
+    "source_sha": "b1db1bbbef903d33feecf32af986761abe2de5b7",
+    "sha256": "f4c562e342bf84be1d55623e3532f6007e711bb0342fdaaa581e4007df600803",
+    "size": 125290848,
+    "library_file_id": "libfile_c07b4ad49fc48191b2ee72a533232e06",
+    "download_url": "https://chatgpt.com/library?file_id=libfile_c07b4ad49fc48191b2ee72a533232e06&account_id=personal",
+    "evidence": "docs/validation/engine-continuation/precipitation-release-2026-10-26/delivery.json",
+    "github_release_uploaded": false,
+    "publishing_blocker": "No GitHub release/upload action exposed and gh executable absent.",
+    "native_sessions": 10,
+    "windows_execution": false
   },
   "previous_builder_cycle": {
     "base_code_sha": "d6d7fc5c0fc317debc31a9b9556eb4e7d2e67eb1",
@@ -1175,7 +1175,9 @@
     "full_current_build_pass": true,
     "native_sessions": 10,
     "core_pass": true,
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "source_sha": "b1db1bbbef903d33feecf32af986761abe2de5b7",
+    "delivered": true
   },
   "latest_consumed_audit": {
     "path": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
@@ -1183,6 +1185,9 @@
     "provisional_average": 4.8,
     "last_full_average": 5,
     "chosen_repair": "Promote precipitation receiver admission only after full combined and native qualification.",
-    "coordination": "Auditor recorded completed 10:44UTC. Personal context checked; no independent live cross-chat claim inferred. Root and water leases checkpointed."
-  }
+    "coordination": "Auditor recorded completed 10:44UTC. Personal context checked; no independent live cross-chat claim inferred. Root and water leases checkpointed.",
+    "implemented_repairs": "Capacity-rejected precipitation returns zero atomically; 80000 regression cases now in regular CoreChecks; private actual native fresh/reopen fixture added.",
+    "fresh_grade_awarded": false
+  },
+  "lease_released": true
 }
