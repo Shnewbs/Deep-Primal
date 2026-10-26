@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T15:17:00Z",
-  "active_until": "2026-10-26T15:17:00Z",
+  "status": "active",
+  "updated_at": "2026-10-26T16:03:30Z",
+  "active_until": "2026-10-26T16:33:30Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.30",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Strict multi-page hydrology admission checks pass; full reservation candidate build/native/package qualification pending disk recovery.",
+  "current_gate": "Prepare independent native recharge/source admission qualification; no heavy Gradle/native/benchmark jobs during active renderer CPU claim.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -480,7 +480,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T1510",
+  "worker": "builder-20261026T1603",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -998,11 +998,11 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "checkpointed",
-    "owner": "builder-20261026T1510",
-    "active_until": "2026-10-26T15:17:00Z",
+    "status": "preparation_only",
+    "owner": "builder-20261026T1603",
+    "active_until": "2026-10-26T16:33:30Z",
     "exclusive_benchmark": false,
-    "resources": "builder1510 private deterministic checks; no Gradle/native job"
+    "resources": "builder1600 only; no heavy build/native jobs while renderer measurement active"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1229,14 +1229,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1433-9b26b86/REVIEW.md",
-    "source_sha": "9b26b8619b3a44c1542cc10f40a11658c4cd3cf0",
-    "provisional_average": 5,
+    "path": "docs/engine-hourly-audits/2026-10-26T1533-6bd85c6/REVIEW.md",
+    "source_sha": "6bd85c6647a9b9f256df5ae2103589bbc8347161",
     "last_full_average": 5,
-    "chosen_repair": "New audit is static/deferred and repeats native scheduler qualification priority; finish validated deadline promotion. No new grade.",
-    "fresh_grade_awarded": false
+    "provisional_average": 5,
+    "fresh_grade_awarded": false,
+    "chosen_repair": "Qualify staged recharge scheduling with explicit source/quota/recharge coverage; retain starvation limitations and native gate."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
