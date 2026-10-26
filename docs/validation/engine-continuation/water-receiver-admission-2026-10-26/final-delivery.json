@@ -1,0 +1,41 @@
+{
+  "version": "0.0.1-alpha.29-dev.28",
+  "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
+  "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
+  "bytes": 125290369,
+  "library_file_id": "libfile_052d5a1e0c2081919f3e1c60829ed5dd",
+  "full_build_tasks": 35,
+  "native_sessions": 8,
+  "github_release_published": false,
+  "publication_blocker": "No available authorized GitHub release-write/asset-upload capability or gh executable",
+  "windows_execution": false,
+  "final_rebuild_identical_to_native_tested_candidate": true,
+  "completed_at": "2026-10-26T09:25:02.991Z",
+  "producer_completed": true,
+  "final_producer_exit": 0,
+  "build": "35 tasks executed; forced nonincremental Java25/Gradle9.2.1",
+  "tested_candidate_sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
+  "archives_crc_checked": 7,
+  "product_class_matches": 588,
+  "independent_core_matches": 142,
+  "private_fixture_exclusions": 211,
+  "source_input_blob_matches": 844,
+  "native_cases": {
+    "receiver_rejections": 7,
+    "exact_capacity_controls": 4,
+    "default_fresh_reopen": 2,
+    "optin_channel5_fresh_reopen": 2,
+    "aquifer_fresh_reopen_verify": 3
+  },
+  "last_complete_external_grade": 5,
+  "fresh_complete_regrade": false,
+  "retained_failed_attempt": "First incremental dev.28 candidate had stale WaterRuntime invocation; native positive control crashed NoSuchMethodError despite Gradle zero. Rejected; forced nonincremental builds and final eight native sessions pass.",
+  "unpassed": [
+    "Current-artifact Windows/AMD8060S rendering and performance",
+    "Cliff continuity foreground work in progress",
+    "Multiplayer and long soak",
+    "Loaded/unloaded persistent single-owner ledger",
+    "V8 topology and profile acceptance"
+  ],
+  "github_download_url": null
+}

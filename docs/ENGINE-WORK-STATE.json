@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T08:57:00.977Z",
-  "active_until": "2026-10-26T09:32:00.977Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T09:24:19.048Z",
+  "active_until": "2026-10-26T09:24:19.048Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.28",
-  "candidate_released": false,
+  "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Native-qualified constituent admission repair; exact pushed-source rebuild/delivery pending",
+  "current_gate": "Dev.28 water receiver admission and aquifer restart fixes qualified and delivered. Next reconcile qualified foreground cliff continuity, then single-owner loaded/unloaded water ledger persistence and V8 native integration. Engine grade remains 5.0/10; water acceptance incomplete.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -483,34 +483,7 @@
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
-  "latest_test_summary": {
-    "checkpoint": "R62",
-    "core_sources": 57,
-    "independent_core_classes": 102,
-    "exact_reuse_checks": 1581340,
-    "noise_checks": 183806,
-    "graph_checks": 40987,
-    "adversarial_checks": 105472,
-    "generated_graphs": 180,
-    "sample_orders": 3,
-    "control_and_candidate_pass": true,
-    "paired_constructor_jvm_forks": 3,
-    "paired_sampler_jvm_forks": 3,
-    "terrain_graph_constructor_control_bytes_range": [
-      37187.8,
-      43981.8
-    ],
-    "terrain_graph_constructor_candidate_bytes_range": [
-      17602.2,
-      20875.4
-    ],
-    "sampler_source_unchanged": true,
-    "scalar_source_unchanged": true,
-    "component_sampling_latency": "mixed, strongly order-dependent, above5ms",
-    "public_runtime_promoted": false,
-    "full_gradle_native_jar_checks": false,
-    "last_verified_score": 50
-  },
+  "latest_test_summary": "Dev.28: 35 forced full build tasks; full core/module boundaries; 588 packaged/compiled product and 142 independent-core identities; 211 fixture exclusions; 7 CRC archives; 8 Linux native sessions with explicit passes/save acknowledgement/shutdown, including 7 atomic rejections +4 exact-capacity controls. Final exact-source rebuild byte-identical. Rejected stale-class NoSuchMethodError retained; corrected build passed. No GPU/FPS or full regrade claim.",
   "graphics_reference_api": "vulkan",
   "graphics_validation_order": [
     "vulkan",
@@ -603,7 +576,7 @@
   ],
   "latest_staged_graphics_promoted": true,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/density-mask-r61",
-  "validation_environment_status": "Private Java25/Gradle full build, module/core boundaries, package identity and four Linux native save/reopen sessions passed for dev.22. Overlay remains full; private memory-backed restoration retained. Windows/AMD8060S and client rendering unrun.",
+  "validation_environment_status": "Private Java25/Gradle full forced nonincremental build (35 tasks), core/module checks, 7 archive CRCs, 588 compiled/product and 142 independent core identities, 211 fixture exclusions, and eight Linux native sessions passed for dev.28. Windows/AMD8060S/client graphics for this exact artifact unrun; older foreground GPU receipts not reused as dev.28 qualification.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -681,7 +654,7 @@
     "five_ms_target_met": false,
     "acceptance_complete": false
   },
-  "continuation_note": "Owner separates builder from auditor: builder continues during active runs; separate hourly auditor grades committed progress and builds a fresh current development JAR in isolation. Neither an audit nor checkpoint is a builder stop gate. Preserve actual finite-run limits and timing reservations, use guarded writer leases, no shared mutable outputs. Current R61 staged work and last50/100 grade unchanged. Continue current next_items; auditor restores full project/dependencies before fresh JAR build.",
+  "continuation_note": "Finite builder run checkpoint: dev.27 aquifer timing promotion plus dev.28 pre-write receiver admission completed; no background execution implied. Foreground cliff rendering claim preserved. Resume unfinished engine/water gates on current main.",
   "graphics_promotion_scope": "Owner-requested experimental source integration at 28b2625; all27 R44 staged source hashes match root main. This is not performance/full-engine/Windows-runtime acceptance.",
   "latest_preview": {
     "version": "0.0.1-alpha.28",
@@ -1025,9 +998,11 @@
   },
   "performance_measurement": {
     "owner": "builder-20261026T0838",
-    "status": "active",
+    "status": "completed",
     "scope": "Dev.28 conservation repair functional build/native; private builder0731 outputs/cache; no benchmark",
-    "active_until": "2026-10-26T09:32:00.977Z"
+    "active_until": "2026-10-26T09:24:19.048Z",
+    "completed_at": "2026-10-26T09:24:19.048Z",
+    "benchmark": false
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1054,7 +1029,7 @@
     "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": false,
+    "lease_released": true,
     "coordination": "Preserve foreground-cliff-continuity-20261026 scoped rendering claim (b9a6206), separate Windows resources, expires09:48Z. Builder owns simulation/accounting and root version; no overlap.",
     "evidence": "docs/validation/engine-continuation/water-receiver-admission-2026-10-26/README.md",
     "actual_changes": "Promoted aquifer signed-clock/restart repair (dev.27); now pre-write constituent admission for infiltration/ocean/cell transfer (dev.28). Added native rejection and exact-capacity controls.",
@@ -1062,8 +1037,23 @@
     "candidate_native_qualified": true,
     "native_sessions": 8,
     "full_build": true,
-    "next_implementation": "Qualify pre-write constituent admission for infiltration/ocean/native cell transfers; seven new native receiver controls and exact-capacity positive controls",
-    "retained_failures": "Four original conservation failures; initial dev.28 native NoSuchMethodError exposed stale compiled WaterRuntime despite Gradle zero. Forced nonincremental rebuild and final eight sessions pass."
+    "next_implementation": "Reconcile qualified foreground cliff continuity without overlapping its active scoped claim; implement loaded/unloaded single-owner water ledger persistence/restart and resume V8 native profile/topology gates.",
+    "retained_failures": "Four original conservation failures; initial dev.28 native NoSuchMethodError exposed stale compiled WaterRuntime despite Gradle zero. Forced nonincremental rebuild and final eight sessions pass.",
+    "completed_at": "2026-10-26T09:24:19.048Z",
+    "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
+    "final_artifact": {
+      "version": "0.0.1-alpha.29-dev.28",
+      "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
+      "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
+      "bytes": 125290369,
+      "library_file_id": "libfile_052d5a1e0c2081919f3e1c60829ed5dd",
+      "full_build_tasks": 35,
+      "native_sessions": 8,
+      "github_release_published": false,
+      "publication_blocker": "No available authorized GitHub release-write/asset-upload capability or gh executable",
+      "windows_execution": false,
+      "final_rebuild_identical_to_native_tested_candidate": true
+    }
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1077,16 +1067,17 @@
     "library_file_id": "libfile_45cd48e8eaf48191ab971863062c873a"
   },
   "latest_development_delivery": {
-    "version": "0.0.1-alpha.29-dev.27",
-    "source_sha": "b3e2f7a465ce3032eceb19f7ed894586fd572f17",
-    "sha256": "6f7fdf17717b2557c5f905e02bca87e5c809e463d56a5e66f130d30657dc481f",
-    "bytes": 125289190,
-    "library_file_id": "libfile_a28f704cd7348191863dd654b04bcdc0",
+    "version": "0.0.1-alpha.29-dev.28",
+    "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
+    "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
+    "bytes": 125290369,
+    "library_file_id": "libfile_052d5a1e0c2081919f3e1c60829ed5dd",
     "full_build_tasks": 35,
-    "native_sessions": 7,
+    "native_sessions": 8,
     "github_release_published": false,
-    "publication_blocker": "No connected release-write/upload capability or gh executable",
-    "new_followup_defect": "Valid full-constituent receiver can reject after block writes; four native failures reproduced. Dev.28 repair under qualification."
+    "publication_blocker": "No available authorized GitHub release-write/asset-upload capability or gh executable",
+    "windows_execution": false,
+    "final_rebuild_identical_to_native_tested_candidate": true
   },
   "previous_builder_cycle": {
     "base_code_sha": "044aa85fd1ecdc9f62faa33ee6a3ca38aaa7221b",
@@ -1142,24 +1133,16 @@
     "latest_provisional_audit_source": "905e550174e32f9d25d4e01e4e398bb6712288b2"
   },
   "previous_development_delivery": {
-    "version": "0.0.1-alpha.29-dev.24",
-    "source_parent": "daf0234634d88280ff44729e10e4b0e397fd5e16",
-    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.24-vulkan-windows.jar",
-    "sha256": "8c7079b4d174ffbe4d2a42c6fa259c0732a3abbb870b71f40ab2c3d344d0275e",
-    "bytes": 125288625,
-    "development_testing_only": true,
-    "producer_completed": true,
-    "local_verified_artifact_available": true,
-    "library_save_verified": true,
+    "version": "0.0.1-alpha.29-dev.27",
+    "source_sha": "b3e2f7a465ce3032eceb19f7ed894586fd572f17",
+    "sha256": "6f7fdf17717b2557c5f905e02bca87e5c809e463d56a5e66f130d30657dc481f",
+    "bytes": 125289190,
+    "library_file_id": "libfile_a28f704cd7348191863dd654b04bcdc0",
+    "full_build_tasks": 35,
+    "native_sessions": 7,
     "github_release_published": false,
-    "native_linux_save_reopen_sessions": 4,
-    "windows_execution": false,
-    "gpu_tested": false,
-    "evidence": "docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
-    "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
-    "library_file_id": "libfile_ee4d7ea243e48191a6e48c879838a072",
-    "superseded_by_followup_defect": true,
-    "remaining_defect": "Inline executor holds pipeline monitor; dispatch-only correction exposes post-shutdown density cache admission. Dev.25 fixes in qualification."
+    "publication_blocker": "No connected release-write/upload capability or gh executable",
+    "new_followup_defect": "Valid full-constituent receiver can reject after block writes; four native failures reproduced. Dev.28 repair under qualification."
   },
   "latest_provisional_audit": {
     "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",

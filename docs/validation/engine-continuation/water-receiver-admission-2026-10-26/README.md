@@ -81,3 +81,9 @@ must not be described as a GitHub prerelease.
 Next: incorporate qualified foreground cliff commits without overwriting them;
 continue loaded/unloaded water accounting and bounded persistent ownership,
 then V8 saved-profile/topology and measured latency gates. Builder stays enabled.
+
+## Final source build and saved delivery
+
+Committed source `d97cb341159cfbe656fe4cac079dd8f0f870a4c7` rebuilt successfully with all 35 tasks executed. The final 125,290,369-byte JAR is byte-identical to the corrected candidate used by all eight native sessions: SHA256 `9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40`. Final archive/class/private-fixture checks and transfer disassembly pass. All 844 present non-document engine inputs match their Git blob identities; all five changed source files were additionally fetched back at the pinned commit and compared exactly. Recursive tree refresh returned a transient transport error, so the manifest was reconstructed from the previous fetched tree and exact successful guarded commit payloads, retaining the documented excluded non-engine roots.
+
+[Download dev.28 testing JAR](https://chatgpt.com/library?file_id=libfile_052d5a1e0c2081919f3e1c60829ed5dd&account_id=personal). Save/upload completed and the local SHA was rechecked. No GitHub prerelease was published: the connected capabilities do not offer release-write/asset-upload and no gh executable is available. This is development testing delivery, not stable promotion or Windows/GPU acceptance. See `final-delivery.json`, `final-package.json`, `final-source-identity.json`, `published-source-readback.json` and `final-build.log`.
