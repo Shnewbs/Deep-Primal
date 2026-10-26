@@ -1,0 +1,49 @@
+{
+  "archives": [
+    {
+      "path": "/dev/shm/dp-builder2108/native/private-index-diagnostic.jar",
+      "bytes": 684114,
+      "sha256": "8bc119d5956f43f8d208486c7b5cf9895bdd1868e30dd6c19242fcac66553821",
+      "crc_and_unique_paths": true
+    },
+    {
+      "path": "/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/87594f15d0b3e6a84b56a30617ad291e866f3c4f8c6498591dbe07afa3fc96cc/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.31.jar",
+      "bytes": 271045,
+      "sha256": "87594f15d0b3e6a84b56a30617ad291e866f3c4f8c6498591dbe07afa3fc96cc",
+      "crc_and_unique_paths": true
+    },
+    {
+      "path": "/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/9f6012fe3ff3a10608448fe82958b381d924925c322e1ca00b7f63948df06318/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31.jar",
+      "bytes": 95338,
+      "sha256": "9f6012fe3ff3a10608448fe82958b381d924925c322e1ca00b7f63948df06318",
+      "crc_and_unique_paths": true
+    },
+    {
+      "path": "/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/876680aa5d800227cbaad6dcc48b26d120c56bb58bc7b212555ab8a64b592de5/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.31.jar",
+      "bytes": 44405,
+      "sha256": "876680aa5d800227cbaad6dcc48b26d120c56bb58bc7b212555ab8a64b592de5",
+      "crc_and_unique_paths": true
+    },
+    {
+      "path": "/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/7e8633f2ca858680f50f83cec2e1dffd434190d8af43a259fbb734d1dac53ed3/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.31.jar",
+      "bytes": 19663,
+      "sha256": "7e8633f2ca858680f50f83cec2e1dffd434190d8af43a259fbb734d1dac53ed3",
+      "crc_and_unique_paths": true
+    },
+    {
+      "path": "/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/36f80179b7d0900ab5964e16ac7e0137fc831d707eee445e9d11c7cc3f3276bf/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+      "bytes": 114062026,
+      "sha256": "36f80179b7d0900ab5964e16ac7e0137fc831d707eee445e9d11c7cc3f3276bf",
+      "crc_and_unique_paths": true
+    },
+    {
+      "path": "/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/586e7fee0172df725ca3612b495653311197b6bc0497efd49eb298f65321f8a9/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.31-windows.jar",
+      "bytes": 11599851,
+      "sha256": "586e7fee0172df725ca3612b495653311197b6bc0497efd49eb298f65321f8a9",
+      "crc_and_unique_paths": true
+    }
+  ],
+  "private_fixture_exclusion": true,
+  "full_bundle": false,
+  "release_qualified": false
+}

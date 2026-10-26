@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T21:07:56.493Z",
-  "active_until": "2026-10-26T21:37:56.493Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T21:25:47.457Z",
+  "active_until": "2026-10-26T21:25:47.457Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Qualify and repair reentrant staged source iteration; isolated outputs, no exclusive benchmark",
+  "current_gate": "Callback-safe source passes and actual-tick native quota/save-reopen diagnostics pass; full bundled release qualification remains open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,7 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
-    "Full combined index native quota/partial-survey/reentrancy/load-unload/weather/save/reopen qualification before promotion",
+    "Full build/module/bundle qualification and native partial-survey/callback/weather/travel cases before source-index promotion",
     "Recover sufficient private build/output headroom; qualify staged recharge reservation via full Gradle/module/native source-quota/recharge/save/reopen gates before promotion.",
     "Incorporate qualified foreground cliff continuity work; continue loaded/unloaded water ledger and V8 saved-profile/topology. Preserve dev.28 constituent admission and dev.27 bounded aquifer clock.",
     "Restore complete pinned project via authorized connector; validate water loaded/unloaded ownership and V8 saved-profile/topology. Recheck foreground water claim before runtime edits.",
@@ -999,10 +999,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "functional_only",
+    "status": "released",
     "exclusive_benchmark": false,
     "owner": "builder-20261026T2108",
-    "active_until": "2026-10-26T21:37:56.493Z"
+    "active_until": "2026-10-26T21:25:47.457Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1029,9 +1029,15 @@
     "consumed_audit_sha": "0a936f9dbacf9bc363ae01c317f64060cc7587b3",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "Combined staged hydrology source index callback/lifecycle qualification",
-    "coordination": "Auditor20:30 completed20:52. Root and foreground water leases released. Personal Context original chats unavailable; no fresh conflicting claim retrieved. Functional-only own /dev/shm/dp-builder2108 output, retained builder dependencies read-only."
+    "coordination": "Auditor20:30 completed20:52. Root and foreground water leases released. Personal Context original chats unavailable; no fresh conflicting claim retrieved. Functional-only own /dev/shm/dp-builder2108 output, retained builder dependencies read-only.",
+    "production_runtime_changed": false,
+    "actual_changes": "Revision-guarded source traversal ends on callback index mutations; missing-FULL sources invalidate immediately. Private diagnostic native harness binds source/compiled/package producer identities.",
+    "checks": "2004 callback-loop cases, full API compile, existing lifecycle/priority/allowance/regular-loop suites, fresh138-source core suite; actual tick six native quota cases plus exact save/reopen; 12 producer guards.",
+    "evidence": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/README.md",
+    "blocker": "Full diagnostic archive hit ENOSPC. Split-module native diagnostic passed; full Gradle/module/complete distributable bundle remains unqualified. No new user-facing JAR.",
+    "next_implementation": "Full build/module/bundle qualification and native partial-survey/callback/weather/travel cases before source-index promotion"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1211,13 +1217,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1934-e528d06/REVIEW.md",
-    "source_sha": "e528d066d8202ac1a2822de700099a34ce67d470",
+    "path": "docs/engine-hourly-audits/2026-10-26T2032-0a936f9/REVIEW.md",
+    "source_sha": "0a936f9dbacf9bc363ae01c317f64060cc7587b3",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Preserve source registration tie priority across dry/re-add transitions without whole-index cleanup"
+    "chosen_repair": "Reentrant source-index invalidation and actual-tick native quota/order/persistence qualification"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1286,12 +1292,19 @@
   },
   "latest_staged_source_index": {
     "promoted": false,
-    "base_source_sha": "cbc9ed5b9ad4dff93b8554584b738900208c2069",
-    "evidence": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/README.md",
-    "candidate": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/stage/HydrologyRuntime.java",
-    "helper": "docs/validation/engine-continuation/hydrology-source-priority-2026-10-26/stage/StreamSourceIndex.java",
-    "checks": "100000 lifecycle transitions,1000 actual-runtime priority cases,5512 lifecycle,20008 index,144 loop,1445 allowance; fresh138-source complete core suite pass",
-    "remaining_gate": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison.",
-    "in_delivered_jar": false
+    "base_source_sha": "23eafba3ea7bf0f6544870ea34dd5fbe3729b7a0",
+    "evidence": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/README.md",
+    "candidate": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/stage/HydrologyRuntime.java",
+    "helper": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/stage/StreamSourceIndex.java",
+    "checks": "2004 callback-loop cases, full API compile, existing lifecycle/priority/allowance/regular-loop suites, fresh138-source core suite; actual tick six native quota cases plus exact save/reopen; 12 producer guards.",
+    "remaining_gate": "Full build/module/bundle qualification and native partial-survey/callback/weather/travel cases before source-index promotion",
+    "in_delivered_jar": false,
+    "native_diagnostic": {
+      "actual_tick_cases": 6,
+      "reopen_exact_parcel_checks": 1,
+      "save_flush_clean_shutdown": true,
+      "split_module_assembly": true,
+      "full_release_bundle": false
+    }
   }
 }

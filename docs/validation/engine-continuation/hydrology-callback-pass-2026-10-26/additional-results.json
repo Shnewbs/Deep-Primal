@@ -1,0 +1,17 @@
+[
+  {
+    "test": "com.shnewbs.deepprimal.engine.StreamSourcePriorityChecks",
+    "exit": 0,
+    "output": "SOURCE_PRIORITY_PASS checks=100003 transitions=100000 sameWindow=true nextPass=true unloadReleasesDormant=true\n"
+  },
+  {
+    "test": "com.shnewbs.deepprimal.engine.StreamPriorityRuntimeChecks",
+    "exit": 0,
+    "output": "SOURCE_PRIORITY_RUNTIME_PASS cases=1000 sameWindow=true nextPass=true actualRuntimeMethods=true nativeWorld=false\n"
+  },
+  {
+    "test": "com.shnewbs.deepprimal.validation.AllowanceEntry",
+    "exit": 0,
+    "output": "STREAM_ALLOWANCE_RUNTIME_PASS cases=1445 exactIntegerOracle=true signedOverflow=true rewind=true sentinel=true runtime=file:/dev/shm/dp-builder2108/runtime/candidate-runtime/\n"
+  }
+]

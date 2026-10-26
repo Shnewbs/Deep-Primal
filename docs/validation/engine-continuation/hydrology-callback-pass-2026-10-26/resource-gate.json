@@ -1,0 +1,9 @@
+{
+  "overlay_free_bytes": 553680896,
+  "shm_free_bytes": 868179968,
+  "full_archive_attempt_failed": "OSError errno28 No space left on device while writing private archive at106123264 bytes; BadZipFile confirmed and own partial archive removed",
+  "native_alternative": "684114-byte diagnostic root; unchanged six module archives read as immutable inputs with before/after SHA256 verification; separate native world/cache",
+  "full_Gradle_module_bundle_qualification": false,
+  "full_archive_failed_log": "failure-history.json",
+  "no_release": true
+}
