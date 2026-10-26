@@ -1,0 +1,10 @@
+{
+  "expected_failure_control": false,
+  "candidate_pass": true,
+  "explicit_marker": "PRECIPITATION_PERSISTENCE_PASS mode=fresh",
+  "exit": 0,
+  "jar": "/workspace/scratch/a22609fabda0/builder0731/precipitation-native/staged-diagnostic.jar",
+  "sha256": "5125a158f3c636e0f2cd01756bcac9f3d981269dc15513a740389d35a09ee082",
+  "saved_flush_acknowledged": true,
+  "clean_shutdown": true
+}

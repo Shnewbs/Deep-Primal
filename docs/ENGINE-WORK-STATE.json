@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T09:59:22.397Z",
-  "active_until": "2026-10-26T10:24:22.397Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T10:07:50.543Z",
+  "active_until": "2026-10-26T10:07:50.543Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.28",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Precipitation admission fix staged only; native persistence/full-build promotion remains pending. Foreground owns cliff/version changes through10:02Z; retain dev.28 as older qualified JAR.",
+  "current_gate": "Restore full current main including6cd9971 cliff files; reconcile754MiB remaining build storage; uniquely versioned full combined build/module/package/native gates before promoting staged precipitation repair.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -483,7 +483,7 @@
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
-  "latest_test_summary": "131 Java inputs compiled; focused80,000 cases, water budget200,000 transfers/10,000 splits/180,000 weather intervals pass. Initial broad test interrupted130, bounded retry timed out124 after180seconds; full core NOT passed. Native/full Gradle/artifact qualification unrun.",
+  "latest_test_summary": "Complete core suite passes at600s deadline/768MiB; new cliff core plus accounting regressions pass. Two diagnostic packaged native sessions pass with explicit records/save ack/shutdown. Unpatched actual native baseline crashes despite Gradle0 and is rejected.",
   "graphics_reference_api": "vulkan",
   "graphics_validation_order": [
     "vulkan",
@@ -998,9 +998,9 @@
   },
   "performance_measurement": {
     "owner": "builder-20261026T1000",
-    "status": "active",
+    "status": "completed",
     "scope": "Functional staged precipitation core/native qualification; private outputs; no benchmark",
-    "active_until": "2026-10-26T10:24:22.397Z"
+    "active_until": "2026-10-26T10:07:50.543Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1027,8 +1027,13 @@
     "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": false,
-    "coordination": "Current foreground cliff claim read;09:35 context says fallback patch ongoing. Auditor last completed07:20, no live-worker inference. Version/rendering files untouched."
+    "lease_released": true,
+    "coordination": "Current foreground cliff claim read;09:35 context says fallback patch ongoing. Auditor last completed07:20, no live-worker inference. Version/rendering files untouched.",
+    "evidence": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/QUALIFICATION.md",
+    "actual_changes": "Added and compiled native precipitation persistence fixture; actual-call positive control, atomic rejection, codec roundtrip and process-reopen checks. No production promotion.",
+    "checks": "Complete core suite passes at600s deadline/768MiB; new cliff core plus accounting regressions pass. Two diagnostic packaged native sessions pass with explicit records/save ack/shutdown. Unpatched actual native baseline crashes despite Gradle0 and is rejected.",
+    "next_implementation": "Restore full current main including6cd9971 cliff files; reconcile754MiB remaining build storage; uniquely versioned full combined build/module/package/native gates before promoting staged precipitation repair.",
+    "production_runtime_changed": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1169,6 +1174,10 @@
     "focused_cases": 80000,
     "water_budget_transfers": 200000,
     "weather_intervals": 180000,
-    "production_changed": false
+    "production_changed": false,
+    "core_pass": true,
+    "native_diagnostic_pass": true,
+    "full_current_build_pass": false,
+    "qualification": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/QUALIFICATION.md"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "diagnostic_only": true,
+  "base_source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
+  "current_cliff_included": false,
+  "patched_classes": "WaterAccount and Parcel; staged precipitation admission",
+  "sha256": "5125a158f3c636e0f2cd01756bcac9f3d981269dc15513a740389d35a09ee082",
+  "not_a_delivery_jar": true
+}
