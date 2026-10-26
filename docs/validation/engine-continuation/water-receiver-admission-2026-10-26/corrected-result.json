@@ -1,0 +1,12 @@
+{
+  "expected_failure_control": false,
+  "candidate_pass": true,
+  "explicit_marker": "WATER_RECEIVER_CAPACITY_PASS rejections=7 exactCapacityControls=4 exactWaterSaltSediment=true",
+  "exit": 0,
+  "jar": "/workspace/scratch/a22609fabda0/builder0731/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-vulkan-windows.jar",
+  "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
+  "saved_flush_acknowledged": true,
+  "clean_shutdown": true,
+  "rejections": 7,
+  "exact_capacity_controls": 4
+}

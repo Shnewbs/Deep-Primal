@@ -40,10 +40,11 @@ public final class WaterAccount {
     return p;
   }
   public boolean add(Parcel p) {
-    if (!accepts(p)) return false;
+    if (!canAccept(p)) return false;
     water += p.water(); salt += p.salt(); sediment += p.sediment(); return true;
   }
-  private boolean accepts(Parcel p) {
+  /** Read-only admission check; callers must retain account ownership until committing. */
+  public boolean canAccept(Parcel p) {
     return p.water() <= room() && salt + p.salt() <= MAX * 1024
         && sediment + p.sediment() <= MAX * 1024;
   }
@@ -68,7 +69,7 @@ public final class WaterAccount {
         portion(parcel.sediment(), firstWater, total));
     var secondParcel = new Parcel(total - firstWater, parcel.salt() - firstParcel.salt(),
         parcel.sediment() - firstParcel.sediment());
-    if (!first.accepts(firstParcel) || !second.accepts(secondParcel))
+    if (!first.canAccept(firstParcel) || !second.canAccept(secondParcel))
       throw new IllegalStateException("Split transfer exceeds constituent capacity");
     first.add(firstParcel);
     second.add(secondParcel);

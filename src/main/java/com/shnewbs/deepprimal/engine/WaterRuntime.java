@@ -208,6 +208,8 @@ public final class WaterRuntime {
     var beforeB = l.getBlockState(b);
     var contentsA = HydrologyRuntime.contents(l, a, beforeA);
     var contentsB = HydrologyRuntime.contents(l, b, beforeB);
+    var transfer = HydrologyRuntime.prepareTransfer(contentsA, contentsB, exchange.moved());
+    if (transfer == null) return false;
     // Commit both volumes before notifying neighbors; failed writes retain the original volume.
     if (!HydrologyRuntime.write(l, a, state(beforeA, exchange.from(), flow))) return false;
     if (!HydrologyRuntime.write(l, b, state(beforeB, exchange.to(), flow))) {
@@ -216,7 +218,7 @@ public final class WaterRuntime {
     }
     if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))
       net.minecraft.world.level.block.Block.dropResources(beforeB, l, b);
-    HydrologyRuntime.transferred(l, a, b, contentsA, contentsB, exchange.moved(), beforeA);
+    HydrologyRuntime.transferred(l, a, b, transfer, beforeA);
     budget(l).transfers++;
     wake(l, a);
     wake(l, b);

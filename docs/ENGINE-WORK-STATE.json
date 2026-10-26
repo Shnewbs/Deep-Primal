@@ -4,10 +4,10 @@
   "updated_at": "2026-10-26T08:57:00.977Z",
   "active_until": "2026-10-26T09:32:00.977Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.27",
+  "candidate_version": "0.0.1-alpha.29-dev.28",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev.27 qualified/saved; repairing newly reproduced native constituent-capacity rejection after block writes",
+  "current_gate": "Native-qualified constituent admission repair; exact pushed-source rebuild/delivery pending",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,7 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
-    "Packaged candidate native/save/reopen/shutdown, then guarded promotion/delivery. Continue loaded/unloaded water ledger and V8 saved-profile/topology.",
+    "Incorporate qualified foreground cliff continuity work; continue loaded/unloaded water ledger and V8 saved-profile/topology. Preserve dev.28 constituent admission and dev.27 bounded aquifer clock.",
     "Restore complete pinned project via authorized connector; validate water loaded/unloaded ownership and V8 saved-profile/topology. Recheck foreground water claim before runtime edits.",
     "Dev.25 terminal cache closure and outside-lock dispatch pass full build, packaged regressions and four Linux native save/reopen sessions. Next registered V8 saved-profile/topology/routed-water gates; channel-5 visual/hydrology and owner GPU acceptance remain open. docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
     "2026-10-26 dev.24 repairs reproduced cache-loader/EngineCore-close blockage. Full 35-task build, 587 product/142 independent core class comparisons, 7 archive CRCs and 4 packaged native save/reopen sessions pass, including saved channel-5 after toggle-off. This supersedes old compile and channel-5 native blockers below; visual/hydrology/V8/LOD/owner GPU acceptance remains open. docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
@@ -1055,14 +1055,15 @@
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
     "lease_released": false,
-    "coordination": "Git root/water leases expired. Auditor recorded run completed 07:20Z. Personal context found historical foreground water 02:26Z and builder 07:41Z; no fresh live claim. ps unavailable on host (fatal library lookup), no liveness inferred.",
-    "evidence": "docs/validation/engine-continuation/aquifer-persistence-2026-10-26/README.md",
-    "actual_changes": "Promote bounded Aquifer.step signed-clock repair, core oracle/wiring, dev.27; add actual packaged aquifer persistence fixture. Preserve concurrent water GPU receipt/fixture.",
+    "coordination": "Preserve foreground-cliff-continuity-20261026 scoped rendering claim (b9a6206), separate Windows resources, expires09:48Z. Builder owns simulation/accounting and root version; no overlap.",
+    "evidence": "docs/validation/engine-continuation/water-receiver-admission-2026-10-26/README.md",
+    "actual_changes": "Promoted aquifer signed-clock/restart repair (dev.27); now pre-write constituent admission for infiltration/ocean/cell transfer (dev.28). Added native rejection and exact-capacity controls.",
     "production_runtime_changed": true,
     "candidate_native_qualified": true,
-    "native_sessions": 7,
+    "native_sessions": 8,
     "full_build": true,
-    "next_implementation": "Qualify pre-write constituent admission for infiltration/ocean/native cell transfers; seven new native receiver controls and exact-capacity positive controls"
+    "next_implementation": "Qualify pre-write constituent admission for infiltration/ocean/native cell transfers; seven new native receiver controls and exact-capacity positive controls",
+    "retained_failures": "Four original conservation failures; initial dev.28 native NoSuchMethodError exposed stale compiled WaterRuntime despite Gradle zero. Forced nonincremental rebuild and final eight sessions pass."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1199,5 +1200,18 @@
     "full_build": true,
     "native_save_reopen": false,
     "native_evidence": "docs/validation/engine-continuation/aquifer-persistence-2026-10-26/README.md"
+  },
+  "latest_water_conservation": {
+    "version": "0.0.1-alpha.29-dev.28",
+    "evidence": "docs/validation/engine-continuation/water-receiver-admission-2026-10-26/README.md",
+    "baseline_native_failures": 4,
+    "final_rejections": 7,
+    "exact_capacity_controls": 4,
+    "native_sessions": 8,
+    "full_build_tasks": 35,
+    "product_class_matches": 588,
+    "independent_core_matches": 142,
+    "fixture_exclusions": 211,
+    "grade_changed": false
   }
 }

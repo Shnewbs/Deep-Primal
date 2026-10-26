@@ -103,14 +103,20 @@ public final class HydrologyRuntime {
       if (!parcel.equals(prior)) d.setDirty();
     }
   }
-  public static void transferred(ServerLevel l, BlockPos a, BlockPos b,
-      WaterAccount.Parcel beforeA, WaterAccount.Parcel beforeB, int units, BlockState source) {
-    var d = HydrologyData.get(l);
+  public record Transfer(WaterAccount.Parcel from, WaterAccount.Parcel to) {}
+  /** Prepare exact volume and constituent results before any native block writes. */
+  public static Transfer prepareTransfer(WaterAccount.Parcel beforeA,
+      WaterAccount.Parcel beforeB, int units) {
+    if (units <= 0 || units > 16) return null;
     var from = new WaterAccount(4096, beforeA);
     var to = new WaterAccount(4096, beforeB);
     if (WaterAccount.move(from, to, units * WaterAccount.SCALE) != units * WaterAccount.SCALE)
-      throw new IllegalStateException("Committed fluid transfer exceeds parcel");
-    store(l, a, from.snapshot()); store(l, b, to.snapshot());
+      return null;
+    return new Transfer(from.snapshot(), to.snapshot());
+  }
+  public static void transferred(ServerLevel l, BlockPos a, BlockPos b,
+      Transfer transfer, BlockState source) {
+    store(l, a, transfer.from()); store(l, b, transfer.to());
     if (boundary(source) && enabled(l)) restoreOcean(l, a, source);
   }
   public static boolean restoreOcean(ServerLevel l, BlockPos p, BlockState anchor) {
@@ -138,6 +144,7 @@ public final class HydrologyRuntime {
     if (take == 0) return false;
     var account = new WaterAccount(4096, contents(l, from, a));
     var parcel = account.take(take * WaterAccount.SCALE);
+    if (!d.ocean.canAccept(parcel)) return false;
     if (!write(l, from, units == take ? Blocks.AIR.defaultBlockState() : a.setValue(EngineFluid.UNITS, units - take))) return false;
     if (!d.ocean.add(parcel)) throw new IllegalStateException("Ocean reservation changed");
     d.setDirty();
@@ -183,6 +190,7 @@ public final class HydrologyRuntime {
     if (amount <= 0) return false;
     var water = new WaterAccount(4096, contents(l, p, old));
     var parcel = water.take(amount * WaterAccount.SCALE);
+    if (!aquifer.ground.canAccept(parcel)) return false;
     if (!write(l, p, units == amount ? Blocks.AIR.defaultBlockState() : old.setValue(EngineFluid.UNITS, units - amount))) return false;
     if (!aquifer.ground.add(parcel)) throw new IllegalStateException("Aquifer reservation changed");
     HydrologyData.get(l).setDirty();
