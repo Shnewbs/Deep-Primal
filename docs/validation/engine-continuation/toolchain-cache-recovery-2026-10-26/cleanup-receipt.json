@@ -1,11 +1,11 @@
 {
   "scope": "builder2300 owned files only",
-  "removed_redundant_archive_bytes": 484338664,
+  "removed_redundant_archive_bytes": 276865317,
   "preliminary_installation_removed": true,
   "residual_archives_reverified_and_explicitly_removed": [
     "jdk21.tar.gz"
   ],
-  "residual_note": "Post-rename check found the pinned JDK21 archive despite the earlier removal receipt; reverified its exact bytes and removed it explicitly. No matching active producer observed; origin unestablished.",
+  "residual_note": "JDK21 archive repeatedly reappeared between independent command calls after Python unlink and shell rm, despite immediate absence checks. No matching active producer was observed. Cause unestablished; persistent deletion of these 207473347 bytes is NOT claimed. JDK25 and Gradle archives remain absent.",
   "retained": "final installed JDK25, JDK21, Gradle, required agent dependency JARs and restoration.json",
   "source_cache_modified": false,
   "checks": [
@@ -103,8 +103,15 @@
         "bytes": 126252,
         "sha256": "6f3828a215c920059a5efa2fb55c233d6c54ec5cadca99ce1b1bdd10077c7ddd",
         "verified": true,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0
       }
     ]
+  },
+  "requested_archive_cleanup_bytes": 484338664,
+  "cleanup_complete": false,
+  "blocked_archive": {
+    "asset": "jdk21.tar.gz",
+    "bytes": 207473347,
+    "persistent_deletion_verified": false
   }
 }

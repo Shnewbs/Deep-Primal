@@ -1034,7 +1034,7 @@
     "fresh_complete_regrade": false,
     "production_runtime_changed": false,
     "actual_changes": "Add explicit read-only pinned archive cache recovery, bounded transfers, and removal of private archives only after verified successful extraction. Preserve required dependency JARs.",
-    "checks": "11 offline regression tests in normal/-O/-OO; all five real assets restored and verified; JDK25/JDK21/Gradle launches passed; 484338664 redundant archive bytes removed and preliminary tool installation deleted.",
+    "checks": "11 offline tests in normal/-O/-OO; five real assets verified; JDK25/JDK21/Gradle launches pass. JDK25/Gradle archives absent (276865317 bytes). JDK21 archive repeatedly reappears after deletion; its 207473347 bytes are NOT counted as permanently reclaimed.",
     "evidence": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md",
     "blocker": "No new game build this cycle: private tools were restored, but private project/dependency setup and full combined staged native/module/package/rendering qualification remain to be completed. No new JAR or release.",
     "next_implementation": "Restore isolated source/dependency build setup; qualify combined staged hydrology index/cursor repairs, then conservative loaded/unloaded water ownership."
@@ -1318,6 +1318,7 @@
       "newest three testing JARs and any uniquely needed evidence"
     ],
     "archive_cleanup": "Remove own verified tool archives after successful extraction; leave source caches and required JAR dependencies intact",
-    "last_receipt": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md"
+    "last_receipt": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md",
+    "unresolved": "Owned JDK21 archive reappears between independent calls after successful immediate unlink/rm checks; persistence not verified, cause unestablished. Avoid broad deletion retries."
   }
 }
