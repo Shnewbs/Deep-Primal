@@ -1,0 +1,6 @@
+{
+  "expected_failure": true,
+  "exit": 1,
+  "native_server_run": false,
+  "failure": "Exception in thread \"main\" java.lang.IllegalStateException: Split transfer exceeds constituent capacity\n\tat com.shnewbs.deepprimal.core.WaterAccount.distribute(WaterAccount.java:73)\n\tat com.shnewbs.deepprimal.core.SplitAdmissionChecks.main(SplitAdmissionChecks.java:18)\n"
+}
