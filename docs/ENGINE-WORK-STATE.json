@@ -4,10 +4,10 @@
   "updated_at": "2026-10-26T08:39:06.267Z",
   "active_until": "2026-10-26T09:14:06.267Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.26-water.1",
+  "candidate_version": "0.0.1-alpha.29-dev.27",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Qualify staged dev.27 aquifer repair with packaged native save/reopen; guarded promotion and exact-source build",
+  "current_gate": "Native-qualified aquifer fix promoted; final exact-source rebuild/delivery pending",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1056,7 +1056,12 @@
     "fresh_complete_regrade": false,
     "lease_released": false,
     "coordination": "Git root/water leases expired. Auditor recorded run completed 07:20Z. Personal context found historical foreground water 02:26Z and builder 07:41Z; no fresh live claim. ps unavailable on host (fatal library lookup), no liveness inferred.",
-    "evidence": "docs/validation/engine-continuation/aquifer-tick-overflow-2026-10-26"
+    "evidence": "docs/validation/engine-continuation/aquifer-persistence-2026-10-26/README.md",
+    "actual_changes": "Promote bounded Aquifer.step signed-clock repair, core oracle/wiring, dev.27; add actual packaged aquifer persistence fixture. Preserve concurrent water GPU receipt/fixture.",
+    "production_runtime_changed": true,
+    "candidate_native_qualified": true,
+    "native_sessions": 7,
+    "full_build": true
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1195,11 +1200,12 @@
     "current_gate": "Real AMD8060S OpenGL production GPU ledge/fade/readback controls pass; Vulkan validation underway; complete scene/world-ledger/performance acceptance remains open"
   },
   "latest_staged_aquifer_timing": {
-    "promoted": false,
+    "promoted": true,
     "candidate_version": "0.0.1-alpha.29-dev.27",
     "evidence": "docs/validation/engine-continuation/aquifer-tick-overflow-2026-10-26/README.md",
     "regression_cases": 50144,
     "full_build": true,
-    "native_save_reopen": false
+    "native_save_reopen": false,
+    "native_evidence": "docs/validation/engine-continuation/aquifer-persistence-2026-10-26/README.md"
   }
 }

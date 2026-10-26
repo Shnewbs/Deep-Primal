@@ -45,7 +45,11 @@ public final class Aquifer {
   public long lastTick() { return lastTick; }
   /** At most one fixed-duration step, even after long unload/offline gaps. */
   public boolean step(long tick) {
-    if (tick <= lastTick || tick - lastTick < 20) return false;
+    if (tick <= lastTick) return false;
+    // Ordered signed timestamps can span more than Long.MAX_VALUE ticks.
+    // A negative subtraction here denotes that large gap, not a short interval.
+    long elapsed = tick - lastTick;
+    if (elapsed >= 0 && elapsed < 20) return false;
     lastTick = tick;
     if (ground.water() <= stop()) dynamicWetSteps = 0;
     else if (dynamicWetSteps < WET_STEPS)
