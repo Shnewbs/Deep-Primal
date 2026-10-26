@@ -262,7 +262,9 @@ public final class VoxelLodRenderer {
           Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
               mc.options.getEffectiveRenderDistance()));
     }
-    deliveredScan.drain(128, (x, z) -> {
+    int discoveryBudget = ClientPerformanceConfig.PAUSE_BACKGROUND.get() && !mc.isWindowActive()
+        ? 0 : 128;
+    deliveredScan.drain(discoveryBudget, (x, z) -> {
       // Discovery must not displace live edits or flood the existing bounded dirty queue.
       if (dirty.size() >= 512) return false;
       long k = key(x, z);
