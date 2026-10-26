@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T23:03:46.988Z",
-  "active_until": "2026-10-26T23:33:46.988Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T23:13:44Z",
+  "active_until": "2026-10-26T23:13:44Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Restore isolated pinned validation tools without redundant network downloads",
+  "current_gate": "Pinned validation tools recovered; combined staged hydrology build and packaged water gates remain open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -999,10 +999,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "functional_only",
+    "status": "released",
     "exclusive_benchmark": false,
     "owner": "builder-20261026T2300",
-    "active_until": "2026-10-26T23:33:46.988Z"
+    "active_until": "2026-10-26T23:13:44Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1027,9 +1027,17 @@
     "base_code_sha": "0a253f716421b77fed1adf404b600d6014bda32a",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-26T2232-4a8b0fb/REVIEW.md",
     "last_external_grade": 5,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "Pinned archive-cache tool recovery; production hydrology unchanged",
-    "coordination": "22:30 auditor in progress, last completed report21:30. Root/water claims released; original other-chat fresh ownership unavailable. Old builder resources removed; own new builder2300 output only. Concurrent renderer claim through00:00 owns LodMesher/CoreChecks only; no overlap with tooling recovery. New completed audit consumed."
+    "coordination": "Latest completed audit2232 pinned4a8b0fb consumed after concurrent main updates. Renderer claim owns LodMesher/CoreChecks through00:00; preserved. Original other-chat fresh ownership unavailable; separate auditor run records checked. Only owned builder2300 resources modified; completed audit archives read-only. Renderer claim extension0807ecc preserved at final rebase.",
+    "consumed_audit_sha": "4a8b0fb52e7473a816655096c42f089dd340e735",
+    "fresh_complete_regrade": false,
+    "production_runtime_changed": false,
+    "actual_changes": "Add explicit read-only pinned archive cache recovery, bounded transfers, and removal of private archives only after verified successful extraction. Preserve required dependency JARs.",
+    "checks": "11 offline regression tests in normal/-O/-OO; all five real assets restored and verified; JDK25/JDK21/Gradle launches passed; 484338664 redundant archive bytes removed and preliminary tool installation deleted.",
+    "evidence": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md",
+    "blocker": "No new game build this cycle: private tools were restored, but private project/dependency setup and full combined staged native/module/package/rendering qualification remain to be completed. No new JAR or release.",
+    "next_implementation": "Restore isolated source/dependency build setup; qualify combined staged hydrology index/cursor repairs, then conservative loaded/unloaded water ownership."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1209,13 +1217,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T2130-a849187/REVIEW.md",
-    "source_sha": "a8491871875bf214cf4ad532c3ccc19e00f23804",
+    "path": "docs/engine-hourly-audits/2026-10-26T2232-4a8b0fb/REVIEW.md",
+    "source_sha": "4a8b0fb52e7473a816655096c42f089dd340e735",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Regular-visit callback ownership, then complete staged index qualification"
+    "chosen_repair": "Recover isolated validation tools with bounded verified cache copies and remove redundant archives, then qualify combined staged hydrology"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1299,5 +1307,17 @@
       "split_module_assembly": true,
       "full_release_bundle": false
     }
+  },
+  "cleanup_policy": {
+    "owner_directive": "Permanently clear old unneeded files based on current needs",
+    "scope": "Own obsolete exports and reproducible intermediates after preserving source/evidence",
+    "protect": [
+      "active writers/checkouts/outputs",
+      "approved art and saved worlds/player edits",
+      "useful dependency caches",
+      "newest three testing JARs and any uniquely needed evidence"
+    ],
+    "archive_cleanup": "Remove own verified tool archives after successful extraction; leave source caches and required JAR dependencies intact",
+    "last_receipt": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md"
   }
 }

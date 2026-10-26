@@ -35,21 +35,32 @@ def verified(path, size, digest):
     return hashed.hexdigest()
 
 
-def restore(output, asset, verify_only):
+def copy_bounded(source, target, size, started):
+    count = 0
+    while chunk := source.read(1024 * 1024):
+        count += len(chunk)
+        if count > size or time.monotonic() - started > 300:
+            raise ValueError('Transfer exceeds its pinned size or time budget')
+        target.write(chunk)
+
+
+def restore(output, asset, verify_only, archive_cache=None, remove_archives=False):
     name, url, size, digest, top = asset
     path = output / name
     started = time.monotonic()
     try:
         if not verify_only:
             path.parent.mkdir(parents=True, exist_ok=True)
-            count = 0
-            request = urllib.request.Request(url, headers={'User-Agent': 'DeepPrimal-validation-tools'})
-            with urllib.request.urlopen(request, timeout=30) as response, path.open('xb') as target:
-                while chunk := response.read(1024 * 1024):
-                    count += len(chunk)
-                    if count > size or time.monotonic() - started > 300:
-                        raise ValueError('Download exceeds its pinned size or time budget')
-                    target.write(chunk)
+            if archive_cache is not None:
+                source = archive_cache / name
+                verified(source, size, digest)
+                # Copy into our fresh directory; never mutate or extract into the cache.
+                with source.open('rb') as cached, path.open('xb') as target:
+                    copy_bounded(cached, target, size, started)
+            else:
+                request = urllib.request.Request(url, headers={'User-Agent': 'DeepPrimal-validation-tools'})
+                with urllib.request.urlopen(request, timeout=30) as response, path.open('xb') as target:
+                    copy_bounded(response, target, size, started)
         verified(path, size, digest)
         if not verify_only and top:
             if name.endswith('.tar.gz'):
@@ -67,7 +78,11 @@ def restore(output, asset, verify_only):
                         raise ValueError('ZIP CRC failure')
                     archive.extractall(output)
                 (output / top / 'bin/gradle').chmod(0o755)
-        return {'asset': name, 'bytes': size, 'sha256': digest, 'verified': True,
+        removed = False
+        if remove_archives and not verify_only and top:
+            path.unlink()  # Only our verified archive, after successful extraction.
+            removed = True
+        return {'archive_removed': removed, 'asset': name, 'bytes': size, 'sha256': digest, 'verified': True,
                 'elapsed_seconds': round(time.monotonic() - started, 2)}
     except Exception as error:
         return {'asset': name, 'verified': False, 'error': str(error)}
@@ -77,7 +92,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--verify-only', action='store_true', help='Check pinned archives already in --output; do not download or extract')
+    parser.add_argument('--archive-cache', type=Path,
+                        help='Read pinned archives from this directory instead of downloading; never modify it')
+    parser.add_argument('--remove-archives', action='store_true',
+                        help='Remove only newly copied/downloaded archives after successful extraction')
     args = parser.parse_args()
+    if args.verify_only and (args.archive_cache or args.remove_archives):
+        parser.error('--verify-only cannot copy or remove archives')
     output = args.output.resolve()
     if args.verify_only:
         if not output.is_dir():
@@ -87,7 +108,7 @@ def main():
             parser.error('--output already exists; choose a fresh directory or use --verify-only')
         output.mkdir(parents=True, exist_ok=False)  # Never overwrite another checkout/tool installation.
     with ThreadPoolExecutor(max_workers=2) as pool:
-        records = list(pool.map(lambda asset: restore(output, asset, args.verify_only), ASSETS))
+        records = list(pool.map(lambda asset: restore(output, asset, args.verify_only, args.archive_cache, args.remove_archives), ASSETS))
     result = {'scope': 'private-validation-tools', 'verify_only': args.verify_only,
               'all_verified': all(record['verified'] for record in records), 'assets': records}
     if not args.verify_only:
