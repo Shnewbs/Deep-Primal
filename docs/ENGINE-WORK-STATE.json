@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T02:17:20Z",
-  "active_until": "2026-10-26T02:27:20.000Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T02:18:53Z",
+  "active_until": "2026-10-26T02:18:53Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.25",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Qualified dev.25 terminal query shutdown; guarded source publication and testing artifact delivery",
+  "current_gate": "Dev.25 qualified and saved; resume registered V8 saved-profile/topology/routed-water gates, preserving foreground water claim",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1026,7 +1026,7 @@
     "status": "completed",
     "scope": "Dev.25 full build and packaged native lifecycle validation; no timing benchmark",
     "started_at": "2026-10-26T01:55:47Z",
-    "active_until": "2026-10-26T02:17:20Z",
+    "active_until": "2026-10-26T02:18:53Z",
     "auditor_policy": "Independent pinned checkout/cache; defer shared-resource heavy benchmarks until validation completes."
   },
   "owner_pause_checkpoint": {
@@ -1060,7 +1060,7 @@
     "core_checks_pass": true,
     "module_resource_cache_checks_pass": true,
     "new_installable_development_jar": true,
-    "lease_released": false,
+    "lease_released": true,
     "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
@@ -1071,9 +1071,12 @@
     "gpu_visual_acceptance": false,
     "github_release_published": false,
     "publication_blocker": "No release/asset-write capability in connected GitHub tools; gh executable unavailable.",
-    "library_save_verified": false,
+    "library_save_verified": true,
     "coordination_checks": "Current main/work-state and automation listing checked; personal-context lookup checked other engine chat. No live cross-chat state beyond returned records is claimed.",
-    "next_implementation": "V8 native saved graph/topology parity; channel-5 visual/hydrology acceptance remains open."
+    "next_implementation": "V8 native saved graph/topology parity; channel-5 visual/hydrology acceptance remains open.",
+    "source_sha": "f57000053205142297e9e2858e6844464c4b9a9e",
+    "completed_at": "2026-10-26T02:18:53Z",
+    "library_file_id": "libfile_ac868d2ba71c8191b851b8697c5b3aff"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1095,12 +1098,17 @@
     "development_testing_only": true,
     "producer_completed": true,
     "local_verified_artifact_available": true,
-    "library_save_verified": false,
+    "library_save_verified": true,
     "github_release_published": false,
     "native_linux_save_reopen_sessions": 4,
     "windows_execution": false,
     "gpu_tested": false,
-    "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md"
+    "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
+    "source_sha": "f57000053205142297e9e2858e6844464c4b9a9e",
+    "library_file_id": "libfile_ac868d2ba71c8191b851b8697c5b3aff",
+    "library_url": "https://chatgpt.com/library?file_id=libfile_ac868d2ba71c8191b851b8697c5b3aff&account_id=personal",
+    "completed_at": "2026-10-26T02:18:53Z",
+    "post_upload_sha256_unchanged": true
   },
   "previous_builder_cycle": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
