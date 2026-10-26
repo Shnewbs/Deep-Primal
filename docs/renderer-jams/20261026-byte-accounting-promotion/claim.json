@@ -7,10 +7,12 @@
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodByteAccountingChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/renderer-jams/20261026-byte-accounting-promotion"
+    "docs/renderer-jams/20261026-byte-accounting-promotion",
+    "gui-themes/build.gradle"
   ],
   "measurement": {
     "exclusive_benchmark": false,
     "status": "functional_only"
-  }
+  },
+  "packaging_correction": "Exclude tracked temporary/hidden inputs from the nested Themes artifact; no authored art edits"
 }
