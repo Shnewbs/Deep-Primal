@@ -1,0 +1,3 @@
+LOD_PART_BOUNDS parts=18 loose=18 slabRejects=18 exactRejects=162 geometrySha256=3b6ae8b901558f5dcdb8bcc86f9d632c015d10e991c15fd01dd701d74e18f612
+Exception in thread "main" java.lang.AssertionError: Bounds retain unrelated earlier vertices: 18
+	at com.shnewbs.deepprimal.core.lod.LodPartBoundsChecks.main(LodPartBoundsChecks.java:54)

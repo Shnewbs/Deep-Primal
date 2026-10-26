@@ -1,0 +1,14 @@
+{
+  "os": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "cpus": 9,
+  "gpu_devices": [],
+  "scene": "synthetic real ColumnarChunk, (-17,-1), floors -64/0/320, height48, gaps and solid/fractional water palette, details1/2/4",
+  "frame_baseline": null,
+  "api": null,
+  "seed": null,
+  "resolution": null,
+  "warm_cold": "not a timing run",
+  "water": true,
+  "lod": true
+}

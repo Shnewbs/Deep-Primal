@@ -1,0 +1,3 @@
+PACKAGED_CLASS LodMesher
+PACKAGED_CLASS ColumnarChunk
+LOD_PART_BOUNDS parts=18 loose=0 slabRejects=162 exactRejects=162 geometrySha256=3b6ae8b901558f5dcdb8bcc86f9d632c015d10e991c15fd01dd701d74e18f612
