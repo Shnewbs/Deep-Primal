@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T11:02:00Z",
+  "updated_at": "2026-10-26T11:27:00Z",
   "active_until": "2026-10-26T11:45:00Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.28",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Qualify staged precipitation admission with current cliff repairs, full combined build and native fresh/reopen gates.",
+  "current_gate": "Dev.29 precipitation admission passes full combined build and ten native sessions; final exact pushed-source producer/export and delivery pending.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1116,12 +1116,12 @@
     "new_followup_defect": "Valid full-constituent receiver can reject after block writes; four native failures reproduced. Dev.28 repair under qualification."
   },
   "latest_provisional_audit": {
-    "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
-    "evidence": "docs/engine-hourly-audits/2026-10-26T0154-4fb29e0/REVIEW.md",
-    "score_out_of_100": 50,
-    "average": 5,
+    "source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
+    "evidence": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
+    "score_out_of_100": 48,
+    "average": 4.8,
     "fresh_complete_regrade": false,
-    "scope": "Scoped reassessment restores full accepted baseline; not a fresh whole-engine regrade."
+    "last_full_average": 5
   },
   "latest_water_patch": {
     "version": "0.0.1-alpha.29-dev.26-water.1",
@@ -1169,17 +1169,13 @@
     "grade_changed": false
   },
   "latest_staged_precipitation_admission": {
-    "base_sha": "d6d7fc5c0fc317debc31a9b9556eb4e7d2e67eb1",
-    "promoted": false,
-    "evidence": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/README.md",
-    "focused_cases": 80000,
-    "water_budget_transfers": 200000,
-    "weather_intervals": 180000,
-    "production_changed": false,
+    "promoted": true,
+    "version": "0.0.1-alpha.29-dev.29",
+    "evidence": "docs/validation/engine-continuation/precipitation-release-2026-10-26/README.md",
+    "full_current_build_pass": true,
+    "native_sessions": 10,
     "core_pass": true,
-    "native_diagnostic_pass": true,
-    "full_current_build_pass": false,
-    "qualification": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/QUALIFICATION.md"
+    "acceptance_complete": false
   },
   "latest_consumed_audit": {
     "path": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",

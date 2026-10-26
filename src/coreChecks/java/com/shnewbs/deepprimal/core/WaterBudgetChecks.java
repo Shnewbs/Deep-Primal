@@ -147,13 +147,10 @@ final class WaterBudgetChecks {
     var blocked = new WaterAccount(100, new WaterAccount.Parcel(0, WaterAccount.MAX * 1024, 0));
     var other = new WaterAccount(100, WaterAccount.Parcel.EMPTY);
     var original = source.snapshot();
-    try {
-      WaterAccount.distribute(source, blocked, other, 50, 50);
-      throw new AssertionError("Constituent overflow accepted");
-    } catch (IllegalStateException expected) {
-      check(source.snapshot().equals(original) && other.snapshot().equals(WaterAccount.Parcel.EMPTY)
-          && blocked.water() == 0, "Rejected split is atomic");
-    }
+    check(WaterAccount.distribute(source, blocked, other, 50, 50) == 0,
+        "Saturated split is a zero transfer, not a server-tick exception");
+    check(source.snapshot().equals(original) && other.snapshot().equals(WaterAccount.Parcel.EMPTY)
+        && blocked.water() == 0, "Rejected split is atomic");
     try {
       WaterAccount.distribute(source, other, other, 50, 50);
       throw new AssertionError("Aliased split accepted");

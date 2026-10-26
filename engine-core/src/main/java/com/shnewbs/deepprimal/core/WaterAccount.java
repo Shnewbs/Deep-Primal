@@ -54,7 +54,8 @@ public final class WaterAccount {
     if (!to.add(p)) return 0;
     from.take(p.water()); return p.water();
   }
-  /** Split a finite supply by capacity-limited demand; the second store receives rounding dust. */
+  /** Split a finite supply; the second store receives rounding dust.
+   * A receiver admission failure returns zero without mutating any of the three accounts. */
   public static long distribute(WaterAccount from, WaterAccount first, WaterAccount second,
       long firstDemand, long secondDemand) {
     if (from == first || from == second || first == second)
@@ -70,7 +71,7 @@ public final class WaterAccount {
     var secondParcel = new Parcel(total - firstWater, parcel.salt() - firstParcel.salt(),
         parcel.sediment() - firstParcel.sediment());
     if (!first.canAccept(firstParcel) || !second.canAccept(secondParcel))
-      throw new IllegalStateException("Split transfer exceeds constituent capacity");
+      return 0;
     first.add(firstParcel);
     second.add(secondParcel);
     from.take(total);
