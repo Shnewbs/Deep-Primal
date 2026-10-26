@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T09:24:19.048Z",
-  "active_until": "2026-10-26T09:24:19.048Z",
+  "status": "active",
+  "updated_at": "2026-10-26T09:38:59.359Z",
+  "active_until": "2026-10-26T10:03:59.359Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.28",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Dev.28 water receiver admission and aquifer restart fixes qualified and delivered. Next reconcile qualified foreground cliff continuity, then single-owner loaded/unloaded water ledger persistence and V8 native integration. Engine grade remains 5.0/10; water acceptance incomplete.",
+  "current_gate": "Investigate safe rejection of rain/snow split transfers at valid constituent limits; isolated staged accounting patch, no foreground rendering/version edits.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -479,7 +479,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T0838",
+  "worker": "builder-20261026T0938",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -997,12 +997,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "owner": "builder-20261026T0838",
-    "status": "completed",
-    "scope": "Dev.28 conservation repair functional build/native; private builder0731 outputs/cache; no benchmark",
-    "active_until": "2026-10-26T09:24:19.048Z",
-    "completed_at": "2026-10-26T09:24:19.048Z",
-    "benchmark": false
+    "owner": "builder-20261026T0938",
+    "status": "active",
+    "scope": "Isolated core functional regression; no benchmark/native/Gradle jobs",
+    "active_until": "2026-10-26T10:03:59.359Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1024,6 +1022,39 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
+    "base_code_sha": "d6d7fc5c0fc317debc31a9b9556eb4e7d2e67eb1",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0653-0818658/REVIEW.md",
+    "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
+    "last_external_grade": 5,
+    "fresh_complete_regrade": false,
+    "lease_released": false,
+    "coordination": "Git foreground cliff claim through10:02Z includes gradle.properties. Personal context09:27 reports full/Vulkan running on foreground Windows host. Auditor latest completed run07:20; no liveness assumed."
+  },
+  "latest_overflow_repairs": {
+    "version": "0.0.1-alpha.29-dev.22",
+    "promoted": true,
+    "evidence": "docs/validation/engine-continuation/overflow-full-qualification-2026-10-25/README.md",
+    "cache_checks": 3379936,
+    "density_checks": 11728,
+    "full_build": true,
+    "native_sessions": 4,
+    "source_sha": "7aa3ae3bd4460b6a5d8164d0f58f65fef2190db7",
+    "library_file_id": "libfile_45cd48e8eaf48191ab971863062c873a"
+  },
+  "latest_development_delivery": {
+    "version": "0.0.1-alpha.29-dev.28",
+    "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
+    "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
+    "bytes": 125290369,
+    "library_file_id": "libfile_052d5a1e0c2081919f3e1c60829ed5dd",
+    "full_build_tasks": 35,
+    "native_sessions": 8,
+    "github_release_published": false,
+    "publication_blocker": "No available authorized GitHub release-write/asset-upload capability or gh executable",
+    "windows_execution": false,
+    "final_rebuild_identical_to_native_tested_candidate": true
+  },
+  "previous_builder_cycle": {
     "base_code_sha": "7f1d6310accf40649f25bf2f6698cec1949940f3",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0653-0818658/REVIEW.md",
     "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
@@ -1054,53 +1085,6 @@
       "windows_execution": false,
       "final_rebuild_identical_to_native_tested_candidate": true
     }
-  },
-  "latest_overflow_repairs": {
-    "version": "0.0.1-alpha.29-dev.22",
-    "promoted": true,
-    "evidence": "docs/validation/engine-continuation/overflow-full-qualification-2026-10-25/README.md",
-    "cache_checks": 3379936,
-    "density_checks": 11728,
-    "full_build": true,
-    "native_sessions": 4,
-    "source_sha": "7aa3ae3bd4460b6a5d8164d0f58f65fef2190db7",
-    "library_file_id": "libfile_45cd48e8eaf48191ab971863062c873a"
-  },
-  "latest_development_delivery": {
-    "version": "0.0.1-alpha.29-dev.28",
-    "source_sha": "d97cb341159cfbe656fe4cac079dd8f0f870a4c7",
-    "sha256": "9df2a957da1dc1b9c4e8b633798dde0256669bd152a2d40a12f1570296362f40",
-    "bytes": 125290369,
-    "library_file_id": "libfile_052d5a1e0c2081919f3e1c60829ed5dd",
-    "full_build_tasks": 35,
-    "native_sessions": 8,
-    "github_release_published": false,
-    "publication_blocker": "No available authorized GitHub release-write/asset-upload capability or gh executable",
-    "windows_execution": false,
-    "final_rebuild_identical_to_native_tested_candidate": true
-  },
-  "previous_builder_cycle": {
-    "base_code_sha": "044aa85fd1ecdc9f62faa33ee6a3ca38aaa7221b",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0653-0818658/REVIEW.md",
-    "consumed_audit_sha": "081865869425a1ce7d7148d6782ee485218549d1",
-    "actual_changes": "Staged Aquifer.step signed elapsed overflow repair; BigInteger-oracle regression; proposed dev.27 wiring/version. Production unchanged.",
-    "production_runtime_changed": false,
-    "full_build": true,
-    "full_build_tasks": 35,
-    "core_checks_pass": true,
-    "package_checks_pass": true,
-    "core_inputs": 130,
-    "new_installable_development_jar": false,
-    "candidate_jar_built": true,
-    "candidate_native_qualified": false,
-    "lease_released": true,
-    "completed_at": "2026-10-26T07:40:18Z",
-    "evidence": "docs/validation/engine-continuation/aquifer-tick-overflow-2026-10-26/README.md",
-    "last_external_grade": 5,
-    "fresh_complete_regrade": false,
-    "next_implementation": "Packaged candidate native/save/reopen/shutdown, then guarded promotion/delivery. Continue loaded/unloaded water ledger and V8 saved-profile/topology.",
-    "coordination": "Expired foreground water claim preserved; no overlapping writer found in Git/run records. Personal-context lookup had no live other-chat result.",
-    "blocker": "Candidate native acceptance not yet run; no new qualified JAR. Full environment restoration blocker cleared via private copy of completed auditor inputs/cache."
   },
   "latest_continue_integration": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
