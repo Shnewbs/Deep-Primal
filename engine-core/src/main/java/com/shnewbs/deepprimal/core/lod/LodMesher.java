@@ -41,7 +41,11 @@ public final class LodMesher {
             col * c.height + runs[j] - c.minY,
             col * c.height + runs[j + 1] - c.minY,
             colors[runs[j + 2]]);
-    return new Levels(mesh(c, dense, 1), mesh(c, dense, 2), mesh(c, dense, 4));
+    // Scratch belongs to this build only. Finished mesh arrays/lists are copied before reuse.
+    Builder scratch = new Builder();
+    long[] mask = new long[16 * Math.max(16, c.height)];
+    return new Levels(mesh(c, dense, 1, scratch, mask), mesh(c, dense, 2, scratch, mask),
+        mesh(c, dense, 4, scratch, mask));
   }
 
   private static boolean water(int c) {
@@ -52,7 +56,8 @@ public final class LodMesher {
     return a != 0 && (b == 0 || !water(a) && water(b));
   }
 
-  private static List<HorizonMesh> mesh(ColumnarChunk c, int[] source, int step) {
+  private static List<HorizonMesh> mesh(
+      ColumnarChunk c, int[] source, int step, Builder b, long[] mask) {
     int n = 16 / step, h = c.height;
     int[] data = step == 1 ? source : new int[n * n * h];
     if (step != 1)
@@ -72,8 +77,6 @@ public final class LodMesher {
               }
             data[(z * n + x) * h + y] = selected;
           }
-    Builder b = new Builder();
-    long[] mask = new long[n * Math.max(n, h)];
     // Each mask plane is greedily merged only across equal material and fluid height.
     for (int y = 0; y < h; y++) {
       checkInterrupted();
@@ -294,7 +297,9 @@ public final class LodMesher {
 
     List<HorizonMesh> finish() {
       flush();
-      return List.copyOf(parts);
+      List<HorizonMesh> result = List.copyOf(parts);
+      parts.clear();
+      return result;
     }
   }
 
