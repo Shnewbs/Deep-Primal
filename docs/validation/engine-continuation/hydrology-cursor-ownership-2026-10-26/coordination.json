@@ -1,0 +1,66 @@
+{
+  "main": "cd2dc3cbe8065a7e302455923a1d4599648c3c5f",
+  "auditor": {
+    "last_run": {
+      "id": "e08096c2-aae8-8330-88d1-ff5d06909d0a",
+      "recorded_status": "completed",
+      "scheduled_for": "2026-10-26T21:30:00Z",
+      "started_at": "2026-10-26T21:28:42.205392Z",
+      "completed_at": "2026-10-26T21:45:52.473890Z",
+      "chat_ref": {
+        "type": "chatgpt",
+        "id": "6ade7ab5-8170-83e8-a448-966d691419b0"
+      }
+    },
+    "latest_result": {
+      "run_id": "e08096c2-aae8-8330-88d1-ff5d06909d0a",
+      "created_at": "2026-10-26T21:45:52.211406Z",
+      "scheduled_for": "2026-10-26T21:30:00Z",
+      "completed_at": "2026-10-26T21:45:52.473890Z",
+      "content_text": "[Download the fresh dev31 audit JAR](https://chatgpt.com/library?file_id=libfile_78a0e39016b88191952d3f29b434b346&account_id=personal) — pinned to `a849187`, Windows Vulkan with OpenGL fallback. Production source is unchanged.\n\n**Passed:** 35 build tasks, independent 138-source core suite, seven archive checks, 592 product/146 core class comparisons and ten packaged Linux native sessions.\n\nThe staged callback repair also passed **2,004 independent probe cases**; its previous failure reproduced. It remains excluded from the JAR.\n\n**Grade: 50/100 · 5.0/10 · Tier 2/5.** All ten scores carried unchanged; no fresh complete regrade.\n\nNext priorities: qualify the staged index fully, finish loaded/unloaded water ownership and bound runtime work. Windows/AMD, live GPU, latency benchmarks and soak checks were not run.\n\nOnly the newest three JARs remain.\n\n[Full graded audit, hashes and evidence](https://github.com/Shnewbs/Deep-Primal/blob/cd2dc3cbe8065a7e302455923a1d4599648c3c5f/docs/engine-hourly-audits/2026-10-26T2130-a849187/REVIEW.md)",
+      "content_truncated": false,
+      "chat_ref": {
+        "type": "chatgpt",
+        "id": "6ade7ab5-8170-83e8-a448-966d691419b0"
+      },
+      "requires_user_action": false,
+      "is_failure_message": false
+    },
+    "delivery_status": "unknown"
+  },
+  "builder": {
+    "last_run": {
+      "id": "8e52249c-9c68-832b-b99d-17d5dfbe1db5",
+      "recorded_status": "in_progress",
+      "scheduled_for": "2026-10-26T22:00:00Z",
+      "started_at": "2026-10-26T22:00:06.900208Z",
+      "completed_at": null,
+      "chat_ref": null
+    },
+    "latest_result": {
+      "run_id": "1ffa2c6c-d010-8320-a8cc-85bcd6f74ea5",
+      "created_at": "2026-10-26T21:28:12.855578Z",
+      "scheduled_for": "2026-10-26T21:00:00Z",
+      "completed_at": "2026-10-26T21:28:13.532453Z",
+      "content_text": "Pushed [a849187](https://github.com/Shnewbs/Deep-Primal/commit/a8491871875bf214cf4ad532c3ccc19e00f23804).\n\n- Fixed staged source traversal after callback mutations and missing chunks.\n- Passed **2,004 callback cases**, fresh full core suite, six native tick-loop cases and exact save/reopen conservation checks.\n- **No new JAR:** full Gradle/bundle qualification remains pending after storage failures. Windows/GPU/soak gates remain open.\n- External grade remains **5.0/10**.\n\n[Latest qualified dev.31 JAR](https://chatgpt.com/library?file_id=libfile_9e3e7084b1a88191ad3da512621df519&account_id=personal), source `0a936f9`, excludes this staged repair.\n\nNext: full build and release qualification. Writer lease released; builder remains enabled.",
+      "content_truncated": false,
+      "chat_ref": {
+        "type": "chatgpt",
+        "id": "6ad9825d-74c8-83e8-b01c-24bb40d74bd8"
+      },
+      "requires_user_action": false,
+      "is_failure_message": false
+    },
+    "delivery_status": "unknown"
+  },
+  "context": {
+    "messages": [
+      {
+        "author_role": "tool",
+        "content": "[convo search]\n- [PRIOR_ASSISTANT_OUTPUT] [c0] A@2026-10-26T21:28:14Z, -34m: Latest claim: pushed `a849187`; writer lease released, builder enabled. No new JAR; full Gradle/bundle qualification pending after storage failures. Latest qualified dev.31 is source `0a936f9`, excluding this staged repair.\n\n- [PRIOR_ASSISTANT_OUTPUT] [c1] A@2026-10-26T21:45:52Z, -17m: Production source unchanged; staged callback repair passed 2,004 probes but remains excluded. Next: qualify staged index, loaded/unloaded water ownership, bounded runtime; Windows/AMD, GPU, latency, soak not run.\n- [PRIOR_ASSISTANT_OUTPUT] [c1] A@2026-10-26T20:52:54Z, -1h10m: Fresh dev31 JAR pinned `0a936f9`; all 35 build tasks, 138-source suite, archive checks, 592 product/146 core comparisons, and 10 Linux native sessions passed; staged repairs excluded.\n- [USER_CONSTRAINT] [c1] U@2026-10-26T16:30:44Z, -5h32m: Retain only the newest three Deep Primal JARs; older JARs moved to trash.\n\n- [PRIOR_ASSISTANT_OUTPUT] [c2] A@2026-10-26T21:39:33Z, +24m: latest recorded writer update; fixed fault-clearing quarantine bypasses, native suites 378/378 and 356/356, both fresh exact-JAR clients passed; writer lease released.\n- [PRIOR_ASSISTANT_OUTPUT] [c2] A@2026-10-26T20:28:30Z, +1h34m: receipt inspection bound to current server world; 64 authorization assertions, native suites 370/370 and 348/348, both clients passed; writer lease released.\n- [PRIOR_ASSISTANT_OUTPUT] [c2] A@2026-10-26T19:57:22Z, +2h05m: restart coverage for malformed Owner/Dimension/Scope and rewritten contexts; 464 assertions per branch, native suites 370/370 and 348/348; writer lease released.\n\n[files]\n[INSUFFICIENT] No relevant file context found."
+      }
+    ],
+    "error": null
+  },
+  "original_chat_live_ownership_verified": false
+}

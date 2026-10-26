@@ -1,0 +1,13 @@
+{
+  "available_bytes": {
+    "/workspace/scratch/a22609fabda0": 0,
+    "/dev/shm/dp-builder2200": 831098880
+  },
+  "retained_cache_and_output_bytes": {
+    "gradle-cache": 560636164,
+    "project/build": 414296330,
+    "project/gui-themes/build": 328261645
+  },
+  "full_gradle_attempted": false,
+  "reason": "Insufficient capacity for isolated mutable dependency cache and full root/Themes output; do not modify or reuse another checkout/cache. Retired own export cleanup did not restore overlay headroom. Native diagnostic uses own memory-backed outputs and immutable dependency JARs only."
+}

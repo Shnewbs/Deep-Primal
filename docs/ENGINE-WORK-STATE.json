@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T22:04:39.744Z",
-  "active_until": "2026-10-26T22:34:39.744Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T22:14:28.385Z",
+  "active_until": "2026-10-26T22:14:28.385Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Reproduce and repair regular hydrology cursor resurrection after chunk lookup callbacks; qualify combined staged index",
+  "current_gate": "Staged regular/survey cursor ownership repair and eleven native cases pass; full distributable producer remains blocked by storage",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,7 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
-    "Full build/module/bundle qualification and native partial-survey/callback/weather/travel cases before source-index promotion",
+    "Full combined staged-index build/module/bundle qualification, packaged weather/travel/lifecycle gates, then conservative loaded/unloaded ownership",
     "Recover sufficient private build/output headroom; qualify staged recharge reservation via full Gradle/module/native source-quota/recharge/save/reopen gates before promotion.",
     "Incorporate qualified foreground cliff continuity work; continue loaded/unloaded water ledger and V8 saved-profile/topology. Preserve dev.28 constituent admission and dev.27 bounded aquifer clock.",
     "Restore complete pinned project via authorized connector; validate water loaded/unloaded ownership and V8 saved-profile/topology. Recheck foreground water claim before runtime edits.",
@@ -999,10 +999,10 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "functional_only",
+    "status": "released",
     "exclusive_benchmark": false,
     "owner": "builder-20261026T2200",
-    "active_until": "2026-10-26T22:34:39.744Z"
+    "active_until": "2026-10-26T22:14:28.385Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1029,10 +1029,15 @@
     "consumed_audit_sha": "a8491871875bf214cf4ad532c3ccc19e00f23804",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "Reproduce and repair regular hydrology cursor resurrection after chunk lookup callbacks; qualify combined staged index",
     "coordination": "Auditor21:30 completed21:45:52; original chat current ownership unavailable. Retrieved foreground21:39 released report, Git water checkpoint released. No Java/Gradle command found via /proc; ps failed library lookup. Own /dev/shm/dp-builder2200 only; other caches/outputs read-only.",
-    "production_runtime_changed": false
+    "production_runtime_changed": false,
+    "actual_changes": "Prevent retired regular cursors from being resurrected/visited after lookup callbacks; stop obsolete surveys and preserve replacement registrations.",
+    "checks": "1480 new callback ownership cases; source/index/lifecycle/priority/allowance regressions; fresh138-source core; eleven Linux native cases and exact clean-world save/reopen; strict JNA failure excluded.",
+    "evidence": "docs/validation/engine-continuation/hydrology-cursor-ownership-2026-10-26/README.md",
+    "blocker": "Overlay zero; private full-cache/root/Themes outputs alone exceed available memory-backed storage. Full Gradle/module/bundle qualification not attempted. No new JAR or release.",
+    "next_implementation": "Full combined staged-index build/module/bundle qualification, packaged weather/travel/lifecycle gates, then conservative loaded/unloaded ownership"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1218,7 +1223,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Regular-visit callback ownership, then complete staged index qualification"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1287,15 +1292,16 @@
   },
   "latest_staged_source_index": {
     "promoted": false,
-    "base_source_sha": "23eafba3ea7bf0f6544870ea34dd5fbe3729b7a0",
-    "evidence": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/README.md",
-    "candidate": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/stage/HydrologyRuntime.java",
-    "helper": "docs/validation/engine-continuation/hydrology-callback-pass-2026-10-26/stage/StreamSourceIndex.java",
-    "checks": "2004 callback-loop cases, full API compile, existing lifecycle/priority/allowance/regular-loop suites, fresh138-source core suite; actual tick six native quota cases plus exact save/reopen; 12 producer guards.",
-    "remaining_gate": "Full build/module/bundle qualification and native partial-survey/callback/weather/travel cases before source-index promotion",
+    "base_source_sha": "cd2dc3cbe8065a7e302455923a1d4599648c3c5f",
+    "evidence": "docs/validation/engine-continuation/hydrology-cursor-ownership-2026-10-26/README.md",
+    "candidate": "docs/validation/engine-continuation/hydrology-cursor-ownership-2026-10-26/stage/HydrologyRuntime.java",
+    "helper": "docs/validation/engine-continuation/hydrology-cursor-ownership-2026-10-26/stage/StreamSourceIndex.java",
+    "checks": "1480 new callback ownership cases; source/index/lifecycle/priority/allowance regressions; fresh138-source core; eleven Linux native cases and exact clean-world save/reopen; strict JNA failure excluded.",
+    "remaining_gate": "Full combined staged-index build/module/bundle qualification, packaged weather/travel/lifecycle gates, then conservative loaded/unloaded ownership",
     "in_delivered_jar": false,
     "native_diagnostic": {
       "actual_tick_cases": 6,
+      "partial_survey_cases": 5,
       "reopen_exact_parcel_checks": 1,
       "save_flush_clean_shutdown": true,
       "split_module_assembly": true,

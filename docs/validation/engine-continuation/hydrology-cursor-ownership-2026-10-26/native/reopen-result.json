@@ -1,0 +1,13 @@
+{
+  "pass_result": true,
+  "mode": "reopen",
+  "exit": 0,
+  "marker": "SOURCE_INDEX_NATIVE_PASS mode=reopen",
+  "save_flush": true,
+  "clean_shutdown": true,
+  "loaded_class_identity": true,
+  "module_hashes_rechecked": true,
+  "sha256": "89fcfc8dce5f7276ff6cd86ce8c8db4d9d3108daf4b8f2c39dca37e4e046ac82",
+  "seconds": 12.59174929400615,
+  "scope": "Private substituted-class diagnostic root with external immutable modules, not full build or release"
+}
