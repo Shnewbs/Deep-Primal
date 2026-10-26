@@ -6,7 +6,7 @@ a=raw.index('  @SubscribeEvent public void tick(LevelTickEvent.Post e) {');b=raw
 new=tick.replace('    // Planned waterways get their own bounded cadence;', '    // Preserve admission time for regional recharge/accounting after the source pass.\n    long streamDeadline = limit > 0 ? deadline - 500_000 : deadline;\n    // Planned waterways get their own bounded cadence;')
 start=new.index('    for (int i = 0, n = order.size();');end=new.index('    for (int i = 0; i < limit',start)
 new=new[:start]+new[start:end].replace('System.nanoTime() - deadline < 0','System.nanoTime() - streamDeadline < 0')+new[end:]
-assert new.count('System.nanoTime() - streamDeadline < 0')==2
+if new.count('System.nanoTime() - streamDeadline < 0')!=2:raise RuntimeError('Unexpected source shape; review before applying candidate')
 (o/'staged-HydrologyRuntime.java').write_text(raw[:a]+new+raw[b:])
 parsed=ast.parse(args.fixture.read_text());prefix=next(ast.literal_eval(n.value) for n in parsed.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='prefix' for t in n.targets))
 prefix=prefix.replace('TreeMap<Long,Cursor>','LinkedHashMap<Long,Cursor>').replace('new TreeMap<>()','new LinkedHashMap<>()').replace('long getGameTime() { return 0; }','long tick = 20; long getGameTime() { return tick; }').replace('static class Columns { int get() { return 0; } }','static class Columns { int get() { return breadth; } }').replace('    throw new AssertionError("unexpected regular scan in zero-limit fixture");','    regularCalls++; System.now += regularCost;')
@@ -29,10 +29,30 @@ suffix='''
   check(calls.size()==streams,"stream admission expected="+streams+" actual="+calls.size());
   check(regularCalls==regular,"regular expected="+regular+" actual="+regularCalls);check(late==0,"late source");cases++;
  }
+
+ java.util.Random rng=new java.util.Random(1510);int pageCases=0;
+ for(int sample=0;sample<1000;sample++){
+  System.origin=sample%2==0?Long.MAX_VALUE-500_000:0;System.now=System.origin;
+  cost=sample%3==0?0:100_000;surveyCost=sample%2==0?500_000:0;breadth=sample%4==0?0:64;
+  ServerLevel level=new ServerLevel();Work work=setup(level,0);work.chunks.clear();
+  int pages=1+rng.nextInt(8);
+  for(int id=0;id<pages;id++){Cursor c=new Cursor(id,1+rng.nextInt(64),rng.nextInt(4));work.chunks.put((long)id,c);work.streamChunks.put((long)id,c);if(rng.nextInt(4)==0)level.chunks.unloaded.add(id);}
+  var sorted=new ArrayList<>(work.streamChunks.entrySet());sorted.sort((x,y)->Double.compare(y.getValue().headwater(),x.getValue().headwater()));
+  var expected=new ArrayList<String>();
+  for(var entry:sorted){Cursor c=entry.getValue();if(level.chunks.unloaded.contains(c.id))continue;for(int col=0;col<c.streamCount;col++)expected.add(c.id+":"+col);}
+  long cutoff=fixed&&breadth>0?1_500_000:2_000_000;
+  int cap=cost==0?expected.size():(int)Math.min(expected.size(),(cutoff-surveyCost+cost-1)/cost);
+  new AdmissionProbe().tick(new LevelTickEvent.Post(level));
+  check(calls.equals(expected.subList(0,cap)),"multi-page stable headwater order or unloaded admission sample="+sample);
+  check(late==0,"late multi-page admission");
+  // Subsequent calls must remove pages detached from the loaded cursor map.
+  if(!work.chunks.isEmpty()){long detached=work.chunks.keySet().iterator().next();work.chunks.remove(detached);System.origin+=50_000_000;System.now=System.origin;calls.clear();new AdmissionProbe().tick(new LevelTickEvent.Post(level));check(!work.streamChunks.containsKey(detached),"stale page survives next tick");for(String call:calls)check(!call.startsWith(detached+":"),"detached page emitted");}
+  pageCases++;
+ }
  System.origin=0;cost=100_000;surveyCost=0;breadth=64;ServerLevel l=new ServerLevel();setup(l,256);
  int total=0;for(int i=0;i<100;i++){System.now=i*50_000_000L;System.origin=System.now;l.tick=20L*(i+1);regularCalls=0;new AdmissionProbe().tick(new LevelTickEvent.Post(l));total+=regularCalls;}
  check(total==(fixed?500:0),"recharge starvation reproduction="+total);
- java.lang.System.out.println("REGULAR_ADMISSION_PASS fixed="+fixed+" matrix="+cases+" simulatedTicks=100 regularVisits="+total);
+ java.lang.System.out.println("REGULAR_ADMISSION_PASS fixed="+fixed+" matrix="+cases+" multiPageCases="+pageCases+" simulatedTicks=100 regularVisits="+total);
  }
 }
 '''
@@ -44,5 +64,6 @@ for label,body in [('baseline',tick),('candidate',new)]:
  j=(args.java_home/'bin').resolve()
  subprocess.run([str(j/'javac'),'-d',str(d),str(pkg/'ChunkPos.java'),str(d/'AdmissionProbe.java')],check=True)
  p=subprocess.run([str(j/'java'),'-Xmx256m','-cp',str(d),'AdmissionProbe',str(label=='candidate').lower()],capture_output=True,text=True)
- assert p.returncode==0,p.stdout+p.stderr;result[label]=p.stdout.strip();print(p.stdout,end='')
+ if p.returncode!=0:raise RuntimeError('Admission JVM failed: '+str(p.returncode)+'\n'+p.stdout+p.stderr)
+ result[label]=p.stdout.strip();print(p.stdout,end='')
 (o/'receipt.json').write_text(json.dumps({'pass':True,'base_source_sha':args.source_pin,'baseline_sha256':hashlib.sha256(raw.encode()).hexdigest(),'candidate_sha256':hashlib.sha256((raw[:a]+new+raw[b:]).encode()).hexdigest(),'checks':result,'scope':'Exact tick extraction with deterministic platform doubles; not Minecraft execution or a latency benchmark','promoted':False,'remaining_gates':['headwater quota and weather cadence actual native tests','full Java25 build/module/package qualification','long-travel loaded/unloaded single-owner and multiplayer soak','per-column/page fairness is not repaired; one callback can consume all reserved time']},indent=2))

@@ -1,0 +1,38 @@
+[
+  {
+    "script": "probe-before-strict.py",
+    "mode": "normal",
+    "exit": 1,
+    "pass_receipt_written": false
+  },
+  {
+    "script": "probe-before-strict.py",
+    "mode": "-O",
+    "exit": 0,
+    "pass_receipt_written": true
+  },
+  {
+    "script": "probe-before-strict.py",
+    "mode": "-OO",
+    "exit": 0,
+    "pass_receipt_written": true
+  },
+  {
+    "script": "probe.py",
+    "mode": "normal",
+    "exit": 1,
+    "pass_receipt_written": false
+  },
+  {
+    "script": "probe.py",
+    "mode": "-O",
+    "exit": 1,
+    "pass_receipt_written": false
+  },
+  {
+    "script": "probe.py",
+    "mode": "-OO",
+    "exit": 1,
+    "pass_receipt_written": false
+  }
+]
