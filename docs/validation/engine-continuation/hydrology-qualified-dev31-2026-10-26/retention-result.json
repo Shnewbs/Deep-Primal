@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "operation": "delete",
+      "status": "succeeded",
+      "message": "File moved to trash.",
+      "error_code": null,
+      "path": "/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-renderer.4-vulkan-windows.jar",
+      "destination_path": null,
+      "file_id": "file_000000008d54822fb21f5eab45a9c6e8",
+      "library_file_id": "libfile_6e306263bef881918a18cfb7808030e5",
+      "mime_type": "application/java-archive",
+      "library_artifact_type": "other",
+      "directory_id": null
+    },
+    {
+      "operation": "delete",
+      "status": "succeeded",
+      "message": "File moved to trash.",
+      "error_code": null,
+      "path": "/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-renderer.3-vulkan-windows.jar",
+      "destination_path": null,
+      "file_id": "file_00000000f04081f5a7fd02c58cc558e0",
+      "library_file_id": "libfile_abf1214694f48191a9de1ec96dd4632b",
+      "mime_type": "application/java-archive",
+      "library_artifact_type": "other",
+      "directory_id": null
+    }
+  ],
+  "warnings": [],
+  "external_connectors_accessed": false
+}

@@ -1,0 +1,36 @@
+--- a/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java
++++ b/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java
+@@ -444,18 +444,21 @@
+     // Planned waterways get their own bounded cadence; scan breadth must not starve a source.
+     // The finite regional quota is offered headwater-first: springs feed the head of a reach and
+     // lower columns are fed by flow, so downstream deficits must not consume the headwater share.
+-    work.streamChunks.entrySet().removeIf(en -> en.getValue().streamCount == 0
+-        || work.chunks.get(en.getKey()) != en.getValue());
+-    var order = new ArrayList<>(work.streamChunks.entrySet());
+-    order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
+-    for (int i = 0, n = order.size(); i < n && System.nanoTime() - streamDeadline < 0; i++) {
+-      var entry = order.get(i);
+-      var c = entry.getValue();
+-      var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
+-      if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
+-      for (int s = 0; s < c.streamCount && System.nanoTime() - streamDeadline < 0; s++) {
+-        int col = c.streams[s], shuffled = col * 73 & 255;
+-        replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
++    // Do not scan or sort the source index after source admission has closed.
++    if (System.nanoTime() - streamDeadline < 0) {
++      work.streamChunks.entrySet().removeIf(en -> en.getValue().streamCount == 0
++          || work.chunks.get(en.getKey()) != en.getValue());
++      var order = new ArrayList<>(work.streamChunks.entrySet());
++      order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
++      for (int i = 0, n = order.size(); i < n && System.nanoTime() - streamDeadline < 0; i++) {
++        var entry = order.get(i);
++        var c = entry.getValue();
++        var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
++        if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
++        for (int s = 0; s < c.streamCount && System.nanoTime() - streamDeadline < 0; s++) {
++          int col = c.streams[s], shuffled = col * 73 & 255;
++          replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
++        }
+       }
+     }
+     for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() - deadline < 0; i++) {

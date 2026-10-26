@@ -1,0 +1,71 @@
+{
+  "source_sha": "a1583a508b0d67130d387bc018defd5758acd496",
+  "source_sha256": "1c4b3d9c177945a40fddf931eb3e4596aca5bd39164bee6e5f094cec5dcf445e",
+  "prelude_sha256": "3438fc71c2b41a51c778ac97dbfd8405c8e50302a973cd635ee2a4babc784db3",
+  "reproduced": true,
+  "latency_benchmark": false,
+  "candidate": true,
+  "cases": [
+    {
+      "streams": 0,
+      "map_reads": 0,
+      "headwater_reads": 0,
+      "deadline_expired": 0
+    },
+    {
+      "streams": 1,
+      "map_reads": 1,
+      "headwater_reads": 0,
+      "deadline_expired": 0
+    },
+    {
+      "streams": 64,
+      "map_reads": 64,
+      "headwater_reads": 580,
+      "deadline_expired": 0
+    },
+    {
+      "streams": 1024,
+      "map_reads": 1024,
+      "headwater_reads": 15524,
+      "deadline_expired": 0
+    },
+    {
+      "streams": 8192,
+      "map_reads": 8192,
+      "headwater_reads": 127948,
+      "deadline_expired": 0
+    },
+    {
+      "streams": 0,
+      "map_reads": 0,
+      "headwater_reads": 0,
+      "deadline_expired": 1
+    },
+    {
+      "streams": 1,
+      "map_reads": 0,
+      "headwater_reads": 0,
+      "deadline_expired": 1
+    },
+    {
+      "streams": 64,
+      "map_reads": 0,
+      "headwater_reads": 0,
+      "deadline_expired": 1
+    },
+    {
+      "streams": 1024,
+      "map_reads": 0,
+      "headwater_reads": 0,
+      "deadline_expired": 1
+    },
+    {
+      "streams": 8192,
+      "map_reads": 0,
+      "headwater_reads": 0,
+      "deadline_expired": 1
+    }
+  ],
+  "conclusion": "Staged guard skips prelude after deadline. When admitted, scan/sort still unbounded; no full runtime qualification."
+}
