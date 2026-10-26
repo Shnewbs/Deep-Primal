@@ -50,10 +50,25 @@ public final class LodClient {
             data.put("lodDiskReads", lod.diskReads);
             data.put("lodStaleResults", lod.staleResults);
             data.put("lodQueued", lod.queuedChunks);
+            data.put("lodTelemetryEnabled", VoxelLodRenderer.TELEMETRY);
+            data.put("lodTimingDomain", "CPU component elapsed nanoseconds; not GPU or frame time");
+            data.put("lodCullTiming", timing(lod.cullTiming.snapshot()));
+            data.put("lodUploadTiming", timing(lod.uploadTiming.snapshot()));
+            data.put("lodSubmitTiming", timing(lod.submitTiming.snapshot()));
+            data.put("lodTestedParts", lod.testedParts);
+            data.put("lodRejectedParts", lod.rejectedParts);
+            data.put("lodSubmittedParts", lod.submittedParts);
+            data.put("lodLastUploadBytes", lod.lastUploadBytes);
+            data.put("lodPendingMeshGpuBudgetBytes", lod.pendingMeshBudgetBytes);
             return data;
           }
         });
     if (RendererOwnership.owned()) NeoForge.EVENT_BUS.register(VoxelLodRenderer.INSTANCE);
+  }
+
+  private static Map<String, Object> timing(com.shnewbs.deepprimal.core.RollingTiming.Snapshot s) {
+    return Map.of("samples", s.samples(), "p50Nanos", s.p50Nanos(),
+        "p95Nanos", s.p95Nanos(), "p99Nanos", s.p99Nanos(), "maxNanos", s.maxNanos());
   }
 
   private static void payloads(RegisterClientPayloadHandlersEvent event) {

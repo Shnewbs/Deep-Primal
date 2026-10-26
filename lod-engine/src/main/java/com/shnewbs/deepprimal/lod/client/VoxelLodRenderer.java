@@ -4,6 +4,7 @@ import com.mojang.blaze3d.pipeline.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.shnewbs.deepprimal.core.lod.*;
+import com.shnewbs.deepprimal.core.RollingTiming;
 import com.shnewbs.deepprimal.graphics.GpuLighting;
 import com.shnewbs.deepprimal.graphics.TerrainGpuMesh;
 import com.shnewbs.deepprimal.settings.*;
@@ -26,6 +27,12 @@ import org.joml.Vector4f;
 /** Explored-chunk LOD: immutable copies, worker reduction/storage, render-thread GPU ownership. */
 public final class VoxelLodRenderer {
   private static final int MAX_DISK_KEYS = 8192;
+  public static final boolean TELEMETRY = Boolean.getBoolean("deepprimal.lod.telemetry");
+  public final RollingTiming cullTiming = new RollingTiming(240);
+  public final RollingTiming uploadTiming = new RollingTiming(240);
+  public final RollingTiming submitTiming = new RollingTiming(240);
+  public volatile long lastUploadBytes, pendingMeshBudgetBytes;
+  public volatile int testedParts, rejectedParts, submittedParts;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
   private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"));
@@ -452,6 +459,8 @@ public final class VoxelLodRenderer {
     }
     processUploads();
     evictToFit(0, 4096, null, event.getCamera().position());
+    long cullStarted = TELEMETRY ? System.nanoTime() : 0;
+    int tested = 0, rejected = 0;
     var camera = event.getCamera().position();
     var visible = new ArrayList<TerrainGpuMesh>();
     int chunks = 0, span = 0;
@@ -482,15 +491,24 @@ public final class VoxelLodRenderer {
       while (d > 0 && (1 << d) * focal / dist > LodConfig.ERROR.get() * 1.15) d--;
       entry.selected[0] = d;
       boolean seen = false;
-      for (TerrainGpuMesh part : entry.levels.get(d))
+      for (TerrainGpuMesh part : entry.levels.get(d)) {
+        if (TELEMETRY) tested++;
         if (event.getFrustum().isVisible(part.bounds)) {
           visible.add(part);
           seen = true;
-        }
+        } else if (TELEMETRY) rejected++;
+      }
       if (seen) {
         chunks++;
         span = Math.max(span, Math.max(dx, dz) + 1);
       }
+    }
+    if (TELEMETRY) {
+      testedParts = tested;
+      rejectedParts = rejected;
+      // Prospective GPU budget, not the larger Java-array heap footprint.
+      pendingMeshBudgetBytes = pendingGpu == null ? 0 : pendingGpu.ready.levels.bytes();
+      cullTiming.record(System.nanoTime() - cullStarted);
     }
     visibleChunks = chunks;
     visibleSpan = Math.min(LodConfig.RADIUS.get(), span);
@@ -553,6 +571,15 @@ public final class VoxelLodRenderer {
   }
 
   private void processUploads() {
+    lastUploadBytes = 0;
+    if (pendingGpu == null) return;
+    if (!TELEMETRY) { processUploadWork(); return; }
+    long started = System.nanoTime();
+    try { processUploadWork(); }
+    finally { uploadTiming.record(System.nanoTime() - started); }
+  }
+
+  private void processUploadWork() {
     PendingGpu p = pendingGpu;
     if (p == null) return;
     if (p.ready.levels.bytes() + residentBytes - p.bytes() > LodConfig.MEMORY.get() * 1048576L) {
@@ -601,6 +628,7 @@ public final class VoxelLodRenderer {
       p.part++;
       uploaded++;
       used += gpu.byteSize;
+      if (TELEMETRY) lastUploadBytes = used;
       residentBytes += gpu.byteSize;
     }
     if (p.detail == 3) {
@@ -639,9 +667,11 @@ public final class VoxelLodRenderer {
 
   @SubscribeEvent
   public void render(RenderLevelStageEvent.AfterOpaqueBlocks event) {
+    submittedParts = 0;
     if (!active()) return;
     var parts = event.getLevelRenderState().getRenderData(VISIBLE);
     if (parts == null || parts.isEmpty()) return;
+    long submitStarted = TELEMETRY ? System.nanoTime() : 0;
     var target = Minecraft.getInstance().getMainRenderTarget();
     var camera = event.getLevelRenderState().cameraRenderState.pos;
     if (transformPool.length != parts.size()) {
@@ -687,6 +717,10 @@ public final class VoxelLodRenderer {
           drawnTriangles += parts.get(i).triangles();
         }
     }
+    if (TELEMETRY) {
+      submittedParts = parts.size();
+      submitTiming.record(System.nanoTime() - submitStarted);
+    }
   }
 
   @SubscribeEvent
@@ -702,6 +736,11 @@ public final class VoxelLodRenderer {
   }
 
   public void reset() {
+    cullTiming.reset();
+    uploadTiming.reset();
+    submitTiming.reset();
+    lastUploadBytes = pendingMeshBudgetBytes = 0;
+    testedParts = rejectedParts = submittedParts = 0;
     session++;
     if (pendingGpu != null) {
       pendingGpu.close();
