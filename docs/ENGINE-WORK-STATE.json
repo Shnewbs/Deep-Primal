@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T13:11:00Z",
-  "active_until": "2026-10-26T13:41:00Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T13:14:10Z",
+  "active_until": "2026-10-26T13:14:10Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.29",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Close actual survey-method coverage gap for staged stream deadline/wrap repair; retain full/native promotion gates.",
+  "current_gate": "Actual survey extraction and full staged HydrologyRuntime API compile passed; full current Gradle/core/module/package and actual native source/quota/restart gates still required before promotion.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -997,9 +997,9 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "active",
+    "status": "completed",
     "owner": "builder-20261026T1310",
-    "active_until": "2026-10-26T13:41:00Z",
+    "active_until": "2026-10-26T13:14:10Z",
     "exclusive_benchmark": false,
     "resources": "isolated survey1310 functional fixture",
     "kind": "functional_survey_checks"
@@ -1117,8 +1117,8 @@
     "new_followup_defect": "Valid full-constituent receiver can reject after block writes; four native failures reproduced. Dev.28 repair under qualification."
   },
   "latest_provisional_audit": {
-    "source_sha": "93ac6cbc8b0377e6a08e3bcc847a41edcd54da0a",
-    "evidence": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
+    "source_sha": "68b227868701967908bd5e3b7b46443a207fce7c",
+    "evidence": "docs/engine-hourly-audits/2026-10-26T1247-68b2278/REVIEW.md",
     "score_out_of_100": 50,
     "average": 5,
     "fresh_complete_regrade": false,
@@ -1181,15 +1181,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
-    "source_sha": "93ac6cbc8b0377e6a08e3bcc847a41edcd54da0a",
+    "path": "docs/engine-hourly-audits/2026-10-26T1247-68b2278/REVIEW.md",
+    "source_sha": "68b227868701967908bd5e3b7b46443a207fce7c",
     "provisional_average": 5,
     "last_full_average": 5,
-    "chosen_repair": "Extend staged natural-stream budget admission with wrap-safe comparisons; full/native promotion gated.",
-    "coordination": "Git root/water leases checked; auditor recorded completed 11:50Z. Personal context lacks new live cross-chat claim.",
+    "chosen_repair": "Close missing actual survey-method validation before staged scheduler promotion.",
     "fresh_grade_awarded": false
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "staged_not_promoted",
     "source_sha": "53b4d82f351352f52384f55d6f384cf8694f378a",
@@ -1201,5 +1200,13 @@
     "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1135-93ac6cb/REVIEW.md",
     "audit_source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
     "fresh_grade_awarded": false
+  },
+  "latest_survey_qualification": {
+    "evidence": "docs/validation/engine-continuation/survey-qualification-2026-10-26/README.md",
+    "source_sha": "dd00cee27160a358ddeed2d46ed9528f655d3afb",
+    "status": "staged_not_promoted",
+    "checks": "Actual survey extraction: baseline38cases/5973assertions, candidate158cases/27752assertions; full candidate API javac exit0/fiveclasses.",
+    "blocker": "499MB disk headroom; full Gradle/native qualification not attempted.",
+    "native_execution": false
   }
 }
