@@ -67,7 +67,7 @@ public final class LodMesher {
               }
             data[(z * n + x) * h + y] = selected;
           }
-    Builder b = new Builder(c.minY);
+    Builder b = new Builder();
     long[] mask = new long[n * Math.max(n, h)];
     // Each mask plane is greedily merged only across equal material and fluid height.
     for (int y = 0; y < h; y++) {
@@ -222,11 +222,8 @@ public final class LodMesher {
     final List<HorizonMesh> parts = new ArrayList<>();
     float[] p = new float[4096 * 3];
     int[] c = new int[4096], n = new int[4096], ix = new int[6144];
-    int vertices, indices, min, max;
-
-    Builder(int floor) {
-      min = max = floor;
-    }
+    int vertices, indices;
+    int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
 
     void quad(
         int color,
@@ -284,6 +281,10 @@ public final class LodMesher {
               min,
               max));
       vertices = indices = 0;
+      // Each GPU part is culled independently; prior parts and empty floor space
+      // must not widen this part's conservative bounds.
+      min = Integer.MAX_VALUE;
+      max = Integer.MIN_VALUE;
     }
 
     List<HorizonMesh> finish() {
