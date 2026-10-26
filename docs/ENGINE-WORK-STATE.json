@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T18:04:57Z",
-  "active_until": "2026-10-26T18:04:57Z",
+  "status": "active",
+  "updated_at": "2026-10-26T19:03:33.662Z",
+  "active_until": "2026-10-26T19:33:33.662Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Incremental hydrology source index integrated in staged runtime; API and index/lifecycle checks pass; full build/native pending",
+  "current_gate": "Qualify staged source-index lifecycle equivalence with bounded isolated checks; full-build capacity blocked",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -480,7 +480,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T1758",
+  "worker": "builder-20261026T1905",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -998,9 +998,9 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "released",
-    "owner": "builder-20261026T1758",
-    "active_until": "2026-10-26T18:04:57Z",
+    "status": "functional_checks_only",
+    "owner": "builder-20261026T1905",
+    "active_until": "2026-10-26T19:33:33.662Z",
     "exclusive_benchmark": false
   },
   "owner_pause_checkpoint": {
@@ -1023,19 +1023,14 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "base_code_sha": "e056cf942927d355be8fd12e20ba13e423ccffb6",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1730-a1583a5/REVIEW.md",
-    "consumed_audit_sha": "a1583a508b0d67130d387bc018defd5758acd496",
+    "base_code_sha": "094033d41147693e0ba3881026d009ca37fc895b",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1834-8665e07/REVIEW.md",
+    "consumed_audit_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": true,
-    "production_runtime_changed": false,
-    "actual_changes": "Integrated incremental headwater index into staged HydrologyRuntime to eliminate per-tick full scan/copy/sort.",
-    "checks": "Final memory-backed full candidate APIcompile,20000mutation oracle/20008checks,actual-runtime registration/dry/stale lifecycle pass",
-    "evidence": "docs/validation/engine-continuation/hydrology-incremental-index-2026-10-26/README.md",
-    "blocker": "Disk26MB then0; final disk compile failed, clean memory-backed retrypassed. Fullbuild/native notrun; noJAR.",
-    "next_implementation": "Full Gradle/core/module/package/native source quota,load/unload,partial-survey,weather/save/reopen and performance",
-    "coordination": "Preserved renderer bbf7061 docs-only checkpoint, read latestaudit; no other mutable resources modified."
+    "lease_released": false,
+    "scope": "Staged hydrology source-index lifecycle, private tests and compact evidence only",
+    "coordination": "Auditor completed 18:55 report. Root/water leases checkpointed. Personal context found no fresh direct original-other-chat ownership proof; unavailable. No other mutable checkout/cache/output used."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1077,19 +1072,19 @@
     "evidence": "docs/validation/engine-continuation/hydrology-qualified-dev31-2026-10-26/DELIVERY.md"
   },
   "previous_builder_cycle": {
-    "base_code_sha": "771f08937fe966724e0b95c7eb91e826c41c7451",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1627-b198804/REVIEW.md",
-    "consumed_audit_sha": "b198804f19db960fba6efc52a76b18c603d50601",
+    "base_code_sha": "e056cf942927d355be8fd12e20ba13e423ccffb6",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1730-a1583a5/REVIEW.md",
+    "consumed_audit_sha": "a1583a508b0d67130d387bc018defd5758acd496",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
     "lease_released": true,
     "production_runtime_changed": false,
-    "actual_changes": "Added second admission check after stream-index cleanup; avoids sort/allocation when cleanup exhausts source window. Staged only.",
-    "checks": "180cases each baseline/single/revised; expired sort admissions105/45/0; normal/-OO pass. Complete runtime APIcompile5classes passes. Retained current-core suite rerun exit0, final PASS incl500000hydrology transfers; no fresh core compilation.",
-    "evidence": "docs/validation/engine-continuation/hydrology-prelude-admission-2026-10-26/README.md",
-    "blocker": "Disk829MB ->0 during checks,464MB after core finish. New private full project+cache require about1412MB before native worlds/outputs; no full build/native/package attempted.",
-    "next_implementation": "Restore isolated build headroom and qualify guard; incrementally bound source index with exact invalidation, preserve source quotas and headwater order.",
-    "coordination": "Root/water claims checked. Auditor17:30 run and independent processes observed. No direct fresh other-engine conversation ownership evidence; no external workspace changes."
+    "actual_changes": "Integrated incremental headwater index into staged HydrologyRuntime to eliminate per-tick full scan/copy/sort.",
+    "checks": "Final memory-backed full candidate APIcompile,20000mutation oracle/20008checks,actual-runtime registration/dry/stale lifecycle pass",
+    "evidence": "docs/validation/engine-continuation/hydrology-incremental-index-2026-10-26/README.md",
+    "blocker": "Disk26MB then0; final disk compile failed, clean memory-backed retrypassed. Fullbuild/native notrun; noJAR.",
+    "next_implementation": "Full Gradle/core/module/package/native source quota,load/unload,partial-survey,weather/save/reopen and performance",
+    "coordination": "Preserved renderer bbf7061 docs-only checkpoint, read latestaudit; no other mutable resources modified."
   },
   "latest_continue_integration": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
@@ -1221,7 +1216,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Replace per-tick whole-index hydrology cleanup/copy/sort with incrementally maintained headwater ordering; staged integration."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
