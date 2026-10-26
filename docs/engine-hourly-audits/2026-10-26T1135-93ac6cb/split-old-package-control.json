@@ -1,0 +1,1 @@
+{"expected_failure_observed":true,"source_sha":"4a583dbcdec4df4be1ac7572c384813986067f2a","old_artifact_sha256":"10c05641d91553fda532b20c846486a3f08498282411b1efa47cad9d1a3fbcfa","core_sha256":"32cc0e9005b629ab6820fdd3e102932dd9225e888d324f167e49a245cab6eda2","exit":1,"current_fixture_against_previous_package":true}
