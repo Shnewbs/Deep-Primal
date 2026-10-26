@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "owner": "foreground-water-ledge-20261026T0208",
+  "status": "active",
+  "started_at": "2026-10-26T02:08:00Z",
+  "active_until": "2026-10-26T02:38:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
+    "docs/validation/engine-continuation/rock-ledge-water-2026-10-26"
+  ],
+  "coordination": "Preserve hourly cache/pipeline builder lease and dev.25 qualification. Separate Windows checkout/cache; no cache/pipeline/root state edits. Water-only visual ledge reproduction/fix authorized by owner resume.",
+  "baseline": "1317b6f95e9905fc368e8095a7803615d43cc1cd",
+  "current_evidence": "Baseline regression fails at a rock ledge; candidate passes 8192 ledge cases plus waterfall sides and stepped basins. Full checks pending.",
+  "not_claimed": [
+    "GPU pixels",
+    "owner screenshot scene acceptance",
+    "water engine completion",
+    "grade change"
+  ]
+}
