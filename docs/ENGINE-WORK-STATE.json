@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T02:34:19.592Z",
-  "active_until": "2026-10-26T02:49:06.101Z",
+  "updated_at": "2026-10-26T02:49:02.088Z",
+  "active_until": "2026-10-26T03:19:02.088Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.26-water.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Water ledge CPU/combined dev.25 build qualified; continue production GPU upload and real-scene validation. Broader water acceptance remains incomplete.",
+  "current_gate": "Real AMD8060S OpenGL production GPU ledge/fade/readback controls pass; Vulkan validation underway; complete scene/world-ledger/performance acceptance remains open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1212,6 +1212,7 @@
     "library_blocker": "Hosted upload helper tools/list failed DNS",
     "github_release_published": false,
     "owner_goal": "Continue water engine alongside broader engine until independently evidenced completion; existing hourly builder updated",
-    "completed_at": "2026-10-26T02:34:19.592Z"
+    "completed_at": "2026-10-26T02:34:19.592Z",
+    "source_sha": "3acffb22a996876a57ce2cfb73eee60747358acc"
   }
 }
