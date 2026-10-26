@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T11:42:37Z",
-  "active_until": "2026-10-26T11:42:37Z",
+  "status": "active",
+  "updated_at": "2026-10-26T12:10:12Z",
+  "active_until": "2026-10-26T12:40:12Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.29",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Promote staged between-column stream deadline check only after full build and packaged native stream/budget/restart gates; dev.29 is qualified and saved. Continue bounded loaded/unloaded ownership and V8 compatibility.",
+  "current_gate": "Extend staged stream deadline admission to wrap-safe monotonic comparisons and verify exact-method regressions; full build/native promotion still gated.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -479,7 +479,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T1134",
+  "worker": "builder-20261026T1210",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -997,12 +997,12 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "owner": "builder-20261026T1134",
-    "status": "completed",
-    "kind": "functional_scheduler_reproduction",
-    "active_until": "2026-10-26T11:42:37Z",
+    "owner": "builder-20261026T1210",
+    "status": "active",
+    "active_until": "2026-10-26T12:40:12Z",
     "exclusive_benchmark": false,
-    "resources": "Own isolated stream1134 fixture; no actual latency/FPS claim"
+    "kind": "functional_clock_boundary_checks",
+    "resources": "isolated stream1210; no measured latency"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1190,7 +1190,7 @@
     "implemented_repairs": "Capacity-rejected precipitation returns zero atomically; 80000 regression cases now in regular CoreChecks; private actual native fresh/reopen fixture added.",
     "fresh_grade_awarded": false
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "staged_not_promoted",
     "source_sha": "b1db1bbbef903d33feecf32af986761abe2de5b7",
