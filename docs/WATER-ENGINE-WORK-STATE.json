@@ -1,27 +1,25 @@
 {
   "schema": 1,
-  "owner": "foreground-water-ledge-20261026T0208",
+  "owner": "foreground-cliff-continuity-20261026",
   "status": "active",
-  "started_at": "2026-10-26T02:08:00Z",
-  "active_until": "2026-10-26T03:19:02.088Z",
+  "started_at": "2026-10-26T09:03:46.235Z",
+  "active_until": "2026-10-26T09:48:46.235Z",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
-    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
-    "docs/validation/engine-continuation/rock-ledge-water-2026-10-26",
-    "gradle.properties"
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterfallUploadChecks.java",
+    "docs/validation/engine-continuation/cliff-continuity-2026-10-26"
   ],
-  "coordination": "Preserve hourly cache/pipeline builder lease and dev.25 qualification. Separate Windows checkout/cache; no cache/pipeline/root state edits. Water-only visual ledge reproduction/fix authorized by owner resume.",
-  "baseline": "61dc78571e754155fde6f7362d6d53840cb5d001",
-  "current_evidence": "AMD8060S Windows OpenGL: 60 waterfall readbacks, 240 supported ledge vertices and aligned current/previous endpoints pass; 11 fade-control readbacks byte-identical. Vulkan next.",
+  "coordination": "Scoped rendering/mesh fixes for owner's choppy/flickering mountain waterfalls. Preserve builder-20261026T0838 constituent-capacity repair and root state/version. Separate Windows checkout/cache. No simulation/geography or root lease changes.",
+  "baseline": "e619f085f7491a76df872baeb4d48f376735923d",
+  "current_evidence": "Owner confirms cliff-side water remains choppy/flickering. Reproduce mixed-height waterfall wall coverage and asynchronous vertical-page surface continuity before patching.",
   "not_claimed": [
-    "GPU pixels",
-    "owner screenshot scene acceptance",
+    "cliff fix complete",
     "water engine completion",
-    "grade change"
+    "new grade"
   ],
-  "updated_at": "2026-10-26T02:49:02.088Z",
+  "updated_at": "2026-10-26T09:03:46.235Z",
   "owner_goal": "Continue water engine alongside broader engine until independently evidenced completion; existing hourly builder updated",
   "completion_gates": {
     "continuous_surfaces": "CPU ledges pass; GPU/real scenes incomplete",
