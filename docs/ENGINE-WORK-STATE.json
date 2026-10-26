@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T10:07:50.543Z",
-  "active_until": "2026-10-26T10:07:50.543Z",
+  "status": "active",
+  "updated_at": "2026-10-26T11:02:00Z",
+  "active_until": "2026-10-26T11:45:00Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.28",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Restore full current main including6cd9971 cliff files; reconcile754MiB remaining build storage; uniquely versioned full combined build/module/package/native gates before promoting staged precipitation repair.",
+  "current_gate": "Qualify staged precipitation admission with current cliff repairs, full combined build and native fresh/reopen gates.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -479,7 +479,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T1000",
+  "worker": "builder-20261026T1100",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -997,10 +997,11 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "owner": "builder-20261026T1000",
-    "status": "completed",
-    "scope": "Functional staged precipitation core/native qualification; private outputs; no benchmark",
-    "active_until": "2026-10-26T10:07:50.543Z"
+    "status": "active",
+    "active_until": "2026-10-26T11:45:00Z",
+    "kind": "functional_build_and_native",
+    "exclusive_benchmark": false,
+    "resources": "builder0731 private project/cache/output; no timed performance claims"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1179,5 +1180,13 @@
     "native_diagnostic_pass": true,
     "full_current_build_pass": false,
     "qualification": "docs/validation/engine-continuation/precipitation-admission-2026-10-26/QUALIFICATION.md"
+  },
+  "latest_consumed_audit": {
+    "path": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
+    "source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
+    "provisional_average": 4.8,
+    "last_full_average": 5,
+    "chosen_repair": "Promote precipitation receiver admission only after full combined and native qualification.",
+    "coordination": "Auditor recorded completed 10:44UTC. Personal context checked; no independent live cross-chat claim inferred. Root and water leases checkpointed."
   }
 }
