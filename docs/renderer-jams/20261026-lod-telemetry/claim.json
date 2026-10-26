@@ -1,0 +1,14 @@
+{
+  "owner": "renderer-20261026-lod-telemetry",
+  "status": "active",
+  "active_until": "2026-10-26T12:36:11.351Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/RollingTiming.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/RollingTimingChecks.java",
+    "docs/renderer-jams/20261026-lod-telemetry"
+  ],
+  "parent": "2617d261284e0ae4f3a07f627e301ec92122f560",
+  "measurement": "Functional CPU telemetry checks only; no GPU/native frame performance reservation"
+}
