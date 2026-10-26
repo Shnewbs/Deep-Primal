@@ -1,0 +1,1 @@
+{"platform":"Linux-6.18.55-x86_64-with-glibc2.39","logical_cpus":9,"windows_executor":false,"dri":false,"workload":"Fresh Java25 Gradle9.2.1 functional build with cold private cache, one worker; no latency benchmark"}
