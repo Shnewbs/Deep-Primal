@@ -1,0 +1,15 @@
+{
+  "owner": "renderer-20261026-candidate-runner",
+  "status": "active",
+  "active_until": "2026-10-26T20:30:00Z",
+  "parent": "38a140431881cdb49a4287e48fc84a6d904e7e9b",
+  "scope": [
+    "docs/renderer-jams/20261026-candidate-runner"
+  ],
+  "production_runtime_changed": false,
+  "measurement": {
+    "exclusive_benchmark": false,
+    "status": "functional_only"
+  },
+  "purpose": "Reproducible isolated candidate qualification runner; full build still storage blocked"
+}
