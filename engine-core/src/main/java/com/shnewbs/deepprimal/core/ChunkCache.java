@@ -11,6 +11,7 @@ public final class ChunkCache {
   private final long capacity;
   private final int limit;
   private long bytes;
+  private long generation;
   public final AtomicLong hits=new AtomicLong(), misses=new AtomicLong(), evictions=new AtomicLong(), memoryPressureEvents=new AtomicLong();
   public ChunkCache(long megabytes,int limit) {
     if(megabytes<0 || megabytes>Long.MAX_VALUE/(1024*1024) || limit<1) throw new IllegalArgumentException("cache limits");
@@ -21,9 +22,20 @@ public final class ChunkCache {
     if(e==null){misses.incrementAndGet();EngineMetrics.CACHE_MISSES.increment();return null;}
     hits.incrementAndGet();EngineMetrics.CACHE_HITS.increment();return (T)e.value;
   }
-  public synchronized <T> T getOrCompute(Object key,Function<Object,T> computer,long weight) {
-    T v=get(key); if(v!=null)return v;
-    v=Objects.requireNonNull(computer.apply(key));put(key,v,weight);return v;
+  public <T> T getOrCompute(Object key,Function<Object,T> computer,long weight) {
+    Objects.requireNonNull(key);Objects.requireNonNull(computer);
+    if(weight<0)throw new IllegalArgumentException("negative cache weight");
+    final long observed;
+    synchronized(this){T ready=get(key);if(ready!=null)return ready;observed=generation;}
+    T computed=Objects.requireNonNull(computer.apply(key));
+    synchronized(this){
+      // clear() invalidates pending admissions without waiting for terrain computation.
+      if(generation!=observed)return computed;
+      Entry existing=entries.get(key);
+      if(existing!=null){@SuppressWarnings("unchecked") T winner=(T)existing.value;return winner;}
+      put(key,computed,weight);
+      return computed;
+    }
   }
   public synchronized void put(Object key,Object value,long weight) {
     Objects.requireNonNull(key);Objects.requireNonNull(value);
@@ -35,7 +47,7 @@ public final class ChunkCache {
   }
   private void evict(){var it=entries.entrySet().iterator();bytes-=it.next().getValue().bytes;it.remove();evictions.incrementAndGet();EngineMetrics.CACHE_EVICTIONS.increment();}
   public synchronized boolean remove(Object key){var e=entries.remove(key);if(e==null)return false;bytes-=e.bytes;return true;}
-  public synchronized void clear(){entries.clear();bytes=0;}
+  public synchronized void clear(){entries.clear();bytes=0;generation++;}
   public synchronized long getMemoryUsage(){return bytes;}
   public synchronized int size(){return entries.size();}
   public double getHitRate(){double h=hits.get(),m=misses.get();return h+m==0?1:h/(h+m);}

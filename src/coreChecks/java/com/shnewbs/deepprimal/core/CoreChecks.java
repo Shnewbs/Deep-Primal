@@ -6,6 +6,8 @@ import java.util.Random;
 public final class CoreChecks {
   public static void main(String[] args) throws Exception {
     EngineIntegrationTest.main(new String[0]);
+    CacheLifecycleChecks.main(new String[0]);
+    CoreCloseLifecycleChecks.main(new String[0]);
     ByteLruOverflowChecks.main(new String[0]);
     DensityGridFiniteChecks.main(new String[0]);
 

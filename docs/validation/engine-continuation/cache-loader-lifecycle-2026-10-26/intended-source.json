@@ -1,0 +1,27 @@
+[
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java",
+    "sha256": "c5c5366bff9e4cccf290a57fbc1f822103007677c5b1ba6985ed06d69d36c7c4",
+    "blob": "4195031fba5aea8966c40b78babda937afee6530"
+  },
+  {
+    "path": "gradle.properties",
+    "sha256": "f04199af9ec7abc97b0c1559de6ebad6f4e152d1385f6ea33ca09820dc848155",
+    "blob": "44bc6c4101345642beaa7c9b9700d34978a0d5d7"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "sha256": "9cbbd53ae63787e6f2d4804fa6af52c13ebfefbb7a1ffd6d06761eb1b68cdf3b",
+    "blob": "0ac6245ef8742247b866b957317a6a10de31c8a9"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CacheLifecycleChecks.java",
+    "sha256": "ea60fea5802acdad650d352edcbf99298d0c8bc1ee950645069c85510542bd57",
+    "blob": "c786e74d969856ce3adfe82d25524988d66403b5"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreCloseLifecycleChecks.java",
+    "sha256": "09dbee794ad7d088f674432b5ff2f195fb56ee0fe25acad54f1cf655190a55b5",
+    "blob": "eced6a462b300da225d1ee3f61f0d509bffb9358"
+  }
+]
