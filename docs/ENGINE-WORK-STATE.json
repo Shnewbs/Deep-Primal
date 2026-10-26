@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T16:03:30Z",
-  "active_until": "2026-10-26T16:33:30Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T16:14:16Z",
+  "active_until": "2026-10-26T16:14:16Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.30",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Prepare independent native recharge/source admission qualification; no heavy Gradle/native/benchmark jobs during active renderer CPU claim.",
+  "current_gate": "Staged stream allowance overflow repair and combined recharge reservation pass targeted tests; full isolated build/package/native qualification pending private output ownership and space.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -998,11 +998,11 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "preparation_only",
+    "status": "checkpointed",
     "owner": "builder-20261026T1603",
-    "active_until": "2026-10-26T16:33:30Z",
+    "active_until": "2026-10-26T16:14:16Z",
     "exclusive_benchmark": false,
-    "resources": "builder1600 only; no heavy build/native jobs while renderer measurement active"
+    "resources": "builder1600 targeted API and deterministic checks complete; no Gradle/native/benchmark job launched"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1236,7 +1236,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Qualify staged recharge scheduling with explicit source/quota/recharge coverage; retain starvation limitations and native gate."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1266,6 +1266,23 @@
     "compile_setup_failure": "Initial API compile failed because dependency sources were picked up. Binary-only corrected compile passes; failure retained.",
     "remaining_gate": "Full Gradle/module/core/package/native source-quota/recharge/save/reopen qualification; no artifact includes this candidate.",
     "validation_continuation": "docs/validation/engine-continuation/hydrology-admission-strict-2026-10-26/README.md",
-    "strict_harness_fixed": true
+    "strict_harness_fixed": true,
+    "combined_continuation": "docs/validation/engine-continuation/stream-allowance-overflow-2026-10-26/README.md"
+  },
+  "latest_allowance_overflow_stage": {
+    "base_source_sha": "431c9ecdcea9cacfad3dd5c4d11931436c485ebf",
+    "evidence": "docs/validation/engine-continuation/stream-allowance-overflow-2026-10-26/README.md",
+    "promoted": false,
+    "reproduction": "quota1024/start=MIN+1/now=MAX returns -51 rather than1024; extreme ordered saved-clock arithmetic, not ordinary world-duration acceptance.",
+    "checks": "105148 exact BigInteger-oracle cases in normal/-O/-OO; actual API-compiled baseline rejects and fixed/combined each pass1445cases; both server fixture sources compile; combined3360boundary+1000multi-page cases each pass.",
+    "candidate_sha256": "8ae71149ab3507b715e26c24212066dd5017791f4434460ebec7489181b68978",
+    "combined_candidate_sha256": "92a00108526a107f2dc95a0c176579eb0b013ca65c47157b4818645fcb82657b",
+    "full_build": false,
+    "server_native_run": false,
+    "new_jar": false,
+    "blocker": "Disk fluctuated to154MB; removed own exact duplicate producer reappeared under different inode. Reestablish private checkout/cache/output; no more mutations to that producer workspace.",
+    "next": "Restore current main into isolated resources, bump beyond current production and run combined full Gradle/module/core/package/native source/recharge/weather/save/reopen before promotion.",
+    "last_full_average": 5,
+    "fresh_complete_regrade": false
   }
 }
