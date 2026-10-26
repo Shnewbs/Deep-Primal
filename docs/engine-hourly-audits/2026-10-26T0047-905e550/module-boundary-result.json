@@ -1,0 +1,9 @@
+{
+  "exit": 1,
+  "pass": false,
+  "tasks": [
+    "verifyCoreBoundary",
+    "verifyModuleBoundaries"
+  ],
+  "continue_after_failure": true
+}

@@ -1,0 +1,391 @@
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:3: error: package com.shnewbs.deepprimal.diagnostics does not exist
+import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
+                                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineBootstrap.java:3: error: package com.shnewbs.deepprimal.diagnostics does not exist
+import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
+                                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:4: error: package com.shnewbs.deepprimal.diagnostics does not exist
+import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
+                                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:20: error: cannot find symbol
+    private final ChunkMaterializer materializer;
+                  ^
+  symbol:   class ChunkMaterializer
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:253: error: package ChunkMaterializer does not exist
+    public java.util.concurrent.CompletableFuture<ChunkMaterializer.MaterializedChunk> generateChunkAsync(ChunkMaterializer.ChunkKey key) {
+                                                                                                                           ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:253: error: package ChunkMaterializer does not exist
+    public java.util.concurrent.CompletableFuture<ChunkMaterializer.MaterializedChunk> generateChunkAsync(ChunkMaterializer.ChunkKey key) {
+                                                                   ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:260: error: package ChunkMaterializer does not exist
+    public java.util.concurrent.CompletableFuture<Void> generateChunks(java.lang.Iterable<ChunkMaterializer.ChunkKey> keys,
+                                                                                                           ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:261: error: package ChunkMaterializer does not exist
+                                                                        java.util.function.Consumer<ChunkMaterializer.MaterializedChunk> callback) {
+                                                                                                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:291: error: cannot find symbol
+    public ChunkMaterializer getMaterializer() { return materializer; }
+           ^
+  symbol:   class ChunkMaterializer
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:18: error: cannot find symbol
+    private final ChunkMaterializer materializer;
+                  ^
+  symbol:   class ChunkMaterializer
+  location: class WorldGenPipeline
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:26: error: package ChunkMaterializer does not exist
+    private final Stage<DensityGraph, ChunkMaterializer.MeshData> meshStage;
+                                                       ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:27: error: package ChunkMaterializer does not exist
+    private final Stage<ChunkMaterializer.MeshData, ChunkMaterializer.MaterializedChunk> gpuStage;
+                                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:27: error: package ChunkMaterializer does not exist
+    private final Stage<ChunkMaterializer.MeshData, ChunkMaterializer.MaterializedChunk> gpuStage;
+                                                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:29: error: cannot find symbol
+    public WorldGenPipeline(TerrainEngine terrainEngine, ChunkMaterializer materializer,
+                                                         ^
+  symbol:   class ChunkMaterializer
+  location: class WorldGenPipeline
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:67: error: package ChunkMaterializer does not exist
+    public CompletableFuture<ChunkMaterializer.MaterializedChunk> generateChunk(ChunkKey key) {
+                                              ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:76: error: package ChunkMaterializer does not exist
+    public CompletableFuture<Void> generateChunks(Iterable<ChunkKey> keys, Consumer<ChunkMaterializer.MaterializedChunk> onComplete) {
+                                                                                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:96: error: package ChunkMaterializer does not exist
+    private ChunkMaterializer.MeshData buildMesh(DensityGraph density) {
+                             ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:102: error: package ChunkMaterializer does not exist
+    private ChunkMaterializer.MaterializedChunk uploadToGpu(ChunkMaterializer.MeshData mesh) {
+                                                                             ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:102: error: package ChunkMaterializer does not exist
+    private ChunkMaterializer.MaterializedChunk uploadToGpu(ChunkMaterializer.MeshData mesh) {
+                             ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:3: error: package net.neoforged.neoforge.common does not exist
+import net.neoforged.neoforge.common.ModConfigSpec;
+                                    ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:10: error: cannot find symbol
+    public static final ModConfigSpec SPEC;
+                        ^
+  symbol:   class ModConfigSpec
+  location: class StabilityRuntime
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:13: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue ENABLE_LANDSLIDES;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:14: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue LANDSLIDE_SLOPE_THRESHOLD;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:15: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue LANDSLIDE_PROBABILITY;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:16: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue LANDSLIDE_VOLUME;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:17: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue LANDSLIDE_RUNOUT;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:18: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue LANDSLIDE_WATER_TRIGGER;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:21: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue ENABLE_EARTHQUAKES;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:22: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue EARTHQUAKE_FREQUENCY;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:23: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue EARTHQUAKE_MAGNITUDE_MIN;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:24: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue EARTHQUAKE_MAGNITUDE_MAX;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:25: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue EARTHQUAKE_DEPTH;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:26: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue EARTHQUAKE_DAMAGE_RADIUS;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:29: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue ENABLE_SUBSIDENCE;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:30: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue SUBSIDENCE_MINING_TRIGGER;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:31: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue SUBSIDENCE_GROUNDWATER_TRIGGER;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:32: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue SUBSIDENCE_RATE;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:33: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.IntValue SUBSIDENCE_MAX_DEPTH;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:36: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue ENABLE_VOLCANISM;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:37: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue VOLCANO_SPAWN_CHANCE;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:38: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.IntValue VOLCANO_MIN_HEIGHT;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:39: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.IntValue VOLCANO_MAX_HEIGHT;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:40: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue ERUPTION_FREQUENCY;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:41: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue LAVA_FLOW_SPEED;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:42: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.DoubleValue ASH_FALL_RADIUS;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:45: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue HAZARDS_AFFECT_PLAYERS;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:46: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.BooleanValue HAZARDS_AFFECT_STRUCTURES;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:47: error: package ModConfigSpec does not exist
+    public static final ModConfigSpec.IntValue HAZARD_COOLDOWN_TICKS;
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:3: error: package com.shnewbs.deepprimal.diagnostics does not exist
+import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
+                                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:75: error: cannot find symbol
+                LocalDashboard.counter("engine.health_check.failed", 1,
+                ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:79: error: cannot find symbol
+            LocalDashboard.counter("engine.health_check.passed", 1, java.util.Map.of());
+            ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:87: error: cannot find symbol
+        LocalDashboard.gauge("engine.terrain.avg_us", EngineMetrics.getAvgTerrainGenTimeUs());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:88: error: cannot find symbol
+        LocalDashboard.gauge("engine.water.avg_us", EngineMetrics.getAvgWaterSimTimeUs());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:89: error: cannot find symbol
+        LocalDashboard.gauge("engine.cache.hit_rate", EngineMetrics.getCacheHitRate());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:90: error: cannot find symbol
+        LocalDashboard.gauge("engine.memory.heap_mb", EngineMetrics.HEAP_USED_MB.get());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:91: error: cannot find symbol
+        LocalDashboard.gauge("engine.memory.nonheap_mb", EngineMetrics.NON_HEAP_USED_MB.get());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:92: error: cannot find symbol
+        LocalDashboard.counter("engine.terrain.samples", EngineMetrics.TERRAIN_SAMPLES.sumThenReset());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:93: error: cannot find symbol
+        LocalDashboard.counter("engine.water.samples", EngineMetrics.WATER_SAMPLES.sumThenReset());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:94: error: cannot find symbol
+        LocalDashboard.counter("engine.water.packets", EngineMetrics.WATER_CORNER_PACKETS.sumThenReset());
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java:95: error: cannot find symbol
+        LocalDashboard.counter("engine.exceptions", EngineMetrics.EXCEPTIONS.getAndSet(0));
+        ^
+  symbol:   variable LocalDashboard
+  location: class CoreValidation
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineBootstrap.java:31: error: cannot find symbol
+            LocalDashboard.metadata("engine.core", java.util.Map.of(
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineBootstrap
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:72: error: cannot find symbol
+        this.materializer = new ChunkMaterializer(terrainEngine, workerExecutor, renderExecutor);
+                                ^
+  symbol:   class ChunkMaterializer
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:119: error: cannot find symbol
+            LocalDashboard.gauge("engine.core.density_cache_hit_rate", densityCache.getHitRate());
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:120: error: cannot find symbol
+            LocalDashboard.gauge("engine.core.mesh_cache_hit_rate", meshCache.getHitRate());
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:121: error: cannot find symbol
+            LocalDashboard.gauge("engine.core.density_cache_mb", densityCache.getMemoryUsage() / (1024.0 * 1024.0));
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:122: error: cannot find symbol
+            LocalDashboard.gauge("engine.core.mesh_cache_mb", meshCache.getMemoryUsage() / (1024.0 * 1024.0));
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:123: error: cannot find symbol
+            LocalDashboard.gauge("engine.core.terrain_avg_us", EngineMetrics.getAvgTerrainGenTimeUs());
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:124: error: cannot find symbol
+            LocalDashboard.gauge("engine.core.water_avg_us", EngineMetrics.getAvgWaterSimTimeUs());
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:127: error: cannot find symbol
+            LocalDashboard.gauge("engine.water.active_cells", waterStats.activeCells());
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java:128: error: cannot find symbol
+            LocalDashboard.gauge("engine.water.volume_ml", waterStats.totalWaterVolumeMl());
+            ^
+  symbol:   variable LocalDashboard
+  location: class EngineCore
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:77: error: package ChunkMaterializer does not exist
+        var futures = new java.util.ArrayList<CompletableFuture<ChunkMaterializer.MaterializedChunk>>();
+                                                                                 ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:88: error: DensityField is abstract; cannot be instantiated
+                DensityField field = new DensityField(terrainEngine.noise, terrainEngine.options);
+                                     ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:89: error: cannot find symbol
+                return field.sampleChunk(key.chunkX() * 16, key.chunkZ() * 16);
+                            ^
+  symbol:   method sampleChunk(int,int)
+  location: variable field of type DensityField
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:91: error: cannot find symbol
+                EngineMetrics.recordTerrainGenTime(System.nanoTime() - start);
+                             ^
+  symbol:   method recordTerrainGenTime(long)
+  location: class EngineMetrics
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:99: error: package ChunkMaterializer does not exist
+        return new ChunkMaterializer.MeshData(new float[0], new int[0], new byte[0], new short[0]);
+                                    ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:113: error: cannot find symbol
+        generationExecutor.shutdown();
+                          ^
+  symbol:   method shutdown()
+  location: variable generationExecutor of type Executor
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java:114: error: cannot find symbol
+        callbackExecutor.shutdown();
+                        ^
+  symbol:   method shutdown()
+  location: variable callbackExecutor of type Executor
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/AdvancedDensityField.java:47: error: method sample in class DensityChunk cannot be applied to given types;
+        return chunk.sample(x, y, z);
+                    ^
+  required: DensityGraph,int,int,int,int
+  found:    double,double,double
+  reason: actual and formal argument lists differ in length
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/AdvancedDensityField.java:94: error: constructor DensityChunk in class DensityChunk cannot be applied to given types;
+            DensityChunk chunk = new DensityChunk(chunkX, chunkZ, baseResolution);
+                                 ^
+  required: int,int,BitSet,int[]
+  found:    int,int,int
+  reason: actual and formal argument lists differ in length
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/AdvancedDensityField.java:104: error: cannot find symbol
+                        chunk.set(x, y, z, sampleFullRes(wx, wy, wz));
+                             ^
+  symbol:   method set(int,int,int,double)
+  location: variable chunk of type DensityChunk
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/AdvancedDensityField.java:117: error: constructor DensityChunk in class DensityChunk cannot be applied to given types;
+        DensityChunk chunk = new DensityChunk(chunkX, chunkZ, resolution);
+                             ^
+  required: int,int,BitSet,int[]
+  found:    int,int,int
+  reason: actual and formal argument lists differ in length
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/AdvancedDensityField.java:127: error: cannot find symbol
+                    chunk.set(x, y, z, sampleFullRes(wx, wy, wz));
+                         ^
+  symbol:   method set(int,int,int,double)
+  location: variable chunk of type DensityChunk
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/StabilityRuntime.java:50: error: package ModConfigSpec does not exist
+        var builder = new ModConfigSpec.Builder();
+                                       ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:20: error: cannot find symbol
+        LocalDashboard.metadata("engine.test", java.util.Map.of("version", "1.0.0"));
+        ^
+  symbol:   variable LocalDashboard
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:161: error: cannot find symbol
+        AdvancedDensityField field = new AdvancedDensityField(engine);
+        ^
+  symbol:   class AdvancedDensityField
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:161: error: cannot find symbol
+        AdvancedDensityField field = new AdvancedDensityField(engine);
+                                         ^
+  symbol:   class AdvancedDensityField
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:168: error: package AdvancedDensityField does not exist
+        AdvancedDensityField.DensitySample sample = field.sampleWithDerivatives(0, 100, 0);
+                            ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:173: error: package AdvancedDensityField does not exist
+        AdvancedDensityField.SurfaceHit hit = field.raycast(0, 200, 0, 0, -1, 0, 500);
+                            ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:189: error: cannot find symbol
+        ChunkMaterializer materializer = new ChunkMaterializer(engine, executor, executor);
+        ^
+  symbol:   class ChunkMaterializer
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:189: error: cannot find symbol
+        ChunkMaterializer materializer = new ChunkMaterializer(engine, executor, executor);
+                                             ^
+  symbol:   class ChunkMaterializer
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:192: error: package ChunkMaterializer does not exist
+        ChunkMaterializer.ChunkKey key = new ChunkMaterializer.ChunkKey(0, 0, 0);
+                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:192: error: package ChunkMaterializer does not exist
+        ChunkMaterializer.ChunkKey key = new ChunkMaterializer.ChunkKey(0, 0, 0);
+                                                              ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:193: error: package ChunkMaterializer does not exist
+        ChunkMaterializer.MaterializedChunk chunk = materializer.materializeSync(key);
+                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:201: error: package ChunkMaterializer does not exist
+        CompletableFuture<ChunkMaterializer.MaterializedChunk> future = 
+                                           ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:202: error: package ChunkMaterializer does not exist
+            materializer.materializeAsync(new ChunkMaterializer.ChunkKey(1, 0, 0));
+                                                               ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:203: error: package ChunkMaterializer does not exist
+        ChunkMaterializer.MaterializedChunk asyncChunk = future.get(5, TimeUnit.SECONDS);
+                         ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:258: error: cannot find symbol
+        ChunkMaterializer materializer = new ChunkMaterializer(engine, executor, executor);
+        ^
+  symbol:   class ChunkMaterializer
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:258: error: cannot find symbol
+        ChunkMaterializer materializer = new ChunkMaterializer(engine, executor, executor);
+                                             ^
+  symbol:   class ChunkMaterializer
+  location: class EngineIntegrationTest
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:266: error: package ChunkMaterializer does not exist
+        CompletableFuture<ChunkMaterializer.MaterializedChunk> future = pipeline.generateChunk(key);
+                                           ^
+/workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineIntegrationTest.java:329: error: package com.shnewbs.deepprimal.settings.UpscalingConfig does not exist
+             com.shnewbs.deepprimal.settings.UpscalingConfig.FsrQuality.values()) {
+                                                            ^
+Note: /workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors
+only showing the first 100 errors, of 105 total; use -Xmaxerrs if you would like to see more
