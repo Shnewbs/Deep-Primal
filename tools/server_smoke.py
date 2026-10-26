@@ -43,14 +43,25 @@ def verify_server_shutdown(content, returncode, required_markers=()):
             raise RuntimeError('Missing required native fixture marker: ' + marker)
 
 class Rcon:
+    MAX_RESPONSE_BYTES = 4096 + 10  # payload plus id/type and two NUL bytes
+    REQUEST_SECONDS = 20
+
     def __init__(self, port):
         self.sock = socket.create_connection(('127.0.0.1', port), timeout=20)
         self.seq = 0
-        self.request(3, 'deepprimal-local-smoke-only')
+        try:
+            self.request(3, 'deepprimal-local-smoke-only')
+        except BaseException:
+            self.sock.close()
+            raise
 
-    def read(self, count):
+    def read(self, count, deadline):
         data = b''
         while len(data) < count:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError('RCON request deadline exceeded')
+            self.sock.settimeout(remaining)
             part = self.sock.recv(count - len(data))
             if not part:
                 raise RuntimeError('RCON disconnected')
@@ -58,15 +69,29 @@ class Rcon:
         return data
 
     def request(self, kind, text):
+        deadline = time.monotonic() + self.REQUEST_SECONDS
         self.seq += 1
         body = struct.pack('<ii', self.seq, kind) + text.encode() + b'\0\0'
+        self.sock.settimeout(self.REQUEST_SECONDS)
         self.sock.sendall(struct.pack('<i', len(body)) + body)
-        length = struct.unpack('<i', self.read(4))[0]
-        response = self.read(length)
-        request_id, _ = struct.unpack('<ii', response[:8])
-        if request_id == -1:
-            raise RuntimeError('RCON authentication failed')
-        return response[8:-2].decode()
+        # Some servers send one empty RESPONSE_VALUE before AUTH_RESPONSE.
+        # Never accept that preamble as authentication or skip arbitrary packets.
+        for index in range(2 if kind == 3 else 1):
+            length = struct.unpack('<i', self.read(4, deadline))[0]
+            if not 10 <= length <= self.MAX_RESPONSE_BYTES:
+                raise RuntimeError('Invalid RCON response length: ' + str(length))
+            response = self.read(length, deadline)
+            request_id, response_kind = struct.unpack('<ii', response[:8])
+            if request_id == -1:
+                raise RuntimeError('RCON authentication failed')
+            if request_id != self.seq or response[-2:] != b'\0\0':
+                raise RuntimeError('Invalid RCON response identity or terminators')
+            if kind == 3 and index == 0 and response_kind == 0 and length == 10:
+                continue
+            if response_kind != (2 if kind == 3 else 0):
+                raise RuntimeError('Invalid RCON response type')
+            return response[8:-2].decode()
+        raise RuntimeError('Missing RCON authentication response')
 
     def command(self, text):
         answer = self.request(2, text)
@@ -224,3 +249,4 @@ if __name__ == '__main__':
         parser.error('Read the Minecraft EULA and pass --accept-eula before starting the server.')
     centers = ((200, 200), (-240, 160), (320, -280)) if args.comparison else ((200, 200),)
     run(args.launcher, args.preset, args.suffix or args.preset, args.port, args.radius, args.seed, centers, args.restarts, args.runtime_checks, args.require_marker)
+
