@@ -1,0 +1,16 @@
+{
+  "owner": "renderer-20261026-byte-accounting-promotion",
+  "status": "active",
+  "active_until": "2026-10-27T00:00:00Z",
+  "parent": "4a8b0fb52e7473a816655096c42f089dd340e735",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodByteAccountingChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/renderer-jams/20261026-byte-accounting-promotion"
+  ],
+  "measurement": {
+    "exclusive_benchmark": false,
+    "status": "functional_only"
+  }
+}
