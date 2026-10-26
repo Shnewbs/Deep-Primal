@@ -35,6 +35,7 @@ final class StreamSourceNativeChecks {
   }
 
   static void run(ServerLevel level) throws ReflectiveOperationException {
+    StreamAllowanceNativeChecks.run();
     if (!(level.getChunkSource().getGenerator() instanceof EngineChunkGenerator generator))
       throw new AssertionError("Stream source fixture requires the engine generator");
 

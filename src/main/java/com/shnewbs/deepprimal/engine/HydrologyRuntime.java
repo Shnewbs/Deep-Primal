@@ -418,7 +418,10 @@ public final class HydrologyRuntime {
   /** Cumulative baseflow released by tick {@code now} of the interval that began at {@code start}. */
   static int streamAllowance(int quota, long start, long now) {
     if (start == Long.MIN_VALUE || now < start) return quota;
-    long phase = Math.min(19, now - start);
+    // With ordered signed ticks, negative subtraction means elapsed-time overflow.
+    // Such an interval is already complete; never turn it into a negative quota.
+    long elapsed = now - start;
+    long phase = elapsed < 0 ? 19 : Math.min(19, elapsed);
     return (int) (quota * (phase + 1) / 20);
   }
   @SubscribeEvent public void loaded(ChunkEvent.Load e) {
@@ -436,6 +439,8 @@ public final class HydrologyRuntime {
     int limit = HydrologyConfig.COLUMNS.get();
     long start = System.nanoTime(), deadline = start + 2_000_000;
     survey(l, work, t, start + 1_000_000);
+    // Preserve admission time for regional recharge/accounting after the source pass.
+    long streamDeadline = limit > 0 ? deadline - 500_000 : deadline;
     // Planned waterways get their own bounded cadence; scan breadth must not starve a source.
     // The finite regional quota is offered headwater-first: springs feed the head of a reach and
     // lower columns are fed by flow, so downstream deficits must not consume the headwater share.
@@ -443,12 +448,12 @@ public final class HydrologyRuntime {
         || work.chunks.get(en.getKey()) != en.getValue());
     var order = new ArrayList<>(work.streamChunks.entrySet());
     order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
-    for (int i = 0, n = order.size(); i < n && System.nanoTime() - deadline < 0; i++) {
+    for (int i = 0, n = order.size(); i < n && System.nanoTime() - streamDeadline < 0; i++) {
       var entry = order.get(i);
       var c = entry.getValue();
       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
       if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
-      for (int s = 0; s < c.streamCount && System.nanoTime() - deadline < 0; s++) {
+      for (int s = 0; s < c.streamCount && System.nanoTime() - streamDeadline < 0; s++) {
         int col = c.streams[s], shuffled = col * 73 & 255;
         replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
       }
