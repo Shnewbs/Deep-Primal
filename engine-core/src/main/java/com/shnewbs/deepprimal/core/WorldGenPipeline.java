@@ -10,12 +10,16 @@ public final class WorldGenPipeline {
   private final Map<ChunkKey,CompletableFuture<MaterializedChunk>> pending=new HashMap<>();
   private volatile boolean stopped;
   public WorldGenPipeline(ChunkMaterializer materializer,ChunkCache cache){this.materializer=materializer;this.cache=cache;}
-  public synchronized CompletableFuture<MaterializedChunk> generateChunk(ChunkKey key){
+  public CompletableFuture<MaterializedChunk> generateChunk(ChunkKey key){
+    final CompletableFuture<MaterializedChunk> result;
+    synchronized(this){
     if(stopped)return CompletableFuture.failedFuture(new IllegalStateException("pipeline stopped"));
     MaterializedChunk ready=cache.get(key);if(ready!=null)return CompletableFuture.completedFuture(ready);
     var existing=pending.get(key);if(existing!=null)return existing.copy();
     if(pending.size()>=64)return CompletableFuture.failedFuture(new RejectedExecutionException("64 pending chunk queries"));
-    var result=new CompletableFuture<MaterializedChunk>();pending.put(key,result);
+    result=new CompletableFuture<MaterializedChunk>();pending.put(key,result);
+    }
+    // An Executor may run inline or block on admission: dispatch outside the monitor.
     try{materializer.materializeAsync(key,()->stopped).whenComplete((chunk,error)->{
       Throwable failure=error;
       synchronized(this){
@@ -25,7 +29,7 @@ public final class WorldGenPipeline {
       }
       // User continuations may call back into EngineCore: never run them under this lock.
       if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
-    });}catch(RuntimeException error){pending.remove(key);result.completeExceptionally(error);}
+    });}catch(RuntimeException error){synchronized(this){pending.remove(key);}result.completeExceptionally(error);}
     return result.copy();
   }
   public CompletableFuture<Void> generateChunks(Iterable<ChunkKey> keys,Consumer<MaterializedChunk> consumer){
@@ -43,3 +47,4 @@ public final class WorldGenPipeline {
   }
   public synchronized int pendingCount(){return pending.size();}
 }
+

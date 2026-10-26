@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-26T01:55:47Z",
-  "active_until": "2026-10-26T02:15:47.000Z",
+  "updated_at": "2026-10-26T02:17:20Z",
+  "active_until": "2026-10-26T02:27:20.000Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.24",
+  "candidate_version": "0.0.1-alpha.29-dev.25",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev.25 qualification: outside-lock pipeline dispatch plus terminal cache closure; first dispatch-only candidate rejected for late admission",
+  "current_gate": "Qualified dev.25 terminal query shutdown; guarded source publication and testing artifact delivery",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -16,8 +16,6 @@
     "opt_in": "riverDeltas (default false) selects engine_deltas_standard/engine_deltas_deep packs, now saving channel_revision 5; existing engine presets stay channel_revision 2; generator codec accepts 0..5; revisions 3 and 4 remain codec-reachable but have no preset",
     "evidence": "DISTRIBUTARY_PASS fans=21 branches=63 wetSamples=126 minShare=0.242 maxShare=0.490 widestRatio=1.27 outsideChanges=0; DISTRIBUTARY_CORE_PASS revisions3And4Replay=true sharesConserved=true; frozen revision-3 digests b36cbb0e0952981f/ae3c3d455f133775/e87ab03e934ed8da and revision-4 digests 92066ccbe2e6047d/5a93f362020c1e9f/d91bf3554721eec4 unchanged; OXBOW_PASS lakes=20 wet=5455 floodEdges=0 maxStageGap=2.25 changedInsideFootprints=0; DELTA_REVISION_PASS/DELTA_CORE_PASS unchanged",
     "not_claimed": [
-      "native revision-5 gates",
-      "save/reopen for revision 5",
       "visual acceptance",
       "routed discharge state or time-varying allocation",
       "braid discharge budgeting",
@@ -27,7 +25,15 @@
       "anastomosing",
       "release artifact",
       "regrade"
-    ]
+    ],
+    "native_validation": {
+      "version": "0.0.1-alpha.29-dev.25",
+      "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/optin-native-result.json",
+      "fresh_reopen_pass": true,
+      "saved_revision": 5,
+      "creation_toggle_disabled_before_reopen": true,
+      "visual_acceptance": false
+    }
   },
   "latest_channel_revision_four": {
     "status": "superseded_by_revision_5",
@@ -163,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "Dev.25 terminal cache closure and outside-lock dispatch pass full build, packaged regressions and four Linux native save/reopen sessions. Next registered V8 saved-profile/topology/routed-water gates; channel-5 visual/hydrology and owner GPU acceptance remain open. docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
     "2026-10-26 dev.24 repairs reproduced cache-loader/EngineCore-close blockage. Full 35-task build, 587 product/142 independent core class comparisons, 7 archive CRCs and 4 packaged native save/reopen sessions pass, including saved channel-5 after toggle-off. This supersedes old compile and channel-5 native blockers below; visual/hydrology/V8/LOD/owner GPU acceptance remains open. docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
     "2026-10-26 foreground repair: both branches merged; Continue additions now compile in normal production modules with real query geometry, bounded caches/queues, finite query water, registered lifecycle/configs and spatial Vulkan presentation. Full 33-task build and core/cache/resource/module checks pass; 7 archive CRCs and 587 compiled project classes match. No native/GPU/performance acceptance or grade change. See docs/validation/engine-continuation/continue-integration-2026-10-26/README.md",
     "Current-main compile regression takes priority: 74 Git-verified core sources at26aa06b fail javac25 with84errors; new StabilityRuntime imports NeoForge and ChunkMaterializer imports mod-layer DensityChunkMaterializer. See docs/validation/engine-continuation/work-state-structure-2026-10-26/README.md. Work-state structural corruption fixed; require python3 tools/validate_engine_work_state.py before claims. Dev.22 delivery remains older qualified source7aa3ae3, not current main.",
@@ -1016,10 +1023,10 @@
   },
   "performance_measurement": {
     "owner": "hourly-engine-builder-20261026T0128",
-    "status": "active",
+    "status": "completed",
     "scope": "Dev.25 full build and packaged native lifecycle validation; no timing benchmark",
     "started_at": "2026-10-26T01:55:47Z",
-    "active_until": "2026-10-26T02:15:47.000Z",
+    "active_until": "2026-10-26T02:17:20Z",
     "auditor_policy": "Independent pinned checkout/cache; defer shared-resource heavy benchmarks until validation completes."
   },
   "owner_pause_checkpoint": {
@@ -1042,11 +1049,11 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "source_parent": "daf0234634d88280ff44729e10e4b0e397fd5e16",
+    "source_parent": "eeb907b0bcbd3430e73a1da86ce18863ac3ca07e",
     "base_code_sha": "5aa353a6f78628d9c04eb3f6b1eeec66fef0cc26",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0047-905e550/REVIEW.md",
-    "consumed_audit_sha": "905e550174e32f9d25d4e01e4e398bb6712288b2",
-    "actual_changes": "Move ChunkCache callbacks outside cache monitor; generation-protect post-clear admission; validate weights before callbacks; add cache and EngineCore shutdown regressions; bump dev.24.",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T0154-4fb29e0/REVIEW.md",
+    "consumed_audit_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
+    "actual_changes": "Dispatch outside pipeline monitor; terminal closure of world query caches rejects late admissions; retain caller executor ownership; add inline-executor and terminal-cache regressions; bump dev.25.",
     "production_runtime_changed": true,
     "full_build": true,
     "full_build_tasks": 35,
@@ -1054,11 +1061,11 @@
     "module_resource_cache_checks_pass": true,
     "new_installable_development_jar": true,
     "lease_released": false,
-    "evidence": "docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
+    "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "latest_provisional_audit_average": 4.2,
-    "latest_provisional_audit_source": "905e550174e32f9d25d4e01e4e398bb6712288b2",
+    "latest_provisional_audit_average": 5,
+    "latest_provisional_audit_source": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
     "native_linux_save_reopen_sessions": 4,
     "windows_AMD8060S_tested": false,
     "gpu_visual_acceptance": false,
@@ -1080,24 +1087,20 @@
     "library_file_id": "libfile_45cd48e8eaf48191ab971863062c873a"
   },
   "latest_development_delivery": {
-    "version": "0.0.1-alpha.29-dev.24",
-    "source_parent": "daf0234634d88280ff44729e10e4b0e397fd5e16",
-    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.24-vulkan-windows.jar",
-    "sha256": "8c7079b4d174ffbe4d2a42c6fa259c0732a3abbb870b71f40ab2c3d344d0275e",
-    "bytes": 125288625,
+    "version": "0.0.1-alpha.29-dev.25",
+    "source_parent": "eeb907b0bcbd3430e73a1da86ce18863ac3ca07e",
+    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.25-vulkan-windows.jar",
+    "sha256": "a6555b12db16916c445659302f21b32d0e455716bb9d72b852d2b552b3c89a4d",
+    "bytes": 125288863,
     "development_testing_only": true,
     "producer_completed": true,
     "local_verified_artifact_available": true,
-    "library_save_verified": true,
+    "library_save_verified": false,
     "github_release_published": false,
     "native_linux_save_reopen_sessions": 4,
     "windows_execution": false,
     "gpu_tested": false,
-    "evidence": "docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
-    "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
-    "library_file_id": "libfile_ee4d7ea243e48191a6e48c879838a072",
-    "superseded_by_followup_defect": true,
-    "remaining_defect": "Inline executor holds pipeline monitor; dispatch-only correction exposes post-shutdown density cache admission. Dev.25 fixes in qualification."
+    "evidence": "docs/validation/engine-continuation/terminal-query-shutdown-2026-10-26/README.md"
   },
   "previous_builder_cycle": {
     "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
@@ -1160,29 +1163,31 @@
     "latest_provisional_audit_source": "905e550174e32f9d25d4e01e4e398bb6712288b2"
   },
   "previous_development_delivery": {
-    "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
-    "source_tree": "e05498e9e2d2cbbeedf5ee39a04d08005ec6e445",
-    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.23-vulkan-windows.jar",
-    "bytes": 125289415,
-    "sha256": "472d8de0b6a430a3c407c5bb4c32b4a1752eafc06b53eea535f38b55fb7a5ca1",
-    "completed_at": "2026-10-26T00:56:05Z",
-    "library_save_verified": false,
-    "library_blocker": "Hosted upload helper tools/list failed DNS; verified local JAR retained.",
-    "github_release_published": false,
-    "native_gameplay_or_GPU_tested": false,
-    "evidence": "docs/validation/engine-continuation/continue-integration-2026-10-26/README.md",
-    "version": "0.0.1-alpha.29-dev.23",
+    "version": "0.0.1-alpha.29-dev.24",
+    "source_parent": "daf0234634d88280ff44729e10e4b0e397fd5e16",
+    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.24-vulkan-windows.jar",
+    "sha256": "8c7079b4d174ffbe4d2a42c6fa259c0732a3abbb870b71f40ab2c3d344d0275e",
+    "bytes": 125288625,
     "development_testing_only": true,
-    "local_verified_artifact_available": true,
     "producer_completed": true,
-    "publication_parent": "c6b7ac4f5d78836ca7e5752a25fc40955e6128c6"
+    "local_verified_artifact_available": true,
+    "library_save_verified": true,
+    "github_release_published": false,
+    "native_linux_save_reopen_sessions": 4,
+    "windows_execution": false,
+    "gpu_tested": false,
+    "evidence": "docs/validation/engine-continuation/cache-loader-lifecycle-2026-10-26/README.md",
+    "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
+    "library_file_id": "libfile_ee4d7ea243e48191a6e48c879838a072",
+    "superseded_by_followup_defect": true,
+    "remaining_defect": "Inline executor holds pipeline monitor; dispatch-only correction exposes post-shutdown density cache admission. Dev.25 fixes in qualification."
   },
   "latest_provisional_audit": {
-    "source_sha": "905e550174e32f9d25d4e01e4e398bb6712288b2",
-    "evidence": "docs/engine-hourly-audits/2026-10-26T0047-905e550/REVIEW.md",
-    "score_out_of_100": 42,
-    "average": 4.2,
+    "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
+    "evidence": "docs/engine-hourly-audits/2026-10-26T0154-4fb29e0/REVIEW.md",
+    "score_out_of_100": 50,
+    "average": 5,
     "fresh_complete_regrade": false,
-    "scope": "Old snapshot compile/module failures, preserved as historical evidence; dev.23 awaits independent review"
+    "scope": "Scoped reassessment restores full accepted baseline; not a fresh whole-engine regrade."
   }
 }

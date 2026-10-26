@@ -8,6 +8,7 @@ public final class CoreChecks {
     EngineIntegrationTest.main(new String[0]);
     CacheLifecycleChecks.main(new String[0]);
     CoreCloseLifecycleChecks.main(new String[0]);
+    PipelineInlineCloseChecks.main(new String[0]);
     ByteLruOverflowChecks.main(new String[0]);
     DensityGridFiniteChecks.main(new String[0]);
 

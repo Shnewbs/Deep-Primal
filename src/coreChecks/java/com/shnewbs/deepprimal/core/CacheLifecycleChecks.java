@@ -32,6 +32,10 @@ public final class CacheLifecycleChecks {
       require(cache.size()==2&&cache.getMemoryUsage()==12,"single weighted admission");
       cache.put("third","v",16);require(cache.size()==2&&cache.getMemoryUsage()<=24,"bounded eviction");
       cache.clear();require(cache.size()==0&&cache.getMemoryUsage()==0,"final clear");
+      cache.close();cache.clear();
+      try{cache.put("late","value",4);throw new AssertionError("closed put accepted");}catch(IllegalStateException expected){}
+      try{cache.getOrCompute("late",k->{calls.incrementAndGet();return "value";},4);throw new AssertionError("closed load accepted");}catch(IllegalStateException expected){}
+      require(calls.get()==0&&cache.size()==0&&cache.getMemoryUsage()==0,"terminal close rejects late admission and callback");
 
     }finally{release.countDown();pool.shutdownNow();require(pool.awaitTermination(5,TimeUnit.SECONDS),"workers terminated");}
     System.out.println("CACHE_LIFECYCLE_PASS checks="+checks);

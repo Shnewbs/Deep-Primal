@@ -1,0 +1,42 @@
+[
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java",
+    "sha256": "b33885e1ac60106a96d6d65e674327644716f792473aa9d893edf6473236dd7b",
+    "blob": "0ed8a911b0baabc6c35f204761e2e6b4c9e2a826"
+  },
+  {
+    "path": "gradle.properties",
+    "sha256": "c986a38ee2b91f2ba177292bc2d3911f18d4fb2bc06570bfffbd35bee4219043",
+    "blob": "8b1122e2d9eaa5369da5f76917722b3de9f16acc"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "sha256": "cdcf2e1e47c125175b4195a3c4a642c401e01a8e0f40f8bea1ebb6bd1b19b786",
+    "blob": "f95754a6273df188a5ba71a17f37c5d62eb7a218"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CacheLifecycleChecks.java",
+    "sha256": "3da3bbd192e4213f8cde6779ddc64feab14e3351e8cabd0224cd5dc3142e2cec",
+    "blob": "1bdd0e26de1251df60e98a05edb5dbd7ecec4efe"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreCloseLifecycleChecks.java",
+    "sha256": "09dbee794ad7d088f674432b5ff2f195fb56ee0fe25acad54f1cf655190a55b5",
+    "blob": "eced6a462b300da225d1ee3f61f0d509bffb9358"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
+    "sha256": "8675be65fa9e73e5da54f68a32868647632603ac1ebd0cc99f8384fe6d7398c6",
+    "blob": "3815c4395af2bccb893bcb24c9d3b18bc1e4613a"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java",
+    "sha256": "afa314755fb08db948e54e13903ed2fa7dbc1ea37f776b37a68b2d2d17aa3c0f",
+    "blob": "8da45c77d39b61435dd2f9ce5fbb368745dc3a89"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/PipelineInlineCloseChecks.java",
+    "sha256": "b15c9fdc391e9a4832ac39e49d040f5d305c8ed5152a568119a8a8e169fd5ad8",
+    "blob": "4224d909fda4d2e842beefa1185d4eaa1284cdd9"
+  }
+]

@@ -24,7 +24,7 @@ public final class EngineCore implements AutoCloseable {
   public synchronized void start(){if(closed)throw new IllegalStateException("engine closed");running=true;}
   public void stop(){
     synchronized(this){if(closed)return;running=false;closed=true;}
-    pipeline.shutdown();if(ownedWorker!=null)ownedWorker.shutdownNow();field.clearCaches();meshCache.clear();
+    pipeline.shutdown();densityCache.close();meshCache.close();if(ownedWorker!=null)ownedWorker.shutdownNow();
   }
   @Override public void close(){stop();}
   public synchronized boolean isRunning(){return running;}

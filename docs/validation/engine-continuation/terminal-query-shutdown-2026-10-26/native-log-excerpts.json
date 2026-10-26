@@ -1,0 +1,102 @@
+[
+  {
+    "log": "native-0.txt",
+    "sha256": "ed6168307c676c07bc9f26a1d72bc7b56fc48f6a534a0834283106005ac510b7",
+    "lines": [
+      "[11:08:26] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com",
+      "[11:08:29] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "DEPOSIT_NATIVE_PASS maxRevision=5 changed=58 oracle=1305522",
+      "GROUND_MATERIAL_NATIVE_PASS checks=390 materials=39 reopen=false selfDrops=true plantSupport=true soilPermeabilities=36",
+      "GROUND_SURFACE_PROFILE_PASS checks=65 rejected=54 immutable=true exactLongSalts=true bounded=true",
+      "GROUND_SURFACE_NATIVE_PASS blocks=1572864 seeds=2 adjacentChunks=2 reverseOrder=true baseColumns=true heightmaps=true thinRoof=true caveGap=true bedrock=true ceiling=true snapshotReopen=false",
+      "SOIL_WORLDGEN_PASS blocks=1572864 changed=4395 unchangedDecorations=540 seeds=2 sites=4 legacyDefaults=true occupancyPreserved=true materialBaseColumns=true heightmaps=true reverseOrder=true outcrops=638 savedMaterialRevision=2 actualWorldMaterialRevision=2 reopen=false",
+      "DENSITY_CHUNK_NATIVE_PASS blocks=196352 columns=256 baseColumnParity=true occupancyExact=true bedrockBarrier=true heightmaps=true",
+      "STREAM_DROUGHT_RESERVE_NATIVE_PASS cases=6 attemptsPerCase=16 deficitCell=true exactWaterSaltSediment=true noStepOverspend=true",
+      "STREAM_SOURCE_NATIVE_PASS firstOutletUnits=8 secondOutletUnits=8 noOverfill=true noRepeatDebit=true unrelatedWaterPreserved=true aquiferDebit=2560 firstVisits=1 secondVisits=1 outletY=288 regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true smoothRelease=true headwaterFirst=true deficitCellUnits=16",
+      "NOISE_PROFILE_CODEC_PASS cases=21 longSaltExact=true invalidRejected=true",
+      "DENSITY_GRAPH_CODEC_PASS cases=34 roundtripSamples=2048 invalidRejected=23",
+      "TERRAIN_AUDIT_NATIVE_PASS blocks=3069816 chunks=44 logs=139 water=47088 biomes=704 reopen=false",
+      "[11:08:48] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "[11:08:48] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server",
+      "[11:08:48] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "BUILD SUCCESSFUL in 38s"
+    ]
+  },
+  {
+    "log": "native-1.txt",
+    "sha256": "0cd691b6cb2cc28308494884501baa10e781aa56e8826578721407214226a80b",
+    "lines": [
+      "[11:09:06] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com",
+      "[11:09:08] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "DEPOSIT_NATIVE_PASS maxRevision=5 changed=58 oracle=1305522",
+      "GROUND_MATERIAL_NATIVE_PASS checks=351 materials=39 reopen=true selfDrops=true plantSupport=true soilPermeabilities=36",
+      "GROUND_SURFACE_PROFILE_PASS checks=65 rejected=54 immutable=true exactLongSalts=true bounded=true",
+      "GROUND_SURFACE_NATIVE_PASS blocks=1572864 seeds=2 adjacentChunks=2 reverseOrder=true baseColumns=true heightmaps=true thinRoof=true caveGap=true bedrock=true ceiling=true snapshotReopen=true",
+      "SOIL_WORLDGEN_PASS blocks=1572864 changed=4395 unchangedDecorations=540 seeds=2 sites=4 legacyDefaults=true occupancyPreserved=true materialBaseColumns=true heightmaps=true reverseOrder=true outcrops=638 savedMaterialRevision=2 actualWorldMaterialRevision=2 reopen=true",
+      "DENSITY_CHUNK_NATIVE_PASS blocks=196352 columns=256 baseColumnParity=true occupancyExact=true bedrockBarrier=true heightmaps=true",
+      "STREAM_DROUGHT_RESERVE_NATIVE_PASS cases=6 attemptsPerCase=16 deficitCell=true exactWaterSaltSediment=true noStepOverspend=true",
+      "STREAM_SOURCE_NATIVE_PASS firstOutletUnits=8 secondOutletUnits=8 noOverfill=true noRepeatDebit=true unrelatedWaterPreserved=true aquiferDebit=2560 firstVisits=1 secondVisits=3 outletY=288 regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true smoothRelease=true headwaterFirst=true deficitCellUnits=12",
+      "NOISE_PROFILE_CODEC_PASS cases=21 longSaltExact=true invalidRejected=true",
+      "DENSITY_GRAPH_CODEC_PASS cases=34 roundtripSamples=2048 invalidRejected=23",
+      "TERRAIN_AUDIT_NATIVE_PASS blocks=3069816 chunks=44 logs=139 water=47088 biomes=704 reopen=true",
+      "[11:09:27] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "[11:09:27] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server",
+      "[11:09:27] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "BUILD SUCCESSFUL in 38s"
+    ]
+  },
+  {
+    "log": "optin-native-0.txt",
+    "sha256": "581499de98fc199b1b44c1f3e30a6b92907355e59d40ee87312fef86afb4efb5",
+    "lines": [
+      "[11:09:55] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com",
+      "[11:10:00] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "DEPOSIT_NATIVE_PASS maxRevision=5 changed=58 oracle=1305522",
+      "GROUND_MATERIAL_NATIVE_PASS checks=390 materials=39 reopen=false selfDrops=true plantSupport=true soilPermeabilities=36",
+      "GROUND_SURFACE_PROFILE_PASS checks=65 rejected=54 immutable=true exactLongSalts=true bounded=true",
+      "GROUND_SURFACE_NATIVE_PASS blocks=1572864 seeds=2 adjacentChunks=2 reverseOrder=true baseColumns=true heightmaps=true thinRoof=true caveGap=true bedrock=true ceiling=true snapshotReopen=false",
+      "SOIL_WORLDGEN_PASS blocks=1572864 changed=4395 unchangedDecorations=540 seeds=2 sites=4 legacyDefaults=true occupancyPreserved=true materialBaseColumns=true heightmaps=true reverseOrder=true outcrops=638 savedMaterialRevision=2 actualWorldMaterialRevision=2 reopen=false",
+      "DENSITY_CHUNK_NATIVE_PASS blocks=196352 columns=256 baseColumnParity=true occupancyExact=true bedrockBarrier=true heightmaps=true",
+      "STREAM_DROUGHT_RESERVE_NATIVE_PASS cases=6 attemptsPerCase=16 deficitCell=true exactWaterSaltSediment=true noStepOverspend=true",
+      "STREAM_SOURCE_NATIVE_PASS firstOutletUnits=8 secondOutletUnits=8 noOverfill=true noRepeatDebit=true unrelatedWaterPreserved=true aquiferDebit=2560 firstVisits=1 secondVisits=1 outletY=288 regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true smoothRelease=true headwaterFirst=true deficitCellUnits=16",
+      "NOISE_PROFILE_CODEC_PASS cases=21 longSaltExact=true invalidRejected=true",
+      "DENSITY_GRAPH_CODEC_PASS cases=34 roundtripSamples=2048 invalidRejected=23",
+      "TERRAIN_AUDIT_NATIVE_PASS blocks=3069816 chunks=44 logs=139 water=47088 biomes=704 reopen=false",
+      "[11:10:21] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "[11:10:21] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server",
+      "[11:10:21] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "BUILD SUCCESSFUL in 43s"
+    ]
+  },
+  {
+    "log": "optin-native-1.txt",
+    "sha256": "892a18c91266f109dc727c756906f7185f74d9685d9b74529116882756d10452",
+    "lines": [
+      "[11:10:39] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com",
+      "[11:10:42] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "DEPOSIT_NATIVE_PASS maxRevision=5 changed=58 oracle=1305522",
+      "GROUND_MATERIAL_NATIVE_PASS checks=351 materials=39 reopen=true selfDrops=true plantSupport=true soilPermeabilities=36",
+      "GROUND_SURFACE_PROFILE_PASS checks=65 rejected=54 immutable=true exactLongSalts=true bounded=true",
+      "GROUND_SURFACE_NATIVE_PASS blocks=1572864 seeds=2 adjacentChunks=2 reverseOrder=true baseColumns=true heightmaps=true thinRoof=true caveGap=true bedrock=true ceiling=true snapshotReopen=true",
+      "SOIL_WORLDGEN_PASS blocks=1572864 changed=4395 unchangedDecorations=540 seeds=2 sites=4 legacyDefaults=true occupancyPreserved=true materialBaseColumns=true heightmaps=true reverseOrder=true outcrops=638 savedMaterialRevision=2 actualWorldMaterialRevision=2 reopen=true",
+      "DENSITY_CHUNK_NATIVE_PASS blocks=196352 columns=256 baseColumnParity=true occupancyExact=true bedrockBarrier=true heightmaps=true",
+      "STREAM_DROUGHT_RESERVE_NATIVE_PASS cases=6 attemptsPerCase=16 deficitCell=true exactWaterSaltSediment=true noStepOverspend=true",
+      "STREAM_SOURCE_NATIVE_PASS firstOutletUnits=8 secondOutletUnits=8 noOverfill=true noRepeatDebit=true unrelatedWaterPreserved=true aquiferDebit=2560 firstVisits=1 secondVisits=3 outletY=288 regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true smoothRelease=true headwaterFirst=true deficitCellUnits=12",
+      "NOISE_PROFILE_CODEC_PASS cases=21 longSaltExact=true invalidRejected=true",
+      "DENSITY_GRAPH_CODEC_PASS cases=34 roundtripSamples=2048 invalidRejected=23",
+      "TERRAIN_AUDIT_NATIVE_PASS blocks=3069816 chunks=44 logs=139 water=47088 biomes=704 reopen=true",
+      "[11:11:01] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "[11:11:01] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server",
+      "[11:11:01] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved",
+      "BUILD SUCCESSFUL in 39s"
+    ]
+  }
+]

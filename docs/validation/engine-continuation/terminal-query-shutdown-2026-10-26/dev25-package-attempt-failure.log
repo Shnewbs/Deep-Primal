@@ -1,0 +1,83 @@
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40621 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40621 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/1a7cb29b04a2/audit-d38ea7e-20261024T2151/toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :gui-themes:createMinecraftArtifacts UP-TO-DATE
+> Task :gui-themes:compileJava UP-TO-DATE
+> Task :processSoilDataResources NO-SOURCE
+> Task :graphics-settings:processResources
+> Task :gui-themes:compileThemeAssetsJava UP-TO-DATE
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses UP-TO-DATE
+> Task :engine-core:compileJava
+> Task :gui-themes:generateThemeAssets UP-TO-DATE
+> Task :graphics-settings:compileJava UP-TO-DATE
+> Task :performance-engine:compileJava UP-TO-DATE
+> Task :lod-engine:compileJava UP-TO-DATE
+> Task :compileSoilDataJava UP-TO-DATE
+> Task :soilDataClasses UP-TO-DATE
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes
+> Task :renderer-vulkan:compileJava UP-TO-DATE
+> Task :engine-core:jar
+> Task :graphics-settings:classes
+> Task :graphics-settings:jar
+> Task :gui-themes:processResources UP-TO-DATE
+> Task :gui-themes:classes UP-TO-DATE
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar UP-TO-DATE
+> Task :lod-engine:processResources
+> Task :lod-engine:classes
+> Task :lod-engine:jar
+> Task :performance-engine:processResources
+> Task :performance-engine:classes
+> Task :performance-engine:jar
+> Task :renderer-vulkan:processResources
+> Task :renderer-vulkan:classes
+> Task :compileJava
+
+> Task :generateSoilResources
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40621 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40621 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/1a7cb29b04a2/audit-d38ea7e-20261024T2151/toolchain/checked-agent/neoform-process-fallback.jar
+SOIL_RESOURCES_GENERATED families=12 blocks=36 texturesReused=true
+
+> Task :processResources
+> Task :classes
+> Task :compileCacheChecksJava UP-TO-DATE
+> Task :processCacheChecksResources NO-SOURCE
+> Task :cacheChecksClasses UP-TO-DATE
+
+> Task :cacheChecks
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=40621 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=40621 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/1a7cb29b04a2/audit-d38ea7e-20261024T2151/toolchain/checked-agent/neoform-process-fallback.jar
+CACHE_CHECKS_PASS corruption truncation bounds LRU250 exactDescriptorEquality dynamicOffsets commandReset
+
+> Task :renderer-vulkan:jar
+> Task :compileCoreChecksJava
+> Task :jarJar
+> Task :jar FAILED
+
+[Incubating] Problems report is available at: file:///dev/shm/deepprimal-builder-0128/project/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':jar'.
+> Could not add file '/dev/shm/deepprimal-builder-0128/project/build/generated/jarJar-0.0.1-alpha.29-dev.25-lod-vulkan-windows/META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar' to ZIP '/dev/shm/deepprimal-builder-0128/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.25-vulkan-windows.jar'.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 12s
+30 actionable tasks: 17 executed, 13 up-to-date
