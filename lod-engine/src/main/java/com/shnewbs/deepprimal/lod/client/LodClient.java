@@ -50,6 +50,9 @@ public final class LodClient {
             data.put("lodDiskReads", lod.diskReads);
             data.put("lodStaleResults", lod.staleResults);
             data.put("lodQueued", lod.queuedChunks);
+            data.put("lodDiscoveryVisited", lod.discoveryVisited);
+            data.put("lodDiscoveryTotal", lod.discoveryTotal);
+            data.put("lodDiscoveryComplete", lod.discoveryComplete);
             data.put("lodTelemetryEnabled", VoxelLodRenderer.TELEMETRY);
             data.put("lodTimingDomain", "CPU component elapsed nanoseconds; not GPU or frame time");
             data.put("lodCullTiming", timing(lod.cullTiming.snapshot()));

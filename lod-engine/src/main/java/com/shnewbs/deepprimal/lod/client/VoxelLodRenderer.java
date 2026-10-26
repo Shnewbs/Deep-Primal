@@ -75,6 +75,9 @@ public final class VoxelLodRenderer {
   private volatile boolean persistenceFailed;
   private PendingGpu pendingGpu;
   private int ticks, captureBurst;
+  private DeliveredChunkScan deliveredScan;
+  public volatile int discoveryVisited, discoveryTotal;
+  public volatile boolean discoveryComplete;
   private final Matrix4f drawMatrix = new Matrix4f(), textureIdentity = new Matrix4f();
   private final Vector4f white = new Vector4f(1, 1, 1, 1);
   private net.minecraft.client.renderer.DynamicUniforms.Transform[] transformPool =
@@ -236,16 +239,8 @@ public final class VoxelLodRenderer {
         throw new AssertionError(e);
       }
     }
-    // Chunks already delivered before the dimension switch are discovered without loading anything.
-    var mc = Minecraft.getInstance();
-    if (mc.player != null) {
-      int cx = mc.player.chunkPosition().x(),
-          cz = mc.player.chunkPosition().z(),
-          r = Math.min(32, mc.options.getEffectiveRenderDistance());
-      for (int dz = -r; dz <= r; dz++)
-        for (int dx = -r; dx <= r; dx++)
-          if (next.hasChunk(cx + dx, cz + dz)) dirty(cx + dx, cz + dz);
-    }
+    // Already-delivered chunks are discovered incrementally on the owning client thread.
+
   }
 
   @SubscribeEvent
@@ -261,6 +256,24 @@ public final class VoxelLodRenderer {
     if (level == null) return;
     if (worker == null) attach(mc.level);
     if (mc.player == null) return;
+    if (deliveredScan == null) {
+      var position = mc.player.chunkPosition();
+      deliveredScan = new DeliveredChunkScan(position.x(), position.z(),
+          Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
+              mc.options.getEffectiveRenderDistance()));
+    }
+    deliveredScan.drain(128, (x, z) -> {
+      // Discovery must not displace live edits or flood the existing bounded dirty queue.
+      if (dirty.size() >= 512) return false;
+      long k = key(x, z);
+      if (level.hasChunk(x, z) && !dirty.containsKey(k)
+          && (workingKey == null || workingKey != k)
+          && (pendingGpu == null || pendingGpu.ready.key != k)) dirty(x, z);
+      return true;
+    });
+    discoveryVisited = deliveredScan.visited();
+    discoveryTotal = deliveredScan.total();
+    discoveryComplete = deliveredScan.done();
     if (scan != null && scan.isDone()) {
       try {
         var keys = scan.get();
@@ -736,6 +749,9 @@ public final class VoxelLodRenderer {
   }
 
   public void reset() {
+    deliveredScan = null;
+    discoveryVisited = discoveryTotal = 0;
+    discoveryComplete = false;
     cullTiming.reset();
     uploadTiming.reset();
     submitTiming.reset();
