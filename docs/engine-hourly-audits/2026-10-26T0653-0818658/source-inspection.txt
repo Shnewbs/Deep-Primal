@@ -1,0 +1,1042 @@
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/Landforms.java
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: import static com.shnewbs.deepprimal.core.TerrainNoise.*;
+4: 
+5: /** V7 regional landforms. Drainage is planned after this continuous height field. */
+6: public final class Landforms {
+7:   private final TerrainNoise noise;
+8:   private final TerrainOptions options;
+9:   public Landforms(TerrainNoise noise, TerrainOptions options) {
+10:     this.noise = noise; this.options = options;
+11:   }
+12:   public double relief(double x, double z) {
+13:     double region = Math.clamp(.5 + noise.field(x,z,1800,4200)*1.1,0,1);
+14:     double hills = smooth((region-.20)/.22);
+15:     double uplands = smooth((region-.48)/.20);
+16:     double mountains = smooth((region-.69)/.19);
+17:     double broad = noise.field(x,z,650,4205), detail = noise.field(x,z,110,4208);
+18:     double lowland = 11 + broad*7 + detail*2.5;
+19:     double rolling = 29 + broad*25 + detail*7;
+20:     // Eroded plateau rims are a different shape from rounded hills or folded ranges.
+21:     double mesa = smooth((noise.field(x,z,330,4210)+.12)/.30);
+22:     double plateau = 48 + mesa*56 + broad*15 + detail*3;
+23:     double wx=x+noise.field(x,z,420,4212)*150;
+24:     double wz=z+noise.field(x,z,420,4213)*150;
+25:     double ridge=1-Math.abs(noise.field(wx,wz,700,4214));
+26:     double spurs=1-Math.abs(noise.field(wx,wz,220,4218));
+27:     double range=55 + options.mountainScale()*(Math.pow(ridge,4)*155 + Math.pow(spurs,5)*24);
+28:     return lerp(lerp(lerp(lowland,rolling,hills),plateau,uplands),range,mountains);
+29:   }
+30: }
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java
+210:         noise.field(x, z, 240, 61) * 24
+211:             + noise.field(x, z, 65, 65) * 6
+212:             + noise.noise(x, z, 19, 70) * 1.3;
+213:     double ground = SEA - 3 + inland * (plateau + peaks + hills) + Math.min(m, .15) * 30;
+214:     if (revision >= 6) return landscape.relief(x, z, ground + coastalDetail, inland);
+215:     return revision >= 3 ? ground + coastalDetail : ground;
+216:   }
+217: 
+218:   private synchronized Drainage plan(Land l) {
+219:     long key = ((long) l.x << 32) ^ (l.z & 0xffffffffL);
+220:     Drainage d = cache.get(key);
+221:     if (d == null) {
+222:       d = new Drainage(l);
+223:       cache.put(key, d);
+224:       while (cache.size() > 12) cache.remove(cache.keySet().iterator().next());
+225:     }
+226:     return d;
+227:   }
+228: 
+229:   private WatershedRegion watershed(Land l) {
+230:     long key = ((long) l.x << 32) ^ (l.z & 0xffffffffL);
+231:     Planned last = lastWatershed;
+232:     return last != null && last.key == key ? last.region : loadWatershed(l, key);
+233:   }
+234: 
+235:   private synchronized WatershedRegion loadWatershed(Land l, long key) {
+236:     var d = watersheds.get(key);
+237:     if (d == null) {
+238:       d =
+239:           new WatershedRegion(
+240:               l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall, revision >= 7, channelRevision >= 1,
+241:               channelRevision >= 2 ? noise : null, channelRevision >= 3, channelRevision >= 4,
+242:               channelRevision >= 5);
+243:       watersheds.put(key, d);
+244:       while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
+245:     }
+246:     lastWatershed = new Planned(key, d);
+247:     return d;
+248:   }
+249: 
+250:   public WatershedRegion waterways(double x, double z) {
+251:     if (revision < 3) throw new IllegalStateException("Watershed geometry requires revision 3");
+252:     return watershed(locate(x, z).land);
+253:   }
+254: 
+255:   public synchronized int cachedRegions() {
+256:     return revision >= 3 ? watersheds.size() : cache.size();
+257:   }
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/Landscape.java
+74:   }
+75:   /** Indices are the serialized V6 40-biome palette; legacy palettes keep their original mapping. */
+76:   public int biome(double x,double z,TerrainEngine.Sample s,boolean ocean) {
+77:     double h=s.ground(),t=s.temperature(),r=s.rain(),patch=noise.field(x,z,1100,3130);
+78:     if(ocean) {
+79:       if(h<45)return t<.18?35:t<.42?34:33;
+80:       return t<.18?32:t<.42?31:t>.8?29:t>.64?30:3;
+81:     }
+82:     if(s.wet()&&s.speed()>0)return t<.22?37:36;
+83:     if(h<100)return t<.25?26:s.slope()>1.4?27:25;
+84:     if(h>260)return t<.26?19:s.slope()>1.2?20:7;
+85:     if(h>210)return t<.3?18:t<.45?17:s.slope()>.9?23:21;
+86:     if(t<.2)return r>.50?16:5;
+87:     if(t<.39)return r>.66?15:4;
+88:     if(h<105&&r>.74)return t>.72?28:6;
+89:     if(r<.32)return patch>.18?9:2;
+90:     if(r<.46)return t>.62?8:0;
+91:     if(t>.73&&r>.70)return patch>.25?11:10;
+92:     if(t>.71&&r>.56)return 12;
+93:     if(r>.77)return 13;
+94:     if(h>165&&patch>.30)return 22;
+95:     if(s.slope()>1.2)return 24;
+96:     if(r>.57)return patch<-.12?14:1;
+97:     return h>170?21:0;
+98:   }
+99: }
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/CaveNetwork.java
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: /** Geology-controlled continuous cave field with a protected surface roof and finite perched water. */
+4: public final class CaveNetwork {
+5:   public static final int ROOF=10;
+6:   private final TerrainNoise noise;
+7:   public CaveNetwork(TerrainNoise noise) { this.noise=noise; }
+8:   public final class Column {
+9:     private final int low,high,first;
+10:     private final double[] a,b,room;
+11:     private final Geology.Column geology;
+12:     public final int waterTable;
+13:     Column(int x,int z,double surface,int minY,int maxY,Geology.Column geology) {
+14:       this.geology=geology;low=minY+12;high=Math.min(maxY,(int)Math.floor(surface)-ROOF);
+15:       first=Math.floorDiv(low,48);int count=Math.max(2,Math.floorDiv(Math.max(low,high),48)-first+2);
+16:       if(count>90)throw new IllegalArgumentException("Cave height outside engine bounds");
+17:       a=new double[count];b=new double[count];room=new double[count];
+18:       for(int i=0;i<count;i++) {
+19:         long slice=(long)(first+i)*7919;
+20:         a[i]=noise.noise(x,z,48,3200+slice);b[i]=noise.noise(x,z,61,3210+slice);
+21:         room[i]=noise.noise(x,z,90,3220+slice);
+22:       }
+23:       waterTable=(int)Math.floor(TerrainEngine.SEA-28+noise.field(x,z,700,3230)*18);
+24:     }
+25:     private double field(double[] values,int y) {
+26:       double q=y/48.;int i=(int)Math.floor(q)-first;
+27:       return TerrainNoise.lerp(values[i],values[i+1],TerrainNoise.smooth(q-Math.floor(q)));
+28:     }
+29:     public boolean contains(int y) {
+30:       if(y<low||y>high)return false;
+31:       var rock=geology.rock(y);
+32:       double x=field(a,y),z=field(b,y),chamber=field(room,y);
+33:       double width=rock==Geology.Rock.CALCITE?.029:rock==Geology.Rock.SANDSTONE?.014:.007;
+34:       if(geology.permeability()>.7)width*=1.35;
+35:       // Chamber expansion stays in soluble host; intact surface cover is never carved away.
+36:       return x*x+z*z<width || rock==Geology.Rock.CALCITE && x*x+z*z<.09 && chamber>.33;
+37:     }
+38:     public boolean flooded(int y) { return y<waterTable && geology.permeability()<.7 && contains(y); }
+39:   }
+40:   public Column column(int x,int z,double surface,int minY,int maxY,Geology.Column geology) {
+41:     return new Column(x,z,surface,minY,maxY,geology);
+42:   }
+43: }
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java
+80:       double inlandX,
+81:       double inlandZ,
+82:       double acrossX,
+83:       double acrossZ,
+84:       double stage,
+85:       double reach,
+86:       double halfWidth,
+87:       double trunkRadius) {}
+88: 
+89:   private record DeltaHit(double ground, double weight) {}
+90: 
+91:   /**
+92:    * A planned distributary branch and its share of the trunk discharge. Shares across one fan sum
+93:    * to one, and the branch width follows sqrt(share) hydraulic geometry.
+94:    */
+95:   private record Distributary(
+96:       int fan,
+97:       int branch,
+98:       double share,
+99:       double startRadius,
+100:       double endRadius,
+101:       double forkX,
+102:       double forkZ,
+103:       double midX,
+104:       double midZ,
+105:       double endX,
+106:       double endZ) {}
+107: 
+108:   /** A distributary branch's planned discharge share and geometry. */
+109:   public record DistributaryProbe(
+110:       int fan,
+111:       int branch,
+112:       double share,
+113:       boolean budgeted,
+114:       double startRadius,
+115:       double midRadius,
+116:       double endRadius,
+117:       double forkX,
+118:       double forkZ,
+119:       double midX,
+120:       double midZ,
+121:       double endX,
+122:       double endZ) {}
+123: 
+124:   /** A cut-off meander loop: a still-water crescent whose tips point back toward the river. */
+125:   public record OxbowProbe(
+126:       double x, double z, double level, double radius, double halfWidth, double riverStage) {}
+127: 
+128:   /**
+129:    * {@code (ux,uz)} points from the loop centre through the middle of the arc (away from the
+130:    * river); the arc spans {@code halfSpan} radians either side of it.
+131:    */
+132:   private record Oxbow(
+133:       double cx,
+134:       double cz,
+135:       double ux,
+136:       double uz,
+137:       double radius,
+138:       double halfWidth,
+139:       double halfSpan,
+140:       double level,
+141:       double depth,
+142:       double riverStage) {}
+143: 
+144:   private static final class Lake {
+145:     final int id;
+146:     int outlet = -1, lowest;
+147:     double min = Double.POSITIVE_INFINITY, spill, level = Double.NaN;
+148:     int cells, x0 = SIDE, z0 = SIDE, x1, z1;
+149: 
+150:     Lake(int id) {
+
+src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java
+27:   public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
+28:   public static final MapCodec<EngineChunkGenerator> CODEC_V2 = codecFor(2);
+29:   public static final MapCodec<EngineChunkGenerator> CODEC_V3 = codecFor(3);
+30:   public static final MapCodec<EngineChunkGenerator> CODEC_V4 = codecFor(4);
+31:   public static final MapCodec<EngineChunkGenerator> CODEC_V5 = codecFor(5);
+32: 
+33:   public static final MapCodec<EngineChunkGenerator> CODEC_V6 = codecFor(6);
+34:   public static final MapCodec<EngineChunkGenerator> CODEC_V7 = codecFor(7);
+35:   private static MapCodec<EngineChunkGenerator> codecFor(int revision) {
+36:     if(revision>=6) return RecordCodecBuilder.mapCodec(i->i.group(
+37:         BiomeSource.CODEC.fieldOf("biome_source").forGetter((EngineChunkGenerator g)->g.biomeSource),
+38:         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
+39:         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
+40:         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
+41:         Codec.intRange(0,2).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
+42:         Codec.intRange(0,5).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
+43:     ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
+44:         profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
+45:     return RecordCodecBuilder.mapCodec(
+46:         i ->
+47:             i.group(
+48:                     BiomeSource.CODEC.fieldOf("biome_source").forGetter(g -> g.biomeSource),
+49:                     Codec.INT.optionalFieldOf("min_y", -128).forGetter(g -> g.minY),
+50:                     Codec.INT.optionalFieldOf("height", 768).forGetter(g -> g.height))
+51:                 .apply(
+52:                     i,
+53:                     (source, min, height) ->
+54:                         new EngineChunkGenerator(source, min, height, revision)));
+
+src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java
+98:   protected MapCodec<? extends ChunkGenerator> codec() {
+99:     return switch (revision) {
+100:       case 1 -> CODEC;
+101:       case 2 -> CODEC_V2;
+102:       case 3 -> CODEC_V3;
+103:       case 4 -> CODEC_V4;
+104:       case 5 -> CODEC_V5;
+105:       case 6 -> CODEC_V6;
+106:       default -> CODEC_V7;
+107:     };
+108:   }
+109: 
+110:   public ChunkGeneratorStructureState createState(
+111:       HolderLookup<StructureSet> sets, RandomState random, long seed) {
+112:     engine = new TerrainEngine(seed, revision, profile==null?TerrainOptions.DEFAULT:profile.options(), channelRevision);
+113:     if(profile!=null)depositPlan=profile.plan(engine.noise);
+114:     if (biomeSource instanceof RegionBiomeSource b) b.bind(engine);
+115:     return ChunkGeneratorStructureState.createForFlat(
+116:         random, seed, biomeSource, java.util.stream.Stream.empty());
+117:   }
+118: 
+
+src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java
+423:   public CompletableFuture<ChunkAccess> fillFromNoise(
+424:       Blender b, RandomState r, StructureManager m, ChunkAccess c) {
+425:     int ox = c.getPos().getMinBlockX(), oz = c.getPos().getMinBlockZ();
+426:     var columns = columns(ox, oz);
+427:     var depositField = revision == 5 ? new DepositField(engine.noise) : null;
+428:     var authored = revision >= 6 ? depositPlan.chunk(ox,oz,(x,z)->engine.column(x,z).ground()) : null;
+429:     var pos = new BlockPos.MutableBlockPos();
+430:     var floor = c.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
+431:     var top = c.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
+432:     for (int z = 0; z < 16; z++)
+433:       for (int x = 0; x < 16; x++) {
+434:         var s = columns[z * 16 + x];
+435:         int max =
+436:             Math.min(
+437:                 c.getMaxY() - 1,
+438:                 (int) Math.ceil(Math.max(s.ground(), s.wet() ? s.water() : s.ground())));
+439:         var detailed=revision>=6?new V6Column(ox+x,oz+z,s,authored):null;
+440:         var caves = revision<6?caves(s, ox + x, oz + z, max):null;
+441:         var geology = revision >= 4 ? new Geology(engine.noise).column(ox + x, oz + z, s) : null;
+442:         var deposits = depositField == null ? null : depositField.column(ox + x, oz + z, geology);
+443:         boolean ocean = revision >= 4 && engine.ocean(ox + x, oz + z);
+444:         for (int y = c.getMinY(); y <= max; y++) {
+445:           BlockState state = detailed==null?at(s,caves,geology,deposits,ocean,y):detailed.at(y);
+446:           if (!state.isAir()) {
+447:             c.setBlockState(pos.set(ox + x, y, oz + z), state);
+448:             floor.update(x, y, z, state);
+449:             top.update(x, y, z, state);
+450:           }
+451:         }
+452:       }
+453:     decorate(c, ox, oz, columns);
+454:     if(revision>=6 && profile.options().debris())decorateDebris(c,ox,oz);
+455:     return CompletableFuture.completedFuture(c);
+456:   }
+457: 
+458:   private TerrainEngine.Sample column(
+459:       TerrainEngine.Sample[] columns, int ox, int oz, int x, int z) {
+460:     int dx = x - ox, dz = z - oz;
+461:     return dx >= 0 && dx < 16 && dz >= 0 && dz < 16 ? columns[dz * 16 + dx] : engine.column(x, z);
+462:   }
+463: 
+464:   private void decorate(ChunkAccess c, int ox, int oz, TerrainEngine.Sample[] columns) {
+465:     for (int gz = Math.floorDiv(oz - 6, 8); gz <= Math.floorDiv(oz + 21, 8); gz++)
+466:       for (int gx = Math.floorDiv(ox - 6, 8); gx <= Math.floorDiv(ox + 21, 8); gx++) {
+467:         int x = gx * 8 + 1 + (int) (engine.noise.hash(gx, gz, 311) * 6),
+468:             z = gz * 8 + 1 + (int) (engine.noise.hash(gx, gz, 312) * 6);
+469:         int reach = revision >= 3 ? 4 : 3;
+470:         if (x + reach < ox || z + reach < oz || x - reach > ox + 15 || z - reach > oz + 15)
+471:           continue;
+472:         var s = column(columns, ox, oz, x, z);
+473:         if (revision >= 3 && (x < ox || z < oz || x > ox + 15 || z > oz + 15))
+474:           s = surfaceSample(x, z);
+475:         double density = engine.forest(x, z);
+476:         int biome = revision>=7?engine.biome(x,z):-1;
+477:         double chance=revision>=7?Vegetation.treeChance(biome,density):Math.max(0,density-.20)*.66;
+478:         if (s.wet()
+
+src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java
+25:           "engine_water",
+26:           EngineWaterBlock::new,
+27:           () ->
+28:               net.minecraft.world.level.block.state.BlockBehaviour.Properties.ofFullCopy(
+29:                   net.minecraft.world.level.block.Blocks.WATER));
+30:   public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(DeepPrimal.ID);
+31:   public static final DeferredItem<EngineBucket> BUCKET =
+32:       ITEMS.registerItem("engine_water_bucket", EngineBucket::new, p -> p.stacksTo(1));
+33: 
+34:   public static void register(IEventBus bus) {
+35:     GENERATORS.register("continental_v1", () -> EngineChunkGenerator.CODEC);
+36:     GENERATORS.register("continental_v2", () -> EngineChunkGenerator.CODEC_V2);
+37:     GENERATORS.register("continental_v3", () -> EngineChunkGenerator.CODEC_V3);
+38:     GENERATORS.register("continental_v4", () -> EngineChunkGenerator.CODEC_V4);
+39:     GENERATORS.register("continental_v5", () -> EngineChunkGenerator.CODEC_V5);
+40:     GENERATORS.register("continental_v6", () -> EngineChunkGenerator.CODEC_V6);
+41:     GENERATORS.register("continental_v7", () -> EngineChunkGenerator.CODEC_V7);
+42:     BIOMES.register("regional_v1", () -> RegionBiomeSource.CODEC);
+43:     GENERATORS.register(bus);
+44:     BIOMES.register(bus);
+45:     FLUIDS.register(bus);
+
+src/main/java/com/shnewbs/deepprimal/engine/TerrainProfile.java
+52:     public Deposit { hosts=List.copyOf(hosts);contents=List.copyOf(contents); }
+53:   }
+54:   private static final Codec<TerrainProfile> RAW=RecordCodecBuilder.create(i->i.group(
+55:       OPTIONS.optionalFieldOf("options",TerrainOptions.DEFAULT).forGetter(TerrainProfile::options),
+56:       Deposit.CODEC.listOf().fieldOf("deposits").forGetter(TerrainProfile::deposits)
+57:   ).apply(i,TerrainProfile::new));
+58:   public static final Codec<TerrainProfile> CODEC=RAW.validate(p->{try{p.plan(new TerrainNoise(0));return DataResult.success(p);}
+59:     catch(IllegalArgumentException ex){return DataResult.error(ex::getMessage);}});
+60:   public TerrainProfile { options=Objects.requireNonNull(options);deposits=List.copyOf(deposits); }
+61:   public List<BlockState> palette() { return deposits.stream().flatMap(d->d.contents.stream()).map(Content::block).toList(); }
+62:   public DepositPlan plan(TerrainNoise noise) {
+63:     var definitions=new ArrayList<DepositPlan.Definition>();int index=0;
+64:     for(var d:deposits) {
+65:       var contents=new ArrayList<DepositPlan.Content>();
+66:       for(var c:d.contents) {
+67:         if(c.block.isAir()||!c.block.getFluidState().isEmpty())throw new IllegalArgumentException("Ore contents must be non-fluid blocks");
+68:         contents.add(new DepositPlan.Content(index++,c.weight));
+69:       }
+70:       definitions.add(new DepositPlan.Definition(d.id,d.geometry.shape,d.vertical.reference,d.spacing,d.occurrence,d.density,
+71:           d.vertical.min,d.vertical.max,d.geometry.x,d.geometry.y,d.geometry.z,Set.copyOf(d.hosts),contents));
+72:     }
+73:     return new DepositPlan(noise,definitions);
+74:   }
+75:   public static TerrainProfile defaults(TerrainOptions options) {
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java
+1: package com.shnewbs.deepprimal.core;
+2: import java.util.*;
+3: import java.util.concurrent.*;
+4: import java.util.function.Consumer;
+5: import com.shnewbs.deepprimal.core.ChunkMaterializer.*;
+6: 
+7: /** Coalesced, bounded CPU queries. Worlds and dimensions are part of cache identity. */
+8: public final class WorldGenPipeline {
+9:   private final ChunkMaterializer materializer;private final ChunkCache cache;
+10:   private final Map<ChunkKey,CompletableFuture<MaterializedChunk>> pending=new HashMap<>();
+11:   private volatile boolean stopped;
+12:   public WorldGenPipeline(ChunkMaterializer materializer,ChunkCache cache){this.materializer=materializer;this.cache=cache;}
+13:   public CompletableFuture<MaterializedChunk> generateChunk(ChunkKey key){
+14:     final CompletableFuture<MaterializedChunk> result;
+15:     synchronized(this){
+16:     if(stopped)return CompletableFuture.failedFuture(new IllegalStateException("pipeline stopped"));
+17:     MaterializedChunk ready=cache.get(key);if(ready!=null)return CompletableFuture.completedFuture(ready);
+18:     var existing=pending.get(key);if(existing!=null)return existing.copy();
+19:     if(pending.size()>=64)return CompletableFuture.failedFuture(new RejectedExecutionException("64 pending chunk queries"));
+20:     result=new CompletableFuture<MaterializedChunk>();pending.put(key,result);
+21:     }
+22:     // An Executor may run inline or block on admission: dispatch outside the monitor.
+23:     try{materializer.materializeAsync(key,()->stopped).whenComplete((chunk,error)->{
+24:       Throwable failure=error;
+25:       synchronized(this){
+26:         pending.remove(key);
+27:         if(stopped)failure=new CancellationException("pipeline stopped");
+28:         else if(failure==null)cache.put(key,chunk,chunk.payloadBytes());
+29:       }
+30:       // User continuations may call back into EngineCore: never run them under this lock.
+31:       if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
+32:     });}catch(RuntimeException error){synchronized(this){pending.remove(key);}result.completeExceptionally(error);}
+33:     return result.copy();
+34:   }
+35:   public CompletableFuture<Void> generateChunks(Iterable<ChunkKey> keys,Consumer<MaterializedChunk> consumer){
+36:     Objects.requireNonNull(consumer);
+37:     var batch=new ArrayList<ChunkKey>();for(var key:keys){if(batch.size()>=4096)return CompletableFuture.failedFuture(new IllegalArgumentException("batch exceeds 4096"));batch.add(Objects.requireNonNull(key));}
+38:     Iterator<ChunkKey> iterator=batch.iterator();
+39:     CompletableFuture<Void> chain=CompletableFuture.completedFuture(null);
+40:     // At most 4096 items per explicit batch; sequential admission avoids queue floods.
+41:     int count=0;while(iterator.hasNext()){if(++count>4096)return CompletableFuture.failedFuture(new IllegalArgumentException("batch exceeds 4096"));ChunkKey key=iterator.next();chain=chain.thenCompose(v->generateChunk(key).thenAccept(consumer));}return chain;
+42:   }
+43:   public void shutdown(){
+44:     List<CompletableFuture<MaterializedChunk>> cancelled;
+45:     synchronized(this){stopped=true;cancelled=new ArrayList<>(pending.values());pending.clear();cache.clear();}
+46:     for(var future:cancelled)future.completeExceptionally(new CancellationException("pipeline stopped"));
+47:   }
+48:   public synchronized int pendingCount(){return pending.size();}
+49: }
+50: 
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: import java.util.*;
+4: import java.util.concurrent.atomic.AtomicLong;
+5: import java.util.function.Function;
+6: 
+7: /** World-scoped, synchronized weighted LRU; byte reservation cannot overflow. */
+8: public final class ChunkCache implements AutoCloseable {
+9:   private record Entry(Object value,long bytes) {}
+10:   private final LinkedHashMap<Object,Entry> entries = new LinkedHashMap<>(16,.75f,true);
+11:   private final long capacity;
+12:   private final int limit;
+13:   private long bytes;
+14:   private long generation;
+15:   private boolean closed;
+16:   public final AtomicLong hits=new AtomicLong(), misses=new AtomicLong(), evictions=new AtomicLong(), memoryPressureEvents=new AtomicLong();
+17:   public ChunkCache(long megabytes,int limit) {
+18:     if(megabytes<0 || megabytes>Long.MAX_VALUE/(1024*1024) || limit<1) throw new IllegalArgumentException("cache limits");
+19:     capacity=megabytes*1024*1024; this.limit=limit;
+20:   }
+21:   @SuppressWarnings("unchecked") public synchronized <T> T get(Object key) {
+22:     Entry e=entries.get(Objects.requireNonNull(key));
+23:     if(e==null){misses.incrementAndGet();EngineMetrics.CACHE_MISSES.increment();return null;}
+24:     hits.incrementAndGet();EngineMetrics.CACHE_HITS.increment();return (T)e.value;
+25:   }
+26:   public <T> T getOrCompute(Object key,Function<Object,T> computer,long weight) {
+27:     Objects.requireNonNull(key);Objects.requireNonNull(computer);
+28:     if(weight<0)throw new IllegalArgumentException("negative cache weight");
+29:     final long observed;
+30:     synchronized(this){ensureOpen();T ready=get(key);if(ready!=null)return ready;observed=generation;}
+31:     T computed=Objects.requireNonNull(computer.apply(key));
+32:     synchronized(this){
+33:       // clear() invalidates pending admissions without waiting for terrain computation.
+34:       if(generation!=observed)return computed;
+35:       Entry existing=entries.get(key);
+36:       if(existing!=null){@SuppressWarnings("unchecked") T winner=(T)existing.value;return winner;}
+37:       put(key,computed,weight);
+38:       return computed;
+39:     }
+40:   }
+41:   public synchronized void put(Object key,Object value,long weight) {
+42:     ensureOpen();
+43:     Objects.requireNonNull(key);Objects.requireNonNull(value);
+44:     if(weight<0)throw new IllegalArgumentException("negative cache weight");
+45:     remove(key);
+46:     if(weight>capacity || capacity==0)return;
+47:     while(!entries.isEmpty() && (bytes>capacity-weight || entries.size()>=limit))evict();
+48:     entries.put(key,new Entry(value,weight));bytes+=weight;
+49:   }
+50:   private void evict(){var it=entries.entrySet().iterator();bytes-=it.next().getValue().bytes;it.remove();evictions.incrementAndGet();EngineMetrics.CACHE_EVICTIONS.increment();}
+51:   public synchronized boolean remove(Object key){var e=entries.remove(key);if(e==null)return false;bytes-=e.bytes;return true;}
+52:   public synchronized void clear(){entries.clear();bytes=0;generation++;}
+53:   /** Terminal world shutdown; clear() alone remains reusable. */
+54:   @Override public synchronized void close(){closed=true;clear();}
+55:   private void ensureOpen(){if(closed)throw new IllegalStateException("cache closed");}
+56:   public synchronized long getMemoryUsage(){return bytes;}
+57:   public synchronized int size(){return entries.size();}
+58:   public double getHitRate(){double h=hits.get(),m=misses.get();return h+m==0?1:h/(h+m);}
+59:   public synchronized void trimTo(long target){if(target<0)throw new IllegalArgumentException("negative target");while(bytes>target && !entries.isEmpty())evict();}
+60:   public synchronized void handleMemoryPressure(){memoryPressureEvents.incrementAndGet();trimTo(bytes/2);}
+61:   public record Snapshot(int entries,long bytes,double hitRate,long evictions) {
+62:     public static Snapshot from(ChunkCache c){synchronized(c){return new Snapshot(c.size(),c.bytes,c.getHitRate(),c.evictions.get());}}
+63:   }
+64: }
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java
+6: /** World-scoped query facade over the saved engine; owns only executors it creates. */
+7: public final class EngineCore implements AutoCloseable {
+8:   private final TerrainEngine terrain;
+9:   private final ChunkCache densityCache,meshCache;
+10:   private final AdvancedDensityField field;
+11:   private final ChunkMaterializer materializer;
+12:   private final WorldGenPipeline pipeline;
+13:   private final ExecutorService ownedWorker;
+14:   private final WaterSimulation water=new WaterSimulation();
+15:   private final long seed;
+16:   private boolean running,closed;
+17:   private EngineCore(Builder b){
+18:     seed=b.seed;terrain=b.terrain!=null?b.terrain:new TerrainEngine(b.seed,b.revision,b.options,b.channelRevision);
+19:     densityCache=new ChunkCache(b.densityMB,b.densityEntries);meshCache=new ChunkCache(b.meshMB,b.meshEntries);
+20:     field=new AdvancedDensityField(terrain,b.minY,b.height,densityCache);
+21:     ownedWorker=b.worker==null?new ThreadPoolExecutor(1,Math.max(1,Math.min(2,Runtime.getRuntime().availableProcessors()/2)),30,TimeUnit.SECONDS,new ArrayBlockingQueue<>(64),job->{var t=new Thread(job,"DeepPrimal-Query");t.setDaemon(true);return t;},new ThreadPoolExecutor.AbortPolicy()):null;
+22:     materializer=new ChunkMaterializer(terrain,field,b.worker!=null?b.worker:ownedWorker);pipeline=new WorldGenPipeline(materializer,meshCache);
+23:   }
+24:   public synchronized void start(){if(closed)throw new IllegalStateException("engine closed");running=true;}
+25:   public void stop(){
+26:     synchronized(this){if(closed)return;running=false;closed=true;}
+27:     pipeline.shutdown();densityCache.close();meshCache.close();if(ownedWorker!=null)ownedWorker.shutdownNow();
+28:   }
+29:   @Override public void close(){stop();}
+30:   public synchronized boolean isRunning(){return running;}
+31:   public CompletableFuture<ChunkMaterializer.MaterializedChunk> generateChunkAsync(ChunkMaterializer.ChunkKey key){if(!isRunning())return CompletableFuture.failedFuture(new IllegalStateException("engine stopped"));return pipeline.generateChunk(key);}
+32:   public CompletableFuture<Void> generateChunks(Iterable<ChunkMaterializer.ChunkKey> keys,java.util.function.Consumer<ChunkMaterializer.MaterializedChunk> callback){if(!isRunning())return CompletableFuture.failedFuture(new IllegalStateException("engine stopped"));return pipeline.generateChunks(keys,callback);}
+33:   public double getHeight(double x,double z){synchronized(terrain){return terrain.column(x,z).ground();}}
+34:   public TerrainEngine.Sample sample(double x,double z){long start=System.nanoTime();try{synchronized(terrain){return terrain.sample(x,z);}}finally{EngineMetrics.recordTerrainSample(System.nanoTime()-start);}}
+35:   public int getBiome(double x,double z){synchronized(terrain){return terrain.biome(x,z);}}
+36:   public int getBiome(double x,double y,double z){synchronized(terrain){return terrain.biome(x,y,z);}}
+37:   public boolean isOcean(double x,double z){return terrain.ocean(x,z);}
+38:   public double getTemperature(double x,double z,double h){return terrain.temperature(x,z,h);}
+39:   public double getRainfall(double x,double z){return terrain.rainfall(x,z);}
+40:   public WatershedRegion getWatershed(double x,double z){return terrain.waterways(x,z);}
+41:   public boolean hasCave(double x,double y,double z,double surface,int minY){synchronized(terrain){return terrain.cave(x,y,z,surface,minY);}}
+42:   public boolean hasTunnel(double x,double z){synchronized(terrain){return terrain.tunnel(x,z);}}
+43:   public double getSurfaceWithoutIce(double x,double z){synchronized(terrain){return terrain.surfaceWithoutIce(x,z);}}
+44:   public void simulateWater(double dt,java.util.function.DoubleSupplier ground){water.tick(dt,ground);}
+45:   public AdvancedDensityField.SurfaceHit raycastTerrain(double x,double y,double z,double dx,double dy,double dz,double distance){return field.raycast(x,y,z,dx,dy,dz,distance);}
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSimulation.java
+1: package com.shnewbs.deepprimal.core;
+2: import java.util.*;
+3: import java.util.concurrent.atomic.AtomicLong;
+4: import java.util.function.*;
+5: import java.nio.*;
+6: 
+7: /** Closed 16x16 finite-volume query simulation using the production integer transport law.
+8:  * Source flags are metadata: replenishment must be explicitly debited by the caller.
+9:  * Live worlds continue to use WaterRuntime, including its saved constituent accounting. */
+10: public final class WaterSimulation {
+11:   public static final int CHUNK_SIZE=16,CELL_COUNT=256,PACKET_BYTES=16+CELL_COUNT*3;
+12:   private final int[] units=new int[CELL_COUNT],ground=new int[CELL_COUNT];
+13:   private final double[] flowX=new double[CELL_COUNT],flowZ=new double[CELL_COUNT];
+14:   private final boolean[] sources=new boolean[CELL_COUNT];private final byte[] materials=new byte[CELL_COUNT];
+15:   private double fraction;
+16:   public final AtomicLong simulationTimeNs=new AtomicLong(),totalWaterVolume=new AtomicLong(),activeCells=new AtomicLong();
+17:   private static int index(int x,int z){if(x<0||x>=16||z<0||z>=16)throw new IllegalArgumentException("cell coordinates");return z*16+x;}
+18:   private static int volume(double value){if(!Double.isFinite(value)||value<0||value>1||Math.abs(value*16-Math.rint(value*16))>1e-8)throw new IllegalArgumentException("volume must be 0..1 in 1/16 steps");return (int)Math.rint(value*16);}
+19:   public synchronized void tick(double dt,DoubleSupplier height){tick(dt,(x,z)->height.getAsDouble());}
+20:   public synchronized void tick(double dt,DoubleBinaryOperator height){
+21:     if(!Double.isFinite(dt)||dt<0||dt>4)throw new IllegalArgumentException("tick delta 0..4");Objects.requireNonNull(height);
+22:     int[] nextGround=new int[256];for(int z=0;z<16;z++)for(int x=0;x<16;x++){double h=height.applyAsDouble(x,z);if(!Double.isFinite(h)||Math.abs(h)>30_000_000)throw new IllegalArgumentException("ground height");nextGround[index(x,z)]=(int)Math.floor(h);}
+23:     System.arraycopy(nextGround,0,ground,0,256);long start=System.nanoTime();Arrays.fill(flowX,0);Arrays.fill(flowZ,0);fraction+=dt;
+24:     while(fraction>=1){fraction--;for(int z=0;z<16;z++)for(int x=0;x<16;x++){int i=index(x,z);if(x<15)exchange(i,i+1,true);if(z<15)exchange(i,i+16,false);}}
+25:     update();long elapsed=System.nanoTime()-start;simulationTimeNs.addAndGet(elapsed);EngineMetrics.recordWaterSim(elapsed);
+26:   }
+27:   private void exchange(int a,int b,boolean x){
+28:     if(materials[a]>1||materials[b]>1)return;
+29:     boolean reverse=(long)ground[a]*16+units[a]<(long)ground[b]*16+units[b];int from=reverse?b:a,to=reverse?a:b;
+30:     var move=WaterTransport.pressure(ground[from],units[from],ground[to],units[to]);units[from]=move.from();units[to]=move.to();
+31:     if(units[to]>0)materials[to]=1;double v=move.moved()/16.0*(reverse?-1:1);double[] flow=x?flowX:flowZ;flow[a]+=v;flow[b]+=v;
+32:   }
+33:   public synchronized void setWaterLevel(int x,int z,double level,boolean source){int i=index(x,z);units[i]=volume(level);sources[i]=source;materials[i]=(byte)(units[i]>0?1:0);update();}
+34:   public synchronized void addWater(int x,int z,double amount){int i=index(x,z),add=volume(amount);if(materials[i]>1)throw new IllegalStateException("solid cell");if(add>16-units[i])throw new IllegalArgumentException("cell capacity");units[i]+=add;if(units[i]>0)materials[i]=1;update();}
+35:   public synchronized double removeWater(int x,int z,double amount){int i=index(x,z),take=Math.min(units[i],volume(amount));units[i]-=take;update();return take/16.0;}
+36:   public synchronized double getWaterLevel(int x,int z){return units[index(x,z)]/16.0;}
+37:   public synchronized double getFlowX(int x,int z){return flowX[index(x,z)];}public synchronized double getFlowZ(int x,int z){return flowZ[index(x,z)];}
+38:   public synchronized double getPressure(int x,int z){int i=index(x,z);return (ground[i]+units[i]/16.0)*9810;}
+39:   public synchronized boolean isSource(int x,int z){return sources[index(x,z)];}
+40:   public synchronized void setMaterial(int x,int z,byte material){if(material<0||material>2)throw new IllegalArgumentException("material");int i=index(x,z);if(units[i]>0&&material!=1)throw new IllegalStateException("drain water before replacing material");materials[i]=material;}
+41:   public synchronized byte getMaterial(int x,int z){return materials[index(x,z)];}
+42:   /** Independent versioned query snapshot, not WaterCornerPacket or world saved data. */
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java
+161: 
+162:   private float corner(Snapshot s, int x, int y, int z) {
+163:     int key = (y * 17 + z) * 17 + x;
+164:     float[] corners = s == current ? currentCorners : previousCorners;
+165:     float cached = corners[key];
+166:     if (!Float.isNaN(cached)) return cached;
+167:     float sum = 0;
+168:     int count = 0;
+169:     boolean supportedFilm = false, supportedAbove = false;
+170:     for (int dz = -1; dz <= 0; dz++)
+171:       for (int dx = -1; dx <= 0; dx++) {
+172:         int n = s.water(x + dx, y, z + dz);
+173:         boolean solidHere = s.solid(x + dx, y, z + dz);
+174:         int above = n > 0 || solidHere ? s.water(x + dx, y + 1, z + dz) : 0;
+175:         supportedFilm |= n > 0 && s.solid(x + dx, y - 1, z + dz);
+176:         supportedAbove |= solidHere && above > 0;
+177:         double height =
+178:             WaterTransport.surfaceColumn(
+179:                 n == 0 ? s.water(x + dx, y - 1, z + dz) : 0,
+180:                 n,
+181:                 above, solidHere);
+182:         if (!Double.isFinite(height)) continue;
+183:         sum += (float) height;
+184:         count++;
+185:       }
+186:     // A downhill neighbour may pull the average beneath a wet cell's solid bed.
+187:     // Apply the shared corner's support constraint, never a per-cell clamp.
+188:     return corners[key] = (float)WaterTransport.supportedSurface(count==0?0:sum/count,supportedFilm,supportedAbove);
+189:   }
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: /** Integer volume is authoritative; a cell contains sixteen 1/16-block units. */
+4: public final class WaterTransport {
+5:   public static final int CAPACITY = 16;
+6: 
+7:   public record Exchange(int from, int to, int moved) {}
+8: 
+9:   public static Exchange exchange(int from, int to, boolean down) {
+10:     if (from < 0 || from > 16 || to < 0 || to > 16)
+11:       throw new IllegalArgumentException("Water capacity");
+12:     int moved = Math.min(from, 16 - to);
+13:     if (!down) moved = Math.min(moved, Math.max(0, (from - to) / 2));
+14:     return new Exchange(from - moved, to + moved, moved);
+15:   }
+16: 
+17:   /** Communicating surfaces use elevation plus volume as hydraulic head. */
+18:   public static Exchange pressure(int fromY, int from, int toY, int to) {
+19:     if (from < 0 || from > CAPACITY || to < 0 || to > CAPACITY)
+20:       throw new IllegalArgumentException("Water capacity");
+21:     long difference = ((long) fromY - toY) * CAPACITY + from - to;
+22:     int moved = (int) Math.max(0, Math.min(Math.min(from, CAPACITY - to), difference / 2));
+23:     return new Exchange(from - moved, to + moved, moved);
+24:   }
+25: 
+26:   /** Shared global corners make independently rebuilt neighboring cells meet exactly. */
+27:   public static double surface(
+28:       double nw, double ne, double sw, double se, double center, double u, double v) {
+29:     u = Math.clamp(u, 0, 1);
+30:     v = Math.clamp(v, 0, 1);
+31:     // Volume belongs to transport; per-cell center corrections create repeated bowls/tents.
+32:     // Corner heights may cross the cell's vertical boundary. Clipping each layer separately
+33:     // gives two different world heights at the very same shared edge.
+34:     return TerrainNoise.lerp(TerrainNoise.lerp(nw, ne, u), TerrainNoise.lerp(sw, se, u), v);
+35:   }
+36: 
+37:   /** Nearby connected surface height relative to this Y, or NaN for a dry column. */
+38:   public static double surfaceColumn(int below, int here, int above) {
+39:     if (here > 0) return above > 0 ? 1 + above / 16.0 : here / 16.0;
+40:     return below > 0 ? -1 + below / 16.0 : Double.NaN;
+41:   }
+42: 
+43:   /** A ledge's solid cell still contributes the water film resting immediately above it. */
+44:   public static double surfaceColumn(int below, int here, int above, boolean solidHere) {
+45:     return here == 0 && solidHere && above > 0 ? 1 + above / 16.0
+46:         : surfaceColumn(below, here, above);
+47:   }
+48: 
+49:   /** The lower surface shares the upper film's floor constraint in world coordinates. */
+50:   public static double supportedSurface(double average, boolean supportedFilm, boolean supportedAbove) {
+51:     return supportedAbove ? Math.max(1 + 1.0 / 256, average)
+52:         : supportedSurface(average, supportedFilm);
+53:   }
+54: 
+55:   /** Rendering only: a shared thin-water corner must remain above its solid floor. */
+56:   public static double supportedSurface(double average, boolean supportedFilm) {
+57:     return supportedFilm ? Math.max(1.0/256,average) : average;
+58:   }
+59: 
+60:   private WaterTransport() {}
+61: }
+
+src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: /** Falling columns must not draw the same vertical wall twice in successive wet cells. */
+4: public final class WaterfallSideChecks {
+5:   public static void main(String[] args) {
+6:     run();
+7:   }
+8: 
+9:   static void run() {
+10:     int checked = 0;
+11:     for (boolean smooth : new boolean[] {false, true})
+12:       for (int amount = 1; amount <= 16; amount++)
+13:         for (int previousAmount = 1; previousAmount <= 16; previousAmount++) {
+14:           var mesh = WaterPatchMesher.build(column(amount, 0), column(previousAmount, 0), smooth);
+15:           for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
+16:             var v = mesh.vertices();
+17:             int face = WaterPatchMesher.face(v[i + 10]);
+18:             int y = (int) v[i + 1];
+19:             if (face < 1 || face > 4 || y == 15) continue;
+20:             if (v[i + 3] < 0 || v[i + 3] > 1 || v[i + 4] < 0 || v[i + 4] > 1)
+21:               throw new AssertionError("Overlapping waterfall side: cellY=" + y
+22:                   + " currentUnits=" + amount + " previousUnits=" + previousAmount
+23:                   + " target=" + v[i + 3] + " previous=" + v[i + 4]);
+24:             if (v[i + 11] != 0 && (v[i + 3] != 1 || v[i + 4] != 1))
+25:               throw new AssertionError("Disconnected waterfall layer wall");
+26:             checked++;
+27:           }
+28:         }
+29:     // Identical world geometry on both sides of a vertical page boundary.
+30:     for (int amount = 1; amount <= 16; amount++) {
+31:       var below = WaterPatchMesher.build(column(amount, 0), null, true);
+32:       var above = WaterPatchMesher.build(column(amount, 16), null, true);
+33:       for (var mesh : new WaterPatchMesher.Mesh[] {below, above})
+34:         for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
+35:           var v = mesh.vertices();
+36:           int face = WaterPatchMesher.face(v[i + 10]);
+37:           if (face < 1 || face > 4) continue;
+38:           if (v[i + 11] != 0 && (v[i + 3] > 1 || v[i + 3] < 0))
+39:             throw new AssertionError("Waterfall page boundary exposes overlapping wall");
+40:           checked++;
+41:         }
+42:     }
+43:     System.out.println("WATERFALL_SIDE_PASS vertices=" + checked
+44:         + " amounts=16 previousAmounts=16 smoothModes=2 verticalPages=true");
+45:     basin();
+46:     ledge();
+47:   }
+48: 
+49: 
+50:   /** Supported films and the pool below must meet at one world-space edge. */
+51:   private static void ledge() {
+52:     int checked = 0;
+53:     for (int axis = 0; axis < 2; axis++)
+54:       for (int sign : new int[] {-1, 1})
+55:         for (int upperY : new int[] {-16, 0, 8, 16})
+56:           for (boolean smooth : new boolean[] {false, true})
+57:             for (int amount = 1; amount <= 16; amount++)
+58:               for (int pool = 1; pool <= 16; pool++) {
+59:                 int[] witnesses = new int[2];
+60:                 int lowerOrigin = Math.floorDiv(upperY - 1, 16) * 16;
+61:                 int upperOrigin = Math.floorDiv(upperY, 16) * 16;
+62:                 for (int origin : lowerOrigin == upperOrigin ? new int[] {lowerOrigin}
+63:                     : new int[] {lowerOrigin, upperOrigin}) {
+64:                   var current = ledgeSnapshot(axis, sign, origin, upperY, amount, pool);
+65:                   var previous = ledgeSnapshot(axis, sign, origin, upperY, 17 - amount, 17 - pool);
+66:                   var mesh = WaterPatchMesher.build(current, previous, smooth).vertices();
+67:                   for (int i = 0; i < mesh.length; i += WaterPatchMesher.STRIDE) {
+68:                     if (WaterPatchMesher.face(mesh[i + 10]) != 0 || mesh[i] != 8 || mesh[i + 2] != 8)
+69:                       continue;
+70:                     int y = origin + (int) mesh[i + 1];
+71:                     if (y != upperY && y != upperY - 1) continue;
+72:                     for (int t = 0; t <= 4; t++) {
+73:                       float blend = t / 4f;
+74:                       float height = y + mesh[i + 4] + (mesh[i + 3] - mesh[i + 4]) * blend;
+75:                       float to = upperY + Math.max(1 / 256f, -.5f + (amount + pool) / 32f);
+76:                       float from = upperY + Math.max(1 / 256f, -.5f + (34 - amount - pool) / 32f);
+77:                       float expected = from + (to - from) * blend;
+78:                       if (Math.abs(height - expected) > .00001f)
+79:                         throw new AssertionError("Rock ledge disconnect: axis=" + axis + " sign=" + sign
+80:                             + " y=" + upperY + " cellY=" + y + " film=" + amount + " pool=" + pool
+81:                             + " blend=" + blend + " actual=" + height + " expected=" + expected);
+82:                     }
+83:                     witnesses[y == upperY ? 1 : 0]++;
+84:                   }
+85:                 }
+86:                 if (witnesses[0] == 0 || witnesses[1] == 0)
+87:                   throw new AssertionError("Missing ledge surface witness");
+88:                 checked++;
+89:               }
+90:     System.out.println("ROCK_LEDGE_PASS cases=" + checked
+91:         + " axes=2 signs=2 verticalSections=true interpolationSamples=5");
+92:   }
+93: 
+94:   private static WaterPatchMesher.Snapshot ledgeSnapshot(int axis, int sign, int origin,
+95:       int upperY, int film, int pool) {
+96:     byte[] water = new byte[WaterPatchMesher.CELLS], solid = new byte[water.length];
+97:     for (int z = -1; z <= 16; z++)
+98:       for (int x = -1; x <= 16; x++)
+99:         for (int y = -1; y <= 16; y++) {
+100:           int coordinate = axis == 0 ? x : z;
+101:           boolean high = sign > 0 ? coordinate >= 8 : coordinate < 8;
+102:           int worldY = origin + y;
+103:           int bed = high ? upperY - 1 : upperY - 2;
+104:           if (worldY <= bed) solid[WaterPatchMesher.index(x, y, z)] = 1;
+105:           else if (worldY == (high ? upperY : upperY - 1))
+106:             water[WaterPatchMesher.index(x, y, z)] = (byte) (high ? film : pool);
+107:         }
+108:     return new WaterPatchMesher.Snapshot(water, solid, new int[water.length], new int[256]);
+109:   }
+110: 
+111:   private static void basin() {
+112:     int checked = 0;
+113:     for (int origin : new int[] {-16, 0, 16})
+114:       for (boolean smooth : new boolean[] {false, true}) {
+115:         byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
+116:         for (int z = -1; z <= 16; z++)
+117:           for (int x = -1; x <= 16; x++) {
+118:             int floor = 7 - Math.floorMod(origin + x + z, 12);
+119:             for (int y = -1; y <= 16; y++) {
+120:               int index = WaterPatchMesher.index(x, y, z);
+121:               if (y <= floor) solid[index] = 1;
+122:               else if (y <= 8) units[index] = (byte) (y == 8 ? 8 : 16);
+123:             }
+124:           }
+125:         var snapshot = new WaterPatchMesher.Snapshot(units, solid, new int[units.length], new int[256]);
+126:         var mesh = WaterPatchMesher.build(snapshot, snapshot, smooth);
+127:         if (mesh.count() != 16 * 16 * 4)
+128:           throw new AssertionError("Stepped lake bed generated internal water faces: " + mesh.count());
+129:         for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
+130:           var v = mesh.vertices();
+131:           if (WaterPatchMesher.face(v[i + 10]) != 0 || v[i + 1] + v[i + 3] != 8.5F
+132:               || v[i + 1] + v[i + 4] != 8.5F)
+133:             throw new AssertionError("Stepped lake bed changed a level free surface");
+134:           checked++;
+135:         }
+
+tools/server_smoke.py
+17: 
+18: def verify_server_shutdown(content, returncode, required_markers=()):
+19:     """Verify the completed game session, not just its Gradle launcher exit code.
+20: 
+21:     Crash cleanup can save every dimension and still make Gradle exit zero. Failures
+22:     therefore take precedence over both fixture PASS lines and shutdown messages.
+23:     This is a log/lifecycle gate, not archive identity or gameplay acceptance.
+24:     """
+25:     if returncode != 0:
+26:         raise RuntimeError(f'Server launcher exited {returncode}')
+27:     failure = re.search(
+28:         r'(?m)^.*(?:\[(?:Server thread|main)/(?:ERROR|FATAL)\]'
+29:         r'|Exception in thread |Encountered an unexpected exception'
+30:         r'|Preparing crash report|This crash report has been saved'
+31:         r'|Failed to save|Error stopping the server).*$', content)
+32:     if failure:
+33:         raise RuntimeError('Native server failure: ' + failure.group(0).strip())
+34:     cursor = -1
+35:     for marker in ('RCON running on', 'Stopping server',
+36:                    'ThreadedAnvilChunkStorage: All dimensions are saved', 'Closing FML Loader'):
+37:         cursor = content.find(marker, cursor + 1)
+38:         if cursor < 0:
+39:             raise RuntimeError('Missing or out-of-order native lifecycle marker: ' + marker)
+40:     for marker in required_markers:
+41:         # Require a complete token; e.g. FOO_PASS must not accept FOO_PASS_PENDING.
+42:         if not marker or not re.search(r'(?<![\w])' + re.escape(marker) + r'(?![\w])', content):
+43:             raise RuntimeError('Missing required native fixture marker: ' + marker)
+44: 
+45: class Rcon:
+46:     MAX_RESPONSE_BYTES = 4096 + 10  # payload plus id/type and two NUL bytes
+47:     REQUEST_SECONDS = 20
+48: 
+49:     def __init__(self, port):
+50:         self.sock = socket.create_connection(('127.0.0.1', port), timeout=20)
+51:         self.seq = 0
+52:         try:
+53:             self.request(3, 'deepprimal-local-smoke-only')
+54:         except BaseException:
+55:             self.sock.close()
+56:             raise
+57: 
+58:     def read(self, count, deadline):
+59:         data = b''
+60:         while len(data) < count:
+61:             remaining = deadline - time.monotonic()
+62:             if remaining <= 0:
+63:                 raise TimeoutError('RCON request deadline exceeded')
+64:             self.sock.settimeout(remaining)
+65:             part = self.sock.recv(count - len(data))
+66:             if not part:
+67:                 raise RuntimeError('RCON disconnected')
+68:             data += part
+69:         return data
+70: 
+71:     def request(self, kind, text):
+72:         deadline = time.monotonic() + self.REQUEST_SECONDS
+73:         self.seq += 1
+74:         body = struct.pack('<ii', self.seq, kind) + text.encode() + b'\0\0'
+75:         self.sock.settimeout(self.REQUEST_SECONDS)
+76:         self.sock.sendall(struct.pack('<i', len(body)) + body)
+77:         # Some servers send one empty RESPONSE_VALUE before AUTH_RESPONSE.
+78:         # Never accept that preamble as authentication or skip arbitrary packets.
+79:         for index in range(2 if kind == 3 else 1):
+80:             length = struct.unpack('<i', self.read(4, deadline))[0]
+81:             if not 10 <= length <= self.MAX_RESPONSE_BYTES:
+82:                 raise RuntimeError('Invalid RCON response length: ' + str(length))
+83:             response = self.read(length, deadline)
+84:             request_id, response_kind = struct.unpack('<ii', response[:8])
+85:             if request_id == -1:
+86:                 raise RuntimeError('RCON authentication failed')
+87:             if request_id != self.seq or response[-2:] != b'\0\0':
+88:                 raise RuntimeError('Invalid RCON response identity or terminators')
+89:             if kind == 3 and index == 0 and response_kind == 0 and length == 10:
+90:                 continue
+91:             if response_kind != (2 if kind == 3 else 0):
+92:                 raise RuntimeError('Invalid RCON response type')
+93:             return response[8:-2].decode()
+94:         raise RuntimeError('Missing RCON authentication response')
+95: 
+96:     def command(self, text):
+97:         answer = self.request(2, text)
+98:         print(text + ' => ' + answer, flush=True)
+99:         return answer
+100: 
+
+tools/test_rcon_protocol.py
+1: """Exercise the real Rcon parser with controlled fragmented wire bytes."""
+2: import struct
+3: import unittest
+4: from unittest.mock import patch
+5: import server_smoke as smoke
+6: 
+7: def packet(identifier=1, kind=0, text=b'ok', tail=b'\0\0'):
+8:     body = struct.pack('<ii', identifier, kind) + text + tail
+9:     return struct.pack('<i', len(body)) + body
+10: 
+11: class Wire:
+12:     def __init__(self, data):
+13:         self.data = data
+14:         self.requests = []
+15:         self.closed = False
+16:     def recv(self, count):
+17:         self.requests.append(count)
+18:         chunk, self.data = self.data[:min(count, 3)], self.data[min(count, 3):]
+19:         return chunk
+20:     def sendall(self, data):
+21:         pass
+22:     def settimeout(self, timeout):
+23:         if timeout <= 0:
+24:             raise ValueError('invalid timeout')
+25:     def close(self):
+26:         self.closed = True
+27: 
+28: class ProtocolChecks(unittest.TestCase):
+29:     def client(self, data):
+30:         c = smoke.Rcon.__new__(smoke.Rcon)
+31:         c.sock = Wire(data)
+32:         c.seq = 0
+33:         return c
+34:     def test_fragmented_valid_reply(self):
+35:         self.assertEqual('ok', self.client(packet()).request(2, 'save-all flush'))
+36:     def test_wrong_request_cannot_acknowledge_save(self):
+37:         with self.assertRaises(RuntimeError):
+38:             self.client(packet(99, text=b'Saved the game')).request(2, 'save-all flush')
+39:     def test_wrong_type(self):
+40:         with self.assertRaises(RuntimeError):
+41:             self.client(packet(kind=2)).request(2, 'save-all flush')
+42:     def test_invalid_lengths_rejected_before_body_read(self):
+43:         for size in (-1, 0, 9, 4107, 2147483647):
+44:             c = self.client(struct.pack('<i', size))
+45:             with self.subTest(size=size), self.assertRaises(RuntimeError):
+46:                 c.request(2, 'save-all flush')
+47:             self.assertEqual([4, 1], c.sock.requests)
+48:     def test_invalid_terminators(self):
+49:         with self.assertRaises(RuntimeError):
+50:             self.client(packet(tail=b'xx')).request(2, 'info')
+51:     def test_truncated_body(self):
+52:         with self.assertRaises(RuntimeError):
+53:             self.client(packet()[:-1]).request(2, 'info')
+54:     def test_maximum_frame(self):
+55:         self.assertEqual(4096, len(self.client(packet(text=b'x'*4096)).request(2, 'info')))
+56:     def test_auth_failure(self):
+57:         with self.assertRaisesRegex(RuntimeError, 'authentication failed'):
+58:             self.client(packet(-1, 2)).request(3, 'password')
+59:     def test_optional_empty_auth_preamble(self):
+60:         self.assertEqual('', self.client(packet(kind=0, text=b'') + packet(kind=2, text=b'')).request(3, 'password'))
+61:     def test_duplicate_preamble_rejected(self):
+62:         with self.assertRaises(RuntimeError):
+63:             self.client(packet(text=b'')*2).request(3, 'password')
+64:     def test_auth_failure_closes_connection(self):
+65:         sock = Wire(packet(-1, 2))
+66:         with patch.object(smoke.socket, 'create_connection', return_value=sock):
+67:             with self.assertRaises(RuntimeError):
+68:                 smoke.Rcon(1234)
+69:         self.assertTrue(sock.closed)
+70:     def test_whole_request_deadline(self):
+71:         c = self.client(packet())
+72:         with patch.object(smoke.time, 'monotonic', side_effect=[0, 0, 21, 21, 21]):
+73:             with self.assertRaises(TimeoutError):
+74:                 c.request(2, 'info')
+75: 
+76: if __name__ == '__main__':
+77:     unittest.main()
+
+build.gradle
+128: 
+129: tasks.register('verifyCoreBoundary') {
+130:     inputs.files(fileTree('engine-core/src/main/java'))
+131:     doLast {
+132:         inputs.files.each { f ->
+133:             if (f.text.contains('net.minecraft') || f.text.contains('net.neoforged'))
+134:                 throw new GradleException("Platform dependency inside core: $f")
+135:         }
+136:     }
+137: }
+138: tasks.register('coreChecks', JavaExec) {
+139:     dependsOn coreChecksClasses
+140:     classpath = sourceSets.coreChecks.runtimeClasspath
+141:     mainClass = 'com.shnewbs.deepprimal.core.CoreChecks'
+142:     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+143: }
+144: tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
+145: tasks.register('groundMaterialResources', JavaExec) {
+146:     dependsOn visualValidationClasses
+147:     classpath = sourceSets.visualValidation.runtimeClasspath
+148:     mainClass = 'com.shnewbs.deepprimal.validation.GroundResourceChecks'
+149:     args project.file('docs/art/ground-textures-v4/validation.json').absolutePath
+150:     args project.file('docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json').absolutePath
+151:     args project.file('docs/art/sand-final/validation.json').absolutePath
+152:     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+153:     jvmArgs '-Djava.awt.headless=true'
+154: }
+155: tasks.named('check') { dependsOn 'groundMaterialResources' }
+156: tasks.named('runServer') { standardInput = System.in }
+157: if (project.hasProperty('packagedValidation')) {
+158:     ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {
+159:         dependsOn tasks.named('jar')
+160:         // Filter the ModDev launch provider during configuration, before Gradle finalizes it.
+161:         // Filtering JavaExec.classpath in doFirst is too late: RunGameTask appends this provider.
+162:         def developmentOutputs = rootProject.allprojects.collectMany { p ->
+163:             ['build/libs', 'build/classes/java/main', 'build/resources/main'].collect {
+164:                 p.file(it).canonicalPath
+165:             }
+166:         }
+167:         def originalClasspath = files(new ArrayList(classpathProvider.from))
+168:         classpathProvider.setFrom(originalClasspath.filter { f ->
+169:             def path = f.canonicalPath
+170:             !developmentOutputs.any { path == it || path.startsWith(it + File.separator) }
+171:         })
+172:         doFirst {
+173:             String paths = 'deepprimal%%' + project.file(findProperty('validationJar') ?: tasks.named('jar').get().archiveFile.get().asFile).absolutePath
+174:             if (project.hasProperty('visualValidation'))
+175:                 paths += File.pathSeparator + 'deepprimal%%' + sourceSets.visualValidation.output.classesDirs.singleFile.absolutePath
+176:             environment 'MOD_CLASSES', paths
+177:             systemProperty 'fml.modFolders', paths
+178:         }
+179:     } }
