@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T19:03:33.662Z",
-  "active_until": "2026-10-26T19:33:33.662Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T19:15:34.233Z",
+  "active_until": "2026-10-26T19:15:34.233Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Qualify staged source-index lifecycle equivalence with bounded isolated checks; full-build capacity blocked",
+  "current_gate": "Staged incremental source-index lifecycle repaired; fresh full core and scoped runtime checks pass; full mod/package/native capacity gate open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -679,7 +679,7 @@
     "released": true
   },
   "candidate_release_class": "development-testing",
-  "latest_engine_test_summary": "Full35-task Java25 build/core/module/resource passes;134-source independent compile;7archive CRC/590class/144independent/218private checks;10packaged Linux native sessions; exact tick1266+survey158 candidate cases and packaged accounting/mesh regressions pass.",
+  "latest_engine_test_summary": "Current core freshly compiles138sources and completeCoreChecks passes. Staged runtime API/lifecycle/index/allowance checks pass; initial loop-fixture syntax error and disk-temp core failure retained. No fresh fullGradle/package/native/visual checks.",
   "latest_validation_tool_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/summary.json",
   "previous_preview": {
     "version": "0.0.1-alpha.27",
@@ -998,9 +998,9 @@
     "grade_changed": false
   },
   "performance_measurement": {
-    "status": "functional_checks_only",
+    "status": "released",
     "owner": "builder-20261026T1905",
-    "active_until": "2026-10-26T19:33:33.662Z",
+    "active_until": "2026-10-26T19:15:34.233Z",
     "exclusive_benchmark": false
   },
   "owner_pause_checkpoint": {
@@ -1028,9 +1028,15 @@
     "consumed_audit_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
     "last_external_grade": 5,
     "fresh_complete_regrade": false,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "Staged hydrology source-index lifecycle, private tests and compact evidence only",
-    "coordination": "Auditor completed 18:55 report. Root/water leases checkpointed. Personal context found no fresh direct original-other-chat ownership proof; unavailable. No other mutable checkout/cache/output used."
+    "coordination": "Auditor18:34 run completed18:55; renderer byte-accounting checkpointed; own root lease released. Original other-chat fresh ownership not established by Personal Context. Read-only prior builder deps; unique memory-backed outputs.",
+    "production_runtime_changed": false,
+    "actual_changes": "Shared staged chunk/source/survey invalidation on missing-FULL and unload; generation-conditional source removal.",
+    "checks": "144 actual extracted loop cases,5512 actual-runtime lifecycle checks,20000 index mutations,1445 actual-runtime allowance cases; fresh138-source complete core suite pass",
+    "evidence": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/README.md",
+    "blocker": "Overlay free0; full Gradle/module/package/native build not started for lack of independent capacity. No new JAR.",
+    "next_implementation": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1210,13 +1216,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T1730-a1583a5/REVIEW.md",
-    "source_sha": "a1583a508b0d67130d387bc018defd5758acd496",
+    "path": "docs/engine-hourly-audits/2026-10-26T1834-8665e07/REVIEW.md",
+    "source_sha": "8665e07be705c9cf6470adf3d6a6d325cea094fc",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Replace per-tick whole-index hydrology cleanup/copy/sort with incrementally maintained headwater ordering; staged integration."
+    "chosen_repair": "Qualify staged incremental source index; repair missing-FULL cleanup and stale cursor invalidation of replacement sources."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1285,12 +1291,12 @@
   },
   "latest_staged_source_index": {
     "promoted": false,
-    "base_source_sha": "e056cf942927d355be8fd12e20ba13e423ccffb6",
-    "evidence": "docs/validation/engine-continuation/hydrology-incremental-index-2026-10-26/README.md",
-    "candidate": "docs/validation/engine-continuation/hydrology-incremental-index-2026-10-26/stage/HydrologyRuntime.java",
-    "helper": "docs/validation/engine-continuation/hydrology-incremental-index-2026-10-26/stage/StreamSourceIndex.java",
-    "checks": "Final memory-backed full candidate APIcompile,20000mutation oracle/20008checks,actual-runtime registration/dry/stale lifecycle pass",
-    "remaining_gate": "Full Gradle/core/module/package/native source quota,load/unload,partial-survey,weather/save/reopen and performance",
+    "base_source_sha": "094033d41147693e0ba3881026d009ca37fc895b",
+    "evidence": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/README.md",
+    "candidate": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/stage/HydrologyRuntime.java",
+    "helper": "docs/validation/engine-continuation/hydrology-index-lifecycle-2026-10-26/stage/StreamSourceIndex.java",
+    "checks": "144 actual extracted loop cases,5512 actual-runtime lifecycle checks,20000 index mutations,1445 actual-runtime allowance cases; fresh138-source complete core suite pass",
+    "remaining_gate": "Full mod/native source-quota,partial-survey,load/unload,reentrancy,weather/save/reopen/shutdown qualification before promotion; exact tie-order lifecycle comparison.",
     "in_delivered_jar": false
   }
 }

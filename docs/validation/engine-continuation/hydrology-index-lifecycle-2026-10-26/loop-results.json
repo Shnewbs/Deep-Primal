@@ -1,0 +1,16 @@
+[
+  {
+    "variant": "baseline",
+    "exit": 1,
+    "output": "Exception in thread \"main\" java.lang.AssertionError: stale index/survey after missing FULL chunk key=0\n\tat com.shnewbs.deepprimal.engine.SourceInvalidationLoopChecks.one(SourceInvalidationLoopChecks.java:92)\n\tat com.shnewbs.deepprimal.engine.SourceInvalidationLoopChecks.main(SourceInvalidationLoopChecks.java:100)\n",
+    "source_sha256": "99beff1aa547fa68593aa211d9dd0b769b2a542605458fe258b3a46815023ac8",
+    "extracted_fixture_sha256": "d4859ea8996b20997fae34e01a201d18b2f737d283ff68befed4717369f16e23"
+  },
+  {
+    "variant": "candidate",
+    "exit": 0,
+    "output": "SOURCE_INVALIDATION_LOOP_PASS cases=144 actualLoop=true missingFull=true noForcedLoad=true expiredAdmission=true\n",
+    "source_sha256": "819ba6131180da17acbc03682052730ff9da93f12953b7bf185cca57996c3930",
+    "extracted_fixture_sha256": "869992fb8677b98ee010660c68463864d157e817fc7c2eba293f52040b1e96fd"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-26T19:14:23.709223+00:00",
+  "overlay_free_bytes": 0,
+  "shm_free_bytes": 486649856,
+  "full_gradle": "not_started_capacity_preflight_blocked",
+  "current_package_crc_native_payload_identity": "not_run",
+  "new_jar": false,
+  "native_sessions": 0,
+  "Windows_AMD8060S": "unavailable",
+  "real_OpenGL_Vulkan": "not_run",
+  "library_save": "not_attempted_no_new_qualified_JAR",
+  "GitHub_release": "not_attempted_no_new_qualified_JAR",
+  "grade": 5.0,
+  "fresh_regrade": false
+}
