@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-26T11:35:00Z",
-  "active_until": "2026-10-26T12:05:00Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-26T11:42:37Z",
+  "active_until": "2026-10-26T11:42:37Z",
   "source_ref": "main",
-  "candidate_version": "0.0.1-alpha.29-dev.28",
+  "candidate_version": "0.0.1-alpha.29-dev.29",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Reproduce missing between-column deadline admission in inner natural-stream loop, preserve headwater order and finite quantities; stage focused repair pending full current qualification.",
+  "current_gate": "Promote staged between-column stream deadline check only after full build and packaged native stream/budget/restart gates; dev.29 is qualified and saved. Continue bounded loaded/unloaded ownership and V8 compatibility.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -998,9 +998,9 @@
   },
   "performance_measurement": {
     "owner": "builder-20261026T1134",
-    "status": "active",
+    "status": "completed",
     "kind": "functional_scheduler_reproduction",
-    "active_until": "2026-10-26T12:05:00Z",
+    "active_until": "2026-10-26T11:42:37Z",
     "exclusive_benchmark": false,
     "resources": "Own isolated stream1134 fixture; no actual latency/FPS claim"
   },
@@ -1190,5 +1190,17 @@
     "implemented_repairs": "Capacity-rejected precipitation returns zero atomically; 80000 regression cases now in regular CoreChecks; private actual native fresh/reopen fixture added.",
     "fresh_grade_awarded": false
   },
-  "lease_released": false
+  "lease_released": true,
+  "latest_stream_deadline_stage": {
+    "status": "staged_not_promoted",
+    "source_sha": "b1db1bbbef903d33feecf32af986761abe2de5b7",
+    "evidence": "docs/validation/engine-continuation/stream-deadline-2026-10-26/README.md",
+    "reproduction": "Exact production tick with deterministic boundary doubles: 256 callbacks, 255 after deadline; candidate 1 callback, 0 late.",
+    "checks": "215 baseline characterization and 215 candidate checks passed; no native timing claim.",
+    "blocker": "717 MB filesystem headroom at checkpoint; full candidate Gradle/native qualification not started.",
+    "next": "Restore safe isolated build headroom; run full Java25/core/module plus actual packaged natural-source/budget/persistence/shutdown fixtures before promotion.",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
+    "audit_source_sha": "4a583dbcdec4df4be1ac7572c384813986067f2a",
+    "fresh_grade_awarded": false
+  }
 }
