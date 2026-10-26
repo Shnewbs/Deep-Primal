@@ -8,5 +8,11 @@
     "docs/renderer-jams/20261026-lod-scratch"
   ],
   "parent": "591bf64d36d6c41157aa2dcc4b4ffe85f893cc01",
-  "measurement": "Functional geometry/allocation check and exploratory CPU component benchmark; no GPU timing reservation"
+  "measurement": {
+    "status": "completed",
+    "exclusive_benchmark": false,
+    "scope": "CPU component microbenchmark finished; remaining Gradle/package/native checks are functional only",
+    "completed_at": "2026-10-26T16:08:38.260Z"
+  },
+  "validation_phase": "active, isolated, nonexclusive"
 }
