@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.AssertionError: before=-9223372036854775808 now=0 expected=true actual=false
+	at com.shnewbs.deepprimal.core.AquiferTickChecks.check(AquiferTickChecks.java:18)
+	at com.shnewbs.deepprimal.core.AquiferTickChecks.main(AquiferTickChecks.java:8)
