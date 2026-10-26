@@ -1,78 +1,33 @@
-package com.shnewbs.deepprimal.core;
+package com.shnewbs.deepprimal;
+import com.shnewbs.deepprimal.core.*;
+import com.shnewbs.deepprimal.engine.EngineChunkGenerator;
+import com.shnewbs.deepprimal.engine.EngineRuntimeConfig;
+import java.util.*;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.server.*;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.NeoForge;
-
-/**
- * Engine-core module for NeoForge mod loading.
- * Registers configs and event handlers for the core engine.
- */
-@Mod("deepprimal_core")
+/** Adapter owned by DeepPrimal's existing mod; it never registers a second mod or registry. */
 public final class EngineCoreModule {
-    private static EngineCore engineCore;
-
-    public EngineCoreModule(ModContainer container) {
-        // Register core configs
-        container.registerConfig(
-            ModConfig.Type.STARTUP,
-            TerrainConfig.SPEC,
-            "deepprimal/worldgen/terrain.toml"
-        );
-        container.registerConfig(
-            ModConfig.Type.SERVER,
-            HydrologyConfig.SPEC,
-            "deepprimal-hydrology.toml"
-        );
-        container.registerConfig(
-            ModConfig.Type.SERVER,
-            StabilityRuntime.SPEC,
-            "deepprimal/hazards/stability.toml"
-        );
-
-        // Register engine registry
-        EngineRegistry.register(container.getEventBus());
-        GroundMaterials.register(container.getEventBus());
-
-        // Register event handlers
-        NeoForge.EVENT_BUS.register(new HydrologyRuntime());
-        NeoForge.EVENT_BUS.register(new WaterRuntime.Events());
-        NeoForge.EVENT_BUS.register(new StabilityRuntime());
-
-        // Initialize engine core on server start
-        container.getEventBus().addListener(this::onServerStarting);
-        container.getEventBus().addListener(this::onServerStopping);
-    }
-
-    private void onServerStarting(net.neoforged.neoforge.event.server.ServerStartingEvent event) {
-        // Create engine core with server world seed
-        long seed = event.getServer().getLevel(net.minecraft.resources.ResourceKey.create(
-            net.minecraft.core.registries.Registries.DIMENSION,
-            net.minecraft.resources.ResourceLocation.withDefaultNamespace("overworld")))
-            .getSeed();
-        
-        TerrainOptions options = TerrainOptions.fromConfig();
-        
-        engineCore = new EngineCore.Builder()
-            .seed(seed)
-            .revision(7)
-            .options(options)
-            .densityCacheMB(128)
-            .meshCacheMB(256)
-            .build();
-        
-        engineCore.start();
-    }
-
-    private void onServerStopping(net.neoforged.neoforge.event.server.ServerStoppingEvent event) {
-        if (engineCore != null) {
-            engineCore.stop();
-            engineCore = null;
-        }
-    }
-
-    public static EngineCore getEngineCore() {
-        return engineCore;
-    }
+  private static final Map<String,EngineCore> worlds=new HashMap<>();
+  @SubscribeEvent public void started(ServerStartedEvent event){
+    shutdown();EngineBootstrap.initialize();
+    try {for(var level:event.getServer().getAllLevels())if(level.getChunkSource().getGenerator() instanceof EngineChunkGenerator generator){
+      var core=new EngineCore.Builder().seed(level.getSeed()).terrain(generator.geography())
+          .verticalRange(generator.getMinY(),generator.getGenDepth())
+          .densityCacheMB(EngineRuntimeConfig.DENSITY_MB.get()).densityCacheEntries(EngineRuntimeConfig.DENSITY_ENTRIES.get())
+          .meshCacheMB(EngineRuntimeConfig.MESH_MB.get()).meshCacheEntries(EngineRuntimeConfig.MESH_ENTRIES.get()).build();core.start();
+      synchronized(worlds){worlds.put(level.dimension().identifier().toString(),core);}
+    }}catch(RuntimeException failure){shutdown();throw failure;}
+  }
+  @SubscribeEvent public void tick(ServerTickEvent.Post event){CoreValidation.tick();}
+  @SubscribeEvent public void stopping(ServerStoppingEvent event){shutdown();}
+  @SubscribeEvent public void stopped(ServerStoppedEvent event){shutdown();}
+  public static EngineCore getEngineCore(){return getEngineCore("minecraft:overworld");}
+  public static EngineCore getEngineCore(String dimension){synchronized(worlds){return worlds.get(dimension);}}
+  private static void shutdown(){
+    List<EngineCore> closing;
+    synchronized(worlds){closing=new ArrayList<>(worlds.values());worlds.clear();}
+    closing.forEach(EngineCore::close);EngineBootstrap.shutdown();
+  }
 }

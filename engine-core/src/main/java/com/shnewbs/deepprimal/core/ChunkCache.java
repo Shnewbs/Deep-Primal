@@ -1,244 +1,47 @@
 package com.shnewbs.deepprimal.core;
 
-import com.shnewbs.deepprimal.core.density.DensityGraph;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-/**
- * Thread-safe LRU chunk cache with memory pressure awareness.
- * Supports both CPU-side density graphs and GPU-side mesh data.
- */
+/** World-scoped, synchronized weighted LRU; byte reservation cannot overflow. */
 public final class ChunkCache {
-    private final ConcurrentHashMap<Long, CacheEntry> cache = new ConcurrentHashMap<>();
-    private final ConcurrentLinkedQueue<Long> accessOrder = new ConcurrentLinkedQueue<>();
-    private final AtomicLong currentMemoryBytes = new AtomicLong(0);
-    private final long maxMemoryBytes;
-    private final int maxEntries;
-    private final CachePolicy policy;
-    
-    // Statistics
-    public final AtomicLong hits = new AtomicLong(0);
-    public final AtomicLong misses = new AtomicLong(0);
-    public final AtomicLong evictions = new AtomicLong(0);
-    public final AtomicLong memoryPressureEvents = new AtomicLong(0);
-
-    public ChunkCache(long maxMemoryMB, int maxEntries) {
-        this(maxMemoryMB, maxEntries, CachePolicy.LRU);
-    }
-
-    public ChunkCache(long maxMemoryMB, int maxEntries, CachePolicy policy) {
-        this.maxMemoryBytes = maxMemoryMB * 1024L * 1024L;
-        this.maxEntries = maxEntries;
-        this.policy = policy;
-    }
-
-    /**
-     * Get a chunk from cache, computing if absent.
-     */
-    public <T> T getOrCompute(long key, Function<Long, T> computer, long estimatedSizeBytes) {
-        CacheEntry entry = cache.get(key);
-        if (entry != null && !entry.isExpired()) {
-            hits.incrementAndGet();
-            entry.touch();
-            updateAccessOrder(key);
-            return (T) entry.value;
-        }
-        
-        misses.incrementAndGet();
-        T value = computer.apply(key);
-        put(key, value, estimatedSizeBytes);
-        return value;
-    }
-
-    /**
-     * Put a value in the cache.
-     */
-    public void put(long key, Object value, long sizeBytes) {
-        // Check memory pressure before adding
-        ensureCapacity(sizeBytes);
-        
-        CacheEntry entry = new CacheEntry(value, sizeBytes, System.currentTimeMillis());
-        CacheEntry old = cache.put(key, entry);
-        
-        if (old != null) {
-            currentMemoryBytes.addAndGet(-old.sizeBytes);
-        }
-        
-        currentMemoryBytes.addAndGet(sizeBytes);
-        updateAccessOrder(key);
-        
-        // Enforce entry count limit
-        enforceEntryLimit();
-    }
-
-    /**
-     * Get a value without computing if absent.
-     */
-    @SuppressWarnings("unchecked")
-    public <T> T get(long key) {
-        CacheEntry entry = cache.get(key);
-        if (entry != null && !entry.isExpired()) {
-            hits.incrementAndGet();
-            entry.touch();
-            updateAccessOrder(key);
-            return (T) entry.value;
-        }
-        misses.incrementAndGet();
-        return null;
-    }
-
-    /**
-     * Remove a specific key.
-     */
-    public boolean remove(long key) {
-        CacheEntry entry = cache.remove(key);
-        if (entry != null) {
-            currentMemoryBytes.addAndGet(-entry.sizeBytes);
-            accessOrder.remove(key);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Clear all entries.
-     */
-    public void clear() {
-        cache.clear();
-        accessOrder.clear();
-        currentMemoryBytes.set(0);
-    }
-
-    /**
-     * Get current memory usage in bytes.
-     */
-    public long getMemoryUsage() {
-        return currentMemoryBytes.get();
-    }
-
-    /**
-     * Get current entry count.
-     */
-    public int size() {
-        return cache.size();
-    }
-
-    /**
-     * Get cache hit rate (0.0 - 1.0).
-     */
-    public double getHitRate() {
-        long h = hits.get();
-        long m = misses.get();
-        long total = h + m;
-        return total > 0 ? (double) h / total : 1.0;
-    }
-
-    /**
-     * Trim cache to target memory usage.
-     */
-    public void trimTo(long targetBytes) {
-        while (currentMemoryBytes.get() > targetBytes && !accessOrder.isEmpty()) {
-            Long oldest = accessOrder.poll();
-            if (oldest != null) {
-                CacheEntry entry = cache.remove(oldest);
-                if (entry != null) {
-                    currentMemoryBytes.addAndGet(-entry.sizeBytes);
-                    evictions.incrementAndGet();
-                }
-            }
-        }
-    }
-
-    /**
-     * Handle memory pressure - aggressively evict.
-     */
-    public void handleMemoryPressure() {
-        memoryPressureEvents.incrementAndGet();
-        // Evict 25% of cache
-        long target = (long) (maxMemoryBytes * 0.75);
-        trimTo(target);
-    }
-
-    private void ensureCapacity(long incomingSize) {
-        long current = currentMemoryBytes.get();
-        if (current + incomingSize > maxMemoryBytes) {
-            // Need to evict
-            long target = maxMemoryBytes - incomingSize;
-            trimTo(target);
-        }
-    }
-
-    private void enforceEntryLimit() {
-        while (cache.size() > maxEntries && !accessOrder.isEmpty()) {
-            Long oldest = accessOrder.poll();
-            if (oldest != null) {
-                CacheEntry entry = cache.remove(oldest);
-                if (entry != null) {
-                    currentMemoryBytes.addAndGet(-entry.sizeBytes);
-                    evictions.incrementAndGet();
-                }
-            }
-        }
-    }
-
-    private void updateAccessOrder(long key) {
-        accessOrder.remove(key);
-        accessOrder.add(key);
-    }
-
-    private static class CacheEntry {
-        final Object value;
-        final long sizeBytes;
-        final long createdAt;
-        volatile long lastAccess;
-        
-        CacheEntry(Object value, long sizeBytes, long createdAt) {
-            this.value = value;
-            this.sizeBytes = sizeBytes;
-            this.createdAt = createdAt;
-            this.lastAccess = createdAt;
-        }
-        
-        void touch() {
-            lastAccess = System.currentTimeMillis();
-        }
-        
-        boolean isExpired() {
-            // Default: expire after 5 minutes of no access
-            return System.currentTimeMillis() - lastAccess > 300_000;
-        }
-    }
-
-    public enum CachePolicy {
-        LRU,
-        LFU,
-        TTL
-    }
-
-    /**
-     * Cache snapshot for debugging/monitoring.
-     */
-    public record Snapshot(
-        int entryCount,
-        long memoryBytes,
-        double hitRate,
-        long hits,
-        long misses,
-        long evictions,
-        long memoryPressureEvents
-    ) {
-        public static Snapshot from(ChunkCache cache) {
-            return new Snapshot(
-                cache.size(),
-                cache.getMemoryUsage(),
-                cache.getHitRate(),
-                cache.hits.get(),
-                cache.misses.get(),
-                cache.evictions.get(),
-                cache.memoryPressureEvents.get()
-            );
-        }
-    }
+  private record Entry(Object value,long bytes) {}
+  private final LinkedHashMap<Object,Entry> entries = new LinkedHashMap<>(16,.75f,true);
+  private final long capacity;
+  private final int limit;
+  private long bytes;
+  public final AtomicLong hits=new AtomicLong(), misses=new AtomicLong(), evictions=new AtomicLong(), memoryPressureEvents=new AtomicLong();
+  public ChunkCache(long megabytes,int limit) {
+    if(megabytes<0 || megabytes>Long.MAX_VALUE/(1024*1024) || limit<1) throw new IllegalArgumentException("cache limits");
+    capacity=megabytes*1024*1024; this.limit=limit;
+  }
+  @SuppressWarnings("unchecked") public synchronized <T> T get(Object key) {
+    Entry e=entries.get(Objects.requireNonNull(key));
+    if(e==null){misses.incrementAndGet();EngineMetrics.CACHE_MISSES.increment();return null;}
+    hits.incrementAndGet();EngineMetrics.CACHE_HITS.increment();return (T)e.value;
+  }
+  public synchronized <T> T getOrCompute(Object key,Function<Object,T> computer,long weight) {
+    T v=get(key); if(v!=null)return v;
+    v=Objects.requireNonNull(computer.apply(key));put(key,v,weight);return v;
+  }
+  public synchronized void put(Object key,Object value,long weight) {
+    Objects.requireNonNull(key);Objects.requireNonNull(value);
+    if(weight<0)throw new IllegalArgumentException("negative cache weight");
+    remove(key);
+    if(weight>capacity || capacity==0)return;
+    while(!entries.isEmpty() && (bytes>capacity-weight || entries.size()>=limit))evict();
+    entries.put(key,new Entry(value,weight));bytes+=weight;
+  }
+  private void evict(){var it=entries.entrySet().iterator();bytes-=it.next().getValue().bytes;it.remove();evictions.incrementAndGet();EngineMetrics.CACHE_EVICTIONS.increment();}
+  public synchronized boolean remove(Object key){var e=entries.remove(key);if(e==null)return false;bytes-=e.bytes;return true;}
+  public synchronized void clear(){entries.clear();bytes=0;}
+  public synchronized long getMemoryUsage(){return bytes;}
+  public synchronized int size(){return entries.size();}
+  public double getHitRate(){double h=hits.get(),m=misses.get();return h+m==0?1:h/(h+m);}
+  public synchronized void trimTo(long target){if(target<0)throw new IllegalArgumentException("negative target");while(bytes>target && !entries.isEmpty())evict();}
+  public synchronized void handleMemoryPressure(){memoryPressureEvents.incrementAndGet();trimTo(bytes/2);}
+  public record Snapshot(int entries,long bytes,double hitRate,long evictions) {
+    public static Snapshot from(ChunkCache c){synchronized(c){return new Snapshot(c.size(),c.bytes,c.getHitRate(),c.evictions.get());}}
+  }
 }

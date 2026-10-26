@@ -1,0 +1,12 @@
+allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+        options.forkOptions.executable = new File(System.getProperty('java.home'), 'bin/javac.exe').absolutePath
+        options.incremental = false
+    }
+    tasks.withType(JavaExec).configureEach {
+        def writableTemp = rootProject.file('build/local-tmp')
+        writableTemp.mkdirs()
+        systemProperty 'java.io.tmpdir', writableTemp.absolutePath
+    }
+}

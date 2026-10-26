@@ -10,6 +10,7 @@ def nativePlatforms = vulkanPlatform == "universal" ? ["linux","windows","macos"
 configurations { bundled { transitive = false }; compileOnly.extendsFrom(bundled) }
 dependencies {
     implementation project(':graphics-settings')
+    implementation project(':engine-core')
     compileOnly files(rootProject.minecraftClasspath)
     bundled 'org.lwjgl:lwjgl-vulkan:3.4.1'
     bundled 'org.lwjgl:lwjgl-shaderc:3.4.1'

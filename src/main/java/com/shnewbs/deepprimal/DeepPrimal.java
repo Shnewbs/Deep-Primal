@@ -72,13 +72,11 @@ public final class DeepPrimal {
     DENSITIES.register("ocean_height", () -> com.shnewbs.deepprimal.worldgen.OceanHeight.MAP_CODEC);
     DENSITIES.register(modBus);
     NeoForge.EVENT_BUS.register(new WorldgenProbe(container.getModInfo().getVersion().toString()));
-        NeoForge.EVENT_BUS.register(new NoVanillaXp());
-
-        // Initialize engine core for production
-        com.shnewbs.deepprimal.core.EngineBootstrap.initialize();
-
-        LOGGER.info(
-            "Deep Primal terrain/liquid engine registered; saved generators preserved. Block assets are"
-                + " temporary palettes.");
-      }
-    }
+    NeoForge.EVENT_BUS.register(new NoVanillaXp());
+    container.registerConfig(ModConfig.Type.SERVER, com.shnewbs.deepprimal.engine.EngineRuntimeConfig.SPEC, "deepprimal/engine/runtime.toml");
+    NeoForge.EVENT_BUS.register(new EngineCoreModule());
+    LOGGER.info(
+        "Deep Primal terrain/liquid engine registered; saved generators preserved. Block assets are"
+            + " temporary palettes.");
+  }
+}

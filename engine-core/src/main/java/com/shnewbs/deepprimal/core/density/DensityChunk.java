@@ -26,6 +26,10 @@ public final class DensityChunk {
 
   /** Samples each voxel exactly and retains only occupancy and the top-exclusive surface. */
   public static DensityChunk sample(DensityGraph graph, int originX, int minY, int originZ, int height) {
+    return sample((DensityField) graph, originX, minY, originZ, height);
+  }
+
+  public static DensityChunk sample(DensityField graph, int originX, int minY, int originZ, int height) {
     Objects.requireNonNull(graph, "graph");
     if (height < 1 || height > MAX_HEIGHT) throw new IllegalArgumentException("chunk height");
     if (Math.floorMod(originX, WIDTH) != 0 || Math.floorMod(originZ, WIDTH) != 0)
@@ -37,7 +41,7 @@ public final class DensityChunk {
     int cells = Math.multiplyExact(COLUMNS, height);
     BitSet solid = new BitSet(cells);
     int[] surfaces = new int[COLUMNS];
-    DensityGraph.Sampler sampler = graph.newSampler();
+    DensityField sampler = graph instanceof DensityGraph program ? program.newSampler()::sample : graph;
     for (int z = 0; z < WIDTH; z++) {
       for (int x = 0; x < WIDTH; x++) {
         int column = (z * WIDTH + x) * height;

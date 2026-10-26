@@ -1,0 +1,18 @@
+{
+  "source_parent": "905e550174e32f9d25d4e01e4e398bb6712288b2",
+  "source_tree": "e05498e9e2d2cbbeedf5ee39a04d08005ec6e445",
+  "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.23-vulkan-windows.jar",
+  "bytes": 125289415,
+  "sha256": "472d8de0b6a430a3c407c5bb4c32b4a1752eafc06b53eea535f38b55fb7a5ca1",
+  "completed_at": "2026-10-26T00:56:05Z",
+  "library_save_verified": false,
+  "library_blocker": "Hosted upload helper tools/list failed DNS; verified local JAR retained.",
+  "github_release_published": false,
+  "native_gameplay_or_GPU_tested": false,
+  "evidence": "docs/validation/engine-continuation/continue-integration-2026-10-26/README.md",
+  "version": "0.0.1-alpha.29-dev.23",
+  "development_testing_only": true,
+  "local_verified_artifact_available": true,
+  "producer_completed": true,
+  "publication_parent": "c6b7ac4f5d78836ca7e5752a25fc40955e6128c6"
+}

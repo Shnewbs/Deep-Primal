@@ -1,3 +1,0 @@
-# This file should be compiled from fsr_upscale.vert using glslangValidator
-# Placeholder - actual SPIR-V binary would be generated at build time
-# Build command: glslangValidator -V fsr_upscale.vert -o fsr_upscale.vert.spv

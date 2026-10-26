@@ -87,6 +87,12 @@ public final class ServerTelemetry {
     data.put("horizonCacheHits", HorizonService.cacheHits());
     data.put("maxChunkSendBatch", RuntimeMetrics.MAX_SEND_BATCH.get());
     data.put("viewColumnsScanned", RuntimeMetrics.VIEW_COLUMNS.sum());
+    data.put("engineMetrics", com.shnewbs.deepprimal.core.EngineMetrics.snapshot());
+    var core = com.shnewbs.deepprimal.EngineCoreModule.getEngineCore();
+    if (core != null) {
+      data.put("engineQueryPending", core.getWorldGenPipeline().pendingCount());
+      data.put("engineQueryCacheBytes", core.getDensityCache().getMemoryUsage() + core.getMeshCache().getMemoryUsage());
+    }
     LocalDashboard.server(data);
   }
 

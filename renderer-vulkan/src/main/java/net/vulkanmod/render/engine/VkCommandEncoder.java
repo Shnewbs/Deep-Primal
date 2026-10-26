@@ -812,32 +812,7 @@ public class VkCommandEncoder implements CommandEncoderBackend {
 
   @Override
   public void presentTexture(GpuTextureView gpuTexture) {
-    VkTextureView source = (VkTextureView) gpuTexture;
-    Renderer renderer = Renderer.getInstance();
-    renderer.endRenderPass();
-    var src = source.texture().getVulkanImage();
-    var dst = renderer.getSwapChain().getColorAttachment();
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      var command = Renderer.getCommandBuffer();
-      src.transitionImageLayout(stack, command, 6);
-      dst.transitionImageLayout(stack, command, 7);
-      var region = org.lwjgl.vulkan.VkImageBlit.calloc(1, stack);
-      region
-          .srcSubresource()
-          .aspectMask(1)
-          .mipLevel(source.baseMipLevel())
-          .baseArrayLayer(0)
-          .layerCount(1);
-      region.dstSubresource().aspectMask(1).mipLevel(0).baseArrayLayer(0).layerCount(1);
-      region.srcOffsets(0).set(0, 0, 0);
-      region.srcOffsets(1).set(source.getWidth(0), source.getHeight(0), 1);
-      region.dstOffsets(0).set(0, 0, 0);
-      region
-          .dstOffsets(1)
-          .set(renderer.getSwapChain().getWidth(), renderer.getSwapChain().getHeight(), 1);
-      VK10.vkCmdBlitImage(command, src.getId(), 6, dst.getId(), 7, region, 1);
-      dst.transitionImageLayout(stack, command, 1000001002);
-    }
+    net.vulkanmod.deepprimal.upscaling.UpscalingPass.present(gpuTexture);
   }
 
   protected <T> void executeDrawMultiple(

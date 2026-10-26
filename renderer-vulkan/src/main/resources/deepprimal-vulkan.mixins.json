@@ -12,7 +12,9 @@
     "ScreenshotOrientationMixin",
     "AtlasProjectionMixin",
     "GuiItemAtlasOriginMixin",
-    "GuiPictureOriginMixin"
+    "GuiPictureOriginMixin",
+    "MainTargetScaleMixin",
+    "MainTargetResizeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

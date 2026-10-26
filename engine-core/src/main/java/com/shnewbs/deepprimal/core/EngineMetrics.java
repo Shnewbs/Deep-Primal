@@ -11,6 +11,7 @@ import java.util.function.LongSupplier;
  */
 public final class EngineMetrics {
     // Terrain generation metrics
+    public static final LongAdder CHUNKS_MATERIALIZED = new LongAdder();
     public static final LongAdder TERRAIN_SAMPLES = new LongAdder();
     public static final LongAdder TERRAIN_COLUMNS = new LongAdder();
     public static final LongAdder WATERSHED_QUERIES = new LongAdder();
@@ -69,6 +70,7 @@ public final class EngineMetrics {
      * Record chunk materialization timing.
      */
     public static void recordChunkMaterialize(long nanos) {
+        CHUNKS_MATERIALIZED.increment();
         CHUNK_MATERIALIZE_TIME_NS.addAndGet(nanos);
     }
 
@@ -110,8 +112,8 @@ public final class EngineMetrics {
      * Get average chunk materialization time in microseconds.
      */
     public static double getAvgChunkMaterializeTimeUs() {
-        // This would need a counter for chunks materialized
-        return CHUNK_MATERIALIZE_TIME_NS.get() / 1000.0;
+        long count = CHUNKS_MATERIALIZED.sum();
+        return count == 0 ? 0 : CHUNK_MATERIALIZE_TIME_NS.get() / 1000.0 / count;
     }
 
     /**
@@ -157,6 +159,7 @@ public final class EngineMetrics {
      * Reset all metrics (for testing or periodic reporting).
      */
     public static void reset() {
+        CHUNKS_MATERIALIZED.reset();
         TERRAIN_SAMPLES.reset();
         TERRAIN_COLUMNS.reset();
         WATERSHED_QUERIES.reset();

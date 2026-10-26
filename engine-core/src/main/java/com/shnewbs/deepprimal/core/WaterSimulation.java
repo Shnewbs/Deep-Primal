@@ -1,335 +1,51 @@
 package com.shnewbs.deepprimal.core;
-
-import java.util.Arrays;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.DoubleSupplier;
+import java.util.function.*;
+import java.nio.*;
 
-/**
- * Finite water simulation with pressure-based flow.
- * Deterministic, frame-rate independent, and suitable for multi-threaded execution.
- */
+/** Closed 16x16 finite-volume query simulation using the production integer transport law.
+ * Source flags are metadata: replenishment must be explicitly debited by the caller.
+ * Live worlds continue to use WaterRuntime, including its saved constituent accounting. */
 public final class WaterSimulation {
-    public static final int CHUNK_SIZE = 16;
-    public static final int CELL_COUNT = CHUNK_SIZE * CHUNK_SIZE;
-    
-    // Physics constants
-    public static final double GRAVITY = 9.81;
-    public static final double WATER_DENSITY = 1000.0; // kg/m^3
-    public static final double MAX_FLOW_SPEED = 2.0; // m/tick
-    public static final double MIN_FLOW_THRESHOLD = 0.01;
-    public static final double EVAPORATION_RATE = 0.001; // per tick
-    public static final double INFILTRATION_RATE = 0.0005; // per tick
-    
-    // Simulation state
-    private final double[] waterLevel; // height in blocks
-    private final double[] flowX;
-    private final double[] flowZ;
-    private final double[] pressure;
-    private final boolean[] isSource;
-    private final byte[] material; // 0=air, 1=water, 2=lava, etc.
-    
-    // Boundaries
-    private final double[] neighborLevel; // 4 neighbors: -x, +x, -z, +z
-    private final boolean[] hasNeighbor;
-    
-    // Statistics
-    public final AtomicLong simulationTimeNs = new AtomicLong(0);
-    public final AtomicLong totalWaterVolume = new AtomicLong(0);
-    public final AtomicLong activeCells = new AtomicLong(0);
-
-    public WaterSimulation() {
-        this.waterLevel = new double[CELL_COUNT];
-        this.flowX = new double[CELL_COUNT];
-        this.flowZ = new double[CELL_COUNT];
-        this.pressure = new double[CELL_COUNT];
-        this.isSource = new boolean[CELL_COUNT];
-        this.material = new byte[CELL_COUNT];
-        this.neighborLevel = new double[4];
-        this.hasNeighbor = new boolean[4];
-        
-        Arrays.fill(waterLevel, 0.0);
-        Arrays.fill(flowX, 0.0);
-        Arrays.fill(flowZ, 0.0);
-        Arrays.fill(pressure, 0.0);
-    }
-
-    /**
-     * Simulate one tick of water physics.
-     * @param dt Time delta in ticks (normally 1.0)
-     * @param getGroundHeight Function to query ground height at (x, z)
-     */
-    public void tick(double dt, DoubleSupplier getGroundHeight) {
-        long start = System.nanoTime();
-        
-        // Reset flow accumulators
-        Arrays.fill(flowX, 0.0);
-        Arrays.fill(flowZ, 0.0);
-        
-        // Compute pressure for each cell
-        computePressure(getGroundHeight);
-        
-        // Compute flows between cells
-        computeFlows(dt);
-        
-        // Apply flows
-        applyFlows(dt);
-        
-        // Handle evaporation and infiltration
-        applyEnvironmentalLosses(dt);
-        
-        // Update statistics
-        updateStatistics();
-        
-        simulationTimeNs.addAndGet(System.nanoTime() - start);
-    }
-
-    private void computePressure(DoubleSupplier getGroundHeight) {
-        int index = 0;
-        for (int z = 0; z < CHUNK_SIZE; z++) {
-            for (int x = 0; x < CHUNK_SIZE; x++, index++) {
-                if (material[index] != 1) { // Not water
-                    pressure[index] = 0.0;
-                    continue;
-                }
-                
-                double level = waterLevel[index];
-                if (level <= 0.0) {
-                    pressure[index] = 0.0;
-                    continue;
-                }
-                
-                // Pressure = rho * g * h (hydrostatic)
-                // Plus dynamic pressure from flow
-                double groundHeight = getGroundHeight.getAsDouble(); // Would need x,z params
-                double depth = level - groundHeight;
-                pressure[index] = WATER_DENSITY * GRAVITY * Math.max(0, depth);
-                
-                // Add dynamic pressure
-                double flowSpeed = Math.hypot(flowX[index], flowZ[index]);
-                pressure[index] += 0.5 * WATER_DENSITY * flowSpeed * flowSpeed;
-            }
-        }
-    }
-
-    private void computeFlows(double dt) {
-        // Internal flows (cell to cell within chunk)
-        for (int z = 0; z < CHUNK_SIZE; z++) {
-            for (int x = 0; x < CHUNK_SIZE; x++) {
-                int idx = z * CHUNK_SIZE + x;
-                if (material[idx] != 1 || waterLevel[idx] <= MIN_FLOW_THRESHOLD) continue;
-                
-                // Flow to +X neighbor
-                if (x < CHUNK_SIZE - 1) {
-                    int idxX = z * CHUNK_SIZE + (x + 1);
-                    computeFlow(idx, idxX, 1.0, 0.0, dt);
-                }
-                
-                // Flow to +Z neighbor
-                if (z < CHUNK_SIZE - 1) {
-                    int idxZ = (z + 1) * CHUNK_SIZE + x;
-                    computeFlow(idx, idxZ, 0.0, 1.0, dt);
-                }
-            }
-        }
-        
-        // Boundary flows (to/from neighboring chunks)
-        // This would be handled by the chunk boundary system
-    }
-
-    private void computeFlow(int fromIdx, int toIdx, double dirX, double dirZ, double dt) {
-        if (material[toIdx] != 1) return; // Can't flow into non-water
-        
-        double pressureDiff = pressure[fromIdx] - pressure[toIdx];
-        if (Math.abs(pressureDiff) < MIN_FLOW_THRESHOLD) return;
-        
-        // Flow rate proportional to pressure difference
-        double flowRate = pressureDiff * 0.001 * dt; // Tuned coefficient
-        
-        // Limit by available water
-        double availableWater = waterLevel[fromIdx] * 0.1; // Max 10% per tick
-        flowRate = Math.min(flowRate, availableWater);
-        
-        // Limit by max speed
-        double maxFlow = MAX_FLOW_SPEED * dt;
-        flowRate = Math.min(flowRate, maxFlow);
-        
-        // Accumulate flow
-        flowX[fromIdx] -= flowRate * dirX;
-        flowZ[fromIdx] -= flowRate * dirZ;
-        flowX[toIdx] += flowRate * dirX;
-        flowZ[toIdx] += flowRate * dirZ;
-    }
-
-    private void applyFlows(double dt) {
-        for (int i = 0; i < CELL_COUNT; i++) {
-            if (material[i] != 1) continue;
-            
-            double netFlowX = flowX[i];
-            double netFlowZ = flowZ[i];
-            
-            // Distribute outflow to neighbors (simplified)
-            // In reality, this would be a proper divergence calculation
-            waterLevel[i] -= (Math.abs(netFlowX) + Math.abs(netFlowZ)) * 0.5;
-            waterLevel[i] = Math.max(0, waterLevel[i]);
-        }
-    }
-
-    private void applyEnvironmentalLosses(double dt) {
-        for (int i = 0; i < CELL_COUNT; i++) {
-            if (material[i] != 1) continue;
-            
-            double level = waterLevel[i];
-            if (level <= 0) continue;
-            
-            // Evaporation
-            double evaporation = level * EVAPORATION_RATE * dt;
-            
-            // Infiltration (into ground)
-            double infiltration = level * INFILTRATION_RATE * dt;
-            
-            waterLevel[i] = Math.max(0, level - evaporation - infiltration);
-        }
-    }
-
-    private void updateStatistics() {
-        long volume = 0;
-        long active = 0;
-        for (int i = 0; i < CELL_COUNT; i++) {
-            if (material[i] == 1 && waterLevel[i] > 0) {
-                volume += (long) (waterLevel[i] * 1000); // mL
-                active++;
-            }
-        }
-        totalWaterVolume.set(volume);
-        activeCells.set(active);
-    }
-
-    /**
-     * Set water level at a cell (for source blocks, rain, etc.)
-     */
-    public void setWaterLevel(int x, int z, double level, boolean source) {
-        int idx = z * CHUNK_SIZE + x;
-        waterLevel[idx] = Math.max(0, level);
-        isSource[idx] = source;
-        material[idx] = 1;
-    }
-
-    /**
-     * Add water to a cell (rain, bucket, etc.)
-     */
-    public void addWater(int x, int z, double amount) {
-        int idx = z * CHUNK_SIZE + x;
-        waterLevel[idx] += amount;
-        material[idx] = 1;
-    }
-
-    /**
-     * Remove water from a cell (bucket, pump, etc.)
-     */
-    public double removeWater(int x, int z, double amount) {
-        int idx = z * CHUNK_SIZE + x;
-        double available = waterLevel[idx];
-        double removed = Math.min(amount, available);
-        waterLevel[idx] -= removed;
-        if (waterLevel[idx] <= 0) {
-            waterLevel[idx] = 0;
-            material[idx] = 0;
-            isSource[idx] = false;
-        }
-        return removed;
-    }
-
-    public double getWaterLevel(int x, int z) {
-        return waterLevel[z * CHUNK_SIZE + x];
-    }
-
-    public double getFlowX(int x, int z) {
-        return flowX[z * CHUNK_SIZE + x];
-    }
-
-    public double getFlowZ(int x, int z) {
-        return flowZ[z * CHUNK_SIZE + x];
-    }
-
-    public double getPressure(int x, int z) {
-        return pressure[z * CHUNK_SIZE + x];
-    }
-
-    public boolean isSource(int x, int z) {
-        return isSource[z * CHUNK_SIZE + x];
-    }
-
-    public void setMaterial(int x, int z, byte materialType) {
-        material[z * CHUNK_SIZE + x] = materialType;
-    }
-
-    public byte getMaterial(int x, int z) {
-        return material[z * CHUNK_SIZE + x];
-    }
-
-    /**
-     * Serialize to WaterCornerPacket format for network/renderer.
-     */
-    public void encodeToPacket(java.nio.ByteBuffer buffer, int offset, long timestamp) {
-        // Pack 4 corners (simplified - real implementation would encode all cells)
-        // This is a placeholder for the actual packet encoding
-        for (int corner = 0; corner < 4; corner++) {
-            int x = (corner % 2) * (CHUNK_SIZE - 1);
-            int z = (corner / 2) * (CHUNK_SIZE - 1);
-            int idx = z * CHUNK_SIZE + x;
-            
-            int target = material[idx] == 1 ? 1 : 0;
-            int source = isSource[idx] ? 1 : 0;
-            int age = (int) (timestamp & 0xFFFF);
-            
-            WaterCornerPacket.write(buffer, offset + corner * 36,
-                0, target, source, age, age, false);
-        }
-    }
-
-    /**
-     * Create a WaterSimulation from chunk data.
-     */
-    public static WaterSimulation fromChunkData(double[] waterLevels, boolean[] sources, byte[] materials) {
-        WaterSimulation sim = new WaterSimulation();
-        for (int i = 0; i < CELL_COUNT; i++) {
-            sim.waterLevel[i] = waterLevels[i];
-            sim.isSource[i] = sources[i];
-            sim.material[i] = materials[i];
-        }
-        return sim;
-    }
-
-    /**
-     * Get simulation statistics.
-     */
-    public record Stats(
-        long simulationTimeUs,
-        long totalWaterVolumeMl,
-        long activeCells,
-        double avgWaterLevel
-    ) {}
-
-    public Stats getStats() {
-        double sum = 0;
-        int count = 0;
-        for (int i = 0; i < CELL_COUNT; i++) {
-            if (material[i] == 1 && waterLevel[i] > 0) {
-                sum += waterLevel[i];
-                count++;
-            }
-        }
-        return new Stats(
-            simulationTimeNs.get() / 1000,
-            totalWaterVolume.get(),
-            activeCells.get(),
-            count > 0 ? sum / count : 0
-        );
-    }
-
-    public void resetStats() {
-        simulationTimeNs.set(0);
-        totalWaterVolume.set(0);
-        activeCells.set(0);
-    }
+  public static final int CHUNK_SIZE=16,CELL_COUNT=256,PACKET_BYTES=16+CELL_COUNT*3;
+  private final int[] units=new int[CELL_COUNT],ground=new int[CELL_COUNT];
+  private final double[] flowX=new double[CELL_COUNT],flowZ=new double[CELL_COUNT];
+  private final boolean[] sources=new boolean[CELL_COUNT];private final byte[] materials=new byte[CELL_COUNT];
+  private double fraction;
+  public final AtomicLong simulationTimeNs=new AtomicLong(),totalWaterVolume=new AtomicLong(),activeCells=new AtomicLong();
+  private static int index(int x,int z){if(x<0||x>=16||z<0||z>=16)throw new IllegalArgumentException("cell coordinates");return z*16+x;}
+  private static int volume(double value){if(!Double.isFinite(value)||value<0||value>1||Math.abs(value*16-Math.rint(value*16))>1e-8)throw new IllegalArgumentException("volume must be 0..1 in 1/16 steps");return (int)Math.rint(value*16);}
+  public synchronized void tick(double dt,DoubleSupplier height){tick(dt,(x,z)->height.getAsDouble());}
+  public synchronized void tick(double dt,DoubleBinaryOperator height){
+    if(!Double.isFinite(dt)||dt<0||dt>4)throw new IllegalArgumentException("tick delta 0..4");Objects.requireNonNull(height);
+    int[] nextGround=new int[256];for(int z=0;z<16;z++)for(int x=0;x<16;x++){double h=height.applyAsDouble(x,z);if(!Double.isFinite(h)||Math.abs(h)>30_000_000)throw new IllegalArgumentException("ground height");nextGround[index(x,z)]=(int)Math.floor(h);}
+    System.arraycopy(nextGround,0,ground,0,256);long start=System.nanoTime();Arrays.fill(flowX,0);Arrays.fill(flowZ,0);fraction+=dt;
+    while(fraction>=1){fraction--;for(int z=0;z<16;z++)for(int x=0;x<16;x++){int i=index(x,z);if(x<15)exchange(i,i+1,true);if(z<15)exchange(i,i+16,false);}}
+    update();long elapsed=System.nanoTime()-start;simulationTimeNs.addAndGet(elapsed);EngineMetrics.recordWaterSim(elapsed);
+  }
+  private void exchange(int a,int b,boolean x){
+    if(materials[a]>1||materials[b]>1)return;
+    boolean reverse=(long)ground[a]*16+units[a]<(long)ground[b]*16+units[b];int from=reverse?b:a,to=reverse?a:b;
+    var move=WaterTransport.pressure(ground[from],units[from],ground[to],units[to]);units[from]=move.from();units[to]=move.to();
+    if(units[to]>0)materials[to]=1;double v=move.moved()/16.0*(reverse?-1:1);double[] flow=x?flowX:flowZ;flow[a]+=v;flow[b]+=v;
+  }
+  public synchronized void setWaterLevel(int x,int z,double level,boolean source){int i=index(x,z);units[i]=volume(level);sources[i]=source;materials[i]=(byte)(units[i]>0?1:0);update();}
+  public synchronized void addWater(int x,int z,double amount){int i=index(x,z),add=volume(amount);if(materials[i]>1)throw new IllegalStateException("solid cell");if(add>16-units[i])throw new IllegalArgumentException("cell capacity");units[i]+=add;if(units[i]>0)materials[i]=1;update();}
+  public synchronized double removeWater(int x,int z,double amount){int i=index(x,z),take=Math.min(units[i],volume(amount));units[i]-=take;update();return take/16.0;}
+  public synchronized double getWaterLevel(int x,int z){return units[index(x,z)]/16.0;}
+  public synchronized double getFlowX(int x,int z){return flowX[index(x,z)];}public synchronized double getFlowZ(int x,int z){return flowZ[index(x,z)];}
+  public synchronized double getPressure(int x,int z){int i=index(x,z);return (ground[i]+units[i]/16.0)*9810;}
+  public synchronized boolean isSource(int x,int z){return sources[index(x,z)];}
+  public synchronized void setMaterial(int x,int z,byte material){if(material<0||material>2)throw new IllegalArgumentException("material");int i=index(x,z);if(units[i]>0&&material!=1)throw new IllegalStateException("drain water before replacing material");materials[i]=material;}
+  public synchronized byte getMaterial(int x,int z){return materials[index(x,z)];}
+  /** Independent versioned query snapshot, not WaterCornerPacket or world saved data. */
+  public synchronized void encodeToPacket(ByteBuffer buffer,int offset,long timestamp){
+    if(buffer.isReadOnly()||offset<0||offset>buffer.limit()-PACKET_BYTES)throw new IllegalArgumentException("packet buffer");var out=buffer.duplicate().order(ByteOrder.BIG_ENDIAN);out.position(offset);out.putInt(0x44505753).putInt(1).putLong(timestamp);for(int i=0;i<256;i++)out.put((byte)units[i]).put((byte)(sources[i]?1:0)).put(materials[i]);
+  }
+  public static WaterSimulation fromChunkData(double[] levels,boolean[] sources,byte[] materials){if(levels.length!=256||sources.length!=256||materials.length!=256)throw new IllegalArgumentException("256 cells required");var result=new WaterSimulation();for(int i=0;i<256;i++){result.setWaterLevel(i%16,i/16,levels[i],sources[i]);result.setMaterial(i%16,i/16,materials[i]);}return result;}
+  private void update(){long sum=0,active=0;for(int u:units){sum+=u;if(u>0)active++;}totalWaterVolume.set(sum*62500L);activeCells.set(active);}
+  public record Stats(long activeCells,long totalWaterVolumeMl,long simulationTimeNs){}
+  public synchronized Stats getStats(){update();return new Stats(activeCells.get(),totalWaterVolume.get(),simulationTimeNs.get());}
+  public void resetStats(){simulationTimeNs.set(0);}
 }

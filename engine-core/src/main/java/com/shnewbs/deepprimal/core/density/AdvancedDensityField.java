@@ -1,250 +1,112 @@
 package com.shnewbs.deepprimal.core.density;
 
-import com.shnewbs.deepprimal.core.TerrainEngine;
-import com.shnewbs.deepprimal.core.TerrainOptions;
-import com.shnewbs.deepprimal.core.TerrainNoise;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.DoubleSupplier;
+import com.shnewbs.deepprimal.core.*;
+import java.util.*;
 
-/**
- * Advanced density field with caching, LOD, and derivative computation.
- * Used for high-quality terrain generation and collision.
- */
-public final class AdvancedDensityField {
-    private final TerrainNoise noise;
-    private final TerrainOptions options;
-    private final TerrainEngine engine;
-    
-    // Caches for different LODs
-    private final ConcurrentHashMap<Long, DensityChunk> chunkCache = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<Long, DensityChunk> lodCache = new ConcurrentHashMap<>();
-    
-    // Configuration
-    private final int baseResolution = 32; // 32^3 per chunk
-    private final int maxLod = 3;
-    
-    public AdvancedDensityField(TerrainEngine engine) {
-        this.engine = engine;
-        this.noise = engine.noise;
-        this.options = engine.options;
+/** Bounded query/preview field using the saved terrain planner; never replaces saved geography. */
+public final class AdvancedDensityField implements DensityField {
+  private final TerrainEngine engine;
+  private final int minY,height;
+  private final ChunkCache cache;
+  public AdvancedDensityField(TerrainEngine engine){this(engine,-128,768,new ChunkCache(16,128));}
+  public AdvancedDensityField(TerrainEngine engine,int minY,int height,ChunkCache cache){
+    this.engine=Objects.requireNonNull(engine);this.cache=Objects.requireNonNull(cache);
+    if(height<1||height>DensityChunk.MAX_HEIGHT||minY < -DensityGraph.WORLD_LIMIT || (long)minY+height>DensityGraph.WORLD_LIMIT)throw new IllegalArgumentException("vertical range");
+    this.minY=minY;this.height=height;
+  }
+  @Override public double sample(double x,double y,double z){return sampleFullRes(x,y,z);}
+  public double sample(double x,double y,double z,int lod){
+    if(lod<0||lod>3)throw new IllegalArgumentException("LOD 0..3");
+    // Exact world-coordinate queries prevent collisions between LOD/cache keys and seams.
+    return sampleFullRes(x,y,z);
+  }
+  public double sampleFullRes(double x,double y,double z){
+    if(Thread.currentThread().isInterrupted())throw new java.util.concurrent.CancellationException("query cancelled");
+    if(!Double.isFinite(x)||!Double.isFinite(y)||!Double.isFinite(z)||Math.abs(x)>DensityGraph.WORLD_LIMIT||Math.abs(z)>DensityGraph.WORLD_LIMIT||Math.abs(y)>DensityGraph.WORLD_LIMIT)throw new IllegalArgumentException("coordinates");
+    synchronized(engine){var s=engine.column(x,z);double d=Math.floor(s.ground())+1-y;
+      if(d>0 && engine.cave(x,y,z,s.ground(),minY))return -1;
+      return d;
     }
-
-    /**
-     * Sample density at a world position with automatic LOD selection.
-     * @param x World X coordinate
-     * @param y World Y coordinate
-     * @param z World Z coordinate
-     * @param lod Level of detail (0 = full res, higher = lower res)
-     */
-    public double sample(double x, double y, double z, int lod) {
-        if (lod <= 0) {
-            return sampleFullRes(x, y, z);
+  }
+  public DensityChunk generateChunk(int x,int z){
+    long key=((long)x<<32)|(z&0xffffffffL);
+    return cache.getOrCompute(key,k->{
+      int ox=Math.multiplyExact(x,16),oz=Math.multiplyExact(z,16);
+      // DensityChunk visits one complete vertical column at a time. Plan that column once.
+      DensityField sampler=new DensityField(){
+        private double lastX=Double.NaN,lastZ=Double.NaN,ground;
+        @Override public double sample(double wx,double y,double wz){
+          if(Thread.currentThread().isInterrupted())throw new java.util.concurrent.CancellationException("query cancelled");
+          synchronized(engine){
+            if(wx!=lastX||wz!=lastZ){ground=engine.column(wx,wz).ground();lastX=wx;lastZ=wz;}
+            double density=Math.floor(ground)+1-y;
+            return density>0&&engine.cave(wx,y,wz,ground,minY)?-1:density;
+          }
         }
-        
-        // Use cached LOD data
-        long key = lodKey(x, z, lod);
-        DensityChunk chunk = lodCache.computeIfAbsent(key, k -> generateLodChunk(k, lod));
-        return chunk.sample(x, y, z);
+      };
+      return DensityChunk.sample(sampler,ox,minY,oz,height);
+    },256L*height/8+1024);
+  }
+  public DensitySample sampleWithDerivatives(double x,double y,double z){double e=.125;return new DensitySample(sample(x,y,z),(sample(x+e,y,z)-sample(x-e,y,z))/(2*e),(sample(x,y+e,z)-sample(x,y-e,z))/(2*e),(sample(x,y,z+e)-sample(x,y,z-e))/(2*e));}
+  public MeshData computeMesh(int x,int z){return mesh(generateChunk(x,z));}
+  /** Exposed voxel faces, including the bounded query volume's edges. Not a host block-model mesh. */
+  public static MeshData mesh(DensityChunk chunk){
+    var builder=new MeshBuilder();
+    int[][] direction={{-1,0,0},{1,0,0},{0,-1,0},{0,1,0},{0,0,-1},{0,0,1}};
+    int[][][] corners={{{0,0,0},{0,0,1},{0,1,1},{0,1,0}},{{1,0,1},{1,0,0},{1,1,0},{1,1,1}},{{0,0,1},{0,0,0},{1,0,0},{1,0,1}},{{0,1,0},{0,1,1},{1,1,1},{1,1,0}},{{1,0,0},{0,0,0},{0,1,0},{1,1,0}},{{0,0,1},{1,0,1},{1,1,1},{0,1,1}}};
+    chunk.forEachSolid((x,y,z)->{for(int f=0;f<6;f++){
+      int nx=x+direction[f][0],ny=y+direction[f][1],nz=z+direction[f][2];
+      if(nx>=0&&nx<16&&nz>=0&&nz<16&&ny>=chunk.minY()&&ny<chunk.maxYExclusive()&&chunk.solid(nx,ny,nz))continue;
+      builder.face(x,y,z,corners[f],direction[f]);
+    }});
+    return builder.finish();
+  }
+  private static final class MeshBuilder {
+    private static final int MAX_VERTICES=1_048_576;
+    private static final int[] TRIANGLES={0,1,2,0,2,3};
+    private float[] positions=new float[3072];
+    private byte[] normals=new byte[3072];
+    private int[] indices=new int[1536];
+    private int vertices,indexCount;
+    void face(int x,int y,int z,int[][] corners,int[] direction){
+      if(Thread.currentThread().isInterrupted())throw new java.util.concurrent.CancellationException("mesh cancelled");
+      if(vertices>MAX_VERTICES-4)throw new IllegalStateException("query mesh exceeds face budget");
+      int required=(vertices+4)*3;
+      if(required>positions.length){int capacity=Math.min(MAX_VERTICES*3,Math.max(required,positions.length*2));positions=Arrays.copyOf(positions,capacity);normals=Arrays.copyOf(normals,capacity);}
+      if(indexCount+6>indices.length)indices=Arrays.copyOf(indices,Math.min(MAX_VERTICES/4*6,Math.max(indexCount+6,indices.length*2)));
+      int base=vertices;
+      for(int[] v:corners){int at=vertices++*3;positions[at]=x+v[0];positions[at+1]=y+v[1];positions[at+2]=z+v[2];for(int i=0;i<3;i++)normals[at+i]=(byte)(direction[i]*127);}
+      for(int i:TRIANGLES)indices[indexCount++]=base+i;
     }
+    MeshData finish(){return new MeshData(Arrays.copyOf(positions,vertices*3),Arrays.copyOf(indices,indexCount),Arrays.copyOf(normals,vertices*3),new short[vertices]);}
+  }
 
-    /**
-     * Sample at full resolution.
-     */
-    public double sampleFullRes(double x, double y, double z) {
-        // Use the engine's raw height function
-        double groundHeight = engine.raw(x, z);
-        
-        // Convert to density: positive = solid, negative = air
-        // Using a smooth transition around the surface
-        double density = groundHeight - y;
-        
-        // Add noise for caves/overhangs
-        if (options.caves()) {
-            double caveNoise = noise.volume(x, y, z, 54, 140);
-            double caveNoise2 = noise.volume(x, y, z, 62, 740);
-            double caveFactor = caveNoise * caveNoise + caveNoise2 * caveNoise2;
-            if (caveFactor < 0.012) {
-                density = -Math.abs(density) - 1.0; // Force air
-            }
-        }
-        
-        return density;
+  public SurfaceHit raycast(double ox,double oy,double oz,double dx,double dy,double dz,double maxDist){
+    if(!Double.isFinite(maxDist)||maxDist<0||maxDist>4096)throw new IllegalArgumentException("ray distance 0..4096");
+    double len=Math.hypot(Math.hypot(dx,dy),dz);if(!Double.isFinite(len)||len==0)throw new IllegalArgumentException("ray direction");dx/=len;dy/=len;dz/=len;
+    double previous=sample(ox,oy,oz),last=0;
+    for(double t=Math.min(.5,maxDist);t>last;t=Math.min(t+.5,maxDist)){
+      double d=sample(ox+dx*t,oy+dy*t,oz+dz*t);
+      if((previous>0)!=(d>0)){double lo=last,hi=t;boolean solid=previous>0;
+        for(int i=0;i<16;i++){double mid=(lo+hi)/2;if((sample(ox+dx*mid,oy+dy*mid,oz+dz*mid)>0)==solid)lo=mid;else hi=mid;}
+        double hit=(lo+hi)/2,x=ox+dx*hit,y=oy+dy*hit,z=oz+dz*hit;var n=sampleWithDerivatives(x,y,z).normalized();
+        return new SurfaceHit(true,hit,x,y,z,-n.dx,-n.dy,-n.dz);
+      } previous=d;last=t;
     }
-
-    /**
-     * Sample with derivatives (gradient) for normal computation.
-     */
-    public DensitySample sampleWithDerivatives(double x, double y, double z) {
-        double eps = 0.01;
-        
-        double d = sampleFullRes(x, y, z);
-        double dx = sampleFullRes(x + eps, y, z) - d;
-        double dy = sampleFullRes(x, y + eps, z) - d;
-        double dz = sampleFullRes(x, y, z + eps) - d;
-        
-        return new DensitySample(d, dx / eps, dy / eps, dz / eps);
-    }
-
-    /**
-     * Generate a full-resolution density chunk.
-     */
-    public DensityChunk generateChunk(int chunkX, int chunkZ) {
-        long key = chunkKey(chunkX, chunkZ);
-        return chunkCache.computeIfAbsent(key, k -> {
-            DensityChunk chunk = new DensityChunk(chunkX, chunkZ, baseResolution);
-            int baseX = chunkX * 16;
-            int baseZ = chunkZ * 16;
-            
-            for (int x = 0; x < baseResolution; x++) {
-                for (int y = 0; y < baseResolution; y++) {
-                    for (int z = 0; z < baseResolution; z++) {
-                        double wx = baseX + (x + 0.5) * 16.0 / baseResolution;
-                        double wy = y * 256.0 / baseResolution; // Full height
-                        double wz = baseZ + (z + 0.5) * 16.0 / baseResolution;
-                        chunk.set(x, y, z, sampleFullRes(wx, wy, wz));
-                    }
-                }
-            }
-            return chunk;
-        });
-    }
-
-    private DensityChunk generateLodChunk(long key, int lod) {
-        int resolution = baseResolution >> lod;
-        int chunkX = (int) (key >> 32);
-        int chunkZ = (int) (key & 0xFFFFFFFFL);
-        
-        DensityChunk chunk = new DensityChunk(chunkX, chunkZ, resolution);
-        int baseX = chunkX * 16;
-        int baseZ = chunkZ * 16;
-        
-        for (int x = 0; x < resolution; x++) {
-            for (int y = 0; y < resolution; y++) {
-                for (int z = 0; z < resolution; z++) {
-                    double wx = baseX + (x + 0.5) * 16.0 / resolution;
-                    double wy = y * 256.0 / resolution;
-                    double wz = baseZ + (z + 0.5) * 16.0 / resolution;
-                    chunk.set(x, y, z, sampleFullRes(wx, wy, wz));
-                }
-            }
-        }
-        return chunk;
-    }
-
-    /**
-     * Compute the surface mesh for a chunk using dual contouring.
-     */
-    public MeshData computeMesh(int chunkX, int chunkZ) {
-        DensityChunk chunk = generateChunk(chunkX, chunkZ);
-        return DualContouring.extractMesh(chunk);
-    }
-
-    /**
-     * Find the exact surface intersection along a ray.
-     * Used for precise block placement and collision.
-     */
-    public SurfaceHit raycast(double ox, double oy, double oz,
-                               double dx, double dy, double dz,
-                               double maxDist) {
-        double t = 0;
-        double step = 0.5;
-        double prevDensity = sampleFullRes(ox, oy, oz);
-        
-        while (t < maxDist) {
-            double x = ox + dx * t;
-            double y = oy + dy * t;
-            double z = oz + dz * t;
-            
-            double density = sampleFullRes(x, y, z);
-            
-            if (prevDensity > 0 && density <= 0) {
-                // Crossed surface - binary search for exact intersection
-                double t0 = t - step;
-                double t1 = t;
-                for (int i = 0; i < 8; i++) {
-                    double tm = (t0 + t1) * 0.5;
-                    double xm = ox + dx * tm;
-                    double ym = oy + dy * tm;
-                    double zm = oz + dz * tm;
-                    double dm = sampleFullRes(xm, ym, zm);
-                    if (dm > 0) t0 = tm;
-                    else t1 = tm;
-                }
-                double hitT = (t0 + t1) * 0.5;
-                double hx = ox + dx * hitT;
-                double hy = oy + dy * hitT;
-                double hz = oz + dz * hitT;
-                var deriv = sampleWithDerivatives(hx, hy, hz);
-                return new SurfaceHit(true, hitT, hx, hy, hz, deriv.nx(), deriv.ny(), deriv.nz());
-            }
-            
-            prevDensity = density;
-            t += step;
-        }
-        
-        return new SurfaceHit(false, maxDist, 0, 0, 0, 0, 0, 0);
-    }
-
-    /**
-     * Clear all caches.
-     */
-    public void clearCaches() {
-        chunkCache.clear();
-        lodCache.clear();
-    }
-
-    /**
-     * Get cache statistics.
-     */
-    public record CacheStats(int chunkCount, int lodCount, long estimatedMemoryBytes) {}
-    
-    public CacheStats getCacheStats() {
-        return new CacheStats(
-            chunkCache.size(),
-            lodCache.size(),
-            (chunkCache.size() + lodCache.size()) * baseResolution * baseResolution * baseResolution * 8
-        );
-    }
-
-    private static long chunkKey(int chunkX, int chunkZ) {
-        return ((long) chunkX << 32) | (chunkZ & 0xFFFFFFFFL);
-    }
-
-    private static long lodKey(double x, double z, int lod) {
-        int chunkX = (int) Math.floor(x / 16);
-        int chunkZ = (int) Math.floor(z / 16);
-        return (((long) chunkX << 32) | (chunkZ & 0xFFFFFFFFL)) << 8 | lod;
-    }
-
-    public record DensitySample(double density, double dx, double dy, double dz) {
-        public double nx() { return dx; }
-        public double ny() { return dy; }
-        public double nz() { return dz; }
-        public double length() { return Math.sqrt(dx * dx + dy * dy + dz * dz); }
-        public DensitySample normalized() {
-            double len = length();
-            return len > 0 ? new DensitySample(density, dx / len, dy / len, dz / len) : this;
-        }
-    }
-
-    public record SurfaceHit(boolean hit, double distance, double x, double y, double z,
-                              double nx, double ny, double nz) {}
-
-    public record MeshData(
-        float[] positions,
-        int[] indices,
-        byte[] normals,
-        short[] materialIds
-    ) {}
-
-    /**
-     * Dual contouring mesh extraction (simplified).
-     */
-    private static class DualContouring {
-        static MeshData extractMesh(DensityChunk chunk) {
-            // Simplified - real implementation would use proper dual contouring
-            // with QEF solving for sharp features
-            return new MeshData(new float[0], new int[0], new byte[0], new short[0]);
-        }
-    }
+    return new SurfaceHit(false,maxDist,0,0,0,0,0,0);
+  }
+  public void clearCaches(){cache.clear();}
+  public record CacheStats(int chunkCount,int lodCount,long estimatedMemoryBytes){}
+  public CacheStats getCacheStats(){return new CacheStats(cache.size(),0,cache.getMemoryUsage());}
+  public record DensitySample(double density,double dx,double dy,double dz){
+    public double nx(){return dx;}public double ny(){return dy;}public double nz(){return dz;}
+    public double length(){return Math.hypot(Math.hypot(dx,dy),dz);}
+    public DensitySample normalized(){double l=length();return l>0?new DensitySample(density,dx/l,dy/l,dz/l):this;}
+  }
+  public record SurfaceHit(boolean hit,double distance,double x,double y,double z,double nx,double ny,double nz){}
+  public record MeshData(float[] positions,int[] indices,byte[] normals,short[] materialIds){
+    public MeshData{if(positions.length%3!=0||indices.length%3!=0||normals.length!=positions.length||materialIds.length!=positions.length/3)throw new IllegalArgumentException("mesh layout");for(int i:indices)if(i<0||i>=positions.length/3)throw new IllegalArgumentException("mesh index");positions=positions.clone();indices=indices.clone();normals=normals.clone();materialIds=materialIds.clone();}
+    @Override public float[] positions(){return positions.clone();}@Override public int[] indices(){return indices.clone();}@Override public byte[] normals(){return normals.clone();}@Override public short[] materialIds(){return materialIds.clone();}
+    public long payloadBytes(){return 4L*positions.length+4L*indices.length+normals.length+2L*materialIds.length;}
+  }
 }
