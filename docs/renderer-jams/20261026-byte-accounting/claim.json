@@ -1,7 +1,7 @@
 {
   "owner": "renderer-20261026-byte-accounting",
-  "status": "active",
-  "active_until": "2026-10-26T18:30:00Z",
+  "status": "checkpointed",
+  "active_until": null,
   "parent": "bf7b36a21b7063c1d273c383008ddfd073d5e5b1",
   "scope": [
     "docs/renderer-jams/20261026-byte-accounting"
@@ -9,8 +9,15 @@
   "candidate_target": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
   "production_edit_authorized_after_full_qualification": false,
   "measurement": {
-    "status": "functional_only",
-    "exclusive_benchmark": false
+    "status": "completed_scoped_allocation",
+    "exclusive_benchmark": false,
+    "timed_benchmark": false
   },
-  "blocker": "292MiB filesystem headroom; full isolated build unavailable"
+  "blocker": "292MiB filesystem headroom; full isolated build unavailable",
+  "completed_at": "2026-10-26 18:00:32 UTC",
+  "lease_released": true,
+  "production_runtime_changed": false,
+  "final_source_parent": "bf7b36a21b7063c1d273c383008ddfd073d5e5b1",
+  "candidate_sha256": "4c8d6b60a71c1021d245df622105b1d1a8a4f0bd0dc58fd2a205f83c9be85eec",
+  "evidence": "REVIEW.md"
 }
