@@ -1,0 +1,9 @@
+{
+  "themes_complete_output_moved": "/dev/shm/deepprimal-audit-4fb29e0-themes-0154",
+  "files_compared": 5046,
+  "sha256_identity": true,
+  "producer_themes_tasks_completed_before_move": true,
+  "root_output": "/dev/shm/deepprimal-audit-4fb29e0-root-0154",
+  "root_files_compared": 722,
+  "removed_failed_execution_history": true
+}

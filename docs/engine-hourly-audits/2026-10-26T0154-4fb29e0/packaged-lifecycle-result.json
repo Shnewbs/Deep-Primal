@@ -1,0 +1,13 @@
+{
+  "pass": true,
+  "actual_code_source_verified": true,
+  "nested_core_sha256": "7db99717bcef33213d606ec88be7cc7fca73c35afbbc8db0a3fef421ad38e332",
+  "checks": [
+    "cache loader outside monitor",
+    "post-clear admission rejected",
+    "one winner for duplicate completion",
+    "negative weight before callback",
+    "EngineCore close while caller worker blocked",
+    "caller executor ownership retained"
+  ]
+}

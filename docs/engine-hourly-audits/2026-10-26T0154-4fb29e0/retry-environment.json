@@ -1,0 +1,4 @@
+{
+  "JDK_JAVA_OPTIONS": "-Xmx512m",
+  "reason": "daemon disappeared; container OOM counter1 observed; sequential bounded audit retry; no other job changed"
+}
