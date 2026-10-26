@@ -1,0 +1,13 @@
+{
+  "owner": "renderer-20261026-part-bounds",
+  "status": "active",
+  "parent": "d6e32501827565239220d61078f6d9c41ebf70fd",
+  "started_at": "2026-10-26T11:02:44.061Z",
+  "active_until": "2026-10-26T11:42:44.061Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodPartBoundsChecks.java",
+    "docs/renderer-jams/20261026-part-bounds"
+  ],
+  "measurement": "functional geometry/bounds comparison only; no GPU performance reservation"
+}
