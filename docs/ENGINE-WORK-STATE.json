@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T00:56:05Z",
-  "active_until": "2026-10-26T00:56:05Z",
+  "status": "active",
+  "updated_at": "2026-10-26T01:30:15Z",
+  "active_until": "2026-10-26T02:00:15.000Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.23",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev.23 source/build repair complete; native gameplay/save/reopen and GPU validation remain open, along with existing broader engine roadmap gates",
+  "current_gate": "Reproduce and stage cache loader lock/shutdown correction",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -469,7 +469,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "foreground-continue-integration-20261026",
+  "worker": "hourly-engine-builder-20261026T0128",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
