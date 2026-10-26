@@ -1,0 +1,19 @@
+{
+  "unchanged_pinned_inputs": 841,
+  "mismatches": [],
+  "fresh_pinned_inputs": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
+    "gradle.properties",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/SplitAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBudgetChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/PrecipitationPersistenceChecks.java"
+  ],
+  "renderer_changes": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/RollingTiming.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/RollingTimingChecks.java"
+  ],
+  "pinned_base": "2617d261284e0ae4f3a07f627e301ec92122f560"
+}
