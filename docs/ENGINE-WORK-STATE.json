@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T17:06:58Z",
-  "active_until": "2026-10-27T17:22:00Z",
-  "source_ref": "0f9f90678cb029c3943420e067a171986dd90d35",
+  "updated_at": "2026-10-27T17:15:05Z",
+  "active_until": "2026-10-27T17:15:35Z",
+  "source_ref": "1926652cfbad9c84ec648a19e8c73d950a41ccc4",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Qualify full Java25/Gradle producer and native source-index/contact/chemistry/retry gates before promoting combined staged candidate",
+  "current_gate": "Full pinned Java25/Gradle combined contact-index production qualification and actual next-tick fluid schedule/native regression, then loaded/unloaded water ledger and real GPU cliff acceptance.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-27 staged next-tick water chemistry retry contract in docs/validation/engine-continuation/water-contact-retry-ticket-2026-10-27/README.md: original FIRST dedup could consume same-tick FIFO after commit rejection; JDK21 stubbed 15 cases pass. Must test full Java25/native scheduled tick and complete merged water integration before production.",
     "2026-10-27 builder staged cumulative chemistry contact-table probe bound/retry under docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/README.md; Java21 helper+stub checks pass, full Java25/native producer required before promotion.",
     "Full combined staged-index build/module/bundle qualification, packaged weather/travel/lifecycle gates, then conservative loaded/unloaded ownership",
     "Recover sufficient private build/output headroom; qualify staged recharge reservation via full Gradle/module/native source-quota/recharge/save/reopen gates before promotion.",
@@ -1027,8 +1028,8 @@
   "builder_cycle": {
     "worker": "builder-chat-20261027T1700",
     "started_at": "2026-10-27T17:06:58Z",
-    "lease_until": "2026-10-27T17:22:00Z",
-    "phase": "implementing",
+    "lease_until": "2026-10-27T17:15:05Z",
+    "phase": "checkpointed_source_only",
     "scope": [
       "docs/ENGINE-WORK-STATE.json",
       "docs/validation/engine-continuation/water-contact-retry-ticket-2026-10-27/"
@@ -1043,7 +1044,15 @@
     },
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1634-bd28005/REVIEW.md",
     "target": "staged chemistry commit retry next-tick persistence and targeted stub checks",
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "completed_at": "2026-10-27T17:15:05Z",
+    "lease_released": true,
+    "implemented": "Persist rejected/denied water chemistry contact to one-tick native fluid schedule while retaining bounded FIFO; new staged adapter only.",
+    "committed_stage": "1926652cfbad9c84ec648a19e8c73d950a41ccc4",
+    "last_external_grade": 5,
+    "qualified_jar_produced": false,
+    "why_no_jar": "JDK21 only, no full local private checkout/Java25 Gradle native deps, git clone DNS failure; staging is not a qualified game JAR.",
+    "next_priority": "Qualify combined six-source water contact+index in Java25/Gradle/native then real scheduler retry with chunk unload/edits, world ledger and GPU cliffs."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1223,11 +1232,11 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T0430-bbf07e1/REVIEW.md",
-    "source_sha": "bbf07e1e40d2c367f9a9a7aed4a691cf2a436297",
+    "path": "docs/engine-hourly-audits/2026-10-27T1634-bd28005/REVIEW.md",
+    "source_sha": "bd28005d7c8703c7abdd822634cb4a07875d2038",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Bound cumulative collision probing in contact admission, retaining denied chemistry work for a later tick; full combined producer remains pending."
+    "chosen_repair": "Contact FIRST recorded before commit can suppress a same-tick FIFO retry; schedule a true next-tick fluid callback for rejected and budget-deferred contacts. Staged pending native qualification."
   },
   "lease_released": true,
   "latest_stream_deadline_stage": {
@@ -1361,5 +1370,26 @@
     "retry": "contactStatus DEFER requeues origin; failed commitContact likewise requeues for later tick",
     "not_promoted": true,
     "last_full_external_grade": "50/100 carried, not a fresh full regrade"
+  },
+  "latest_staged_contact_retry_ticket": {
+    "status": "staged_source_only_not_in_distribution",
+    "candidate_version": "0.0.1-alpha.29-dev.33-contact-retry-candidate.1",
+    "code_commit": "1926652cfbad9c84ec648a19e8c73d950a41ccc4",
+    "source": "docs/validation/engine-continuation/water-contact-retry-ticket-2026-10-27/stage/WaterContactRuntime.java",
+    "source_git_blob_sha": "75d1a25521daa93274ebc5747c419190338e659c",
+    "base": "docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/stage/WaterContactRuntime.java",
+    "checks": "CONTACT_RETRY_TICKET_PASS cases=15 (JDK21 API stubs, not real Minecraft)",
+    "library_evidence_id": "libfile_8602f2a5eea8819185425ac7f4eb2297",
+    "library_evidence_sha256": "bcce704295f8de1a7cf539821b596c1c1f343613f2165aff057cc4e7de5549b9",
+    "new_qualified_jar": false,
+    "native_qualified": false,
+    "water_engine_accepted": false,
+    "limitations": [
+      "Java25/Gradle combined build unrun",
+      "Native Minecraft fluid scheduler/event lifecycle not run",
+      "No native save/reopen/soak tests or Windows AMD8060S",
+      "No OpenGL/Vulkan live pixels/performance",
+      "No fresh external engine grade"
+    ]
   }
 }
