@@ -31,6 +31,7 @@ public final class CoreChecks {
     WaterBedChecks.run();
     DepositPlanChecks.run();
     WaterBudgetChecks.run();
+    WaterTransferAdmissionChecks.main(args);
     SplitAdmissionChecks.main(args);
     StreamSourceCapacityChecks.run();
     BoatBuoyancyChecks.run();
