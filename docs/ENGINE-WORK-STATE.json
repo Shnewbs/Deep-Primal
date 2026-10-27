@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T16:02:16.987Z",
-  "active_until": "2026-10-27T16:47:16.987Z",
-  "source_ref": "afa9694bc4cefe7f057da664998912499fcd4dbf",
+  "updated_at": "2026-10-27T16:12:35.486Z",
+  "active_until": "2026-10-27T16:13:05.486Z",
+  "source_ref": "0f9f90678cb029c3943420e067a171986dd90d35",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Bound cumulative exact-pair contact probe work; retain denied chemistry contact for next tick",
+  "current_gate": "Qualify full Java25/Gradle producer and native source-index/contact/chemistry/retry gates before promoting combined staged candidate",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-27 builder staged cumulative chemistry contact-table probe bound/retry under docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/README.md; Java21 helper+stub checks pass, full Java25/native producer required before promotion.",
     "Full combined staged-index build/module/bundle qualification, packaged weather/travel/lifecycle gates, then conservative loaded/unloaded ownership",
     "Recover sufficient private build/output headroom; qualify staged recharge reservation via full Gradle/module/native source-quota/recharge/save/reopen gates before promotion.",
     "Incorporate qualified foreground cliff continuity work; continue loaded/unloaded water ledger and V8 saved-profile/topology. Preserve dev.28 constituent admission and dev.27 bounded aquifer clock.",
@@ -1026,8 +1027,8 @@
   "builder_cycle": {
     "worker": "builder-chat-20261027T1607",
     "started_at": "2026-10-27T16:02:16.987Z",
-    "lease_until": "2026-10-27T16:47:16.987Z",
-    "phase": "bounded_contact_probe_candidate",
+    "lease_until": "2026-10-27T16:12:35.486Z",
+    "phase": "checkpointed_source_only",
     "scope": [
       "docs/ENGINE-WORK-STATE.json",
       "docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/"
@@ -1039,7 +1040,14 @@
       "other_chat": "Personal Context latest renderer edit at 15:51Z; no direct root engine owner",
       "builder": "previous root lease expired 05:45Z"
     },
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "completed_at": "2026-10-27T16:12:35.486Z",
+    "lease_released": true,
+    "committed_stage": "0f9f90678cb029c3943420e067a171986dd90d35",
+    "last_external_grade": 5,
+    "qualified_jar_produced": false,
+    "why_no_jar": "This host has JDK21 only, no full pinned Java25/Gradle/toolchain or complete local Git checkout; the staged six-source integration lacks full producer, package and native acceptance.",
+    "next_priority": "Restore full pinned Java25 builder in isolated checkout, then qualify full six-source contact/index plus bounded-probe retry; follow with loaded/unloaded ledger and water surfaces."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1225,7 +1233,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Bound cumulative collision probing in contact admission, retaining denied chemistry work for a later tick; full combined producer remains pending."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1338,5 +1346,24 @@
     "full_core": "143-source combined core with renderer 2e1aa76 passes; diagnostic native baseline2e15d24 remains explicit.",
     "hydrology": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/HydrologyRuntime.java",
     "source_sha": "66c0bde251278f31a45f4965f5cc4dc2a79852fe"
+  },
+  "latest_staged_contact_probe_budget": {
+    "status": "staged_source_only_not_in_distribution",
+    "source_sha": "0f9f90678cb029c3943420e067a171986dd90d35",
+    "path": "docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/README.md",
+    "checks": {
+      "jdk": "21.0.12.1",
+      "core_assertions": 1773608,
+      "adapter_stub_assertions": 6,
+      "core_java_verify": true,
+      "stubbed_adapter_java_verify": true,
+      "full_java25_gradle": false,
+      "packaged_native": false,
+      "owner_windows_gpu": false
+    },
+    "bound": "exact pair collision bucket probes<=4*visitLimit across each level tick; 8192 at runtime cap2048",
+    "retry": "contactStatus DEFER requeues origin; failed commitContact likewise requeues for later tick",
+    "not_promoted": true,
+    "last_full_external_grade": "50/100 carried, not a fresh full regrade"
   }
 }
