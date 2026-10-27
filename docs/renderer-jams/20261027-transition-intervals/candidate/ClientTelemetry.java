@@ -1,0 +1,137 @@
+package com.shnewbs.deepprimal.client;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.shnewbs.deepprimal.client.render.HorizonRenderer;
+import com.shnewbs.deepprimal.core.FrameIntervalWindow;
+import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
+import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+import com.shnewbs.deepprimal.settings.RendererOwnership;
+import com.shnewbs.deepprimal.settings.VisualPerformance;
+import java.util.LinkedHashMap;
+import net.minecraft.client.Minecraft;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.RenderFrameEvent;
+
+/** Frame interval includes frame limiting and waits; it is not GPU render time. */
+public final class ClientTelemetry {
+  private final FrameIntervalWindow frames = new FrameIntervalWindow(512);
+  private long sampled, lastBuild, lastUpload, lastDraw, lastReceived, lastSync;
+
+  @SubscribeEvent
+  public void frame(RenderFrameEvent.Post event) {
+    HorizonRenderer.INSTANCE.observeFrame(System.nanoTime());
+    if (!LocalDashboard.running()) LocalDashboard.start();
+    if (!LocalDashboard.running()) { frames.clear(); return; }
+    long now = System.nanoTime();
+    var mc = Minecraft.getInstance();
+    boolean reset = frames.observe(now, mc.level, mc.getWindow().getWidth(),
+        mc.getWindow().getHeight(), mc.isWindowActive(),
+        mc.getFramerateLimitTracker().getFramerateLimit(),
+        mc.options.getEffectiveRenderDistance(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get(),
+        com.shnewbs.deepprimal.settings.LodAccess.distance());
+    if (!reset && now - sampled < 1_000_000_000L) return;
+    sampled = now;
+    var data = new LinkedHashMap<String, Object>();
+    var stats = frames.snapshot();
+    data.put("state", mc.level == null ? "Menu" : "In world");
+    data.put("sampleTime", System.currentTimeMillis());
+    data.put("frameMedianMs", stats.p50Nanos() / 1e6);
+    data.put("frameP95Ms", stats.p95Nanos() / 1e6);
+    data.put("frameP99Ms", stats.p99Nanos() / 1e6);
+    data.put("frameSampleCount", stats.samples());
+    var transitions = frames.transitionSnapshot();
+    data.put("frameContextTransitionCount", frames.transitionCount());
+    data.put("frameContextTransitionSamples", transitions.samples());
+    data.put("frameContextTransitionP50Ms", transitions.p50Nanos() / 1e6);
+    data.put("frameContextTransitionP95Ms", transitions.p95Nanos() / 1e6);
+    data.put("frameContextTransitionP99Ms", transitions.p99Nanos() / 1e6);
+    data.put("frameContextTransitionMaxMs", transitions.maxNanos() / 1e6);
+    data.put("frameContextTransitionScope", "Observed crossing frame gaps including waits; not isolated world-load or GPU time");
+    data.put("frameWindowGeneration", frames.generation());
+    data.put("frameTimingScope", "CPU frame intervals including waits and limiting; not GPU time");
+    data.put("frameWidth", mc.getWindow().getWidth());
+    data.put("frameHeight", mc.getWindow().getHeight());
+    data.put("frameMaxMs", stats.maxNanos() / 1e6);
+    data.put("windowFocused", mc.isWindowActive());
+    data.put("effectiveFpsLimit", mc.getFramerateLimitTracker().getFramerateLimit());
+    data.put("entitiesSkipped", VisualPerformance.entitiesSkipped);
+    data.put("blockEntitiesSkipped", VisualPerformance.blockEntitiesSkipped);
+    data.put("particlesSkipped", VisualPerformance.particlesSkipped);
+    data.put("fps", mc.getFps());
+    data.put("rendererOwner", RendererOwnership.owner());
+    data.put("graphicsApi", RenderSystem.getDevice().getBackendName());
+    data.put("nativeSyncBuilds", VisualPerformance.chunkSyncBuilds);
+    data.put("nativeRebuildsDeferred", VisualPerformance.chunkRebuildsDeferred);
+    data.put("nativeRebuildsCoalesced", VisualPerformance.chunkRebuildsCoalesced);
+    var water = com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE;
+    data.put("waterGpuBytes", water.residentBytes);
+    data.put("waterPatchUploads", water.uploads);
+    data.put("waterPatchPending", water.pending());
+    data.put("waterTerrainInvalidationsAvoided", water.terrainInvalidationsAvoided);
+    data.put("nativePlayerBuilds", VisualPerformance.chunkPlayerBuilds);
+    data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos - lastSync) / 1e6);
+    lastSync = VisualPerformance.chunkSyncNanos;
+    data.put("gpu", RenderSystem.getDevice().getRenderer());
+    data.put(
+        "wakeMeshBytes",
+        com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE.residentBytes());
+    data.put(
+        "oceanMeshBytes",
+        com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.residentBytes());
+    data.put(
+        "oceanPendingSamples",
+        com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.pendingSamples());
+    data.put("renderDistance", mc.options.renderDistance().get());
+    data.put("effectiveRenderDistance", mc.options.getEffectiveRenderDistance());
+    data.put("memoryDistanceGuard", com.shnewbs.deepprimal.performance.MemorySafety.enabled());
+    data.put("simulationDistance", mc.options.simulationDistance().get());
+    data.put(
+        "verticalRadius",
+        RendererOwnership.owned()
+            ? ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()
+            : "External");
+    data.put("farDistance", RendererOwnership.owned() ? HorizonRenderer.farDistance() : 0);
+    if (RendererOwnership.owned()) {
+      var renderer = HorizonRenderer.INSTANCE;
+      data.put("horizonResidentBytes", renderer.residentBytes);
+      data.put("horizonTransitionBuilds", renderer.transitionBuilds);
+      data.put("horizonWorkFraction", renderer.workFraction());
+      data.put("horizonTargetFps", ClientPerformanceConfig.TARGET_FPS.get());
+      data.put(
+          "horizonMemoryLimitBytes", ClientPerformanceConfig.HORIZON_MEMORY_MIB.get() * 1048576L);
+      data.put(
+          "horizonBuildMsPerSample",
+          (renderer.meshBuildNanos + renderer.meshPackNanos - lastBuild) / 1e6);
+      lastBuild = renderer.meshBuildNanos + renderer.meshPackNanos;
+      data.put("horizonUploadMsPerSample", (renderer.uploadNanos - lastUpload) / 1e6);
+      lastUpload = renderer.uploadNanos;
+      data.put("horizonDrawCpuMsPerSample", (renderer.drawCpuNanos - lastDraw) / 1e6);
+      lastDraw = renderer.drawCpuNanos;
+      data.put("horizonReceivedBytesPerSample", renderer.receivedBytes - lastReceived);
+      lastReceived = renderer.receivedBytes;
+      data.put("horizonGpuTimingAvailable", renderer.gpuTimingAvailable());
+      data.put("horizonGpuMs", renderer.gpuMs());
+      data.put("horizonCulledTiles", renderer.culledTiles);
+      data.put("horizonBatchedSubmission", ClientPerformanceConfig.BATCHED_DRAWS.get());
+      data.put("horizonBackgroundPaused", HorizonRenderer.backgroundWorkPaused());
+      data.put("horizonUploadsLastFrame", renderer.uploadsLastFrame);
+      data.put("horizonUploadBytesLastFrame", renderer.uploadBytesLastFrame);
+      data.put("horizonMaxUploadsPerFrame", renderer.maxUploadsPerFrame);
+      data.put("horizonMaxUploadBytesPerFrame", renderer.maxUploadBytesPerFrame);
+      data.put("horizonFineVisible", renderer.visibleFine);
+      data.put("horizonMediumVisible", renderer.visibleMedium);
+      data.put("horizonCoarseVisible", renderer.visibleCoarse);
+      data.put("horizonState", renderer.status);
+      data.put("horizonCached", renderer.cachedTiles);
+      data.put("horizonTarget", renderer.targetTiles);
+      data.put("horizonVisible", renderer.visibleTiles);
+      data.put("horizonBackgroundDepthBytes", renderer.backgroundDepthBytes());
+      data.put("horizonTrianglesDrawn", renderer.drawnTriangles);
+      data.put("horizonUploadedBytes", renderer.uploadedBytes);
+    }
+    data.putAll(com.shnewbs.deepprimal.settings.LodAccess.diagnostics());
+    if (mc.level != null) data.put("dimension", mc.level.dimension().identifier().toString());
+    LocalDashboard.client(data);
+  }
+}
+
