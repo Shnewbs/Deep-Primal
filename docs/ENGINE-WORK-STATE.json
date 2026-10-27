@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T22:03:00Z",
-  "active_until": "2026-10-27T22:25:00Z",
-  "source_ref": "c28f5776b2bbafda1c839d7c7369199452b1b933",
-  "candidate_version": "0.0.1-alpha.29-dev.37-heightlex.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T22:18:00Z",
+  "active_until": "2026-10-27T22:18:00Z",
+  "source_ref": "816aab2b2150ff5463253f2d5636d41970914740",
+  "candidate_version": "0.0.1-alpha.29-dev.38-guarddominance.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Consume 2026-10-27T2131 auditor dead-branch height admission finding; implement control-flow-safe read admission validator and focused water accounting repairs; owner handles Gradle/Minecraft/GPU builds.",
+  "current_gate": "Dev38 source-only: loaded water receiver/source reentrant identity barriers, safe rollback ownership; installed hydrology guard shape now rejects dead/else/contradictory guard matches. Java21 isolated callback model 274989 checks and Python isolated guard stand-in 29 controls pass; full owner Java25/Gradle, Minecraft native rollback/chemistry/save-reopen, AMD Vulkan/OpenGL temporal waterfall and p95/p99 remain open; no JAR/release/grade gain.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-27 dev38 guard shape and water receiver/source reentrant ownership committed; Python3 stand-in checker 29/29, Java21 model 274989 assertions, full native/build/GPU owner gates open. docs/validation/engine-continuation/guard-dominance-water-2026-10-27/README.md",
     "2026-10-27 dev37 height admission comment/string masking and same-volume ocean marker pressure search invalidation committed; full Java25/Gradle, native loaded/unloaded save/reopen/rollback and both GPU APIs remain owner gates. docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md",
     "2026-10-27 dev36 source checkpoint external-ocean-marker chemistry invalidation and meaningful height/resident-read short-circuit mutation controls; nine Java25 stand-in chemistry cases plus four validator mutation negatives pass in isolated scratch; owner full Gradle/NeoForge/native/Windows GPU unrun; no JAR or regrade. docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/README.md",
     "2026-10-27 dev.33-loadedreads.1 main source checkpoint: WaterRuntime.units bounds+resident admission before block read and cached neighbor wake sampling. Seven Java21 source-extracted API-stub checks and 544 predicate equivalence cases pass. No Java25/Gradle/game native/JAR qualification. Evidence docs/validation/engine-continuation/unloaded-water-reads-2026-10-27/; no external grade change.",
@@ -1031,19 +1032,37 @@
   "builder_cycle": {
     "worker": "builder-chat-20261027T2203-cfg-water",
     "started_at": "2026-10-27T22:03:00Z",
+    "completed_at": "2026-10-27T22:18:00Z",
     "lease_until": "2026-10-27T22:25:00Z",
-    "phase": "editing",
+    "phase": "checkpointed_source_only",
+    "lease_released": true,
     "scope": [
       "tools/validate_hydrology_height_admission.py",
-      "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
-      "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/",
-      "docs/ENGINE-WORK-STATE.json",
-      "gradle.properties"
+      "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "gradle.properties",
+      "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/"
     ],
-    "source_ref": "c28f5776b2bbafda1c839d7c7369199452b1b933",
+    "source_ref": "816aab2b2150ff5463253f2d5636d41970914740",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2131-d62030f/REVIEW.md",
-    "target": "Control-flow-aware resident-read validator and conservative native mutation retry; protect frozen geography, production water volume and constituent ownership",
-    "acceptance_complete": false
+    "implementation_commits": [
+      "816aab2b2150ff5463253f2d5636d41970914740"
+    ],
+    "version": "0.0.1-alpha.29-dev.38-guarddominance.1",
+    "evidence": "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/README.md",
+    "validation": [
+      "Python3 extracted dev37 stand-in guard/mutation suite 29/29, 17 mutants rejected",
+      "Java21 -Xverify:all deterministic transfer callback model 274989 assertions; initial source-edit control failed before last guard added",
+      "Post-push GitHub source/blob verification of exact checker/water/version"
+    ],
+    "unrun": [
+      "Full Java25/Gradle/NeoForge core/modules and JAR (owner builds; JDK25 and network unavailable here)",
+      "Packaged water unloaded/reentrant writes, chemistry conservation, snow/ocean, save/reopen and multiplayer soak",
+      "Real Vulkan/OpenGL waterfall pixels and AMD8060S frame/tick latency"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Owner native loaded/unloaded callback and rollback tests with exact salt/sediment + save/reopen, then naturally flowing waterfall temporal seams and hardware performance."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1228,9 +1247,9 @@
     "last_full_average": 5,
     "fresh_grade_awarded": false,
     "findings": "Lexical guard matching accepts guards hidden in unreachable Java if(false), else and contradictory control paths; production guard currently active.",
-    "chosen_repair": "Require code-structure-aware guarded early exit dominance before native state reads; add dead-branch regression mutants; independently improve loaded/unloaded water conservative transaction test boundary."
+    "chosen_repair": "Installed-structure safety gate rejects unreachable/else/contradictory world-read guards; protect against reentrant source/receiver replacement and stale rollback in WaterRuntime.transfer."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
