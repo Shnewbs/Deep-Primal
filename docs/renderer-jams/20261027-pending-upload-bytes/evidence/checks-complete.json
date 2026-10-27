@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "fresh_core_compile_count": 142,
+  "actual_api_client_compilation": true,
+  "fresh_full_core_suite": true,
+  "fresh_forks": [
+    "baseline",
+    "candidate",
+    "candidate",
+    "baseline"
+  ],
+  "gpu_upload_executed": false,
+  "full_gradle": false,
+  "packaged_client": false
+}

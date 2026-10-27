@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "candidate_source_sha256": "e4f362359e2f8e2f0efde5c7cbd4bf2986a8cadd72f191705f065277be5d942f",
+  "baseline_source_sha256": "b104be6ec26465e6691319462cbe2e06c017a4d283a737aa55f3e05aae58458d",
+  "compiled_class_snapshots_unchanged_after_checks": 238,
+  "no_implementation_edits_during_review": true,
+  "full_core_exit": 0
+}

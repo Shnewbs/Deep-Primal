@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
+    "-Xverify:all",
+    "-cp",
+    "/dev/shm/dp-renderer-pending-bytes-c748d588/classes",
+    "com.shnewbs.deepprimal.core.CoreChecks"
+  ],
+  "exit": 0,
+  "seconds": 258.2633810389998
+}

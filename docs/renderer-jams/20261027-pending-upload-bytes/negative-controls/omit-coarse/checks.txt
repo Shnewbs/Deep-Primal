@@ -1,0 +1,4 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Xmx512m -Djava.io.tmpdir=/dev/shm/dp-renderer-pending-bytes-c748d588/tmp
+Exception in thread "main" java.lang.AssertionError: Wrong resident bytes: 1104
+	at com.shnewbs.deepprimal.core.lod.PendingUploadBytesChecks.check(PendingUploadBytesChecks.java:35)
+	at com.shnewbs.deepprimal.core.lod.PendingUploadBytesChecks.main(PendingUploadBytesChecks.java:64)
