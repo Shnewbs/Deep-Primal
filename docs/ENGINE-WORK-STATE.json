@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T17:15:05Z",
-  "active_until": "2026-10-27T17:15:35Z",
-  "source_ref": "1926652cfbad9c84ec648a19e8c73d950a41ccc4",
+  "updated_at": "2026-10-27T17:24:00Z",
+  "active_until": "2026-10-27T17:44:00Z",
+  "source_ref": "d10d3506b9d24d0ef8028ff7ef866ccd73bdad30",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Full pinned Java25/Gradle combined contact-index production qualification and actual next-tick fluid schedule/native regression, then loaded/unloaded water ledger and real GPU cliff acceptance.",
+  "current_gate": "Bound native loaded-only water reads without eager chunk loads, preserve conservation/meshes, then full Java25/Gradle/native water qualification.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1026,33 +1026,19 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-chat-20261027T1700",
-    "started_at": "2026-10-27T17:06:58Z",
-    "lease_until": "2026-10-27T17:15:05Z",
-    "phase": "checkpointed_source_only",
+    "worker": "builder-chat-20261027T1724-unloaded-read",
+    "started_at": "2026-10-27T17:24:00Z",
+    "lease_until": "2026-10-27T17:44:00Z",
+    "phase": "implementing",
     "scope": [
+      "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
       "docs/ENGINE-WORK-STATE.json",
-      "docs/validation/engine-continuation/water-contact-retry-ticket-2026-10-27/"
+      "docs/validation/engine-continuation/unloaded-water-reads-2026-10-27/"
     ],
-    "overlap_check": {
-      "water": "checkpointed with null active_until at 2026-10-27T17:06:58Z",
-      "renderer": "renderer currently implementing independent LOD code; avoid renderer sources and mutable caches",
-      "auditor": "2026-10-27T1634-bd28005 pinned bd28005, complete audit carried 50/100",
-      "other_chat": "Personal Context search returned no active root claim; task state checked",
-      "builder": "root previous lease 16:13Z expired",
-      "timing": "performance_measurement status released"
-    },
+    "source_ref": "d10d3506b9d24d0ef8028ff7ef866ccd73bdad30",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1634-bd28005/REVIEW.md",
-    "target": "staged chemistry commit retry next-tick persistence and targeted stub checks",
-    "acceptance_complete": false,
-    "completed_at": "2026-10-27T17:15:05Z",
-    "lease_released": true,
-    "implemented": "Persist rejected/denied water chemistry contact to one-tick native fluid schedule while retaining bounded FIFO; new staged adapter only.",
-    "committed_stage": "1926652cfbad9c84ec648a19e8c73d950a41ccc4",
-    "last_external_grade": 5,
-    "qualified_jar_produced": false,
-    "why_no_jar": "JDK21 only, no full local private checkout/Java25 Gradle native deps, git clone DNS failure; staging is not a qualified game JAR.",
-    "next_priority": "Qualify combined six-source water contact+index in Java25/Gradle/native then real scheduler retry with chunk unload/edits, world ledger and GPU cliffs."
+    "target": "prevent unloaded-border native cell reads triggering chunk loads; preserve water volume and donor accounting",
+    "acceptance_complete": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1238,7 +1224,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Contact FIRST recorded before commit can suppress a same-tick FIFO retry; schedule a true next-tick fluid callback for rejected and budget-deferred contacts. Staged pending native qualification."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
