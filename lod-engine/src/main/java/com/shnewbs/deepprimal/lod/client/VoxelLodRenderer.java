@@ -94,7 +94,13 @@ public final class VoxelLodRenderer {
     }
 
     long bytes() {
-      return levels.stream().flatMap(List::stream).mapToLong(p -> p.byteSize).sum();
+      long bytes = 0;
+      // Private ArrayList dimensions: avoid stream/iterator allocation in frame-budget checks.
+      for (int detail = 0, count = levels.size(); detail < count; detail++) {
+        List<TerrainGpuMesh> parts = levels.get(detail);
+        for (int part = 0, size = parts.size(); part < size; part++) bytes += parts.get(part).byteSize;
+      }
+      return bytes;
     }
 
     void close() {
