@@ -1,0 +1,16 @@
+[
+  {
+    "source": "/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/9.2.1",
+    "destination": "/dev/shm/dp-renderer-recovery-c748d588/gradle-version-cache",
+    "file_count": 569,
+    "all_bytes_sha256_equal": true,
+    "symlink_target": "/dev/shm/dp-renderer-recovery-c748d588/gradle-version-cache"
+  },
+  {
+    "source": "/workspace/scratch/c748d58856d9/qualification/gradle-cache/.tmp",
+    "destination": "/dev/shm/dp-renderer-recovery-c748d588/gradle-temp",
+    "file_count": 37,
+    "all_bytes_sha256_equal": true,
+    "symlink_target": "/dev/shm/dp-renderer-recovery-c748d588/gradle-temp"
+  }
+]

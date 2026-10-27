@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "producer_finished": true,
+  "post_native_producer_export_equal": true,
+  "sha256": "cea144872616bd6d02bd7d3af3f9b275c06a5442c36c77f515deb48d0f737068",
+  "bytes": 125298439,
+  "recursive_crc_archives": 7,
+  "native_sessions": 4,
+  "all_six_nested_modules_selected_from_export_each_session": true,
+  "read_only_primary_dependencies_unchanged": 136,
+  "core_fixture_counts": {
+    "fresh_compile_sources": 142,
+    "product_package_classes": 593,
+    "independent_core_matches": 147,
+    "private_exclusions": 226
+  }
+}

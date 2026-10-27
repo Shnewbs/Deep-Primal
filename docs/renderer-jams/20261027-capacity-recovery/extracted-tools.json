@@ -1,0 +1,29 @@
+[
+  {
+    "tool": "jdk25",
+    "command": [
+      "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
+      "-version"
+    ],
+    "exit": 0,
+    "output": "NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-recovery-c748d588/tmp\nopenjdk version \"25.0.4.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)\n"
+  },
+  {
+    "tool": "jdk21",
+    "command": [
+      "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-21.0.12.1+1/bin/java",
+      "-version"
+    ],
+    "exit": 0,
+    "output": "NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-recovery-c748d588/tmp\nopenjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS, mixed mode, sharing)\n"
+  },
+  {
+    "tool": "gradle",
+    "command": [
+      "/workspace/scratch/c748d58856d9/renderer-toolchain/gradle-9.2.1/bin/gradle",
+      "--version"
+    ],
+    "exit": 0,
+    "output": "NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-recovery-c748d588/tmp\n\nWelcome to Gradle 9.2.1!\n\nHere are the highlights of this release:\n - Windows ARM support\n - Improved publishing APIs\n - Better guidance for dependency verification failures\n\nFor more details see https://docs.gradle.org/9.2.1/release-notes.html\n\n\n------------------------------------------------------------\nGradle 9.2.1\n------------------------------------------------------------\n\nBuild time:    2025-11-17 13:40:48 UTC\nRevision:      30ecdc708db275e8f8769ea0620f6dd919a58f76\n\nKotlin:        2.2.20\nGroovy:        4.0.28\nAnt:           Apache Ant(TM) version 1.10.15 compiled on August 25 2024\nLauncher JVM:  25.0.4.1 (Eclipse Adoptium 25.0.4.1+1-LTS)\nDaemon JVM:    /workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1 (no JDK specified, using current Java home)\nOS:            Linux 6.18.55 amd64\n\n"
+  }
+]

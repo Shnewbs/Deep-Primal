@@ -1,0 +1,12 @@
+{
+  "uid": 0,
+  "block_size": 4096,
+  "free_blocks_bytes": 498925568,
+  "available_blocks_bytes": 0,
+  "recheck_archives": {
+    "jdk25.tar.gz": false,
+    "jdk21.tar.gz": false,
+    "gradle.zip": false
+  },
+  "one_MiB_real_write": "passed"
+}

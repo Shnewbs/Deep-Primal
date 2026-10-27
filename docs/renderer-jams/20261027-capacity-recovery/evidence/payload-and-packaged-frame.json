@@ -1,0 +1,45 @@
+{
+  "pass": true,
+  "windows_dlls": [
+    {
+      "name": "windows/x64/org/lwjgl/shaderc/shaderc.dll",
+      "bytes": 6216704,
+      "sha256": "36ca29c50b0878841abb5a0aef030fc18e5023915dd3452e6e199e7743669155",
+      "machine": "AMD64 PE"
+    },
+    {
+      "name": "windows/x64/org/lwjgl/vma/lwjgl_vma.dll",
+      "bytes": 257536,
+      "sha256": "de91b82250ba19d44d2d455bad0a75afe6e30c4b0f55c5e012ec198220963743",
+      "machine": "AMD64 PE"
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/javac",
+        "-g",
+        "-cp",
+        "/dev/shm/dp-renderer-recovery-c748d588/packaged-core.jar:/dev/shm/dp-renderer-recovery-c748d588/independent-core",
+        "-d",
+        "/dev/shm/dp-renderer-recovery-c748d588/probe",
+        "/dev/shm/dp-renderer-recovery-c748d588/probe/PackagedFrameChecks.java"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xmx256m",
+        "-Xverify:all",
+        "-cp",
+        "/dev/shm/dp-renderer-recovery-c748d588/packaged-core.jar:/dev/shm/dp-renderer-recovery-c748d588/independent-core:/dev/shm/dp-renderer-recovery-c748d588/probe",
+        "PackagedFrameChecks",
+        "/dev/shm/dp-renderer-recovery-c748d588/packaged-core.jar"
+      ],
+      "exit": 0,
+      "output": "NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-recovery-c748d588/tmp\nTRANSITION_INTERVAL_PASS oracleWindows=1024 capacities=1,17,64,512 crossingBound=64 noSteadyPollution=true clear=true negativeRejected=true wrap=true zero=true\nFRAME_INTERVAL_PASS oracleWindows=770 intervals=10000 bounded=512 independentContextResets=8 zeroOrigin=true clockWrap=true clockReversal=true observationGap=true\nPACKAGED_FRAME_CLASS_SOURCE_PASS\n"
+    }
+  ]
+}
