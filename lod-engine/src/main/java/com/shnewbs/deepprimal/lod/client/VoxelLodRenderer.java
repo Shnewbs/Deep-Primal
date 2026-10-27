@@ -80,8 +80,19 @@ public final class VoxelLodRenderer {
   public volatile boolean discoveryComplete;
   private final Matrix4f drawMatrix = new Matrix4f(), textureIdentity = new Matrix4f();
   private final Vector4f white = new Vector4f(1, 1, 1, 1);
-  private net.minecraft.client.renderer.DynamicUniforms.Transform[] transformPool =
-      new net.minecraft.client.renderer.DynamicUniforms.Transform[0];
+  // Cache a few exact draw counts; uniform writes must never include stale transforms.
+  private final ReusableTransformArrays<net.minecraft.client.renderer.DynamicUniforms.Transform>
+      transformArrays = new ReusableTransformArrays<>(4);
+  private final java.util.function.IntFunction<
+      net.minecraft.client.renderer.DynamicUniforms.Transform[]> transformFactory =
+      length -> {
+        var array = new net.minecraft.client.renderer.DynamicUniforms.Transform[length];
+        for (int i = 0; i < length; i++)
+          array[i] =
+              new net.minecraft.client.renderer.DynamicUniforms.Transform(
+                  drawMatrix, white, new Vector3f(), textureIdentity);
+        return array;
+      };
 
   private static final class PendingGpu {
     final Ready ready;
@@ -691,13 +702,7 @@ public final class VoxelLodRenderer {
     long submitStarted = TELEMETRY ? System.nanoTime() : 0;
     var target = Minecraft.getInstance().getMainRenderTarget();
     var camera = event.getLevelRenderState().cameraRenderState.pos;
-    if (transformPool.length != parts.size()) {
-      transformPool = new net.minecraft.client.renderer.DynamicUniforms.Transform[parts.size()];
-      for (int i = 0; i < parts.size(); i++)
-        transformPool[i] =
-            new net.minecraft.client.renderer.DynamicUniforms.Transform(
-                drawMatrix, white, new Vector3f(), textureIdentity);
-    }
+    var transformPool = transformArrays.acquire(parts.size(), transformFactory);
     drawMatrix.set(event.getModelViewMatrix());
     for (int i = 0; i < parts.size(); i++) {
       var p = parts.get(i);
@@ -778,6 +783,7 @@ public final class VoxelLodRenderer {
     cache.values().forEach(Entry::close);
     cache.clear();
     draws.clear();
+    transformArrays.clear();
     dirty.clear();
     latest.clear();
     disk.clear();
