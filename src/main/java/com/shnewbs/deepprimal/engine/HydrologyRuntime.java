@@ -70,6 +70,9 @@ public final class HydrologyRuntime {
     return s.is(EngineRegistry.WATER_BLOCK.get()) && s.getValue(EngineWaterBlock.OCEAN);
   }
   public static boolean write(ServerLevel l, BlockPos p, BlockState s) {
+    // The write entry point is also used by adapters; never resolve an absent chunk
+    // merely to read its old state or place environmental water into it.
+    if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return false;
     if (l.getBlockState(p).equals(s)) return true;
     internalWrites++;
     try { return l.setBlock(p, s, 2 | 16); }
@@ -120,7 +123,8 @@ public final class HydrologyRuntime {
     if (boundary(source) && enabled(l)) restoreOcean(l, a, source);
   }
   public static boolean restoreOcean(ServerLevel l, BlockPos p, BlockState anchor) {
-    if (!boundary(anchor) || p.getY() != TerrainEngine.SEA - 1) return false;
+    if (!boundary(anchor) || p.getY() != TerrainEngine.SEA - 1
+        || !l.isInWorldBounds(p) || !l.hasChunkAt(p)) return false;
     var old = l.getBlockState(p);
     if (!old.isAir() && !old.is(EngineRegistry.WATER_BLOCK.get())) return false;
     var d = HydrologyData.get(l);
@@ -134,7 +138,9 @@ public final class HydrologyRuntime {
   }
   /** Ocean accepts only water that has reached sea level; a lake at that height is still finite. */
   public static boolean oceanSink(ServerLevel l, BlockPos from, BlockPos to) {
-    if (!enabled(l) || to.getY() != TerrainEngine.SEA - 1) return false;
+    if (!enabled(l) || to.getY() != TerrainEngine.SEA - 1
+        || !l.isInWorldBounds(from) || !l.hasChunkAt(from)
+        || !l.isInWorldBounds(to) || !l.hasChunkAt(to)) return false;
     var a = l.getBlockState(from); var b = l.getBlockState(to);
     if (!boundary(b) || boundary(a) || !a.is(EngineRegistry.WATER_BLOCK.get())) return false;
     int units = a.getValue(EngineFluid.UNITS);
@@ -157,6 +163,7 @@ public final class HydrologyRuntime {
     store(l, p, parcel); WaterRuntime.activate(l, p); return true;
   }
   public static WaterAccount.Parcel pickup(ServerLevel l, BlockPos p) {
+    if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return null;
     var state = l.getBlockState(p);
     if (!state.is(EngineRegistry.WATER_BLOCK.get()) || state.getValue(EngineFluid.UNITS) != 16) return null;
     var parcel = contents(l, p, state);
@@ -183,6 +190,7 @@ public final class HydrologyRuntime {
     WaterRuntime.activate(l, p); return true;
   }
   public static boolean infiltrate(ServerLevel l, BlockPos p, Aquifer aquifer, int rate) {
+    if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return false;
     var old = l.getBlockState(p);
     if (!old.is(EngineRegistry.WATER_BLOCK.get()) || boundary(old)) return false;
     int units = old.getValue(EngineFluid.UNITS);
@@ -198,7 +206,8 @@ public final class HydrologyRuntime {
   }
   /** One actual solid block becomes one finite water block; no source or reservoir is copied. */
   public static boolean meltIce(ServerLevel l,BlockPos p,double temperature) {
-    if(temperature<=.25||l.getChunkSource().getChunkNow(Math.floorDiv(p.getX(),16),Math.floorDiv(p.getZ(),16))==null)return false;
+    if(temperature<=.25 || !l.isInWorldBounds(p)
+        || l.getChunkSource().getChunkNow(Math.floorDiv(p.getX(),16),Math.floorDiv(p.getZ(),16))==null)return false;
     var state=l.getBlockState(p);
     if(!(state.is(Blocks.ICE)||state.is(Blocks.PACKED_ICE)||state.is(Blocks.BLUE_ICE)||state.is(Blocks.SNOW_BLOCK)))return false;
     if(l.getHeight(Heightmap.Types.WORLD_SURFACE,p.getX(),p.getZ())>p.getY()+1)return false;
@@ -403,6 +412,7 @@ public final class HydrologyRuntime {
     var target = outlet;
     for (int i = 0; units == 0 && i < 2; i++) {
       var below = target.below();
+      if (!l.isInWorldBounds(below) || !l.hasChunkAt(below)) break;
       var b = l.getBlockState(below);
       if (boundary(b) || !(b.isAir() || b.is(EngineRegistry.WATER_BLOCK.get()) && b.getValue(EngineFluid.UNITS) < 16)) break;
       target = below; sourceCapacity = 16 - WaterRuntime.units(l, below);
