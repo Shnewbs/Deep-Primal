@@ -138,6 +138,8 @@ public final class VoxelLodRenderer {
       drawnTriangles,
       staleResults;
   public volatile int visibleChunks, queuedChunks, visibleSpan;
+  // Successful first-part uploads above the soft per-frame byte cap.
+  public volatile long oversizedFirstUploads, oversizedFirstUploadBytes;
   public volatile String status = "Waiting for world";
 
   public void worldIdentity(String id) {
@@ -638,6 +640,7 @@ public final class VoxelLodRenderer {
         start = System.nanoTime(),
         limit = ClientPerformanceConfig.UPLOAD_KIB.get() * 1024L;
     int uploaded = 0;
+    int maxUploads = Math.max(1, (int) (LodConfig.UPLOADS.get() * ClientWorkPacer.fraction()));
     while (p.detail < 3) {
       var meshes = p.ready.levels.level(p.detail);
       if (p.part == meshes.size()) {
@@ -646,9 +649,12 @@ public final class VoxelLodRenderer {
         continue;
       }
       var mesh = meshes.get(p.part);
-      if (uploaded >= Math.max(1, (int) (LodConfig.UPLOADS.get() * ClientWorkPacer.fraction()))
-          || used + mesh.gpuBytes() > limit
-          || System.nanoTime() - start > ClientPerformanceConfig.UPLOAD_MICROS.get() * 1000L) break;
+      long partBytes = mesh.gpuBytes();
+      boolean expired = System.nanoTime() - start
+          > ClientPerformanceConfig.UPLOAD_MICROS.get() * 1000L;
+      if (!UploadWorkBudget.mayStart(uploaded, maxUploads, used, partBytes, limit, expired))
+        break;
+      boolean oversizedFirst = UploadWorkBudget.oversizedFirst(uploaded, partBytes, limit);
       var gpu = TerrainGpuMesh.upload(x(p.ready.key), z(p.ready.key), p.detail, mesh);
       gpu.bounds =
           new AABB(
@@ -662,6 +668,10 @@ public final class VoxelLodRenderer {
       p.part++;
       uploaded++;
       used += gpu.byteSize;
+      if (oversizedFirst) {
+        oversizedFirstUploads++;
+        oversizedFirstUploadBytes += gpu.byteSize;
+      }
       if (TELEMETRY) lastUploadBytes = used;
       residentBytes += gpu.byteSize;
     }
@@ -771,6 +781,7 @@ public final class VoxelLodRenderer {
     uploadTiming.reset();
     submitTiming.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
+    oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = submittedParts = 0;
     session++;
     if (pendingGpu != null) {

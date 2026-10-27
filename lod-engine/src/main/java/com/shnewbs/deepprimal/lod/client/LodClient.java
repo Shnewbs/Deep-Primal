@@ -62,6 +62,10 @@ public final class LodClient {
             data.put("lodRejectedParts", lod.rejectedParts);
             data.put("lodSubmittedParts", lod.submittedParts);
             data.put("lodLastUploadBytes", lod.lastUploadBytes);
+            data.put("lodOversizedFirstUploads", lod.oversizedFirstUploads);
+            data.put("lodOversizedFirstUploadBytes", lod.oversizedFirstUploadBytes);
+            data.put("lodUploadBudgetSemantics",
+                "Byte/time limits are soft per frame: one indivisible part may exceed them; retained GPU-memory ceiling remains hard");
             data.put("lodPendingMeshGpuBudgetBytes", lod.pendingMeshBudgetBytes);
             var transform = lod.transformStats();
             data.put("lodTransformScope",
