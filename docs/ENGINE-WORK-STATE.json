@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-27T20:18:00Z",
-  "active_until": "2026-10-27T20:18:00Z",
+  "status": "active",
+  "updated_at": "2026-10-27T21:07:00Z",
+  "active_until": "2026-10-27T21:29:00Z",
   "source_ref": "16c5bdc01764a50db664c199ef57426fba233b5a",
   "candidate_version": "0.0.1-alpha.29-dev.36-chemistryadmission.1",
   "candidate_released": false,
@@ -485,7 +485,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-chat-20261027T2001-chemistry-guards",
+  "worker": "builder-chat-20261027T2107-guard-lexer",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1028,42 +1028,19 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-chat-20261027T2001-chemistry-guards",
-    "started_at": "2026-10-27T20:04:00Z",
-    "lease_until": "2026-10-27T20:29:00Z",
-    "phase": "checkpointed_source_only",
+    "worker": "builder-chat-20261027T2107-guard-lexer",
+    "started_at": "2026-10-27T21:07:00Z",
+    "lease_until": "2026-10-27T21:29:00Z",
+    "phase": "active",
     "scope": [
-      "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
       "tools/validate_hydrology_height_admission.py",
-      "tools/validate_hydrology_external_chemistry.py",
       "gradle.properties",
-      "docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/"
+      "docs/validation/engine-continuation/guard-lexical-2026-10-27/"
     ],
-    "source_ref": "30b583cd02bec31e8aa5b0615e335222747d5818",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1933-a765774/REVIEW.md",
-    "target": "Close loaded-read guard mutation gaps and correct externally changed ocean-marker composition",
-    "acceptance_complete": false,
-    "completed_at": "2026-10-27T20:18:00Z",
-    "lease_released": true,
-    "final_source": "16c5bdc01764a50db664c199ef57426fba233b5a",
-    "version": "0.0.1-alpha.29-dev.36-chemistryadmission.1",
-    "evidence": "docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/README.md",
-    "implemented": "External ocean marker change invalidates stale composition even at equal water units, without touching internal edits, optical flow or volume; source resident guard validator rejects changed boolean operator on placement, exposed surface and water-column reads; added Java25 actual-method extractor stand-in tool.",
-    "validation": [
-      "Temurin Java25.0.5+8 source-matched standalone method compilation with nine chemistry scenarios: pass; missing-marker control rejected",
-      "Isolated Python method fragment/source-check stand-in: 16 checks and 4 targeted mutants rejected; additional unsafe operator control rejected",
-      "Post-push GitHub source blob review: three guard-before-native-read paths true; marker reset and version dev36 present",
-      "Guarded expected-parent main ref update; renderer scope untouched"
-    ],
-    "unrun": [
-      "Full Java25 Gradle/NeoForge build and module/package/native source-class validation (owner handles builds)",
-      "Actual Minecraft save/reopen and unloaded chunk callback, rollback injection, chemistry ledger and multiplayer/long soak",
-      "Windows AMD8060S Vulkan/OpenGL waterfall rendered frame continuity and p50/p95/p99"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "last_external_grade": 5,
-    "next_priority": "Owner native dev36 same-volume ocean-marker external edit and reload chemistry test; loaded/unloaded transfer rollback injection with exact volume/constituent ledger; staged water contact combined package/native promotion, then actual dual-GPU temporal waterfall and perf."
+    "source_ref": "45b2137f9cf1f9ad1bb44dd2f24fd2a5440977e4",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2025-73867fa/REVIEW.md",
+    "target": "Reject commented/string-literal loaded-world guard false positives while preserving existing boolean mutation checks",
+    "acceptance_complete": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1250,7 +1227,7 @@
     "findings": "Hydrology height and loaded-world source guard checker accepts an unsafe boolean && in the surface read path; native loaded/unloaded, rollback, ledger/save-reopen and real GPU still pending.",
     "chosen_repair": "Short-circuit semantic guard validation and four path-scoped negative mutants; safeguard saved chemistry when an external edit changes the ocean marker without changing water quantity."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1403,5 +1380,43 @@
       "No OpenGL/Vulkan live pixels/performance",
       "No fresh external engine grade"
     ]
+  },
+  "builder_cycle_previous_20261027T2001": {
+    "worker": "builder-chat-20261027T2001-chemistry-guards",
+    "started_at": "2026-10-27T20:04:00Z",
+    "lease_until": "2026-10-27T20:29:00Z",
+    "phase": "checkpointed_source_only",
+    "scope": [
+      "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+      "tools/validate_hydrology_height_admission.py",
+      "tools/validate_hydrology_external_chemistry.py",
+      "gradle.properties",
+      "docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/"
+    ],
+    "source_ref": "30b583cd02bec31e8aa5b0615e335222747d5818",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1933-a765774/REVIEW.md",
+    "target": "Close loaded-read guard mutation gaps and correct externally changed ocean-marker composition",
+    "acceptance_complete": false,
+    "completed_at": "2026-10-27T20:18:00Z",
+    "lease_released": true,
+    "final_source": "16c5bdc01764a50db664c199ef57426fba233b5a",
+    "version": "0.0.1-alpha.29-dev.36-chemistryadmission.1",
+    "evidence": "docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/README.md",
+    "implemented": "External ocean marker change invalidates stale composition even at equal water units, without touching internal edits, optical flow or volume; source resident guard validator rejects changed boolean operator on placement, exposed surface and water-column reads; added Java25 actual-method extractor stand-in tool.",
+    "validation": [
+      "Temurin Java25.0.5+8 source-matched standalone method compilation with nine chemistry scenarios: pass; missing-marker control rejected",
+      "Isolated Python method fragment/source-check stand-in: 16 checks and 4 targeted mutants rejected; additional unsafe operator control rejected",
+      "Post-push GitHub source blob review: three guard-before-native-read paths true; marker reset and version dev36 present",
+      "Guarded expected-parent main ref update; renderer scope untouched"
+    ],
+    "unrun": [
+      "Full Java25 Gradle/NeoForge build and module/package/native source-class validation (owner handles builds)",
+      "Actual Minecraft save/reopen and unloaded chunk callback, rollback injection, chemistry ledger and multiplayer/long soak",
+      "Windows AMD8060S Vulkan/OpenGL waterfall rendered frame continuity and p50/p95/p99"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Owner native dev36 same-volume ocean-marker external edit and reload chemistry test; loaded/unloaded transfer rollback injection with exact volume/constituent ledger; staged water contact combined package/native promotion, then actual dual-GPU temporal waterfall and perf."
   }
 }
