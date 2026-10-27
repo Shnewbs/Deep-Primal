@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T23:04:00Z",
-  "active_until": "2026-10-27T23:35:00Z",
-  "source_ref": "816aab2b2150ff5463253f2d5636d41970914740",
-  "candidate_version": "0.0.1-alpha.29-dev.38-guarddominance.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T23:13:00Z",
+  "active_until": "2026-10-27T23:13:00Z",
+  "source_ref": "c969ace0dc1c236fcb371e86d121b478fbf7688c",
+  "candidate_version": "0.0.1-alpha.29-dev.39-waterpostwrite.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev39 engine writer claimed; post-receiver-write loaded/state ownership and compensation semantics under implementation. No owner native/build/GPU acceptance inferred.",
+  "current_gate": "dev39 post-receiver source+destination loaded-authority barrier and receiver-first safe compensation committed; actual production policy compiled with Java21, 200065 checks and three mutations rejected; 20 static source checks/five mutations pass; native Java25/Gradle/water chemistry save/reopen and AMD Vulkan/OpenGL owner gates open; no qualified JAR, release, or independent grade change.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-27 dev39 source-only postwrite finite-water callbacks: production policy helper Java21 checks 200065 plus 3 rejected mutants and static integration 20 checks/five negative mutants. Native unresolved callback single-owner transaction, actual loaded/unloaded edit, water/salt/sediment save/reopen and Vulkan/OpenGL cliffs/AMD frame latency remain unqualified. docs/validation/engine-continuation/water-receiver-postcommit-2026-10-27/README.md",
     "2026-10-27 dev38 guard shape and water receiver/source reentrant ownership committed; Python3 stand-in checker 29/29, Java21 model 274989 assertions, full native/build/GPU owner gates open. docs/validation/engine-continuation/guard-dominance-water-2026-10-27/README.md",
     "2026-10-27 dev37 height admission comment/string masking and same-volume ocean marker pressure search invalidation committed; full Java25/Gradle, native loaded/unloaded save/reopen/rollback and both GPU APIs remain owner gates. docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md",
     "2026-10-27 dev36 source checkpoint external-ocean-marker chemistry invalidation and meaningful height/resident-read short-circuit mutation controls; nine Java25 stand-in chemistry cases plus four validator mutation negatives pass in isolated scratch; owner full Gradle/NeoForge/native/Windows GPU unrun; no JAR or regrade. docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/README.md",
@@ -1033,8 +1034,8 @@
     "worker": "builder-chat-20261027T2300-receiver-postcommit",
     "started_at": "2026-10-27T23:04:00Z",
     "lease_until": "2026-10-27T23:35:00Z",
-    "lease_released": false,
-    "phase": "implementation",
+    "lease_released": true,
+    "phase": "checkpointed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
       "src/main/java/com/shnewbs/deepprimal/engine/WaterTransferCommit.java",
@@ -1043,7 +1044,29 @@
       "docs/validation/engine-continuation/water-receiver-postcommit-2026-10-27/"
     ],
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2231-227f53b/REVIEW.md",
-    "audit_source_sha": "227f53b7a95e66028831f74102f011f46125643d"
+    "audit_source_sha": "227f53b7a95e66028831f74102f011f46125643d",
+    "completed_at": "2026-10-27T23:13:00Z",
+    "source_ref": "c969ace0dc1c236fcb371e86d121b478fbf7688c",
+    "version": "0.0.1-alpha.29-dev.39-waterpostwrite.1",
+    "evidence": "docs/validation/engine-continuation/water-receiver-postcommit-2026-10-27/README.md",
+    "implementation_commits": [
+      "c969ace0dc1c236fcb371e86d121b478fbf7688c"
+    ],
+    "validation": [
+      "Java21 -Xverify:all committed policy helper 200065 checks; Git blob identity verified",
+      "Three corrupt-helper mutations rejected",
+      "20 source integration assertions and five negative source mutants rejected",
+      "GitHub post-source pin validated"
+    ],
+    "unrun": [
+      "Java25/Gradle/NeoForge full build, module/core and qualified JAR (owner performs)",
+      "Packaged native receiver callbacks, ABA, rollback chemistry persistence and save/reopen",
+      "Windows AMD8060S Vulkan/OpenGL temporal waterfall pixels and p95/p99"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Native callback injection and exactly-once composition journaling for unresolved lost ownership, then waterfall pixel/frame acceptance."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1223,14 +1246,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T2131-d62030f/REVIEW.md",
-    "source_sha": "d62030f4b6a2a13da0d09a83a278ece2aa49b8ea",
+    "path": "docs/engine-hourly-audits/2026-10-27T2231-227f53b/REVIEW.md",
+    "source_sha": "227f53b7a95e66028831f74102f011f46125643d",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Lexical guard matching accepts guards hidden in unreachable Java if(false), else and contradictory control paths; production guard currently active.",
-    "chosen_repair": "Installed-structure safety gate rejects unreachable/else/contradictory world-read guards; protect against reentrant source/receiver replacement and stale rollback in WaterRuntime.transfer."
+    "findings": "After receiver setBlock, WaterRuntime previously committed chemistry without rechecking loaded/authoritative source and receiver; 3 conditional synchronous callback scenarios modeled.",
+    "chosen_repair": "Dev39 guards both native cells after receiver write and resource callbacks; pure decision policy classifies clean commit, source-only rollback, receiver-first rollback and lost ownership; ledger commit refused on foreign edits."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
