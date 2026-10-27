@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "role": "dedicated-renderer",
+  "jam": "20261027-capture-priority",
+  "owner": "renderer-hourly-chat",
+  "status": "active",
+  "acquired_utc": "2026-10-27T23:55:32Z",
+  "expires_utc": "2026-10-28T00:25:32Z",
+  "source_parent": "9b9da3278ed62fe64a0285eea134d2eca0304939",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodCapturePriority.java",
+    "docs/renderer-jams/20261027-capture-priority/"
+  ],
+  "excluded": [
+    "engine-core",
+    "finite-water-simulation",
+    "graphics-settings",
+    "renderer-vulkan",
+    "other feature schedules"
+  ],
+  "timed_measurement": "none; no host GPU work",
+  "owner_build_handoff": true
+}
