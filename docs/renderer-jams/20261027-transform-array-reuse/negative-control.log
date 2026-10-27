@@ -1,0 +1,4 @@
+Private mutation: if (lengths[i] == length) -> if (lengths[i] == -1)
+javac --release 25 PASS
+java -Xverify:all EXIT 1 EXPECTED
+java.lang.AssertionError: reused transform array identity at ReusableTransformArraysChecks.java:36
