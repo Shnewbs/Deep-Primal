@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T19:00:00Z",
-  "active_until": "2026-10-27T19:12:00Z",
-  "source_ref": "fd2afc5a6f256441b9723a9375e0a8467ada30a9",
-  "candidate_version": "0.0.1-alpha.29-dev.34-conservativewrites.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T19:08:00Z",
+  "active_until": "2026-10-27T19:08:00Z",
+  "source_ref": "9d0049647012bc26467f67861f4f301d8d3b3e5d",
+  "candidate_version": "0.0.1-alpha.29-dev.35-heightadmission.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev34 Java25 full Gradle/NeoForge build, packaged native loaded/unloaded admission + rollback injection, volume/chemistry ledger save-reopen and waterfall GPU/long-soak performance; no development JAR qualified.",
+  "current_gate": "Dev35 must pass owner's Java25 full Gradle/NeoForge and native loaded/unloaded hydrology conservation/save-reopen, rollback injection and both Vulkan/OpenGL cliff continuity plus AMD hardware performance; source-only commit, no JAR qualified.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1030,7 +1030,7 @@
     "worker": "builder-chat-20261027T1900-height-admission",
     "started_at": "2026-10-27T19:00:00Z",
     "lease_until": "2026-10-27T19:12:00Z",
-    "phase": "scoped_water_height_admission",
+    "phase": "checkpointed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
       "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterTransferAdmissionChecks.java",
@@ -1040,7 +1040,26 @@
     "source_ref": "a82d520e077b66d8682c5929f4119c54d70fc558",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1834-ed919c35/REVIEW.md",
     "target": "Height-bound loaded-only water placement; source-only per owner",
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "completed_at": "2026-10-27T19:08:00Z",
+    "lease_released": true,
+    "final_source": "9d0049647012bc26467f67861f4f301d8d3b3e5d",
+    "evidence": "docs/validation/engine-continuation/height-admission-2026-10-27/README.md",
+    "implemented": "Bounded loaded-only hydrology surface/bed scans used by visit, survey and precipitation; explicit world-height check for parcel placement; dev35 version bump.",
+    "validation": [
+      "Temurin Java25 isolated stand-in: WATER_HEIGHT_ADMISSION_STANDIN_PASS checks=478944 illegalReads=0 (100000 randomized synthetic cases)",
+      "GitHub production-blob structural checks 12/12 after push with mutation rejection",
+      "Guarded expected-parent main ref update succeeded, unrelated code and frozen profiles/geography untouched"
+    ],
+    "unrun": [
+      "Full Gradle/NeoForge and native production compilation (owner handles builds)",
+      "Native unloaded-chunk boundary events, rollback injection, chemistry conservation/save-reopen",
+      "Windows AMD/Vulkan/OpenGL waterfall frame/pixel and multiplayer/soak tails"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Owner complete checkout compilation and native load/unload world height/save/reopen conservation; then stage contact integration after separate water gates and acquire real Vulkan/OpenGL performance evidence."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1220,13 +1239,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T1734-83c099f/REVIEW.md",
-    "source_sha": "83c099fd455c0154f511e2d2f67f8582822a83fa",
+    "path": "docs/engine-hourly-audits/2026-10-27T1834-ed919c35/REVIEW.md",
+    "source_sha": "ed919c35a933ae54b0b8f9bee5c910d71a8be953",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Close unloaded world mutation/read entry points and fail hard rather than silently lose water if a two-cell transfer rollback cannot restore source."
+    "findings": "HydrologyRuntime.place had missing in-world-height gate; native read/rollback/persistence, GPU waterfall and quantitative tails unverified.",
+    "chosen_repair": "Reject world-height/unloaded block-state accesses in place and bounded column scans; preserve exact 8/16 scan caps and existing water and chemistry accounting."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
