@@ -3,7 +3,7 @@
   "role": "dedicated-renderer",
   "jam": "20261027-lod-upload-forward-progress",
   "owner": "renderer-hourly-chat",
-  "status": "active",
+  "status": "checkpointed",
   "acquired_utc": "2026-10-27T22:56:06Z",
   "expires_utc": "2026-10-27T23:21:06Z",
   "source_parent": "579516aba72bdb96006cdfabfd50837887e86c22",
@@ -20,5 +20,9 @@
     "renderer-vulkan",
     "other feature schedules"
   ],
-  "note": "Bounded renderer-only claim for indivisible LOD mesh upload budget forward progress; independently verified root and water ownership checkpointed, prior renderer claim released; no heavyweight builder reservation used."
+  "note": "Bounded renderer-only claim for indivisible LOD mesh upload budget forward progress; independently verified root and water ownership checkpointed, prior renderer claim released; no heavyweight builder reservation used.",
+  "released_utc": "2026-10-27T23:04:00Z",
+  "final_source_commit": "daaeabb1a60c970e23d396af34a359eac60cf87e",
+  "report_path": "docs/renderer-jams/20261027-lod-upload-forward-progress/REVIEW.md",
+  "owner_full_build_handoff": true
 }
