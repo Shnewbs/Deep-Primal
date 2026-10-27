@@ -206,9 +206,18 @@ public final class WaterRuntime {
 
   private static boolean transfer(
       ServerLevel l, BlockPos a, BlockPos b, WaterTransport.Exchange exchange, int flow) {
-    if (exchange.moved() == 0) return false;
+    if (exchange.moved() == 0 || !l.isInWorldBounds(a) || !l.hasChunkAt(a)
+        || !l.isInWorldBounds(b) || !l.hasChunkAt(b)) return false;
     var beforeA = l.getBlockState(a);
     var beforeB = l.getBlockState(b);
+    // Refuse a stale or malformed exchange before mutating either authoritative cell.
+    // Water amounts are separate from the optical level or chemical composition.
+    int unitsA = beforeA.is(EngineRegistry.WATER_BLOCK.get())
+        ? beforeA.getValue(EngineFluid.UNITS) : 0;
+    int unitsB = beforeB.is(EngineRegistry.WATER_BLOCK.get())
+        ? beforeB.getValue(EngineFluid.UNITS) : 0;
+    if (unitsA != exchange.from() + exchange.moved()
+        || unitsB != exchange.to() - exchange.moved()) return false;
     var contentsA = HydrologyRuntime.contents(l, a, beforeA);
     var contentsB = HydrologyRuntime.contents(l, b, beforeB);
     var transfer = HydrologyRuntime.prepareTransfer(contentsA, contentsB, exchange.moved());
@@ -216,7 +225,10 @@ public final class WaterRuntime {
     // Commit both volumes before notifying neighbors; failed writes retain the original volume.
     if (!HydrologyRuntime.write(l, a, state(beforeA, exchange.from(), flow))) return false;
     if (!HydrologyRuntime.write(l, b, state(beforeB, exchange.to(), flow))) {
-      HydrologyRuntime.write(l, a, beforeA);
+      // An unsuccessful rollback is an invariant violation, not a successful zero-move.
+      // Continuing would silently desynchronize the saved water/constituent ledger.
+      if (!HydrologyRuntime.write(l, a, beforeA))
+        throw new IllegalStateException("Finite-water transfer rollback failed; source was not restored");
       return false;
     }
     if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))
