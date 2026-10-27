@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "owner": "renderer-runtime-retarget-20261027-2",
+  "task": "Build Deep Primal renderer (Chat)",
+  "status": "active",
+  "started_at": "2026-10-27T16:57:00Z",
+  "active_until": "2026-10-27T17:18:00Z",
+  "source_parent": "286af866077ff15cf14f621cf4bc59f2d0675429",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/DeliveredRetargetChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/renderer-jams/20261027-runtime-retarget/**"
+  ],
+  "benchmark_reservation": false,
+  "exclusions": [
+    "graphics-settings/**",
+    "renderer-vulkan/**",
+    "engine/water runtime or work-states",
+    "other roles caches/output"
+  ],
+  "notes": "Integrate prior staged LOD retarget, preserve unpromoted pending-upload candidate; full build required before claiming artifact."
+}
