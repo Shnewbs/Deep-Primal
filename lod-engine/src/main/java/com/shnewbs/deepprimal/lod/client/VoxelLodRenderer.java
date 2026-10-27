@@ -287,12 +287,8 @@ public final class VoxelLodRenderer {
       try {
         var keys = scan.get();
         int cx = mc.player.chunkPosition().x(), cz = mc.player.chunkPosition().z();
-        keys.sort(
-            Comparator.comparingLong(
-                k -> {
-                  long dx = x(k) - cx, dz = z(k) - cz;
-                  return dx * dx + dz * dz;
-                }));
+        keys.sort(Comparator.comparingDouble(
+            k -> LodChunkDistance.squared(x(k), z(k), cx, cz)));
         // Evictions or rejected uploads may already have queued recovery while scanning.
         // Preserve their order/edit guards and admit only the remaining nearest scan keys.
         for (long k : keys) {
@@ -419,8 +415,8 @@ public final class VoxelLodRenderer {
   private boolean inRange(long k) {
     var p = Minecraft.getInstance().player;
     if (p == null) return false;
-    return Math.max(Math.abs(x(k) - p.chunkPosition().x()), Math.abs(z(k) - p.chunkPosition().z()))
-        <= LodConfig.RADIUS.get();
+    return LodChunkDistance.chebyshev(
+        x(k), z(k), p.chunkPosition().x(), p.chunkPosition().z()) <= LodConfig.RADIUS.get();
   }
 
   private static void prune(Path folder, long budget) throws java.io.IOException {
@@ -494,15 +490,14 @@ public final class VoxelLodRenderer {
             / (2 * Math.tan(Math.toRadians(Minecraft.getInstance().options.fov().get()) / 2));
     for (var item : cache.entrySet()) {
       long k = item.getKey();
-      int dx = Math.abs(x(k) - cx), dz = Math.abs(z(k) - cz);
-      if (Math.max(dx, dz) > LodConfig.RADIUS.get()) continue;
+      long ringDistance = LodChunkDistance.chebyshev(x(k), z(k), cx, cz);
+      if (ringDistance > LodConfig.RADIUS.get()) continue;
       // Keep coverage until the native section at the page's top is compiled and visible.
       Entry entry = item.getValue();
       var finest = entry.levels.get(0);
       if (finest.isEmpty()) continue;
       int top = entry.top;
-      if (dx <= near
-          && dz <= near
+      if (ringDistance <= near
           && event
               .getLevelRenderer()
               .isSectionCompiledAndVisible(
@@ -522,7 +517,7 @@ public final class VoxelLodRenderer {
       }
       if (seen) {
         chunks++;
-        span = Math.max(span, Math.max(dx, dz) + 1);
+        span = Math.max(span, (int) ringDistance + 1);
       }
     }
     if (TELEMETRY) {
