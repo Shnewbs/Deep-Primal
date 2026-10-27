@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-27T03:32:52Z",
-  "active_until": "2026-10-27T03:32:52Z",
-  "source_ref": "2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e",
+  "status": "active",
+  "updated_at": "2026-10-27T03:40:00Z",
+  "active_until": "2026-10-27T04:20:00Z",
+  "source_ref": "265a0da7467ce516645dba66036bfa6123465127",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Staged contact budget/native checks passed; combined full Gradle producer, source-index integration, weather/travel/GPU/platform/soak acceptance remain open",
+  "current_gate": "Centralize conservative chemistry commit in combined staged hydrology-index/contact runtime",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -481,7 +481,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261027T0300",
+  "worker": "builder-20261027T0335",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1024,61 +1024,24 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "base_code_sha": "6f90fe5c44877b7fe7f760f2ba86cb673dd7a64f",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/REVIEW.md",
-    "consumed_audit_sha": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a",
-    "last_external_grade": 5,
-    "lease_released": true,
+    "worker": "builder-20261027T0335",
+    "phase": "combined_contact_commit_implementation",
+    "started_at": "2026-10-27T03:40:00Z",
+    "lease_until": "2026-10-27T04:20:00Z",
     "scope": [
-      "docs/validation/engine-continuation/water-contact-budget-2026-10-27",
-      "docs/ENGINE-WORK-STATE.json"
+      "docs/ENGINE-WORK-STATE.json",
+      "docs/validation/engine-continuation/water-contact-commit-2026-10-27"
     ],
-    "coordination": "Current Git root and foreground water checkpointed. Renderer capacity receipt owns only docs/renderer-jams/20261027-capacity-recheck, nonexclusive. Personal context and both task peeks checked; original other-chat fresh ownership unavailable. Own /dev/shm/dp-builder2600; no timing benchmark.",
-    "actual_changes": "Added bounded loaded-contact adapter, server-thread guard, per-tick pair deduplication, physical vertical contact checks, sparse composition commits and solver/lifecycle hooks.",
-    "production_runtime_changed": false,
-    "checks": "12302 contact-double cases; actual API compile13classes;139-source full core; two private native fresh/reopen sessions with exact persistence;7diagnostic archives/13class matches. Prior conservation suites pass.",
-    "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
-    "blocker": "Overlay full; bundled private native extraction also failed ENOSPC. Split diagnostic passes but full isolated Gradle/module/new-distribution gates unavailable. No new user-facing JAR/release.",
-    "next_implementation": "Qualify combined staged source-index/contact candidate with full producer and broader weather/travel cases, then single-owner loaded/unloaded ledger.",
-    "cleanup": "382313574 bytes of own disposable diagnostic/classes/dependency/test-world files removed after source/evidence checkpoint; independently absent. Overlay archive reappearance remains separately recorded.",
-    "source_sha": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd",
-    "remaining_capacity": "After cleanup overlay0 available, memory-backed964MiB available; full producer minimum previously >1.3GB before source/temp expansion.",
-    "worker": "builder-20261027T0300",
-    "started_at": "2026-10-27T03:10:00Z",
-    "lease_until": "2026-10-27T03:32:52Z",
-    "phase": "checkpointed_source_candidate_no_distribution",
     "overlap_check": {
-      "main": "6f897d7f75a46a56f5646ca93dd261b942da56b9",
-      "renderer": "Active scoped FrameIntervalWindow/ClientTelemetry claim until 03:30, no overlapping files, no exclusive benchmark",
-      "water": "Foreground water state checkpointed",
-      "auditor": "Completed 63c3116d-0a58-8329-b26f-b13ba118b203 at 02:49:48Z; enabled",
-      "builder_run": "d11cd600-4b54-8324-a353-c96290091441 recorded in_progress; not independent liveness proof",
-      "original_engine_chat": "No fresh direct ownership evidence after 02:29 available from Personal Context; Git claims checked"
+      "root": "checkpointed before claim",
+      "water": "foreground checkpointed",
+      "renderer": "active separate telemetry claim; no exclusive benchmark",
+      "auditor": "91302c7f-e638-8320-8a19-a9281cb4d5e1 recorded in_progress since03:31:58; own isolated outputs only",
+      "builder": "d11cd600-4b54-8324-a353-c96290091441 recorded in_progress; not independent liveness evidence",
+      "original_engine_chat": "Personal Context has no fresh direct ownership evidence; Git claims checked"
     },
-    "capacity": "Overlay zero bytes available; /dev/shm 507MiB available at 03:08. Own scoped outputs only.",
-    "completed_at": "2026-10-27T03:32:52Z",
-    "results": {
-      "source_sha": "87904222016cc483ffee54d0f6399a1bb3949b2c",
-      "version": "dev.32-contact-candidate.2 (source only)",
-      "budget_assertions": 9481867,
-      "contact_cases": 12302,
-      "full_core_sources": 143,
-      "api_compiled_classes": 12,
-      "native_fresh_reopen": true,
-      "native_repeated_admissions": 1000,
-      "native_visit_cap": 2048,
-      "helper_measured_allocation_bytes": 0,
-      "helper_measured_visits": 4096000,
-      "whole_engine_latency_claim": false,
-      "promoted": false,
-      "release_published": false,
-      "evidence": "docs/validation/engine-continuation/water-contact-budget-2026-10-27/checks.json"
-    },
-    "next_actions": [
-      "Qualify combined source-index/contact stages from current main using an isolated full Java25/Gradle producer and all module/package gates",
-      "Weather/travel/persistent single-owner loaded-unloaded transfer and bounded catch-up coverage",
-      "Real OpenGL/Vulkan connected-water temporal scenes, Windows AMD8060S, multiplayer/soak and named-hardware frame/tick latency"
-    ]
+    "capacity": "Initially zero overlay and shared-memory space, then430MiB memory-backed capacity; full ~1.3GB producer footprint remains unavailable",
+    "acceptance_complete": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1262,9 +1225,9 @@
     "source_sha": "2e15d246c76b047c57cd8f5ce0b70d9219d3b894",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Remove per-contact Edge/HashSet allocation and resize from staged contact integration; full combined source-index/contact qualification still required"
+    "chosen_repair": "Combined index/contact integration: make hydrology own validated composition-only pair commits and reject per-cell volume changes or constituent creation/destruction"
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
