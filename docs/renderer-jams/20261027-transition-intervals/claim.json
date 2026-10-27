@@ -1,0 +1,12 @@
+{
+  "owner": "renderer-transition-intervals-20261027",
+  "status": "active",
+  "started_at": "2026-10-27T01:00:52Z",
+  "active_until": "2026-10-27T01:30:00Z",
+  "scope": [
+    "docs/renderer-jams/20261027-transition-intervals"
+  ],
+  "production_files_claimed": [],
+  "exclusive_benchmark": false,
+  "source_sha": "5fc60f59535a41edcc489cf0cb686384ee64c195"
+}
