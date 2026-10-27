@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-27T21:23:00Z",
-  "active_until": "2026-10-27T21:23:00Z",
-  "source_ref": "351f6e6a1e4d968f1d11da81105dbd86b5a37609",
+  "status": "active",
+  "updated_at": "2026-10-27T22:03:00Z",
+  "active_until": "2026-10-27T22:25:00Z",
+  "source_ref": "c28f5776b2bbafda1c839d7c7369199452b1b933",
   "candidate_version": "0.0.1-alpha.29-dev.37-heightlex.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev37 source-only: resident-read checker ignores Java comments/literals and rejects nine mutants; equal-volume ocean/finite marker flips now invalidate relevant retained pressure jobs. Owner full Java25/Gradle/NeoForge, packaged real-world loaded/unloaded/rollback/chemistry/save-reopen and AMD Vulkan/OpenGL waterfalls/latency still required; no qualified dev37 JAR.",
+  "current_gate": "Consume 2026-10-27T2131 auditor dead-branch height admission finding; implement control-flow-safe read admission validator and focused water accounting repairs; owner handles Gradle/Minecraft/GPU builds.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -486,7 +486,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-chat-20261027T2107-guard-lexer",
+  "worker": "builder-chat-20261027T2203-cfg-water",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1029,46 +1029,21 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-chat-20261027T2107-guard-lexer",
-    "started_at": "2026-10-27T21:07:00Z",
-    "lease_until": "2026-10-27T21:36:00Z",
-    "phase": "checkpointed_source_only",
+    "worker": "builder-chat-20261027T2203-cfg-water",
+    "started_at": "2026-10-27T22:03:00Z",
+    "lease_until": "2026-10-27T22:25:00Z",
+    "phase": "editing",
     "scope": [
       "tools/validate_hydrology_height_admission.py",
-      "gradle.properties",
-      "docs/validation/engine-continuation/guard-lexical-2026-10-27/",
-      "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java"
+      "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+      "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/",
+      "docs/ENGINE-WORK-STATE.json",
+      "gradle.properties"
     ],
-    "source_ref": "45b2137f9cf1f9ad1bb44dd2f24fd2a5440977e4",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2025-73867fa/REVIEW.md",
-    "target": "Reject commented/string-literal loaded-world guard false positives while preserving existing boolean mutation checks; ensure ocean/finite marker flips invalidate retained pressure graph at equal volume",
-    "acceptance_complete": false,
-    "completed_at": "2026-10-27T21:23:00Z",
-    "lease_released": true,
-    "final_source": "351f6e6a1e4d968f1d11da81105dbd86b5a37609",
-    "version": "0.0.1-alpha.29-dev.37-heightlex.1",
-    "evidence": "docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md",
-    "implementation_commits": [
-      "c2477b7bb8df306c59bcbb0bc775deaa12295ec0",
-      "351f6e6a1e4d968f1d11da81105dbd86b5a37609"
-    ],
-    "validation": [
-      "Temurin 25.0.5+8 java/javac verified",
-      "Isolated Python source-signature fixture: 21/21 static and 9/9 mutation rejections",
-      "Independent current-GitHub-source structural mirror: all 8 sampled admission/loop contract checks and all 9 mutation controls",
-      "Java25 compiled malicious commented-place syntax",
-      "Isolated Java25 water pressure model 9248/9248 cases, 578 ocean marker job invalidations, 68 optical-only controls, old-branch negative control",
-      "Post-push Github blob read confirms dev37 version, height lexer and new runtime marker invalidation"
-    ],
-    "unrun": [
-      "Full Gradle/NeoForge Java25 production module/core/JAR (owner builds; checkout DNS unavailable)",
-      "Native water marker edits / loaded/unloaded owner, rollback, chemistry ledger, save/reopen, multiplayer soak",
-      "Real Vulkan/OpenGL water continuity and AMD8060S frame/tick p50/p95/p99"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "last_external_grade": 5,
-    "next_priority": "Owner native source/JAR validation of dev37; loaded/unloaded water rollback and exact constituent/volume ledger, then same-volume ocean marker scenario and OpenGL/Vulkan waterfall temporal pixels."
+    "source_ref": "c28f5776b2bbafda1c839d7c7369199452b1b933",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2131-d62030f/REVIEW.md",
+    "target": "Control-flow-aware resident-read validator and conservative native mutation retry; protect frozen geography, production water volume and constituent ownership",
+    "acceptance_complete": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1248,14 +1223,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T2025-73867fa/REVIEW.md",
-    "source_sha": "73867fa544437554aa12ea44493aef745f553fd7",
+    "path": "docs/engine-hourly-audits/2026-10-27T2131-d62030f/REVIEW.md",
+    "source_sha": "d62030f4b6a2a13da0d09a83a278ece2aa49b8ea",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Independent audit reproduced falsely accepted commented-out loaded-world safety guard, while production dev36 guard was active.",
-    "chosen_repair": "Mask nonexecutable Java comments/literals during guard scanning and require five additional mutation controls; independently tighten retained pressure graph invalidation when ocean marker changes with unchanged water volume."
+    "findings": "Lexical guard matching accepts guards hidden in unreachable Java if(false), else and contradictory control paths; production guard currently active.",
+    "chosen_repair": "Require code-structure-aware guarded early exit dominance before native state reads; add dead-branch regression mutants; independently improve loaded/unloaded water conservative transaction test boundary."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
