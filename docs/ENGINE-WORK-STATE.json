@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T05:07:00Z",
-  "active_until": "2026-10-27T05:45:00Z",
+  "updated_at": "2026-10-27T16:02:16.987Z",
+  "active_until": "2026-10-27T16:47:16.987Z",
   "source_ref": "afa9694bc4cefe7f057da664998912499fcd4dbf",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Bound total chemistry contact-table probe work and retain retries on admission exhaustion",
+  "current_gate": "Bound cumulative exact-pair contact probe work; retain denied chemistry contact for next tick",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -481,7 +481,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261027T0504",
+  "worker": "builder-chat-20261027T1607",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1024,20 +1024,20 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261027T0504",
-    "started_at": "2026-10-27T05:07:00Z",
-    "lease_until": "2026-10-27T05:45:00Z",
-    "phase": "contact_probe_budget",
+    "worker": "builder-chat-20261027T1607",
+    "started_at": "2026-10-27T16:02:16.987Z",
+    "lease_until": "2026-10-27T16:47:16.987Z",
+    "phase": "bounded_contact_probe_candidate",
     "scope": [
       "docs/ENGINE-WORK-STATE.json",
-      "docs/validation/engine-continuation/water-contact-probes-2026-10-27"
+      "docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/"
     ],
     "overlap_check": {
-      "water": "checkpointed",
-      "renderer": "active admission-gate docs and LOD tests only; nonexclusive",
-      "auditor": "completed a6c249e4 at04:51:58",
-      "other_chat": "Personal Context searched; no fresh direct original-chat ownership evidence",
-      "builder": "d7ba6905 in_progress matches current task"
+      "water": "checkpointed with no active lease",
+      "renderer": "separate graphics-upscaling lease through 17:24Z; no overlap",
+      "auditor": "latest completed independent bbf07e1 audit, 50/100 carried",
+      "other_chat": "Personal Context latest renderer edit at 15:51Z; no direct root engine owner",
+      "builder": "previous root lease expired 05:45Z"
     },
     "acceptance_complete": false
   },
