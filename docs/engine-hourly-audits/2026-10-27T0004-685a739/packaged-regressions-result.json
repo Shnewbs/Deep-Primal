@@ -1,0 +1,1 @@
+{"pass":true,"actual_nested_core_verified":true,"core_sha256":"d47d2894caf55206b9ca6f133571033e526dc50a3a5f1edf876d2952d1bc77d3","fixtures":["CacheLifecycleChecks","CoreCloseLifecycleChecks","PipelineInlineCloseChecks","WaterfallSideChecks"],"rock_ledge_cases":8192,"gpu_execution":false}

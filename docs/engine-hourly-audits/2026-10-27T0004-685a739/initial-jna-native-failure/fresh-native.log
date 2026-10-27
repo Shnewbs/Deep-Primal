@@ -1,0 +1,280 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx1024m -Djava.io.tmpdir=/dev/shm/dp-audit-685a739-0004/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=42105 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=42105 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a2f7076b7762/audit-c5abe45-20261026T2333/toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :engine-core:compileJava UP-TO-DATE
+> Task :graphics-settings:compileJava UP-TO-DATE
+> Task :gui-themes:createMinecraftArtifacts UP-TO-DATE
+> Task :gui-themes:compileJava UP-TO-DATE
+> Task :lod-engine:compileJava UP-TO-DATE
+> Task :performance-engine:compileJava UP-TO-DATE
+> Task :renderer-vulkan:compileJava UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :compileSoilDataJava UP-TO-DATE
+> Task :processSoilDataResources NO-SOURCE
+> Task :soilDataClasses UP-TO-DATE
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes UP-TO-DATE
+> Task :engine-core:jar UP-TO-DATE
+> Task :generateSoilResources UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileVisualValidationJava UP-TO-DATE
+> Task :prepareServerRun
+> Task :processVisualValidationResources NO-SOURCE
+> Task :visualValidationClasses UP-TO-DATE
+> Task :graphics-settings:processResources UP-TO-DATE
+> Task :graphics-settings:classes UP-TO-DATE
+> Task :graphics-settings:jar UP-TO-DATE
+> Task :gui-themes:compileThemeAssetsJava UP-TO-DATE
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses UP-TO-DATE
+> Task :gui-themes:generateThemeAssets UP-TO-DATE
+> Task :gui-themes:processResources UP-TO-DATE
+> Task :gui-themes:classes UP-TO-DATE
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar UP-TO-DATE
+> Task :lod-engine:processResources UP-TO-DATE
+> Task :lod-engine:classes UP-TO-DATE
+> Task :lod-engine:jar UP-TO-DATE
+> Task :performance-engine:processResources UP-TO-DATE
+> Task :performance-engine:classes UP-TO-DATE
+> Task :performance-engine:jar UP-TO-DATE
+> Task :renderer-vulkan:processResources UP-TO-DATE
+> Task :renderer-vulkan:classes UP-TO-DATE
+> Task :renderer-vulkan:jar UP-TO-DATE
+
+> Task :runServer
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx1024m -Djava.io.tmpdir=/dev/shm/dp-audit-685a739-0004/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=42105 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=42105 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a2f7076b7762/audit-c5abe45-20261026T2333/toolchain/checked-agent/neoform-process-fallback.jar
+OpenJDK 64-Bit Server VM warning: Insufficient space for shared memory file: /tmp/hsperfdata_root/423
+
+2026-10-27T00:15:15.322776096Z main WARN Advanced terminal features are not available in this environment
+[01:15:15] [main/INFO] [ne.ne.fm.st.Entrypoint/]: JVM Uptime at startup: 143ms
+[01:15:15] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Starting FancyModLoader version 11.0.15 (DEDICATED_SERVER in DEV)
+[01:15:15] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Game directory: /dev/shm/dp-audit-685a739-0004/precipitation-world-persistence
+[01:15:15] [main/INFO] [ne.ne.fm.lo.EarlyServiceDiscovery/]: Found 2 early service jars (out of 93) in 23ms
+[01:15:15] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Early Services:
+[01:15:15] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - /dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/11.0.15/69ddd98736a6b095783523404d1af8992842722/loader-11.0.15.jar
+[01:15:15] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - /dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/11.0.15/b254aa4ec40828f8ce65411dcb7fb9f6ce008064/earlydisplay-11.0.15.jar
+[01:15:15] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: Not loading early display in headless mode.
+[01:15:15] [main/INFO] [ne.ne.fm.lo.mo.lo.GameLocator/]: Detected a joined NeoForge and Minecraft configuration. Applying filtering...
+[01:15:15] [main/INFO] [ne.ne.fm.lo.mo.lo.InDevFolderLocator/CORE]: Got mod coordinates deepprimal%%/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar:deepprimal%%/dev/shm/dp-audit-c5abe45-2333/project/build/classes/java/visualValidation from env
+[01:15:16] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 8 dependencies adding them to mods collection
+[01:15:16] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Deep Primal 0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739 (deepprimal)
+		Deep Primal Graphics Settings 0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739 (deepprimal_graphics)
+		Deep Primal LOD 0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739 (deepprimal_lod)
+		Deep Primal Performance 0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739 (deepprimal_performance)
+		Deep Primal Themes 0.1.0-alpha.8 (deepprimal_themes)
+		Deep Primal Vulkan (experimental) 0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739 (deepprimal_vulkan)
+		Minecraft 26.1.2 (minecraft)
+		NeoForge 26.1.2.122 (neoforge)
+[01:15:16] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/5f66cc9f59b8efaa942155a3d5a30599bf6640dd/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=FML Env=SERVER
+[01:15:16] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Plugins:
+[01:15:16] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - /dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/dc8fb88129b30b1afe62cb59a047eb3f837220b8/neoforge-26.1.2.122-universal.jar > net.neoforged.neoforge-coremods-26.1.2.122.jar
+[01:15:16] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - /dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739.jar
+[01:15:16] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Building game content classloader:
+ - deepprimal (composite(jar(/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar), folder(/dev/shm/dp-audit-c5abe45-2333/project/build/classes/java/visualValidation)))
+ - deepprimal_graphics (jar(/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739.jar))
+ - deepprimal_lod (jar(/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739.jar))
+ - deepprimal_performance (jar(/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739.jar))
+ - deepprimal_themes (jar(/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar))
+ - deepprimal_vulkan (jar(/dev/shm/dp-audit-685a739-0004/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-windows.jar))
+ - minecraft (composite(filtered(jar(/dev/shm/dp-audit-c5abe45-2333/project/build/moddev/artifacts/minecraft-patched-26.1.2.122.jar)), filtered(jar(/dev/shm/dp-audit-c5abe45-2333/project/build/moddev/artifacts/minecraft-patched-26.1.2.122.jar))))
+ - mixinextras.neoforge (jar(/dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/dc8fb88129b30b1afe62cb59a047eb3f837220b8/neoforge-26.1.2.122-universal.jar > mixinextras-neoforge-0.5.5.jar))
+ - neoforge (composite(filtered(jar(/dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/dc8fb88129b30b1afe62cb59a047eb3f837220b8/neoforge-26.1.2.122-universal.jar))))
+ - net.neoforged.fml.generated (empty(VirtualJar/net.neoforged.fml.generated))
+[01:15:16] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Built game content classloader in 31ms
+[01:15:16] [main/WARN] [os.so.os.li.LinuxOperatingSystem/]: Did not find udev library in operating system. Some features may not work.
+[01:15:16] [main/ERROR] [os.so.os.li.LinuxOperatingSystem/]: Did not JNA classes. Investigate incompatible version or missing native dll.
+[01:15:16] [main/WARN] [minecraft/SystemReport]: Failed retrieving info for group processor
+java.lang.NoClassDefFoundError: Could not initialize class com.sun.jna.Native
+	at com.sun.jna.NativeLong.<clinit>(NativeLong.java:35) ~[jna-5.17.0.jar:5.17.0 (b0)] {}
+	at oshi.util.FileUtil.readNativeLongFromBuffer(FileUtil.java:253) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.driver.linux.proc.Auxv.queryAuxv(Auxv.java:48) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.software.os.linux.LinuxOperatingSystem.<clinit>(LinuxOperatingSystem.java:131) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxCentralProcessor.initProcessorCounts(LinuxCentralProcessor.java:174) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.common.AbstractCentralProcessor.<init>(AbstractCentralProcessor.java:68) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxCentralProcessor.<init>(LinuxCentralProcessor.java:59) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxHardwareAbstractionLayer.createProcessor(LinuxHardwareAbstractionLayer.java:43) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.util.Memoizer$1.get(Memoizer.java:65) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.common.AbstractHardwareAbstractionLayer.getProcessor(AbstractHardwareAbstractionLayer.java:48) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.lambda$putHardware$0(SystemReport.java:101) ~[minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.ignoreErrors(SystemReport.java:109) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.putHardware(SystemReport.java:101) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.lambda$new$4(SystemReport.java:64) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.ignoreErrors(SystemReport.java:109) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.<init>(SystemReport.java:64) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.CrashReport.<init>(CrashReport.java:32) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.CrashReport.preload(CrashReport.java:205) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.server.Main.main(Main.java:105) [minecraft-patched-26.1.2.122.jar:?] {}
+	at net.neoforged.fml.startup.Server.main(Server.java:19) [loader-11.0.15.jar:11.0] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.UnsatisfiedLinkError: Failed to create temporary file for /com/sun/jna/linux-x86-64/libjnidispatch.so library: No space left on device [in thread "main"]
+	at com.sun.jna.Native.loadNativeDispatchLibraryFromClasspath(Native.java:1055) ~[jna-5.17.0.jar:5.17.0 (b0)] {}
+	at com.sun.jna.Native.loadNativeDispatchLibrary(Native.java:1011) ~[jna-5.17.0.jar:5.17.0 (b0)] {}
+	at com.sun.jna.Native.<clinit>(Native.java:221) ~[jna-5.17.0.jar:5.17.0 (b0)] {}
+	at com.sun.jna.platform.linux.Udev.<clinit>(Udev.java:37) ~[jna-platform-5.17.0.jar:5.17.0 (b0)] {}
+	at oshi.software.os.linux.LinuxOperatingSystem.<clinit>(LinuxOperatingSystem.java:93) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	... 19 more
+[01:15:16] [main/WARN] [minecraft/SystemReport]: Failed retrieving info for group memory
+java.lang.NoClassDefFoundError: Could not initialize class oshi.software.os.linux.LinuxOperatingSystem
+	at oshi.hardware.platform.linux.LinuxGlobalMemory.<clinit>(LinuxGlobalMemory.java:28) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxHardwareAbstractionLayer.createMemory(LinuxHardwareAbstractionLayer.java:38) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.util.Memoizer$1.get(Memoizer.java:65) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.common.AbstractHardwareAbstractionLayer.getMemory(AbstractHardwareAbstractionLayer.java:60) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.lambda$putHardware$2(SystemReport.java:103) ~[minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.ignoreErrors(SystemReport.java:109) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.putHardware(SystemReport.java:103) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.lambda$new$4(SystemReport.java:64) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.ignoreErrors(SystemReport.java:109) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.<init>(SystemReport.java:64) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.CrashReport.<init>(CrashReport.java:32) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.CrashReport.preload(CrashReport.java:205) [minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.server.Main.main(Main.java:105) [minecraft-patched-26.1.2.122.jar:?] {}
+	at net.neoforged.fml.startup.Server.main(Server.java:19) [loader-11.0.15.jar:11.0] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.NoClassDefFoundError: Could not initialize class com.sun.jna.Native [in thread "main"]
+	at com.sun.jna.NativeLong.<clinit>(NativeLong.java:35) ~[jna-5.17.0.jar:5.17.0 (b0)] {}
+	at oshi.util.FileUtil.readNativeLongFromBuffer(FileUtil.java:253) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.driver.linux.proc.Auxv.queryAuxv(Auxv.java:48) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.software.os.linux.LinuxOperatingSystem.<clinit>(LinuxOperatingSystem.java:131) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxCentralProcessor.initProcessorCounts(LinuxCentralProcessor.java:174) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.common.AbstractCentralProcessor.<init>(AbstractCentralProcessor.java:68) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxCentralProcessor.<init>(LinuxCentralProcessor.java:59) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.platform.linux.LinuxHardwareAbstractionLayer.createProcessor(LinuxHardwareAbstractionLayer.java:43) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.util.Memoizer$1.get(Memoizer.java:65) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at oshi.hardware.common.AbstractHardwareAbstractionLayer.getProcessor(AbstractHardwareAbstractionLayer.java:48) ~[oshi-core-6.9.0.jar:6.9.0] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.lambda$putHardware$0(SystemReport.java:101) ~[minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.ignoreErrors(SystemReport.java:109) ~[minecraft-patched-26.1.2.122.jar:?] {}
+	at TRANSFORMER/minecraft@26.1.2/net.minecraft.SystemReport.putHardware(SystemReport.java:101) ~[minecraft-patched-26.1.2.122.jar:?] {}
+	... 10 more
+[01:15:16] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, set, time] and [time, set, timemarker] with inputs: [0, 0s, 0d, 0t]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, set, timemarker] and [time, set, time] with inputs: [012]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, of, clock, set, time] and [time, of, clock, set, timemarker] with inputs: [0, 0s, 0d, 0t]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, of, clock, set, timemarker] and [time, of, clock, set, time] with inputs: [012]
+[01:15:21] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [waypoint, modify, waypoint, color, reset] and [waypoint, modify, waypoint, color, color] with inputs: [reset]
+[01:15:21] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 26.1.2.122, for MC 26.1.2
+[01:15:21] [modloading-worker-0/INFO] [co.sh.de.DeepPrimal/]: Deep Primal terrain/liquid engine registered; saved generators preserved. Block assets are temporary palettes.
+[01:15:21] [main/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[01:15:21] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key
+com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:111) ~[authlib-7.0.63.jar:?] {}
+	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:56) ~[authlib-7.0.63.jar:?] {}
+	at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.fetch(YggdrasilServicesKeyInfo.java:114) [authlib-7.0.63.jar:?] {}
+	at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:89) [authlib-7.0.63.jar:?] {}
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) [?:?] {}
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) [?:?] {}
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) [?:?] {}
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090) [?:?] {}
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614) [?:?] {}
+	at java.base/java.lang.Thread.run(Thread.java:1474) [?:?] {}
+Caused by: java.net.UnknownHostException: api.minecraftservices.com
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:569) ~[?:?] {}
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:284) ~[?:?] {}
+	at java.base/java.net.Socket.connect(Socket.java:659) ~[?:?] {}
+	at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[?:?] {}
+	at java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:161) ~[?:?] {}
+	at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:524) ~[?:?] {}
+	at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:612) ~[?:?] {}
+	at java.base/sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:207) ~[?:?] {}
+	at java.base/sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:289) ~[?:?] {}
+	at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:196) ~[?:?] {}
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1011) ~[?:?] {}
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:902) ~[?:?] {}
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:875) ~[?:?] {}
+	at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:181) ~[?:?] {}
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1379) ~[?:?] {}
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1305) ~[?:?] {}
+	at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:493) ~[?:?] {}
+	at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:307) ~[?:?] {}
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:82) ~[authlib-7.0.63.jar:?] {}
+	... 9 more
+[01:15:21] [main/INFO] [minecraft/MinecraftServer]: Found new data pack mod/deepprimal:worldgen/engine_standard, loading it automatically
+[01:15:22] [Worker-Main-5/INFO] [minecraft/Main]: No existing world data, creating new world
+[01:15:22] [main/INFO] [minecraft/RecipeManager]: Loaded 1516 recipes
+[01:15:22] [main/INFO] [minecraft/AdvancementTree]: Loaded 1617 advancements
+[01:15:22] [main/INFO] [ne.ne.ne.co.cr.RecipePriorityManager/]: Loaded 0 recipe priority overrides
+[01:15:23] [Server thread/INFO] [minecraft/DedicatedServer]: Starting minecraft server version 26.1.2
+[01:15:23] [Server thread/INFO] [minecraft/DedicatedServer]: Loading properties
+[01:15:23] [Server thread/INFO] [minecraft/DedicatedServer]: Default game type: SURVIVAL
+[01:15:23] [Server thread/INFO] [minecraft/MinecraftServer]: Generating keypair
+[01:15:23] [Server thread/INFO] [minecraft/DedicatedServer]: Starting Minecraft server on 127.0.0.1:25981
+[01:15:23] [Server thread/WARN] [io.ne.ut.in.MacAddressUtil/]: Failed to find a usable hardware address from the network interfaces; using random bytes: f9:5b:09:18:d9:ff:4b:bb
+[01:15:23] [Server thread/WARN] [minecraft/DedicatedServer]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[01:15:23] [Server thread/WARN] [minecraft/DedicatedServer]: The server will make no attempt to authenticate usernames. Beware.
+[01:15:23] [Server thread/WARN] [minecraft/DedicatedServer]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[01:15:23] [Server thread/WARN] [minecraft/DedicatedServer]: To change this, set "online-mode" to "true" in the server.properties file.
+[01:15:23] [Server thread/INFO] [co.sh.de.pe.DistanceRuntime/]: Render tracking capacity for this session: 32 chunks
+[01:15:23] [Server thread/INFO] [minecraft/DedicatedServer]: Preparing level "world"
+[01:15:23] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Selecting global world spawn...
+[01:15:24] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Loading 0 persistent chunks...
+[01:15:24] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Preparing spawn area: 100%
+[01:15:24] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Time elapsed: 1112 ms
+[01:15:24] [Server thread/INFO] [minecraft/DedicatedServer]: Done (1.326s)! For help, type "help"
+[01:15:24] [Server thread/INFO] [minecraft/DedicatedServer]: Starting remote control listener
+[01:15:24] [Server thread/INFO] [minecraft/GenericThread]: Thread RCON Listener started
+[01:15:24] [Server thread/INFO] [minecraft/RconThread]: RCON running on 127.0.0.1:25982
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[01:15:24] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[01:15:24] [DedicatedLanServerPinger #1/WARN] [ne.ne.ne.se.de.DedicatedLanServerPinger/]: DedicatedLanServerPinger: Network is unreachable
+[01:15:24] [Server thread/INFO] [ne.ne.ne.se.pe.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[01:15:24] [Server thread/INFO] [co.sh.de.DeepPrimal/]: Read-only performance dashboard: http://127.0.0.1:8787/
+DRAINAGE_SERVER_STARTED
+PRECIPITATION_PERSISTENCE_PASS mode=fresh positiveDemand=131072 repeatedRejections=3 exactWaterSaltSediment=true
+[01:15:26] [RCON Listener #1/INFO] [minecraft/GenericThread]: Thread RCON Client /127.0.0.1 started
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: [Rcon: Saved the game]
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: [Rcon: Stopping the server]
+[01:15:26] [RCON Client /127.0.0.1 #2/INFO] [minecraft/RconClient]: Thread RCON Client /127.0.0.1 shutting down
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving players
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving worlds
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[01:15:26] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[01:15:26] [Server thread/INFO] [minecraft/GenericThread]: Thread RCON Listener stopped
+[01:15:26] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Closing FML Loader 3d086b3a
+[01:15:26] [main/INFO] [ne.ne.fm.ModLoader/]: Clearing ModLoader
+
+[Incubating] Problems report is available at: file:///dev/shm/dp-audit-c5abe45-2333/project/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 20s
+28 actionable tasks: 2 executed, 26 up-to-date

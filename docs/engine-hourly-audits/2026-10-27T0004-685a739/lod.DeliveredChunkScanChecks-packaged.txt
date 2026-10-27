@@ -1,0 +1,2 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/dev/shm/dp-audit-685a739-0004/tmp
+DELIVERED_SCAN_PASS coordinates=108999 outerBeyond32=92064 workBound=128 nearestFirst=true unique=true pauseRetry=true negativeCoordinates=true noChunkReferences=true
