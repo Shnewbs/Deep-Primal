@@ -15,7 +15,7 @@ import java.util.function.IntFunction;
  * No native buffer or cross-frame GPU ownership is cached here.
  */
 final class ReusableTransformArrays<T> {
-  static final int DEFAULT_RETAINED_ELEMENTS = 8192;
+  static final int DEFAULT_RETAINED_ELEMENTS = 32768;
   private final Object[] entries;
   private final int[] lengths;
   private final int maxRetainedElements;

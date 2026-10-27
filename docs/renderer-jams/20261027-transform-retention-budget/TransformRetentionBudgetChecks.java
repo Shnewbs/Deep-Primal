@@ -98,7 +98,7 @@ public final class TransformRetentionBudgetChecks {
     ok(cache.retainedElements() == 0 && cache.retainedArrays() == 0, "final reset");
 
     // Preserve the previous fixed-workload allocation win below the byte proxy.
-    ReusableTransformArrays<String> hot = new ReusableTransformArrays<>(4, 8192);
+    ReusableTransformArrays<String> hot = new ReusableTransformArrays<>(4, ReusableTransformArrays.DEFAULT_RETAINED_ELEMENTS);
     int hotBefore = creates.get(), singleCountBaseline = 0, previous = -1;
     for (int frame = 0; frame < 20_000; frame++) {
       int count = 200 + (frame & 1);

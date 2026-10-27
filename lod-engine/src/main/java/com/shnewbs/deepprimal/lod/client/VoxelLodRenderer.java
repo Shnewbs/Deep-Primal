@@ -83,7 +83,7 @@ public final class VoxelLodRenderer {
   // Bound retained CPU transform instances as well as count variants; a huge
   // transient visible set still renders but cannot pin unbounded Java objects.
   private final ReusableTransformArrays<net.minecraft.client.renderer.DynamicUniforms.Transform>
-      transformArrays = new ReusableTransformArrays<>(4, 8192);
+      transformArrays = new ReusableTransformArrays<>(4, 32768);
   private final java.util.function.IntFunction<
       net.minecraft.client.renderer.DynamicUniforms.Transform[]> transformFactory =
       length -> {
