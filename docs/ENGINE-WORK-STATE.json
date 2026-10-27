@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T00:58:57Z",
-  "active_until": "2026-10-27T01:18:57.000Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T01:01:18Z",
+  "active_until": "2026-10-27T01:01:18Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Reduce staged diffusion arithmetic allocation with exact overflow fallback",
+  "current_gate": "Exact low-allocation diffusion arithmetic staged; native integration and full build qualification remain open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1001,8 +1001,8 @@
   "performance_measurement": {
     "status": "released",
     "exclusive_benchmark": false,
-    "owner": "builder-20261027T0000",
-    "active_until": "2026-10-27T00:04:52Z"
+    "owner": "builder-20261027T0100",
+    "active_until": "2026-10-27T01:01:18Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1028,9 +1028,15 @@
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T0004-685a739/REVIEW.md",
     "consumed_audit_sha": "685a7390a8371c9b423594888a5a8e2aad744271",
     "last_external_grade": 5,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "Exact primitive-long path for staged water composition diffusion",
-    "coordination": "Git root/water/renderer claims released. Auditor run a78f6740 recorded in_progress since00:32; older result is latest completed audit. Builder current run6c687f51. Original other-chat fresh ownership unavailable; personal context retrieved. Own /dev/shm/dp-builder2500 only; no exclusive timing."
+    "coordination": "Git root/water/renderer claims released. Auditor run a78f6740 recorded in_progress since00:32; older result is latest completed audit. Builder current run6c687f51. Original other-chat fresh ownership unavailable; personal context retrieved. Own /dev/shm/dp-builder2500 only; no exclusive timing.",
+    "production_runtime_changed": false,
+    "actual_changes": "Primitive-long concentration cross-products when both products fit, retaining exact BigInteger fallback for larger valid accounts.",
+    "checks": "201134 arbitrary-precision oracle cases; prior101024 pair properties/10000 equilibrium repeats;200000 network steps; existing200000 transfers/180000 weather intervals pass.",
+    "evidence": "docs/validation/engine-continuation/composition-diffusion-fastpath-2026-10-27/README.md",
+    "blocker": "Overlay zero available; isolated full project/dependency/output setup unavailable. Full build/module/native/GPU gates not run. No new JAR/release.",
+    "next_implementation": "Bounded native connected-contact integration and full qualification together with staged hydrology source index; then loaded/unloaded single-owner exchange."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1210,13 +1216,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T2333-c5abe45/REVIEW.md",
-    "source_sha": "c5abe457c4c7b36a11307128486c240e0b40d508",
+    "path": "docs/engine-hourly-audits/2026-10-27T0004-685a739/REVIEW.md",
+    "source_sha": "685a7390a8371c9b423594888a5a8e2aad744271",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Conservative composition-only contact primitive; staged native integration and full qualification remain open"
+    "chosen_repair": "Reduce composition-only arithmetic work with exact overflow fallback while native/full-build gates remain open"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1316,10 +1322,11 @@
   },
   "latest_staged_composition_diffusion": {
     "promoted": false,
-    "candidate": "docs/validation/engine-continuation/composition-diffusion-2026-10-27/stage/WaterAccount.java",
-    "version": "dev.32-composition-candidate.1 (source only; no binary)",
+    "candidate": "docs/validation/engine-continuation/composition-diffusion-fastpath-2026-10-27/stage/WaterAccount.java",
+    "version": "dev.32-composition-candidate.2 (source only; no binary)",
     "in_delivered_jar": false,
     "water_amounts_unchanged": true,
-    "native_integration": false
+    "native_integration": false,
+    "evidence": "docs/validation/engine-continuation/composition-diffusion-fastpath-2026-10-27/README.md"
   }
 }
