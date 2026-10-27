@@ -1,0 +1,11 @@
+{
+  "exit": 0,
+  "seconds": 0.20297200200002408,
+  "command": [
+    "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
+    "-Xverify:all",
+    "-cp",
+    "/dev/shm/dp-renderer-frame-window-c748d588/classes",
+    "com.shnewbs.deepprimal.core.FrameIntervalChecks"
+  ]
+}

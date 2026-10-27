@@ -1,13 +1,18 @@
 {
   "owner": "renderer-frame-window-20261027",
-  "status": "active",
-  "started_at": "2026-10-27T00:06:00Z",
-  "active_until": "2026-10-27T01:00:00Z",
+  "status": "checkpointed-staged",
+  "started_at": "2026-10-27T00:03:12Z",
+  "active_until": null,
   "source_sha": "61799e93f6ffd130f508ddef7f8edf8d8b3a591e",
   "scope": [
     "docs/renderer-jams/20261027-frame-window"
   ],
   "production_files_claimed": [],
   "isolation": "private memory-backed candidate; no production edits until full qualification",
-  "exclusive_benchmark": false
+  "exclusive_benchmark": false,
+  "lease_released": true,
+  "completed_at": "2026-10-27T00:11:54Z",
+  "candidate_source_sha": "b69d022383571977b90926770893baf271c91fd1",
+  "runtime_unchanged": true,
+  "initial_started_at_corrected_from_manual_entry": true
 }

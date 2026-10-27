@@ -1,0 +1,37 @@
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/extensions/IFluidExtension.java):74: warning: [removal] move(FluidState,LivingEntity,Vec3,double) in FluidType has been deprecated and marked for removal
+        return getFluidType().move(state, entity, movementVector, gravity);
+                             ^
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/extensions/IFluidStateExtension.java):63: warning: [removal] move(FluidState,LivingEntity,Vec3,double) in IFluidExtension has been deprecated and marked for removal
+        return self().getType().move(self(), entity, movementVector, gravity);
+                               ^
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/extensions/ILivingEntityExtension.java):75: warning: [removal] move(LivingEntity,Vec3,double) in IFluidStateExtension has been deprecated and marked for removal
+        return state.move(self(), movementVector, gravity);
+                    ^
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/world/chunk/TicketSet.java):22: error: invalid method reference
+    private static final Codec<LongSet> LONG_SET_CODEC = Codec.LONG_STREAM.xmap(LongOpenHashSet::toSet, LongCollection::longStream);
+                                                                                ^
+  cannot find symbol
+    symbol:   method toSet()
+    location: class LongOpenHashSet
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/world/chunk/TicketSet.java):22: error: invalid method reference
+    private static final Codec<LongSet> LONG_SET_CODEC = Codec.LONG_STREAM.xmap(LongOpenHashSet::toSet, LongCollection::longStream);
+                                                                                                        ^
+  cannot find symbol
+    symbol:   method longStream()
+    location: interface LongCollection
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/world/chunk/TicketSet.java):24: error: cannot find symbol
+            LONG_SET_CODEC.optionalFieldOf("normal", LongSets.emptySet()).forGetter(TicketSet::normal),
+                                                             ^
+  symbol:   method emptySet()
+  location: class LongSets
+/workspace/scratch/c748d58856d9/qualification/gradle-cache/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/ba67ce156e2bb5f3c485de8488cc01b0c263e341/neoforge-26.1.2.122-sources.jar(/net/neoforged/neoforge/common/world/chunk/TicketSet.java):25: error: cannot find symbol
+            LONG_SET_CODEC.optionalFieldOf("natural_spawning", LongSets.emptySet()).forGetter(TicketSet::naturalSpawning)).apply(instance, TicketSet::new));
+                                                                       ^
+  symbol:   method emptySet()
+  location: class LongSets
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+4 errors
+3 warnings
