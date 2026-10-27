@@ -4,7 +4,7 @@
   "jam": "20261027-transform-retention-budget",
   "run": "2026-10-27T2059Z",
   "owner": "renderer-hourly-chat",
-  "status": "active",
+  "status": "checkpointed",
   "acquired_utc": "2026-10-27T20:59:00Z",
   "expires_utc": "2026-10-27T21:25:00Z",
   "source_parent": "d35371745c5fdfe63c0f6d40efc92ee290591585",
@@ -21,5 +21,8 @@
     "other schedules",
     "worldgen"
   ],
-  "note": "Bounded source-only renderer writer. Do not overlap another active claim. No shared build/cache/tool directories."
+  "note": "Bounded source-only renderer writer. Do not overlap another active claim. No shared build/cache/tool directories.",
+  "released_utc": "2026-10-27T21:13:00Z",
+  "final_source_commit": "a571287cb7b39f4dd366b764281ad138b9c37a4c",
+  "report_path": "docs/renderer-jams/20261027-transform-retention-budget/REVIEW.md"
 }
