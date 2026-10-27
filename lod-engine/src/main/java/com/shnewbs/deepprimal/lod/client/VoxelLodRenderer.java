@@ -80,9 +80,10 @@ public final class VoxelLodRenderer {
   public volatile boolean discoveryComplete;
   private final Matrix4f drawMatrix = new Matrix4f(), textureIdentity = new Matrix4f();
   private final Vector4f white = new Vector4f(1, 1, 1, 1);
-  // Cache a few exact draw counts; uniform writes must never include stale transforms.
+  // Bound retained CPU transform instances as well as count variants; a huge
+  // transient visible set still renders but cannot pin unbounded Java objects.
   private final ReusableTransformArrays<net.minecraft.client.renderer.DynamicUniforms.Transform>
-      transformArrays = new ReusableTransformArrays<>(4);
+      transformArrays = new ReusableTransformArrays<>(4, 8192);
   private final java.util.function.IntFunction<
       net.minecraft.client.renderer.DynamicUniforms.Transform[]> transformFactory =
       length -> {
