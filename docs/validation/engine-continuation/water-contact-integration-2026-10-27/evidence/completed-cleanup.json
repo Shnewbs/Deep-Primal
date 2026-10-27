@@ -1,0 +1,69 @@
+{
+  "source_checkpoint": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd",
+  "scope": "Only this completed run private copied dependencies, compiled classes, diagnostic assemblies and disposable test worlds; code/evidence retained on main",
+  "rows": [
+    {
+      "path": "/dev/shm/dp-builder2600/api",
+      "files": 554,
+      "bytes": 241761648
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/classes",
+      "files": 22,
+      "bytes": 63071
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/negative",
+      "files": 4,
+      "bytes": 13578
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/core-classes",
+      "files": 225,
+      "bytes": 998529
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/core-project",
+      "files": 142,
+      "bytes": 909967
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/native-modules",
+      "files": 6,
+      "bytes": 126093261
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/native-world",
+      "files": 63,
+      "bytes": 8545000
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/native-world-final",
+      "files": 61,
+      "bytes": 3237782
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/native-tmp",
+      "files": 0,
+      "bytes": 0
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/native-fixture",
+      "files": 1,
+      "bytes": 6967
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/contact-diagnostic-private.jar",
+      "files": 1,
+      "bytes": 680525
+    },
+    {
+      "path": "/dev/shm/dp-builder2600/fixture",
+      "files": 9,
+      "bytes": 3246
+    }
+  ],
+  "bytes_removed": 382313574,
+  "immediate_absence": true,
+  "independent_absence": true
+}

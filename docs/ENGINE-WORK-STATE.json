@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T02:28:00Z",
-  "active_until": "2026-10-27T02:42:00Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T02:29:00Z",
+  "active_until": "2026-10-27T02:29:00Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Bounded loaded-cell composition contact adapter; source-only until full qualification",
+  "current_gate": "Full combined source-index/contact producer qualification; staged native contact fresh/reopen passes",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -234,7 +234,7 @@
     "Continue hourly builder until a fresh complete independent ten-category average is strictly greater than 8.5/10; a score of exactly 8.5 does not satisfy the target."
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/delta-shutdown-gates-2026-10-25/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
   "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/density-r62",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
@@ -1028,7 +1028,7 @@
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/REVIEW.md",
     "consumed_audit_sha": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a",
     "last_external_grade": 5,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "Staged bounded loaded-cell chemistry contact adapter and native-boundary regression doubles",
     "coordination": "Current Git root and foreground water checkpointed. Renderer capacity receipt owns only docs/renderer-jams/20261027-capacity-recheck, nonexclusive. Personal context and both task peeks checked; original other-chat fresh ownership unavailable. Own /dev/shm/dp-builder2600; no timing benchmark.",
     "actual_changes": "Added bounded loaded-contact adapter, server-thread guard, per-tick pair deduplication, physical vertical contact checks, sparse composition commits and solver/lifecycle hooks.",
@@ -1036,7 +1036,10 @@
     "checks": "12302 contact-double cases; actual API compile13classes;139-source full core; two private native fresh/reopen sessions with exact persistence;7diagnostic archives/13class matches. Prior conservation suites pass.",
     "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
     "blocker": "Overlay full; bundled private native extraction also failed ENOSPC. Split diagnostic passes but full isolated Gradle/module/new-distribution gates unavailable. No new user-facing JAR/release.",
-    "next_implementation": "Qualify combined staged source-index/contact candidate with full producer and broader weather/travel cases, then single-owner loaded/unloaded ledger."
+    "next_implementation": "Qualify combined staged source-index/contact candidate with full producer and broader weather/travel cases, then single-owner loaded/unloaded ledger.",
+    "cleanup": "382313574 bytes of own disposable diagnostic/classes/dependency/test-world files removed after source/evidence checkpoint; independently absent. Overlay archive reappearance remains separately recorded.",
+    "source_sha": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd",
+    "remaining_capacity": "After cleanup overlay0 available, memory-backed964MiB available; full producer minimum previously >1.3GB before source/temp expansion."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1222,7 +1225,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Bounded native loaded-cell chemistry contact integration; full index/producer qualification still open"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1329,6 +1332,7 @@
     "in_delivered_jar": false,
     "water_amounts_unchanged": true,
     "native_integration": "Private split diagnostic fresh/reopen plus actual solver tick pass; full producer qualification pending",
-    "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md"
+    "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
+    "source_sha": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd"
   }
 }
