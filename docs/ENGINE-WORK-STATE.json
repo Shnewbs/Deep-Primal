@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T00:01:36Z",
-  "active_until": "2026-10-27T00:26:36.000Z",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T00:04:52Z",
+  "active_until": "2026-10-27T00:04:52Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Implement staged conservative composition-only diffusion; full build storage unavailable",
+  "current_gate": "Composition-only exchange staged and exact conservation checks pass; native contact and full qualification remain open",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1001,8 +1001,8 @@
   "performance_measurement": {
     "status": "released",
     "exclusive_benchmark": false,
-    "owner": "builder-20261026T2300",
-    "active_until": "2026-10-26T23:13:44Z"
+    "owner": "builder-20261027T0000",
+    "active_until": "2026-10-27T00:04:52Z"
   },
   "owner_pause_checkpoint": {
     "library_file_id": "libfile_8d977b62639881919ea47e0cdd6caece",
@@ -1027,9 +1027,16 @@
     "base_code_sha": "e0bcf7c6f85ab84b5d4dec359a5b6d814bc2a88e",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-26T2333-c5abe45/REVIEW.md",
     "last_external_grade": 5,
-    "lease_released": false,
+    "lease_released": true,
     "scope": "WaterAccount bounded composition-only exchange, staged until full qualification",
-    "coordination": "Personal context confirms renderer release; Git renderer and water claims checkpointed. Automation inventory checked, both builder/auditor enabled; current run details unavailable. Original other-chat fresh ownership unavailable. Overlay full; own /dev/shm/dp-builder2400 only."
+    "coordination": "Personal context confirms renderer release; Git renderer and water claims checkpointed. Automation inventory checked, both builder/auditor enabled; current run details unavailable. Original other-chat fresh ownership unavailable. Overlay full; own /dev/shm/dp-builder2400 only.",
+    "production_runtime_changed": false,
+    "consumed_audit_sha": "c5abe457c4c7b36a11307128486c240e0b40d508",
+    "actual_changes": "Staged WaterAccount.diffuseWith: bounded independent salt/sediment exchange with zero volume change, dry retention, overflow-safe arithmetic, capacity guards and order-symmetric rounding.",
+    "checks": "101024 pair properties; 10000 equilibrium repeats; 200000 mixed-network steps/1575 reconstructions; existing 200000-transfer/180000-weather-interval suites pass.",
+    "blocker": "Overlay full; 867MiB free memory-backed workspace insufficient for private full Gradle/project/cache/native bundle qualification. No new JAR/release.",
+    "evidence": "docs/validation/engine-continuation/composition-diffusion-2026-10-27/README.md",
+    "next_implementation": "Bounded native connected-contact integration with edit/unload ownership; qualify alongside staged source index through full build/module/package/native gates."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1209,13 +1216,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-26T2232-4a8b0fb/REVIEW.md",
-    "source_sha": "4a8b0fb52e7473a816655096c42f089dd340e735",
+    "path": "docs/engine-hourly-audits/2026-10-26T2333-c5abe45/REVIEW.md",
+    "source_sha": "c5abe457c4c7b36a11307128486c240e0b40d508",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Recover isolated validation tools with bounded verified cache copies and remove redundant archives, then qualify combined staged hydrology"
+    "chosen_repair": "Conservative composition-only contact primitive; staged native integration and full qualification remain open"
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1312,5 +1319,13 @@
     "archive_cleanup": "Remove own verified tool archives after successful extraction; leave source caches and required JAR dependencies intact",
     "last_receipt": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md",
     "unresolved": "Owned JDK21 archive reappears between independent calls after successful immediate unlink/rm checks; persistence not verified, cause unestablished. Avoid broad deletion retries."
+  },
+  "latest_staged_composition_diffusion": {
+    "promoted": false,
+    "candidate": "docs/validation/engine-continuation/composition-diffusion-2026-10-27/stage/WaterAccount.java",
+    "version": "dev.32-composition-candidate.1 (source only; no binary)",
+    "in_delivered_jar": false,
+    "water_amounts_unchanged": true,
+    "native_integration": false
   }
 }
