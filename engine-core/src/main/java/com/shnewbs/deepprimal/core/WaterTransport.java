@@ -23,6 +23,22 @@ public final class WaterTransport {
     return new Exchange(from - moved, to + moved, moved);
   }
 
+  /**
+   * Admit a proposed integer-volume exchange only if its snapshots match the two
+   * loaded native cells immediately before writing. This rejects stale work,
+   * malformed adapters and transfers that would implicitly create/destroy water.
+   * Chemistry is conserved separately by WaterAccount and never changes this volume.
+   */
+  public static boolean matches(Exchange proposal, int beforeFrom, int beforeTo) {
+    if (proposal == null || beforeFrom < 0 || beforeFrom > CAPACITY
+        || beforeTo < 0 || beforeTo > CAPACITY) return false;
+    int moved = proposal.moved();
+    if (moved <= 0 || moved > CAPACITY || proposal.from() < 0
+        || proposal.to() > CAPACITY) return false;
+    return proposal.from() + moved == beforeFrom
+        && proposal.to() - moved == beforeTo;
+  }
+
   /** Shared global corners make independently rebuilt neighboring cells meet exactly. */
   public static double surface(
       double nw, double ne, double sw, double se, double center, double u, double v) {
