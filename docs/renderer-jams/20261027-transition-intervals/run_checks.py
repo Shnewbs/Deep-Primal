@@ -18,7 +18,7 @@ sources=inputs+fixtures+[run/'candidate/FrameIntervalWindow.java',run/'candidate
 def call(name,args):
  start=time.monotonic()
  with (run/'evidence'/f'{name}.txt').open('w') as log:
-  p=subprocess.run([str(x) for x in args],cwd=run,stdout=log,stderr=subprocess.STDOUT)
+  p=subprocess.run([str(x) for x in args],cwd=run,stdout=log,stderr=subprocess.STDOUT,env={**os.environ, 'TMPDIR':str(run/'tmp'), 'JDK_JAVA_OPTIONS':'-XX:-UsePerfData -Djava.io.tmpdir='+str(run/'tmp')})
  result={'exit':p.returncode,'seconds':time.monotonic()-start,'command':[str(x) for x in args]}
  (run/'evidence'/f'{name}.json').write_text(json.dumps(result,indent=2))
  if p.returncode: raise RuntimeError(name+' failed')
