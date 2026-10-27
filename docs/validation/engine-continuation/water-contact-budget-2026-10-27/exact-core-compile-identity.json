@@ -1,0 +1,6 @@
+{
+  "pass": true,
+  "compiled_classes": 229,
+  "source_correction": "Restored one trailing EOF newline to exact fetched CoreChecks source",
+  "all_recompiled_bytes_equal_running_suite": true
+}

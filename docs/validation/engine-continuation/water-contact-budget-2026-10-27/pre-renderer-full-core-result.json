@@ -1,0 +1,19 @@
+{
+  "exit": 0,
+  "pass": true,
+  "sources": 140,
+  "baseline_sources": 139,
+  "added_helper": 1,
+  "private_tmp": true,
+  "private_working_directory": "/dev/shm/dp-builder2800",
+  "command": [
+    "/workspace/scratch/a22609fabda0/builder2300/toolchain/jdk-25.0.4.1+1/bin/java",
+    "-XX:+PerfDisableSharedMem",
+    "-Xmx512m",
+    "-Xverify:all",
+    "-Djava.io.tmpdir=/dev/shm/dp-builder2800/core-tmp",
+    "-cp",
+    "/dev/shm/dp-builder2800/core-classes",
+    "com.shnewbs.deepprimal.core.CoreChecks"
+  ]
+}

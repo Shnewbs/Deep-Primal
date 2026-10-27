@@ -13,7 +13,9 @@ Never run them against another writer's mutable outputs.
    with -Xverify:all and private java.io.tmpdir.
 2. For full core, verify all 139 baseline sources against core-source-snapshot.json
    and the committed 0230 auditor source-identity.json. Overlay WaterAccount and
-   add WaterContactBudget; compile all 140. Run CoreChecks with private temp.
+   add WaterContactBudget; compile all 140. For the final combined snapshot,
+   apply the four exact source blobs listed in late-main-reconciliation.json
+   from 2e1aa76 (three additions and the CoreChecks update); compile all 143. Run CoreChecks with private temp.
    Its final success line is PASS: ... differential surface cases, bounded-cache
    stress, tick-ring rollover. An exit code or partial log alone is insufficient.
 3. api_compile.py verifies/copies completed immutable dependencies and compiles

@@ -72,3 +72,16 @@ direct ownership evidence from the original engine chat was available.
 Next: qualify the combined staged source-index and contact changes with an
 isolated full producer when capacity permits, then exercise weather/travel,
 persistent single-owner transfers and actual visual/performance acceptance.
+
+## Late-main reconciliation
+
+After the water source checkpoint, main integrated qualified renderer telemetry
+at `2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e`. Its four core/test source blobs were
+fetched and verified exactly; the combined private core snapshot now has 143
+sources (142 production-baseline/check sources plus the new water helper).
+The initial 140-source core run passed before this main update. Final combined
+results are recorded separately. One trailing EOF newline lost during copying
+was restored; an independent clean recompile produced all 229 identical classes.
+No renderer source was edited or replaced in main. Native contact diagnostics
+remain explicitly pinned to the earlier dev.31 baseline with the water overlay;
+they do not claim the combined renderer distribution was exercised.

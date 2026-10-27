@@ -4,8 +4,25 @@
   "candidate_baseline": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd",
   "production_pin": "6f897d7f75a46a56f5646ca93dd261b942da56b9",
   "full_core": {
-    "status": "running",
-    "sources": 140
+    "exit": 0,
+    "pass": true,
+    "sources": 143,
+    "baseline_sources": 142,
+    "added_helper": 1,
+    "production_pin": "2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e",
+    "private_tmp": true,
+    "private_working_directory": "/dev/shm/dp-builder2800",
+    "command": [
+      "/workspace/scratch/a22609fabda0/builder2300/toolchain/jdk-25.0.4.1+1/bin/java",
+      "-XX:+PerfDisableSharedMem",
+      "-Xmx512m",
+      "-Xverify:all",
+      "-Djava.io.tmpdir=/dev/shm/dp-builder2800/core-tmp",
+      "-cp",
+      "/dev/shm/dp-builder2800/core-classes",
+      "com.shnewbs.deepprimal.core.CoreChecks"
+    ],
+    "functional_only_not_controlled_performance": true
   },
   "budget_checks": {
     "pass": true,
@@ -142,5 +159,73 @@
       "bytes": 3937,
       "sha256": "33fb515f7514e186ab399e6a65451de08f503b11fb8199cc2c18a73c63d64e00"
     }
-  ]
+  ],
+  "pre_renderer_full_core": {
+    "exit": 0,
+    "pass": true,
+    "sources": 140,
+    "baseline_sources": 139,
+    "added_helper": 1,
+    "private_tmp": true,
+    "private_working_directory": "/dev/shm/dp-builder2800",
+    "command": [
+      "/workspace/scratch/a22609fabda0/builder2300/toolchain/jdk-25.0.4.1+1/bin/java",
+      "-XX:+PerfDisableSharedMem",
+      "-Xmx512m",
+      "-Xverify:all",
+      "-Djava.io.tmpdir=/dev/shm/dp-builder2800/core-tmp",
+      "-cp",
+      "/dev/shm/dp-builder2800/core-classes",
+      "com.shnewbs.deepprimal.core.CoreChecks"
+    ]
+  },
+  "source_checkpoint": "87904222016cc483ffee54d0f6399a1bb3949b2c",
+  "late_main_reconciliation": {
+    "source_pin": "2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e",
+    "water_checkpoint": "87904222016cc483ffee54d0f6399a1bb3949b2c",
+    "changes": "Qualified renderer telemetry; no overlap with water stage",
+    "private_combined_core_sources": 143,
+    "verified_late_core_sources": [
+      {
+        "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/FrameIntervalWindow.java",
+        "sha256": "4101a6ca32a34a768777c4e351b2a2dda06c78df725090159e407aaacafb4518",
+        "git_blob": "e42c65c125274fceb084998bb5d648b1799ae965"
+      },
+      {
+        "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+        "sha256": "6e0a8c2608954588043782199a218b65d0816070c605dfffa16ebdfcda47587f",
+        "git_blob": "8a916adaf182339eaf3bf91489a2634a6f8a9828"
+      },
+      {
+        "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/FrameIntervalChecks.java",
+        "sha256": "9e173eac7f92a17b5d99e8a75d5c607d1b418bf4042fca2d932c3c69e90918b2",
+        "git_blob": "bd30c0eb4d9e6a3a0c1a3bcd3bef7a70b3ef53e4"
+      },
+      {
+        "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/TransitionIntervalChecks.java",
+        "sha256": "49c4ec5d615d67f1d752769fd02cbd754b5b59c22042d596baa888d768053433",
+        "git_blob": "fc2afe9ac0271f07618ff8d07537cb97e28b1e51"
+      }
+    ],
+    "actual_native_diagnostic_pin": "2e15d246c76b047c57cd8f5ce0b70d9219d3b894",
+    "native_includes_late_renderer": false,
+    "full_gradle_combined": false
+  },
+  "host": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "java": "25.0.4.1+1",
+    "controlled_timing_measurement": false,
+    "allocation_scope": "helper only, constructor and native adapter excluded"
+  },
+  "latest_qualified_jar": {
+    "new_this_cycle": false,
+    "candidate_included": false,
+    "library_file_id": "libfile_d1111d768a688191b1621c4e8ea722df",
+    "source_sha": "2e15d246c76b047c57cd8f5ce0b70d9219d3b894",
+    "version": "0.0.1-alpha.29-dev.31-audit-20261027T0230-2e15d24",
+    "bytes": 125296741,
+    "sha256": "77094017f10b1cdc9f1e72de48c0614245bd1ed8972e221ae8d6156b49392185",
+    "metadata_reverified": true
+  }
 }
