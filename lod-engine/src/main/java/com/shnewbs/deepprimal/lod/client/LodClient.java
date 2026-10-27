@@ -63,6 +63,24 @@ public final class LodClient {
             data.put("lodSubmittedParts", lod.submittedParts);
             data.put("lodLastUploadBytes", lod.lastUploadBytes);
             data.put("lodPendingMeshGpuBudgetBytes", lod.pendingMeshBudgetBytes);
+            var transform = lod.transformStats();
+            data.put("lodTransformScope",
+                "Successful Java transform-array requests since world reset; not heap bytes, GPU timing or FPS");
+            data.put("lodTransformRequests", transform.requests());
+            data.put("lodTransformCacheHits", transform.hits());
+            data.put("lodTransformFactoryArrays", transform.allocations());
+            data.put("lodTransformOversizedBypasses", transform.uncachedOversized());
+            data.put("lodTransformEvictions", transform.evictions());
+            data.put("lodTransformRetainedElements", transform.retainedElements());
+            data.put("lodTransformRetainedArrays", transform.retainedArrays());
+            data.put("lodTransformPeakRetainedElements", transform.peakRetainedElements());
+            data.put("lodTransformLastDrawCount", transform.lastDrawCount());
+            data.put("lodTransformPeakDrawCount", transform.peakDrawCount());
+            data.put("lodTransformCount0to512", transform.count0to512());
+            data.put("lodTransformCount513to2048", transform.count513to2048());
+            data.put("lodTransformCount2049to8192", transform.count2049to8192());
+            data.put("lodTransformCount8193to32768", transform.count8193to32768());
+            data.put("lodTransformCountOver32768", transform.countOver32768());
             return data;
           }
         });

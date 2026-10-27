@@ -95,6 +95,11 @@ public final class VoxelLodRenderer {
         return array;
       };
 
+  // Sampled by LodClient diagnostics on the client render thread.
+  ReusableTransformArrays.Snapshot transformStats() {
+    return transformArrays.snapshot();
+  }
+
   private static final class PendingGpu {
     final Ready ready;
     final List<List<TerrainGpuMesh>> levels = new ArrayList<>();
