@@ -91,7 +91,10 @@ public final class WaterRuntime {
     // Current-direction animation alone cannot change hydraulic connectivity or head.
     boolean volumeOnly = before.is(EngineRegistry.WATER_BLOCK.get())
         && after.is(EngineRegistry.WATER_BLOCK.get());
-    if (volumeOnly && before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))) return;
+    boolean oceanMarkerChanged = volumeOnly
+        && HydrologyRuntime.boundary(before) != HydrologyRuntime.boundary(after);
+    if (volumeOnly && before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))
+        && !oceanMarkerChanged) return;
     var watchers = budget.watchedChunks.get(
         net.minecraft.world.level.ChunkPos.pack(p.getX() >> 4, p.getZ() >> 4));
     if (watchers == null) return;
@@ -109,7 +112,7 @@ public final class WaterRuntime {
       // Positive-to-positive volume changes preserve the wet witness graph. Refresh
       // heads without throwing away the frontier; additions/removals still cancel it.
       if (relevant) {
-        if (volumeOnly) job.headsDirty = true;
+        if (volumeOnly && !oceanMarkerChanged) job.headsDirty = true;
         else job.invalidated = true;
       }
     }
