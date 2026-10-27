@@ -10,3 +10,7 @@
 - **Priority after this change:** actual packaged Java25 production-source validator run, native loaded-XZ/out-of-Y and in-Y/unloaded admission, rollback injection with exact volume+chemistry conservation and save/reopen, then long-soak and waterfall GPU continuity on both backends. No new independent regrade; external baseline is carried at **50/100 (5.0/10)**.
 
 No R57/R60/R61/R62 staged overlay, new art, renderer files or other schedule state was promoted or changed.
+
+## Second implementation: ocean-marker pressure graph
+
+`WaterRuntime.changed` now invalidates watched pressure jobs when an ocean/finite water marker changes at unchanged water units. Previously the flow-only fast path suppressed that invalidation. Volume changes on the same marker still refresh heads; optical flow-only changes remain ignored. A local Java25 dependency-free truth-table model passed 9,248 states (578 marker graph rebuilds; 68 cosmetic controls). This is not Minecraft native acceptance. Production commit: `351f6e6a1e4d968f1d11da81105dbd86b5a37609`.
