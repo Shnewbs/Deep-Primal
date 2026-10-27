@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "jam_id": "20261027-pending-accounting-integration",
+  "initial_main": "a5b5f0c7bf3a6b2774d47721c9a8b6ccb71253f0",
+  "claim_commit": "bab2ec0ce5ef38f40281076765c31a7d37a918ca",
+  "product_commit": "b53d66c0c326de8f5259d42a49598cdd79004d92",
+  "git_blob_source": "e035637f91b1800d06b0c47c7676f35db8ddc118",
+  "version": "0.0.1-alpha.29-dev.33-loadedreads.1",
+  "changed_production_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+  ],
+  "method_scope": "PendingGpu.bytes method only",
+  "source_prefix_suffix_byte_identical": true,
+  "standalone_checks": {
+    "jdk": "Temurin 25.0.5+8",
+    "cases": 10063,
+    "pass": true,
+    "source_kind": "equivalent method on private-ArrayList mirror; NOT compiled production renderer",
+    "microprobe_rounds": 8,
+    "round_loops": 200000,
+    "median_old_ms": 27.0195,
+    "median_new_ms": 10.164,
+    "bytes_old_per_round": 108800040,
+    "bytes_new_per_round": 40
+  },
+  "full_java25_gradle": false,
+  "full_build_blocker": "Git clone DNS github.com; full checkout/wrapper absent",
+  "new_qualified_jar": false,
+  "new_release": false,
+  "score_previous": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "score_current": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "mean": 4.666666666666667,
+  "external_engine_grade_carried": 5,
+  "evidence_zip_sha256": "e119228921390b1020f59bcd49fac74f396c98787f2947ef1ec650909b02ea66",
+  "unrun": [
+    "full Java25/Gradle root and module build",
+    "compiled/package identities and nested JAR CRC",
+    "actual OpenGL/Vulkan client pixels and world reload",
+    "named AMD8060S/RTX p50/p95/p99",
+    "DLSS temporal dispatch/device availability"
+  ],
+  "next_priority": "restore exact source + Gradle and native accepted module admission gate; then matched client latency/render coverage; do not promote stale renderer candidate wholesale"
+}
