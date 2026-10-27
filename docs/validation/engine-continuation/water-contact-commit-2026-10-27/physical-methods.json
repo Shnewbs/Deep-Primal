@@ -1,0 +1,58 @@
+{
+  "production_pin": "265a0da7467ce516645dba66036bfa6123465127",
+  "unchanged_methods": [
+    {
+      "method": "replenishStream",
+      "sha256": "87ba1779a67b20362de7e5589ea5a3aa459de1b801cc4dc128bc41b2efab744e"
+    },
+    {
+      "method": "streamAllowance",
+      "sha256": "d048631dc491302377c54269c842f6459f1ab9f8dc1cd5eee9b7c14da6d5d373"
+    },
+    {
+      "method": "visit",
+      "sha256": "26d0c166a81cedbad4680d71c041d6bf911f75982d7c98822d6da640c4f35947"
+    },
+    {
+      "method": "precipitation",
+      "sha256": "8c4a8721693cf5f43727a28c96ca77662d14e1f1cf5613402049a092cd01dbb3"
+    },
+    {
+      "method": "write",
+      "sha256": "453e9df45718ce14a4dbe3579296d055795fe9de078600ff45bd4dcdb1051a6d"
+    },
+    {
+      "method": "prepareTransfer",
+      "sha256": "49aa03790d99fa77d26c6d7523932dd5b17f5084b077a386235ccd4fe1a96523"
+    },
+    {
+      "method": "transferred",
+      "sha256": "a8656c52eef1de9a0b3821f5e0fdb38f203666ead4e98d8e8356b3eddbc6f62e"
+    },
+    {
+      "method": "restoreOcean",
+      "sha256": "f4f32c2bdd0cb10246e390e958223d0dd6ea5a10b4e1986e656ad54557005296"
+    },
+    {
+      "method": "oceanSink",
+      "sha256": "1efee330985006c56e7c8f0981eaa5a877efc7cc516debcac91a5bf1506a14f3"
+    },
+    {
+      "method": "place",
+      "sha256": "da63673287d457a9ec757dbf7ecc5ee2de71e00791a8790872f33f65247db9c1"
+    },
+    {
+      "method": "pickup",
+      "sha256": "fdc94daf1ea27f7835abfd2174e0da1a9c6c50c74ec1581d92136b43ca23af8d"
+    },
+    {
+      "method": "emit",
+      "sha256": "f5b52bd2387c55e664f185f4238f111f6cccf788f5571293addb51d607604319"
+    },
+    {
+      "method": "infiltrate",
+      "sha256": "8e05793ce45d794bd14e46ee0f2f41e33aa1cc7f2983570a611eebcd88c42ba5"
+    }
+  ],
+  "new_method": "commitContact"
+}

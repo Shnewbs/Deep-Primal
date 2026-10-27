@@ -1,0 +1,37 @@
+  static boolean commitContact(ServerLevel l, BlockPos a, BlockPos b,
+      BlockState expectedA, BlockState expectedB,
+      WaterAccount.Parcel beforeA, WaterAccount.Parcel beforeB,
+      WaterAccount.Parcel afterA, WaterAccount.Parcel afterB) {
+    if (!l.getServer().isSameThread())
+      throw new IllegalStateException("Water contact requires the server thread");
+    long distance = Math.abs((long) a.getX() - b.getX())
+        + Math.abs((long) a.getY() - b.getY()) + Math.abs((long) a.getZ() - b.getZ());
+    if (distance != 1 || beforeA.water() <= 0 || beforeB.water() <= 0
+        || afterA.water() != beforeA.water() || afterB.water() != beforeB.water()
+        || beforeA.salt() + beforeB.salt() != afterA.salt() + afterB.salt()
+        || beforeA.sediment() + beforeB.sediment() != afterA.sediment() + afterB.sediment()
+        || afterA.equals(beforeA) && afterB.equals(beforeB)) return false;
+    if (!l.isInWorldBounds(a) || !l.isInWorldBounds(b) || !l.hasChunkAt(a) || !l.hasChunkAt(b))
+      return false;
+    var data = HydrologyData.get(l);
+    if (!expectedA.is(EngineRegistry.WATER_BLOCK.get()) || !expectedB.is(EngineRegistry.WATER_BLOCK.get())
+        || !l.hasChunkAt(a) || !expectedA.equals(l.getBlockState(a))
+        || !l.hasChunkAt(b) || !expectedB.equals(l.getBlockState(b))
+        || !beforeA.equals(contents(l, a, expectedA)) || !beforeB.equals(contents(l, b, expectedB))
+        || !l.hasChunkAt(a) || !l.hasChunkAt(b))
+      return false;
+    if (a.getY() != b.getY()
+        && (a.getY() < b.getY() ? expectedA : expectedB).getValue(EngineFluid.UNITS) != 16)
+      return false;
+    storeContact(data, a, expectedA, afterA);
+    storeContact(data, b, expectedB, afterB);
+    data.setDirty();
+    return true;
+  }
+  private static void storeContact(HydrologyData data, BlockPos p, BlockState state,
+      WaterAccount.Parcel value) {
+    // Keep explicit zero-salt boundary overrides, or the implicit ocean default recreates salt.
+    if (value.salt() == 0 && value.sediment() == 0 && !boundary(state))
+      data.composition.remove(p.asLong());
+    else data.composition.put(p.asLong(), value);
+  }

@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/dev/shm/dp-builder2900/native-modules/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.31-audit-20261027T0230-2e15d24.jar",
+    "mod_id": null,
+    "sha256": "38438085bdc63085df2da72d9b0551f63c563c1434a30dfc6e399e7c9af8f603",
+    "bytes": 273286
+  },
+  {
+    "path": "/dev/shm/dp-builder2900/native-modules/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31-audit-20261027T0230-2e15d24.jar",
+    "mod_id": "deepprimal_graphics",
+    "sha256": "ee5ac1590365f8e89bda120b47b171ec5bfa7fc65f4e584ec04afdd79ce34301",
+    "bytes": 95360
+  },
+  {
+    "path": "/dev/shm/dp-builder2900/native-modules/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.31-audit-20261027T0230-2e15d24.jar",
+    "mod_id": "deepprimal_lod",
+    "sha256": "b41677206df5f761623dc8a603101d9a0ce7fdd39477047d035e5b5a250a6804",
+    "bytes": 44431
+  },
+  {
+    "path": "/dev/shm/dp-builder2900/native-modules/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.31-audit-20261027T0230-2e15d24.jar",
+    "mod_id": "deepprimal_performance",
+    "sha256": "a1dccfa7db4be57ae529019366e3aedfe5fbd8865a803d3aed00fdf980780170",
+    "bytes": 19685
+  },
+  {
+    "path": "/dev/shm/dp-builder2900/native-modules/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+    "mod_id": "deepprimal_themes",
+    "sha256": "b2a6eb99e5df70ff3c306dd7a0f5f3ba035ad3ca8d35b3b0d21121396b6927c6",
+    "bytes": 114062026
+  },
+  {
+    "path": "/dev/shm/dp-builder2900/native-modules/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.31-audit-20261027T0230-2e15d24-windows.jar",
+    "mod_id": "deepprimal_vulkan",
+    "sha256": "b404b794ae797093ba4ad41be05398d86659094ee26b06b5df1ea2b9fc4f3d52",
+    "bytes": 11599875
+  }
+]

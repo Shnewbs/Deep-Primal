@@ -1,0 +1,1 @@
+CONTACT_CHECKS_PASS cases=12302 random_pair_cases=12288 dry_reentries=100000 actual_native=false
