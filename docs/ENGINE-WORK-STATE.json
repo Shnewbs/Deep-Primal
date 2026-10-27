@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T04:06:00Z",
-  "active_until": "2026-10-27T04:20:00Z",
-  "source_ref": "265a0da7467ce516645dba66036bfa6123465127",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T04:05:00Z",
+  "active_until": "2026-10-27T04:05:00Z",
+  "source_ref": "66c0bde251278f31a45f4965f5cc4dc2a79852fe",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Combined conservative contact/index candidate validated in core/API/native diagnostics; full isolated Gradle/module/bundle qualification pending",
+  "current_gate": "Full isolated Gradle/module/bundled qualification of combined dev.32 contact/index candidate; then weather/travel/player edits and loaded/unloaded ownership",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1025,9 +1025,9 @@
   },
   "builder_cycle": {
     "worker": "builder-20261027T0335",
-    "phase": "validated_source_checkpoint",
+    "phase": "checkpointed",
     "started_at": "2026-10-27T03:40:00Z",
-    "lease_until": "2026-10-27T04:20:00Z",
+    "lease_until": "2026-10-27T04:05:00Z",
     "scope": [
       "docs/ENGINE-WORK-STATE.json",
       "docs/validation/engine-continuation/water-contact-commit-2026-10-27"
@@ -1041,7 +1041,24 @@
       "original_engine_chat": "Personal Context has no fresh direct ownership evidence; Git claims checked"
     },
     "capacity": "Initially zero overlay and shared-memory space, then430MiB memory-backed capacity; full ~1.3GB producer footprint remains unavailable",
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "completed_at": "2026-10-27T04:05:00Z",
+    "source_sha": "66c0bde251278f31a45f4965f5cc4dc2a79852fe",
+    "validation": "143-source core, six API sources/twenty classes, 50,021 commit cases, four unload callbacks, 12,302 contacts, 9,481,867 budget assertions, seven diagnostic CRC archives and combined real Linux fresh/reopen pass. Full Gradle distribution and platform/render/soak gates remain open.",
+    "cleanup": {
+      "bytes_removed": 268864818,
+      "evidence": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/completed-cleanup.json",
+      "other_roles_untouched": true
+    },
+    "delivery": {
+      "new_builder_jar": false,
+      "reason": "Actual 1MiB overlay write failed ENOSPC; private full producer/cache absent and insufficient isolated temporary capacity. Targeted diagnostic cannot qualify as full distribution.",
+      "latest_qualified_audit_source": "2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e",
+      "latest_qualified_audit_version": "0.0.1-alpha.29-dev.31-audit-20261027T0332-2e1aa76",
+      "library_file_id": "libfile_1da1f10d08bc819184cb033895ffb481",
+      "excludes_candidate": true,
+      "github_release_published": false
+    }
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1228,7 +1245,7 @@
     "findings": "Production still copies/sorts source index; staged cursor/contact candidates excluded; full combined qualification and loaded/unloaded ledger remain open.",
     "chosen_repair": "Hydrology-owned conservative pair commit, per-cell quantity/constituent guards and unload-between-native-read rejection, integrated with staged source-index/cursor runtime."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1312,7 +1329,7 @@
       "split_module_assembly": true,
       "full_release_bundle": false
     },
-    "source_sha_pending": true
+    "source_sha": "66c0bde251278f31a45f4965f5cc4dc2a79852fe"
   },
   "cleanup_policy": {
     "owner_directive": "Permanently clear old unneeded files based on current needs",
@@ -1340,6 +1357,6 @@
     "evidence": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/README.md",
     "full_core": "143-source combined core with renderer 2e1aa76 passes; diagnostic native baseline2e15d24 remains explicit.",
     "hydrology": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/HydrologyRuntime.java",
-    "source_sha_pending": true
+    "source_sha": "66c0bde251278f31a45f4965f5cc4dc2a79852fe"
   }
 }
