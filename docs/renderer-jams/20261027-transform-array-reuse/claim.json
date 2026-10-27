@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "jam": "20261027-transform-array-reuse",
+  "owner": "dedicated-renderer-chat-20261027T1958",
+  "status": "active",
+  "started_at": "2026-10-27T20:03:46.911Z",
+  "active_until": "2026-10-27T20:18:46.911Z",
+  "base_head": "826ba816c07fe874d416f040c7981d49c1906a60",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/ReusableTransformArrays.java",
+    "docs/renderer-jams/20261027-transform-array-reuse/"
+  ],
+  "exclusive_benchmark": false,
+  "build_policy": "owner_builds",
+  "avoids": [
+    "hydrology and engine builder source",
+    "water renderer",
+    "FSR and NGX",
+    "broad build caches"
+  ]
+}
