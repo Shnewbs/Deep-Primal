@@ -82,7 +82,8 @@ public final class HydrologyRuntime {
     if (internalWrites != 0 || before == null || before == after) return;
     if (before.is(EngineRegistry.WATER_BLOCK.get()) &&
         (!after.is(EngineRegistry.WATER_BLOCK.get()) ||
-            !before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS)))) {
+            !before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))
+            || boundary(before) != boundary(after))) {
       // External commands/destructive block placement are explicit boundaries of the simulation.
       var d = HydrologyData.get(l);
       if (d.composition.remove(p.asLong()) != null) d.setDirty();
