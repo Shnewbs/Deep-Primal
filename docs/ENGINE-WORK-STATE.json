@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T02:07:00Z",
+  "updated_at": "2026-10-27T02:28:00Z",
   "active_until": "2026-10-27T02:42:00Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
@@ -1030,7 +1030,13 @@
     "last_external_grade": 5,
     "lease_released": false,
     "scope": "Staged bounded loaded-cell chemistry contact adapter and native-boundary regression doubles",
-    "coordination": "Current Git root and foreground water checkpointed. Renderer capacity receipt owns only docs/renderer-jams/20261027-capacity-recheck, nonexclusive. Personal context and both task peeks checked; original other-chat fresh ownership unavailable. Own /dev/shm/dp-builder2600; no timing benchmark."
+    "coordination": "Current Git root and foreground water checkpointed. Renderer capacity receipt owns only docs/renderer-jams/20261027-capacity-recheck, nonexclusive. Personal context and both task peeks checked; original other-chat fresh ownership unavailable. Own /dev/shm/dp-builder2600; no timing benchmark.",
+    "actual_changes": "Added bounded loaded-contact adapter, server-thread guard, per-tick pair deduplication, physical vertical contact checks, sparse composition commits and solver/lifecycle hooks.",
+    "production_runtime_changed": false,
+    "checks": "12302 contact-double cases; actual API compile13classes;139-source full core; two private native fresh/reopen sessions with exact persistence;7diagnostic archives/13class matches. Prior conservation suites pass.",
+    "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
+    "blocker": "Overlay full; bundled private native extraction also failed ENOSPC. Split diagnostic passes but full isolated Gradle/module/new-distribution gates unavailable. No new user-facing JAR/release.",
+    "next_implementation": "Qualify combined staged source-index/contact candidate with full producer and broader weather/travel cases, then single-owner loaded/unloaded ledger."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1210,11 +1216,11 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T0004-685a739/REVIEW.md",
-    "source_sha": "685a7390a8371c9b423594888a5a8e2aad744271",
+    "path": "docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/REVIEW.md",
+    "source_sha": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "chosen_repair": "Reduce composition-only arithmetic work with exact overflow fallback while native/full-build gates remain open"
+    "chosen_repair": "Bounded native loaded-cell chemistry contact integration; full index/producer qualification still open"
   },
   "lease_released": false,
   "latest_stream_deadline_stage": {
@@ -1316,11 +1322,13 @@
   },
   "latest_staged_composition_diffusion": {
     "promoted": false,
-    "candidate": "docs/validation/engine-continuation/composition-diffusion-fastpath-2026-10-27/stage/WaterAccount.java",
-    "version": "dev.32-composition-candidate.2 (source only; no binary)",
+    "candidate": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/stage/WaterAccount.java",
+    "adapter": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/stage/WaterContactRuntime.java",
+    "solver": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/stage/WaterRuntime.java",
+    "version": "dev.32-contact-candidate.1 (source only; no binary)",
     "in_delivered_jar": false,
     "water_amounts_unchanged": true,
-    "native_integration": false,
-    "evidence": "docs/validation/engine-continuation/composition-diffusion-fastpath-2026-10-27/README.md"
+    "native_integration": "Private split diagnostic fresh/reopen plus actual solver tick pass; full producer qualification pending",
+    "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md"
   }
 }

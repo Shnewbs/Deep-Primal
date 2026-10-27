@@ -1,0 +1,65 @@
+[
+  {
+    "name": "initial-classpath-fresh-native.log.gz",
+    "uncompressed_bytes": 6506415,
+    "sha256": "7b4bbe13e3f46ccc915f1e7b7633826457566f1e346dcf14443f4f3ca84e41ab",
+    "failure_line_count": 8219,
+    "first_lines": [
+      "[background-scan-handler-0] ERROR net.neoforged.fml.loading.modscan.Scanner -  SCAN Exception scanning composite(jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar), folder(/dev/shm/dp-builder2600/native-fixture)) > jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar > com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31-audit-20261027T0127-5ba6c80.jar) path com/shnewbs/deepprimal/graphics/GpuLighting.class",
+      "java.lang.IllegalArgumentException: Unsupported class file major version 69",
+      "[background-scan-handler-0] ERROR net.neoforged.fml.loading.modscan.Scanner -  SCAN Exception scanning composite(jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar), folder(/dev/shm/dp-builder2600/native-fixture)) > jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar > com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31-audit-20261027T0127-5ba6c80.jar) path com/shnewbs/deepprimal/graphics/TerrainGpuMesh.class",
+      "java.lang.IllegalArgumentException: Unsupported class file major version 69",
+      "[background-scan-handler-0] ERROR net.neoforged.fml.loading.modscan.Scanner -  SCAN Exception scanning composite(jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar), folder(/dev/shm/dp-builder2600/native-fixture)) > jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar > com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31-audit-20261027T0127-5ba6c80.jar) path com/shnewbs/deepprimal/graphics/WaterGpuMesh.class",
+      "java.lang.IllegalArgumentException: Unsupported class file major version 69"
+    ],
+    "last_lines": [
+      "java.lang.IllegalArgumentException: Unsupported class file major version 69",
+      "[main] ERROR net.neoforged.fml.loading.modscan.BackgroundScanHandler -  SCAN An error occurred scanning file composite(jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar), folder(/dev/shm/dp-builder2600/native-fixture)) > jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar > com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.31-audit-20261027T0127-5ba6c80-windows.jar)",
+      "java.util.concurrent.CancellationException",
+      "Caused by: java.lang.IllegalArgumentException: The requested compatibility level JAVA_25 could not be set. Level is not supported by the active JRE or ASM version (Java 25.0, ASM 9.0 (ASM10_EXPERIMENTAL))"
+    ],
+    "qualifies": false
+  },
+  {
+    "name": "initial-capacity-fresh-native.log",
+    "uncompressed_bytes": 9522,
+    "sha256": "00eee0ce00c714097219ebc550c70ed79449d284e5968b9a4d5ac4f9d5eb8029",
+    "failure_line_count": 7,
+    "first_lines": [
+      "[03:16:51] [main/ERROR] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Failed to copy Jar-in-Jar file META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar from mod file composite(jar(/dev/shm/dp-builder2600/contact-diagnostic-private.jar), folder(/dev/shm/dp-builder2600/native-fixture)) to /dev/shm/dp-builder2600/native-world/.cache/jij/_jij5491071633076745024.tmp",
+      "java.io.IOException: No space left on device",
+      "[03:16:51] [main/ERROR] [ne.ne.fm.st.Entrypoint/]: Failed to start FML: net.neoforged.neoforgespi.locating.ModFileLoadingException: Failed to load mod file contact-diagnostic-private.jar",
+      "Caused by: java.io.IOException: No space left on device",
+      "net.neoforged.fml.startup.FatalStartupException: Failed to start FML: net.neoforged.neoforgespi.locating.ModFileLoadingException: Failed to load mod file contact-diagnostic-private.jar",
+      "Caused by: net.neoforged.neoforgespi.locating.ModFileLoadingException: Failed to load mod file contact-diagnostic-private.jar"
+    ],
+    "last_lines": [
+      "Caused by: java.io.IOException: No space left on device",
+      "net.neoforged.fml.startup.FatalStartupException: Failed to start FML: net.neoforged.neoforgespi.locating.ModFileLoadingException: Failed to load mod file contact-diagnostic-private.jar",
+      "Caused by: net.neoforged.neoforgespi.locating.ModFileLoadingException: Failed to load mod file contact-diagnostic-private.jar",
+      "Caused by: java.io.IOException: No space left on device"
+    ],
+    "qualifies": false
+  },
+  {
+    "name": "initial-config-native.log",
+    "uncompressed_bytes": 22468,
+    "sha256": "c18a100756f1fd911a0cfbff718a35f9d50255d9683c83a6f641ef59f51ff0c9",
+    "failure_line_count": 11,
+    "first_lines": [
+      "[03:18:30] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com",
+      "[03:18:31] [Worker-Main-4/ERROR] [minecraft/DedicatedServerProperties]: No key layers in MapLike[{}]",
+      "2026-10-27T02:18:32.374291075Z Server thread ERROR An exception occurred processing Appender DebugFile",
+      "org.apache.logging.log4j.core.appender.AppenderLoggingException: java.lang.NoClassDefFoundError: Could not initialize class io.netty.channel.kqueue.Native"
+    ],
+    "last_lines": [
+      "CONTACT_NATIVE_CLASS com.shnewbs.deepprimal.core.WaterAccount 22e624409494749842fa72e678990c2fdffe7c49972b645026f0ec789a2e0cd9",
+      "CONTACT_NATIVE_CLASS com.shnewbs.deepprimal.engine.WaterContactRuntime a566afc93d0402e2daf2d18ff4b59be304fb538c6f9777ecbd34714b831514a0",
+      "CONTACT_NATIVE_CLASS com.shnewbs.deepprimal.engine.WaterRuntime dec24d0a723149a4a8013e98413a9518f2e784edf96938a63f4d00c6ff06793b",
+      "CONTACT_NATIVE_PASS mode=fresh pageBoundary=true exactWaterSaltSediment=true actualSolverTick=true codec=true"
+    ],
+    "qualifies": false
+  }
+]

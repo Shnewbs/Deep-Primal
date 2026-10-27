@@ -1,0 +1,22 @@
+{
+  "diagnostic_only": true,
+  "full_gradle_build": false,
+  "user_facing": false,
+  "replaced_or_added": [
+    "com/shnewbs/deepprimal/core/WaterAccount$Diffusion.class",
+    "com/shnewbs/deepprimal/core/WaterAccount$Parcel.class",
+    "com/shnewbs/deepprimal/core/WaterAccount.class",
+    "com/shnewbs/deepprimal/engine/WaterContactRuntime$Budget.class",
+    "com/shnewbs/deepprimal/engine/WaterContactRuntime$Edge.class",
+    "com/shnewbs/deepprimal/engine/WaterContactRuntime.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime$1.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime$Budget.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime$Diagnostics.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime$Events.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime$PressureDiagnostics.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime$PressureJob.class",
+    "com/shnewbs/deepprimal/engine/WaterRuntime.class"
+  ],
+  "bytes": 125300470,
+  "sha256": "326ca0a18055ee7a7914f24d0be54f96dbe7b1961f3c5731c9123cf57fb51617"
+}
