@@ -1,0 +1,16 @@
+{
+  "run": "builder-chat-20261027T1700",
+  "status": "staged_source_only",
+  "base_staged_adapter": "docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/stage/WaterContactRuntime.java",
+  "local_stub_artifact_sha256": "bcce704295f8de1a7cf539821b596c1c1f343613f2165aff057cc4e7de5549b9",
+  "local_stub_artifact_bytes": 8506,
+  "stubbed_java_version": "21.0.12.1",
+  "command": "javac -d out $(find src -name '*.java') && java -Xverify:all -cp out com.shnewbs.deepprimal.engine.ContactRetryChecks",
+  "result": "CONTACT_RETRY_TICKET_PASS cases=15",
+  "expected_local_git_blob_sha": "75d1a25521daa93274ebc5747c419190338e659c",
+  "native_qualified": false,
+  "jar_produced": false,
+  "producer": "unavailable: installed JDK21 only, GitHub DNS clone unavailable",
+  "auditor_path": "docs/engine-hourly-audits/2026-10-27T1634-bd28005/REVIEW.md",
+  "audit_score_carried": "50/100"
+}
