@@ -2,9 +2,9 @@
   "schema": 1,
   "owner": "renderer-runtime-retarget-20261027-2",
   "task": "Build Deep Primal renderer (Chat)",
-  "status": "active",
+  "status": "checkpointed-released",
   "started_at": "2026-10-27T16:57:00Z",
-  "active_until": "2026-10-27T17:18:00Z",
+  "active_until": null,
   "source_parent": "286af866077ff15cf14f621cf4bc59f2d0675429",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
@@ -20,5 +20,11 @@
     "engine/water runtime or work-states",
     "other roles caches/output"
   ],
-  "notes": "Integrate prior staged LOD retarget, preserve unpromoted pending-upload candidate; full build required before claiming artifact."
+  "notes": "Integrate prior staged LOD retarget, preserve unpromoted pending-upload candidate; full build required before claiming artifact.",
+  "completed_at": "2026-10-27T17:04:30Z",
+  "source_commit": "98d4b261c1c1e21a7d9f292166b8eb1916a608da",
+  "scored_self_audit_path": "docs/renderer-jams/20261027-runtime-retarget/REVIEW.md",
+  "new_qualified_jar": false,
+  "production_integrated": true,
+  "lease_released": true
 }
