@@ -134,7 +134,9 @@ public final class WaterRuntime {
         budget.pressureCoalesced, budget.pressureHeadRefreshes, budget.pressureHeadDeferrals);
   }
 
+  /** No native block-state reads beyond a loaded world border. A missing chunk is sealed. */
   public static int units(ServerLevel l, BlockPos p) {
+    if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return 0;
     var s = l.getBlockState(p);
     return s.is(EngineRegistry.WATER_BLOCK.get()) ? s.getValue(EngineFluid.UNITS) : 0;
   }
@@ -156,8 +158,9 @@ public final class WaterRuntime {
     if (open(l, p.below()) && units(l, p.below()) < WaterTransport.CAPACITY) return true;
     for (Direction d : SIDES) {
       BlockPos q = p.relative(d);
-      if (open(l, q)
-          && (amount > units(l, q) + 1 || (amount == 1 && units(l, q) < WaterTransport.CAPACITY)))
+      if (!open(l, q)) continue;
+      int neighborUnits = units(l, q);
+      if (amount > neighborUnits + 1 || (amount == 1 && neighborUnits < WaterTransport.CAPACITY))
         return true;
     }
     // One corner of an otherwise uniform free surface can test submerged communication.

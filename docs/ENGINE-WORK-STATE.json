@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T17:24:00Z",
+  "updated_at": "2026-10-27T17:26:00Z",
   "active_until": "2026-10-27T17:44:00Z",
   "source_ref": "d10d3506b9d24d0ef8028ff7ef866ccd73bdad30",
   "candidate_version": "0.0.1-alpha.29-dev.31",
@@ -1029,16 +1029,18 @@
     "worker": "builder-chat-20261027T1724-unloaded-read",
     "started_at": "2026-10-27T17:24:00Z",
     "lease_until": "2026-10-27T17:44:00Z",
-    "phase": "implementing",
+    "phase": "source_patch",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
       "docs/ENGINE-WORK-STATE.json",
-      "docs/validation/engine-continuation/unloaded-water-reads-2026-10-27/"
+      "docs/validation/engine-continuation/unloaded-water-reads-2026-10-27/",
+      "gradle.properties"
     ],
     "source_ref": "d10d3506b9d24d0ef8028ff7ef866ccd73bdad30",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1634-bd28005/REVIEW.md",
     "target": "prevent unloaded-border native cell reads triggering chunk loads; preserve water volume and donor accounting",
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "candidate_version": "0.0.1-alpha.29-dev.33-loadedreads.1"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
