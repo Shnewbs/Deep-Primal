@@ -256,12 +256,13 @@ public final class VoxelLodRenderer {
     if (level == null) return;
     if (worker == null) attach(mc.level);
     if (mc.player == null) return;
-    if (deliveredScan == null) {
-      var position = mc.player.chunkPosition();
-      deliveredScan = new DeliveredChunkScan(position.x(), position.z(),
-          Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
-              mc.options.getEffectiveRenderDistance()));
-    }
+    var position = mc.player.chunkPosition();
+    int radius = Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
+        mc.options.getEffectiveRenderDistance());
+    // On effective-radius changes, completed scans or substantial travel, rescan the new
+    // native footprint while preserving the existing bounded per-tick admission below.
+    if (deliveredScan == null || deliveredScan.shouldRetarget(position.x(), position.z(), radius))
+      deliveredScan = new DeliveredChunkScan(position.x(), position.z(), radius);
     int discoveryBudget = ClientPerformanceConfig.PAUSE_BACKGROUND.get() && !mc.isWindowActive()
         ? 0 : 128;
     deliveredScan.drain(discoveryBudget, (x, z) -> {

@@ -15,6 +15,8 @@ public final class CoreChecks {
     ByteLruOverflowChecks.main(new String[0]);
     DensityGridFiniteChecks.main(new String[0]);
 
+    com.shnewbs.deepprimal.core.lod.DeliveredChunkScanChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.lod.DeliveredRetargetChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.lod.LodStoreBudgetChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.lod.LodByteAccountingChecks.main(new String[0]);
     TerrainV6Checks.run();

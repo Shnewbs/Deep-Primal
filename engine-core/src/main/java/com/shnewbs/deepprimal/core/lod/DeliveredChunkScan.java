@@ -24,6 +24,23 @@ public final class DeliveredChunkScan {
   public int visited() { return visited; }
   public boolean done() { return visited == total(); }
 
+  /**
+   * The native radius is an effective setting, not a permanent world property. Retarget on
+   * configuration changes, or when travel makes the old square a poor discovery priority.
+   * Once complete, even a one-chunk move exposes a new strip that must be scanned. A bounded
+   * active threshold prevents continuous slow travel from restarting the full 125-chunk pass
+   * on every tick; the chunk-load listener handles newly delivered chunks between restarts.
+   * Uses long deltas so signed-coordinate extremes cannot overflow or alias as near travel.
+   */
+  public boolean shouldRetarget(int x, int z, int nativeRadius) {
+    if (nativeRadius != radius) return true;
+    long dx = Math.abs((long) x - centerX), dz = Math.abs((long) z - centerZ);
+    if (dx == 0 && dz == 0) return false;
+    if (done()) return true;
+    int threshold = Math.max(1, Math.min(8, radius / 8));
+    return Math.max(dx, dz) >= threshold;
+  }
+
   public int drain(int budget, Visitor visitor) {
     if (budget < 0) throw new IllegalArgumentException("Negative scan budget");
     int count = 0;
