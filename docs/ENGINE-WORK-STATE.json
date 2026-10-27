@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-27T21:16:00Z",
-  "active_until": "2026-10-27T21:36:00Z",
-  "source_ref": "16c5bdc01764a50db664c199ef57426fba233b5a",
-  "candidate_version": "0.0.1-alpha.29-dev.36-chemistryadmission.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-27T21:23:00Z",
+  "active_until": "2026-10-27T21:23:00Z",
+  "source_ref": "351f6e6a1e4d968f1d11da81105dbd86b5a37609",
+  "candidate_version": "0.0.1-alpha.29-dev.37-heightlex.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev36 external ocean-marker chemistry and loaded-read short-circuit guard source changes committed; owner must run full Java25/Gradle and native external-marker save/reopen, unloaded chunk/rollback/conservation and both real GPU APIs/AMD frame tails. No qualified dev36 JAR.",
+  "current_gate": "Dev37 source-only: resident-read checker ignores Java comments/literals and rejects nine mutants; equal-volume ocean/finite marker flips now invalidate relevant retained pressure jobs. Owner full Java25/Gradle/NeoForge, packaged real-world loaded/unloaded/rollback/chemistry/save-reopen and AMD Vulkan/OpenGL waterfalls/latency still required; no qualified dev37 JAR.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-27 dev37 height admission comment/string masking and same-volume ocean marker pressure search invalidation committed; full Java25/Gradle, native loaded/unloaded save/reopen/rollback and both GPU APIs remain owner gates. docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md",
     "2026-10-27 dev36 source checkpoint external-ocean-marker chemistry invalidation and meaningful height/resident-read short-circuit mutation controls; nine Java25 stand-in chemistry cases plus four validator mutation negatives pass in isolated scratch; owner full Gradle/NeoForge/native/Windows GPU unrun; no JAR or regrade. docs/validation/engine-continuation/external-chemistry-guards-2026-10-27/README.md",
     "2026-10-27 dev.33-loadedreads.1 main source checkpoint: WaterRuntime.units bounds+resident admission before block read and cached neighbor wake sampling. Seven Java21 source-extracted API-stub checks and 544 predicate equivalence cases pass. No Java25/Gradle/game native/JAR qualification. Evidence docs/validation/engine-continuation/unloaded-water-reads-2026-10-27/; no external grade change.",
     "2026-10-27 staged next-tick water chemistry retry contract in docs/validation/engine-continuation/water-contact-retry-ticket-2026-10-27/README.md: original FIRST dedup could consume same-tick FIFO after commit rejection; JDK21 stubbed 15 cases pass. Must test full Java25/native scheduled tick and complete merged water integration before production.",
@@ -1031,7 +1032,7 @@
     "worker": "builder-chat-20261027T2107-guard-lexer",
     "started_at": "2026-10-27T21:07:00Z",
     "lease_until": "2026-10-27T21:36:00Z",
-    "phase": "active",
+    "phase": "checkpointed_source_only",
     "scope": [
       "tools/validate_hydrology_height_admission.py",
       "gradle.properties",
@@ -1041,7 +1042,33 @@
     "source_ref": "45b2137f9cf1f9ad1bb44dd2f24fd2a5440977e4",
     "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2025-73867fa/REVIEW.md",
     "target": "Reject commented/string-literal loaded-world guard false positives while preserving existing boolean mutation checks; ensure ocean/finite marker flips invalidate retained pressure graph at equal volume",
-    "acceptance_complete": false
+    "acceptance_complete": false,
+    "completed_at": "2026-10-27T21:23:00Z",
+    "lease_released": true,
+    "final_source": "351f6e6a1e4d968f1d11da81105dbd86b5a37609",
+    "version": "0.0.1-alpha.29-dev.37-heightlex.1",
+    "evidence": "docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md",
+    "implementation_commits": [
+      "c2477b7bb8df306c59bcbb0bc775deaa12295ec0",
+      "351f6e6a1e4d968f1d11da81105dbd86b5a37609"
+    ],
+    "validation": [
+      "Temurin 25.0.5+8 java/javac verified",
+      "Isolated Python source-signature fixture: 21/21 static and 9/9 mutation rejections",
+      "Independent current-GitHub-source structural mirror: all 8 sampled admission/loop contract checks and all 9 mutation controls",
+      "Java25 compiled malicious commented-place syntax",
+      "Isolated Java25 water pressure model 9248/9248 cases, 578 ocean marker job invalidations, 68 optical-only controls, old-branch negative control",
+      "Post-push Github blob read confirms dev37 version, height lexer and new runtime marker invalidation"
+    ],
+    "unrun": [
+      "Full Gradle/NeoForge Java25 production module/core/JAR (owner builds; checkout DNS unavailable)",
+      "Native water marker edits / loaded/unloaded owner, rollback, chemistry ledger, save/reopen, multiplayer soak",
+      "Real Vulkan/OpenGL water continuity and AMD8060S frame/tick p50/p95/p99"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Owner native source/JAR validation of dev37; loaded/unloaded water rollback and exact constituent/volume ledger, then same-volume ocean marker scenario and OpenGL/Vulkan waterfall temporal pixels."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1221,14 +1248,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T1933-a765774/REVIEW.md",
-    "source_sha": "a7657749969c46e7296af3b8d822c9a14367e84f",
+    "path": "docs/engine-hourly-audits/2026-10-27T2025-73867fa/REVIEW.md",
+    "source_sha": "73867fa544437554aa12ea44493aef745f553fd7",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Hydrology height and loaded-world source guard checker accepts an unsafe boolean && in the surface read path; native loaded/unloaded, rollback, ledger/save-reopen and real GPU still pending.",
-    "chosen_repair": "Short-circuit semantic guard validation and four path-scoped negative mutants; safeguard saved chemistry when an external edit changes the ocean marker without changing water quantity."
+    "findings": "Independent audit reproduced falsely accepted commented-out loaded-world safety guard, while production dev36 guard was active.",
+    "chosen_repair": "Mask nonexecutable Java comments/literals during guard scanning and require five additional mutation controls; independently tighten retained pressure graph invalidation when ocean marker changes with unchanged water volume."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1419,5 +1446,16 @@
     "release_published": false,
     "last_external_grade": 5,
     "next_priority": "Owner native dev36 same-volume ocean-marker external edit and reload chemistry test; loaded/unloaded transfer rollback injection with exact volume/constituent ledger; staged water contact combined package/native promotion, then actual dual-GPU temporal waterfall and perf."
+  },
+  "latest_guard_lexical_marker_20261027": {
+    "source_commits": [
+      "c2477b7bb8df306c59bcbb0bc775deaa12295ec0",
+      "351f6e6a1e4d968f1d11da81105dbd86b5a37609"
+    ],
+    "version": "0.0.1-alpha.29-dev.37-heightlex.1",
+    "scope": "hydrology loaded-world regression checker plus water finite/ocean marker pressure invalidation",
+    "tests": "21 static + 9 mutation controls on local source fixture; 9248 Java25 modeled pressure decisions; GitHub source mirror 8 predicates/9 mutants",
+    "qualification": "source-only; no native build, no JAR, no new external grade",
+    "evidence": "docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md"
   }
 }
