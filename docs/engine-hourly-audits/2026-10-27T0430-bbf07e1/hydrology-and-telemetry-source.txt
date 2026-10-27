@@ -1,0 +1,228 @@
+src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java SHA256 92a00108526a107f2dc95a0c176579eb0b013ca65c47157b4818645fcb82657b
+430:       var work = WORK.computeIfAbsent(l, k -> new Work());
+431:       long key = e.getChunk().getPos().pack();
+432:       if (work.chunks.putIfAbsent(key, new Cursor()) == null) work.survey.add(key);
+433:     }
+434:   }
+435:   @SubscribeEvent public void tick(LevelTickEvent.Post e) {
+436:     if (!(e.getLevel() instanceof ServerLevel l) || !enabled(l)) return;
+437:     var work = WORK.get(l); if (work == null) return;
+438:     var t = ((EngineChunkGenerator) l.getChunkSource().getGenerator()).geography();
+439:     int limit = HydrologyConfig.COLUMNS.get();
+440:     long start = System.nanoTime(), deadline = start + 2_000_000;
+441:     survey(l, work, t, start + 1_000_000);
+442:     // Preserve admission time for regional recharge/accounting after the source pass.
+443:     long streamDeadline = limit > 0 ? deadline - 500_000 : deadline;
+444:     // Planned waterways get their own bounded cadence; scan breadth must not starve a source.
+445:     // The finite regional quota is offered headwater-first: springs feed the head of a reach and
+446:     // lower columns are fed by flow, so downstream deficits must not consume the headwater share.
+447:     work.streamChunks.entrySet().removeIf(en -> en.getValue().streamCount == 0
+448:         || work.chunks.get(en.getKey()) != en.getValue());
+449:     var order = new ArrayList<>(work.streamChunks.entrySet());
+450:     order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
+451:     for (int i = 0, n = order.size(); i < n && System.nanoTime() - streamDeadline < 0; i++) {
+452:       var entry = order.get(i);
+453:       var c = entry.getValue();
+454:       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
+455:       if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
+456:       for (int s = 0; s < c.streamCount && System.nanoTime() - streamDeadline < 0; s++) {
+457:         int col = c.streams[s], shuffled = col * 73 & 255;
+458:         replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
+459:       }
+460:     }
+461:     for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() - deadline < 0; i++) {
+462:       var entry = work.chunks.pollFirstEntry();
+463:       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
+464:       var chunk = l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false);
+465:       if (!(chunk instanceof LevelChunk)) continue;
+466:       var c = entry.getValue();
+467:       work.chunks.putIfAbsent(entry.getKey(), c);
+468:       long now = l.getGameTime();
+469:       // Rotate allocation order each aquifer interval; 73 is coprime with 256.
+470:       int scanOffset = (int) ((now / 20 * 73L) & 255);
+471:       int col = (c.column++ + scanOffset) & 255;
+472:       // Multiplication by an odd number is a permutation, avoiding repeated strip sampling.
+473:       int shuffled = col * 73 & 255;
+474:       int x = cp.getMinBlockX() + (shuffled & 15);
+475:       int z = cp.getMinBlockZ() + (shuffled >> 4);
+476:       if (now > c.visited[col] && now - c.visited[col] >= 20) {
+477:         c.visited[col] = now;
+478:         visit(l, work, c, col, t, x, z);
+479:         if (c.streamCount > 0) work.streamChunks.putIfAbsent(entry.getKey(), c);
+480:       }
+engine-core/src/main/java/com/shnewbs/deepprimal/core/FrameIntervalWindow.java SHA256 4101a6ca32a34a768777c4e351b2a2dda06c78df725090159e407aaacafb4518
+1: package com.shnewbs.deepprimal.core;
+2: 
+3: /** Bounded CPU frame intervals, including waits/limiting; never GPU execution time.
+4:  * Context changes discard the crossing interval and all earlier samples.
+5:  */
+6: public final class FrameIntervalWindow {
+7:   private final RollingTiming intervals, transitions;
+8:   private long transitionCount;
+9:   private Object world;
+10:   private int width, height, fpsLimit, fullDistance, verticalDistance, lodDistance;
+11:   private boolean focused, initialized;
+12:   private long previous, generation;
+13: 
+14:   public FrameIntervalWindow(int capacity) {
+15:     intervals = new RollingTiming(capacity);
+16:     transitions = new RollingTiming(Math.min(capacity, 64));
+17:   }
+18: 
+19:   /** Call on every observed frame, before publishing diagnostics. Returns true on a reset.
+20:    * World uses identity so reconnects to the same dimension start a new window.
+21:    */
+22:   public synchronized boolean observe(long now, Object world, int width, int height,
+23:       boolean focused, int fpsLimit, int fullDistance, int verticalDistance, int lodDistance) {
+24:     boolean changed = !initialized || this.world != world || this.width != width
+25:         || this.height != height || this.focused != focused || this.fpsLimit != fpsLimit
+26:         || this.fullDistance != fullDistance || this.verticalDistance != verticalDistance
+27:         || this.lodDistance != lodDistance || now - previous < 0;
+28:     if (changed) {
+29:       // Keep valid observed crossing gaps separate from steady-context percentiles.
+30:       // This includes all intervening waits; it is not an isolated world-load timer.
+31:       if (initialized && now - previous >= 0) {
+32:         transitions.record(now - previous);
+33:         transitionCount++;
+34:       }
+35:       intervals.reset();
+36:       generation++;
+37:       this.world = world;
+38:       this.width = width;
+39:       this.height = height;
+40:       this.focused = focused;
+41:       this.fpsLimit = fpsLimit;
+42:       this.fullDistance = fullDistance;
+43:       this.verticalDistance = verticalDistance;
+44:       this.lodDistance = lodDistance;
+45:       initialized = true;
+46:     } else intervals.record(now - previous);
+47:     previous = now;
+48:     return changed;
+49:   }
+50: 
+51:   public synchronized RollingTiming.Snapshot snapshot() { return intervals.snapshot(); }
+52:   public synchronized RollingTiming.Snapshot transitionSnapshot() { return transitions.snapshot(); }
+53:   public synchronized long transitionCount() { return transitionCount; }
+54:   public synchronized long generation() { return generation; }
+55: 
+56:   /** Release the world reference and discard an observation gap, e.g. dashboard disabled. */
+57:   public synchronized void clear() {
+58:     intervals.reset();
+59:     transitions.reset();
+60:     transitionCount = 0;
+61:     world = null;
+62:     initialized = false;
+63:   }
+64: }
+src/main/java/com/shnewbs/deepprimal/client/ClientTelemetry.java SHA256 8c0b487a4bc2277bb5459e24e314dbcfb15a2fff7c41fb03ca10741575d650c0
+1: package com.shnewbs.deepprimal.client;
+2: 
+3: import com.mojang.blaze3d.systems.RenderSystem;
+4: import com.shnewbs.deepprimal.client.render.HorizonRenderer;
+5: import com.shnewbs.deepprimal.core.FrameIntervalWindow;
+6: import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
+7: import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
+8: import com.shnewbs.deepprimal.settings.RendererOwnership;
+9: import com.shnewbs.deepprimal.settings.VisualPerformance;
+10: import java.util.LinkedHashMap;
+11: import net.minecraft.client.Minecraft;
+12: import net.neoforged.bus.api.SubscribeEvent;
+13: import net.neoforged.neoforge.client.event.RenderFrameEvent;
+14: 
+15: /** Frame interval includes frame limiting and waits; it is not GPU render time. */
+16: public final class ClientTelemetry {
+17:   private final FrameIntervalWindow frames = new FrameIntervalWindow(512);
+18:   private long sampled, lastBuild, lastUpload, lastDraw, lastReceived, lastSync;
+19: 
+20:   @SubscribeEvent
+21:   public void frame(RenderFrameEvent.Post event) {
+22:     HorizonRenderer.INSTANCE.observeFrame(System.nanoTime());
+23:     if (!LocalDashboard.running()) LocalDashboard.start();
+24:     if (!LocalDashboard.running()) { frames.clear(); return; }
+25:     long now = System.nanoTime();
+26:     var mc = Minecraft.getInstance();
+27:     boolean reset = frames.observe(now, mc.level, mc.getWindow().getWidth(),
+28:         mc.getWindow().getHeight(), mc.isWindowActive(),
+29:         mc.getFramerateLimitTracker().getFramerateLimit(),
+30:         mc.options.getEffectiveRenderDistance(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get(),
+31:         com.shnewbs.deepprimal.settings.LodAccess.distance());
+32:     if (!reset && now - sampled < 1_000_000_000L) return;
+33:     sampled = now;
+34:     var data = new LinkedHashMap<String, Object>();
+35:     var stats = frames.snapshot();
+36:     data.put("state", mc.level == null ? "Menu" : "In world");
+37:     data.put("sampleTime", System.currentTimeMillis());
+38:     data.put("frameMedianMs", stats.p50Nanos() / 1e6);
+39:     data.put("frameP95Ms", stats.p95Nanos() / 1e6);
+40:     data.put("frameP99Ms", stats.p99Nanos() / 1e6);
+41:     data.put("frameSampleCount", stats.samples());
+42:     var transitions = frames.transitionSnapshot();
+43:     data.put("frameContextTransitionCount", frames.transitionCount());
+44:     data.put("frameContextTransitionSamples", transitions.samples());
+45:     data.put("frameContextTransitionP50Ms", transitions.p50Nanos() / 1e6);
+46:     data.put("frameContextTransitionP95Ms", transitions.p95Nanos() / 1e6);
+47:     data.put("frameContextTransitionP99Ms", transitions.p99Nanos() / 1e6);
+48:     data.put("frameContextTransitionMaxMs", transitions.maxNanos() / 1e6);
+49:     data.put("frameContextTransitionScope", "Observed crossing frame gaps including waits; not isolated world-load or GPU time");
+50:     data.put("frameWindowGeneration", frames.generation());
+51:     data.put("frameTimingScope", "CPU frame intervals including waits and limiting; not GPU time");
+52:     data.put("frameWidth", mc.getWindow().getWidth());
+53:     data.put("frameHeight", mc.getWindow().getHeight());
+54:     data.put("frameMaxMs", stats.maxNanos() / 1e6);
+55:     data.put("windowFocused", mc.isWindowActive());
+56:     data.put("effectiveFpsLimit", mc.getFramerateLimitTracker().getFramerateLimit());
+57:     data.put("entitiesSkipped", VisualPerformance.entitiesSkipped);
+58:     data.put("blockEntitiesSkipped", VisualPerformance.blockEntitiesSkipped);
+59:     data.put("particlesSkipped", VisualPerformance.particlesSkipped);
+60:     data.put("fps", mc.getFps());
+61:     data.put("rendererOwner", RendererOwnership.owner());
+62:     data.put("graphicsApi", RenderSystem.getDevice().getBackendName());
+63:     data.put("nativeSyncBuilds", VisualPerformance.chunkSyncBuilds);
+64:     data.put("nativeRebuildsDeferred", VisualPerformance.chunkRebuildsDeferred);
+65:     data.put("nativeRebuildsCoalesced", VisualPerformance.chunkRebuildsCoalesced);
+66:     var water = com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer.INSTANCE;
+67:     data.put("waterGpuBytes", water.residentBytes);
+68:     data.put("waterPatchUploads", water.uploads);
+69:     data.put("waterPatchPending", water.pending());
+70:     data.put("waterTerrainInvalidationsAvoided", water.terrainInvalidationsAvoided);
+71:     data.put("nativePlayerBuilds", VisualPerformance.chunkPlayerBuilds);
+72:     data.put("nativeSyncBuildMsPerSample", (VisualPerformance.chunkSyncNanos - lastSync) / 1e6);
+73:     lastSync = VisualPerformance.chunkSyncNanos;
+74:     data.put("gpu", RenderSystem.getDevice().getRenderer());
+75:     data.put(
+76:         "wakeMeshBytes",
+77:         com.shnewbs.deepprimal.client.render.WakeRenderer.INSTANCE.residentBytes());
+78:     data.put(
+79:         "oceanMeshBytes",
+80:         com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.residentBytes());
+81:     data.put(
+82:         "oceanPendingSamples",
+83:         com.shnewbs.deepprimal.client.render.WaterSurfaceRenderer.INSTANCE.pendingSamples());
+84:     data.put("renderDistance", mc.options.renderDistance().get());
+85:     data.put("effectiveRenderDistance", mc.options.getEffectiveRenderDistance());
+86:     data.put("memoryDistanceGuard", com.shnewbs.deepprimal.performance.MemorySafety.enabled());
+87:     data.put("simulationDistance", mc.options.simulationDistance().get());
+88:     data.put(
+89:         "verticalRadius",
+90:         RendererOwnership.owned()
+91:             ? ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()
+92:             : "External");
+93:     data.put("farDistance", RendererOwnership.owned() ? HorizonRenderer.farDistance() : 0);
+94:     if (RendererOwnership.owned()) {
+95:       var renderer = HorizonRenderer.INSTANCE;
+96:       data.put("horizonResidentBytes", renderer.residentBytes);
+97:       data.put("horizonTransitionBuilds", renderer.transitionBuilds);
+98:       data.put("horizonWorkFraction", renderer.workFraction());
+99:       data.put("horizonTargetFps", ClientPerformanceConfig.TARGET_FPS.get());
+100:       data.put(
+101:           "horizonMemoryLimitBytes", ClientPerformanceConfig.HORIZON_MEMORY_MIB.get() * 1048576L);
+102:       data.put(
+103:           "horizonBuildMsPerSample",
+104:           (renderer.meshBuildNanos + renderer.meshPackNanos - lastBuild) / 1e6);
+105:       lastBuild = renderer.meshBuildNanos + renderer.meshPackNanos;
+106:       data.put("horizonUploadMsPerSample", (renderer.uploadNanos - lastUpload) / 1e6);
+107:       lastUpload = renderer.uploadNanos;
+108:       data.put("horizonDrawCpuMsPerSample", (renderer.drawCpuNanos - lastDraw) / 1e6);
+109:       lastDraw = renderer.drawCpuNanos;
+110:       data.put("horizonReceivedBytesPerSample", renderer.receivedBytes - lastReceived);
