@@ -2,7 +2,7 @@
   "owner": "renderer-capacity-recovery-20261027T0256",
   "status": "active",
   "started_at": "2026-10-27T02:56:23Z",
-  "active_until": "2026-10-27T03:30:00Z",
+  "active_until": "2026-10-27T03:45:00Z",
   "scope": [
     "docs/renderer-jams/20261027-capacity-recovery",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/FrameIntervalWindow.java",
@@ -24,5 +24,5 @@
     "CoreChecks registration"
   ],
   "exclusive_benchmark": false,
-  "phase": "native_qualification_retry_no_promotion"
+  "phase": "qualified_source_integration_and_artifact_save"
 }

@@ -2,7 +2,7 @@ package com.shnewbs.deepprimal.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.shnewbs.deepprimal.client.render.HorizonRenderer;
-import com.shnewbs.deepprimal.core.TickWindow;
+import com.shnewbs.deepprimal.core.FrameIntervalWindow;
 import com.shnewbs.deepprimal.diagnostics.LocalDashboard;
 import com.shnewbs.deepprimal.settings.ClientPerformanceConfig;
 import com.shnewbs.deepprimal.settings.RendererOwnership;
@@ -14,27 +14,44 @@ import net.neoforged.neoforge.client.event.RenderFrameEvent;
 
 /** Frame interval includes frame limiting and waits; it is not GPU render time. */
 public final class ClientTelemetry {
-  private final TickWindow frames = new TickWindow(512);
-  private long previous, sampled, lastBuild, lastUpload, lastDraw, lastReceived, lastSync;
+  private final FrameIntervalWindow frames = new FrameIntervalWindow(512);
+  private long sampled, lastBuild, lastUpload, lastDraw, lastReceived, lastSync;
 
   @SubscribeEvent
   public void frame(RenderFrameEvent.Post event) {
     HorizonRenderer.INSTANCE.observeFrame(System.nanoTime());
     if (!LocalDashboard.running()) LocalDashboard.start();
-    if (!LocalDashboard.running()) return;
+    if (!LocalDashboard.running()) { frames.clear(); return; }
     long now = System.nanoTime();
-    if (previous != 0) frames.record(now - previous);
-    previous = now;
-    if (now - sampled < 1_000_000_000L) return;
-    sampled = now;
     var mc = Minecraft.getInstance();
+    boolean reset = frames.observe(now, mc.level, mc.getWindow().getWidth(),
+        mc.getWindow().getHeight(), mc.isWindowActive(),
+        mc.getFramerateLimitTracker().getFramerateLimit(),
+        mc.options.getEffectiveRenderDistance(), ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get(),
+        com.shnewbs.deepprimal.settings.LodAccess.distance());
+    if (!reset && now - sampled < 1_000_000_000L) return;
+    sampled = now;
     var data = new LinkedHashMap<String, Object>();
     var stats = frames.snapshot();
     data.put("state", mc.level == null ? "Menu" : "In world");
     data.put("sampleTime", System.currentTimeMillis());
-    data.put("frameMedianMs", stats.medianMs());
-    data.put("frameP95Ms", stats.p95Ms());
-    data.put("frameMaxMs", stats.maxMs());
+    data.put("frameMedianMs", stats.p50Nanos() / 1e6);
+    data.put("frameP95Ms", stats.p95Nanos() / 1e6);
+    data.put("frameP99Ms", stats.p99Nanos() / 1e6);
+    data.put("frameSampleCount", stats.samples());
+    var transitions = frames.transitionSnapshot();
+    data.put("frameContextTransitionCount", frames.transitionCount());
+    data.put("frameContextTransitionSamples", transitions.samples());
+    data.put("frameContextTransitionP50Ms", transitions.p50Nanos() / 1e6);
+    data.put("frameContextTransitionP95Ms", transitions.p95Nanos() / 1e6);
+    data.put("frameContextTransitionP99Ms", transitions.p99Nanos() / 1e6);
+    data.put("frameContextTransitionMaxMs", transitions.maxNanos() / 1e6);
+    data.put("frameContextTransitionScope", "Observed crossing frame gaps including waits; not isolated world-load or GPU time");
+    data.put("frameWindowGeneration", frames.generation());
+    data.put("frameTimingScope", "CPU frame intervals including waits and limiting; not GPU time");
+    data.put("frameWidth", mc.getWindow().getWidth());
+    data.put("frameHeight", mc.getWindow().getHeight());
+    data.put("frameMaxMs", stats.maxNanos() / 1e6);
     data.put("windowFocused", mc.isWindowActive());
     data.put("effectiveFpsLimit", mc.getFramerateLimitTracker().getFramerateLimit());
     data.put("entitiesSkipped", VisualPerformance.entitiesSkipped);
@@ -117,3 +134,4 @@ public final class ClientTelemetry {
     LocalDashboard.client(data);
   }
 }
+
