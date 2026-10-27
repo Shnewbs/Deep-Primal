@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "role": "dedicated-renderer",
+  "jam": "20261027-transform-retention-budget",
+  "run": "2026-10-27T2059Z",
+  "owner": "renderer-hourly-chat",
+  "status": "active",
+  "acquired_utc": "2026-10-27T20:59:00Z",
+  "expires_utc": "2026-10-27T21:25:00Z",
+  "source_parent": "d35371745c5fdfe63c0f6d40efc92ee290591585",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/ReusableTransformArrays.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-transform-retention-budget/"
+  ],
+  "excluded": [
+    "engine-core",
+    "water runtime",
+    "graphics-settings",
+    "vulkan-mod",
+    "other schedules",
+    "worldgen"
+  ],
+  "note": "Bounded source-only renderer writer. Do not overlap another active claim. No shared build/cache/tool directories."
+}
