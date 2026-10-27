@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-27T22:18:00Z",
-  "active_until": "2026-10-27T22:18:00Z",
+  "status": "active",
+  "updated_at": "2026-10-27T23:04:00Z",
+  "active_until": "2026-10-27T23:35:00Z",
   "source_ref": "816aab2b2150ff5463253f2d5636d41970914740",
   "candidate_version": "0.0.1-alpha.29-dev.38-guarddominance.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev38 source-only: loaded water receiver/source reentrant identity barriers, safe rollback ownership; installed hydrology guard shape now rejects dead/else/contradictory guard matches. Java21 isolated callback model 274989 checks and Python isolated guard stand-in 29 controls pass; full owner Java25/Gradle, Minecraft native rollback/chemistry/save-reopen, AMD Vulkan/OpenGL temporal waterfall and p95/p99 remain open; no JAR/release/grade gain.",
+  "current_gate": "Dev39 engine writer claimed; post-receiver-write loaded/state ownership and compensation semantics under implementation. No owner native/build/GPU acceptance inferred.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -487,7 +487,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-chat-20261027T2203-cfg-water",
+  "worker": "builder-chat-20261027T2300-receiver-postcommit",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1030,39 +1030,20 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-chat-20261027T2203-cfg-water",
-    "started_at": "2026-10-27T22:03:00Z",
-    "completed_at": "2026-10-27T22:18:00Z",
-    "lease_until": "2026-10-27T22:25:00Z",
-    "phase": "checkpointed_source_only",
-    "lease_released": true,
+    "worker": "builder-chat-20261027T2300-receiver-postcommit",
+    "started_at": "2026-10-27T23:04:00Z",
+    "lease_until": "2026-10-27T23:35:00Z",
+    "lease_released": false,
+    "phase": "implementation",
     "scope": [
-      "tools/validate_hydrology_height_admission.py",
       "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "src/main/java/com/shnewbs/deepprimal/engine/WaterTransferCommit.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/engine/WaterTransferCommitChecks.java",
       "gradle.properties",
-      "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/"
+      "docs/validation/engine-continuation/water-receiver-postcommit-2026-10-27/"
     ],
-    "source_ref": "816aab2b2150ff5463253f2d5636d41970914740",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2131-d62030f/REVIEW.md",
-    "implementation_commits": [
-      "816aab2b2150ff5463253f2d5636d41970914740"
-    ],
-    "version": "0.0.1-alpha.29-dev.38-guarddominance.1",
-    "evidence": "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/README.md",
-    "validation": [
-      "Python3 extracted dev37 stand-in guard/mutation suite 29/29, 17 mutants rejected",
-      "Java21 -Xverify:all deterministic transfer callback model 274989 assertions; initial source-edit control failed before last guard added",
-      "Post-push GitHub source/blob verification of exact checker/water/version"
-    ],
-    "unrun": [
-      "Full Java25/Gradle/NeoForge core/modules and JAR (owner builds; JDK25 and network unavailable here)",
-      "Packaged water unloaded/reentrant writes, chemistry conservation, snow/ocean, save/reopen and multiplayer soak",
-      "Real Vulkan/OpenGL waterfall pixels and AMD8060S frame/tick latency"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "last_external_grade": 5,
-    "next_priority": "Owner native loaded/unloaded callback and rollback tests with exact salt/sediment + save/reopen, then naturally flowing waterfall temporal seams and hardware performance."
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2231-227f53b/REVIEW.md",
+    "audit_source_sha": "227f53b7a95e66028831f74102f011f46125643d"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1249,7 +1230,7 @@
     "findings": "Lexical guard matching accepts guards hidden in unreachable Java if(false), else and contradictory control paths; production guard currently active.",
     "chosen_repair": "Installed-structure safety gate rejects unreachable/else/contradictory world-read guards; protect against reentrant source/receiver replacement and stale rollback in WaterRuntime.transfer."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1451,5 +1432,40 @@
     "tests": "21 static + 9 mutation controls on local source fixture; 9248 Java25 modeled pressure decisions; GitHub source mirror 8 predicates/9 mutants",
     "qualification": "source-only; no native build, no JAR, no new external grade",
     "evidence": "docs/validation/engine-continuation/guard-lexical-2026-10-27/README.md"
+  },
+  "previous_builder_cycle_20261027T2203": {
+    "worker": "builder-chat-20261027T2203-cfg-water",
+    "started_at": "2026-10-27T22:03:00Z",
+    "completed_at": "2026-10-27T22:18:00Z",
+    "lease_until": "2026-10-27T22:25:00Z",
+    "phase": "checkpointed_source_only",
+    "lease_released": true,
+    "scope": [
+      "tools/validate_hydrology_height_admission.py",
+      "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "gradle.properties",
+      "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/"
+    ],
+    "source_ref": "816aab2b2150ff5463253f2d5636d41970914740",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2131-d62030f/REVIEW.md",
+    "implementation_commits": [
+      "816aab2b2150ff5463253f2d5636d41970914740"
+    ],
+    "version": "0.0.1-alpha.29-dev.38-guarddominance.1",
+    "evidence": "docs/validation/engine-continuation/guard-dominance-water-2026-10-27/README.md",
+    "validation": [
+      "Python3 extracted dev37 stand-in guard/mutation suite 29/29, 17 mutants rejected",
+      "Java21 -Xverify:all deterministic transfer callback model 274989 assertions; initial source-edit control failed before last guard added",
+      "Post-push GitHub source/blob verification of exact checker/water/version"
+    ],
+    "unrun": [
+      "Full Java25/Gradle/NeoForge core/modules and JAR (owner builds; JDK25 and network unavailable here)",
+      "Packaged water unloaded/reentrant writes, chemistry conservation, snow/ocean, save/reopen and multiplayer soak",
+      "Real Vulkan/OpenGL waterfall pixels and AMD8060S frame/tick latency"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Owner native loaded/unloaded callback and rollback tests with exact salt/sediment + save/reopen, then naturally flowing waterfall temporal seams and hardware performance."
   }
 }
