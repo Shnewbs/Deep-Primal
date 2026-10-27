@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "role": "dedicated-renderer",
+  "jam": "20261027-transform-telemetry",
+  "owner": "renderer-hourly-chat",
+  "status": "active",
+  "acquired_utc": "2026-10-27T21:56:00Z",
+  "expires_utc": "2026-10-27T22:20:00Z",
+  "source_parent": "1613a21cfd58fec83c56013e9176f2a8424f9d81",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/ReusableTransformArrays.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261027-transform-telemetry/"
+  ],
+  "excluded": [
+    "engine-core",
+    "water runtime",
+    "graphics-settings",
+    "renderer-vulkan",
+    "other schedules",
+    "worldgen"
+  ],
+  "note": "New bounded renderer-only claim for transform draw-count histogram and Java cache telemetry. No other source modified."
+}
