@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T16:12:35.486Z",
-  "active_until": "2026-10-27T16:13:05.486Z",
+  "updated_at": "2026-10-27T17:06:58Z",
+  "active_until": "2026-10-27T17:22:00Z",
   "source_ref": "0f9f90678cb029c3943420e067a171986dd90d35",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
@@ -482,7 +482,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-chat-20261027T1607",
+  "worker": "builder-chat-20261027T1700",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1025,29 +1025,25 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-chat-20261027T1607",
-    "started_at": "2026-10-27T16:02:16.987Z",
-    "lease_until": "2026-10-27T16:12:35.486Z",
-    "phase": "checkpointed_source_only",
+    "worker": "builder-chat-20261027T1700",
+    "started_at": "2026-10-27T17:06:58Z",
+    "lease_until": "2026-10-27T17:22:00Z",
+    "phase": "implementing",
     "scope": [
       "docs/ENGINE-WORK-STATE.json",
-      "docs/validation/engine-continuation/water-contact-probe-budget-2026-10-27/"
+      "docs/validation/engine-continuation/water-contact-retry-ticket-2026-10-27/"
     ],
     "overlap_check": {
-      "water": "checkpointed with no active lease",
-      "renderer": "separate graphics-upscaling lease through 17:24Z; no overlap",
-      "auditor": "latest completed independent bbf07e1 audit, 50/100 carried",
-      "other_chat": "Personal Context latest renderer edit at 15:51Z; no direct root engine owner",
-      "builder": "previous root lease expired 05:45Z"
+      "water": "checkpointed with null active_until at 2026-10-27T17:06:58Z",
+      "renderer": "renderer currently implementing independent LOD code; avoid renderer sources and mutable caches",
+      "auditor": "2026-10-27T1634-bd28005 pinned bd28005, complete audit carried 50/100",
+      "other_chat": "Personal Context search returned no active root claim; task state checked",
+      "builder": "root previous lease 16:13Z expired",
+      "timing": "performance_measurement status released"
     },
-    "acceptance_complete": false,
-    "completed_at": "2026-10-27T16:12:35.486Z",
-    "lease_released": true,
-    "committed_stage": "0f9f90678cb029c3943420e067a171986dd90d35",
-    "last_external_grade": 5,
-    "qualified_jar_produced": false,
-    "why_no_jar": "This host has JDK21 only, no full pinned Java25/Gradle/toolchain or complete local Git checkout; the staged six-source integration lacks full producer, package and native acceptance.",
-    "next_priority": "Restore full pinned Java25 builder in isolated checkout, then qualify full six-source contact/index plus bounded-probe retry; follow with loaded/unloaded ledger and water surfaces."
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T1634-bd28005/REVIEW.md",
+    "target": "staged chemistry commit retry next-tick persistence and targeted stub checks",
+    "acceptance_complete": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
