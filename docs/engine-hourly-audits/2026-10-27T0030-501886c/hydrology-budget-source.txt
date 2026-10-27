@@ -1,0 +1,56 @@
+435:   @SubscribeEvent public void tick(LevelTickEvent.Post e) {
+436:     if (!(e.getLevel() instanceof ServerLevel l) || !enabled(l)) return;
+437:     var work = WORK.get(l); if (work == null) return;
+438:     var t = ((EngineChunkGenerator) l.getChunkSource().getGenerator()).geography();
+439:     int limit = HydrologyConfig.COLUMNS.get();
+440:     long start = System.nanoTime(), deadline = start + 2_000_000;
+441:     survey(l, work, t, start + 1_000_000);
+442:     // Preserve admission time for regional recharge/accounting after the source pass.
+443:     long streamDeadline = limit > 0 ? deadline - 500_000 : deadline;
+444:     // Planned waterways get their own bounded cadence; scan breadth must not starve a source.
+445:     // The finite regional quota is offered headwater-first: springs feed the head of a reach and
+446:     // lower columns are fed by flow, so downstream deficits must not consume the headwater share.
+447:     work.streamChunks.entrySet().removeIf(en -> en.getValue().streamCount == 0
+448:         || work.chunks.get(en.getKey()) != en.getValue());
+449:     var order = new ArrayList<>(work.streamChunks.entrySet());
+450:     order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
+451:     for (int i = 0, n = order.size(); i < n && System.nanoTime() - streamDeadline < 0; i++) {
+452:       var entry = order.get(i);
+453:       var c = entry.getValue();
+454:       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
+455:       if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
+456:       for (int s = 0; s < c.streamCount && System.nanoTime() - streamDeadline < 0; s++) {
+457:         int col = c.streams[s], shuffled = col * 73 & 255;
+458:         replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
+459:       }
+460:     }
+461:     for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() - deadline < 0; i++) {
+462:       var entry = work.chunks.pollFirstEntry();
+463:       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
+464:       var chunk = l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false);
+465:       if (!(chunk instanceof LevelChunk)) continue;
+466:       var c = entry.getValue();
+467:       work.chunks.putIfAbsent(entry.getKey(), c);
+468:       long now = l.getGameTime();
+469:       // Rotate allocation order each aquifer interval; 73 is coprime with 256.
+470:       int scanOffset = (int) ((now / 20 * 73L) & 255);
+471:       int col = (c.column++ + scanOffset) & 255;
+472:       // Multiplication by an odd number is a permutation, avoiding repeated strip sampling.
+473:       int shuffled = col * 73 & 255;
+474:       int x = cp.getMinBlockX() + (shuffled & 15);
+475:       int z = cp.getMinBlockZ() + (shuffled >> 4);
+476:       if (now > c.visited[col] && now - c.visited[col] >= 20) {
+477:         c.visited[col] = now;
+478:         visit(l, work, c, col, t, x, z);
+479:         if (c.streamCount > 0) work.streamChunks.putIfAbsent(entry.getKey(), c);
+480:       }
+481:     }
+482:   }
+483:   @SubscribeEvent public void unloaded(ChunkEvent.Unload e) {
+484:     if (!(e.getLevel() instanceof ServerLevel l)) return;
+485:     var w = WORK.get(l); if (w == null) return;
+486:     w.chunks.remove(e.getChunk().getPos().pack());
+487:     w.streamChunks.remove(e.getChunk().getPos().pack());
+488:     w.survey.remove(e.getChunk().getPos().pack());
+489:     // Cache follows loaded geography, not the lifetime exploration footprint.
+490:     if (w.chunks.isEmpty()) w.regions.clear();
