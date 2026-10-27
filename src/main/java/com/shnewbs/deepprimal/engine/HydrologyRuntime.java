@@ -158,7 +158,10 @@ public final class HydrologyRuntime {
   }
   /** Measured placement and pickup preserve chemistry, but never copy an ocean/source marker. */
   public static boolean place(ServerLevel l, BlockPos p, WaterAccount.Parcel parcel) {
-    if (!l.hasChunkAt(p) || !l.getBlockState(p).isAir() || parcel.water() != 4096) return false;
+    // Both the height and the chunk must be admissible BEFORE reading state. A
+    // loaded x/z chunk does not make an out-of-build-height position a cell.
+    if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)
+        || parcel.water() != 4096 || !l.getBlockState(p).isAir()) return false;
     if (!write(l, p, EngineRegistry.WATER_BLOCK.get().defaultBlockState())) return false;
     store(l, p, parcel); WaterRuntime.activate(l, p); return true;
   }
@@ -235,6 +238,33 @@ public final class HydrologyRuntime {
       return new RegionWork(low + 1);
     });
   }
+  /**
+   * Resolve the first non-replaceable/engine-water cell under a heightmap sample.
+   * Refuse void/out-of-world cells and unloaded chunks before their state is read;
+   * the eight-cell scan is the same cap as the previous inline walks.
+   */
+  private static BlockPos exposedColumnCell(ServerLevel l, BlockPos top) {
+    var p = top.below();
+    for (int i = 0; i < 8; i++) {
+      if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return null;
+      var state = l.getBlockState(p);
+      if (!state.canBeReplaced() || state.is(EngineRegistry.WATER_BLOCK.get())) return p;
+      p = p.below();
+    }
+    return l.isInWorldBounds(p) && l.hasChunkAt(p) ? p : null;
+  }
+
+  /** Loaded-only bounded water-column descent for precipitation and infiltration. */
+  private static BlockPos waterColumnBed(ServerLevel l, BlockPos initial) {
+    var p = initial;
+    for (int i = 0; i < 16; i++) {
+      if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return null;
+      if (!l.getBlockState(p).is(EngineRegistry.WATER_BLOCK.get())) return p;
+      p = p.below();
+    }
+    return l.isInWorldBounds(p) && l.hasChunkAt(p) ? p : null;
+  }
+
   /** One representative column per loaded chunk, weighted by its 256-column footprint. */
   private static void precipitation(ServerLevel l, TerrainEngine t, int x, int z,
       HydrologyData data, Aquifer aquifer) {
@@ -245,14 +275,12 @@ public final class HydrologyRuntime {
       int sx = (chunkX + cx) * 16 + 8, sz = (chunkZ + cz) * 16 + 8;
       var top = l.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(sx, 0, sz));
       if (!l.canSeeSky(top)) continue;
-      var p = top.below();
-      for (int i = 0; i < 8 && l.getBlockState(p).canBeReplaced()
-          && !l.getBlockState(p).is(EngineRegistry.WATER_BLOCK.get()); i++) p = p.below();
+      var p = exposedColumnCell(l, top);
+      if (p == null) continue;
       var state = l.getBlockState(p);
       if (boundary(state)) continue;
-      var bed = p;
-      for (int i = 0; i < 16 && l.getBlockState(bed).is(EngineRegistry.WATER_BLOCK.get()); i++)
-        bed = bed.below();
+      var bed = waterColumnBed(l, p);
+      if (bed == null) continue;
       var bedState = l.getBlockState(bed);
       // Reject common roofs before doing any terrain/geology work.
       if (bedState.is(Blocks.BEDROCK)) continue;
@@ -272,10 +300,9 @@ public final class HydrologyRuntime {
   private static void visit(ServerLevel l, Work work, Cursor cursor, int column,
       TerrainEngine t, int x, int z) {
     var top = l.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(x, 0, z));
-    var p = top.below();
     // Ignore sparse plants/snow, but never tunnel through structures or a forest roof.
-    for (int i = 0; i < 8 && l.getBlockState(p).canBeReplaced()
-        && !l.getBlockState(p).is(EngineRegistry.WATER_BLOCK.get()); i++) p = p.below();
+    var p = exposedColumnCell(l, top);
+    if (p == null) return;
     var state = l.getBlockState(p);
     if (boundary(state)) { restoreOcean(l, p, state); return; }
     // One-time migration marks only a large, existing sea surface. Dry edited land stays dry.
@@ -295,9 +322,9 @@ public final class HydrologyRuntime {
     }
     if (sample.wet()) plan(cursor, column, sample.water());
     cursor.candidate(column, sample.wet());
-    BlockPos bed = state.is(EngineRegistry.WATER_BLOCK.get()) ? p.below() : p;
     // Deep lakes infiltrate at their floor; finding it is strictly capped.
-    for (int i = 0; i < 16 && l.getBlockState(bed).is(EngineRegistry.WATER_BLOCK.get()); i++) bed = bed.below();
+    BlockPos bed = waterColumnBed(l, state.is(EngineRegistry.WATER_BLOCK.get()) ? p.below() : p);
+    if (bed == null) return;
     boolean ice=t.revision>=6 && (state.is(Blocks.ICE)||state.is(Blocks.PACKED_ICE)||state.is(Blocks.BLUE_ICE)||state.is(Blocks.SNOW_BLOCK));
     double permeable = ice ? new Geology(t.noise).permeability(x, z)
         : permeability(l.getBlockState(bed), t.noise, x, z);
@@ -368,9 +395,9 @@ public final class HydrologyRuntime {
       for (; c.surveyed < 256 && System.nanoTime() - deadline < 0; c.surveyed++) {
         int col = c.surveyed, shuffled = col * 73 & 255;
         int x = cp.getMinBlockX() + (shuffled & 15), z = cp.getMinBlockZ() + (shuffled >> 4);
-        var p = l.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(x, 0, z)).below();
-        for (int i = 0; i < 8 && l.getBlockState(p).canBeReplaced()
-            && !l.getBlockState(p).is(EngineRegistry.WATER_BLOCK.get()); i++) p = p.below();
+        var top = l.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(x, 0, z));
+        var p = exposedColumnCell(l, top);
+        if (p == null) continue;
         var state = l.getBlockState(p);
         if (!state.is(EngineRegistry.WATER_BLOCK.get()) || boundary(state) || c.streamCandidate[col]) continue;
         var sample = t.column(x, z);
