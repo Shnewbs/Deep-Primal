@@ -1,0 +1,15 @@
+{
+  "owner": "renderer-capacity-recovery-20261027T0256",
+  "status": "active",
+  "started_at": "2026-10-27T02:56:23Z",
+  "active_until": "2026-10-27T03:30:00Z",
+  "scope": [
+    "docs/renderer-jams/20261027-capacity-recovery"
+  ],
+  "local_scope": [
+    "completed own renderer-toolchain download archives",
+    "expired completed renderer.6 export copies"
+  ],
+  "production_files_claimed": [],
+  "exclusive_benchmark": false
+}
