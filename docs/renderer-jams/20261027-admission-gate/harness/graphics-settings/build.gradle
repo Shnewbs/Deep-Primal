@@ -1,0 +1,2 @@
+plugins { id 'java-library' }
+dependencies { api files('/workspace/scratch/c748d58856d9/renderer-work/graphics-settings/build/classes/java/main') }

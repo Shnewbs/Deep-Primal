@@ -1,0 +1,98 @@
+{
+  "initialMain": "155218b2035d528d9526bb39d1e0db4b15ae40d2",
+  "publicationParent": "2bc1f69c6d80d7b184e3d370b1c62335e3c7db30",
+  "nonDocRootIdentitiesEqual": true,
+  "identities": [
+    [
+      ".gitignore",
+      "bc192560b2106b2e62179b2c2917705c884a5c74"
+    ],
+    [
+      ".vscode",
+      "3d72ecc8a965221f05dc2add6e6a36dc55363693"
+    ],
+    [
+      "ENGINE_CORE_SUMMARY.md",
+      "1ff24126ff8d76dd751068ac59475338d47ddeb6"
+    ],
+    [
+      "README.md",
+      "10ff92c727b0827c049632a8a4e807ab9139d9ea"
+    ],
+    [
+      "build.gradle",
+      "3fd248d01b60ae1690430c10caa74b5daa53d203"
+    ],
+    [
+      "engine-core",
+      "8aaa7d15be4e056ea228da961b556f9f51994963"
+    ],
+    [
+      "gradle.properties",
+      "30853e0d790b1b34b58248818f50d710388340f8"
+    ],
+    [
+      "gradle",
+      "1baf30cf580f96464a0de358eaef0f318333bb8d"
+    ],
+    [
+      "gradlew",
+      "adff685a0348c64b2b64f0b302f1f82b28eeaaea"
+    ],
+    [
+      "gradlew.bat",
+      "c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39"
+    ],
+    [
+      "graphics-settings",
+      "2ff539d5252bf916a16af53edbffacf69305a218"
+    ],
+    [
+      "gui-themes",
+      "7a38573db11f0d314f1a10afb0f2054396a04086"
+    ],
+    [
+      "lod-engine",
+      "6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8"
+    ],
+    [
+      "maritime-1.21.1",
+      "72006208f45b971396160f050916faaff1819302"
+    ],
+    [
+      "performance-engine",
+      "4d93cca2e09acdb132f1a0377d9e10231f5db014"
+    ],
+    [
+      "renderer-vulkan",
+      "a781ad176d0f455626d1e6daf191b5dfa6c2dc6c"
+    ],
+    [
+      "roadmap.md",
+      "ea7a174154f710f5bbff2d756405b047bb750a77"
+    ],
+    [
+      "settings.gradle",
+      "92ab970c19f8beda4b3ecfb89d1eb5b85056ea86"
+    ],
+    [
+      "src",
+      "007a80d8efb16b15c97074c3372970e24f6cfb93"
+    ],
+    [
+      "standalone-engine",
+      "1745890a43d4adc0fdb7e239a481955f7ac56a96"
+    ],
+    [
+      "tools",
+      "c7a93794f908e8ed07204f74594d265b5e4f0975"
+    ]
+  ],
+  "ownClaimChecked": true,
+  "builderScope": [
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/validation/engine-continuation/water-contact-probes-2026-10-27"
+  ],
+  "force": false,
+  "runtimeUnpromoted": true
+}

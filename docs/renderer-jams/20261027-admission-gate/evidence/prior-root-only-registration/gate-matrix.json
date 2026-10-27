@@ -1,0 +1,169 @@
+{
+  "pass": true,
+  "rows": [
+    {
+      "name": "without-lod-graph",
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/gradle-9.2.1/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--no-build-cache",
+        "--max-workers=1",
+        "--console=plain",
+        "-g",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/gradle-cache",
+        "--project-cache-dir",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/project-cache",
+        "-Dorg.gradle.jvmargs=-Xmx256m -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-admission-gate-c748d588/tmp",
+        "-Dorg.gradle.java.installations.auto-detect=false",
+        "-Dorg.gradle.java.installations.auto-download=false",
+        "-Dorg.gradle.java.installations.paths=/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1",
+        ":check",
+        "--dry-run",
+        "-PwithoutLod"
+      ],
+      "exit": 0,
+      "seconds": 4.560067121001339
+    },
+    {
+      "name": "with-lod-graph",
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/gradle-9.2.1/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--no-build-cache",
+        "--max-workers=1",
+        "--console=plain",
+        "-g",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/gradle-cache",
+        "--project-cache-dir",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/project-cache",
+        "-Dorg.gradle.jvmargs=-Xmx256m -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-admission-gate-c748d588/tmp",
+        "-Dorg.gradle.java.installations.auto-detect=false",
+        "-Dorg.gradle.java.installations.auto-download=false",
+        "-Dorg.gradle.java.installations.paths=/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1",
+        ":check",
+        "--dry-run"
+      ],
+      "exit": 0,
+      "seconds": 4.643336802000704
+    },
+    {
+      "name": "negative-missing-detail",
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/gradle-9.2.1/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--no-build-cache",
+        "--max-workers=1",
+        "--console=plain",
+        "-g",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/gradle-cache",
+        "--project-cache-dir",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/project-cache",
+        "-Dorg.gradle.jvmargs=-Xmx256m -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-admission-gate-c748d588/tmp",
+        "-Dorg.gradle.java.installations.auto-detect=false",
+        "-Dorg.gradle.java.installations.auto-download=false",
+        "-Dorg.gradle.java.installations.paths=/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1",
+        ":check",
+        "--rerun-tasks"
+      ],
+      "exit": 1,
+      "seconds": 8.140412940996612
+    },
+    {
+      "name": "final-check-and-module-jar",
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/gradle-9.2.1/bin/gradle",
+        "--offline",
+        "--no-daemon",
+        "--no-build-cache",
+        "--max-workers=1",
+        "--console=plain",
+        "-g",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/gradle-cache",
+        "--project-cache-dir",
+        "/dev/shm/dp-renderer-admission-gate-c748d588/project-cache",
+        "-Dorg.gradle.jvmargs=-Xmx256m -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-admission-gate-c748d588/tmp",
+        "-Dorg.gradle.java.installations.auto-detect=false",
+        "-Dorg.gradle.java.installations.auto-download=false",
+        "-Dorg.gradle.java.installations.paths=/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1",
+        ":check",
+        ":lod-engine:jar",
+        "--rerun-tasks"
+      ],
+      "exit": 0,
+      "seconds": 9.042828785997699
+    }
+  ],
+  "negative_control_expected_failure": true,
+  "candidate_restored_and_final_gate_passed": true,
+  "diagnostic_module_jar_only": {
+    "path": "/dev/shm/dp-renderer-admission-gate-c748d588/harness/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.29-dev.31-renderer.8-candidate.jar",
+    "bytes": 42493,
+    "sha256": "a64e9c322f8efc1ea6e37b0845afc3299fac41fbdbc72fea72ed080e179a5d44",
+    "crc_pass": true,
+    "duplicates": false,
+    "private_fixture_excluded": true,
+    "compiled_classes": [
+      {
+        "class": "com/shnewbs/deepprimal/lod/LodModule.class",
+        "sha256": "c9d6c494b45e9366082b5a3554015189e5a429f236f283a098e1199290dbfa56"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/LodIdentity.class",
+        "sha256": "efbbecb608762b494e51289780b9150c8b03d9215434e2dd512ccc8985617a6f"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/network/LodWorld.class",
+        "sha256": "0044ef92de9fc5ee3569df9b927d38541d23be7cfab37bc7db855176b0e98581"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/LodMaterialColors.class",
+        "sha256": "d7e05716aa1d933b55c5616fb14adefea3409028fa225692f07c9088a9ee5ccb"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.class",
+        "sha256": "326ceb30c2fb9f16a6156338b7f0061f4b9fe222f6481d9b203c800e6b3bb73a"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$PendingGpu.class",
+        "sha256": "b64de73a08297b53d6124730802bc636a73a9531f19bc71dac4863dadc47930d"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$DeferredView.class",
+        "sha256": "95dce657b057feee2ddd7ef76fae42e0fd1fd0a4b291ab154c116e152c38939d"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$Ready.class",
+        "sha256": "7373dcbdc2678df6987146233c63d6b3e0d4508afea8bd4fcebf73d17b48d302"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/VoxelLodRenderer$Entry.class",
+        "sha256": "9278067e0939ec5d459bbbd62f20aa68f4dac3a985134cbac83dd0040c0b06a0"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/NativeLodCapture.class",
+        "sha256": "5e47fd83fee5d61d5956ea9b5fe3fdecf348c2b7fba9faa9391318a338198849"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/LodClient.class",
+        "sha256": "e47410bbaa21cf5184d94c7142a36e26a2f9fa215555c16f2f5dd23f09e278a4"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/client/LodClient$1.class",
+        "sha256": "848e4886b8ece29226b183a2cdc3d809ce3e509a603e6c9d1614d9dc3cca1cdf"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/mixin/client/SpritePixelsAccess.class",
+        "sha256": "cc616ceba6b0fcb7ce387352a3b634520e0ccd57c141417af46fb62b39a2412b"
+      },
+      {
+        "class": "com/shnewbs/deepprimal/lod/mixin/client/LodDirtyMixin.class",
+        "sha256": "b2626ed0bf0b36dbfee66c506058b32d54dc6b59d84b9ef0281593b3d0a9752a"
+      }
+    ]
+  },
+  "full_distribution_build": false,
+  "gpu_execution": false
+}

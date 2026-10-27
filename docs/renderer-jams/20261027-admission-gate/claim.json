@@ -1,15 +1,21 @@
 {
   "owner": "renderer-admission-gate-20261027",
-  "status": "active",
+  "status": "checkpointed-staged",
   "started_at": "2026-10-27 05:00:01 UTC",
-  "active_until": "2026-10-27T06:00:00Z",
+  "active_until": null,
   "scope": [
     "docs/renderer-jams/20261027-admission-gate"
   ],
   "candidate_scope": [
     "lod-engine/build.gradle",
-    "lod-engine/src/admissionChecks/java/com/shnewbs/deepprimal/lod/client/PendingGpuBytesChecks.java"
+    "lod-engine/src/admissionChecks/java/com/shnewbs/deepprimal/core/lod/LodReductionChecks.java",
+    "lod-engine/src/admissionChecks/java/com/shnewbs/deepprimal/core/lod/PendingUploadBytesChecks.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
   ],
   "exclusive_benchmark": false,
-  "production_promoted": false
+  "production_promoted": false,
+  "completed_at": "2026-10-27 05:06:46 UTC",
+  "lease_released": true,
+  "candidate_source_sha": "4794d5decef56361000f9782e00df5bb46c2d274",
+  "new_qualified_artifact": false
 }

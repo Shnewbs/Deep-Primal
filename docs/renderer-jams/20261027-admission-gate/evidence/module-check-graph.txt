@@ -1,0 +1,27 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Xmx384m -Djava.io.tmpdir=/dev/shm/dp-renderer-admission-gate-c748d588/tmp
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+:engine-core:compileJava SKIPPED
+:graphics-settings:compileJava SKIPPED
+:createMinecraftArtifacts SKIPPED
+:lod-engine:compileJava SKIPPED
+:lod-engine:processResources SKIPPED
+:lod-engine:classes SKIPPED
+:lod-engine:compileAdmissionChecksJava SKIPPED
+:lod-engine:processAdmissionChecksResources SKIPPED
+:lod-engine:admissionChecksClasses SKIPPED
+:lod-engine:pendingGpuBytesChecks SKIPPED
+:engine-core:processResources SKIPPED
+:engine-core:classes SKIPPED
+:engine-core:jar SKIPPED
+:graphics-settings:processResources SKIPPED
+:graphics-settings:classes SKIPPED
+:graphics-settings:jar SKIPPED
+:lod-engine:compileTestJava SKIPPED
+:lod-engine:processTestResources SKIPPED
+:lod-engine:testClasses SKIPPED
+:lod-engine:test SKIPPED
+:lod-engine:check SKIPPED
+
+BUILD SUCCESSFUL in 4s
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html

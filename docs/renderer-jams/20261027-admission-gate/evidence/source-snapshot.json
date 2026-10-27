@@ -1,0 +1,18 @@
+[
+  {
+    "path": "lod-engine/build.gradle",
+    "sha256": "42f429fbdc46260af593f45f3b1d5cc5cf4f06a38e893e2fc2c3c03fe46c6ba8"
+  },
+  {
+    "path": "lod-engine/src/admissionChecks/java/com/shnewbs/deepprimal/core/lod/LodReductionChecks.java",
+    "sha256": "f8706fbed8dbaae80c55ec24e3d93020f9c3b5e731ed65aa9714f561f8f0616c"
+  },
+  {
+    "path": "lod-engine/src/admissionChecks/java/com/shnewbs/deepprimal/core/lod/PendingUploadBytesChecks.java",
+    "sha256": "03cbd5e03f36732b2922126173e43a9c14f124c6ef3d8a8c1bfd69164c382ac1"
+  },
+  {
+    "path": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "sha256": "e4f362359e2f8e2f0efde5c7cbd4bf2986a8cadd72f191705f065277be5d942f"
+  }
+]
