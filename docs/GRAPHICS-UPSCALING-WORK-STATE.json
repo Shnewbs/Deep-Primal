@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "task": "graphics-upscaling",
+  "status": "active",
+  "worker": "foreground-upscaling-20261027",
+  "updated_at": "2026-10-27T15:54:00Z",
+  "active_until": "2026-10-27T17:24:00Z",
+  "source_ref": "2d63c595a56928449b71cdd798c89b0c22498a0f",
+  "scope": [
+    "UpscalingPolicy and graphics UpscalingConfig",
+    "PrimalGraphicsScreen upscaling controls and native checks",
+    "common GPU FSR 1 EASU/RCAS and pre-GUI world rendering",
+    "optional Vulkan DLSS NGX bridge and capability reporting"
+  ],
+  "preserve": [
+    "water/terrain/LOD logic",
+    "other renderer-jams and staged candidates",
+    "existing engine builder/auditor states"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-27T0430-bbf07e1/REVIEW.md",
+  "acceptance": "Real shader compilation and scene/framebuffer lifecycle checks where available; DLSS cannot be active without valid temporal inputs and a successful NGX capability/evaluate path."
+}
