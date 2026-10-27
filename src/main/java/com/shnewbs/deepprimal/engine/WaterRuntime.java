@@ -216,8 +216,7 @@ public final class WaterRuntime {
         ? beforeA.getValue(EngineFluid.UNITS) : 0;
     int unitsB = beforeB.is(EngineRegistry.WATER_BLOCK.get())
         ? beforeB.getValue(EngineFluid.UNITS) : 0;
-    if (unitsA != exchange.from() + exchange.moved()
-        || unitsB != exchange.to() - exchange.moved()) return false;
+    if (!WaterTransport.matches(exchange, unitsA, unitsB)) return false;
     var contentsA = HydrologyRuntime.contents(l, a, beforeA);
     var contentsB = HydrologyRuntime.contents(l, b, beforeB);
     var transfer = HydrologyRuntime.prepareTransfer(contentsA, contentsB, exchange.moved());
