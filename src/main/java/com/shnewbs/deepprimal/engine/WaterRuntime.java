@@ -224,13 +224,24 @@ public final class WaterRuntime {
     var contentsB = HydrologyRuntime.contents(l, b, beforeB);
     var transfer = HydrologyRuntime.prepareTransfer(contentsA, contentsB, exchange.moved());
     if (transfer == null) return false;
-    // Commit both volumes before notifying neighbors; failed writes retain the original volume.
-    if (!HydrologyRuntime.write(l, a, state(beforeA, exchange.from(), flow))) return false;
-    if (!HydrologyRuntime.write(l, b, state(beforeB, exchange.to(), flow))) {
-      // An unsuccessful rollback is an invariant violation, not a successful zero-move.
-      // Continuing would silently desynchronize the saved water/constituent ledger.
-      if (!HydrologyRuntime.write(l, a, beforeA))
-        throw new IllegalStateException("Finite-water transfer rollback failed; source was not restored");
+    // Source writes can synchronously notify external listeners. Do not
+    // replace a receiver that changed or unloaded during that callback.
+    var appliedA = state(beforeA, exchange.from(), flow);
+    if (!HydrologyRuntime.write(l, a, appliedA)) return false;
+    // A source callback may also replace or unload its own cell. Never commit
+    // chemistry against a source that no longer belongs to this transfer.
+    if (!l.isInWorldBounds(a) || !l.hasChunkAt(a)
+        || !l.getBlockState(a).equals(appliedA))
+      throw new IllegalStateException("Finite-water source replaced during commit");
+    if (!l.isInWorldBounds(b) || !l.hasChunkAt(b)
+        || !l.getBlockState(b).equals(beforeB)
+        || !HydrologyRuntime.write(l, b, state(beforeB, exchange.to(), flow))) {
+      // Undo only the state we authored. Never overwrite a newer player edit
+      // or force-load an unloaded source while handling a failed receiver.
+      if (!l.isInWorldBounds(a) || !l.hasChunkAt(a)
+          || !l.getBlockState(a).equals(appliedA)
+          || !HydrologyRuntime.write(l, a, beforeA))
+        throw new IllegalStateException("Finite-water transfer rollback lost source ownership");
       return false;
     }
     if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))

@@ -88,15 +88,29 @@ _RESIDENT_GUARD = r"!l\.isInWorldBounds\(p\)\s*\|\|\s*!l\.hasChunkAt\(p\)"
 
 
 def guarded_before_read(body: str, kind: str) -> bool:
+    """Fail closed on dead branch wrappers for the installed hydrology methods.
+
+    This validates the known straight-line method and bounded-loop structure,
+    not an arbitrary Java control-flow graph. Changed method shapes must be
+    reviewed and the validator updated together.
+    """
     code = code_only(body)
     first = code.find("l.getBlockState(p)")
     if first < 0:
         return False
-    prefix = code[:first]
-    if kind == "null":
-        return bool(re.search(r"if\s*\(\s*" + _RESIDENT_GUARD
-                              + r"\s*\)\s*return\s+null\s*;", prefix))
-    return bool(re.search(r"if\s*\(\s*" + _RESIDENT_GUARD + r"\s*\|\|", prefix))
+    if kind == "false":
+        pattern = (r"\A\{\s*if\s*\(\s*" + _RESIDENT_GUARD
+                   + r"\s*\|\|[^{};]*?l\.getBlockState\(p\)[^{};]*\)\s*return\s+false\s*;")
+    elif kind == "null":
+        pattern = (r"\A\{\s*var\s+p\s*=\s*(?:top\.below\(\)|initial)\s*;\s*"
+                   r"for\s*\(\s*int\s+i\s*=\s*0\s*;\s*i\s*<\s*(?:8|16)\s*;"
+                   r"\s*i\+\+\s*\)\s*\{\s*if\s*\(\s*" + _RESIDENT_GUARD
+                   + r"\s*\)\s*return\s+null\s*;\s*"
+                   r"(?:var\s+state\s*=\s*|if\s*\(\s*!\s*)l\.getBlockState\(p\)")
+    else:
+        raise ValueError("Unknown guard result: " + kind)
+    match = re.match(pattern, code, re.DOTALL)
+    return match is not None and match.start() <= first < match.end()
 
 
 def mutant_rejected(source: str, signature: str, before: str,
@@ -162,6 +176,27 @@ def main() -> None:
         "bed_guard_string": mutant_rejected(source, "private static BlockPos waterColumnBed(",
             null_guard, 'String decoy = "' + null_guard + '";', "bed_checks_height_before_world_read"),
     }
+    # A lexically perfect guard cannot protect a read in unreachable code.
+    controls.update({
+        "place_dead_if": mutant_rejected(source, "public static boolean place(",
+            place_guard, "if (false) " + place_guard, "place_checks_height_before_world_read"),
+        "place_dead_else": mutant_rejected(source, "public static boolean place(",
+            place_guard, "if (true) {} else " + place_guard, "place_checks_chunk_before_world_read"),
+        "surface_dead_if": mutant_rejected(source, "private static BlockPos exposedColumnCell(",
+            null_guard, "if (false) " + null_guard, "surface_checks_height_before_world_read"),
+        "surface_dead_else": mutant_rejected(source, "private static BlockPos exposedColumnCell(",
+            null_guard, "if (true) {} else " + null_guard, "surface_checks_chunk_before_world_read"),
+        "surface_contradictory": mutant_rejected(source, "private static BlockPos exposedColumnCell(",
+            null_guard, "if (l.isInWorldBounds(p) && l.hasChunkAt(p)) " + null_guard,
+            "surface_checks_height_before_world_read"),
+        "bed_dead_if": mutant_rejected(source, "private static BlockPos waterColumnBed(",
+            null_guard, "if (false) " + null_guard, "bed_checks_chunk_before_world_read"),
+        "bed_dead_else": mutant_rejected(source, "private static BlockPos waterColumnBed(",
+            null_guard, "if (true) {} else " + null_guard, "bed_checks_height_before_world_read"),
+        "bed_contradictory": mutant_rejected(source, "private static BlockPos waterColumnBed(",
+            null_guard, "if (l.isInWorldBounds(p) && l.hasChunkAt(p)) " + null_guard,
+            "bed_checks_chunk_before_world_read"),
+    })
     failed.extend("mutation_" + name for name, rejected in controls.items() if not rejected)
     if failed:
         raise SystemExit("WATER_HEIGHT_ADMISSION_STATIC_FAIL: " + ",".join(failed))
