@@ -1,0 +1,15 @@
+{
+  "owner": "renderer-admission-gate-20261027",
+  "status": "active",
+  "started_at": "2026-10-27 05:00:01 UTC",
+  "active_until": "2026-10-27T06:00:00Z",
+  "scope": [
+    "docs/renderer-jams/20261027-admission-gate"
+  ],
+  "candidate_scope": [
+    "lod-engine/build.gradle",
+    "lod-engine/src/admissionChecks/java/com/shnewbs/deepprimal/lod/client/PendingGpuBytesChecks.java"
+  ],
+  "exclusive_benchmark": false,
+  "production_promoted": false
+}
