@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "jam": "20261027-signed-distance",
+  "owner": "dedicated-renderer-build-chat",
+  "status": "active",
+  "started_at": "2026-10-27T19:09:33Z",
+  "active_until": "2026-10-27T19:18:00Z",
+  "main_before_claim": "263a8693544e1e58aa6f75ed8c468f68d09d5a3d",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodChunkDistance.java",
+    "docs/renderer-jams/20261027-signed-distance/"
+  ],
+  "purpose": "Overflow-safe signed LOD persisted-page admission and camera/native handoff; no water/worldgen/upscaler files or build outputs",
+  "staged_candidate": "5717acaa7c356401e6396995089d36c12a77024b",
+  "builder_lease_observed_released": true,
+  "build_policy": "owner performs full builds"
+}
