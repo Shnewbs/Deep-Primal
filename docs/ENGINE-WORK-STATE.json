@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-26T23:13:44Z",
-  "active_until": "2026-10-26T23:13:44Z",
+  "status": "active",
+  "updated_at": "2026-10-27T00:01:36Z",
+  "active_until": "2026-10-27T00:26:36.000Z",
   "source_ref": "main",
   "candidate_version": "0.0.1-alpha.29-dev.31",
   "candidate_released": true,
   "acceptance_complete": false,
-  "current_gate": "Pinned validation tools recovered; combined staged hydrology build and packaged water gates remain open",
+  "current_gate": "Implement staged conservative composition-only diffusion; full build storage unavailable",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -481,7 +481,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261026T2300",
+  "worker": "builder-20261027T0000",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1024,20 +1024,12 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "base_code_sha": "0a253f716421b77fed1adf404b600d6014bda32a",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T2232-4a8b0fb/REVIEW.md",
+    "base_code_sha": "e0bcf7c6f85ab84b5d4dec359a5b6d814bc2a88e",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-26T2333-c5abe45/REVIEW.md",
     "last_external_grade": 5,
-    "lease_released": true,
-    "scope": "Pinned archive-cache tool recovery; production hydrology unchanged",
-    "coordination": "Latest completed audit2232 pinned4a8b0fb consumed after concurrent main updates. Renderer claim owns LodMesher/CoreChecks through00:00; preserved. Original other-chat fresh ownership unavailable; separate auditor run records checked. Only owned builder2300 resources modified; completed audit archives read-only. Renderer claim extension0807ecc preserved at final rebase.",
-    "consumed_audit_sha": "4a8b0fb52e7473a816655096c42f089dd340e735",
-    "fresh_complete_regrade": false,
-    "production_runtime_changed": false,
-    "actual_changes": "Add explicit read-only pinned archive cache recovery, bounded transfers, and removal of private archives only after verified successful extraction. Preserve required dependency JARs.",
-    "checks": "11 offline tests in normal/-O/-OO; five real assets verified; JDK25/JDK21/Gradle launches pass. JDK25/Gradle archives absent (276865317 bytes). JDK21 archive repeatedly reappears after deletion; its 207473347 bytes are NOT counted as permanently reclaimed.",
-    "evidence": "docs/validation/engine-continuation/toolchain-cache-recovery-2026-10-26/README.md",
-    "blocker": "No new game build this cycle: private tools were restored, but private project/dependency setup and full combined staged native/module/package/rendering qualification remain to be completed. No new JAR or release.",
-    "next_implementation": "Restore isolated source/dependency build setup; qualify combined staged hydrology index/cursor repairs, then conservative loaded/unloaded water ownership."
+    "lease_released": false,
+    "scope": "WaterAccount bounded composition-only exchange, staged until full qualification",
+    "coordination": "Personal context confirms renderer release; Git renderer and water claims checkpointed. Automation inventory checked, both builder/auditor enabled; current run details unavailable. Original other-chat fresh ownership unavailable. Overlay full; own /dev/shm/dp-builder2400 only."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1223,7 +1215,7 @@
     "fresh_grade_awarded": false,
     "chosen_repair": "Recover isolated validation tools with bounded verified cache copies and remove redundant archives, then qualify combined staged hydrology"
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
