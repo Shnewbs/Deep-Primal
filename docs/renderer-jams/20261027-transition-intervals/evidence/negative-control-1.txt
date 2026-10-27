@@ -1,0 +1,3 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Djava.io.tmpdir=/dev/shm/dp-renderer-transition-c748d588/tmp
+Exception in thread "main" java.lang.AssertionError: Transition oracle
+	at com.shnewbs.deepprimal.core.TransitionIntervalChecks.main(TransitionIntervalChecks.java:31)

@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-10-27T01:02:53Z",
+  "disk_available_bytes": 0,
+  "private_memory_available_bytes": 469549056,
+  "conservative_start_gate_bytes": 2147483648,
+  "full_gradle_executed": false,
+  "target": "Java25/Gradle9.2.1 --no-daemon --no-build-cache --max-workers=1 --rerun-tasks -PvulkanPlatform=windows :build :visualValidationClasses on isolated candidate checkout",
+  "blocked": true,
+  "gpu_present": false,
+  "native_package_checks_executed": false
+}

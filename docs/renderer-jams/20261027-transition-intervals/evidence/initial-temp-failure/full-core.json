@@ -1,0 +1,12 @@
+{
+  "exit": 1,
+  "seconds": 1.369076345999929,
+  "command": [
+    "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
+    "-Xmx512m",
+    "-Xverify:all",
+    "-cp",
+    "/dev/shm/dp-renderer-transition-c748d588/classes",
+    "com.shnewbs.deepprimal.core.CoreChecks"
+  ]
+}

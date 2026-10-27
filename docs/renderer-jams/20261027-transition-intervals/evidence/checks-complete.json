@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "base_sources": 75,
+  "fixtures_including_registration": 66,
+  "adapter_compiles_against_actual_game_and_prior_qualified_module_classes": true,
+  "full_gradle": false,
+  "package_native": false
+}

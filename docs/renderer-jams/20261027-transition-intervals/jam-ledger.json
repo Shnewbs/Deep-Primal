@@ -1,0 +1,93 @@
+{
+  "jam_id": "20261027-transition-intervals",
+  "parent": "878cfdb126d30c76a6b9844d0848d2c7101e6be8",
+  "claim_parent": "5fc60f59535a41edcc489cf0cb686384ee64c195",
+  "final_source_sha": "302b93f12976c9a37cb680a677218daa9e0ed4e4",
+  "implementation_sha": "2ce27032e3af79f6b6b4ca8ee78208c71bcf1e7a",
+  "receipt_parent": "302b93f12976c9a37cb680a677218daa9e0ed4e4",
+  "runtime_source_sha": "c5abe457c4c7b36a11307128486c240e0b40d508",
+  "runtime_version": "0.0.1-alpha.29-dev.31",
+  "promoted": false,
+  "actual_changed_files": [
+    "docs/renderer-jams/20261027-transition-intervals/candidate/FrameIntervalWindow.java",
+    "docs/renderer-jams/20261027-transition-intervals/candidate/ClientTelemetry.java",
+    "docs/renderer-jams/20261027-transition-intervals/candidate/CoreChecks.java",
+    "docs/renderer-jams/20261027-transition-intervals/checks/TransitionIntervalChecks.java",
+    "docs/renderer-jams/20261027-transition-intervals/checks/FrameIntervalChecks.java",
+    "docs/renderer-jams/20261027-transition-intervals/run_checks.py",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/checks-complete.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/class-sha256.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/crossing-reasons.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/full-build-preflight.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/negative-control.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/negative-control-1.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/negative-control-0.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/full-core.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/full-core.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/adapter-compile.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/adapter-compile.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/frame-checks.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/frame-checks.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/core-compile.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/core-compile.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/source-identity.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/core-tree.json",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/initial-temp-failure/full-core.txt",
+    "docs/renderer-jams/20261027-transition-intervals/evidence/initial-temp-failure/full-core.json",
+    "docs/renderer-jams/20261027-transition-intervals/negative-control/FrameIntervalWindow.java",
+    "docs/renderer-jams/20261027-transition-intervals/reason-probe/CrossingReasonProbe.java",
+    "docs/renderer-jams/20261027-transition-intervals/REVIEW.md",
+    "docs/renderer-jams/20261027-transition-intervals/BACKLOG.md",
+    "docs/renderer-jams/20261027-transition-intervals/claim.json",
+    "docs/renderer-jams/20261027-transition-intervals/source-identity.json",
+    "docs/renderer-jams/20261027-transition-intervals/jam-ledger.json"
+  ],
+  "consumed_audits": [
+    "docs/renderer-jams/20261027-frame-window/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-27T0004-685a739/REVIEW.md"
+  ],
+  "tests": {
+    "java_sources": 142,
+    "full_core_exit": 0,
+    "full_core_seconds": 269.80845008199867,
+    "adapter_compile_exit": 0,
+    "transition_oracles": 1024,
+    "prior_frame_oracles": 770,
+    "crossing_coordinates": 8,
+    "expected_missing_recording_control_rejection": true,
+    "exact_commands": "run_checks.py and evidence/*.json",
+    "initial_full_core_failed": "No space left on device in /tmp; excluded and fully repeated with private memory JVM scratch"
+  },
+  "scores": [
+    4,
+    6,
+    4,
+    0,
+    4,
+    4
+  ],
+  "mean": 3.6666666666666665,
+  "previous_mean": 3.6666666666666665,
+  "delta": 0,
+  "all_carried": true,
+  "external_grade_changed": false,
+  "artifact": {
+    "produced": false,
+    "library_id": null,
+    "reason": "full-build capacity gate",
+    "older_binary_relabelled": false
+  },
+  "unrun": [
+    "full Gradle/module/resource build",
+    "candidate archive/native/platform/fixture/art/identity qualification",
+    "packaged native/client reload/resize/world-switch/save/reopen/shutdown",
+    "actual GPU/Windows/AMD/NVIDIA pixels and frame/pipeline/memory baselines"
+  ],
+  "remaining_defects": [
+    "not promoted/bundled",
+    "scene attribution and full fingerprint absent",
+    "live coverage/handoff and vendor providers absent"
+  ],
+  "next": "recover isolated build capacity and fully qualify combined candidate; then live GPU baselines and coverage",
+  "lease_released": true
+}
