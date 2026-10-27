@@ -7,6 +7,7 @@ import java.util.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Server-thread-only, bounded finite transport. Unloaded borders are sealed, never force-loaded.
@@ -207,6 +208,19 @@ public final class WaterRuntime {
     }
   }
 
+  /** True only for an unchanged, still loaded native cell; never force-load. */
+  private static boolean stillOwns(ServerLevel l, BlockPos p, BlockState expected) {
+    return l.isInWorldBounds(p) && l.hasChunkAt(p) && l.getBlockState(p).equals(expected);
+  }
+
+  /** Restore only a state written by THIS transaction, with postwrite proof. */
+  private static void restoreOwned(ServerLevel l, BlockPos p, BlockState applied,
+      BlockState original, String cell) {
+    if (!stillOwns(l, p, applied) || !HydrologyRuntime.write(l, p, original)
+        || !stillOwns(l, p, original))
+      throw new IllegalStateException("Finite-water " + cell + " rollback lost ownership");
+  }
+
   private static boolean transfer(
       ServerLevel l, BlockPos a, BlockPos b, WaterTransport.Exchange exchange, int flow) {
     if (exchange.moved() == 0 || !l.isInWorldBounds(a) || !l.hasChunkAt(a)
@@ -224,28 +238,56 @@ public final class WaterRuntime {
     var contentsB = HydrologyRuntime.contents(l, b, beforeB);
     var transfer = HydrologyRuntime.prepareTransfer(contentsA, contentsB, exchange.moved());
     if (transfer == null) return false;
-    // Source writes can synchronously notify external listeners. Do not
-    // replace a receiver that changed or unloaded during that callback.
+    // Native block writes synchronously invoke other mods. A successful setBlock
+    // return alone does NOT grant ongoing ownership of either cell.
     var appliedA = state(beforeA, exchange.from(), flow);
-    if (!HydrologyRuntime.write(l, a, appliedA)) return false;
-    // A source callback may also replace or unload its own cell. Never commit
-    // chemistry against a source that no longer belongs to this transfer.
-    if (!l.isInWorldBounds(a) || !l.hasChunkAt(a)
-        || !l.getBlockState(a).equals(appliedA))
-      throw new IllegalStateException("Finite-water source replaced during commit");
-    if (!l.isInWorldBounds(b) || !l.hasChunkAt(b)
-        || !l.getBlockState(b).equals(beforeB)
-        || !HydrologyRuntime.write(l, b, state(beforeB, exchange.to(), flow))) {
-      // Undo only the state we authored. Never overwrite a newer player edit
-      // or force-load an unloaded source while handling a failed receiver.
-      if (!l.isInWorldBounds(a) || !l.hasChunkAt(a)
-          || !l.getBlockState(a).equals(appliedA)
-          || !HydrologyRuntime.write(l, a, beforeA))
-        throw new IllegalStateException("Finite-water transfer rollback lost source ownership");
+    var appliedB = state(beforeB, exchange.to(), flow);
+    if (!HydrologyRuntime.write(l, a, appliedA)) {
+      // Even a false native return can follow a callback that changed a block.
+      if (stillOwns(l, a, appliedA)) restoreOwned(l, a, appliedA, beforeA, "source");
+      else if (!stillOwns(l, a, beforeA))
+        throw new IllegalStateException("Finite-water source changed on refused write");
       return false;
+    }
+    if (!stillOwns(l, a, appliedA))
+      throw new IllegalStateException("Finite-water source replaced during commit");
+    if (!stillOwns(l, b, beforeB)) {
+      // An earlier source callback owns this receiver now: leave its newer
+      // edit alone, undo only our source, and do not transfer chemistry.
+      restoreOwned(l, a, appliedA, beforeA, "source");
+      return false;
+    }
+    boolean wroteReceiver = HydrologyRuntime.write(l, b, appliedB);
+    // Recheck BOTH loaded cells after the receiver's synchronous callbacks.
+    // Never record salt/sediment or return success for a replaced/unloaded cell.
+    var result = WaterTransferCommit.afterReceiverWrite(wroteReceiver,
+        stillOwns(l, a, appliedA), stillOwns(l, b, beforeB), stillOwns(l, b, appliedB));
+    switch (result) {
+      case LOST_OWNERSHIP -> throw new IllegalStateException(
+          "Finite-water receiver callback lost transfer ownership");
+      case ROLLBACK_BOTH -> {
+        // Receiver must be restored FIRST. Refunding the source while the
+        // credited receiver survives would duplicate water and constituents.
+        restoreOwned(l, b, appliedB, beforeB, "receiver");
+        restoreOwned(l, a, appliedA, beforeA, "source");
+        if (!stillOwns(l, b, beforeB))
+          throw new IllegalStateException("Finite-water receiver changed during rollback");
+        return false;
+      }
+      case ROLLBACK_SOURCE -> {
+        restoreOwned(l, a, appliedA, beforeA, "source");
+        if (!stillOwns(l, b, beforeB))
+          throw new IllegalStateException("Finite-water receiver changed during rollback");
+        return false;
+      }
+      case COMMIT -> { }
     }
     if (!beforeB.isAir() && !beforeB.is(EngineRegistry.WATER_BLOCK.get()))
       net.minecraft.world.level.block.Block.dropResources(beforeB, l, b);
+    // Resource-drop hooks can also edit a world. Close the final callback
+    // window before changing the persistent water/constituent ledger.
+    if (!stillOwns(l, a, appliedA) || !stillOwns(l, b, appliedB))
+      throw new IllegalStateException("Finite-water cells changed before chemistry commit");
     HydrologyRuntime.transferred(l, a, b, transfer, beforeA);
     budget(l).transfers++;
     wake(l, a);
