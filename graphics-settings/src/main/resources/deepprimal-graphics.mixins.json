@@ -12,7 +12,10 @@
     "client.FrameLimitMixin",
     "client.EntityDistanceMixin",
     "client.BlockEntityDistanceMixin",
-    "client.ParticleAdmissionMixin"
+    "client.ParticleAdmissionMixin",
+    "client.UpscalingTargetMixin",
+    "client.UpscalingRenderMixin",
+    "client.UpscalingShaderReloadMixin"
   ],
   "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin",
   "injectors": {

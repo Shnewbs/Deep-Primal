@@ -1,5 +1,6 @@
 package com.shnewbs.deepprimal.settings;
 
+import com.shnewbs.deepprimal.core.UpscalingPolicy;
 import java.util.*;
 import java.util.function.*;
 import net.minecraft.client.CloudStatus;
@@ -26,7 +27,7 @@ public final class PrimalGraphicsScreen extends Screen {
   private record Display(Control control, int y) {}
 
   private static final String[] TABS = {
-    "General", "Quality", "Performance", "LOD", "Water", "Graphics API"
+    "General", "Quality", "Performance", "LOD", "Water", "Graphics API", "Upscaling"
   };
   private final Screen parent;
   private final LinkedHashMap<String, Control> controls = new LinkedHashMap<>();
@@ -755,6 +756,69 @@ public final class PrimalGraphicsScreen extends Screen {
         ClientPerformanceConfig.BATCHED_DRAWS,
         "Shared pipeline submission for terrain geometry. The graphics API remains a"
             + " separate module.");
+    add(
+        6,
+        "upscaler",
+        "Upscaling method",
+        () -> UpscalingConfig.requestedMode().ordinal(),
+        v -> UpscalingConfig.MODE.set(UpscalingPolicy.Mode.values()[v]),
+        0,
+        UpscalingPolicy.Mode.values().length - 1,
+        "Native preserves display resolution. Spatial uses linear scaling. AMD FSR 1 uses spatial"
+            + " edge reconstruction and sharpening. NVIDIA DLSS requires its supported renderer"
+            + " and native runtime; unavailable requests keep native rendering. Apply saves the"
+            + " requested method. The active method and any fallback appear below.",
+        "Native",
+        "Spatial",
+        "FSR 1 (Spatial)",
+        "NVIDIA DLSS");
+    add(
+        6,
+        "upscalingQuality",
+        "Upscaling quality",
+        () -> UpscalingConfig.QUALITY.get().ordinal(),
+        v -> UpscalingConfig.QUALITY.set(UpscalingPolicy.Quality.values()[v]),
+        0,
+        UpscalingPolicy.Quality.values().length - 1,
+        "Higher quality renders more pixels before reconstruction. Select Custom to use the"
+            + " render scale below. Spatial scaling always uses the custom render scale.",
+        "Ultra Quality",
+        "Quality",
+        "Balanced",
+        "Performance",
+        "Custom");
+    add(
+        6,
+        "upscalingScale",
+        "Custom render scale (%)",
+        () -> (int) Math.round(UpscalingConfig.RENDER_SCALE.get() * 100),
+        v -> UpscalingConfig.RENDER_SCALE.set(v / 100.0),
+        50,
+        100,
+        "Percentage of display width and height rendered before upscaling. 50% renders one"
+            + " quarter of the pixels. Used by Spatial and the Custom quality preset. The"
+            + " active scale below remains 100% when the requested method is unavailable.");
+    add(
+        6,
+        "upscalingSharpness",
+        "FSR sharpness (%)",
+        () -> (int) Math.round(UpscalingConfig.SHARPNESS.get() * 100),
+        v -> UpscalingConfig.SHARPNESS.set(v / 100.0),
+        0,
+        100,
+        "AMD FSR 1 sharpening strength. Higher values produce a sharper image; lower values"
+            + " reduce sharpening. This does not change the render resolution.");
+    add(
+        6,
+        "upscalingFrameGeneration",
+        "Frame generation",
+        () -> 0,
+        v -> {},
+        0,
+        0,
+        "Frame generation is unavailable in this build. Selecting FSR or DLSS does not enable"
+            + " generated frames.",
+        "Unavailable");
     nativeBindings.put(minecraft.options.renderDistance(), "render");
     nativeBindings.put(minecraft.options.simulationDistance(), "simulation");
     nativeBindings.put(minecraft.options.cloudStatus(), "clouds");
@@ -810,6 +874,63 @@ public final class PrimalGraphicsScreen extends Screen {
     return c.min + (int) Math.round(fraction * (c.max - c.min) / step(c)) * step(c);
   }
 
+  private static String upscalerName(UpscalingPolicy.Mode mode) {
+    return switch (mode) {
+      case NONE -> "Native";
+      case SPATIAL -> "Spatial";
+      case FSR -> "AMD FSR 1 (Spatial)";
+      case DLSS -> "NVIDIA DLSS";
+    };
+  }
+
+  private UpscalingPolicy.Mode stagedUpscaler() {
+    return UpscalingPolicy.Mode.values()[number(controls.get("upscaler"))];
+  }
+
+  private boolean upscalingChanged() {
+    return controls.values().stream()
+        .filter(c -> c.tab == 6)
+        .anyMatch(c -> !Objects.equals(values.get(c.key), baseline.get(c.key)));
+  }
+
+  private String upscalingStatus() {
+    return (upscalingChanged() ? "Staged: " : "Saved: ")
+        + upscalerName(stagedUpscaler())
+        + " | Active: "
+        + upscalerName(UpscalingConfig.getActiveMode())
+        + " ("
+        + Math.round(UpscalingConfig.activeScale() * 100)
+        + "%)";
+  }
+
+  private String upscalingReason() {
+    if (!RendererOwnership.owned()) return "Upscaling is managed by " + RendererOwnership.owner();
+    String reason = UpscalingConfig.unavailableReason(stagedUpscaler());
+    if (!reason.isEmpty()) return reason;
+    return upscalingChanged()
+        ? "Apply to use these settings. Unapplied changes do not affect the active image."
+        : "FSR 1 uses spatial upscaling. Frame generation is unavailable.";
+  }
+
+  private String help(Control c) {
+    return c.tab == 6 ? c.help + " " + upscalingStatus() + ". " + upscalingReason() : c.help;
+  }
+
+  private boolean upscalingControlEnabled(Control c) {
+    if (c.tab != 6) return true;
+    if (!RendererOwnership.owned() || c.key.equals("upscalingFrameGeneration")) return false;
+    var mode = stagedUpscaler();
+    return switch (c.key) {
+      case "upscalingQuality" -> mode == UpscalingPolicy.Mode.FSR || mode == UpscalingPolicy.Mode.DLSS;
+      case "upscalingScale" ->
+          mode == UpscalingPolicy.Mode.SPATIAL
+              || ((mode == UpscalingPolicy.Mode.FSR || mode == UpscalingPolicy.Mode.DLSS)
+                  && number(controls.get("upscalingQuality")) == UpscalingPolicy.Quality.CUSTOM.ordinal());
+      case "upscalingSharpness" -> mode == UpscalingPolicy.Mode.FSR;
+      default -> true;
+    };
+  }
+
   private List<Control> filteredControls() {
     String query = filter.strip().toLowerCase(Locale.ROOT);
     return controls.values().stream()
@@ -835,6 +956,7 @@ public final class PrimalGraphicsScreen extends Screen {
     if (wide) contentWidth -= 190;
     rowHeight = 28;
     shown = Math.max(1, (height - 106) / rowHeight);
+    int tabSpacing = Math.min(25, Math.max(1, (height - top - 75) / (TABS.length - 1)));
     for (int i = 0; i < TABS.length; i++) {
       final int t = i;
       var b =
@@ -848,7 +970,7 @@ public final class PrimalGraphicsScreen extends Screen {
                         message = "Changes are staged until Apply.";
                         rebuildWidgets();
                       })
-                  .bounds(left + 6, top + 14 + i * 25, rail - 8, 22)
+                  .bounds(left + 6, top + 14 + i * tabSpacing, rail - 8, 22)
                   .build(FlatButton::new));
       b.setTooltip(Tooltip.create(Component.literal("Open " + TABS[i] + " settings")));
     }
@@ -902,12 +1024,17 @@ public final class PrimalGraphicsScreen extends Screen {
                             rebuildWidgets();
                             return;
                           }
+                          if (c.tab == 6) {
+                            rebuildWidgets();
+                            return;
+                          }
                           b.setMessage(Component.literal(c.choices[v]));
                           refresh();
                         })
                     .bounds(contentX + contentWidth - 104, y, 100, 20)
                     .build(FlatButton::new));
-        button.setTooltip(Tooltip.create(Component.literal(c.help)));
+        button.setTooltip(Tooltip.create(Component.literal(help(c))));
+        if (!upscalingControlEnabled(c)) button.active = false;
         if ((!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4))
             || (c.tab == 3 && !LodAccess.available())) button.active = false;
         if (c.key.equals("dashboard"))
@@ -932,7 +1059,7 @@ public final class PrimalGraphicsScreen extends Screen {
         field.setTooltip(
             Tooltip.create(
                 Component.literal(
-                    c.help
+                    help(c)
                         + " Range "
                         + c.min
                         + "–"
@@ -946,7 +1073,8 @@ public final class PrimalGraphicsScreen extends Screen {
                     sliderWidth,
                     c,
                     field));
-        if ((!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4))
+        if (!upscalingControlEnabled(c)
+            || (!RendererOwnership.owned() && (c.tab == 3 || c.tab == 4))
             || (c.tab == 3 && !LodAccess.available())) {
           field.active = false;
           slider.active = false;
@@ -1048,6 +1176,7 @@ public final class PrimalGraphicsScreen extends Screen {
     try {
       // Save backend first so an I/O error cannot silently claim all preferences were applied.
       var options = minecraft.options;
+      boolean changedUpscaling = upscalingChanged();
       int oldMipmaps = options.mipmapLevels().get();
       int oldAnisotropy = options.maxAnisotropyBit().get();
       var oldFiltering = options.textureFiltering().get();
@@ -1075,7 +1204,9 @@ public final class PrimalGraphicsScreen extends Screen {
       ClientPerformanceConfig.SPEC.save();
       LodConfig.SPEC.save();
       WaterVisualConfig.SPEC.save();
+      UpscalingConfig.SPEC.save();
       minecraft.options.save();
+      if (changedUpscaling) UpscalingConfig.applyChanges();
       if ((oldVertical != ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get()
               || oldSmooth != WaterVisualConfig.SMOOTH.get()
               || oldInterpolation != WaterVisualConfig.INTERPOLATE.get())
@@ -1154,7 +1285,7 @@ public final class PrimalGraphicsScreen extends Screen {
               : font.plainSubstrByWidth(c.label, labelWidth - font.width("…")) + "…";
       g.text(font, Component.literal(label), contentX, row.y + 6, 0xffe0e8e4);
       if (mx >= contentX && mx < contentX + contentWidth && my >= row.y && my < row.y + 23)
-        help = c.help;
+        help = help(c);
     }
     if (contentWidth > 0 && panelWidth - (contentX - left) - contentWidth > 180) {
       int hx = contentX + contentWidth + 16;
@@ -1166,6 +1297,8 @@ public final class PrimalGraphicsScreen extends Screen {
             ? "Renderer delegated to " + RendererOwnership.owner()
             : tab == 3
                 ? LodAccess.status()
+                : tab == 6
+                    ? upscalingStatus()
                 : tab == 5
                     ? "Active API: "
                         + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
@@ -1183,6 +1316,13 @@ public final class PrimalGraphicsScreen extends Screen {
         left + 6,
         height - 55,
         0xff93aa9c);
+    if (tab == 6)
+      g.text(
+          font,
+          Component.literal(font.plainSubstrByWidth(upscalingReason(), panelWidth - 12)),
+          left + 6,
+          height - 43,
+          UpscalingConfig.unavailableReason(stagedUpscaler()).isEmpty() ? 0xff93aa9c : 0xffe5b875);
     if (panelWidth < 440)
       g.centeredText(
           font,
@@ -1208,7 +1348,7 @@ public final class PrimalGraphicsScreen extends Screen {
       control = c;
       this.field = field;
       updateMessage();
-      setTooltip(Tooltip.create(Component.literal(c.help)));
+      setTooltip(Tooltip.create(Component.literal(help(c))));
     }
 
     void sync(int n) {
@@ -1271,3 +1411,4 @@ public final class PrimalGraphicsScreen extends Screen {
     }
   }
 }
+

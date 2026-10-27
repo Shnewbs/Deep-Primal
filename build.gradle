@@ -77,6 +77,16 @@ neoForge {
                 if (project.hasProperty('delegateRenderer')) systemProperty 'deepprimal.renderer.disabled', 'true'
                 programArguments.addAll '--width','1200','--height','800'
             }
+            if (project.hasProperty('upscalingValidation')) {
+                systemProperty 'deepprimal.validationUpscaling', 'true'
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/upscaling-validation').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+            }
+            if (project.hasProperty('upscalingFrameValidation')) {
+                systemProperty 'deepprimal.validationUpscalingFrames', 'true'
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/upscaling-frames').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+            }
             if (project.hasProperty('engineValidation')) { systemProperty 'deepprimal.validationEngine', 'true'; programArguments.addAll '--width','1200','--height','800' }
             if (project.hasProperty('fillingValidation')) { systemProperty 'deepprimal.validationFilling', 'true'; programArguments.addAll '--width','1200','--height','800' }
             if(project.hasProperty('waterShapeValidation')) systemProperty 'deepprimal.validationWaterShape','true'
@@ -301,3 +311,4 @@ tasks.register('densityBenchmark', JavaExec) {
     classpath = sourceSets.noiseBenchmark.runtimeClasspath
     mainClass = 'com.shnewbs.deepprimal.benchmark.DensityBenchmark'
 }
+

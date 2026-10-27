@@ -1,0 +1,435 @@
+{
+  "pass": true,
+  "backend": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "gl": "4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2",
+  "patterns": 25,
+  "production_shader_draws": 100,
+  "reference_shader_draws": 100,
+  "records": [
+    {
+      "input": [
+        1,
+        1
+      ],
+      "output": [
+        3,
+        5
+      ],
+      "pattern": "black",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "output": [
+        3,
+        5
+      ],
+      "pattern": "white",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        45
+      ]
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "output": [
+        3,
+        5
+      ],
+      "pattern": "constant",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        15
+      ]
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "output": [
+        3,
+        5
+      ],
+      "pattern": "gradient",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "output": [
+        3,
+        5
+      ],
+      "pattern": "edges",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "input": [
+        7,
+        5
+      ],
+      "output": [
+        13,
+        9
+      ],
+      "pattern": "black",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        7,
+        5
+      ],
+      "output": [
+        13,
+        9
+      ],
+      "pattern": "white",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        351
+      ]
+    },
+    {
+      "input": [
+        7,
+        5
+      ],
+      "output": [
+        13,
+        9
+      ],
+      "pattern": "constant",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        117
+      ]
+    },
+    {
+      "input": [
+        7,
+        5
+      ],
+      "output": [
+        13,
+        9
+      ],
+      "pattern": "gradient",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        132,
+        156,
+        187
+      ]
+    },
+    {
+      "input": [
+        7,
+        5
+      ],
+      "output": [
+        13,
+        9
+      ],
+      "pattern": "edges",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        161,
+        155,
+        150
+      ]
+    },
+    {
+      "input": [
+        17,
+        13
+      ],
+      "output": [
+        34,
+        26
+      ],
+      "pattern": "black",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        17,
+        13
+      ],
+      "output": [
+        34,
+        26
+      ],
+      "pattern": "white",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        2652
+      ]
+    },
+    {
+      "input": [
+        17,
+        13
+      ],
+      "output": [
+        34,
+        26
+      ],
+      "pattern": "constant",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        884
+      ]
+    },
+    {
+      "input": [
+        17,
+        13
+      ],
+      "output": [
+        34,
+        26
+      ],
+      "pattern": "gradient",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        909,
+        1311,
+        1580
+      ]
+    },
+    {
+      "input": [
+        17,
+        13
+      ],
+      "output": [
+        34,
+        26
+      ],
+      "pattern": "edges",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        1591,
+        1081,
+        1003
+      ]
+    },
+    {
+      "input": [
+        31,
+        19
+      ],
+      "output": [
+        41,
+        29
+      ],
+      "pattern": "black",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        31,
+        19
+      ],
+      "output": [
+        41,
+        29
+      ],
+      "pattern": "white",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        3567
+      ]
+    },
+    {
+      "input": [
+        31,
+        19
+      ],
+      "output": [
+        41,
+        29
+      ],
+      "pattern": "constant",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        1189
+      ]
+    },
+    {
+      "input": [
+        31,
+        19
+      ],
+      "output": [
+        41,
+        29
+      ],
+      "pattern": "gradient",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        1272,
+        1321,
+        1724
+      ]
+    },
+    {
+      "input": [
+        31,
+        19
+      ],
+      "output": [
+        41,
+        29
+      ],
+      "pattern": "edges",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        1775,
+        1586,
+        1514
+      ]
+    },
+    {
+      "input": [
+        16,
+        8
+      ],
+      "output": [
+        16,
+        8
+      ],
+      "pattern": "black",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "input": [
+        16,
+        8
+      ],
+      "output": [
+        16,
+        8
+      ],
+      "pattern": "white",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        384
+      ]
+    },
+    {
+      "input": [
+        16,
+        8
+      ],
+      "output": [
+        16,
+        8
+      ],
+      "pattern": "constant",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        0,
+        0,
+        128
+      ]
+    },
+    {
+      "input": [
+        16,
+        8
+      ],
+      "output": [
+        16,
+        8
+      ],
+      "pattern": "gradient",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        130,
+        139,
+        147
+      ]
+    },
+    {
+      "input": [
+        16,
+        8
+      ],
+      "output": [
+        16,
+        8
+      ],
+      "pattern": "edges",
+      "easu_reference_max_error": 0,
+      "rcas_changed_channels": [
+        193,
+        191,
+        193
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Integrated engine services — alpha.29-dev.23
+# Integrated engine services — alpha.29-dev.32-upscaling.1
 
 The Continue additions now compile against the real core and Minecraft 26.1.2 APIs.
 There is no prototype source directory or excluded prototype build profile.
@@ -26,12 +26,15 @@ There is no prototype source directory or excluded prototype build profile.
 - Duplicate terrain, hydrology and hazard config classes were consolidated into
   the existing registered `.engine` implementations. The draft's unsupported
   earthquake/volcano/landslide switches are not advertised as implemented mechanics.
-- Vulkan presentation uses a real image blit and optional whole-frame SPATIAL
-  resolution scaling, with native resolution as default. Configuration lives in
-  `config/deepprimal/graphics/upscaling.toml`; restart after changing it. This also
-  scales UI and needs owner GPU/visual validation. FSR, DLSS and frame generation
-  require vendor providers that are not installed; requesting them falls back to
-  native resolution. Placeholder shaders and invalid SPIR-V were removed.
+- **Video Settings → Upscaling** now offers scene-only Spatial scaling and actual
+  AMD FSR 1 EASU/RCAS on OpenGL and Vulkan, with native-resolution HUD and menus.
+  Quality presets, custom scale, sharpening and Apply/Revert are saved in
+  `config/deepprimal/graphics/upscaling.toml` and apply without restarting the game.
+  Native remains the default. DLSS has an optional real NGX bridge, but stays
+  unavailable until the renderer supplies complete temporal inputs and the native
+  runtime is integrated. Frame generation remains unavailable. See the
+  [implementation and limits](docs/UPSCALING.md) and
+  [functional validation](docs/validation/upscaling-2026-10-27/README.md).
 
 Saved V1–V7 generation is unchanged. Channel revision 5, overflow fixes, approved
 art, GUI themes, existing Vulkan/LOD modules and both branches' audit evidence are

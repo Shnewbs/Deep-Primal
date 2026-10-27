@@ -212,19 +212,15 @@ public class Renderer {
 
   public void beginFrame() {
     this.recursion++;
-    if (swapChainUpdate && this.recursion <= 1) {
-      this.recreateSwapChain();
-      swapChainUpdate = false;
-    }
-
     if (this.recursion > 1) {
+      // Finish the outer recording before replacing a swap chain or its synchronization objects.
       this.endFrame();
     }
 
     Profiler p = Profiler.getMainProfiler();
     p.pop();
     p.push("Frame_fence");
-    VK10.vkWaitForFences(device, this.inFlightFences.get(currentFrame), true, -1L);
+    this.acquireSwapChainImage();
     p.pop();
     p.push("Begin_rendering");
     this.submitUploads();
@@ -233,34 +229,59 @@ public class Renderer {
     Vulkan.getStagingBuffers().beginFrame(currentFrame);
     this.preInitFrame();
     this.resetDescriptors();
+    // Acquisition may have recreated the frame slots and command buffers. Resolve them afterward.
     this.currentCmdBuffer = this.mainCommandBuffers.get(currentFrame);
-    VK10.vkResetCommandBuffer(this.currentCmdBuffer, 0);
+    int resetResult = VK10.vkResetCommandBuffer(this.currentCmdBuffer, 0);
+    if (resetResult != VK10.VK_SUCCESS)
+      throw new IllegalStateException("Cannot reset frame command buffer: " + VkResult.decode(resetResult));
 
     try (MemoryStack stack = MemoryStack.stackPush()) {
-      if (this.swapChain.hasImages()) {
-        IntBuffer pImageIndex = stack.mallocInt(1);
-        long semaphore = this.imageAvailableSemaphores.get(currentFrame);
-        int vkResult =
-            KHRSwapchain.vkAcquireNextImageKHR(
-                device, this.swapChain.getId(), -1L, semaphore, 0L, pImageIndex);
-        if (vkResult != 1000001003 && vkResult != -1000001004 && !swapChainUpdate) {
-          if (vkResult != 0) {
-            throw new RuntimeException(
-                "Cannot acquire next swap chain image: %s".formatted(VkResult.decode(vkResult)));
-          }
-        } else {
-          swapChainUpdate = true;
-        }
-
-        imageIndex = pImageIndex.get(0);
-        this.swapChain.setAcquired(true);
-        imageAcquireWaitPending = true;
-      }
-
       this.beginMainRenderPass(stack);
     }
 
     p.pop();
+  }
+
+  /** An OUT_OF_DATE acquire produces neither an image index nor a semaphore signal. */
+  private void acquireSwapChainImage() {
+    this.swapChain.setAcquired(false);
+    this.imageAcquireWaitPending = false;
+    for (int attempt = 0; attempt < 4; attempt++) {
+      if (swapChainUpdate) {
+        // Clear before callbacks so any new resize request raised by them is preserved.
+        swapChainUpdate = false;
+        this.recreateSwapChain();
+      }
+      int fenceResult = VK10.vkWaitForFences(device, this.inFlightFences.get(currentFrame), true, -1L);
+      if (fenceResult != VK10.VK_SUCCESS)
+        throw new IllegalStateException("Cannot wait for frame fence: " + VkResult.decode(fenceResult));
+      // The existing main-pass implementation uses an offscreen target while minimized.
+      if (!this.swapChain.hasImages()) return;
+
+      try (MemoryStack stack = MemoryStack.stackPush()) {
+        IntBuffer pImageIndex = stack.ints(-1);
+        long semaphore = this.imageAvailableSemaphores.get(currentFrame);
+        int result = KHRSwapchain.vkAcquireNextImageKHR(
+            device, this.swapChain.getId(), -1L, semaphore, 0L, pImageIndex);
+        if (result == VK10.VK_SUCCESS || result == KHRSwapchain.VK_SUBOPTIMAL_KHR) {
+          int acquiredIndex = pImageIndex.get(0);
+          if (acquiredIndex < 0 || acquiredIndex >= this.swapChain.getImagesNum())
+            throw new IllegalStateException("Vulkan returned an invalid acquired image: " + acquiredIndex);
+          imageIndex = acquiredIndex;
+          this.swapChain.setAcquired(true);
+          this.imageAcquireWaitPending = true;
+          // SUBOPTIMAL still owns a valid image; render/present it before rebuilding next frame.
+          if (result == KHRSwapchain.VK_SUBOPTIMAL_KHR) swapChainUpdate = true;
+          return;
+        }
+        if (result != KHRSwapchain.VK_ERROR_OUT_OF_DATE_KHR)
+          throw new IllegalStateException("Cannot acquire next swap chain image: " + VkResult.decode(result));
+      }
+      // No command buffer or per-frame resources have begun, so recreation cannot invalidate
+      // an in-progress recording. Retry with the new swap chain and its new semaphore/fence slot.
+      swapChainUpdate = true;
+    }
+    throw new IllegalStateException("Swap chain remained out of date after four acquire attempts");
   }
 
   private void beginMainRenderPass(MemoryStack stack) {
@@ -360,15 +381,15 @@ public class Renderer {
         presentInfo.pImageIndices(stack.ints(imageIndex));
         vkResult =
             KHRSwapchain.vkQueuePresentKHR(DeviceManager.getPresentQueue().vkQueue(), presentInfo);
-        if (vkResult == -1000001004 || vkResult == 1000001003 || swapChainUpdate) {
+        if (vkResult == KHRSwapchain.VK_ERROR_OUT_OF_DATE_KHR
+            || vkResult == KHRSwapchain.VK_SUBOPTIMAL_KHR) {
           swapChainUpdate = true;
-          return;
-        }
-
-        if (vkResult != 0) {
+        } else if (vkResult != VK10.VK_SUCCESS) {
           throw new RuntimeException(
               "Failed to present rendered frame: %s".formatted(VkResult.decode(vkResult)));
         }
+        // Even a resized/suboptimal presentation completed submission. Always retire this
+        // staging slot and acquired-image state rather than returning halfway through cleanup.
       }
 
       Vulkan.getStagingBuffers().endFrame(currentFrame);
@@ -553,10 +574,17 @@ public class Renderer {
     }
 
     this.createSyncObjects();
+    currentFrame = 0;
+    imageIndex = 0;
+    this.currentCmdBuffer = this.mainCommandBuffers.get(currentFrame);
+    this.imageAcquireWaitPending = false;
+    this.swapChain.setAcquired(false);
+    this.boundFramebuffer = null;
+    this.boundRenderPass = null;
+    VkGlFramebuffer.resetBoundFramebuffer();
     this.mainPass.onResize();
     this.onResizeCallbacks.forEach(Runnable::run);
     ((WindowAccessor) (Object) Minecraft.getInstance().getWindow()).getEventHandler().resizeGui();
-    currentFrame = 0;
   }
 
   public void cleanUpResources() {
@@ -568,14 +596,12 @@ public class Renderer {
   }
 
   private void destroySyncObjects() {
-    for (int i = 0; i < this.framesNum; i++) {
-      VK10.vkDestroyFence(device, this.inFlightFences.get(i), null);
-      VK10.vkDestroySemaphore(device, this.imageAvailableSemaphores.get(i), null);
-    }
-
-    for (int i = 0; i < this.swapChain.getImagesNum(); i++) {
-      VK10.vkDestroySemaphore(device, this.renderFinishedSemaphores.get(i), null);
-    }
+    for (long fence : this.inFlightFences) VK10.vkDestroyFence(device, fence, null);
+    for (long semaphore : this.imageAvailableSemaphores)
+      VK10.vkDestroySemaphore(device, semaphore, null);
+    // The replacement swap chain may have a different image count. Retire the old list itself.
+    for (long semaphore : this.renderFinishedSemaphores)
+      VK10.vkDestroySemaphore(device, semaphore, null);
   }
 
   public void addOnResizeCallback(Runnable runnable) {

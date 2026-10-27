@@ -36,7 +36,8 @@ public final class ClientCapture {
 
   @SubscribeEvent
   public void tick(ClientTickEvent.Post event) {
-    if (Boolean.getBoolean("deepprimal.validationEngine")
+    if (Boolean.getBoolean("deepprimal.validationUpscalingFrames")
+        || Boolean.getBoolean("deepprimal.validationEngine")
         || Boolean.getBoolean("deepprimal.validationFilling")
         || Boolean.getBoolean("deepprimal.validationWorldCreation")) return;
     Minecraft mc = Minecraft.getInstance();
