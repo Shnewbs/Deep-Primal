@@ -1,0 +1,146 @@
+{
+  "version": "dev.32-contact-candidate.2 (source only)",
+  "production_promoted": false,
+  "candidate_baseline": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd",
+  "production_pin": "6f897d7f75a46a56f5646ca93dd261b942da56b9",
+  "full_core": {
+    "status": "running",
+    "sources": 140
+  },
+  "budget_checks": {
+    "pass": true,
+    "assertions": 9481867,
+    "oracle": "HashSet of exact canonical long pairs",
+    "negative_controls": [
+      "ignoring second key rejected by collision test",
+      "omitting generation-clear rejected by ancient identical pair test"
+    ],
+    "helper_allocated_bytes": 0,
+    "measured_helper_visits": 4096000,
+    "warmup_visits": 4096000,
+    "constructor_and_adapter_excluded": true,
+    "latency_measurement": false,
+    "raw_primitive_array_bytes_per_native_level": 81920,
+    "native_visit_limit": 2048,
+    "native_pair_limit": 2048,
+    "table_slots": 4096
+  },
+  "contact_double_checks": {
+    "pass": true,
+    "cases": 12302,
+    "random_pairs": 12288,
+    "dry_reentries": 100000
+  },
+  "api_compile": {
+    "pass": true,
+    "classes": 12,
+    "minecraft": "26.1.2",
+    "neoforge": "26.1.2.122"
+  },
+  "native_fresh": {
+    "mode": "fresh",
+    "exit": 0,
+    "marker": true,
+    "commands_sent": true,
+    "flush": true,
+    "stopped": true,
+    "errors": [],
+    "sha256_unchanged": true,
+    "seconds": 13.807528940997145,
+    "diagnostic_only": true,
+    "pass": true,
+    "offline_auth_network_warnings": [
+      "[04:20:49] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com"
+    ]
+  },
+  "native_reopen": {
+    "mode": "reopen",
+    "exit": 0,
+    "marker": true,
+    "commands_sent": true,
+    "flush": true,
+    "stopped": true,
+    "errors": [],
+    "sha256_unchanged": true,
+    "seconds": 11.02721170500081,
+    "diagnostic_only": true,
+    "pass": true,
+    "offline_auth_network_warnings": [
+      "[04:21:30] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com"
+    ]
+  },
+  "diagnostic_package": {
+    "pass": true,
+    "archives": 7,
+    "compiled_class_matches": 12,
+    "helper_independent_class_match": true,
+    "user_facing": false,
+    "full_producer": false
+  },
+  "initial_failures": {
+    "core_default_tmp": "Rejected FileSystemException /tmp: No space left on device; raw initial-full-core.log",
+    "core_capture": "Retry process output could not be fully saved because /dev/shm filled; initial-capacity-full-core.log truncated, no pass credited",
+    "native_reopen": "Initial reopen exited 0 but log write failures, absent marker/flush/shutdown; rejected structured pass=false",
+    "recovery": "Removed only own copied compiler-only dependency JARs (92398304 bytes); repeated full core and fresh/reopen in private scratch",
+    "source_identity": "Remote/local audit manifest whitespace differed; selected 139 path/Git/SHA256 records matched exactly. Broad 300-file compare was not accepted; all 21 non-doc root entries matched pinned audit.",
+    "core_relative_output": "Rejected full suite at IntegratedEngineChecks: relative build/integrated-engine-checks output remained on full overlay despite private java.io.tmpdir. Final retry sets private working directory as well; raw initial-working-directory-full-core.log retained."
+  },
+  "unpassed_gates": [
+    "full Gradle build and module tasks",
+    "full new distribution producer and package qualification",
+    "combined source index and contact integration",
+    "weather/travel/full lifecycle matrix",
+    "real OpenGL/Vulkan scenes",
+    "Windows AMD8060S",
+    "multiplayer and long soak",
+    "named-hardware latency"
+  ],
+  "release": {
+    "published": false,
+    "blocker": "Insufficient isolated full-producer capacity; no qualified candidate distribution. No GitHub release publishing operation exposed by available connector."
+  },
+  "last_full_external_average": 5,
+  "fresh_grade": false,
+  "acceptance_complete": false,
+  "files": [
+    {
+      "path": "WaterAccount.java",
+      "bytes": 6295,
+      "sha256": "0c05d694c257970ad99d4acf6da3afd86bf4b1ae19ada2955d4c35413d5e2457"
+    },
+    {
+      "path": "WaterContactBudget.java",
+      "bytes": 2917,
+      "sha256": "0c85682d3a4921e6f0c22e3e2403ae1ed5351ceb7ca0089b37c14919385c59f0"
+    },
+    {
+      "path": "WaterContactRuntime.java",
+      "bytes": 4270,
+      "sha256": "c99fb263d315f009e923217674def624c016c3cace4add1d94f38604adb7119e"
+    },
+    {
+      "path": "WaterRuntime.java",
+      "bytes": 29655,
+      "sha256": "c197ead0d3f08a041d8f4ac8a28206d83396bcabd573ed370b66f313b7fa6a18"
+    },
+    {
+      "path": "WaterContactBudgetChecks.java",
+      "bytes": 6104,
+      "sha256": "fe29e5930465ea5bd3444422df48718ffe216b20bcf52c8399720e21f29ccf55"
+    },
+    {
+      "path": "ContactChecks.java",
+      "bytes": 6003,
+      "sha256": "2a06d69abf4724c02c6d0202ee73e2cf2cb5dff56fc94a3d68959fc078c34651"
+    },
+    {
+      "path": "ContactNativeChecks.java",
+      "bytes": 3937,
+      "sha256": "33fb515f7514e186ab399e6a65451de08f503b11fb8199cc2c18a73c63d64e00"
+    }
+  ]
+}

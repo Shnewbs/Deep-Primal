@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-27T03:10:00Z",
+  "updated_at": "2026-10-27T03:24:00Z",
   "active_until": "2026-10-27T03:55:00Z",
   "source_ref": "6f897d7f75a46a56f5646ca93dd261b942da56b9",
   "candidate_version": "0.0.1-alpha.29-dev.31",
@@ -1046,7 +1046,7 @@
     "worker": "builder-20261027T0300",
     "started_at": "2026-10-27T03:10:00Z",
     "lease_until": "2026-10-27T03:55:00Z",
-    "phase": "bounded_contact_budget_implementation",
+    "phase": "source_checkpoint_full_core_running",
     "overlap_check": {
       "main": "6f897d7f75a46a56f5646ca93dd261b942da56b9",
       "renderer": "Active scoped FrameIntervalWindow/ClientTelemetry claim until 03:30, no overlapping files, no exclusive benchmark",
@@ -1341,14 +1341,14 @@
   },
   "latest_staged_composition_diffusion": {
     "promoted": false,
-    "candidate": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/stage/WaterAccount.java",
-    "adapter": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/stage/WaterContactRuntime.java",
-    "solver": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/stage/WaterRuntime.java",
-    "version": "dev.32-contact-candidate.1 (source only; no binary)",
+    "candidate": "docs/validation/engine-continuation/water-contact-budget-2026-10-27/stage/WaterAccount.java",
+    "budget": "docs/validation/engine-continuation/water-contact-budget-2026-10-27/stage/WaterContactBudget.java",
+    "adapter": "docs/validation/engine-continuation/water-contact-budget-2026-10-27/stage/WaterContactRuntime.java",
+    "solver": "docs/validation/engine-continuation/water-contact-budget-2026-10-27/stage/WaterRuntime.java",
+    "version": "dev.32-contact-candidate.2 (source only; no binary)",
     "in_delivered_jar": false,
     "water_amounts_unchanged": true,
-    "native_integration": "Private split diagnostic fresh/reopen plus actual solver tick pass; full producer qualification pending",
-    "evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
-    "source_sha": "4aa62dd72fe72090efc07630d8ee3a1a5c46accd"
+    "native_integration": "Four loaded candidate identities, fresh/reopen, real solver tick, native 2048 admission cap, codec/save/flush/shutdown pass in private split diagnostic. Full producer pending.",
+    "evidence": "docs/validation/engine-continuation/water-contact-budget-2026-10-27/README.md"
   }
 }

@@ -1,0 +1,111 @@
+{
+  "removed": [
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/e1e2415e7f78b349-vineflower-1.11.2.jar",
+      "bytes": 1856529,
+      "sha256": "e1e2415e7f78b34960402c4beddfc88e033d7842a23ecd132a8ec2eadd54f6bf"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/662ae536d84e7b84-gradle-idea-ext-1.2.jar",
+      "bytes": 274868,
+      "sha256": "662ae536d84e7b8447d10c246e83170a7f1fc14726ca80cd7a50947dfe58958f"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/6f5b0aae7e423efe-neoform-runtime-2.0.31-all.jar",
+      "bytes": 4483539,
+      "sha256": "6f5b0aae7e423efeea21cb848c5096e76fc4eec40256cbefdcfaa1583b197c07"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/ebd5712d8cf801bb-vineflower-plugins-0.1.5.jar",
+      "bytes": 9426,
+      "sha256": "ebd5712d8cf801bbecaa9e48eca9013ef408b33993a29e4b89dc877098eccc60"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/16663ae2504a0522-srgutils-1.0.0.jar",
+      "bytes": 71421,
+      "sha256": "16663ae2504a0522cca386af6c11281d3fde61d25b6bd2690d7200e900b26c36"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/e4cbc878bc446271-srgutils-1.0.10.jar",
+      "bytes": 72018,
+      "sha256": "e4cbc878bc44627196b0507291d09a445fcc8ba8407601944a06d1baa03adc5c"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/e977ee4422efb51e-AutoRenamingTool-2.0.17-all.jar",
+      "bytes": 751270,
+      "sha256": "e977ee4422efb51eb54cc99f939833cef769de8b4aa1043294ce5400c60f3b1f"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/db39a2c95f8299d2-AutoRenamingTool-2.0.17.jar",
+      "bytes": 107707,
+      "sha256": "db39a2c95f8299d23bf3bc81b7c17fcd2693081b7d3fe68f2c7d11ab1ff3cdde"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/af384253f411c9a0-AutoRenamingTool-2.0.16.jar",
+      "bytes": 107707,
+      "sha256": "af384253f411c9a065e3b7c0d2c77aaec39ca9fd98ceb829210b5aa045870d18"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/e4cab1e28fcede52-moddev-gradle-2.0.148.jar",
+      "bytes": 1550640,
+      "sha256": "e4cab1e28fcede52101ffc5bb5052fe8a4dd41b699992c52c8ec1c267e306017"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/f6bdebb7fae10832-srgutils-0.4.15.jar",
+      "bytes": 69393,
+      "sha256": "f6bdebb7fae108329acddfc812f237c7f6328a98e3f282a105edfc161d0215e3"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/2fbb74386cc9f9f4-mergetool-1.1.7-fatjar.jar",
+      "bytes": 467912,
+      "sha256": "2fbb74386cc9f9f4e816d2b5167ed9274c0864eae532d658e34587b2a47857e8"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/ba3e9d27d9f5145f-installertools-4.0.12-fatjar.jar",
+      "bytes": 813509,
+      "sha256": "ba3e9d27d9f5145f829ac94124e3d97b80f027949d690b430305734526f143db"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/f8e5d76e3a388a10-installertools-4.0.16-fatjar.jar",
+      "bytes": 814037,
+      "sha256": "f8e5d76e3a388a106cf8a77cb34c604cb03517806b9f5f20e8e2201b9ec671e4"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/e8e2c41f0b058689-cli-utils-4.0.12.jar",
+      "bytes": 7745,
+      "sha256": "e8e2c41f0b058689acfbacd4204a7e32ec5d0b28e02c4020f788003ca26e77a5"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/4d7138fb5499b9a0-cli-utils-4.0.16.jar",
+      "bytes": 7745,
+      "sha256": "4d7138fb5499b9a00a18440f908881ae123af05aceae1a44cf0263ec9fc83896"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/0ba74c89a9b1f2e3-binarypatcher-4.0.12.jar",
+      "bytes": 37543,
+      "sha256": "0ba74c89a9b1f2e32df8150b4dd90904584e4343c79fc5d66706588d2a5b6ae4"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/d478339ed527a4e5-binarypatcher-4.0.16.jar",
+      "bytes": 40419,
+      "sha256": "d478339ed527a4e51dc4f8468a01068a422a762d320e3bb7a06e2eedb357197e"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/78b86a47dfdf7697-foojay-resolver-1.0.0.jar",
+      "bytes": 327154,
+      "sha256": "78b86a47dfdf7697c9bd15da78983fd80da7247d6e02fc106bdf07e0388b60a8"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/1e058f87f6c3de0d-jst-cli-bundle-2.0.11.jar",
+      "bytes": 57947018,
+      "sha256": "1e058f87f6c3de0d13d76d6d14a7698a749e7268521a95298f764228ebee88db"
+    },
+    {
+      "path": "/dev/shm/dp-builder2800/api/lib/30d1ff26c112bf3a-DiffPatch-2.0.0.36-all.jar",
+      "bytes": 22580704,
+      "sha256": "30d1ff26c112bf3a488e1e5a32a345f75ff0ef985c3315b2d987d607e7038580"
+    }
+  ],
+  "bytes": 92398304,
+  "scope": "Own copied compiler-only jars excluded from native launch classpath"
+}

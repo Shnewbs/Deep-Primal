@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.AssertionError: colliding distinct pair
+	at com.shnewbs.deepprimal.core.WaterContactBudgetChecks.check(WaterContactBudgetChecks.java:15)
+	at com.shnewbs.deepprimal.core.WaterContactBudgetChecks.collisionAndRollover(WaterContactBudgetChecks.java:52)
+	at com.shnewbs.deepprimal.core.WaterContactBudgetChecks.main(WaterContactBudgetChecks.java:109)

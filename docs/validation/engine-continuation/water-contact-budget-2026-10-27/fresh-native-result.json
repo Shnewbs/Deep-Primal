@@ -1,0 +1,18 @@
+{
+  "mode": "fresh",
+  "exit": 0,
+  "marker": true,
+  "commands_sent": true,
+  "flush": true,
+  "stopped": true,
+  "errors": [],
+  "sha256_unchanged": true,
+  "seconds": 13.807528940997145,
+  "diagnostic_only": true,
+  "pass": true,
+  "offline_auth_network_warnings": [
+    "[04:20:49] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+    "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+    "Caused by: java.net.UnknownHostException: api.minecraftservices.com"
+  ]
+}
