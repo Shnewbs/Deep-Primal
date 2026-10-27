@@ -1,0 +1,2 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/dev/shm/dp-audit-2e15d24-0230/tmp
+SPLIT_ADMISSION_PASS rejected=40000 exactCapacity=40000
