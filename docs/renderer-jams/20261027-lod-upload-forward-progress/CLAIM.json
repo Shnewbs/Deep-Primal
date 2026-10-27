@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "role": "dedicated-renderer",
+  "jam": "20261027-lod-upload-forward-progress",
+  "owner": "renderer-hourly-chat",
+  "status": "active",
+  "acquired_utc": "2026-10-27T22:56:06Z",
+  "expires_utc": "2026-10-27T23:21:06Z",
+  "source_parent": "579516aba72bdb96006cdfabfd50837887e86c22",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/UploadWorkBudget.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261027-lod-upload-forward-progress/"
+  ],
+  "excluded": [
+    "engine-core",
+    "water runtime/simulation",
+    "graphics-settings",
+    "renderer-vulkan",
+    "other feature schedules"
+  ],
+  "note": "Bounded renderer-only claim for indivisible LOD mesh upload budget forward progress; independently verified root and water ownership checkpointed, prior renderer claim released; no heavyweight builder reservation used."
+}
