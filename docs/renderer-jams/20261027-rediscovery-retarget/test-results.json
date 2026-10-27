@@ -1,0 +1,71 @@
+{
+  "jam_id": "20261027-rediscovery-retarget",
+  "status": "staged-only",
+  "initial_main": "2ae5e5f406e9a9d91aeb0d689772cbd35396524c",
+  "claim_commit": "c0a3a6eeef2dfb12bda2dbb60fa507b8ecff254b",
+  "target_files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+  ],
+  "files": {
+    "scan_git_blob": "afccbfb6d92e3b97e97d6223235cde4bd16df2f9",
+    "checks_git_blob": "29bb2aec20b612a42fdff08b78a0cdf76f53d0f6",
+    "patch_git_blob": "ff85d3d13209ea44e144b0b628e88502ab96482d",
+    "runner_git_blob": "d1efda33abd9e72e026c9c4b484c0646afcc6faf"
+  },
+  "environment": {
+    "os": "Linux isolated container",
+    "java": "OpenJDK 21.0.12.1",
+    "java25": false,
+    "full_repo_checkout": false,
+    "neoForge_gradle": false,
+    "actual_gpu": false
+  },
+  "checks": [
+    {
+      "name": "original DeliveredChunkScanChecks",
+      "exit": 0,
+      "coordinates": 108999,
+      "outerBeyond32": 92064
+    },
+    {
+      "name": "new DeliveredRetargetChecks",
+      "exit": 0,
+      "checks": 1056,
+      "completeScans": 9
+    },
+    {
+      "name": "deliberate deletion of done() retarget",
+      "exit": 1,
+      "expectedFailure": "AssertionError: completed move +1:16"
+    },
+    {
+      "name": "git apply --check",
+      "exit": 0,
+      "environment": "faithful positioning fixture; whole repo not available"
+    }
+  ],
+  "not_run": [
+    "Java25 full Gradle root and modules",
+    "complete CoreChecks under Java25",
+    "actual client/backend/renderer and water ordering",
+    "outer/nested archive/JAR build/bytecode/fixture exclusion",
+    "packaged native lifecycle and Windows GPU pixels",
+    "named hardware p50/p95/p99 GPU/VRAM/scene baselines"
+  ],
+  "promotion": false,
+  "version_bump": false,
+  "jar": null,
+  "release": null,
+  "upscaling_owner_excluded": true,
+  "scores_carried": [
+    4,
+    6,
+    4,
+    0,
+    4,
+    4
+  ],
+  "previous_average": 3.6666666666666665,
+  "scored_review_pending": true
+}

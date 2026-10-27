@@ -1,0 +1,19 @@
+--- a/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java
++++ b/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java
+@@ -258,8 +258,10 @@
+     if (mc.player == null) return;
+-    if (deliveredScan == null) {
+-      var position = mc.player.chunkPosition();
+-      deliveredScan = new DeliveredChunkScan(position.x(), position.z(),
+-          Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
+-              mc.options.getEffectiveRenderDistance()));
+-    }
++    var position = mc.player.chunkPosition();
++    int radius = Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
++        mc.options.getEffectiveRenderDistance());
++    // A completed scan does not cover newly entered chunks; a changing native render
++    // radius or substantial travel also invalidates the original center/priority.
++    // Keep the bounded incremental visit/admission contract below unchanged.
++    if (deliveredScan == null || deliveredScan.shouldRetarget(position.x(), position.z(), radius))
++      deliveredScan = new DeliveredChunkScan(position.x(), position.z(), radius);
+     int discoveryBudget = ClientPerformanceConfig.PAUSE_BACKGROUND.get() && !mc.isWindowActive()
