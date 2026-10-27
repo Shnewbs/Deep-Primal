@@ -1,0 +1,35 @@
+{
+  "pinned_source": "bd28005d7c8703c7abdd822634cb4a07875d2038",
+  "grade": {
+    "total": 50,
+    "average": 5,
+    "tier": "2/5",
+    "fresh_complete": false,
+    "carried": true
+  },
+  "latest_library_jar": {
+    "library_id": "libfile_13a99e3777f0819190f332e925732495",
+    "bytes": 125383020,
+    "sha256": "04a7a8bf6f88c9b69e3b6cba2c24e6030e1d5e8c38192ee14b8c0e8e16a6d083",
+    "new_build": false
+  },
+  "auditor_package_checks": {
+    "root_crc": true,
+    "nested_crc_count": 6,
+    "nested_crc_pass": 6,
+    "duplicate_entries": 0,
+    "zip_slip": false,
+    "fsr_shaders": true,
+    "nvidia_runtime": false,
+    "windows_native_dlls": 2,
+    "class_major69_headers": 433
+  },
+  "new_audit_jar": false,
+  "blockers": [
+    "No full private checkout and Gradle wrapper in isolated container",
+    "JDK21 instead of required Java25",
+    "GitHub DNS unavailable for container git clone"
+  ],
+  "library_evidence_id": "libfile_3922ba178c14819192b0dae664ff9585",
+  "latest_external_full_average": 5
+}
