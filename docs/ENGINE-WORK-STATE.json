@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T06:03:36Z",
-  "active_until": "2026-10-28T06:03:36Z",
-  "source_ref": "241a57d1e734c4ad62bfcbe699fa84696a6c76c8",
+  "status": "active",
+  "updated_at": "2026-10-28T07:09:42.969Z",
+  "active_until": "2026-10-28T07:34:42.969Z",
+  "source_ref": "9798537f1f77ef30885f8dbfeca736004b763027",
   "candidate_version": "0.0.1-alpha.29-dev.47-v8columns.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev47 source exact native V8 base-height and planned base-column parity committed; owner native Java25/Gradle/NeoForge/V8 save/reopen and water acceptance outstanding.",
+  "current_gate": "Dev48 planned V8 ground materials parity, Java25 source and Minecraft API double tests; full native owner gates still open.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -490,7 +490,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0600-v8-baseheight",
+  "worker": "builder-20261028T0700-v8materials",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1033,42 +1033,17 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0600-v8-baseheight",
-    "started_at": "2026-10-28T05:59:35Z",
-    "lease_until": "2026-10-28T06:20:00Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0700-v8materials",
+    "started_at": "2026-10-28T07:09:42.969Z",
+    "lease_until": "2026-10-28T07:34:42.969Z",
+    "phase": "v8_ground_material_parity",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
-      "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/",
-      "docs/ENGINE-WORK-STATE.json",
-      "gradle.properties"
+      "docs/validation/engine-continuation/v8-planned-ground-parity-2026-10-28/",
+      "gradle.properties",
+      "docs/ENGINE-WORK-STATE.json"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0530-4cf0f1b/REVIEW.md",
-    "audit_source_sha": "4cf0f1b930b182903af3086071859d727379a74d",
-    "audit_finding": "Immature persisted LOD scanner/renderer contract violation belongs to independent renderer workstream; engine V8 native getBaseHeight and source-only saved-profile checks remain unaccepted.",
-    "chosen_engine_repair": "Implement exact top-down V8 baseHeight parity to materialized native sections, including signed/partial heights and bedrock, without V8 activation.",
-    "last_external_grade": 5,
-    "owner_build_handoff": true,
-    "renderer_scope_excluded": true,
-    "water_scope_excluded": true,
-    "lease_released": true,
-    "acceptance_complete": false,
-    "completed_at": "2026-10-28T06:03:36Z",
-    "source_sha": "241a57d1e734c4ad62bfcbe699fa84696a6c76c8",
-    "producer_completed": false,
-    "jar_released": false,
-    "source_blob": "6a6fafe5330be47c992d200b0cb8dd5a09ca0dca",
-    "evidence": "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/README.md",
-    "test_result": "DENSITY_BASEHEIGHT_PASS assertions=874642 columns=34304 voxels=771584 scenarios=134; DENSITY_NATIVE_BRIDGE_PASS assertions=11047019 nativePositions=1376512; 3/3 deliberate mutants rejected; JDK21 API doubles only.",
-    "unrun": [
-      "Java25 (JDK25 not mounted)",
-      "Full Gradle/Minecraft/NeoForge",
-      "Native V8 save/reopen/heightmap/lighting",
-      "Vulkan/OpenGL/AMD8060S",
-      "water ledger/soak",
-      "qualified JAR release"
-    ],
-    "next_priority": "Native Java25 V8 getBaseHeight/baseColumn/section and saved profile/reopen/legacy acceptance; continue separately owned finite-water ledger and waterfall gaps."
+    "coordination": "Latest independent 0633 audit read; renderer owns LOD retry. Current renderer released source checkpoint; historical water claim expired; personal-context looked up."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1248,13 +1223,12 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T0432-09a57c1/REVIEW.md",
-    "source_sha": "09a57c1896eb1429b2af83223d4a3d6bd5ad8724",
-    "audit_commit": "c532d6bd1017",
+    "path": "docs/engine-hourly-audits/2026-10-28T0633-1aa65a8/REVIEW.md",
+    "source_sha": "1aa65a8b1068f6261fe0eb99e6a4394132636fdb",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Native V8 generator never consumes dev45 16^3 section layout; native block/heightmap/save/lighting still missing; water and renderer acceptance open.",
-    "chosen_repair": "Add explicit-call-only DensityChunkMaterializer.fillPlanned consuming exact canonical sections and priming heightmaps, with cross-JDK API double parity and mutations; no V8 codec activation."
+    "findings": "LOD retry defect is renderer-owned; V8 profile/native and all water acceptance remain open.",
+    "chosen_repair": "Opt-in planned V8 surface/soil fill exact parity and deferred heightmap prime."
   },
   "lease_released": true,
   "latest_stream_deadline_stage": {
