@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T11:05:06.933Z",
-  "active_until": "2026-10-28T11:25:06.933Z",
-  "source_ref": "61369484aff15c0a0d7130ea69c397c5819a2341",
-  "candidate_version": "0.0.1-alpha.29-dev.51-v8preflight.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T11:08:54.273Z",
+  "active_until": "2026-10-28T11:08:54.273Z",
+  "source_ref": "96aad1eb44740b53e2ecac1841b30f00448d833b",
+  "candidate_version": "0.0.1-alpha.29-dev.52-v8recover.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev52 experimental V8 postwrite recovery: preserve destination state if native block write fails; consume latest 10:30 independent injected native-setter failure audit; keep V1-V7 and owner-build gates open.",
+  "current_gate": "Dev52 opt-in V8 postwrite rollback: 14,128,600 Java21 source/stand-in assertions pass; 65,536 old voxels restored across 3 after-write setter faults and 1 partial-heightmap failure; native callbacks/save/GPU/long-soak unrun. Owner does full builds.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-28 dev52 opt-in V8 original-state write rollback 14128600 Java21 assertions, 3 native-setter and 1 heightmap simulated fault, real NeoForge callback and saved-profile/lighting + 2-API water/AMD latency owner gates unrun; docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/README.md",
     "2026-10-28 dev51 source-only V8 material preflight and heightmap optimization tests 13,975,797 Java21 assertions; real native/write callback, owner Gradle/GPU and water long-soak gates open. docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
     "2026-10-28 dev50 source-only V8 saved snapshot root-envelope strictness committed: Java25 focused stand-in 13,766,368 assertions, 4 mutants rejected, native Mojang JsonOps/NbtOps and save/reopen pending; docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/README.md",
     "Dev46 source-only native section bridge committed: full native NeoForge chunk lighting/heightmap/base column/getBaseHeight/save/reopen and V1-V7 exact replay remains owner-operated. docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/README.md",
@@ -207,33 +208,7 @@
     "Dev.13 staged. Next: smooth per-interval stream delivery on steep reaches (HydrologyRuntime.replenishStream), then menu-close reproduction with the packaged Themes alpha.8, then water flicker/stepped surface meshing. Preserve material_revision 0/1/2, channel_revision 0/1 and aquifer depth 1/64 saved semantics.",
     "Dev.11 verified/staged; Library-upload tool unavailable. Add existing session artifact when available,do not overwrite. Preserve <=16 loaded-chunk precipitation samples and once-per-interval spatial snapshot (roof edits next step),dev.10 clock,dev.9 reserve,dev.7 cadence,dev.8 quota/headwater ordering. Next: mixed-biome/capacity native weather and storm latency,world ledger,more seeds,physical source unload/reopen/edits,connected waterfall/temporal flicker. Dev.12 is next production version;no regrade.",
     "Continue from current local main, preserving the owner's newer v3 sides/final sand and concurrent saved changes. Work in this checkout; do not create branches, commit or push without user authorization. Older isolation/pause/deferred-catalog entries below are historical, not permission to overwrite current work.",
-    "Dev.5 Soil Families is supplied; preserve dev.4 dual-tint/waterfall corrections and the saved material1 versus legacy0 policy. Soil texture registrations/placement are implemented; orders/horizons/modifiers and gameplay are not. Preserve owner art and unique artifacts. Add native terrain-world lighting/AO/mips and actual connected falling-water/transport acceptance.",
-    "Prioritize actual stream draining/flooding and finite supply/containment alongside the meshing correction. Preserve quantities, metered regional budgets and saved worlds; do not replace the solver with infinite refill or frozen water.",
-    "Continue the soil profile mechanics after the delivered twelve-class/36-form catalog foundation. Soil orders, horizons and modifiers are distinct axes, not hundreds of duplicate block materials. Add calibrated wet/organic, farming, erosion and infiltration behavior while preserving saved material revision 1 and legacy0 worlds.",
-    "Use the supplied Planet Smith transcript/reference as a rendering design input, not a benchmark or source-code license. Profile per-page culling, GPU allocation/upload and draw submission; then evaluate hierarchical culling, paged arenas and indirect batching in that order. Preserve translucent order, fallback coverage, edits, resource reload and GPU lifetime. See LOD-AND-DRAINAGE-ARCHITECTURE.md.",
-    "Extend the explicit versioned surface preview toward real climate/substrate-driven material families and coherent soil horizons, then saved generator-profile lifecycle and coupled water barriers. GroundSurfaceProfile version 1 and its example are isolated authoring snapshots; its eroded channel is a spatial control, not physical moisture or ecology. Native snapshot JSON/fingerprints are validation files, not level.dat integration.",
-    "Continue full source/dependency restoration using current immutable main snapshot and verified retained Themes assets; then full module/codec/package gates for isolated R62 candidate. Pinned tools and57current core inputs are restored. R62 checks and allocation acceptance are staged only; do not promote experiments into the auditor's current JAR without required gates.",
-    "Address order-sensitive density latency: R62 sampling code is identical to R61, yet broad column means~32-47ms and X-inner~255-307ms. Keep exact scalar oracles, bounded job-owned storage and ownership. Restore native V8 block/base-column/heightmap/saved-profile/routed-water/topology and Vulkan gates;906 coarse sign disagreements remain open.",
-    "Continue partialstage2 from R61 docs/validation/engine-continuation/masked-density-2026-10-24/README.md. One stagedGraph includes R60reuse and safe zero-mask shortcut; scalar/recipe unchanged.57sourceJDK25/1.58mexact+originalnoise/graph checks pass. Final component means31.38-32.72ms stillfail5ms; metadata compilation singleprobe increases~20KB/~47microseconds. Broaden adversarial graph/order/cold/tail and compile-cost checks, reduce metadata overhead if justified, then fullGradle/module/codec/package checks and nativeV8 materialization/base-column/heightmap/savedgraph/routedhydrology/topology/Vulkan gates. R61 remains unpromoted and coarse906sign mismatches unresolved; no unusedcode score increase.",
-    "Implement conservative density refinement/topology policy; expanded16-site/four-seed corpus has906 occupancy mismatches in1572864 samples. Do not enable coarse lattice for roofs/aquifers based on measured error alone. Then implement isolated native V8 block/base-column/heightmap parity and saved graph snapshots, planned river/basin coupling and chunk-order/reopen/native visual gates.",
-    "Continue stages3-6 after the recorded stage2 gates: weighted climate/ecotones, connected drainage/cave/aquifer density, structures/features, bounded scheduler/caches and verified latest-version integration. Regrade all ten categories only against built and executed evidence. Keep the enabled hourly task active toward the owner's verified average >=8.5 target, ideally >=9.5, or explicit user cancellation.",
-    "Continue stage 2 from the reviewed architecture: bounded versioned JSON density graph, V8 shape adapter, and independent/native geometry, saved profile, chunk seam and hydrology compatibility gates. V1-V7 stay frozen. Stage 1 is an unused library, not delivered terrain.",
-    "Keep measured performance acceptance alongside all stages. Native released fill means 14.45-14.99 ms plus omitted host costs; profile evidence emphasizes block writes, heightmaps and deposits. Trace actual host scheduling and regional contention; add bounded async region jobs without server-thread joins. No speed claim from the lattice microbenchmark.",
-    "Complete stages 3-6 in sequence: weighted climate/ecotones, drainage/density/cave/aquifer coupling, deterministic structure spacing/ownership, measured optimization and verified 26.3 migration. Report code, tests, benchmark distributions and known weaknesses at each checkpoint.",
-    "Continue owner-reported water/terrain quality after alpha28: supported-film clipping and seed-origin aliasing fixed, broader channel plan and biome/landform changes delivered as frozen V7. Capture matched flowing-world thin water and isolate residual flecks, mixed transparency, distant water/LOD with enabled view, normal edits/travel and conservation. Do not add unlimited source refill. Four short software scenes and frozen matched beds are scoped evidence, not complete worldgen/hydrology acceptance.",
-    "Continue staged R57 LOD Future/cancellation work from its exact retained paths, integrating into isolated current alpha28/V7 source only after full build/package and Vulkan travel/backtrack/edit/toggle/world-reset/save/reopen/shutdown/coverage gates. Foreground restored full tools/project at /workspace/scratch/1a7cb29b04a2/water-audit if still present. R57 files are unpromoted; no automatic copy over current production. Preserve rapid-reset/retiring-worker, disk-backlog/coarser hierarchy, rediscovery/frame/memory/2ms gates.",
-    "Freeze delivered V1-V7 generation and preserve saved profiles, heights, quantities and edits. Broaden V6 seed/climate/ore-host/overlap/balance, rare tunnels/caves/debris and owner-GPU visual/performance evidence. New geography requires V8. Do not copy the older staged V5 snapshot over current production; its backward-compatible field is now included alongside V6 authored deposits. R52's fixed stratified core sample has116279272 matching queries,51370ore voxels and91eligible overlaps, but gold/redstone/lapis absent and only14host pairs. This is pre-carving field evidence with Deep-like Y bounds, not native density; broaden separately attributed native rare-host/climate/overlap coverage rather than infer an ore absence or change frozen V6 defaults. See v6-ensemble-2026-10-24.",
-    "Continue the broader outstanding mechanics in TERRAIN-V6.md and existing water/LOD audits: long-region hydraulics, real-world temporal water/page quality, material/host authoring extensions, bounded surface landslides and dynamic ice-sheet behavior where required. Optional KubeJS authoring, external editor and catalogs remain deferred. The owner received a tested terrain alpha, not a claim of perfection.",
-    "Use --root-game-task runClient before the proxy helper's -- separator (omit any game selector after --), or explicit :runClient, to isolate merged packaged Vulkan validation. Run separately attributed root water/save/crash/resource/shutdown gates when the foreground native job is closed. Then implement bounded normal cross-frame cohort publication with explicit visibility/edit/unload/supersession; preserve R44 retirement reactivation, R43 retry, quantity, edits, frozen geography and merged Themes. Continue actual visible stream/ocean travel/edit/cap churn, overflow-to-remesh and active recovery/retirement overlap. Continue from main; historical589input snapshot must not overwrite merged source.",
-    "Reproduce and fix the rectangular distant horizon/LOD cutoffs observed in current development Vulkan lake captures, using matched view and load state. Vulkan-first: implement bounded spatial/paged disk-key discovery and coarser fallback with actual scene coverage assertions under travel/edits/low memory. Completed-scan merge now respects the shared 8192-key cap and existing edit guards/order, but initial prefix truncation and beyond-cap rediscovery remain unresolved. Preserve player-input/server physical unload/reopen and complete enabled water/mixed transparency requirements and frozen geography.",
-    "Investigate intermittent resource reload and earlier atlas/readback stalls using the bounded pending-phase watchdog. The rejected 120-second reload has no save/shutdown pass; later successful runs do not establish its cause. Keep sealed raw/compressed hash gates.",
-    "Identify the original recovery-marker writer. Temporary in-process events show deletion then a different inode with original mtime and one Java write; matched /tmp runs are clean. Correlation is not root cause; ptrace is denied. Preserve recovery evidence and do not ship a speculative workaround.",
-    "Profile increased pressure fanout/head refresh and p95 latency after the capped distant-drain throughput fix. Final basin p95 is 5.26â€“5.65 ms versus 4.59 ms on the failing FIFO baseline, despite settling at tick 2369 and fewer combined visits. Keep staged runtime/core together and separate from production until performance promotion is justified; retain all 24 strict native, zero-idle-work, queue, edit, physical reload and build/package gates.",
-    "Resolve original unpinned filling's 1024 pending/waiting entries at tick 120, and establish broader matched output, latency and resident-memory acceptance. Seven specified route digests match prior FIFO; two closed basin repeats match each other, but neither proves general editable-world behavior.",
-    "Extend bounded drain/pressure continuation beyond the 8192-node/job residency boundary; preserve 16 retained jobs, 128-node drain turns, bounded admission/readiness and no force-loading. Saturation remains unresolved for larger regions.",
-    "Alpha26 implements finite groundwater/snow/ocean/atmosphere accounts, head-limited dynamic outlets and sparse salt/sediment transport. Complete long-duration storm/drought and editable-world acceptance, surface evaporation, independent per-liquid compatibility and bounded coarse unloaded-border transfer; retain once-only initialization and no catch-up. Owner permits streams to exhaust and later reappear elsewhere under sufficient recharge.",
-    "Improve terrain variety and coherent geology/material fields; preserve delivered V1/V2/V3 geography and require a new saved revision for geographic changes",
-    "Continue LOD hierarchy/coverage and editable-world performance acceptance; catalog/species work remains separately deferred"
+    "Dev.5 Soil Families is supplied; preserve dev.4 dual-tint/waterfall corrections and the saved material1 versus legacy0 policy. Soil texture registrations/placement are implemented; orders/horizons/modifiers and gameplay are not. Preserve owner art and unique artifacts. Add native terrain-world lighting/AO/mips and actual connected falling-water/transport acceptance."
   ],
   "rules": [
     "Use docs/ENGINE-BUILD-AUDIT-HANDOFF.md and the requirement register",
@@ -1037,8 +1012,8 @@
   "builder_cycle": {
     "worker": "builder-20261028T1103-v8-postwrite-rollback",
     "started_at": "2026-10-28T11:05:06.933Z",
-    "lease_until": "2026-10-28T11:25:06.933Z",
-    "phase": "leased_implementation",
+    "lease_until": "2026-10-28T11:08:54.273Z",
+    "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "gradle.properties",
@@ -1048,7 +1023,12 @@
     "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1030-10cb0c6/REVIEW.md",
     "consumed_source": "10cb0c6bfcc32492e573aa8c282da75d13864e91",
     "coordination": "Independent auditor completed 10:30Z; separate renderer active at 11:02Z owns LOD only; water foreground claim expired at 01:15Z, no verified live check, no water edit; no shared benchmark allocation; owner handles full builds.",
-    "lease_released": false
+    "lease_released": true,
+    "source_commit": "96aad1eb44740b53e2ecac1841b30f00448d833b",
+    "tested_source_blob": "1399606ac7067a19dbf7e4529821135c161de7fa",
+    "evidence": "docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/README.md",
+    "result": "Java21 source + Minecraft/Mojang API stand-in: 14,128,600 assertions passed; negative dev51 fails new test; original 65,536 voxel states restored across 4 injected native/map failures; full Java25/Gradle/GPU tests unrun, no JAR.",
+    "next": "Native V8 chunk callback failure/no half-write + Mojang saved-profile/lighting and frozen V1-V7 replay; water mass/constituents unload-reopen, Vulkan/OpenGL waterfalls and bounded frame latency. No further work on water without foreground claim check."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1228,14 +1208,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T0933-4b61329/REVIEW.md",
-    "source_sha": "4b6132969ab517bd581b044308a30a62e95fb411",
+    "path": "docs/engine-hourly-audits/2026-10-28T1030-10cb0c6/REVIEW.md",
+    "source_sha": "10cb0c6bfcc32492e573aa8c282da75d13864e91",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "V8 codec/native saved-profile and heightmap validation pending; loaded/unloaded water and renderer GPU gates pending; independent grade carried.",
-    "chosen_repair": "Preflight exact V8 planned density and surface materials before chunk mutation; skip redundant intermediate ground-path heightmap writes, retain raw path and V1-V7."
+    "findings": "Simulated synchronous native setBlockState failure after 999 successful writes left partial blocks and unprimed maps in dev51; no native confirmation; water/renderer gates open.",
+    "chosen_repair": "Add bounded opt-in V8 touched-cell original-state journal, reverse restoration and heightmap re-prime on synchronous setter/heightmap exceptions, with explicit callback/I/O limits."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1525,5 +1505,26 @@
     "java25_unavailable": true,
     "owner_full_build_unrun": true,
     "artifact_released": false
+  },
+  "latest_v8_postwrite_recovery": {
+    "version": "0.0.1-alpha.29-dev.52-v8recover.1",
+    "source_commit": "96aad1eb44740b53e2ecac1841b30f00448d833b",
+    "source_blob": "1399606ac7067a19dbf7e4529821135c161de7fa",
+    "previous_blob": "58c4b7d0f04435620858c1eef919d50ec171f15f",
+    "evidence": "docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/README.md",
+    "java21_assertions": 14128600,
+    "new_focused_assertions": 152803,
+    "preexisting_voxel_restores": 65536,
+    "simulated_native_setter_failures": 3,
+    "simulated_heightmap_failures": 1,
+    "negative_dev51_rejected": true,
+    "java25_unavailable": true,
+    "native_minecraft_unrun": true,
+    "full_gradle_unrun": true,
+    "water_gpu_unrun": true,
+    "qualified_jar": false,
+    "release_published": false,
+    "archive_name": "DeepPrimal_Dev52_V8_PostwriteRecovery_SourceEvidence.zip",
+    "archive_sha256": "7552eeb18f4e6a2c890d566fd479305000aa9943696a1d85e10f010617199ec2"
   }
 }
