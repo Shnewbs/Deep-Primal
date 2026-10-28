@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "role": "independent_engine_auditor",
+  "run_id": "2026-10-28T0233-2805140",
+  "pinned_main_source_sha": "28051408b079d3f378083554a6fb789ee43e5124",
+  "version": "0.0.1-alpha.29-dev.43-v8partition.1",
+  "owner_build_override": true,
+  "production_source_changes": 0,
+  "builder_interrupted": false,
+  "builder_lease_modified": false,
+  "host": "Linux x86_64 AMD EPYC 9V74",
+  "java": "OpenJDK 21.0.12.1",
+  "jdk25_available": false,
+  "source_hashes": {
+    "bounds": "a8f811a2676ae74d93b52506ed747e88f0d354a4",
+    "plan": "8b7f764f52735ea9c7aa9496037b7a2e61de741b",
+    "plan_checks": "ec3cc5b2a042bbcbfa614cf9ca03b68e0c8ee4f5",
+    "renderer_probe": "3320dbc1833aa64796caf8e8bf3e89a89bc0b969",
+    "rolling_timing": "0be7512957537596295ba204f8f1dfc176aa686f",
+    "renderer_checks": "26b8aeb2413b1cffe0164a8f35e4d4b41adbe791"
+  },
+  "focused_tests": {
+    "compiler": "javac21 --release 21 -Xlint:all -Werror",
+    "runtime": "java -ea -Xverify:all",
+    "registered_partition_assertions": 158901,
+    "independent_partition_assertions": 1663078,
+    "independent_shapes": 14,
+    "plans": 6720,
+    "compared_integer_voxels": 429557,
+    "certified_voxels": 288996,
+    "uncertain_voxels": 140561,
+    "observed_false_certificates": 0,
+    "max_queries": 256,
+    "renderer_probe_assertions": 40551,
+    "renderer_modeled_attempts": 77100,
+    "renderer_accepted": 72498,
+    "renderer_failed": 4602,
+    "graph_backend": "API-compatible sine-noise double; not actual product"
+  },
+  "archive": {
+    "filename": "DeepPrimal_Audit_20261028T0233_2805140_SourceEvidence.zip",
+    "size": 21850,
+    "sha256": "164bbcd1e1d3282b9573c003f48cfaeec765e63481c1a93b94247674fe2c13f9",
+    "entries": 19,
+    "crc_pass": true
+  },
+  "unrun": [
+    "Java25",
+    "full Gradle",
+    "real compiled product graph",
+    "native Minecraft/NeoForge",
+    "V8 heightmap/topology/save/reopen",
+    "real water ledger",
+    "outer/nested JAR identity",
+    "Windows AMD8060S",
+    "Vulkan/OpenGL hardware",
+    "native performance"
+  ],
+  "jar_built": false,
+  "jar_retention_changed": false,
+  "grade": {
+    "scores": [
+      5,
+      4,
+      6,
+      4,
+      3,
+      7,
+      6,
+      4,
+      7,
+      4
+    ],
+    "total": 50,
+    "average": 5,
+    "tier": 2,
+    "fresh_complete_regrade": false,
+    "strict_target_greater_than": 8.5
+  }
+}
