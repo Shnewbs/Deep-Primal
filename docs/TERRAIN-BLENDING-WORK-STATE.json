@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T1901-dev61-coast-guard",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T19:03:15.306Z",
-  "updated_at": "2026-10-28T19:03:15.306Z",
-  "active_until": "2026-10-28T19:25:15.306Z",
-  "lease_released": false,
-  "source_ref": "11e6f8b0e4254b741c75876b583e65706f46b1ac",
+  "updated_at": "2026-10-28T19:10:33.726Z",
+  "active_until": "2026-10-28T19:10:33.726Z",
+  "lease_released": true,
+  "source_ref": "0c0e97d7c8194962dd8d273135b05de64dfd5956",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.61-coastal-relief-guard.1",
   "scope": [
@@ -17,9 +17,9 @@
     "docs/validation/engine-continuation/v8-relief-coastal-guard-2026-10-28/README.md"
   ],
   "coordination": "Checked main and independent Dev60 audit pinned 7b854edd, existing scoped state released and water claim expired. Renderer latest jam-15 claim released at 11e6f8b. Owner full builds. Root-work-state script unavailable without complete checkout; root state left unchanged. No shared outputs or renderer/water files touched.",
-  "current_gate": "Independent Dev60 nearshore mismatch: 581/14,045 sampled |continentalness|<0.08 crossed legacy height>96 to new height<=96. New relief-2 coastline guard required before native activation.",
-  "tests": "12/12 focused production-source Java21 API-double suites passed, 14,439,328 combined checks, including 262,265 new V8 relief assertions. New mutated plateau-scale (33333) compiled but was rejected by test. First attempted plateau threshold had effectively zero plateau coverage and was corrected before final source commit. Java25 missing; Gradle, Minecraft, native saved-world, GPU not run.",
-  "evidence": "docs/validation/engine-continuation/v8-relief-v2-2026-10-28/README.md",
+  "current_gate": "Opt-in V8 relief V3 nearshore graph now preserves V1 density height exactly for |continentalness|<0.08; no V3 sea-plane flips in 91,956 isolated sampled coastal columns. Native authoritative ocean masks and routed water remain unverified, no native activation.",
+  "tests": "13/13 Java21 isolated API-double suites passed 17,022,648 assertions/checks; V3 2,583,320. Four seeds 148,996 sampled columns, V2 nearshore 3,611 sea-plane flips, V3 zero across 91,956 nearshore. Historical V1/V2 graph identity parity. Mutant fails. Project Java25, Gradle, native, GPU unrun.",
+  "evidence": "docs/validation/engine-continuation/v8-relief-coastal-guard-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -27,15 +27,15 @@
   "new_grade_awarded": false,
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1830-7b854ed/REVIEW.md",
   "audit_pinned_source": "7b854edd9c32c8d20d621495d4a935a5e6418946",
-  "audit_findings": "Coastal sea-plane sign changes in opt-in V8 relief recipe; graph climate/hydrology authority not integrated. Renderer reset cleanup issue belongs separate renderer owner. Full grade carried 50/100.",
-  "next_action": "Bind saved-authoritative V8 climate/domain producer and integrate versioned relief with native V8 registered lifecycle and real saved-world reopen/column parity; verify intentional cliffs, geological layers, canyon and river outlets across multi-seed transects. Continue finite-water loaded/unloaded single-owner accounting and seamless waterfall gates only with reconciled water ownership. Full build/renderer/GPU by owner.",
-  "source_commit": null,
-  "completed_version": null,
-  "implementation_details": "Added opt-in TerrainShapeV8.definitionReliefV2 graph with smooth coast/foothill/mountain/plateau joins BEFORE existing unchanged canyon cut, an explicit persisted graph revision marker, and V8GeneratorSnapshot.newReliefV2 new-snapshot authoring factory. Original V8 definition and stored graphs, V1-V7 worlds, edits, finite liquids, renderer, approved art preserved; no native generator activation.",
+  "audit_findings": "Dev60 auditor found 581/14,045 V2 nearshore old-land-to-new-sea density-height flips; implemented separate V3 guarded recipe without modifying saved V2 or legacy graphs. Renderer GPU-reset findings remain renderer-owned. Independent 50/100 grade carried.",
+  "next_action": "Bind saved-world authoritative ocean mask/climate and routed hydrology to new V8 density recipe; native V8 saved/reopen, old/new chunk borders, player edits and real water accounting. Continue water only after checking water claim; owner handles full Gradle/JAR/GPU.",
+  "source_commit": "0c0e97d7c8194962dd8d273135b05de64dfd5956",
+  "completed_version": "0.0.1-alpha.29-dev.61-coastal-relief-guard.1",
+  "implementation_details": "Added new TerrainShapeV8.definitionReliefV3 coastal V1-height guard with smooth transition to V2 and V8GeneratorSnapshot.newReliefV3 explicit saved graph factory; original V1 and V2 graphs byte-replay, canyon incision stays final, no native activation or physical water edit.",
   "source_blob_hashes": {
-    "relief": "17c856a1272336b611b40a3922f8e148adaa54f4",
-    "snapshot": "97a135a10eb30e16c5b8ff74e6133349e09e4195",
-    "test": "695cccc9edd577d53b8e78cedd24588400711398"
+    "TerrainShapeV8": "7c518f9dbef345fa74051356aad4fbd52fda4834",
+    "V8GeneratorSnapshot": "bd5c211fc05c36db1741b28c75df04c0a7bd9583",
+    "V8ReliefV3CoastalChecks": "66eb1f315f9ce9bbf7f756deafaa402cfa294464"
   },
-  "source_evidence_zip_sha256": "8d21097002b3ca3eac23a41bce5cd64d9b8ea6a68f9041ed10a9290bb76593a9"
+  "source_evidence_zip_sha256": "cb93a17fdfa6ac45bc23b4c3f38939e365b5256fd17f790f30845050b41915f9"
 }
