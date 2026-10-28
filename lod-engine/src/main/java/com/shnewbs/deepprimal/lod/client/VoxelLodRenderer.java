@@ -27,6 +27,10 @@ import org.joml.Vector4f;
 /** Explored-chunk LOD: immutable copies, worker reduction/storage, render-thread GPU ownership. */
 public final class VoxelLodRenderer {
   private static final int MAX_DISK_KEYS = 8192;
+  // Opt-in developer comparison; default zero preserves the existing GPU parts and draw count.
+  private static final int EXPERIMENTAL_PART_UPLOAD_KIB =
+      Math.max(0, Math.min(256,
+          Integer.getInteger("deepprimal.lod.experimentalPartUploadKiB", 0)));
   public static final boolean TELEMETRY = Boolean.getBoolean("deepprimal.lod.telemetry");
   public final RollingTiming cullTiming = new RollingTiming(240);
   public final RollingTiming uploadTiming = new RollingTiming(240);
@@ -369,7 +373,9 @@ public final class VoxelLodRenderer {
                         "LOD persistence disabled for this session; rendering continues", failure);
                   }
                 }
-                return new Ready(epoch, k, rev, LodMesher.build(page), true, persisted);
+                return new Ready(epoch, k, rev,
+                    LodMeshPartSplitter.split(LodMesher.build(page), EXPERIMENTAL_PART_UPLOAD_KIB),
+                    true, persisted);
               });
       capturedChunks++;
       captureBurst++;
@@ -428,7 +434,9 @@ public final class VoxelLodRenderer {
           worker.submit(
               () -> {
                 ColumnarChunk page = reader.read(x(k), z(k));
-                return new Ready(epoch, k, page.revision, LodMesher.build(page), false, true);
+                return new Ready(epoch, k, page.revision,
+                    LodMeshPartSplitter.split(LodMesher.build(page), EXPERIMENTAL_PART_UPLOAD_KIB),
+                    false, true);
               });
       diskReads++;
       status = "Loading persistent terrain";
