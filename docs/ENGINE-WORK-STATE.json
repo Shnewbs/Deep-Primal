@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T07:12:42.862Z",
-  "active_until": "2026-10-28T07:12:42.862Z",
-  "source_ref": "ddec91dc5e3151e0b797f186aac24e2e71c03a44",
+  "status": "active",
+  "updated_at": "2026-10-28T08:00:48.992Z",
+  "active_until": "2026-10-28T08:32:48.992Z",
+  "source_ref": "2931f6c7a839013c216f21386a62c72122042d83",
   "candidate_version": "0.0.1-alpha.29-dev.48-v8materials.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev48 V8 planned surface/soil parity committed. Owner to run full Java25 Gradle/NeoForge native V8 profile/lighting/heightmap/save and Vulkan/GL hardware gates; finite-water acceptance outstanding.",
+  "current_gate": "V8 saved-profile snapshot seed/height/codec ownership, explicit-only native path; preserve V1-V7 and other workstreams.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -490,7 +490,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0700-v8materials",
+  "worker": "builder-20261028T0800-v8-snapshot",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1033,24 +1033,20 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0700-v8materials",
-    "started_at": "2026-10-28T07:09:42.969Z",
-    "lease_until": "2026-10-28T07:12:42.862Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0800-v8-snapshot",
+    "started_at": "2026-10-28T08:00:48.992Z",
+    "lease_until": "2026-10-28T08:32:48.992Z",
+    "phase": "v8_snapshot_work",
     "scope": [
+      "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
-      "docs/validation/engine-continuation/v8-planned-ground-parity-2026-10-28/",
-      "gradle.properties",
+      "docs/validation/engine-continuation/v8-saved-profile-2026-10-28",
       "docs/ENGINE-WORK-STATE.json"
     ],
-    "coordination": "Latest independent 0633 audit read; renderer owns LOD retry. Current renderer released source checkpoint; historical water claim expired; personal-context looked up.",
-    "lease_released": true,
-    "source_commit": "ddec91dc5e3151e0b797f186aac24e2e71c03a44",
-    "affected_sources": [
-      "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java"
-    ],
-    "result": "Java25 exact source with API doubles: new 1,235,414 checks; base-height 874,642; native bridge 11,047,019; four mutation rejects; no full build/JAR/GPU run",
-    "next": "Owner native planned V8 surface, heightmap, lighting, save/reopen tests; builder next V8 saved profile parity and finite-water ownership."
+    "coordination": "Current separate renderer active in LOD epoch scope, excluded. Water claim expired. Current independent 07:31 audit consumed, score 5.0 carried, not regraded. Active task inventory checked; other-chat direct writer verification unavailable.",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0731-5a23f28/REVIEW.md",
+    "consumed_source": "5a23f285d4680f9537b8baf1639b75036e7392ef",
+    "lease_released": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1237,7 +1233,7 @@
     "findings": "LOD retry defect is renderer-owned; V8 profile/native and all water acceptance remain open.",
     "chosen_repair": "Opt-in planned V8 surface/soil fill exact parity and deferred heightmap prime."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
