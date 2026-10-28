@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T08:07:22.220Z",
-  "active_until": "2026-10-28T08:07:22.220Z",
+  "status": "active",
+  "updated_at": "2026-10-28T09:00:00.000Z",
+  "active_until": "2026-10-28T09:20:00.000Z",
   "source_ref": "ffe9bf42f27b0d3b295cc97403f784a05aff7c01",
   "candidate_version": "0.0.1-alpha.29-dev.49-v8snapshot.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev49 explicit V8 saved-profile codec/seed/vertical ownership committed; owner-run native Mojang codec, V8 saved generator, frozen V1-V7 world replay and water acceptance still open.",
+  "current_gate": "V8 saved snapshot strict unknown-key envelope audit repair; Java25 source checks, no native build, saved V1-V7 unchanged",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -490,7 +490,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0800-v8-snapshot",
+  "worker": "builder-20261028T0900-v8-codec-envelope",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1033,27 +1033,19 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0800-v8-snapshot",
-    "started_at": "2026-10-28T08:00:48.992Z",
-    "lease_until": "2026-10-28T08:07:22.220Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0900-v8-codec-envelope",
+    "started_at": "2026-10-28T09:00:00.000Z",
+    "lease_until": "2026-10-28T09:20:00.000Z",
+    "phase": "active_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
-      "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
-      "docs/validation/engine-continuation/v8-saved-profile-2026-10-28",
+      "gradle.properties",
+      "docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json"
     ],
-    "coordination": "Current separate renderer active in LOD epoch scope, excluded. Water claim expired. Current independent 07:31 audit consumed, score 5.0 carried, not regraded. Active task inventory checked; other-chat direct writer verification unavailable.",
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0731-5a23f28/REVIEW.md",
-    "consumed_source": "5a23f285d4680f9537b8baf1639b75036e7392ef",
-    "lease_released": true,
-    "source_commit": "ffe9bf42f27b0d3b295cc97403f784a05aff7c01",
-    "affected_sources": [
-      "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
-      "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java"
-    ],
-    "result": "Temurin25 focused code/stubs compiled --release25 -Xlint:all -Werror. Snapshot594901 assertions/116736 native-shaped voxels/384 independent seed pairs; retained V8 tests 1235414+874642+11047019, aggregate13751976. Five deliberate mutation variants rejected. No Gradle/Minecraft/GPU/JAR; real Mojang codec/native save pending.",
-    "next": "Owner native V8 profile/seed codec + chunk save/reopen, then staged V8 generator registration and finite-water single-owner loaded/unloaded conservation. Last external grade 5.0."
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md",
+    "consumed_source": "563b6ef23586f579ff2b972d7404b4f0a9054002",
+    "coordination": "Other-engine-chat past state inspected; current direct session unverified. Root lease previously expired, foreground water claim expired; renderer 20261028-nonempty-refresh active on disjoint LOD paths; no benchmark reservation."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1240,7 +1232,7 @@
     "findings": "Renderer-owned LOD stale recovery discard, successful-empty directory rescan; V8 native save/profile and water persistence still open.",
     "chosen_repair": "V8 immutable saved generator snapshot, exact decimal signed seed and pre-write dimensions guard; separate LOD scope preserved."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
