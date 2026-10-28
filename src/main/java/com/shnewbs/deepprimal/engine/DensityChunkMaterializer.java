@@ -1,5 +1,6 @@
 package com.shnewbs.deepprimal.engine;
 
+import com.shnewbs.deepprimal.core.biome.EcotoneSurfaceField;
 import com.shnewbs.deepprimal.core.density.DensityChunk;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
 import com.shnewbs.deepprimal.core.density.DensitySectionLayout;
@@ -167,6 +168,96 @@ public final class DensityChunkMaterializer {
     Objects.requireNonNull(chunk, "chunk");
     prepared.requireHeight(chunk.getMinY(), chunk.getHeight());
     return fillPlannedSurface(prepared.surface(), chunk, queriesPerSlab);
+  }
+
+  /**
+   * Explicit, opt-in V8 revision-3 native surface pass for NEW chunks only.
+   * Legacy V8 fillSavedSnapshot and V1-V7 generators remain bit-for-bit
+   * unchanged. A caller must supply a deterministic absolute-coordinate
+   * climate/hydrology producer bound to the same saved world; this method does
+   * not register a generator, rewrite existing chunks or create finite water.
+   *
+   * All climate/material preflight finishes before the first block write.
+   * The complete prewrite snapshot/rollback is the existing dev53 mechanism;
+   * this is not a transaction for lighting, neighboring chunks or disk I/O.
+   * Vegetation-density/patch samples remain read-only decisions for a later
+   * native feature pass; no unapproved plants/items are generated here.
+   */
+  public static V8EcotoneResult fillSavedEcotone(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource climate) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    Objects.requireNonNull(climate, "climate");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.SURFACE_VERSION)
+      throw new IllegalArgumentException("native V8 ecotone surface requires revision 3");
+    prepared.requireHeight(chunk.getMinY(), chunk.getHeight());
+    int minY = chunk.getMinY();
+    var origin = chunk.getPos();
+    var planned = DensityChunk.samplePlanned(prepared.surface().graph(),
+        origin.getMinBlockX(), minY, origin.getMinBlockZ(), chunk.getHeight(), queriesPerSlab);
+    var columns = V8EcotoneColumnPlan.build(prepared, planned.chunk(),
+        origin.getMinBlockX(), origin.getMinBlockZ(), climate);
+
+    // Resolve every material before the first mutation: registry failures and
+    // hydrology/climate callback failures must leave blocks/heightmaps intact.
+    BlockState bare = null, grass = null, podzol = null, snow = null, soil = null;
+    for (int z = 0; z < DensityChunk.WIDTH; z++)
+      for (int x = 0; x < DensityChunk.WIDTH; x++) {
+        var column = columns.column(x, z);
+        if (column == null) continue; // river, ocean, air, and bedrock stay raw
+        if (column.cover().snowPatch() && snow == null)
+          snow = Objects.requireNonNull(Blocks.SNOW_BLOCK.defaultBlockState(), "V8 snow");
+        else switch (column.cover().cover()) {
+          case BARE -> { if (bare == null) bare = Objects.requireNonNull(
+              GroundMaterials.DIRT.get().defaultBlockState(), "V8 bare surface"); }
+          case GRASS -> { if (grass == null) grass = Objects.requireNonNull(
+              GroundMaterials.GRASS.get().defaultBlockState(), "V8 grass surface"); }
+          case PODZOL -> { if (podzol == null) podzol = Objects.requireNonNull(
+              GroundMaterials.PODZOL.get().defaultBlockState(), "V8 podzol surface"); }
+        }
+        if (column.soilDepth() > 1 && soil == null)
+          soil = Objects.requireNonNull(GroundMaterials.DIRT.get().defaultBlockState(), "V8 soil");
+      }
+
+    var undo = new V8WriteUndo(chunk);
+    try {
+      writePlannedRaw(planned, chunk, false, undo);
+      var pos = new BlockPos.MutableBlockPos();
+      for (int z = 0; z < DensityChunk.WIDTH; z++)
+        for (int x = 0; x < DensityChunk.WIDTH; x++) {
+          var column = columns.column(x, z);
+          if (column == null) continue;
+          var cover = column.cover();
+          BlockState topState = cover.snowPatch() ? snow : switch (cover.cover()) {
+            case BARE -> bare;
+            case GRASS -> grass;
+            case PODZOL -> podzol;
+          };
+          int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
+          for (int depth = 0; depth < column.soilDepth()
+              && column.topY() - depth >= minY + 2; depth++) {
+            int y = column.topY() - depth;
+            if (!planned.chunk().solid(x, y, z)) break;
+            undo.write(pos.set(worldX, y, worldZ), depth == 0 ? topState : soil);
+          }
+        }
+      Heightmap.primeHeightmaps(chunk,
+          EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
+      return new V8EcotoneResult(planned, columns);
+    } catch (RuntimeException | Error failure) {
+      undo.rollback(failure);
+      throw failure;
+    }
+  }
+
+  /** The vegetation sample remains immutable and read-only until feature gates pass. */
+  public record V8EcotoneResult(DensityChunk.Planned terrain,
+                                V8EcotoneColumnPlan columns) {
+    public V8EcotoneResult {
+      Objects.requireNonNull(terrain, "terrain");
+      Objects.requireNonNull(columns, "columns");
+    }
   }
 
   private static DensityChunk.Planned fillPlannedRaw(
