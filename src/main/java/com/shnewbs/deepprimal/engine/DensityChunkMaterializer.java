@@ -120,11 +120,11 @@ public final class DensityChunkMaterializer {
     BlockState soil = needsSoil ? Objects.requireNonNull(
         GroundMaterials.DIRT.get().defaultBlockState(), "V8 subsurface material") : null;
 
-    // An explicit V8 preview can target an already populated ProtoChunk.
-    // Save its original states as each unique cell is first touched. Native
-    // setters and heightmap priming can fail *after* preflight succeeds; in
-    // that event restore all touched cells in reverse order, then re-prime
-    // maps from the restored blocks. No mutation reaches V1-V7 paths.
+    // Snapshot the entire destination BEFORE any native setter. A setter
+    // callback can change a future V8 cell before the raw pass reaches it;
+    // lazy first-touch snapshots would preserve that callback's mutation as
+    // the "original" value on rollback. Only the explicit V8 path pays for
+    // the bounded prewrite snapshot; V1-V7 paths are unchanged.
     var undo = new V8WriteUndo(chunk);
     try {
       // Avoid transient raw-stone heightmap updates before the final paint.
@@ -217,66 +217,72 @@ public final class DensityChunkMaterializer {
   }
 
   /**
-   * Bounded synchronous V8 block-write recovery. A cell is snapshotted only
-   * once even when the soil pass repaints it. Raw writes cover at most
-   * 256 * DensityChunk.MAX_HEIGHT cells; the journal is fixed-size, and no
-   * neighbor, cache, filesystem or mutable shared output is accessed.
+   * Bounded prewrite V8 recovery. Capture the entire destination *before*
+   * the first setter, including cells a synchronous native callback might
+   * edit ahead of the planned write cursor. Rollback scans the full snapshot
+   * so callback-only cells are restored as well as directly written cells.
    *
-   * <p>This is not a general Minecraft transaction. It repairs block-state
-   * and derived heightmap values for recoverable setter exceptions, but it
-   * cannot undo arbitrary world callbacks, lighting notifications or I/O.
-   * Native callers must treat unrecoverable failures as discarded chunks.
+   * <p>Memory is one array of at most 256 * DensityChunk.MAX_HEIGHT block
+   * references. The extra prewrite reads and failure-path full scan require
+   * real native performance acceptance before this opt-in path is enabled.
+   * Cross-chunk callbacks, asynchronous events, lighting, block entities and
+   * I/O are not transactional. A failed native caller must still abandon its
+   * chunk; a suppressed rollback exception is an additional failure signal.
    */
   private static final class V8WriteUndo {
     private final ChunkAccess chunk;
-    private final int minY, originX, originZ;
+    private final int minY, height, originX, originZ;
     private final BlockState[] before;
-    private final boolean[] seen;
-    private final int[] touched;
-    private int count;
+    private boolean started;
 
     V8WriteUndo(ChunkAccess chunk) {
       this.chunk = chunk;
       this.minY = chunk.getMinY();
       this.originX = chunk.getPos().getMinBlockX();
       this.originZ = chunk.getPos().getMinBlockZ();
-      int height = chunk.getHeight();
+      this.height = chunk.getHeight();
       if (height < 1 || height > DensityChunk.MAX_HEIGHT)
         throw new IllegalArgumentException("V8 undo height outside 1..2048");
-      int length = DensityChunk.WIDTH * DensityChunk.WIDTH * height;
-      this.before = new BlockState[length];
-      this.seen = new boolean[length];
-      this.touched = new int[length];
+      this.before = new BlockState[DensityChunk.WIDTH * DensityChunk.WIDTH * height];
+      var pos = new BlockPos.MutableBlockPos();
+      // A snapshot read failure happens before any write, so neither blocks
+      // nor heightmaps require recovery. No neighbor chunk is consulted.
+      for (int dy = 0; dy < height; dy++)
+        for (int z = 0; z < DensityChunk.WIDTH; z++)
+          for (int x = 0; x < DensityChunk.WIDTH; x++) {
+            int index = (dy * DensityChunk.WIDTH + z) * DensityChunk.WIDTH + x;
+            before[index] = Objects.requireNonNull(chunk.getBlockState(
+                pos.set(originX + x, minY + dy, originZ + z)),
+                "original V8 destination block state");
+          }
     }
 
     void write(BlockPos pos, BlockState state) {
       int x = pos.getX() - originX, y = pos.getY() - minY, z = pos.getZ() - originZ;
       if (x < 0 || x >= DensityChunk.WIDTH || z < 0 || z >= DensityChunk.WIDTH
-          || y < 0 || y >= chunk.getHeight())
+          || y < 0 || y >= height)
         throw new IllegalArgumentException("V8 write outside destination chunk");
-      int index = (y * DensityChunk.WIDTH + z) * DensityChunk.WIDTH + x;
-      if (!seen[index]) {
-        // Snapshot before calling a setter which may mutate and then throw.
-        before[index] = Objects.requireNonNull(chunk.getBlockState(pos),
-            "original V8 destination block state");
-        seen[index] = true;
-        touched[count++] = index;
-      }
+      started = true; // The native setter may mutate, then throw.
       chunk.setBlockState(pos, state);
     }
 
     void rollback(Throwable failure) {
-      if (count == 0) return; // A failed first read did not touch blocks or maps.
+      if (!started) return;
       var pos = new BlockPos.MutableBlockPos();
-      for (int i = count - 1; i >= 0; i--) {
-        int index = touched[i];
+      int restoreFailures = 0;
+      for (int index = before.length - 1; index >= 0; index--) {
         int x = index % DensityChunk.WIDTH;
         int z = (index / DensityChunk.WIDTH) % DensityChunk.WIDTH;
         int y = index / (DensityChunk.WIDTH * DensityChunk.WIDTH) + minY;
         try {
-          chunk.setBlockState(pos.set(originX + x, y, originZ + z), before[index]);
+          pos.set(originX + x, y, originZ + z);
+          // Avoid re-triggering native callbacks on cells still unchanged.
+          if (!Objects.equals(chunk.getBlockState(pos), before[index]))
+            chunk.setBlockState(pos, before[index]);
         } catch (RuntimeException | Error recoveryFailure) {
-          if (recoveryFailure != failure) failure.addSuppressed(recoveryFailure);
+          restoreFailures++;
+          if (restoreFailures <= 8 && recoveryFailure != failure)
+            failure.addSuppressed(recoveryFailure);
         }
       }
       try {
@@ -285,6 +291,27 @@ public final class DensityChunkMaterializer {
       } catch (RuntimeException | Error mapFailure) {
         if (mapFailure != failure) failure.addSuppressed(mapFailure);
       }
+      // Synchronous callbacks during recovery can themselves change another
+      // cell. Verify all cells, and report incomplete recovery to the caller
+      // instead of silently announcing rollback success.
+      int mismatched = 0;
+      for (int index = 0; index < before.length; index++) {
+        int x = index % DensityChunk.WIDTH;
+        int z = (index / DensityChunk.WIDTH) % DensityChunk.WIDTH;
+        int y = index / (DensityChunk.WIDTH * DensityChunk.WIDTH) + minY;
+        try {
+          if (!Objects.equals(chunk.getBlockState(
+              pos.set(originX + x, y, originZ + z)), before[index])) mismatched++;
+        } catch (RuntimeException | Error readFailure) {
+          mismatched++;
+          if (mismatched <= 8 && readFailure != failure)
+            failure.addSuppressed(readFailure);
+        }
+      }
+      if (mismatched != 0 || restoreFailures != 0)
+        failure.addSuppressed(new IllegalStateException(
+            "V8 rollback incomplete: " + mismatched + " changed/unreadable cells, "
+                + restoreFailures + " restoration failures; discard native chunk"));
     }
   }
 
