@@ -20,6 +20,7 @@ final class LodDiskIndexService {
   private static final int FIRST_RETRY_TICKS = 20;
   private static final int MAX_RETRY_TICKS = 320;
   private static final int EMPTY_RESCAN_TICKS = 200;
+  private static final int NONEMPTY_RESCAN_TICKS = 400;
 
   private LodDiskNearestScan.Cursor cursor;
   // Keep the old worker owned through its directory-stream close. A reset may
@@ -125,13 +126,17 @@ final class LodDiskIndexService {
     apply = new PendingApply(completed.discardKeys(), completed.keys(), renewed, scanGeneration);
     retireCursor();
     if (missingDirectory) scheduleRetry();
-    else if (completed.keys().isEmpty()) {
-      // A stable but empty save directory may receive its first persisted page
-      // without camera movement. Poll at a fixed low cadence, off the client thread.
+    else {
+      // A successfully scanned directory can gain new persisted pages while the
+      // camera stays still, whether it was empty or already contained pages.
+      // Reopen a bounded background cursor at a low cadence; no filesystem
+      // access, filename ranking, or blocking waits happen on the client thread.
+      // Backoff for failures remains separate from successful rediscovery.
       clearRetry();
       retryScheduled = true;
-      retryCountdown = EMPTY_RESCAN_TICKS;
-    } else clearRetry();
+      retryCountdown = completed.keys().isEmpty()
+          ? EMPTY_RESCAN_TICKS : NONEMPTY_RESCAN_TICKS;
+    }
     if (apply.advance(queue, forgotten)) {
       apply = null;
       renewed.clear();
