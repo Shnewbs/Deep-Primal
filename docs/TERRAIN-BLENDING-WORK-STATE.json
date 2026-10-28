@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T2305-dev65-authoring-guard",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T23:05:00Z",
-  "updated_at": "2026-10-28T23:05:00Z",
-  "active_until": "2026-10-28T23:30:00Z",
-  "lease_released": false,
-  "source_ref": "7a17c4d1b19cd5465ab9015ef9e3ceaffcd56810",
+  "updated_at": "2026-10-28T23:11:30Z",
+  "active_until": "2026-10-28T23:11:30Z",
+  "lease_released": true,
+  "source_ref": "9088b4cd6bb15b8c1db1da6431185df8d1fa3b07",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.65-authoring-guard.1",
   "scope": [
@@ -17,10 +17,10 @@
     "docs/validation/engine-continuation/v8-blend-authoring-guard-2026-10-28/README.md",
     "gradle.properties"
   ],
-  "coordination": "Scoped terrain writer lease, renderer hard-limit 23:00 claims LOD indexed batches only; water state expired; independent 22:30 Dev64 audit read. Java21 isolated source checks intended. No root-state publication; owner full builds.",
-  "current_gate": "Opt-in V8-r4 saved reference-climate identity and strict prewrite pass Java21 isolated API doubles; authoritative V8 ocean/routed hydrology, real saved-world codec/native registration, old/new chunk borders and GPU/water acceptance remain unrun.",
-  "tests": "15 Java21 strict source/API-double suites passed, 20,945,922 local fixture checks; new V8ClimateBindingChecks 16,138, r4 roundtrips 1,536, r3/r4 prewrite parity 4,096 columns, 103 rejection cases. Standalone binding runner 12,297 and compiled mutant rejects. Java25/Gradle/NeoForge/real Mojang save/GPU/JAR not run.",
-  "evidence": "docs/validation/engine-continuation/v8-climate-binding-2026-10-28/README.md",
+  "coordination": "Checked main at start and before publishing; compared commit range for colliding paths; preserve renderer 23:00 indexed hard-limit claim (different files) and concurrent commits; water lease expired but water files intentionally untouched. Root ENGINE-WORK-STATE.json remains stale Dev53 and was not edited or validated on a complete pinned checkout. Source-only evidence and guarded main ref publication; owner operates full builds.",
+  "current_gate": "Dev65 rejects V8-r3/r4 blend-policy authoring downgrades, preserves frozen saved policies. Java21 real production class against API doubles passed. V8 authoritative ocean/routing mask, native profile codecs/chunk borders, owner Java25/Gradle/GPU, water accounting/restart/soak and full grade gates open.",
+  "tests": "Java21 strict javac --release 21 -Xlint:all -Werror: 16 isolated suites PASS including new V8BlendAuthoringGuardChecks (15,873 checks, 3,072 rejection, 2,048 codec-double roundtrips). 2 compiled full-class broken mutants reject. Source-extracted Java21 check normal and Python -OO: 12,288 assertions each; two compiled mutants reject. Java25/Gradle/NeoForge/Mojang native save/GPU/hardware NOT RUN.",
+  "evidence": "docs/validation/engine-continuation/v8-blend-authoring-guard-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -28,19 +28,21 @@
   "new_grade_awarded": false,
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2230-a0d68a1d/REVIEW.md",
   "audit_pinned_source": "a0d68a1d916e3cc6f71de827de2cf3e7b34d0da0",
-  "audit_findings": "Address finding 2: V8 withBlendPolicy silently downgrades r3/r4 and loses frozen policies; preserve r1/r2 authoring; renderer owner addressing finding 3. No native acceptance claimed.",
-  "next_action": "Owner-side Java25/Mojang codec r4 NBT/JSON saved reopen + native V8 authoritative ocean mask and old/new generation borders; evaluate real V8 climate producer and limited soil/vegetation placement. Resume finite-water unload/restart conservation and waterfall GPU acceptance in non-overlapping scope.",
-  "source_commit": "a7ab7dde6e0aedf87cd524de02e4388415d6b6f4",
-  "completed_version": "0.0.1-alpha.29-dev.64-climate-binding.1",
-  "implementation_details": "New V8ClimateBinding persists bit-exact V7 saved TerrainOptions, explicit revision 7/channel 0..5; new V8 snapshot r4 nine-field envelope; fromSavedV8 reopens exact seed-bound climate reference; prewrite and materialization accept opt-in r4 while r1-r3 saved encodings remain unchanged. No physical liquid writes or renderer edits.",
+  "audit_findings": "Finding #2 (withBlendPolicy downgrade hazard) reproduced in baseline and repaired dev65; finding #1 authoritative V8 water mask unresolved; finding #3 raw batch list belongs to active renderer owner; finding #4 stale root not modified without complete pinned validation.",
+  "next_action": "Owner Java25/real Mojang DFU JSON/NBT save/reopen and native V8 mask/border validation; implement authoritative V8 drainage/ocean compatibility and native material/vegetation pipeline without touching V1-V7; continue finite-water unload/restart and loaded/unloaded constituent accounting in nonoverlapping water scope.",
+  "source_commit": "9088b4cd6bb15b8c1db1da6431185df8d1fa3b07",
+  "completed_version": "0.0.1-alpha.29-dev.65-authoring-guard.1",
+  "implementation_details": "Fixed V8GeneratorSnapshot.withBlendPolicy version gate: legacy r1 and explicit r2 may select r2 policy; persisted r3 surface and r4 climate-bound snapshots throw before constructing a downgraded r2. No native generation registration, water/editor or renderer mutation.",
   "source_blob_hashes": {
-    "V8GeneratorSnapshot": "5ac5b0b57136c375d802ae38739dca6c6b03ebd9",
+    "V8GeneratorSnapshot": "2b109584946f4e369e15ad550488b5bf4bff2dcf",
     "V8ClimateBinding": "1d6b4924672c03f06cd1a546189c9f9b07a7ae74",
     "V8SavedClimateSource": "1450777a54144604ee2d07c0283c31ecff6a13b0",
     "V8EcotoneColumnPlan": "26eb8611b6e1ac74eeabb62f4d369fe1f872c2f1",
-    "DensityChunkMaterializer": "f619fad678e27436df404e3d393c02bbbe0c0bed"
+    "DensityChunkMaterializer": "f619fad678e27436df404e3d393c02bbbe0c0bed",
+    "V8BlendAuthoringGuardChecks": "6c27367a1e1ff10b195929d3b02e772e0fc8b395",
+    "TestRunner": "3ef5167aefe5570607af0a90696f11e2f75e65ac"
   },
-  "source_evidence_zip_sha256": "32f857a6df44715aef2dab5536261d783f3a4d11e883b8603ed8420c9537e8ee",
+  "source_evidence_zip_sha256": "dbec116efb9cfb478b079fd9d402f4bc27aa4d3ded15c50a7ce12758450701df",
   "previous_checkpoint": {
     "worker": "hourly-engine-builder-20261028T2157-dev64-climate-binding",
     "source_ref": "a7ab7dde6e0aedf87cd524de02e4388415d6b6f4",
@@ -48,5 +50,5 @@
     "evidence": "docs/validation/engine-continuation/v8-climate-binding-2026-10-28/README.md",
     "updated_at": "2026-10-28T22:08:37.041Z"
   },
-  "test_receipt": "docs/validation/engine-continuation/v8-climate-binding-2026-10-28/results.json"
+  "test_receipt": "docs/validation/engine-continuation/v8-blend-authoring-guard-2026-10-28/results.json"
 }
