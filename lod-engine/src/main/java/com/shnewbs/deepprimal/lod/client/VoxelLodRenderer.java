@@ -801,20 +801,26 @@ public final class VoxelLodRenderer {
       RenderSystem.bindDefaultUniforms(pass);
       GpuLighting.bind(pass);
       if (ClientPerformanceConfig.BATCHED_DRAWS.get()) {
-        indexedDrawBatches.submit(
-            parts.size(),
-            i -> {
-              var part = parts.get(i);
-              part.transformSlice = slices[i];
+        int index = 0;
+        while (index < parts.size()) {
+          int take = Math.min(4096, parts.size() - index);
+          var batch = indexedDrawBatches.begin(take);
+          try {
+            for (int i = 0; i < take; i++) {
+              var part = parts.get(index);
+              part.transformSlice = slices[index];
+              batch.add(part.indexedDraw);
               drawnTriangles += part.triangles();
-              return part.indexedDraw;
-            },
-            batch -> {
-              pass.drawMultipleIndexed(
-                  batch, null, VertexFormat.IndexType.SHORT,
-                  java.util.Set.of("DynamicTransforms"), null);
-              submittedApiBatches++;
-            });
+              index++;
+            }
+            pass.drawMultipleIndexed(
+                batch, null, VertexFormat.IndexType.SHORT,
+                java.util.Set.of("DynamicTransforms"), null);
+            submittedApiBatches++;
+          } finally {
+            indexedDrawBatches.end();
+          }
+        }
       } else
         for (int i = 0; i < parts.size(); i++) {
           pass.setUniform("DynamicTransforms", slices[i]);
