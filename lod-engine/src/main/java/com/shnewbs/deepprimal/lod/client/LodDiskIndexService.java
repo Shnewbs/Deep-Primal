@@ -15,8 +15,16 @@ import java.util.function.LongConsumer;
  * began wins admission. Dropped keys remain on disk for future retargets.
  */
 final class LodDiskIndexService {
+  private static final int FIRST_RETRY_TICKS = 20;
+  private static final int MAX_RETRY_TICKS = 320;
+
   private LodDiskNearestScan.Cursor cursor;
+  // Keep the old worker owned through its directory-stream close. A reset may
+  // occur while an interrupted filesystem call is still unwinding.
+  private LodDiskNearestScan.Cursor retiring;
   private PendingApply apply;
+  private boolean retryScheduled;
+  private int retryCountdown, retryDelayTicks;
   private boolean started;
   private int centerX, centerZ;
 
@@ -27,9 +35,25 @@ final class LodDiskIndexService {
       reset();
       return false;
     }
-    boolean retarget = !started
-        || Math.max(Math.abs((long) cameraX - centerX),
+    // Do not spawn a replacement after a world reset while the previous
+    // directory worker is still closing; none of this work blocks the client.
+    if (retiring != null) {
+      if (!retiring.stopped()) return false;
+      retiring = null;
+    }
+    boolean moved = started
+        && Math.max(Math.abs((long) cameraX - centerX),
                     Math.abs((long) cameraZ - centerZ)) >= LodDiskNearestScan.RETARGET_CHUNKS;
+    if (moved) {
+      // An actual camera retarget can bypass a stale folder's retry delay.
+      retryScheduled = false;
+      retryCountdown = retryDelayTicks = 0;
+    } else if (retryScheduled && retryCountdown > 0) {
+      retryCountdown--;
+    }
+    // Allow an in-progress bounded queue application to finish before retry.
+    boolean retryDue = retryScheduled && retryCountdown == 0 && apply == null;
+    boolean retarget = !started || moved || retryDue;
     if (retarget) {
       if (cursor != null) cursor.cancel();
       // A new camera invalidates an incomplete previous priority reordering.
@@ -43,6 +67,7 @@ final class LodDiskIndexService {
     if (retarget && cursor == null) {
       cursor = LodDiskNearestScan.start(folder, cameraX, cameraZ,
           LodDiskNearestScan.MAX_KEYS, new ArrayList<>(queue));
+      retryScheduled = false;
       centerX = cameraX;
       centerZ = cameraZ;
       started = true;
@@ -56,14 +81,18 @@ final class LodDiskIndexService {
     LodDiskNearestScan.Completion completed = cursor.completed();
     if (completed == null) return false;
     if (completed.failure() != null) {
-      cursor = null;
+      retireCursor();
+      scheduleRetry();
       return true;
     }
+    boolean missingDirectory = cursor.missingDirectory();
     // The scanner returns immutable, ranked candidates and a discard list.
     // Apply both in small turns; neither List.sort nor an 8192-entry hash rebuild
     // is allowed on the client/render thread.
     apply = new PendingApply(completed.discardKeys(), completed.keys());
-    cursor = null;
+    retireCursor();
+    if (missingDirectory) scheduleRetry();
+    else clearRetry();
     if (apply.advance(queue, forgotten)) apply = null;
     return false;
   }
@@ -94,11 +123,33 @@ final class LodDiskIndexService {
     }
   }
 
-  void reset() {
-    if (cursor != null) cursor.cancel();
+  private void retireCursor() {
+    if (cursor != null && !cursor.stopped()) retiring = cursor;
     cursor = null;
+  }
+
+  private void scheduleRetry() {
+    // Tick-count backoff avoids directory churn and warning spam on read-only
+    // or not-yet-created save locations. A successful scan clears the delay.
+    retryDelayTicks = retryDelayTicks == 0 ? FIRST_RETRY_TICKS
+        : Math.min(MAX_RETRY_TICKS, retryDelayTicks * 2);
+    retryCountdown = retryDelayTicks;
+    retryScheduled = true;
+  }
+
+  private void clearRetry() {
+    retryScheduled = false;
+    retryCountdown = retryDelayTicks = 0;
+  }
+
+  void reset() {
+    if (cursor != null) {
+      cursor.cancel();
+      retireCursor();
+    }
     apply = null;
     started = false;
+    clearRetry();
   }
 
   // Focused check accessors; never poll them from a different client thread.

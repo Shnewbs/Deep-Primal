@@ -102,6 +102,7 @@ final class LodDiskNearestScan {
     private final AtomicBoolean granted = new AtomicBoolean();
     private final Thread thread;
     private volatile boolean cancelled;
+    private volatile boolean missingDirectory;
     private volatile Completion completed;
     private volatile long examined, turns;
 
@@ -124,6 +125,7 @@ final class LodDiskNearestScan {
 
     Completion completed() { return completed; }
     boolean cancelled() { return cancelled; }
+    boolean missingDirectory() { return missingDirectory; }
     boolean stopped() { return !thread.isAlive(); }
     long examined() { return examined; }
     long turns() { return turns; }
@@ -147,6 +149,9 @@ final class LodDiskNearestScan {
         // Existing recovery pages share the same per-turn metadata-work budget.
         Iterator<Long> recoveries = recovery.iterator();
         if (!Files.isDirectory(folder)) {
+          // A world may create its LOD directory after the first client tick.
+          // Preserve existing recovery keys, but mark this as retryable.
+          missingDirectory = true;
           consumeRecoveryOnly(recoveries);
           return;
         }
