@@ -1,0 +1,17 @@
+{
+  "owner": "renderer-filename-parser-20261028T0953Z",
+  "scope": "renderer-only",
+  "status": "active",
+  "started_at": "2026-10-28T09:53:00Z",
+  "active_until": "2026-10-28T10:25:00Z",
+  "parent_at_claim": "f6a46f1730b697a8e91a8e0cc51cf87f6aaf536c",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261028-filename-parser/**"
+  ],
+  "exclusive_measurement": false,
+  "excluded": [
+    "engine core, water engine, shaders, DLSS/FSR providers, build outputs, all other scheduler files"
+  ],
+  "intent": "Eliminate per-filename temporary parser allocations while preserving exact signed-coordinate canonical validation and nearest-order semantics; run standalone Java regressions and per-thread CPU allocation evidence. Owner handles Gradle/Minecraft/GPU/JAR."
+}
