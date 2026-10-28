@@ -395,12 +395,14 @@ public final class VoxelLodRenderer {
                 && (deferred.bytes > LodConfig.MEMORY.get() * 1048576L - residentBytes
                     || cache.size() >= 4096))) {
           disk.addLast(k);
+          diskIndex.recoveryQueued(k);
           continue;
         }
         deferredDisk.remove(k);
       }
       if (!inRange(k)) {
         disk.addLast(k);
+        diskIndex.recoveryQueued(k);
         continue;
       }
       LodStore reader = store;
@@ -587,6 +589,7 @@ public final class VoxelLodRenderer {
           && !dirty.containsKey(k) && latest.getOrDefault(k, old.revision) == old.revision
           && disk.size() < MAX_DISK_KEYS) {
         disk.add(k);
+        diskIndex.recoveryQueued(k);
         // Avoid a fixed-view eviction/read/upload loop. Reconsider after movement or rebudgeting.
         var player = Minecraft.getInstance().player;
         long view = player != null ? key(player.chunkPosition().x(), player.chunkPosition().z())
@@ -725,6 +728,7 @@ public final class VoxelLodRenderer {
     Entry displayed = cache.get(r.key);
     if (displayed != null && displayed.revision >= r.revision) return;
     disk.add(r.key);
+    diskIndex.recoveryQueued(r.key);
     latest.putIfAbsent(r.key, r.revision);
     var player = Minecraft.getInstance().player;
     long view = player == null ? 0 : key(player.chunkPosition().x(), player.chunkPosition().z());
