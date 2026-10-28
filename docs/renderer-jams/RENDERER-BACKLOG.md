@@ -26,3 +26,7 @@ Do not promote source-only fixes to verified native coverage; do not alter other
 ## 2026-10-28 15:05 UTC — bounded LOD victim arrays reused across pressure events
 
 [Renderer-only jam](20261028-eviction-reuse/REVIEW.md): active-world selector lazily reserves four primitive arrays once (4,096-page cap), rebuilds stable farthest-first eviction in place, clears on world reset. Java21 exact-helper tests 761,183 passing, missing-reset mutant rejected; 640 paired samples ×2 show p50 selection 65.42/53.78 and 66.27/55.88 µs and median thread allocation 86,112→0 B. No native FPS/GPU/VRAM claim. Self-audit 5.42 (+0.09); next hardware travel/edit/world reopen and transparent-water measurement; owner full builds. Scoped claim released. 
+
+## 2026-10-28 16:04 UTC — same-ring full-rank LOD disk rejects
+
+[Renderer-only source jam](20261028-same-ring-rank/REVIEW.md): completed-heap same-Chebyshev-ring candidates that cannot beat the worst retained page are rejected before `RankedKey` and boxed-key allocation, with exact unsigned-128 squared distance and signed coordinate ties preserved. Java21 strict compile and 9 focused tests pass **144,361 assertions**; negative inverted comparator rejected. Two 220-sample paired Linux CPU runs (3740 candidates, cap256) show ~44.9% less test-thread allocation and ~17–23% lower p50 CPU selection, not native frame or universal directory evidence. Self-audit **5.45/10 (+0.03)**; external engine grade unchanged. Owner native GPU/VRAM/camera/edit/reopen/water pixel acceptance and Java25/Gradle/JAR remain open. Claim released.
