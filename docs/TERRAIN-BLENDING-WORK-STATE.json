@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T2002-dev62-coastal-proof",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T20:05:03.665Z",
-  "updated_at": "2026-10-28T20:13:52.985Z",
-  "active_until": "2026-10-28T20:31:52.985Z",
-  "lease_released": false,
-  "source_ref": "e4c400ff17db98b30b8dadc41a6fc618e9f1c4db",
+  "updated_at": "2026-10-28T20:16:43.347Z",
+  "active_until": "2026-10-28T20:16:43.347Z",
+  "lease_released": true,
+  "source_ref": "8bf0216d02253958a488fc44378d091c21dae74d",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
   "scope": [
@@ -20,9 +20,9 @@
     "tools/tests/V8ReliefV4CoastalChecks.java"
   ],
   "coordination": "GitHub pinned main, independent Dev61 audit, scoped terrain/water claims and separate renderer commits checked. Terrain was released; foreground water expired; renderer jam claim released at e4c400f. Root validator Python not runnable without complete work-state checkout; root unchanged. Owner does full builds.",
-  "current_gate": "V4 opt-in sea-side relief transform also changes DensityGraph operator semantics and conservative DensityVolumeBounds; scope expanded before source publication. Frozen V1-V3 graph digests tested locally; no native acceptance.",
-  "tests": "13/13 Java21 isolated API-double suites passed 17,022,648 assertions/checks; V3 2,583,320. Four seeds 148,996 sampled columns, V2 nearshore 3,611 sea-plane flips, V3 zero across 91,956 nearshore. Historical V1/V2 graph identity parity. Mutant fails. Project Java25, Gradle, native, GPU unrun.",
-  "evidence": "docs/validation/engine-continuation/v8-relief-coastal-guard-2026-10-28/README.md",
+  "current_gate": "New explicit opt-in V8 relief V4 preserves historical V1 sea-side classification in the sampled source-height corpus, including both independently audited V3 shoulder failures. Native authoritative ocean masks, hydrology, save/reopen, water ledger and renderer acceptance remain unverified.",
+  "tests": "14/14 Java21 isolated source/API-double suites passed, 20,929,784 assertions/checks (new V4 3,907,136). Four seeds and 148,998 sampled columns, V3 12 historical sea-side flips, V4 zero; frozen V1/V2/V3 graph digests and mutant rejection passed. Java25/full Gradle/Minecraft/GPU unrun; owner builds.",
+  "evidence": "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -31,14 +31,16 @@
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1930-2a341f9/REVIEW.md",
   "audit_pinned_source": "2a341f90b6aaff2a253a50f8f792b24a47cc80fc",
   "audit_findings": "Dev61 independent auditor found two nearshore shoulder sea-plane height classification mismatches at continentalness ~.12; select a new opt-in V8 saved density recipe with provable inland dry-safe shoulder, preserving all earlier graphs.",
-  "next_action": "Bind saved-world authoritative ocean mask/climate and routed hydrology to new V8 density recipe; native V8 saved/reopen, old/new chunk borders, player edits and real water accounting. Continue water only after checking water claim; owner handles full Gradle/JAR/GPU.",
-  "source_commit": "0c0e97d7c8194962dd8d273135b05de64dfd5956",
-  "completed_version": "0.0.1-alpha.29-dev.61-coastal-relief-guard.1",
-  "implementation_details": "Added new TerrainShapeV8.definitionReliefV3 coastal V1-height guard with smooth transition to V2 and V8GeneratorSnapshot.newReliefV3 explicit saved graph factory; original V1 and V2 graphs byte-replay, canyon incision stays final, no native activation or physical water edit.",
+  "next_action": "Integrate authoritative persisted climate/ocean-mask and routed hydrology in V8 before native registration; confirm old/new chunk borders and native save/reopen/edits. Continue finite-water constituent conservation across unload/restart and real waterfall continuity under separate scopes; owner performs full build/GPU/JAR.",
+  "source_commit": "8bf0216d02253958a488fc44378d091c21dae74d",
+  "completed_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
+  "implementation_details": "Added explicit TerrainShapeV8.definitionReliefV4 and V8GeneratorSnapshot.newReliefV4, DensityGraph Op.SEA_SIDE_BLEND scalar/cached evaluation with strict parameter checks and conservative DensityVolumeBounds, and V8ReliefV4CoastalChecks. Frozen old graphs, V1-V7, player edits, all physical water/chemistry and renderer files untouched; no native registration.",
   "source_blob_hashes": {
-    "TerrainShapeV8": "7c518f9dbef345fa74051356aad4fbd52fda4834",
-    "V8GeneratorSnapshot": "bd5c211fc05c36db1741b28c75df04c0a7bd9583",
-    "V8ReliefV3CoastalChecks": "66eb1f315f9ce9bbf7f756deafaa402cfa294464"
+    "DensityGraph": "aec303603a8ec85b598c4797ef20ac7c040dcf2d",
+    "DensityVolumeBounds": "6962711c12bf01b1e0f956275f09781d2716e19a",
+    "TerrainShapeV8": "726edf77ed103c16a0f94c2a6dd45257763a4319",
+    "V8GeneratorSnapshot": "24719bbfc9611302f8c6bb314d4d6dd14f9142f8",
+    "V8ReliefV4CoastalChecks": "98f6e9fbeb80008feb8b5aef890449044fd07f6f"
   },
-  "source_evidence_zip_sha256": "cb93a17fdfa6ac45bc23b4c3f38939e365b5256fd17f790f30845050b41915f9"
+  "source_evidence_zip_sha256": "b2d5c8ce00e03496012a5dfec1f13bbab3c428a50d1368e6305c69104b9f90b5"
 }
