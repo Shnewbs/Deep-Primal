@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T09:00:00.000Z",
-  "active_until": "2026-10-28T09:20:00.000Z",
-  "source_ref": "ffe9bf42f27b0d3b295cc97403f784a05aff7c01",
-  "candidate_version": "0.0.1-alpha.29-dev.49-v8snapshot.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T09:07:05.187Z",
+  "active_until": "2026-10-28T09:07:05.187Z",
+  "source_ref": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
+  "candidate_version": "0.0.1-alpha.29-dev.50-v8strict.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "V8 saved snapshot strict unknown-key envelope audit repair; Java25 source checks, no native build, saved V1-V7 unchanged",
+  "current_gate": "Dev50 strict V8 saved generator snapshot root-field decode and budget on current main; production source and 13,766,368 focused Java25 stand-in assertions pass. Native Mojang JSON/NBT, save/reopen, water and owner GPU gates pending.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-28 dev50 source-only V8 saved snapshot root-envelope strictness committed: Java25 focused stand-in 13,766,368 assertions, 4 mutants rejected, native Mojang JsonOps/NbtOps and save/reopen pending; docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/README.md",
     "Dev46 source-only native section bridge committed: full native NeoForge chunk lighting/heightmap/base column/getBaseHeight/save/reopen and V1-V7 exact replay remains owner-operated. docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/README.md",
     "2026-10-28 dev40 narrowly suppresses ONLY exact expected native LevelChunk state events per server level and cell; 480028 Java21 checks, four corrupt variants rejected, 13 postcommit structural checks. Need native same-cell ABA/unload/save-reopen constituent acceptance and owner Java25+AMD Vulkan/OpenGL; docs/validation/engine-continuation/water-cell-write-scope-2026-10-27/README.md",
     "2026-10-27 dev39 source-only postwrite finite-water callbacks: production policy helper Java21 checks 200065 plus 3 rejected mutants and static integration 20 checks/five negative mutants. Native unresolved callback single-owner transaction, actual loaded/unloaded edit, water/salt/sediment save/reopen and Vulkan/OpenGL cliffs/AMD frame latency remain unqualified. docs/validation/engine-continuation/water-receiver-postcommit-2026-10-27/README.md",
@@ -1035,8 +1036,8 @@
   "builder_cycle": {
     "worker": "builder-20261028T0900-v8-codec-envelope",
     "started_at": "2026-10-28T09:00:00.000Z",
-    "lease_until": "2026-10-28T09:20:00.000Z",
-    "phase": "active_source_only",
+    "lease_until": "2026-10-28T09:07:05.187Z",
+    "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
       "gradle.properties",
@@ -1045,7 +1046,11 @@
     ],
     "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md",
     "consumed_source": "563b6ef23586f579ff2b972d7404b4f0a9054002",
-    "coordination": "Other-engine-chat past state inspected; current direct session unverified. Root lease previously expired, foreground water claim expired; renderer 20261028-nonempty-refresh active on disjoint LOD paths; no benchmark reservation."
+    "coordination": "Other-engine-chat past state inspected; current direct session unverified. Root lease previously expired, foreground water claim expired; renderer 20261028-nonempty-refresh active on disjoint LOD paths; no benchmark reservation.",
+    "lease_released": true,
+    "source_commit": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
+    "result": "Dev50 V8 strict root-envelope fix; 13,766,368 JDK25 focused assertions incl 14,392 new and four broken variants rejected; full Gradle/NeoForge/JAR and real JsonOps/NbtOps unrun by owner policy.",
+    "next": "Owner-native V8 codec JSON/NBT + save/reopen/heightmap/lighting and legacy parity; then finite-water single-owner persistence and waterfall continuity; independent grade remains 5.0."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1225,14 +1230,14 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T0731-5a23f28/REVIEW.md",
-    "source_sha": "5a23f285d4680f9537b8baf1639b75036e7392ef",
+    "path": "docs/engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md",
+    "source_sha": "563b6ef23586f579ff2b972d7404b4f0a9054002",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Renderer-owned LOD stale recovery discard, successful-empty directory rescan; V8 native save/profile and water persistence still open.",
-    "chosen_repair": "V8 immutable saved generator snapshot, exact decimal signed seed and pre-write dimensions guard; separate LOD scope preserved."
+    "findings": "V8 saved snapshot ignores extra top-level keys under record codec; renderer LOD fixed-camera nonempty rediscovery open but assigned to separate renderer worker.",
+    "chosen_repair": "V8 root map DynamicOps strict field enumeration, unknown/invalid input errors, six-member budget; no water or renderer files touched."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1495,5 +1500,17 @@
     "owner_native_acceptance": false,
     "installer_released": false,
     "grade_changed": false
+  },
+  "latest_v8_strict_envelope": {
+    "version": "0.0.1-alpha.29-dev.50-v8strict.1",
+    "source_commit": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
+    "source_blob": "a97d93b143104247566442b63d285545c894eab8",
+    "baseline_blob": "29dd459dd4bbe73c481d498fcc5d6368f7ad7f26",
+    "evidence": "docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/README.md",
+    "focused_java25_assertions": 13766368,
+    "invalid_envelopes_rejected": 4122,
+    "mutant_variants_rejected": 4,
+    "owner_full_build_unrun": true,
+    "codec_native_unrun": true
   }
 }
