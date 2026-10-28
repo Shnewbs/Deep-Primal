@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "worker": "engine-builder-20261028T1301-blendpolicy",
+  "status": "active",
+  "start": "2026-10-28T13:01:00Z",
+  "expires": "2026-10-28T13:16:00Z",
+  "source_head": "3f8710fc2ad8d545974c80466e67a64022b78a72",
+  "scope": [
+    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8BlendPolicy.java",
+    "gradle.properties",
+    "tools/test_v8_blend_policy.py",
+    "docs/validation/engine-continuation/v8-blend-policy-2026-10-28"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md",
+  "water_and_renderer_schedules": "independent, remain enabled",
+  "note": "Owner builds and publishes; source-only scoped V8 blending policy. Root and terrain/water worker state not overwritten."
+}
