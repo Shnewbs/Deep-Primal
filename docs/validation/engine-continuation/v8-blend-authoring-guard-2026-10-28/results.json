@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "source_version": "0.0.1-alpha.29-dev.65-authoring-guard.1",
+  "date_utc": "2026-10-28",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2230-a0d68a1d/REVIEW.md",
+  "audit_source": "a0d68a1d916e3cc6f71de827de2cf3e7b34d0da0",
+  "source_identities": {
+    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java": "2b109584946f4e369e15ad550488b5bf4bff2dcf",
+    "tools/tests/V8BlendAuthoringGuardChecks.java": "6c27367a1e1ff10b195929d3b02e772e0fc8b395",
+    "tools/test_v8_blend_authoring_guard.py": "3ef5167aefe5570607af0a90696f11e2f75e65ac",
+    "gradle.properties": "457c02c96f5a98597005f6a04d71c12046b5539c"
+  },
+  "environment": {
+    "java": "OpenJDK 21.0.12.1",
+    "javac": "--release 21 -Xlint:all -Werror",
+    "runtime": "-ea -Xverify:all",
+    "python": "normal and -OO",
+    "backend": "isolated Java21 API doubles, NOT Minecraft"
+  },
+  "new_production_class_checks": {
+    "result": "PASS",
+    "assertions": 15873,
+    "rejections": 3072,
+    "model_codec_roundtrips": 2048
+  },
+  "new_source_extracted_checks": {
+    "result": "PASS",
+    "assertions_each_python_mode": 12288,
+    "python_modes": [
+      "normal",
+      "-OO"
+    ],
+    "compiled_negative_controls": 2,
+    "failed_negative_controls": 2
+  },
+  "full_production_class_negative_controls": [
+    {
+      "variant": "unchanged dev64 no guard",
+      "compile_exit": 0,
+      "test_exit": 1,
+      "expected_failure": "r3 policy downgrade admitted"
+    },
+    {
+      "variant": "guard only r4",
+      "compile_exit": 0,
+      "test_exit": 1,
+      "expected_failure": "r3 policy downgrade admitted"
+    }
+  ],
+  "existing_isolated_suite_outcomes": [
+    "V8_SAVED_PROFILE_PASS",
+    "V8_BLEND_POLICY_PASS",
+    "V8_SURFACE_POLICY_PASS",
+    "V8_CLIMATE_BINDING_PASS",
+    "V8_ECOTONE_PREWRITE_QUERY_PASS",
+    "V8_ECOTONE_NATIVE_PLAN_PASS",
+    "V8_STRICT_ENVELOPE_PASS",
+    "V8_RELIEF_V4_COAST_PASS",
+    "DENSITY_BASEHEIGHT_PASS",
+    "DENSITY_NATIVE_BRIDGE_PASS",
+    "DENSITY_PLANNED_GROUND_PASS",
+    "ECOTONE_SURFACE_CHECKS_PASS",
+    "V8_RELIEF_V2_PASS",
+    "V8_RELIEF_V3_COAST_PASS",
+    "V8_SNOW_PREFLIGHT_PASS"
+  ],
+  "not_run": [
+    "Java25 Gradle9.2.1 full build",
+    "real Mojang DFU JsonOps/NbtOps and world-save reopening",
+    "NeoForge native worldgen and old/new generation borders",
+    "Vulkan/OpenGL GPU or performance",
+    "finite-water unload/restart conservation and multiplayer soak"
+  ],
+  "root_work_state_validator": "Not run against a complete pinned local root file; root state left untouched."
+}

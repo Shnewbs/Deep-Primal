@@ -63,8 +63,17 @@ public record V8GeneratorSnapshot(
     return version;
   }
 
-  /** Opt in to a saved policy by constructing a new explicit V8 snapshot revision. */
+  /**
+   * Explicitly select a revision-2 blend policy from a legacy/revision-2 profile.
+   * Revision 3 freezes surface provenance and revision 4 also freezes climate;
+   * converting either through this API would silently discard saved fields.
+   * Do not rewrite existing saved profiles or reinterpret newer revisions.
+   */
   public V8GeneratorSnapshot withBlendPolicy(V8BlendPolicy policy) {
+    if (version != VERSION && version != BLENDED_VERSION)
+      throw new IllegalStateException(
+          "blend policy may only be selected from V8 revision 1 or 2; "
+          + "later saved revisions cannot be downgraded");
     return new V8GeneratorSnapshot(BLENDED_VERSION, seed, minY, height,
         density, ground, Objects.requireNonNull(policy, "policy"));
   }
