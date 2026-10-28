@@ -42,8 +42,12 @@ final class LodMeshPartSplitter {
     int quadsPerPart = (int) Math.min(1024L, maxQuads);
     int planned = 0;
     boolean changed = false;
+    // Record the validated split plan once. The old material-preserving topology
+    // scan was repeated during emission for every oversized canonical mesh.
+    int[] plannedParts = new int[Math.min(meshes.size(), MAX_PARTS_PER_LEVEL)];
     // Preflight before allocating any part arrays. A cap failure keeps the original page.
-    for (HorizonMesh mesh : meshes) {
+    for (int meshIndex = 0; meshIndex < meshes.size(); meshIndex++) {
+      HorizonMesh mesh = meshes.get(meshIndex);
       if (Thread.currentThread().isInterrupted())
         throw new java.util.concurrent.CancellationException();
       Objects.requireNonNull(mesh, "mesh");
@@ -51,14 +55,18 @@ final class LodMeshPartSplitter {
           ? (mesh.vertices() / 4 + quadsPerPart - 1) / quadsPerPart : 1;
       if (count > 1) changed = true;
       if (count > MAX_PARTS_PER_LEVEL - planned) return meshes;
+      plannedParts[meshIndex] = count;
       planned += count;
     }
     if (!changed) return meshes;
     ArrayList<HorizonMesh> parts = new ArrayList<>(planned);
-    for (HorizonMesh mesh : meshes) {
+    for (int meshIndex = 0; meshIndex < meshes.size(); meshIndex++) {
+      HorizonMesh mesh = meshes.get(meshIndex);
       if (Thread.currentThread().isInterrupted())
         throw new java.util.concurrent.CancellationException();
-      if (mesh.gpuBytes() <= targetBytes || !canonicalQuads(mesh)) {
+      // Preflight already checked the exact topology (or chose pass-through).
+      // Never silently transform an unrecognized/legacy water or roof mesh.
+      if (plannedParts[meshIndex] == 1) {
         parts.add(mesh);
         continue;
       }
