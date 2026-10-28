@@ -9,6 +9,26 @@ public final class TerrainShapeV8 {
 
   /** Named channels expose continentalness, erosion, peaks_valleys, canyon and height. */
   public static Definition definition(boolean floatingFeatures) {
+    return definition(floatingFeatures, 1);
+  }
+
+  /**
+   * Explicit authoring-only V8 relief recipe revision 2. Its complete density
+   * graph is saved in the V8 snapshot: reopening never substitutes the latest
+   * recipe for the saved nodes. The historical {@link #definition(boolean)}
+   * node order and exact values remain unchanged.
+   *
+   * <p>All transitions are smooth density inputs BEFORE hydrology, never a
+   * post-generation chunk blur. Canyon incision remains the final relief cut.
+   * This is not a registered native generator or a saved-world migration.
+   */
+  public static Definition definitionReliefV2(boolean floatingFeatures) {
+    return definition(floatingFeatures, 2);
+  }
+
+  private static Definition definition(boolean floatingFeatures, int reliefRevision) {
+    if (reliefRevision != 1 && reliefRevision != 2)
+      throw new IllegalArgumentException("unsupported V8 relief revision");
     Builder b=new Builder();
     b.c("zero",0);b.c("one",1);b.c("negative_one",-1);b.c("sea",96);b.c("continental_scale",320);
     b.n("warp_x",1800,1800,21001,true);b.n("warp_z",1800,1800,21002,true);
@@ -31,8 +51,43 @@ public final class TerrainShapeV8 {
     b.bound("canyon_far",Op.SMOOTHSTEP,"canyon_abs",.008,.045);b.op("canyon_far_negative",Op.MULTIPLY,"canyon_far","negative_one");
     b.op("canyon",Op.ADD,"one","canyon_far_negative");b.c("canyon_scale",-42);
     b.op("canyon_inland",Op.MULTIPLY,"canyon","inland");b.op("canyon_cut",Op.MULTIPLY,"canyon_inland","canyon_scale");
-    b.op("base_height",Op.ADD,"sea","continent_height");b.op("mountain_height",Op.ADD,"base_height","mountains");
-    b.op("hill_height",Op.ADD,"mountain_height","hills");b.op("height",Op.ADD,"hill_height","canyon_cut");
+    b.op("base_height",Op.ADD,"sea","continent_height");
+    if (reliefRevision == 1) {
+      b.op("mountain_height",Op.ADD,"base_height","mountains");
+      b.op("hill_height",Op.ADD,"mountain_height","hills");
+      b.op("height",Op.ADD,"hill_height","canyon_cut");
+    } else {
+      // The marker is part of the persisted graph, independent of the density
+      // VM schema revision. New authoring cannot change existing graph saves.
+      b.c("relief_recipe_revision", 2);
+      b.op("relief_revision_zero",Op.MULTIPLY,"relief_recipe_revision","zero");
+      b.op("relief_versioned_base",Op.ADD,"base_height","relief_revision_zero");
+      b.c("foothill_gain", .24);
+      b.bound("foothill_entry",Op.SMOOTHSTEP,"continentalness",-.04,.28);
+      b.bound("highland_entry",Op.SMOOTHSTEP,"continentalness",.18,.62);
+      b.op("ridge_gain",Op.LERP,"foothill_gain","one","highland_entry");
+      b.op("relief_mountain_ramp",Op.MULTIPLY,"foothill_entry","ridge_gain");
+      b.op("relief_mountain",Op.MULTIPLY,"mountains","relief_mountain_ramp");
+      // Coast hills fade out without moving physical shore or water levels.
+      b.bound("coastal_land_ramp",Op.SMOOTHSTEP,"continentalness",-.11,.15);
+      b.op("relief_hills",Op.MULTIPLY,"hills","coastal_land_ramp");
+      b.n("foothill_noise",510,510,21010,true);
+      b.c("foothill_scale",17);
+      b.op("foothill_variation",Op.MULTIPLY,"foothill_noise","foothill_scale");
+      b.op("relief_foothills",Op.MULTIPLY,"foothill_variation","foothill_entry");
+      // Broad erosional highlands form plateaus with soft shoulders, not a
+      // hard altitude step, preserving underlying rock strata and caves.
+      b.bound("plateau_inland",Op.SMOOTHSTEP,"continentalness",.02,.26);
+      b.bound("plateau_erosion",Op.SMOOTHSTEP,"erosion",-.06,.18);
+      b.op("plateau_shoulder",Op.MULTIPLY,"plateau_inland","plateau_erosion");
+      b.c("plateau_scale",33);
+      b.op("relief_plateau",Op.MULTIPLY,"plateau_shoulder","plateau_scale");
+      b.op("relief_highlands",Op.ADD,"relief_versioned_base","relief_mountain");
+      b.op("relief_hills_and_foothills",Op.ADD,"relief_hills","relief_foothills");
+      b.op("relief_uplift",Op.ADD,"relief_hills_and_foothills","relief_plateau");
+      b.op("relief_before_canyon",Op.ADD,"relief_highlands","relief_uplift");
+      b.op("height",Op.ADD,"relief_before_canyon","canyon_cut");
+    }
     b.op("y",Op.Y);b.op("negative_y",Op.MULTIPLY,"y","negative_one");b.op("height_difference",Op.ADD,"height","negative_y");
     b.c("density_scale",1./48);b.op("base_density",Op.MULTIPLY,"height_difference","density_scale");
     b.op("surface_distance",Op.ABS,"height_difference");b.bound("far_surface",Op.SMOOTHSTEP,"surface_distance",8,88);

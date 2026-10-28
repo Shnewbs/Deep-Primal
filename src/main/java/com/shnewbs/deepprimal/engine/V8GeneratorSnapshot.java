@@ -9,6 +9,7 @@ import com.shnewbs.deepprimal.core.biome.EcotoneBlend;
 import com.shnewbs.deepprimal.core.biome.EcotoneSurfaceField;
 import com.shnewbs.deepprimal.core.density.DensityChunk;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
+import com.shnewbs.deepprimal.core.density.TerrainShapeV8;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -65,6 +66,22 @@ public record V8GeneratorSnapshot(
       throw new IllegalStateException("surface policy may only be selected from V8 revision 2");
     return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
         density, ground, blendPolicy, Objects.requireNonNull(policy, "policy"));
+  }
+
+  /**
+   * Create a NEW, explicit V8 revision-3 authoring profile with the relief-2
+   * density recipe frozen into its saved graph. Never upgrade an existing
+   * snapshot implicitly: its exact serialized density nodes remain binding.
+   * This does not register V8 as the active Minecraft generator.
+   */
+  public static V8GeneratorSnapshot newReliefV2(long seed, int minY, int height,
+      GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+      V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        TerrainShapeV8.definitionReliefV2(floatingFeatures),
+        Objects.requireNonNull(ground, "ground"),
+        Objects.requireNonNull(blendPolicy, "blendPolicy"),
+        Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
   private static final Codec<Long> SEED = Codec.STRING.comapFlatMap(text -> {
