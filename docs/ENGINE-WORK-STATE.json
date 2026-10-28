@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T00:10:00Z",
-  "active_until": "2026-10-28T00:10:00Z",
-  "source_ref": "2f49505990d338ac120c2178dfd8c53e96231802",
+  "status": "active",
+  "updated_at": "2026-10-28T01:10:34.185Z",
+  "active_until": "2026-10-28T01:27:00Z",
+  "source_ref": "6ea421eefceb61b22e4729a85a39099344f89849",
   "candidate_version": "0.0.1-alpha.29-dev.40-waterwritescope.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "dev40 production global chemistry write-depth suppression replaced with one-event per-server-level/per-block native write scope; exact committed standalone Java21 480028 checks, four deliberate mutations rejected, 13 committed integration-source assertions; Java25/Gradle, NeoForge callback ordering/save-reopen, Vulkan/OpenGL and owner AMD GPU tests not run under October27 owner-build handoff; no qualified JAR/release or external grade increase.",
+  "current_gate": "Bounded conservative V8 density-volume occupancy preflight without touching active water dev41 or renderer files; Java25/full build and GPU owner-operated.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -489,7 +489,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-chat-20261027T2358-chemistry-cell-scope",
+  "worker": "builder-chat-20261028T0103-v8-volume-bounds",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1032,44 +1032,22 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-chat-20261027T2358-chemistry-cell-scope",
-    "started_at": "2026-10-27T23:58:30Z",
-    "lease_until": "2026-10-28T00:28:30Z",
-    "lease_released": true,
-    "phase": "checkpointed_source_only",
+    "worker": "builder-chat-20261028T0103-v8-volume-bounds",
+    "started_at": "2026-10-28T01:10:34.185Z",
+    "lease_until": "2026-10-28T01:27:00Z",
+    "lease_released": false,
+    "phase": "v8_topology_bounds_source",
     "scope": [
-      "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
-      "src/main/java/com/shnewbs/deepprimal/engine/WaterWriteScope.java",
-      "src/coreChecks/java/com/shnewbs/deepprimal/engine/WaterWriteScopeChecks.java",
+      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumeBounds.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityVolumeBoundsChecks.java",
       "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-      "gradle.properties",
-      "docs/validation/engine-continuation/water-cell-write-scope-2026-10-27/"
+      "docs/validation/engine-continuation/v8-conservative-density-bounds-2026-10-28/",
+      "docs/ENGINE-WORK-STATE.json"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-27T2332-a14721c/REVIEW.md",
-    "audit_source_sha": "a14721c72625ea15ad9cb9168a6140c3f6882005",
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "owner_build_handoff": true,
-    "completed_at": "2026-10-28T00:10:00Z",
-    "source_ref": "2f49505990d338ac120c2178dfd8c53e96231802",
-    "version": "0.0.1-alpha.29-dev.40-waterwritescope.1",
-    "evidence": "docs/validation/engine-continuation/water-cell-write-scope-2026-10-27/README.md",
-    "implementation_commits": [
-      "2f49505990d338ac120c2178dfd8c53e96231802"
-    ],
-    "validation": [
-      "Java21 exact committed helper 480028 assertions; warning-free javac --release 21 -Xlint:all and java -Xverify:all",
-      "Four deliberately broken helper variants rejected (global, cross-world, repeat, nested fallthrough)",
-      "13 final committed source-order checks; 3 integration negative variants rejected; exact helper/test Git blobs verified",
-      "Source parent/ref guarded main update preserved concurrent renderer LOD work"
-    ],
-    "unrun": [
-      "Java25 full Gradle/NeoForge/module build and qualified JAR (owner runs)",
-      "Native callback order, same-cell ABA, load/unload and water/salt/sediment persistence across save/reopen",
-      "Windows AMD8060S OpenGL/Vulkan waterfall temporal pixels, multiplayer soak and p95/p99 latency"
-    ],
-    "last_external_grade": 5,
-    "next_priority": "Native LevelChunk event-injection and write provenance including ABA/unload; persistent single-owner chemistry transaction/compensation with save/reopen; connected Vulkan/OpenGL cliff visual and bounded performance gates."
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
+    "audit_source_sha": "bcce8355c7f8288e2749253578398e68c107bcda",
+    "audit_findings": "Seven audited water write-path gaps resolved in foreground dev41 at 8756bd021713; water owner scope active, choose nonoverlapping V8 work.",
+    "owner_build_handoff": true
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
