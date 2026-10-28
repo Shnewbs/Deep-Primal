@@ -11,3 +11,6 @@ Last scoped implementation source: [`eeeb3d711949f0a867b89ac4474cbad7815be532`](
 
 Do not promote source-only fixes to verified native coverage; do not alter other roles' schedules or owned files.
 
+## 2026-10-28 11:54 UTC — exact dirty-capture distance tie
+
+[Renderer-only exact capture priority jam](20261028-capture-distance-exact/REVIEW.md): same Chebyshev-ring candidates whose huge squared distances round equal as doubles now use exact signed-int/128-bit tie comparisons without production BigInteger allocation. The unmodified source fails the new negative regression; Java21 strict source regression passes **10,174 assertions**, with two matched CPU microbench runs showing slight p50 overhead. No native visible distance, frame-time, GPU, Vulkan/OpenGL, temporal FSR/DLSS or JAR credit; six-category renderer self-audit stays **5.21/10**, delta **0.00**, separate from external engine grade. Owner-native reopen/teleport/edit and GPU measurements remain next.

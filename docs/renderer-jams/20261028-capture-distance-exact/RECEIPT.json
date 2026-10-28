@@ -1,0 +1,91 @@
+{
+  "id": "renderer-20261028T1154-exact-capture-distance",
+  "status": "completed-source-only",
+  "claim_parent": "aa91e9c3cd7464cf3133e6b79c1d4f159c1e1c64",
+  "claimed_head": "1f681c22ae9e533d62d83f46090cad624e36c148",
+  "first_transfer_superseded": "826aee58e11024fe1d0ed2480eba5c9ca8443396",
+  "final_source_sha": "6ec69da13429709f53b6a664af4ed14e120a35d8",
+  "version": "0.0.1-alpha.29-dev.52-v8recover.1 (inherited; no renderer JAR)",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodCapturePriority.java",
+    "docs/renderer-jams/20261028-capture-distance-exact/LodCaptureExactDistanceChecks.java",
+    "docs/renderer-jams/20261028-capture-distance-exact/LodCapturePriorityBenchmark.java"
+  ],
+  "consumed_audits": [
+    "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md",
+    "docs/renderer-jams/20261028-near-ring-fast-reject/REVIEW.md"
+  ],
+  "java21": {
+    "version": "OpenJDK 21.0.12.1",
+    "compile": "javac --release 21 -Xlint:all -Werror -d classes src/com/shnewbs/deepprimal/lod/client/LodCapturePriority.java test/com/shnewbs/deepprimal/lod/client/*.java",
+    "run": "java -ea -Xverify:all -cp classes com.shnewbs.deepprimal.lod.client.{LodCapturePriorityChecks,LodCaptureExactDistanceChecks}",
+    "assertions": 10174,
+    "passed": true
+  },
+  "negative_control": "unmodified prior production file blob 6bde987ac19417df6b5ff2a41998eb5b96c47652 compiled with exact new regression; expected assertion failed exit 1",
+  "cpu_microbench": {
+    "environment": "Linux x64 Java21, isolated same-process seeded source-only microbenchmark",
+    "warmups_per_size": 6000,
+    "samples_per_size": 3000,
+    "size256_p50_ns_baseline_candidate": [
+      [
+        521,
+        641
+      ],
+      [
+        561,
+        631
+      ]
+    ],
+    "size4096_p50_ns_baseline_candidate": [
+      [
+        6920,
+        7150
+      ],
+      [
+        6940,
+        7070
+      ]
+    ],
+    "conclusion": "CPU median slightly slower; no FPS/GPU/throughput claim"
+  },
+  "blob_source": "c0f94f73ffa989738a71b0ce019a0160a137c817",
+  "blob_regression": "0d07d4500e7a50d8e0bdd97d9d8199f73fac620a",
+  "blob_microbench": "e47724ab589e46d9cc2b53d710c92bde43f14fc5",
+  "unrun": [
+    "Java25 not present in runtime",
+    "full Gradle/NeoForge owner operated",
+    "native Windows Linux Vulkan OpenGL GPU pixels",
+    "GPU frame p50/p95/p99 and VRAM",
+    "real page upload and frame completion",
+    "water transparency and reload/world reopening",
+    "FSR temporal and DLSS RTX",
+    "JAR packaging and publisher"
+  ],
+  "self_audit_scores": {
+    "distance_lod": 6.5,
+    "mesh_scheduling": 6.25,
+    "gpu_submission_memory": 4.0,
+    "fsr_dlss": 5.0,
+    "visual_backend_settings": 5.0,
+    "validation_perf": 4.5,
+    "average": 5.208333333333333,
+    "previous": 5.208333333333333,
+    "delta": 0.0
+  },
+  "claim_status": "completed-released",
+  "next": "owner-native GPU LOD/water/camera matrix; optimize chooser only after real frame measurements",
+  "documentation_files": [
+    "docs/renderer-jams/20261028-capture-distance-exact/CLAIM.json",
+    "docs/renderer-jams/20261028-capture-distance-exact/README.md",
+    "docs/renderer-jams/20261028-capture-distance-exact/REVIEW.md",
+    "docs/renderer-jams/20261028-capture-distance-exact/RECEIPT.json",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "artifact": {
+    "filename": "DeepPrimal_Renderer_CaptureExactDistance_20261028_6ec69da_SourceEvidence.zip",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_CaptureExactDistance_20261028_6ec69da_SourceEvidence.zip",
+    "content_type": "source-and-validation-evidence-NOT-game-JAR",
+    "verified": "archive_crc_and_manifest"
+  }
+}
