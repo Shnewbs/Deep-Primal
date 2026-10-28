@@ -848,14 +848,21 @@ public final class VoxelLodRenderer {
     PendingGpu abandoned = pendingGpu;
     pendingGpu = null;
     if (abandoned != null) closeFailures.release(abandoned::close);
-    if (future != null) future.cancel(true);
-    diskIndex.reset();
-    if (worker != null) worker.shutdownNow();
+    // Revoke asynchronous owners before cancellation/shutdown. A failing
+    // cancellation, disk-index reset or worker shutdown must not skip cached
+    // GPU releases or leave stale world references behind.
+    Future<Ready> abandonedFuture = future;
     future = null;
+    if (abandonedFuture != null)
+      closeFailures.release(() -> abandonedFuture.cancel(true));
+    closeFailures.release(diskIndex::reset);
+    ThreadPoolExecutor abandonedWorker = worker;
+    worker = null;
+    if (abandonedWorker != null)
+      closeFailures.release(abandonedWorker::shutdownNow);
     workingKey = null;
     captureBurst = 0;
     persistenceFailed = false;
-    worker = null;
     for (Entry entry : cache.values()) closeFailures.release(entry::close);
     cache.clear();
     evictionHeap = null; // Drop retained arrays on world switch/logout/shutdown.
