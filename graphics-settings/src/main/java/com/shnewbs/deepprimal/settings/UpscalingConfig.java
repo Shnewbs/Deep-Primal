@@ -15,15 +15,16 @@ public final class UpscalingConfig {
   static {
     var b = new ModConfigSpec.Builder();
     MODE = b.comment("NONE is native resolution. SPATIAL is linear scaling. FSR is AMD FSR 1 EASU/RCAS. "
+        + "FSR_31 and FSR_41 are selectable preferences for future temporal providers. "
         + "DLSS requires the NVIDIA NGX runtime and a complete temporal renderer; unavailable "
         + "requests retain native rendering. HUD and menus always remain at display resolution.")
         .defineEnum("mode", UpscalingPolicy.Mode.NONE);
     // SPATIAL still uses renderScale directly, preserving existing configurations.
-    QUALITY = b.comment("Spatial quality preset; CUSTOM uses renderScale. DLSS sizes come from NGX.")
+    QUALITY = b.comment("Spatial quality preset; CUSTOM uses renderScale. Temporal provider sizes are SDK-controlled.")
         .defineEnum("quality", UpscalingPolicy.Quality.QUALITY);
     RENDER_SCALE = b.comment("Custom world-render scale: 1 = native, 0.5 = half width/height.")
         .defineInRange("renderScale", 1.0, .5, 1.0);
-    SHARPNESS = b.comment("FSR 1 RCAS strength: 0 disables sharpening, 1 is maximum. No DLSS sharpening.")
+    SHARPNESS = b.comment("FSR 1 RCAS strength: 0 disables sharpening, 1 is maximum. Temporal sharpening requires provider support.")
         .defineInRange("sharpness", .2, 0.0, 1.0);
     FRAME_GENERATION = b.comment("Reserved preference. No frame-generation provider is installed; "
         + "this does not enable generated frames or disable supported super resolution.")
