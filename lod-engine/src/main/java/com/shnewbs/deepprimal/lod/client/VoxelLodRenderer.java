@@ -329,10 +329,11 @@ public final class VoxelLodRenderer {
     long start = System.nanoTime();
     int count = 0;
     while (!dirty.isEmpty() && count++ < 1 && System.nanoTime() - start < 2_000_000) {
-      var it = dirty.entrySet().iterator();
-      var item = it.next();
-      long k = item.getKey(), rev = item.getValue();
-      it.remove();
+      // Camera-near edits must not wait behind an entire distant dirty queue.
+      // One of eight successful captures remains oldest-first for starvation freedom.
+      long k = LodCapturePriority.choose(
+          dirty, position.x(), position.z(), (capturedChunks & 7L) == 7L);
+      long rev = dirty.remove(k);
       var chunk = level.getChunkSource().getChunk(x(k), z(k), ChunkStatus.FULL, false);
       if (chunk == null || chunk instanceof net.minecraft.world.level.chunk.EmptyLevelChunk) {
         if (!cache.containsKey(k)) latest.remove(k);
