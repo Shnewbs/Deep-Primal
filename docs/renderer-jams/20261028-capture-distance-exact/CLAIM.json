@@ -1,0 +1,21 @@
+{
+  "owner": "renderer-chat-20261028T1154Z-capture-distance-exact",
+  "scope": "renderer-only",
+  "status": "active",
+  "started_at": "2026-10-28T11:54:00Z",
+  "active_until": "2026-10-28T12:20:00Z",
+  "parent_at_claim": "aa91e9c3cd7464cf3133e6b79c1d4f159c1e1c64",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodCapturePriority.java",
+    "docs/renderer-jams/20261028-capture-distance-exact/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excluded": [
+    "engine and water generator/simulation",
+    "GPU shaders/backend and any concurrent renderer ownership",
+    "owner full Gradle/Minecraft/GPU build and releases"
+  ],
+  "exclusive_measurement": false,
+  "intent": "Correct double-precision distance ties in live dirty-chunk capture priority using exact signed-int distance arithmetic; focused pure Java differential oracle tests.",
+  "independent_audit": "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md"
+}
