@@ -188,16 +188,15 @@ public final class DensityChunkMaterializer {
       V8EcotoneColumnPlan.ClimateSource climate) {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(chunk, "chunk");
-    Objects.requireNonNull(climate, "climate");
-    if (prepared.snapshot().version() != V8GeneratorSnapshot.SURFACE_VERSION)
-      throw new IllegalArgumentException("native V8 ecotone surface requires revision 3");
-    prepared.requireHeight(chunk.getMinY(), chunk.getHeight());
     int minY = chunk.getMinY();
     var origin = chunk.getPos();
-    var planned = DensityChunk.samplePlanned(prepared.surface().graph(),
-        origin.getMinBlockX(), minY, origin.getMinBlockZ(), chunk.getHeight(), queriesPerSlab);
-    var columns = V8EcotoneColumnPlan.build(prepared, planned.chunk(),
-        origin.getMinBlockX(), origin.getMinBlockZ(), climate);
+    // Use the exact same independent, pre-generation plan as base-column
+    // queries. Climate, geometry and all cover choices are resolved before
+    // native block/heightmap mutation, even if a callback subsequently fails.
+    var preflight = planSavedEcotone(prepared, origin.getMinBlockX(),
+        origin.getMinBlockZ(), minY, chunk.getHeight(), queriesPerSlab, climate);
+    var planned = preflight.terrain();
+    var columns = preflight.columns();
 
     // Resolve every material before the first mutation: registry failures and
     // hydrology/climate callback failures must leave blocks/heightmaps intact.
@@ -206,9 +205,13 @@ public final class DensityChunkMaterializer {
       for (int x = 0; x < DensityChunk.WIDTH; x++) {
         var column = columns.column(x, z);
         if (column == null) continue; // river, ocean, air, and bedrock stay raw
-        if (column.cover().snowPatch() && snow == null)
-          snow = Objects.requireNonNull(Blocks.SNOW_BLOCK.defaultBlockState(), "V8 snow");
-        else switch (column.cover().cover()) {
+        // Snow completely replaces the visible cover. Once snow is cached,
+        // do not accidentally resolve an unused grass/podzol/bare registry
+        // value on later snow columns (the dev58 else binding did exactly that).
+        if (column.cover().snowPatch()) {
+          if (snow == null)
+            snow = Objects.requireNonNull(Blocks.SNOW_BLOCK.defaultBlockState(), "V8 snow");
+        } else switch (column.cover().cover()) {
           case BARE -> { if (bare == null) bare = Objects.requireNonNull(
               GroundMaterials.DIRT.get().defaultBlockState(), "V8 bare surface"); }
           case GRASS -> { if (grass == null) grass = Objects.requireNonNull(
@@ -244,11 +247,42 @@ public final class DensityChunkMaterializer {
         }
       Heightmap.primeHeightmaps(chunk,
           EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
-      return new V8EcotoneResult(planned, columns);
+      return preflight;
     } catch (RuntimeException | Error failure) {
       undo.rollback(failure);
       throw failure;
     }
+  }
+
+  /**
+   * Construct the exact materialized V8 revision-3 terrain plan without a
+   * native ChunkAccess. Callers may query {@link #baseColumn(V8EcotoneResult,
+   * int, int)} before creating a chunk, then hand the same saved snapshot and
+   * absolute-coordinate climate producer to {@link #fillSavedEcotone}.
+   *
+   * <p>This API is explicit-call-only and has a bounded 16x16 footprint; it
+   * neither registers V8 as a world generator nor mutates terrain, saved
+   * profiles, player edits, hydrology or finite-water constituents. A native
+   * caller must still pin the climate producer and policy to the saved world
+   * to make independent query/write parity meaningful.
+   */
+  public static V8EcotoneResult planSavedEcotone(
+      V8GeneratorSnapshot.Prepared prepared, int originWorldX, int originWorldZ,
+      int minY, int height, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource climate) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(climate, "climate");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.SURFACE_VERSION)
+      throw new IllegalArgumentException("explicit V8 ecotone planning requires revision 3");
+    prepared.requireHeight(minY, height);
+    if (Math.floorMod(originWorldX, DensityChunk.WIDTH) != 0
+        || Math.floorMod(originWorldZ, DensityChunk.WIDTH) != 0)
+      throw new IllegalArgumentException("V8 planned terrain origin must be chunk-aligned");
+    var planned = DensityChunk.samplePlanned(prepared.surface().graph(),
+        originWorldX, minY, originWorldZ, height, queriesPerSlab);
+    var columns = V8EcotoneColumnPlan.build(prepared, planned.chunk(),
+        originWorldX, originWorldZ, climate);
+    return new V8EcotoneResult(planned, columns);
   }
 
   /** The vegetation sample remains immutable and read-only until feature gates pass. */
@@ -266,8 +300,9 @@ public final class DensityChunkMaterializer {
    * frozen surface samples, snow cover and soil-layer limits as native writes.
    * It never reads neighboring chunks or changes a saved profile.
    *
-   * <p>The independent pre-generation climate/base-column query is not yet
-   * available: that requires the native absolute-coordinate climate producer.
+   * <p>The plan may now be built before native generation using
+   * {@link #planSavedEcotone}; actual world-owned climate/hydrology wiring and
+   * persisted generator registration are still separate acceptance gates.
    */
   public static NoiseColumn baseColumn(V8EcotoneResult result, int localX, int localZ) {
     Objects.requireNonNull(result, "result");
