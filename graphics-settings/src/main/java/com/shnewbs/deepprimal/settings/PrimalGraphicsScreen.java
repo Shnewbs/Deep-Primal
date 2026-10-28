@@ -788,7 +788,8 @@ public final class PrimalGraphicsScreen extends Screen {
         "Quality",
         "Balanced",
         "Performance",
-        "Custom");
+        "Custom",
+        "Native AA (temporal provider required)");
     add(
         6,
         "upscalingScale",
