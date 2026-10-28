@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "worker": "renderer-hourly-20261028T1355-fsr-nativeaa",
+  "owner": "dedicated renderer coding jam",
+  "status": "active",
+  "claimed_at": "2026-10-28T13:55:19Z",
+  "expires": "2026-10-28T14:25:00Z",
+  "starting_main": "9922b9d3733986848a31b65f3c911b928c0b3bc7",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/UpscalingPolicy.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/UpscalingPolicyChecks.java",
+    "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/PrimalGraphicsScreen.java",
+    "docs/renderer-jams/20261028-fsr-native-aa-guard/*",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1330-643ac790/REVIEW.md",
+  "notes": "Renderer/upscaling only. Independent engine/water actors, upscaling lease released. Owner builds full Java25/Gradle/GPU/JAR."
+}
