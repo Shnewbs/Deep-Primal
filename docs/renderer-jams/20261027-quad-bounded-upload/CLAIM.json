@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "jam_id": "20261027-quad-bounded-upload",
+  "owner": "renderer-schedule",
+  "status": "active",
+  "base_sha": "3d4980de6202b65838e3e3b86f6ccb65a7353476",
+  "claimed_at": "2026-10-28T02:58:00Z",
+  "active_until": "2026-10-28T03:28:00Z",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodMeshPartSplitter.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-quad-bounded-upload/"
+  ],
+  "non_overlap": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/",
+    "src/main/java/com/shnewbs/deepprimal/engine/",
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/WATER-ENGINE-WORK-STATE.json",
+    "graphics-settings/"
+  ],
+  "benchmark_reservation": "none",
+  "intention": "Upload-part quad-boundary partition for configuration-limited byte budgets, with canonical topology fallback; source-only, owner native build."
+}
