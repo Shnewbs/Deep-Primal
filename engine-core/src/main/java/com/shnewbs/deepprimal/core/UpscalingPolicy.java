@@ -5,7 +5,7 @@ import java.util.Objects;
 /** Backend-independent choices. A saved preference never establishes provider support. */
 public final class UpscalingPolicy {
   // Retain serialized names for existing upscaling.toml files.
-  public enum Mode { NONE, SPATIAL, FSR, DLSS }
+  public enum Mode { NONE, SPATIAL, FSR, DLSS, FSR_31, FSR_41 }
 
   /** FSR 1's documented scale factors; DLSS obtains its sizes from NGX instead. */
   public enum Quality {
@@ -28,6 +28,7 @@ public final class UpscalingPolicy {
         case NONE -> true;
         case SPATIAL -> spatial;
         case FSR -> fsr1;
+        case FSR_31, FSR_41 -> false; // No verified temporal provider is installed.
         case DLSS -> dlss;
       };
     }
@@ -65,6 +66,8 @@ public final class UpscalingPolicy {
     if (frameGeneration) return "Frame generation has no installed provider";
     return switch (requested) {
       case FSR -> "FSR requires a validated FidelityFX provider";
+      case FSR_31 -> "FSR 3.1 temporal integration is not installed (motion vectors, depth and frame history required)";
+      case FSR_41 -> "FSR 4.1.1 requires a validated compatible runtime/backend and temporal inputs";
       case DLSS -> "DLSS requires a validated NVIDIA NGX provider";
       default -> "";
     };
