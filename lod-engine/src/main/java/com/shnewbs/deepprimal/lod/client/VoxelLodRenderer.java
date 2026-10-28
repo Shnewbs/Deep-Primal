@@ -144,6 +144,7 @@ public final class VoxelLodRenderer {
   }
 
   private Future<List<Long>> scan;
+  private boolean diskScanStarted;
   private ClientLevel level;
   private String worldId;
   private LodStore store;
@@ -258,26 +259,6 @@ public final class VoxelLodRenderer {
                 .substring(0, 32);
         root = Minecraft.getInstance().gameDirectory.toPath().resolve("deepprimal-lod/v3/" + token);
         store = new LodStore(root);
-        if (LodConfig.PERSIST.get())
-          scan =
-              worker.submit(
-                  () -> {
-                    var keys = new ArrayList<Long>();
-                    if (Files.isDirectory(root))
-                      try (var files = Files.newDirectoryStream(root, "*.plod")) {
-                        for (Path p : files) {
-                          if (Thread.interrupted()) throw new CancellationException();
-                          String[] parts =
-                              p.getFileName().toString().replace(".plod", "").split("_");
-                          try {
-                            keys.add(key(Integer.parseInt(parts[0]), Integer.parseInt(parts[1])));
-                          } catch (RuntimeException ignored) {
-                          }
-                          if (keys.size() >= MAX_DISK_KEYS) break;
-                        }
-                      }
-                    return keys;
-                  });
       } catch (java.security.NoSuchAlgorithmException e) {
         throw new AssertionError(e);
       }
@@ -300,6 +281,15 @@ public final class VoxelLodRenderer {
     if (worker == null) attach(mc.level);
     if (mc.player == null) return;
     var position = mc.player.chunkPosition();
+    // Snapshot the camera on the client thread: the filesystem worker must not
+    // read mutable player state and must not choose files around world origin.
+    if (LodConfig.PERSIST.get() && store != null && !diskScanStarted) {
+      diskScanStarted = true;
+      int scanX = position.x(), scanZ = position.z();
+      Path directory = root;
+      scan = worker.submit(() ->
+          LodDiskNearestScan.scan(directory, scanX, scanZ, MAX_DISK_KEYS));
+    }
     int radius = Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
         mc.options.getEffectiveRenderDistance());
     // On effective-radius changes, completed scans or substantial travel, rescan the new
@@ -851,6 +841,7 @@ public final class VoxelLodRenderer {
     captureBurst = 0;
     persistenceFailed = false;
     scan = null;
+    diskScanStarted = false;
     worker = null;
     cache.values().forEach(Entry::close);
     cache.clear();
