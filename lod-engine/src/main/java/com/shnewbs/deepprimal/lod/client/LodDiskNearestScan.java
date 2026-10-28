@@ -261,14 +261,16 @@ final class LodDiskNearestScan {
 
     private void accept(int x, int z) {
       if (farthest.size() == maxKeys) {
-        // Rank compares the Chebyshev ring *before* squared distance or
-        // coordinate tie-breakers. Once full, a strictly farther ring cannot
-        // displace any retained candidate. Avoid allocating RankedKey and
-        // evaluating its 128-bit squared distance for these common misses.
-        // Equality MUST proceed to full comparison for exact same-ring order.
+        // Compare the full rank against the worst retained page *before*
+        // boxing the key, probing the HashSet or allocating RankedKey.
+        // Same-ring rejects are common along a large saved-region perimeter;
+        // ring-only rejection still allocated for every one of them.
+        RankedKey worst = farthest.peek();
         long dx = Math.abs((long) x - cameraX);
         long dz = Math.abs((long) z - cameraZ);
-        if (Math.max(dx, dz) > farthest.peek().ring) return;
+        long ring = Math.max(dx, dz);
+        if (ring > worst.ring || (ring == worst.ring
+            && !betterOnSameRing(x, z, dx, dz, worst))) return;
       }
       long key = ((long) x << 32) ^ (z & 0xffffffffL);
       if (retained.contains(key)) return;
@@ -282,6 +284,25 @@ final class LodDiskNearestScan {
         farthest.add(candidate);
         retained.add(key);
       }
+    }
+
+    /**
+     * Strict unsigned 128-bit distance plus coordinate tie-break against a
+     * fixed same-ring bound. No new candidate object or boxed key on a miss.
+     * Signed-int deltas are widened before subtraction, including MIN/MAX.
+     */
+    private static boolean betterOnSameRing(int x, int z, long dx, long dz,
+        RankedKey worst) {
+      long ax = dx * dx, az = dz * dz;
+      long low = ax + az;
+      long high = Math.multiplyHigh(dx, dx) + Math.multiplyHigh(dz, dz)
+          + (Long.compareUnsigned(low, ax) < 0 ? 1 : 0);
+      int c = Long.compareUnsigned(high, worst.high);
+      if (c != 0) return c < 0;
+      c = Long.compareUnsigned(low, worst.low);
+      if (c != 0) return c < 0;
+      c = Integer.compare(x, worst.x);
+      return c < 0 || (c == 0 && z < worst.z);
     }
 
     List<Long> nearest() {
