@@ -143,8 +143,7 @@ public final class VoxelLodRenderer {
     }
   }
 
-  private Future<List<Long>> scan;
-  private boolean diskScanStarted;
+  private final LodDiskIndexService diskIndex = new LodDiskIndexService();
   private ClientLevel level;
   private String worldId;
   private LodStore store;
@@ -283,13 +282,10 @@ public final class VoxelLodRenderer {
     var position = mc.player.chunkPosition();
     // Snapshot the camera on the client thread: the filesystem worker must not
     // read mutable player state and must not choose files around world origin.
-    if (LodConfig.PERSIST.get() && store != null && !diskScanStarted) {
-      diskScanStarted = true;
-      int scanX = position.x(), scanZ = position.z();
-      Path directory = root;
-      scan = worker.submit(() ->
-          LodDiskNearestScan.scan(directory, scanX, scanZ, MAX_DISK_KEYS));
-    }
+    if (diskIndex.tick(root, position.x(), position.z(), disk,
+        LodConfig.PERSIST.get() && store != null,
+        k -> { deferredDisk.remove(k); forgetUnused(k); }))
+      status = "Cache index unavailable";
     int radius = Math.min(com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
         mc.options.getEffectiveRenderDistance());
     // On effective-radius changes, completed scans or substantial travel, rescan the new
@@ -310,23 +306,6 @@ public final class VoxelLodRenderer {
     discoveryVisited = deliveredScan.visited();
     discoveryTotal = deliveredScan.total();
     discoveryComplete = deliveredScan.done();
-    if (scan != null && scan.isDone()) {
-      try {
-        var keys = scan.get();
-        int cx = mc.player.chunkPosition().x(), cz = mc.player.chunkPosition().z();
-        keys.sort(Comparator.comparingDouble(
-            k -> LodChunkDistance.squared(x(k), z(k), cx, cz)));
-        // Evictions or rejected uploads may already have queued recovery while scanning.
-        // Preserve their order/edit guards and admit only the remaining nearest scan keys.
-        for (long k : keys) {
-          if (disk.size() >= MAX_DISK_KEYS) break;
-          disk.add(k);
-        }
-      } catch (Exception failure) {
-        status = "Cache index unavailable";
-      }
-      scan = null;
-    }
     queuedChunks = dirty.size();
     if (future != null
         || pendingGpu != null
@@ -834,14 +813,12 @@ public final class VoxelLodRenderer {
       pendingGpu = null;
     }
     if (future != null) future.cancel(true);
-    if (scan != null) scan.cancel(true);
+    diskIndex.reset();
     if (worker != null) worker.shutdownNow();
     future = null;
     workingKey = null;
     captureBurst = 0;
     persistenceFailed = false;
-    scan = null;
-    diskScanStarted = false;
     worker = null;
     cache.values().forEach(Entry::close);
     cache.clear();
