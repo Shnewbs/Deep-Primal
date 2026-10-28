@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "run": "dev62-independent-20261028T2034",
+  "pinned_source": "055d78f8535d5380ac99e2dd0fc43da49ae5ba89",
+  "version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
+  "host": "Linux x86_64 isolated",
+  "java": "21.0.12.1",
+  "source_blobs": {
+    "DensityGraph.java": "aec303603a8ec85b598c4797ef20ac7c040dcf2d",
+    "DensityVolumeBounds.java": "6962711c12bf01b1e0f956275f09781d2716e19a",
+    "TerrainShapeV8.java": "726edf77ed103c16a0f94c2a6dd45257763a4319",
+    "LodMeshPartSplitter.java": "e9ab67d591b5628e61d7b2576d90adced763f1aa"
+  },
+  "tests": {
+    "coast": {
+      "assertions": 135580,
+      "sampled": 22800,
+      "v4_flip_count": 0,
+      "pass": true
+    },
+    "lod": {
+      "assertions": 9638305,
+      "scenarios": 420,
+      "fragments": 6254,
+      "pass": true
+    },
+    "mutations": {
+      "coast_rejected": true,
+      "lod_rejected": true
+    }
+  },
+  "total_assertions": 9773885,
+  "grade": {
+    "type": "carried",
+    "total": 50,
+    "average": 5,
+    "tier": 2
+  },
+  "full_java25_gradle": false,
+  "native": false,
+  "windows_gpu": false,
+  "jar_built": false,
+  "owner_override": "2026-10-27 owner builds full JARs",
+  "production_changed": false,
+  "builder_interrupted": false
+}
