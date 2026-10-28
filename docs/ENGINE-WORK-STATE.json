@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T02:08:35Z",
-  "active_until": "2026-10-28T02:08:35Z",
-  "source_ref": "d5f1abeaa7aa4752b15c906528599a059277504f",
+  "status": "active",
+  "updated_at": "2026-10-28T03:07:00Z",
+  "active_until": "2026-10-28T03:29:00Z",
+  "source_ref": "519b818b5891048206b6a16e6c0214487c6ce4e5",
   "candidate_version": "0.0.1-alpha.29-dev.42-v8bounds.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Source-only V8 occupancy partition is committed; next validate against Java25 actual DensityGraph/SeededNoise3D, native V8 saved topology, performance before generator integration",
+  "current_gate": "Opt-in DensityChunk V8 conservative occupancy planning: prove exact binary voxels/heightmap and bounded work; owner retains full native/GPU builds.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -489,7 +489,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0203-v8-occupancy-partition",
+  "worker": "builder-20261028T0307-v8-exact-chunk",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1032,50 +1032,23 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0203-v8-occupancy-partition",
-    "started_at": "2026-10-28T02:03:21Z",
-    "lease_until": "2026-10-28T02:25:00Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0307-v8-exact-chunk",
+    "started_at": "2026-10-28T03:07:00Z",
+    "lease_until": "2026-10-28T03:29:00Z",
+    "phase": "source_implementation",
     "scope": [
-      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumeBounds.java",
-      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumePlan.java",
-      "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityVolumePlanChecks.java",
-      "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-      "docs/validation/engine-continuation/v8-occupancy-partition-2026-10-28/",
-      "gradle.properties",
-      "docs/ENGINE-WORK-STATE.json"
+      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityChunk.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityChunkChecks.java",
+      "docs/validation/engine-continuation/v8-chunk-plan-parity-2026-10-28/",
+      "docs/ENGINE-WORK-STATE.json",
+      "gradle.properties"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md",
-    "audit_source_sha": "4fc83e6021df26d2f3df26ef8afa563db6650fe9",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0233-2805140/REVIEW.md",
+    "audit_source_sha": "28051408b079d3f378083554a6fb789ee43e5124",
     "owner_build_handoff": true,
     "renderer_scope_excluded": true,
     "water_scope_excluded": true,
-    "lease_released": true,
-    "completed_at": "2026-10-28T02:08:35Z",
-    "version": "0.0.1-alpha.29-dev.43-v8partition.1",
-    "source_commit": "3498491262dd2ffa736df530797fa3ee659b34af",
-    "documentation_fix_commit": "d5f1abeaa7aa4752b15c906528599a059277504f",
-    "exact_source_blobs": {
-      "bounds": "a8f811a2676ae74d93b52506ed747e88f0d354a4",
-      "plan": "8b7f764f52735ea9c7aa9496037b7a2e61de741b",
-      "checks": "ec3cc5b2a042bbcbfa614cf9ca03b68e0c8ee4f5"
-    },
-    "evidence": "docs/validation/engine-continuation/v8-occupancy-partition-2026-10-28/README.md",
-    "validation": [
-      "Java21 --release21 -Xlint:all -Werror compilation of exact Git blob source plus API-compatible graph doubles",
-      "java -Xverify:all: 158901 checks pass with complete voxel volume and no overlap",
-      "Four intentionally invalid compiled variants rejected",
-      "GitHub readback verified three source/test blobs and CoreChecks registration"
-    ],
-    "unrun": [
-      "Owner JDK25 archive unavailable; Java25 compiler and real compiled product DensityGraph not run",
-      "Full Gradle/module/native Minecraft V8/save/reopen/GPU owner builds not run",
-      "Native performance, streamed water scene and Windows AMD8060S Vulkan/OpenGL unrun"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "last_external_grade": 5,
-    "next_priority": "Actual Java25 product graph soundness and native chunk heightmap/topology/saved-profile parity; measure optional planner, then maintain separate water/renderer acceptance."
+    "lease_released": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
