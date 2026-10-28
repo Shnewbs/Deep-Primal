@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T07:09:42.969Z",
-  "active_until": "2026-10-28T07:34:42.969Z",
-  "source_ref": "9798537f1f77ef30885f8dbfeca736004b763027",
-  "candidate_version": "0.0.1-alpha.29-dev.47-v8columns.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T07:12:42.862Z",
+  "active_until": "2026-10-28T07:12:42.862Z",
+  "source_ref": "ddec91dc5e3151e0b797f186aac24e2e71c03a44",
+  "candidate_version": "0.0.1-alpha.29-dev.48-v8materials.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev48 planned V8 ground materials parity, Java25 source and Minecraft API double tests; full native owner gates still open.",
+  "current_gate": "Dev48 V8 planned surface/soil parity committed. Owner to run full Java25 Gradle/NeoForge native V8 profile/lighting/heightmap/save and Vulkan/GL hardware gates; finite-water acceptance outstanding.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -243,7 +243,7 @@
     "Continue hourly builder until a fresh complete independent ten-category average is strictly greater than 8.5/10; a score of exactly 8.5 does not satisfy the target."
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/v8-planned-ground-parity-2026-10-28/README.md",
   "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/density-r62",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
@@ -689,7 +689,7 @@
     "released": true
   },
   "candidate_release_class": "development-testing",
-  "latest_engine_test_summary": "Dev43 V8 partition: Java21/API-compatible doubles 158901 assertions, four mutation rejects, Git-matched three source blobs; actual Java25 product graph/native/GPU/full build unrun; owner builds. No JAR or regrade.",
+  "latest_engine_test_summary": "Dev48 source-only: JDK25 --release25, 1,235,414 new planned profile assertions and 11,921,661 retained baseheight/bridge assertions, 4 mutation rejects. No full Gradle/Minecraft/GPU/JAR; independent grade 50/100 unchanged.",
   "latest_validation_tool_evidence": "docs/validation/engine-continuation/root-client-isolation-2026-10-24/summary.json",
   "previous_preview": {
     "version": "0.0.1-alpha.27",
@@ -1035,15 +1035,22 @@
   "builder_cycle": {
     "worker": "builder-20261028T0700-v8materials",
     "started_at": "2026-10-28T07:09:42.969Z",
-    "lease_until": "2026-10-28T07:34:42.969Z",
-    "phase": "v8_ground_material_parity",
+    "lease_until": "2026-10-28T07:12:42.862Z",
+    "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "docs/validation/engine-continuation/v8-planned-ground-parity-2026-10-28/",
       "gradle.properties",
       "docs/ENGINE-WORK-STATE.json"
     ],
-    "coordination": "Latest independent 0633 audit read; renderer owns LOD retry. Current renderer released source checkpoint; historical water claim expired; personal-context looked up."
+    "coordination": "Latest independent 0633 audit read; renderer owns LOD retry. Current renderer released source checkpoint; historical water claim expired; personal-context looked up.",
+    "lease_released": true,
+    "source_commit": "ddec91dc5e3151e0b797f186aac24e2e71c03a44",
+    "affected_sources": [
+      "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java"
+    ],
+    "result": "Java25 exact source with API doubles: new 1,235,414 checks; base-height 874,642; native bridge 11,047,019; four mutation rejects; no full build/JAR/GPU run",
+    "next": "Owner native planned V8 surface, heightmap, lighting, save/reopen tests; builder next V8 saved profile parity and finite-water ownership."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1480,5 +1487,18 @@
     "native_acceptance": false,
     "owner_build_handoff": true
   },
-  "source_only_candidate_version": "0.0.1-alpha.29-dev.43-v8partition.1"
+  "source_only_candidate_version": "0.0.1-alpha.29-dev.43-v8partition.1",
+  "latest_v8_planned_ground": {
+    "version": "0.0.1-alpha.29-dev.48-v8materials.1",
+    "source_sha": "ddec91dc5e3151e0b797f186aac24e2e71c03a44",
+    "adapter_git_blob": "8f5dafb0636c7cd89a07349f1e85e6ea7537001d",
+    "audit": "docs/engine-hourly-audits/2026-10-28T0633-1aa65a8/REVIEW.md",
+    "evidence": "docs/validation/engine-continuation/v8-planned-ground-parity-2026-10-28/README.md",
+    "java25_focused_checks": 13157075,
+    "mutation_rejects": 4,
+    "full_gradle": false,
+    "owner_native_acceptance": false,
+    "installer_released": false,
+    "grade_changed": false
+  }
 }
