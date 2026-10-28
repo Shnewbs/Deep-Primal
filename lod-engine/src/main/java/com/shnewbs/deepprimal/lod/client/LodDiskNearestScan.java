@@ -252,16 +252,27 @@ final class LodDiskNearestScan {
       if (x == Long.MIN_VALUE) return;
       long z = parseCoordinate(filename, separator + 1, end);
       if (z != Long.MIN_VALUE)
-        accept(new RankedKey((int) x, (int) z, cameraX, cameraZ));
+        accept((int) x, (int) z);
     }
 
     void accept(long key) {
-      accept(new RankedKey((int) (key >> 32), (int) key, cameraX, cameraZ));
+      accept((int) (key >> 32), (int) key);
     }
 
-    private void accept(RankedKey candidate) {
-      long key = ((long) candidate.x << 32) ^ (candidate.z & 0xffffffffL);
+    private void accept(int x, int z) {
+      if (farthest.size() == maxKeys) {
+        // Rank compares the Chebyshev ring *before* squared distance or
+        // coordinate tie-breakers. Once full, a strictly farther ring cannot
+        // displace any retained candidate. Avoid allocating RankedKey and
+        // evaluating its 128-bit squared distance for these common misses.
+        // Equality MUST proceed to full comparison for exact same-ring order.
+        long dx = Math.abs((long) x - cameraX);
+        long dz = Math.abs((long) z - cameraZ);
+        if (Math.max(dx, dz) > farthest.peek().ring) return;
+      }
+      long key = ((long) x << 32) ^ (z & 0xffffffffL);
       if (retained.contains(key)) return;
+      RankedKey candidate = new RankedKey(x, z, cameraX, cameraZ);
       if (farthest.size() < maxKeys) {
         farthest.add(candidate);
         retained.add(key);
