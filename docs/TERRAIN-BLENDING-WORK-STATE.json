@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T2107-dev63-climate-bridge",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T21:07:00Z",
-  "updated_at": "2026-10-28T21:07:00Z",
-  "active_until": "2026-10-28T21:40:00Z",
-  "lease_released": false,
-  "source_ref": "bf081cc8aa577419a422178342f083cc2ddfcd60",
+  "updated_at": "2026-10-28T21:14:40Z",
+  "active_until": "2026-10-28T21:14:40Z",
+  "lease_released": true,
+  "source_ref": "79111cedc7d5a629e26d4d8bee7010b9eaacc02b",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.63-climate-bridge.1",
   "scope": [
@@ -18,9 +18,9 @@
     "gradle.properties"
   ],
   "coordination": "GitHub pinned main, independent Dev61 audit, scoped terrain/water claims and separate renderer commits checked. Terrain was released; foreground water expired; renderer jam claim released at e4c400f. Root validator Python not runnable without complete work-state checkout; root unchanged. Owner does full builds.",
-  "current_gate": "Active bounded claim for explicit V8 saved-reference climate/hydrology input adapter; no native generator change authorized; Java25/GPU/owner builds not performed.",
-  "tests": "14/14 Java21 isolated source/API-double suites passed, 20,929,784 assertions/checks (new V4 3,907,136). Four seeds and 148,998 sampled columns, V3 12 historical sea-side flips, V4 zero; frozen V1/V2/V3 graph digests and mutant rejection passed. Java25/full Gradle/Minecraft/GPU unrun; owner builds.",
-  "evidence": "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
+  "current_gate": "Opt-in V8 prewrite can consume V7-saved reference climate and conservative ocean/river/lake mask via explicit adapter; no native V8 generator registration and no authoritative V8 ocean mask/real-world persistence accepted.",
+  "tests": "Java21 strict source/API-double compile and real V8 prewrite-planner bridge; 130,377 checks, 46 water +210 land columns, 12,288 parallel/reversed samples; compiled incorrect water-domain mutant rejected. Python -OO identical. Real TerrainEngine/Java25/Gradle/Minecraft/GPU/JAR not run.",
+  "evidence": "docs/validation/engine-continuation/v8-climate-source-bridge-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -28,17 +28,15 @@
   "new_grade_awarded": false,
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2034-055d78f8/REVIEW.md",
   "audit_pinned_source": "055d78f8535d5380ac99e2dd0fc43da49ae5ba89",
-  "audit_findings": "Numeric sea-side classification has sampled proof, but V8 climate/ocean domain remains an unconstrained caller callback; native ocean/routed hydrology not integrated; build a guarded explicit saved V7 reference-climate adapter without altering existing profiles.",
-  "next_action": "Integrate authoritative persisted climate/ocean-mask and routed hydrology in V8 before native registration; confirm old/new chunk borders and native save/reopen/edits. Continue finite-water constituent conservation across unload/restart and real waterfall continuity under separate scopes; owner performs full build/GPU/JAR.",
-  "source_commit": "8bf0216d02253958a488fc44378d091c21dae74d",
-  "completed_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
-  "implementation_details": "Added explicit TerrainShapeV8.definitionReliefV4 and V8GeneratorSnapshot.newReliefV4, DensityGraph Op.SEA_SIDE_BLEND scalar/cached evaluation with strict parameter checks and conservative DensityVolumeBounds, and V8ReliefV4CoastalChecks. Frozen old graphs, V1-V7, player edits, all physical water/chemistry and renderer files untouched; no native registration.",
+  "audit_findings": "V4 numerical coast-side checks passed, but authoritative ocean/routed hydrology/climate and native reopened world were not verified; implement saved V7 reference read-only bridge, preserve native gate.",
+  "next_action": "Persist a new V8-specific climate/hydrology binding revision rather than reinterpreting saved r3 profiles, test real native ocean/river/lake maps and old/new generation borders; continue finite-water load/unload conservation, chemistry, restart and OpenGL/Vulkan waterfall acceptance in proper scope.",
+  "source_commit": "79111cedc7d5a629e26d4d8bee7010b9eaacc02b",
+  "completed_version": "0.0.1-alpha.29-dev.63-climate-bridge.1",
+  "implementation_details": "New V8SavedClimateSource binds explicit V8-r3 frozen policy, world seed parity, saved V7 terrain/options, channel revision 0..5, deterministic absolute climate and hydro-domain precedence; prewrite excludes all wet reference cells, including standing lakes. No V1-V7/V8 save migration or physical water writes. Existing real V8EcotoneColumnPlan unchanged.",
   "source_blob_hashes": {
-    "DensityGraph": "aec303603a8ec85b598c4797ef20ac7c040dcf2d",
-    "DensityVolumeBounds": "6962711c12bf01b1e0f956275f09781d2716e19a",
-    "TerrainShapeV8": "726edf77ed103c16a0f94c2a6dd45257763a4319",
-    "V8GeneratorSnapshot": "24719bbfc9611302f8c6bb314d4d6dd14f9142f8",
-    "V8ReliefV4CoastalChecks": "98f6e9fbeb80008feb8b5aef890449044fd07f6f"
+    "V8SavedClimateSource": "0602f083292e72de2ce0a003e13a5dfe9a9fc20c",
+    "V8SavedClimateSourceChecks": "6abbad2bfef5e91a8992e200b0250236e7fb92da",
+    "test_v8_saved_climate_source": "dffb50d3a1aae9b75aabecef71c797981f1eb1f2"
   },
   "source_evidence_zip_sha256": "b2d5c8ce00e03496012a5dfec1f13bbab3c428a50d1368e6305c69104b9f90b5",
   "previous_checkpoint": {
@@ -47,5 +45,6 @@
     "candidate_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
     "evidence": "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
     "updated_at": "2026-10-28T20:16:43.347Z"
-  }
+  },
+  "test_receipt": "docs/validation/engine-continuation/v8-climate-source-bridge-2026-10-28/results.json"
 }
