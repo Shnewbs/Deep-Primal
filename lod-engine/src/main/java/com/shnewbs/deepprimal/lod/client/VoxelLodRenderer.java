@@ -725,9 +725,6 @@ public final class VoxelLodRenderer {
       residentBytes += gpu.byteSize;
     }
     if (p.detail == 3) {
-      if (TELEMETRY)
-        pageUploadProbe.committed(System.nanoTime() - p.admittedAtNanos,
-            p.uploadFrames, p.bytes());
       Entry old =
           cache.put(
               p.ready.key,
@@ -744,6 +741,10 @@ public final class VoxelLodRenderer {
       }
       uploadedChunks++;
       pendingGpu = null;
+      // Count only a page that actually entered the cache, after replacement cleanup.
+      if (TELEMETRY)
+        pageUploadProbe.committed(System.nanoTime() - p.admittedAtNanos,
+            p.uploadFrames, p.bytes());
     }
   }
 
