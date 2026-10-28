@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T05:10:00Z",
-  "active_until": "2026-10-28T05:10:00Z",
-  "source_ref": "14cf09047a4d2eff37c2a2c9891d0e5157781d63",
+  "status": "active",
+  "updated_at": "2026-10-28T05:59:35Z",
+  "active_until": "2026-10-28T06:20:00Z",
+  "source_ref": "199d2013c3de36e57be8cd904d9626ac6d068f87",
   "candidate_version": "0.0.1-alpha.29-dev.46-v8native.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev46 exact V8 planned-section materializer committed to main and Java21/Java25 API-facade parity passed; native NeoForge write, section/heightmap/lighting/save and owner full Gradle/GPU remain unrun.",
+  "current_gate": "Dev47 V8 native base-height/base-column exact parity and conservative heightmap read contract; source-only, no registered V8 generator or owner full build.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -490,7 +490,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0500-v8-native-sections",
+  "worker": "builder-20261028T0600-v8-baseheight",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1033,45 +1033,26 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0500-v8-native-sections",
-    "started_at": "2026-10-28T05:03:00Z",
-    "lease_until": "2026-10-28T05:24:00Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0600-v8-baseheight",
+    "started_at": "2026-10-28T05:59:35Z",
+    "lease_until": "2026-10-28T06:20:00Z",
+    "phase": "implementing",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
-      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensitySectionLayout.java",
-      "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensitySectionLayoutChecks.java",
-      "docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/",
+      "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json",
       "gradle.properties"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0432-09a57c1/REVIEW.md",
-    "audit_source_sha": "09a57c1896eb1429b2af83223d4a3d6bd5ad8724",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0530-4cf0f1b/REVIEW.md",
+    "audit_source_sha": "4cf0f1b930b182903af3086071859d727379a74d",
+    "audit_finding": "Immature persisted LOD scanner/renderer contract violation belongs to independent renderer workstream; engine V8 native getBaseHeight and source-only saved-profile checks remain unaccepted.",
+    "chosen_engine_repair": "Implement exact top-down V8 baseHeight parity to materialized native sections, including signed/partial heights and bedrock, without V8 activation.",
     "last_external_grade": 5,
-    "acceptance_complete": false,
     "owner_build_handoff": true,
     "renderer_scope_excluded": true,
     "water_scope_excluded": true,
-    "lease_released": true,
-    "completed_at": "2026-10-28T05:10:00Z",
-    "version": "0.0.1-alpha.29-dev.46-v8native.1",
-    "source_commit": "14cf09047a4d2eff37c2a2c9891d0e5157781d63",
-    "evidence": "docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/README.md",
-    "test_artifact_sha256": "6d22bf7a51eb38b011acd672342b4b46efecf6bdf3975cd3a0c6544e4e6baf0f",
-    "validation": [
-      "Java21 javac --release21 -Xlint:all -Werror: 11047019 assertions, 1376512 block positions, 34 scenarios",
-      "Java25 Temurin25.0.5+8 javac --release25 -Xlint:all -Werror: same 11047019 passing assertions",
-      "Five independently compiled wrong variants rejected at runtime",
-      "Source adapter exact Git blob and nine current graph/section source identities verified"
-    ],
-    "unrun": [
-      "Complete Java25 Gradle/NeoForge build and native Minecraft class/API acceptance owner-operated",
-      "Native V8 chunk write/base-height/base-column/lighting/saved graph and V1-V7 replay owner-operated",
-      "Vulkan/OpenGL Windows AMD8060S, water long-soak, multicast, p50/p95/p99 performance and package checks"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "next_priority": "Owner Java25 native V8 chunk/section block+base column+heightmap/lighting/save/reopen/legacy controls; integrate saved V8 profile only after acceptance. Continue finite water single-owner unload, chemistry ledger and connected cliffs."
+    "lease_released": false,
+    "acceptance_complete": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
