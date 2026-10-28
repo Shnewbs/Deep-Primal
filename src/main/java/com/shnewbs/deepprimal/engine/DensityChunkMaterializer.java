@@ -120,25 +120,39 @@ public final class DensityChunkMaterializer {
     BlockState soil = needsSoil ? Objects.requireNonNull(
         GroundMaterials.DIRT.get().defaultBlockState(), "V8 subsurface material") : null;
 
-    // The raw pass does not incrementally update an unprimed heightmap that
-    // will immediately be recomputed from the final painted block states.
-    writePlannedRaw(planned, chunk, false);
-    var pos = new BlockPos.MutableBlockPos();
-    for (int z = 0; z < DensityChunk.WIDTH; z++)
-      for (int x = 0; x < DensityChunk.WIDTH; x++) {
-        BlockState surface = surfaces[z * DensityChunk.WIDTH + x];
-        if (surface == null) continue;
-        int top = density.surfaceExclusive(x, z) - 1;
-        int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
-        for (int depth = 0; depth < profile.soilDepth() && top - depth >= minY + 2; depth++) {
-          int y = top - depth;
-          if (!density.solid(x, y, z)) break;
-          chunk.setBlockState(pos.set(worldX, y, worldZ), depth == 0 ? surface : soil);
+    // An explicit V8 preview can target an already populated ProtoChunk.
+    // Save its original states as each unique cell is first touched. Native
+    // setters and heightmap priming can fail *after* preflight succeeds; in
+    // that event restore all touched cells in reverse order, then re-prime
+    // maps from the restored blocks. No mutation reaches V1-V7 paths.
+    var undo = new V8WriteUndo(chunk);
+    try {
+      // Avoid transient raw-stone heightmap updates before the final paint.
+      writePlannedRaw(planned, chunk, false, undo);
+      var pos = new BlockPos.MutableBlockPos();
+      for (int z = 0; z < DensityChunk.WIDTH; z++)
+        for (int x = 0; x < DensityChunk.WIDTH; x++) {
+          BlockState surface = surfaces[z * DensityChunk.WIDTH + x];
+          if (surface == null) continue;
+          int top = density.surfaceExclusive(x, z) - 1;
+          int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
+          for (int depth = 0; depth < profile.soilDepth() && top - depth >= minY + 2; depth++) {
+            int y = top - depth;
+            if (!density.solid(x, y, z)) break;
+            undo.write(pos.set(worldX, y, worldZ), depth == 0 ? surface : soil);
+          }
         }
-      }
-    Heightmap.primeHeightmaps(chunk,
-        EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
-    return planned;
+      Heightmap.primeHeightmaps(chunk,
+          EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
+      return planned;
+    } catch (RuntimeException | Error failure) {
+      // In-memory block-state recovery is best effort. Native callbacks,
+      // scheduled updates and persistent I/O are NOT transactional: a caller
+      // must discard/recreate a failed chunk if a restoration fails or native
+      // side effects escaped. Suppress recovery errors on the root cause.
+      undo.rollback(failure);
+      throw failure;
+    }
   }
 
   /**
@@ -168,6 +182,11 @@ public final class DensityChunkMaterializer {
 
   private static DensityChunk.Planned writePlannedRaw(
       DensityChunk.Planned planned, ChunkAccess chunk, boolean primeMaps) {
+    return writePlannedRaw(planned, chunk, primeMaps, null);
+  }
+
+  private static DensityChunk.Planned writePlannedRaw(
+      DensityChunk.Planned planned, ChunkAccess chunk, boolean primeMaps, V8WriteUndo undo) {
     int minY = chunk.getMinY();
     var origin = chunk.getPos();
     // The painted surface path primes the final map once after all writes.
@@ -182,8 +201,9 @@ public final class DensityChunkMaterializer {
         for (int z = 0; z < DensityChunk.WIDTH; z++)
           for (int x = 0; x < DensityChunk.WIDTH; x++) {
             var state = material(section.solidLocal(x, sectionY, z), minY, y);
-            chunk.setBlockState(pos.set(origin.getMinBlockX() + x, y,
-                origin.getMinBlockZ() + z), state);
+            pos.set(origin.getMinBlockX() + x, y, origin.getMinBlockZ() + z);
+            if (undo == null) chunk.setBlockState(pos, state);
+            else undo.write(pos, state);
             if (primeMaps && !state.isAir()) {
               floor.update(x, y, z, state);
               surface.update(x, y, z, state);
@@ -194,6 +214,78 @@ public final class DensityChunkMaterializer {
     if (primeMaps) Heightmap.primeHeightmaps(chunk,
         EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
     return planned;
+  }
+
+  /**
+   * Bounded synchronous V8 block-write recovery. A cell is snapshotted only
+   * once even when the soil pass repaints it. Raw writes cover at most
+   * 256 * DensityChunk.MAX_HEIGHT cells; the journal is fixed-size, and no
+   * neighbor, cache, filesystem or mutable shared output is accessed.
+   *
+   * <p>This is not a general Minecraft transaction. It repairs block-state
+   * and derived heightmap values for recoverable setter exceptions, but it
+   * cannot undo arbitrary world callbacks, lighting notifications or I/O.
+   * Native callers must treat unrecoverable failures as discarded chunks.
+   */
+  private static final class V8WriteUndo {
+    private final ChunkAccess chunk;
+    private final int minY, originX, originZ;
+    private final BlockState[] before;
+    private final boolean[] seen;
+    private final int[] touched;
+    private int count;
+
+    V8WriteUndo(ChunkAccess chunk) {
+      this.chunk = chunk;
+      this.minY = chunk.getMinY();
+      this.originX = chunk.getPos().getMinBlockX();
+      this.originZ = chunk.getPos().getMinBlockZ();
+      int height = chunk.getHeight();
+      if (height < 1 || height > DensityChunk.MAX_HEIGHT)
+        throw new IllegalArgumentException("V8 undo height outside 1..2048");
+      int length = DensityChunk.WIDTH * DensityChunk.WIDTH * height;
+      this.before = new BlockState[length];
+      this.seen = new boolean[length];
+      this.touched = new int[length];
+    }
+
+    void write(BlockPos pos, BlockState state) {
+      int x = pos.getX() - originX, y = pos.getY() - minY, z = pos.getZ() - originZ;
+      if (x < 0 || x >= DensityChunk.WIDTH || z < 0 || z >= DensityChunk.WIDTH
+          || y < 0 || y >= chunk.getHeight())
+        throw new IllegalArgumentException("V8 write outside destination chunk");
+      int index = (y * DensityChunk.WIDTH + z) * DensityChunk.WIDTH + x;
+      if (!seen[index]) {
+        // Snapshot before calling a setter which may mutate and then throw.
+        before[index] = Objects.requireNonNull(chunk.getBlockState(pos),
+            "original V8 destination block state");
+        seen[index] = true;
+        touched[count++] = index;
+      }
+      chunk.setBlockState(pos, state);
+    }
+
+    void rollback(Throwable failure) {
+      if (count == 0) return; // A failed first read did not touch blocks or maps.
+      var pos = new BlockPos.MutableBlockPos();
+      for (int i = count - 1; i >= 0; i--) {
+        int index = touched[i];
+        int x = index % DensityChunk.WIDTH;
+        int z = (index / DensityChunk.WIDTH) % DensityChunk.WIDTH;
+        int y = index / (DensityChunk.WIDTH * DensityChunk.WIDTH) + minY;
+        try {
+          chunk.setBlockState(pos.set(originX + x, y, originZ + z), before[index]);
+        } catch (RuntimeException | Error recoveryFailure) {
+          if (recoveryFailure != failure) failure.addSuppressed(recoveryFailure);
+        }
+      }
+      try {
+        Heightmap.primeHeightmaps(chunk,
+            EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
+      } catch (RuntimeException | Error mapFailure) {
+        if (mapFailure != failure) failure.addSuppressed(mapFailure);
+      }
+    }
   }
 
   /**
