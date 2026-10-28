@@ -72,6 +72,8 @@ public final class UpscalingRuntime {
   public static String unavailableReason(UpscalingPolicy.Mode requested) {
     if (requested == UpscalingPolicy.Mode.NONE) return "";
     if (!RendererOwnership.owned()) return "Rendering is managed by " + RendererOwnership.owner();
+    if (requested == UpscalingPolicy.Mode.FSR_31 || requested == UpscalingPolicy.Mode.FSR_41)
+      return UpscalingPolicy.unavailableReason(requested, false);
     if (requested == UpscalingPolicy.Mode.DLSS)
       return "DLSS is unavailable: this renderer still needs jitter and motion vectors for moving "
           + "objects, plus the NVIDIA NGX runtime. Native resolution remains active.";
