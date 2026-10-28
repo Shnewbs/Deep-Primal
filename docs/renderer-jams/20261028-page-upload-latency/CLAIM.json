@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "jam_id": "20261028-page-upload-latency",
+  "owner": "renderer-schedule",
+  "status": "active",
+  "base_sha": "3bc5909c0226477b2184fe1db5805f8b9eb7a061",
+  "claimed_at": "2026-10-28T04:03:00Z",
+  "active_until": "2026-10-28T04:28:00Z",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageUploadProbe.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261028-page-upload-latency/"
+  ],
+  "non_overlap": [
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/WATER-ENGINE-WORK-STATE.json",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/",
+    "src/main/java/com/shnewbs/deepprimal/engine/",
+    "gradle.properties",
+    "graphics-settings/",
+    "renderer-vulkan/"
+  ],
+  "benchmark_reservation": "none; prior engine reservation released",
+  "consumed_renderer_audit": "docs/renderer-jams/20261027-quad-bounded-upload/REVIEW.md",
+  "consumed_engine_audit": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md",
+  "intention": "Bounded render-thread LOD page completion/abandonment metrics to measure delayed partial uploads under owner A/B; no GPU completion claim",
+  "owner_build_handoff": true
+}
