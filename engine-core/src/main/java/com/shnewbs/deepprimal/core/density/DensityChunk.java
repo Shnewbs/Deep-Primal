@@ -58,6 +58,81 @@ public final class DensityChunk {
     return new DensityChunk(minY, height, solid, surfaces);
   }
 
+  /**
+   * Opt-in V8 exact-occupancy preflight, deliberately not enabled by native worldgen.
+   *
+   * <p>Certified all-solid/all-air boxes replace only the individual density calls.
+   * Any uncertain cell uses the same job-owned exact sampler as {@link #sample}.
+   * Every vertical slab is at most 64 cells high; the number of interval queries
+   * is capped independently for each slab. The output keeps the existing z/x/y
+   * column-major bits and top-exclusive surface semantics, including cave roofs.
+   * The planner never reads or writes a Minecraft world, persisted profile or water.
+   * No performance benefit is implied until native profiling proves one.
+   */
+  public static Planned samplePlanned(DensityGraph graph, int originX, int minY,
+                                      int originZ, int height, int queriesPerSlab) {
+    Objects.requireNonNull(graph, "graph");
+    if (height < 1 || height > MAX_HEIGHT) throw new IllegalArgumentException("chunk height");
+    if (Math.floorMod(originX, WIDTH) != 0 || Math.floorMod(originZ, WIDTH) != 0)
+      throw new IllegalArgumentException("chunk origin must align to 16-block boundaries");
+    checkAxis(originX, WIDTH);
+    checkAxis(originZ, WIDTH);
+    checkAxis(minY, height);
+    if (queriesPerSlab < 0 || queriesPerSlab > DensityVolumePlan.MAX_QUERIES)
+      throw new IllegalArgumentException("classification budget must be 0..256");
+
+    var bounds = new DensityVolumeBounds(graph);
+    var sampler = graph.newSampler();
+    BitSet occupied = new BitSet(COLUMNS * height);
+    long exact = 0, certifiedSolid = 0, certifiedEmpty = 0;
+    int queries = 0;
+    for (int band = 0; band < height; band += 64) {
+      int sizeY = Math.min(64, height - band);
+      var plan = DensityVolumePlan.plan(bounds, originX, minY + band, originZ,
+                                        WIDTH, sizeY, WIDTH, queriesPerSlab);
+      queries += plan.queries();
+      exact += plan.uncertainCells();
+      certifiedSolid += plan.solidCells();
+      certifiedEmpty += plan.emptyCells();
+      for (var tile : plan.tiles()) {
+        int startY = tile.y() - minY;
+        for (int worldZ = tile.z(); worldZ < tile.z() + tile.sizeZ(); worldZ++) {
+          int localZ = worldZ - originZ;
+          for (int worldX = tile.x(); worldX < tile.x() + tile.sizeX(); worldX++) {
+            int column = (localZ * WIDTH + worldX - originX) * height;
+            switch (tile.occupancy()) {
+              case SOLID -> occupied.set(column + startY, column + startY + tile.sizeY());
+              case EMPTY -> { /* All air: no authoritative density calls. */ }
+              case UNCERTAIN -> {
+                for (int localY = 0; localY < tile.sizeY(); localY++) {
+                  if (sampler.sample(worldX, tile.y() + localY, worldZ) > 0.0)
+                    occupied.set(column + startY + localY);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // Reconstruct the exact legacy top-exclusive heightmap after all slabs, not
+    // from an interpolated surface estimate or a slab-local top. Caves and holes
+    // retain the highest actual positive voxel, even across slab boundaries.
+    int[] surfaces = new int[COLUMNS];
+    for (int column = 0; column < COLUMNS; column++) {
+      int first = column * height;
+      int top = occupied.previousSetBit(first + height - 1);
+      surfaces[column] = top < first ? minY : minY + top - first + 1;
+    }
+    return new Planned(new DensityChunk(minY, height, occupied, surfaces),
+                       exact, certifiedSolid, certifiedEmpty, queries);
+  }
+
+  /** Source-only planning statistics, not a measured time or FPS claim. */
+  public record Planned(DensityChunk chunk, long exactSamples, long solidCertificates,
+                        long airCertificates, int classificationQueries) {
+    public long totalCells() { return exactSamples + solidCertificates + airCertificates; }
+  }
+
   public int minY() {
     return minY;
   }
