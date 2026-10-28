@@ -3,10 +3,14 @@
   "role": "dedicated-renderer",
   "jam": "20261027-pending-gpu-ledger",
   "owner": "renderer-hourly-chat",
-  "status": "active",
+  "status": "checkpointed",
   "acquired_utc": "2026-10-28T01:03:14Z",
   "expires_utc": "2026-10-28T01:30:00Z",
+  "released_utc": "2026-10-28T01:09:19Z",
   "source_parent": "8756bd02171353a609dd71f7d7ba811b7b75c77b",
+  "claim_commit": "363140f925c27bfc0c23eb601595ac5a4e20528c",
+  "implementation_parent": "363140f925c27bfc0c23eb601595ac5a4e20528c",
+  "final_source_commit": "598c860d57687b37b2c24f7f329569354dd4b113",
   "scope": [
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/PendingGpuBytes.java",
@@ -20,9 +24,13 @@
     "renderer-vulkan",
     "other feature schedules"
   ],
-  "timed_measurement": "none; standalone CPU/Java21 only",
+  "timed_measurement": "isolated Java21 CPU component microprobe only; no shared GPU or Java25 measurements",
   "owner_build_handoff": true,
-  "previous_renderer_review": "docs/renderer-jams/20261027-capture-priority/REVIEW.md",
+  "consumed_renderer_review": "docs/renderer-jams/20261027-capture-priority/REVIEW.md",
   "consumed_engine_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
-  "validation": "Java 21 focused; JDK 25 unavailable in this execution workspace"
+  "score": "28/60=4.67/10 (unchanged)",
+  "owner_gpu_build": "NOT_RUN",
+  "jar": "NOT_PRODUCED",
+  "report_path": "docs/renderer-jams/20261027-pending-gpu-ledger/REVIEW.md",
+  "scoped_lease_released": true
 }
