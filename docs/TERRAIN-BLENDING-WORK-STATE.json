@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T1704-v8-ecotone-prefill",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T17:04:00Z",
-  "updated_at": "2026-10-28T17:08:00Z",
-  "active_until": "2026-10-28T17:45:00Z",
-  "lease_released": false,
-  "source_ref": "61f6405d55d05b0f1d762e50c3d6d6ef4e4486fd",
+  "updated_at": "2026-10-28T17:13:31.774Z",
+  "active_until": "2026-10-28T17:13:31.774Z",
+  "lease_released": true,
+  "source_ref": "338bf489329cb8abb0ae800bb4cd7f8fccfa268f",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.59-ecotone-query.1",
   "scope": [
@@ -15,10 +15,10 @@
     "docs/TERRAIN-BLENDING-WORK-STATE.json",
     "docs/validation/engine-continuation/v8-ecotone-prewrite-query-2026-10-28/README.md"
   ],
-  "coordination": "Claimed scoped V8 terrain path, no renderer/water writes. Root lease stale since 12:04Z; water foreground claim stale since 01:15Z. Checked existing builder/auditor/renderer task states 17:04Z; only builder writes this terrain scope. Root Python validator not run because full pinned checkout not available; root state unmodified.",
-  "current_gate": "Explicit V8 rev3 planned native material writes and exact read-after-materialize base-column parity are source-tested under Java21 API doubles. Native registered generator, saved-world climate producer, real Mojang codec, terrain relief and owner-machine save/reopen/GPU acceptance remain unpassed.",
-  "tests": "PASSED: nine compiled Java21 production-source/Minecraft-Mojang-API-double suites, 14,150,419 assertions total. New V8EcotoneNativeChecks 27,748 assertions including 12,288 identical replay voxels and 12,288 painted base-column/native voxel parity checks. Java25, full Gradle/NeoForge/native real world/GPU, official tools/test_ecotone_blend.py not run. Provenance/source hash matched against GitHub blob.",
-  "evidence": "docs/validation/engine-continuation/v8-ecotone-native-columns-2026-10-28/README.md",
+  "coordination": "Checked current scoped terrain/water/root work states, latest auditor receipt and independent automation states. Acquired scoped writer lease at main 550a97a..., confirmed expected-parent direct-main update after concurrent renderer commit, no other checkout/cache touched. Root work-state Python validator could not run against complete pinned root file in the isolated workspace, so root state was left unchanged. Renderer and water source scopes untouched; main re-read before each guarded ref update.",
+  "current_gate": "Independent opt-in saved V8 revision-3 pre-generation material plan and exact API-double baseColumn/native fill parity implemented; snow-cache registry fallback eliminated. Native saved-world climate source, real Minecraft heightmap/save/reopen/legacy replay, versioned relief blending, GPU and finite-water acceptance still OPEN.",
+  "tests": "11/11 production-source Java21 (javac --release 21) API-double suites passed, 14,177,063 assertions. New independent prewrite plan suite 26,128 assertions/24,576 voxel parity; snow audit regression 516 checks/65 snowy grass columns/zero unnecessary grass lookups; unchanged dev58 negative compiled source failed intended test. Java25, full Gradle, Mojang native and hardware tests not run. Official tools/test_ecotone_blend.py not run without full authoritative source checkout.",
+  "evidence": "docs/validation/engine-continuation/v8-ecotone-prewrite-query-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -26,15 +26,15 @@
   "new_grade_awarded": false,
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1628-1e6e530/REVIEW.md",
   "audit_pinned_source": "1e6e530fc76d5997eb2ec1abc0ea49f6570ef7f0",
-  "audit_findings": "Auditor: redundant grass/podzol/dirt material resolution when subsequent snowPatch column encounters cached snow; independent pre-generation exact V8 ecotone base-column query missing. Fix in progress.",
-  "next_action": "Wire a deterministic saved-authoritative native absolute-coordinate climate producer and independent pre-generation base-column query; add versioned V8 relief/density blending before hydrology with erosion/cliff safeguards. Continue conservative finite-water loaded/unloaded ownership, constituent and restart tests when water scoped claims allow; separate renderer owns GPU systems. Owner builds JARs; no builder release.",
-  "source_commit": "b55c42cce5d068cf92f5178dcf1ed801e0eba0e3",
-  "completed_version": "0.0.1-alpha.29-dev.58-ecotone-native.1",
-  "implementation_details": "New V8EcotoneColumnPlan immutable 16x16 preflight; opt-in DensityChunkMaterializer.fillSavedEcotone; frozen 40-biome blend to approved dirt/grass/podzol and vanilla snow, bounded weighted soil depth, retained vegetation flags, hydrological river/ocean painting excluded, single heightmap prime and existing dev53 rollback; new exact painted baseColumn(result) parity without changing legacy.",
+  "audit_findings": "Auditor identified unnecessary non-snow registry lookup after cached snow patch; reproduced with 65 snow+grass columns and intentionally missing optional grass block. Repair passed with zero grass lookups. Next independent pre-generation column planning gap addressed by shared planSavedEcotone API and exact API-double parity.",
+  "next_action": "Bind real saved authoritative world climate+domain producer to V8 revisioned planning, test native pre-generation saved-profile reopens and signed seams; version relief/density plains/hills/foothills/mountain/coast joins before hydrology; continue water boundary quantity/constituent transport only after foreground ownership reconciling; no JAR builder output.",
+  "source_commit": "338bf489329cb8abb0ae800bb4cd7f8fccfa268f",
+  "completed_version": "0.0.1-alpha.29-dev.59-ecotone-query.1",
+  "implementation_details": "Added explicit chunkless V8 revision-3 planSavedEcotone and reused its planned density+cover in fillSavedEcotone for baseColumn pre-generation and later materialization parity; validated signed aligned origins and saved dimensions. Fixed snowPatch cache else binding. No water or geometry changes.",
   "source_blob_hashes": {
-    "materializer": "2c63eb58dcf7bc3b7667cd8b565e4896cd3d10a7",
+    "materializer": "aabcb455761571f8615601ddff5ae4042d2e3f5a",
     "columns": "89b9e298b7d246fa1ba40990138c7a62c0fd1a7c",
     "snapshot": "fecb8c4850730d0c515169c4a467207f3aaf1230"
   },
-  "source_evidence_zip_sha256": "d42a8939835001d08fed93e6cadffc3a897272509fe3a074e3e0273fa381e64f"
+  "source_evidence_zip_sha256": "fd9940831f1e1919b5763b3b820b04e4379cc4c0fc729af827086b223362b1c4"
 }
