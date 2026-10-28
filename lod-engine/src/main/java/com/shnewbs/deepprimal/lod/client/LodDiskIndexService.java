@@ -16,6 +16,7 @@ import java.util.function.LongConsumer;
  */
 final class LodDiskIndexService {
   private LodDiskNearestScan.Cursor cursor;
+  private PendingApply apply;
   private boolean started;
   private int centerX, centerZ;
 
@@ -29,7 +30,11 @@ final class LodDiskIndexService {
     boolean retarget = !started
         || Math.max(Math.abs((long) cameraX - centerX),
                     Math.abs((long) cameraZ - centerZ)) >= LodDiskNearestScan.RETARGET_CHUNKS;
-    if (retarget && cursor != null) cursor.cancel();
+    if (retarget) {
+      if (cursor != null) cursor.cancel();
+      // A new camera invalidates an incomplete previous priority reordering.
+      apply = null;
+    }
     if (cursor != null && cursor.cancelled()) {
       // Do not accumulate retired directory threads during repeated teleports.
       if (!cursor.stopped()) return false;
@@ -42,6 +47,10 @@ final class LodDiskIndexService {
       centerZ = cameraZ;
       started = true;
     }
+    if (apply != null) {
+      if (apply.advance(queue, forgotten)) apply = null;
+      return false;
+    }
     if (cursor == null) return false;
     cursor.advance();
     LodDiskNearestScan.Completion completed = cursor.completed();
@@ -50,32 +59,49 @@ final class LodDiskIndexService {
       cursor = null;
       return true;
     }
-    // The scan already ranks initial recovery + all on-disk keys on its own
-    // thread. Never sort its immutable List.copyOf result in place.
-    LinkedHashSet<Long> selected = new LinkedHashSet<>();
-    for (long key : queue) {
-      if (!cursor.wasQueuedInitially(key)) selected.add(key);
-    }
-    for (long key : completed.keys()) {
-      if (selected.size() >= LodDiskNearestScan.MAX_KEYS) break;
-      selected.add(key);
-    }
-    ArrayList<Long> previous = new ArrayList<>(queue);
-    queue.clear();
-    queue.addAll(selected);
+    // The scanner returns immutable, ranked candidates and a discard list.
+    // Apply both in small turns; neither List.sort nor an 8192-entry hash rebuild
+    // is allowed on the client/render thread.
+    apply = new PendingApply(completed.discardKeys(), completed.keys());
     cursor = null;
-    for (long key : previous)
-      if (!queue.contains(key)) forgotten.accept(key);
+    if (apply.advance(queue, forgotten)) apply = null;
     return false;
+  }
+
+  /** Owner-thread mutations are individually capped to avoid a frame-time spike. */
+  private static final class PendingApply {
+    private final java.util.List<Long> discard, incoming;
+    private int removed, added;
+
+    PendingApply(java.util.List<Long> discard, java.util.List<Long> incoming) {
+      this.discard = discard;
+      this.incoming = incoming;
+    }
+
+    boolean advance(LinkedHashSet<Long> queue, LongConsumer forgotten) {
+      int remaining = LodDiskNearestScan.ENTRIES_PER_TURN;
+      while (remaining > 0 && removed < discard.size()) {
+        long key = discard.get(removed++);
+        if (queue.remove(key)) forgotten.accept(key);
+        remaining--;
+      }
+      while (remaining > 0 && added < incoming.size()) {
+        long key = incoming.get(added++);
+        if (queue.size() < LodDiskNearestScan.MAX_KEYS) queue.add(key);
+        remaining--;
+      }
+      return removed == discard.size() && added == incoming.size();
+    }
   }
 
   void reset() {
     if (cursor != null) cursor.cancel();
     cursor = null;
+    apply = null;
     started = false;
   }
 
   // Focused check accessors; never poll them from a different client thread.
-  boolean scanning() { return cursor != null; }
+  boolean scanning() { return cursor != null || apply != null; }
   boolean started() { return started; }
 }

@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Set;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -88,7 +87,7 @@ final class LodDiskNearestScan {
   }
 
   /** Finished results are immutable. Never call sort() on keys. */
-  record Completion(List<Long> keys, IOException failure, long examined, long turns) {}
+  record Completion(List<Long> keys, List<Long> discardKeys, IOException failure, long examined, long turns) {}
 
   /**
    * This cursor's only mutator of the DirectoryStream, heap and iterator is its
@@ -99,7 +98,6 @@ final class LodDiskNearestScan {
     private final Path folder;
     private final Selection selection;
     private final List<Long> recovery;
-    private final Set<Long> originalRecovery;
     private final Semaphore grants = new Semaphore(0);
     private final AtomicBoolean granted = new AtomicBoolean();
     private final Thread thread;
@@ -112,7 +110,6 @@ final class LodDiskNearestScan {
       this.folder = folder;
       this.selection = new Selection(cameraX, cameraZ, maxKeys);
       this.recovery = recovery;
-      this.originalRecovery = Set.copyOf(recovery);
       thread = new Thread(this::run, "Deep Primal LOD disk cursor");
       thread.setDaemon(true);
       thread.setPriority(Thread.MIN_PRIORITY);
@@ -126,7 +123,6 @@ final class LodDiskNearestScan {
     }
 
     Completion completed() { return completed; }
-    boolean wasQueuedInitially(long key) { return originalRecovery.contains(key); }
     boolean cancelled() { return cancelled; }
     boolean stopped() { return !thread.isAlive(); }
     long examined() { return examined; }
@@ -179,13 +175,13 @@ final class LodDiskNearestScan {
       } catch (InterruptedException interrupted) {
         Thread.currentThread().interrupt();
         if (!cancelled)
-          completed = new Completion(List.of(), new IOException("disk scan interrupted", interrupted),
+          completed = new Completion(List.of(), List.of(), new IOException("disk scan interrupted", interrupted),
               examined, turns);
       } catch (IOException | DirectoryIteratorException | SecurityException error) {
         if (!cancelled) {
           IOException failure = error instanceof IOException io ? io
               : new IOException("disk directory enumeration failed", error);
-          completed = new Completion(List.of(), failure, examined, turns);
+          completed = new Completion(List.of(), List.of(), failure, examined, turns);
         }
       } finally {
         granted.set(false);
@@ -212,7 +208,16 @@ final class LodDiskNearestScan {
     }
 
     private void publish() {
-      if (!cancelled) completed = new Completion(selection.nearest(), null, examined, turns);
+      if (cancelled) return;
+      List<Long> nearest = selection.nearest();
+      // Precompute all expensive membership/sort work on the cursor thread.
+      // The client applies at most 256 queue mutations per tick.
+      HashSet<Long> chosen = new HashSet<>(nearest);
+      ArrayList<Long> discard = new ArrayList<>();
+      for (long old : recovery)
+        if (!chosen.contains(old)) discard.add(old);
+      if (!cancelled)
+        completed = new Completion(nearest, List.copyOf(discard), null, examined, turns);
     }
   }
 
