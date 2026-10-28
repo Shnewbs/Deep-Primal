@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T2157-dev64-climate-binding",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T21:57:39Z",
-  "updated_at": "2026-10-28T21:57:39Z",
-  "active_until": "2026-10-28T22:37:39Z",
-  "lease_released": false,
-  "source_ref": "1520ef17a34d2ea15ed9a75feaee6336490e3023",
+  "updated_at": "2026-10-28T22:08:37.041Z",
+  "active_until": "2026-10-28T22:08:37.041Z",
+  "lease_released": true,
+  "source_ref": "a7ab7dde6e0aedf87cd524de02e4388415d6b6f4",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.64-climate-binding.1",
   "scope": [
@@ -21,10 +21,10 @@
     "docs/validation/engine-continuation/v8-climate-binding-2026-10-28/README.md",
     "gradle.properties"
   ],
-  "coordination": "Scoped terrain lease only. Root validator remains unavailable as full pinned root checkout; root untouched. GitHub main/tree, prior scoped water lease expired, independent 20:34Z audit and separate renderer work checked. Owner performs full builds.",
-  "current_gate": "Develop strict V8-r4 saved climate binding; no native activation until save/reopen/coast checks.",
-  "tests": "Java21 strict source/API-double compile and real V8 prewrite-planner bridge; 130,377 checks, 46 water +210 land columns, 12,288 parallel/reversed samples; compiled incorrect water-domain mutant rejected. Python -OO identical. Real TerrainEngine/Java25/Gradle/Minecraft/GPU/JAR not run.",
-  "evidence": "docs/validation/engine-continuation/v8-climate-source-bridge-2026-10-28/README.md",
+  "coordination": "GitHub main and scoped terrain/water state checked. Latest completed repo external audit 20:34Z pinned Dev62 consumed. Renderer concurrently advanced indexed batching to 612833c; builder rebased by guarded current-parent fast-forward to preserve it. Root validator could not be run on a complete pinned root file in this isolated host; root left untouched. Owner performs Java25/Gradle/native/GPU/JAR.",
+  "current_gate": "Opt-in V8-r4 saved reference-climate identity and strict prewrite pass Java21 isolated API doubles; authoritative V8 ocean/routed hydrology, real saved-world codec/native registration, old/new chunk borders and GPU/water acceptance remain unrun.",
+  "tests": "15 Java21 strict source/API-double suites passed, 20,945,922 local fixture checks; new V8ClimateBindingChecks 16,138, r4 roundtrips 1,536, r3/r4 prewrite parity 4,096 columns, 103 rejection cases. Standalone binding runner 12,297 and compiled mutant rejects. Java25/Gradle/NeoForge/real Mojang save/GPU/JAR not run.",
+  "evidence": "docs/validation/engine-continuation/v8-climate-binding-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -32,23 +32,25 @@
   "new_grade_awarded": false,
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2034-055d78f8/REVIEW.md",
   "audit_pinned_source": "055d78f8535d5380ac99e2dd0fc43da49ae5ba89",
-  "audit_findings": "V4 numerical coast-side checks passed, but authoritative ocean/routed hydrology/climate and native reopened world were not verified; implement saved V7 reference read-only bridge, preserve native gate.",
-  "next_action": "Implement and source-check strict V8-r4 climate binding; preserve old version roots and finite water.",
-  "source_commit": "79111cedc7d5a629e26d4d8bee7010b9eaacc02b",
-  "completed_version": "0.0.1-alpha.29-dev.63-climate-bridge.1",
-  "implementation_details": "New V8SavedClimateSource binds explicit V8-r3 frozen policy, world seed parity, saved V7 terrain/options, channel revision 0..5, deterministic absolute climate and hydro-domain precedence; prewrite excludes all wet reference cells, including standing lakes. No V1-V7/V8 save migration or physical water writes. Existing real V8EcotoneColumnPlan unchanged.",
+  "audit_findings": "Independent Dev62 reviewed V4 numeric coast classification but authoritative V8 ocean/routed water mask, saved world and native/owner GPU remain open. Added saved V8-r4 climate/hydrology reference contract without prematurely claiming native V8 acceptance.",
+  "next_action": "Owner-side Java25/Mojang codec r4 NBT/JSON saved reopen + native V8 authoritative ocean mask and old/new generation borders; evaluate real V8 climate producer and limited soil/vegetation placement. Resume finite-water unload/restart conservation and waterfall GPU acceptance in non-overlapping scope.",
+  "source_commit": "a7ab7dde6e0aedf87cd524de02e4388415d6b6f4",
+  "completed_version": "0.0.1-alpha.29-dev.64-climate-binding.1",
+  "implementation_details": "New V8ClimateBinding persists bit-exact V7 saved TerrainOptions, explicit revision 7/channel 0..5; new V8 snapshot r4 nine-field envelope; fromSavedV8 reopens exact seed-bound climate reference; prewrite and materialization accept opt-in r4 while r1-r3 saved encodings remain unchanged. No physical liquid writes or renderer edits.",
   "source_blob_hashes": {
-    "V8SavedClimateSource": "0602f083292e72de2ce0a003e13a5dfe9a9fc20c",
-    "V8SavedClimateSourceChecks": "6abbad2bfef5e91a8992e200b0250236e7fb92da",
-    "test_v8_saved_climate_source": "dffb50d3a1aae9b75aabecef71c797981f1eb1f2"
+    "V8GeneratorSnapshot": "5ac5b0b57136c375d802ae38739dca6c6b03ebd9",
+    "V8ClimateBinding": "1d6b4924672c03f06cd1a546189c9f9b07a7ae74",
+    "V8SavedClimateSource": "1450777a54144604ee2d07c0283c31ecff6a13b0",
+    "V8EcotoneColumnPlan": "26eb8611b6e1ac74eeabb62f4d369fe1f872c2f1",
+    "DensityChunkMaterializer": "f619fad678e27436df404e3d393c02bbbe0c0bed"
   },
-  "source_evidence_zip_sha256": "b2d5c8ce00e03496012a5dfec1f13bbab3c428a50d1368e6305c69104b9f90b5",
+  "source_evidence_zip_sha256": "32f857a6df44715aef2dab5536261d783f3a4d11e883b8603ed8420c9537e8ee",
   "previous_checkpoint": {
-    "worker": "hourly-engine-builder-20261028T2002-dev62-coastal-proof",
-    "source_ref": "8bf0216d02253958a488fc44378d091c21dae74d",
-    "candidate_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
-    "evidence": "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
-    "updated_at": "2026-10-28T20:16:43.347Z"
+    "worker": "hourly-engine-builder-20261028T2107-dev63-climate-bridge",
+    "source_ref": "79111cedc7d5a629e26d4d8bee7010b9eaacc02b",
+    "candidate_version": "0.0.1-alpha.29-dev.63-climate-bridge.1",
+    "evidence": "docs/validation/engine-continuation/v8-climate-source-bridge-2026-10-28/README.md",
+    "updated_at": "2026-10-28T21:14:40Z"
   },
-  "test_receipt": "docs/validation/engine-continuation/v8-climate-source-bridge-2026-10-28/results.json"
+  "test_receipt": "docs/validation/engine-continuation/v8-climate-binding-2026-10-28/results.json"
 }
