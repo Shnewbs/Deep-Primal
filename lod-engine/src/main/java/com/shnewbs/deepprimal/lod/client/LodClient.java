@@ -58,6 +58,15 @@ public final class LodClient {
             data.put("lodCullTiming", timing(lod.cullTiming.snapshot()));
             data.put("lodUploadTiming", timing(lod.uploadTiming.snapshot()));
             data.put("lodSubmitTiming", timing(lod.submitTiming.snapshot()));
+            var partUploads = lod.uploadPartStats();
+            data.put("lodGpuPartCpuTiming", timing(partUploads.cpuNanos()));
+            data.put("lodGpuPartSizeTiming", byteTiming(partUploads.acceptedBytes()));
+            data.put("lodGpuPartAccepted", partUploads.acceptedParts());
+            data.put("lodGpuPartFailed", partUploads.failedParts());
+            data.put("lodGpuPartOverCpuBudget", partUploads.overTimeBudgetParts());
+            data.put("lodGpuPartPeakBytes", partUploads.peakPartBytes());
+            data.put("lodGpuPartAcceptedTotalBytes", partUploads.acceptedByteTotal());
+            data.put("lodGpuPartScope", "Render-thread CPU packing and synchronous GPU-buffer submission for accepted parts; excludes device completion/FPS");
             data.put("lodTestedParts", lod.testedParts);
             data.put("lodRejectedParts", lod.rejectedParts);
             data.put("lodSubmittedParts", lod.submittedParts);
@@ -94,6 +103,11 @@ public final class LodClient {
   private static Map<String, Object> timing(com.shnewbs.deepprimal.core.RollingTiming.Snapshot s) {
     return Map.of("samples", s.samples(), "p50Nanos", s.p50Nanos(),
         "p95Nanos", s.p95Nanos(), "p99Nanos", s.p99Nanos(), "maxNanos", s.maxNanos());
+  }
+
+  private static Map<String, Object> byteTiming(com.shnewbs.deepprimal.core.RollingTiming.Snapshot s) {
+    return Map.of("samples", s.samples(), "p50Bytes", s.p50Nanos(),
+        "p95Bytes", s.p95Nanos(), "p99Bytes", s.p99Nanos(), "maxBytes", s.maxNanos());
   }
 
   private static void payloads(RegisterClientPayloadHandlersEvent event) {

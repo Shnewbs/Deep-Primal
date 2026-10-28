@@ -30,6 +30,7 @@ public final class VoxelLodRenderer {
   public static final boolean TELEMETRY = Boolean.getBoolean("deepprimal.lod.telemetry");
   public final RollingTiming cullTiming = new RollingTiming(240);
   public final RollingTiming uploadTiming = new RollingTiming(240);
+  private final LodGpuUploadProbe gpuPartProbe = new LodGpuUploadProbe(240);
   public final RollingTiming submitTiming = new RollingTiming(240);
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
   public volatile int testedParts, rejectedParts, submittedParts;
@@ -98,6 +99,10 @@ public final class VoxelLodRenderer {
   // Sampled by LodClient diagnostics on the client render thread.
   ReusableTransformArrays.Snapshot transformStats() {
     return transformArrays.snapshot();
+  }
+
+  LodGpuUploadProbe.Snapshot uploadPartStats() {
+    return gpuPartProbe.snapshot();
   }
 
   private static final class PendingGpu {
@@ -657,16 +662,39 @@ public final class VoxelLodRenderer {
       if (!UploadWorkBudget.mayStart(uploaded, maxUploads, used, partBytes, limit, expired))
         break;
       boolean oversizedFirst = UploadWorkBudget.oversizedFirst(uploaded, partBytes, limit);
-      var gpu = TerrainGpuMesh.upload(x(p.ready.key), z(p.ready.key), p.detail, mesh);
-      gpu.bounds =
-          new AABB(
-              x(p.ready.key) * 16.,
-              mesh.minimum(),
-              z(p.ready.key) * 16.,
-              x(p.ready.key) * 16. + 16,
-              mesh.maximum() + 1,
-              z(p.ready.key) * 16. + 16);
-      p.addGpu(p.detail, gpu);
+      // Optional CPU-side upload probe: measures packing/device submission, not GPU completion.
+      long partStarted = TELEMETRY ? System.nanoTime() : 0;
+      TerrainGpuMesh gpu;
+      try {
+        gpu = TerrainGpuMesh.upload(x(p.ready.key), z(p.ready.key), p.detail, mesh);
+      } catch (RuntimeException | Error error) {
+        if (TELEMETRY) gpuPartProbe.failed(System.nanoTime() - partStarted);
+        throw error;
+      }
+      try {
+        gpu.bounds =
+            new AABB(
+                x(p.ready.key) * 16.,
+                mesh.minimum(),
+                z(p.ready.key) * 16.,
+                x(p.ready.key) * 16. + 16,
+                mesh.maximum() + 1,
+                z(p.ready.key) * 16. + 16);
+        p.addGpu(p.detail, gpu);
+      } catch (RuntimeException | Error error) {
+        // The newly allocated buffers have not entered the accepted residency ledger.
+        // Do not leak them when bounds/admission fails after successful GPU allocation.
+        try {
+          gpu.close();
+        } catch (RuntimeException | Error closeFailure) {
+          error.addSuppressed(closeFailure);
+        }
+        if (TELEMETRY) gpuPartProbe.failed(System.nanoTime() - partStarted);
+        throw error;
+      }
+      if (TELEMETRY)
+        gpuPartProbe.accepted(System.nanoTime() - partStarted, gpu.byteSize,
+            ClientPerformanceConfig.UPLOAD_MICROS.get() * 1000L);
       p.part++;
       uploaded++;
       used += gpu.byteSize;
@@ -782,6 +810,7 @@ public final class VoxelLodRenderer {
     cullTiming.reset();
     uploadTiming.reset();
     submitTiming.reset();
+    gpuPartProbe.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = submittedParts = 0;
