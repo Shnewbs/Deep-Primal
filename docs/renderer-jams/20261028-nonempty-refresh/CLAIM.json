@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "jam_id": "20261028-nonempty-refresh",
+  "owner": "renderer-hourly-20261028T0857",
+  "status": "active",
+  "started_at": "2026-10-28T08:58:49Z",
+  "active_until": "2026-10-28T09:35:00Z",
+  "base_sha": "372db10ce43f87f392f02981dd222bd1c8fccfc1",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "docs/renderer-jams/20261028-nonempty-refresh/",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "consumed_independent_audit": "docs/engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md",
+  "previous_renderer_review": "docs/renderer-jams/20261028-recovery-epochs/REVIEW.md",
+  "measurements_reserved": false,
+  "other_schedules_unchanged": true,
+  "full_gradle_owner_operated": true,
+  "note": "Only scoped renderer disk metadata rediscovery and original regression. No generator, water, graphics backend, active builder files, or shared caches owned."
+}
