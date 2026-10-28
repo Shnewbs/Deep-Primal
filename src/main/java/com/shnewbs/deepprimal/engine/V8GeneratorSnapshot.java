@@ -5,6 +5,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.shnewbs.deepprimal.core.biome.EcotoneBlend;
+import com.shnewbs.deepprimal.core.biome.EcotoneSurfaceField;
 import com.shnewbs.deepprimal.core.density.DensityChunk;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
 import java.util.HashSet;
@@ -184,12 +186,32 @@ public record V8GeneratorSnapshot(
   public static final class Prepared {
     private final V8GeneratorSnapshot snapshot;
     private final GroundSurfaceProfile.Compiled surface;
+    private final EcotoneSurfaceField ecotoneSurface;
     private Prepared(V8GeneratorSnapshot snapshot, GroundSurfaceProfile.Compiled surface) {
       this.snapshot = Objects.requireNonNull(snapshot, "snapshot");
       this.surface = Objects.requireNonNull(surface, "surface");
+      this.ecotoneSurface = snapshot.version() == BLENDED_VERSION
+          ? new EcotoneSurfaceField(snapshot.seed()) : null;
     }
     public V8GeneratorSnapshot snapshot() { return snapshot; }
     public GroundSurfaceProfile.Compiled surface() { return surface; }
+    /**
+     * Explicit V8-r2 surface preview: consume saved climate widths and all 40
+     * continuous biome weights at ABSOLUTE coordinates. Never called by the
+     * legacy/native default generator; does not mutate a chunk or water state.
+     * Native placement and palette-persistence acceptance remain separate.
+     */
+    public EcotoneSurfaceField.Sample previewEcotoneSurface(int worldX, int worldZ,
+        EcotoneBlend.Climate climate, EcotoneBlend.Domain domain) {
+      if (ecotoneSurface == null)
+        throw new IllegalStateException("legacy V8 snapshots have no blended surface policy");
+      if (snapshot.blendPolicy().version() != EcotoneBlend.POLICY_VERSION)
+        throw new IllegalStateException("unsupported V8 ecotone policy revision");
+      return ecotoneSurface.sample(worldX, worldZ, domain,
+          EcotoneBlend.sample(climate, domain, snapshot.blendPolicy().widths()),
+          EcotoneSurfaceField.PREVIEW_R1);
+    }
+
     public void requireHeight(int actualMinY, int actualHeight) {
       snapshot.requireHeight(actualMinY, actualHeight);
     }
