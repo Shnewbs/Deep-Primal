@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "checkpointed",
-  "updated_at": "2026-10-28T11:08:54.273Z",
-  "active_until": "2026-10-28T11:08:54.273Z",
-  "source_ref": "96aad1eb44740b53e2ecac1841b30f00448d833b",
-  "candidate_version": "0.0.1-alpha.29-dev.52-v8recover.1",
+  "updated_at": "2026-10-28T12:04:30.898Z",
+  "active_until": "2026-10-28T12:04:30.898Z",
+  "source_ref": "82c8ef49861d02342375af2b03ba830e0e0adc13",
+  "candidate_version": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev52 opt-in V8 postwrite rollback: 14,128,600 Java21 source/stand-in assertions pass; 65,536 old voxels restored across 3 after-write setter faults and 1 partial-heightmap failure; native callbacks/save/GPU/long-soak unrun. Owner does full builds.",
+  "current_gate": "Dev53 bounded prewrite V8 snapshot restores synchronous callbacks to future cells: Java21 isolated API-double 14,144,988 assertions, negative dev52 fails, no native/Java25/GPU or qualified JAR. Owner performs full builds; water acceptance and grade threshold open.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "Dev53 callback-future-cell V8 whole-chunk presnapshot + rollback verification source-only: Java21 isolated 14,144,988 assertions, old dev52 fails negative, native callbacks/cross-chunk/Java25 GPU owner gates remain. docs/validation/engine-continuation/v8-callback-prewrite-2026-10-28/README.md",
     "2026-10-28 dev52 opt-in V8 original-state write rollback 14128600 Java21 assertions, 3 native-setter and 1 heightmap simulated fault, real NeoForge callback and saved-profile/lighting + 2-API water/AMD latency owner gates unrun; docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/README.md",
     "2026-10-28 dev51 source-only V8 material preflight and heightmap optimization tests 13,975,797 Java21 assertions; real native/write callback, owner Gradle/GPU and water long-soak gates open. docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
     "2026-10-28 dev50 source-only V8 saved snapshot root-envelope strictness committed: Java25 focused stand-in 13,766,368 assertions, 4 mutants rejected, native Mojang JsonOps/NbtOps and save/reopen pending; docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/README.md",
@@ -467,7 +468,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T1103-v8-postwrite-rollback",
+  "worker": "builder-20261028T1202-v8-callback",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1010,25 +1011,23 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T1103-v8-postwrite-rollback",
-    "started_at": "2026-10-28T11:05:06.933Z",
-    "lease_until": "2026-10-28T11:08:54.273Z",
+    "worker": "builder-20261028T1202-v8-callback",
+    "started_at": "2026-10-28T12:02:00Z",
+    "lease_until": "2026-10-28T12:04:30.898Z",
     "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "gradle.properties",
-      "docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/",
+      "docs/validation/engine-continuation/v8-callback-prewrite-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1030-10cb0c6/REVIEW.md",
-    "consumed_source": "10cb0c6bfcc32492e573aa8c282da75d13864e91",
-    "coordination": "Independent auditor completed 10:30Z; separate renderer active at 11:02Z owns LOD only; water foreground claim expired at 01:15Z, no verified live check, no water edit; no shared benchmark allocation; owner handles full builds.",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md",
+    "consumed_source": "581f343e460ea21ef645ece1a7f6205a4ed2fb31",
     "lease_released": true,
-    "source_commit": "96aad1eb44740b53e2ecac1841b30f00448d833b",
-    "tested_source_blob": "1399606ac7067a19dbf7e4529821135c161de7fa",
-    "evidence": "docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/README.md",
-    "result": "Java21 source + Minecraft/Mojang API stand-in: 14,128,600 assertions passed; negative dev51 fails new test; original 65,536 voxel states restored across 4 injected native/map failures; full Java25/Gradle/GPU tests unrun, no JAR.",
-    "next": "Native V8 chunk callback failure/no half-write + Mojang saved-profile/lighting and frozen V1-V7 replay; water mass/constituents unload-reopen, Vulkan/OpenGL waterfalls and bounded frame latency. No further work on water without foreground claim check."
+    "source_commit": "82c8ef49861d02342375af2b03ba830e0e0adc13",
+    "evidence": "docs/validation/engine-continuation/v8-callback-prewrite-2026-10-28/README.md",
+    "result": "14,144,988 Java21 focused API double assertions, new 16,388 callback test passed, unchanged dev52 failed; no Java25/native/Gradle/JAR/GPU; owner builds",
+    "coordination": "Git main and renderer scoped roles checked; no water edits; foreground water claim expired; GitHub CAS guarded; no shared checkout/cache/output."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1208,12 +1207,12 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T1030-10cb0c6/REVIEW.md",
-    "source_sha": "10cb0c6bfcc32492e573aa8c282da75d13864e91",
+    "path": "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md",
+    "source_sha": "581f343e460ea21ef645ece1a7f6205a4ed2fb31",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Simulated synchronous native setBlockState failure after 999 successful writes left partial blocks and unprimed maps in dev51; no native confirmation; water/renderer gates open.",
-    "chosen_repair": "Add bounded opt-in V8 touched-cell original-state journal, reverse restoration and heightmap re-prime on synchronous setter/heightmap exceptions, with explicit callback/I/O limits."
+    "findings": "Dev52 first-touch journal can capture callback-modified future cell after mutation; one of 8,192 test-double cells remains altered on a later native setter exception.",
+    "chosen_repair": "Capture complete bounded destination cell originals before any setter; restore all changed original cells and verify postrollback, without claiming native/cross-chunk transaction."
   },
   "lease_released": true,
   "latest_stream_deadline_stage": {
@@ -1526,5 +1525,20 @@
     "release_published": false,
     "archive_name": "DeepPrimal_Dev52_V8_PostwriteRecovery_SourceEvidence.zip",
     "archive_sha256": "7552eeb18f4e6a2c890d566fd479305000aa9943696a1d85e10f010617199ec2"
+  },
+  "latest_v8_callback_prewrite": {
+    "version": "0.0.1-alpha.29-dev.53-v8callback.1",
+    "source_commit": "82c8ef49861d02342375af2b03ba830e0e0adc13",
+    "source_blob": "d5c2e88ac81b206c7e7ce421c32a3eb18977bf1e",
+    "prior_blob": "1399606ac7067a19dbf7e4529821135c161de7fa",
+    "evidence": "docs/validation/engine-continuation/v8-callback-prewrite-2026-10-28/README.md",
+    "java21_assertions": 14144988,
+    "new_assertions": 16388,
+    "negative_dev52_rejected": true,
+    "java25_unavailable": true,
+    "native_minecraft_unrun": true,
+    "qualified_jar": false,
+    "water_gates_passed": false,
+    "archive_sha256": "f9f75631994a3aee1363c2540057e06c6353e4a839f139c04cb8c48f15171ab8"
   }
 }

@@ -2,7 +2,7 @@
   "schema": 1,
   "worker": "builder-20261028T1202-v8-callback",
   "start": "2026-10-28T12:01:53.447Z",
-  "expires": "2026-10-28T12:16:53.447Z",
+  "expires": "2026-10-28T12:04:50.488Z",
   "source_head": "31474d462489095ddeefc34844b840a4ff573b45",
   "scope": [
     "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
@@ -10,5 +10,13 @@
     "docs/validation/engine-continuation/v8-callback-prewrite-2026-10-28"
   ],
   "audit": "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md",
-  "note": "Scoped addendum while canonical large ENGINE-WORK-STATE.json remains checkpointed; avoid water and renderer files; owner builds."
+  "note": "Scoped addendum while canonical large ENGINE-WORK-STATE.json remains checkpointed; avoid water and renderer files; owner builds.",
+  "status": "checkpointed",
+  "ended_at": "2026-10-28T12:04:50.488Z",
+  "lease_released": true,
+  "source_commit": "82c8ef49861d02342375af2b03ba830e0e0adc13",
+  "last_external_average": 5,
+  "acceptance_complete": false,
+  "verification": "14,144,988 Java21 isolated API-double assertions; owner Java25/full build/GPU not run",
+  "next": "Real native callback/lighting/save-reopen performance, finite-water conservation and Vulkan/OpenGL owner gates"
 }
