@@ -2,10 +2,10 @@
   "schema": 1,
   "jam_id": "20261028-disk-nearest",
   "owner": "renderer-schedule",
-  "status": "active",
+  "status": "checkpointed",
   "parent_sha": "c532d6bd101768fb91a14264ec3e23658523bd26",
   "claimed_at": "2026-10-28T04:58:00Z",
-  "active_until": "2026-10-28T05:28:00Z",
+  "active_until": null,
   "scope": [
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
@@ -24,5 +24,35 @@
   "consumed_auditor": "docs/engine-hourly-audits/2026-10-28T0432-09a57c1/REVIEW.md",
   "current_gate": "Replace directory-prefix 8192 disk-key admission with nearest-by-camera bounded-memory selection, preserve transparent water and default shaders; owner full build/GPU unrun",
   "owner_build_handoff": true,
-  "owner_java25_unavailable": true
+  "owner_java25_unavailable": true,
+  "scoped_lease_released": true,
+  "completed_at": "2026-10-28T05:03:00Z",
+  "source_code_commit": "89b8bb0bb78e809bf4a5c3a5a0480699fa4a05cb",
+  "source_blobs": {
+    "nearest": "aa91a4f7fc51e01ca2df9d5d8f88ee116075cf7f",
+    "renderer": "c8cb68c86537d90d406228a8ec58457cb3f50492",
+    "test": "7c7fde38d7060727647379fbdc83b7e79fd12470"
+  },
+  "java21_assertions": 9006,
+  "negative_mutant_rejected": true,
+  "cpu_disk_scan_warm_ms": {
+    "samples": 21,
+    "files": 8206,
+    "p50": 8.592,
+    "p95": 14.075,
+    "p99": 16.194
+  },
+  "previous_renderer_self_audit": 4.67,
+  "renderer_self_audit": 4.75,
+  "independent_engine_carried": 5,
+  "review_path": "docs/renderer-jams/20261028-disk-nearest/REVIEW.md",
+  "source_evidence": {
+    "name": "DeepPrimal_Renderer_DiskNearest_20261028_89b8bb0_SourceEvidence.zip",
+    "size": 7355,
+    "sha256": "049d0515d872017ecccf3fa624a1db8430314a875bde45c68aee90d95169593d",
+    "library_file_id": "libfile_c5e928a962c881919cbfa5ad2cfe1e37"
+  },
+  "java25_full_build_and_gpu_unrun": true,
+  "jar_produced": false,
+  "next_priority": "Resumable fixed-entry cursor, camera retarget and owner native LOD coverage/upload A/B"
 }
