@@ -771,7 +771,9 @@ public final class PrimalGraphicsScreen extends Screen {
         "Native",
         "Spatial",
         "FSR 1 (Spatial)",
-        "NVIDIA DLSS");
+        "NVIDIA DLSS",
+        "FSR 3.1 (Temporal — unavailable)",
+        "FSR 4.1.1 (ML — unavailable)");
     add(
         6,
         "upscalingQuality",
@@ -880,6 +882,8 @@ public final class PrimalGraphicsScreen extends Screen {
       case SPATIAL -> "Spatial";
       case FSR -> "AMD FSR 1 (Spatial)";
       case DLSS -> "NVIDIA DLSS";
+      case FSR_31 -> "AMD FSR 3.1 (Temporal)";
+      case FSR_41 -> "AMD FSR 4.1.1 (ML)";
     };
   }
 
@@ -921,10 +925,12 @@ public final class PrimalGraphicsScreen extends Screen {
     if (!RendererOwnership.owned() || c.key.equals("upscalingFrameGeneration")) return false;
     var mode = stagedUpscaler();
     return switch (c.key) {
-      case "upscalingQuality" -> mode == UpscalingPolicy.Mode.FSR || mode == UpscalingPolicy.Mode.DLSS;
+      case "upscalingQuality" -> mode == UpscalingPolicy.Mode.FSR || mode == UpscalingPolicy.Mode.DLSS
+          || mode == UpscalingPolicy.Mode.FSR_31 || mode == UpscalingPolicy.Mode.FSR_41;
       case "upscalingScale" ->
           mode == UpscalingPolicy.Mode.SPATIAL
-              || ((mode == UpscalingPolicy.Mode.FSR || mode == UpscalingPolicy.Mode.DLSS)
+              || ((mode == UpscalingPolicy.Mode.FSR || mode == UpscalingPolicy.Mode.DLSS
+                  || mode == UpscalingPolicy.Mode.FSR_31 || mode == UpscalingPolicy.Mode.FSR_41)
                   && number(controls.get("upscalingQuality")) == UpscalingPolicy.Quality.CUSTOM.ordinal());
       case "upscalingSharpness" -> mode == UpscalingPolicy.Mode.FSR;
       default -> true;
