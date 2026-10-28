@@ -1,6 +1,6 @@
 # Dev43 V8 bounded occupancy partition — source-only checkpoint
 
-**Version:** `0.0.1-alpha.29-dev.43-v8partition.1`. Engine work on `main`, no native activation, no JAR or release. Consumed independent audit [2026-10-28T0134-4fc83e6](../../../../engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md) pinned to `4fc83e6021df26d2f3df26ef8afa563db6650fe9` (subsequently committed by read-only auditor at `c0e7e2d`). Historical fully reviewed grade remains **50/100 (5.0/10)**, not regraded.
+**Version:** `0.0.1-alpha.29-dev.43-v8partition.1`. Engine work on `main`, no native activation, no JAR or release. Consumed independent audit [2026-10-28T0134-4fc83e6](../../../engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md) pinned to `4fc83e6021df26d2f3df26ef8afa563db6650fe9` (subsequently committed by read-only auditor at `c0e7e2d`). Historical fully reviewed grade remains **50/100 (5.0/10)**, not regraded.
 
 ## Concrete implementation
 
