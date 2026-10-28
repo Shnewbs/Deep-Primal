@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "run_id": "2026-10-28T0933-4b61329",
+  "role": "independent_auditor",
+  "pinned_source_commit": "4b6132969ab517bd581b044308a30a62e95fb411",
+  "version": "0.0.1-alpha.29-dev.50-v8strict.1",
+  "owner_build_override": "2026-10-27",
+  "host": "Linux x86_64, no /dev/dri",
+  "toolchains": [
+    "Temurin Java 25.0.5+8",
+    "OpenJDK 21.0.12.1 LOD tests"
+  ],
+  "source_blob_sha1": {
+    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java": "a97d93b143104247566442b63d285545c894eab8",
+    "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java": "561676a414261f67cc39dc8f22e254a5181ab18e",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java": "95ff21354e95dbd5d8fd0d57873db8e7c1a19337",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityChunk.java": "c98ee12b6499ff2904ae32e294e7ad966ff9d76f",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java": "d3c80764a533f86e4d1623ec3d86d1df1c3752a0",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java": "fc76905ab1f82ba49cc4495ab8b943127b2b8d21"
+  },
+  "checks": {
+    "v8_java25": 13766368,
+    "lod_java25": 26327,
+    "lod_java21": 26356,
+    "negative_control_old_v8_failed_as_expected": true,
+    "negative_control_old_lod_failed_as_expected": true,
+    "compile25": "passed",
+    "compile21_lod": "passed",
+    "native_mojang": false,
+    "full_gradle": false,
+    "windows_amd_gpu": false,
+    "native_save_reopen": false,
+    "jar": false
+  },
+  "grade": {
+    "carried_baseline_total": 50,
+    "average": 5,
+    "fresh_full_regrade": false,
+    "threshold_strictly_greater_than": 8.5
+  },
+  "production_files_changed_by_auditor": 0,
+  "evidence_zip": {
+    "filename": "DeepPrimal_Audit_20261028T0933_4b61329_SourceEvidence.zip",
+    "sha256": "31631c9714d901ffc9967559194e15aa07b424e622ae991b35b6dd9972d7108f",
+    "bytes": 85102
+  },
+  "notes": "No JAR published/retained/cleaned; no builder checkpoint overwritten; native and GPU gates unrun."
+}
