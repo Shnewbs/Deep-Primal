@@ -16,7 +16,6 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 /** Loaded-only environmental accounting. No elapsed-time catch-up and no renewable player block. */
 public final class HydrologyRuntime {
   private static final WeakHashMap<ServerLevel, Work> WORK = new WeakHashMap<>();
-  private static int internalWrites;
   private static final int REGIONAL_DISCHARGE_UNITS = 32;
   private static final class Cursor {
     int column;
@@ -73,15 +72,19 @@ public final class HydrologyRuntime {
     // The write entry point is also used by adapters; never resolve an absent chunk
     // merely to read its old state or place environmental water into it.
     if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)) return false;
-    if (l.getBlockState(p).equals(s)) return true;
-    internalWrites++;
+    var before = l.getBlockState(p);
+    if (before.equals(s)) return true;
+    // Scoped to this server level, packed cell and exact native transition.
+    // Foreign callback writes (including another cell/world) must invalidate chemistry.
+    var scope = WaterWriteScope.begin(l, p.asLong(), before, s);
     try { return l.setBlock(p, s, 2 | 16); }
-    finally { internalWrites--; }
+    finally { scope.close(); }
   }
   public static void externalChange(ServerLevel l, BlockPos p, BlockState before, BlockState after) {
-    if (internalWrites != 0 || before == null || before == after) return;
+    if (before == null || before.equals(after)) return;
+    if (WaterWriteScope.consumes(l, p.asLong(), before, after)) return;
     if (before.is(EngineRegistry.WATER_BLOCK.get()) &&
-        (!after.is(EngineRegistry.WATER_BLOCK.get()) ||
+        (after == null || !after.is(EngineRegistry.WATER_BLOCK.get()) ||
             !before.getValue(EngineFluid.UNITS).equals(after.getValue(EngineFluid.UNITS))
             || boundary(before) != boundary(after))) {
       // External commands/destructive block placement are explicit boundaries of the simulation.
