@@ -842,10 +842,12 @@ public final class VoxelLodRenderer {
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = submittedParts = 0;
     session++;
-    if (pendingGpu != null) {
-      pendingGpu.close();
-      pendingGpu = null;
-    }
+    // Relinquish pending ownership before any fallible GPU close, then attempt
+    // every other cached close even if one buffer teardown fails.
+    LodGpuResetCleanup closeFailures = new LodGpuResetCleanup();
+    PendingGpu abandoned = pendingGpu;
+    pendingGpu = null;
+    if (abandoned != null) closeFailures.release(abandoned::close);
     if (future != null) future.cancel(true);
     diskIndex.reset();
     if (worker != null) worker.shutdownNow();
@@ -854,7 +856,7 @@ public final class VoxelLodRenderer {
     captureBurst = 0;
     persistenceFailed = false;
     worker = null;
-    cache.values().forEach(Entry::close);
+    for (Entry entry : cache.values()) closeFailures.release(entry::close);
     cache.clear();
     evictionHeap = null; // Drop retained arrays on world switch/logout/shutdown.
     draws.clear();
@@ -868,6 +870,8 @@ public final class VoxelLodRenderer {
     store = null;
     root = null;
     level = null;
+    // Complete state clearing before surfacing any GPU resource-close failure.
+    closeFailures.throwIfFailed();
   }
 
   private VoxelLodRenderer() {}
