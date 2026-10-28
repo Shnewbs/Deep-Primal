@@ -591,12 +591,15 @@ public final class VoxelLodRenderer {
     // Preserve keep-last, equal-distance access order and all cleanup semantics.
     if (evictionHeap == null) evictionHeap = new LodEvictionHeap(4096);
     evictionHeap.reset(cache.keySet(), keep, camera.x, camera.z);
+    // Continue all required evictions and persisted recovery even if releasing one
+    // superseded GPU allocation fails. Surface the first failure after bookkeeping.
+    LodGpuResetCleanup closeFailures = new LodGpuResetCleanup();
     while (evictionHeap.hasNext()) {
       long k = evictionHeap.next();
       if (residentBytes + additional <= limit && cache.size() <= entries) break;
       Entry old = cache.remove(k);
       residentBytes -= old.bytes;
-      old.close();
+      closeFailures.release(old::close);
       // Revisit only a persisted revision that no observed edit has superseded.
       // Ordered uniqueness prevents duplicate restores; retain the index memory bound.
       if (old.persisted && store != null && LodConfig.PERSIST.get()
@@ -613,6 +616,7 @@ public final class VoxelLodRenderer {
       }
       forgetUnused(k);
     }
+    closeFailures.throwIfFailed();
   }
 
   private void processUploads() {

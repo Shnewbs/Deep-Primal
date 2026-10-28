@@ -3,9 +3,9 @@ package com.shnewbs.deepprimal.lod.client;
 import java.util.Objects;
 
 /**
- * Render-thread, best-effort disposal during LOD world reset. A single failing
- * GPU close must not prevent closing later pending/cache buffers or clearing
- * their owner state. The first failure is rethrown after all releases were tried.
+ * Render-thread, best-effort disposal during LOD world reset or cache eviction.
+ * A single failing GPU close must not prevent closing later buffers or completing
+ * owner bookkeeping. The first failure is rethrown after all releases were tried.
  * This is resource cleanup, not device-loss recovery.
  */
 final class LodGpuResetCleanup {
