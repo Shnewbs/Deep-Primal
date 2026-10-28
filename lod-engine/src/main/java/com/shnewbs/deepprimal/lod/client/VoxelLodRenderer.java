@@ -103,6 +103,9 @@ public final class VoxelLodRenderer {
   private static final class PendingGpu {
     final Ready ready;
     final List<List<TerrainGpuMesh>> levels = new ArrayList<>();
+    // Accepted buffers never change their allocated size: use a committed, constant-time
+    // total rather than walking every previously uploaded part on each render frame.
+    final PendingGpuBytes accepted = new PendingGpuBytes();
     int detail, part;
 
     PendingGpu(Ready ready) {
@@ -111,13 +114,11 @@ public final class VoxelLodRenderer {
     }
 
     long bytes() {
-      long bytes = 0;
-      // Private ArrayList dimensions: avoid stream/iterator allocation in frame-budget checks.
-      for (int detail = 0, count = levels.size(); detail < count; detail++) {
-        List<TerrainGpuMesh> parts = levels.get(detail);
-        for (int part = 0, size = parts.size(); part < size; part++) bytes += parts.get(part).byteSize;
-      }
-      return bytes;
+      return accepted.bytes();
+    }
+
+    void addGpu(int detail, TerrainGpuMesh gpu) {
+      accepted.append(levels.get(detail), gpu, gpu.byteSize);
     }
 
     void close() {
@@ -665,7 +666,7 @@ public final class VoxelLodRenderer {
               x(p.ready.key) * 16. + 16,
               mesh.maximum() + 1,
               z(p.ready.key) * 16. + 16);
-      p.levels.get(p.detail).add(gpu);
+      p.addGpu(p.detail, gpu);
       p.part++;
       uploaded++;
       used += gpu.byteSize;
