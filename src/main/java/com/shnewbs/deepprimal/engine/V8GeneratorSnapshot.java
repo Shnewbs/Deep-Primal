@@ -22,13 +22,22 @@ import java.util.Set;
 public record V8GeneratorSnapshot(
     int version, long seed, int minY, int height,
     DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
-    V8SurfacePolicy surfacePolicy) {
+    V8SurfacePolicy surfacePolicy, V8ClimateBinding climateBinding) {
   /** Frozen six-field legacy V8 snapshot format. Never rewrite these existing saves. */
   public static final int VERSION = 1;
   /** New explicit seven-field snapshot format; no silent upgrade of previous saves. */
   public static final int BLENDED_VERSION = 2;
   /** New eight-field revision pins surface cover and climate-input provenance. */
   public static final int SURFACE_VERSION = 3;
+  /** Explicit reference-climate and hydrology identity for new V8 snapshots. */
+  public static final int CLIMATE_VERSION = 4;
+
+  /** Preserve every existing eight-argument revision-3 constructor and callsite. */
+  public V8GeneratorSnapshot(int version, long seed, int minY, int height,
+      DensityGraph.Definition density, GroundSurfaceProfile ground,
+      V8BlendPolicy blendPolicy, V8SurfacePolicy surfacePolicy) {
+    this(version, seed, minY, height, density, ground, blendPolicy, surfacePolicy, null);
+  }
 
   /** Retain source/API compatibility with every existing six-argument constructor. */
   public V8GeneratorSnapshot(int version, long seed, int minY, int height,
@@ -115,6 +124,15 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
+  /** New explicit revision, never an in-place reinterpretation of existing r3 saves. */
+  public V8GeneratorSnapshot withClimateBinding(V8ClimateBinding binding) {
+    if (version != SURFACE_VERSION)
+      throw new IllegalStateException("climate binding may only be selected from V8 revision 3");
+    return new V8GeneratorSnapshot(CLIMATE_VERSION, seed, minY, height,
+        density, ground, blendPolicy, surfacePolicy,
+        Objects.requireNonNull(binding, "binding"));
+  }
+
   private static final Codec<Long> SEED = Codec.STRING.comapFlatMap(text -> {
     if (!text.matches("0|-?[1-9][0-9]*"))
       return DataResult.error(() -> "seed must be a canonical signed 64-bit decimal string");
@@ -133,6 +151,10 @@ public record V8GeneratorSnapshot(
   private record WireSurface(int version, long seed, int minY, int height,
       DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blend,
       V8SurfacePolicy surface) {}
+
+  private record WireClimate(int version, long seed, int minY, int height,
+      DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blend,
+      V8SurfacePolicy surface, V8ClimateBinding climateBinding) {}
 
   /** Keep the six-field legacy codec and exact field order intact. */
   private static final Codec<WireLegacy> LEGACY_WIRE = RecordCodecBuilder.create(i -> i.group(
@@ -167,6 +189,18 @@ public record V8GeneratorSnapshot(
       V8SurfacePolicy.CODEC.fieldOf("surface").forGetter(WireSurface::surface)
   ).apply(i, WireSurface::new));
 
+  private static final Codec<WireClimate> CLIMATE_WIRE = RecordCodecBuilder.create(i -> i.group(
+      Codec.INT.fieldOf("version").forGetter(WireClimate::version),
+      SEED.fieldOf("seed").forGetter(WireClimate::seed),
+      Codec.INT.fieldOf("min_y").forGetter(WireClimate::minY),
+      Codec.INT.fieldOf("height").forGetter(WireClimate::height),
+      DensityGraphCodec.CODEC.fieldOf("density").forGetter(WireClimate::density),
+      GroundSurfaceProfile.CODEC.fieldOf("ground").forGetter(WireClimate::ground),
+      V8BlendPolicy.CODEC.fieldOf("blend").forGetter(WireClimate::blend),
+      V8SurfacePolicy.CODEC.fieldOf("surface").forGetter(WireClimate::surface),
+      V8ClimateBinding.CODEC.fieldOf("climate_binding").forGetter(WireClimate::climateBinding)
+  ).apply(i, WireClimate::new));
+
   private static final Set<String> LEGACY_FIELDS = Set.of(
       "version", "seed", "min_y", "height", "density", "ground");
   private static final Set<String> BLEND_FIELDS = Set.of(
@@ -174,6 +208,10 @@ public record V8GeneratorSnapshot(
 
   private static final Set<String> SURFACE_FIELDS = Set.of(
       "version", "seed", "min_y", "height", "density", "ground", "blend", "surface");
+
+  private static final Set<String> CLIMATE_FIELDS = Set.of(
+      "version", "seed", "min_y", "height", "density", "ground", "blend", "surface",
+      "climate_binding");
 
   private static final Codec<V8GeneratorSnapshot> LEGACY_VALUE_CODEC = LEGACY_WIRE.comapFlatMap(w -> {
     try {
@@ -203,6 +241,17 @@ public record V8GeneratorSnapshot(
   }, s -> new WireSurface(s.version, s.seed, s.minY, s.height, s.density,
       s.ground, s.blendPolicy, s.surfacePolicy));
 
+  private static final Codec<V8GeneratorSnapshot> CLIMATE_VALUE_CODEC = CLIMATE_WIRE.comapFlatMap(w -> {
+    try {
+      return DataResult.success(new V8GeneratorSnapshot(
+          w.version, w.seed, w.minY, w.height, w.density, w.ground, w.blend,
+          w.surface, w.climateBinding));
+    } catch (IllegalArgumentException | IllegalStateException | NullPointerException failure) {
+      return DataResult.error(() -> "climate-bound V8 snapshot: " + failure.getMessage());
+    }
+  }, s -> new WireClimate(s.version, s.seed, s.minY, s.height, s.density,
+      s.ground, s.blendPolicy, s.surfacePolicy, s.climateBinding));
+
   /**
    * Decode the exact saved version envelope. Legacy six-field saves stay six fields;
    * absence of a blend field means hard classification, never default soft widths.
@@ -217,11 +266,11 @@ public record V8GeneratorSnapshot(
         Integer version = null;
         int count = 0;
         while (entries.hasNext()) {
-          if (++count > SURFACE_FIELDS.size())
+          if (++count > CLIMATE_FIELDS.size())
             return DataResult.error(() -> "too many V8 snapshot root fields");
           var member = entries.next();
           String key = ops.getStringValue(member.getFirst()).result().orElse(null);
-          if (key == null || !SURFACE_FIELDS.contains(key) || !seen.add(key))
+          if (key == null || !CLIMATE_FIELDS.contains(key) || !seen.add(key))
             return DataResult.error(() -> "unexpected or duplicate V8 snapshot root field");
           if ("version".equals(key)) {
             version = Codec.INT.parse(ops, member.getSecond()).result().orElse(null);
@@ -231,14 +280,16 @@ public record V8GeneratorSnapshot(
         }
         Set<String> expected = version != null && version == VERSION ? LEGACY_FIELDS
             : version != null && version == BLENDED_VERSION ? BLEND_FIELDS
-            : version != null && version == SURFACE_VERSION ? SURFACE_FIELDS : null;
+            : version != null && version == SURFACE_VERSION ? SURFACE_FIELDS
+            : version != null && version == CLIMATE_VERSION ? CLIMATE_FIELDS : null;
         if (expected == null)
           return DataResult.error(() -> "unsupported or missing V8 snapshot version");
         if (count != expected.size() || !seen.equals(expected))
           return DataResult.error(() -> "incomplete or invalid V8 snapshot version envelope");
         return version == VERSION ? LEGACY_VALUE_CODEC.decode(ops, input)
             : version == BLENDED_VERSION ? BLEND_VALUE_CODEC.decode(ops, input)
-            : SURFACE_VALUE_CODEC.decode(ops, input);
+            : version == SURFACE_VERSION ? SURFACE_VALUE_CODEC.decode(ops, input)
+            : CLIMATE_VALUE_CODEC.decode(ops, input);
       });
     }
 
@@ -246,20 +297,26 @@ public record V8GeneratorSnapshot(
     public <T> DataResult<T> encode(V8GeneratorSnapshot snapshot, DynamicOps<T> ops, T prefix) {
       return snapshot.version == VERSION ? LEGACY_VALUE_CODEC.encode(snapshot, ops, prefix)
           : snapshot.version == BLENDED_VERSION ? BLEND_VALUE_CODEC.encode(snapshot, ops, prefix)
-          : SURFACE_VALUE_CODEC.encode(snapshot, ops, prefix);
+          : snapshot.version == SURFACE_VERSION ? SURFACE_VALUE_CODEC.encode(snapshot, ops, prefix)
+          : CLIMATE_VALUE_CODEC.encode(snapshot, ops, prefix);
     }
   };
 
   public V8GeneratorSnapshot {
-    if (version != VERSION && version != BLENDED_VERSION && version != SURFACE_VERSION)
+    if (version != VERSION && version != BLENDED_VERSION
+        && version != SURFACE_VERSION && version != CLIMATE_VERSION)
       throw new IllegalArgumentException("unsupported V8 generator snapshot version: " + version);
     Objects.requireNonNull(blendPolicy, "blendPolicy");
     if (version == VERSION && !V8BlendPolicy.HARD.equals(blendPolicy))
       throw new IllegalArgumentException("legacy V8 snapshot cannot silently enable soft blending");
-    if (version == SURFACE_VERSION && surfacePolicy == null)
+    if (version >= SURFACE_VERSION && surfacePolicy == null)
       throw new IllegalArgumentException("V8 revision 3 requires frozen surface provenance");
-    if (version != SURFACE_VERSION && surfacePolicy != null)
+    if (version < SURFACE_VERSION && surfacePolicy != null)
       throw new IllegalArgumentException("older V8 revisions cannot silently gain surface settings");
+    if (version == CLIMATE_VERSION && climateBinding == null)
+      throw new IllegalArgumentException("V8 revision 4 requires frozen reference climate binding");
+    if (version != CLIMATE_VERSION && climateBinding != null)
+      throw new IllegalArgumentException("older V8 revisions cannot silently gain climate binding");
     if (height < 1 || height > DensityChunk.MAX_HEIGHT)
       throw new IllegalArgumentException("V8 height must be within 1.." + DensityChunk.MAX_HEIGHT);
     long highest = (long) minY + height - 1;
@@ -313,7 +370,7 @@ public record V8GeneratorSnapshot(
         throw new IllegalStateException("legacy V8 snapshots have no blended surface policy");
       if (snapshot.blendPolicy().version() != EcotoneBlend.POLICY_VERSION)
         throw new IllegalStateException("unsupported V8 ecotone policy revision");
-      var frozen = snapshot.version() == SURFACE_VERSION
+      var frozen = snapshot.version() >= SURFACE_VERSION
           ? snapshot.surfacePolicy().frozenPalette() : EcotoneSurfaceField.PREVIEW_R1;
       return ecotoneSurface.sample(worldX, worldZ, domain,
           EcotoneBlend.sample(climate, domain, snapshot.blendPolicy().widths()), frozen);

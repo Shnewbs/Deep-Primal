@@ -1,0 +1,41 @@
+{
+  "version": "0.0.1-alpha.29-dev.64-climate-binding.1",
+  "source_baseline": "1520ef17a34d2ea15ed9a75feaee6336490e3023",
+  "scoped_claim": "4f94e12cb42dd248885ed37020f34ad76fcd39d1",
+  "audit_path": "docs/engine-hourly-audits/2026-10-28T2034-055d78f8/REVIEW.md",
+  "audit_source": "055d78f8535d5380ac99e2dd0fc43da49ae5ba89",
+  "last_full_grade": 5,
+  "java": "21.0.12.1",
+  "compile": "javac --release 21 -Xlint:all -Werror",
+  "run": "java -ea -Xverify:all",
+  "api_doubles": true,
+  "focused_suites_passed": 15,
+  "reported_checks": 20945922,
+  "new_checks": 16138,
+  "saved_roundtrips": 1536,
+  "prewrite_parity_columns": 4096,
+  "new_rejection_cases": 103,
+  "standalone_checks": 12297,
+  "compiled_wrong_seed_mutant": "rejected",
+  "compiled_channel_guard_mutant": "rejected",
+  "native_mojang": false,
+  "full_build": false,
+  "jar": false,
+  "remaining": [
+    "authoritative V8 climate+ocean masks",
+    "native Mojang codec/save/reopen",
+    "old/new chunk border, edit persistence",
+    "finite water unload ledger and chemistry",
+    "natural waterfalls real GPU time samples",
+    "performance and soak acceptance"
+  ],
+  "source_blob_hashes": {
+    "snapshot": "5ac5b0b57136c375d802ae38739dca6c6b03ebd9",
+    "binding": "1d6b4924672c03f06cd1a546189c9f9b07a7ae74",
+    "bridge": "1450777a54144604ee2d07c0283c31ecff6a13b0",
+    "columns": "26eb8611b6e1ac74eeabb62f4d369fe1f872c2f1",
+    "materializer": "f619fad678e27436df404e3d393c02bbbe0c0bed",
+    "checks": "f143f72a6305aa846c8c502b552db27036c51235",
+    "runner": "ac259aab3d062734cea0d845f6320c2a0dd6dfbc"
+  }
+}

@@ -62,7 +62,8 @@ public final class V8EcotoneColumnPlan {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(density, "density");
     Objects.requireNonNull(source, "source");
-    if (prepared.snapshot().version() != V8GeneratorSnapshot.SURFACE_VERSION)
+    if (prepared.snapshot().version() < V8GeneratorSnapshot.SURFACE_VERSION
+        || prepared.snapshot().version() > V8GeneratorSnapshot.CLIMATE_VERSION)
       throw new IllegalArgumentException("explicit V8 revision 3 required for native ecotone material plan");
     int minY = density.minY(), maxY = density.maxYExclusive();
     prepared.requireHeight(minY, maxY - minY);

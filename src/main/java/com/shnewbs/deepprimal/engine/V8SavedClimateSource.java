@@ -61,6 +61,20 @@ public final class V8SavedClimateSource implements V8EcotoneColumnPlan.ClimateSo
         savedChannelRevision);
   }
 
+  /** Reopen only the V8-r4 climate/reference binding stored in the V8 snapshot. */
+  public static V8SavedClimateSource fromSavedV8(V8GeneratorSnapshot snapshot,
+      long savedWorldSeed) {
+    Objects.requireNonNull(snapshot, "V8 snapshot");
+    if (snapshot.version() != V8GeneratorSnapshot.CLIMATE_VERSION
+        || !V8SurfacePolicy.FROZEN_R1.equals(snapshot.surfacePolicy()))
+      throw new IllegalArgumentException("explicit frozen V8 revision-4 climate binding required");
+    if (snapshot.seed() != savedWorldSeed)
+      throw new IllegalArgumentException("saved world seed differs from V8 climate binding");
+    var binding = Objects.requireNonNull(snapshot.climateBinding(), "climate binding");
+    return new V8SavedClimateSource(snapshot.seed(), binding.savedOptions(),
+        binding.channelRevision());
+  }
+
   public TerrainOptions savedOptions() { return savedOptions; }
   public int savedChannelRevision() { return savedChannelRevision; }
 

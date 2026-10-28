@@ -272,7 +272,8 @@ public final class DensityChunkMaterializer {
       V8EcotoneColumnPlan.ClimateSource climate) {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(climate, "climate");
-    if (prepared.snapshot().version() != V8GeneratorSnapshot.SURFACE_VERSION)
+    if (prepared.snapshot().version() < V8GeneratorSnapshot.SURFACE_VERSION
+        || prepared.snapshot().version() > V8GeneratorSnapshot.CLIMATE_VERSION)
       throw new IllegalArgumentException("explicit V8 ecotone planning requires revision 3");
     prepared.requireHeight(minY, height);
     if (Math.floorMod(originWorldX, DensityChunk.WIDTH) != 0
