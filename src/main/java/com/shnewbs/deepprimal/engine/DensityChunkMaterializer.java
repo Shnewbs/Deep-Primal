@@ -107,11 +107,73 @@ public final class DensityChunkMaterializer {
     return planned;
   }
 
+  /**
+   * Read-only V8 base-height query, suitable for a future native generator's
+   * WORLD_SURFACE_WG and OCEAN_FLOOR_WG paths. This experimental density material
+   * uses only air, stone/deepslate and bedrock: both of those maps therefore
+   * agree. It is not yet wired into the registered V1-V7 generator.
+   *
+   * <p>Search from the top to retain cave roofs and floating terrain. The lower
+   * two cells are bedrock regardless of the density sign, even for an all-air
+   * graph or a one-cell-tall test world. No chunk/world write or neighbor read.
+   */
+  public static int baseHeight(
+      DensityGraph graph, int x, int z, LevelHeightAccessor level) {
+    Objects.requireNonNull(graph, "graph");
+    Objects.requireNonNull(level, "level");
+    int minY = level.getMinY(), height = level.getHeight();
+    checkColumnBounds(x, z, minY, height);
+    var sampler = graph.newSampler();
+    for (int dy = height - 1; dy >= 2; dy--) {
+      int y = minY + dy;
+      if (sampler.sample(x, y, z) > 0.0) return y + 1;
+    }
+    return minY + Math.min(2, height);
+  }
+
+  /** Constant-time base height from the already-certified exact V8 chunk. */
+  public static int baseHeight(DensityChunk.Planned planned, int localX, int localZ) {
+    Objects.requireNonNull(planned, "planned");
+    DensityChunk chunk = Objects.requireNonNull(planned.chunk(), "planned.chunk");
+    int height = chunk.maxYExclusive() - chunk.minY();
+    return Math.max(chunk.minY() + Math.min(2, height),
+        chunk.surfaceExclusive(localX, localZ));
+  }
+
+  /**
+   * Read-only base column from a previously calculated V8 plan. Avoids a second
+   * density-sampler pass when a native caller already owns the exact chunk.
+   * Coordinates are chunk-local; bedrock and empty caves retain the same states
+   * as {@link #fillPlanned} and {@link #baseColumn(DensityGraph,int,int,LevelHeightAccessor)}.
+   */
+  public static NoiseColumn baseColumn(DensityChunk.Planned planned, int localX, int localZ) {
+    Objects.requireNonNull(planned, "planned");
+    DensityChunk chunk = Objects.requireNonNull(planned.chunk(), "planned.chunk");
+    int minY = chunk.minY(), height = chunk.maxYExclusive() - minY;
+    var states = new BlockState[height];
+    for (int dy = 0; dy < height; dy++) {
+      int y = minY + dy;
+      states[dy] = material(chunk.solid(localX, y, localZ), minY, y);
+    }
+    return new NoiseColumn(minY, states);
+  }
+
+  private static void checkColumnBounds(int x, int z, int minY, int height) {
+    if (height < 1 || height > DensityChunk.MAX_HEIGHT)
+      throw new IllegalArgumentException("V8 column height outside 1..2048");
+    long maxY = (long) minY + height - 1;
+    if (Math.abs((long) x) > DensityGraph.WORLD_LIMIT
+        || Math.abs((long) z) > DensityGraph.WORLD_LIMIT
+        || minY < -DensityGraph.WORLD_LIMIT || maxY > DensityGraph.WORLD_LIMIT)
+      throw new IllegalArgumentException("V8 base column outside density graph domain");
+  }
+
   public static NoiseColumn baseColumn(
       DensityGraph graph, int x, int z, LevelHeightAccessor level) {
     Objects.requireNonNull(graph, "graph");
     Objects.requireNonNull(level, "level");
     int minY = level.getMinY(), height = level.getHeight();
+    checkColumnBounds(x, z, minY, height);
     var states = new BlockState[height];
     var sampler = graph.newSampler();
     for (int dy = 0; dy < height; dy++) {
