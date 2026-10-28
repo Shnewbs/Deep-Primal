@@ -2,7 +2,7 @@
   "schema": 1,
   "role": "renderer-only",
   "jam": "renderer-20261028-eviction-heap-reuse-11",
-  "status": "active",
+  "status": "released",
   "source_head": "9e2de9b28600613682680049b8be9f2cdbabacc6",
   "started_utc": "2026-10-28T14:55:00Z",
   "expires_utc": "2026-10-28T15:25:00Z",
@@ -19,5 +19,9 @@
     "graphics upscaling",
     "independent auditor records"
   ],
-  "owner_builds": true
+  "owner_builds": true,
+  "ended_utc": "2026-10-28T15:05:00Z",
+  "lease_released": true,
+  "source_commit": "87a38079b72a9934fc6dc2d1537760853b119c1b",
+  "self_audit_grade": 5.42
 }
