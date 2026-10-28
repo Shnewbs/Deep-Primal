@@ -117,6 +117,20 @@ public final class DensityChunkMaterializer {
     return planned;
   }
 
+  /**
+   * Materialize a versioned, seed-bound V8 snapshot prepared once for this world.
+   * The level's vertical dimensions must match the saved snapshot before any
+   * block or heightmap mutation; missing or incompatible profiles fail closed.
+   * This explicit path does not register V8 or affect V1-V7 worlds.
+   */
+  public static DensityChunk.Planned fillSavedSnapshot(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    prepared.requireHeight(chunk.getMinY(), chunk.getHeight());
+    return fillPlannedSurface(prepared.surface(), chunk, queriesPerSlab);
+  }
+
   private static DensityChunk.Planned fillPlannedRaw(
       DensityGraph graph, ChunkAccess chunk, int queriesPerSlab, boolean primeMaps) {
     Objects.requireNonNull(graph, "graph");
