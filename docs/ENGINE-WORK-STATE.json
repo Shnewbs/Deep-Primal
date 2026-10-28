@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T09:07:05.187Z",
-  "active_until": "2026-10-28T09:07:05.187Z",
+  "status": "active",
+  "updated_at": "2026-10-28T10:04:00Z",
+  "active_until": "2026-10-28T10:25:00Z",
   "source_ref": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
   "candidate_version": "0.0.1-alpha.29-dev.50-v8strict.1",
   "candidate_released": false,
@@ -491,7 +491,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0900-v8-codec-envelope",
+  "worker": "builder-20261028T1000-v8-atomic-materialize",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1034,23 +1034,21 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0900-v8-codec-envelope",
-    "started_at": "2026-10-28T09:00:00.000Z",
-    "lease_until": "2026-10-28T09:07:05.187Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T1000-v8-atomic-materialize",
+    "started_at": "2026-10-28T10:04:00Z",
+    "lease_until": "2026-10-28T10:25:00Z",
+    "phase": "source_impl_in_progress",
     "scope": [
-      "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
+      "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "gradle.properties",
-      "docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/",
+      "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md",
-    "consumed_source": "563b6ef23586f579ff2b972d7404b4f0a9054002",
-    "coordination": "Other-engine-chat past state inspected; current direct session unverified. Root lease previously expired, foreground water claim expired; renderer 20261028-nonempty-refresh active on disjoint LOD paths; no benchmark reservation.",
-    "lease_released": true,
-    "source_commit": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
-    "result": "Dev50 V8 strict root-envelope fix; 13,766,368 JDK25 focused assertions incl 14,392 new and four broken variants rejected; full Gradle/NeoForge/JAR and real JsonOps/NbtOps unrun by owner policy.",
-    "next": "Owner-native V8 codec JSON/NBT + save/reopen/heightmap/lighting and legacy parity; then finite-water single-owner persistence and waterfall continuity; independent grade remains 5.0."
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0933-4b61329/REVIEW.md",
+    "consumed_source": "4b6132969ab517bd581b044308a30a62e95fb411",
+    "coordination": "Separate auditor read-only latest 09:33; renderer released filename-index jam 10:00 and owns LOD files; water foreground state stale/expired 01:15, no live verification, water source untouched. Main writer root acquired with expected-parent guard. Isolated scratch/output; no benchmark reservation.",
+    "lease_released": false,
+    "source_commit": null
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1237,7 +1235,7 @@
     "findings": "V8 saved snapshot ignores extra top-level keys under record codec; renderer LOD fixed-camera nonempty rediscovery open but assigned to separate renderer worker.",
     "chosen_repair": "V8 root map DynamicOps strict field enumeration, unknown/invalid input errors, six-member budget; no water or renderer files touched."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
