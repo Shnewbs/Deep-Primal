@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "dedicated-renderer-schedule",
   "jam_id": "renderer-20261028T2205-bounded-indexed-batches",
-  "status": "active",
+  "status": "released",
   "claimed_utc": "2026-10-28T22:05:00Z",
   "expires_utc": "2026-10-28T23:00:00Z",
   "source_head": "4f94e12cb42dd248885ed37020f34ad76fcd39d1",
@@ -25,6 +25,17 @@
   "previous_jam": "docs/renderer-jams/20261028-eviction-failure-recovery/REVIEW.md",
   "measurement_reservation": "isolated OpenJDK21 bounded-indexed-draw Java test and local microbenchmark; no shared GPU or build outputs",
   "owner_build_override": true,
-  "lease_released": false,
-  "intent": "Bound CPU-side indexed-draw submission scratch to 4096 entries per API batch, submit every visible part in stable order without retaining GPU handles across frame and expose actual API-batch count separately from GPU indirect draws."
+  "lease_released": true,
+  "intent": "Bound CPU-side indexed-draw submission scratch to 4096 entries per API batch, submit every visible part in stable order without retaining GPU handles across frame and expose actual API-batch count separately from GPU indirect draws.",
+  "released_at": "2026-10-28T22:12:31Z",
+  "source_commit": "cd264cbf5fa2eb87eeb972f8d7284f3e1af6e2c9",
+  "source_blobs": {
+    "helper": "2bfc247e178024350807c2f144a411a845fa8330",
+    "renderer": "f8c398ee0a71bd06bcd0d9a1ac28398c31004ade",
+    "client": "91b3762c90b9a78658dd2610c098b3a85f4baecd",
+    "test": "73b7a0f1134e45ae56566aa789a831c9dc6f1476"
+  },
+  "self_audit_score": 5.58,
+  "validation": "2,412,262 Java21 assertions; 19 pinned checks; CPU model slower; no native/GPU/JAR",
+  "next": "Owner Vulkan/OpenGL same-scene batched on/off GPU and CPU measurements; optimize CPU overhead if necessary"
 }
