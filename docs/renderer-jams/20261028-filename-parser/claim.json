@@ -1,7 +1,7 @@
 {
   "owner": "renderer-filename-parser-20261028T0953Z",
   "scope": "renderer-only",
-  "status": "active",
+  "status": "completed-released",
   "started_at": "2026-10-28T09:53:00Z",
   "active_until": "2026-10-28T10:25:00Z",
   "parent_at_claim": "f6a46f1730b697a8e91a8e0cc51cf87f6aaf536c",
@@ -13,5 +13,11 @@
   "excluded": [
     "engine core, water engine, shaders, DLSS/FSR providers, build outputs, all other scheduler files"
   ],
-  "intent": "Eliminate per-filename temporary parser allocations while preserving exact signed-coordinate canonical validation and nearest-order semantics; run standalone Java regressions and per-thread CPU allocation evidence. Owner handles Gradle/Minecraft/GPU/JAR."
+  "intent": "Eliminate per-filename temporary parser allocations while preserving exact signed-coordinate canonical validation and nearest-order semantics; run standalone Java regressions and per-thread CPU allocation evidence. Owner handles Gradle/Minecraft/GPU/JAR.",
+  "lease_released": true,
+  "completed_at": "2026-10-28T10:20:00Z",
+  "source_sha": "4d19fa909bb39fe21a5db95f87fe9eeb5092c108",
+  "audited_source_sha": "4d19fa909bb39fe21a5db95f87fe9eeb5092c108",
+  "self_audit": "docs/renderer-jams/20261028-filename-parser/REVIEW.md",
+  "result": "source tested and guarded-pushed; no full build/JAR/GPU"
 }
