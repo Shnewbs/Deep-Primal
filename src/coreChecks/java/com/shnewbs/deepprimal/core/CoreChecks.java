@@ -32,6 +32,7 @@ public final class CoreChecks {
     com.shnewbs.deepprimal.core.density.AdversarialChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityChunkChecks.run();
     com.shnewbs.deepprimal.core.density.DensityChunkPlanChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.density.DensitySectionLayoutChecks.main(new String[0]);
     WaterBedChecks.run();
     DepositPlanChecks.run();
     WaterBudgetChecks.run();
