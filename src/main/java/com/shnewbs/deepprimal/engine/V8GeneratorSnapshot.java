@@ -20,16 +20,19 @@ import java.util.Set;
  */
 public record V8GeneratorSnapshot(
     int version, long seed, int minY, int height,
-    DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blendPolicy) {
+    DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+    V8SurfacePolicy surfacePolicy) {
   /** Frozen six-field legacy V8 snapshot format. Never rewrite these existing saves. */
   public static final int VERSION = 1;
   /** New explicit seven-field snapshot format; no silent upgrade of previous saves. */
   public static final int BLENDED_VERSION = 2;
+  /** New eight-field revision pins surface cover and climate-input provenance. */
+  public static final int SURFACE_VERSION = 3;
 
   /** Retain source/API compatibility with every existing six-argument constructor. */
   public V8GeneratorSnapshot(int version, long seed, int minY, int height,
       DensityGraph.Definition density, GroundSurfaceProfile ground) {
-    this(requireLegacyVersion(version), seed, minY, height, density, ground, V8BlendPolicy.HARD);
+    this(requireLegacyVersion(version), seed, minY, height, density, ground, V8BlendPolicy.HARD, null);
   }
 
   private static int requireLegacyVersion(int version) {
@@ -38,10 +41,30 @@ public record V8GeneratorSnapshot(
     return version;
   }
 
+  /** Preserve the exact seven-argument revision-2 source API and wire shape. */
+  public V8GeneratorSnapshot(int version, long seed, int minY, int height,
+      DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blendPolicy) {
+    this(requireBlendVersion(version), seed, minY, height, density, ground, blendPolicy, null);
+  }
+
+  private static int requireBlendVersion(int version) {
+    if (version != BLENDED_VERSION)
+      throw new IllegalArgumentException("seven-argument V8 constructor is revision-2-only");
+    return version;
+  }
+
   /** Opt in to a saved policy by constructing a new explicit V8 snapshot revision. */
   public V8GeneratorSnapshot withBlendPolicy(V8BlendPolicy policy) {
     return new V8GeneratorSnapshot(BLENDED_VERSION, seed, minY, height,
         density, ground, Objects.requireNonNull(policy, "policy"));
+  }
+
+  /** Upgrade an explicit rev2 preview without changing its saved output in-place. */
+  public V8GeneratorSnapshot withSurfacePolicy(V8SurfacePolicy policy) {
+    if (version != BLENDED_VERSION)
+      throw new IllegalStateException("surface policy may only be selected from V8 revision 2");
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        density, ground, blendPolicy, Objects.requireNonNull(policy, "policy"));
   }
 
   private static final Codec<Long> SEED = Codec.STRING.comapFlatMap(text -> {
@@ -58,6 +81,10 @@ public record V8GeneratorSnapshot(
       DensityGraph.Definition density, GroundSurfaceProfile ground) {}
   private record WireBlend(int version, long seed, int minY, int height,
       DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blend) {}
+
+  private record WireSurface(int version, long seed, int minY, int height,
+      DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blend,
+      V8SurfacePolicy surface) {}
 
   /** Keep the six-field legacy codec and exact field order intact. */
   private static final Codec<WireLegacy> LEGACY_WIRE = RecordCodecBuilder.create(i -> i.group(
@@ -80,10 +107,25 @@ public record V8GeneratorSnapshot(
       V8BlendPolicy.CODEC.fieldOf("blend").forGetter(WireBlend::blend)
   ).apply(i, WireBlend::new));
 
+  /** Every saved surface policy field is mandatory, revisioned independently of climate widths. */
+  private static final Codec<WireSurface> SURFACE_WIRE = RecordCodecBuilder.create(i -> i.group(
+      Codec.INT.fieldOf("version").forGetter(WireSurface::version),
+      SEED.fieldOf("seed").forGetter(WireSurface::seed),
+      Codec.INT.fieldOf("min_y").forGetter(WireSurface::minY),
+      Codec.INT.fieldOf("height").forGetter(WireSurface::height),
+      DensityGraphCodec.CODEC.fieldOf("density").forGetter(WireSurface::density),
+      GroundSurfaceProfile.CODEC.fieldOf("ground").forGetter(WireSurface::ground),
+      V8BlendPolicy.CODEC.fieldOf("blend").forGetter(WireSurface::blend),
+      V8SurfacePolicy.CODEC.fieldOf("surface").forGetter(WireSurface::surface)
+  ).apply(i, WireSurface::new));
+
   private static final Set<String> LEGACY_FIELDS = Set.of(
       "version", "seed", "min_y", "height", "density", "ground");
   private static final Set<String> BLEND_FIELDS = Set.of(
       "version", "seed", "min_y", "height", "density", "ground", "blend");
+
+  private static final Set<String> SURFACE_FIELDS = Set.of(
+      "version", "seed", "min_y", "height", "density", "ground", "blend", "surface");
 
   private static final Codec<V8GeneratorSnapshot> LEGACY_VALUE_CODEC = LEGACY_WIRE.comapFlatMap(w -> {
     try {
@@ -103,10 +145,20 @@ public record V8GeneratorSnapshot(
     }
   }, s -> new WireBlend(s.version, s.seed, s.minY, s.height, s.density, s.ground, s.blendPolicy));
 
+  private static final Codec<V8GeneratorSnapshot> SURFACE_VALUE_CODEC = SURFACE_WIRE.comapFlatMap(w -> {
+    try {
+      return DataResult.success(new V8GeneratorSnapshot(
+          w.version, w.seed, w.minY, w.height, w.density, w.ground, w.blend, w.surface));
+    } catch (IllegalArgumentException | IllegalStateException | NullPointerException failure) {
+      return DataResult.error(() -> "surface V8 snapshot: " + failure.getMessage());
+    }
+  }, s -> new WireSurface(s.version, s.seed, s.minY, s.height, s.density,
+      s.ground, s.blendPolicy, s.surfacePolicy));
+
   /**
    * Decode the exact saved version envelope. Legacy six-field saves stay six fields;
    * absence of a blend field means hard classification, never default soft widths.
-   * The explicit seven-field revision rejects unknown, missing and duplicate root keys.
+   * The explicit seven/eight-field revisions reject unknown, missing and duplicate keys.
    */
   public static final Codec<V8GeneratorSnapshot> CODEC = new Codec<>() {
     @Override
@@ -117,11 +169,11 @@ public record V8GeneratorSnapshot(
         Integer version = null;
         int count = 0;
         while (entries.hasNext()) {
-          if (++count > BLEND_FIELDS.size())
+          if (++count > SURFACE_FIELDS.size())
             return DataResult.error(() -> "too many V8 snapshot root fields");
           var member = entries.next();
           String key = ops.getStringValue(member.getFirst()).result().orElse(null);
-          if (key == null || !BLEND_FIELDS.contains(key) || !seen.add(key))
+          if (key == null || !SURFACE_FIELDS.contains(key) || !seen.add(key))
             return DataResult.error(() -> "unexpected or duplicate V8 snapshot root field");
           if ("version".equals(key)) {
             version = Codec.INT.parse(ops, member.getSecond()).result().orElse(null);
@@ -129,31 +181,37 @@ public record V8GeneratorSnapshot(
               return DataResult.error(() -> "V8 snapshot version must be an integer");
           }
         }
-        Set<String> expected = version != null && version == VERSION
-            ? LEGACY_FIELDS : version != null && version == BLENDED_VERSION ? BLEND_FIELDS : null;
+        Set<String> expected = version != null && version == VERSION ? LEGACY_FIELDS
+            : version != null && version == BLENDED_VERSION ? BLEND_FIELDS
+            : version != null && version == SURFACE_VERSION ? SURFACE_FIELDS : null;
         if (expected == null)
           return DataResult.error(() -> "unsupported or missing V8 snapshot version");
         if (count != expected.size() || !seen.equals(expected))
           return DataResult.error(() -> "incomplete or invalid V8 snapshot version envelope");
-        return version == VERSION
-            ? LEGACY_VALUE_CODEC.decode(ops, input) : BLEND_VALUE_CODEC.decode(ops, input);
+        return version == VERSION ? LEGACY_VALUE_CODEC.decode(ops, input)
+            : version == BLENDED_VERSION ? BLEND_VALUE_CODEC.decode(ops, input)
+            : SURFACE_VALUE_CODEC.decode(ops, input);
       });
     }
 
     @Override
     public <T> DataResult<T> encode(V8GeneratorSnapshot snapshot, DynamicOps<T> ops, T prefix) {
-      return snapshot.version == VERSION
-          ? LEGACY_VALUE_CODEC.encode(snapshot, ops, prefix)
-          : BLEND_VALUE_CODEC.encode(snapshot, ops, prefix);
+      return snapshot.version == VERSION ? LEGACY_VALUE_CODEC.encode(snapshot, ops, prefix)
+          : snapshot.version == BLENDED_VERSION ? BLEND_VALUE_CODEC.encode(snapshot, ops, prefix)
+          : SURFACE_VALUE_CODEC.encode(snapshot, ops, prefix);
     }
   };
 
   public V8GeneratorSnapshot {
-    if (version != VERSION && version != BLENDED_VERSION)
+    if (version != VERSION && version != BLENDED_VERSION && version != SURFACE_VERSION)
       throw new IllegalArgumentException("unsupported V8 generator snapshot version: " + version);
     Objects.requireNonNull(blendPolicy, "blendPolicy");
     if (version == VERSION && !V8BlendPolicy.HARD.equals(blendPolicy))
       throw new IllegalArgumentException("legacy V8 snapshot cannot silently enable soft blending");
+    if (version == SURFACE_VERSION && surfacePolicy == null)
+      throw new IllegalArgumentException("V8 revision 3 requires frozen surface provenance");
+    if (version != SURFACE_VERSION && surfacePolicy != null)
+      throw new IllegalArgumentException("older V8 revisions cannot silently gain surface settings");
     if (height < 1 || height > DensityChunk.MAX_HEIGHT)
       throw new IllegalArgumentException("V8 height must be within 1.." + DensityChunk.MAX_HEIGHT);
     long highest = (long) minY + height - 1;
@@ -190,13 +248,13 @@ public record V8GeneratorSnapshot(
     private Prepared(V8GeneratorSnapshot snapshot, GroundSurfaceProfile.Compiled surface) {
       this.snapshot = Objects.requireNonNull(snapshot, "snapshot");
       this.surface = Objects.requireNonNull(surface, "surface");
-      this.ecotoneSurface = snapshot.version() == BLENDED_VERSION
+      this.ecotoneSurface = snapshot.version() >= BLENDED_VERSION
           ? new EcotoneSurfaceField(snapshot.seed()) : null;
     }
     public V8GeneratorSnapshot snapshot() { return snapshot; }
     public GroundSurfaceProfile.Compiled surface() { return surface; }
     /**
-     * Explicit V8-r2 surface preview: consume saved climate widths and all 40
+     * Explicit V8-r2/r3 surface preview: consume saved climate widths and all 40
      * continuous biome weights at ABSOLUTE coordinates. Never called by the
      * legacy/native default generator; does not mutate a chunk or water state.
      * Native placement and palette-persistence acceptance remain separate.
@@ -207,9 +265,10 @@ public record V8GeneratorSnapshot(
         throw new IllegalStateException("legacy V8 snapshots have no blended surface policy");
       if (snapshot.blendPolicy().version() != EcotoneBlend.POLICY_VERSION)
         throw new IllegalStateException("unsupported V8 ecotone policy revision");
+      var frozen = snapshot.version() == SURFACE_VERSION
+          ? snapshot.surfacePolicy().frozenPalette() : EcotoneSurfaceField.PREVIEW_R1;
       return ecotoneSurface.sample(worldX, worldZ, domain,
-          EcotoneBlend.sample(climate, domain, snapshot.blendPolicy().widths()),
-          EcotoneSurfaceField.PREVIEW_R1);
+          EcotoneBlend.sample(climate, domain, snapshot.blendPolicy().widths()), frozen);
     }
 
     public void requireHeight(int actualMinY, int actualHeight) {
