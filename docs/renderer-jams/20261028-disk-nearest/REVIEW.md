@@ -18,7 +18,7 @@ Only two production renderer files and one test changed. No terrain generation, 
 
 ## Test commands and result
 
-Linux x86_64, javac/java OpenJDK 21.0.12.1; Java25 handoff directory/archive was absent in this isolated workspace.
+Linux x86_64, javac/java OpenJDK 21.0.12.1; The Java25 archive was absent locally at initial review; it was subsequently restored from the owner-provided Library file for focused Java25 tests (see follow-up below).
 
     find source tests -name '*.java' | sort > sources.txt
     javac --release 21 -Xlint:all -Werror -d classes @sources.txt
@@ -29,7 +29,7 @@ The suite creates 8,204 far filenames then a later near filename, verifies corre
 
 A separate Java21 diagnostic repeatedly scans 8,206 cached-directory entries after warmup (21 runs): selection wall-time p50 **8.592 ms**, p95 **14.075 ms**, p99 **16.194 ms**. These are worker metadata times, excluding file creation/cold I/O, not frame/FPS/GPU measurements. The source helper and registered test match the exact local executed Git blob hashes aa91a4f7fc51e01ca2df9d5d8f88ee116075cf7f and 7c7fde38d7060727647379fbdc83b7e79fd12470. The integrated renderer Git blob c8cb68c86537d90d406228a8ec58457cb3f50492 was read back, confirming player-coordinate worker submission, old prefix removal and reset behavior.
 
-Not run: Java25 complete Gradle/NeoForge/modules, JAR build/outer-nested archive CRC/platform payload/source-to-bytecode checks, Minecraft native save/reopen, long camera travel/edit/world switch, real Vulkan/OpenGL/water pixels, actual GPU fences/VRAM and frame p50/p95/p99, AMD driver or RTX DLSS. The owner performs these builds under the October 27 override. No GitHub Actions, installer, prerelease or CurseForge publication.
+Not run: complete Java25 Gradle/NeoForge/modules, JAR build/outer-nested archive CRC/platform payload/source-to-bytecode checks, Minecraft native save/reopen, long camera travel/edit/world switch, real Vulkan/OpenGL/water pixels, actual GPU fences/VRAM and frame p50/p95/p99, AMD driver or RTX DLSS. The owner performs these builds under the October 27 override. No GitHub Actions, installer, prerelease or CurseForge publication.
 
 ## Six-category conservative renderer self-audit
 
@@ -40,7 +40,7 @@ Not run: Java25 complete Gradle/NeoForge/modules, JAR build/outer-nested archive
 | GPU culling / submission / memory | 4 | **4** | Actual draw/VRAM/fence acceptance not run; no GPU path modified |
 | Actual FSR / DLSS | 5 | **5** | Carried [FSR1 spatial and inactive NGX](../../UPSCALING.md); no new temporal inputs/RTX dispatch |
 | Visual / backend / settings compatibility | 5 | **5** | Source preserves render path; Vulkan/OpenGL transparency/reload pixels not run |
-| Validation / measured performance | 4 | **4** | 9,006 real-file checks, deliberately rejected mutant and 21 warm metadata scans; no Java25/native/GPU frame data |
+| Validation / measured performance | 4 | **4** | 9,006 real-file checks, deliberately rejected mutant and 21 warm metadata scans; no full Java25 Gradle/native/GPU frame data |
 | **Average** | **4.67** | **4.75** | **+0.08** (28.5/60 vs 28/60); target >8.5 not met |
 
 Whole-engine independent grade **5.0/10** remains carried only, not freshly regraded.
@@ -50,3 +50,9 @@ Whole-engine independent grade **5.0/10** remains carried only, not freshly regr
 The retained key set is bounded to 8,192, but this first correction still enumerates the whole filesystem in one asynchronous worker task (unbounded metadata I/O duration). It selects around the initial camera and does not re-index after long travel. A full older recovery queue can also exclude new near keys. Implement a properly cancellable **fixed-entry-budget resumable cursor**, camera/session retarget and full-queue nearest-key reconciliation while preserving saved revisions/edit guards. The unpromoted R57 design was not silently copied. Then run native travel/LOD coverage and owner default-vs-experimental-32KiB upload A/B with full frame/GPU/page latency, VRAM, draw count and transparent water.
 
 Source-only ZIP: DeepPrimal_Renderer_DiskNearest_20261028_89b8bb0_SourceEvidence.zip, 7,355 bytes, SHA256 049d0515d872017ecccf3fa624a1db8430314a875bde45c68aee90d95169593d, nine CRC-valid entries. Verified Library destination /Deep Primal/Renderer Jams/; library ID libfile_c5e928a962c881919cbfa5ad2cfe1e37. **No installable JAR.**
+
+## Exact-code Java25 focused validation addendum — 2026-10-28 05:05 UTC
+
+**No source code changes or score revision.** The owner-provided Temurin 25.0.5+8 Linux archive was retrieved from Library, path-checked (486 archive entries), extracted into this isolated validation workspace and verified using java -version and javac -version. The same pinned Git-hash-matched scanner and test source were compiled with Java25 --release 21 and again --release 25, both with strict lint and warnings as errors. Each Java25 run passes **9,006 assertions**, including the late-prefix and extreme-coordinate gates. A 21-sample warm-directory diagnostic under Java25 measured p50 **8.237 ms**, p95 **13.074 ms**, p99 **13.456 ms** for 8,206 metadata files; this is a separate non-comparable CPU-host diagnostic and **not** a Java21-vs-Java25 speedup, native game frame or GPU result. Gradle, full Minecraft/NeoForge modules, JAR build and Vulkan/OpenGL/AMD GPU remain explicitly **unrun**.
+
+The focused Java25 evidence archive contains the extracted compiler/test result logs and commands: **DeepPrimal_Renderer_DiskNearest_Java25_20261028_89b8bb0_Evidence.zip**, 2,348 bytes, SHA256 **40e0d5e67c003689593c5d5776c0a5523d5ec36de0cd47415a43ed4f4aa4615b**, seven CRC-valid entries, Library ID **libfile_307174058df08191b9e22fa49ae86f80**. This supplement does not change the committed renderer code SHA 89b8bb0, six category scores or independent engine grade.

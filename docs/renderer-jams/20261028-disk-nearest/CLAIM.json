@@ -54,5 +54,25 @@
   },
   "java25_full_build_and_gpu_unrun": true,
   "jar_produced": false,
-  "next_priority": "Resumable fixed-entry cursor, camera retarget and owner native LOD coverage/upload A/B"
+  "next_priority": "Resumable fixed-entry cursor, camera retarget and owner native LOD coverage/upload A/B",
+  "java25_focused": {
+    "temurin": "25.0.5+8",
+    "restored_from_owner_library": true,
+    "release21_assertions": 9006,
+    "release25_assertions": 9006,
+    "full_gradle_build": false,
+    "jar": false,
+    "native_gpu": false,
+    "scan_warm_ms": {
+      "samples": 21,
+      "p50": 8.237,
+      "p95": 13.074,
+      "p99": 13.456
+    },
+    "evidence": {
+      "library_file_id": "libfile_307174058df08191b9e22fa49ae86f80",
+      "sha256": "40e0d5e67c003689593c5d5776c0a5523d5ec36de0cd47415a43ed4f4aa4615b",
+      "bytes": 2348
+    }
+  }
 }
