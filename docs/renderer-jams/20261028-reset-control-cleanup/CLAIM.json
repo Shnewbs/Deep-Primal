@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "dedicated-renderer-schedule",
   "jam_id": "renderer-20261028T1854-reset-control-cleanup",
-  "status": "active",
+  "status": "released",
   "claimed_utc": "2026-10-28T18:54:00Z",
   "expires_utc": "2026-10-28T20:00:00Z",
   "source_head": "999343ac5ea0213ee99b6e43898520b879496227",
@@ -21,5 +21,11 @@
   "measurement_reservation": "isolated Java21 fault-injection source tests only; no GPU/VRAM benchmark or shared build cache",
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1830-7b854ed/REVIEW.md",
   "owner_build_override": true,
-  "note": "Own only best-effort reset shutdown/cancel exception guards. Recheck main and this claim before integration; no JAR or native acceptance."
+  "note": "Own only best-effort reset shutdown/cancel exception guards. Recheck main and this claim before integration; no JAR or native acceptance.",
+  "lease_released": true,
+  "released_at": "2026-10-28T18:58:00Z",
+  "source_commit": "969abe129b94df7734afe61bc3b5d76f5155bf13",
+  "validation": "Java21 strict compile, 1664 isolated assertions; missing-disk-reset mutant rejected; 14 anchored source integration checks; no Java25/Gradle/GPU/JAR",
+  "self_audit_score": 5.53,
+  "next": "Owner native reset-control fault injection, world-switch/resize/reload/transparent-water and GPU telemetry"
 }
