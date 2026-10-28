@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T05:03:00Z",
-  "active_until": "2026-10-28T05:24:00Z",
-  "source_ref": "89b8bb0bb78e809bf4a5c3a5a0480699fa4a05cb",
-  "candidate_version": "0.0.1-alpha.29-dev.45-v8sections.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T05:10:00Z",
+  "active_until": "2026-10-28T05:10:00Z",
+  "source_ref": "14cf09047a4d2eff37c2a2c9891d0e5157781d63",
+  "candidate_version": "0.0.1-alpha.29-dev.46-v8native.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev46 bounded opt-in V8 native section materialization and base-height correctness, source-only owner-build handoff",
+  "current_gate": "Dev46 exact V8 planned-section materializer committed to main and Java21/Java25 API-facade parity passed; native NeoForge write, section/heightmap/lighting/save and owner full Gradle/GPU remain unrun.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "Dev46 source-only native section bridge committed: full native NeoForge chunk lighting/heightmap/base column/getBaseHeight/save/reopen and V1-V7 exact replay remains owner-operated. docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/README.md",
     "2026-10-28 dev40 narrowly suppresses ONLY exact expected native LevelChunk state events per server level and cell; 480028 Java21 checks, four corrupt variants rejected, 13 postcommit structural checks. Need native same-cell ABA/unload/save-reopen constituent acceptance and owner Java25+AMD Vulkan/OpenGL; docs/validation/engine-continuation/water-cell-write-scope-2026-10-27/README.md",
     "2026-10-27 dev39 source-only postwrite finite-water callbacks: production policy helper Java21 checks 200065 plus 3 rejected mutants and static integration 20 checks/five negative mutants. Native unresolved callback single-owner transaction, actual loaded/unloaded edit, water/salt/sediment save/reopen and Vulkan/OpenGL cliffs/AMD frame latency remain unqualified. docs/validation/engine-continuation/water-receiver-postcommit-2026-10-27/README.md",
     "2026-10-27 dev38 guard shape and water receiver/source reentrant ownership committed; Python3 stand-in checker 29/29, Java21 model 274989 assertions, full native/build/GPU owner gates open. docs/validation/engine-continuation/guard-dominance-water-2026-10-27/README.md",
@@ -586,7 +587,7 @@
   ],
   "latest_staged_graphics_promoted": true,
   "previous_local_validation_environment": "/workspace/scratch/a22609fabda0/density-mask-r61",
-  "validation_environment_status": "Dev36 source-only checkpoint; local isolated Java25 method stand-in nine tests and four static mutation guards pass; GitHub post-push source inspections pass. Full Java25 Gradle/NeoForge/native/Windows/GPU were NOT run for dev36 under owner override.",
+  "validation_environment_status": "Dev46 focused Java21/Java25 source/API-facade checks pass; no full checkout/Gradle native owner build, no GPU or qualified JAR. Java25 copied privately from released renderer toolchain without mutating other role.",
   "publication_fix_evidence": "docs/validation/engine-continuation/water-publication-commit-2026-10-23/README.md",
   "latest_staged_validation_overlay": [
     "docs/validation/engine-continuation/water-retirement-idle-2026-10-23/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
@@ -1035,7 +1036,7 @@
     "worker": "builder-20261028T0500-v8-native-sections",
     "started_at": "2026-10-28T05:03:00Z",
     "lease_until": "2026-10-28T05:24:00Z",
-    "phase": "native_v8_opt_in_adapter",
+    "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensitySectionLayout.java",
@@ -1050,7 +1051,27 @@
     "acceptance_complete": false,
     "owner_build_handoff": true,
     "renderer_scope_excluded": true,
-    "water_scope_excluded": true
+    "water_scope_excluded": true,
+    "lease_released": true,
+    "completed_at": "2026-10-28T05:10:00Z",
+    "version": "0.0.1-alpha.29-dev.46-v8native.1",
+    "source_commit": "14cf09047a4d2eff37c2a2c9891d0e5157781d63",
+    "evidence": "docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/README.md",
+    "test_artifact_sha256": "6d22bf7a51eb38b011acd672342b4b46efecf6bdf3975cd3a0c6544e4e6baf0f",
+    "validation": [
+      "Java21 javac --release21 -Xlint:all -Werror: 11047019 assertions, 1376512 block positions, 34 scenarios",
+      "Java25 Temurin25.0.5+8 javac --release25 -Xlint:all -Werror: same 11047019 passing assertions",
+      "Five independently compiled wrong variants rejected at runtime",
+      "Source adapter exact Git blob and nine current graph/section source identities verified"
+    ],
+    "unrun": [
+      "Complete Java25 Gradle/NeoForge build and native Minecraft class/API acceptance owner-operated",
+      "Native V8 chunk write/base-height/base-column/lighting/saved graph and V1-V7 replay owner-operated",
+      "Vulkan/OpenGL Windows AMD8060S, water long-soak, multicast, p50/p95/p99 performance and package checks"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "next_priority": "Owner Java25 native V8 chunk/section block+base column+heightmap/lighting/save/reopen/legacy controls; integrate saved V8 profile only after acceptance. Continue finite water single-owner unload, chemistry ledger and connected cliffs."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1230,13 +1251,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md",
-    "source_sha": "b14f8ba6eaf279212a0b96098ae493d6a34c1440",
-    "audit_commit": "76e4e3484853cb89b4cb98eb199a482ff26a5759",
+    "path": "docs/engine-hourly-audits/2026-10-28T0432-09a57c1/REVIEW.md",
+    "source_sha": "09a57c1896eb1429b2af83223d4a3d6bd5ad8724",
+    "audit_commit": "c532d6bd1017",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Dev44 exact V8 chunk parity passes Java21 but no canonical Minecraft section layout/native generator or saved-profile acceptance; water source callbacks and GPU remain unqualified",
-    "chosen_repair": "Implement pure-core canonical 16^3 section projection from opt-in V8 chunk occupancy for later native block/state writer with negative-Y, partial-section, coordinate and volume parity gates"
+    "findings": "Native V8 generator never consumes dev45 16^3 section layout; native block/heightmap/save/lighting still missing; water and renderer acceptance open.",
+    "chosen_repair": "Add explicit-call-only DensityChunkMaterializer.fillPlanned consuming exact canonical sections and priming heightmaps, with cross-JDK API double parity and mutations; no V8 codec activation."
   },
   "lease_released": true,
   "latest_stream_deadline_stage": {
