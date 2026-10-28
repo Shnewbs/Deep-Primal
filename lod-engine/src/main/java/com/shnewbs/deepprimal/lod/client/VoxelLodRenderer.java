@@ -567,18 +567,12 @@ public final class VoxelLodRenderer {
       long additional, int entries, Long keep, net.minecraft.world.phys.Vec3 camera) {
     long limit = LodConfig.MEMORY.get() * 1048576L;
     if (residentBytes + additional <= limit && cache.size() <= entries) return;
-    // Sort once under pressure instead of rescanning every remaining page for every eviction.
-    var victims = new ArrayList<>(cache.keySet());
-    victims.sort(
-        Comparator.<Long>comparingInt(k -> keep != null && k.longValue() == keep ? 1 : 0)
-            .thenComparing(
-                Comparator.comparingDouble(
-                        (Long k) -> {
-                          double dx = x(k) * 16. + 8 - camera.x, dz = z(k) * 16. + 8 - camera.z;
-                          return dx * dx + dz * dz;
-                        })
-                    .reversed()));
-    for (long k : victims) {
+    // Build the stable farthest-first victim heap in O(resident pages), then
+    // remove only as many candidates as the current byte/entry limits require.
+    // Preserve keep-last, equal-distance access order and all cleanup semantics.
+    var victims = new LodEvictionHeap(cache.keySet(), keep, camera.x, camera.z);
+    while (victims.hasNext()) {
+      long k = victims.next();
       if (residentBytes + additional <= limit && cache.size() <= entries) break;
       Entry old = cache.remove(k);
       residentBytes -= old.bytes;
