@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T10:08:00Z",
-  "active_until": "2026-10-28T10:25:00Z",
-  "source_ref": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T10:08:30Z",
+  "active_until": "2026-10-28T10:08:30Z",
+  "source_ref": "61369484aff15c0a0d7130ea69c397c5819a2341",
   "candidate_version": "0.0.1-alpha.29-dev.51-v8preflight.1",
   "candidate_released": false,
   "acceptance_complete": false,
@@ -1037,8 +1037,8 @@
   "builder_cycle": {
     "worker": "builder-20261028T1000-v8-atomic-materialize",
     "started_at": "2026-10-28T10:04:00Z",
-    "lease_until": "2026-10-28T10:25:00Z",
-    "phase": "validated_source_only",
+    "lease_until": "2026-10-28T10:08:30Z",
+    "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "gradle.properties",
@@ -1048,11 +1048,12 @@
     "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0933-4b61329/REVIEW.md",
     "consumed_source": "4b6132969ab517bd581b044308a30a62e95fb411",
     "coordination": "Separate auditor read-only latest 09:33; renderer released filename-index jam 10:00 and owns LOD files; water foreground state stale/expired 01:15, no live verification, water source untouched. Main writer root acquired with expected-parent guard. Isolated scratch/output; no benchmark reservation.",
-    "lease_released": false,
-    "source_commit": null,
+    "lease_released": true,
+    "source_commit": "61369484aff15c0a0d7130ea69c397c5819a2341",
     "result": "Java21 API-stand-in source tests 13,975,797 assertions passed incl 209,429 new, 49,152 new voxel comparisons, 3 no-write failures, old adapter fails negative; Java25 toolchain archive absent locally.",
     "tested_source_blob": "58c4b7d0f04435620858c1eef919d50ec171f15f",
-    "evidence": "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md"
+    "evidence": "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
+    "next": "Owner native V8 JSON/NBT, section lighting/heightmap/save-reopen and frozen V1-V7 replay; water constituent loaded/unloaded transactions and real GPU waterfall acceptance after coordination. No qualified JAR."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1239,7 +1240,7 @@
     "findings": "V8 codec/native saved-profile and heightmap validation pending; loaded/unloaded water and renderer GPU gates pending; independent grade carried.",
     "chosen_repair": "Preflight exact V8 planned density and surface materials before chunk mutation; skip redundant intermediate ground-path heightmap writes, retain raw path and V1-V7."
   },
-  "lease_released": false,
+  "lease_released": true,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -1514,5 +1515,20 @@
     "mutant_variants_rejected": 4,
     "owner_full_build_unrun": true,
     "codec_native_unrun": true
+  },
+  "latest_v8_preflight": {
+    "version": "0.0.1-alpha.29-dev.51-v8preflight.1",
+    "source_commit": "61369484aff15c0a0d7130ea69c397c5819a2341",
+    "source_blob": "58c4b7d0f04435620858c1eef919d50ec171f15f",
+    "previous_blob": "561676a414261f67cc39dc8f22e254a5181ab18e",
+    "evidence": "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
+    "java21_focused_assertions": 13975797,
+    "new_focused_assertions": 209429,
+    "voxel_parity_comparisons": 49152,
+    "negative_baseline_rejected": true,
+    "preflight_failure_cases": 3,
+    "java25_unavailable": true,
+    "owner_full_build_unrun": true,
+    "artifact_released": false
   }
 }
