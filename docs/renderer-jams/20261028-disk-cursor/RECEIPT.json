@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "jam_id": "20261028-disk-cursor",
+  "scope": "renderer-only-persisted-lod-disk-index",
+  "parent_main_sha": "d96fd950de3fd61ff0c66a9fa27ab5e51d8e6147",
+  "claim_sha": "35bcb4aa84bda426ea5692f114e1af482a11fc3f",
+  "first_code_sha": "8bcde04a8c7ebfebbf0b656cdd3eea365a7058ba",
+  "final_product_source_sha": "004a436c7ba01b4662eb25299009b8c41ab9d075",
+  "consumed_independent_audit": "docs/engine-hourly-audits/2026-10-28T0530-4cf0f1b/REVIEW.md",
+  "previous_renderer_self_audit": "docs/renderer-jams/20261028-disk-nearest/REVIEW.md",
+  "changed_production_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+  ],
+  "changed_validation_files": [
+    "docs/renderer-jams/20261028-disk-cursor/LodDiskIncrementalChecks.java",
+    "docs/renderer-jams/20261028-disk-cursor/LodDiskIndexServiceChecks.java",
+    "docs/renderer-jams/20261028-disk-cursor/LodDiskIndexBench.java"
+  ],
+  "versions": {"java_21": "OpenJDK 21.0.12.1", "java_25": "Temurin 25.0.5+8"},
+  "focused_test_results": {
+    "compiler_jdk21": "pass --release21 -Xlint:all -Werror",
+    "compiler_jdk25": "pass --release25 -Xlint:all -Werror",
+    "scanner_assertions_per_jdk": 9006,
+    "incremental_assertions_per_jdk": 8295,
+    "service_assertions_jdk21": 522,
+    "service_assertions_jdk25": 538,
+    "total_assertions_jdk21": 17823,
+    "total_assertions_jdk25": 17839,
+    "immutable_sort_mutant_rejected": true,
+    "callback_jdk25_cpu_only": {"measured_calls":1978,"p50_ns":12489,"p95_ns":41733,"p99_ns":139360,"max_ns":1479601},
+    "initial_oversized_callback_variant_rejected": true
+  },
+  "renderer_self_scores": {"distance_lod":5.0,"mesh_scheduling":6.0,"gpu_culling_submission_memory":4.0,"actual_fsr_dlss":5.0,"visual_settings_compat":5.0,"validation_measured_performance":4.5,"average":4.9166666667,"previous_average":4.75},
+  "whole_engine_grade": {"carried_average":5.0,"fresh_independent_review":false},
+  "owner_build_override":true,
+  "gradle_minecraft_gpu_package_jar_executed":false,
+  "new_jar":false,
+  "github_release_published":false,
+  "fsr_dlss_runtime_changed":false,
+  "next_renderer_priority":"Owner native world reopen/camera travel/edit and Vulkan/OpenGL frame-timing/VRAM/transparency regression; then temporal upscaling prerequisites.",
+  "qualification":"source-only Java21/Java25 focused validation, not native/GPU/JAR acceptance"
+}

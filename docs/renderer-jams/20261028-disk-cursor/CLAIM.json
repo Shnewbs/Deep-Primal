@@ -2,11 +2,13 @@
   "schema": 1,
   "jam": "20261028-disk-cursor",
   "owner": "renderer-hourly-20261028T0558",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T05:58:19Z",
-  "updated_at": "2026-10-28T06:08:00Z",
-  "active_until": "2026-10-28T06:29:00Z",
+  "updated_at": "2026-10-28T06:15:50Z",
+  "active_until": "2026-10-28T06:15:50Z",
+  "released_at": "2026-10-28T06:15:50Z",
   "parent_sha": "d96fd950de3fd61ff0c66a9fa27ab5e51d8e6147",
+  "source_commit": "004a436c7ba01b4662eb25299009b8c41ab9d075",
   "source_scope": [
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
@@ -23,5 +25,7 @@
     "renderer-vulkan/",
     "graphics-settings/"
   ],
-  "release_policy": "owner builds; source-only Java25 focused tests"
+  "qualified_jar_produced": false,
+  "release_policy": "owner builds; source-only Java21/Java25 focused tests",
+  "next": "Owner native world reopen/travel/edit, GPU frame and water coverage gates"
 }
