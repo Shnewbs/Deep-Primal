@@ -80,6 +80,42 @@ public final class HydrologyRuntime {
     try { return l.setBlock(p, s, 2 | 16); }
     finally { scope.close(); }
   }
+  /**
+   * Single-cell reservoir/inventory admission. A native success flag is not proof
+   * that the requested state survived synchronous callbacks. Keep the raw write
+   * API for the two-cell solver, which owns its own compensation ordering.
+   *
+   * <p>A refused-but-applied write is restored once, only while its exact applied
+   * value is still present. Foreign edits, unloads and failed compensation throw
+   * before the caller changes its account. This is not a durable transaction
+   * journal: native exceptions and same-state ABA still require recovery gates.
+   */
+  private static boolean writeAccounted(ServerLevel l, BlockPos p, BlockState requested) {
+    BlockPos cell = p.immutable();
+    if (!l.isInWorldBounds(cell) || !l.hasChunkAt(cell)) return false;
+    var before = l.getBlockState(cell);
+    boolean wrote = write(l, cell, requested);
+    // A callback may also move a caller-owned MutableBlockPos. Never let the
+    // caller publish this cell's chemistry at that new coordinate.
+    if (p.asLong() != cell.asLong() || !l.isInWorldBounds(cell) || !l.hasChunkAt(cell))
+      throw new IllegalStateException("Finite-water accounted write lost loaded cell");
+    var observed = l.getBlockState(cell);
+    if (wrote) {
+      if (!observed.equals(requested))
+        throw new IllegalStateException("Finite-water accounted write replaced by callback");
+      return true;
+    }
+    if (observed.equals(before)) return false;
+    if (!observed.equals(requested))
+      throw new IllegalStateException("Finite-water refused write lost ownership");
+    // Do not report an ordinary refusal while our credited/debited block remains.
+    // Use the raw scoped API, not recursive accounted writes: at most one repair.
+    write(l, cell, before);
+    if (p.asLong() != cell.asLong() || !l.isInWorldBounds(cell) || !l.hasChunkAt(cell)
+        || !l.getBlockState(cell).equals(before))
+      throw new IllegalStateException("Finite-water accounted rollback lost ownership");
+    return false;
+  }
   public static void externalChange(ServerLevel l, BlockPos p, BlockState before, BlockState after) {
     if (before == null || before.equals(after)) return;
     if (WaterWriteScope.consumes(l, p.asLong(), before, after)) return;
@@ -137,7 +173,7 @@ public final class HydrologyRuntime {
     if (amount == 0) return false;
     var addition = d.ocean.preview(amount);
     if (!water.add(addition)) return false;
-    if (!write(l, p, anchor.setValue(EngineFluid.UNITS, (int) (water.water() / WaterAccount.SCALE)))) return false;
+    if (!writeAccounted(l, p, anchor.setValue(EngineFluid.UNITS, (int) (water.water() / WaterAccount.SCALE)))) return false;
     d.ocean.take(amount); d.setDirty(); store(l, p, water.snapshot()); return true;
   }
   /** Ocean accepts only water that has reached sea level; a lake at that height is still finite. */
@@ -155,7 +191,7 @@ public final class HydrologyRuntime {
     var account = new WaterAccount(4096, contents(l, from, a));
     var parcel = account.take(take * WaterAccount.SCALE);
     if (!d.ocean.canAccept(parcel)) return false;
-    if (!write(l, from, units == take ? Blocks.AIR.defaultBlockState() : a.setValue(EngineFluid.UNITS, units - take))) return false;
+    if (!writeAccounted(l, from, units == take ? Blocks.AIR.defaultBlockState() : a.setValue(EngineFluid.UNITS, units - take))) return false;
     if (!d.ocean.add(parcel)) throw new IllegalStateException("Ocean reservation changed");
     d.setDirty();
     store(l, from, account.snapshot()); WaterRuntime.activate(l, from); return true;
@@ -166,7 +202,7 @@ public final class HydrologyRuntime {
     // loaded x/z chunk does not make an out-of-build-height position a cell.
     if (!l.isInWorldBounds(p) || !l.hasChunkAt(p)
         || parcel.water() != 4096 || !l.getBlockState(p).isAir()) return false;
-    if (!write(l, p, EngineRegistry.WATER_BLOCK.get().defaultBlockState())) return false;
+    if (!writeAccounted(l, p, EngineRegistry.WATER_BLOCK.get().defaultBlockState())) return false;
     store(l, p, parcel); WaterRuntime.activate(l, p); return true;
   }
   public static WaterAccount.Parcel pickup(ServerLevel l, BlockPos p) {
@@ -174,7 +210,7 @@ public final class HydrologyRuntime {
     var state = l.getBlockState(p);
     if (!state.is(EngineRegistry.WATER_BLOCK.get()) || state.getValue(EngineFluid.UNITS) != 16) return null;
     var parcel = contents(l, p, state);
-    if (!write(l, p, Blocks.AIR.defaultBlockState())) return null;
+    if (!writeAccounted(l, p, Blocks.AIR.defaultBlockState())) return null;
     store(l, p, WaterAccount.Parcel.EMPTY);
     if (boundary(state) && enabled(l)) restoreOcean(l, p, state);
     WaterRuntime.activate(l, p); return parcel;
@@ -192,7 +228,7 @@ public final class HydrologyRuntime {
     if (!water.add(addition)) return false;
     var state = (old.isAir() ? EngineRegistry.WATER_BLOCK.get().defaultBlockState() : old)
         .setValue(EngineFluid.UNITS, units + amount);
-    if (!write(l, p, state)) return false;
+    if (!writeAccounted(l, p, state)) return false;
     aquifer.ground.take(addition.water()); HydrologyData.get(l).setDirty(); store(l, p, water.snapshot());
     WaterRuntime.activate(l, p); return true;
   }
@@ -206,7 +242,7 @@ public final class HydrologyRuntime {
     var water = new WaterAccount(4096, contents(l, p, old));
     var parcel = water.take(amount * WaterAccount.SCALE);
     if (!aquifer.ground.canAccept(parcel)) return false;
-    if (!write(l, p, units == amount ? Blocks.AIR.defaultBlockState() : old.setValue(EngineFluid.UNITS, units - amount))) return false;
+    if (!writeAccounted(l, p, units == amount ? Blocks.AIR.defaultBlockState() : old.setValue(EngineFluid.UNITS, units - amount))) return false;
     if (!aquifer.ground.add(parcel)) throw new IllegalStateException("Aquifer reservation changed");
     HydrologyData.get(l).setDirty();
     store(l, p, water.snapshot()); WaterRuntime.activate(l, p); return true;
@@ -218,7 +254,7 @@ public final class HydrologyRuntime {
     var state=l.getBlockState(p);
     if(!(state.is(Blocks.ICE)||state.is(Blocks.PACKED_ICE)||state.is(Blocks.BLUE_ICE)||state.is(Blocks.SNOW_BLOCK)))return false;
     if(l.getHeight(Heightmap.Types.WORLD_SURFACE,p.getX(),p.getZ())>p.getY()+1)return false;
-    if(!write(l,p,EngineRegistry.WATER_BLOCK.get().defaultBlockState()))return false;
+    if(!writeAccounted(l,p,EngineRegistry.WATER_BLOCK.get().defaultBlockState()))return false;
     store(l,p,new WaterAccount.Parcel(4096,0,0));WaterRuntime.activate(l,p);return true;
   }
   private static double permeability(BlockState bed, TerrainNoise noise, int x, int z) {
