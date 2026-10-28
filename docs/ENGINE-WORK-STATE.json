@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "status": "active",
-  "updated_at": "2026-10-28T10:04:00Z",
+  "updated_at": "2026-10-28T10:08:00Z",
   "active_until": "2026-10-28T10:25:00Z",
   "source_ref": "c535213c6b80a549017f58f44a52ecf2f9eb31c2",
-  "candidate_version": "0.0.1-alpha.29-dev.50-v8strict.1",
+  "candidate_version": "0.0.1-alpha.29-dev.51-v8preflight.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev50 strict V8 saved generator snapshot root-field decode and budget on current main; production source and 13,766,368 focused Java25 stand-in assertions pass. Native Mojang JSON/NBT, save/reopen, water and owner GPU gates pending.",
+  "current_gate": "Dev51 experimental V8 planned-ground preflight: all surface channel/material values resolved before chunk writes; avoid intermediate ground-path heightmap updates. Java21 focused source-stand-in 13,975,797 assertions pass, old adapter fails new regression. Java25/native/GPU/water long-soak owner acceptance unrun.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -169,6 +169,7 @@
     "limitations": "At most 16 loaded chunk-center samples remain coarse; no many-region storm latency or full-catchment acceptance."
   },
   "next_items": [
+    "2026-10-28 dev51 source-only V8 material preflight and heightmap optimization tests 13,975,797 Java21 assertions; real native/write callback, owner Gradle/GPU and water long-soak gates open. docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
     "2026-10-28 dev50 source-only V8 saved snapshot root-envelope strictness committed: Java25 focused stand-in 13,766,368 assertions, 4 mutants rejected, native Mojang JsonOps/NbtOps and save/reopen pending; docs/validation/engine-continuation/v8-snapshot-strict-envelope-2026-10-28/README.md",
     "Dev46 source-only native section bridge committed: full native NeoForge chunk lighting/heightmap/base column/getBaseHeight/save/reopen and V1-V7 exact replay remains owner-operated. docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/README.md",
     "2026-10-28 dev40 narrowly suppresses ONLY exact expected native LevelChunk state events per server level and cell; 480028 Java21 checks, four corrupt variants rejected, 13 postcommit structural checks. Need native same-cell ABA/unload/save-reopen constituent acceptance and owner Java25+AMD Vulkan/OpenGL; docs/validation/engine-continuation/water-cell-write-scope-2026-10-27/README.md",
@@ -244,7 +245,7 @@
     "Continue hourly builder until a fresh complete independent ten-category average is strictly greater than 8.5/10; a score of exactly 8.5 does not satisfy the target."
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/v8-saved-profile-2026-10-28/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
   "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/density-r62",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
@@ -1037,7 +1038,7 @@
     "worker": "builder-20261028T1000-v8-atomic-materialize",
     "started_at": "2026-10-28T10:04:00Z",
     "lease_until": "2026-10-28T10:25:00Z",
-    "phase": "source_impl_in_progress",
+    "phase": "validated_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "gradle.properties",
@@ -1048,7 +1049,10 @@
     "consumed_source": "4b6132969ab517bd581b044308a30a62e95fb411",
     "coordination": "Separate auditor read-only latest 09:33; renderer released filename-index jam 10:00 and owns LOD files; water foreground state stale/expired 01:15, no live verification, water source untouched. Main writer root acquired with expected-parent guard. Isolated scratch/output; no benchmark reservation.",
     "lease_released": false,
-    "source_commit": null
+    "source_commit": null,
+    "result": "Java21 API-stand-in source tests 13,975,797 assertions passed incl 209,429 new, 49,152 new voxel comparisons, 3 no-write failures, old adapter fails negative; Java25 toolchain archive absent locally.",
+    "tested_source_blob": "58c4b7d0f04435620858c1eef919d50ec171f15f",
+    "evidence": "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md"
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1228,12 +1232,12 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md",
-    "source_sha": "563b6ef23586f579ff2b972d7404b4f0a9054002",
+    "path": "docs/engine-hourly-audits/2026-10-28T0933-4b61329/REVIEW.md",
+    "source_sha": "4b6132969ab517bd581b044308a30a62e95fb411",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "V8 saved snapshot ignores extra top-level keys under record codec; renderer LOD fixed-camera nonempty rediscovery open but assigned to separate renderer worker.",
-    "chosen_repair": "V8 root map DynamicOps strict field enumeration, unknown/invalid input errors, six-member budget; no water or renderer files touched."
+    "findings": "V8 codec/native saved-profile and heightmap validation pending; loaded/unloaded water and renderer GPU gates pending; independent grade carried.",
+    "chosen_repair": "Preflight exact V8 planned density and surface materials before chunk mutation; skip redundant intermediate ground-path heightmap writes, retain raw path and V1-V7."
   },
   "lease_released": false,
   "latest_stream_deadline_stage": {

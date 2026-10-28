@@ -95,21 +95,45 @@ public final class DensityChunkMaterializer {
       GroundSurfaceProfile.Compiled profile, ChunkAccess chunk, int queriesPerSlab) {
     Objects.requireNonNull(profile, "profile");
     Objects.requireNonNull(chunk, "chunk");
-    var planned = fillPlannedRaw(profile.graph(), chunk, queriesPerSlab, false);
-    var density = planned.chunk();
     var origin = chunk.getPos();
-    var pos = new BlockPos.MutableBlockPos();
+    int minY = chunk.getMinY(), height = chunk.getHeight();
+    // Finish sampling and resolve every required surface block BEFORE the first
+    // native write. Density evaluation, graph channel lookup and material
+    // registry access can fail on a malformed preview/profile or near the
+    // coordinate boundary; a failed preflight must not leave a half-painted
+    // chunk (or a partially updated heightmap) behind.
+    var planned = DensityChunk.samplePlanned(profile.graph(), origin.getMinBlockX(),
+        minY, origin.getMinBlockZ(), height, queriesPerSlab);
+    var density = planned.chunk();
+    var surfaces = new BlockState[DensityChunk.WIDTH * DensityChunk.WIDTH];
+    boolean needsSoil = false;
     for (int z = 0; z < DensityChunk.WIDTH; z++)
       for (int x = 0; x < DensityChunk.WIDTH; x++) {
         int top = density.surfaceExclusive(x, z) - 1;
-        if (top < chunk.getMinY() + 2 || top == chunk.getMaxY()) continue;
+        if (top < minY + 2 || top == chunk.getMaxY()) continue;
+        surfaces[z * DensityChunk.WIDTH + x] = Objects.requireNonNull(
+            profile.surface(origin.getMinBlockX() + x, origin.getMinBlockZ() + z),
+            "V8 surface material");
+        if (profile.soilDepth() > 1 && top > minY + 2 && density.solid(x, top - 1, z))
+          needsSoil = true;
+      }
+    BlockState soil = needsSoil ? Objects.requireNonNull(
+        GroundMaterials.DIRT.get().defaultBlockState(), "V8 subsurface material") : null;
+
+    // The raw pass does not incrementally update an unprimed heightmap that
+    // will immediately be recomputed from the final painted block states.
+    writePlannedRaw(planned, chunk, false);
+    var pos = new BlockPos.MutableBlockPos();
+    for (int z = 0; z < DensityChunk.WIDTH; z++)
+      for (int x = 0; x < DensityChunk.WIDTH; x++) {
+        BlockState surface = surfaces[z * DensityChunk.WIDTH + x];
+        if (surface == null) continue;
+        int top = density.surfaceExclusive(x, z) - 1;
         int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
-        var surface = profile.surface(worldX, worldZ);
-        for (int depth = 0; depth < profile.soilDepth() && top - depth >= chunk.getMinY() + 2; depth++) {
+        for (int depth = 0; depth < profile.soilDepth() && top - depth >= minY + 2; depth++) {
           int y = top - depth;
           if (!density.solid(x, y, z)) break;
-          chunk.setBlockState(pos.set(worldX, y, worldZ),
-              depth == 0 ? surface : GroundMaterials.DIRT.get().defaultBlockState());
+          chunk.setBlockState(pos.set(worldX, y, worldZ), depth == 0 ? surface : soil);
         }
       }
     Heightmap.primeHeightmaps(chunk,
@@ -139,8 +163,17 @@ public final class DensityChunkMaterializer {
     var origin = chunk.getPos();
     var planned = DensityChunk.samplePlanned(graph, origin.getMinBlockX(), minY,
         origin.getMinBlockZ(), height, queriesPerSlab);
-    var floor = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
-    var surface = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
+    return writePlannedRaw(planned, chunk, primeMaps);
+  }
+
+  private static DensityChunk.Planned writePlannedRaw(
+      DensityChunk.Planned planned, ChunkAccess chunk, boolean primeMaps) {
+    int minY = chunk.getMinY();
+    var origin = chunk.getPos();
+    // The painted surface path primes the final map once after all writes.
+    // Avoid redundant per-voxel unprimed map updates in that path.
+    var floor = primeMaps ? chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG) : null;
+    var surface = primeMaps ? chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG) : null;
     var pos = new BlockPos.MutableBlockPos();
     for (var section : DensitySectionLayout.project(planned.chunk())) {
       int baseY = section.baseY();
@@ -151,7 +184,7 @@ public final class DensityChunkMaterializer {
             var state = material(section.solidLocal(x, sectionY, z), minY, y);
             chunk.setBlockState(pos.set(origin.getMinBlockX() + x, y,
                 origin.getMinBlockZ() + z), state);
-            if (!state.isAir()) {
+            if (primeMaps && !state.isAir()) {
               floor.update(x, y, z, state);
               surface.update(x, y, z, state);
             }
