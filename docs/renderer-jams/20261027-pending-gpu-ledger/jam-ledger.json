@@ -43,7 +43,10 @@
     "bytes": 6669,
     "sha256": "e0338ebd654d924e8885efa95a30596b09a833c8990527d5812ed78e4a6023b5",
     "archive_crc_pass": true,
-    "type": "source/evidence only; not a JAR"
+    "type": "source/evidence only; not a JAR",
+    "library_file_id": "libfile_fde2d6e296e0819187840e340b37e8e8",
+    "library_path": "/DeepPrimal_Renderer_PendingGpuLedger_20261027_598c860_SourceEvidence.zip",
+    "library_upload_verified": true
   },
   "lease_status": "released",
   "next": "Native Vulkan/GL warm/cold camera travel/edit upload/frame/memory baselines and hard bound/transparent water; then splitting and temporal DLSS inputs"
