@@ -1,26 +1,24 @@
 {
   "schema": 1,
-  "worker": "hourly-engine-builder-20261028T2002-dev62-coastal-proof",
-  "status": "checkpointed",
-  "started_at": "2026-10-28T20:05:03.665Z",
-  "updated_at": "2026-10-28T20:16:43.347Z",
-  "active_until": "2026-10-28T20:16:43.347Z",
-  "lease_released": true,
-  "source_ref": "8bf0216d02253958a488fc44378d091c21dae74d",
+  "worker": "hourly-engine-builder-20261028T2107-dev63-climate-bridge",
+  "status": "active",
+  "started_at": "2026-10-28T21:07:00Z",
+  "updated_at": "2026-10-28T21:07:00Z",
+  "active_until": "2026-10-28T21:40:00Z",
+  "lease_released": false,
+  "source_ref": "bf081cc8aa577419a422178342f083cc2ddfcd60",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
-  "candidate_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
+  "candidate_version": "0.0.1-alpha.29-dev.63-climate-bridge.1",
   "scope": [
     "docs/TERRAIN-BLENDING-WORK-STATE.json",
-    "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumeBounds.java",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/TerrainShapeV8.java",
-    "gradle.properties",
-    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
-    "tools/tests/V8ReliefV4CoastalChecks.java"
+    "src/main/java/com/shnewbs/deepprimal/engine/V8SavedClimateSource.java",
+    "tools/tests/V8SavedClimateSourceChecks.java",
+    "tools/test_v8_saved_climate_source.py",
+    "docs/validation/engine-continuation/v8-climate-source-bridge-2026-10-28/README.md",
+    "gradle.properties"
   ],
   "coordination": "GitHub pinned main, independent Dev61 audit, scoped terrain/water claims and separate renderer commits checked. Terrain was released; foreground water expired; renderer jam claim released at e4c400f. Root validator Python not runnable without complete work-state checkout; root unchanged. Owner does full builds.",
-  "current_gate": "New explicit opt-in V8 relief V4 preserves historical V1 sea-side classification in the sampled source-height corpus, including both independently audited V3 shoulder failures. Native authoritative ocean masks, hydrology, save/reopen, water ledger and renderer acceptance remain unverified.",
+  "current_gate": "Active bounded claim for explicit V8 saved-reference climate/hydrology input adapter; no native generator change authorized; Java25/GPU/owner builds not performed.",
   "tests": "14/14 Java21 isolated source/API-double suites passed, 20,929,784 assertions/checks (new V4 3,907,136). Four seeds and 148,998 sampled columns, V3 12 historical sea-side flips, V4 zero; frozen V1/V2/V3 graph digests and mutant rejection passed. Java25/full Gradle/Minecraft/GPU unrun; owner builds.",
   "evidence": "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
   "native_integration": false,
@@ -28,9 +26,9 @@
   "owner_builds_full_jars": true,
   "last_full_external_grade": 5,
   "new_grade_awarded": false,
-  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1930-2a341f9/REVIEW.md",
-  "audit_pinned_source": "2a341f90b6aaff2a253a50f8f792b24a47cc80fc",
-  "audit_findings": "Dev61 independent auditor found two nearshore shoulder sea-plane height classification mismatches at continentalness ~.12; select a new opt-in V8 saved density recipe with provable inland dry-safe shoulder, preserving all earlier graphs.",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2034-055d78f8/REVIEW.md",
+  "audit_pinned_source": "055d78f8535d5380ac99e2dd0fc43da49ae5ba89",
+  "audit_findings": "Numeric sea-side classification has sampled proof, but V8 climate/ocean domain remains an unconstrained caller callback; native ocean/routed hydrology not integrated; build a guarded explicit saved V7 reference-climate adapter without altering existing profiles.",
   "next_action": "Integrate authoritative persisted climate/ocean-mask and routed hydrology in V8 before native registration; confirm old/new chunk borders and native save/reopen/edits. Continue finite-water constituent conservation across unload/restart and real waterfall continuity under separate scopes; owner performs full build/GPU/JAR.",
   "source_commit": "8bf0216d02253958a488fc44378d091c21dae74d",
   "completed_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
@@ -42,5 +40,12 @@
     "V8GeneratorSnapshot": "24719bbfc9611302f8c6bb314d4d6dd14f9142f8",
     "V8ReliefV4CoastalChecks": "98f6e9fbeb80008feb8b5aef890449044fd07f6f"
   },
-  "source_evidence_zip_sha256": "b2d5c8ce00e03496012a5dfec1f13bbab3c428a50d1368e6305c69104b9f90b5"
+  "source_evidence_zip_sha256": "b2d5c8ce00e03496012a5dfec1f13bbab3c428a50d1368e6305c69104b9f90b5",
+  "previous_checkpoint": {
+    "worker": "hourly-engine-builder-20261028T2002-dev62-coastal-proof",
+    "source_ref": "8bf0216d02253958a488fc44378d091c21dae74d",
+    "candidate_version": "0.0.1-alpha.29-dev.62-coastal-proof.1",
+    "evidence": "docs/validation/engine-continuation/v8-relief-coastal-proof-2026-10-28/README.md",
+    "updated_at": "2026-10-28T20:16:43.347Z"
+  }
 }
