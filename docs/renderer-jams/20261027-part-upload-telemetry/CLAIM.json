@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "jam_id": "20261027-part-upload-telemetry",
-  "status": "active",
+  "status": "checkpointed",
   "owner": "renderer-schedule",
   "base_sha": "e33c4bfebe0b0e980c888aaff8ba0becd9dd4cca",
   "claimed_at": "2026-10-28T02:00:31Z",
-  "active_until": "2026-10-28T02:25:00Z",
+  "active_until": null,
   "scope": [
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
@@ -19,5 +19,9 @@
     "docs/WATER-ENGINE-WORK-STATE.json"
   ],
   "measurement_reservation": "none; independent host-only focused tests",
-  "note": "No Gradle native GPU or user source/build outputs touched; stop and reconcile if any scoped writer appears."
+  "note": "No Gradle native GPU or user source/build outputs touched; stop and reconcile if any scoped writer appears.",
+  "scoped_lease_released": true,
+  "final_source_commit": "a6e24b0d2301a4101262c3912c02467e4bf49af2",
+  "review_path": "docs/renderer-jams/20261027-part-upload-telemetry/REVIEW.md",
+  "next_priority": "owner Vulkan/OpenGL named GPU p50/p95/p99 upload/VRAM baseline, then measured quad split"
 }
