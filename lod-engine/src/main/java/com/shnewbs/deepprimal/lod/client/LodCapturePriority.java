@@ -29,6 +29,7 @@ final class LodCapturePriority {
     long dz = (int) chosen - (long) cameraChunkZ;
     long bestRing = Math.max(Math.abs(dx), Math.abs(dz));
     double bestSquared = (double) dx * dx + (double) dz * dz;
+    long bestDx = dx, bestDz = dz;
     while (keys.hasNext()) {
       long key = keys.next();
       dx = (int) (key >> 32) - (long) cameraChunkX;
@@ -36,13 +37,33 @@ final class LodCapturePriority {
       long ring = Math.max(Math.abs(dx), Math.abs(dz));
       if (ring > bestRing) continue;
       double squared = (double) dx * dx + (double) dz * dz;
-      if (ring < bestRing || squared < bestSquared) {
+      if (ring < bestRing || squared < bestSquared
+          || (squared == bestSquared && exactSquaredLess(dx, dz, bestDx, bestDz))) {
         chosen = key;
         bestRing = ring;
         bestSquared = squared;
+        bestDx = dx;
+        bestDz = dz;
       }
     }
-    // Strict comparison keeps insertion order as the deterministic tie breaker.
+    // A double rounds distinct very large squared distances to the same value.
+    // The exact 128-bit tie comparison preserves true nearest-first priority
+    // across the full signed-int coordinate domain without allocating BigInteger.
+    // Equal exact distances retain insertion order for fair deterministic ties.
     return chosen;
+  }
+
+  private static boolean exactSquaredLess(long dx, long dz, long otherDx, long otherDz) {
+    long x = dx * dx, z = dz * dz;
+    long low = x + z;
+    long high = Math.multiplyHigh(dx, dx) + Math.multiplyHigh(dz, dz)
+        + (Long.compareUnsigned(low, x) < 0 ? 1 : 0);
+    long ox = otherDx * otherDx, oz = otherDz * otherDz;
+    long otherLow = ox + oz;
+    long otherHigh = Math.multiplyHigh(otherDx, otherDx) + Math.multiplyHigh(otherDz, otherDz)
+        + (Long.compareUnsigned(otherLow, ox) < 0 ? 1 : 0);
+    int compareHigh = Long.compareUnsigned(high, otherHigh);
+    return compareHigh < 0 || (compareHigh == 0
+        && Long.compareUnsigned(low, otherLow) < 0);
   }
 }
