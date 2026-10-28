@@ -1,0 +1,54 @@
+{
+  "jam_id": "20261028-recovery-epochs",
+  "source_commit": "2931f6c7a839013c216f21386a62c72122042d83",
+  "claim_parent": "3c1c3668bcf8a9c2489be35c0c311bc38bd84be5",
+  "audit_source": "5a23f285d4680f9537b8baf1639b75036e7392ef",
+  "code_paths": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261028-recovery-epochs/LodDiskRecoveryEpochChecks.java"
+  ],
+  "product_blobs": {
+    "service": "bf6f8c59b6578253440b201bae616bc2b7022df0",
+    "renderer": "29e528d8da2dc1f42c8b9890d3f78804b3a9f81c",
+    "scanner_unchanged": "fc76905ab1f82ba49cc4495ab8b943127b2b8d21",
+    "test": "d215cb9e3713c9466730e9c2476e29ef1ece34ac"
+  },
+  "java25": {
+    "compiler": "Temurin 25.0.5+8",
+    "warnings": "-Xlint:all -Werror",
+    "assertions": 22845,
+    "unprivileged_additional": 8,
+    "pass": true
+  },
+  "java21": {
+    "compiler": "OpenJDK 21.0.12.1",
+    "warnings": "-Xlint:all -Werror",
+    "assertions": 22827,
+    "pass": true
+  },
+  "mutants": {
+    "renewal_noop": "expected failure observed: post-start renewed owner discarded",
+    "empty_poll_disabled": "expected failure observed: new file in successful-empty directory not found at fixed camera"
+  },
+  "full_gradle": false,
+  "native_minecraft": false,
+  "gpu_pixels": false,
+  "jar": false,
+  "release": false,
+  "score": {
+    "categories": [
+      6,
+      6,
+      4,
+      5,
+      5,
+      4.5
+    ],
+    "average": 5.083333333333333,
+    "previous": 5,
+    "external_engine_grade_unchanged": 5
+  },
+  "grade_type": "read-only renderer self-audit",
+  "source_scope": "renderer-only"
+}

@@ -2,7 +2,7 @@
   "schema": 1,
   "jam_id": "20261028-recovery-epochs",
   "worker": "renderer-20261028T0754",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-28T07:54:29Z",
   "active_until": "2026-10-28T08:30:00Z",
   "base_sha": "29137b5e6c19d5fcb4f42943ad6156f2d7841ff8",
@@ -14,5 +14,14 @@
     "docs/renderer-jams/RENDERER-BACKLOG.md"
   ],
   "other_schedules_unchanged": true,
-  "metrics_reserved": false
+  "metrics_reserved": false,
+  "released_at": "2026-10-28T08:01:41Z",
+  "source_commit": "2931f6c7a839013c216f21386a62c72122042d83",
+  "actual_scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261028-recovery-epochs/LodDiskRecoveryEpochChecks.java"
+  ],
+  "full_gradle_owner_operated": true,
+  "jar_produced": false
 }
