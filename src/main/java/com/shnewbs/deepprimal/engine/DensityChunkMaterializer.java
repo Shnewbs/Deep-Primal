@@ -260,6 +260,42 @@ public final class DensityChunkMaterializer {
     }
   }
 
+  /**
+   * Read-only exact base-column projection of the completed opt-in V8 ecotone
+   * material plan. Unlike the generic raw V8 baseColumn this uses the SAME
+   * frozen surface samples, snow cover and soil-layer limits as native writes.
+   * It never reads neighboring chunks or changes a saved profile.
+   *
+   * <p>The independent pre-generation climate/base-column query is not yet
+   * available: that requires the native absolute-coordinate climate producer.
+   */
+  public static NoiseColumn baseColumn(V8EcotoneResult result, int localX, int localZ) {
+    Objects.requireNonNull(result, "result");
+    var raw = baseColumn(result.terrain(), localX, localZ);
+    var column = result.columns().column(localX, localZ);
+    if (column == null) return raw;
+    var density = result.terrain().chunk();
+    int minY = density.minY(), height = density.maxYExclusive() - minY;
+    var states = new BlockState[height];
+    for (int y = minY; y < density.maxYExclusive(); y++)
+      states[y - minY] = raw.getBlock(y);
+    BlockState topState = column.cover().snowPatch()
+        ? Blocks.SNOW_BLOCK.defaultBlockState() : switch (column.cover().cover()) {
+      case BARE -> GroundMaterials.DIRT.get().defaultBlockState();
+      case GRASS -> GroundMaterials.GRASS.get().defaultBlockState();
+      case PODZOL -> GroundMaterials.PODZOL.get().defaultBlockState();
+    };
+    BlockState soil = column.soilDepth() > 1
+        ? GroundMaterials.DIRT.get().defaultBlockState() : null;
+    for (int depth = 0; depth < column.soilDepth()
+        && column.topY() - depth >= minY + 2; depth++) {
+      int y = column.topY() - depth;
+      if (!density.solid(localX, y, localZ)) break;
+      states[y - minY] = depth == 0 ? topState : soil;
+    }
+    return new NoiseColumn(minY, states);
+  }
+
   private static DensityChunk.Planned fillPlannedRaw(
       DensityGraph graph, ChunkAccess chunk, int queriesPerSlab, boolean primeMaps) {
     Objects.requireNonNull(graph, "graph");
