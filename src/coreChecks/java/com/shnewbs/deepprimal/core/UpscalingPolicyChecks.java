@@ -2,20 +2,57 @@ package com.shnewbs.deepprimal.core;
 
 /** Checks unsupported requests and exact user-visible spatial sizes independently of GPU code. */
 public final class UpscalingPolicyChecks {
+  private static int assertions;
   private static void require(boolean value, String reason) {
+    assertions++;
     if (!value) throw new AssertionError(reason);
   }
 
   public static void main(String[] args) {
     var none = UpscalingPolicy.Capabilities.NONE;
     var fsr = new UpscalingPolicy.Capabilities(true, true, false);
+    var dlss = new UpscalingPolicy.Capabilities(false, false, true);
+    var allDeclared = new UpscalingPolicy.Capabilities(true, true, true);
     for (var mode : UpscalingPolicy.Mode.values()) {
       require(UpscalingPolicy.effective(mode, none) == UpscalingPolicy.Mode.NONE,
           "Absent providers always retain native size");
-      require(UpscalingPolicy.effective(mode, fsr)
-          == (mode == UpscalingPolicy.Mode.DLSS ? UpscalingPolicy.Mode.NONE : mode),
-          "Spatial/FSR capability never implies DLSS support");
+      var expectedFsr = switch (mode) {
+        case SPATIAL, FSR -> mode;
+        case NONE, DLSS, FSR_31, FSR_41 -> UpscalingPolicy.Mode.NONE;
+      };
+      require(UpscalingPolicy.effective(mode, fsr) == expectedFsr,
+          "Spatial/FSR 1 capabilities cannot imply temporal FSR or DLSS support");
+      require(UpscalingPolicy.effective(mode, dlss)
+          == (mode == UpscalingPolicy.Mode.DLSS ? mode : UpscalingPolicy.Mode.NONE),
+          "NVIDIA provider does not establish spatial/AMD support");
+      require(UpscalingPolicy.effective(mode, allDeclared)
+          == ((mode == UpscalingPolicy.Mode.FSR_31 || mode == UpscalingPolicy.Mode.FSR_41)
+              ? UpscalingPolicy.Mode.NONE : mode),
+          "Temporal FSR has no implemented provider even when all existing booleans are true");
+      boolean futureTemporal = mode == UpscalingPolicy.Mode.DLSS
+          || mode == UpscalingPolicy.Mode.FSR_31 || mode == UpscalingPolicy.Mode.FSR_41;
+      require(UpscalingPolicy.nativeAaSelectable(mode) == futureTemporal,
+          "Native AA is only selectable with a temporal provider preference");
+      require(UpscalingPolicy.lastSelectableQuality(mode)
+          == (futureTemporal ? UpscalingPolicy.Quality.NATIVE_AA.ordinal()
+              : UpscalingPolicy.Quality.CUSTOM.ordinal()),
+          "Native AA cannot enter FSR 1's quality cycle");
+      require(UpscalingPolicy.menuQuality(mode, UpscalingPolicy.Quality.NATIVE_AA)
+          == (mode == UpscalingPolicy.Mode.FSR
+              ? UpscalingPolicy.Quality.QUALITY : UpscalingPolicy.Quality.NATIVE_AA),
+          "Legacy FSR 1 Native AA is corrected only in staged UI state");
+      require(UpscalingPolicy.menuQuality(mode, UpscalingPolicy.Quality.CUSTOM)
+          == UpscalingPolicy.Quality.CUSTOM, "Valid custom scaling stays selected");
     }
+    require(UpscalingPolicy.Mode.NONE.ordinal() == 0
+            && UpscalingPolicy.Mode.SPATIAL.ordinal() == 1
+            && UpscalingPolicy.Mode.FSR.ordinal() == 2
+            && UpscalingPolicy.Mode.DLSS.ordinal() == 3
+            && UpscalingPolicy.Mode.FSR_31.ordinal() == 4
+            && UpscalingPolicy.Mode.FSR_41.ordinal() == 5,
+        "Saved mode enum ordinals remain compatible");
+    require(UpscalingPolicy.Quality.NATIVE_AA.ordinal() == 5,
+        "Quality enum stays compatible with existing saved preferences");
     require(UpscalingPolicy.dimension(1920, UpscalingPolicy.Quality.QUALITY.scale(.7)) == 1280,
         "1920 Quality renders 1280 pixels");
     require(UpscalingPolicy.dimension(1080, UpscalingPolicy.Quality.QUALITY.scale(.7)) == 720,
@@ -48,7 +85,14 @@ public final class UpscalingPolicyChecks {
         previous = result;
       }
     }
-    System.out.println("UPSCALING_POLICY_PASS unsupportedFallback=true qualitySizes=true "
+    // Cycle boundary may never admit the Native AA ordinal for FSR 1.
+    for (int step = 0; step < 40; step++) {
+      int choice = step % (UpscalingPolicy.lastSelectableQuality(UpscalingPolicy.Mode.FSR) + 1);
+      require(choice != UpscalingPolicy.Quality.NATIVE_AA.ordinal(),
+          "FSR 1 menu excludes Native AA for every cycle position");
+    }
+    System.out.println("UPSCALING_POLICY_PASS assertions=" + assertions + " unsupportedFallback=true "
+        + "qualitySizes=true nativeAaTemporalOnly=true legacyStageCorrection=true "
         + "oddDimensions=true finiteBounds=true independentFrameGeneration=true");
   }
 }

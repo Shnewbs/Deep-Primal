@@ -34,6 +34,25 @@ public final class UpscalingPolicy {
     }
   }
 
+  /** Native AA is a temporal-provider quality, never an FSR 1/spatial quality. */
+  public static boolean nativeAaSelectable(Mode mode) {
+    return switch (Objects.requireNonNull(mode)) {
+      case DLSS, FSR_31, FSR_41 -> true;
+      case NONE, SPATIAL, FSR -> false;
+    };
+  }
+
+  /** Leave persisted legacy choices untouched; stage a truthful FSR 1 quality in the menu. */
+  public static Quality menuQuality(Mode mode, Quality stored) {
+    Objects.requireNonNull(mode);
+    Objects.requireNonNull(stored);
+    return mode == Mode.FSR && stored == Quality.NATIVE_AA ? Quality.QUALITY : stored;
+  }
+
+  public static int lastSelectableQuality(Mode mode) {
+    return nativeAaSelectable(mode) ? Quality.NATIVE_AA.ordinal() : Quality.CUSTOM.ordinal();
+  }
+
   public static Mode effective(Mode requested, Capabilities capabilities) {
     return Objects.requireNonNull(capabilities).supports(requested) ? requested : Mode.NONE;
   }

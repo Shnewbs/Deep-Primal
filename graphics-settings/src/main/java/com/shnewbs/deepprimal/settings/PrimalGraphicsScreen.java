@@ -837,6 +837,12 @@ public final class PrimalGraphicsScreen extends Screen {
     presetKeys.clear();
     baseline.clear();
     baseline.putAll(values);
+    // Repair legacy FSR 1 + Native AA only in the staged screen. Apply commits the
+    // correction; closing without Apply preserves the original saved preference.
+    var selectedQuality = UpscalingPolicy.Quality.values()[number(controls.get("upscalingQuality"))];
+    var menuQuality = UpscalingPolicy.menuQuality(stagedUpscaler(), selectedQuality);
+    if (menuQuality != selectedQuality)
+      values.put("upscalingQuality", Integer.toString(menuQuality.ordinal()));
     loaded = true;
   }
 
@@ -1019,7 +1025,17 @@ public final class PrimalGraphicsScreen extends Screen {
                             GraphicsActions.dashboard.run();
                             return;
                           }
-                          int v = number(c) >= c.max ? c.min : number(c) + 1;
+                          int max = c.key.equals("upscalingQuality")
+                              ? UpscalingPolicy.lastSelectableQuality(stagedUpscaler()) : c.max;
+                          int v = number(c) >= max ? c.min : number(c) + 1;
+                          if (c.key.equals("upscaler")) {
+                            var nextMode = UpscalingPolicy.Mode.values()[v];
+                            var selected = UpscalingPolicy.Quality.values()[
+                                number(controls.get("upscalingQuality"))];
+                            var corrected = UpscalingPolicy.menuQuality(nextMode, selected);
+                            if (corrected != selected)
+                              values.put("upscalingQuality", Integer.toString(corrected.ordinal()));
+                          }
                           if (c.key.equals("backend")
                               && !net.neoforged.fml.ModList.get().isLoaded("deepprimal_vulkan")) {
                             v = 0;
