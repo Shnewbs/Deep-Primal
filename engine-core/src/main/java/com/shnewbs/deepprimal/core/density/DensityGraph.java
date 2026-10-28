@@ -11,7 +11,7 @@ public final class DensityGraph implements DensityField {
   public enum Op {
     CONSTANT(0,1), X(0,0), Y(0,0), Z(0,0), NOISE_2D(0,0), NOISE_3D(0,0),
     ADD(2,0), MULTIPLY(2,0), MIN(2,0), MAX(2,0), ABS(1,0), CLAMP(1,2),
-    SMOOTHSTEP(1,2), LERP(3,0), WARP(4,1);
+    SMOOTHSTEP(1,2), LERP(3,0), WARP(4,1), SEA_SIDE_BLEND(3,2);
     final int inputs, parameters;
     Op(int inputs,int parameters) { this.inputs=inputs; this.parameters=parameters; }
   }
@@ -26,6 +26,8 @@ public final class DensityGraph implements DensityField {
       if (needsNoise!=(noise!=null)) throw new IllegalArgumentException(id+": noise profile only allowed and required on noise nodes");
       if ((op==Op.CLAMP||op==Op.SMOOTHSTEP)&&parameters.get(0)>=parameters.get(1)) throw new IllegalArgumentException(id+": min must be below max");
       if (op==Op.WARP&&(parameters.getFirst()<0||parameters.getFirst()>65536)) throw new IllegalArgumentException(id+": warp amplitude must be 0..65536");
+      if (op==Op.SEA_SIDE_BLEND && (parameters.get(1)<=0 || parameters.get(1)>4096))
+        throw new IllegalArgumentException(id+": coastal width must be within (0,4096]");
     }
     public static Node constant(String id,double value) { return new Node(id,Op.CONSTANT,List.of(),List.of(value),null); }
     public static Node noise(String id,NoiseSpec spec,boolean horizontal) { return new Node(id,horizontal?Op.NOISE_2D:Op.NOISE_3D,List.of(),List.of(),spec); }
@@ -90,7 +92,8 @@ public final class DensityGraph implements DensityField {
   }
 
   private Bounds bounds(Node n,int[] in) {
-    Bounds a=in.length>0?program[in[0]].bounds():null,b=in.length>1?program[in[1]].bounds():null;
+    Bounds a=in.length>0?program[in[0]].bounds():null,b=in.length>1?program[in[1]].bounds():null,
+        c=in.length>2?program[in[2]].bounds():null;
     return switch(n.op()) {
       case CONSTANT -> new Bounds(n.parameters().getFirst(),n.parameters().getFirst());
       case X,Y,Z -> new Bounds(-32_000_000,32_000_000);
@@ -104,6 +107,16 @@ public final class DensityGraph implements DensityField {
       case SMOOTHSTEP -> new Bounds(0,1);
       case LERP -> new Bounds(Math.min(a.min(),b.min()),Math.max(a.max(),b.max()));
       case WARP -> { for(int i=1;i<4;i++) {var w=program[in[i]].bounds();if(w.min() < -1||w.max()>1)throw new IllegalArgumentException(n.id()+": warp displacement fields must be bounded within [-1,1]");} yield a; }
+      case SEA_SIDE_BLEND -> {
+        // Conservative symmetric enclosure for the sign-preserving coast
+        // transform: the returned distance from sea never exceeds the larger
+        // old/proposal distance. Include independent incision bounds.
+        double radius=Math.max(Math.max(Math.abs(a.min()),Math.abs(a.max())),
+            Math.max(Math.abs(b.min()),Math.abs(b.max())))
+            + Math.max(Math.abs(c.min()),Math.abs(c.max()))+Math.abs(n.parameters().get(0));
+        double sea=n.parameters().get(0);
+        yield new Bounds(sea-radius,sea+radius);
+      }
     };
   }
 
@@ -134,6 +147,8 @@ public final class DensityGraph implements DensityField {
       case SMOOTHSTEP -> {double t=clamp((evaluate(i[0],x,y,z)-n.parameters().get(0))/(n.parameters().get(1)-n.parameters().get(0)),0,1);yield t*t*(3-2*t);}
       case LERP -> {double a=evaluate(i[0],x,y,z),b=evaluate(i[1],x,y,z),t=clamp(evaluate(i[2],x,y,z),0,1);yield t==0?a:t==1?b:a+(b-a)*t;}
       case WARP -> {double amplitude=n.parameters().getFirst();yield evaluate(i[0],x+amplitude*evaluate(i[1],x,y,z),y+amplitude*evaluate(i[2],x,y,z),z+amplitude*evaluate(i[3],x,y,z));}
+      case SEA_SIDE_BLEND -> seaSideBlend(evaluate(i[0],x,y,z),evaluate(i[1],x,y,z),
+          evaluate(i[2],x,y,z),n.parameters().get(0),n.parameters().get(1));
     };
   }
 
@@ -213,8 +228,45 @@ public final class DensityGraph implements DensityField {
         case SMOOTHSTEP -> {double t=clamp((cached(i[0],x,y,z)-n.parameters().get(0))/(n.parameters().get(1)-n.parameters().get(0)),0,1);yield t*t*(3-2*t);}
         case LERP -> {double a=cached(i[0],x,y,z),b=cached(i[1],x,y,z),t=clamp(cached(i[2],x,y,z),0,1);yield t==0?a:t==1?b:a+(b-a)*t;}
         case WARP -> {double amplitude=n.parameters().getFirst();yield cached(i[0],x+amplitude*cached(i[1],x,y,z),y+amplitude*cached(i[2],x,y,z),z+amplitude*cached(i[3],x,y,z));}
+        case SEA_SIDE_BLEND -> seaSideBlend(cached(i[0],x,y,z),cached(i[1],x,y,z),
+            cached(i[2],x,y,z),n.parameters().get(0),n.parameters().get(1));
       };
     }
+  }
+
+  /**
+   * Smooth, continuous, sea-side-preserving lift of a proposed pre-canyon
+   * height. Both heights see the SAME final canyon incision; no hydrological
+   * liquid level or water quantity participates here. The resulting signed
+   * sea distance is oldDistance times a strictly positive finite ratio, then
+   * blended only with a proposal on the same side of sea. This prevents
+   * coastline-classification flips without post-generation column edits.
+   */
+  private static double seaSideBlend(double oldPre,double proposalPre,
+      double canyon,double sea,double width) {
+    double historical=oldPre+canyon;
+    if (Double.doubleToRawLongBits(oldPre)==Double.doubleToRawLongBits(proposalPre))
+      return historical; // preserve frozen V1/V3 release-region exact arithmetic
+    double proposal=proposalPre+canyon;
+    double oldDistance=historical-sea;
+    double proposedDistance=proposal-sea;
+    if (oldDistance==0) return sea;
+    double oldMagnitude=Math.abs(oldDistance);
+    double proposedMagnitude=Math.abs(proposedDistance);
+    // Positive ratio: cannot change whether historical terrain lies above sea.
+    double nearDistance=oldDistance*((proposedMagnitude+width)/(oldMagnitude+width));
+    // Recover full proposed inland relief only when the proposal has the SAME
+    // sea-plane sign, with C1-smooth switches at both zero-distance limits.
+    double inland=smooth01((oldMagnitude-.5*width)/(3.5*width));
+    double agreement=smooth01((oldDistance*proposedDistance)/(width*width));
+    double release=inland*agreement;
+    if (release==1) return proposal;
+    return sea + nearDistance + (proposedDistance-nearDistance)*release;
+  }
+
+  private static double smooth01(double value) {
+    double t=clamp(value,0,1);
+    return t*t*(3-2*t);
   }
 
   private static double clamp(double value,double min,double max) { return Math.max(min,Math.min(max,value)); }

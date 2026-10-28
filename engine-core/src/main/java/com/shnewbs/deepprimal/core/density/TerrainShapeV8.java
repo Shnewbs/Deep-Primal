@@ -38,8 +38,21 @@ public final class TerrainShapeV8 {
     return definition(floatingFeatures, 3);
   }
 
+  /**
+   * Explicit V4 authoring graph uses a conservative sea-side relief blend: the
+   * previous V1 height determines the sea-plane side, while V2 provides the
+   * inland relief proposal. Near historical shorelines, the signed height
+   * distance is continuously damped, avoiding the two V3 shoulder witnesses.
+   * Away from the sea plane, safe proposals regain full V2 relief exactly.
+   * The guard is applied BEFORE terrain density and routed hydrology. It is
+   * not an authoritative ocean/river mask and is not native-activated.
+   */
+  public static Definition definitionReliefV4(boolean floatingFeatures) {
+    return definition(floatingFeatures, 4);
+  }
+
   private static Definition definition(boolean floatingFeatures, int reliefRevision) {
-    if (reliefRevision != 1 && reliefRevision != 2 && reliefRevision != 3)
+    if (reliefRevision != 1 && reliefRevision != 2 && reliefRevision != 3 && reliefRevision != 4)
       throw new IllegalArgumentException("unsupported V8 relief revision");
     Builder b=new Builder();
     b.c("zero",0);b.c("one",1);b.c("negative_one",-1);b.c("sea",96);b.c("continental_scale",320);
@@ -98,16 +111,21 @@ public final class TerrainShapeV8 {
       b.op("relief_hills_and_foothills",Op.ADD,"relief_hills","relief_foothills");
       b.op("relief_uplift",Op.ADD,"relief_hills_and_foothills","relief_plateau");
       b.op("relief_before_canyon",Op.ADD,"relief_highlands","relief_uplift");
-      if (reliefRevision == 3) {
-        // Preserve the exact historical V1 height (and its sea-plane side)
-        // around the coast, then blend toward relief-2 *before* canyon incision.
-        // This is a new saved graph, never an in-place edit to relief-2 saves.
+      if (reliefRevision == 3 || reliefRevision == 4) {
+        // V3 is frozen: its historical .08..16 coastal release is unchanged.
+        // V4 retains the same relief proposal, but constrains its final
+        // sea-plane side relative to the historical height without flattening
+        // safe inland ridges/plateaus or modifying the canyon incision input.
         b.op("coastal_v1_mountain_height",Op.ADD,"base_height","mountains");
         b.op("coastal_v1_hill_height",Op.ADD,"coastal_v1_mountain_height","hills");
         b.bound("coastal_guard_release",Op.SMOOTHSTEP,"continentalness",.08,.16);
         b.op("guarded_relief_before_canyon",Op.LERP,
             "coastal_v1_hill_height","relief_before_canyon","coastal_guard_release");
-        b.op("height",Op.ADD,"guarded_relief_before_canyon","canyon_cut");
+        if (reliefRevision == 4)
+          b.seaBlend("height","coastal_v1_hill_height",
+              "guarded_relief_before_canyon","canyon_cut",96,16);
+        else
+          b.op("height",Op.ADD,"guarded_relief_before_canyon","canyon_cut");
       } else {
         b.op("height",Op.ADD,"relief_before_canyon","canyon_cut");
       }
@@ -134,6 +152,10 @@ public final class TerrainShapeV8 {
     void c(String id,double value) {nodes.add(Node.constant(id,value));}
     void op(String id,Op op,String... in) {nodes.add(Node.operation(id,op,in));}
     void bound(String id,Op op,String in,double low,double high) {nodes.add(Node.bounded(id,op,in,low,high));}
+    void seaBlend(String id,String oldHeight,String proposal,String canyon,double sea,double width) {
+      nodes.add(new Node(id,Op.SEA_SIDE_BLEND,List.of(oldHeight,proposal,canyon),
+          List.of(sea,width),null));
+    }
     void n(String id,double horizontal,double vertical,long salt,boolean flat) {
       nodes.add(Node.noise(id,new NoiseSpec(1/horizontal,1/vertical,1/horizontal,3,2,.5,salt),flat));
     }

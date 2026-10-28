@@ -100,6 +100,21 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
+  /**
+   * Explicit new-world authoring selection for the coastal-height-safe V8
+   * relief V4 graph. Existing revisions and native generator registration are
+   * unchanged; the snapshot persists the entire selected graph verbatim.
+   */
+  public static V8GeneratorSnapshot newReliefV4(long seed, int minY, int height,
+      GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+      V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        TerrainShapeV8.definitionReliefV4(floatingFeatures),
+        Objects.requireNonNull(ground, "ground"),
+        Objects.requireNonNull(blendPolicy, "blendPolicy"),
+        Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
+  }
+
   private static final Codec<Long> SEED = Codec.STRING.comapFlatMap(text -> {
     if (!text.matches("0|-?[1-9][0-9]*"))
       return DataResult.error(() -> "seed must be a canonical signed 64-bit decimal string");

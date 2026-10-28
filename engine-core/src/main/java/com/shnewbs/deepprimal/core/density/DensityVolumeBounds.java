@@ -137,6 +137,22 @@ public final class DensityVolumeBounds {
         // works even when the fraction and endpoints are mutually dependent.
         yield outward(Math.min(a.low,b.low),Math.max(a.high,b.high));
       }
+      case SEA_SIDE_BLEND -> {
+        // Bounded conservative envelope, never sample only the box corners.
+        // The sign-preserving transform is between historical/proposed
+        // absolute sea distances and cannot exceed either extreme. Canyon
+        // incision applies equally to both; no false definite occupancy.
+        Range canyon=bound(inputs.get(2),box,visits);
+        Range previous=add(bound(inputs.get(0),box,visits),canyon);
+        Range candidate=add(bound(inputs.get(1),box,visits),canyon);
+        double sea=parameters.get(0);
+        double radius=Math.max(Math.max(Math.abs(previous.low-sea),Math.abs(previous.high-sea)),
+            Math.max(Math.abs(candidate.low-sea),Math.abs(candidate.high-sea)));
+        if(!Double.isFinite(radius)) yield UNKNOWN;
+        if(previous.low>sea) yield outward(sea,sea+radius);
+        if(previous.high<sea) yield outward(sea-radius,sea);
+        yield outward(sea-radius,sea+radius);
+      }
       case WARP -> {
         double amplitude=parameters.getFirst();
         Range dx=bound(inputs.get(1),box,visits);
