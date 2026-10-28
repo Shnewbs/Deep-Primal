@@ -29,7 +29,7 @@ git hash-object /mnt/data/renderer-20261028-fsr-nativeaa-check/src/com/shnewbs/d
 
 | Six equally weighted renderer categories | Score /10 | Pinned evidence and remaining limits |
 | --- | ---: | --- |
-| Distance/LOD correctness and usable coverage | **6.50 carried** | Unchanged prior [bounded nearest-page implementation](../../20261028-disk-nearest/REVIEW.md). No native saved-world reopen, teleport, edit, unloaded terrain coverage or unseen-authoritative delivery in this jam. |
+| Distance/LOD correctness and usable coverage | **6.50 carried** | Unchanged prior [bounded nearest-page implementation](../20261028-disk-nearest/REVIEW.md). No native saved-world reopen, teleport, edit, unloaded terrain coverage or unseen-authoritative delivery in this jam. |
 | Mesh generation, reuse and scheduling | **6.50 carried** | Prior [eviction heap LOD ordering](../20261028-eviction-heap/REVIEW.md), no new mesh or scheduler change or GPU timing. |
 | GPU culling/submission/memory | **4.00 carried** | No GPU submission changes, no measured VRAM, real indirect/MDI path or qualified GPU profile. |
 | Actual FSR/DLSS implementation | **5.00 carried** | Existing [FSR1/OpenGL/Vulkan functional receipts](../../validation/upscaling-2026-10-27/README.md); [policy L24–L33](https://github.com/Shnewbs/Deep-Primal/blob/baacdebc80d4a26cff893a30a962a144ef43b519/engine-core/src/main/java/com/shnewbs/deepprimal/core/UpscalingPolicy.java#L24-L33) leaves FSR3/4 unavailable and DLSS pending. No new temporal integration. |
