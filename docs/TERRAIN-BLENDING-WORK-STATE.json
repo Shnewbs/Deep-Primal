@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "worker": "foreground-terrain-blending-20261028",
+  "status": "active",
+  "updated_at": "2026-10-28T12:34:00Z",
+  "active_until": "2026-10-28T13:00:00Z",
+  "source_ref": "49bef407845fb83ad563ceb40754144173449ebf",
+  "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/biome/EcotoneBlend.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/EcotoneBlendChecks.java",
+    "tools/test_ecotone_blend.py",
+    "docs/TERRAIN-BLENDING.md",
+    "docs/TERRAIN-BLENDING-WORK-STATE.json",
+    "docs/validation/engine-continuation/terrain-blending-2026-10-28"
+  ],
+  "coordination": "New isolated ecotone component and focused tests only; root work state, dev53 V8 materializer/snapshot, renderer, water, existing Landscape classifier and saved presets remain untouched. Root main checkpoint records released builder lease. No exclusive performance measurement; isolated source compilation. Guard main ref on publication and preserve concurrent commits.",
+  "current_gate": "Implement continuous normalized climate/altitude/slope biome weights with exact zero-width legacy-classifier control. Do not activate for saved worlds or advertise visible/native blending before versioned V8 integration.",
+  "native_integration": false,
+  "acceptance_complete": false,
+  "owner_builds_full_jars": true
+}
