@@ -59,7 +59,7 @@ public final class VoxelLodRenderer {
       boolean persisted)
       implements AutoCloseable {
     public void close() {
-      levels.forEach(l -> l.forEach(TerrainGpuMesh::close));
+      closeGpuMeshes(levels);
     }
   }
 
@@ -141,8 +141,25 @@ public final class VoxelLodRenderer {
     }
 
     void close() {
-      levels.forEach(l -> l.forEach(TerrainGpuMesh::close));
+      closeGpuMeshes(levels);
     }
+  }
+
+  /** Close every owned GPU buffer, even when one teardown operation fails. */
+  private static void closeGpuMeshes(List<List<TerrainGpuMesh>> levels) {
+    Throwable first = null;
+    for (var meshes : levels) {
+      for (var mesh : meshes) {
+        try {
+          mesh.close();
+        } catch (RuntimeException | Error failure) {
+          if (first == null) first = failure;
+          else if (failure != first) first.addSuppressed(failure);
+        }
+      }
+    }
+    if (first instanceof Error error) throw error;
+    if (first instanceof RuntimeException failure) throw failure;
   }
 
   private final LodDiskIndexService diskIndex = new LodDiskIndexService();
@@ -601,10 +618,24 @@ public final class VoxelLodRenderer {
   private void processUploads() {
     lastUploadBytes = 0;
     if (pendingGpu == null) return;
-    if (!TELEMETRY) { processUploadWork(); return; }
-    long started = System.nanoTime();
-    try { processUploadWork(); }
-    finally { uploadTiming.record(System.nanoTime() - started); }
+    long started = TELEMETRY ? System.nanoTime() : 0;
+    try {
+      processUploadWork();
+    } catch (RuntimeException | Error failure) {
+      // Do not retry a partially uploaded page after a failed device operation.
+      // Cache ownership was already transferred if a page was fully committed.
+      PendingGpu aborted = pendingGpu;
+      pendingGpu = null;
+      if (aborted != null) {
+        residentBytes = LodGpuUploadFailure.unwind(residentBytes, aborted.bytes(),
+            aborted::close, failure);
+        forgetUnused(aborted.ready.key);
+        status = "LOD GPU upload failed; terrain kept";
+      }
+      throw failure;
+    } finally {
+      if (TELEMETRY) uploadTiming.record(System.nanoTime() - started);
+    }
   }
 
   private void processUploadWork() {
@@ -615,17 +646,17 @@ public final class VoxelLodRenderer {
       if (TELEMETRY) pageUploadProbe.dropped(LodPageUploadProbe.Drop.MEMORY);
       deferPersisted(p.ready);
       residentBytes -= p.bytes();
-      p.close();
       pendingGpu = null;
-      forgetUnused(p.ready.key);
+      try { p.close(); }
+      finally { forgetUnused(p.ready.key); }
       return;
     }
     if (obsolete(p.ready)) {
       if (TELEMETRY) pageUploadProbe.dropped(LodPageUploadProbe.Drop.STALE);
       residentBytes -= p.bytes();
-      p.close();
       pendingGpu = null;
-      forgetUnused(p.ready.key);
+      try { p.close(); }
+      finally { forgetUnused(p.ready.key); }
       staleResults++;
       return;
     }
@@ -680,6 +711,8 @@ public final class VoxelLodRenderer {
         if (TELEMETRY) gpuPartProbe.failed(System.nanoTime() - partStarted);
         throw error;
       }
+      // Both ledgers must advance before any fallible diagnostic callback.
+      residentBytes += gpu.byteSize;
       if (TELEMETRY)
         gpuPartProbe.accepted(System.nanoTime() - partStarted, gpu.byteSize,
             ClientPerformanceConfig.UPLOAD_MICROS.get() * 1000L);
@@ -691,25 +724,25 @@ public final class VoxelLodRenderer {
         oversizedFirstUploadBytes += gpu.byteSize;
       }
       if (TELEMETRY) lastUploadBytes = used;
-      residentBytes += gpu.byteSize;
     }
     if (p.detail == 3) {
-      Entry old =
-          cache.put(
-              p.ready.key,
-              new Entry(
-                  p.ready.revision,
-                  p.levels.stream().map(List::copyOf).toList(),
-                  p.bytes(),
-                  new int[] {0},
-                  p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
-                  p.ready.persisted));
+      Entry replacement =
+          new Entry(
+              p.ready.revision,
+              p.levels.stream().map(List::copyOf).toList(),
+              p.bytes(),
+              new int[] {0},
+              p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
+              p.ready.persisted);
+      Entry old = cache.put(p.ready.key, replacement);
+      // Transfer ownership before closing a superseded page: an old close
+      // failure must never trigger rollback of the newly cached GPU buffers.
+      pendingGpu = null;
       if (old != null) {
         residentBytes -= old.bytes;
         old.close();
       }
       uploadedChunks++;
-      pendingGpu = null;
       // Count only a page that actually entered the cache, after replacement cleanup.
       if (TELEMETRY)
         pageUploadProbe.committed(System.nanoTime() - p.admittedAtNanos,
