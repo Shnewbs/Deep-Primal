@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "base_source": "49bef407845fb83ad563ceb40754144173449ebf",
+  "checkpoint_version": "0.0.1-alpha.29-dev.54-ecotone.1",
+  "scope": "Explicit-call-only weighted ecotone source component; not native terrain integration.",
+  "sources": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/biome/EcotoneBlend.java": {
+      "sha256": "3616d4b4f8c14e3a14b0759b8943037f3385490dcd2ec650170467df997ab725",
+      "git_blob": "b330a7ef8ba36d9c2b9d49f1df96e001924776fc",
+      "bytes": 8808
+    },
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/EcotoneBlendChecks.java": {
+      "sha256": "5ddbb3f2a3cee99aeec1590c9b819c14f8e3f525db1eb7fb5991ef2e103a0fd5",
+      "git_blob": "bef41b7e0e0d99b0ca38c2077c20f614ab030310",
+      "bytes": 13305
+    }
+  },
+  "legacy_oracle_source_blob": "3c7b31e84c952878671511924188175f2b5181a0",
+  "legacy_source_locally_compiled": false,
+  "java_version": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment (build 21.0.12.1+1-1-deb13u1-Debian)\nOpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-deb13u1-Debian, mixed mode, sharing)",
+  "javac_version": "javac 21.0.12.1",
+  "java_release_target": 21,
+  "normal": {
+    "started_at": "2026-10-28T12:38:11.599828+00:00",
+    "completed_at": "2026-10-28T12:38:29.487275+00:00",
+    "compile": {
+      "exit_code": 0,
+      "output": ""
+    },
+    "positive_runs": [
+      {
+        "exit_code": 0,
+        "output": "ECOTONE_BLEND_PASS hardCases=46950 softCases=46950 continuityCases=21888 partitionCases=2754 parallelSamples=16384 assertions=7333288 fingerprint=9d2ea5001443660500e66afff79cbb724753f393c9e4fa5cc4691a408be56e31\n"
+      },
+      {
+        "exit_code": 0,
+        "output": "ECOTONE_BLEND_PASS hardCases=46950 softCases=46950 continuityCases=21888 partitionCases=2754 parallelSamples=16384 assertions=7333288 fingerprint=9d2ea5001443660500e66afff79cbb724753f393c9e4fa5cc4691a408be56e31\n"
+      }
+    ],
+    "negative_controls": {
+      "non_strict_legacy_boundary": {
+        "compile": {
+          "exit_code": 0,
+          "output": ""
+        },
+        "run": {
+          "exit_code": 1,
+          "output": "Exception in thread \"main\" java.lang.AssertionError: hard oracle: 0.0 != 1.0\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.close(EcotoneBlendChecks.java:39)\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.hardCase(EcotoneBlendChecks.java:82)\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.normalizationAndOracle(EcotoneBlendChecks.java:128)\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.main(EcotoneBlendChecks.java:275)\n"
+        }
+      },
+      "disabled_smoothing": {
+        "compile": {
+          "exit_code": 0,
+          "output": ""
+        },
+        "run": {
+          "exit_code": 1,
+          "output": "Exception in thread \"main\" java.lang.AssertionError: continuous threshold neighborhood\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.check(EcotoneBlendChecks.java:33)\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.continuity(EcotoneBlendChecks.java:162)\n\tat com.shnewbs.deepprimal.core.EcotoneBlendChecks.main(EcotoneBlendChecks.java:275)\n"
+        }
+      }
+    },
+    "all_passed": true
+  },
+  "python_optimized": {
+    "mode": "-OO",
+    "started_at": "2026-10-28T12:40:32.058219+00:00",
+    "completed_at": "2026-10-28T12:40:51.396156+00:00",
+    "all_passed": true,
+    "positive_output": "ECOTONE_BLEND_PASS hardCases=46950 softCases=46950 continuityCases=21888 partitionCases=2754 parallelSamples=16384 assertions=7333288 fingerprint=9d2ea5001443660500e66afff79cbb724753f393c9e4fa5cc4691a408be56e31\n",
+    "negative_exits": {
+      "non_strict_legacy_boundary": 1,
+      "disabled_smoothing": 1
+    }
+  },
+  "fingerprint": "9d2ea5001443660500e66afff79cbb724753f393c9e4fa5cc4691a408be56e31",
+  "excluded_attempts": [
+    {
+      "attempt": "initial runner capture",
+      "result": "container timeout; no final receipt; not counted"
+    },
+    {
+      "attempt": "second runner capture",
+      "result": "container timeout; no final receipt; not counted"
+    },
+    {
+      "attempt": "interactive runner",
+      "result": "StreamingExecNotEnabledContainerError; command not executed"
+    }
+  ],
+  "native_integrated": false,
+  "java25_or_gradle_build": false,
+  "minecraft_or_gpu_tested": false,
+  "full_legacy_world_replay": false,
+  "performance_acceptance": false,
+  "new_jar": false,
+  "grade_changed": false
+}
