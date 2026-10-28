@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.46-v8native.1",
+  "source_blob": "20443809ed72fa10f1c5f6ea885dd551f433d4ab",
+  "baseline_blob": "c7e2389356432ebcf765fdab24efbb707008d295",
+  "audit": "docs/engine-hourly-audits/2026-10-28T0432-09a57c1/REVIEW.md",
+  "audit_source_sha": "09a57c1896eb1429b2af83223d4a3d6bd5ad8724",
+  "test_sha256": "00298a51107691a439d35f3277ebab5d6af9b61e4661ee9e27f992c358cf5ebf",
+  "evidence_zip_sha256": "6d22bf7a51eb38b011acd672342b4b46efecf6bdf3975cd3a0c6544e4e6baf0f",
+  "java21": {
+    "compiled": true,
+    "assertions": 11047019,
+    "nativePositions": 1376512,
+    "baseColumnChecks": 1376512,
+    "scenarios": 34,
+    "certifiedCells": 1236480
+  },
+  "java25": {
+    "jdk": "25.0.5+8",
+    "compiled": true,
+    "assertions": 11047019,
+    "nativePositions": 1376512,
+    "baseColumnChecks": 1376512,
+    "scenarios": 34,
+    "certifiedCells": 1236480
+  },
+  "mutants": {
+    "count": 5,
+    "compiled_and_rejected": 5,
+    "names": [
+      "transpose_section_xz",
+      "drop_solids",
+      "skip_air_clear",
+      "forget_heightmap_prime",
+      "wrong_signed_section_y"
+    ]
+  },
+  "nativeMinecraft": false,
+  "fullGradle": false,
+  "jar": false,
+  "gpu": false,
+  "windows": false,
+  "lastFullExternalGrade": 5
+}

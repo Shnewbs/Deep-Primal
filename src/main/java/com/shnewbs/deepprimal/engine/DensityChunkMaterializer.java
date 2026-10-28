@@ -2,6 +2,7 @@ package com.shnewbs.deepprimal.engine;
 
 import com.shnewbs.deepprimal.core.density.DensityChunk;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
+import com.shnewbs.deepprimal.core.density.DensitySectionLayout;
 import java.util.EnumSet;
 import java.util.Objects;
 import net.minecraft.core.BlockPos;
@@ -60,6 +61,50 @@ public final class DensityChunkMaterializer {
     Heightmap.primeHeightmaps(
         chunk, EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
     return density;
+  }
+
+  /**
+   * Explicitly opted-in V8 native-section bridge. The active V1-V7 generators
+   * continue to use their existing path; this does not register a V8 codec.
+   *
+   * <p>The planned chunk is exact: certified regions skip density evaluations,
+   * while every uncertain voxel is sampled. Every section position is written,
+   * including air and the two-block bedrock floor, so reusing a nonempty test
+   * chunk cannot leave stale blocks. The section layout's signed-Y and palette
+   * ordering are authoritative for the write cursor; it does not read or force
+   * neighbor chunks. Heightmaps are primed after every block is materialized.
+   * The returned statistics count density evaluations, not native write cost.
+   */
+  public static DensityChunk.Planned fillPlanned(
+      DensityGraph graph, ChunkAccess chunk, int queriesPerSlab) {
+    Objects.requireNonNull(graph, "graph");
+    Objects.requireNonNull(chunk, "chunk");
+    int minY = chunk.getMinY(), height = chunk.getHeight();
+    var origin = chunk.getPos();
+    var planned = DensityChunk.samplePlanned(graph, origin.getMinBlockX(), minY,
+        origin.getMinBlockZ(), height, queriesPerSlab);
+    var floor = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
+    var surface = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
+    var pos = new BlockPos.MutableBlockPos();
+    for (var section : DensitySectionLayout.project(planned.chunk())) {
+      int baseY = section.baseY();
+      for (int y = section.minCoveredY(); y < section.maxCoveredYExclusive(); y++) {
+        int sectionY = y - baseY;
+        for (int z = 0; z < DensityChunk.WIDTH; z++)
+          for (int x = 0; x < DensityChunk.WIDTH; x++) {
+            var state = material(section.solidLocal(x, sectionY, z), minY, y);
+            chunk.setBlockState(pos.set(origin.getMinBlockX() + x, y,
+                origin.getMinBlockZ() + z), state);
+            if (!state.isAir()) {
+              floor.update(x, y, z, state);
+              surface.update(x, y, z, state);
+            }
+          }
+      }
+    }
+    Heightmap.primeHeightmaps(chunk,
+        EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
+    return planned;
   }
 
   public static NoiseColumn baseColumn(
