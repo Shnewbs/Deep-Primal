@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "owner": "dedicated-renderer-schedule",
+  "jam_id": "renderer-20261028T1800-gpu-reset-failure-cleanup",
+  "status": "active",
+  "claimed_utc": "2026-10-28T18:00:00Z",
+  "expires_utc": "2026-10-28T18:45:00Z",
+  "source_head": "b610bfdb775890d70c690b9805724e1d199d4f67",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodGpuResetCleanup.java",
+    "docs/renderer-jams/20261028-reset-gpu-cleanup/",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excludes": [
+    "engine core",
+    "water engine",
+    "terrain generation",
+    "graphics-settings",
+    "Vulkan backend",
+    "gradle.properties",
+    "owner builds"
+  ],
+  "measurement_reservation": "isolated Java21 CPU resource-cleanup regression; no GPU/VRAM/time slot",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1726-182cdce/REVIEW.md",
+  "owner_build_override": true
+}
