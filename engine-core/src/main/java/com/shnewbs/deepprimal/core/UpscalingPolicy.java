@@ -10,7 +10,7 @@ public final class UpscalingPolicy {
   /** FSR 1's documented scale factors; DLSS obtains its sizes from NGX instead. */
   public enum Quality {
     ULTRA_QUALITY(1.0 / 1.3), QUALITY(1.0 / 1.5), BALANCED(1.0 / 1.7),
-    PERFORMANCE(0.5), CUSTOM(1.0);
+    PERFORMANCE(0.5), CUSTOM(1.0), NATIVE_AA(1.0);
 
     private final double scale;
     Quality(double scale) { this.scale = scale; }
