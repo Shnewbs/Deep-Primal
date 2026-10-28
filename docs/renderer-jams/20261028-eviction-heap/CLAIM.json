@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "worker": "renderer-hourly-20261028T1258-cache-eviction",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodEvictionHeap.java",
+    "docs/renderer-jams/20261028-eviction-heap/*"
+  ],
+  "claimed_at": "2026-10-28T13:01:23Z",
+  "expires": "2026-10-28T13:12:00Z",
+  "starting_main": "ace45f78f4f181e1f591f7fd5f179e70c7d1d5a5",
+  "owner": "dedicated renderer coding jam",
+  "status": "active",
+  "remarks": "No engine/water files, no shared Gradle caches or builds; owner performs final native builds."
+}
