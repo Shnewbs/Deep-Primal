@@ -25,6 +25,7 @@ public final class DensityVolumeBounds {
   private static final Range SMOOTH = new Range(-Double.MIN_VALUE, Math.nextUp(1.0));
   private final String root;
   private final Map<String, DensityGraph.Node> nodes;
+  private final int coordinateMask;
 
   /** The supplied definition must already have passed the graph compiler's validation. */
   public DensityVolumeBounds(DensityGraph graph) {
@@ -38,6 +39,35 @@ public final class DensityVolumeBounds {
     }
     if (!indexed.containsKey(root)) throw new IllegalArgumentException("missing graph root");
     nodes = Map.copyOf(indexed);
+    coordinateMask = coordinateMask(root, new HashMap<>());
+  }
+
+  /**
+   * Conservative source-coordinate dependency bitset (X=1, Y=2, Z=4).
+   * Unused axes cannot affect the density value; a WARP includes every
+   * displacement input as well as its source, even when that overestimates.
+   */
+  public int coordinateMask() { return coordinateMask; }
+
+  private int coordinateMask(String id, Map<String, Integer> memo) {
+    Integer cached = memo.get(id);
+    if (cached != null) return cached;
+    DensityGraph.Node node = nodes.get(id);
+    int mask = switch (node.op()) {
+      case CONSTANT -> 0;
+      case X -> 1;
+      case Y -> 2;
+      case Z -> 4;
+      case NOISE_2D -> 5;
+      case NOISE_3D -> 7;
+      default -> {
+        int all = 0;
+        for (String input : node.inputs()) all |= coordinateMask(input, memo);
+        yield all;
+      }
+    };
+    memo.put(id, mask);
+    return mask;
   }
 
   /** Classifies all continuous positions within a closed box, not only its corners. */

@@ -1,0 +1,21 @@
+{
+  "version": "0.0.1-alpha.29-dev.43-v8partition.1",
+  "local_java": "OpenJDK 21.0.12.1",
+  "compiler_flags": "--release 21 -Xlint:all -Werror",
+  "runtime_flags": "-Xverify:all",
+  "source_basis": "Git-matching V8 source plus API-compatible test doubles, NOT actual compiled product DensityGraph",
+  "pass_marker": "DENSITY_VOLUME_PLAN_PASS",
+  "assertions": 158901,
+  "plane_certified": 7936,
+  "plane_uncertain": 256,
+  "max_queries": 256,
+  "mutation_cases": 4,
+  "mutation_rejections": 4,
+  "full_gradle": false,
+  "java25": false,
+  "native_minecraft": false,
+  "graphics": false,
+  "owner_hardware": false,
+  "qualified_jar": false,
+  "grade_carried": 5
+}
