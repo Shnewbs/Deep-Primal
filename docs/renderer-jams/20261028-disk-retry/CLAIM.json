@@ -2,27 +2,24 @@
   "schema": 1,
   "jam": "20261028-disk-retry",
   "owner": "renderer-hourly-20261028T0657",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T06:57:10Z",
-  "updated_at": "2026-10-28T06:57:10Z",
-  "active_until": "2026-10-28T07:25:00Z",
+  "updated_at": "2026-10-28T07:03:00Z",
+  "active_until": "2026-10-28T07:03:00Z",
+  "released_at": "2026-10-28T07:03:00Z",
   "parent_sha": "eeaf7e067a55ddca668f993270c284b0a1e47505",
+  "source_commit": "a5b29c00c66b243490cee9b8c4ae1e17f732f6a4",
   "source_scope": [
-    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
     "docs/renderer-jams/20261028-disk-retry/"
   ],
   "consumed_independent_audit": "docs/engine-hourly-audits/2026-10-28T0633-1aa65a8/REVIEW.md",
   "last_renderer_self_audit": "docs/renderer-jams/20261028-disk-cursor/REVIEW.md",
-  "measurement_reserved": false,
-  "excluded_scopes": [
-    "engine-core/",
-    "src/main/java/com/shnewbs/deepprimal/engine/",
-    "src/main/java/com/shnewbs/deepprimal/client/render/",
-    "renderer-vulkan/",
-    "graphics-settings/",
-    "docs/ENGINE-WORK-STATE.json",
-    "docs/WATER-ENGINE-WORK-STATE.json"
-  ],
-  "owner_build_override": true
+  "reserved_measurement": false,
+  "other_workstreams_unchanged": true,
+  "owner_build_override": true,
+  "qualified_jar_produced": false,
+  "release_policy": "owner builds; source-only Java25/Java21 focused tests",
+  "next": "native LOD save/reopen/travel/edit and measured Vulkan/GL frame/VRAM/water coverage"
 }
