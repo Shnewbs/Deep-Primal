@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T05:59:35Z",
-  "active_until": "2026-10-28T06:20:00Z",
-  "source_ref": "199d2013c3de36e57be8cd904d9626ac6d068f87",
-  "candidate_version": "0.0.1-alpha.29-dev.46-v8native.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T06:03:36Z",
+  "active_until": "2026-10-28T06:03:36Z",
+  "source_ref": "241a57d1e734c4ad62bfcbe699fa84696a6c76c8",
+  "candidate_version": "0.0.1-alpha.29-dev.47-v8columns.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev47 V8 native base-height/base-column exact parity and conservative heightmap read contract; source-only, no registered V8 generator or owner full build.",
+  "current_gate": "Dev47 source exact native V8 base-height and planned base-column parity committed; owner native Java25/Gradle/NeoForge/V8 save/reopen and water acceptance outstanding.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -243,7 +243,7 @@
     "Continue hourly builder until a fresh complete independent ten-category average is strictly greater than 8.5/10; a score of exactly 8.5 does not satisfy the target."
   ],
   "unreleased_changes": true,
-  "latest_continuation_evidence": "docs/validation/engine-continuation/water-contact-integration-2026-10-27/README.md",
+  "latest_continuation_evidence": "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/README.md",
   "local_validation_environment": "/workspace/scratch/1a7cb29b04a2/density-r62",
   "promotion_blockers": [
     "Retained-drain experiment remains unaccepted for performance. Newly combined staged cleanup has source-extracted checks only and requires fresh full native/basin validation; prior 24 cases validate the older variant.",
@@ -665,7 +665,7 @@
     "five_ms_target_met": false,
     "acceptance_complete": false
   },
-  "continuation_note": "Finite builder run checkpoint: dev.27 aquifer timing promotion plus dev.28 pre-write receiver admission completed; no background execution implied. Foreground cliff rendering claim preserved. Resume unfinished engine/water gates on current main.",
+  "continuation_note": "Dev47 explicit-call-only V8 base-height and already-planned column read paths. Java21 source/API-double tests and mutation checks pass; no Java25/full build/native/JAR; next native V8 profile/save and water ledger gates.",
   "graphics_promotion_scope": "Owner-requested experimental source integration at 28b2625; all27 R44 staged source hashes match root main. This is not performance/full-engine/Windows-runtime acceptance.",
   "latest_preview": {
     "version": "0.0.1-alpha.28",
@@ -1036,7 +1036,7 @@
     "worker": "builder-20261028T0600-v8-baseheight",
     "started_at": "2026-10-28T05:59:35Z",
     "lease_until": "2026-10-28T06:20:00Z",
-    "phase": "implementing",
+    "phase": "completed_source_only",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/",
@@ -1051,8 +1051,24 @@
     "owner_build_handoff": true,
     "renderer_scope_excluded": true,
     "water_scope_excluded": true,
-    "lease_released": false,
-    "acceptance_complete": false
+    "lease_released": true,
+    "acceptance_complete": false,
+    "completed_at": "2026-10-28T06:03:36Z",
+    "source_sha": "241a57d1e734c4ad62bfcbe699fa84696a6c76c8",
+    "producer_completed": false,
+    "jar_released": false,
+    "source_blob": "6a6fafe5330be47c992d200b0cb8dd5a09ca0dca",
+    "evidence": "docs/validation/engine-continuation/v8-native-column-parity-2026-10-28/README.md",
+    "test_result": "DENSITY_BASEHEIGHT_PASS assertions=874642 columns=34304 voxels=771584 scenarios=134; DENSITY_NATIVE_BRIDGE_PASS assertions=11047019 nativePositions=1376512; 3/3 deliberate mutants rejected; JDK21 API doubles only.",
+    "unrun": [
+      "Java25 (JDK25 not mounted)",
+      "Full Gradle/Minecraft/NeoForge",
+      "Native V8 save/reopen/heightmap/lighting",
+      "Vulkan/OpenGL/AMD8060S",
+      "water ledger/soak",
+      "qualified JAR release"
+    ],
+    "next_priority": "Native Java25 V8 getBaseHeight/baseColumn/section and saved profile/reopen/legacy acceptance; continue separately owned finite-water ledger and waterfall gaps."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
