@@ -35,6 +35,7 @@ public final class VoxelLodRenderer {
   public final RollingTiming cullTiming = new RollingTiming(240);
   public final RollingTiming uploadTiming = new RollingTiming(240);
   private final LodGpuUploadProbe gpuPartProbe = new LodGpuUploadProbe(240);
+  private final LodPageUploadProbe pageUploadProbe = new LodPageUploadProbe(240);
   public final RollingTiming submitTiming = new RollingTiming(240);
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
   public volatile int testedParts, rejectedParts, submittedParts;
@@ -109,8 +110,14 @@ public final class VoxelLodRenderer {
     return gpuPartProbe.snapshot();
   }
 
+  LodPageUploadProbe.Snapshot uploadPageStats() {
+    return pageUploadProbe.snapshot();
+  }
+
   private static final class PendingGpu {
     final Ready ready;
+    final long admittedAtNanos;
+    int uploadFrames;
     final List<List<TerrainGpuMesh>> levels = new ArrayList<>();
     // Accepted buffers never change their allocated size: use a committed, constant-time
     // total rather than walking every previously uploaded part on each render frame.
@@ -119,6 +126,7 @@ public final class VoxelLodRenderer {
 
     PendingGpu(Ready ready) {
       this.ready = ready;
+      this.admittedAtNanos = TELEMETRY ? System.nanoTime() : 0;
       for (int i = 0; i < 3; i++) levels.add(new ArrayList<>());
     }
 
@@ -633,7 +641,9 @@ public final class VoxelLodRenderer {
   private void processUploadWork() {
     PendingGpu p = pendingGpu;
     if (p == null) return;
+    if (TELEMETRY && p.uploadFrames < Integer.MAX_VALUE) p.uploadFrames++;
     if (p.ready.levels.bytes() + residentBytes - p.bytes() > LodConfig.MEMORY.get() * 1048576L) {
+      if (TELEMETRY) pageUploadProbe.dropped(LodPageUploadProbe.Drop.MEMORY);
       deferPersisted(p.ready);
       residentBytes -= p.bytes();
       p.close();
@@ -642,6 +652,7 @@ public final class VoxelLodRenderer {
       return;
     }
     if (obsolete(p.ready)) {
+      if (TELEMETRY) pageUploadProbe.dropped(LodPageUploadProbe.Drop.STALE);
       residentBytes -= p.bytes();
       p.close();
       pendingGpu = null;
@@ -714,6 +725,9 @@ public final class VoxelLodRenderer {
       residentBytes += gpu.byteSize;
     }
     if (p.detail == 3) {
+      if (TELEMETRY)
+        pageUploadProbe.committed(System.nanoTime() - p.admittedAtNanos,
+            p.uploadFrames, p.bytes());
       Entry old =
           cache.put(
               p.ready.key,
@@ -819,6 +833,7 @@ public final class VoxelLodRenderer {
     uploadTiming.reset();
     submitTiming.reset();
     gpuPartProbe.reset();
+    pageUploadProbe.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = submittedParts = 0;
