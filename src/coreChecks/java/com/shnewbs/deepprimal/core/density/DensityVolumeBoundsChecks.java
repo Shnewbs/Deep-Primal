@@ -70,6 +70,36 @@ public final class DensityVolumeBoundsChecks {
     check(warpedBounds.classifyCells(-100,0,0,1,1,1)==DensityVolumeBounds.Occupancy.EMPTY,"widened negative X");
     for(int x=-64;x<=64;x++)oracle(warped,warpedBounds,x,4,-1,2,2,2);
 
+    // Cover non-monotone, clamped and convex operators with integer-box oracles.
+    var absolute=new Definition(1,"density",List.of(
+        Node.operation("x",Op.X),Node.operation("density",Op.ABS,"x"))).compile(0);
+    var absoluteBounds=new DensityVolumeBounds(absolute);
+    check(absoluteBounds.classify(-2,0,0,2,0,0)==DensityVolumeBounds.Occupancy.UNCERTAIN,
+        "absolute value crosses zero inside box");
+    var clamp=new Definition(1,"density",List.of(
+        Node.operation("y",Op.Y),
+        new Node("density",Op.CLAMP,List.of("y"),List.of(-2.,2.),null))).compile(0);
+    var clampBounds=new DensityVolumeBounds(clamp);
+    var step=new Definition(1,"density",List.of(
+        Node.operation("y",Op.Y),
+        new Node("density",Op.SMOOTHSTEP,List.of("y"),List.of(-2.,2.),null))).compile(0);
+    var stepBounds=new DensityVolumeBounds(step);
+    var lerp=new Definition(1,"density",List.of(
+        Node.constant("left",-3),Node.constant("right",7),Node.operation("x",Op.X),
+        Node.operation("density",Op.LERP,"left","right","x"))).compile(0);
+    var lerpBounds=new DensityVolumeBounds(lerp);
+    var maximum=new Definition(1,"density",List.of(
+        Node.operation("x",Op.X),Node.operation("y",Op.Y),
+        Node.operation("density",Op.MAX,"x","y"))).compile(0);
+    var maximumBounds=new DensityVolumeBounds(maximum);
+    for(int x=-10;x<10;x++)for(int y=-10;y<10;y++) {
+      oracle(absolute,absoluteBounds,x,y,0,2,2,1);
+      oracle(clamp,clampBounds,x,y,0,2,2,1);
+      oracle(step,stepBounds,x,y,0,2,2,1);
+      oracle(lerp,lerpBounds,x,y,0,2,2,1);
+      oracle(maximum,maximumBounds,x,y,0,2,2,1);
+    }
+
     // The real V8 recipe must never use an interpolated lattice sign as an
     // authoritative occupancy certificate. Sample several spatial/altitude bands.
     DensityGraph recipe=TerrainShapeV8.definition(false).compile(73);
