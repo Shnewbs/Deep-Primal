@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "active",
-  "updated_at": "2026-10-28T01:10:34.185Z",
-  "active_until": "2026-10-28T01:27:00Z",
-  "source_ref": "6ea421eefceb61b22e4729a85a39099344f89849",
-  "candidate_version": "0.0.1-alpha.29-dev.40-waterwritescope.1",
+  "status": "checkpointed",
+  "updated_at": "2026-10-28T01:16:33.148Z",
+  "active_until": "2026-10-28T01:16:33.148Z",
+  "source_ref": "995759c4b405c95332a181f5b3a30a53a61e3cf4",
+  "candidate_version": "0.0.1-alpha.29-dev.42-v8bounds.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Bounded conservative V8 density-volume occupancy preflight without touching active water dev41 or renderer files; Java25/full build and GPU owner-operated.",
+  "current_gate": "dev42 conservative V8 density box topology preflight committed source-only; 1037 standalone Java21 model checks and 65881 API-compatible-double checks; 3/3 deliberately broken variants rejected after adding positive-noise oracle; full Java25 product graph/Gradle/native/GPU and saved V8 integration owner-run and unverified; no JAR/release or regrade.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -1035,8 +1035,8 @@
     "worker": "builder-chat-20261028T0103-v8-volume-bounds",
     "started_at": "2026-10-28T01:10:34.185Z",
     "lease_until": "2026-10-28T01:27:00Z",
-    "lease_released": false,
-    "phase": "v8_topology_bounds_source",
+    "lease_released": true,
+    "phase": "checkpointed_source_only",
     "scope": [
       "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumeBounds.java",
       "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityVolumeBoundsChecks.java",
@@ -1047,7 +1047,32 @@
     "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
     "audit_source_sha": "bcce8355c7f8288e2749253578398e68c107bcda",
     "audit_findings": "Seven audited water write-path gaps resolved in foreground dev41 at 8756bd021713; water owner scope active, choose nonoverlapping V8 work.",
-    "owner_build_handoff": true
+    "owner_build_handoff": true,
+    "completed_at": "2026-10-28T01:16:33.148Z",
+    "version": "0.0.1-alpha.29-dev.42-v8bounds.1",
+    "source_ref": "995759c4b405c95332a181f5b3a30a53a61e3cf4",
+    "implementation_commits": [
+      "1a780e0636593aaf034fad9b076e07d084a1986d",
+      "bbe719cf6b9fa64952a9c57657eaa2220cfebece",
+      "e26b1d6481ae8cc62892784c55de7b550e09aeb5",
+      "995759c4b405c95332a181f5b3a30a53a61e3cf4"
+    ],
+    "evidence": "docs/validation/engine-continuation/v8-conservative-density-bounds-2026-10-28/README.md",
+    "validation": [
+      "java --version / javac: JDK21.0.12 (owner JDK25 archive unavailable)",
+      "exact Git blob source/test matched local Java21 compile using API-compatible doubles",
+      "1037 standalone checks and 65881 integrated-model assertions passed",
+      "3 deliberately unsound variants rejected after test correction; initial missing positive-noise witness captured"
+    ],
+    "unrun": [
+      "Full Java25 Gradle/module/core build and original-product graph tests",
+      "Actual V8 generation materialization, topology/heightmap, native save/reopen/hydrology",
+      "Windows AMD8060S Vulkan/OpenGL and frame/tick/memory/soak"
+    ],
+    "qualified_jar_produced": false,
+    "release_published": false,
+    "last_external_grade": 5,
+    "next_priority": "Native Java25 real-product graph oracle, adversarial interval soundness and V8 saved-topology; foreground water dev41 callback postwrite and single-owner loaded/unloaded chemistry remain independent."
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1227,12 +1252,12 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-27T2332-a14721c/REVIEW.md",
-    "source_sha": "a14721c72625ea15ad9cb9168a6140c3f6882005",
+    "path": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
+    "source_sha": "bcce8355c7f8288e2749253578398e68c107bcda",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "Process-wide internalWrites hid unrelated water-cell changes and left stale salt/sediment eligible for same-volume refill during synchronous native callbacks; conditional Java21 model, native repro pending.",
-    "chosen_repair": "dev40 replaces global counter with thread-local, level-identity + packed-cell + exact-state, one-event native scope; foreign same-cell, other-cell/world and nested callbacks retain chemistry invalidation. Native persistence/reentry remains open."
+    "findings": "Seven non-transfer water postnative admission omissions, handled in separate foreground dev41 source commit 8756bd; owner-water claim active until 01:15 UTC.",
+    "chosen_repair": "Avoid duplicate water editing; add conservative bounded V8 region-occupancy proof for future stage-two native performance integration, with exact oracle tests and no saved geography change."
   },
   "lease_released": true,
   "latest_stream_deadline_stage": {
