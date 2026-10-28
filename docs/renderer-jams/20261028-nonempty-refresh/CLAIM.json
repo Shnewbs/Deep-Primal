@@ -8,6 +8,7 @@
   "base_sha": "372db10ce43f87f392f02981dd222bd1c8fccfc1",
   "scope": [
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "docs/renderer-jams/20261028-disk-retry/LodDiskRetryChecks.java",
     "docs/renderer-jams/20261028-nonempty-refresh/",
     "docs/renderer-jams/RENDERER-BACKLOG.md"
   ],
@@ -16,5 +17,5 @@
   "measurements_reserved": false,
   "other_schedules_unchanged": true,
   "full_gradle_owner_operated": true,
-  "note": "Only scoped renderer disk metadata rediscovery and original regression. No generator, water, graphics backend, active builder files, or shared caches owned."
+  "note": "Renderer-only disk metadata rediscovery, new exact-source regression, and existing prior fixture's obsolete 'never rescan' assertion. No generator, water, graphics backend, active builder files, or shared caches owned."
 }
