@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T10:08:30Z",
-  "active_until": "2026-10-28T10:08:30Z",
+  "status": "active",
+  "updated_at": "2026-10-28T11:05:06.933Z",
+  "active_until": "2026-10-28T11:25:06.933Z",
   "source_ref": "61369484aff15c0a0d7130ea69c397c5819a2341",
   "candidate_version": "0.0.1-alpha.29-dev.51-v8preflight.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev51 experimental V8 planned-ground preflight: all surface channel/material values resolved before chunk writes; avoid intermediate ground-path heightmap updates. Java21 focused source-stand-in 13,975,797 assertions pass, old adapter fails new regression. Java25/native/GPU/water long-soak owner acceptance unrun.",
+  "current_gate": "Dev52 experimental V8 postwrite recovery: preserve destination state if native block write fails; consume latest 10:30 independent injected native-setter failure audit; keep V1-V7 and owner-build gates open.",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -492,7 +492,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T1000-v8-atomic-materialize",
+  "worker": "builder-20261028T1103-v8-postwrite-rollback",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1035,25 +1035,20 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T1000-v8-atomic-materialize",
-    "started_at": "2026-10-28T10:04:00Z",
-    "lease_until": "2026-10-28T10:08:30Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T1103-v8-postwrite-rollback",
+    "started_at": "2026-10-28T11:05:06.933Z",
+    "lease_until": "2026-10-28T11:25:06.933Z",
+    "phase": "leased_implementation",
     "scope": [
       "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "gradle.properties",
-      "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/",
+      "docs/validation/engine-continuation/v8-postwrite-recovery-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0933-4b61329/REVIEW.md",
-    "consumed_source": "4b6132969ab517bd581b044308a30a62e95fb411",
-    "coordination": "Separate auditor read-only latest 09:33; renderer released filename-index jam 10:00 and owns LOD files; water foreground state stale/expired 01:15, no live verification, water source untouched. Main writer root acquired with expected-parent guard. Isolated scratch/output; no benchmark reservation.",
-    "lease_released": true,
-    "source_commit": "61369484aff15c0a0d7130ea69c397c5819a2341",
-    "result": "Java21 API-stand-in source tests 13,975,797 assertions passed incl 209,429 new, 49,152 new voxel comparisons, 3 no-write failures, old adapter fails negative; Java25 toolchain archive absent locally.",
-    "tested_source_blob": "58c4b7d0f04435620858c1eef919d50ec171f15f",
-    "evidence": "docs/validation/engine-continuation/v8-materialize-preflight-2026-10-28/README.md",
-    "next": "Owner native V8 JSON/NBT, section lighting/heightmap/save-reopen and frozen V1-V7 replay; water constituent loaded/unloaded transactions and real GPU waterfall acceptance after coordination. No qualified JAR."
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1030-10cb0c6/REVIEW.md",
+    "consumed_source": "10cb0c6bfcc32492e573aa8c282da75d13864e91",
+    "coordination": "Independent auditor completed 10:30Z; separate renderer active at 11:02Z owns LOD only; water foreground claim expired at 01:15Z, no verified live check, no water edit; no shared benchmark allocation; owner handles full builds.",
+    "lease_released": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1240,7 +1235,7 @@
     "findings": "V8 codec/native saved-profile and heightmap validation pending; loaded/unloaded water and renderer GPU gates pending; independent grade carried.",
     "chosen_repair": "Preflight exact V8 planned density and surface materials before chunk mutation; skip redundant intermediate ground-path heightmap writes, retain raw path and V1-V7."
   },
-  "lease_released": true,
+  "lease_released": false,
   "latest_stream_deadline_stage": {
     "status": "promoted_qualified_dev30",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
