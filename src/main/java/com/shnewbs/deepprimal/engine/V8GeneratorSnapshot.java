@@ -84,6 +84,22 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
+  /**
+   * New opt-in V8 recipe with an explicit coastal sea-plane guard. Revision-3
+   * snapshot envelopes already persist every graph node, so this does not
+   * rewrite V8 relief V2 or legacy saves. Native activation still requires
+   * ocean-mask, routed water, border and saved-world compatibility evidence.
+   */
+  public static V8GeneratorSnapshot newReliefV3(long seed, int minY, int height,
+      GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+      V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        TerrainShapeV8.definitionReliefV3(floatingFeatures),
+        Objects.requireNonNull(ground, "ground"),
+        Objects.requireNonNull(blendPolicy, "blendPolicy"),
+        Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
+  }
+
   private static final Codec<Long> SEED = Codec.STRING.comapFlatMap(text -> {
     if (!text.matches("0|-?[1-9][0-9]*"))
       return DataResult.error(() -> "seed must be a canonical signed 64-bit decimal string");

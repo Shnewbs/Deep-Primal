@@ -26,8 +26,20 @@ public final class TerrainShapeV8 {
     return definition(floatingFeatures, 2);
   }
 
+  /**
+   * Explicit revision 3 fixes the unqualified nearshore sea-plane movement in
+   * relief V2 without rewriting any already saved V8 density graph. The V1
+   * coastal height is kept bit-identical while continentalness is <= .08;
+   * farther inland the new relief joins in smoothly. This is not an ocean
+   * mask or hydrology migration, and must not be native-activated without
+   * validating both independently.
+   */
+  public static Definition definitionReliefV3(boolean floatingFeatures) {
+    return definition(floatingFeatures, 3);
+  }
+
   private static Definition definition(boolean floatingFeatures, int reliefRevision) {
-    if (reliefRevision != 1 && reliefRevision != 2)
+    if (reliefRevision != 1 && reliefRevision != 2 && reliefRevision != 3)
       throw new IllegalArgumentException("unsupported V8 relief revision");
     Builder b=new Builder();
     b.c("zero",0);b.c("one",1);b.c("negative_one",-1);b.c("sea",96);b.c("continental_scale",320);
@@ -59,7 +71,7 @@ public final class TerrainShapeV8 {
     } else {
       // The marker is part of the persisted graph, independent of the density
       // VM schema revision. New authoring cannot change existing graph saves.
-      b.c("relief_recipe_revision", 2);
+      b.c("relief_recipe_revision", reliefRevision);
       b.op("relief_revision_zero",Op.MULTIPLY,"relief_recipe_revision","zero");
       b.op("relief_versioned_base",Op.ADD,"base_height","relief_revision_zero");
       b.c("foothill_gain", .24);
@@ -86,7 +98,19 @@ public final class TerrainShapeV8 {
       b.op("relief_hills_and_foothills",Op.ADD,"relief_hills","relief_foothills");
       b.op("relief_uplift",Op.ADD,"relief_hills_and_foothills","relief_plateau");
       b.op("relief_before_canyon",Op.ADD,"relief_highlands","relief_uplift");
-      b.op("height",Op.ADD,"relief_before_canyon","canyon_cut");
+      if (reliefRevision == 3) {
+        // Preserve the exact historical V1 height (and its sea-plane side)
+        // around the coast, then blend toward relief-2 *before* canyon incision.
+        // This is a new saved graph, never an in-place edit to relief-2 saves.
+        b.op("coastal_v1_mountain_height",Op.ADD,"base_height","mountains");
+        b.op("coastal_v1_hill_height",Op.ADD,"coastal_v1_mountain_height","hills");
+        b.bound("coastal_guard_release",Op.SMOOTHSTEP,"continentalness",.08,.16);
+        b.op("guarded_relief_before_canyon",Op.LERP,
+            "coastal_v1_hill_height","relief_before_canyon","coastal_guard_release");
+        b.op("height",Op.ADD,"guarded_relief_before_canyon","canyon_cut");
+      } else {
+        b.op("height",Op.ADD,"relief_before_canyon","canyon_cut");
+      }
     }
     b.op("y",Op.Y);b.op("negative_y",Op.MULTIPLY,"y","negative_one");b.op("height_difference",Op.ADD,"height","negative_y");
     b.c("density_scale",1./48);b.op("base_density",Op.MULTIPLY,"height_difference","density_scale");
