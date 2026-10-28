@@ -77,6 +77,48 @@ public final class DensityChunkMaterializer {
    */
   public static DensityChunk.Planned fillPlanned(
       DensityGraph graph, ChunkAccess chunk, int queriesPerSlab) {
+    return fillPlannedRaw(graph, chunk, queriesPerSlab, true);
+  }
+
+  /**
+   * Planned V8 terrain with the same surface/soil layering as the exact preview.
+   * This overload remains explicit-call-only: it does not register a V8 codec,
+   * change default generation, or rewrite existing worlds. Certified occupancy
+   * can skip density evaluations; the already-materialized chunk supplies every
+   * soil-layer solid/air decision without a second density-graph pass.
+   *
+   * <p>The raw section write and the subsequent topsoil overlay share one final
+   * heightmap priming. This avoids publishing transient raw-stone heightmaps
+   * before painting without affecting world-height/bedrock and cave checks.
+   */
+  public static DensityChunk.Planned fillPlannedSurface(
+      GroundSurfaceProfile.Compiled profile, ChunkAccess chunk, int queriesPerSlab) {
+    Objects.requireNonNull(profile, "profile");
+    Objects.requireNonNull(chunk, "chunk");
+    var planned = fillPlannedRaw(profile.graph(), chunk, queriesPerSlab, false);
+    var density = planned.chunk();
+    var origin = chunk.getPos();
+    var pos = new BlockPos.MutableBlockPos();
+    for (int z = 0; z < DensityChunk.WIDTH; z++)
+      for (int x = 0; x < DensityChunk.WIDTH; x++) {
+        int top = density.surfaceExclusive(x, z) - 1;
+        if (top < chunk.getMinY() + 2 || top == chunk.getMaxY()) continue;
+        int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
+        var surface = profile.surface(worldX, worldZ);
+        for (int depth = 0; depth < profile.soilDepth() && top - depth >= chunk.getMinY() + 2; depth++) {
+          int y = top - depth;
+          if (!density.solid(x, y, z)) break;
+          chunk.setBlockState(pos.set(worldX, y, worldZ),
+              depth == 0 ? surface : GroundMaterials.DIRT.get().defaultBlockState());
+        }
+      }
+    Heightmap.primeHeightmaps(chunk,
+        EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
+    return planned;
+  }
+
+  private static DensityChunk.Planned fillPlannedRaw(
+      DensityGraph graph, ChunkAccess chunk, int queriesPerSlab, boolean primeMaps) {
     Objects.requireNonNull(graph, "graph");
     Objects.requireNonNull(chunk, "chunk");
     int minY = chunk.getMinY(), height = chunk.getHeight();
@@ -102,7 +144,7 @@ public final class DensityChunkMaterializer {
           }
       }
     }
-    Heightmap.primeHeightmaps(chunk,
+    if (primeMaps) Heightmap.primeHeightmaps(chunk,
         EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
     return planned;
   }
