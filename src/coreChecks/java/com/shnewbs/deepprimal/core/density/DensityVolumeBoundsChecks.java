@@ -59,6 +59,22 @@ public final class DensityVolumeBoundsChecks {
       oracle(noise,noiseBounds,x,y,z,2,2,2);
     }
 
+    // A corner estimate is not an occupancy certificate for unsampled noise.
+    // A pure noise graph must remain uncertain even at a single cell. A falsely
+    // assumed zero noise value would certify EMPTY despite positive interiors.
+    var pureNoise=new Definition(1,"density",List.of(
+        Node.noise("density",new NoiseSpec(.027,.027,.027,3,2,.5,17),false))).compile(123);
+    var pureBounds=new DensityVolumeBounds(pureNoise);
+    int positiveWitnesses=0;
+    for(int k=0;k<200;k++) {
+      int x=k*13-1000,y=k%23-11,z=k*37-3000;
+      double value=pureNoise.sample(x,y,z);
+      var claim=pureBounds.classifyCells(x,y,z,1,1,1);
+      if(value>0) {positiveWitnesses++;check(claim!=DensityVolumeBounds.Occupancy.EMPTY,"noise positive under false empty certificate");}
+      if(value<0) check(claim!=DensityVolumeBounds.Occupancy.SOLID,"noise negative under false solid certificate");
+    }
+    check(positiveWitnesses>0,"positive noise witness exists");
+
     // Warp must enclose all possible displaced input coordinates, not just
     // sample the corners of the unwarped voxel. This case has a fixed +16 X shift.
     var warped=new Definition(1,"density",List.of(
