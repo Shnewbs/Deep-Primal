@@ -79,6 +79,9 @@ public final class LodClient {
             data.put("lodTestedParts", lod.testedParts);
             data.put("lodRejectedParts", lod.rejectedParts);
             data.put("lodSubmittedParts", lod.submittedParts);
+            data.put("lodIndexedApiBatches", lod.submittedApiBatches);
+            data.put("lodIndexedApiBatchScope",
+                "Synchronous drawMultipleIndexed API calls, not GPU multi-draw indirect or hardware draw-call count");
             data.put("lodLastUploadBytes", lod.lastUploadBytes);
             data.put("lodOversizedFirstUploads", lod.oversizedFirstUploads);
             data.put("lodOversizedFirstUploadBytes", lod.oversizedFirstUploadBytes);

@@ -38,7 +38,7 @@ public final class VoxelLodRenderer {
   private final LodPageUploadProbe pageUploadProbe = new LodPageUploadProbe(240);
   public final RollingTiming submitTiming = new RollingTiming(240);
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
-  public volatile int testedParts, rejectedParts, submittedParts;
+  public volatile int testedParts, rejectedParts, submittedParts, submittedApiBatches;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
   private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"));
@@ -67,8 +67,10 @@ public final class VoxelLodRenderer {
       long session, long key, long revision, LodMesher.Levels levels, boolean captured,
       boolean persisted) {}
 
-  private final ArrayList<com.mojang.blaze3d.systems.RenderPass.Draw<Void>> draws =
-      new ArrayList<>();
+  // Reused only within a synchronous render pass: at most 4,096 draw references
+  // per API submission, independent of the number of visible LOD mesh parts.
+  private final BoundedIndexedDrawBatches<com.mojang.blaze3d.systems.RenderPass.Draw<Void>>
+      indexedDrawBatches = new BoundedIndexedDrawBatches<>(4096);
   private final LinkedHashMap<Long, Entry> cache = new LinkedHashMap<>(256, .75f, true);
   // One bounded primitive victim selector per active world; no arrays allocated per eviction.
   private LodEvictionHeap evictionHeap;
@@ -771,7 +773,7 @@ public final class VoxelLodRenderer {
 
   @SubscribeEvent
   public void render(RenderLevelStageEvent.AfterOpaqueBlocks event) {
-    submittedParts = 0;
+    submittedParts = submittedApiBatches = 0;
     if (!active()) return;
     var parts = event.getLevelRenderState().getRenderData(VISIBLE);
     if (parts == null || parts.isEmpty()) return;
@@ -799,15 +801,20 @@ public final class VoxelLodRenderer {
       RenderSystem.bindDefaultUniforms(pass);
       GpuLighting.bind(pass);
       if (ClientPerformanceConfig.BATCHED_DRAWS.get()) {
-        draws.clear();
-        for (int i = 0; i < parts.size(); i++) {
-          var part = parts.get(i);
-          part.transformSlice = slices[i];
-          draws.add(part.indexedDraw);
-          drawnTriangles += part.triangles();
-        }
-        pass.drawMultipleIndexed(
-            draws, null, VertexFormat.IndexType.SHORT, java.util.Set.of("DynamicTransforms"), null);
+        indexedDrawBatches.submit(
+            parts.size(),
+            i -> {
+              var part = parts.get(i);
+              part.transformSlice = slices[i];
+              drawnTriangles += part.triangles();
+              return part.indexedDraw;
+            },
+            batch -> {
+              pass.drawMultipleIndexed(
+                  batch, null, VertexFormat.IndexType.SHORT,
+                  java.util.Set.of("DynamicTransforms"), null);
+              submittedApiBatches++;
+            });
       } else
         for (int i = 0; i < parts.size(); i++) {
           pass.setUniform("DynamicTransforms", slices[i]);
@@ -844,7 +851,7 @@ public final class VoxelLodRenderer {
     pageUploadProbe.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
-    testedParts = rejectedParts = submittedParts = 0;
+    testedParts = rejectedParts = submittedParts = submittedApiBatches = 0;
     session++;
     // Relinquish pending ownership before any fallible GPU close, then attempt
     // every other cached close even if one buffer teardown fails.
@@ -870,7 +877,7 @@ public final class VoxelLodRenderer {
     for (Entry entry : cache.values()) closeFailures.release(entry::close);
     cache.clear();
     evictionHeap = null; // Drop retained arrays on world switch/logout/shutdown.
-    draws.clear();
+    indexedDrawBatches.reset();
     transformArrays.clear();
     dirty.clear();
     latest.clear();
