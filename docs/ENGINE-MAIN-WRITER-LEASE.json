@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "worker": "builder-20261028T1202-v8-callback",
+  "start": "2026-10-28T12:01:53.447Z",
+  "expires": "2026-10-28T12:16:53.447Z",
+  "source_head": "31474d462489095ddeefc34844b840a4ff573b45",
+  "scope": [
+    "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-callback-prewrite-2026-10-28"
+  ],
+  "audit": "docs/engine-hourly-audits/2026-10-28T1128-581f343/REVIEW.md",
+  "note": "Scoped addendum while canonical large ENGINE-WORK-STATE.json remains checkpointed; avoid water and renderer files; owner builds."
+}
