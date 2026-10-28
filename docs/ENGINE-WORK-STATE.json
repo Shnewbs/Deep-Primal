@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T04:05:00Z",
-  "active_until": "2026-10-28T04:05:00Z",
-  "source_ref": "97de08dd0a8d277703efd9fe5202d7217362b6cd",
+  "status": "active",
+  "updated_at": "2026-10-28T05:03:00Z",
+  "active_until": "2026-10-28T05:24:00Z",
+  "source_ref": "89b8bb0bb78e809bf4a5c3a5a0480699fa4a05cb",
   "candidate_version": "0.0.1-alpha.29-dev.45-v8sections.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev45 canonical V8 section projection committed and checked on Java21; native V8 section write/base-height/lighting/saved profile and owner Java25/Gradle remain unexecuted",
+  "current_gate": "Dev46 bounded opt-in V8 native section materialization and base-height correctness, source-only owner-build handoff",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -489,7 +489,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0400-v8-sections",
+  "worker": "builder-20261028T0500-v8-native-sections",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1032,43 +1032,25 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0400-v8-sections",
-    "started_at": "2026-10-28T04:00:00Z",
-    "lease_until": "2026-10-28T04:32:00Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0500-v8-native-sections",
+    "started_at": "2026-10-28T05:03:00Z",
+    "lease_until": "2026-10-28T05:24:00Z",
+    "phase": "native_v8_opt_in_adapter",
     "scope": [
+      "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
       "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensitySectionLayout.java",
       "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensitySectionLayoutChecks.java",
-      "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-      "docs/validation/engine-continuation/v8-section-layout-2026-10-28/",
+      "docs/validation/engine-continuation/v8-native-section-bridge-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json",
       "gradle.properties"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md",
-    "audit_source_sha": "b14f8ba6eaf279212a0b96098ae493d6a34c1440",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0432-09a57c1/REVIEW.md",
+    "audit_source_sha": "09a57c1896eb1429b2af83223d4a3d6bd5ad8724",
+    "last_external_grade": 5,
+    "acceptance_complete": false,
     "owner_build_handoff": true,
     "renderer_scope_excluded": true,
-    "water_scope_excluded": true,
-    "lease_released": true,
-    "completed_at": "2026-10-28T04:05:00Z",
-    "version": "0.0.1-alpha.29-dev.45-v8sections.1",
-    "source_commit": "97de08dd0a8d277703efd9fe5202d7217362b6cd",
-    "evidence": "docs/validation/engine-continuation/v8-section-layout-2026-10-28/README.md",
-    "validation": [
-      "Java21 javac --release 21 -Xlint:all -Werror using Git-identical product graph and opt-in V8 chunk",
-      "Java21 -ea -Xverify:all: 3792966 assertions, 2043904 native section positions, 499 sections, 186 empty, 1452800 certified cells",
-      "Four compiled incorrect variants rejected (X/Z, signed Y, partial upper bound, defensive copy)",
-      "GitHub blob readback verified all four new source/registration/version identities"
-    ],
-    "unrun": [
-      "Owner JDK25 toolchain/archive absent; Java25 full Gradle/module build not run",
-      "No native Minecraft V8 sections/heightmaps/lighting/saved-profile/reopen or owner GPU Vulkan/OpenGL/Windows AMD8060S",
-      "No matched chunk throughput/peak allocation/long-soak/multiplayer water acceptance"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "last_external_grade": 5,
-    "next_priority": "Owner Java25 and native V8 section/block/base-column/heightmap/lighting/saved graph parity; bound section writer allocations; then finite-water single-owner unload/ledger and connected waterfall temporal/GPU acceptance."
+    "water_scope_excluded": true
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
