@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "status": "checkpointed",
-  "updated_at": "2026-10-28T03:14:00Z",
-  "active_until": "2026-10-28T03:14:00Z",
-  "source_ref": "e67cd42d42b0e7017d74aac37fb156f3156e5c3e",
-  "candidate_version": "0.0.1-alpha.29-dev.42-v8bounds.1",
+  "status": "active",
+  "updated_at": "2026-10-28T04:00:00Z",
+  "active_until": "2026-10-28T04:32:00Z",
+  "source_ref": "76e4e3484853cb89b4cb98eb199a482ff26a5759",
+  "candidate_version": "0.0.1-alpha.29-dev.45-v8sections.1",
   "candidate_released": false,
   "acceptance_complete": false,
-  "current_gate": "Dev44 opt-in exact chunk parity committed, no native generator activation; owner Java25/Gradle/MC block+heightmap+save/reopen tests and measured chunk allocation/latency required before promotion.",
+  "current_gate": "V8 native section bit layout projection with exact density chunk parity, negative-Y seams, and bounded memory; no native game activation",
   "latest_channel_revision_five": {
     "status": "staged_opt_in_not_released",
     "revision": 5,
@@ -489,7 +489,7 @@
     "docs/validation/engine-continuation/masked-density-2026-10-24/evidence/compile-probe.json"
   ],
   "latest_staged_solver_source": "docs/validation/engine-continuation/pressure-admission-2026-10-22/staged-cleanup-WaterRuntime.java",
-  "worker": "builder-20261028T0307-v8-exact-chunk",
+  "worker": "builder-20261028T0400-v8-sections",
   "latest_staged_core_source": "docs/validation/engine-continuation/basin-pressure-2026-10-22/limited-WaterTransport.java",
   "staged_version": "0.0.1-alpha.25-dev",
   "staged_installer_released": false,
@@ -1032,42 +1032,24 @@
     "auditor_task_id": "6adcfe07f3888191aa478160f40027da"
   },
   "builder_cycle": {
-    "worker": "builder-20261028T0307-v8-exact-chunk",
-    "started_at": "2026-10-28T03:07:00Z",
-    "lease_until": "2026-10-28T03:29:00Z",
-    "phase": "completed_source_only",
+    "worker": "builder-20261028T0400-v8-sections",
+    "started_at": "2026-10-28T04:00:00Z",
+    "lease_until": "2026-10-28T04:32:00Z",
+    "phase": "implementing_v8_sections",
     "scope": [
-      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityChunk.java",
-      "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityChunkChecks.java",
-      "docs/validation/engine-continuation/v8-chunk-plan-parity-2026-10-28/",
+      "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensitySectionLayout.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensitySectionLayoutChecks.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+      "docs/validation/engine-continuation/v8-section-layout-2026-10-28/",
       "docs/ENGINE-WORK-STATE.json",
       "gradle.properties"
     ],
-    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0233-2805140/REVIEW.md",
-    "audit_source_sha": "28051408b079d3f378083554a6fb789ee43e5124",
+    "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md",
+    "audit_source_sha": "b14f8ba6eaf279212a0b96098ae493d6a34c1440",
     "owner_build_handoff": true,
     "renderer_scope_excluded": true,
     "water_scope_excluded": true,
-    "lease_released": true,
-    "completed_at": "2026-10-28T03:14:00Z",
-    "version": "0.0.1-alpha.29-dev.44-v8chunk.1",
-    "source_commit": "e67cd42d42b0e7017d74aac37fb156f3156e5c3e",
-    "evidence": "docs/validation/engine-continuation/v8-chunk-plan-parity-2026-10-28/README.md",
-    "validation": [
-      "Actual Git-blob-matched production Java21 sources javac --release 21 -Xlint:all -Werror",
-      "Java21 -ea -Xverify:all: 1218333 checks, 1208064 parity voxels, 902118 certified exact samples skipped in selected corpus",
-      "Five broken compiled variants rejected (solid/empty, heightmap, zero boundary, X/Z columns)",
-      "GitHub main readback verified published source/test blobs, registered CoreChecks and version"
-    ],
-    "unrun": [
-      "Java25 owner compiler archive absent; no Java25 full Gradle/module build",
-      "No Minecraft native V8 block/heightmap/save-reopen, no owner GPU Vulkan/OpenGL/Windows AMD8060S checks",
-      "No matched frame/tick/latency allocation, water longevity or multiplayer tests"
-    ],
-    "qualified_jar_produced": false,
-    "release_published": false,
-    "last_external_grade": 5,
-    "next_priority": "Owner Java25 full-build and native V8 chunk/block/base-column/saved-profile parity; measure p50/p95/p99, then further finite-water single-owner persistence and continuity acceptance."
+    "lease_released": false
   },
   "latest_overflow_repairs": {
     "version": "0.0.1-alpha.29-dev.22",
@@ -1247,13 +1229,13 @@
     "delivered": true
   },
   "latest_consumed_audit": {
-    "path": "docs/engine-hourly-audits/2026-10-28T0233-2805140/REVIEW.md",
-    "source_sha": "28051408b079d3f378083554a6fb789ee43e5124",
-    "audit_commit": "3d4980de6202b65838e3e3b86f6ccb65a7353476",
+    "path": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md",
+    "source_sha": "b14f8ba6eaf279212a0b96098ae493d6a34c1440",
+    "audit_commit": "76e4e3484853cb89b4cb98eb199a482ff26a5759",
     "last_full_average": 5,
     "fresh_grade_awarded": false,
-    "findings": "V8 partition exact model checks but no real product graph/native chunk materialization; water postwrite and renderer native/GPU remain unqualified.",
-    "chosen_repair": "Implement opt-in DensityChunk.samplePlanned with actual Git-blob-matched product graph/noise V8 recipe parity, bounded per-band queries, exact bit/heightmap semantics and mutation-negative tests."
+    "findings": "Dev44 exact V8 chunk parity passes Java21 but no canonical Minecraft section layout/native generator or saved-profile acceptance; water source callbacks and GPU remain unqualified",
+    "chosen_repair": "Implement pure-core canonical 16^3 section projection from opt-in V8 chunk occupancy for later native block/state writer with negative-Y, partial-section, coordinate and volume parity gates"
   },
   "lease_released": true,
   "latest_stream_deadline_stage": {
