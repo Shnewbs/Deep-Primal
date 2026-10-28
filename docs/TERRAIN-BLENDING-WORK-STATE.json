@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261028T1611-v8-ecotone-native",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-28T16:11:00Z",
-  "updated_at": "2026-10-28T16:11:00Z",
-  "active_until": "2026-10-28T16:35:00Z",
-  "lease_released": false,
-  "source_ref": "a6c46a5f90e01c2c0dcb6b2efa30f270f5876224",
+  "updated_at": "2026-10-28T16:17:00Z",
+  "active_until": "2026-10-28T16:17:00Z",
+  "lease_released": true,
+  "source_ref": "b55c42cce5d068cf92f5178dcf1ed801e0eba0e3",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
-  "candidate_version": "0.0.1-alpha.29-dev.57-surface-policy.1",
+  "candidate_version": "0.0.1-alpha.29-dev.58-ecotone-native.1",
   "scope": [
     "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
     "src/main/java/com/shnewbs/deepprimal/engine/V8EcotoneColumnPlan.java",
@@ -17,9 +17,9 @@
     "docs/validation/engine-continuation/v8-ecotone-native-columns-2026-10-28/README.md"
   ],
   "coordination": "Scoped terrain/V8 claim; root lease expired by evidence read. Renderer separate LOD work, auditor read-only, foreground water source excluded; automation states and personal context checked. No full native build. Root Python validator not executed on pinned bytes in isolated workspace; basic schema parsed in connector.",
-  "current_gate": "The V8 revision-3 saved palette/field/climate-input provenance contract is implemented, but native climate producer, soil/snow/vegetation placement and landform relief remain unintegrated. Do not mark terrain blending complete.",
-  "tests": "PASSED: 8 Java21 source/API-double suites, 14,122,671 combined assertions, including 5,235 new policy checks, 43 rejected malformed policies, 1,024 V8 rev3 saved-model roundtrips, 1,024 exact r2/r3 cover previews, reversed/parallel generation. Full production EcotoneBlend, original Python tool, Java25, real Mojang codecs, Gradle/NeoForge, native save/reopen and GPU not run.",
-  "evidence": "docs/validation/engine-continuation/v8-frozen-surface-policy-2026-10-28/README.md",
+  "current_gate": "Explicit V8 rev3 planned native material writes and exact read-after-materialize base-column parity are source-tested under Java21 API doubles. Native registered generator, saved-world climate producer, real Mojang codec, terrain relief and owner-machine save/reopen/GPU acceptance remain unpassed.",
+  "tests": "PASSED: nine compiled Java21 production-source/Minecraft-Mojang-API-double suites, 14,150,419 assertions total. New V8EcotoneNativeChecks 27,748 assertions including 12,288 identical replay voxels and 12,288 painted base-column/native voxel parity checks. Java25, full Gradle/NeoForge/native real world/GPU, official tools/test_ecotone_blend.py not run. Provenance/source hash matched against GitHub blob.",
+  "evidence": "docs/validation/engine-continuation/v8-ecotone-native-columns-2026-10-28/README.md",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
@@ -28,8 +28,14 @@
   "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1530-cec6143/REVIEW.md",
   "audit_pinned_source": "cec61432aa1cb0d4f1909a33d537bd03ca87e31d",
   "audit_findings": "Read-only auditor carried 50/100 and verified rev3 frozen-policy source; real Mojang/native geometry/save replay absent. Implement opt-in native surface placement with preflight while leaving legacy dispatch and water untouched.",
-  "next_action": "Connect revision-3 frozen surface policy to native V8 climate/material/soil/snow/vegetation only after native save/reopen and boundary gates, then explicit relief/density blending before hydrology. Continue water single-owner persistence and constituent conservation when foreground water claim is clear. No JAR release; owner handles builds.",
-  "source_commit": "26512ef7070d7d073be9f83b83f636bc663070ce",
-  "completed_version": "0.0.1-alpha.29-dev.57-surface-policy.1",
-  "implementation_details": "V8SurfacePolicy saved version/palette/field/climate revision, 40x5 value fingerprint 684e3ee170e01a32, required V8 rev3 eight-field envelope, preserving rev1/rev2 encodings and exact preview outputs."
+  "next_action": "Wire a deterministic saved-authoritative native absolute-coordinate climate producer and independent pre-generation base-column query; add versioned V8 relief/density blending before hydrology with erosion/cliff safeguards. Continue conservative finite-water loaded/unloaded ownership, constituent and restart tests when water scoped claims allow; separate renderer owns GPU systems. Owner builds JARs; no builder release.",
+  "source_commit": "b55c42cce5d068cf92f5178dcf1ed801e0eba0e3",
+  "completed_version": "0.0.1-alpha.29-dev.58-ecotone-native.1",
+  "implementation_details": "New V8EcotoneColumnPlan immutable 16x16 preflight; opt-in DensityChunkMaterializer.fillSavedEcotone; frozen 40-biome blend to approved dirt/grass/podzol and vanilla snow, bounded weighted soil depth, retained vegetation flags, hydrological river/ocean painting excluded, single heightmap prime and existing dev53 rollback; new exact painted baseColumn(result) parity without changing legacy.",
+  "source_blob_hashes": {
+    "materializer": "2c63eb58dcf7bc3b7667cd8b565e4896cd3d10a7",
+    "columns": "89b9e298b7d246fa1ba40990138c7a62c0fd1a7c",
+    "snapshot": "fecb8c4850730d0c515169c4a467207f3aaf1230"
+  },
+  "source_evidence_zip_sha256": "d42a8939835001d08fed93e6cadffc3a897272509fe3a074e3e0273fa381e64f"
 }
