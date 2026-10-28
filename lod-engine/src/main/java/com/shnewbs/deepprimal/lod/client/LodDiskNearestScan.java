@@ -240,9 +240,19 @@ final class LodDiskNearestScan {
     }
 
     void accept(String filename) {
-      long[] coordinates = parse(filename);
-      if (coordinates != null)
-        accept(new RankedKey((int) coordinates[0], (int) coordinates[1], cameraX, cameraZ));
+      // Parse directly from the filename. A periodic rescan may inspect tens of
+      // thousands of pages; no substrings, canonicality concatenation or long[]
+      // coordinate holder should be allocated for each entry.
+      if (!filename.endsWith(EXTENSION) || filename.length() > 30) return;
+      int end = filename.length() - EXTENSION.length();
+      int separator = filename.indexOf('_');
+      if (separator <= 0 || separator >= end - 1
+          || filename.indexOf('_', separator + 1) >= 0) return;
+      long x = parseCoordinate(filename, 0, separator);
+      if (x == Long.MIN_VALUE) return;
+      long z = parseCoordinate(filename, separator + 1, end);
+      if (z != Long.MIN_VALUE)
+        accept(new RankedKey((int) x, (int) z, cameraX, cameraZ));
     }
 
     void accept(long key) {
@@ -273,20 +283,32 @@ final class LodDiskNearestScan {
     }
   }
 
-  private static long[] parse(String filename) {
-    if (!filename.endsWith(EXTENSION) || filename.length() > 30) return null;
-    String base = filename.substring(0, filename.length() - EXTENSION.length());
-    int separator = base.indexOf('_');
-    if (separator <= 0 || separator == base.length() - 1 || base.indexOf('_', separator + 1) != -1)
-      return null;
-    try {
-      int x = Integer.parseInt(base.substring(0, separator));
-      int z = Integer.parseInt(base.substring(separator + 1));
-      if (!base.equals(x + "_" + z)) return null;
-      return new long[] {x, z};
-    } catch (NumberFormatException ignored) {
-      return null;
+  /**
+   * Canonical signed 32-bit integer from a String slice, without temporary
+   * objects. Long.MIN_VALUE is a safe invalid sentinel for any int coordinate.
+   * Negative accumulation preserves Integer.MIN_VALUE and rejects overflow;
+   * leading zeros, plus signs and negative zero are not canonical filenames.
+   */
+  private static long parseCoordinate(String name, int start, int end) {
+    if (start >= end) return Long.MIN_VALUE;
+    boolean negative = name.charAt(start) == '-';
+    if (negative) start++;
+    if (start >= end) return Long.MIN_VALUE;
+    if (name.charAt(start) == '0' && (negative || end - start != 1))
+      return Long.MIN_VALUE;
+    int limit = negative ? Integer.MIN_VALUE : -Integer.MAX_VALUE;
+    int minimumBeforeMultiply = limit / 10;
+    int value = 0;
+    for (int i = start; i < end; i++) {
+      char c = name.charAt(i);
+      if (c < '0' || c > '9' || value < minimumBeforeMultiply)
+        return Long.MIN_VALUE;
+      int digit = c - '0';
+      value *= 10;
+      if (value < limit + digit) return Long.MIN_VALUE;
+      value -= digit;
     }
+    return negative ? value : -value;
   }
 
   /** Exact unsigned 128-bit squared distance: signed int deltas may exceed 32 bits. */
