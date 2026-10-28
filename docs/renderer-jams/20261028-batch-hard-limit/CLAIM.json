@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "owner": "dedicated-renderer-schedule",
+  "jam_id": "renderer-20261028T2300-batch-hard-limit",
+  "status": "active",
+  "claimed_utc": "2026-10-28T23:00:35Z",
+  "expires_utc": "2026-10-29T00:00:00Z",
+  "source_head": "926ed7b74f17001606f837dae2a070245932bb09",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/BoundedIndexedDrawBatches.java",
+    "docs/renderer-jams/20261028-batch-hard-limit/",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excluded": [
+    "engine/worldgen",
+    "finite-water",
+    "vulkan native adapter",
+    "graphics upscaling integration",
+    "other jobs",
+    "gradle.properties"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2230-a0d68a1d/REVIEW.md",
+  "previous_jam": "docs/renderer-jams/20261028-bounded-indexed-batches/REVIEW.md",
+  "measurement_reservation": "Isolated Java21 synthetic indexed-draw helper correctness and CPU microbench; no shared GPU/Gradle/cache",
+  "intent": "Enforce actual 4096 and expected batch draw records against mutable ArrayList misuse, preserving ordering and cleanup. Address independent audit finding #3.",
+  "owner_build_override": true,
+  "lease_released": false
+}
