@@ -24,12 +24,34 @@ final class LodEvictionHeap {
   private final boolean[] protectedPage;
   private int size;
 
-  LodEvictionHeap(Collection<Long> candidates, Long keep, double cameraX, double cameraZ) {
-    int capacity = candidates.size();
+  /**
+   * Reserve the maximum resident-page count once for a render-thread-owned selector.
+   * A new snapshot can be rebuilt in place without allocating four arrays on every
+   * cache-pressure event. Callers must never interleave reset() with iteration.
+   */
+  LodEvictionHeap(int capacity) {
+    if (capacity < 0) throw new IllegalArgumentException("negative eviction capacity");
     keys = new long[capacity];
     squaredDistances = new double[capacity];
     order = new int[capacity];
     protectedPage = new boolean[capacity];
+  }
+
+  /** Retain the one-shot construction contract used by isolated regression tooling. */
+  LodEvictionHeap(Collection<Long> candidates, Long keep, double cameraX, double cameraZ) {
+    this(candidates.size());
+    reset(candidates, keep, cameraX, cameraZ);
+  }
+
+  /**
+   * Rebuild from the caller's current access order. No per-candidate allocation.
+   * Capacity failure cannot leave a partially admitted heap: the next reset can
+   * still rebuild a valid snapshot. This class and the cache have one owner thread.
+   */
+  void reset(Collection<Long> candidates, Long keep, double cameraX, double cameraZ) {
+    size = 0;
+    if (candidates.size() > keys.length)
+      throw new IllegalArgumentException("LOD eviction candidates exceed reserved capacity");
     for (long key : candidates) {
       int i = size++;
       keys[i] = key;

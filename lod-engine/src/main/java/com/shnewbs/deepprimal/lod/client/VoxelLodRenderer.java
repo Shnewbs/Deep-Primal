@@ -70,6 +70,8 @@ public final class VoxelLodRenderer {
   private final ArrayList<com.mojang.blaze3d.systems.RenderPass.Draw<Void>> draws =
       new ArrayList<>();
   private final LinkedHashMap<Long, Entry> cache = new LinkedHashMap<>(256, .75f, true);
+  // One bounded primitive victim selector per active world; no arrays allocated per eviction.
+  private LodEvictionHeap evictionHeap;
   private final LinkedHashMap<Long, Long> dirty = new LinkedHashMap<>();
   private final HashMap<Long, Long> latest = new HashMap<>();
   private final LinkedHashSet<Long> disk = new LinkedHashSet<>();
@@ -570,9 +572,10 @@ public final class VoxelLodRenderer {
     // Build the stable farthest-first victim heap in O(resident pages), then
     // remove only as many candidates as the current byte/entry limits require.
     // Preserve keep-last, equal-distance access order and all cleanup semantics.
-    var victims = new LodEvictionHeap(cache.keySet(), keep, camera.x, camera.z);
-    while (victims.hasNext()) {
-      long k = victims.next();
+    if (evictionHeap == null) evictionHeap = new LodEvictionHeap(4096);
+    evictionHeap.reset(cache.keySet(), keep, camera.x, camera.z);
+    while (evictionHeap.hasNext()) {
+      long k = evictionHeap.next();
       if (residentBytes + additional <= limit && cache.size() <= entries) break;
       Entry old = cache.remove(k);
       residentBytes -= old.bytes;
@@ -820,6 +823,7 @@ public final class VoxelLodRenderer {
     worker = null;
     cache.values().forEach(Entry::close);
     cache.clear();
+    evictionHeap = null; // Drop retained arrays on world switch/logout/shutdown.
     draws.clear();
     transformArrays.clear();
     dirty.clear();
