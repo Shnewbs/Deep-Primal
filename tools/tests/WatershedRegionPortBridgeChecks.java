@@ -115,6 +115,32 @@ public final class WatershedRegionPortBridgeChecks {
     check(signature(planned).equals(signature(WatershedRegionPortBridge.assembleRouted(
         List.of(empty,routed),Set.of()))),"routed region reversal parity");
     check(planned.solve(96).totalRunoffQuanta()==0,"interior route adds no physical volume");
+    // Dev82: the standalone region receiver DAG protects its interior, while
+    // the bridge must ALSO protect the combined port receivers. Perimeter-only
+    // acyclicity cannot see A -> interior -> B -> interior -> A. An undirected
+    // spillway edge would otherwise conceal the physical direction cycle.
+    var twoWay=change(interior,8192,32,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(8160,32)));
+    var backward=new com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(
+        8192,32,0,32,WatershedOutletTopology.key(8160,32),90,256);
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(twoWay,List.of(route,backward))),Set.of()),
+        "reciprocal collapsed interior receivers");
+    var forward=new com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(
+        8192,32,8192,64,WatershedOutletTopology.key(8160,32),90,4);
+    var routedChain=new WatershedRegion.RoutingSnapshot(twoWay,List.of(route,forward));
+    var chain=WatershedRegionPortBridge.assembleRouted(List.of(routedChain),Set.of());
+    check(chain.links().size()>WatershedRegionPortBridge.assemble(
+        List.of(twoWay),Set.of()).links().size(),
+        "acyclic observed interior receiver chain accepted");
+    check(signature(chain).equals(signature(WatershedRegionPortBridge.assembleRouted(
+        List.of(new WatershedRegion.RoutingSnapshot(twoWay,List.of(forward,route))),Set.of()))),
+        "reverse interior route order keeps exact output");
+    // Reversing route discovery must never evade admission.
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(twoWay,List.of(backward,route))),Set.of()),
+        "alternate interior order cannot evade cycle admission");
     reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
         new WatershedRegion.RoutingSnapshot(interior,List.of(new
             com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(

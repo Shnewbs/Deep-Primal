@@ -56,7 +56,9 @@ def main():
       ("ocean_parent_accepted",[("if (node.ocean() && node.downstreamKey() != null)",
          "if (false)")]),
       ("cyclic_perimeter_parent_accepted",[("    validateObservedReceiverForest(samples);",
-         "    // broken: receiver cycles are not checked")])
+         "    // broken: receiver cycles are not checked")]),
+      ("cyclic_collapsed_interior_route_accepted",[("    validateRoutedReceiverForest(snapshots, usedSources);",
+         "    // broken: collapsed interior routes are not checked")])
     ]
     with tempfile.TemporaryDirectory(prefix="dp-v8-port-bridge-") as tmp:
         tmp=Path(tmp)

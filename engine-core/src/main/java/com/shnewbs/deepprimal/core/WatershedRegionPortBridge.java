@@ -264,6 +264,11 @@ public final class WatershedRegionPortBridge {
         allLinks.merge(edge, route.crest(), Math::min);
       }
     }
+    // The perimeter-only checker cannot see cycles that traverse interior
+    // corridors. Before accepting the new undirected spillway shortcuts, verify
+    // the combined DIRECTED port receivers. Missing interior paths remain
+    // unresolved; an observed cycle must never become a false drainage outlet.
+    validateRoutedReceiverForest(snapshots, usedSources);
     if (allLinks.size() > WatershedOutletTopology.MAX_LINKS)
       throw new IllegalArgumentException("interior routes exceed outlet link budget");
     List<WatershedOutletTopology.Link> links = new ArrayList<>(allLinks.size());
@@ -274,6 +279,52 @@ public final class WatershedRegionPortBridge {
     }
     return new Draft(base.ports(), links, base.sharedCoordinates(),
         base.unresolvedFrontiers());
+  }
+
+  /**
+   * Validate the combined observed receiver forest after interior paths have
+   * been collapsed to their FIRST downstream boundary port. A perimeter-only
+   * DAG is insufficient: two individually credible interior routes can point
+   * at each other and disappear when converted to undirected spill edges.
+   *
+   * <p>Only observed boundary keys are followed. A parent into unobserved
+   * interior, or beyond a missing neighboring region, remains unresolved rather
+   * than being invented as a terminal ocean connection. This check is bounded
+   * by admitted port count, independent of snapshot iteration order, and never
+   * owns or transfers physical water.
+   */
+  private static void validateRoutedReceiverForest(
+      Collection<WatershedRegion.RoutingSnapshot> snapshots,
+      Map<Long, WatershedInteriorPortRoutes.Route> routes) {
+    Map<Long, WatershedRegion.BoundaryNode> nodes = new HashMap<>();
+    for (var snapshot : snapshots)
+      for (var node : snapshot.boundary().nodes())
+        nodes.putIfAbsent(WatershedOutletTopology.key(node.x(), node.z()), node);
+    Map<Long, Long> receiver = new HashMap<>();
+    for (var entry : nodes.entrySet()) {
+      long key = entry.getKey();
+      var routed = routes.get(key);
+      Long next = routed != null
+          ? Long.valueOf(WatershedOutletTopology.key(routed.toX(), routed.toZ()))
+          : entry.getValue().downstreamKey();
+      if (next != null && nodes.containsKey(next)) receiver.put(key, next);
+    }
+    Set<Long> settled = new HashSet<>();
+    Set<Long> pending = new HashSet<>();
+    ArrayList<Long> trail = new ArrayList<>();
+    for (Long start : nodes.keySet()) {
+      if (settled.contains(start)) continue;
+      pending.clear();
+      trail.clear();
+      Long at = start;
+      while (at != null && nodes.containsKey(at) && !settled.contains(at)) {
+        if (!pending.add(at))
+          throw new IllegalArgumentException("cyclic routed watershed receivers");
+        trail.add(at);
+        at = receiver.get(at);
+      }
+      settled.addAll(trail);
+    }
   }
 
   /**
