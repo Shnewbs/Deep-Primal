@@ -6,6 +6,7 @@ and fail by AssertionError, not merely by a compiler or classpath failure.
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import tempfile
 
@@ -13,6 +14,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'src/main/java/com/shnewbs/deepprimal/engine/V8VegetationColumnPlan.java'
 TEST = ROOT / 'tools/tests/V8VegetationColumnPlanChecks.java'
 STUBS = list((ROOT / 'tools/tests/v8_vegetation_stubs').rglob('*.java'))
+CLASS = 'com.shnewbs.deepprimal.engine.V8VegetationColumnPlanChecks'
+
+def rejected_by_fixture(result):
+    """A JVM failure is not a caught mutation unless the fixture asserted."""
+    return (result['exit'] == 1
+            and re.search(
+                r'^(?:Exception in thread "[^"]+" |Caused by: )java\.lang\.AssertionError(?::|$)',
+                result['stderr'], re.MULTILINE) is not None
+            and '\tat ' + CLASS + '.' in result['stderr'])
 
 def run(cmd, cwd=None, timeout=45):
     completed = subprocess.run(cmd, cwd=cwd, text=True, stdout=subprocess.PIPE,
@@ -30,7 +40,7 @@ def compile_run(src, mutation=None):
         if c['exit']:
             raise RuntimeError('compiled variant failed '+str(mutation)+' '+c['stderr'])
         r=run(['java','-ea','-Xverify:all','-cp',str(work),
-               'com.shnewbs.deepprimal.engine.V8VegetationColumnPlanChecks'],timeout=45)
+               CLASS],timeout=45)
         return r
 
 def main():
@@ -50,7 +60,7 @@ def main():
     for name,(before,after) in negative.items():
         if before not in src:raise RuntimeError('missing mutation site '+name)
         out=compile_run(src.replace(before,after,1),name)
-        if out['exit']==0 or 'AssertionError' not in out['stderr']:
+        if not rejected_by_fixture(out):
             raise RuntimeError('negative not rejected via assertion '+name+': '+str(out))
         bad.append(name)
     receipt={'java':run(['java','-version'])['stderr'].splitlines()[0],
@@ -63,3 +73,4 @@ def main():
     print(json.dumps(receipt,indent=2))
 
 if __name__=='__main__': main()
+
