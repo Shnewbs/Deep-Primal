@@ -52,16 +52,18 @@ final class LodPublishedBounds {
         boolean valid = finiteOrdered(box);
         // Invalid parts disable coarse rejection, but later valid adjacent
         // parts still share their own fine-frustum result. Do not stop early.
-        if (i > 0 && previousValid && valid && sameBox(previous, box)) {
+        // The adjacent verdict is also the two-back exclusion. Compute it
+        // once and short-circuit a costly i-2 comparison for adjacent runs.
+        boolean adjacent = i > 0 && previousValid && valid && sameBox(previous, box);
+        if (adjacent) {
           if (repeated == null) repeated = new long[((parts.length - 1) >>> 6) + 1];
           repeated[i >>> 6] |= 1L << (i & 63);
         }
         // A-B-A and longer alternations can share an earlier decision even
         // when the immediate neighbor has different bounds. Never assign two
         // aliases to one part; adjacent reuse takes precedence.
-        if (twoBackRuns != null && i > 1 && beforePreviousValid && valid
-            && sameBox(beforePrevious, box)
-            && !(previousValid && sameBox(previous, box))) {
+        if (twoBackRuns != null && !adjacent && i > 1 && beforePreviousValid && valid
+            && sameBox(beforePrevious, box)) {
           if (twoBackRepeated == null)
             twoBackRepeated = new long[((parts.length - 1) >>> 6) + 1];
           twoBackRepeated[i >>> 6] |= 1L << (i & 63);
@@ -94,7 +96,9 @@ final class LodPublishedBounds {
   }
 
   private static boolean sameBox(AABB a, AABB b) {
-    return a.minX == b.minX && a.minY == b.minY && a.minZ == b.minZ
+    // Some upload parts legitimately share an immutable AABB instance. Keep
+    // exact coordinate equality for independently allocated equal bounds.
+    return a == b || a.minX == b.minX && a.minY == b.minY && a.minZ == b.minZ
         && a.maxX == b.maxX && a.maxY == b.maxY && a.maxZ == b.maxZ;
   }
 
