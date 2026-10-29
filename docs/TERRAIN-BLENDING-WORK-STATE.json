@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261029T0205-dev68-v8-routed-regions",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-29T02:05:59Z",
-  "updated_at": "2026-10-29T02:22:00Z",
-  "active_until": "2026-10-29T02:38:00Z",
-  "lease_released": false,
-  "source_ref": "aed6bb2d7db0c7002355ef9ad57ecdd44aa94c9c",
+  "updated_at": "2026-10-29T02:25:00Z",
+  "active_until": "2026-10-29T02:25:00Z",
+  "lease_released": true,
+  "source_ref": "4ec459d31499398a4fbbb0565ca90b5fcbe07983",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
-  "candidate_version": "planned-dev68-v8-routed-regions",
+  "candidate_version": "0.0.1-alpha.29-dev.68-v8-routed-regions.1",
   "scope": [
     "docs/TERRAIN-BLENDING-WORK-STATE.json",
     "src/main/java/com/shnewbs/deepprimal/engine/V8RoutedWaterSource.java",
@@ -17,9 +17,9 @@
     "docs/validation/engine-continuation/v8-routed-source-2026-10-29/",
     "gradle.properties"
   ],
-  "coordination": "Scoped terrain-only builder lease; root ENGINE-WORK-STATE still Dev53 and root validator unavailable without complete checkout. Latest completed auditor docs/engine-hourly-audits/2026-10-28T1831-a8e26ba/REVIEW.md pinned a8e26ba; renderer aed6bb2 files disjoint; water lease expired; no renderer/runtime/Gradle files claimed. Version file added to bounded scope after observing expired water claim and released renderer claim.",
-  "current_gate": "V8 revision5 routing observer SHA-256 identity persisted, but no authoritative routed-water algorithm/source implemented; callback is untrusted. Native Mojang/save/reopen, mixed old/new chunk borders, finite-water loaded/unloaded/restart ledger and GPU/performance acceptance remain open.",
-  "tests": "OpenJDK 21.0.12.1 --release 21 -Xlint:all -Werror, java -ea -Xverify:all: 17/17 isolated suites 21,007,690 fixture assertions; new r5 suite 45,895 checks, 800 modeled profile roundtrips, 36,864 mask comparisons; source-only hydrology key 8,207 checks per process 2 compiled broken controls rejected, optimized Python -OO passes; source-only admission 184,332 assertions and 3 compiled broken controls rejected, -OO passes. Not Java25, real Mojang/Minecraft/native, graphics or performance.",
+  "coordination": "Scoped terrain-only builder lease; root ENGINE-WORK-STATE still Dev53 and root validator unavailable without complete checkout. Latest completed auditor docs/engine-hourly-audits/2026-10-28T1831-a8e26ba/REVIEW.md pinned a8e26ba; renderer aed6bb2 files disjoint; water lease expired; no renderer/runtime/Gradle files claimed. Version file added to bounded scope after observing expired water claim and released renderer claim. Source and exact compiled test files byte-identical with current main Git blobs; source-only evidence in Library and GitHub docs. Scoped lease checkpointed/released. No new JAR or release; owner owns full builds. Renderer source untouched; no other branch/PR or hosted Actions.",
+  "current_gate": "V8 routing now has opt-in source adapter to established priority-flood WatershedRegion over saved V8 pre-hydrology relief, but region-to-region ocean connectivity/outlets unqualified; real 8192-edge hydrology, native codec/worldgen/old-new borders, finite-water loaded/unloaded ledger, Java25/full Gradle and Vulkan/GL visual acceptance OPEN.",
+  "tests": "Java21 21.0.12.1 --release 21 -Xlint:all -Werror, -ea -Xverify:all: 18/18 isolated API-double suites PASS, 21,012,488 checks including 4,798 new; 2 separately compiled corrupt variants rejected; ZIP/CRC/source comparison PASS. True WatershedRegion algorithm, native Mojang, Java25, Gradle/NeoForge, GPU and physical water accounting NOT executed.",
   "evidence": "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/README.md",
   "native_integration": false,
   "acceptance_complete": false,
@@ -44,7 +44,7 @@
     "TestHydrologyBinding": "6a28c18095c76a06a769848295fd392ff5ded0b2",
     "TestWaterAdmission": "88969e516c2948dc108432a58f140b646eacd528"
   },
-  "source_evidence_zip_sha256": "51cc7b695d91fa3c469bff4c7d497daec7ebde4b6a85a4468f91743dce37604f",
+  "source_evidence_zip_sha256": "f0ce6a13637855aa19df3991f09a6e8e265ead5c9df28e144a0b23fcc0c8f161",
   "previous_checkpoint": {
     "worker": "hourly-engine-builder-20261029T0100-dev67-hydrology-binding",
     "source_ref": "0ecd8484262702d2bad004d6223f0ce53a302a4c",
@@ -52,7 +52,25 @@
     "updated_at": "2026-10-29T01:17:49Z",
     "evidence": "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/results.json"
   },
-  "test_receipt": "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/results.json",
-  "source_evidence_zip_bytes": 117389,
-  "source_evidence_zip_name": "DeepPrimal_Dev67_V8_HydrologyBinding_SourceEvidence.zip"
+  "test_receipt": "docs/validation/engine-continuation/v8-routed-source-2026-10-29/results.json",
+  "source_evidence_zip_bytes": 126904,
+  "source_evidence_zip_name": "DeepPrimal_Dev68_V8_RoutedRegions_SourceEvidence.zip",
+  "final_source_head": "a21013a822897ab64feaa2fba3a7bd27c65d93c9",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1831-a8e26ba/REVIEW.md",
+  "consumed_audit_source": "a8e26ba492245d532eb4a116b13d9f842d7b013b",
+  "consumed_audit_findings": [
+    "Persisted r5 claimed fingerprint did not implement or authenticate V8 routing; added opt-in V8 height-driven WatershedRegion adapter with source-computed fingerprint and saved-profile author/reopen",
+    "Root ENGINE-WORK-STATE remains Dev53; no complete pinned checkout or root validator, so root untouched",
+    "Full native/JDK25/Gradle/VRAM/GPU and finite-water conservation gates remain open"
+  ],
+  "source_evidence_library_path": "/Deep Primal/Engine Builder Evidence/Dev68 V8 Routing/Dev68_source_only_evidence.zip",
+  "source_blobs": {
+    "V8RoutedWaterSource": "36352e92585497daef8a9c76f2654aa6e7c12a1d",
+    "V8RoutedWaterSourceChecks": "206867128923a2245b331e156579f00cd64414dc"
+  },
+  "next": [
+    "Proof/repair across neighboring 8192 V8 region coastline and routed water outlets with explicit revision and bounded caches",
+    "Native V8 density/materialization and r1-r5 profile codecs in owner's Java25/NeoForge builds",
+    "Conservative finite-water loaded/unloaded constituent ledger, saved player edits, restart/multiplayer, GPU waterfalls acceptance"
+  ]
 }
