@@ -571,7 +571,7 @@ public final class VoxelLodRenderer {
           coarseTests++;
           if (!event.getFrustum().isVisible(coarseBounds)) {
             coarsePages++;
-            if (TELEMETRY) skippedPartTests += selectedParts.size();
+            skippedPartTests += selectedParts.size();
             continue;
           }
           if (TELEMETRY) coarseVisible++;
@@ -592,7 +592,7 @@ public final class VoxelLodRenderer {
     }
     // Never train the heuristic from an aborted extraction. Skipped frames
     // retain ordered per-part culling even if the view abruptly changes.
-    pageFrustumGate.completed(coarseThisFrame, coarseTests, coarsePages);
+    pageFrustumGate.completed(coarseThisFrame, coarseTests, skippedPartTests);
     if (TELEMETRY) {
       testedParts = tested;
       rejectedParts = rejected;
