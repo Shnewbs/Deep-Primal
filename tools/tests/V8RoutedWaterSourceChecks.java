@@ -7,6 +7,7 @@ import com.shnewbs.deepprimal.core.density.NoiseSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 /** Exact route-adapter source checks; watershed behavior is an isolated API double. */
 public final class V8RoutedWaterSourceChecks {
@@ -299,6 +300,20 @@ public final class V8RoutedWaterSourceChecks {
           "exact signed boundary and internal interface parity");
       check(current.cachedRegionCount()<=2,"bounded region residency");
     }
+    int[] transect={-8192,-7000,-4096,-1024,-1,0,8192};
+    var reverse=V8RoutedWaterSource.open(reopened,original.seed());
+    for(int i=transect.length-1;i>=0;i--)
+      check(current.plan(transect[i],2048).equals(reverse.plan(transect[i],2048)),
+          "reversed order cannot change saved ocean-domain plan");
+    var jobs=new ArrayList<CompletableFuture<Boolean>>();
+    for(int x:transect) {
+      var reference=current.plan(x,2048);
+      for(int iteration=0;iteration<4;iteration++)
+        jobs.add(CompletableFuture.supplyAsync(()->current.plan(x,2048).equals(reference)));
+    }
+    for(var job:jobs) check(job.join(),"parallel routing replay and cache eviction");
+    check(current.cachedOceanSamplerCount() > 0 && current.cachedOceanSamplerCount() <= 4,
+        "graph sampler residency bounded across job threads");
     reject(()->V8RoutedWaterSource.open(v6,original.seed()+1),"v6 wrong seed");
     reject(()->V8RoutedWaterSource.authorClosedOceanDomain(v6),"v6 no silent mutation");
     var edited=new ArrayList<DensityGraph.Node>(nodes);
