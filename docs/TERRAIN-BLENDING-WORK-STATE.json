@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-dev76-watershed-ports",
-  "status": "active",
-  "lease_released": false,
+  "status": "checkpointed",
+  "lease_released": true,
   "started_at": "2026-10-29T10:01:00Z",
-  "updated_at": "2026-10-29T10:02:00Z",
-  "active_until": "2026-10-29T10:29:00Z",
+  "updated_at": "2026-10-29T10:12:30Z",
+  "active_until": "2026-10-29T10:12:30Z",
   "base_ref": "ab15e44cdad0a40966b6682f06b486031bb3aa5e",
   "candidate_version": "0.0.1-alpha.29-dev.76-native-outlet-ports.1",
   "scope": [
@@ -18,7 +18,7 @@
     "docs/validation/engine-continuation/v8-region-port-bridge-2026-10-29/**",
     "docs/TERRAIN-BLENDING-WORK-STATE.json"
   ],
-  "coordination": "Current main ab15e44 checked by GitHub connector, 09:35 independent dev75 Java25 audit consumed; renderer commits 09:57/10:00 limited to renderer files. Foreground WATER-ENGINE work-state lease expired 2026-10-28T01:15Z. No root ownership claimed; Git CLI DNS and complete pinned root validator unavailable.",
+  "coordination": "GitHub connector main fetched and 10:00 renderer-only commit reconciled before guarded f3091 commit. Latest independent 09:35 dev75 audit consumed; renderer work untouched. WATER work-state ended 2026-10-28; no overlap. Git CLI DNS unavailable and root work-state complete pinned validation not available; root state unmodified.",
   "audit_consumed": "docs/engine-hourly-audits/2026-10-29T0935-8968d3d/REVIEW.md",
   "audit_pinned_source": "8968d3d007bd1c9e976710c43a2ed1553480793b",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
@@ -31,5 +31,14 @@
     "full native integration",
     "Java25 Gradle Minecraft GPU save/reopen",
     "new qualified JAR"
-  ]
+  ],
+  "ended_at": "2026-10-29T10:12:30Z",
+  "source_ref": "f3091f6e52e83e535b496ecc6ca66f36b2909515",
+  "source_commit": "f3091f6e52e83e535b496ecc6ca66f36b2909515",
+  "completed_version": "0.0.1-alpha.29-dev.76-native-outlet-ports.1",
+  "evidence": "docs/validation/engine-continuation/v8-region-port-bridge-2026-10-29/README.md",
+  "implementation_details": "Real WatershedRegion now opt-in exports exact signed perimeter nodes (ground, flood, stage, cumulative area, receiver, ocean/lake), and separate engine-core bridge deduplicates 257 shared 32-block seam nodes across a two-region fixture, maintains unresolved frontiers, checks ground bit-for-bit and explicit marine anchor consistency. No invented runoff or native activation; does not replace global outlet routing.",
+  "tests": "OpenJDK 21.0.12.1; pre-publication isolated Java21 API-double test: 2 passes of 3901 checks each, 1791 unique signed-region ports, 1792 perimeter links, 257 shared nodes, 1536 unknown frontiers. Three broken variants rejected; Python -OO rerun passed. Full real WatershedRegion compile was not done; Git blob identities after publishing not recompiled. No Java25/Gradle, real Minecraft, GPU or live hydrology acceptance.",
+  "new_grade_awarded": false,
+  "next_action": "Integrate real WatershedRegion interior parent paths and exact runoff partition into saved V8 routing policy without mutating V1-V7, validate real native chunk/reopen parity and seam discharge; in parallel prioritize versioned terrain/landform blending and finite-water unload/restart conservation."
 }
