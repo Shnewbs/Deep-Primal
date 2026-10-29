@@ -1269,4 +1269,52 @@ public final class WatershedRegion {
         throw new AssertionError("Watershed routing/head order");
     }
   }
+
+  /** Bounded observational port receipt for new V8 cross-region outlet planning.
+   * Not a live runoff ledger or a change to legacy geography. Every perimeter
+   * lattice node is returned exactly once including signed corners. */
+  public record BoundaryNode(int x, int z, double ground, double floodedElevation,
+      double plannedStage, double catchmentArea, boolean ocean, boolean lake,
+      Long downstreamKey) {}
+
+  public record BoundarySnapshot(int originX, int originZ, List<BoundaryNode> nodes) {
+    public BoundarySnapshot { nodes = List.copyOf(nodes); }
+  }
+
+  /** Explicit opt-in export; no construction or gameplay path calls this by default. */
+  public BoundarySnapshot boundarySnapshot() {
+    if (!Double.isFinite(ox) || !Double.isFinite(oz)
+        || ox != Math.rint(ox) || oz != Math.rint(oz)
+        || ox < Integer.MIN_VALUE || ox > Integer.MAX_VALUE
+        || oz < Integer.MIN_VALUE || oz > Integer.MAX_VALUE)
+      throw new IllegalStateException("watershed origin cannot be represented exactly");
+    int originX = (int) ox, originZ = (int) oz;
+    if (Math.floorMod(originX, TerrainEngine.CELL) != 0
+        || Math.floorMod(originZ, TerrainEngine.CELL) != 0)
+      throw new IllegalStateException("watershed origin is not region-aligned");
+    ArrayList<BoundaryNode> result = new ArrayList<>(4 * (SIDE - 1));
+    for (int z = 0; z < SIDE; z++)
+      for (int x = 0; x < SIDE; x++) {
+        if (x != 0 && z != 0 && x != SIDE - 1 && z != SIDE - 1) continue;
+        int i = z * SIDE + x, receiver = parent[i];
+        long worldX = (long) originX + (long) x * STEP;
+        long worldZ = (long) originZ + (long) z * STEP;
+        if (worldX < Integer.MIN_VALUE || worldX > Integer.MAX_VALUE
+            || worldZ < Integer.MIN_VALUE || worldZ > Integer.MAX_VALUE)
+          throw new IllegalStateException("watershed boundary exceeds integer coordinates");
+        Long downstream = null;
+        if (receiver >= 0) {
+          long nextX = (long) originX + (long) (receiver % SIDE) * STEP;
+          long nextZ = (long) originZ + (long) (receiver / SIDE) * STEP;
+          if (nextX < Integer.MIN_VALUE || nextX > Integer.MAX_VALUE
+              || nextZ < Integer.MIN_VALUE || nextZ > Integer.MAX_VALUE)
+            throw new IllegalStateException("watershed receiver exceeds integer coordinates");
+          downstream = WatershedOutletTopology.key((int) nextX, (int) nextZ);
+        }
+        result.add(new BoundaryNode((int) worldX, (int) worldZ, raw[i], flood[i],
+            stage[i], area[i], ocean[i], lakeAt[i] > 0, downstream));
+      }
+    return new BoundarySnapshot(originX, originZ, result);
+  }
+
 }
