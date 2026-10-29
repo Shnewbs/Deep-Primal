@@ -35,6 +35,10 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   /** New opt-in limited closed-basin negative proof; V1 and V2 identities stay frozen. */
   public static final int BASIN_GUARD_ROUTE_REVISION =
       V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION;
+  /** Explicit v4: gate actual priority-flood sea seeds through stitched marine admission. */
+  public static final int OUTLET_SEEDED_ROUTE_REVISION = 4;
+  private static final String OUTLET_SEEDED_FINGERPRINT_DOMAIN =
+      "deepprimal-v8-ocean-boundary-seeded-priority-flood-v4";
   private static final int CELL = TerrainEngine.CELL;
   private static final int STEP = WatershedRegion.STEP;
   private static final int SIDE = WatershedRegion.SIDE;
@@ -68,7 +72,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     final boolean[] connectedSea;
     final WatershedRegion waterways;
 
-    Region(int ox, int oz, DensityGraph graph, TerrainEngine savedClimate, int channelRevision) {
+    Region(int ox, int oz, DensityGraph graph, TerrainEngine savedClimate, int channelRevision,
+        V8OceanConnectivity marine, boolean outletSeeded) {
       originX = ox;
       originZ = oz;
       raw = new double[SIDE * SIDE];
@@ -82,6 +87,12 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
             throw new IllegalArgumentException("nonfinite V8 routing height");
           raw[z * SIDE + x] = height;
         }
+      // Only new opt-in v4 authoring gates BOTH the local connected-sea mask
+      // and the real WatershedRegion priority-flood seed. Legacy revision-1/2/3
+      // graphs retain the exact historical wet-edge behavior.
+      boolean[] admittedSeeds = outletSeeded ? new boolean[raw.length] : null;
+      if (outletSeeded && marine == null)
+        throw new IllegalArgumentException("outlet-aware routing needs basin-guard marine source");
       // Reproduce the watershed's orthogonal sea-connectivity seed on its
       // exact V8 height lattice. Elevation alone cannot flood an inland basin.
       ArrayDeque<Integer> queue = new ArrayDeque<>();
@@ -89,7 +100,9 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
         for (int x = 0; x < SIDE; x++) {
           int i = z * SIDE + x;
           if ((x == 0 || x == SIDE - 1 || z == 0 || z == SIDE - 1)
-              && raw[i] <= V8WaterDomainAdmission.SEA_PLANE) {
+              && raw[i] <= V8WaterDomainAdmission.SEA_PLANE
+              && (!outletSeeded || marine.isMarineSeedAt(ox + x * STEP, oz + z * STEP))) {
+            if (admittedSeeds != null) admittedSeeds[i] = true;
             connectedSea[i] = true;
             queue.addLast(i);
           }
@@ -117,7 +130,11 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
           }, savedClimate::rainfall,
           true, channelRevision >= 1,
           channelRevision >= 2 ? savedClimate.noise : null,
-          channelRevision >= 3, channelRevision >= 4, channelRevision >= 5);
+          channelRevision >= 3, channelRevision >= 4, channelRevision >= 5,
+          admittedSeeds == null ? null : (x, z) -> {
+            int index = latticeIndex(x, z, ox, oz);
+            return index >= 0 && admittedSeeds[index];
+          });
     }
 
     private static int latticeIndex(double x, double z, int ox, int oz) {
@@ -146,6 +163,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   private final String fingerprint;
   private final V8OceanConnectivity stitchedMarine;
   private final int marinePolicyRevision;
+  private final boolean outletSeeded;
   private final LinkedHashMap<Long, Region> regions = new LinkedHashMap<>(4, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
       return size() > MAX_RESIDENT_REGIONS;
@@ -153,11 +171,12 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   };
 
   private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint,
-      int marinePolicyRevision) {
+      int marinePolicyRevision, boolean outletSeeded) {
     this.saved = saved;
     this.fingerprint = fingerprint;
     this.graph = saved.density().compile(saved.seed());
     this.marinePolicyRevision = marinePolicyRevision;
+    this.outletSeeded = outletSeeded;
     this.stitchedMarine = marinePolicyRevision == 0 ? null
         : new V8OceanConnectivity(graph, marinePolicyRevision);
     this.climate = new TerrainEngine(saved.seed(), V8SavedClimateSource.REFERENCE_TERRAIN_REVISION,
@@ -197,6 +216,28 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     return revision4.withHydrologyBinding(V8HydrologyBinding.pinned(basinGuardFingerprint(revision4)));
   }
 
+  /**
+   * Explicit V8-r5 routing v4: use admitted marine components as the ONLY
+   * priority-flood sea seeds. Older saved r5 policies retain edge-seeded routing.
+   * The current bounded marine classifier is not global ocean authority.
+   */
+  public static V8GeneratorSnapshot authorOutletSeeded(V8GeneratorSnapshot revision4) {
+    Objects.requireNonNull(revision4, "saved revision 4");
+    if (revision4.version() != V8GeneratorSnapshot.CLIMATE_VERSION)
+      throw new IllegalArgumentException("outlet-seeded routing requires explicit revision 4");
+    validateHeightChannel(revision4.density());
+    validateContinentalChannel(revision4.density());
+    return revision4.withHydrologyBinding(
+        V8HydrologyBinding.pinned(outletSeedFingerprint(revision4)));
+  }
+
+  /** New domain-separated identity, never reinterpreted as route v1/v2/v3. */
+  public static String outletSeedFingerprint(V8GeneratorSnapshot profile) {
+    validateContinentalChannel(profile.density());
+    return fingerprintFor(profile, OUTLET_SEEDED_FINGERPRINT_DOMAIN,
+        OUTLET_SEEDED_ROUTE_REVISION);
+  }
+
   /** Open only an r5 profile whose routing fingerprint matches its actual inputs. */
   public static V8RoutedWaterSource open(V8GeneratorSnapshot revision5, long savedWorldSeed) {
     Objects.requireNonNull(revision5, "saved revision 5");
@@ -207,15 +248,19 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     validateHeightChannel(revision5.density());
     String pinned = revision5.hydrologyBinding().sourceFingerprint();
     int marineRevision = 0;
+    boolean useOutletSeeds = false;
     if (!fingerprint(revision5).equals(pinned)) {
       validateContinentalChannel(revision5.density());
       if (stitchedFingerprint(revision5).equals(pinned))
         marineRevision = STITCHED_ROUTE_REVISION;
       else if (basinGuardFingerprint(revision5).equals(pinned))
         marineRevision = BASIN_GUARD_ROUTE_REVISION;
-      else throw new IllegalArgumentException("V8 routed source differs from saved provenance");
+      else if (outletSeedFingerprint(revision5).equals(pinned)) {
+        marineRevision = BASIN_GUARD_ROUTE_REVISION;
+        useOutletSeeds = true;
+      } else throw new IllegalArgumentException("V8 routed source differs from saved provenance");
     }
-    return new V8RoutedWaterSource(revision5, pinned, marineRevision);
+    return new V8RoutedWaterSource(revision5, pinned, marineRevision, useOutletSeeds);
   }
 
   /** Authority for the existing admitted V8 ecotone path; no arbitrary callback digest. */
@@ -226,6 +271,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   }
 
   public String sourceFingerprint() { return fingerprint; }
+  public boolean outletSeededPolicy() { return outletSeeded; }
   public boolean stitchedPolicy() { return stitchedMarine != null; }
   public boolean basinGuardedPolicy() {
     return marinePolicyRevision == BASIN_GUARD_ROUTE_REVISION;
@@ -246,7 +292,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     long key = ((long) ox << 32) ^ (oz & 0xffffffffL);
     Region region = regions.get(key);
     if (region == null) {
-      region = new Region(ox, oz, graph, climate, saved.climateBinding().channelRevision());
+      region = new Region(ox, oz, graph, climate, saved.climateBinding().channelRevision(),
+          stitchedMarine, outletSeeded);
       regions.put(key, region);
     }
     double original = graph.channel("height", worldX,

@@ -128,6 +128,33 @@ public final class V8OceanConnectivityChecks {
         new V8OceanConnectivity.Point(70, -0.6), 99), "unknown routing policy");
   }
 
+  private static void exactBoundarySeedCache() {
+    var noMarine = new V8OceanConnectivity((x, z) -> {
+      boolean wet = x >= 7900 && x <= 9500 && z >= 1700 && z <= 2700;
+      return new V8OceanConnectivity.Point(wet ? 20 : 120, wet ? -0.4 : 0.4);
+    }, V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION);
+    for (int x = 8128; x <= 8256; x += 32) {
+      check(!noMarine.isMarineSeedAt(x, 2048), "closed deep basin not priority-flood sea seed");
+      check(!noMarine.isMarineSeedAt(x, 2048), "seed cache preserves denial");
+    }
+    check(noMarine.cachedSeedResultCount() <= 256 && noMarine.cachedRegionCount() <= 4,
+        "new seed and marine caches bounded");
+    var connected = new V8OceanConnectivity((x, z) -> {
+      boolean wet = x >= 7900 && x <= 9500 && z >= 1700;
+      return new V8OceanConnectivity.Point(wet ? 20 : 120, wet ? -0.4 : 0.4);
+    }, V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION);
+    for (int x = 8128; x <= 8256; x += 32) {
+      check(connected.isMarineSeedAt(x, 2048), "open marine corridor can seed boundary");
+      check(connected.isMarineSeedAt(x, 2048), "positive seed cache replays");
+    }
+    check(connected.cachedSeedResultCount() <= 256, "positive cache bounded");
+    reject(() -> connected.isMarineSeedAt(8193, 2048), "unaligned boundary seed");
+    var old = new V8OceanConnectivity((x, z) ->
+        new V8OceanConnectivity.Point(20, -0.4));
+    try { old.isMarineSeedAt(8192, 2048); throw new AssertionError("old policy seeded"); }
+    catch (IllegalStateException expected) { check(true, "v2 cannot use new boundary seeding"); }
+  }
+
   private static void reversedAndParallelOrders() throws Exception {
     var open = basin(7900, 9500, 1700, 2700, Integer.MIN_VALUE, true);
     var closed = basin(7900, 9500, 1700, 2700, 8320, true);
@@ -238,6 +265,7 @@ public final class V8OceanConnectivityChecks {
     connectedAndBlockedMarineAtSeam();
     deepInlandEnclosureCannotBecomeMarineV3();
     boundedOpenPathAndDryRidgesV3();
+    exactBoundarySeedCache();
     reversedAndParallelOrders();
     pinnedPolicyAndLegacyReplay();
     System.out.println("V8_STITCHED_MARINE_PASS checks=" + checks

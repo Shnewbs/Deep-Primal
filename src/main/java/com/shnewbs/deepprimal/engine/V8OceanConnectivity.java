@@ -120,6 +120,16 @@ public final class V8OceanConnectivity {
     }
   }
 
+  // New boundary-seed lookups are component-scoped and memoized. The legacy
+  // four-corner v2/v3 query semantics and saved fingerprints do not change.
+  private static final int MAX_SEED_RESULTS = 256;
+  private final LinkedHashMap<ComponentRef, Boolean> seedResults =
+      new LinkedHashMap<>(16, .75f, true) {
+        @Override protected boolean removeEldestEntry(Map.Entry<ComponentRef, Boolean> eldest) {
+          return size() > MAX_SEED_RESULTS;
+        }
+      };
+
   private final Sampler sampler;
   private final int policyRevision;
   private final LinkedHashMap<Long, Region> cache = new LinkedHashMap<>(8, .75f, true) {
@@ -310,5 +320,37 @@ public final class V8OceanConnectivity {
     return true;
   }
 
+  /**
+   * A SINGLE, exact 32-block watershed-lattice node may seed the new opt-in
+   * outlet-aware priority flood only when the existing bounded basin guard
+   * admits its wet component. Do not use the four-corner surface-cell test for
+   * an individual boundary vertex: doing so erases legitimate coastal vertices.
+   *
+   * <p>Component decisions are memoized in a small, deterministic LRU solely
+   * for this new call path. Prior v2/v3 {@code isMarineAt} replay is unchanged.
+   * A large unresolved inland basin may still pass the v3 marine heuristic;
+   * no claim of global ocean authority or native activation is made.
+   */
+  public synchronized boolean isMarineSeedAt(int worldX, int worldZ) {
+    if (policyRevision != BASIN_GUARD_POLICY_REVISION)
+      throw new IllegalStateException("boundary ocean seeds require v3 basin-guard policy");
+    if (Math.floorMod(worldX, STEP) != 0 || Math.floorMod(worldZ, STEP) != 0)
+      throw new IllegalArgumentException("ocean seed must use exact watershed lattice coordinates");
+    if ((long) worldX < -DensityGraph.WORLD_LIMIT
+        || (long) worldZ < -DensityGraph.WORLD_LIMIT
+        || (long) worldX > DensityGraph.WORLD_LIMIT
+        || (long) worldZ > DensityGraph.WORLD_LIMIT)
+      return false;
+    Map<Long, Region> visit = new HashMap<>();
+    ComponentRef component = at(worldX, worldZ, visit);
+    if (component == null) return false;
+    Boolean prior = seedResults.get(component);
+    if (prior != null) return prior;
+    boolean admitted = extendsBeyondBoundWithMarineCore(component, visit, new HashSet<>());
+    seedResults.put(component, admitted);
+    return admitted;
+  }
+
+  public synchronized int cachedSeedResultCount() { return seedResults.size(); }
   public synchronized int cachedRegionCount() { return cache.size(); }
 }

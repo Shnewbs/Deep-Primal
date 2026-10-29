@@ -41,6 +41,11 @@ public final class WatershedRegion {
   private final int streams;
   private volatile boolean[] supportedTunnels;
 
+  /** Explicit cross-region sea admission for new V8 priority-flood policies only. */
+  @FunctionalInterface public interface OceanBoundary {
+    boolean isOceanBoundary(double worldX, double worldZ);
+  }
+
   public record Surface(
       double ground, double water, double sediment, double flowX, double flowZ, double speed) {}
 
@@ -242,6 +247,20 @@ public final class WatershedRegion {
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
       boolean budgetedDistributaries) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, null);
+  }
+
+  /**
+   * Optional per-lattice-boundary ocean authority. Null freezes the V1-V7
+   * legacy rule that any wet outer node seeds the regional priority flood.
+   * A non-null source may deny an inland low basin's false edge-ocean seed.
+   * It must be deterministic, saved-world bound, and must not read chunks.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea) {
     this.floodplainLakes = floodplainLakes;
     this.budgetedDistributaries = budgetedDistributaries;
     if (floodplainLakes && !riverDeltas)
@@ -270,7 +289,11 @@ public final class WatershedRegion {
       for (int x = 0; x < SIDE; x++) {
         int a = z * SIDE + x;
         raw[a] = height.applyAsDouble(ox + x * STEP, oz + z * STEP);
-        flood[a] = Math.max(TerrainEngine.SEA, raw[a]);
+        // Historical V1-V7 freezes the sea floor into every priority value.
+        // A new explicitly source-bound ocean authority must NOT raise an
+        // inland depression to sea level before its real spill can be routed.
+        // Actual cross-region spill/discharge remains a separate open gate.
+        flood[a] = admittedSea == null ? Math.max(TerrainEngine.SEA, raw[a]) : raw[a];
         area[a] = STEP * STEP * rain.applyAsDouble(ox + x * STEP, oz + z * STEP);
       }
     // Elevation alone does not make an inland depression part of the ocean.
@@ -280,6 +303,8 @@ public final class WatershedRegion {
         int a = z * SIDE + x;
         if ((x == 0 || z == 0 || x == SIDE - 1 || z == SIDE - 1)
             && raw[a] <= TerrainEngine.SEA
+            && (admittedSea == null
+                || admittedSea.isOceanBoundary(ox + x * STEP, oz + z * STEP))
             && !ocean[a]) {
           ocean[a] = true;
           sea.add(a);
@@ -386,7 +411,14 @@ public final class WatershedRegion {
     lakes = bodies.toArray(Lake[]::new);
     for (int n = 0; n < count; n++) {
       int a = sorted[n], b = parent[a];
-      double downstream = b < 0 ? Math.max(TerrainEngine.SEA, raw[a] - .15) : stage[b];
+      // Legacy outer roots always drain to the sea datum. Under an explicit
+      // ocean-boundary policy a denied wet edge is an inland root instead: it
+      // must not inherit sea height merely because it touches the region edge.
+      // Cross-region spill/receiver exchange is still a separate open gate.
+      double downstream = b < 0
+          ? (admittedSea == null ? Math.max(TerrainEngine.SEA, raw[a] - .15)
+              : raw[a] - .15)
+          : stage[b];
       stage[a] = Math.max(downstream, Math.floor(flood[a] * 16) / 16);
       if (lakeAt[a] > 0) {
         var lake = lakes[lakeAt[a]];

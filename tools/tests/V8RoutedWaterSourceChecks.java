@@ -120,8 +120,59 @@ public final class V8RoutedWaterSourceChecks {
         V8HydrologyBinding.pinned("0".repeat(63)+"1"))),
         "revision5 cannot reauthor silently");
   }
+  private static void optInOutletSeededPriorityFlood() {
+    var base=v4(7331,2,23);
+    // This test graph is uniformly dry-land continentalness and low elevation.
+    // The deliberately isolated WatershedRegion double models a low unconnected
+    // lake with the new seed-gated constructor. Native priority flood not tested.
+    var nodes=new ArrayList<DensityGraph.Node>();
+    nodes.add(DensityGraph.Node.constant("base_height",80));
+    nodes.add(DensityGraph.Node.constant("continentalness",0.35));
+    nodes.add(DensityGraph.Node.constant("zero",0));
+    nodes.add(DensityGraph.Node.operation("inert_continental",DensityGraph.Op.MULTIPLY,
+        "continentalness","zero"));
+    nodes.add(DensityGraph.Node.operation("height",DensityGraph.Op.ADD,
+        "base_height","inert_continental"));
+    nodes.add(DensityGraph.Node.operation("y",DensityGraph.Op.Y));
+    nodes.add(DensityGraph.Node.constant("negative",-1));
+    nodes.add(DensityGraph.Node.operation("neg_y",DensityGraph.Op.MULTIPLY,"y","negative"));
+    nodes.add(DensityGraph.Node.operation("density",DensityGraph.Op.ADD,"height","neg_y"));
+    var definition=new DensityGraph.Definition(1,"density",nodes);
+    var r4=new V8GeneratorSnapshot(4,base.seed(),base.minY(),base.height(),definition,
+        base.ground(),base.blendPolicy(),base.surfacePolicy(),base.climateBinding());
+    var old=V8RoutedWaterSource.open(V8RoutedWaterSource.authorBasinGuarded(r4),r4.seed());
+    var snap=V8RoutedWaterSource.authorOutletSeeded(r4);
+    check(snap.version()==5,"outlet seed has explicit saved r5 envelope");
+    check(!snap.hydrologyBinding().equals(V8RoutedWaterSource.authorBasinGuarded(r4).hydrologyBinding()),
+        "new provenance distinct from v3");
+    var reopened=V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(snap));
+    check(reopened.equals(snap),"outlet seed saved roundtrip");
+    var guarded=V8RoutedWaterSource.open(reopened,r4.seed());
+    check(guarded.outletSeededPolicy() && !old.outletSeededPolicy(),
+        "new source mode retained and old version untouched");
+    check(guarded.sourceFingerprint().equals(V8RoutedWaterSource.outletSeedFingerprint(r4)),
+        "version-4 saved source contract");
+    var previously=old.plan(8192,2048);
+    var now=guarded.plan(8192,2048);
+    check(previously.kind()==V8WaterDomainAdmission.WaterKind.LAKE
+        && now.kind()==V8WaterDomainAdmission.WaterKind.LAKE,
+        "enclosed sea-like depression remains lake in both versions");
+    check(previously.plannedStage()==96 && now.plannedStage()==82,
+        "new ocean boundary gate affects priority-flood source, not just water label");
+    check(!now.equals(previously),"routing stage changed via new source constructor");
+    for(int x: new int[]{-8192,-8191,-1,0,8191,8192,8193}) {
+      check(guarded.plan(x,2048).equals(guarded.plan(x,2048)),
+          "seed-gated absolute-coordinate repeat across signed boundaries");
+      check(guarded.cachedMarineRegionCount()<=4,"marine cache cap");
+    }
+    reject(()->V8RoutedWaterSource.open(reopened,r4.seed()+1),"new v4 wrong world seed");
+    reject(()->V8RoutedWaterSource.authorOutletSeeded(snap),"no in-place r5 rewrite");
+    check(old.sourceFingerprint().equals(V8RoutedWaterSource.basinGuardFingerprint(r4)),
+        "frozen v3 fingerprint remains identical");
+  }
   public static void main(String[] args) {
     authorAndReopen();coordinatesAndLeases();invalidHeightGraphs();
+    optInOutletSeededPriorityFlood();
     System.out.println("V8_ROUTED_SOURCE_PASS checks="+checks+" samples="+sampled+
         " rejected="+rejected+" actualWatershed=API_DOUBLE");
   }
