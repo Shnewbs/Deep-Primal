@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261029T0100-dev67",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-10-29T01:00:30Z",
-  "expires": "2026-10-29T01:45:00Z",
+  "expires": "2026-10-29T01:17:49Z",
   "source_head": "42d03be8bf4526c8b2ffd7465b5de95f234035c4",
   "scope": [
     "src/main/java/com/shnewbs/deepprimal/engine/V8HydrologyBinding.java",
@@ -16,9 +16,15 @@
     "tools/test_v8_hydrology_binding.py",
     "gradle.properties",
     "docs/TERRAIN-BLENDING-WORK-STATE.json",
-    "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/"
+    "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/",
+    "tools/test_v8_water_domain_admission.py"
   ],
   "audit": "docs/engine-hourly-audits/2026-10-28T2331-d99837b/REVIEW.md",
   "note": "Versioned opt-in saved hydrology identity, no native activation. Renderer paths disjoint; water lease stale/expired and production water files excluded. Root work-state stale Dev53, no root-state ownership claimed; complete local pinned checkout unavailable for root validator. Avoid timed benchmarking.",
-  "last_external_grade": 5
+  "last_external_grade": 5,
+  "ended_at": "2026-10-29T01:17:49Z",
+  "lease_released": true,
+  "source_commit": "0ecd8484262702d2bad004d6223f0ce53a302a4c",
+  "checks": "17/17 Java21 API-double suites: 21,007,690 assertions; separate 8,207 and 184,332 checks, mutant controls rejected.",
+  "next": "Authoritative V8 water routing/ocean-lake mask, Mojang codec/save/reopen and finite water ownership gates"
 }
