@@ -4,7 +4,7 @@
   "status": "active",
   "lease_released": false,
   "started_at": "2026-10-29T20:05:34.872Z",
-  "updated_at": "2026-10-29T20:05:34.872Z",
+  "updated_at": "2026-10-29T20:10:07.808Z",
   "active_until": "2026-10-29T20:33:34.872Z",
   "base_ref": "40553d0b69a2928fb2961cb433c91c96b1215fa7",
   "candidate_version": "0.0.1-alpha.29-dev.86-v8-vegetation.1",
@@ -17,7 +17,11 @@
     "tools/test_v8_vegetation_columns.py",
     "gradle.properties",
     "docs/validation/engine-continuation/v8-vegetation-native-2026-10-29/**",
-    "docs/TERRAIN-BLENDING-WORK-STATE.json"
+    "docs/TERRAIN-BLENDING-WORK-STATE.json",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8EcotoneColumnPlan.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8SavedClimateSource.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8WaterDomainAdmission.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8RoutedWaterSource.java"
   ],
   "audit_consumed": "docs/engine-hourly-audits/2026-10-29T1932-be9cde82/REVIEW.md",
   "audit_pinned_source": "be9cde8274a430c39eaa481d010b9c09d3466a3b",
