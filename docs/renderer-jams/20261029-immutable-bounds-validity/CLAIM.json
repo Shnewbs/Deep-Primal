@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "owner": "renderer-hourly-feature-only",
-  "status": "active",
+  "status": "released",
   "jam_id": "renderer-20261029T2255-immutable-aabb-validity",
   "started_at": "2026-10-29T22:55:00Z",
   "expires_at": "2026-10-29T23:25:00Z",
@@ -13,5 +13,12 @@
   "owner_build_policy": "Java25/Gradle/Minecraft/GPU/JAR owner-operated; Java21 isolated source tests and read-only author audit only",
   "intended_work": "Reduce redundant immutable AABB validity and uniform representative comparisons at resident publication, preserving coarse/fine frustum and water semantics; exact parity and CPU tests.",
   "no_other_workstreams": true,
-  "expected_parent": "d93050d9adae10603c934d23fdf233ad8d7d63e1"
+  "expected_parent": "d93050d9adae10603c934d23fdf233ad8d7d63e1",
+  "released_at": "2026-10-29T23:06:22Z",
+  "lease_released": true,
+  "source_commit": "8f28f833caa259a0e59adac494a3aee8d750bc63",
+  "source_blob": "32ae24afbfa3c9c5d5f668ac860443f05fc336b2",
+  "review": "docs/renderer-jams/20261029-immutable-bounds-validity/REVIEW.md",
+  "grade": 5.87,
+  "artifact_library_file_id": "libfile_cf9aad9cc6688191afd480f9fdd4cfde"
 }
