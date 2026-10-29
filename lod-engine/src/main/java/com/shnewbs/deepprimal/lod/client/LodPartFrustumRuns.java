@@ -5,32 +5,41 @@ import java.util.List;
 import net.minecraft.world.phys.AABB;
 
 /**
- * Render-thread metadata for multi-part LOD pages. The coarse union can prove
- * rejection, but a positive union does not prove that every mixed part is visible.
- * Within that fine path, adjacent identical finite AABBs have the same frustum
- * answer. Detect only whether each level has such runs at page publication;
- * never retain per-part references or allocate arrays during camera extraction.
+ * Compact, page-publication-only adjacency metadata. A positive conservative
+ * page union cannot prove visibility of mixed parts, but neighboring parts with
+ * equal finite AABBs share the same fine-frustum verdict. Store one bit for each
+ * proven repeated neighbor; never allocate or compare six coordinates per frame.
+ * Each mesh's bounds must remain unchanged during its resident-page lifetime.
  */
 final class LodPartFrustumRuns {
+  private static final long[] EMPTY = new long[0];
   private LodPartFrustumRuns() {}
 
-  static boolean[] build(List<List<TerrainGpuMesh>> levels) {
-    boolean[] repeated = new boolean[levels.size()];
+  static long[][] build(List<List<TerrainGpuMesh>> levels) {
+    long[][] masks = new long[levels.size()][];
     for (int detail = 0; detail < levels.size(); detail++) {
+      List<TerrainGpuMesh> parts = levels.get(detail);
+      long[] bits = null;
       AABB previous = null;
-      for (TerrainGpuMesh part : levels.get(detail)) {
-        AABB current = part.bounds;
+      for (int i = 0; i < parts.size(); i++) {
+        AABB current = parts.get(i).bounds;
         if (sameFiniteBounds(previous, current)) {
-          repeated[detail] = true;
-          break;
+          if (bits == null) bits = new long[((parts.size() - 1) >>> 6) + 1];
+          bits[i >>> 6] |= 1L << (i & 63);
         }
         previous = current;
       }
+      masks[detail] = bits == null ? EMPTY : bits;
     }
-    return repeated;
+    return masks;
   }
 
-  /** Reuse only a pure, valid AABB predicate. Malformed bounds use original fine culling. */
+  static boolean repeatsPrevious(long[] mask, int index) {
+    return index > 0 && (index >>> 6) < mask.length
+        && (mask[index >>> 6] & (1L << (index & 63))) != 0;
+  }
+
+  /** Only immutable, finite, correctly ordered bounds can share a predicate. */
   static boolean sameFiniteBounds(AABB a, AABB b) {
     return valid(a) && valid(b)
         && a.minX == b.minX && a.minY == b.minY && a.minZ == b.minZ

@@ -27,6 +27,7 @@ import org.joml.Vector4f;
 /** Explored-chunk LOD: immutable copies, worker reduction/storage, render-thread GPU ownership. */
 public final class VoxelLodRenderer {
   private static final int MAX_DISK_KEYS = 8192;
+  private static final long[] NO_ADJACENT_RUNS = new long[0];
   // Opt-in developer comparison; default zero preserves the existing GPU parts and draw count.
   private static final int EXPERIMENTAL_PART_UPLOAD_KIB =
       Math.max(0, Math.min(256,
@@ -63,7 +64,7 @@ public final class VoxelLodRenderer {
 
   private record Entry(
       long revision, List<List<TerrainGpuMesh>> levels, AABB[] frustumBounds,
-      boolean[] adjacentBoundRuns, long bytes, int[] selected, int top, boolean persisted)
+      long[][] adjacentBoundRuns, long bytes, int[] selected, int top, boolean persisted)
       implements AutoCloseable {
     public void close() {
       closeGpuMeshes(levels);
@@ -613,16 +614,16 @@ public final class VoxelLodRenderer {
       }
       boolean seen = false;
       // A positive union does not imply positive visibility for each mixed part.
-      // Adjacent identical finite AABBs may share a pure fine-frustum verdict.
+      // Adjacent identical finite AABBs share a prevalidated fine-frustum verdict.
       // Broadphase=false preserves the original per-part A/B baseline.
-      boolean groupAdjacent = LodPageFrustumBounds.ENABLED
-          && entry.adjacentBoundRuns.length > d && entry.adjacentBoundRuns[d];
-      AABB previousPartBounds = null;
+      long[] runMask = LodPageFrustumBounds.ENABLED
+          && entry.adjacentBoundRuns.length > d
+              ? entry.adjacentBoundRuns[d] : NO_ADJACENT_RUNS;
       boolean previousPartVisible = false;
+      int partIndex = 0;
       for (TerrainGpuMesh part : selectedParts) {
         AABB bounds = part.bounds;
-        boolean reused = groupAdjacent
-            && LodPartFrustumRuns.sameFiniteBounds(previousPartBounds, bounds);
+        boolean reused = LodPartFrustumRuns.repeatsPrevious(runMask, partIndex++);
         boolean partVisible = reused ? previousPartVisible : event.getFrustum().isVisible(bounds);
         if (TELEMETRY) {
           if (reused) {
@@ -637,7 +638,6 @@ public final class VoxelLodRenderer {
           visible.add(part);
           seen = true;
         }
-        previousPartBounds = bounds;
         previousPartVisible = partVisible;
       }
       if (seen) {
@@ -850,7 +850,7 @@ public final class VoxelLodRenderer {
               p.levels.stream().map(List::copyOf).toList(),
               LodPageFrustumBounds.build(p.levels),
               LodPageFrustumBounds.ENABLED
-                  ? LodPartFrustumRuns.build(p.levels) : new boolean[0],
+                  ? LodPartFrustumRuns.build(p.levels) : new long[0][],
               p.bytes(),
               new int[] {0},
               p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),

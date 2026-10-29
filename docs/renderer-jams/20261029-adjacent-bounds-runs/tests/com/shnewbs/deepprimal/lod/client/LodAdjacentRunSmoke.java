@@ -17,32 +17,30 @@ public final class LodAdjacentRunSmoke {
   private static AABB box(int n) {
     return new AABB(n, 0, -n, n + 1, 5, 1 - n);
   }
-  private static List<Integer> visible(List<TerrainGpuMesh> page, boolean runs, int center,
+  private static List<Integer> visible(List<TerrainGpuMesh> page, long[] runs, int center,
       int[] calls) {
     List<Integer> selected = new ArrayList<>();
-    AABB prior = null;
     boolean priorVisible = false;
     for (int i = 0; i < page.size(); i++) {
       AABB current = page.get(i).bounds;
-      boolean reused = runs && LodPartFrustumRuns.sameFiniteBounds(prior, current);
+      boolean reused = LodPartFrustumRuns.repeatsPrevious(runs, i);
       boolean hit = reused ? priorVisible : current != null && current.maxX >= center - 4
           && current.minX <= center + 4;
       if (!reused) calls[0]++;
       if (hit) selected.add(i);
-      prior = current;
       priorVisible = hit;
     }
     return selected;
   }
   private static void parity(List<TerrainGpuMesh> page, int center) {
-    boolean[] flags = LodPartFrustumRuns.build(List.of(page));
+    long[][] masks = LodPartFrustumRuns.build(List.of(page));
     boolean hasRun = false;
     for (int i = 1; i < page.size(); i++)
       hasRun |= LodPartFrustumRuns.sameFiniteBounds(page.get(i - 1).bounds, page.get(i).bounds);
-    require(flags.length == 1 && flags[0] == hasRun);
+    require(masks.length == 1 && (masks[0].length > 0) == hasRun);
     int[] oldCalls = {0}, newCalls = {0};
-    List<Integer> baseline = visible(page, false, center, oldCalls);
-    List<Integer> candidate = visible(page, flags[0], center, newCalls);
+    List<Integer> baseline = visible(page, new long[0], center, oldCalls);
+    List<Integer> candidate = visible(page, masks[0], center, newCalls);
     require(candidate.equals(baseline));
     require(oldCalls[0] == page.size());
     require(newCalls[0] <= oldCalls[0]);
@@ -59,7 +57,8 @@ public final class LodAdjacentRunSmoke {
         new TerrainGpuMesh(box(0)), new TerrainGpuMesh(box(0)),
         new TerrainGpuMesh(b), new TerrainGpuMesh(box(10)), new TerrainGpuMesh(a));
     int[] calls = {0};
-    require(visible(mixed, true, 0, calls).equals(visible(mixed, false, 0, new int[1])));
+    require(visible(mixed, LodPartFrustumRuns.build(List.of(mixed))[0], 0, calls)
+        .equals(visible(mixed, new long[0], 0, new int[1])));
     require(calls[0] == 3); // Six mixed-page parts, three distinct adjacent runs.
     parity(mixed, 0);
     parity(List.of(), 0);
