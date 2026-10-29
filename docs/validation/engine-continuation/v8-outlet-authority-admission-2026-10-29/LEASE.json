@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-v8-authority-20261029T2224",
+  "status": "active",
+  "lease_released": false,
+  "started_at": "2026-10-29T22:24:00Z",
+  "updated_at": "2026-10-29T22:24:00Z",
+  "active_until": "2026-10-29T22:54:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletAuthorityAdmission.java",
+    "tools/tests/V8OutletAuthorityAdmissionChecks.java",
+    "tools/test_v8_outlet_authority.py",
+    "docs/validation/engine-continuation/v8-outlet-authority-admission-2026-10-29/**"
+  ],
+  "source_commit": null,
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-29T2131-5f7c3f68/REVIEW.md",
+  "pinned_source": "5f7c3f680e47bd29d03a90cd09c5c34e202f09e7",
+  "note": "Separate bounded non-renderer engine-core outlet authority admission; terrain dev88 active and owns gradle/materializer/scope; no modification of those paths. Full builds remain owner-operated."
+}
