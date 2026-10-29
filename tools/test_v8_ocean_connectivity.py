@@ -77,7 +77,7 @@ def run(fixture: Path, checkout: Path | None) -> dict:
             require(result.returncode == 0 and "V8_STITCHED_MARINE_PASS" in result.stdout,
                     "V8 marine check failed: " + result.stderr[-1500:])
         require(positive[0].stdout == positive[1].stdout, "separate JVM replays disagree")
-        count = re.search(r"checks=(\\d+)", positive[0].stdout)
+        count = re.search(r"checks=(\d+)", positive[0].stdout)
         require(count is not None, "missing component assertion receipt")
         receipt["component_assertions_per_jvm"] = int(count.group(1))
         receipt["java21_compile_sources"] = len(src) + len(doubles) + 1
