@@ -4,6 +4,7 @@ import contextlib
 import importlib.util
 import io
 import itertools
+import json
 from pathlib import Path
 import subprocess
 import tempfile
@@ -89,5 +90,58 @@ class RunnerFailureChecks(unittest.TestCase):
                     self.assertNotIn("RUNNER_PASS", stdout.getvalue())
 
 
+class LedgerRunnerFailureChecks(unittest.TestCase):
+    def test_only_compiled_fixture_assertions_count(self):
+        runner = load_runner("test_v8_outlet_ledger")
+        assertion = ('Exception in thread "main" java.lang.AssertionError: regression\n'
+                     f'\tat {runner.CLASS}.main(V8ConservedOutletLedgerChecks.java:1)\n')
+        cases = (
+            ("caught", process(), process(1, err=assertion), True),
+            ("compile", process(1), None, False),
+            ("not_run", process(), None, False),
+            ("survived", process(), process(0, "V8_OUTLET_LEDGER_PASS"), False),
+            ("launcher", process(), process(1, err="Error: Could not find main class"), False),
+            ("vm", process(), process(-1, err=assertion), False),
+            ("wrong_exception", process(), process(1, err=assertion.replace(
+                "java.lang.AssertionError", "java.lang.NoClassDefFoundError")), False),
+            ("stdout", process(), process(1, out=assertion), False),
+            ("wrong_fixture", process(), process(1, err=assertion.replace(
+                runner.CLASS, "OtherChecks")), False),
+        )
+        for label, compiled, test, expected in cases:
+            with self.subTest(case=label):
+                result = {"compile": {"returncode": compiled.returncode},
+                          "test": None if test is None else {
+                              "returncode": test.returncode, "stdout": test.stdout,
+                              "stderr": test.stderr}}
+                self.assertIs(runner.rejected_by_fixture(result), expected)
+
+    def test_mutant_infrastructure_failure_never_prints_pass(self):
+        runner = load_runner("test_v8_outlet_ledger")
+        def result(code=0, out="", err=""):
+            return {"returncode": code, "stdout": out, "stderr": err}
+        for stage in ("compile", "launch"):
+            with self.subTest(stage=stage), tempfile.TemporaryDirectory() as tmp:
+                # version queries, then a successful positive, then each mutant.
+                responses = [result(), result(), result(),
+                             result(out="V8_OUTLET_LEDGER_PASS")]
+                for _ in range(3):
+                    if stage == "launch":
+                        responses.append(result())
+                    responses.append(result(1, err="synthetic tool failure"))
+                stdout = io.StringIO()
+                with patch("sys.argv", ["ledger", "--output", tmp]), patch.object(
+                        runner, "run", side_effect=responses), contextlib.redirect_stdout(stdout):
+                    with self.assertRaisesRegex(SystemExit, "V8_OUTLET_LEDGER_FAIL"):
+                        runner.main()
+                self.assertNotIn("SUITE_PASS", stdout.getvalue())
+                receipt = json.loads(
+                    (Path(tmp) / "ledger-checks.json").read_text())
+                self.assertTrue(receipt["passed"])
+                self.assertEqual(list(receipt["broken_controls_rejected"].values()),
+                                 [False] * 3)
+
+
 if __name__ == "__main__":
     unittest.main()
+

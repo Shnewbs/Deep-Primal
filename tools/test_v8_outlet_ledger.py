@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import pathlib
+import re
 import subprocess
 import tempfile
 
@@ -16,6 +17,16 @@ SOURCE = ROOT / 'engine-core/src/main/java/com/shnewbs/deepprimal/core/V8Conserv
 TOPOLOGY = ROOT / 'engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedOutletTopology.java'
 TEST = ROOT / 'tools/tests/V8ConservedOutletLedgerChecks.java'
 CLASS = 'com.shnewbs.deepprimal.core.V8ConservedOutletLedgerChecks'
+
+def rejected_by_fixture(result):
+    """Only a compiled mutant reaching a fixture assertion is a caught bug."""
+    test = result['test']
+    return (result['compile']['returncode'] == 0 and test is not None
+            and test['returncode'] == 1
+            and re.search(
+                r'^(?:Exception in thread "[^\"]+" |Caused by: )java\.lang\.AssertionError(?::|$)',
+                test['stderr'], re.MULTILINE) is not None
+            and '\tat ' + CLASS + '.' in test['stderr'])
 
 def run(argv, **kwargs):
     result = subprocess.run(argv, text=True, capture_output=True, check=False, **kwargs)
@@ -27,11 +38,11 @@ def one(temp, source, name):
     directory.mkdir()
     mutated = directory / 'V8ConservedOutletLedger.java'
     mutated.write_text(source, encoding='utf-8')
-    compiled = run(['javac', '--release', '21', '-Xlint:all', '-Werror', '-d', str(directory),
+    compiled = run([os.environ.get('JAVAC', 'javac'), '--release', '21', '-Xlint:all', '-Werror', '-d', str(directory),
                     str(TOPOLOGY), str(mutated), str(TEST)])
     if compiled['returncode'] != 0:
         return {'compile': compiled, 'test': None}
-    return {'compile': compiled, 'test': run(['java', '-ea', '-Xverify:all', '-cp', str(directory), CLASS])}
+    return {'compile': compiled, 'test': run([os.environ.get('JAVA', 'java'), '-ea', '-Xverify:all', '-cp', str(directory), CLASS])}
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -48,7 +59,8 @@ def main():
         ('lose-receipt', 'receipts.put(t.source(), t);',
          '/* broken: do not persist receipt */'),
     ]
-    versions = {'javac': run(['javac', '-version']), 'java': run(['java', '-version'])}
+    versions = {'javac': run([os.environ.get('JAVAC', 'javac'), '-version']),
+                'java': run([os.environ.get('JAVA', 'java'), '-version'])}
     for name, old, _ in patterns:
         if contents.count(old) != 1:
             raise SystemExit(f'mutation {name} source anchor not unique')
@@ -61,8 +73,7 @@ def main():
         tests['positive']['test'] is not None and
         tests['positive']['test']['returncode'] == 0 and
         'V8_OUTLET_LEDGER_PASS' in tests['positive']['test']['stdout'])
-    rejected = {k: (v['compile']['returncode'] != 0 or
-                    v['test'] is None or v['test']['returncode'] != 0)
+    rejected = {k: rejected_by_fixture(v)
                 for k, v in tests.items() if k != 'positive'}
     manifest = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in [SOURCE, TOPOLOGY, TEST]}
@@ -77,3 +88,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
