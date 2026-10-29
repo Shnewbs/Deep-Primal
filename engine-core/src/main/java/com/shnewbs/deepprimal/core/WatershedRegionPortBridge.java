@@ -163,6 +163,10 @@ public final class WatershedRegionPortBridge {
     if (samples.size() > WatershedOutletTopology.MAX_PORTS
         || links.size() > WatershedOutletTopology.MAX_LINKS)
       throw new IllegalArgumentException("watershed topology draft exceeds admission budget");
+    // Converting directed receivers into undirected spill edges must not erase
+    // a cycle. Every observed absolute-coordinate parent must be acyclic even
+    // when its stage is exactly equal to its receiver's stage.
+    validateObservedReceiverForest(samples);
     for (Long key : certifiedOceanKeys) if (!samples.containsKey(key))
       throw new IllegalArgumentException("ocean certificate for unobserved port");
 
@@ -191,6 +195,32 @@ public final class WatershedRegionPortBridge {
             (int) (e.getKey().b() >> 32), (int) e.getKey().b(),
             e.getValue())));
     return new Draft(ports, edges, shared, unresolved);
+  }
+
+  /**
+   * Fail closed for directed cycles in the observed perimeter subgraph.
+   * Missing interior nodes terminate the observable chain: only the actual
+   * watershed producer can attest to the complete parent ordering. The
+   * traversal is iterative and O(observed nodes), avoiding recursion depth
+   * and relying on no hash-map iteration order for the returned draft.
+   */
+  private static void validateObservedReceiverForest(TreeMap<Long, Sample> samples) {
+    HashSet<Long> settled = new HashSet<>();
+    HashSet<Long> visiting = new HashSet<>();
+    ArrayList<Long> trail = new ArrayList<>();
+    for (Long start : samples.keySet()) {
+      if (settled.contains(start)) continue;
+      visiting.clear();
+      trail.clear();
+      Long at = start;
+      while (at != null && samples.containsKey(at) && !settled.contains(at)) {
+        if (!visiting.add(at))
+          throw new IllegalArgumentException("cyclic watershed perimeter receiver graph");
+        trail.add(at);
+        at = samples.get(at).first.downstreamKey();
+      }
+      settled.addAll(trail);
+    }
   }
 
   /** Only production-valid 8-neighbour parents within the source region. */

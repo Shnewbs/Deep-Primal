@@ -102,6 +102,35 @@ public final class WatershedRegionPortBridgeChecks {
         n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(32,32)));
     check(WatershedRegionPortBridge.assemble(List.of(interior),Set.of()).links().size()
         ==alone.links().size(),"interior receiver cannot invent boundary shortcut");
+    // Independent Dev78 Java25 audit: equal-stage reciprocal parents were
+    // accepted and collapsed to one undirected edge. Direction is authoritative:
+    // reject both a two-node cycle and a longer perimeter cycle.
+    var reciprocal=change(diagonal,32,0,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(0,32)));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(reciprocal),Set.of()),
+        "equal-stage reciprocal perimeter parents");
+    var triangle=change(diagonal,32,0,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(0,0)));
+    triangle=change(triangle,0,0,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(0,32)));
+    final var cycle3=triangle;
+    reject(()->WatershedRegionPortBridge.assemble(List.of(cycle3),Set.of()),
+        "three-node equal-stage perimeter receiver cycle");
+    var negativeBase=region(-8192,-8192,Integer.MIN_VALUE,Integer.MIN_VALUE,false);
+    var negativeForward=change(negativeBase,-8192,-8160,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(-8160,-8192)));
+    var negativeReciprocal=change(negativeForward,-8160,-8192,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(-8192,-8160)));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(negativeReciprocal),Set.of()),
+        "signed negative two-node receiver cycle");
+    check(signature(diagonalDraft).equals(signature(
+        WatershedRegionPortBridge.assemble(List.of(diagonal),Set.of()))),
+        "one-way equal-stage receiver remains admitted");
     var inverted=change(diagonal,0,32,n->new WatershedRegion.BoundaryNode(
         n.x(),n.z(),n.ground(),n.floodedElevation(),90,
         n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));

@@ -1283,6 +1283,10 @@ public final class WatershedRegion {
 
   /** Explicit opt-in export; no construction or gameplay path calls this by default. */
   public BoundarySnapshot boundarySnapshot() {
+    // The exporter is opt-in, but once invoked it must never hand an unverified
+    // parent tree to the cross-region adapter. This checks all interior cells,
+    // not only the perimeter observations available to the bridge.
+    verify();
     if (!Double.isFinite(ox) || !Double.isFinite(oz)
         || ox != Math.rint(ox) || oz != Math.rint(oz)
         || ox < Integer.MIN_VALUE || ox > Integer.MAX_VALUE

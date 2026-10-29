@@ -54,7 +54,9 @@ def main():
       ("inverted_receiver_stage_accepted",[("if (node.plannedStage() + 1e-7 < downstream.plannedStage())",
          "if (false)")]),
       ("ocean_parent_accepted",[("if (node.ocean() && node.downstreamKey() != null)",
-         "if (false)")])
+         "if (false)")]),
+      ("cyclic_perimeter_parent_accepted",[("    validateObservedReceiverForest(samples);",
+         "    // broken: receiver cycles are not checked")])
     ]
     with tempfile.TemporaryDirectory(prefix="dp-v8-port-bridge-") as tmp:
         tmp=Path(tmp)
