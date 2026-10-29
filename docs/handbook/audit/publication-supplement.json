@@ -1,0 +1,37 @@
+[
+  {
+    "path": "docs/opportunistic-work/20261029-water-domain-runner.md",
+    "sha": "e13e95e03f924c75d886d8d7c3ea2782c03238c5",
+    "source_commit": "f8127e7ff484380d1f1cd51019be2755bd121560",
+    "char_length": 4413,
+    "sha256": "7ae1d7805e32147b481fb005e8b5dcd5b87f716d8a82b8a3ef7cf724c2a786ba"
+  },
+  {
+    "path": "docs/renderer-jams/20261029-immutable-bounds-validity/BACKLOG.md",
+    "sha": "b435e2b8a12c9c88c4a7b753e7b5701cfba9c6db",
+    "source_commit": "f8127e7ff484380d1f1cd51019be2755bd121560",
+    "char_length": 1309,
+    "sha256": "fb389e995c83c4f07c336515b39d99a50fb19737ddcef4d0536e935db5b5d5db"
+  },
+  {
+    "path": "docs/renderer-jams/20261029-immutable-bounds-validity/README.md",
+    "sha": "d0db8ccf00a25294adbd18320f31b3b21efd481b",
+    "source_commit": "f8127e7ff484380d1f1cd51019be2755bd121560",
+    "char_length": 3269,
+    "sha256": "d2c7158814786766cc04c1dc539d15e66360d77d52d24bc493711a6803c19963"
+  },
+  {
+    "path": "docs/renderer-jams/20261029-immutable-bounds-validity/REVIEW.md",
+    "sha": "013a1893cc73c81816d783937762c439d248af12",
+    "source_commit": "f8127e7ff484380d1f1cd51019be2755bd121560",
+    "char_length": 6545,
+    "sha256": "3594899af2f374ebfbdd05fca201579f6b5eb8061d8b07766a2211e314d8993f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/v8-outlet-failclosed-2026-10-29/README.md",
+    "sha": "afb703b9a4138dd6e14f13e0e9fc4248f27b10e5",
+    "source_commit": "f8127e7ff484380d1f1cd51019be2755bd121560",
+    "char_length": 4351,
+    "sha256": "31607041cd4940b16ac657269f8946e588986b221946fe988fc201826bda2ef5"
+  }
+]

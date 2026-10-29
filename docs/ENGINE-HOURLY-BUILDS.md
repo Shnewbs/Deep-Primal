@@ -1,5 +1,7 @@
 # Engine-only build cycles
 
+> Policy provenance: this records the October 25 authorization. Later audit records report an October 27 owner-build override. Read the [policy discrepancy and evidence](handbook/POLICY-AND-STATUS.md) and the actual current owner instruction before using historical delivery authority. This documentation notice changes no task or schedule.
+
 Owner authorization: October 25, 2026. This current instruction supersedes all older owner pauses, the 8.0/inclusive-8.5 targets and auditor-only build-delivery restrictions. The owner explicitly resumes the existing builder and authorizes direct commits/pushes to main and qualified development testing releases.
 
 - Builder: `6ad974bdc204819195e5465aeea9dca2`; existing conversation `6ad9825d-74c8-83e8-b01c-24bb40d74bd8`.

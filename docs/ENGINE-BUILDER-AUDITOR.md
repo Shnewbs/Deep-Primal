@@ -1,5 +1,7 @@
 # Builder and independent hourly auditor
 
+> Policy provenance: this records the October 25 authorization. Later audit records report an October 27 owner-build override. Read the [policy discrepancy and evidence](handbook/POLICY-AND-STATUS.md) and the actual current owner instruction before using historical delivery authority. This documentation notice changes no task or schedule.
+
 Current owner instruction, October 25, 2026: resume **engine and engine mechanics only**, reflect each separate graded audit in the next build cycle, check Git and the other chat for overlap, push code directly to main, and release/send each qualified cycle build for testing. Continue until the independent overall grade is **strictly greater than 8.5/10**. This supersedes the historical owner pauses and older thresholds.
 
 Read [ENGINE-HOURLY-BUILDS.md](ENGINE-HOURLY-BUILDS.md) for the complete current cycle contract and [ENGINE-WORK-STATE.json](ENGINE-WORK-STATE.json) for current ownership/evidence.

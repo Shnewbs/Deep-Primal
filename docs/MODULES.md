@@ -1,5 +1,7 @@
 # Runtime modules — alpha 24
 
+> Documentation checkpoint: the version/build statements below describe their dated implementation snapshot. Use the [merged handbook](handbook/README.md) and [status/decision ledger](handbook/POLICY-AND-STATUS.md) for the October 29, 2026 consolidation and evidence boundaries. This notice does not qualify a new game build.
+
 The standard installer remains one JAR. It contains separately built nested JARs with one owner for each config, mixin and runtime service.
 
 | Module | Owns | Project dependencies |

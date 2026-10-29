@@ -1,6 +1,6 @@
 # Dev50 — V8 strict root-profile envelope
 
-**2026-10-28, Builder source-only pass.** Independently audited starting source: `563b6ef23586f579ff2b972d7404b4f0a9054002`, report [08:30 UTC](../../engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md). Carried full external grade **50/100 (5.0/10)**; this focused repair does not regrade anything.
+**2026-10-28, Builder source-only pass.** Independently audited starting source: `563b6ef23586f579ff2b972d7404b4f0a9054002`, report [08:30 UTC](../../../engine-hourly-audits/2026-10-28T0830-563b6ef/REVIEW.md). Carried full external grade **50/100 (5.0/10)**; this focused repair does not regrade anything.
 
 ## Implemented
 

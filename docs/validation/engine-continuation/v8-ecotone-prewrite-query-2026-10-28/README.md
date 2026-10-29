@@ -2,7 +2,7 @@
 
 **Source implementation:** `338bf489329cb8abb0ae800bb4cd7f8fccfa268f` (`0.0.1-alpha.29-dev.59-ecotone-query.1`). Target is current **main**; base main commit immediately prior to implementation: `829348829ab4a5d47327e227579871f7378672ab`.
 
-**Consumed independent audit:** [2026-10-28 16:28Z report](../../../../engine-hourly-audits/2026-10-28T1628-1e6e530/REVIEW.md), pinned source `1e6e530fc76d5997eb2ec1abc0ea49f6570ef7f0`. This report carried the previous **50/100 (5.0/10)** without an independent regrade and identified an unnecessary material lookup in cached-snow columns. No independent grade is awarded by this builder.
+**Consumed independent audit:** [2026-10-28 16:28Z report](../../../engine-hourly-audits/2026-10-28T1628-1e6e530/REVIEW.md), pinned source `1e6e530fc76d5997eb2ec1abc0ea49f6570ef7f0`. This report carried the previous **50/100 (5.0/10)** without an independent regrade and identified an unnecessary material lookup in cached-snow columns. No independent grade is awarded by this builder.
 
 ## Actual implementation
 

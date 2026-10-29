@@ -1,0 +1,16 @@
+{
+  "source_commit": "8f28f833caa259a0e59adac494a3aee8d750bc63",
+  "source_tree": "397015fe9c493d28d60a706cb7094252f8cc1742",
+  "git_originals": 520,
+  "library_identities": 24,
+  "source_identities": 544,
+  "unique_source_hashes": 533,
+  "exact_duplicate_groups": 11,
+  "retained_expansion_markdown": 507,
+  "git_added_since_dev77": 52,
+  "git_changed_since_dev77": 1,
+  "git_removed_since_dev77": 0,
+  "relative_target_occurrences": 1213,
+  "untracked_relative_target_occurrences": 26,
+  "untracked_relative_target_sources": 8
+}

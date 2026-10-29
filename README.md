@@ -1,5 +1,7 @@
 # Deep Primal
 
+> Documentation checkpoint: the version/build statements below describe their dated implementation snapshot. Use the [merged handbook](docs/handbook/README.md) and [status/decision ledger](docs/handbook/POLICY-AND-STATUS.md) for the October 29, 2026 consolidation and evidence boundaries. This notice does not qualify a new game build.
+
 **Delivered preview: 0.0.1-alpha.28 — Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25.**
 
 Current development source is **0.0.1-alpha.29-dev.32-upscaling.1**. The Continue additions are integrated into the normal source sets; see [engine services and supported capabilities](ENGINE_CORE_SUMMARY.md). The [staged engine work](docs/engine-review-2026-10-24/README.md) adds an unused, independently checked 3D noise library, strict configuration codec and reproducible benchmarks. Read the [architecture](docs/engine-review-2026-10-24/ARCHITECTURE.md), [stage-one results](docs/engine-review-2026-10-24/STAGE-1.md) and [strict technical review](docs/engine-review-2026-10-24/REVIEW.md). The review grades the current engine **50/100, Tier 2 of 5**. V8 integration, stages 2–6 and the latest-game-version adapter remain open; the upscaling testing build is documented separately below.

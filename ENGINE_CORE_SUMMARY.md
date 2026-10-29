@@ -1,5 +1,7 @@
 # Integrated engine services — alpha.29-dev.32-upscaling.1
 
+> Documentation checkpoint: the version/build statements below describe their dated implementation snapshot. Use the [merged handbook](docs/handbook/README.md) and [status/decision ledger](docs/handbook/POLICY-AND-STATUS.md) for the October 29, 2026 consolidation and evidence boundaries. This notice does not qualify a new game build.
+
 The Continue additions now compile against the real core and Minecraft 26.1.2 APIs.
 There is no prototype source directory or excluded prototype build profile.
 

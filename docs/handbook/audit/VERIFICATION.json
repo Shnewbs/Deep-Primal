@@ -1,0 +1,15 @@
+{
+  "scope": "documentation checkpoint only",
+  "source_identities_checked": 544,
+  "publication_supplement_checked": 5,
+  "unique_source_hashes": 533,
+  "exact_duplicate_groups": 11,
+  "retained_expansion_paths_inventoried": 507,
+  "retained_expansion_available_blob_checks": 9,
+  "retained_expansion_not_materialized": 498,
+  "original_git_relative_targets_checked": 1185,
+  "authored_relative_targets_checked": 1198,
+  "preserved_library_context_targets": 16,
+  "errors": [],
+  "pass": true
+}

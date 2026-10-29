@@ -1,5 +1,7 @@
 # Deep Primal — Roadmap
 
+> Documentation checkpoint: the version/build statements below describe their dated implementation snapshot. Use the [merged handbook](docs/handbook/README.md) and [status/decision ledger](docs/handbook/POLICY-AND-STATUS.md) for the October 29, 2026 consolidation and evidence boundaries. This notice does not qualify a new game build.
+
 ## Built-in engine — modular alpha 22, 2026-10-22
 
 Deep Primal remains the product. Its original Overworld terrain/liquid engine is now integrated into the main mod, together with an actual-chunk LOD renderer and custom tabbed graphics settings. Minecraft/NeoForge provide host APIs, storage, lighting, scheduling, networking and GPU interfaces. Native Overworld terrain/biome decisions are not used by the selected `continental_v1` / `regional_v1` generator. Existing saves retain their own generator and height. All previous profiles, performance/settings modules and optional Vulkan source remain available; the separate alpha.1 experiment is historical and not shipped.
