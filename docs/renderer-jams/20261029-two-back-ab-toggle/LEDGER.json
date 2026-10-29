@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T2000-two-back-ab-toggle",
+  "claim_commit": "9de0c0c3cef433658521e1daaa21812ed1034075",
+  "implementation_parent": "9de0c0c3cef433658521e1daaa21812ed1034075",
+  "source_sha": "40553d0b69a2928fb2961cb433c91c96b1215fa7",
+  "version": "0.0.1-alpha.29-dev.85-outlet-world-binding.1",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-two-back-ab-toggle/tests/com/shnewbs/deepprimal/lod/client/LodTwoBackABCommittedSmoke.java"
+  ],
+  "source_blobs": {
+    "helper": "aa1b86c37641658abca6792180b88457f4ddcd8f",
+    "client": "abd0129d0b93bad4d53440d7c0e1e15aab81e4fd",
+    "test": "4681780c4d2a86ecf6d91c42802efda89b443e34",
+    "renderer": "7a63182b273b66b71e1ebf705a5bb3ecb8f12232"
+  },
+  "consumed": [
+    "docs/renderer-jams/20261029-adjacent-first-two-back/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1932-be9cde82/REVIEW.md"
+  ],
+  "tests": {
+    "runtime": "Java 21.0.12.1 Linux x86_64",
+    "compile": "PASS javac --release 21 -Xlint:all -Werror",
+    "focused_assertions": 19592076,
+    "additional_committed_assertions": 2231636,
+    "total_assertions": 21823712,
+    "negative": "forced enabled fails expected assertion 1, exit 1",
+    "source_checks": "14/14 PASS",
+    "java25": false,
+    "gradle": false,
+    "native_gpu": false,
+    "jar": false
+  },
+  "bench": {
+    "scope": "synthetic CPU publication 4x64 parts 250 samples x128, twice per option",
+    "p50_ns": {
+      "alternating_on": [
+        238630,
+        328164
+      ],
+      "alternating_off": [
+        156686,
+        154963
+      ],
+      "unique_on": [
+        235205,
+        253572
+      ],
+      "unique_off": [
+        165599,
+        167102
+      ],
+      "uniform_on": [
+        364328,
+        400263
+      ],
+      "uniform_off": [
+        320302,
+        322135
+      ]
+    },
+    "true_fine_predicates_saved": 95416,
+    "false_fine_predicates_saved": 0,
+    "adjacent_saves_both": 122504,
+    "gpu_fps_claim": false
+  },
+  "grades": {
+    "distance": 6.8,
+    "mesh": 6.95,
+    "gpu": 4.55,
+    "fsr_dlss": 5,
+    "compatibility": 5.3,
+    "validation": 6.45,
+    "average": 5.84,
+    "previous": 5.83,
+    "delta": 0.01
+  },
+  "external_engine_grade_unchanged": 5,
+  "artifact": {
+    "filename": "DeepPrimal_Renderer_Jam40_TwoBackAB_20261029_40553d0_SourceEvidence.zip",
+    "bytes": 19188,
+    "sha256": "e24f849080c6fa01d918e8f669f510363e01aaafb09f536255b620c5ba199422",
+    "entries": 19,
+    "verified_member_hashes": 18,
+    "library_file_id": "libfile_1883796296508191b9cbfefce85cbd63",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_Jam40_TwoBackAB_20261029_40553d0_SourceEvidence.zip",
+    "qualified_jar": false
+  },
+  "next": "Owner native Vulkan/OpenGL and FSR1 native-vs-quality with uniform/alternating/unique pages and two-back ON/OFF; quantify CPU/GPU p50/p95/p99, VRAM, water pixels."
+}

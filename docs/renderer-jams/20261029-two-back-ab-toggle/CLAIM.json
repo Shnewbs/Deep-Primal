@@ -2,7 +2,7 @@
   "schema": 1,
   "jam_id": "renderer-20261029T2000-two-back-ab-toggle",
   "worker": "dedicated-renderer-hourly",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-29T20:02:00Z",
   "expires_at": "2026-10-29T20:45:00Z",
   "parent": "5cfbf29a887c2ef4ce5c2532ba164e28bd6153d9",
@@ -25,5 +25,13 @@
     "docs/engine-hourly-audits/2026-10-29T1932-be9cde82/REVIEW.md"
   ],
   "intent": "Add opt-in startup A/B disable for two-back frustum-alias publication, keep default behavior, record diagnostics, exact visibility parity and CPU overhead with/without alias, prepare native owner A/B. No JNI/GPU build or other-scope writes.",
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-10-29T20:08:30Z",
+  "source_commit": "40553d0b69a2928fb2961cb433c91c96b1215fa7",
+  "last_self_audit_average": 5.84,
+  "verification": "Java21 strict compilation plus 21,823,712 assertions and 14/14 pinned checks; negative mutant rejected. GPU/Java25/Gradle/JAR not run.",
+  "evidence_library_file_id": "libfile_1883796296508191b9cbfefce85cbd63",
+  "evidence_sha256": "e24f849080c6fa01d918e8f669f510363e01aaafb09f536255b620c5ba199422",
+  "qualified_jar": false,
+  "next": "Owner native Vulkan/OpenGL and FSR1 native-vs-quality with uniform/alternating/unique pages and two-back ON/OFF; quantify CPU/GPU p50/p95/p99, VRAM, water pixels."
 }
