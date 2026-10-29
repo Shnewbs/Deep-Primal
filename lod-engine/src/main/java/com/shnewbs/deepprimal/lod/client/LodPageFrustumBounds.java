@@ -19,6 +19,9 @@ final class LodPageFrustumBounds {
 
   static AABB[] build(List<List<TerrainGpuMesh>> levels) {
     AABB[] result = new AABB[levels.size()];
+    // The broadphase-off A/B path never consumes unions: do not spend upload-time
+    // CPU or allocate AABBs building page bounds that cannot be tested.
+    if (!ENABLED) return result;
     for (int detail = 0; detail < levels.size(); detail++) {
       List<TerrainGpuMesh> parts = levels.get(detail);
       // A singleton cannot save a test; empty levels already have no draw calls.
