@@ -849,14 +849,19 @@ public final class VoxelLodRenderer {
     if (p.detail == 3) {
       // One publication snapshot supplies coarse, fine and adjacent-run bounds.
       AABB[][] frozenBounds = LodPageFrustumBounds.snapshot(p.levels);
+      // Build union and neighboring-equality metadata in one pass, from the
+      // same immutable publication snapshot used for fine culling.
+      AABB[] pageBounds = new AABB[frozenBounds.length];
+      long[][] adjacentRuns = LodPageFrustumBounds.ENABLED
+          ? new long[frozenBounds.length][] : new long[0][];
+      LodPublishedBounds.populate(frozenBounds, pageBounds, adjacentRuns);
       Entry replacement =
           new Entry(
               p.ready.revision,
               p.levels.stream().map(List::copyOf).toList(),
               frozenBounds,
-              LodPageFrustumBounds.fromSnapshot(frozenBounds),
-              LodPageFrustumBounds.ENABLED
-                  ? LodPartFrustumRuns.fromSnapshot(frozenBounds) : new long[0][],
+              pageBounds,
+              adjacentRuns,
               p.bytes(),
               new int[] {0},
               p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
