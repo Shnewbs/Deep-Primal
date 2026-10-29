@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261029T0507-dev71-outlet-seeds",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-29T05:07:00Z",
-  "updated_at": "2026-10-29T05:07:00Z",
-  "active_until": "2026-10-29T05:50:00Z",
-  "lease_released": false,
-  "source_ref": "c42d874515e8e5986277c845809815349519b0d0",
+  "updated_at": "2026-10-29T05:19:00Z",
+  "active_until": "2026-10-29T05:19:00Z",
+  "lease_released": true,
+  "source_ref": "2a85414d25bad169e28f793608c0d7463fceeccb",
   "owner_build": "0.0.1-alpha.29-dev.53-v8callback.1",
   "candidate_version": "0.0.1-alpha.29-dev.71-v8-outlet-seeds.1",
   "scope": [
@@ -19,34 +19,30 @@
     "docs/TERRAIN-BLENDING-WORK-STATE.json",
     "docs/validation/engine-continuation/v8-ocean-outlet-seeds-2026-10-29/"
   ],
-  "coordination": "Latest main c42d8745; terrain previous lease released; water foreground claim expired 2026-10-28T01:15Z; renderer active on separate files as of main c42d; latest auditor 2026-10-28T2331-d99837b pinned d99837b, full rubric carried 5.0. No Git CLI DNS, isolated source tests only. Root state and renderer untouched.",
-  "current_gate": "Working: opt-in r4 seeded WatershedRegion ocean boundary based on cross-page admitted ocean component, not legacy any-wet-edge seeds. Existing profiles and V1-V7 must remain exact.",
-  "tests": "OpenJDK21.0.12.1 javac --release21 -Xlint:all -Werror; 19/19 scoped Java21 API-double suites pass 21,012,678 checks (190 changed v3 suite). Two separately compiled mutants rejected under Python -OO. Independent replay from 69-entry CRC-verified portable ZIP passed all 19 suites and 2 mutants. Source Git blob IDs 455cba98...,20fafc72...,16377ba2... matched created Git objects. Not actual WatershedRegion, Java25, Gradle, Minecraft, Mojang save, GPU, performance or water/constituent accounting.",
-  "evidence": "docs/validation/engine-continuation/v8-basin-closure-2026-10-29/results.json",
+  "coordination": "Claimed scoped lease directly on main c42d8745; latest completed auditor docs/engine-hourly-audits/2026-10-28T2331-d99837b/REVIEW.md pinned d99837bb, grade carried 5.0. Rechecked source/test blobs after concurrent renderer pushes; unchanged. Source tree commit 2a85414d25bad169e28f793608c0d7463fceeccb parent 110747c8232abf999c1e6edfbfa71867114bc520; guarded force=false expected-parent main update succeeded. Renderer-owned files untouched; foreground water claim expired. Root state Dev53 checkpoint not edited because complete pinned checkout/root validator unavailable; Git CLI remote DNS unavailable; Java25 owner builds not run. Scope released.",
+  "current_gate": "New explicit V8 route-policy v4 source-bound marine seeds now feed actual WatershedRegion priority-flood boundary roots, not only ocean display classification. Opt-in V8 r5 authoring/reopen, versioned fingerprint, legacy null path preserved. Large unresolved inland basins, true global ocean/outlet discharge, native execution and water accounting STILL OPEN.",
+  "tests": "OpenJDK 21.0.12.1; javac --release 21 -Xlint:all -Werror for 45 selected sources with API doubles, 19/19 Java21 suites pass 21,012,727 aggregate checks (V8OceanConnectivity 214, V8RoutedWaterSource 4,823); python3 -OO separate 3/3 compiled broken controls rejected. Production WatershedRegion edited from exact Git source but NOT compiled with real dependencies. EcotoneBlend standalone tool not rerun; Java25 Gradle Mojang/Minecraft native GPU benchmark and finite water omitted.",
+  "evidence": "docs/validation/engine-continuation/v8-ocean-outlet-seeds-2026-10-29/results.json",
   "native_integration": false,
   "acceptance_complete": false,
   "owner_builds_full_jars": true,
   "last_full_external_grade": 5,
   "new_grade_awarded": false,
-  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2032-9a1d92a4/REVIEW.md",
-  "audit_pinned_source": "9a1d92a44d7d3864d35e0c3ac288158a37c33015",
-  "audit_findings": "Independent Java25 source witness found false OCEAN in dry-ring-enclosed x7900..9500,z1700..2700, height20/continentalness-0.4. New separately saved v3 returns false on signed seams and preserves v2 output and fingerprint unchanged; tests isolated.",
-  "next_action": "Replace sampled marine heuristic with authoritative saved cross-region ocean outlet/root topology, priority-flood parent/discharge and lake spill accounting. Validate actual WatershedRegion on both signed seams, V8 Mojang codec native save/reopen, finite water quantity/constituent restart, and owner Vulkan/OpenGL visuals/hardware tails.",
-  "source_commit": "9f9375d2ae4f955d960452772f8e6131f25b4e2c",
-  "completed_version": "0.0.1-alpha.29-dev.70-basin-closure.1",
-  "implementation_details": "New versioned V8HydrologyBinding canonical SHA256 key, explicit saved V8 r5 ten-field envelope with r4->r5 authoring, seed/density/climate/observer identity admission and r5 explicit-call materialization. Legacy V8 r1-r4 field sets/graph unchanged, no native activation, water volume/chemistry unchanged.",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T2331-d99837b/REVIEW.md",
+  "audit_pinned_source": "d99837bb76ddfa6fd56cb5f133eb5021dde8c131",
+  "audit_findings": "Independent Dev65 Java25 source audit keeps 50/100 baseline; V8 authoritative ocean routing, native save/border and water conservation all open. New builder change addresses false ocean roots in source, not full authoritative cross-region hydrology.",
+  "next_action": "Implement globally deterministic authoritative ocean/outlet-root classification with cross-region priority-flood spill/flow/discharge, then compile real WatershedRegion via owner's Java25/Gradle and verify native Mojang codec, signed seams, old-new borders; continue finite-water quantity/constituents restart and owner GPU.",
+  "source_commit": "2a85414d25bad169e28f793608c0d7463fceeccb",
+  "completed_version": "0.0.1-alpha.29-dev.71-v8-outlet-seeds.1",
+  "implementation_details": "Dev71 opt-in saved V8 policy 4: new WatershedRegion OceanBoundary injection; gated BFS sea-edge seeds, inland flood floor and inland downstream root stage, while null retains frozen legacy. V8OceanConnectivity exact 32-block isMarineSeedAt with bounded component cache; V8RoutedWaterSource authorOutletSeeded and fingerprint domain-separated from route v1-v3, same accepted boundary root drives regional sea mask and real watershed constructor. No physical fluid changes or native V8 activation.",
   "source_blob_hashes": {
-    "V8HydrologyBinding": "29502739de303a2b291991c439024b25cce8167c",
-    "V8GeneratorSnapshot": "dc2466c72d92c437805c29a5e22c36f9be039604",
-    "V8WaterDomainAdmission": "64cfc602e8e9a90a03985d1d21407a8c0df846aa",
-    "V8EcotoneColumnPlan": "6cc37c1abffc488458cab431c94e5b3e660e6503",
-    "V8SavedClimateSource": "0f8bd911c4a0cb4dcbaed06ff3f45271dec9fe2d",
-    "DensityChunkMaterializer": "dc2eec44867171b7d9337b70d10841347a526798",
-    "V8HydrologyBindingChecks": "139575d407fe6809dae404e1c34dec156b89533d",
-    "TestHydrologyBinding": "6a28c18095c76a06a769848295fd392ff5ded0b2",
-    "TestWaterAdmission": "88969e516c2948dc108432a58f140b646eacd528"
+    "WatershedRegion": "a8ab0e2510b536f4bbda64f4ae68582a916562c3",
+    "V8OceanConnectivity": "b63959c73a3dde7336b98395daa67898d3c18a72",
+    "V8RoutedWaterSource": "7b1bbd04ff69eb3be6f5d2263feabe045856b4cc",
+    "V8OceanConnectivityChecks": "9cd464183565d2365813be5031b5d9d8dec98a52",
+    "V8RoutedWaterSourceChecks": "4ca712d18ebe7ce05459f777c4d307172e37c044"
   },
-  "source_evidence_zip_sha256": "f25c8686f4d8afd85ecc57024a06b37aa7bde67b398e37bab7e2e82f43eaa743",
+  "source_evidence_zip_sha256": "4732c9c9f5c9445ba3e0f216ac70a80a5960ddb44b026cba61ab3d8aa2ebaa56",
   "previous_checkpoint": {
     "worker": "hourly-engine-builder-20261029T0300-dev69-v8-ocean-seam",
     "source_ref": "1ac4ca62debc0ddb934eba0dddf26be3d86634ed",
@@ -54,10 +50,10 @@
     "updated_at": "2026-10-29T03:20:00Z",
     "evidence": "docs/validation/engine-continuation/v8-ocean-seams-2026-10-29/results.json"
   },
-  "test_receipt": "docs/validation/engine-continuation/v8-basin-closure-2026-10-29/results.json",
-  "source_evidence_zip_bytes": 127875,
-  "source_evidence_zip_name": "DeepPrimal_Dev70_V8_BasinClosure_SourceEvidence.zip",
-  "final_source_head": "1ac4ca62debc0ddb934eba0dddf26be3d86634ed",
+  "test_receipt": "docs/validation/engine-continuation/v8-ocean-outlet-seeds-2026-10-29/results.json",
+  "source_evidence_zip_bytes": 140124,
+  "source_evidence_zip_name": "DeepPrimal_Dev71_V8_OutletSeededPriorityFlood_SourceEvidence.zip",
+  "final_source_head": "2a85414d25bad169e28f793608c0d7463fceeccb",
   "consumed_audit": "docs/engine-hourly-audits/2026-10-28T1831-a8e26ba/REVIEW.md",
   "consumed_audit_source": "a8e26ba492245d532eb4a116b13d9f842d7b013b",
   "consumed_audit_findings": [
@@ -65,17 +61,18 @@
     "Root ENGINE-WORK-STATE remains Dev53; no complete pinned checkout or root validator, so root untouched",
     "Full native/JDK25/Gradle/VRAM/GPU and finite-water conservation gates remain open"
   ],
-  "source_evidence_library_path": "/Deep Primal/Engine Builder Evidence/Dev68 V8 Routing/Dev68_source_only_evidence.zip",
   "source_blobs": {
     "V8OceanConnectivity": "455cba98c2d340ad82fbf7c05a1ebb16c4e55ff0",
     "V8RoutedWaterSource": "20fafc72e397f744a0a7d0f376bea4b4968db95a",
     "V8OceanConnectivityChecks": "16377ba2742a430ab0a119fc89e93b2c70820490"
   },
   "next": [
-    "Replace sampled marine heuristic with authoritative saved cross-region ocean outlet/root topology, priority-flood parent/discharge and lake spill accounting. Validate actual WatershedRegion on both signed seams, V8 Mojang codec native save/reopen, finite water quantity/constituent restart, and owner Vulkan/OpenGL visuals/hardware tails.",
-    "Preserve water owner scopes, restore native old/new generation border safety and component-to-real-world parity.",
-    "Independent full regrade strictly above 8.5 and all water gates remain required."
+    "Authoritative ocean receiver topology and river/lake spill/delta discharge across watershed pages, beyond bounded component heuristic.",
+    "Java25 actual production WatershedRegion / Gradle / Minecraft native saved profile reopen with signed region/chunk seams, old-new borders and legacy parity.",
+    "Finite-water volume/chemistry loaded-unloaded restart, multiplayer soak, Vulkan/OpenGL temporal surface pixels and named hardware tail metrics.",
+    "Fresh full independent rubric strictly >8.5 plus all water engine gates."
   ],
-  "source_evidence_zip_entries": 69,
-  "source_evidence_zip_crc": true
+  "source_evidence_zip_entries": 74,
+  "source_evidence_zip_crc": true,
+  "ended_at": "2026-10-29T05:19:00Z"
 }
