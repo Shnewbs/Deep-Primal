@@ -91,6 +91,15 @@ public final class LodClient {
             data.put("lodPageMemoryDrops", pages.memoryDrops());
             data.put("lodPagePeakUploadFrames", pages.peakUploadFrames());
             data.put("lodPageTimingScope", "Time from LOD render-thread admission to fully committed GPU page; includes frame pacing/pauses, excludes GPU fence completion and total capture/worker time");
+            var publication = lod.publicationStats();
+            data.put("lodPublicationFreezeCpuTiming", timing(publication.freezeCpuNanos()));
+            data.put("lodPublicationMetadataCpuTiming", timing(publication.metadataCpuNanos()));
+            data.put("lodPublicationTotalCpuTiming", timing(publication.totalCpuNanos()));
+            data.put("lodPublicationPreparedPages", publication.preparedPages());
+            data.put("lodPublicationFrozenParts", publication.frozenParts());
+            data.put("lodPublicationAdjacentAliasBits", publication.adjacentAliasBits());
+            data.put("lodPublicationTwoBackAliasBits", publication.twoBackAliasBits());
+            data.put("lodPublicationScope", "Opt-in CPU p50/p95/p99 per completed bounds/mask preparation before resident cache installation; includes all frozen levels and array allocations, excludes upload/GPU execution, cache retirement and full-frame/FPS. Alias counts cover prepared candidates, not necessarily later-visible or committed pages. Compare startup twoBackFrustumReuse=true/false with identical scenes.");
             data.put("lodTestedParts", lod.testedParts);
             data.put("lodRejectedParts", lod.rejectedParts);
             data.put("lodPageBroadphaseEnabled", LodPageFrustumBounds.ENABLED);

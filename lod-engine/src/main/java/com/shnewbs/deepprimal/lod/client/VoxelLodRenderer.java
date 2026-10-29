@@ -37,6 +37,8 @@ public final class VoxelLodRenderer {
   public final RollingTiming uploadTiming = new RollingTiming(240);
   private final LodGpuUploadProbe gpuPartProbe = new LodGpuUploadProbe(240);
   private final LodPageUploadProbe pageUploadProbe = new LodPageUploadProbe(240);
+  // Opt-in split timing for frozen-part capture versus frustum metadata at residency.
+  private final LodPublicationProbe publicationProbe = new LodPublicationProbe(240);
   // Opt-in CPU stage metrics: never inferred to be GPU/driver frame completion.
   private final LodSubmissionProbe submissionProbe = new LodSubmissionProbe(240);
   public final RollingTiming submitTiming = new RollingTiming(240);
@@ -133,6 +135,10 @@ public final class VoxelLodRenderer {
 
   LodPageUploadProbe.Snapshot uploadPageStats() {
     return pageUploadProbe.snapshot();
+  }
+
+  LodPublicationProbe.Snapshot publicationStats() {
+    return publicationProbe.snapshot();
   }
 
   LodSubmissionProbe.Snapshot submissionStageStats() {
@@ -863,8 +869,12 @@ public final class VoxelLodRenderer {
       if (TELEMETRY) lastUploadBytes = used;
     }
     if (p.detail == 3) {
+      // Separate immutable snapshot cost from subsequent coarse/mask metadata;
+      // clocks are absent when telemetry is disabled.
+      long publicationStart = TELEMETRY ? System.nanoTime() : 0;
       // One publication snapshot supplies coarse, fine and adjacent-run bounds.
       AABB[][] frozenBounds = LodPageFrustumBounds.snapshot(p.levels);
+      long frozenAt = TELEMETRY ? System.nanoTime() : 0;
       // Build union and neighboring-equality metadata in one pass, from the
       // same immutable publication snapshot used for fine culling.
       AABB[] pageBounds = new AABB[frozenBounds.length];
@@ -873,6 +883,9 @@ public final class VoxelLodRenderer {
       long[][] twoBackRuns = LodPageFrustumBounds.ENABLED
           ? new long[frozenBounds.length][] : new long[0][];
       LodPublishedBounds.populate(frozenBounds, pageBounds, adjacentRuns, twoBackRuns);
+      if (TELEMETRY)
+        publicationProbe.prepared(frozenAt - publicationStart,
+            System.nanoTime() - frozenAt, frozenBounds, adjacentRuns, twoBackRuns);
       Entry replacement =
           new Entry(
               p.ready.revision,
@@ -1038,6 +1051,7 @@ public final class VoxelLodRenderer {
     submissionProbe.reset();
     gpuPartProbe.reset();
     pageUploadProbe.reset();
+    publicationProbe.reset();
     pageFrustumGate.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
     drawnTriangles = 0; // Per-world submission totals must not leak into the next world.
