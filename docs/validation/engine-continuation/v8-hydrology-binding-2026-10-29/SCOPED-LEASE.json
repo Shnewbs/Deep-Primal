@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-20261029T0100-dev67",
+  "status": "active",
+  "start": "2026-10-29T01:00:30Z",
+  "expires": "2026-10-29T01:45:00Z",
+  "source_head": "42d03be8bf4526c8b2ffd7465b5de95f234035c4",
+  "scope": [
+    "src/main/java/com/shnewbs/deepprimal/engine/V8HydrologyBinding.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8WaterDomainAdmission.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8SavedClimateSource.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8EcotoneColumnPlan.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
+    "tools/tests/V8HydrologyBindingChecks.java",
+    "tools/test_v8_hydrology_binding.py",
+    "gradle.properties",
+    "docs/TERRAIN-BLENDING-WORK-STATE.json",
+    "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/"
+  ],
+  "audit": "docs/engine-hourly-audits/2026-10-28T2331-d99837b/REVIEW.md",
+  "note": "Versioned opt-in saved hydrology identity, no native activation. Renderer paths disjoint; water lease stale/expired and production water files excluded. Root work-state stale Dev53, no root-state ownership claimed; complete local pinned checkout unavailable for root validator. Avoid timed benchmarking.",
+  "last_external_grade": 5
+}
