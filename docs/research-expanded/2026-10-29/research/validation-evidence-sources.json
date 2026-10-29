@@ -1,0 +1,22 @@
+[
+  {
+    "id": "VE-01",
+    "title": "Unreal Automation Test Framework",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/automation-test-framework-in-unreal-engine"
+  },
+  {
+    "id": "VE-02",
+    "title": "OpenJDK JMH",
+    "url": "https://github.com/openjdk/jmh"
+  },
+  {
+    "id": "VE-03",
+    "title": "Gradle dependency verification",
+    "url": "https://docs.gradle.org/current/userguide/dependency_verification.html"
+  },
+  {
+    "id": "VE-04",
+    "title": "Khronos Vulkan validation overview",
+    "url": "https://docs.vulkan.org/guide/latest/validation_overview.html"
+  }
+]

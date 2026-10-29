@@ -1,0 +1,102 @@
+{
+  "reviewed": "2026-10-29",
+  "status": "Research intermediate; design_inference fields are proposals, not verified Deep Primal features.",
+  "sources": [
+    {
+      "id": "TW-01",
+      "title": "Houdini Heightfields and terrains",
+      "url": "https://www.sidefx.com/docs/houdini/heightfields/",
+      "source_type": "Official product documentation",
+      "inspected": "Overview, limitations, scale/resolution, named layers and masks; page served as Houdini 22.0 documentation.",
+      "limits": "A two-dimensional surface document does not establish volumetric topology, conserved material quantities, or a runtime voxel editing system."
+    },
+    {
+      "id": "TW-02",
+      "title": "Houdini HeightField Erode 3.0",
+      "url": "https://www.sidefx.com/docs/houdini/nodes/sop/heightfield_erode",
+      "source_type": "Official node reference",
+      "inspected": "Solver, masks, feature scale, layer bindings, freeze/cache behavior; node is documented as introduced in Houdini 21.0.",
+      "limits": "Visual similarity is not bitwise determinism or mass conservation. The inspected reference is Erode 3.0, not its older namesake."
+    },
+    {
+      "id": "TW-03",
+      "title": "Gaea Tiled Builds",
+      "url": "https://docs.gaea.app/using/using-gaea/build-and-export/tiled-builds.html",
+      "source_type": "Official product documentation",
+      "inspected": "Tiled/full differences, world/detail separation, hybrid buckets, blending, and data-map import.",
+      "limits": "An authoring overlap recommendation is not proof of deterministic independent chunk generation or a conserved cross-tile water simulation."
+    },
+    {
+      "id": "TW-04",
+      "title": "Gaea Stratify",
+      "url": "https://docs.gaea.app/reference/nodes/surface/stratify.html",
+      "source_type": "Official node reference",
+      "inspected": "Description and controls for spacing, octaves, strength, shape, seed, tilt, and orientation.",
+      "limits": "No evidence here establishes physical stratigraphic age, groundwater behavior, ore distributions, or consistent lithology through an excavated volume."
+    },
+    {
+      "id": "TW-05",
+      "title": "World Machine Professional Edition Addendum — tiling",
+      "url": "https://help.world-machine.com/topic/world-machine-professional-edition-addendum/",
+      "source_type": "Official legacy workflow documentation",
+      "inspected": "Tiled output, shared edge vertices, subsets, coordinate naming, orientation, and context-sensitive simulation caveats.",
+      "limits": "This is an old addendum with obsolete platform references. No current product limits, speed, thread counts, or recommended tile sizes are inferred."
+    },
+    {
+      "id": "TW-06",
+      "title": "Unreal Engine — Using PCG Generation Modes",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/using-pcg-generation-modes-in-unreal-engine",
+      "source_type": "Official engine documentation",
+      "inspected": "Partitioned/hierarchical generation, coarse-to-fine data, duplicate point handling, runtime sources, cleanup radius, and scheduler controls.",
+      "limits": "PCG mesh generation does not establish a voxel authority model, save transaction semantics, or cross-platform deterministic world generation."
+    },
+    {
+      "id": "TW-07",
+      "title": "Unreal Engine World Partition",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/world-partition-in-unreal-engine",
+      "source_type": "Official engine documentation",
+      "inspected": "Spatial cell lifecycle, actor dependencies, streaming sources, loaded/activated states, teleport preparation, and debug/parallel-load controls.",
+      "limits": "The inspected page concerns Unreal actor/cell management, not transactional mutable voxel terrain. Its default spatial policy is not adopted automatically."
+    },
+    {
+      "id": "TW-08",
+      "title": "Godot Voxel Tools — Generators",
+      "url": "https://voxel-tools.readthedocs.io/en/latest/generators/",
+      "source_type": "Official project documentation",
+      "inspected": "Generator API, density fields, multipass dependencies/determinism/limits, modifiers, and output caching.",
+      "limits": "Some page sections are historical; implementation capability needs a pinned revision. The documented multipass column method does not directly provide arbitrary-LOD generation."
+    },
+    {
+      "id": "TW-09",
+      "title": "Godot Voxel Tools — Streams",
+      "url": "https://voxel-tools.readthedocs.io/en/latest/streams/",
+      "source_type": "Official project documentation",
+      "inspected": "Chunk saves, modified/generated output policy, asynchronous completion, world switching, resource lifetime, and forced shutdown.",
+      "limits": "Asynchronous chunk persistence does not itself guarantee atomic multi-chunk terrain edits, exactly-once transfers, or crash-safe composition accounting."
+    },
+    {
+      "id": "TW-10",
+      "title": "GeoClaw description and contents",
+      "url": "https://www.clawpack.org/geoclaw.html",
+      "source_type": "Official scientific software documentation",
+      "inspected": "Model scope, topography, dry cells, wetting/drying, moving terrain and parameter/reference navigation.",
+      "limits": "Depth averaging cannot establish general three-dimensional cave flow, pressurized plumbing, air entrainment, or composition transport."
+    },
+    {
+      "id": "TW-11",
+      "title": "Berger, George, LeVeque and Mandli — GeoClaw depth-averaged flows with adaptive refinement",
+      "url": "https://arxiv.org/html/1008.0455v2",
+      "source_type": "Original research paper",
+      "inspected": "Sections 2–5: conservation variables, equilibrium, wet/dry interfaces, refinement/time stepping, restriction and topography integration.",
+      "limits": "This is a 2011 model/method paper, not a claim about today's code. Its scientific approximation and reservoir assumptions differ from finite game accounts."
+    },
+    {
+      "id": "TW-12",
+      "title": "Barnes, Lehman and Mulla — Priority-Flood",
+      "url": "https://arxiv.org/html/1511.04463v1",
+      "source_type": "Original research paper",
+      "inspected": "Algorithms 1–2 and sections 3, 4 and 7: depression treatment, queue ordering, NoData, flow directions and watershed labels.",
+      "limits": "This is a complete-domain elevation algorithm, not a three-dimensional finite-water solver or a guarantee that arbitrary chunk-local drainage is globally consistent."
+    }
+  ]
+}

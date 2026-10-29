@@ -1,0 +1,89 @@
+# Expanded replica — docs/engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md
+
+**Edition:** 2026-10-29 · **Status:** research expansion and proposed design.
+
+| Provenance | Value |
+| --- | --- |
+| Original | [Open original source](https://github.com/Shnewbs/Deep-Primal/blob/33c43c943f0469195e7ab1a6852ab4360fad1788/docs/engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md) |
+| Source identity | git: docs/engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md |
+| Preserved source SHA-256 | `57d5e68b52f12589a4b67ff48cbc6d9c23e7c7d33cc79471b310a5cd5917f574` |
+| Review method | structured-evidence |
+| Proposed-work priority | P1 |
+
+The original document is preserved byte-for-byte below. New material is a dated proposal; historical results keep their original source, environment, and limitations. The priority describes follow-up design work, not a newly reproduced runtime defect.
+
+[Corpus guide](../../../../../README.md) · [Integrated design](../../../../../ENGINE-DESIGN-EXPANSION.md) · [Detailed chapter](../../../../../chapters/validation-evidence.md) · [Discrepancy register](../../../../../DISCREPANCIES.md)
+
+## Research expansion — source scope
+
+This preserved record is “Independent Deep Primal engine audit — 2026-10-28 01:34 UTC”. Its original opening states: “Pinned committed main source at audit start: 4fc83e6021df26d2f3df26ef8afa563db6650fe9. Version: 0.0.1-alpha.29-dev.42-v8bounds.1. This is a read-only code/fixture audit; the October 27 owner override assigns complete Gradle/Minecraft/GPU builds to the owner. No new qualified JAR exists from this audit. Builder, renderer, their leases, checkouts, toolchains and schedules were not touched.”. Those statements retain the source document's date and environment; this expansion has not rerun the reported checks. Named source subjects include `SOLID`, `EMPTY`, `UNCERTAIN`, `DensityVolumeBounds.java`.
+
+## Research expansion — gaps and details to deepen
+
+- Carry the water finding through the real native callback boundary while preserving quantity, constituent identity, and exactly-once ownership.
+- Editorial addition: connect this record's evidence to a stable finding/claim ID and a dated supersession record; do not reinterpret a historical limitation as a newly reproduced current defect.
+
+## Research expansion — proposed contracts
+
+- Bind write scopes to world, level, immutable cell coordinates, expected state, and revision; unrelated callbacks must retain their own invalidation and accounting.
+- Recheck final state after synchronous callbacks before committing water/salt/sediment ledgers; define bounded compensation and explicit failure when restoration is impossible.
+
+## Research expansion — acceptance checks
+
+- Exercise refused-but-applied and accepted-but-replaced writes, same-volume chemistry changes, unrelated-cell mutation, cross-level callbacks, and unload during commit.
+- Compare joint loaded/unloaded/reservoir quantity and composition before and after edit, save, restart, and reopen using the actual host runtime.
+
+## Research expansion — source anchors
+
+- Independent Deep Primal engine audit — 2026-10-28 01:34 UTC
+- Main findings
+- Executed / not executed / next actions
+
+Related design: [terrain water](../../../../../chapters/terrain-water.md)
+
+## Preserved source document
+
+Original links retain their original document context. Use the pinned source and source-context index above for dependencies not copied into this edition.
+
+<!-- BEGIN PRESERVED SOURCE -->
+# Independent Deep Primal engine audit — 2026-10-28 01:34 UTC
+
+**Pinned committed main source at audit start:** `4fc83e6021df26d2f3df26ef8afa563db6650fe9`. **Version:** `0.0.1-alpha.29-dev.42-v8bounds.1`. This is a read-only code/fixture audit; the October 27 owner override assigns complete Gradle/Minecraft/GPU builds to the owner. **No new qualified JAR exists from this audit.** Builder, renderer, their leases, checkouts, toolchains and schedules were not touched.
+
+## Main findings
+
+1. **Prior seven-water-write audit findings are structurally addressed, not native-qualified.** [HydrologyRuntime.java lines 86–115](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java#L86-L115) implements `writeAccounted` with immutable cell coordinates, a loaded/final-state check and bounded compensation of a refused-but-applied write. An independent read of the seven named methods at this pin found all **7/7** use this helper before their subsequent chemistry store: `restoreOcean` L165, `oceanSink` L180, `place` L200, `pickup` L208, `emit` L218, `infiltrate` L235, `meltIce` L251. This closes the *previous source-level omission*; it does **not** establish native callbacks, rollback after exceptions, same-state ABA ownership, unload/reload or durable constituent conservation. The builder's [dev41 source/doubles evidence](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/docs/validation/engine-continuation/water-native-write-guard-2026-10-28/README.md) reports 45,986 assertions and six rejected mutation variants; that suite was **not rerun in this audit**.
+2. **V8 density-volume preflight is still experimental, with no active generation path.** [DensityVolumeBounds.java lines 43–139](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumeBounds.java#L43-L139) provides conservative `SOLID`/`EMPTY`/`UNCERTAIN` classifications over closed boxes, with whole-noise envelopes, warp expansion and outward interval operations. [The registered source-level checks](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityVolumeBoundsChecks.java#L19-L129) test pointwise sign preservation. Search of the committed default branch shows its production class and test, but no active generator invocation. It earns **no shipped terrain-quality or native speed credit**.
+3. **Independent fractional-continuous domain check: passed under named test doubles, not the actual compiled graph.** Byte-exact Git blobs were copied into an isolated audit directory: `DensityVolumeBounds.java` blob `75c955721e93ae07c00604acdae99e431885165d`; `DensityVolumeBoundsChecks.java` blob `446679e85b450316ce08c76f4301019fc94c86e8`. On Linux x86_64 AMD EPYC 9V74, OpenJDK/javac 21.0.12.1, `javac --release 21 -Xlint:all -Werror` and `java -Xverify:all` succeeded. The existing Git-blob-matched registered test reran: `DENSITY_VOLUME_BOUNDS_PASS assertions=65881`. A new independent `FractionalBoundsAudit` sampled **22,000 continuous closed boxes, 264,000 fractional coordinate samples over 11 graph shapes**, yielding 9,369 solid, 6,003 empty and 6,628 uncertain boxes, with **zero sampled false-sign certificates**. This is a *bounded finite-set property check with an API-compatible sine-noise/linear-recipe double*, not actual `DensityGraph`, `SeededNoise3D`, Java25, worldgen or universal interval-safety proof. Raw test sources and stdout are preserved in the separate owner-downloadable audit ZIP, SHA-256 `752276f45a13ac8a2eab8572e336a9c639522a27cbbe88242ba9745f0bf74cac` (10,794 bytes, 11 CRC-valid entries).
+4. **Renderer remains unaccepted as a scene.** [PendingGpuBytes.java](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/PendingGpuBytes.java) eliminates repeated partial-upload list summation; [renderer jam evidence](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/docs/renderer-jams/20261027-pending-gpu-ledger/REVIEW.md) reports a Java21 accounting check, not a Windows/Vulkan/OpenGL scene/VRAM/frame-time test.
+
+## Ten equally weighted categories — historical 50/100 carried, not a fresh full regrade
+
+| Category | /10 | Current evidence and unclosed gate |
+| --- | ---: | --- |
+| Terrain realism/variety | 5 | Baseline [terrain/heightfield](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/docs/engine-review-2026-10-24/REVIEW.md); V8 bounds not integrated, no 3D native visual acceptance |
+| Biome blending/coherence | 4 | Baseline threshold-based biome selection; weighted ecotone/material/vegetation integration unverified |
+| Hydrology/cave quality | 6 | Seven postwrite callers now guarded at source; no native callback-conservation/long-duration cave-and-water acceptance |
+| Feature/structure placement | 4 | No complete stable general structure exclusion/ownership pipeline |
+| Performance/threading | 3 | Historical warm generation ~14.45–14.99ms before host lighting/IO vs target <5ms; no current matched p95/p99 |
+| Determinism/stability | 7 | Historical frozen V1–V7 replay/save protections; no fresh cross-host/multiplayer/ABA/unload-soak |
+| Architecture/code quality | 6 | Modular core/renderer/LOD, but runtime ledger transactions and native build integration unqualified |
+| Extensibility/data-driven | 4 | V8 density graph is not registered for saved worlds; general authored biome/features API missing |
+| Testing/benchmarks/docs | 7 | This run 65,881 registered + 264,000 independent fractional *double* assertions, no product graph/native/gpu |
+| Polish/config/tooling | 4 | Outstanding natural cliff-water flicker, LOD horizon, native GPU/Windows verification |
+| **Total / Tier** | **50/100; average 5.0/10; Tier 2** | **Carried from [full 2026-10-24 review](https://github.com/Shnewbs/Deep-Primal/blob/4fc83e6021df26d2f3df26ef8afa563db6650fe9/docs/engine-review-2026-10-24/REVIEW.md); >8.5 target NOT met** |
+
+Scores reflect existing verified gameplay, not research prototypes, unverified Java doubles or unperformed hardware tests.
+
+## Executed / not executed / next actions
+
+**Executed during this audit:** authenticated pinned main and handoff reads; 7/7 postwrite caller source inspection; registration/production call-site search; exact Git object hashes for two tested source files; two fresh isolated Java21 compilations/verification runs; ZIP integrity and hashes. No production code edits, branch/lease/reset, timed performance jobs or new release.
+
+**Not executed:** Java25 (owner JDK25 and archive not mounted; host has Java21), Gradle full build, actual compiled `DensityGraph`/`SeededNoise3D` Java25 assertions, native Minecraft/NeoForge event injection, entire V8 density materialization/topology/save-reopen, executable JAR/nested CRC/native package smoke, Windows/AMD8060S, Vulkan/OpenGL rendering and frame/VRAM benchmarks. No JAR was created. Previous dev31 is historical and must not be represented as a fresh auditor build. JAR-retention policy was untouched because no qualified new JAR was saved.
+
+**Next builder priority:** native callback matrix across all seven accounted write paths, including same-value ABA, exceptions and replay of conserved water/salt/sediment after real unload/save/reopen; complete V8 whole-graph Java25 and native block/base-column/heightmap proof before any preflight optimization; then matched natural cliff-water/LOD/Vulkan→OpenGL owner hardware and measured p50/p95/p99 under real travel/edit/churn.
+
+This independent observation is not a builder stop gate. Maintain hourly auditor until a **fresh complete independent score strictly greater than 8.5/10**, plus water acceptance, is actually demonstrated or owner cancels.
+
+
+<!-- END PRESERVED SOURCE -->

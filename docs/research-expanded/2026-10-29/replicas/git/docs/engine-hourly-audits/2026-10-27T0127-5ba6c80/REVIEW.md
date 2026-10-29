@@ -1,0 +1,103 @@
+# Expanded replica — docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/REVIEW.md
+
+**Edition:** 2026-10-29 · **Status:** research expansion and proposed design.
+
+| Provenance | Value |
+| --- | --- |
+| Original | [Open original source](https://github.com/Shnewbs/Deep-Primal/blob/33c43c943f0469195e7ab1a6852ab4360fad1788/docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/REVIEW.md) |
+| Source identity | git: docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/REVIEW.md |
+| Preserved source SHA-256 | `81ab30b03dced1b46cdfc3b63de632c75d89ce455bf66483c5d615317156136a` |
+| Review method | structured-evidence |
+| Proposed-work priority | P1 |
+
+The original document is preserved byte-for-byte below. New material is a dated proposal; historical results keep their original source, environment, and limitations. The priority describes follow-up design work, not a newly reproduced runtime defect.
+
+[Corpus guide](../../../../../README.md) · [Integrated design](../../../../../ENGINE-DESIGN-EXPANSION.md) · [Detailed chapter](../../../../../chapters/validation-evidence.md) · [Discrepancy register](../../../../../DISCREPANCIES.md)
+
+## Research expansion — source scope
+
+This preserved record is “Independent engine audit — 5ba6c80”. Its original opening states: “Exact committed source: 5ba6c80f028fce77e237ee6dedc32f2fe876e33a. Production/build/module roots match preceding qualified source 501886ce09f64809fdb19dca3d9c6d275e4e4c04. No production code was changed by this auditor. Current owner policies, work state, handoff, active audit and original ten-category rubric were read. Frozen V1–V7, profiles, quantities, edits and identity remain protected.”. Those statements retain the source document's date and environment; this expansion has not rerun the reported checks.
+
+## Research expansion — gaps and details to deepen
+
+- Carry the water finding through the real native callback boundary while preserving quantity, constituent identity, and exactly-once ownership.
+- Editorial addition: connect this record's evidence to a stable finding/claim ID and a dated supersession record; do not reinterpret a historical limitation as a newly reproduced current defect.
+
+## Research expansion — proposed contracts
+
+- Bind write scopes to world, level, immutable cell coordinates, expected state, and revision; unrelated callbacks must retain their own invalidation and accounting.
+- Recheck final state after synchronous callbacks before committing water/salt/sediment ledgers; define bounded compensation and explicit failure when restoration is impossible.
+
+## Research expansion — acceptance checks
+
+- Exercise refused-but-applied and accepted-but-replaced writes, same-volume chemistry changes, unrelated-cell mutation, cross-level callbacks, and unload during commit.
+- Compare joint loaded/unloaded/reservoir quantity and composition before and after edit, save, restart, and reopen using the actual host runtime.
+
+## Research expansion — source anchors
+
+- Independent engine audit — 5ba6c80
+- Build, qualification and failures
+- Isolation, omitted checks and next priorities
+
+Related design: [terrain water](../../../../../chapters/terrain-water.md)
+
+## Preserved source document
+
+Original links retain their original document context. Use the pinned source and source-context index above for dependencies not copied into this edition.
+
+<!-- BEGIN PRESERVED SOURCE -->
+# Independent engine audit — 5ba6c80
+
+Exact committed source: `5ba6c80f028fce77e237ee6dedc32f2fe876e33a`. Production/build/module roots match preceding qualified source `501886ce09f64809fdb19dca3d9c6d275e4e4c04`. No production code was changed by this auditor. Current owner policies, work state, handoff, active audit and original ten-category rubric were read. Frozen V1–V7, profiles, quantities, edits and identity remain protected.
+
+**50/100 · average 5.0/10 · Tier 2/5. All ten equally weighted scores are carried unchanged, not a fresh complete regrade.** Current functional/source evidence is scoped. No unused library or staged candidate earns shipping/gameplay credit. Strictly greater than 8.5 remains unmet; task stays enabled.
+
+| Category | /10 | Pinned implementation evidence and limit |
+|---|---:|---|
+| Terrain realism and variety | 5 | [Landforms.java L12](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/engine-core/src/main/java/com/shnewbs/deepprimal/core/Landforms.java#L12) Heightfield and special tunnels; general registered V8 density and broad visual acceptance remain open. |
+| Biome blending and coherence | 4 | [Landscape.java L76](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/engine-core/src/main/java/com/shnewbs/deepprimal/core/Landscape.java#L76) Threshold climate categories; weighted surface/vegetation ecotones remain unaccepted. |
+| Hydrology and cave quality | 6 | [HydrologyRuntime.java L442](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java#L442) Finite sources and accepted dev31 admission/overflow repair; production still scans/copies/sorts its index. Single-owner loaded/unloaded ledger and full cave families remain open. |
+| Feature/structure placement | 4 | [EngineChunkGenerator.java L115](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java#L115) Deterministic vegetation/deposits; no general spacing/exclusion/structure pipeline. |
+| Performance and threading | 3 | [WorldGenPipeline.java L22](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java#L22) No new latency benchmark; older component improvements do not establish whole load-ready/tick tails or 5ms target. |
+| Determinism and stability | 7 | [HydrologyRuntime.java L260](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java#L260) Versioned profiles/replay protections; no cross-machine bit identity or sustained travel/multiplayer soak. |
+| Architecture and code quality | 6 | [WorldGenPipeline.java L22](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java#L22) Core/module boundaries enforced; adapter still combines revision/material/water/decoration responsibilities. |
+| Extensibility and data-driven design | 4 | [TerrainProfile.java L54](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/src/main/java/com/shnewbs/deepprimal/engine/TerrainProfile.java#L54) Saved options and deposit definitions; no complete third-party generation-stage contract or integrated graph profiles. |
+| Testing, benchmarks, documentation | 7 | [LodScratchChecks.java L12](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodScratchChecks.java#L12) Fresh available build/package/native gates recorded individually; missing Windows/AMD, cross-architecture, long-soak and visual/performance matrix. |
+| Polish: config, errors, tooling | 4 | [server_smoke.py L17](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/tools/server_smoke.py#L17) Guarded dev packaging and strict shutdown checks; terrain authoring/preview workflow and owner-hardware presentation acceptance remain open. |
+
+## Actual changes and open defects
+
+No production-source change since the last delivery; a current build was still attempted. Builder exact diffusion arithmetic candidate and renderer transition-interval telemetry remain documentation-only stages and are excluded from the JAR. Author evidence: 201,134 exact diffusion-oracle cases (201,740 constituent fast-path calculations / 200,528 fallback calculations); renderer 1,024 transition oracle windows, prior 770 windows/10,000 intervals, 142-source staged full core suite and deliberately rejected negative control. These author results were inspected, not independently rerun as experiments. No native contact integration, allocation/frame improvement or complete engine acceptance follows. See newer-staged-evidence.json.
+
+Fresh source inspection: [HydrologyRuntime.java L447–450](https://github.com/Shnewbs/Deep-Primal/blob/5ba6c80f028fce77e237ee6dedc32f2fe876e33a/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java#L447-L450) still scans, copies and sorts the source index before checking its stream deadline. A per-column limit is not a hard 2ms whole-tick bound. L461–467 regular poll/native lookup/reinsert lacks the staged exact-cursor ownership guards. Retained hydrology-budget-source.txt and source-inspection.txt pin the evidence.
+
+## Build, qualification and failures
+
+Initial producer supervisor exited120 when shared-memory storage filled, before a complete receipt. A fresh retry lost its Gradle daemon; cgroup memory.events reported one OOM kill, consistent with memory pressure, but does not identify the killed PID. Neither attempt qualifies a JAR. Logs/results remain in initial-capacity-failure and second-daemon-failure. Only failed auditor binaries and verified duplicate completed auditor dependency copies were removed; primary dependencies and other roles were preserved. The final retry uses 384MiB Gradle/process defaults and 512MiB JavaExec checks. No source/behavior was altered to bypass tests.
+
+Final build receipt: {"pass": true, "exit": 0, "source_sha": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a", "elapsed_seconds": 283.5181521050017, "fresh_product_compilation": true, "private_agent_verified": true}. Combined qualification: {"pass": true, "source_sha": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a"}. Java25.0.4.1+1 / Gradle9.2.1, Linux x86_64 AMD EPYC9V74 host, nine eligible CPUs / 8GiB cgroup. One worker, no daemon reuse/build cache, forced --rerun-tasks, :build and :visualValidationClasses. Durations are functional wall time, not controlled latency benchmarks.
+
+Fresh independent core: {"pass": true, "production_sources": 75, "test_sources": 64, "exit": 0, "log_sha256": "4c899a3efddd63f255dd1f8224199fee5455a2689168b83a7fa72518d458bfbb"}. Python shutdown/state/RCON normal/-O/-OO checks and pinned restoration-helper regressions/artifact hashes are recorded separately. All 864 retained source/build inputs are checked against Git blob identities and SHA256. Non-doc subtree equality anchors them at this pin. Private compatibility agent hash is freshly verified; approved JDK/Gradle/Neoform/ASM artifacts remain outside the mod.
+
+[Download freshly qualified development JAR](https://chatgpt.com/library?file_id=libfile_8be83379fa3c8191a757c02a94807067&account_id=personal). `DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0127-5ba6c80-vulkan-windows.jar` · 125296758 bytes · SHA256 `813f3fc5f8b9f9b51312978547565d96a4eefda22f3b091d5630210f36de0163`. Exact source `5ba6c80f028fce77e237ee6dedc32f2fe876e33a`. Windows Vulkan AMD64 payload with OpenGL fallback; private development build, no stable/GitHub Release/CurseForge publication by auditor.
+
+Package checks: seven recursive archive CRC/no-duplicate/hidden-entry checks; 592 compiled/product/package matches, 146 independently compiled core matches and 224 private fixture exclusions; 2508 Themes resource hashes, 43 palettes, 11 approved ground images, 148 generated soils, complete notices/Vulkan licensing. Two PE AMD64 DLLs; no Linux/macOS Vulkan payload. See package.json, class-identity.json and post-native-archive.json.
+
+Ten actual packaged Linux sessions: precipitation fresh/reopen, default saved channel2 fresh/reopen, opt-in channel5 fresh/reopen after disabling the creation toggle, aquifer fresh/reopen/verify and constituent receiver capacity. Required pass markers, root/all six nested selections, class identities, acknowledged save-all flush, failure precedence and clean shutdown/exit0 are verified. Four profile sessions each execute 1,445 actual-loaded allowance-oracle cases. Final producer/export hashes checked after all consumers and after saving. Linux success is not Windows acceptance.
+
+Direct/packaged LOD byte/scratch/reduction/discovery/bounds/timing and cache/closure/dispatch/waterfall functional regressions are recorded. Independent packaged byte oracle: {"pass": true, "cases": 7602, "actual_extracted_core_first_on_classpath": true, "core_sha256": "d47d2894caf55206b9ca6f133571033e526dc50a3a5f1edf876d2952d1bc77d3", "no_allocation_or_latency_measurement": true}. No fresh allocation/latency acceptance follows.
+
+## Isolation, omitted checks and next priorities
+
+Independent audit receipt, output, temp, worlds and version; only this auditor's completed private checkout/cache/tool resources reused sequentially. Builder/renderer states were checkpointed and timing claims nonexclusive/released when checked; neither role was interrupted, edited or gated. Saved-world/player data and approved art are untouched. No unaccepted R57/R60/R61/R62, hydrology index, diffusion or renderer telemetry candidate is promoted.
+
+Not run: Windows/AMD8060S execution, actual OpenGL/Vulkan scenes or GPU pixels, new controlled allocation/latency benchmark, cross-architecture replay, sustained multiplayer/travel/world-size soak, and complete morphology/content/visual/gameplay regrade. Historical component timings and author tests are not current native/hardware acceptance.
+
+Next: fully qualify combined hydrology/index/contact integration; conservative single-owner loaded/unloaded water conservation; bounded catch-up/tick work; registered V8 profiles/topology, weighted ecotones and general features/structures; owner-hardware water/LOD/performance acceptance.
+
+Retention: {"pass": true, "new_save_confirmed": true, "order_by": "actual created_at", "pagination_complete": true, "kept": [{"id": "libfile_8be83379fa3c8191a757c02a94807067", "name": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0127-5ba6c80-vulkan-windows.jar", "created_at": "2026-10-27T01:48:55.287145Z"}, {"id": "libfile_82ccfbb021008191b26443035e80fa8a", "name": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0030-501886c-vulkan-windows.jar", "created_at": "2026-10-27T00:49:04.619590Z"}, {"id": "libfile_011430e0d6708191b062465d12cf23eb", "name": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261027T0004-685a739-vulkan-windows.jar", "created_at": "2026-10-27T00:22:29.280560Z"}], "trashed": [{"id": "libfile_3a97efaede848191b2583b901ee7197e", "name": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261026T2333-c5abe45-vulkan-windows.jar", "status": "succeeded"}], "source_evidence_art_tools_unrelated_preserved": true}. Local cleanup: {"pass": true, "rows": [{"path": "/dev/shm/dp-audit-c5abe45-2333/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261026T2333-c5abe45-vulkan-windows.jar", "bytes": 125296758, "sha256": "5b85503cff8f637696d92b152470230742960e13f611297425df42c95e54fc28"}, {"path": "/dev/shm/dp-audit-c5abe45-2333/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-audit-20261026T2333-c5abe45-vulkan-windows.jar", "bytes": 125296758, "sha256": "5b85503cff8f637696d92b152470230742960e13f611297425df42c95e54fc28"}], "other_roles_untouched": true, "only_expired_completed_auditor_exports": true, "all_removed_paths_absent_on_later_check": true}. Only newly qualified builds may be saved; keep newest three actual-created user-facing Deep Primal JARs across roles, preserve source/evidence/art/tool caches and unrelated files.
+
+Publication/late main: {"source_sha": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a", "latest_parent": "5ba6c80f028fce77e237ee6dedc32f2fe876e33a", "tree_sha": "b6eaeff40ad62a4ff6cd54c5a616747a500cfa39", "newer_code_changes": [], "no_newer_main_at_publication_check": true, "allowed_path": "docs/engine-hourly-audits/2026-10-27T0127-5ba6c80/", "guarded_update_required": true, "no_builder_state_overwritten": true}. The binary remains pinned to 5ba6c80f028fce77e237ee6dedc32f2fe876e33a; newer builder work is not silently included. Guarded publication may add only this unique report/evidence path. No builder state or unrelated files may be overwritten. Audit progress is observational, not a builder stop gate.
+
+
+<!-- END PRESERVED SOURCE -->
