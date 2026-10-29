@@ -234,10 +234,88 @@ public final class V8RoutedWaterSourceChecks {
     reject(() -> V8RoutedWaterSource.authorOceanDomain(yProfile), "Y-dependent ocean mask");
   }
 
+  /**
+   * A saved ocean mask may deny an interior basin even when it is below sea
+   * level and connected to an admitted boundary seed. V5 preserves its old
+   * seed-only flood; explicit V6 rejects further ocean expansion into that
+   * denied mask. This fixture uses a watershed API double, NOT native routing.
+   */
+  private static void closedOceanInteriorVersionSix() {
+    var original=v4(-2048,2,73);
+    var nodes=new ArrayList<DensityGraph.Node>();
+    nodes.add(DensityGraph.Node.constant("basin_floor",80));
+    nodes.add(DensityGraph.Node.operation("coordinate_x",DensityGraph.Op.X));
+    nodes.add(DensityGraph.Node.constant("domain_offset",4096));
+    nodes.add(DensityGraph.Node.operation("ocean_domain",DensityGraph.Op.ADD,
+        "coordinate_x","domain_offset"));
+    nodes.add(DensityGraph.Node.constant("continentalness",-0.4));
+    nodes.add(DensityGraph.Node.constant("zero",0));
+    nodes.add(DensityGraph.Node.operation("inert_domain",DensityGraph.Op.MULTIPLY,
+        "ocean_domain","zero"));
+    nodes.add(DensityGraph.Node.operation("inert_continental",DensityGraph.Op.MULTIPLY,
+        "continentalness","zero"));
+    nodes.add(DensityGraph.Node.operation("height_with_domain",DensityGraph.Op.ADD,
+        "basin_floor","inert_domain"));
+    nodes.add(DensityGraph.Node.operation("height",DensityGraph.Op.ADD,
+        "height_with_domain","inert_continental"));
+    nodes.add(DensityGraph.Node.operation("axis_y",DensityGraph.Op.Y));
+    nodes.add(DensityGraph.Node.constant("minus_one",-1));
+    nodes.add(DensityGraph.Node.operation("negative_y",DensityGraph.Op.MULTIPLY,
+        "axis_y","minus_one"));
+    nodes.add(DensityGraph.Node.operation("density",DensityGraph.Op.ADD,
+        "height","negative_y"));
+    var graph=new DensityGraph.Definition(1,"density",nodes);
+    var r4=new V8GeneratorSnapshot(4,original.seed(),original.minY(),original.height(),graph,
+        original.ground(),original.blendPolicy(),original.surfacePolicy(),
+        original.climateBinding());
+    var v5=V8RoutedWaterSource.authorOceanDomain(r4);
+    var v6=V8RoutedWaterSource.authorClosedOceanDomain(r4);
+    check(v6.version()==5 && v5.version()==5,"new policy uses frozen r5 envelope");
+    check(!v5.hydrologyBinding().equals(v6.hydrologyBinding()),"new domain-separated fingerprint");
+    check(v6.hydrologyBinding().sourceFingerprint().equals(
+        V8RoutedWaterSource.closedOceanDomainFingerprint(r4)),"policy fingerprint persisted");
+    var reopened=V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(v6));
+    check(reopened.equals(v6),"modeled v6 profile reopening");
+    var old=V8RoutedWaterSource.open(v5,original.seed());
+    var current=V8RoutedWaterSource.open(reopened,original.seed());
+    check(old.oceanDomainPolicy() && !old.closedOceanInteriorPolicy(),
+        "saved v5 behavior not silently migrated");
+    check(current.oceanDomainPolicy() && current.closedOceanInteriorPolicy(),
+        "saved v6 interior policy restored");
+    check(current.outletSeededPolicy(),"interior policy also gates ocean boundary seeds");
+    check(old.plan(-7000,2048).plannedStage()==96
+        && current.plan(-7000,2048).plannedStage()==96,
+        "admitted marine interior keeps legacy ocean stage");
+    check(old.plan(-1024,2048).plannedStage()==96,
+        "negative control: old seed-only flood leaks into denied interior");
+    check(current.plan(-1024,2048).plannedStage()==82,
+        "new interior mask prevents incorrect sea-stage flood in modeled watershed");
+    check(current.plan(-1024,2048).kind()==V8WaterDomainAdmission.WaterKind.LAKE,
+        "denied basin cannot acquire ocean classification");
+    check(current.plan(-1024,2048).equals(current.plan(-1024,2048)),
+        "closed-mask replay deterministic");
+    for(int x:new int[]{-8192,-4096,-1,0,8192}) {
+      check(current.plan(x,2048).equals(current.plan(x,2048)),
+          "exact signed boundary and internal interface parity");
+      check(current.cachedRegionCount()<=2,"bounded region residency");
+    }
+    reject(()->V8RoutedWaterSource.open(v6,original.seed()+1),"v6 wrong seed");
+    reject(()->V8RoutedWaterSource.authorClosedOceanDomain(v6),"v6 no silent mutation");
+    var edited=new ArrayList<DensityGraph.Node>(nodes);
+    for(int i=0;i<edited.size();i++)if(edited.get(i).id().equals("domain_offset"))
+      edited.set(i,DensityGraph.Node.constant("domain_offset",4097));
+    var changed=new V8GeneratorSnapshot(4,original.seed(),original.minY(),original.height(),
+        new DensityGraph.Definition(1,"density",edited),original.ground(),
+        original.blendPolicy(),original.surfacePolicy(),original.climateBinding());
+    check(!V8RoutedWaterSource.closedOceanDomainFingerprint(changed).equals(
+        V8RoutedWaterSource.closedOceanDomainFingerprint(r4)),"mask edit changes v6 fingerprint");
+  }
+
   public static void main(String[] args) {
     authorAndReopen();coordinatesAndLeases();invalidHeightGraphs();
     optInOutletSeededPriorityFlood();
     optInSavedOceanDomain();
+    closedOceanInteriorVersionSix();
     System.out.println("V8_ROUTED_SOURCE_PASS checks="+checks+" samples="+sampled+
         " rejected="+rejected+" actualWatershed=API_DOUBLE");
   }
