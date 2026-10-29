@@ -65,6 +65,12 @@ def main():
          'if (false && !MessageDigest.isEqual(hash, recordedHash))'),
         ('ignore-world-identity', 'if (!Objects.equals(image.binding(), expected))',
          'if (false && !Objects.equals(image.binding(), expected))'),
+        ('ignore-unreconciled-pending', 'rejectPending(path);',
+         '/* broken: ignore unacknowledged pending at open */'),
+        ('ignore-pending-on-commit', 'rejectPending(file);',
+         '/* broken: overwrite unacknowledged pending at commit */'),
+        ('accept-symlinked-checkpoint', 'if (Files.isSymbolicLink(path)',
+         'if (false && Files.isSymbolicLink(path)'),
         ('allow-unsorted-accounts',
          'if (i > 0 && key <= previous)\n          throw new IOException("noncanonical V8 outlet account order");',
          'if (false && i > 0 && key <= previous)\n          throw new IOException("noncanonical V8 outlet account order");'),
@@ -80,7 +86,7 @@ def main():
     success = (positive['compile']['returncode'] == 0
                and positive['test'] is not None
                and positive['test']['returncode'] == 0
-               and 'V8_OUTLET_STORE_PASS assertions=133 generation=42' in positive['test']['stdout'])
+               and 'V8_OUTLET_STORE_PASS assertions=149 generation=42' in positive['test']['stdout'])
     controls = {name: caught_by_fixture(item) for name, item in negatives.items()}
     manifest = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in [SOURCE, TEST, LEDGER, TOPOLOGY]}

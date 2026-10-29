@@ -141,14 +141,23 @@ public final class V8OutletLedgerStoreChecks {
       rejected(IllegalArgumentException.class,()->reopened.transact(41,List.of(t(39,2))));
       rejected(IllegalStateException.class,()->reopened.transact(40,List.of(t(41,2))));
       Path pending = file.resolveSibling("outlet.snapshot.pending");
-      Files.write(pending,new byte[]{1,2,3}); // abandoned unacknowledged scratch write
-      check(reopened.generation()==41,"pending does not change accepted image");
-      check(Files.exists(pending), "store does not silently consume pending data");
+      Files.write(pending,new byte[]{1,2,3}); // incomplete pre-rename frame
+      check(reopened.generation()==41,"pending does not change the previously held image");
+      check(Files.exists(pending), "pending crash witness remains unmodified");
+      rejected(IOException.class, () -> reopened.transact(41,List.of(t(41,2))));
+      rejected(IllegalStateException.class, reopened::generation);
     }
+    Path pending = file.resolveSibling("outlet.snapshot.pending");
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(file));
+    check(Arrays.equals(Files.readAllBytes(pending), new byte[]{1,2,3}),
+        "rejected reopen cannot erase unacknowledged pending frame");
+    // Only the actual world owner, after separate native reconciliation, may
+    // explicitly archive/remove the pending frame. Never auto-delete it.
+    Files.delete(pending);
     try (var reopened = V8OutletLedgerStore.open(file)) {
-      check(reopened.generation()==41,"ignore stale pre-rename pending on reopen");
+      check(reopened.generation()==41,"accepted generation survives pending recovery");
       var result = reopened.transact(41,List.of(t(41,2)));
-      check(result.generation()==42,"atomic replace pending after reopen");
+      check(result.generation()==42,"reconciled owner can advance generation");
     }
     byte[] valid=Files.readAllBytes(file);
     byte[] invalid=valid.clone();
@@ -244,6 +253,50 @@ public final class V8OutletLedgerStoreChecks {
     Files.write(file, legacyGood);
     try (var intact = V8OutletLedgerStore.open(file)) {
       check(intact.generation() == 42, "canonical legacy frame restored");
+    }
+    // Aliased checkpoint files cannot split one logical world across lock
+    // names. Parent-directory aliases are canonicalized to the same lock.
+    Path symlink = root.resolve("checkpoint-alias.snapshot");
+    Files.createSymbolicLink(symlink, file.getFileName());
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(symlink));
+    rejected(IOException.class, () -> V8OutletLedgerStore.create(symlink, starting));
+    Files.delete(symlink);
+    Path hardlink = root.resolve("hardlink-alias.snapshot");
+    Files.createLink(hardlink, file);
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(hardlink));
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(file));
+    Files.delete(hardlink);
+    Path victim = root.resolve("unrelated-world.txt");
+    Files.writeString(victim, "protected-world-bytes");
+    Path pendingAlias = root.resolve("outlet.snapshot.pending");
+    Files.createSymbolicLink(pendingAlias, victim.getFileName());
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(file));
+    check(Files.readString(victim).equals("protected-world-bytes"),
+        "unrelated pending symlink target unchanged");
+    Files.delete(pendingAlias);
+    Path lockFile = root.resolve("outlet.snapshot.lock");
+    Files.delete(lockFile); // all local writer instances are closed
+    Files.createSymbolicLink(lockFile, victim.getFileName());
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(file));
+    check(Files.readString(victim).equals("protected-world-bytes"),
+        "unrelated lock symlink target unchanged");
+    Files.delete(lockFile);
+    Path realParent = root.resolve("canonical-parent");
+    Files.createDirectories(realParent);
+    Path dirAlias = root.resolve("directory-alias");
+    Files.createSymbolicLink(dirAlias, realParent.getFileName());
+    Path canonicalFile = realParent.resolve("reopen.snapshot");
+    try (var primary = V8OutletLedgerStore.createBound(canonicalFile, starting, worldA)) {
+      rejected(IOException.class,
+          () -> V8OutletLedgerStore.openBound(dirAlias.resolve("reopen.snapshot"), worldA));
+      check(primary.generation() == 1, "aliased path cannot acquire independent writer");
+    }
+    try (var alias = V8OutletLedgerStore.openBound(dirAlias.resolve("reopen.snapshot"), worldA)) {
+      check(alias.generation() == 1, "canonicalized parent alias resolves same checkpoint");
+    }
+    try (var intact = V8OutletLedgerStore.open(file)) {
+      check(intact.generation() == 42,
+          "original legacy account survives path alias rejections");
     }
     System.out.println("V8_OUTLET_STORE_PASS assertions="+checks+
         " generation=42 persistedTriplet="+Arrays.toString(conserved));

@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
@@ -150,6 +151,7 @@ public final class V8OutletLedgerStore implements AutoCloseable {
     Path path = checkedPath(file);
     LockHandle handle = acquire(path);
     try {
+      rejectPending(path);
       Image image = read(path);
       if (!Objects.equals(image.binding(), expected))
         throw new IOException("V8 outlet checkpoint world/profile identity mismatch");
@@ -184,6 +186,12 @@ public final class V8OutletLedgerStore implements AutoCloseable {
     V8ConservedOutletLedger.Result candidate = V8ConservedOutletLedger.applyBatch(
         current.snapshot(), transfers);
     try {
+      // An unacknowledged pre-rename frame is NOT disposable scratch. It may
+      // represent a crash boundary requiring native-cell reconciliation.
+      // Never overwrite it on an ordinary retry, including an exact replay.
+      if (!checkedPath(file).equals(file))
+        throw new IOException("V8 outlet authority path identity changed");
+      rejectPending(file);
       // Detect an out-of-band file replacement even if it ignored our lock,
       // including when an identical replay requests acknowledgment.
       Image onDisk = read(file);
@@ -221,10 +229,37 @@ public final class V8OutletLedgerStore implements AutoCloseable {
 
   private static Path checkedPath(Path value) throws IOException {
     Objects.requireNonNull(value, "file");
-    Path path = value.toAbsolutePath().normalize();
-    if (path.getFileName() == null || !Files.isDirectory(path.getParent()))
+    Path requested = value.toAbsolutePath().normalize();
+    if (requested.getFileName() == null || !Files.isDirectory(requested.getParent()))
       throw new IOException("existing V8 outlet store parent directory required");
+    // Canonicalize directory aliases BEFORE choosing the lock name. Two callers
+    // entering via different symbolic parent directories must contend for the
+    // same world-owned lock instead of independently debiting one checkpoint.
+    Path path = requested.getParent().toRealPath().resolve(requested.getFileName());
+    String basename = path.getFileName().toString();
+    if (Files.isSymbolicLink(path)
+        || Files.isSymbolicLink(path.resolveSibling(basename + ".lock"))
+        || Files.isSymbolicLink(path.resolveSibling(basename + ".pending")))
+      throw new IOException("symbolic V8 outlet authority path is not allowed");
+    if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
+      try {
+        // On supporting Unix providers a hard link is also an alias with a
+        // different .lock name. Fail closed instead of forking the authority.
+        Object count = Files.getAttribute(path, "unix:nlink", LinkOption.NOFOLLOW_LINKS);
+        if (count instanceof Number number && number.longValue() != 1L)
+          throw new IOException("hard-linked V8 outlet authority is not allowed");
+      } catch (UnsupportedOperationException | IllegalArgumentException unsupported) {
+        // Other providers need native filesystem acceptance; the standard Java
+        // attribute API offers no portable hard-link count on Windows.
+      }
+    }
     return path;
+  }
+
+  private static void rejectPending(Path file) throws IOException {
+    Path unacknowledged = file.resolveSibling(file.getFileName() + ".pending");
+    if (Files.exists(unacknowledged, LinkOption.NOFOLLOW_LINKS))
+      throw new IOException("unreconciled V8 outlet pending checkpoint; manual recovery required");
   }
 
   private record LockHandle(FileChannel channel, FileLock lock) {
