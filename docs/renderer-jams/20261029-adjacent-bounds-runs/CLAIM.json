@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1505-adjacent-bounds-runs",
+  "owner": "dedicated-renderer-hourly",
+  "status": "active",
+  "started_at": "2026-10-29T15:05:00Z",
+  "active_until": "2026-10-29T15:40:00Z",
+  "baseline_sha": "4a7d40da930962c99bacbccd2a4e4631370dbce3",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPartFrustumRuns.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-adjacent-bounds-runs/**"
+  ],
+  "excludes": [
+    "engine-core",
+    "water",
+    "terrain",
+    "renderer-vulkan",
+    "graphics-settings",
+    "gradle.properties",
+    "other workstreams",
+    "shared caches/build outputs"
+  ],
+  "measurement_reservation": "isolated Java21 source-verified frustum CPU comparisons; native unreserved",
+  "consumed": [
+    "docs/renderer-jams/20261029-uniform-page-visibility/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1333-83801d65/REVIEW.md"
+  ],
+  "goal": "Reuse identical, finite adjacent mesh-part AABB frustum outcomes within mixed pages and guard adaptive gate after successful publication",
+  "owner_build_override": true
+}
