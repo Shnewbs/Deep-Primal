@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "run": "2026-10-29T0634-84dda6f",
+  "kind": "independent-source-only",
+  "pinned_source": "84dda6fb293647482b560c3a13cb47a98707e8d0",
+  "implementation_source": "adbefcc16b3c5ac16526a93c2024a2cff3b05d75",
+  "jdk": "Eclipse Temurin 25.0.5+8 Linux x64",
+  "git_exact_source_blobs_matched": true,
+  "independent_java25_assertions": 652274,
+  "mutation_controls_rejected": 1,
+  "builder_java21_checks_claimed_not_rerun": 21013270,
+  "jar_built": false,
+  "gradle_run": false,
+  "windows_gpu_run": false,
+  "full_regrade": false,
+  "baseline_scores": [
+    5,
+    4,
+    6,
+    4,
+    3,
+    7,
+    6,
+    4,
+    7,
+    4
+  ],
+  "baseline_total": 50,
+  "required_total_exclusive": 85,
+  "evidence": {
+    "library_path": "/Deep Primal/Independent Audits/DeepPrimal_Dev72_IndependentAudit_20261029T0634_84dda6f_Java25Evidence.zip",
+    "size_bytes": 10964,
+    "sha256": "f012cf338223952e26aafca4178da2e5a879e644e91ad747662f05a3938c7930",
+    "zip_entries": 16,
+    "crc_pass": true
+  },
+  "production_changes": false,
+  "builder_interrupted": false
+}
