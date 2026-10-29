@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-20261029T2315-dev90-outlet-failclosed",
+  "status": "active",
+  "lease_released": false,
+  "started_at": "2026-10-29T23:15:00Z",
+  "updated_at": "2026-10-29T23:15:00Z",
+  "active_until": "2026-10-29T23:45:00Z",
+  "base_ref": "04ae92ff2c58deca00a0f405ae84c29f1f2ddde0",
+  "source_only_version": "0.0.1-alpha.29-dev.90-outlet-failclosed.1",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletLedgerStore.java",
+    "tools/tests/V8OutletLedgerStoreChecks.java",
+    "tools/test_v8_outlet_store.py",
+    "docs/validation/engine-continuation/v8-outlet-failclosed-2026-10-29/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-29T2131-5f7c3f68/REVIEW.md",
+  "audit_pinned_source": "5f7c3f680e47bd29d03a90cd09c5c34e202f09e7",
+  "coordination": "Current main and active scoped claims inspected. Dev88 vegetation receipt already repaired Dev87 audit; terrain work-state lease and foreground water work-state expired. Avoid their materializer/HydrologyRuntime/gradle files and renderer-owned scope. Root pinned validator not available in full local checkout; root state unmodified. Owner operates full builds."
+}
