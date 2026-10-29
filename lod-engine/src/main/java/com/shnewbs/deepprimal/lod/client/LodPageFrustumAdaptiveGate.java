@@ -20,13 +20,14 @@ final class LodPageFrustumAdaptiveGate {
   }
 
   /** Call only after a successful complete extraction, never on an exception. */
-  void completed(boolean tested, int testedPages, int rejectedPages) {
+  void completed(boolean tested, int testedPages, int avoidedPartTests) {
     if (!ENABLED || !tested || testedPages < MIN_SAMPLED_PAGES) return;
-    if (rejectedPages < 0 || rejectedPages > testedPages)
+    if (testedPages < 0 || avoidedPartTests < 0)
       throw new IllegalArgumentException("invalid coarse frustum counters");
-    // With fewer than one rejection per eight tests, coarse broadphase is
-    // likely less useful than fine culling. This is a heuristic, not an FPS claim.
-    if (rejectedPages * 8L < testedPages) remainingSkips = SKIP_EXTRACTIONS;
+    // If page rejection saves at most one per-part test for each coarse
+    // test, bypass coarse for a few frames. Equal test counts are only a
+    // heuristic CPU-work proxy, not measured GPU or driver performance.
+    if (avoidedPartTests <= testedPages) remainingSkips = SKIP_EXTRACTIONS;
   }
 
   void reset() {
