@@ -322,11 +322,21 @@ public final class DensityChunkMaterializer {
         for (int x = 0; x < DensityChunk.WIDTH; x++) {
           var place = plants.placement(x, z);
           if (place == null) continue;
-          var at = pos.set(origin.getMinBlockX() + x,
-              place.y(), origin.getMinBlockZ() + z);
-          if (chunk.getBlockState(at).isAir())
-            undo.write(at, place.plant() == V8VegetationColumnPlan.Plant.FERN
-                ? fern : shortGrass);
+          var column = columns.column(x, z);
+          if (column == null || column.cover().snowPatch()) continue;
+          BlockState expectedSupport = switch (column.cover().cover()) {
+            case BARE -> null;
+            case GRASS -> grass;
+            case PODZOL -> podzol;
+          };
+          if (expectedSupport == null) continue;
+          int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
+          // Check after native raw/soil setters; callbacks may have changed
+          // support or destination since preflight. Do not relocate a plant.
+          if (V8VegetationNativeAdmission.permits(
+              chunk, pos, worldX, place.y(), worldZ, expectedSupport))
+            undo.write(pos.set(worldX, place.y(), worldZ),
+                place.plant() == V8VegetationColumnPlan.Plant.FERN ? fern : shortGrass);
         }
       Heightmap.primeHeightmaps(chunk,
           EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
