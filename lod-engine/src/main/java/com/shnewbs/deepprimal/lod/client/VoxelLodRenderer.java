@@ -537,7 +537,7 @@ public final class VoxelLodRenderer {
     boolean coarseThisFrame =
         LodPageFrustumBounds.ENABLED && pageFrustumGate.shouldTestPages(
             camera.x, camera.y, camera.z,
-            event.getCamera().getYRot(), event.getCamera().getXRot());
+            event.getCamera().yRot(), event.getCamera().xRot());
     try {
     int chunks = 0, span = 0;
     int cx = Math.floorDiv((int) Math.floor(camera.x), 16),
