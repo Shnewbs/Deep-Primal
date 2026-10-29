@@ -1,0 +1,49 @@
+{
+  "source_version": "0.0.1-alpha.29-dev.89-outlet-admission.1 (source-only, pending compatible Gradle version update while terrain dev88 owns gradle.properties)",
+  "source_base": "16284bd98c9fcfbad7bd33752a2cd558aa534e20",
+  "last_external_grade": {
+    "average": 5.0,
+    "complete_regrade": false,
+    "source": "docs/engine-review-2026-10-24/REVIEW.md"
+  },
+  "consumed_independent_audit": {
+    "path": "docs/engine-hourly-audits/2026-10-29T2131-5f7c3f68/REVIEW.md",
+    "pinned_sha": "5f7c3f680e47bd29d03a90cd09c5c34e202f09e7",
+    "coordination": "Dev87 audit identifies native vegetation preflight-versus-realized receipt; already claimed by distinct terrain dev88 writer. Non-overlapping outlet authority work selected."
+  },
+  "test_summary": {
+    "java": "OpenJDK 21.0.12.1",
+    "javac_flags": "--release 21 -Xlint:all -Werror",
+    "java_flags": "-ea -Xverify:all",
+    "authority_passes": 2,
+    "assertions_per_process": 8220,
+    "stress_per_process": 2048,
+    "compiled_mutants_rejected": 12,
+    "store_regression_passes": 2,
+    "store_assertions_per_process": 133,
+    "store_compiled_mutants_rejected": 10,
+    "fs_test": "real local filesystem, not real Minecraft saved-world FS"
+  },
+  "production_source_test_identities": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletAuthorityAdmission.java": {
+      "bytes": 8143,
+      "sha256": "edab5c1097e61dd8994e977ea34d2162d37ee82244d45b1cc04fa05314aad3e9"
+    },
+    "tools/tests/V8OutletAuthorityAdmissionChecks.java": {
+      "bytes": 8989,
+      "sha256": "e88ffc3eb043a4485ddf628ab1936c0cb23acca935388a8404cdac5498fb016a"
+    },
+    "tools/test_v8_outlet_authority.py": {
+      "bytes": 4615,
+      "sha256": "33d7a8dda104cae27aacbd8f7ecacef8f9956e674d3cd94c8bfba619dc4292f5"
+    }
+  },
+  "missing": [
+    "Complete root pinned work-state validator unavailable without checkout",
+    "No Java25/Gradle9.2.1 NeoForge compilation",
+    "No in-game native finite-water cell integration or atomic cell-plus-ledger persistence",
+    "No saved native Minecraft world reopening, edits or mixed old/new generation border",
+    "No Vulkan/OpenGL native GPU measurement",
+    "No newly published owner JAR or independent regrade"
+  ]
+}
