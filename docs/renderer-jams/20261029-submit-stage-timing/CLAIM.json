@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "owner": "dedicated-renderer-schedule",
+  "jam_id": "renderer-20261029T0054-submit-stage-timing",
+  "status": "active",
+  "claimed_utc": "2026-10-29T00:54:00Z",
+  "expires_utc": "2026-10-29T02:10:00Z",
+  "parent_at_claim": "dc2f74516d8c14fa6e3aa5282788ebe02c734d28",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodSubmissionProbe.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-submit-stage-timing/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excludes": [
+    "src/main/java/com/shnewbs/deepprimal/engine",
+    "engine-core",
+    "water",
+    "terrain",
+    "graphics-settings",
+    "renderer-vulkan",
+    "gradle.properties",
+    "other jobs"
+  ],
+  "measurement_reservation": "none; optional CPU submission component capture only; owner Vulkan/OpenGL/VRAM reservations untouched",
+  "consumed_findings": [
+    "docs/renderer-jams/20261028-triangle-counter/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-28T1735-cf254e27/REVIEW.md"
+  ],
+  "owner_build_override": true,
+  "goal": "Split actual render-thread CPU transform preparation from synchronous indexed API submission and report thrown draw passes honestly; leave GPU timing and water surface state untouched"
+}
