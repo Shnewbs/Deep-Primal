@@ -36,8 +36,11 @@ public final class LodPageFrustumAdaptiveChecks {
     for (int i = 0; i < 3; i++)
       check(gate.shouldTestPages() == !adapt, "bounded skip " + i);
     check(gate.shouldTestPages(), "sample again");
-    gate.completed(true, 64, 8);
-    check(gate.shouldTestPages(), "recover when coarse useful");
+    gate.completed(true, 64, 65);
+    check(gate.shouldTestPages(), "keep coarse when saves more part tests");
+    gate.completed(true, 64, 64);
+    check(gate.shouldTestPages() == !adapt, "equal work triggers bypass");
+    gate.reset();
     gate.completed(true, 31, 0);
     check(gate.shouldTestPages(), "small sample not suppressed");
     gate.completed(false, 64, 0);
@@ -53,7 +56,7 @@ public final class LodPageFrustumAdaptiveChecks {
     long sampled = 0, bypassed = 0, coarseRejected = 0;
     for (int frame = 0; frame < 180; frame++) {
       boolean coarse = gate.shouldTestPages();
-      int tested = 0, rejected = 0;
+      int tested = 0, avoided = 0;
       for (int page = 0; page < 128; page++) {
         var parts = new ArrayList<TerrainGpuMesh>();
         int count = 2 + random.nextInt(7);
@@ -69,14 +72,14 @@ public final class LodPageFrustumAdaptiveChecks {
         check(original.equals(candidate), "order/visibility parity");
         if (coarse) {
           tested++;
-          if (!visible(box)) rejected++;
+          if (!visible(box)) avoided += parts.size();
         } else bypassed++;
       }
       if (coarse) {
         sampled++;
-        coarseRejected += rejected;
+        coarseRejected += avoided;
       }
-      gate.completed(coarse, tested, rejected);
+      gate.completed(coarse, tested, avoided);
     }
     check(sampled > 0 && coarseRejected > 0, "samples and rejection witnesses");
     if (adapt) check(bypassed > 0, "adaptation applied");
@@ -88,6 +91,6 @@ public final class LodPageFrustumAdaptiveChecks {
     check(gate.shouldTestPages(), "aborted sample must not suppress");
     System.out.println("LOD_PAGE_FRUSTUM_ADAPTIVE_PASS adapt=" + adapt
         + " assertions=" + assertions + " sampledFrames=" + sampled
-        + " bypassedPages=" + bypassed + " rejectedPages=" + coarseRejected);
+        + " bypassedPages=" + bypassed + " avoidedPartTests=" + coarseRejected);
   }
 }
