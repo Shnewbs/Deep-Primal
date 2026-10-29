@@ -61,6 +61,12 @@ final class LodPageFrustumAdaptiveGate {
     // turning bits. Each float is represented exactly as a double here; both
     // reduced operands lie within one turn so the subtraction is bounded.
     if (!Float.isFinite(a) || !Float.isFinite(b)) return Float.POSITIVE_INFINITY;
+    // Real camera yaw/pitch normally stay within one turn. Preserve the
+    // original cheap float path there; its difference cannot overflow.
+    if (Math.abs(a) <= 360.0f && Math.abs(b) <= 360.0f) {
+      float delta = Math.abs((a - b) % 360.0f);
+      return Math.min(delta, 360.0f - delta);
+    }
     double delta = Math.abs(((double) a % 360.0) - ((double) b % 360.0));
     if (delta >= 360.0) delta -= 360.0;
     return (float) Math.min(delta, 360.0 - delta);
