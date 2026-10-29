@@ -56,8 +56,14 @@ final class LodPageFrustumAdaptiveGate {
   }
 
   private static float angleDifference(float a, float b) {
-    float delta = Math.abs((a - b) % 360.0f);
-    return Math.min(delta, 360.0f - delta);
+    // Normalize *before* subtracting. Extreme but finite headings can overflow
+    // float subtraction, and even a finite huge difference can lose its low
+    // turning bits. Each float is represented exactly as a double here; both
+    // reduced operands lie within one turn so the subtraction is bounded.
+    if (!Float.isFinite(a) || !Float.isFinite(b)) return Float.POSITIVE_INFINITY;
+    double delta = Math.abs(((double) a % 360.0) - ((double) b % 360.0));
+    if (delta >= 360.0) delta -= 360.0;
+    return (float) Math.min(delta, 360.0 - delta);
   }
 
   /** Call only after a successful complete extraction, never on an exception. */
