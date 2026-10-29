@@ -17,15 +17,35 @@ final class LodPageFrustumBounds {
 
   private LodPageFrustumBounds() {}
 
-  static AABB[] build(List<List<TerrainGpuMesh>> levels) {
-    AABB[] result = new AABB[levels.size()];
-    // The broadphase-off A/B path never consumes unions: do not spend upload-time
-    // CPU or allocate AABBs building page bounds that cannot be tested.
-    if (!ENABLED) return result;
+  /**
+   * Freeze each resident part's world-space bounds reference at publication.
+   * Minecraft AABBs are immutable; GPU mesh bounds fields are not. Culling
+   * must use the captured geometry bounds, not later field reassignment.
+   */
+  static AABB[][] snapshot(List<List<TerrainGpuMesh>> levels) {
+    AABB[][] captured = new AABB[levels.size()][];
     for (int detail = 0; detail < levels.size(); detail++) {
       List<TerrainGpuMesh> parts = levels.get(detail);
+      AABB[] bounds = new AABB[parts.size()];
+      for (int i = 0; i < bounds.length; i++) bounds[i] = parts.get(i).bounds;
+      captured[detail] = bounds;
+    }
+    return captured;
+  }
+
+  static AABB[] build(List<List<TerrainGpuMesh>> levels) {
+    // Broadphase-off A/B does not allocate unused union metadata.
+    if (!ENABLED) return new AABB[levels.size()];
+    return fromSnapshot(snapshot(levels));
+  }
+
+  static AABB[] fromSnapshot(AABB[][] levels) {
+    AABB[] result = new AABB[levels.length];
+    if (!ENABLED) return result;
+    for (int detail = 0; detail < levels.length; detail++) {
+      AABB[] parts = levels[detail];
       // A singleton cannot save a test; empty levels already have no draw calls.
-      if (parts.size() <= 1) continue;
+      if (parts.length <= 1) continue;
       double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY,
           minZ = Double.POSITIVE_INFINITY;
       double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY,
@@ -34,10 +54,9 @@ final class LodPageFrustumBounds {
       // If all part bounds describe exactly the same volume, one positive
       // coarse visibility result also proves every fine-part result. Keep the
       // validated first box by identity as the draw-time fast-path marker.
-      AABB representative = parts.get(0).bounds;
+      AABB representative = parts[0];
       boolean uniform = true;
-      for (TerrainGpuMesh part : parts) {
-        AABB box = part.bounds;
+      for (AABB box : parts) {
         if (!valid(box)) {
           // Never allow a malformed part to turn conservative rejection into a
           // false negative. Leave that level on the original per-part path.
@@ -66,6 +85,11 @@ final class LodPageFrustumBounds {
   static boolean allPartsShareBounds(AABB pageBounds, List<TerrainGpuMesh> parts) {
     return pageBounds != null && parts.size() > 1
         && pageBounds == parts.get(0).bounds;
+  }
+
+  /** Uniform identity marker validated from the same frozen source as the union. */
+  static boolean allPartsShareSnapshot(AABB pageBounds, AABB[] parts) {
+    return pageBounds != null && parts.length > 1 && pageBounds == parts[0];
   }
 
   private static boolean sameBox(AABB a, AABB b) {

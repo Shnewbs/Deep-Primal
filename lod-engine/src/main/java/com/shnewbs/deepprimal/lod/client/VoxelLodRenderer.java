@@ -63,7 +63,8 @@ public final class VoxelLodRenderer {
           .build();
 
   private record Entry(
-      long revision, List<List<TerrainGpuMesh>> levels, AABB[] frustumBounds,
+      long revision, List<List<TerrainGpuMesh>> levels, AABB[][] frozenPartBounds,
+      AABB[] frustumBounds,
       long[][] adjacentBoundRuns, long bytes, int[] selected, int top, boolean persisted)
       implements AutoCloseable {
     public void close() {
@@ -581,6 +582,7 @@ public final class VoxelLodRenderer {
           x(k) * 16. + 8 - camera.x, z(k) * 16. + 8 - camera.z);
       entry.selected[0] = d;
       var selectedParts = entry.levels.get(d);
+      AABB[] selectedBounds = entry.frozenPartBounds[d];
       AABB coarseBounds = entry.frustumBounds[d];
       // Every part is contained in the cached page box. Reject only when the
       // entire multi-part page is outside; never change per-part draw ordering.
@@ -599,7 +601,7 @@ public final class VoxelLodRenderer {
           // The same positive predicate applies to each identical AABB;
           // retain original ordering without per-part duplicate tests.
           // Never apply this to a conservative union of different bounds.
-          if (LodPageFrustumBounds.allPartsShareBounds(coarseBounds, selectedParts)) {
+          if (LodPageFrustumBounds.allPartsShareSnapshot(coarseBounds, selectedBounds)) {
             for (TerrainGpuMesh part : selectedParts) visible.add(part);
             skippedPartTests += selectedParts.size();
             if (TELEMETRY) {
@@ -622,7 +624,8 @@ public final class VoxelLodRenderer {
       boolean previousPartVisible = false;
       int partIndex = 0;
       for (TerrainGpuMesh part : selectedParts) {
-        AABB bounds = part.bounds;
+        // Frozen geometry AABBs cannot stale the coarse union or adjacent mask.
+        AABB bounds = selectedBounds[partIndex];
         boolean reused = LodPartFrustumRuns.repeatsPrevious(runMask, partIndex++);
         boolean partVisible = reused ? previousPartVisible : event.getFrustum().isVisible(bounds);
         if (TELEMETRY) {
@@ -844,13 +847,16 @@ public final class VoxelLodRenderer {
       if (TELEMETRY) lastUploadBytes = used;
     }
     if (p.detail == 3) {
+      // One publication snapshot supplies coarse, fine and adjacent-run bounds.
+      AABB[][] frozenBounds = LodPageFrustumBounds.snapshot(p.levels);
       Entry replacement =
           new Entry(
               p.ready.revision,
               p.levels.stream().map(List::copyOf).toList(),
-              LodPageFrustumBounds.build(p.levels),
+              frozenBounds,
+              LodPageFrustumBounds.fromSnapshot(frozenBounds),
               LodPageFrustumBounds.ENABLED
-                  ? LodPartFrustumRuns.build(p.levels) : new long[0][],
+                  ? LodPartFrustumRuns.fromSnapshot(frozenBounds) : new long[0][],
               p.bytes(),
               new int[] {0},
               p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
