@@ -27,8 +27,8 @@ public final class LodPageFrustumAdaptiveChecks {
   }
 
   public static void main(String[] args) {
-    boolean adapt = !"false".equalsIgnoreCase(
-        System.getProperty("deepprimal.lod.pageFrustumAutoSkip", "true"));
+    boolean adapt = "true".equalsIgnoreCase(
+        System.getProperty("deepprimal.lod.pageFrustumAutoSkip", "false"));
     check(LodPageFrustumAdaptiveGate.ENABLED == adapt, "startup setting");
     var gate = new LodPageFrustumAdaptiveGate();
     check(gate.shouldTestPages(), "initial sample");
