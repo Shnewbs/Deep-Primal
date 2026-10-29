@@ -784,86 +784,96 @@ public final class VoxelLodRenderer {
     var parts = event.getLevelRenderState().getRenderData(VISIBLE);
     if (parts == null || parts.isEmpty()) return;
     long submitStarted = TELEMETRY ? System.nanoTime() : 0;
-    var target = Minecraft.getInstance().getMainRenderTarget();
-    var camera = event.getLevelRenderState().cameraRenderState.pos;
-    var transformPool = transformArrays.acquire(parts.size(), transformFactory);
-    drawMatrix.set(event.getModelViewMatrix());
-    for (int i = 0; i < parts.size(); i++) {
-      var p = parts.get(i);
-      ((Vector3f) transformPool[i].modelOffset())
-          .set((float) (p.x * 16. - camera.x), (float) -camera.y, (float) (p.z * 16. - camera.z));
-    }
-    var slices = RenderSystem.getDynamicUniforms().writeTransforms(transformPool);
-    long transformsReadyAt = TELEMETRY ? System.nanoTime() : 0;
-    int returnedDrawRecords = 0, returnedDrawCalls = 0;
-    boolean renderPassCompleted = false;
-    // Publish cumulative diagnostics once per pass, not once per visible mesh part.
-    // Counts only successful draw API calls, even if a later submission fails.
-    long completedTriangles = 0;
+    boolean transformsWritten = false;
     try {
-      try (var pass =
-        RenderSystem.getDevice()
-            .createCommandEncoder()
-            .createRenderPass(
-                () -> "Deep Primal real-chunk LOD",
-                target.getColorTextureView(),
-                OptionalInt.empty(),
-                target.getDepthTextureView(),
-                OptionalDouble.empty())) {
-      pass.setPipeline(PIPELINE);
-      RenderSystem.bindDefaultUniforms(pass);
-      GpuLighting.bind(pass);
-      if (ClientPerformanceConfig.BATCHED_DRAWS.get()) {
-        int index = 0;
-        while (index < parts.size()) {
-          int take = Math.min(4096, parts.size() - index);
-          var batch = indexedDrawBatches.begin(take);
-          long batchTriangles = 0;
-          try {
-            for (int i = 0; i < take; i++) {
-              var part = parts.get(index);
-              part.transformSlice = slices[index];
-              batch.add(part.indexedDraw);
-              batchTriangles += part.triangles();
-              index++;
+      var target = Minecraft.getInstance().getMainRenderTarget();
+      var camera = event.getLevelRenderState().cameraRenderState.pos;
+      var transformPool = transformArrays.acquire(parts.size(), transformFactory);
+      drawMatrix.set(event.getModelViewMatrix());
+      for (int i = 0; i < parts.size(); i++) {
+        var p = parts.get(i);
+        ((Vector3f) transformPool[i].modelOffset())
+            .set((float) (p.x * 16. - camera.x), (float) -camera.y, (float) (p.z * 16. - camera.z));
+      }
+      var slices = RenderSystem.getDynamicUniforms().writeTransforms(transformPool);
+      transformsWritten = true;
+      long transformsReadyAt = TELEMETRY ? System.nanoTime() : 0;
+      int returnedDrawRecords = 0, returnedDrawCalls = 0;
+      boolean renderPassCompleted = false;
+      // Publish cumulative diagnostics once per pass, not once per visible mesh part.
+      // Counts only successful draw API calls, even if a later submission fails.
+      long completedTriangles = 0;
+      try {
+        try (var pass =
+          RenderSystem.getDevice()
+              .createCommandEncoder()
+              .createRenderPass(
+                  () -> "Deep Primal real-chunk LOD",
+                  target.getColorTextureView(),
+                  OptionalInt.empty(),
+                  target.getDepthTextureView(),
+                  OptionalDouble.empty())) {
+        pass.setPipeline(PIPELINE);
+        RenderSystem.bindDefaultUniforms(pass);
+        GpuLighting.bind(pass);
+        if (ClientPerformanceConfig.BATCHED_DRAWS.get()) {
+          int index = 0;
+          while (index < parts.size()) {
+            int take = Math.min(4096, parts.size() - index);
+            var batch = indexedDrawBatches.begin(take);
+            long batchTriangles = 0;
+            try {
+              for (int i = 0; i < take; i++) {
+                var part = parts.get(index);
+                part.transformSlice = slices[index];
+                batch.add(part.indexedDraw);
+                batchTriangles += part.triangles();
+                index++;
+              }
+              pass.drawMultipleIndexed(
+                  batch, null, VertexFormat.IndexType.SHORT,
+                  java.util.Set.of("DynamicTransforms"), null);
+              completedTriangles += batchTriangles;
+              if (TELEMETRY) {
+                returnedDrawRecords += take;
+                returnedDrawCalls++;
+              }
+              submittedApiBatches++;
+            } finally {
+              indexedDrawBatches.end();
             }
-            pass.drawMultipleIndexed(
-                batch, null, VertexFormat.IndexType.SHORT,
-                java.util.Set.of("DynamicTransforms"), null);
-            completedTriangles += batchTriangles;
+          }
+        } else
+          for (int i = 0; i < parts.size(); i++) {
+            pass.setUniform("DynamicTransforms", slices[i]);
+            parts.get(i).draw(pass);
+            completedTriangles += parts.get(i).triangles();
             if (TELEMETRY) {
-              returnedDrawRecords += take;
+              returnedDrawRecords++;
               returnedDrawCalls++;
             }
-            submittedApiBatches++;
-          } finally {
-            indexedDrawBatches.end();
           }
         }
-      } else
-        for (int i = 0; i < parts.size(); i++) {
-          pass.setUniform("DynamicTransforms", slices[i]);
-          parts.get(i).draw(pass);
-          completedTriangles += parts.get(i).triangles();
-          if (TELEMETRY) {
-            returnedDrawRecords++;
-            returnedDrawCalls++;
-          }
+        renderPassCompleted = true;
+      } finally {
+        drawnTriangles += completedTriangles;
+        if (TELEMETRY) {
+          long finishedAt = System.nanoTime();
+          submissionProbe.finished(transformsReadyAt - submitStarted,
+              finishedAt - transformsReadyAt, finishedAt - submitStarted,
+              returnedDrawRecords, returnedDrawCalls, renderPassCompleted);
         }
       }
-      renderPassCompleted = true;
-    } finally {
-      drawnTriangles += completedTriangles;
       if (TELEMETRY) {
-        long finishedAt = System.nanoTime();
-        submissionProbe.finished(transformsReadyAt - submitStarted,
-            finishedAt - transformsReadyAt, finishedAt - submitStarted,
-            returnedDrawRecords, returnedDrawCalls, renderPassCompleted);
+        submittedParts = parts.size();
+        submitTiming.record(System.nanoTime() - submitStarted);
       }
-    }
-    if (TELEMETRY) {
-      submittedParts = parts.size();
-      submitTiming.record(System.nanoTime() - submitStarted);
+    } catch (RuntimeException | Error failure) {
+      // Pre-draw failures were previously absent from LOD CPU tail statistics.
+      // Keep draw-pass failures on the existing finally path; never double count.
+      if (TELEMETRY && !transformsWritten)
+        submissionProbe.failedBeforeDraw(System.nanoTime() - submitStarted);
+      throw failure;
     }
   }
 

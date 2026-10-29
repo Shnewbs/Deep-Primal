@@ -3,19 +3,19 @@ package com.shnewbs.deepprimal.lod.client;
 import com.shnewbs.deepprimal.core.RollingTiming;
 
 /**
- * Bounded CPU-only timing of LOD submission after transforms were written.
- * Includes failed render passes rather than silently dropping their long tails;
- * returned API calls/records are not GPU-executed draws or indirect dispatches.
+ * Bounded CPU-only timing of LOD submission including failures before transforms.
+ * Returned API calls/records are not GPU-executed draws or indirect dispatches.
  * No clock read or allocation is required while telemetry is disabled.
  */
 final class LodSubmissionProbe {
   record Snapshot(RollingTiming.Snapshot transformCpuNanos,
       RollingTiming.Snapshot drawApiCpuNanos, RollingTiming.Snapshot totalCpuNanos,
       long completedPasses, long failedPasses, long returnedRecords,
-      long returnedApiCalls) {}
+      long returnedApiCalls, long failedBeforeDrawPasses) {}
 
   private final RollingTiming transformCpuNanos, drawApiCpuNanos, totalCpuNanos;
   private long completedPasses, failedPasses, returnedRecords, returnedApiCalls;
+  private long failedBeforeDrawPasses;
 
   LodSubmissionProbe(int samples) {
     transformCpuNanos = new RollingTiming(samples);
@@ -24,8 +24,19 @@ final class LodSubmissionProbe {
   }
 
   /**
-   * Called in the draw-pass finally block. The transform stage has completed;
-   * an exception while creating/writing transforms is outside this observation.
+   * Called when target acquisition, transform preparation or transform writing
+   * throws before any draw pass is created. Counts all elapsed CPU time as
+   * preparation, no draw time or successful API calls; the original failure
+   * still propagates from the renderer.
+   */
+  synchronized void failedBeforeDraw(long elapsedNanos) {
+    if (elapsedNanos < 0) throw new IllegalArgumentException("negative LOD preparation duration");
+    finished(elapsedNanos, 0, elapsedNanos, 0, 0, false);
+    failedBeforeDrawPasses = increment(failedBeforeDrawPasses);
+  }
+
+  /**
+   * Called in the draw-pass finally block after successful transform writing.
    * Draw-api duration includes Java call preparation/driver submission and
    * render-pass close, never a GPU fence or measured GPU execution interval.
    */
@@ -49,7 +60,7 @@ final class LodSubmissionProbe {
   synchronized Snapshot snapshot() {
     return new Snapshot(transformCpuNanos.snapshot(), drawApiCpuNanos.snapshot(),
         totalCpuNanos.snapshot(), completedPasses, failedPasses, returnedRecords,
-        returnedApiCalls);
+        returnedApiCalls, failedBeforeDrawPasses);
   }
 
   synchronized void reset() {
@@ -57,6 +68,7 @@ final class LodSubmissionProbe {
     drawApiCpuNanos.reset();
     totalCpuNanos.reset();
     completedPasses = failedPasses = returnedRecords = returnedApiCalls = 0;
+    failedBeforeDrawPasses = 0;
   }
 
   private static long increment(long value) {
