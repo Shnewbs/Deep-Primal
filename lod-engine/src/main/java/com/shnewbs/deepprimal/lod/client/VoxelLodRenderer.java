@@ -532,7 +532,9 @@ public final class VoxelLodRenderer {
     // Force a full coarse sample periodically, and use the unmodified fine path
     // on skipped extracts. Off disables all page tests irrespective of policy.
     boolean coarseThisFrame =
-        LodPageFrustumBounds.ENABLED && pageFrustumGate.shouldTestPages();
+        LodPageFrustumBounds.ENABLED && pageFrustumGate.shouldTestPages(
+            camera.x, camera.y, camera.z,
+            event.getCamera().getYRot(), event.getCamera().getXRot());
     try {
     int chunks = 0, span = 0;
     int cx = Math.floorDiv((int) Math.floor(camera.x), 16),
