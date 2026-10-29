@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Single-writer, file-backed authority for an opt-in V8 watershed ledger.
@@ -44,7 +46,30 @@ import java.util.Objects;
  */
 public final class V8OutletLedgerStore implements AutoCloseable {
   private static final int MAGIC = 0x56384c53; // V8LS
-  private static final int DISK_VERSION = 1;
+  private static final int LEGACY_DISK_VERSION = 1;
+  private static final int BOUND_DISK_VERSION = 2;
+  private static final int WORLD_HASH_BYTES = 32;
+
+  /**
+   * A native owner-supplied identity for one immutable V8 saved profile in one
+   * world. The digest must be of the canonical, already saved generation
+   * profile, not of mutable current creation-screen options. Do not infer a
+   * world UUID or hash from this helper; callers must provide the persisted
+   * authority and reject unknown legacy identity before adoption.
+   */
+  public record WorldBinding(UUID worldId, String savedProfileSha256) {
+    public WorldBinding {
+      Objects.requireNonNull(worldId, "worldId");
+      Objects.requireNonNull(savedProfileSha256, "savedProfileSha256");
+      if (savedProfileSha256.length() != WORLD_HASH_BYTES * 2)
+        throw new IllegalArgumentException("V8 saved-profile SHA256 must be 64 lowercase hex characters");
+      for (int i = 0; i < savedProfileSha256.length(); i++) {
+        char c = savedProfileSha256.charAt(i);
+        if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')))
+          throw new IllegalArgumentException("V8 saved-profile SHA256 must be lowercase hex");
+      }
+    }
+  }
   private static final int HASH_BYTES = 32;
   private static final int MAX_BYTES = 3_000_000;
 
@@ -53,7 +78,7 @@ public final class V8OutletLedgerStore implements AutoCloseable {
   }
 
   private record Image(long generation, V8ConservedOutletLedger.Snapshot snapshot,
-                       byte[] fingerprint) {}
+                       WorldBinding binding, byte[] fingerprint) {}
 
   private final Path file;
   private final Path pending;
@@ -72,9 +97,23 @@ public final class V8OutletLedgerStore implements AutoCloseable {
     this.current = image;
   }
 
-  /** Fresh-world only; rejects an existing checkpoint or an abandoned first write. */
+  /**
+   * Legacy V1 entry point, retained for pre-bound source/API compatibility.
+   * NEVER use this for a newly adopted Minecraft world; call createBound.
+   */
   public static V8OutletLedgerStore create(Path file,
       V8ConservedOutletLedger.Snapshot first) throws IOException {
+    return createImage(file, first, null);
+  }
+
+  /** Fresh-world V2 checkpoint, bound to the saved world and frozen V8 profile. */
+  public static V8OutletLedgerStore createBound(Path file,
+      V8ConservedOutletLedger.Snapshot first, WorldBinding binding) throws IOException {
+    return createImage(file, first, Objects.requireNonNull(binding, "binding"));
+  }
+
+  private static V8OutletLedgerStore createImage(Path file,
+      V8ConservedOutletLedger.Snapshot first, WorldBinding binding) throws IOException {
     Objects.requireNonNull(first, "first");
     Path path = checkedPath(file);
     LockHandle handle = acquire(path);
@@ -82,22 +121,38 @@ public final class V8OutletLedgerStore implements AutoCloseable {
       Path pending = path.resolveSibling(path.getFileName().toString() + ".pending");
       if (Files.exists(path) || Files.exists(pending))
         throw new IOException("V8 outlet store already exists or has an uncommitted creation");
-      byte[] bytes = encode(1L, first);
+      byte[] bytes = encode(1L, first, binding);
       publish(path, pending, bytes);
       return new V8OutletLedgerStore(path, handle.channel(), handle.lock(),
-          new Image(1L, first, digest(bytes)));
+          new Image(1L, first, binding, digest(bytes)));
     } catch (IOException | RuntimeException | Error failure) {
       handle.close();
       throw failure;
     }
   }
 
-  /** Existing-world only; absence, corruption and unknown format fail closed. */
+  /** Legacy V1 only; never accepts V2, which requires explicit identity. */
   public static V8OutletLedgerStore open(Path file) throws IOException {
+    return openImage(file, null);
+  }
+
+  /**
+   * Existing-world V2 only. A transplanted checkpoint, edited saved policy,
+   * unknown V1 image or missing file fails without constructing a new store.
+   */
+  public static V8OutletLedgerStore openBound(Path file, WorldBinding binding)
+      throws IOException {
+    return openImage(file, Objects.requireNonNull(binding, "binding"));
+  }
+
+  private static V8OutletLedgerStore openImage(Path file, WorldBinding expected)
+      throws IOException {
     Path path = checkedPath(file);
     LockHandle handle = acquire(path);
     try {
       Image image = read(path);
+      if (!Objects.equals(image.binding(), expected))
+        throw new IOException("V8 outlet checkpoint world/profile identity mismatch");
       return new V8OutletLedgerStore(path, handle.channel(), handle.lock(), image);
     } catch (IOException | RuntimeException | Error failure) {
       handle.close();
@@ -133,14 +188,15 @@ public final class V8OutletLedgerStore implements AutoCloseable {
       // including when an identical replay requests acknowledgment.
       Image onDisk = read(file);
       if (onDisk.generation() != current.generation()
+          || !Objects.equals(onDisk.binding(), current.binding())
           || !Arrays.equals(onDisk.fingerprint(), current.fingerprint()))
         throw new IOException("out-of-band V8 outlet store modification");
       if (candidate.applied() == 0)
         return new Commit(current.generation(), candidate);
       long next = Math.addExact(current.generation(), 1L);
-      byte[] bytes = encode(next, candidate.snapshot());
+      byte[] bytes = encode(next, candidate.snapshot(), current.binding());
       publish(file, pending, bytes);
-      current = new Image(next, candidate.snapshot(), digest(bytes));
+      current = new Image(next, candidate.snapshot(), current.binding(), digest(bytes));
       return new Commit(next, candidate);
     } catch (IOException | RuntimeException | Error failure) {
       poisoned = true; // May have renamed before fsync; reopen to determine outcome.
@@ -217,14 +273,19 @@ public final class V8OutletLedgerStore implements AutoCloseable {
     catch (NoSuchAlgorithmException failure) { throw new AssertionError(failure); }
   }
 
-  private static byte[] encode(long generation, V8ConservedOutletLedger.Snapshot snapshot)
-      throws IOException {
+  private static byte[] encode(long generation, V8ConservedOutletLedger.Snapshot snapshot,
+                               WorldBinding binding) throws IOException {
     if (generation <= 0) throw new IOException("V8 outlet generation must be positive");
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     try (DataOutputStream out = new DataOutputStream(bytes)) {
       out.writeInt(MAGIC);
-      out.writeInt(DISK_VERSION);
+      out.writeInt(binding == null ? LEGACY_DISK_VERSION : BOUND_DISK_VERSION);
       out.writeLong(generation);
+      if (binding != null) {
+        out.writeLong(binding.worldId().getMostSignificantBits());
+        out.writeLong(binding.worldId().getLeastSignificantBits());
+        out.write(HexFormat.of().parseHex(binding.savedProfileSha256()));
+      }
       out.writeInt(snapshot.version());
       out.writeInt(snapshot.accounts().size());
       for (long key : sorted(snapshot.accounts())) {
@@ -274,15 +335,29 @@ public final class V8OutletLedgerStore implements AutoCloseable {
     if (!MessageDigest.isEqual(hash, recordedHash))
       throw new IOException("V8 outlet checkpoint digest mismatch");
     try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(payload))) {
-      if (in.readInt() != MAGIC || in.readInt() != DISK_VERSION)
+      if (in.readInt() != MAGIC)
+        throw new IOException("unknown V8 outlet checkpoint magic");
+      int diskVersion = in.readInt();
+      if (diskVersion != LEGACY_DISK_VERSION && diskVersion != BOUND_DISK_VERSION)
         throw new IOException("unknown V8 outlet checkpoint envelope");
       long generation = in.readLong();
       if (generation <= 0) throw new IOException("invalid V8 outlet generation");
+      WorldBinding binding = null;
+      if (diskVersion == BOUND_DISK_VERSION) {
+        UUID worldId = new UUID(in.readLong(), in.readLong());
+        byte[] profile = new byte[WORLD_HASH_BYTES];
+        in.readFully(profile);
+        binding = new WorldBinding(worldId, HexFormat.of().formatHex(profile));
+      }
       int policy = in.readInt();
       Map<Long, V8ConservedOutletLedger.Balance> accounts = new HashMap<>();
       int count = boundedCount(in.readInt());
+      long previous = 0L;
       for (int i = 0; i < count; i++) {
         long key = in.readLong();
+        if (i > 0 && key <= previous)
+          throw new IOException("noncanonical V8 outlet account order");
+        previous = key;
         var b = new V8ConservedOutletLedger.Balance(
             in.readLong(), in.readLong(), in.readLong(), in.readLong());
         if (accounts.putIfAbsent(key, b) != null)
@@ -290,15 +365,23 @@ public final class V8OutletLedgerStore implements AutoCloseable {
       }
       Map<Long, Long> receivers = new HashMap<>();
       count = boundedCount(in.readInt());
+      previous = 0L;
       for (int i = 0; i < count; i++) {
         long key = in.readLong(), to = in.readLong();
+        if (i > 0 && key <= previous)
+          throw new IOException("noncanonical V8 outlet receiver order");
+        previous = key;
         if (receivers.putIfAbsent(key, to) != null)
           throw new IOException("duplicate V8 outlet receiver");
       }
       Map<Long, V8ConservedOutletLedger.Transfer> receipts = new HashMap<>();
       count = boundedCount(in.readInt());
+      previous = 0L;
       for (int i = 0; i < count; i++) {
         long key = in.readLong();
+        if (i > 0 && key <= previous)
+          throw new IOException("noncanonical V8 outlet receipt order");
+        previous = key;
         var t = new V8ConservedOutletLedger.Transfer(in.readLong(), in.readLong(),
             in.readLong(), in.readLong(), in.readLong(), in.readLong());
         if (receipts.putIfAbsent(key, t) != null)
@@ -307,7 +390,7 @@ public final class V8OutletLedgerStore implements AutoCloseable {
       if (in.available() != 0) throw new IOException("trailing V8 outlet checkpoint bytes");
       var snapshot = new V8ConservedOutletLedger.Snapshot(policy, accounts,
           receivers, receipts);
-      return new Image(generation, snapshot, digest(frame));
+      return new Image(generation, snapshot, binding, digest(frame));
     } catch (IllegalArgumentException | ArithmeticException failure) {
       throw new IOException("invalid V8 outlet checkpoint contents", failure);
     }

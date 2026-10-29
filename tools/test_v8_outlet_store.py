@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dev84 isolated Java21 filesystem/CAS regression suite; no native Minecraft claims."""
+"""Dev85 isolated Java21 world-bound filesystem/CAS regression; not native Minecraft."""
 import argparse
 import hashlib
 import json
@@ -63,6 +63,11 @@ def main():
          'if (false && candidate.applied() == 0)'),
         ('ignore-checksum', 'if (!MessageDigest.isEqual(hash, recordedHash))',
          'if (false && !MessageDigest.isEqual(hash, recordedHash))'),
+        ('ignore-world-identity', 'if (!Objects.equals(image.binding(), expected))',
+         'if (false && !Objects.equals(image.binding(), expected))'),
+        ('allow-unsorted-accounts',
+         'if (i > 0 && key <= previous)\n          throw new IOException("noncanonical V8 outlet account order");',
+         'if (false && i > 0 && key <= previous)\n          throw new IOException("noncanonical V8 outlet account order");'),
     ]
     for name, before, _ in replacements:
         if text.count(before) != 1:
@@ -75,7 +80,7 @@ def main():
     success = (positive['compile']['returncode'] == 0
                and positive['test'] is not None
                and positive['test']['returncode'] == 0
-               and 'V8_OUTLET_STORE_PASS assertions=110 generation=42' in positive['test']['stdout'])
+               and 'V8_OUTLET_STORE_PASS assertions=133 generation=42' in positive['test']['stdout'])
     controls = {name: caught_by_fixture(item) for name, item in negatives.items()}
     manifest = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in [SOURCE, TEST, LEDGER, TOPOLOGY]}

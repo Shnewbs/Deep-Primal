@@ -1,12 +1,15 @@
 package com.shnewbs.deepprimal.core;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -48,6 +51,27 @@ public final class V8OutletLedgerStoreChecks {
       water += b.water(); salt += b.salt(); sediment += b.sediment();
     }
     return new long[]{water, salt, sediment};
+  }
+
+  /** Rewrite a valid image with the first two account records swapped and a
+   * fresh SHA256. This is semantically identical but not canonical on disk. */
+  private static byte[] rehashedOutOfOrderAccounts(byte[] good) throws Exception {
+    byte[] frame = good.clone();
+    ByteBuffer buf = ByteBuffer.wrap(frame);
+    int version = buf.getInt(4);
+    int start = version == 2 ? 16 + 16 + 32 : 16;
+    int count = buf.getInt(start + 4);
+    if (count < 2) throw new AssertionError("two accounts needed");
+    int offset = start + 8;
+    final int bytesPerAccount = Long.BYTES * 5;
+    byte[] first = Arrays.copyOfRange(frame, offset, offset + bytesPerAccount);
+    System.arraycopy(frame, offset + bytesPerAccount, frame, offset, bytesPerAccount);
+    System.arraycopy(first, 0, frame, offset + bytesPerAccount, bytesPerAccount);
+    int hashOffset = frame.length - 32;
+    byte[] seal = MessageDigest.getInstance("SHA-256")
+        .digest(Arrays.copyOf(frame, hashOffset));
+    System.arraycopy(seal, 0, frame, hashOffset, seal.length);
+    return frame;
   }
 
   public static void main(String[] args) throws Exception {
@@ -156,6 +180,71 @@ public final class V8OutletLedgerStoreChecks {
     // Deleting a checkpoint must never reconstruct an imaginary initial balance.
     Files.delete(empty);
     rejected(IOException.class,()->V8OutletLedgerStore.open(empty));
+    // Auditor Dev84 reproduction: a valid transplant across saved worlds must
+    // not pass when the native owner supplies that other world's identity.
+    var worldA = new V8OutletLedgerStore.WorldBinding(
+        UUID.fromString("e1de327a-5955-41ec-893c-5a9844410001"), "ab".repeat(32));
+    var worldB = new V8OutletLedgerStore.WorldBinding(
+        UUID.fromString("e1de327a-5955-41ec-893c-5a9844410002"), "ab".repeat(32));
+    var changedProfile = new V8OutletLedgerStore.WorldBinding(
+        worldA.worldId(), "cd".repeat(32));
+    rejected(IllegalArgumentException.class, () -> new V8OutletLedgerStore.WorldBinding(
+        worldA.worldId(), "bad"));
+    rejected(IllegalArgumentException.class, () -> new V8OutletLedgerStore.WorldBinding(
+        worldA.worldId(), "AB".repeat(32)));
+    rejected(NullPointerException.class, () -> new V8OutletLedgerStore.WorldBinding(
+        null, "ab".repeat(32)));
+    rejected(NullPointerException.class, () -> V8OutletLedgerStore.createBound(
+        root.resolve("null.snapshot"), starting, null));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(file, worldA));
+    Path bound = root.resolve("world-A.snapshot");
+    try (var store = V8OutletLedgerStore.createBound(bound, starting, worldA)) {
+      check(store.generation() == 1, "bound world initial generation");
+      var committed = store.transact(1, List.of(t(1, 12)));
+      check(committed.generation() == 2 && committed.result().applied() == 1,
+          "bound world transaction committed");
+      check(Arrays.equals(totals(store.snapshot()), conserved), "bound conservation");
+    }
+    byte[] boundGood = Files.readAllBytes(bound);
+    check(ByteBuffer.wrap(boundGood).getInt(4) == 2, "bound disk revision 2");
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(bound));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(bound, worldB));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(bound, changedProfile));
+    try (var reopened = V8OutletLedgerStore.openBound(bound, worldA)) {
+      check(reopened.generation() == 2, "bound generation survived reopen");
+      check(Arrays.equals(totals(reopened.snapshot()), conserved),
+          "bound amounts survived reopen");
+      var exact = reopened.transact(2, List.of(t(1, 12)));
+      check(exact.generation() == 2 && exact.result().replayed() == 1,
+          "bound receipt survives restart");
+      check(reopened.transact(2, List.of(t(2, 4))).generation() == 3,
+          "world-bound store remains versioned across commits");
+    }
+    boundGood = Files.readAllBytes(bound);
+    Path copy = root.resolve("world-B-import.snapshot");
+    Files.write(copy, boundGood);
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(copy, worldB));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(copy, changedProfile));
+    try (var own = V8OutletLedgerStore.openBound(copy, worldA)) {
+      check(own.generation() == 3, "identical owner identity can open copied image");
+    }
+    // No test assumes path-based identity or forbids a legitimate copy of the
+    // same world. A different native UUID/profile MUST be rejected.
+    byte[] altered = rehashedOutOfOrderAccounts(boundGood);
+    Files.write(copy, altered);
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(copy, worldA));
+    Files.write(copy, boundGood);
+    try (var intact = V8OutletLedgerStore.openBound(copy, worldA)) {
+      check(intact.generation() == 3, "canonical bound frame restored");
+    }
+    // Reject semantically equivalent but noncanonical V1 account images too.
+    byte[] legacyGood = Files.readAllBytes(file);
+    Files.write(file, rehashedOutOfOrderAccounts(legacyGood));
+    rejected(IOException.class, () -> V8OutletLedgerStore.open(file));
+    Files.write(file, legacyGood);
+    try (var intact = V8OutletLedgerStore.open(file)) {
+      check(intact.generation() == 42, "canonical legacy frame restored");
+    }
     System.out.println("V8_OUTLET_STORE_PASS assertions="+checks+
         " generation=42 persistedTriplet="+Arrays.toString(conserved));
   }
