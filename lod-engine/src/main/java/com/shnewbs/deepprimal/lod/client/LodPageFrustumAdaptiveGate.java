@@ -11,7 +11,14 @@ final class LodPageFrustumAdaptiveGate {
       System.getProperty("deepprimal.lod.pageFrustumAutoSkip", "false"));
   private static final int MIN_SAMPLED_PAGES = 32;
   private static final int SKIP_EXTRACTIONS = 3;
+  // Heuristic bounds, not gameplay visibility thresholds. A forced sample only
+  // adds conservative coarse tests; the original per-part path is authoritative.
+  private static final double RESAMPLE_TRAVEL_SQUARED = 16.0; // Four blocks.
+  private static final float RESAMPLE_TURN_DEGREES = 8.0f;
   private int remainingSkips;
+  private boolean hasSamplePose, stagedPose, stagedPoseFinite;
+  private double sampledX, sampledY, sampledZ, nextX, nextY, nextZ;
+  private float sampledYaw, sampledPitch, nextYaw, nextPitch;
 
   boolean shouldTestPages() {
     if (!ENABLED || remainingSkips == 0) return true;
@@ -19,9 +26,57 @@ final class LodPageFrustumAdaptiveGate {
     return false;
   }
 
+  /**
+   * Camera-aware overload used only by the renderer's opt-in adaptive path.
+   * Compare against the last *completed* coarse sample, not the previous frame:
+   * small repeated movements must eventually force an actual page test.
+   * No camera history is published until completed(true, ...) succeeds.
+   */
+  boolean shouldTestPages(double x, double y, double z, float yaw, float pitch) {
+    if (!ENABLED) return true;
+    stagedPose = true;
+    stagedPoseFinite = Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z)
+        && Float.isFinite(yaw) && Float.isFinite(pitch);
+    nextX = x;
+    nextY = y;
+    nextZ = z;
+    nextYaw = yaw;
+    nextPitch = pitch;
+    if (remainingSkips > 0 && (!hasSamplePose || !stagedPoseFinite
+        || movedSinceSample(x, y, z, yaw, pitch))) remainingSkips = 0;
+    return shouldTestPages();
+  }
+
+  private boolean movedSinceSample(double x, double y, double z, float yaw, float pitch) {
+    double dx = x - sampledX, dy = y - sampledY, dz = z - sampledZ;
+    // Invalid/overflowed differences force a sample rather than postponing it.
+    if (!(dx * dx + dy * dy + dz * dz <= RESAMPLE_TRAVEL_SQUARED)) return true;
+    return angleDifference(yaw, sampledYaw) > RESAMPLE_TURN_DEGREES
+        || angleDifference(pitch, sampledPitch) > RESAMPLE_TURN_DEGREES;
+  }
+
+  private static float angleDifference(float a, float b) {
+    float delta = Math.abs((a - b) % 360.0f);
+    return Math.min(delta, 360.0f - delta);
+  }
+
   /** Call only after a successful complete extraction, never on an exception. */
   void completed(boolean tested, int testedPages, int avoidedPartTests) {
-    if (!ENABLED || !tested || testedPages < MIN_SAMPLED_PAGES) return;
+    if (!ENABLED || !tested) return;
+    // A failed extract never commits its staged camera pose. Old call sites
+    // without a camera pose retain the original sampled-skip behavior.
+    if (stagedPose) {
+      hasSamplePose = stagedPoseFinite;
+      if (stagedPoseFinite) {
+        sampledX = nextX;
+        sampledY = nextY;
+        sampledZ = nextZ;
+        sampledYaw = nextYaw;
+        sampledPitch = nextPitch;
+      }
+      stagedPose = false;
+    }
+    if (testedPages < MIN_SAMPLED_PAGES) return;
     if (testedPages < 0 || avoidedPartTests < 0)
       throw new IllegalArgumentException("invalid coarse frustum counters");
     // If page rejection saves at most one per-part test for each coarse
@@ -32,5 +87,6 @@ final class LodPageFrustumAdaptiveGate {
 
   void reset() {
     remainingSkips = 0;
+    hasSamplePose = stagedPose = stagedPoseFinite = false;
   }
 }
