@@ -94,6 +94,8 @@ public final class LodClient {
             data.put("lodTestedParts", lod.testedParts);
             data.put("lodRejectedParts", lod.rejectedParts);
             data.put("lodPageBroadphaseEnabled", LodPageFrustumBounds.ENABLED);
+            data.put("lodTwoBackFrustumReuseEnabled",
+                LodPageFrustumBounds.ENABLED && LodPublishedBounds.TWO_BACK_ENABLED);
             data.put("lodPageAdaptiveAutoSkipEnabled", LodPageFrustumAdaptiveGate.ENABLED);
             data.put("lodPageCoarseSampledLastExtract", lod.coarseAdaptiveSampledLastFrame);
             data.put("lodPageAdaptiveBypassedPages", lod.coarseAdaptiveBypassedPages);
@@ -108,7 +110,7 @@ public final class LodClient {
             data.put("lodTwoBackBoundsReusedVisiblePartTests", lod.coarseTwoBackReusedVisibleParts);
             data.put("lodTwoBackBoundsReusedRejectedPartTests", lod.coarseTwoBackReusedRejectedParts);
             data.put("lodPageCullingScope",
-                "Opt-in CPU counters for completed extract: coarse tested = visible + rejected. Avoided fine-part tests include whole-page rejection and positive uniform-bound reuse, separately reported; mixed-bound pages retain ordered fine culling and can reuse adjacent and two-back identical finite AABB verdicts (separate visible/rejected counters, not used to train the adaptive heuristic). Broadphase=false disables page tests and adjacent-run reuse. AutoSkip=false keeps full coarse testing every extract; opt-in adaptive policy samples whole extracts when coarse checks save at most one fine-part check each (at least 32 coarse pages), bypassing up to 3 extracts. Client restart required; fine visibility decisions and material ordering are preserved. Not GPU occlusion/FPS.");
+                "Opt-in CPU counters for completed extract: coarse tested = visible + rejected. Avoided fine-part tests include whole-page rejection and positive uniform-bound reuse, separately reported; mixed-bound pages retain ordered fine culling and can reuse adjacent and two-back identical finite AABB verdicts (separate visible/rejected counters, not used to train the adaptive heuristic). Broadphase=false disables page tests and adjacent-run reuse. The independent JVM startup -Ddeepprimal.lod.twoBackFrustumReuse=false disables only two-back aliases and their publication comparisons; default true. AutoSkip=false keeps full coarse testing every extract; opt-in adaptive policy samples whole extracts when coarse checks save at most one fine-part check each (at least 32 coarse pages), bypassing up to 3 extracts. Client restart required; fine visibility decisions and material ordering are preserved. Not GPU occlusion/FPS.");
             data.put("lodSubmittedParts", lod.submittedParts);
             data.put("lodIndexedApiBatches", lod.submittedApiBatches);
             data.put("lodIndexedApiBatchScope",

@@ -10,6 +10,11 @@ import net.minecraft.world.phys.AABB;
  */
 final class LodPublishedBounds {
   private static final long[] NO_REPEATS = new long[0];
+  // Startup-only A/B switch. Default preserves the committed two-back fast path.
+  // Disabling avoids its i-2 publication comparisons and metadata for pages
+  // with unique bounds, without changing coarse/adjacent or fine culling.
+  static final boolean TWO_BACK_ENABLED = !"false".equalsIgnoreCase(
+      System.getProperty("deepprimal.lod.twoBackFrustumReuse", "true"));
 
   private LodPublishedBounds() {}
 
@@ -62,7 +67,8 @@ final class LodPublishedBounds {
         // A-B-A and longer alternations can share an earlier decision even
         // when the immediate neighbor has different bounds. Never assign two
         // aliases to one part; adjacent reuse takes precedence.
-        if (twoBackRuns != null && !adjacent && i > 1 && beforePreviousValid && valid
+        if (TWO_BACK_ENABLED && twoBackRuns != null && !adjacent && i > 1
+            && beforePreviousValid && valid
             && sameBox(beforePrevious, box)) {
           if (twoBackRepeated == null)
             twoBackRepeated = new long[((parts.length - 1) >>> 6) + 1];
