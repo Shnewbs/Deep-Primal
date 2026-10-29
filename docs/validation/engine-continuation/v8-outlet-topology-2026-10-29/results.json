@@ -29,5 +29,18 @@
   "gpu": false,
   "finite_water_acceptance": false,
   "v8_gameplay_active": false,
-  "independent_regrade": false
+  "independent_regrade": false,
+  "separate_unchanged_legacy_source_api_double_suites": {
+    "passed": 19,
+    "total": 19,
+    "java": "OpenJDK 21.0.12.1",
+    "dependency_graph": "dev74 portable API doubles; production WatershedRegion not compiled"
+  },
+  "source_archive": {
+    "filename": "DeepPrimal_Dev75_OutletTopology_SourceEvidence.zip",
+    "bytes": 13397,
+    "sha256": "b3599ab36af9874e0a356da82a4430d3c8080c1234b5760ca7469de7363cf82c",
+    "crc": true,
+    "member_sha256_manifest": true
+  }
 }
