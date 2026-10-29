@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1100-scene-pixel-lod",
+  "owner": "dedicated-renderer-hourly",
+  "status": "active",
+  "started_at": "2026-10-29T11:00:00Z",
+  "active_until": "2026-10-29T11:45:00Z",
+  "baseline_sha": "c48b7bc6148be4c2f0013ae685d4bed7ad3ffdee",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodErrorProjection.java",
+    "docs/renderer-jams/20261029-scene-pixel-lod/**"
+  ],
+  "measurement_reservation": "isolated Java21 source parity/selection fixture; no native/GPU or shared Gradle reservation",
+  "consumed": [
+    "docs/renderer-jams/20261029-normal-angle-fastpath/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1032-00921e12/REVIEW.md"
+  ],
+  "goal": "Select LOD screen error from active scaled world-target pixel height, preserve native fallback and water/order/mesh semantics, expose effective height in diagnostics",
+  "excluded": [
+    "terrain generation",
+    "finite water",
+    "graphics-settings and renderer-vulkan modules",
+    "other worker files and build outputs",
+    "other schedules"
+  ],
+  "owner_build_override": "User performs full Java25 Gradle/Minecraft/GPU/JAR builds"
+}
