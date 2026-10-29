@@ -2,7 +2,7 @@
   "schema": 1,
   "jam_id": "renderer-20261029T0855-finite-yaw-overflow",
   "owner": "renderer-hourly-only",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-29T08:55:00Z",
   "active_until": "2026-10-29T09:15:00Z",
   "baseline_sha": "c08932fba9431cbef4badfaf5b7735d7553f1bf1",
@@ -20,5 +20,20 @@
     "other modules/GUI/backend changes",
     "other schedules/checkouts/caches"
   ],
-  "goal": "Fix auditor-identified extreme finite yaw overflow in opt-in adaptive coarse sampling without changing ordered fine-part culling or baseline gameplay visibility"
+  "goal": "Fix auditor-identified extreme finite yaw overflow in opt-in adaptive coarse sampling without changing ordered fine-part culling or baseline gameplay visibility",
+  "released_at": "2026-10-29T09:07:00Z",
+  "reviewed_source_sha": "ce3ff1d88b468c26c1c3ce2f1471dd00d04fe1ad",
+  "implementation_commits": [
+    "1642c710c65c54c6c428cff1e37cbdafe744b3c7",
+    "ce3ff1d88b468c26c1c3ce2f1471dd00d04fe1ad"
+  ],
+  "review_commit": "e79ecd82b5cfacd3ebfaf3c309482d10fb3d198d",
+  "score": 5.72,
+  "previous_score": 5.71,
+  "assertions_passed": 1418131,
+  "source_checks": "12/12",
+  "qualifying_jar": false,
+  "artifact": "DeepPrimal_Renderer_FiniteYaw_20261029_ce3ff1d_SourceEvidence.zip",
+  "artifact_sha256": "a75703c45913108f35f936b7db9fc6167f0abd81b61762e2580f837637e0c3c9",
+  "artifact_library_uploaded": true
 }
