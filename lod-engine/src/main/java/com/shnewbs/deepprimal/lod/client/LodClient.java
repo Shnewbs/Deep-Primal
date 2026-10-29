@@ -89,9 +89,13 @@ public final class LodClient {
             data.put("lodPageTimingScope", "Time from LOD render-thread admission to fully committed GPU page; includes frame pacing/pauses, excludes GPU fence completion and total capture/worker time");
             data.put("lodTestedParts", lod.testedParts);
             data.put("lodRejectedParts", lod.rejectedParts);
+            data.put("lodPageBroadphaseEnabled", LodPageFrustumBounds.ENABLED);
+            data.put("lodCoarseTestedPages", lod.coarseTestedPages);
+            data.put("lodCoarseVisiblePages", lod.coarseVisiblePages);
             data.put("lodCoarseRejectedPages", lod.coarseRejectedPages);
             data.put("lodCoarseSkippedPartTests", lod.coarseSkippedPartTests);
-            data.put("lodPageCullingScope", "Conservative cached bounds for multi-part pages; counters exclude native chunks and GPU occlusion");
+            data.put("lodPageCullingScope",
+                "Opt-in CPU counters for completed extract: coarse tested = visible + rejected. Default-on JVM startup property deepprimal.lod.pageFrustumBroadphase=false disables page tests for native A/B; requires client restart. Fine tests and material ordering stay unchanged; not GPU occlusion");
             data.put("lodSubmittedParts", lod.submittedParts);
             data.put("lodIndexedApiBatches", lod.submittedApiBatches);
             data.put("lodIndexedApiBatchScope",
