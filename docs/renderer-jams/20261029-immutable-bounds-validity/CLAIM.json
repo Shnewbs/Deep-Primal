@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "owner": "renderer-hourly-feature-only",
+  "status": "active",
+  "jam_id": "renderer-20261029T2255-immutable-aabb-validity",
+  "started_at": "2026-10-29T22:55:00Z",
+  "expires_at": "2026-10-29T23:25:00Z",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "docs/renderer-jams/20261029-immutable-bounds-validity/**"
+  ],
+  "expected_source_blob": "776763a1cdd47471aa28af0b15ac07cd1c84b17f",
+  "owner_build_policy": "Java25/Gradle/Minecraft/GPU/JAR owner-operated; Java21 isolated source tests and read-only author audit only",
+  "intended_work": "Reduce redundant immutable AABB validity and uniform representative comparisons at resident publication, preserving coarse/fine frustum and water semantics; exact parity and CPU tests.",
+  "no_other_workstreams": true,
+  "expected_parent": "d93050d9adae10603c934d23fdf233ad8d7d63e1"
+}
