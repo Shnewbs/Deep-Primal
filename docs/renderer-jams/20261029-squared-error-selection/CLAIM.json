@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0356-squared-error-selection",
+  "owner": "renderer-hourly-only",
+  "status": "active",
+  "started_at": "2026-10-29T04:00:52Z",
+  "active_until": "2026-10-29T04:35:00Z",
+  "baseline_sha": "45c777691a9d0934012eb114a57ab8501f0ec827",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodScreenErrorSelector.java",
+    "docs/renderer-jams/20261029-squared-error-selection/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "measurement_reservation": "isolated Linux Java21 CPU component selection only; no shared GPU or build hardware",
+  "other_workstreams": "excluded: Dev69 V8 marine, water, engine/audit schedules and graphics upscaling provider untouched",
+  "consumed": [
+    "docs/renderer-jams/20261029-visible-snapshot-reuse/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-28T2032-9a1d92a4/REVIEW.md"
+  ],
+  "goal": "Replace per-cached-page Math.hypot for LOD selection with equivalent squared-range thresholds, exact legacy fallback near boundaries and strict parity regression; owner handles complete builds",
+  "owner_build_handoff": true
+}
