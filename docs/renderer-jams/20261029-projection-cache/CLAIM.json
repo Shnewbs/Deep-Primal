@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1151-projection-cache",
+  "owner": "dedicated-renderer-hourly",
+  "status": "active",
+  "started_at": "2026-10-29T11:51:49Z",
+  "active_until": "2026-10-29T12:30:00Z",
+  "baseline_sha": "df5ffad407e57b0eb3e338f363847e66427df2b3",
+  "baseline_renderer_blob": "42cc5476dc8d67715bb8c8a3d06721b65a18c720",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodProjectionSelectorCache.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261029-projection-cache/**"
+  ],
+  "measurement_reservation": "isolated OpenJDK21 CPU parity test, no native/GPU or shared Gradle work",
+  "consumed": [
+    "docs/renderer-jams/20261029-scene-pixel-lod/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1132-1f926907/REVIEW.md"
+  ],
+  "excludes": [
+    "engine-core",
+    "water",
+    "terrain",
+    "graphics-settings",
+    "renderer-vulkan",
+    "gradle.properties",
+    "other schedules and build outputs"
+  ],
+  "owner_build_override": true,
+  "goal": "Reuse LOD selector and focal projection across identical camera/scene states while invalidating on FSR/native height, FOV, error and world reset"
+}
