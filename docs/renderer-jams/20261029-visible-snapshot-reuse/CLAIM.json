@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0300-visible-snapshot-reuse",
+  "owner": "renderer-hourly-only",
+  "status": "active",
+  "started_at": "2026-10-29T03:04:00Z",
+  "active_until": "2026-10-29T03:24:00Z",
+  "baseline_sha": "e6fcfc1892d607a2a122d25ba98e9a103fd1ce0c",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodVisibleSnapshot.java",
+    "docs/renderer-jams/20261029-visible-snapshot-reuse/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "other_workstreams": "excluded; engine owns Dev69 terrain V8; no shared outputs; owner builds",
+  "measurement_reservation": "none",
+  "consumed": [
+    "docs/renderer-jams/20261029-pretransform-failures/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-28T1928-2c672857/REVIEW.md"
+  ],
+  "goal": "Recycle frame-local LOD visibility collector with immutable per-extraction snapshots and guaranteed reference clearing; verify parity and allocator pressure, do not claim GPU FPS improvement",
+  "owner_build_handoff": true
+}
