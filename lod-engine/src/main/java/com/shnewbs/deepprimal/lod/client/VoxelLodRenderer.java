@@ -36,6 +36,8 @@ public final class VoxelLodRenderer {
   public final RollingTiming uploadTiming = new RollingTiming(240);
   private final LodGpuUploadProbe gpuPartProbe = new LodGpuUploadProbe(240);
   private final LodPageUploadProbe pageUploadProbe = new LodPageUploadProbe(240);
+  // Opt-in CPU stage metrics: never inferred to be GPU/driver frame completion.
+  private final LodSubmissionProbe submissionProbe = new LodSubmissionProbe(240);
   public final RollingTiming submitTiming = new RollingTiming(240);
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
   public volatile int testedParts, rejectedParts, submittedParts, submittedApiBatches;
@@ -116,6 +118,10 @@ public final class VoxelLodRenderer {
 
   LodPageUploadProbe.Snapshot uploadPageStats() {
     return pageUploadProbe.snapshot();
+  }
+
+  LodSubmissionProbe.Snapshot submissionStageStats() {
+    return submissionProbe.snapshot();
   }
 
   private static final class PendingGpu {
@@ -788,6 +794,9 @@ public final class VoxelLodRenderer {
           .set((float) (p.x * 16. - camera.x), (float) -camera.y, (float) (p.z * 16. - camera.z));
     }
     var slices = RenderSystem.getDynamicUniforms().writeTransforms(transformPool);
+    long transformsReadyAt = TELEMETRY ? System.nanoTime() : 0;
+    int returnedDrawRecords = 0, returnedDrawCalls = 0;
+    boolean renderPassCompleted = false;
     // Publish cumulative diagnostics once per pass, not once per visible mesh part.
     // Counts only successful draw API calls, even if a later submission fails.
     long completedTriangles = 0;
@@ -822,6 +831,8 @@ public final class VoxelLodRenderer {
                 batch, null, VertexFormat.IndexType.SHORT,
                 java.util.Set.of("DynamicTransforms"), null);
             completedTriangles += batchTriangles;
+            returnedDrawRecords += take;
+            returnedDrawCalls++;
             submittedApiBatches++;
           } finally {
             indexedDrawBatches.end();
@@ -832,10 +843,19 @@ public final class VoxelLodRenderer {
           pass.setUniform("DynamicTransforms", slices[i]);
           parts.get(i).draw(pass);
           completedTriangles += parts.get(i).triangles();
+          returnedDrawRecords++;
+          returnedDrawCalls++;
         }
       }
+      renderPassCompleted = true;
     } finally {
       drawnTriangles += completedTriangles;
+      if (TELEMETRY) {
+        long finishedAt = System.nanoTime();
+        submissionProbe.finished(transformsReadyAt - submitStarted,
+            finishedAt - transformsReadyAt, finishedAt - submitStarted,
+            returnedDrawRecords, returnedDrawCalls, renderPassCompleted);
+      }
     }
     if (TELEMETRY) {
       submittedParts = parts.size();
@@ -862,6 +882,7 @@ public final class VoxelLodRenderer {
     cullTiming.reset();
     uploadTiming.reset();
     submitTiming.reset();
+    submissionProbe.reset();
     gpuPartProbe.reset();
     pageUploadProbe.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;

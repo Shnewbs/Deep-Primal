@@ -58,6 +58,16 @@ public final class LodClient {
             data.put("lodCullTiming", timing(lod.cullTiming.snapshot()));
             data.put("lodUploadTiming", timing(lod.uploadTiming.snapshot()));
             data.put("lodSubmitTiming", timing(lod.submitTiming.snapshot()));
+            var submission = lod.submissionStageStats();
+            data.put("lodTransformPrepCpuTiming", timing(submission.transformCpuNanos()));
+            data.put("lodDrawApiCpuTiming", timing(submission.drawApiCpuNanos()));
+            data.put("lodSubmissionTotalCpuTiming", timing(submission.totalCpuNanos()));
+            data.put("lodSubmissionCompletePasses", submission.completedPasses());
+            data.put("lodSubmissionFailedPasses", submission.failedPasses());
+            data.put("lodSubmissionReturnedDrawRecords", submission.returnedRecords());
+            data.put("lodSubmissionReturnedApiCalls", submission.returnedApiCalls());
+            data.put("lodSubmissionStageScope",
+                "Opt-in render-thread CPU time after successful transform writing; draws count API returns, including partial failed passes; not GPU fence, hardware calls or FPS");
             var partUploads = lod.uploadPartStats();
             data.put("lodGpuPartCpuTiming", timing(partUploads.cpuNanos()));
             data.put("lodGpuPartSizeTiming", byteTiming(partUploads.acceptedBytes()));
