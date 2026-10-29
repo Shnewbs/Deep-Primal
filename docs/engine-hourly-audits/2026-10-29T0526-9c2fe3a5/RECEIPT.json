@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "audit_id": "2026-10-29T0526-9c2fe3a5",
+  "role": "independent-read-only",
+  "pinned_main": "9c2fe3a5dddeeb1f0f80184fbd9ab90081c123fe",
+  "reviewed_version": "0.0.1-alpha.29-dev.71-v8-outlet-seeds.1",
+  "java25": "Temurin 25.0.5+8 Linux x64",
+  "java25_independent_assertions": 1164618,
+  "static_source_contracts": {
+    "pass": 24,
+    "total": 24
+  },
+  "renderer_production_blob": "90e0b76d68471c0636ce37265649ef8df5989177",
+  "renderer_jdk25_compilation": true,
+  "synthetic_regression_runs": 2,
+  "independent_metamorphic_assertions": 499558,
+  "negative_compiled_mutant_rejected": true,
+  "grade_status": "carried full prior, not new full regrade",
+  "grade_categories": [
+    5,
+    4,
+    6,
+    4,
+    3,
+    7,
+    6,
+    4,
+    7,
+    4
+  ],
+  "grade_total": 50,
+  "grade_average": 5,
+  "threshold": "strictly greater than 8.5",
+  "owner_2026_10_27_build_override": true,
+  "current_jar_built": false,
+  "full_gradle_run": false,
+  "actual_watershed_prod_compiled": false,
+  "native_windows_gpu_tested": false,
+  "source_only_evidence": {
+    "name": "DeepPrimal_Dev71_IndependentAudit_20261029T0526_9c2fe3a5_Java25Evidence.zip",
+    "library_path": "/Deep Primal/Independent Audits/DeepPrimal_Dev71_IndependentAudit_20261029T0526_9c2fe3a5_Java25Evidence.zip",
+    "bytes": 15568,
+    "sha256": "fbb118a796377ea9de0dc1b6458fb98b77812b1ecb6a096c87eb3e089032b8f7",
+    "zip_crc_pass": true
+  },
+  "modifications_to_builder_checkout": 0,
+  "source_changes": 0
+}
