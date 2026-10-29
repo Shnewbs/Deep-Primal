@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "source_version": "0.0.1-alpha.29-dev.84-outlet-journal.1",
+  "source_git_blobs": {
+    "store": "839d66fab78d33bd56b633e092565b53e43fd36f",
+    "fixture": "9ac9c00a491f44cf68874389ec70643754853e97",
+    "runner": "95e27e5983269c900b9867ef1d43cbe15f0a733d",
+    "ledger": "e41226dbf0daf40ea455ee44247e2c4be81f29e9",
+    "topology": "068d75588c41eb3b4af5a813b24b8dc9db4c9e4a"
+  },
+  "toolchain": "OpenJDK 21.0.12.1, --release 21 -Xlint:all -Werror",
+  "positive_normal": {
+    "exit": 0,
+    "assertions": 110,
+    "generation": 42,
+    "totals": [
+      800,
+      420,
+      260
+    ]
+  },
+  "positive_python_optimized": {
+    "exit": 0,
+    "assertions": 110,
+    "generation": 42,
+    "totals": [
+      800,
+      420,
+      260
+    ]
+  },
+  "negative_controls": {
+    "normal": {
+      "generation_cas": "compiled/assertion rejected",
+      "replay": "compiled/assertion rejected",
+      "checksum": "compiled/assertion rejected"
+    },
+    "optimized": {
+      "generation_cas": "compiled/assertion rejected",
+      "replay": "compiled/assertion rejected",
+      "checksum": "compiled/assertion rejected"
+    }
+  },
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-29T1730-2e3c945d/REVIEW.md",
+  "not_run": [
+    "complete Java25/Gradle/NeoForge",
+    "real Minecraft saved-world restart",
+    "native finite-cell conservation",
+    "Windows/AMD GPU",
+    "process-kill power-loss durability",
+    "whole-engine performance",
+    "ecotone native acceptance"
+  ]
+}
