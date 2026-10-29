@@ -2,7 +2,7 @@
   "schema": 1,
   "jam_id": "renderer-20261029T1300-frustum-off-build",
   "owner": "dedicated-renderer-hourly",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-29T13:05:55.444Z",
   "active_until": "2026-10-29T13:25:55.444Z",
   "baseline_sha": "47f49a81a682c1b8b4e692c30f33c66594b5efbe",
@@ -28,5 +28,26 @@
     "docs/engine-hourly-audits/2026-10-29T1231-bee0509a/REVIEW.md"
   ],
   "goal": "Avoid unnecessary per-page conservative bounds scan/allocations when broadphase is explicitly disabled for Vulkan/OpenGL A/B while preserving default-on behavior and fine-only fallback.",
-  "owner_build_override": true
+  "owner_build_override": true,
+  "released_at": "2026-10-29T13:13:02.774Z",
+  "source_parent": "0db433bcd8a351647e3a27588e2ecdeae5031984",
+  "source_commit": "c1423a90c045aba138152748116fca8f99c3a873",
+  "reviewed_source_sha": "c1423a90c045aba138152748116fca8f99c3a873",
+  "source_blobs": {
+    "bounds": "5784c92c9cf5b57dc4f4bfe8c2e03d9dbc0f6171",
+    "test": "447a426e70e0802f5d116c0075eea835c8dcb83b",
+    "aabb_stub": "6e6e6357be41ccb5e4495b2b16faecde2dcd6c1c",
+    "mesh_stub": "bf5d44b3205995c8093c707121664e3fa0525a68",
+    "unchanged_renderer": "e4aa0fa88a9edb49c3048af96ee8fcecfc22ac5e"
+  },
+  "grade": 5.76,
+  "previous_grade": 5.75,
+  "strict_java_assertions": 940,
+  "static_checks": "10/10",
+  "artifact": "DeepPrimal_Renderer_BroadphaseOffBuild_20261029_c1423a9_SourceEvidence.zip",
+  "artifact_sha256": "df9ac1788ce1b24e6e279567ba9de126baad418fcdde2ae7d2e1cad308243a90",
+  "artifact_library_uploaded": true,
+  "qualified_jar": false,
+  "java25_gradle": false,
+  "actual_gpu": false
 }
