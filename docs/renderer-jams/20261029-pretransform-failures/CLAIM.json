@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0152-pretransform-failures",
+  "owner": "renderer-hourly-only",
+  "status": "active",
+  "started_at": "2026-10-29T01:54:48.812Z",
+  "active_until": "2026-10-29T02:18:48.815Z",
+  "baseline_sha": "985b2f83538993130d1c94a25f6b77f26e490415",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodSubmissionProbe.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-pretransform-failures"
+  ],
+  "other_workstreams": "excluded; no shared build/test outputs; owner builds",
+  "consumed": "docs/renderer-jams/20261029-submit-stage-timing/REVIEW.md and independent Dev67 audit",
+  "goal": "Capture pre-draw failures in bounded LOD CPU telemetry while preserving exception propagation, GPU semantics and no telemetry-off clock work"
+}
