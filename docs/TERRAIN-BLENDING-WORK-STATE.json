@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261029T1700-outlet-ledger",
-  "status": "active",
-  "lease_released": false,
+  "status": "checkpointed",
+  "lease_released": true,
   "started_at": "2026-10-29T17:00:00Z",
-  "updated_at": "2026-10-29T17:00:00Z",
-  "active_until": "2026-10-29T17:20:00Z",
+  "updated_at": "2026-10-29T17:10:00Z",
+  "active_until": "2026-10-29T17:10:00Z",
   "base_ref": "663ef9f26f8e5740fe9325f7c1eaab3013adacaf",
   "candidate_version": "0.0.1-alpha.29-dev.83-outlet-ledger.1",
   "scope": [
@@ -31,6 +31,25 @@
   "acceptance_complete": false,
   "native_integration": false,
   "last_full_external_grade": 5,
-  "coordination": "Read fresh GitHub main, audit, renderer commit scope, water/terrain scoped state and root work-state. Water claim expired Oct 28 and terrain builder previous claim released; renderer files excluded. Root work-state stale dev53; no root update or full pinned Python validator due missing complete checkout. No timed measurements.",
-  "next_action": "Implement in-core conserved once-only regional discharge state with persisted replay identity and typed quantity/constituent budgets; source-test, publish guarded main commit; preserve active renderer work."
+  "coordination": "GitHub source checkpoint CAS d20f9c92->6ab5932c succeeded preserving simultaneous renderer source. Readback confirms all five intended Git blob identities in later main a69eecb; independent audit 2026-10-29T1635 pinned a7ade50e was consumed. Root work-state remains Dev53, no root update/claim due missing full pinned validator checkout. Water scope expired, renderer files untouched; no timed benchmarks. Separate source-only evidence ZIP created locally CRC and members checked.",
+  "next_action": "Integrate one durable owner-authority V8 ledger journal with native loaded/unloaded water and salt/sediment budgets, prove restart/edit idempotence. In parallel native saved-policy ecotone vegetation and versioned relief/density before hydrology.",
+  "ended_at": "2026-10-29T17:10:00Z",
+  "source_ref": "6ab5932c3e85345b95455ad83849e843f2fb9323",
+  "source_commit": "6ab5932c3e85345b95455ad83849e843f2fb9323",
+  "completed_version": "0.0.1-alpha.29-dev.83-outlet-ledger.1",
+  "evidence": "docs/validation/engine-continuation/v8-conserved-outlet-ledger-2026-10-29/README.md",
+  "source_code_changes": "Added immutable V8ConservedOutletLedger to engine-core: precise three-quantity inter-account debit/credit, authorized signed-coordinate receiver forest, per-source monotone replay receipts, bounded atomic batches and failure-closed validation. No native generator or runtime activation.",
+  "tests": "OpenJDK21.0.12.1 javac --release 21 -Xlint:all -Werror; normal 40,134 assertions, 3/3 compiled broken controls rejected; Python -OO repeat 40,134 and 3/3 rejected; 10,000 seeded transfer attempts, signed coordinates, capacity/overflow, restore and idempotence checks; exact source/test/runner/evidence blobs verified on GitHub main. Exact topology dependency blob 068d75588c41eb3b4af5a813b24b8dc9db4c9e4a.",
+  "source_archive": "DeepPrimal_Dev83_ConservedOutletLedger_SourceEvidence.zip",
+  "archive_sha256": "a8f1b4897aa024fa5ad0f9d3a08d64a39629014a17ca8d56b5a5cff57411892b",
+  "not_claimed": [
+    "globally certified ocean outlet edges",
+    "native V8 generator route registration or active game water accounting",
+    "durable world serialization, WAL, crash-safe fsync, unload/restart",
+    "complete Java25/Gradle9.2.1/NeoForge compile or packaged JAR",
+    "actual finite-water/constituent native conservation",
+    "GPU / Vulkan / OpenGL / owner hardware or frame/tick tail acceptance",
+    "terrain ecotone native feature activation or old/new generation seam policy",
+    "fresh complete independent grade or water-engine completion"
+  ]
 }
