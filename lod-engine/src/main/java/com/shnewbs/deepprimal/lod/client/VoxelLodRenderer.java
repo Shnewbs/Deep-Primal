@@ -831,8 +831,10 @@ public final class VoxelLodRenderer {
                 batch, null, VertexFormat.IndexType.SHORT,
                 java.util.Set.of("DynamicTransforms"), null);
             completedTriangles += batchTriangles;
-            returnedDrawRecords += take;
-            returnedDrawCalls++;
+            if (TELEMETRY) {
+              returnedDrawRecords += take;
+              returnedDrawCalls++;
+            }
             submittedApiBatches++;
           } finally {
             indexedDrawBatches.end();
@@ -843,8 +845,10 @@ public final class VoxelLodRenderer {
           pass.setUniform("DynamicTransforms", slices[i]);
           parts.get(i).draw(pass);
           completedTriangles += parts.get(i).triangles();
-          returnedDrawRecords++;
-          returnedDrawCalls++;
+          if (TELEMETRY) {
+            returnedDrawRecords++;
+            returnedDrawCalls++;
+          }
         }
       }
       renderPassCompleted = true;
