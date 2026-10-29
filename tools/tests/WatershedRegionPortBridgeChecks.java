@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.UnaryOperator;
 
 public final class WatershedRegionPortBridgeChecks {
   private static long checks;
@@ -31,6 +32,20 @@ public final class WatershedRegionPortBridgeChecks {
           96,1024,ocean,false,null));
     }
     return new WatershedRegion.BoundarySnapshot(ox,oz,List.copyOf(nodes));
+  }
+  private static WatershedRegion.BoundarySnapshot change(
+      WatershedRegion.BoundarySnapshot snapshot, int x, int z,
+      UnaryOperator<WatershedRegion.BoundaryNode> modifier) {
+    List<WatershedRegion.BoundaryNode> next = new ArrayList<>(snapshot.nodes());
+    for (int i = 0; i < next.size(); i++) {
+      var n = next.get(i);
+      if (n.x() == x && n.z() == z) {
+        next.set(i, modifier.apply(n));
+        return new WatershedRegion.BoundarySnapshot(
+            snapshot.originX(), snapshot.originZ(), List.copyOf(next));
+      }
+    }
+    throw new AssertionError("missing fixture node");
   }
   private static String signature(WatershedRegionPortBridge.Draft d) {
     return d.ports().toString()+d.links().toString()+d.sharedCoordinates()+d.unresolvedFrontiers();
@@ -69,9 +84,54 @@ public final class WatershedRegionPortBridgeChecks {
         WatershedOutletTopology.key(8192,32))),"nonmarine label");
     reject(()->WatershedRegionPortBridge.assemble(List.of(a,b,b),Set.of()),
         "duplicate region");
-    var skew=region(8192,0,8192,32,false);
+    var skew=change(b,8192,32,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground()+1,n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
     reject(()->WatershedRegionPortBridge.assemble(List.of(a,skew),Set.of()),
         "changed height on shared exact lattice");
+    // Dev76 independent audit: matching ground with conflicting stages (90/900)
+    // silently produced identical ports and links. All water observations and
+    // parent receivers at the same absolute node must be reconciled or reject.
+    int sharedX=8192,sharedZ=32;
+    var stage90=change(a,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),90,90,n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
+    var stage900=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),900,900,n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(stage90,stage900),Set.of()),
+        "independent audit 90/900 shared flood/stage mismatch");
+    reject(()->WatershedRegionPortBridge.assemble(List.of(stage900,stage90),Set.of()),
+        "shared flood/stage mismatch reversed order");
+    var floodChange=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation()+0.5,n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(a,floodChange),Set.of()),
+        "flood-alone mismatch");
+    var stageChange=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage()+.5,
+        n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(a,stageChange),Set.of()),
+        "stage-alone mismatch");
+    var catchmentChange=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea()+32,n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(a,catchmentChange),Set.of()),
+        "cumulative catchment mismatch");
+    var oceanChange=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),!n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(a,oceanChange),Set.of()),
+        "ocean label mismatch without certified key");
+    var lakeChange=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),!n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(a,lakeChange),Set.of()),
+        "lake label mismatch without certified key");
+    var receiverChange=change(b,sharedX,sharedZ,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),
+        WatershedOutletTopology.key(sharedX+32,sharedZ)));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(a,receiverChange),Set.of()),
+        "divergent downstream parent at same lattice node");
     var bad=new WatershedRegion.BoundarySnapshot(0,0,a.nodes().subList(0,800));
     reject(()->WatershedRegionPortBridge.assemble(List.of(bad),Set.of()),
         "truncated perimeter");

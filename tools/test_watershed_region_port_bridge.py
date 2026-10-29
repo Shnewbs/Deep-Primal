@@ -36,7 +36,17 @@ def main():
          ("Double.doubleToLongBits(floor) != Double.doubleToLongBits(n.ground())","false"),
          ("previous != null && Double.doubleToLongBits(previous) != Double.doubleToLongBits(sill)","false")]),
       ("lost_frontier_unknown",[("s.copies != expectedCopies","false")]),
-      ("invented_runoff",[("s.x, s.z, s.floor, 0L,","s.x, s.z, s.floor, 1024L,")])
+      ("invented_runoff",[("s.x, s.z, s.floor, 0L,","s.x, s.z, s.floor, 1024L,")]),
+      ("unobserved_flood_mismatch",[("Double.doubleToLongBits(n.floodedElevation())",
+         "Double.doubleToLongBits(first.floodedElevation())")]),
+      ("unobserved_stage_mismatch",[("Double.doubleToLongBits(n.plannedStage())",
+         "Double.doubleToLongBits(first.plannedStage())")]),
+      ("unobserved_catchment_mismatch",[("Double.doubleToLongBits(n.catchmentArea())",
+         "Double.doubleToLongBits(first.catchmentArea())")]),
+      ("unobserved_water_classification",[("first.ocean() != n.ocean() || first.lake() != n.lake()",
+         "false")]),
+      ("unobserved_downstream_receiver",[("!Objects.equals(first.downstreamKey(), n.downstreamKey())",
+         "false")])
     ]
     with tempfile.TemporaryDirectory(prefix="dp-v8-port-bridge-") as tmp:
         tmp=Path(tmp)
@@ -59,6 +69,6 @@ def main():
     if out:
         out.mkdir(parents=True,exist_ok=True)
         (out/"port-bridge-results.json").write_text(json.dumps(results,indent=2)+"\n")
-    print("V8_REGION_PORT_BRIDGE_RUNNER_PASS positive=2 broken_rejected=3")
+    print(f"V8_REGION_PORT_BRIDGE_RUNNER_PASS positive=2 broken_rejected={len(changes)}")
 
 if __name__=="__main__": main()

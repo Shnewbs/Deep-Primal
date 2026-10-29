@@ -17,7 +17,11 @@ import java.util.TreeMap;
  * NOT physical water, a native V8 integration, or a complete global flood.
  *
  * <p>Shared signed-coordinate grid nodes are owned once, and mismatched saved
- * terrain heights fail closed instead of producing a seam. Missing adjacent
+ * terrain heights, priority-flood stages, catchment, classification and
+ * downstream receiver identity fail closed instead of producing a false seam.
+ * A region boundary can have different independent priority floods; their
+ * disagreement MUST be reconciled by an authoritative cross-region planner,
+ * never silently merged by this observational adapter. Missing adjacent
  * regions are retained as unknown frontiers: a finite sample cannot prove an
  * enclosed lake. Ocean anchors MUST be independently supplied by a verified
  * saved ocean-domain policy and must agree with every sampled watershed.
@@ -46,15 +50,32 @@ public final class WatershedRegionPortBridge {
   private static final class Sample {
     final int x, z;
     final double floor;
+    final WatershedRegion.BoundaryNode first;
     boolean allOcean;
     int copies;
     Sample(WatershedRegion.BoundaryNode n) {
-      x = n.x(); z = n.z(); floor = n.ground(); allOcean = n.ocean();
+      x = n.x(); z = n.z(); floor = n.ground(); first = n;
+      allOcean = n.ocean();
       copies = 1;
     }
     void merge(WatershedRegion.BoundaryNode n) {
       if (Double.doubleToLongBits(floor) != Double.doubleToLongBits(n.ground()))
         throw new IllegalArgumentException("different saved terrain heights at watershed seam");
+      // Both regions must agree on ALL observed routing quantities for one
+      // absolute lattice node. Same ground is not a valid same-water proof.
+      // Bit-exact admission avoids order-dependent first/last sample wins.
+      if (Double.doubleToLongBits(first.floodedElevation())
+              != Double.doubleToLongBits(n.floodedElevation())
+          || Double.doubleToLongBits(first.plannedStage())
+              != Double.doubleToLongBits(n.plannedStage()))
+        throw new IllegalArgumentException("different priority-flood or stage at watershed seam");
+      if (Double.doubleToLongBits(first.catchmentArea())
+              != Double.doubleToLongBits(n.catchmentArea()))
+        throw new IllegalArgumentException("different catchment accounting at watershed seam");
+      if (first.ocean() != n.ocean() || first.lake() != n.lake())
+        throw new IllegalArgumentException("different water classification at watershed seam");
+      if (!Objects.equals(first.downstreamKey(), n.downstreamKey()))
+        throw new IllegalArgumentException("different downstream receiver at watershed seam");
       copies++;
       allOcean &= n.ocean();
     }

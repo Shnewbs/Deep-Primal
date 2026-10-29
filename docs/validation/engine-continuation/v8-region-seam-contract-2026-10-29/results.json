@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "source_base": "c48b7bc6148be4c2f0013ae685d4bed7ad3ffdee",
+  "audit_pinned": "00921e12323bb759a22b557b0d07b8758ee1d753",
+  "java": "openjdk 21.0.12.1",
+  "api_double_only": true,
+  "full_gradle_native_gpu": false,
+  "source_files": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegionPortBridge.java": {
+      "git_blob_sha": "5239b7bdc188ba17b76770e7ac977c1611c56378",
+      "sha256": "cc9d730a4ee3b47140ffa6143d2761f54a2501444833777ff060fa2c1045de90"
+    },
+    "tools/tests/WatershedRegionPortBridgeChecks.java": {
+      "git_blob_sha": "08190ffe95107e15603dd45b010e57dbd9bbefc6",
+      "sha256": "d5adb06558fc283f1378ecee5509d15b147f49f498d502e3ac21ce9fb40f9a72"
+    },
+    "tools/test_watershed_region_port_bridge.py": {
+      "git_blob_sha": "1a9ce7bb637e676dcdeef345f2dc726f450a1ef6",
+      "sha256": "798752cef36961263f5bffcde48fba726cf8bc16be9b0bcc56ce3ceeb2c28fbb"
+    }
+  },
+  "checks": {
+    "normal": {
+      "positive_replays": 2,
+      "assertions_each": 3909,
+      "compiled_broken_rejected": 8,
+      "positive_output": [
+        "V8_REGION_PORT_BRIDGE_PASS assertions=3909 seamPorts=1791 seamLinks=1792 shared=257 unresolved=1536",
+        "V8_REGION_PORT_BRIDGE_PASS assertions=3909 seamPorts=1791 seamLinks=1792 shared=257 unresolved=1536"
+      ]
+    },
+    "python_OO": {
+      "positive_replays": 2,
+      "assertions_each": 3909,
+      "compiled_broken_rejected": 8,
+      "positive_output": [
+        "V8_REGION_PORT_BRIDGE_PASS assertions=3909 seamPorts=1791 seamLinks=1792 shared=257 unresolved=1536",
+        "V8_REGION_PORT_BRIDGE_PASS assertions=3909 seamPorts=1791 seamLinks=1792 shared=257 unresolved=1536"
+      ]
+    },
+    "outlet_solver_unchanged": {
+      "source_git_blob": "068d75588c41eb3b4af5a813b24b8dc9db4c9e4a",
+      "assertions": 18111,
+      "compiled_broken_rejected": 3
+    }
+  }
+}
