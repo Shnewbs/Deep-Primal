@@ -190,6 +190,9 @@ public final class VoxelLodRenderer {
       drawnTriangles,
       staleResults;
   public volatile int visibleChunks, queuedChunks, visibleSpan;
+  // Latest successfully published LOD extract, populated only with opt-in telemetry.
+  public volatile int lodErrorViewportHeight;
+  public volatile boolean lodErrorWorldTargetPresent;
   // Successful first-part uploads above the soft per-frame byte cap.
   public volatile long oversizedFirstUploads, oversizedFirstUploadBytes;
   public volatile String status = "Waiting for world";
@@ -540,9 +543,17 @@ public final class VoxelLodRenderer {
     int cx = Math.floorDiv((int) Math.floor(camera.x), 16),
         cz = Math.floorDiv((int) Math.floor(camera.z), 16),
         near = Minecraft.getInstance().options.getEffectiveRenderDistance();
-    double focal =
-        Minecraft.getInstance().getWindow().getHeight()
-            / (2 * Math.tan(Math.toRadians(Minecraft.getInstance().options.fov().get()) / 2));
+    // Spatial/FSR 1 renders world pixels into a smaller scene target; native
+    // window pixels would over-refine LOD and waste distant mesh work.
+    // frameTarget() is non-null only during that frame's scoped world render,
+    // never the previous frame's successful upscaling selection.
+    var worldTarget = UpscalingRuntime.frameTarget();
+    boolean hasWorldTarget = worldTarget != null && worldTarget.height > 0;
+    int lodPixelHeight = LodErrorProjection.effectiveHeight(
+        Minecraft.getInstance().getWindow().getHeight(),
+        hasWorldTarget ? worldTarget.height : 0);
+    double focal = LodErrorProjection.focalPixels(
+        lodPixelHeight, Minecraft.getInstance().options.fov().get());
     // Per-camera squared pixel error thresholds avoid sqrt for ordinary cached pages.
     var errorSelector = new LodScreenErrorSelector(focal, LodConfig.ERROR.get());
     for (var item : cache.entrySet()) {
@@ -611,6 +622,10 @@ public final class VoxelLodRenderer {
     visibleChunks = chunks;
     visibleSpan = Math.min(LodConfig.RADIUS.get(), span);
     event.getRenderState().setRenderData(VISIBLE, visibleSnapshots.snapshot());
+    if (TELEMETRY) {
+      lodErrorViewportHeight = lodPixelHeight;
+      lodErrorWorldTargetPresent = hasWorldTarget;
+    }
     } finally {
       // Render state owns a detached immutable copy. Never pin meshes after an aborted extract.
       visibleSnapshots.finish();
@@ -986,7 +1001,8 @@ public final class VoxelLodRenderer {
     disk.clear();
     deferredDisk.clear();
     residentBytes = 0;
-    visibleSpan = visibleChunks = queuedChunks = 0;
+    visibleSpan = visibleChunks = queuedChunks = lodErrorViewportHeight = 0;
+    lodErrorWorldTargetPresent = false;
     store = null;
     root = null;
     level = null;

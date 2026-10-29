@@ -46,6 +46,10 @@ public final class LodClient {
             data.put("lodVisible", lod.visibleChunks);
             data.put("lodVisibleSpan", lod.visibleSpan);
             data.put("lodRequestedRadius", LodConfig.RADIUS.get());
+            data.put("lodErrorViewportHeightPixels", lod.lodErrorViewportHeight);
+            data.put("lodErrorWorldTargetPresent", lod.lodErrorWorldTargetPresent);
+            data.put("lodErrorViewportScope",
+                "Opt-in last successful LOD extract: world-target pixel height during spatial/FSR 1 world rendering, otherwise native window height; not GPU time or FPS");
             data.put("lodResidentBytes", lod.residentBytes);
             data.put("lodDiskReads", lod.diskReads);
             data.put("lodStaleResults", lod.staleResults);
