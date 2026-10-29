@@ -3,6 +3,9 @@ package com.shnewbs.deepprimal.engine;
 import com.shnewbs.deepprimal.core.TerrainOptions;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 
 /** Actual stitched component/seam code; WatershedRegion and Minecraft remain API doubles. */
 public final class V8OceanConnectivityChecks {
@@ -73,6 +76,30 @@ public final class V8OceanConnectivityChecks {
     }
   }
 
+  private static void reversedAndParallelOrders() throws Exception {
+    var open = basin(7900, 9500, 1700, 2700, Integer.MIN_VALUE, true);
+    var closed = basin(7900, 9500, 1700, 2700, 8320, true);
+    for (int i = 11; i >= -11; i--) {
+      check(open.isMarineAt(8192 + i, 2048), "reverse order marine seam parity");
+      check(!closed.isMarineAt(8192 + i, 2048), "reverse order dry seam parity");
+    }
+    var pool = Executors.newFixedThreadPool(4);
+    try {
+      List<Callable<Boolean>> tasks = new ArrayList<>();
+      for (int i = 0; i < 32; i++) {
+        final int coordinate = 8192 + ((i * 13) % 31) - 15;
+        tasks.add(() -> open.isMarineAt(coordinate, 2048)
+            && !closed.isMarineAt(coordinate, 2048));
+      }
+      for (var result : pool.invokeAll(tasks))
+        check(result.get(), "parallel ordering independent of query/cache history");
+    } finally {
+      pool.shutdownNow();
+    }
+    check(open.cachedRegionCount() <= 4 && closed.cachedRegionCount() <= 4,
+        "parallel resident caches still bounded");
+  }
+
   private static DensityGraph.Definition constantGraph(double continental) {
     return new DensityGraph.Definition(1, "density", List.of(
         DensityGraph.Node.constant("base_height", 80),
@@ -139,9 +166,10 @@ public final class V8OceanConnectivityChecks {
         "legacy fingerprint not migrated");
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     closedBasinAtTwoSignedSeams();
     connectedAndBlockedMarineAtSeam();
+    reversedAndParallelOrders();
     pinnedPolicyAndLegacyReplay();
     System.out.println("V8_STITCHED_MARINE_PASS checks=" + checks
         + " routeVersion=2 oceanAtRegionBoundary=falseByDefault"
