@@ -40,6 +40,7 @@ public final class V8OceanConnectivity {
   private static final double SEA = V8WaterDomainAdmission.SEA_PLANE;
   private static final double MARINE_CONTINENTAL_MAX = -0.25;
   private static final double MARINE_HEIGHT_MAX = SEA - 24;
+  private static final int MAX_GRAPH_SAMPLERS = 4;
   private static final int MAX_CACHED_REGIONS = 4;
   private static final int MAX_SEARCH_REGIONS = 8;
   private static final int MAX_COMPONENTS_SEARCHED = 96;
@@ -137,6 +138,22 @@ public final class V8OceanConnectivity {
         }
       };
 
+  // DensityGraph.Sampler is thread-owned. Reusing the original constructor's
+  // sampler on later worker threads crashed even with synchronized routing.
+  // Keep a strictly bounded LRU of one sampler per active Java thread;
+  // evicted workers reconstruct a clean sampler without changing graph bits.
+  private final LinkedHashMap<Thread, DensityGraph.Sampler> graphSamplers =
+      new LinkedHashMap<>(4, .75f, true) {
+        @Override protected boolean removeEldestEntry(
+            Map.Entry<Thread, DensityGraph.Sampler> eldest) {
+          return size() > MAX_GRAPH_SAMPLERS;
+        }
+      };
+
+  private synchronized DensityGraph.Sampler graphSampler(DensityGraph graph) {
+    return graphSamplers.computeIfAbsent(Thread.currentThread(), thread -> graph.newSampler());
+  }
+
   private final Sampler sampler;
   private final OceanDomain oceanDomain;
   private final int policyRevision;
@@ -155,14 +172,15 @@ public final class V8OceanConnectivity {
   public V8OceanConnectivity(DensityGraph graph, int policyRevision) {
     Objects.requireNonNull(graph, "saved V8 graph");
     this.policyRevision = requirePolicy(policyRevision);
-    DensityGraph.Sampler density = graph.newSampler();
-    this.sampler = (x, z) -> new Point(
-        density.channel("height", x, SEA, z),
-        density.channel("continentalness", x, SEA, z));
+    this.sampler = (x, z) -> {
+      DensityGraph.Sampler density = graphSampler(graph);
+      return new Point(density.channel("height", x, SEA, z),
+          density.channel("continentalness", x, SEA, z));
+    };
     // A dedicated signed channel is an explicit authoring contract. Unlike a
     // continentalness heuristic it is not inferred from a truncated flood.
     this.oceanDomain = policyRevision == SAVED_OCEAN_DOMAIN_POLICY_REVISION
-        ? (x, z) -> density.channel("ocean_domain", x, SEA, z) : null;
+        ? (x, z) -> graphSampler(graph).channel("ocean_domain", x, SEA, z) : null;
   }
 
   /** Test-only injection for bounded component/seam fixtures; no random state. */
@@ -399,6 +417,7 @@ public final class V8OceanConnectivity {
     return admitted;
   }
 
+  public synchronized int cachedSamplerCount() { return graphSamplers.size(); }
   public synchronized int cachedSeedResultCount() { return seedResults.size(); }
   public synchronized int cachedRegionCount() { return cache.size(); }
 }
