@@ -27,7 +27,9 @@ def main():
     source=ROUTES.read_text()
     mutations=[('allow_receiver_jumps','dx > 1 || dz > 1','false'),
                ('forget_interior_crest','Math.max(ground[i], crest[p])',
-                'ground[i]')]
+                'ground[i]'),
+               ('admit_unobserved_cycle','if (at >= 0 && pending[at] == 1)',
+                'if (false)')]
     outcomes=[]
     with tempfile.TemporaryDirectory(prefix='dp-v8-interior-routes-') as t:
         tmp=Path(t)
@@ -45,5 +47,5 @@ def main():
     if opts.output:
         opts.output.mkdir(parents=True,exist_ok=True)
         (opts.output/'results.json').write_text(json.dumps(outcomes,indent=2)+'\n')
-    print('V8_INTERIOR_ROUTES_RUNNER_PASS positive=2 broken_rejected=2')
+    print('V8_INTERIOR_ROUTES_RUNNER_PASS positive=2 broken_rejected=3')
 if __name__=='__main__':main()

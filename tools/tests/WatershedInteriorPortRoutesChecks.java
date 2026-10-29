@@ -61,6 +61,23 @@ public final class WatershedInteriorPortRoutesChecks {
     cyclic.parent[at(1,1,5)]=at(2,1,5);
     cyclic.parent[at(2,1,5)]=at(1,1,5);
     reject(()->cyclic.run(0,0),"interior two-node receiver cycle");
+    var isolated = fixture(5);
+    isolated.parent[at(1,2,5)] = at(2,2,5);
+    isolated.parent[at(2,2,5)] = at(1,2,5);
+    reject(()->isolated.run(0,0),"disconnected two-node interior cycle");
+    reject(()->isolated.run(-128,-128),"disconnected cycle across signed origin");
+    var perimeterCycle = fixture(5);
+    perimeterCycle.parent[at(0,2,5)] = at(1,2,5);
+    perimeterCycle.parent[at(1,2,5)] = at(0,2,5);
+    reject(()->perimeterCycle.run(0,0),"perimeter through interior back to itself");
+    var boundaryCycle = fixture(5);
+    boundaryCycle.parent[at(0,0,5)] = at(1,0,5);
+    boundaryCycle.parent[at(1,0,5)] = at(0,0,5);
+    reject(()->boundaryCycle.run(0,0),"perimeter-to-perimeter cycle");
+    var safeUnused = fixture(5);
+    safeUnused.parent[at(1,2,5)] = at(2,2,5);
+    check(safeUnused.run(0,0).isEmpty(),
+        "unconnected acyclic interior path remains a legitimate empty route");
     var illegal=fixture(5);
     illegal.parent[at(0,1,5)]=at(3,1,5);
     reject(()->illegal.run(0,0),"jump over interior cells");

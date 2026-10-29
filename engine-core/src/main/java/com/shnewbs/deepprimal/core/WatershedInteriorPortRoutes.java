@@ -61,11 +61,31 @@ public final class WatershedInteriorPortRoutes {
         throw new IllegalArgumentException("invalid watershed interior receiver");
     }
 
+    // A valid boundary trace does not prove the entire receiver graph is safe:
+    // disconnected interior loops and boundary -> interior -> same-boundary
+    // loops otherwise vanish as empty output. Verify the COMPLETE functional
+    // parent graph, once, before memoizing or accepting any region port. This
+    // iterative three-state DFS costs O(side^2) time/scratch; it does not depend
+    // on caller ordering, recurse, or inspect another region.
+    byte[] pending = new byte[count]; // 0 unseen, 1 on path, 2 globally verified
+    int[] trail = new int[count];
+    for (int start = 0; start < count; start++) {
+      if (pending[start] != 0) continue;
+      int at = start, depth = 0;
+      while (at >= 0 && pending[at] == 0) {
+        pending[at] = 1;
+        trail[depth++] = at;
+        at = parent[at];
+      }
+      if (at >= 0 && pending[at] == 1)
+        throw new IllegalArgumentException("cyclic watershed receiver graph");
+      while (depth > 0) pending[trail[--depth]] = 2;
+    }
+    // Reuse the same bounded arrays for local path verification/memoization.
+    Arrays.fill(pending, (byte) 0);
     int[] destination = new int[count];
     int[] hops = new int[count];
     double[] crest = new double[count];
-    byte[] pending = new byte[count];
-    int[] trail = new int[count];
     Arrays.fill(destination, -2); // -2 unknown; -1 terminal non-port.
     for (int i = 0; i < count; i++) if (boundary(i, side)) {
       destination[i] = i;
