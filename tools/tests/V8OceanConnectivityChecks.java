@@ -155,6 +155,48 @@ public final class V8OceanConnectivityChecks {
     catch (IllegalStateException expected) { check(true, "v2 cannot use new boundary seeding"); }
   }
 
+  private static void savedDomainDeniesLargeMarineLookingLake() throws Exception {
+    // The Dev71 auditor's >8-region example extends beyond all bounded searches.
+    // The pinned ocean mask, rather than deep height/continentalness, decides.
+    for (int sign : new int[] {-1, 1}) {
+      final int sx = sign;
+      var sameHeight = (V8OceanConnectivity.Sampler) (x, z) ->
+          new V8OceanConnectivity.Point(20, -0.8);
+      var source = new V8OceanConnectivity(sameHeight, (x, z) ->
+          z >= 1700 && z <= 2700 && x * sx >= 6000 && x * sx <= 95000 ? +1 : -1);
+      for (int n = 0; n < 120; n++) {
+        int x = sx * (8192 + n * 32);
+        check(!source.isMarineSeedAt(x, 2048), "saved domain excludes enormous enclosed lake");
+        check(!source.isMarineAt(x, 2048), "four-corner dry-domain exclusion");
+      }
+      check(source.isMarineSeedAt(sx * 8192, 4000),
+          "same below-sea physical height with explicit ocean domain is ocean");
+      check(source.isMarineAt(sx * 8192, 4000), "same domain survives four-corner join");
+      check(source.cachedRegionCount() == 0 && source.cachedSeedResultCount() == 0,
+          "absolute saved mask needs no regional cache or search budget");
+      reject(() -> source.isMarineSeedAt(sx * 8192 + 1, 4000), "exact ocean seed lattice");
+    }
+    var dry = new V8OceanConnectivity((x, z) -> new V8OceanConnectivity.Point(120, -.8),
+        (x, z) -> -1);
+    check(!dry.isMarineSeedAt(8192, 2048), "ocean mask does not flood dry land");
+    var nonfinite = new V8OceanConnectivity((x, z) ->
+        new V8OceanConnectivity.Point(20, -.8), (x, z) -> Double.NaN);
+    reject(() -> nonfinite.isMarineSeedAt(8192, 2048), "bad source mask cannot seed");
+    var signed = new V8OceanConnectivity((x, z) ->
+        new V8OceanConnectivity.Point(20, -.8), (x, z) -> x < 0 ? -1 : +1);
+    check(signed.isMarineSeedAt(-8192, 2048) && !signed.isMarineSeedAt(8192, 2048),
+        "signed absolute-coordinate mask parity");
+    var pool = Executors.newFixedThreadPool(4);
+    try {
+      List<Callable<Boolean>> tasks = new ArrayList<>();
+      for (int i = 0; i < 32; i++) {
+        final int x = -8192 - 32 * i;
+        tasks.add(() -> signed.isMarineSeedAt(x, 2048));
+      }
+      for (var future : pool.invokeAll(tasks)) check(future.get(), "parallel signed seed replay");
+    } finally { pool.shutdownNow(); }
+  }
+
   private static void reversedAndParallelOrders() throws Exception {
     var open = basin(7900, 9500, 1700, 2700, Integer.MIN_VALUE, true);
     var closed = basin(7900, 9500, 1700, 2700, 8320, true);
@@ -267,6 +309,7 @@ public final class V8OceanConnectivityChecks {
     boundedOpenPathAndDryRidgesV3();
     exactBoundarySeedCache();
     reversedAndParallelOrders();
+    savedDomainDeniesLargeMarineLookingLake();
     pinnedPolicyAndLegacyReplay();
     System.out.println("V8_STITCHED_MARINE_PASS checks=" + checks
         + " routeVersions=2,3 v3ClosedDeepBasinsRejected=true"
