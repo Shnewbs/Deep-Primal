@@ -531,6 +531,8 @@ public final class VoxelLodRenderer {
     double focal =
         Minecraft.getInstance().getWindow().getHeight()
             / (2 * Math.tan(Math.toRadians(Minecraft.getInstance().options.fov().get()) / 2));
+    // Per-camera squared pixel error thresholds avoid sqrt for ordinary cached pages.
+    var errorSelector = new LodScreenErrorSelector(focal, LodConfig.ERROR.get());
     for (var item : cache.entrySet()) {
       long k = item.getKey();
       long ringDistance = LodChunkDistance.chebyshev(x(k), z(k), cx, cz);
@@ -545,10 +547,8 @@ public final class VoxelLodRenderer {
               .getLevelRenderer()
               .isSectionCompiledAndVisible(
                   new net.minecraft.core.BlockPos(x(k) * 16 + 8, top - 1, z(k) * 16 + 8))) continue;
-      double dist = Math.max(1, Math.hypot(x(k) * 16. + 8 - camera.x, z(k) * 16. + 8 - camera.z));
-      int d = entry.selected[0];
-      while (d < 2 && (1 << (d + 1)) * focal / dist < LodConfig.ERROR.get() * .85) d++;
-      while (d > 0 && (1 << d) * focal / dist > LodConfig.ERROR.get() * 1.15) d--;
+      int d = errorSelector.select(entry.selected[0],
+          x(k) * 16. + 8 - camera.x, z(k) * 16. + 8 - camera.z);
       entry.selected[0] = d;
       boolean seen = false;
       for (TerrainGpuMesh part : entry.levels.get(d)) {
