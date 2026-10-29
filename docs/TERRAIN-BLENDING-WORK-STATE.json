@@ -3,7 +3,7 @@
   "worker": "hourly-engine-builder-20261029T0205-dev68-v8-routed-regions",
   "status": "active",
   "started_at": "2026-10-29T02:05:59Z",
-  "updated_at": "2026-10-29T02:08:00Z",
+  "updated_at": "2026-10-29T02:22:00Z",
   "active_until": "2026-10-29T02:38:00Z",
   "lease_released": false,
   "source_ref": "aed6bb2d7db0c7002355ef9ad57ecdd44aa94c9c",
@@ -14,9 +14,10 @@
     "src/main/java/com/shnewbs/deepprimal/engine/V8RoutedWaterSource.java",
     "tools/tests/V8RoutedWaterSourceChecks.java",
     "tools/test_v8_routed_water_source.py",
-    "docs/validation/engine-continuation/v8-routed-source-2026-10-29/"
+    "docs/validation/engine-continuation/v8-routed-source-2026-10-29/",
+    "gradle.properties"
   ],
-  "coordination": "Scoped terrain-only builder lease; root ENGINE-WORK-STATE still Dev53 and root validator unavailable without complete checkout. Latest completed auditor docs/engine-hourly-audits/2026-10-28T1831-a8e26ba/REVIEW.md pinned a8e26ba; renderer aed6bb2 files disjoint; water lease expired; no renderer/runtime/Gradle files claimed.",
+  "coordination": "Scoped terrain-only builder lease; root ENGINE-WORK-STATE still Dev53 and root validator unavailable without complete checkout. Latest completed auditor docs/engine-hourly-audits/2026-10-28T1831-a8e26ba/REVIEW.md pinned a8e26ba; renderer aed6bb2 files disjoint; water lease expired; no renderer/runtime/Gradle files claimed. Version file added to bounded scope after observing expired water claim and released renderer claim.",
   "current_gate": "V8 revision5 routing observer SHA-256 identity persisted, but no authoritative routed-water algorithm/source implemented; callback is untrusted. Native Mojang/save/reopen, mixed old/new chunk borders, finite-water loaded/unloaded/restart ledger and GPU/performance acceptance remain open.",
   "tests": "OpenJDK 21.0.12.1 --release 21 -Xlint:all -Werror, java -ea -Xverify:all: 17/17 isolated suites 21,007,690 fixture assertions; new r5 suite 45,895 checks, 800 modeled profile roundtrips, 36,864 mask comparisons; source-only hydrology key 8,207 checks per process 2 compiled broken controls rejected, optimized Python -OO passes; source-only admission 184,332 assertions and 3 compiled broken controls rejected, -OO passes. Not Java25, real Mojang/Minecraft/native, graphics or performance.",
   "evidence": "docs/validation/engine-continuation/v8-hydrology-binding-2026-10-29/README.md",
