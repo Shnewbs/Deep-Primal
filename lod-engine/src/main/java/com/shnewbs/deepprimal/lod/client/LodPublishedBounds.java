@@ -15,8 +15,21 @@ final class LodPublishedBounds {
 
   /** The caller allocates one page array and (when enabled) one mask array. */
   static void populate(AABB[][] levels, AABB[] pages, long[][] runs) {
+    populate(levels, pages, runs, null);
+  }
+
+  /**
+   * Optionally mark nonadjacent i-2 duplicates in the same publication scan.
+   * Draw-time consumers use the two-back result only after its first occurrence
+   * has already been tested; no per-frame AABB comparisons are necessary.
+   * The original overload keeps older tests and callers byte-for-byte in behavior.
+   */
+  static void populate(AABB[][] levels, AABB[] pages, long[][] runs,
+      long[][] twoBackRuns) {
     if (pages.length != levels.length
-        || (LodPageFrustumBounds.ENABLED && runs.length != levels.length))
+        || (LodPageFrustumBounds.ENABLED && runs.length != levels.length)
+        || (LodPageFrustumBounds.ENABLED && twoBackRuns != null
+            && twoBackRuns.length != levels.length))
       throw new IllegalArgumentException("LOD publication metadata array length mismatch");
     // Keep the original broadphase-off behavior: no union or repeated-part
     // metadata is computed or retained in the A/B comparison mode.
@@ -27,8 +40,9 @@ final class LodPublishedBounds {
       boolean wholePageValid = true;
       boolean uniform = true;
       boolean previousValid = false;
-      AABB previous = null;
-      long[] repeated = null;
+      AABB previous = null, beforePrevious = null;
+      boolean beforePreviousValid = false;
+      long[] repeated = null, twoBackRepeated = null;
       double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY,
           minZ = Double.POSITIVE_INFINITY;
       double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY,
@@ -42,6 +56,16 @@ final class LodPublishedBounds {
           if (repeated == null) repeated = new long[((parts.length - 1) >>> 6) + 1];
           repeated[i >>> 6] |= 1L << (i & 63);
         }
+        // A-B-A and longer alternations can share an earlier decision even
+        // when the immediate neighbor has different bounds. Never assign two
+        // aliases to one part; adjacent reuse takes precedence.
+        if (twoBackRuns != null && i > 1 && beforePreviousValid && valid
+            && sameBox(beforePrevious, box)
+            && !(previousValid && sameBox(previous, box))) {
+          if (twoBackRepeated == null)
+            twoBackRepeated = new long[((parts.length - 1) >>> 6) + 1];
+          twoBackRepeated[i >>> 6] |= 1L << (i & 63);
+        }
         if (!valid) {
           wholePageValid = false;
         } else if (wholePageValid) {
@@ -53,10 +77,14 @@ final class LodPublishedBounds {
           maxY = Math.max(maxY, box.maxY);
           maxZ = Math.max(maxZ, box.maxZ);
         }
+        beforePrevious = previous;
+        beforePreviousValid = previousValid;
         previous = box;
         previousValid = valid;
       }
       runs[detail] = repeated == null ? NO_REPEATS : repeated;
+      if (twoBackRuns != null)
+        twoBackRuns[detail] = twoBackRepeated == null ? NO_REPEATS : twoBackRepeated;
       // A single part cannot save any culling checks, matching the existing
       // union contract and its reference-identity uniform marker.
       if (parts.length > 1 && wholePageValid)

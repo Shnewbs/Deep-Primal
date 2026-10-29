@@ -45,6 +45,7 @@ public final class VoxelLodRenderer {
       coarseRejectedPages, coarseSkippedPartTests, coarseAdaptiveBypassedPages,
       coarseUniformVisiblePages, coarseUniformVisiblePartTests,
       coarseRunReusedVisibleParts, coarseRunReusedRejectedParts,
+      coarseTwoBackReusedVisibleParts, coarseTwoBackReusedRejectedParts,
       submittedParts, submittedApiBatches;
   public volatile boolean coarseAdaptiveSampledLastFrame;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
@@ -65,7 +66,8 @@ public final class VoxelLodRenderer {
   private record Entry(
       long revision, List<List<TerrainGpuMesh>> levels, AABB[][] frozenPartBounds,
       AABB[] frustumBounds,
-      long[][] adjacentBoundRuns, long bytes, int[] selected, int top, boolean persisted)
+      long[][] adjacentBoundRuns, long[][] twoBackBoundRuns,
+      long bytes, int[] selected, int top, boolean persisted)
       implements AutoCloseable {
     public void close() {
       closeGpuMeshes(levels);
@@ -537,7 +539,8 @@ public final class VoxelLodRenderer {
     int tested = 0, rejected = 0, coarseTests = 0, coarseVisible = 0,
         coarsePages = 0, skippedPartTests = 0, adaptiveBypassedPages = 0,
         uniformVisiblePages = 0, uniformVisiblePartTests = 0,
-        runReuseVisibleParts = 0, runReuseRejectedParts = 0;
+        runReuseVisibleParts = 0, runReuseRejectedParts = 0,
+        twoBackReuseVisibleParts = 0, twoBackReuseRejectedParts = 0;
     var camera = event.getCamera().position();
     var visible = visibleSnapshots.begin();
     // Force a full coarse sample periodically, and use the unmodified fine path
@@ -621,17 +624,27 @@ public final class VoxelLodRenderer {
       long[] runMask = LodPageFrustumBounds.ENABLED
           && entry.adjacentBoundRuns.length > d
               ? entry.adjacentBoundRuns[d] : NO_ADJACENT_RUNS;
-      boolean previousPartVisible = false;
+      boolean previousPartVisible = false, beforePreviousPartVisible = false;
+      long[] twoBackMask = LodPageFrustumBounds.ENABLED
+          && entry.twoBackBoundRuns.length > d
+              ? entry.twoBackBoundRuns[d] : NO_ADJACENT_RUNS;
       int partIndex = 0;
       for (TerrainGpuMesh part : selectedParts) {
         // Frozen geometry AABBs cannot stale the coarse union or adjacent mask.
         AABB bounds = selectedBounds[partIndex];
-        boolean reused = LodPartFrustumRuns.repeatsPrevious(runMask, partIndex++);
-        boolean partVisible = reused ? previousPartVisible : event.getFrustum().isVisible(bounds);
+        int index = partIndex++;
+        boolean reused = LodPartFrustumRuns.repeatsPrevious(runMask, index);
+        boolean reusedTwoBack = !reused
+            && LodPartFrustumRuns.repeatsPrevious(twoBackMask, index);
+        boolean partVisible = reused ? previousPartVisible
+            : reusedTwoBack ? beforePreviousPartVisible : event.getFrustum().isVisible(bounds);
         if (TELEMETRY) {
           if (reused) {
             if (partVisible) runReuseVisibleParts++;
             else runReuseRejectedParts++;
+          } else if (reusedTwoBack) {
+            if (partVisible) twoBackReuseVisibleParts++;
+            else twoBackReuseRejectedParts++;
           } else {
             tested++;
             if (!partVisible) rejected++;
@@ -641,6 +654,7 @@ public final class VoxelLodRenderer {
           visible.add(part);
           seen = true;
         }
+        beforePreviousPartVisible = previousPartVisible;
         previousPartVisible = partVisible;
       }
       if (seen) {
@@ -662,6 +676,8 @@ public final class VoxelLodRenderer {
       coarseUniformVisiblePartTests = uniformVisiblePartTests;
       coarseRunReusedVisibleParts = runReuseVisibleParts;
       coarseRunReusedRejectedParts = runReuseRejectedParts;
+      coarseTwoBackReusedVisibleParts = twoBackReuseVisibleParts;
+      coarseTwoBackReusedRejectedParts = twoBackReuseRejectedParts;
       // Prospective GPU budget, not the larger Java-array heap footprint.
       pendingMeshBudgetBytes = pendingGpu == null ? 0 : pendingGpu.ready.levels.bytes();
       cullTiming.record(System.nanoTime() - cullStarted);
@@ -854,7 +870,9 @@ public final class VoxelLodRenderer {
       AABB[] pageBounds = new AABB[frozenBounds.length];
       long[][] adjacentRuns = LodPageFrustumBounds.ENABLED
           ? new long[frozenBounds.length][] : new long[0][];
-      LodPublishedBounds.populate(frozenBounds, pageBounds, adjacentRuns);
+      long[][] twoBackRuns = LodPageFrustumBounds.ENABLED
+          ? new long[frozenBounds.length][] : new long[0][];
+      LodPublishedBounds.populate(frozenBounds, pageBounds, adjacentRuns, twoBackRuns);
       Entry replacement =
           new Entry(
               p.ready.revision,
@@ -862,6 +880,7 @@ public final class VoxelLodRenderer {
               frozenBounds,
               pageBounds,
               adjacentRuns,
+              twoBackRuns,
               p.bytes(),
               new int[] {0},
               p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
@@ -1027,6 +1046,7 @@ public final class VoxelLodRenderer {
         coarseRejectedPages = coarseSkippedPartTests = coarseAdaptiveBypassedPages =
         coarseUniformVisiblePages = coarseUniformVisiblePartTests =
         coarseRunReusedVisibleParts = coarseRunReusedRejectedParts =
+        coarseTwoBackReusedVisibleParts = coarseTwoBackReusedRejectedParts =
         submittedParts = submittedApiBatches = 0;
     coarseAdaptiveSampledLastFrame = false;
     session++;
