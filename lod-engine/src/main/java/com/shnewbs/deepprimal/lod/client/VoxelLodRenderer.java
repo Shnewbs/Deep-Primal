@@ -73,6 +73,8 @@ public final class VoxelLodRenderer {
   // per API submission, independent of the number of visible LOD mesh parts.
   private final BoundedIndexedDrawBatches<com.mojang.blaze3d.systems.RenderPass.Draw<Void>>
       indexedDrawBatches = new BoundedIndexedDrawBatches<>(4096);
+  // Recycle only the transient extraction collector; render-state snapshots remain immutable.
+  private final LodVisibleSnapshot<TerrainGpuMesh> visibleSnapshots = new LodVisibleSnapshot<>();
   private final LinkedHashMap<Long, Entry> cache = new LinkedHashMap<>(256, .75f, true);
   // One bounded primitive victim selector per active world; no arrays allocated per eviction.
   private LodEvictionHeap evictionHeap;
@@ -520,7 +522,8 @@ public final class VoxelLodRenderer {
     long cullStarted = TELEMETRY ? System.nanoTime() : 0;
     int tested = 0, rejected = 0;
     var camera = event.getCamera().position();
-    var visible = new ArrayList<TerrainGpuMesh>();
+    var visible = visibleSnapshots.begin();
+    try {
     int chunks = 0, span = 0;
     int cx = Math.floorDiv((int) Math.floor(camera.x), 16),
         cz = Math.floorDiv((int) Math.floor(camera.z), 16),
@@ -569,7 +572,11 @@ public final class VoxelLodRenderer {
     }
     visibleChunks = chunks;
     visibleSpan = Math.min(LodConfig.RADIUS.get(), span);
-    event.getRenderState().setRenderData(VISIBLE, List.copyOf(visible));
+    event.getRenderState().setRenderData(VISIBLE, visibleSnapshots.snapshot());
+    } finally {
+      // Render state owns a detached immutable copy. Never pin meshes after an aborted extract.
+      visibleSnapshots.finish();
+    }
   }
 
   private boolean obsolete(Ready r) {
@@ -929,6 +936,7 @@ public final class VoxelLodRenderer {
     cache.clear();
     evictionHeap = null; // Drop retained arrays on world switch/logout/shutdown.
     indexedDrawBatches.reset();
+    visibleSnapshots.reset();
     transformArrays.clear();
     dirty.clear();
     latest.clear();
