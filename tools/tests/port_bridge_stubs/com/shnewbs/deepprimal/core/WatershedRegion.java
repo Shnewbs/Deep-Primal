@@ -6,4 +6,7 @@ public final class WatershedRegion {
   public record BoundaryNode(int x,int z,double ground,double floodedElevation,
       double plannedStage,double catchmentArea,boolean ocean,boolean lake,Long downstreamKey) {}
   public record BoundarySnapshot(int originX,int originZ,List<BoundaryNode> nodes) {}
+  public record RoutingSnapshot(BoundarySnapshot boundary,
+      List<WatershedInteriorPortRoutes.Route> routes) {}
+
 }

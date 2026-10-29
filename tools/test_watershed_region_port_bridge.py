@@ -16,7 +16,7 @@ STUBS = ROOT / "tools/tests/port_bridge_stubs/com/shnewbs/deepprimal/core"
 def run(source, path):
     path.mkdir(parents=True, exist_ok=True)
     cmd=[os.environ.get("JAVAC","javac"),"--release","21","-Xlint:all","-Werror",
-         "-d",str(path),str(source),str(TOPOLOGY),str(CHECKS),
+         "-d",str(path),str(source),str(TOPOLOGY),str(ROOT / "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedInteriorPortRoutes.java"),str(CHECKS),
          *(str(p) for p in sorted(STUBS.glob("*.java")))]
     c=subprocess.run(cmd, capture_output=True, text=True, check=False)
     if c.returncode: return False,c.stdout+c.stderr

@@ -1281,6 +1281,27 @@ public final class WatershedRegion {
     public BoundarySnapshot { nodes = List.copyOf(nodes); }
   }
 
+
+  /** Explicit, trusted whole-region receiver path export for outlet planning. */
+  public record RoutingSnapshot(BoundarySnapshot boundary,
+      List<WatershedInteriorPortRoutes.Route> routes) {
+    public RoutingSnapshot {
+      Objects.requireNonNull(boundary, "boundary");
+      routes = List.copyOf(routes);
+    }
+  }
+
+  /**
+   * Opt-in interior-to-perimeter receiver observations. The existing boundary
+   * snapshot verifies the entire producer first. No water is moved, and a
+   * routed path without an observed boundary exit remains unresolved.
+   */
+  public RoutingSnapshot routingSnapshot() {
+    BoundarySnapshot boundary = boundarySnapshot();
+    return new RoutingSnapshot(boundary, WatershedInteriorPortRoutes.trace(
+        boundary.originX(), boundary.originZ(), SIDE, STEP, raw, stage, parent));
+  }
+
   /** Explicit opt-in export; no construction or gameplay path calls this by default. */
   public BoundarySnapshot boundarySnapshot() {
     // The exporter is opt-in, but once invoked it must never hand an unverified

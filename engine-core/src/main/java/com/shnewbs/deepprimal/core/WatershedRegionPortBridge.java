@@ -198,6 +198,85 @@ public final class WatershedRegionPortBridge {
   }
 
   /**
+   * Explicitly incorporate receiver paths exported by the SAME production
+   * watershed that supplied each perimeter snapshot. A path is a measured
+   * interior connection, not a guessed straight line or a new water source.
+   * The ordinary perimeter-only assemble() contract is preserved exactly.
+   *
+   * <p>A bridge can validate route endpoints/first receivers/stages but cannot
+   * independently certify the hidden interior path. Only pass trusted output
+   * from WatershedRegion.routingSnapshot(); no caller-authored route lists.
+   */
+  public static Draft assembleRouted(
+      Collection<WatershedRegion.RoutingSnapshot> snapshots,
+      Set<Long> certifiedOceanKeys) {
+    Objects.requireNonNull(snapshots, "snapshots");
+    List<WatershedRegion.BoundarySnapshot> boundaries = new ArrayList<>();
+    for (var snapshot : snapshots) {
+      Objects.requireNonNull(snapshot, "routing snapshot");
+      boundaries.add(Objects.requireNonNull(snapshot.boundary(), "routing boundary"));
+    }
+    Draft base = assemble(boundaries, certifiedOceanKeys);
+    TreeMap<Seam, Double> allLinks = new TreeMap<>(Comparator
+        .comparingLong(Seam::a).thenComparingLong(Seam::b));
+    for (var link : base.links()) {
+      long a = WatershedOutletTopology.key(link.ax(), link.az());
+      long b = WatershedOutletTopology.key(link.bx(), link.bz());
+      allLinks.put(new Seam(Math.min(a, b), Math.max(a, b)), link.sill());
+    }
+    Map<Long, WatershedInteriorPortRoutes.Route> usedSources = new HashMap<>();
+    for (var snapshot : snapshots) {
+      var boundary = snapshot.boundary();
+      int ox = boundary.originX(), oz = boundary.originZ();
+      long ex = (long) ox + TerrainEngine.CELL;
+      long ez = (long) oz + TerrainEngine.CELL;
+      Map<Long, WatershedRegion.BoundaryNode> local = new HashMap<>();
+      for (var node : boundary.nodes())
+        local.put(WatershedOutletTopology.key(node.x(), node.z()), node);
+      if (snapshot.routes().size() > boundary.nodes().size())
+        throw new IllegalArgumentException("too many watershed interior routes");
+      Set<Long> seenLocal = new HashSet<>();
+      for (var route : snapshot.routes()) {
+        Objects.requireNonNull(route, "interior route");
+        long from = WatershedOutletTopology.key(route.fromX(), route.fromZ());
+        long to = WatershedOutletTopology.key(route.toX(), route.toZ());
+        var source = local.get(from);
+        var target = local.get(to);
+        int firstX = (int) (route.firstReceiverKey() >> 32);
+        int firstZ = (int) route.firstReceiverKey();
+        // A first receiver on the same perimeter is already handled by
+        // assemble(). Only a real interior path warrants a new shortcut.
+        boolean firstInterior = firstX > ox && (long) firstX < ex
+            && firstZ > oz && (long) firstZ < ez;
+        if (source == null || target == null || from == to || !firstInterior
+            || !Objects.equals(source.downstreamKey(), route.firstReceiverKey())
+            || route.hops() < 2 || route.hops() > WatershedRegion.SIDE * WatershedRegion.SIDE
+            || route.crest() < Math.max(source.ground(), target.ground())
+            || target.plannedStage() > source.plannedStage() + 1e-7
+            || !seenLocal.add(from))
+          throw new IllegalArgumentException("invalid interior-to-port receiver evidence");
+        var previous = usedSources.putIfAbsent(from, route);
+        if (previous != null && !previous.equals(route))
+          throw new IllegalArgumentException("conflicting shared watershed interior route");
+        Seam edge = new Seam(Math.min(from, to), Math.max(from, to));
+        // Both perimeter and internal corridors are observed alternatives.
+        // The smallest certified crest represents the lowest known pass.
+        allLinks.merge(edge, route.crest(), Math::min);
+      }
+    }
+    if (allLinks.size() > WatershedOutletTopology.MAX_LINKS)
+      throw new IllegalArgumentException("interior routes exceed outlet link budget");
+    List<WatershedOutletTopology.Link> links = new ArrayList<>(allLinks.size());
+    for (var entry : allLinks.entrySet()) {
+      long a = entry.getKey().a(), b = entry.getKey().b();
+      links.add(new WatershedOutletTopology.Link((int) (a >> 32), (int) a,
+          (int) (b >> 32), (int) b, entry.getValue()));
+    }
+    return new Draft(base.ports(), links, base.sharedCoordinates(),
+        base.unresolvedFrontiers());
+  }
+
+  /**
    * Fail closed for directed cycles in the observed perimeter subgraph.
    * Missing interior nodes terminate the observable chain: only the actual
    * watershed producer can attest to the complete parent ordering. The

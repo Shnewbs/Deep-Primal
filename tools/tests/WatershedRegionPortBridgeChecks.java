@@ -102,6 +102,43 @@ public final class WatershedRegionPortBridgeChecks {
         n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(32,32)));
     check(WatershedRegionPortBridge.assemble(List.of(interior),Set.of()).links().size()
         ==alone.links().size(),"interior receiver cannot invent boundary shortcut");
+    // Dev80: a production-exported interior receiver path may connect two
+    // perimeter ports. Ordinary assemble() stays perimeter-only and unchanged.
+    var route=new com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(
+        0,32,8192,32,WatershedOutletTopology.key(32,32),90,256);
+    var routed=new WatershedRegion.RoutingSnapshot(interior,List.of(route));
+    var empty=new WatershedRegion.RoutingSnapshot(b,List.of());
+    var planned=WatershedRegionPortBridge.assembleRouted(List.of(routed,empty),Set.of());
+    check(planned.links().size()==WatershedRegionPortBridge.assemble(
+        List.of(interior,b),Set.of()).links().size()+1,
+        "one observed interior pass not guessed by original perimeter bridge");
+    check(signature(planned).equals(signature(WatershedRegionPortBridge.assembleRouted(
+        List.of(empty,routed),Set.of()))),"routed region reversal parity");
+    check(planned.solve(96).totalRunoffQuanta()==0,"interior route adds no physical volume");
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(interior,List.of(new
+            com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(
+                0,32,8192,32,WatershedOutletTopology.key(64,32),90,256))),empty),Set.of()),
+        "first receiver must match actual boundary producer");
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(interior,List.of(new
+            com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(
+                0,32,8192,32,WatershedOutletTopology.key(32,32),70,256))),empty),Set.of()),
+        "interior pass crest below both admitted endpoints");
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(interior,List.of(route,route)),empty),Set.of()),
+        "one source cannot export two interior routes");
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(interior,List.of(new
+            com.shnewbs.deepprimal.core.WatershedInteriorPortRoutes.Route(
+                0,32,4096,4096,WatershedOutletTopology.key(32,32),90,256))),empty),Set.of()),
+        "interior destination is not an observed perimeter port");
+    var badStage=change(interior,8192,32,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),100,
+        n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assembleRouted(List.of(
+        new WatershedRegion.RoutingSnapshot(badStage,List.of(route)),empty),Set.of()),
+        "interior receiver cannot raise downstream water stage");
     // Independent Dev78 Java25 audit: equal-stage reciprocal parents were
     // accepted and collapsed to one undirected edge. Direction is authoritative:
     // reject both a two-node cycle and a longer perimeter cycle.
