@@ -203,10 +203,28 @@ public final class DensityChunkMaterializer {
     Objects.requireNonNull(prepared, "prepared");
     if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION)
       throw new IllegalArgumentException("explicit saved V8 revision 6 vegetation required");
+    return fillSavedEcotoneVegetatedWithReceipt(prepared, chunk, queriesPerSlab,
+        referenceClimate, authority).planned();
+  }
+
+  /**
+   * NEW V8-r6 read-back path. The immutable plan is not an observation of
+   * which candidates actually survived the synchronous native setters.
+   * The receipt is captured after final heightmap priming but still inside
+   * the existing prewrite rollback scope. It is not a durable edit log.
+   */
+  public static V8VegetatedReceiptResult fillSavedEcotoneVegetatedWithReceipt(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    Objects.requireNonNull(prepared, "prepared");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION)
+      throw new IllegalArgumentException("explicit saved V8 revision 6 vegetation required");
     var admitted = V8WaterDomainAdmission.bind(prepared, referenceClimate, authority);
     var written = fillSavedEcotoneInternal(prepared, chunk, queriesPerSlab,
         admitted, prepared.snapshot().vegetationPolicy());
-    return new V8VegetatedResult(written.ecotone(), written.vegetation());
+    return new V8VegetatedReceiptResult(
+        new V8VegetatedResult(written.ecotone(), written.vegetation()), written.receipt());
   }
 
   /** Same V8 surface-plan contract for non-writing base-column/vegetation queries. */
@@ -234,8 +252,18 @@ public final class DensityChunkMaterializer {
     }
   }
 
+  /** Realized native placements are separately observable from the plan. */
+  public record V8VegetatedReceiptResult(V8VegetatedResult planned,
+                                        V8VegetationNativeReceipt realized) {
+    public V8VegetatedReceiptResult {
+      Objects.requireNonNull(planned, "V8 planned vegetation");
+      Objects.requireNonNull(realized, "V8 realized native vegetation");
+    }
+  }
+
   private record MaterializedEcotone(V8EcotoneResult ecotone,
-                                     V8VegetationColumnPlan vegetation) {}
+                                     V8VegetationColumnPlan vegetation,
+                                     V8VegetationNativeReceipt receipt) {}
 
   private static MaterializedEcotone fillSavedEcotoneInternal(
       V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
@@ -340,7 +368,11 @@ public final class DensityChunkMaterializer {
         }
       Heightmap.primeHeightmaps(chunk,
           EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
-      return new MaterializedEcotone(preflight, plants);
+      // Postwrite observation detects callback-overwritten species or support.
+      // Any read failure triggers the existing complete prewrite rollback.
+      var receipt = plants == null ? null : V8VegetationNativeReceipt.capture(
+          chunk, plants, columns, grass, podzol, shortGrass, fern);
+      return new MaterializedEcotone(preflight, plants, receipt);
     } catch (RuntimeException | Error failure) {
       undo.rollback(failure);
       throw failure;
