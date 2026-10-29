@@ -89,6 +89,9 @@ public final class LodClient {
             data.put("lodPageTimingScope", "Time from LOD render-thread admission to fully committed GPU page; includes frame pacing/pauses, excludes GPU fence completion and total capture/worker time");
             data.put("lodTestedParts", lod.testedParts);
             data.put("lodRejectedParts", lod.rejectedParts);
+            data.put("lodCoarseRejectedPages", lod.coarseRejectedPages);
+            data.put("lodCoarseSkippedPartTests", lod.coarseSkippedPartTests);
+            data.put("lodPageCullingScope", "Conservative cached bounds for multi-part pages; counters exclude native chunks and GPU occlusion");
             data.put("lodSubmittedParts", lod.submittedParts);
             data.put("lodIndexedApiBatches", lod.submittedApiBatches);
             data.put("lodIndexedApiBatchScope",
