@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "run_id": "2026-10-29T1032-00921e12",
+  "audit_role": "independent_read_only",
+  "pinned_commit": "00921e12323bb759a22b557b0d07b8758ee1d753",
+  "version": "0.0.1-alpha.29-dev.76-native-outlet-ports.1",
+  "java": "Temurin 25.0.5+8",
+  "strict_java25_compile": true,
+  "committed_regression": {
+    "runs": 2,
+    "assertions_each": 3901
+  },
+  "mutants_rejected": 3,
+  "independent_stage_mismatch_reproduced": true,
+  "source_blobs": {
+    "bridge": "9032f460195d506097da215ad0fcd1bf879a87f6",
+    "topology": "068d75588c41eb3b4af5a813b24b8dc9db4c9e4a",
+    "tests": "e4c4b7d544d5faaed2784e369d5f97a0b05a36a7"
+  },
+  "complete_native_build": "NOT_RUN_OWNER_OVERRIDE",
+  "qualified_jar": "NONE",
+  "evidence_zip": {
+    "bytes": 18661,
+    "sha256": "a8ee36954b00e11b201f9dfdcb20bdecd3fcb6af22e9ae2c385ace16e9f91de5"
+  },
+  "score": {
+    "carried": 50,
+    "fresh_regrade": false,
+    "target_strict_gt": 85
+  },
+  "source_modifications": 0,
+  "other_roles_interrupted": false
+}
