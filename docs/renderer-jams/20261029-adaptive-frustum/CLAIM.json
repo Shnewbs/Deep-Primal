@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0653-adaptive-frustum",
+  "owner": "renderer-hourly-only",
+  "status": "active",
+  "started_at": "2026-10-29T06:53:31Z",
+  "active_until": "2026-10-29T07:13:31Z",
+  "baseline_sha": "eeb822642ad88355fa58414e7d5ff277c51cf6ec",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumAdaptiveGate.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-adaptive-frustum/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "measurement_reservation": "isolated Linux Java21 deterministic selection parity, sampled A/B policy CPU fixture; no native GPU claim",
+  "consumed": [
+    "docs/renderer-jams/20261029-frustum-ab-gate/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T0634-84dda6f/REVIEW.md"
+  ],
+  "excluded": [
+    "engine/water/terrain",
+    "graphics upscaler/FSR/DLSS",
+    "other schedulers",
+    "shared caches"
+  ],
+  "goal": "Avoid measured adverse all-visible coarse-frustum CPU overhead through bounded sampled gating; preserve original ordered fine-part culling and water semantics."
+}
