@@ -43,6 +43,7 @@ public final class VoxelLodRenderer {
   public volatile int testedParts, rejectedParts, coarseTestedPages, coarseVisiblePages,
       coarseRejectedPages, coarseSkippedPartTests, coarseAdaptiveBypassedPages,
       coarseUniformVisiblePages, coarseUniformVisiblePartTests,
+      coarseRunReusedVisibleParts, coarseRunReusedRejectedParts,
       submittedParts, submittedApiBatches;
   public volatile boolean coarseAdaptiveSampledLastFrame;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
@@ -62,7 +63,7 @@ public final class VoxelLodRenderer {
 
   private record Entry(
       long revision, List<List<TerrainGpuMesh>> levels, AABB[] frustumBounds,
-      long bytes, int[] selected, int top, boolean persisted)
+      boolean[] adjacentBoundRuns, long bytes, int[] selected, int top, boolean persisted)
       implements AutoCloseable {
     public void close() {
       closeGpuMeshes(levels);
@@ -533,7 +534,8 @@ public final class VoxelLodRenderer {
     long cullStarted = TELEMETRY ? System.nanoTime() : 0;
     int tested = 0, rejected = 0, coarseTests = 0, coarseVisible = 0,
         coarsePages = 0, skippedPartTests = 0, adaptiveBypassedPages = 0,
-        uniformVisiblePages = 0, uniformVisiblePartTests = 0;
+        uniformVisiblePages = 0, uniformVisiblePartTests = 0,
+        runReuseVisibleParts = 0, runReuseRejectedParts = 0;
     var camera = event.getCamera().position();
     var visible = visibleSnapshots.begin();
     // Force a full coarse sample periodically, and use the unmodified fine path
@@ -610,21 +612,40 @@ public final class VoxelLodRenderer {
         } else if (TELEMETRY) adaptiveBypassedPages++;
       }
       boolean seen = false;
+      // A positive union does not imply positive visibility for each mixed part.
+      // Adjacent identical finite AABBs may share a pure fine-frustum verdict.
+      // Broadphase=false preserves the original per-part A/B baseline.
+      boolean groupAdjacent = LodPageFrustumBounds.ENABLED
+          && entry.adjacentBoundRuns.length > d && entry.adjacentBoundRuns[d];
+      AABB previousPartBounds = null;
+      boolean previousPartVisible = false;
       for (TerrainGpuMesh part : selectedParts) {
-        if (TELEMETRY) tested++;
-        if (event.getFrustum().isVisible(part.bounds)) {
+        AABB bounds = part.bounds;
+        boolean reused = groupAdjacent
+            && LodPartFrustumRuns.sameFiniteBounds(previousPartBounds, bounds);
+        boolean partVisible = reused ? previousPartVisible : event.getFrustum().isVisible(bounds);
+        if (TELEMETRY) {
+          if (reused) {
+            if (partVisible) runReuseVisibleParts++;
+            else runReuseRejectedParts++;
+          } else {
+            tested++;
+            if (!partVisible) rejected++;
+          }
+        }
+        if (partVisible) {
           visible.add(part);
           seen = true;
-        } else if (TELEMETRY) rejected++;
+        }
+        previousPartBounds = bounds;
+        previousPartVisible = partVisible;
       }
       if (seen) {
         chunks++;
         span = Math.max(span, (int) ringDistance + 1);
       }
     }
-    // Never train the heuristic from an aborted extraction. Skipped frames
-    // retain ordered per-part culling even if the view abruptly changes.
-    pageFrustumGate.completed(coarseThisFrame, coarseTests, skippedPartTests);
+    // Skipped frames retain ordered per-part culling even on camera turns.
     if (TELEMETRY) {
       testedParts = tested;
       rejectedParts = rejected;
@@ -636,6 +657,8 @@ public final class VoxelLodRenderer {
       coarseSkippedPartTests = skippedPartTests;
       coarseUniformVisiblePages = uniformVisiblePages;
       coarseUniformVisiblePartTests = uniformVisiblePartTests;
+      coarseRunReusedVisibleParts = runReuseVisibleParts;
+      coarseRunReusedRejectedParts = runReuseRejectedParts;
       // Prospective GPU budget, not the larger Java-array heap footprint.
       pendingMeshBudgetBytes = pendingGpu == null ? 0 : pendingGpu.ready.levels.bytes();
       cullTiming.record(System.nanoTime() - cullStarted);
@@ -643,6 +666,8 @@ public final class VoxelLodRenderer {
     visibleChunks = chunks;
     visibleSpan = Math.min(LodConfig.RADIUS.get(), span);
     event.getRenderState().setRenderData(VISIBLE, visibleSnapshots.snapshot());
+    // Only successfully published extractions may train adaptive coarse sampling.
+    pageFrustumGate.completed(coarseThisFrame, coarseTests, skippedPartTests);
     if (TELEMETRY) {
       lodErrorViewportHeight = lodPixelHeight;
       lodErrorWorldTargetPresent = hasWorldTarget;
@@ -824,6 +849,8 @@ public final class VoxelLodRenderer {
               p.ready.revision,
               p.levels.stream().map(List::copyOf).toList(),
               LodPageFrustumBounds.build(p.levels),
+              LodPageFrustumBounds.ENABLED
+                  ? LodPartFrustumRuns.build(p.levels) : new boolean[0],
               p.bytes(),
               new int[] {0},
               p.ready.levels.fine().stream().mapToInt(m -> m.maximum()).max().orElse(0),
@@ -988,6 +1015,7 @@ public final class VoxelLodRenderer {
     testedParts = rejectedParts = coarseTestedPages = coarseVisiblePages =
         coarseRejectedPages = coarseSkippedPartTests = coarseAdaptiveBypassedPages =
         coarseUniformVisiblePages = coarseUniformVisiblePartTests =
+        coarseRunReusedVisibleParts = coarseRunReusedRejectedParts =
         submittedParts = submittedApiBatches = 0;
     coarseAdaptiveSampledLastFrame = false;
     session++;
