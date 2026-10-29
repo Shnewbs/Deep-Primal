@@ -77,13 +77,32 @@ final class LodPublishedBounds {
         if (!valid) {
           wholePageValid = false;
         } else if (wholePageValid) {
-          if (uniform && !sameBox(representative, box)) uniform = false;
-          minX = Math.min(minX, box.minX);
-          minY = Math.min(minY, box.minY);
-          minZ = Math.min(minZ, box.minZ);
-          maxX = Math.max(maxX, box.maxX);
-          maxY = Math.max(maxY, box.maxY);
-          maxZ = Math.max(maxZ, box.maxZ);
+          if (uniform) {
+            if (!sameBox(representative, box)) {
+              // The prefix had identical numerical bounds. Defer its union
+              // reductions until the first different part; an all-uniform
+              // page needs only the validated representative identity.
+              // Replaying the prefix in original order retains Math.min/max
+              // signed-zero behavior on mixed pages with value-equal AABBs.
+              uniform = false;
+              for (int j = 0; j <= i; j++) {
+                AABB member = parts[j];
+                minX = Math.min(minX, member.minX);
+                minY = Math.min(minY, member.minY);
+                minZ = Math.min(minZ, member.minZ);
+                maxX = Math.max(maxX, member.maxX);
+                maxY = Math.max(maxY, member.maxY);
+                maxZ = Math.max(maxZ, member.maxZ);
+              }
+            }
+          } else {
+            minX = Math.min(minX, box.minX);
+            minY = Math.min(minY, box.minY);
+            minZ = Math.min(minZ, box.minZ);
+            maxX = Math.max(maxX, box.maxX);
+            maxY = Math.max(maxY, box.maxY);
+            maxZ = Math.max(maxZ, box.maxZ);
+          }
         }
         beforePrevious = previous;
         beforePreviousValid = previousValid;
