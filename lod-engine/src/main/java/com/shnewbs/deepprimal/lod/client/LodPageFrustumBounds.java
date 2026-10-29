@@ -10,6 +10,11 @@ import net.minecraft.world.phys.AABB;
  * means the page must use the unchanged per-part visibility path.
  */
 final class LodPageFrustumBounds {
+  // A/B diagnostic only. Default remains enabled; change with a JVM startup flag.
+  // No persisted world/graphics settings or runtime scene state are modified.
+  static final boolean ENABLED = !"false".equalsIgnoreCase(
+      System.getProperty("deepprimal.lod.pageFrustumBroadphase", "true"));
+
   private LodPageFrustumBounds() {}
 
   static AABB[] build(List<List<TerrainGpuMesh>> levels) {
