@@ -4,8 +4,8 @@
   "status": "checkpointed",
   "lease_released": true,
   "started_at": "2026-10-29T18:59:00Z",
-  "updated_at": "2026-10-29T19:07:00Z",
-  "active_until": "2026-10-29T19:07:00Z",
+  "updated_at": "2026-10-29T19:06:30Z",
+  "active_until": "2026-10-29T19:06:30Z",
   "base_ref": "ff65940b3f2c88b241bf08354c92cf8f48861faf",
   "candidate_version": "0.0.1-alpha.29-dev.85-outlet-world-binding.1",
   "scope": [
@@ -33,14 +33,14 @@
   "last_full_external_grade": 5,
   "coordination": "Fresh GitHub main/auditor/lease read. Independent Dev84 18:34 UTC audit consumed. Separate renderer jam39 new commit at 19:03 UTC preserved, no renderer files touched. Previous foreground water claim expired 2026-10-28; no active overlap observed. Root work-state pinned to dev53; its full pinned validator not runnable without full checkout, so no root state edits. Scoped writer lease acquired for bounded dev85 scope. Owner controls full builds. No timed measurements.",
   "next_action": "Native owner-supplied persisted world identity/profile digest and atomic coupling to finite-water cells; explicit V1 migration only if authorized; certified ocean outlets, loaded/unloaded conservation, crash/restart reconciliation. Parallel V8 ecotone native vegetation and pre-hydrology relief integration remains high priority.",
-  "source_ref": "pending-dev85-guarded-commit",
-  "source_commit": "pending-dev85-guarded-commit",
+  "source_ref": "d9717830e86a8efa70b3063a5eb6dd168aa508d2",
+  "source_commit": "d9717830e86a8efa70b3063a5eb6dd168aa508d2",
   "completed_version": "0.0.1-alpha.29-dev.85-outlet-world-binding.1",
   "evidence": "docs/validation/engine-continuation/v8-world-bound-outlet-store-2026-10-29/README.md",
   "source_code_changes": "Bound V2 world UUID and frozen V8 profile SHA256 in canonical sealed image; reject cross-world/profile adoption, mismatched legacy/bound entry paths, rehashed unsorted account/receiver/receipt images, preserving existing CAS/replay and legacy V1 unbound compatibility.",
-  "tests": "Linux OpenJDK 21.0.12.1 --release 21 -Xlint:all -Werror; 133 asserted checks per positive normal and optimized Python process; both runners reject five compiled mutations by real fixture AssertionError; exact local Git blob identities matched store/test/runner objects. No native/Gradle/GPU.",
-  "source_archive": "DeepPrimal_Dev84_DurableOutletStore_SourceEvidence.zip",
-  "archive_sha256": "60acca64662a66319d415c0ff416d80d1983c369b4f44dd7ba44aefc90dbe004",
+  "tests": "OpenJDK21.0.12.1: strict --release 21 -Xlint:all -Werror, 133 assertions in positive normal and Python -OO processes, five compiled broken controls rejected by actual AssertionError per mode (10/10). Original 42-generation legacy replay and V2 reopen with exact water/salt/sediment conservation. Source/test/runner SHA1 identical to pinned Git blobs; no native/Gradle/GPU.",
+  "source_archive": "DeepPrimal_Dev85_WorldBoundOutletStore_SourceEvidence.zip",
+  "archive_sha256": "1607925763bc996c9f7b32361bf4bf4ebb6c292a9fd2ae39fbbaae8deb4d6f36",
   "not_claimed": [
     "native Minecraft/NeoForge saved-world identity or atomically coupled fluid cells",
     "Java25 full Gradle9.2.1 checkout/build/JAR",
@@ -49,5 +49,6 @@
     "complete water or terrain blending, new independent grade",
     "root state validator"
   ],
-  "ended_at": "2026-10-29T19:07:00Z"
+  "ended_at": "2026-10-29T19:06:30Z",
+  "archive_bytes": 22868
 }

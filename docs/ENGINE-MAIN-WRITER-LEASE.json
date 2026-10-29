@@ -2,7 +2,7 @@
   "schema": 1,
   "worker": "hourly-engine-builder-20261029T1857-v8-world-bound-store",
   "start": "2026-10-29T18:57:00Z",
-  "expires": "2026-10-29T19:15:00Z",
+  "expires": "2026-10-29T19:06:30Z",
   "source_head": "29e88db2f236f903c941deb36b2148b9e1c0a7d8",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletLedgerStore.java",
@@ -14,8 +14,13 @@
   ],
   "audit": "docs/engine-hourly-audits/2026-10-29T1834-f53abbf6/REVIEW.md",
   "note": "Bounded dev85 source-only repair: world/profile-pinned V8 disk envelope and strict canonical key ordering. No renderer or native finite-water ownership. Owner full builds.",
-  "status": "active",
-  "lease_released": false,
+  "status": "checkpointed",
+  "lease_released": true,
   "last_external_average": 5,
-  "acceptance_complete": false
+  "acceptance_complete": false,
+  "ended_at": "2026-10-29T19:06:30Z",
+  "source_commit": "d9717830e86a8efa70b3063a5eb6dd168aa508d2",
+  "verified_source_blob": "b2bd8cf897dfe7d2511e94cbe371c79adad2ae83",
+  "verification": "OpenJDK21.0.12.1: strict --release 21 -Xlint:all -Werror, 133 assertions in positive normal and Python -OO processes, five compiled broken controls rejected by actual AssertionError per mode (10/10). Original 42-generation legacy replay and V2 reopen with exact water/salt/sediment conservation. Source/test/runner SHA1 identical to pinned Git blobs; no native/Gradle/GPU.",
+  "next": "Bind native saved-world UUID/profile digest and atomic finite-cell edits; integrate V8 ecotone vegetation/relief before hydrology, preserve owner-build policy."
 }
