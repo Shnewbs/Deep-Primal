@@ -40,8 +40,8 @@ public final class VoxelLodRenderer {
   private final LodSubmissionProbe submissionProbe = new LodSubmissionProbe(240);
   public final RollingTiming submitTiming = new RollingTiming(240);
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
-  public volatile int testedParts, rejectedParts, coarseRejectedPages, coarseSkippedPartTests,
-      submittedParts, submittedApiBatches;
+  public volatile int testedParts, rejectedParts, coarseTestedPages, coarseVisiblePages,
+      coarseRejectedPages, coarseSkippedPartTests, submittedParts, submittedApiBatches;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
   private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"));
@@ -521,7 +521,8 @@ public final class VoxelLodRenderer {
     processUploads();
     evictToFit(0, 4096, null, event.getCamera().position());
     long cullStarted = TELEMETRY ? System.nanoTime() : 0;
-    int tested = 0, rejected = 0, coarsePages = 0, skippedPartTests = 0;
+    int tested = 0, rejected = 0, coarseTests = 0, coarseVisible = 0,
+        coarsePages = 0, skippedPartTests = 0;
     var camera = event.getCamera().position();
     var visible = visibleSnapshots.begin();
     try {
@@ -555,12 +556,16 @@ public final class VoxelLodRenderer {
       AABB coarseBounds = entry.frustumBounds[d];
       // Every part is contained in the cached page box. Reject only when the
       // entire multi-part page is outside; never change per-part draw ordering.
-      if (coarseBounds != null && !event.getFrustum().isVisible(coarseBounds)) {
-        if (TELEMETRY) {
-          coarsePages++;
-          skippedPartTests += selectedParts.size();
+      if (LodPageFrustumBounds.ENABLED && coarseBounds != null) {
+        if (TELEMETRY) coarseTests++;
+        if (!event.getFrustum().isVisible(coarseBounds)) {
+          if (TELEMETRY) {
+            coarsePages++;
+            skippedPartTests += selectedParts.size();
+          }
+          continue;
         }
-        continue;
+        if (TELEMETRY) coarseVisible++;
       }
       boolean seen = false;
       for (TerrainGpuMesh part : selectedParts) {
@@ -578,6 +583,8 @@ public final class VoxelLodRenderer {
     if (TELEMETRY) {
       testedParts = tested;
       rejectedParts = rejected;
+      coarseTestedPages = coarseTests;
+      coarseVisiblePages = coarseVisible;
       coarseRejectedPages = coarsePages;
       coarseSkippedPartTests = skippedPartTests;
       // Prospective GPU budget, not the larger Java-array heap footprint.
@@ -924,8 +931,8 @@ public final class VoxelLodRenderer {
     lastUploadBytes = pendingMeshBudgetBytes = 0;
     drawnTriangles = 0; // Per-world submission totals must not leak into the next world.
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
-    testedParts = rejectedParts = coarseRejectedPages = coarseSkippedPartTests =
-        submittedParts = submittedApiBatches = 0;
+    testedParts = rejectedParts = coarseTestedPages = coarseVisiblePages =
+        coarseRejectedPages = coarseSkippedPartTests = submittedParts = submittedApiBatches = 0;
     session++;
     // Relinquish pending ownership before any fallible GPU close, then attempt
     // every other cached close even if one buffer teardown fails.
