@@ -78,6 +78,8 @@ public final class VoxelLodRenderer {
       indexedDrawBatches = new BoundedIndexedDrawBatches<>(4096);
   // Recycle only the transient extraction collector; render-state snapshots remain immutable.
   private final LodVisibleSnapshot<TerrainGpuMesh> visibleSnapshots = new LodVisibleSnapshot<>();
+  // Reuse unchanged projected-error thresholds across render-state extractions.
+  private final LodProjectionSelectorCache lodSelectorCache = new LodProjectionSelectorCache();
   // A page-test skip never skips fine mesh visibility or changes material order.
   private final LodPageFrustumAdaptiveGate pageFrustumGate = new LodPageFrustumAdaptiveGate();
   private final LinkedHashMap<Long, Entry> cache = new LinkedHashMap<>(256, .75f, true);
@@ -552,10 +554,10 @@ public final class VoxelLodRenderer {
     int lodPixelHeight = LodErrorProjection.effectiveHeight(
         Minecraft.getInstance().getWindow().getHeight(),
         hasWorldTarget ? worldTarget.height : 0);
-    double focal = LodErrorProjection.focalPixels(
-        lodPixelHeight, Minecraft.getInstance().options.fov().get());
-    // Per-camera squared pixel error thresholds avoid sqrt for ordinary cached pages.
-    var errorSelector = new LodScreenErrorSelector(focal, LodConfig.ERROR.get());
+    // Rebuild only after the world target, FOV or LOD error actually changes;
+    // the cached selector uses the same squared thresholds and native fallback.
+    var errorSelector = lodSelectorCache.get(lodPixelHeight,
+        Minecraft.getInstance().options.fov().get(), LodConfig.ERROR.get());
     for (var item : cache.entrySet()) {
       long k = item.getKey();
       long ringDistance = LodChunkDistance.chebyshev(x(k), z(k), cx, cz);
@@ -995,6 +997,7 @@ public final class VoxelLodRenderer {
     evictionHeap = null; // Drop retained arrays on world switch/logout/shutdown.
     indexedDrawBatches.reset();
     visibleSnapshots.reset();
+    lodSelectorCache.reset();
     transformArrays.clear();
     dirty.clear();
     latest.clear();
