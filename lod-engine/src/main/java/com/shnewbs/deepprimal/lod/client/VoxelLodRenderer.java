@@ -788,7 +788,11 @@ public final class VoxelLodRenderer {
           .set((float) (p.x * 16. - camera.x), (float) -camera.y, (float) (p.z * 16. - camera.z));
     }
     var slices = RenderSystem.getDynamicUniforms().writeTransforms(transformPool);
-    try (var pass =
+    // Publish cumulative diagnostics once per pass, not once per visible mesh part.
+    // Counts only successful draw API calls, even if a later submission fails.
+    long completedTriangles = 0;
+    try {
+      try (var pass =
         RenderSystem.getDevice()
             .createCommandEncoder()
             .createRenderPass(
@@ -805,17 +809,19 @@ public final class VoxelLodRenderer {
         while (index < parts.size()) {
           int take = Math.min(4096, parts.size() - index);
           var batch = indexedDrawBatches.begin(take);
+          long batchTriangles = 0;
           try {
             for (int i = 0; i < take; i++) {
               var part = parts.get(index);
               part.transformSlice = slices[index];
               batch.add(part.indexedDraw);
-              drawnTriangles += part.triangles();
+              batchTriangles += part.triangles();
               index++;
             }
             pass.drawMultipleIndexed(
                 batch, null, VertexFormat.IndexType.SHORT,
                 java.util.Set.of("DynamicTransforms"), null);
+            completedTriangles += batchTriangles;
             submittedApiBatches++;
           } finally {
             indexedDrawBatches.end();
@@ -825,8 +831,11 @@ public final class VoxelLodRenderer {
         for (int i = 0; i < parts.size(); i++) {
           pass.setUniform("DynamicTransforms", slices[i]);
           parts.get(i).draw(pass);
-          drawnTriangles += parts.get(i).triangles();
+          completedTriangles += parts.get(i).triangles();
         }
+      }
+    } finally {
+      drawnTriangles += completedTriangles;
     }
     if (TELEMETRY) {
       submittedParts = parts.size();
@@ -856,6 +865,7 @@ public final class VoxelLodRenderer {
     gpuPartProbe.reset();
     pageUploadProbe.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
+    drawnTriangles = 0; // Per-world submission totals must not leak into the next world.
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = submittedParts = submittedApiBatches = 0;
     session++;
