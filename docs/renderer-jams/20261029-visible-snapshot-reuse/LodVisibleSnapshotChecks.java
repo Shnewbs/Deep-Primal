@@ -103,6 +103,17 @@ public final class LodVisibleSnapshotChecks {
     reject(collector::snapshot, IllegalStateException.class);
     collector.begin();
     collector.finish();
+    var ordinary = collector.begin();
+    ordinary.add(pool.get(0));
+    collector.finish();
+    check(collector.begin() == ordinary, "ordinary collector reused");
+    collector.finish();
+    var oversized = collector.begin();
+    for (int j = 0; j <= 32768; j++) oversized.add(pool.get(j % pool.size()));
+    collector.finish();
+    check(collector.retainedReferences() == 0, "oversized references cleared");
+    check(collector.begin() != oversized, "oversized collector released rather than pinned");
+    collector.finish();
 
     // Matched steady, identical-source-element allocation only; not a frame-time test.
     measureBytes(pool, false, 1000, 256);

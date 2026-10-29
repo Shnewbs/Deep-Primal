@@ -10,6 +10,8 @@ import java.util.List;
  * by an unsuccessful extraction. Reset drops the array across worlds.
  */
 final class LodVisibleSnapshot<T> {
+  // Match the transform scratch retention ceiling; a one-off giant view must not pin its array.
+  private static final int MAX_RETAINED_RECORDS = 32768;
   private ArrayList<T> scratch;
   private boolean collecting;
 
@@ -27,7 +29,11 @@ final class LodVisibleSnapshot<T> {
   }
 
   void finish() {
-    if (scratch != null) scratch.clear();
+    if (scratch != null) {
+      int peakRecords = scratch.size();
+      scratch.clear();
+      if (peakRecords > MAX_RETAINED_RECORDS) scratch = null;
+    }
     collecting = false;
   }
 
