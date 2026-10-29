@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1151-projection-cache",
+  "baseline_sha": "df5ffad407e57b0eb3e338f363847e66427df2b3",
+  "claim_sha": "67cda582f939e76921bc14a51f327c02d3af1c08",
+  "source_parent": "67cda582f939e76921bc14a51f327c02d3af1c08",
+  "source_commit": "85a48595e0ab172c8779f4f2a95a92d822c08ce8",
+  "version": "0.0.1-alpha.29-dev.77-seam-contract.1",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodProjectionSelectorCache.java",
+    "docs/renderer-jams/20261029-projection-cache/tests/com/shnewbs/deepprimal/lod/client/LodProjectionCacheChecks.java"
+  ],
+  "source_blobs": {
+    "renderer": "e4aa0fa88a9edb49c3048af96ee8fcecfc22ac5e",
+    "cache": "1f4453540843e99ea8dd4180acbbb301e9d4abfb",
+    "test": "74594cbbc06a92c24426b7e83a9ddb39a8f17797"
+  },
+  "consumed_audits": [
+    "docs/renderer-jams/20261029-scene-pixel-lod/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1132-1f926907/REVIEW.md"
+  ],
+  "tests": {
+    "java": "21.0.12.1",
+    "commands": [
+      "find src tests -name '*.java' | sort > sources.list",
+      "javac --release 21 -Xlint:all -Werror -d classes @sources.list",
+      "java -ea -Xverify:all -cp classes com.shnewbs.deepprimal.lod.client.LodProjectionCacheChecks (x2)"
+    ],
+    "assertions_per_run": 750010,
+    "runs": 2,
+    "negative": "height-key mutant fails assertion 10001",
+    "pinned_source_checks": "11/11"
+  },
+  "microbenchmark": {
+    "kind": "isolated selector acquisition with escaping reference, 7 paired 100k samples x2",
+    "baseline_p50_nanos": [
+      4202877,
+      4977926
+    ],
+    "cache_p50_nanos": [
+      222058,
+      278449
+    ],
+    "baseline_allocated_bytes_per_seven_samples": 44800000,
+    "cache_allocated_bytes_per_seven_samples": 448,
+    "minecraft_fps_measured": false
+  },
+  "grades": {
+    "distance_lod": 6.6,
+    "mesh": 6.95,
+    "gpu": 4.55,
+    "fsr_dlss": 5,
+    "compatibility": 5.3,
+    "validation": 6.1,
+    "average": 5.75,
+    "previous_average": 5.74,
+    "delta": 0.01
+  },
+  "unrun": [
+    "Java25 Gradle complete build",
+    "native Vulkan/OpenGL/Windows and water pixels",
+    "hardware CPU/GPU p50 p95 p99 VRAM",
+    "full artifact JAR packaging/CRC",
+    "temporal FSR/DLSS super resolution"
+  ],
+  "artifact": {
+    "name": "DeepPrimal_Renderer_ProjectionSelectorCache_20261029_85a4859_SourceEvidence.zip",
+    "size_bytes": 8859,
+    "sha256": "8ba0675a684625cb8c6c8f9f7680bf187368cf35f26b214a52abb8bb46122e8f",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_ProjectionSelectorCache_20261029_85a4859_SourceEvidence.zip",
+    "uploaded": true,
+    "qualified_jar": false
+  },
+  "next": "Native same-scene Vulkan/GL FSR1/native LOD and water A/B; measure submission/VRAM before next GPU optimization"
+}
