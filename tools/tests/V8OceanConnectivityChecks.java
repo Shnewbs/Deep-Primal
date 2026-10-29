@@ -59,6 +59,18 @@ public final class V8OceanConnectivityChecks {
     for (int x : new int[] {-8194, -8192, -8190})
       check(signed.isMarineAt(x, 2048), "negative seam marine component connected");
     check(!open.isMarineAt(29_999_999, 0), "outside full V8 lattice fails closed");
+    // A marine cell beside a dry corner is not enough to certify a whole
+    // sampled column; this protects sub-cell beaches and narrow coast joins.
+    var shore = new V8OceanConnectivity((x, z) -> {
+      boolean low = x >= 7900 && x <= 9500 && z >= 2048 && z <= 2700;
+      return new V8OceanConnectivity.Point(low ? 60 : 120, x >= 8350 ? -0.4 : 0.4);
+    });
+    check(!shore.isMarineAt(8190, 2047), "dry corner rejects marine designation");
+    check(shore.isMarineAt(8190, 2048), "adjacent wet corner quartet can connect");
+    for (int offset = -5; offset <= 5; offset++) {
+      check(open.isMarineAt(8192 + offset, 2048), "signed seam query order stable");
+      check(!ridge.isMarineAt(8192 + offset, 2048), "sealed ridge query order stable");
+    }
   }
 
   private static DensityGraph.Definition constantGraph(double continental) {
@@ -113,9 +125,15 @@ public final class V8OceanConnectivityChecks {
     check(admitted.sample(8190, 80, 2048).domain() != null, "new fingerprint admitted to ecotone");
     reject(() -> V8RoutedWaterSource.authorStitched(r4.withHydrologyBinding(
         V8HydrologyBinding.pinned("0".repeat(64)))), "cannot silently reauthor r5");
-    reject(() -> V8RoutedWaterSource.authorStitched(v4(seed, new DensityGraph.Definition(
-        1, "height", List.of(DensityGraph.Node.constant("height", 80))))),
-        "new policy requires continental channel");
+    var missingChannel = new DensityGraph.Definition(1, "density", List.of(
+        DensityGraph.Node.constant("height", 80),
+        DensityGraph.Node.operation("y", DensityGraph.Op.Y),
+        DensityGraph.Node.constant("negative", -1),
+        DensityGraph.Node.operation("negative_y", DensityGraph.Op.MULTIPLY, "y", "negative"),
+        DensityGraph.Node.operation("density", DensityGraph.Op.ADD, "height", "negative_y")));
+    var validUnbound = v4(seed, missingChannel);
+    reject(() -> V8RoutedWaterSource.authorStitched(validUnbound),
+        "new policy requires continental channel, not a malformed graph");
     reject(() -> V8RoutedWaterSource.open(stitched, seed + 1), "new saved seed guard");
     check(older.sourceFingerprint().equals(legacy.hydrologyBinding().sourceFingerprint()),
         "legacy fingerprint not migrated");
