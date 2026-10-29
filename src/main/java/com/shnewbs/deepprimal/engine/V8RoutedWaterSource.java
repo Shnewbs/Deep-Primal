@@ -32,12 +32,17 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public static final int ROUTE_REVISION = 1;
   /** New opt-in policy: marine-core evidence is joined across absolute region edges. */
   public static final int STITCHED_ROUTE_REVISION = V8OceanConnectivity.POLICY_REVISION;
+  /** New opt-in limited closed-basin negative proof; V1 and V2 identities stay frozen. */
+  public static final int BASIN_GUARD_ROUTE_REVISION =
+      V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION;
   private static final int CELL = TerrainEngine.CELL;
   private static final int STEP = WatershedRegion.STEP;
   private static final int SIDE = WatershedRegion.SIDE;
   private static final int MAX_RESIDENT_REGIONS = 2;
   private static final String FINGERPRINT_DOMAIN = "deepprimal-v8-routed-regions-v1";
   private static final String STITCHED_FINGERPRINT_DOMAIN = "deepprimal-v8-stitched-marine-v2";
+  private static final String BASIN_GUARD_FINGERPRINT_DOMAIN =
+      "deepprimal-v8-bounded-basin-exclusion-v3";
 
   /** Planned ground cut and water stage, not a physical fluid quantity. */
   public record RouteColumn(double originalGround, double plannedGround,
@@ -140,17 +145,21 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   private final TerrainEngine climate;
   private final String fingerprint;
   private final V8OceanConnectivity stitchedMarine;
+  private final int marinePolicyRevision;
   private final LinkedHashMap<Long, Region> regions = new LinkedHashMap<>(4, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
       return size() > MAX_RESIDENT_REGIONS;
     }
   };
 
-  private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint, boolean stitched) {
+  private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint,
+      int marinePolicyRevision) {
     this.saved = saved;
     this.fingerprint = fingerprint;
     this.graph = saved.density().compile(saved.seed());
-    this.stitchedMarine = stitched ? new V8OceanConnectivity(graph) : null;
+    this.marinePolicyRevision = marinePolicyRevision;
+    this.stitchedMarine = marinePolicyRevision == 0 ? null
+        : new V8OceanConnectivity(graph, marinePolicyRevision);
     this.climate = new TerrainEngine(saved.seed(), V8SavedClimateSource.REFERENCE_TERRAIN_REVISION,
         saved.climateBinding().savedOptions(), saved.climateBinding().channelRevision());
   }
@@ -174,6 +183,20 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     return revision4.withHydrologyBinding(V8HydrologyBinding.pinned(stitchedFingerprint(revision4)));
   }
 
+  /**
+   * Explicit saved routing v3. Do not change r5/v1 or r5/v2 behavior on reopen.
+   * Reject closed deep inland water bodies within the bounded sampled region
+   * graph; unresolved very large lakes still require authoritative outlet work.
+   */
+  public static V8GeneratorSnapshot authorBasinGuarded(V8GeneratorSnapshot revision4) {
+    Objects.requireNonNull(revision4, "saved revision 4");
+    if (revision4.version() != V8GeneratorSnapshot.CLIMATE_VERSION)
+      throw new IllegalArgumentException("basin-guard routing requires explicit revision 4");
+    validateHeightChannel(revision4.density());
+    validateContinentalChannel(revision4.density());
+    return revision4.withHydrologyBinding(V8HydrologyBinding.pinned(basinGuardFingerprint(revision4)));
+  }
+
   /** Open only an r5 profile whose routing fingerprint matches its actual inputs. */
   public static V8RoutedWaterSource open(V8GeneratorSnapshot revision5, long savedWorldSeed) {
     Objects.requireNonNull(revision5, "saved revision 5");
@@ -183,13 +206,16 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
       throw new IllegalArgumentException("saved world/revision/surface policy mismatch");
     validateHeightChannel(revision5.density());
     String pinned = revision5.hydrologyBinding().sourceFingerprint();
-    boolean stitched = !fingerprint(revision5).equals(pinned);
-    if (stitched) {
+    int marineRevision = 0;
+    if (!fingerprint(revision5).equals(pinned)) {
       validateContinentalChannel(revision5.density());
-      if (!stitchedFingerprint(revision5).equals(pinned))
-        throw new IllegalArgumentException("V8 routed source differs from saved provenance");
+      if (stitchedFingerprint(revision5).equals(pinned))
+        marineRevision = STITCHED_ROUTE_REVISION;
+      else if (basinGuardFingerprint(revision5).equals(pinned))
+        marineRevision = BASIN_GUARD_ROUTE_REVISION;
+      else throw new IllegalArgumentException("V8 routed source differs from saved provenance");
     }
-    return new V8RoutedWaterSource(revision5, pinned, stitched);
+    return new V8RoutedWaterSource(revision5, pinned, marineRevision);
   }
 
   /** Authority for the existing admitted V8 ecotone path; no arbitrary callback digest. */
@@ -201,6 +227,9 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
 
   public String sourceFingerprint() { return fingerprint; }
   public boolean stitchedPolicy() { return stitchedMarine != null; }
+  public boolean basinGuardedPolicy() {
+    return marinePolicyRevision == BASIN_GUARD_ROUTE_REVISION;
+  }
   public int cachedMarineRegionCount() {
     return stitchedMarine == null ? 0 : stitchedMarine.cachedRegionCount();
   }
@@ -263,6 +292,12 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public static String stitchedFingerprint(V8GeneratorSnapshot profile) {
     validateContinentalChannel(profile.density());
     return fingerprintFor(profile, STITCHED_FINGERPRINT_DOMAIN, STITCHED_ROUTE_REVISION);
+  }
+
+  /** Pinned source identity for strict negative bounded-basin evidence (routing v3). */
+  public static String basinGuardFingerprint(V8GeneratorSnapshot profile) {
+    validateContinentalChannel(profile.density());
+    return fingerprintFor(profile, BASIN_GUARD_FINGERPRINT_DOMAIN, BASIN_GUARD_ROUTE_REVISION);
   }
 
   private static void validateContinentalChannel(DensityGraph.Definition def) {

@@ -30,6 +30,8 @@ import java.util.Set;
  */
 public final class V8OceanConnectivity {
   public static final int POLICY_REVISION = 2;
+  /** Explicitly opt-in bounded-enclosure rejection; v2 snapshot replay is frozen. */
+  public static final int BASIN_GUARD_POLICY_REVISION = 3;
   static final int STEP = WatershedRegion.STEP;
   static final int SIDE = TerrainEngine.CELL / STEP;
   private static final int CELL = TerrainEngine.CELL;
@@ -119,6 +121,7 @@ public final class V8OceanConnectivity {
   }
 
   private final Sampler sampler;
+  private final int policyRevision;
   private final LinkedHashMap<Long, Region> cache = new LinkedHashMap<>(8, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
       return size() > MAX_CACHED_REGIONS;
@@ -127,7 +130,13 @@ public final class V8OceanConnectivity {
 
   /** A compiled saved V8 graph supplies the ONLY allowed observation source. */
   public V8OceanConnectivity(DensityGraph graph) {
+    this(graph, POLICY_REVISION);
+  }
+
+  /** Source-bound version switch: existing r5/v2 routing remains byte-for-byte replayable. */
+  public V8OceanConnectivity(DensityGraph graph, int policyRevision) {
     Objects.requireNonNull(graph, "saved V8 graph");
+    this.policyRevision = requirePolicy(policyRevision);
     DensityGraph.Sampler density = graph.newSampler();
     this.sampler = (x, z) -> new Point(
         density.channel("height", x, SEA, z),
@@ -136,7 +145,19 @@ public final class V8OceanConnectivity {
 
   /** Test-only injection for bounded component/seam fixtures; no random state. */
   V8OceanConnectivity(Sampler sampler) {
+    this(sampler, POLICY_REVISION);
+  }
+
+  /** Test-only source injection for the independently versioned bounded-lake policy. */
+  V8OceanConnectivity(Sampler sampler, int policyRevision) {
     this.sampler = Objects.requireNonNull(sampler, "marine sampler");
+    this.policyRevision = requirePolicy(policyRevision);
+  }
+
+  private static int requirePolicy(int revision) {
+    if (revision != POLICY_REVISION && revision != BASIN_GUARD_POLICY_REVISION)
+      throw new IllegalArgumentException("unsupported V8 ocean connectivity policy");
+    return revision;
   }
 
   private static long key(int x, int z) {
@@ -193,6 +214,67 @@ public final class V8OceanConnectivity {
   }
 
   /**
+   * An opt-in, strictly bounded negative proof against enclosed deep basins.
+   * Unlike v2, encountering a deep marine-looking cell does not immediately
+   * certify a water body. Traverse the complete reachable sampled wet component:
+   * a fully visited component enclosed by sampled dry cells is ALWAYS inland,
+   * even if its interior is deep and its continentalness is ocean-like.
+   *
+   * <p>When a connected wet gateway extends past the bounded component/region
+   * budget, this is only an *unresolved outward continuation*, not proof of
+   * global ocean. The existing deep-core heuristic is retained only for that
+   * open-to-unresolved case. An inland lake wider than the cap may still be a
+   * false positive; authoritative global outlets remain a separate gate.
+   */
+  private boolean extendsBeyondBoundWithMarineCore(ComponentRef first,
+      Map<Long, Region> visit, Set<ComponentRef> proven) {
+    ArrayDeque<ComponentRef> queue = new ArrayDeque<>();
+    Set<ComponentRef> seen = new HashSet<>();
+    queue.add(first);
+    seen.add(first);
+    boolean marineCoreSeen = false;
+    boolean unresolvedWetGateway = false;
+    while (!queue.isEmpty()) {
+      ComponentRef cursor = queue.removeFirst();
+      Region page = visit.get(key(cursor.originX(), cursor.originZ()));
+      if (page == null) throw new IllegalStateException("missing bounded ocean component");
+      Component component = page.components.get(cursor.label());
+      marineCoreSeen |= component.marineCore;
+      for (Gateway gate : component.edges) {
+        int nx = gate.nextX(), nz = gate.nextZ();
+        long x = nx, z = nz;
+        if (x < -DensityGraph.WORLD_LIMIT || z < -DensityGraph.WORLD_LIMIT
+            || x > DensityGraph.WORLD_LIMIT || z > DensityGraph.WORLD_LIMIT)
+          continue;
+        // An edge gateway to dry land does not extend the wet component.
+        // Probe the exact absolute lattice point before deciding to allocate a
+        // neighboring 8192-region: do not confuse a work cap with an outlet.
+        Point nextPoint = Objects.requireNonNull(sampler.sample(nx, nz),
+            "V8 basin closure gateway sample");
+        if (nextPoint.height() > SEA) continue;
+        Region neighborPage = region(nx, nz, visit);
+        if (neighborPage == null) {
+          unresolvedWetGateway = true;
+          continue;
+        }
+        int label = neighborPage.label(nx, nz);
+        if (label < 0) throw new IllegalStateException("wet gateway has no component");
+        ComponentRef next = new ComponentRef(neighborPage.originX, neighborPage.originZ, label);
+        if (seen.contains(next)) continue;
+        if (seen.size() >= MAX_COMPONENTS_SEARCHED) {
+          unresolvedWetGateway = true;
+          continue;
+        }
+        seen.add(next);
+        queue.addLast(next);
+      }
+    }
+    boolean admitted = marineCoreSeen && unresolvedWetGateway;
+    if (admitted) proven.addAll(seen);
+    return admitted;
+  }
+
+  /**
    * A four-corner, connected marine-core witness. Missing, dry and unresolved
    * corners fail CLOSED; no local region boundary grants ocean authority.
    */
@@ -210,10 +292,20 @@ public final class V8OceanConnectivity {
       for (int x = 0; x < 2; x++) {
         int nodeX = x == 0 ? lowX : (int) highX;
         int nodeZ = z == 0 ? lowZ : (int) highZ;
-        ComponentRef component = at(nodeX, nodeZ, visit);
-        if (component == null) return false;
-        if (!proven.contains(component) && !reachesMarineCore(component, visit)) return false;
-        proven.add(component);
+        if (policyRevision == BASIN_GUARD_POLICY_REVISION) {
+          // Reset the *search* budget for each corner; shared resident cache
+          // cannot influence signed query order or another corner's proof.
+          Map<Long, Region> cornerVisit = new HashMap<>();
+          ComponentRef component = at(nodeX, nodeZ, cornerVisit);
+          if (component == null || (!proven.contains(component)
+              && !extendsBeyondBoundWithMarineCore(component, cornerVisit, proven)))
+            return false;
+        } else {
+          ComponentRef component = at(nodeX, nodeZ, visit);
+          if (component == null) return false;
+          if (!proven.contains(component) && !reachesMarineCore(component, visit)) return false;
+          proven.add(component);
+        }
       }
     return true;
   }

@@ -76,6 +76,58 @@ public final class V8OceanConnectivityChecks {
     }
   }
 
+  /** Independent auditor's dev69 counterexample, with actual deep-core samples. */
+  private static void deepInlandEnclosureCannotBecomeMarineV3() {
+    for (int sign : new int[] {-1, 1}) {
+      int left = sign > 0 ? 7900 : -9500;
+      int right = sign > 0 ? 9500 : -7900;
+      var lake = new V8OceanConnectivity((x, z) -> {
+        boolean depression = x >= left && x <= right && z >= 1700 && z <= 2700;
+        return new V8OceanConnectivity.Point(depression ? 20 : 120,
+            depression ? -0.4 : 0.4);
+      }, V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION);
+      var frozenV2 = new V8OceanConnectivity((x, z) -> {
+        boolean depression = x >= left && x <= right && z >= 1700 && z <= 2700;
+        return new V8OceanConnectivity.Point(depression ? 20 : 120,
+            depression ? -0.4 : 0.4);
+      });
+      for (int dx : new int[] {-2, 0, 2}) {
+        int x = sign * 8192 + dx;
+        check(!lake.isMarineAt(x, 2048),
+            "v3 deep inland dry-ring basin has no outlet at signed seam");
+        check(frozenV2.isMarineAt(x, 2048),
+            "frozen v2 source classification is not silently rewritten");
+      }
+      check(lake.cachedRegionCount() <= 4, "v3 closed lake keeps bounded cache");
+    }
+    // Independently reject an ordinary closed inland basin without deep-core cells.
+    var shallow = new V8OceanConnectivity((x, z) -> new V8OceanConnectivity.Point(
+        x >= 7900 && x <= 9500 && z >= 1700 && z <= 2700 ? 72 : 120, 0.35),
+        V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION);
+    check(!shallow.isMarineAt(8192, 2048), "v3 closed shallow basin remains inland");
+  }
+
+  /** A genuinely outward-continuing *sampled* marine corridor can still be admitted. */
+  private static void boundedOpenPathAndDryRidgesV3() {
+    var wide = new V8OceanConnectivity((x, z) -> {
+      boolean corridor = x >= 7900 && x <= 9500 && z >= 1700;
+      return new V8OceanConnectivity.Point(corridor ? 20 : 120,
+          corridor ? -0.4 : 0.4);
+    }, V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION);
+    check(wide.isMarineAt(8192, 2048), "v3 open marine corridor extends beyond bounded sample graph");
+    check(wide.isMarineAt(8190, 2048), "v3 open sea crosses 8192 seam without change");
+    check(wide.cachedRegionCount() <= 4, "v3 open path keeps resident cache bounded");
+    var ridge = new V8OceanConnectivity((x, z) -> {
+      boolean corridor = x >= 7900 && x <= 9500 && z >= 1700 && z <= 2700;
+      boolean wall = x >= 8320 && x < 8416;
+      return new V8OceanConnectivity.Point(corridor && !wall ? 20 : 120,
+          corridor && !wall ? -0.4 : 0.4);
+    }, V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION);
+    check(!ridge.isMarineAt(8192, 2048), "bounded ridge protects inland seam");
+    reject(() -> new V8OceanConnectivity((x, z) ->
+        new V8OceanConnectivity.Point(70, -0.6), 99), "unknown routing policy");
+  }
+
   private static void reversedAndParallelOrders() throws Exception {
     var open = basin(7900, 9500, 1700, 2700, Integer.MIN_VALUE, true);
     var closed = basin(7900, 9500, 1700, 2700, 8320, true);
@@ -126,7 +178,9 @@ public final class V8OceanConnectivityChecks {
     var r4 = v4(seed, constantGraph(0.35));
     var legacy = V8RoutedWaterSource.author(r4);
     var stitched = V8RoutedWaterSource.authorStitched(r4);
-    check(legacy.version() == 5 && stitched.version() == 5, "explicit saved hydrology envelopes");
+    var guarded = V8RoutedWaterSource.authorBasinGuarded(r4);
+    check(legacy.version() == 5 && stitched.version() == 5 && guarded.version() == 5,
+        "explicit saved hydrology envelopes");
     check(!legacy.hydrologyBinding().equals(stitched.hydrologyBinding()), "new policy has distinct identity");
     check(legacy.hydrologyBinding().sourceFingerprint().equals(
         V8RoutedWaterSource.fingerprint(r4)), "v1 frozen fingerprint");
@@ -134,9 +188,17 @@ public final class V8OceanConnectivityChecks {
         V8RoutedWaterSource.stitchedFingerprint(r4)), "v2 fingerprint");
     var r5a = V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(legacy));
     var r5b = V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(stitched));
+    var r5c = V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(guarded));
+    check(r5c.equals(guarded), "v3 opt-in saved profile roundtrip");
     check(r5a.equals(legacy) && r5b.equals(stitched), "frozen and new saved profile roundtrip");
     var older = V8RoutedWaterSource.open(r5a, seed);
     var safer = V8RoutedWaterSource.open(r5b, seed);
+    var basinSafe = V8RoutedWaterSource.open(r5c, seed);
+    check(basinSafe.basinGuardedPolicy(), "v3 saved policy recovered on reopen");
+    check(!safer.basinGuardedPolicy() && !older.basinGuardedPolicy(),
+        "prior v1/v2 routing policy remains frozen");
+    check(basinSafe.sourceFingerprint().equals(V8RoutedWaterSource.basinGuardFingerprint(r4)),
+        "v3 saved profile pins distinct domain-separated source fingerprint");
     check(!older.stitchedPolicy() && safer.stitchedPolicy(), "explicit policy selection survives reopen");
     for (int x : new int[] {-8194, -8192, -8190, 8190, 8192, 8194}) {
       var oldKind = older.sample(x, 2048).kind();
@@ -146,6 +208,8 @@ public final class V8OceanConnectivityChecks {
       check(newKind != V8WaterDomainAdmission.WaterKind.OCEAN,
           "no marine core, no new ocean designation");
       check(safer.cachedMarineRegionCount() <= 4, "bounded production marine cache");
+      check(basinSafe.sample(x, 2048).kind() != V8WaterDomainAdmission.WaterKind.OCEAN,
+          "bounded guard does not change hard-land profile into ocean");
     }
     var reference = V8SavedClimateSource.fromSavedV8(r5b, seed);
     var admitted = V8WaterDomainAdmission.bind(r5b.prepare(), reference, safer.authority());
@@ -162,6 +226,9 @@ public final class V8OceanConnectivityChecks {
     reject(() -> V8RoutedWaterSource.authorStitched(validUnbound),
         "new policy requires continental channel, not a malformed graph");
     reject(() -> V8RoutedWaterSource.open(stitched, seed + 1), "new saved seed guard");
+    reject(() -> V8RoutedWaterSource.open(guarded, seed + 1), "v3 saved seed guard");
+    reject(() -> V8RoutedWaterSource.authorBasinGuarded(guarded),
+        "v3 cannot silently reauthor an existing saved r5");
     check(older.sourceFingerprint().equals(legacy.hydrologyBinding().sourceFingerprint()),
         "legacy fingerprint not migrated");
   }
@@ -169,10 +236,12 @@ public final class V8OceanConnectivityChecks {
   public static void main(String[] args) throws Exception {
     closedBasinAtTwoSignedSeams();
     connectedAndBlockedMarineAtSeam();
+    deepInlandEnclosureCannotBecomeMarineV3();
+    boundedOpenPathAndDryRidgesV3();
     reversedAndParallelOrders();
     pinnedPolicyAndLegacyReplay();
     System.out.println("V8_STITCHED_MARINE_PASS checks=" + checks
-        + " routeVersion=2 oceanAtRegionBoundary=falseByDefault"
+        + " routeVersions=2,3 v3ClosedDeepBasinsRejected=true"
         + " savedLegacyUnchanged=true actualWatershed=API_DOUBLE");
   }
 }
