@@ -2,7 +2,7 @@
   "schema": 1,
   "jam_id": "renderer-20261029T1356-uniform-page-visibility",
   "owner": "dedicated-renderer-hourly",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-29T13:56:10Z",
   "active_until": "2026-10-29T14:26:10Z",
   "baseline_sha": "84690ba46b11c79564c5001dd9ea65cb9630050a",
@@ -28,5 +28,19 @@
     "docs/engine-hourly-audits/2026-10-29T1333-83801d65/REVIEW.md"
   ],
   "goal": "If all mesh-part AABBs on a page are numerically identical, reuse the validated page AABB and its positive frustum verdict to avoid redundant fine part tests without reordering or changing geometry",
-  "owner_build_override": true
+  "owner_build_override": true,
+  "released_at": "2026-10-29T14:11:00Z",
+  "source_parent": "e51d71dc0177c9abe21d29c9f3093733f6be6554",
+  "source_commit": "1ae648ce1791801e10be3ae84c2fc42e34ca28cb",
+  "reviewed_source_sha": "449f22d27685febaa615080a67e5ad10fd51a615",
+  "grade": 5.78,
+  "previous_grade": 5.76,
+  "strict_java_assertions": 612056,
+  "static_checks": "16/16",
+  "artifact": "DeepPrimal_Renderer_UniformPageVisibility_20261029_449f22d_SourceEvidence.zip",
+  "artifact_sha256": "2d3843635ec032fc635fc2dc7c2223475862eb920b8356522095e5d9727bcbcb",
+  "artifact_library_uploaded": true,
+  "qualified_jar": false,
+  "java25_gradle": false,
+  "actual_gpu": false
 }
