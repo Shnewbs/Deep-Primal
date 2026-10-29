@@ -255,6 +255,23 @@ public final class DensityChunkMaterializer {
   }
 
   /**
+   * Opt-in V8-r4 materialization with an explicitly geometry/seed/climate-bound
+   * hydrology observation. All V8 water-mask callbacks are evaluated during
+   * preflight, before the native write/heightmap transaction begins. Existing
+   * V8-r3/r4 entry points remain byte-for-byte unchanged.
+   *
+   * <p>The authority is a caller-supplied contract, NOT yet a proven persisted
+   * V8 routed-water mask. It neither creates finite water nor edits saved chunks.
+   */
+  public static V8EcotoneResult fillSavedEcotoneAdmitted(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    var admitted = V8WaterDomainAdmission.bind(prepared, referenceClimate, authority);
+    return fillSavedEcotone(prepared, chunk, queriesPerSlab, admitted);
+  }
+
+  /**
    * Construct the exact materialized V8 revision-3 terrain plan without a
    * native ChunkAccess. Callers may query {@link #baseColumn(V8EcotoneResult,
    * int, int)} before creating a chunk, then hand the same saved snapshot and
@@ -284,6 +301,20 @@ public final class DensityChunkMaterializer {
     var columns = V8EcotoneColumnPlan.build(prepared, planned.chunk(),
         originWorldX, originWorldZ, climate);
     return new V8EcotoneResult(planned, columns);
+  }
+
+  /**
+   * Pre-generation V8-r4 geometry and material query using exactly the same
+   * dual-water-mask admission used by {@link #fillSavedEcotoneAdmitted}.
+   */
+  public static V8EcotoneResult planSavedEcotoneAdmitted(
+      V8GeneratorSnapshot.Prepared prepared, int originWorldX, int originWorldZ,
+      int minY, int height, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    var admitted = V8WaterDomainAdmission.bind(prepared, referenceClimate, authority);
+    return planSavedEcotone(prepared, originWorldX, originWorldZ, minY, height,
+        queriesPerSlab, admitted);
   }
 
   /** The vegetation sample remains immutable and read-only until feature gates pass. */
