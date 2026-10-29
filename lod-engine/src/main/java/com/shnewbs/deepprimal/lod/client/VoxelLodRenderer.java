@@ -41,7 +41,9 @@ public final class VoxelLodRenderer {
   public final RollingTiming submitTiming = new RollingTiming(240);
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
   public volatile int testedParts, rejectedParts, coarseTestedPages, coarseVisiblePages,
-      coarseRejectedPages, coarseSkippedPartTests, submittedParts, submittedApiBatches;
+      coarseRejectedPages, coarseSkippedPartTests, coarseAdaptiveBypassedPages,
+      submittedParts, submittedApiBatches;
+  public volatile boolean coarseAdaptiveSampledLastFrame;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
   private static final ContextKey<List<TerrainGpuMesh>> VISIBLE =
       new ContextKey<>(Identifier.fromNamespaceAndPath("deepprimal", "voxel_lod"));
@@ -76,6 +78,8 @@ public final class VoxelLodRenderer {
       indexedDrawBatches = new BoundedIndexedDrawBatches<>(4096);
   // Recycle only the transient extraction collector; render-state snapshots remain immutable.
   private final LodVisibleSnapshot<TerrainGpuMesh> visibleSnapshots = new LodVisibleSnapshot<>();
+  // A page-test skip never skips fine mesh visibility or changes material order.
+  private final LodPageFrustumAdaptiveGate pageFrustumGate = new LodPageFrustumAdaptiveGate();
   private final LinkedHashMap<Long, Entry> cache = new LinkedHashMap<>(256, .75f, true);
   // One bounded primitive victim selector per active world; no arrays allocated per eviction.
   private LodEvictionHeap evictionHeap;
@@ -522,9 +526,13 @@ public final class VoxelLodRenderer {
     evictToFit(0, 4096, null, event.getCamera().position());
     long cullStarted = TELEMETRY ? System.nanoTime() : 0;
     int tested = 0, rejected = 0, coarseTests = 0, coarseVisible = 0,
-        coarsePages = 0, skippedPartTests = 0;
+        coarsePages = 0, skippedPartTests = 0, adaptiveBypassedPages = 0;
     var camera = event.getCamera().position();
     var visible = visibleSnapshots.begin();
+    // Force a full coarse sample periodically, and use the unmodified fine path
+    // on skipped extracts. Off disables all page tests irrespective of policy.
+    boolean coarseThisFrame =
+        LodPageFrustumBounds.ENABLED && pageFrustumGate.shouldTestPages();
     try {
     int chunks = 0, span = 0;
     int cx = Math.floorDiv((int) Math.floor(camera.x), 16),
@@ -557,15 +565,17 @@ public final class VoxelLodRenderer {
       // Every part is contained in the cached page box. Reject only when the
       // entire multi-part page is outside; never change per-part draw ordering.
       if (LodPageFrustumBounds.ENABLED && coarseBounds != null) {
-        if (TELEMETRY) coarseTests++;
-        if (!event.getFrustum().isVisible(coarseBounds)) {
-          if (TELEMETRY) {
+        if (coarseThisFrame) {
+          // The adaptive policy must observe real rejected/tested counts even
+          // without optional telemetry; only reporting stays opt-in.
+          coarseTests++;
+          if (!event.getFrustum().isVisible(coarseBounds)) {
             coarsePages++;
-            skippedPartTests += selectedParts.size();
+            if (TELEMETRY) skippedPartTests += selectedParts.size();
+            continue;
           }
-          continue;
-        }
-        if (TELEMETRY) coarseVisible++;
+          if (TELEMETRY) coarseVisible++;
+        } else if (TELEMETRY) adaptiveBypassedPages++;
       }
       boolean seen = false;
       for (TerrainGpuMesh part : selectedParts) {
@@ -580,10 +590,15 @@ public final class VoxelLodRenderer {
         span = Math.max(span, (int) ringDistance + 1);
       }
     }
+    // Never train the heuristic from an aborted extraction. Skipped frames
+    // retain ordered per-part culling even if the view abruptly changes.
+    pageFrustumGate.completed(coarseThisFrame, coarseTests, coarsePages);
     if (TELEMETRY) {
       testedParts = tested;
       rejectedParts = rejected;
       coarseTestedPages = coarseTests;
+      coarseAdaptiveSampledLastFrame = coarseThisFrame;
+      coarseAdaptiveBypassedPages = adaptiveBypassedPages;
       coarseVisiblePages = coarseVisible;
       coarseRejectedPages = coarsePages;
       coarseSkippedPartTests = skippedPartTests;
@@ -928,11 +943,14 @@ public final class VoxelLodRenderer {
     submissionProbe.reset();
     gpuPartProbe.reset();
     pageUploadProbe.reset();
+    pageFrustumGate.reset();
     lastUploadBytes = pendingMeshBudgetBytes = 0;
     drawnTriangles = 0; // Per-world submission totals must not leak into the next world.
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = coarseTestedPages = coarseVisiblePages =
-        coarseRejectedPages = coarseSkippedPartTests = submittedParts = submittedApiBatches = 0;
+        coarseRejectedPages = coarseSkippedPartTests = coarseAdaptiveBypassedPages =
+        submittedParts = submittedApiBatches = 0;
+    coarseAdaptiveSampledLastFrame = false;
     session++;
     // Relinquish pending ownership before any fallible GPU close, then attempt
     // every other cached close even if one buffer teardown fails.
