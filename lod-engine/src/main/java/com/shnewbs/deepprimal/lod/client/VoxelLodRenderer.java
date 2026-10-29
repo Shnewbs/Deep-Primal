@@ -42,6 +42,7 @@ public final class VoxelLodRenderer {
   public volatile long lastUploadBytes, pendingMeshBudgetBytes;
   public volatile int testedParts, rejectedParts, coarseTestedPages, coarseVisiblePages,
       coarseRejectedPages, coarseSkippedPartTests, coarseAdaptiveBypassedPages,
+      coarseUniformVisiblePages, coarseUniformVisiblePartTests,
       submittedParts, submittedApiBatches;
   public volatile boolean coarseAdaptiveSampledLastFrame;
   public static final VoxelLodRenderer INSTANCE = new VoxelLodRenderer();
@@ -531,7 +532,8 @@ public final class VoxelLodRenderer {
     evictToFit(0, 4096, null, event.getCamera().position());
     long cullStarted = TELEMETRY ? System.nanoTime() : 0;
     int tested = 0, rejected = 0, coarseTests = 0, coarseVisible = 0,
-        coarsePages = 0, skippedPartTests = 0, adaptiveBypassedPages = 0;
+        coarsePages = 0, skippedPartTests = 0, adaptiveBypassedPages = 0,
+        uniformVisiblePages = 0, uniformVisiblePartTests = 0;
     var camera = event.getCamera().position();
     var visible = visibleSnapshots.begin();
     // Force a full coarse sample periodically, and use the unmodified fine path
@@ -590,6 +592,21 @@ public final class VoxelLodRenderer {
             continue;
           }
           if (TELEMETRY) coarseVisible++;
+          // Uniform finite part bounds were proven at page publication.
+          // The same positive predicate applies to each identical AABB;
+          // retain original ordering without per-part duplicate tests.
+          // Never apply this to a conservative union of different bounds.
+          if (LodPageFrustumBounds.allPartsShareBounds(coarseBounds, selectedParts)) {
+            for (TerrainGpuMesh part : selectedParts) visible.add(part);
+            skippedPartTests += selectedParts.size();
+            if (TELEMETRY) {
+              uniformVisiblePages++;
+              uniformVisiblePartTests += selectedParts.size();
+            }
+            chunks++;
+            span = Math.max(span, (int) ringDistance + 1);
+            continue;
+          }
         } else if (TELEMETRY) adaptiveBypassedPages++;
       }
       boolean seen = false;
@@ -617,6 +634,8 @@ public final class VoxelLodRenderer {
       coarseVisiblePages = coarseVisible;
       coarseRejectedPages = coarsePages;
       coarseSkippedPartTests = skippedPartTests;
+      coarseUniformVisiblePages = uniformVisiblePages;
+      coarseUniformVisiblePartTests = uniformVisiblePartTests;
       // Prospective GPU budget, not the larger Java-array heap footprint.
       pendingMeshBudgetBytes = pendingGpu == null ? 0 : pendingGpu.ready.levels.bytes();
       cullTiming.record(System.nanoTime() - cullStarted);
@@ -968,6 +987,7 @@ public final class VoxelLodRenderer {
     oversizedFirstUploads = oversizedFirstUploadBytes = 0;
     testedParts = rejectedParts = coarseTestedPages = coarseVisiblePages =
         coarseRejectedPages = coarseSkippedPartTests = coarseAdaptiveBypassedPages =
+        coarseUniformVisiblePages = coarseUniformVisiblePartTests =
         submittedParts = submittedApiBatches = 0;
     coarseAdaptiveSampledLastFrame = false;
     session++;

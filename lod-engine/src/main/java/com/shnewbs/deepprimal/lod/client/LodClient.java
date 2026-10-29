@@ -101,8 +101,10 @@ public final class LodClient {
             data.put("lodCoarseVisiblePages", lod.coarseVisiblePages);
             data.put("lodCoarseRejectedPages", lod.coarseRejectedPages);
             data.put("lodCoarseSkippedPartTests", lod.coarseSkippedPartTests);
+            data.put("lodCoarseUniformVisiblePages", lod.coarseUniformVisiblePages);
+            data.put("lodCoarseUniformVisiblePartTests", lod.coarseUniformVisiblePartTests);
             data.put("lodPageCullingScope",
-                "Opt-in CPU counters for completed extract: coarse tested = visible + rejected. Broadphase=false disables all page tests. AutoSkip=false keeps full coarse testing every extract; opt-in adaptive policy samples whole extracts when coarse checks save at most one fine-part check each (at least 32 coarse pages), bypassing up to 3 extracts. Client restart required; fine tests and material ordering never skipped. Not GPU occlusion/FPS.");
+                "Opt-in CPU counters for completed extract: coarse tested = visible + rejected. Avoided fine-part tests include whole-page rejection and positive uniform-bound reuse, separately reported; mixed-bound parts retain fine checks. Broadphase=false disables all page tests. AutoSkip=false keeps full coarse testing every extract; opt-in adaptive policy samples whole extracts when coarse checks save at most one fine-part check each (at least 32 coarse pages), bypassing up to 3 extracts. Client restart required; fine visibility decisions and material ordering are preserved. Not GPU occlusion/FPS.");
             data.put("lodSubmittedParts", lod.submittedParts);
             data.put("lodIndexedApiBatches", lod.submittedApiBatches);
             data.put("lodIndexedApiBatchScope",
