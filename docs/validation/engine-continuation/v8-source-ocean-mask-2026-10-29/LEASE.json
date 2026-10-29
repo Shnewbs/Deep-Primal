@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-dev72-ocean-mask",
+  "status": "active",
+  "started_at": "2026-10-29T06:01:01.045Z",
+  "active_until": "2026-10-29T06:19:01.045Z",
+  "source_ref": "006d06d68de0069bba3c97c50ed01364fab7c357",
+  "scope": [
+    "src/main/java/com/shnewbs/deepprimal/engine/V8OceanConnectivity.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8RoutedWaterSource.java",
+    "tools/tests/V8OceanConnectivityChecks.java",
+    "tools/tests/V8RoutedWaterSourceChecks.java",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-source-ocean-mask-2026-10-29/LEASE.json"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-29T0526-9c2fe3a5/REVIEW.md",
+  "audit_pinned_source": "9c2fe3a5dddeeb1f0f80184fbd9ab90081c123fe",
+  "notes": "Experimental distinct saved routing v5 marine-domain mask; coordinate with renderer claim 006d06d. Root unchanged pending complete validator; no native builds."
+}
