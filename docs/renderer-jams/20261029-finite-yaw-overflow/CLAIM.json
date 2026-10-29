@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0855-finite-yaw-overflow",
+  "owner": "renderer-hourly-only",
+  "status": "active",
+  "started_at": "2026-10-29T08:55:00Z",
+  "active_until": "2026-10-29T09:15:00Z",
+  "baseline_sha": "c08932fba9431cbef4badfaf5b7735d7553f1bf1",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumAdaptiveGate.java",
+    "docs/renderer-jams/20261029-finite-yaw-overflow/**"
+  ],
+  "measurement_reservation": "isolated Java21 finite-angle modulus overflow deterministic tests only; no GPU/native reservation",
+  "consumed": [
+    "docs/engine-hourly-audits/2026-10-29T0830-15d01f6c/REVIEW.md",
+    "docs/renderer-jams/20261029-pose-frustum/REVIEW.md"
+  ],
+  "excluded": [
+    "engine/water/terrain",
+    "other modules/GUI/backend changes",
+    "other schedules/checkouts/caches"
+  ],
+  "goal": "Fix auditor-identified extreme finite yaw overflow in opt-in adaptive coarse sampling without changing ordered fine-part culling or baseline gameplay visibility"
+}
