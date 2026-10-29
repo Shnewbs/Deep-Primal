@@ -32,6 +32,8 @@ public final class V8OceanConnectivity {
   public static final int POLICY_REVISION = 2;
   /** Explicitly opt-in bounded-enclosure rejection; v2 snapshot replay is frozen. */
   public static final int BASIN_GUARD_POLICY_REVISION = 3;
+  /** V5 saved routing uses an explicit graph-authored ocean domain, not bounded inference. */
+  public static final int SAVED_OCEAN_DOMAIN_POLICY_REVISION = 4;
   static final int STEP = WatershedRegion.STEP;
   static final int SIDE = TerrainEngine.CELL / STEP;
   private static final int CELL = TerrainEngine.CELL;
@@ -52,6 +54,11 @@ public final class V8OceanConnectivity {
 
   @FunctionalInterface
   public interface Sampler { Point sample(int worldX, int worldZ); }
+
+  /** Signed, saved-world-authoritative mask at an absolute 32-block lattice point. */
+  @FunctionalInterface public interface OceanDomain {
+    double sample(int worldX, int worldZ);
+  }
 
   private record ComponentRef(int originX, int originZ, int label) {}
   private record Gateway(int nextX, int nextZ) {}
@@ -131,6 +138,7 @@ public final class V8OceanConnectivity {
       };
 
   private final Sampler sampler;
+  private final OceanDomain oceanDomain;
   private final int policyRevision;
   private final LinkedHashMap<Long, Region> cache = new LinkedHashMap<>(8, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
@@ -151,6 +159,10 @@ public final class V8OceanConnectivity {
     this.sampler = (x, z) -> new Point(
         density.channel("height", x, SEA, z),
         density.channel("continentalness", x, SEA, z));
+    // A dedicated signed channel is an explicit authoring contract. Unlike a
+    // continentalness heuristic it is not inferred from a truncated flood.
+    this.oceanDomain = policyRevision == SAVED_OCEAN_DOMAIN_POLICY_REVISION
+        ? (x, z) -> density.channel("ocean_domain", x, SEA, z) : null;
   }
 
   /** Test-only injection for bounded component/seam fixtures; no random state. */
@@ -162,10 +174,32 @@ public final class V8OceanConnectivity {
   V8OceanConnectivity(Sampler sampler, int policyRevision) {
     this.sampler = Objects.requireNonNull(sampler, "marine sampler");
     this.policyRevision = requirePolicy(policyRevision);
+    if (policyRevision == SAVED_OCEAN_DOMAIN_POLICY_REVISION)
+      throw new IllegalArgumentException("saved ocean policy requires explicit domain source");
+    this.oceanDomain = null;
+  }
+
+  /** Test-only graph-domain injection; does not grant authority to production callbacks. */
+  V8OceanConnectivity(Sampler sampler, OceanDomain domain) {
+    this.sampler = Objects.requireNonNull(sampler, "marine sampler");
+    this.oceanDomain = Objects.requireNonNull(domain, "saved ocean domain");
+    this.policyRevision = SAVED_OCEAN_DOMAIN_POLICY_REVISION;
+  }
+
+  private boolean graphOceanAt(int nodeX, int nodeZ) {
+    Point point = Objects.requireNonNull(sampler.sample(nodeX, nodeZ), "ocean height sample");
+    if (point.height() > SEA) return false;
+    double mask = oceanDomain.sample(nodeX, nodeZ);
+    if (!Double.isFinite(mask))
+      throw new IllegalArgumentException("nonfinite saved ocean-domain sample");
+    // A negative explicit mask means ocean. Zero is undecided and fails closed;
+    // relief and continentalness never silently substitute for this authority.
+    return mask < 0.0;
   }
 
   private static int requirePolicy(int revision) {
-    if (revision != POLICY_REVISION && revision != BASIN_GUARD_POLICY_REVISION)
+    if (revision != POLICY_REVISION && revision != BASIN_GUARD_POLICY_REVISION
+        && revision != SAVED_OCEAN_DOMAIN_POLICY_REVISION)
       throw new IllegalArgumentException("unsupported V8 ocean connectivity policy");
     return revision;
   }
@@ -296,6 +330,17 @@ public final class V8OceanConnectivity {
     if (lowX < -DensityGraph.WORLD_LIMIT || lowZ < -DensityGraph.WORLD_LIMIT
         || highX > DensityGraph.WORLD_LIMIT || highZ > DensityGraph.WORLD_LIMIT)
       return false;
+    // Saved-mask mode is O(4) and independent of caches or search budgets.
+    // This is explicit ocean authoring, NOT an algorithm for discovering oceans.
+    if (policyRevision == SAVED_OCEAN_DOMAIN_POLICY_REVISION) {
+      for (int z = 0; z < 2; z++)
+        for (int x = 0; x < 2; x++) {
+          int nx = x == 0 ? lowX : (int) highX;
+          int nz = z == 0 ? lowZ : (int) highZ;
+          if (!graphOceanAt(nx, nz)) return false;
+        }
+      return true;
+    }
     Map<Long, Region> visit = new HashMap<>();
     Set<ComponentRef> proven = new HashSet<>();
     for (int z = 0; z < 2; z++)
@@ -332,8 +377,9 @@ public final class V8OceanConnectivity {
    * no claim of global ocean authority or native activation is made.
    */
   public synchronized boolean isMarineSeedAt(int worldX, int worldZ) {
-    if (policyRevision != BASIN_GUARD_POLICY_REVISION)
-      throw new IllegalStateException("boundary ocean seeds require v3 basin-guard policy");
+    if (policyRevision != BASIN_GUARD_POLICY_REVISION
+        && policyRevision != SAVED_OCEAN_DOMAIN_POLICY_REVISION)
+      throw new IllegalStateException("boundary ocean seeds require a saved seed policy");
     if (Math.floorMod(worldX, STEP) != 0 || Math.floorMod(worldZ, STEP) != 0)
       throw new IllegalArgumentException("ocean seed must use exact watershed lattice coordinates");
     if ((long) worldX < -DensityGraph.WORLD_LIMIT
@@ -341,6 +387,8 @@ public final class V8OceanConnectivity {
         || (long) worldX > DensityGraph.WORLD_LIMIT
         || (long) worldZ > DensityGraph.WORLD_LIMIT)
       return false;
+    if (policyRevision == SAVED_OCEAN_DOMAIN_POLICY_REVISION)
+      return graphOceanAt(worldX, worldZ);
     Map<Long, Region> visit = new HashMap<>();
     ComponentRef component = at(worldX, worldZ, visit);
     if (component == null) return false;

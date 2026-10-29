@@ -37,6 +37,10 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
       V8OceanConnectivity.BASIN_GUARD_POLICY_REVISION;
   /** Explicit v4: gate actual priority-flood sea seeds through stitched marine admission. */
   public static final int OUTLET_SEEDED_ROUTE_REVISION = 4;
+  /** Explicit new save provenance: ocean domains are graph-authored, not heuristic. */
+  public static final int SAVED_OCEAN_DOMAIN_ROUTE_REVISION = 5;
+  private static final String SAVED_OCEAN_DOMAIN_FINGERPRINT =
+      "deepprimal-v8-saved-ocean-domain-seed-v5";
   private static final String OUTLET_SEEDED_FINGERPRINT_DOMAIN =
       "deepprimal-v8-ocean-boundary-seeded-priority-flood-v4";
   private static final int CELL = TerrainEngine.CELL;
@@ -231,6 +235,25 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
         V8HydrologyBinding.pinned(outletSeedFingerprint(revision4)));
   }
 
+  /** New r5 saved-world contract: a 2D signed ocean_domain graph channel. */
+  public static V8GeneratorSnapshot authorOceanDomain(V8GeneratorSnapshot revision4) {
+    Objects.requireNonNull(revision4, "saved revision 4");
+    if (revision4.version() != V8GeneratorSnapshot.CLIMATE_VERSION)
+      throw new IllegalArgumentException("saved ocean routing requires explicit revision 4");
+    validateHeightChannel(revision4.density());
+    validateContinentalChannel(revision4.density());
+    validateOceanDomainChannel(revision4.density());
+    return revision4.withHydrologyBinding(
+        V8HydrologyBinding.pinned(oceanDomainFingerprint(revision4)));
+  }
+
+  public static String oceanDomainFingerprint(V8GeneratorSnapshot profile) {
+    validateOceanDomainChannel(profile.density());
+    validateContinentalChannel(profile.density());
+    return fingerprintFor(profile, SAVED_OCEAN_DOMAIN_FINGERPRINT,
+        SAVED_OCEAN_DOMAIN_ROUTE_REVISION);
+  }
+
   /** New domain-separated identity, never reinterpreted as route v1/v2/v3. */
   public static String outletSeedFingerprint(V8GeneratorSnapshot profile) {
     validateContinentalChannel(profile.density());
@@ -258,6 +281,10 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
       else if (outletSeedFingerprint(revision5).equals(pinned)) {
         marineRevision = BASIN_GUARD_ROUTE_REVISION;
         useOutletSeeds = true;
+      } else if (revision5.density().nodes().stream().anyMatch(n -> n.id().equals("ocean_domain"))
+          && oceanDomainFingerprint(revision5).equals(pinned)) {
+        marineRevision = V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
+        useOutletSeeds = true;
       } else throw new IllegalArgumentException("V8 routed source differs from saved provenance");
     }
     return new V8RoutedWaterSource(revision5, pinned, marineRevision, useOutletSeeds);
@@ -273,6 +300,9 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public String sourceFingerprint() { return fingerprint; }
   public boolean outletSeededPolicy() { return outletSeeded; }
   public boolean stitchedPolicy() { return stitchedMarine != null; }
+  public boolean oceanDomainPolicy() {
+    return marinePolicyRevision == V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
+  }
   public boolean basinGuardedPolicy() {
     return marinePolicyRevision == BASIN_GUARD_ROUTE_REVISION;
   }
@@ -353,6 +383,15 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     if (!nodes.containsKey("continentalness"))
       throw new IllegalArgumentException("stitched V8 routing requires continentalness channel");
     inspectHeight("continentalness", nodes, new java.util.HashSet<>());
+  }
+
+  /** A signed global ocean mask must not depend on height Y or 3D noise. */
+  private static void validateOceanDomainChannel(DensityGraph.Definition def) {
+    Map<String, DensityGraph.Node> nodes = new LinkedHashMap<>();
+    for (var n : def.nodes()) nodes.put(n.id(), n);
+    if (!nodes.containsKey("ocean_domain"))
+      throw new IllegalArgumentException("saved ocean routing requires ocean_domain channel");
+    inspectHeight("ocean_domain", nodes, new java.util.HashSet<>());
   }
 
   /** Architecture-neutral legacy routing fingerprint (v1 bytes remain frozen). */
