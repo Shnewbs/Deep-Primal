@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "owner": "renderer-only-hourly-jam-42",
+  "status": "active",
+  "jam_id": "renderer-20261029T2158-lazy-uniform-page-union",
+  "started_at": "2026-10-29T21:58:00Z",
+  "expires_at": "2026-10-29T23:05:00Z",
+  "expected_parent": "7f26b4927f2fb45258eb2820e25add02a49cb31e",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "docs/renderer-jams/20261029-lazy-uniform-union/**"
+  ],
+  "other_workers": "Exclude engine/water/graphics/upscaler and other schedules; no shared caches, builds or renderer neighboring files.",
+  "intended_work": "Eliminate unnecessary repeated conservative union min/max reductions on validated identical resident part bounds; parity test across malformed/mixed/negative-coordinate parts; source-only owner build handoff.",
+  "owner_build_policy": "Owner performs full Gradle/NeoForge/native/GPU/JAR."
+}
