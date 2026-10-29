@@ -54,7 +54,13 @@ final class LodPublishedBounds {
           maxZ = Double.NEGATIVE_INFINITY;
       for (int i = 0; i < parts.length; i++) {
         AABB box = parts[i];
-        boolean valid = finiteOrdered(box);
+        // The source AABBs are immutable. A repeated object already has the
+        // finite/ordered verdict captured for its immediately preceding (or
+        // alternating i-2) occurrence. Reuse even an INVALID verdict: an
+        // invalid repeated box must never make coarse rejection admissible.
+        boolean valid = i > 0 && box == previous ? previousValid
+            : i > 1 && box == beforePrevious ? beforePreviousValid
+            : finiteOrdered(box);
         // Invalid parts disable coarse rejection, but later valid adjacent
         // parts still share their own fine-frustum result. Do not stop early.
         // The adjacent verdict is also the two-back exclusion. Compute it
@@ -78,7 +84,10 @@ final class LodPublishedBounds {
           wholePageValid = false;
         } else if (wholePageValid) {
           if (uniform) {
-            if (!sameBox(representative, box)) {
+            // Every preceding valid part equals the representative while
+            // uniform stays true. A proven adjacent match is therefore also
+            // a representative match; do not compare six coordinates again.
+            if (i > 0 && !adjacent && !sameBox(representative, box)) {
               // The prefix had identical numerical bounds. Defer its union
               // reductions until the first different part; an all-uniform
               // page needs only the validated representative identity.
