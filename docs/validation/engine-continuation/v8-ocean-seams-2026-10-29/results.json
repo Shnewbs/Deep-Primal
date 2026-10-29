@@ -36,5 +36,11 @@
   "original_legacy_policy_untouched": true,
   "root_validator_complete_pinned_run": false,
   "external_grade_unchanged": 5,
-  "open_critical": "real WatershedRegion still region-local edge-seeded, marine-core heuristic not proof of authoritative ocean topology; no native acceptance"
+  "open_critical": "real WatershedRegion still region-local edge-seeded, marine-core heuristic not proof of authoritative ocean topology; no native acceptance",
+  "source_only_evidence_zip": "DeepPrimal_Dev69_V8_StitchedOcean_SourceEvidence.zip",
+  "source_only_evidence_zip_bytes": 130611,
+  "source_only_evidence_zip_sha256": "649f696d5cbb3f927a1195bce56b07145a9d093a17e91f8779d6f302d7e2c394",
+  "zip_crc_verified": true,
+  "bundle_replay_optimized_python_passed": true,
+  "bundle_entries": 73
 }
