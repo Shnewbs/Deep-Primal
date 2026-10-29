@@ -48,7 +48,13 @@ public final class V8WaterDomainAdmission implements V8EcotoneColumnPlan.Climate
 
   /** Explicit authority identity. The source must use the SAME saved V8 graph. */
   public record Authority(long worldSeed, DensityGraph.Definition savedDensity,
-      V8ClimateBinding savedClimate, int maskInterfaceRevision, WaterSource source) {
+      V8ClimateBinding savedClimate, int maskInterfaceRevision, String sourceFingerprint, WaterSource source) {
+    /** Old revision-4 calls remain valid without any saved routed-mask identity. */
+    public Authority(long worldSeed, DensityGraph.Definition savedDensity,
+        V8ClimateBinding savedClimate, int maskInterfaceRevision, WaterSource source) {
+      this(worldSeed, savedDensity, savedClimate, maskInterfaceRevision, null, source);
+    }
+
     public Authority {
       Objects.requireNonNull(savedDensity, "saved density definition");
       Objects.requireNonNull(savedClimate, "saved climate binding");
@@ -77,13 +83,26 @@ public final class V8WaterDomainAdmission implements V8EcotoneColumnPlan.Climate
     Objects.requireNonNull(referenceClimate, "reference climate");
     Objects.requireNonNull(authority, "hydrology authority");
     V8GeneratorSnapshot saved = prepared.snapshot();
-    if (saved.version() != V8GeneratorSnapshot.CLIMATE_VERSION
+    if ((saved.version() != V8GeneratorSnapshot.CLIMATE_VERSION
+        && saved.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION)
         || !V8SurfacePolicy.FROZEN_R1.equals(saved.surfacePolicy()))
       throw new IllegalArgumentException("water-domain admission requires frozen V8 revision 4");
     if (authority.worldSeed() != saved.seed()
         || !authority.savedDensity().equals(saved.density())
         || !authority.savedClimate().equals(saved.climateBinding()))
       throw new IllegalArgumentException("V8 hydrology authority does not match saved world/graph/climate");
+    // For r5, the callback must declare the exact routing-source digest saved
+    // with this profile. This is identity admission, not independent validation
+    // of the callback or proof that the routing source is hydrologically correct.
+    if (saved.version() == V8GeneratorSnapshot.HYDROLOGY_VERSION) {
+      V8HydrologyBinding binding = Objects.requireNonNull(saved.hydrologyBinding(),
+          "saved hydrology binding");
+      if (binding.maskInterfaceRevision() != authority.maskInterfaceRevision()
+          || !binding.sourceFingerprint().equals(authority.sourceFingerprint()))
+        throw new IllegalArgumentException("V8 hydrology source does not match saved provenance");
+    } else if (authority.sourceFingerprint() != null) {
+      throw new IllegalArgumentException("V8 revision 4 cannot claim saved routing provenance");
+    }
     return new V8WaterDomainAdmission(referenceClimate, authority.source());
   }
 

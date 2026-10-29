@@ -31,11 +31,20 @@ public record V8SurfacePolicy(String value) {
   public static final V8SurfacePolicy FROZEN_R1=new V8SurfacePolicy("r1");
 }
 ''',
+    'com/shnewbs/deepprimal/engine/V8HydrologyBinding.java': '''package com.shnewbs.deepprimal.engine;
+public record V8HydrologyBinding(int version, int maskInterfaceRevision, String sourceFingerprint) {}
+''',
     'com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java': '''package com.shnewbs.deepprimal.engine;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
 public record V8GeneratorSnapshot(int version, long seed, DensityGraph.Definition density,
-   V8SurfacePolicy surfacePolicy, V8ClimateBinding climateBinding) {
+   V8SurfacePolicy surfacePolicy, V8ClimateBinding climateBinding,
+   V8HydrologyBinding hydrologyBinding) {
+  public V8GeneratorSnapshot(int version, long seed, DensityGraph.Definition density,
+      V8SurfacePolicy surfacePolicy, V8ClimateBinding climateBinding) {
+    this(version, seed, density, surfacePolicy, climateBinding, null);
+  }
   public static final int CLIMATE_VERSION=4;
+  public static final int HYDROLOGY_VERSION=5;
   public record Prepared(V8GeneratorSnapshot snapshot) {}
   public Prepared prepare(){return new Prepared(this);}
 }
@@ -70,6 +79,15 @@ public final class WaterDomainSourceCheck {
       V8WaterDomainAdmission.WaterDatum.dry();
     var authority=new V8WaterDomainAdmission.Authority(snapshot.seed(),graph,climate,1,observer);
     var admission=V8WaterDomainAdmission.bind(snapshot.prepare(),reference,authority);
+    String sourceFingerprint="a".repeat(64);
+    var hydrated=new V8GeneratorSnapshot(5,-29,graph,V8SurfacePolicy.FROZEN_R1,climate,
+        new V8HydrologyBinding(1,1,sourceFingerprint));
+    var routedAuthority=new V8WaterDomainAdmission.Authority(-29,graph,climate,1,sourceFingerprint,observer);
+    var routed=V8WaterDomainAdmission.bind(hydrated.prepare(),reference,routedAuthority);
+    deny(()->V8WaterDomainAdmission.bind(hydrated.prepare(),reference,authority),"missing routed identity");
+    deny(()->V8WaterDomainAdmission.bind(snapshot.prepare(),reference,routedAuthority),"false revision4 identity");
+    deny(()->V8WaterDomainAdmission.bind(hydrated.prepare(),reference,
+      new V8WaterDomainAdmission.Authority(-29,graph,climate,1,"b".repeat(64),observer)),"mismatched routed identity");
     deny(()->V8WaterDomainAdmission.bind(snapshot.prepare(),reference,
       new V8WaterDomainAdmission.Authority(snapshot.seed()+1,graph,climate,1,observer)),"wrong seed");
     deny(()->V8WaterDomainAdmission.bind(snapshot.prepare(),reference,
@@ -85,6 +103,7 @@ public final class WaterDomainSourceCheck {
     long checksum=0;
     for(int top=92;top<=101;top++)for(int z=-48;z<=47;z++)for(int x=-48;x<=47;x++){
       var actual=admission.sample(x,top,z).domain();
+      need(routed.sample(x,top,z).domain()==actual,"r5 saved observer parity");
       boolean shouldBeDry=top>=96&&Math.floorMod(z,7)!=0&&Math.floorMod(x,5)!=0
         && Math.floorMod(x,17)!=0&&Math.floorMod(z,13)!=0&&Math.floorMod(x,11)!=0;
       need((actual==EcotoneBlend.Domain.LAND)==shouldBeDry,"protected water/sea side "+x+","+z+","+top);

@@ -22,7 +22,8 @@ import java.util.Set;
 public record V8GeneratorSnapshot(
     int version, long seed, int minY, int height,
     DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
-    V8SurfacePolicy surfacePolicy, V8ClimateBinding climateBinding) {
+    V8SurfacePolicy surfacePolicy, V8ClimateBinding climateBinding,
+    V8HydrologyBinding hydrologyBinding) {
   /** Frozen six-field legacy V8 snapshot format. Never rewrite these existing saves. */
   public static final int VERSION = 1;
   /** New explicit seven-field snapshot format; no silent upgrade of previous saves. */
@@ -31,6 +32,17 @@ public record V8GeneratorSnapshot(
   public static final int SURFACE_VERSION = 3;
   /** Explicit reference-climate and hydrology identity for new V8 snapshots. */
   public static final int CLIMATE_VERSION = 4;
+  /** Explicit ten-field saved hydrology observation provenance. No native routing activation. */
+  public static final int HYDROLOGY_VERSION = 5;
+
+  /** Retain the exact nine-argument revision-4 constructor and wire shape. */
+  public V8GeneratorSnapshot(int version, long seed, int minY, int height,
+      DensityGraph.Definition density, GroundSurfaceProfile ground,
+      V8BlendPolicy blendPolicy, V8SurfacePolicy surfacePolicy,
+      V8ClimateBinding climateBinding) {
+    this(version, seed, minY, height, density, ground, blendPolicy,
+        surfacePolicy, climateBinding, null);
+  }
 
   /** Preserve every existing eight-argument revision-3 constructor and callsite. */
   public V8GeneratorSnapshot(int version, long seed, int minY, int height,
@@ -142,6 +154,15 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(binding, "binding"));
   }
 
+  /** A new opt-in saved revision; never overwrite V8-r4 or alter earlier graph bytes. */
+  public V8GeneratorSnapshot withHydrologyBinding(V8HydrologyBinding binding) {
+    if (version != CLIMATE_VERSION)
+      throw new IllegalStateException("hydrology binding may only be selected from V8 revision 4");
+    return new V8GeneratorSnapshot(HYDROLOGY_VERSION, seed, minY, height,
+        density, ground, blendPolicy, surfacePolicy, climateBinding,
+        Objects.requireNonNull(binding, "binding"));
+  }
+
   private static final Codec<Long> SEED = Codec.STRING.comapFlatMap(text -> {
     if (!text.matches("0|-?[1-9][0-9]*"))
       return DataResult.error(() -> "seed must be a canonical signed 64-bit decimal string");
@@ -164,6 +185,11 @@ public record V8GeneratorSnapshot(
   private record WireClimate(int version, long seed, int minY, int height,
       DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blend,
       V8SurfacePolicy surface, V8ClimateBinding climateBinding) {}
+
+  private record WireHydrology(int version, long seed, int minY, int height,
+      DensityGraph.Definition density, GroundSurfaceProfile ground, V8BlendPolicy blend,
+      V8SurfacePolicy surface, V8ClimateBinding climateBinding,
+      V8HydrologyBinding hydrologyBinding) {}
 
   /** Keep the six-field legacy codec and exact field order intact. */
   private static final Codec<WireLegacy> LEGACY_WIRE = RecordCodecBuilder.create(i -> i.group(
@@ -210,6 +236,20 @@ public record V8GeneratorSnapshot(
       V8ClimateBinding.CODEC.fieldOf("climate_binding").forGetter(WireClimate::climateBinding)
   ).apply(i, WireClimate::new));
 
+  /** Only explicitly selected revision 5 has a mandatory tenth hydrology field. */
+  private static final Codec<WireHydrology> HYDROLOGY_WIRE = RecordCodecBuilder.create(i -> i.group(
+      Codec.INT.fieldOf("version").forGetter(WireHydrology::version),
+      SEED.fieldOf("seed").forGetter(WireHydrology::seed),
+      Codec.INT.fieldOf("min_y").forGetter(WireHydrology::minY),
+      Codec.INT.fieldOf("height").forGetter(WireHydrology::height),
+      DensityGraphCodec.CODEC.fieldOf("density").forGetter(WireHydrology::density),
+      GroundSurfaceProfile.CODEC.fieldOf("ground").forGetter(WireHydrology::ground),
+      V8BlendPolicy.CODEC.fieldOf("blend").forGetter(WireHydrology::blend),
+      V8SurfacePolicy.CODEC.fieldOf("surface").forGetter(WireHydrology::surface),
+      V8ClimateBinding.CODEC.fieldOf("climate_binding").forGetter(WireHydrology::climateBinding),
+      V8HydrologyBinding.CODEC.fieldOf("hydrology_binding").forGetter(WireHydrology::hydrologyBinding)
+  ).apply(i, WireHydrology::new));
+
   private static final Set<String> LEGACY_FIELDS = Set.of(
       "version", "seed", "min_y", "height", "density", "ground");
   private static final Set<String> BLEND_FIELDS = Set.of(
@@ -221,6 +261,10 @@ public record V8GeneratorSnapshot(
   private static final Set<String> CLIMATE_FIELDS = Set.of(
       "version", "seed", "min_y", "height", "density", "ground", "blend", "surface",
       "climate_binding");
+
+  private static final Set<String> HYDROLOGY_FIELDS = Set.of(
+      "version", "seed", "min_y", "height", "density", "ground", "blend", "surface",
+      "climate_binding", "hydrology_binding");
 
   private static final Codec<V8GeneratorSnapshot> LEGACY_VALUE_CODEC = LEGACY_WIRE.comapFlatMap(w -> {
     try {
@@ -261,6 +305,17 @@ public record V8GeneratorSnapshot(
   }, s -> new WireClimate(s.version, s.seed, s.minY, s.height, s.density,
       s.ground, s.blendPolicy, s.surfacePolicy, s.climateBinding));
 
+  private static final Codec<V8GeneratorSnapshot> HYDROLOGY_VALUE_CODEC = HYDROLOGY_WIRE.comapFlatMap(w -> {
+    try {
+      return DataResult.success(new V8GeneratorSnapshot(
+          w.version, w.seed, w.minY, w.height, w.density, w.ground,
+          w.blend, w.surface, w.climateBinding, w.hydrologyBinding));
+    } catch (IllegalArgumentException | IllegalStateException | NullPointerException failure) {
+      return DataResult.error(() -> "hydrology-bound V8 snapshot: " + failure.getMessage());
+    }
+  }, s -> new WireHydrology(s.version, s.seed, s.minY, s.height, s.density,
+      s.ground, s.blendPolicy, s.surfacePolicy, s.climateBinding, s.hydrologyBinding));
+
   /**
    * Decode the exact saved version envelope. Legacy six-field saves stay six fields;
    * absence of a blend field means hard classification, never default soft widths.
@@ -275,11 +330,11 @@ public record V8GeneratorSnapshot(
         Integer version = null;
         int count = 0;
         while (entries.hasNext()) {
-          if (++count > CLIMATE_FIELDS.size())
+          if (++count > HYDROLOGY_FIELDS.size())
             return DataResult.error(() -> "too many V8 snapshot root fields");
           var member = entries.next();
           String key = ops.getStringValue(member.getFirst()).result().orElse(null);
-          if (key == null || !CLIMATE_FIELDS.contains(key) || !seen.add(key))
+          if (key == null || !HYDROLOGY_FIELDS.contains(key) || !seen.add(key))
             return DataResult.error(() -> "unexpected or duplicate V8 snapshot root field");
           if ("version".equals(key)) {
             version = Codec.INT.parse(ops, member.getSecond()).result().orElse(null);
@@ -290,7 +345,8 @@ public record V8GeneratorSnapshot(
         Set<String> expected = version != null && version == VERSION ? LEGACY_FIELDS
             : version != null && version == BLENDED_VERSION ? BLEND_FIELDS
             : version != null && version == SURFACE_VERSION ? SURFACE_FIELDS
-            : version != null && version == CLIMATE_VERSION ? CLIMATE_FIELDS : null;
+            : version != null && version == CLIMATE_VERSION ? CLIMATE_FIELDS
+            : version != null && version == HYDROLOGY_VERSION ? HYDROLOGY_FIELDS : null;
         if (expected == null)
           return DataResult.error(() -> "unsupported or missing V8 snapshot version");
         if (count != expected.size() || !seen.equals(expected))
@@ -298,7 +354,8 @@ public record V8GeneratorSnapshot(
         return version == VERSION ? LEGACY_VALUE_CODEC.decode(ops, input)
             : version == BLENDED_VERSION ? BLEND_VALUE_CODEC.decode(ops, input)
             : version == SURFACE_VERSION ? SURFACE_VALUE_CODEC.decode(ops, input)
-            : CLIMATE_VALUE_CODEC.decode(ops, input);
+            : version == CLIMATE_VERSION ? CLIMATE_VALUE_CODEC.decode(ops, input)
+            : HYDROLOGY_VALUE_CODEC.decode(ops, input);
       });
     }
 
@@ -307,13 +364,15 @@ public record V8GeneratorSnapshot(
       return snapshot.version == VERSION ? LEGACY_VALUE_CODEC.encode(snapshot, ops, prefix)
           : snapshot.version == BLENDED_VERSION ? BLEND_VALUE_CODEC.encode(snapshot, ops, prefix)
           : snapshot.version == SURFACE_VERSION ? SURFACE_VALUE_CODEC.encode(snapshot, ops, prefix)
-          : CLIMATE_VALUE_CODEC.encode(snapshot, ops, prefix);
+          : snapshot.version == CLIMATE_VERSION ? CLIMATE_VALUE_CODEC.encode(snapshot, ops, prefix)
+          : HYDROLOGY_VALUE_CODEC.encode(snapshot, ops, prefix);
     }
   };
 
   public V8GeneratorSnapshot {
     if (version != VERSION && version != BLENDED_VERSION
-        && version != SURFACE_VERSION && version != CLIMATE_VERSION)
+        && version != SURFACE_VERSION && version != CLIMATE_VERSION
+        && version != HYDROLOGY_VERSION)
       throw new IllegalArgumentException("unsupported V8 generator snapshot version: " + version);
     Objects.requireNonNull(blendPolicy, "blendPolicy");
     if (version == VERSION && !V8BlendPolicy.HARD.equals(blendPolicy))
@@ -322,10 +381,14 @@ public record V8GeneratorSnapshot(
       throw new IllegalArgumentException("V8 revision 3 requires frozen surface provenance");
     if (version < SURFACE_VERSION && surfacePolicy != null)
       throw new IllegalArgumentException("older V8 revisions cannot silently gain surface settings");
-    if (version == CLIMATE_VERSION && climateBinding == null)
+    if (version >= CLIMATE_VERSION && climateBinding == null)
       throw new IllegalArgumentException("V8 revision 4 requires frozen reference climate binding");
-    if (version != CLIMATE_VERSION && climateBinding != null)
+    if (version < CLIMATE_VERSION && climateBinding != null)
       throw new IllegalArgumentException("older V8 revisions cannot silently gain climate binding");
+    if (version == HYDROLOGY_VERSION && hydrologyBinding == null)
+      throw new IllegalArgumentException("V8 revision 5 requires frozen hydrology identity");
+    if (version != HYDROLOGY_VERSION && hydrologyBinding != null)
+      throw new IllegalArgumentException("older V8 revisions cannot silently gain hydrology identity");
     if (height < 1 || height > DensityChunk.MAX_HEIGHT)
       throw new IllegalArgumentException("V8 height must be within 1.." + DensityChunk.MAX_HEIGHT);
     long highest = (long) minY + height - 1;
