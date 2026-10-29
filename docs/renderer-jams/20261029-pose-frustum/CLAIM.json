@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0802-pose-frustum",
+  "owner": "renderer-hourly-only",
+  "status": "active",
+  "started_at": "2026-10-29T08:02:00Z",
+  "active_until": "2026-10-29T08:22:00Z",
+  "baseline_sha": "38e846971c08a37e42dbce4143d33a8f0646cf8f",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumAdaptiveGate.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261029-pose-frustum/**"
+  ],
+  "measurement_reservation": "isolated JVM camera travel/turn A-B scene and parity; no native GPU lease",
+  "consumed": [
+    "docs/renderer-jams/20261029-adaptive-frustum/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T0735-529bbe9/REVIEW.md"
+  ],
+  "excluded": [
+    "engine/water/terrain",
+    "unrelated GUI and modules",
+    "native FSR/DLSS",
+    "other scheduler/checkouts/caches"
+  ],
+  "goal": "Resample coarse page culling promptly after camera pose changes in opt-in adaptive mode while preserving ordered fine visibility; no broader engine edit"
+}
