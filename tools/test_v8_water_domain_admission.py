@@ -7,6 +7,7 @@ routing, GPU, persistence, water-volume, or native Minecraft test.
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import tempfile
 from pathlib import Path
@@ -45,6 +46,7 @@ public record V8GeneratorSnapshot(int version, long seed, DensityGraph.Definitio
   }
   public static final int CLIMATE_VERSION=4;
   public static final int HYDROLOGY_VERSION=5;
+  public static final int VEGETATION_VERSION=6;
   public record Prepared(V8GeneratorSnapshot snapshot) {}
   public Prepared prepare(){return new Prepared(this);}
 }
@@ -84,6 +86,9 @@ public final class WaterDomainSourceCheck {
         new V8HydrologyBinding(1,1,sourceFingerprint));
     var routedAuthority=new V8WaterDomainAdmission.Authority(-29,graph,climate,1,sourceFingerprint,observer);
     var routed=V8WaterDomainAdmission.bind(hydrated.prepare(),reference,routedAuthority);
+    var vegetated=new V8GeneratorSnapshot(6,-29,graph,V8SurfacePolicy.FROZEN_R1,climate,
+        new V8HydrologyBinding(1,1,sourceFingerprint));
+    var routed6=V8WaterDomainAdmission.bind(vegetated.prepare(),reference,routedAuthority);
     deny(()->V8WaterDomainAdmission.bind(hydrated.prepare(),reference,authority),"missing routed identity");
     deny(()->V8WaterDomainAdmission.bind(snapshot.prepare(),reference,routedAuthority),"false revision4 identity");
     deny(()->V8WaterDomainAdmission.bind(hydrated.prepare(),reference,
@@ -104,6 +109,7 @@ public final class WaterDomainSourceCheck {
     for(int top=92;top<=101;top++)for(int z=-48;z<=47;z++)for(int x=-48;x<=47;x++){
       var actual=admission.sample(x,top,z).domain();
       need(routed.sample(x,top,z).domain()==actual,"r5 saved observer parity");
+      need(routed6.sample(x,top,z).domain()==actual,"r6 saved observer parity");
       boolean shouldBeDry=top>=96&&Math.floorMod(z,7)!=0&&Math.floorMod(x,5)!=0
         && Math.floorMod(x,17)!=0&&Math.floorMod(z,13)!=0&&Math.floorMod(x,11)!=0;
       need((actual==EcotoneBlend.Domain.LAND)==shouldBeDry,"protected water/sea side "+x+","+z+","+top);
@@ -144,6 +150,14 @@ def run(case_dir, source):
             'stdout': outcome.stdout.strip(), 'stderr': outcome.stderr.strip()[:1200]}
 
 
+def rejected_by_fixture(outcome):
+    """A broken variant must compile and fail in this fixture, not the launcher."""
+    return (outcome['compile_exit'] == 0 and outcome['test_exit'] == 1
+            and re.search(r'^(?:Exception in thread "[^\"]+" |Caused by: )java\.lang\.AssertionError(?::|$)',
+                          outcome['stderr'], re.MULTILINE) is not None
+            and '\tat WaterDomainSourceCheck.' in outcome['stderr'])
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--source', type=Path, default=SOURCE)
@@ -165,8 +179,8 @@ def main():
                      for name, (needle, replacement) in mutants.items()}
     if any(p['test_exit'] for p in positives) or positives[0]['stdout'] != positives[1]['stdout']:
         raise RuntimeError('positive source checks failed or fingerprint drifted')
-    if any(n['test_exit'] == 0 for n in negatives.values()):
-        raise RuntimeError('compiled broken implementation passed: ' + repr(negatives))
+    if not all(rejected_by_fixture(n) for n in negatives.values()):
+        raise RuntimeError('negative not rejected by intended fixture: ' + repr(negatives))
     results = {'toolchain': subprocess.run(['java', '-version'], capture_output=True,
                                           text=True).stderr.splitlines()[0],
                'backend': 'exact source class / Java21 isolated API doubles, not native Minecraft',

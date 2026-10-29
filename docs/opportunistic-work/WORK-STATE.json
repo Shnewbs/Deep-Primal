@@ -1,14 +1,21 @@
 {
   "schema": 1,
   "worker": "opportunistic-20261029-water-domain-runner",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-29T23:13:54.565Z",
-  "expires_at": "2026-10-29T23:33:54.568Z",
+  "expires_at": "2026-10-29T23:17:05.139Z",
   "scope": [
     "tools/test_v8_water_domain_admission.py",
     "tools/test_v8_water_domain_runner_failures.py",
     "docs/opportunistic-work/20261029-water-domain-runner.md"
   ],
   "requirement": "docs/LOD-AND-DRAINAGE-ARCHITECTURE.md / Engine charter and quality gates; docs/ENGINE-HOURLY-BUILDS.md / Cycle contract 5 meaningful affected checks",
-  "note": "No root, water, terrain, renderer implementation claim. Other enabled workers and latest results inspected; active runtime liveness unavailable. Expired scope records preserved."
+  "note": "No root, water, terrain, renderer implementation claim. Other enabled workers and latest results inspected; active runtime liveness unavailable. Expired scope records preserved.",
+  "ended_at": "2026-10-29T23:17:05.139Z",
+  "lease_released": true,
+  "implementation_parent": "182a35530f83d6bd8ce0708bc8c73672d48e88fd",
+  "tests": "3 Python regressions pass normal and -OO; Java fixture blocked by module image; Gradle bootstrap blocked by network",
+  "last_delivered_jar": null,
+  "cleanup": "none: no replacement JAR",
+  "handoff": "docs/opportunistic-work/20261029-water-domain-runner.md"
 }
