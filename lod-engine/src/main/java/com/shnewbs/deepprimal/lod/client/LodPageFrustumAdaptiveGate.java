@@ -7,8 +7,8 @@ package com.shnewbs.deepprimal.lod.client;
  * turn can restore effective coarse rejection without persisting any scene data.
  */
 final class LodPageFrustumAdaptiveGate {
-  static final boolean ENABLED = !"false".equalsIgnoreCase(
-      System.getProperty("deepprimal.lod.pageFrustumAutoSkip", "true"));
+  static final boolean ENABLED = "true".equalsIgnoreCase(
+      System.getProperty("deepprimal.lod.pageFrustumAutoSkip", "false"));
   private static final int MIN_SAMPLED_PAGES = 32;
   private static final int SKIP_EXTRACTIONS = 3;
   private int remainingSkips;
