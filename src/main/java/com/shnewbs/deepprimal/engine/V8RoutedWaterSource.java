@@ -39,6 +39,10 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public static final int OUTLET_SEEDED_ROUTE_REVISION = 4;
   /** Explicit new save provenance: ocean domains are graph-authored, not heuristic. */
   public static final int SAVED_OCEAN_DOMAIN_ROUTE_REVISION = 5;
+  /** Opt-in v6: every ocean-flood node, not just edge seeds, obeys saved ocean_domain. */
+  public static final int CLOSED_OCEAN_DOMAIN_ROUTE_REVISION = 6;
+  private static final String CLOSED_OCEAN_DOMAIN_FINGERPRINT =
+      "deepprimal-v8-closed-ocean-domain-interior-v6";
   private static final String SAVED_OCEAN_DOMAIN_FINGERPRINT =
       "deepprimal-v8-saved-ocean-domain-seed-v5";
   private static final String OUTLET_SEEDED_FINGERPRINT_DOMAIN =
@@ -77,7 +81,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     final WatershedRegion waterways;
 
     Region(int ox, int oz, DensityGraph graph, TerrainEngine savedClimate, int channelRevision,
-        V8OceanConnectivity marine, boolean outletSeeded) {
+        V8OceanConnectivity marine, boolean outletSeeded, boolean closedOceanInterior) {
       originX = ox;
       originZ = oz;
       raw = new double[SIDE * SIDE];
@@ -91,6 +95,22 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
             throw new IllegalArgumentException("nonfinite V8 routing height");
           raw[z * SIDE + x] = height;
         }
+      if (closedOceanInterior && (!outletSeeded || marine == null))
+        throw new IllegalArgumentException("closed ocean interiors require admitted ocean seeds");
+      // V6 uses one frozen graph sampler and absolute lattice coordinates for
+      // both sea seeds and ALL traversed sea cells. V5 deliberately keeps its
+      // legacy seed-only behavior for saved-world replay.
+      boolean[] allowedOceanCells = closedOceanInterior ? new boolean[raw.length] : null;
+      if (allowedOceanCells != null)
+        for (int z = 0; z < SIDE; z++)
+          for (int x = 0; x < SIDE; x++) {
+            int i = z * SIDE + x;
+            double mask = sampler.channel("ocean_domain", (double) ox + x * STEP,
+                V8WaterDomainAdmission.SEA_PLANE, (double) oz + z * STEP);
+            if (!Double.isFinite(mask))
+              throw new IllegalArgumentException("nonfinite saved V8 ocean domain");
+            allowedOceanCells[i] = raw[i] <= V8WaterDomainAdmission.SEA_PLANE && mask < 0;
+          }
       // Only new opt-in v4 authoring gates BOTH the local connected-sea mask
       // and the real WatershedRegion priority-flood seed. Legacy revision-1/2/3
       // graphs retain the exact historical wet-edge behavior.
@@ -105,7 +125,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
           int i = z * SIDE + x;
           if ((x == 0 || x == SIDE - 1 || z == 0 || z == SIDE - 1)
               && raw[i] <= V8WaterDomainAdmission.SEA_PLANE
-              && (!outletSeeded || marine.isMarineSeedAt(ox + x * STEP, oz + z * STEP))) {
+              && (!outletSeeded || (closedOceanInterior ? allowedOceanCells[i]
+                  : marine.isMarineSeedAt(ox + x * STEP, oz + z * STEP)))) {
             if (admittedSeeds != null) admittedSeeds[i] = true;
             connectedSea[i] = true;
             queue.addLast(i);
@@ -118,7 +139,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
           int nz = z + (d == 2 ? -1 : d == 3 ? 1 : 0);
           if (nx < 0 || nz < 0 || nx >= SIDE || nz >= SIDE) continue;
           int j = nz * SIDE + nx;
-          if (connectedSea[j] || raw[j] > V8WaterDomainAdmission.SEA_PLANE) continue;
+          if (connectedSea[j] || raw[j] > V8WaterDomainAdmission.SEA_PLANE
+              || (allowedOceanCells != null && !allowedOceanCells[j])) continue;
           connectedSea[j] = true;
           queue.addLast(j);
         }
@@ -126,19 +148,31 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
       // WatershedRegion uses off-lattice terrain probes for bank and oxbow
       // validation; never round those samples to this 32-block grid. Only
       // its initial drainage nodes can safely reuse the precomputed heights.
-      waterways = new WatershedRegion(ox, oz,
-          (x, z) -> {
-            int at = latticeIndex(x, z, ox, oz);
-            return at >= 0 ? raw[at] : sampler.channel("height", x,
-                V8WaterDomainAdmission.SEA_PLANE, z);
-          }, savedClimate::rainfall,
-          true, channelRevision >= 1,
-          channelRevision >= 2 ? savedClimate.noise : null,
-          channelRevision >= 3, channelRevision >= 4, channelRevision >= 5,
-          admittedSeeds == null ? null : (x, z) -> {
-            int index = latticeIndex(x, z, ox, oz);
-            return index >= 0 && admittedSeeds[index];
-          });
+      var heightLookup = (java.util.function.DoubleBinaryOperator) (x, z) -> {
+        int at = latticeIndex(x, z, ox, oz);
+        return at >= 0 ? raw[at] : sampler.channel("height", x,
+            V8WaterDomainAdmission.SEA_PLANE, z);
+      };
+      WatershedRegion.OceanBoundary seed = admittedSeeds == null ? null : (x, z) -> {
+        int at = latticeIndex(x, z, ox, oz);
+        return at >= 0 && admittedSeeds[at];
+      };
+      if (closedOceanInterior) {
+        waterways = new WatershedRegion(ox, oz, heightLookup, savedClimate::rainfall,
+            true, channelRevision >= 1,
+            channelRevision >= 2 ? savedClimate.noise : null,
+            channelRevision >= 3, channelRevision >= 4, channelRevision >= 5,
+            seed, (x, z) -> {
+              int at = latticeIndex(x, z, ox, oz);
+              return at >= 0 && allowedOceanCells[at];
+            });
+      } else {
+        // Preserve the exact old constructor and its unfenced interior flood.
+        waterways = new WatershedRegion(ox, oz, heightLookup, savedClimate::rainfall,
+            true, channelRevision >= 1,
+            channelRevision >= 2 ? savedClimate.noise : null,
+            channelRevision >= 3, channelRevision >= 4, channelRevision >= 5, seed);
+      }
     }
 
     private static int latticeIndex(double x, double z, int ox, int oz) {
@@ -168,6 +202,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   private final V8OceanConnectivity stitchedMarine;
   private final int marinePolicyRevision;
   private final boolean outletSeeded;
+  private final boolean closedOceanInterior;
   private final LinkedHashMap<Long, Region> regions = new LinkedHashMap<>(4, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
       return size() > MAX_RESIDENT_REGIONS;
@@ -175,12 +210,13 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   };
 
   private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint,
-      int marinePolicyRevision, boolean outletSeeded) {
+      int marinePolicyRevision, boolean outletSeeded, boolean closedOceanInterior) {
     this.saved = saved;
     this.fingerprint = fingerprint;
     this.graph = saved.density().compile(saved.seed());
     this.marinePolicyRevision = marinePolicyRevision;
     this.outletSeeded = outletSeeded;
+    this.closedOceanInterior = closedOceanInterior;
     this.stitchedMarine = marinePolicyRevision == 0 ? null
         : new V8OceanConnectivity(graph, marinePolicyRevision);
     this.climate = new TerrainEngine(saved.seed(), V8SavedClimateSource.REFERENCE_TERRAIN_REVISION,
@@ -247,6 +283,25 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
         V8HydrologyBinding.pinned(oceanDomainFingerprint(revision4)));
   }
 
+  /** V6 is an explicit new frozen routing identity, never a migration of v5. */
+  public static V8GeneratorSnapshot authorClosedOceanDomain(V8GeneratorSnapshot revision4) {
+    Objects.requireNonNull(revision4, "saved revision 4");
+    if (revision4.version() != V8GeneratorSnapshot.CLIMATE_VERSION)
+      throw new IllegalArgumentException("closed-ocean authoring requires explicit revision 4");
+    validateHeightChannel(revision4.density());
+    validateContinentalChannel(revision4.density());
+    validateOceanDomainChannel(revision4.density());
+    return revision4.withHydrologyBinding(
+        V8HydrologyBinding.pinned(closedOceanDomainFingerprint(revision4)));
+  }
+
+  public static String closedOceanDomainFingerprint(V8GeneratorSnapshot profile) {
+    validateOceanDomainChannel(profile.density());
+    validateContinentalChannel(profile.density());
+    return fingerprintFor(profile, CLOSED_OCEAN_DOMAIN_FINGERPRINT,
+        CLOSED_OCEAN_DOMAIN_ROUTE_REVISION);
+  }
+
   public static String oceanDomainFingerprint(V8GeneratorSnapshot profile) {
     validateOceanDomainChannel(profile.density());
     validateContinentalChannel(profile.density());
@@ -272,6 +327,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     String pinned = revision5.hydrologyBinding().sourceFingerprint();
     int marineRevision = 0;
     boolean useOutletSeeds = false;
+    boolean gateInterior = false;
     if (!fingerprint(revision5).equals(pinned)) {
       validateContinentalChannel(revision5.density());
       if (stitchedFingerprint(revision5).equals(pinned))
@@ -285,9 +341,14 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
           && oceanDomainFingerprint(revision5).equals(pinned)) {
         marineRevision = V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
         useOutletSeeds = true;
+      } else if (revision5.density().nodes().stream().anyMatch(n -> n.id().equals("ocean_domain"))
+          && closedOceanDomainFingerprint(revision5).equals(pinned)) {
+        marineRevision = V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
+        useOutletSeeds = true;
+        gateInterior = true;
       } else throw new IllegalArgumentException("V8 routed source differs from saved provenance");
     }
-    return new V8RoutedWaterSource(revision5, pinned, marineRevision, useOutletSeeds);
+    return new V8RoutedWaterSource(revision5, pinned, marineRevision, useOutletSeeds, gateInterior);
   }
 
   /** Authority for the existing admitted V8 ecotone path; no arbitrary callback digest. */
@@ -299,6 +360,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
 
   public String sourceFingerprint() { return fingerprint; }
   public boolean outletSeededPolicy() { return outletSeeded; }
+  public boolean closedOceanInteriorPolicy() { return closedOceanInterior; }
   public boolean stitchedPolicy() { return stitchedMarine != null; }
   public boolean oceanDomainPolicy() {
     return marinePolicyRevision == V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
@@ -323,7 +385,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     Region region = regions.get(key);
     if (region == null) {
       region = new Region(ox, oz, graph, climate, saved.climateBinding().channelRevision(),
-          stitchedMarine, outletSeeded);
+          stitchedMarine, outletSeeded, closedOceanInterior);
       regions.put(key, region);
     }
     double original = graph.channel("height", worldX,
