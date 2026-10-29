@@ -170,9 +170,74 @@ public final class V8RoutedWaterSourceChecks {
     check(old.sourceFingerprint().equals(V8RoutedWaterSource.basinGuardFingerprint(r4)),
         "frozen v3 fingerprint remains identical");
   }
+  private static void optInSavedOceanDomain() {
+    var original = v4(-742, 2, 980);
+    var missing = V8RoutedWaterSource.author(original);
+    reject(() -> V8RoutedWaterSource.authorOceanDomain(original),
+        "saved ocean policy requires real graph ocean-domain source");
+    var nodes = new ArrayList<>(original.density().nodes());
+    // DensityGraph intentionally rejects unreachable entries. Link both ocean
+    // authority and climate source into a zero-weight dependency of the root.
+    for (int i = 0; i < nodes.size(); i++)
+      if (nodes.get(i).id().equals("height")) {
+        nodes.set(i, DensityGraph.Node.operation("height_raw", DensityGraph.Op.ADD,
+            "sea", "variation"));
+        break;
+      }
+    nodes.add(DensityGraph.Node.constant("continentalness", -0.4));
+    nodes.add(DensityGraph.Node.constant("ocean_domain", +1));
+    nodes.add(DensityGraph.Node.operation("mask_sources", DensityGraph.Op.ADD,
+        "continentalness", "ocean_domain"));
+    nodes.add(DensityGraph.Node.constant("inert_zero", 0));
+    nodes.add(DensityGraph.Node.operation("inert_masks", DensityGraph.Op.MULTIPLY,
+        "mask_sources", "inert_zero"));
+    nodes.add(DensityGraph.Node.operation("height", DensityGraph.Op.ADD,
+        "height_raw", "inert_masks"));
+    var def = new DensityGraph.Definition(1, original.density().root(), nodes);
+    var r4 = new V8GeneratorSnapshot(4, original.seed(), original.minY(), original.height(), def,
+        original.ground(), original.blendPolicy(), original.surfacePolicy(),
+        original.climateBinding());
+    var saved = V8RoutedWaterSource.authorOceanDomain(r4);
+    check(saved.version() == 5, "new route v5 uses existing explicit saved profile revision");
+    check(!saved.hydrologyBinding().equals(missing.hydrologyBinding()), "no legacy migration");
+    check(saved.hydrologyBinding().sourceFingerprint().equals(
+        V8RoutedWaterSource.oceanDomainFingerprint(r4)), "domain-separated routing v5 key");
+    var reopened = V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(saved));
+    check(reopened.equals(saved), "source mask survives modeled codec reopening");
+    var route = V8RoutedWaterSource.open(reopened, original.seed());
+    check(route.oceanDomainPolicy() && route.outletSeededPolicy(),
+        "saved mask drives priority-flood outlet admission");
+    for (int x : new int[] {-8192, -1, 0, 8191, 8192}) {
+      check(route.plan(x, 2048).kind() != V8WaterDomainAdmission.WaterKind.OCEAN,
+          "inland ocean-like climate denied by explicit positive mask");
+      check(route.plan(x, 2048).equals(route.plan(x, 2048)), "repeated query parity");
+    }
+    reject(() -> V8RoutedWaterSource.open(saved, original.seed() + 1), "wrong world seed");
+    reject(() -> V8RoutedWaterSource.authorOceanDomain(saved), "no saved r5 mutation");
+    var alteredNodes = new ArrayList<>(nodes);
+    for (int i = 0; i < alteredNodes.size(); i++)
+      if (alteredNodes.get(i).id().equals("ocean_domain"))
+        alteredNodes.set(i, DensityGraph.Node.constant("ocean_domain", -1));
+    var alteredDef = new DensityGraph.Definition(1, def.root(), alteredNodes);
+    var changed = new V8GeneratorSnapshot(4, r4.seed(), r4.minY(), r4.height(), alteredDef,
+        r4.ground(), r4.blendPolicy(), r4.surfacePolicy(), r4.climateBinding());
+    check(!V8RoutedWaterSource.oceanDomainFingerprint(r4).equals(
+        V8RoutedWaterSource.oceanDomainFingerprint(changed)), "mask edits change saved identity");
+    var yNodes = new ArrayList<>(nodes);
+    for (int i = 0; i < yNodes.size(); i++)
+      if (yNodes.get(i).id().equals("ocean_domain"))
+        yNodes.set(i, DensityGraph.Node.operation("ocean_domain",
+            DensityGraph.Op.ADD, "continentalness", "y"));
+    var yDef = new DensityGraph.Definition(1, def.root(), yNodes);
+    var yProfile = new V8GeneratorSnapshot(4, r4.seed(), r4.minY(), r4.height(), yDef,
+        r4.ground(), r4.blendPolicy(), r4.surfacePolicy(), r4.climateBinding());
+    reject(() -> V8RoutedWaterSource.authorOceanDomain(yProfile), "Y-dependent ocean mask");
+  }
+
   public static void main(String[] args) {
     authorAndReopen();coordinatesAndLeases();invalidHeightGraphs();
     optInOutletSeededPriorityFlood();
+    optInSavedOceanDomain();
     System.out.println("V8_ROUTED_SOURCE_PASS checks="+checks+" samples="+sampled+
         " rejected="+rejected+" actualWatershed=API_DOUBLE");
   }
