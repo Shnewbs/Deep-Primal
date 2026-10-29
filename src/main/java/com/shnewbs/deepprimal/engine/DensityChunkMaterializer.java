@@ -186,6 +186,60 @@ public final class DensityChunkMaterializer {
   public static V8EcotoneResult fillSavedEcotone(
       V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
       V8EcotoneColumnPlan.ClimateSource climate) {
+    return fillSavedEcotoneInternal(prepared, chunk, queriesPerSlab, climate, null).ecotone();
+  }
+
+  /**
+   * NEW V8-r6 only: paint already-planned grass and ferns in the same V8
+   * raw/soil/heightmap rollback transaction, using a persisted vegetation policy.
+   * The paired reference and routed-water authority must match the exact saved
+   * world seed, density, climate, and hydrology provenance before any writes.
+   * This is explicit-call-only and does not register a native V8 generator.
+   */
+  public static V8VegetatedResult fillSavedEcotoneVegetated(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    Objects.requireNonNull(prepared, "prepared");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION)
+      throw new IllegalArgumentException("explicit saved V8 revision 6 vegetation required");
+    var admitted = V8WaterDomainAdmission.bind(prepared, referenceClimate, authority);
+    var written = fillSavedEcotoneInternal(prepared, chunk, queriesPerSlab,
+        admitted, prepared.snapshot().vegetationPolicy());
+    return new V8VegetatedResult(written.ecotone(), written.vegetation());
+  }
+
+  /** Same V8 surface-plan contract for non-writing base-column/vegetation queries. */
+  public static V8VegetatedResult planSavedEcotoneVegetated(
+      V8GeneratorSnapshot.Prepared prepared, int originWorldX, int originWorldZ,
+      int minY, int height, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    Objects.requireNonNull(prepared, "prepared");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION)
+      throw new IllegalArgumentException("explicit saved V8 revision 6 vegetation required");
+    var preflight = planSavedEcotoneAdmitted(prepared, originWorldX,
+        originWorldZ, minY, height, queriesPerSlab, referenceClimate, authority);
+    var plants = V8VegetationColumnPlan.build(preflight.columns(), originWorldX,
+        originWorldZ, minY, height, prepared.snapshot().seed(),
+        prepared.snapshot().vegetationPolicy());
+    return new V8VegetatedResult(preflight, plants);
+  }
+
+  public record V8VegetatedResult(V8EcotoneResult ecotone,
+                                  V8VegetationColumnPlan vegetation) {
+    public V8VegetatedResult {
+      Objects.requireNonNull(ecotone, "V8 ecotone plan");
+      Objects.requireNonNull(vegetation, "V8 vegetation plan");
+    }
+  }
+
+  private record MaterializedEcotone(V8EcotoneResult ecotone,
+                                     V8VegetationColumnPlan vegetation) {}
+
+  private static MaterializedEcotone fillSavedEcotoneInternal(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource climate, V8VegetationPolicy vegetationPolicy) {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(chunk, "chunk");
     int minY = chunk.getMinY();
@@ -197,6 +251,11 @@ public final class DensityChunkMaterializer {
         origin.getMinBlockZ(), minY, chunk.getHeight(), queriesPerSlab, climate);
     var planned = preflight.terrain();
     var columns = preflight.columns();
+    // No second climate or density callback: plants use the exact same planned
+    // 16x16 cover columns as native soil writes and independent base queries.
+    var plants = vegetationPolicy == null ? null : V8VegetationColumnPlan.build(
+        columns, origin.getMinBlockX(), origin.getMinBlockZ(), minY,
+        chunk.getHeight(), prepared.snapshot().seed(), vegetationPolicy);
 
     // Resolve every material before the first mutation: registry failures and
     // hydrology/climate callback failures must leave blocks/heightmaps intact.
@@ -223,6 +282,18 @@ public final class DensityChunkMaterializer {
           soil = Objects.requireNonNull(GroundMaterials.DIRT.get().defaultBlockState(), "V8 soil");
       }
 
+    // Resolve all possible feature states before the prewrite snapshot/transaction.
+    BlockState fern = null, shortGrass = null;
+    if (plants != null) for (int z = 0; z < DensityChunk.WIDTH; z++)
+      for (int x = 0; x < DensityChunk.WIDTH; x++) {
+        var place = plants.placement(x, z);
+        if (place == null) continue;
+        if (place.plant() == V8VegetationColumnPlan.Plant.FERN && fern == null)
+          fern = Objects.requireNonNull(Blocks.FERN.defaultBlockState(), "V8 fern");
+        if (place.plant() == V8VegetationColumnPlan.Plant.SHORT_GRASS && shortGrass == null)
+          shortGrass = Objects.requireNonNull(Blocks.SHORT_GRASS.defaultBlockState(), "V8 grass");
+      }
+
     var undo = new V8WriteUndo(chunk);
     try {
       writePlannedRaw(planned, chunk, false, undo);
@@ -245,9 +316,21 @@ public final class DensityChunkMaterializer {
             undo.write(pos.set(worldX, y, worldZ), depth == 0 ? topState : soil);
           }
         }
+      // In r6 this pass shares the existing complete prewrite rollback. Never
+      // displace another state: callbacks and native water may veto a feature.
+      if (plants != null) for (int z = 0; z < DensityChunk.WIDTH; z++)
+        for (int x = 0; x < DensityChunk.WIDTH; x++) {
+          var place = plants.placement(x, z);
+          if (place == null) continue;
+          var at = pos.set(origin.getMinBlockX() + x,
+              place.y(), origin.getMinBlockZ() + z);
+          if (chunk.getBlockState(at).isAir())
+            undo.write(at, place.plant() == V8VegetationColumnPlan.Plant.FERN
+                ? fern : shortGrass);
+        }
       Heightmap.primeHeightmaps(chunk,
           EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
-      return preflight;
+      return new MaterializedEcotone(preflight, plants);
     } catch (RuntimeException | Error failure) {
       undo.rollback(failure);
       throw failure;
@@ -290,7 +373,7 @@ public final class DensityChunkMaterializer {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(climate, "climate");
     if (prepared.snapshot().version() < V8GeneratorSnapshot.SURFACE_VERSION
-        || prepared.snapshot().version() > V8GeneratorSnapshot.HYDROLOGY_VERSION)
+        || prepared.snapshot().version() > V8GeneratorSnapshot.VEGETATION_VERSION)
       throw new IllegalArgumentException("explicit V8 ecotone planning requires revision 3");
     prepared.requireHeight(minY, height);
     if (Math.floorMod(originWorldX, DensityChunk.WIDTH) != 0
@@ -360,6 +443,24 @@ public final class DensityChunkMaterializer {
       if (!density.solid(localX, y, localZ)) break;
       states[y - minY] = depth == 0 ? topState : soil;
     }
+    return new NoiseColumn(minY, states);
+  }
+
+  /** Native-planned base column with the r6 vegetation placements projected. */
+  public static NoiseColumn baseColumnVegetated(V8VegetatedResult result,
+      int localX, int localZ) {
+    Objects.requireNonNull(result, "vegetated V8 plan");
+    var base = baseColumn(result.ecotone(), localX, localZ);
+    var plant = result.vegetation().placement(localX, localZ);
+    if (plant == null) return base;
+    var density = result.ecotone().terrain().chunk();
+    int minY = density.minY(), maxY = density.maxYExclusive();
+    BlockState[] states = new BlockState[maxY - minY];
+    for (int y = minY; y < maxY; y++) states[y - minY] = base.getBlock(y);
+    if (plant.y() >= minY && plant.y() < maxY
+        && states[plant.y() - minY].isAir())
+      states[plant.y() - minY] = (plant.plant() == V8VegetationColumnPlan.Plant.FERN
+          ? Blocks.FERN : Blocks.SHORT_GRASS).defaultBlockState();
     return new NoiseColumn(minY, states);
   }
 

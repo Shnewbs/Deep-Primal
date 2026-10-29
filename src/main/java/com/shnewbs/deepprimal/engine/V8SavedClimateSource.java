@@ -66,7 +66,8 @@ public final class V8SavedClimateSource implements V8EcotoneColumnPlan.ClimateSo
       long savedWorldSeed) {
     Objects.requireNonNull(snapshot, "V8 snapshot");
     if ((snapshot.version() != V8GeneratorSnapshot.CLIMATE_VERSION
-        && snapshot.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION)
+        && snapshot.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION
+        && snapshot.version() != V8GeneratorSnapshot.VEGETATION_VERSION)
         || !V8SurfacePolicy.FROZEN_R1.equals(snapshot.surfacePolicy()))
       throw new IllegalArgumentException("explicit frozen V8 revision-4 climate binding required");
     if (snapshot.seed() != savedWorldSeed)

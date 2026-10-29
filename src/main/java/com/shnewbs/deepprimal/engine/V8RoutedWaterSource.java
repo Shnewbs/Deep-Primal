@@ -351,7 +351,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   /** Open only an r5 profile whose routing fingerprint matches its actual inputs. */
   public static V8RoutedWaterSource open(V8GeneratorSnapshot revision5, long savedWorldSeed) {
     Objects.requireNonNull(revision5, "saved revision 5");
-    if (revision5.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION
+    if ((revision5.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION
+        && revision5.version() != V8GeneratorSnapshot.VEGETATION_VERSION)
         || revision5.seed() != savedWorldSeed
         || !V8SurfacePolicy.FROZEN_R1.equals(revision5.surfacePolicy()))
       throw new IllegalArgumentException("saved world/revision/surface policy mismatch");
@@ -514,7 +515,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   private static String fingerprintFor(V8GeneratorSnapshot profile, String domain, int revision) {
     Objects.requireNonNull(profile, "profile");
     if (profile.version() != V8GeneratorSnapshot.CLIMATE_VERSION
-        && profile.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION)
+        && profile.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION
+        && profile.version() != V8GeneratorSnapshot.VEGETATION_VERSION)
       throw new IllegalArgumentException("fingerprint requires saved V8 climate binding");
     validateHeightChannel(profile.density());
     try {

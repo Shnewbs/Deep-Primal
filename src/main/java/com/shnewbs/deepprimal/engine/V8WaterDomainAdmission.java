@@ -84,7 +84,8 @@ public final class V8WaterDomainAdmission implements V8EcotoneColumnPlan.Climate
     Objects.requireNonNull(authority, "hydrology authority");
     V8GeneratorSnapshot saved = prepared.snapshot();
     if ((saved.version() != V8GeneratorSnapshot.CLIMATE_VERSION
-        && saved.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION)
+        && saved.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION
+        && saved.version() != V8GeneratorSnapshot.VEGETATION_VERSION)
         || !V8SurfacePolicy.FROZEN_R1.equals(saved.surfacePolicy()))
       throw new IllegalArgumentException("water-domain admission requires frozen V8 revision 4");
     if (authority.worldSeed() != saved.seed()
@@ -94,7 +95,7 @@ public final class V8WaterDomainAdmission implements V8EcotoneColumnPlan.Climate
     // For r5, the callback must declare the exact routing-source digest saved
     // with this profile. This is identity admission, not independent validation
     // of the callback or proof that the routing source is hydrologically correct.
-    if (saved.version() == V8GeneratorSnapshot.HYDROLOGY_VERSION) {
+    if (saved.version() >= V8GeneratorSnapshot.HYDROLOGY_VERSION) {
       V8HydrologyBinding binding = Objects.requireNonNull(saved.hydrologyBinding(),
           "saved hydrology binding");
       if (binding.maskInterfaceRevision() != authority.maskInterfaceRevision()
