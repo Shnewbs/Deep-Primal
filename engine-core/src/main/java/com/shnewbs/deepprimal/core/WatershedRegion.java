@@ -261,6 +261,23 @@ public final class WatershedRegion {
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
       boolean budgetedDistributaries, OceanBoundary admittedSea) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise,
+        riverDeltas, floodplainLakes, budgetedDistributaries, admittedSea, null);
+  }
+
+  /**
+   * Opt-in V8 ocean interior authority. Unlike the older seed-only callback,
+   * every below-sea node reached by the ocean flood must pass this predicate.
+   * The caller must bind both callbacks to one immutable saved graph/profile.
+   * Null retains the exact historical unconstrained ocean interior traversal.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior) {
+    if (admittedOceanInterior != null && admittedSea == null)
+      throw new IllegalArgumentException("ocean interior authority requires seeded ocean boundary");
     this.floodplainLakes = floodplainLakes;
     this.budgetedDistributaries = budgetedDistributaries;
     if (floodplainLakes && !riverDeltas)
@@ -321,7 +338,10 @@ public final class WatershedRegion {
             || b >= N
             || Math.abs(x - b % SIDE) + Math.abs(z - b / SIDE) != 1
             || ocean[b]
-            || raw[b] > TerrainEngine.SEA) continue;
+            || raw[b] > TerrainEngine.SEA
+            || (admittedOceanInterior != null
+                && !admittedOceanInterior.isOceanBoundary(
+                    ox + (b % SIDE) * STEP, oz + (b / SIDE) * STEP))) continue;
         ocean[b] = true;
         sea.add(b);
       }
