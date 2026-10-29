@@ -30,11 +30,14 @@ import java.util.Objects;
 public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSource {
   /** Increment to change the authoring fingerprint when routing semantics change. */
   public static final int ROUTE_REVISION = 1;
+  /** New opt-in policy: marine-core evidence is joined across absolute region edges. */
+  public static final int STITCHED_ROUTE_REVISION = V8OceanConnectivity.POLICY_REVISION;
   private static final int CELL = TerrainEngine.CELL;
   private static final int STEP = WatershedRegion.STEP;
   private static final int SIDE = WatershedRegion.SIDE;
   private static final int MAX_RESIDENT_REGIONS = 2;
   private static final String FINGERPRINT_DOMAIN = "deepprimal-v8-routed-regions-v1";
+  private static final String STITCHED_FINGERPRINT_DOMAIN = "deepprimal-v8-stitched-marine-v2";
 
   /** Planned ground cut and water stage, not a physical fluid quantity. */
   public record RouteColumn(double originalGround, double plannedGround,
@@ -136,16 +139,18 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   private final DensityGraph graph;
   private final TerrainEngine climate;
   private final String fingerprint;
+  private final V8OceanConnectivity stitchedMarine;
   private final LinkedHashMap<Long, Region> regions = new LinkedHashMap<>(4, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
       return size() > MAX_RESIDENT_REGIONS;
     }
   };
 
-  private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint) {
+  private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint, boolean stitched) {
     this.saved = saved;
     this.fingerprint = fingerprint;
     this.graph = saved.density().compile(saved.seed());
+    this.stitchedMarine = stitched ? new V8OceanConnectivity(graph) : null;
     this.climate = new TerrainEngine(saved.seed(), V8SavedClimateSource.REFERENCE_TERRAIN_REVISION,
         saved.climateBinding().savedOptions(), saved.climateBinding().channelRevision());
   }
@@ -159,6 +164,16 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     return revision4.withHydrologyBinding(V8HydrologyBinding.pinned(fingerprint(revision4)));
   }
 
+  /** New explicit V8 routing policy; existing r5 fingerprints and serialized saves stay frozen. */
+  public static V8GeneratorSnapshot authorStitched(V8GeneratorSnapshot revision4) {
+    Objects.requireNonNull(revision4, "saved revision 4");
+    if (revision4.version() != V8GeneratorSnapshot.CLIMATE_VERSION)
+      throw new IllegalArgumentException("stitched routing requires explicit revision 4");
+    validateHeightChannel(revision4.density());
+    validateContinentalChannel(revision4.density());
+    return revision4.withHydrologyBinding(V8HydrologyBinding.pinned(stitchedFingerprint(revision4)));
+  }
+
   /** Open only an r5 profile whose routing fingerprint matches its actual inputs. */
   public static V8RoutedWaterSource open(V8GeneratorSnapshot revision5, long savedWorldSeed) {
     Objects.requireNonNull(revision5, "saved revision 5");
@@ -167,10 +182,14 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
         || !V8SurfacePolicy.FROZEN_R1.equals(revision5.surfacePolicy()))
       throw new IllegalArgumentException("saved world/revision/surface policy mismatch");
     validateHeightChannel(revision5.density());
-    String expected = fingerprint(revision5);
-    if (!expected.equals(revision5.hydrologyBinding().sourceFingerprint()))
-      throw new IllegalArgumentException("V8 routed source differs from saved provenance");
-    return new V8RoutedWaterSource(revision5, expected);
+    String pinned = revision5.hydrologyBinding().sourceFingerprint();
+    boolean stitched = !fingerprint(revision5).equals(pinned);
+    if (stitched) {
+      validateContinentalChannel(revision5.density());
+      if (!stitchedFingerprint(revision5).equals(pinned))
+        throw new IllegalArgumentException("V8 routed source differs from saved provenance");
+    }
+    return new V8RoutedWaterSource(revision5, pinned, stitched);
   }
 
   /** Authority for the existing admitted V8 ecotone path; no arbitrary callback digest. */
@@ -181,6 +200,10 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   }
 
   public String sourceFingerprint() { return fingerprint; }
+  public boolean stitchedPolicy() { return stitchedMarine != null; }
+  public int cachedMarineRegionCount() {
+    return stitchedMarine == null ? 0 : stitchedMarine.cachedRegionCount();
+  }
   public synchronized int cachedRegionCount() { return regions.size(); }
 
   /** One pre-hydrology V8 graph, routed from its frozen absolute-coordinate height. */
@@ -204,7 +227,9 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     V8WaterDomainAdmission.WaterKind kind;
     if (!wet) kind = V8WaterDomainAdmission.WaterKind.DRY;
     else if (routed.water() == V8WaterDomainAdmission.SEA_PLANE
-        && original <= V8WaterDomainAdmission.SEA_PLANE && region.oceanAt(worldX, worldZ))
+        && original <= V8WaterDomainAdmission.SEA_PLANE
+        && (stitchedMarine == null ? region.oceanAt(worldX, worldZ)
+            : stitchedMarine.isMarineAt(worldX, worldZ)))
       kind = V8WaterDomainAdmission.WaterKind.OCEAN;
     else if (routed.speed() > 0) kind = V8WaterDomainAdmission.WaterKind.RIVER;
     else kind = V8WaterDomainAdmission.WaterKind.LAKE;
@@ -234,8 +259,26 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     for (String input : n.inputs()) inspectHeight(input, nodes, visited);
   }
 
-  /** Architecture-neutral hash of routing semantics and exact saved graph/climate inputs. */
+  /** Stitched route identity is saved explicitly; legacy revision-1 hashes never change. */
+  public static String stitchedFingerprint(V8GeneratorSnapshot profile) {
+    validateContinentalChannel(profile.density());
+    return fingerprintFor(profile, STITCHED_FINGERPRINT_DOMAIN, STITCHED_ROUTE_REVISION);
+  }
+
+  private static void validateContinentalChannel(DensityGraph.Definition def) {
+    Map<String, DensityGraph.Node> nodes = new LinkedHashMap<>();
+    for (var node : def.nodes()) nodes.put(node.id(), node);
+    if (!nodes.containsKey("continentalness"))
+      throw new IllegalArgumentException("stitched V8 routing requires continentalness channel");
+    inspectHeight("continentalness", nodes, new java.util.HashSet<>());
+  }
+
+  /** Architecture-neutral legacy routing fingerprint (v1 bytes remain frozen). */
   public static String fingerprint(V8GeneratorSnapshot profile) {
+    return fingerprintFor(profile, FINGERPRINT_DOMAIN, ROUTE_REVISION);
+  }
+
+  private static String fingerprintFor(V8GeneratorSnapshot profile, String domain, int revision) {
     Objects.requireNonNull(profile, "profile");
     if (profile.version() != V8GeneratorSnapshot.CLIMATE_VERSION
         && profile.version() != V8GeneratorSnapshot.HYDROLOGY_VERSION)
@@ -244,8 +287,8 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     try {
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       DataOutputStream out = new DataOutputStream(bytes);
-      writeString(out, FINGERPRINT_DOMAIN);
-      out.writeInt(ROUTE_REVISION);
+      writeString(out, domain);
+      out.writeInt(revision);
       out.writeLong(profile.seed());
       out.writeInt(profile.minY());
       out.writeInt(profile.height());
