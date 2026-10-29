@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "run": "2026-10-28T2132-c08e0046",
+  "source_sha": "c08e0046d81c97315839c67ea5638b9c59cc3c0c",
+  "version": "0.0.1-alpha.29-dev.70-basin-closure.1",
+  "source_blobs": {
+    "V8OceanConnectivity": "455cba98c2d340ad82fbf7c05a1ebb16c4e55ff0",
+    "V8RoutedWaterSource": "20fafc72e397f744a0a7d0f376bea4b4968db95a",
+    "LodScreenErrorSelector": "f550847a571bbf56b243b2bb2b77ecc740b98e8d"
+  },
+  "toolchain": "Temurin 25.0.5+8 Linux x64",
+  "source_only": true,
+  "java25_strict_compile": true,
+  "marine_assertions": {
+    "runs": 2,
+    "per_run": 24
+  },
+  "renderer_assertions": {
+    "runs": 2,
+    "per_run": 1556976
+  },
+  "negative_mutants": {
+    "rejected": 2,
+    "total": 2
+  },
+  "static_integration": {
+    "passed": 13,
+    "total": 13
+  },
+  "known_large_enclosed_basin_false_marine": true,
+  "grade": {
+    "total": 50,
+    "average": 5,
+    "tier": 2,
+    "carried": true
+  },
+  "owner_override_builds": true,
+  "jar_produced": false,
+  "windows_gpu_tested": false,
+  "evidence_zip_sha256": "4c6daf4569dcd3cb1d2a3f6f9e7f85016493730353361d732dbf6fe22dd9b652"
+}
