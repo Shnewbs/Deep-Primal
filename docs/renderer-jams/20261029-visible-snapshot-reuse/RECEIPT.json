@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0300-visible-snapshot-reuse",
+  "baseline_sha": "e6fcfc1892d607a2a122d25ba98e9a103fd1ce0c",
+  "claim_sha": "fb1e2f8bd40fb0d75b5345661143e3c43bb7ecde",
+  "first_source_sha": "da8d71977762831c37fd2ba3121e23d7510730ff",
+  "final_source_sha": "74d7447d3206952f0aa5be6003212dea9e9f7ce4",
+  "version": "0.0.1-alpha.29-dev.68-v8-routed-regions.1",
+  "source_blobs": {
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java": "6d5bb1e0f84698ccb02f0ba128576bb622edcf0f",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodVisibleSnapshot.java": "eefd98ddc7ab8f1227291de5d8f7261e4165f3c1",
+    "docs/renderer-jams/20261029-visible-snapshot-reuse/LodVisibleSnapshotChecks.java": "e9453aa0dabe066bc44ee4eefb946eab1c8cfb6a"
+  },
+  "passed": {
+    "java_version": "21.0.12.1",
+    "strict_javac": true,
+    "assertions_each": 69984,
+    "runs": 2,
+    "negative_mutant": "expected_failure_assertion_4",
+    "crc": true,
+    "manifest_sha256": true,
+    "library_upload": "succeeded",
+    "allocation_old_bytes": 66480000,
+    "allocation_new_bytes": 21044568,
+    "synthetic_frames": 10000
+  },
+  "not_run": [
+    "Java25",
+    "Gradle9.2.1/NeoForge",
+    "Vulkan/OpenGL native",
+    "water pixels",
+    "GPU frame times",
+    "VRAM",
+    "FSR temporal/DLSS",
+    "JAR"
+  ],
+  "grade": {
+    "distance": 6.5,
+    "mesh": 6.95,
+    "gpu": 4.5,
+    "upscaling": 5,
+    "compat": 5.25,
+    "validation": 5.65,
+    "mean": 5.64,
+    "previous": 5.63
+  },
+  "artifact": {
+    "name": "DeepPrimal_Renderer_VisibleSnapshotReuse_20261029_74d7447_SourceEvidence.zip",
+    "size_bytes": 5512,
+    "sha256": "3415c4ae783587a647cad5b9d66f2c929d38971cce03de01b23244d691c48792",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_VisibleSnapshotReuse_20261029_74d7447_SourceEvidence.zip"
+  },
+  "scope": "renderer only",
+  "external_engine_grade_unchanged": 5
+}

@@ -28,3 +28,7 @@ GPU VRAM, FPS or native allocation measurement).
 Open: owner Java25 Gradle/NeoForge, native Vulkan/OpenGL and transparent-water
 pixels, same-scene p50/p95/p99 CPU/GPU frame, VRAM and allocation profiles,
 resize/save/reopen/reload/shutdown, genuine temporal FSR/DLSS integration.
+
+Outlier retention bound: a collected frame exceeding 32,768 parts clears and
+releases the reusable backing array; the next frame starts with a new collector.
+Focused regression now passes 69,984 assertions per strict Java21 run.
