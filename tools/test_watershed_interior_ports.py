@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import tempfile
@@ -15,11 +16,27 @@ def run(source,out):
     cmd=[os.environ.get('JAVAC','javac'),'--release','21','-Xlint:all','-Werror',
          '-d',str(out),str(source),str(TOPOLOGY),str(CHECKS)]
     c=subprocess.run(cmd,capture_output=True,text=True)
-    if c.returncode: return False,c.stdout+c.stderr
+    if c.returncode:
+        raise RuntimeError(f"{source}: Java compilation failed (exit {c.returncode}):\n"
+                           + c.stdout + c.stderr)
     p=subprocess.run([os.environ.get('JAVA','java'),'-ea','-Xverify:all',
                       '-cp',str(out),'WatershedInteriorPortRoutesChecks'],
                      capture_output=True,text=True)
-    return p.returncode==0 and 'V8_INTERIOR_ROUTES_PASS' in p.stdout,p.stdout+p.stderr
+    log = p.stdout + p.stderr
+    if p.returncode == 0:
+        if "V8_INTERIOR_ROUTES_PASS" not in p.stdout:
+            raise RuntimeError(f"{source}: Java checks exited without success marker:\n" + log)
+        return True, log
+    # A compiler/launcher/VM failure is not evidence that a mutant was caught.
+    # Require an uncaught test assertion with this fixture in the stack trace.
+    assertion = re.search(
+        r'^(?:Exception in thread "[^"]+" |Caused by: )java\.lang\.AssertionError(?::|$)',
+        p.stderr, re.MULTILINE)
+    if (p.returncode != 1 or not assertion
+            or "\tat WatershedInteriorPortRoutesChecks." not in p.stderr):
+        raise RuntimeError(f"{source}: Java checks failed without a fixture assertion "
+                           f"(exit {p.returncode}):\n" + log)
+    return False, log
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path)

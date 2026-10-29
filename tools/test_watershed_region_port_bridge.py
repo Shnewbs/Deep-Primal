@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import tempfile
@@ -19,11 +20,27 @@ def run(source, path):
          "-d",str(path),str(source),str(TOPOLOGY),str(ROOT / "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedInteriorPortRoutes.java"),str(CHECKS),
          *(str(p) for p in sorted(STUBS.glob("*.java")))]
     c=subprocess.run(cmd, capture_output=True, text=True, check=False)
-    if c.returncode: return False,c.stdout+c.stderr
+    if c.returncode:
+        raise RuntimeError(f"{source}: Java compilation failed (exit {c.returncode}):\n"
+                           + c.stdout + c.stderr)
     r=subprocess.run([os.environ.get("JAVA","java"),"-ea","-Xverify:all",
                       "-cp",str(path),"WatershedRegionPortBridgeChecks"],
                      capture_output=True,text=True,check=False)
-    return r.returncode==0 and "V8_REGION_PORT_BRIDGE_PASS" in r.stdout,r.stdout+r.stderr
+    log = r.stdout + r.stderr
+    if r.returncode == 0:
+        if "V8_REGION_PORT_BRIDGE_PASS" not in r.stdout:
+            raise RuntimeError(f"{source}: Java checks exited without success marker:\n" + log)
+        return True, log
+    # A compiler/launcher/VM failure is not evidence that a mutant was caught.
+    # Require an uncaught test assertion with this fixture in the stack trace.
+    assertion = re.search(
+        r'^(?:Exception in thread "[^"]+" |Caused by: )java\.lang\.AssertionError(?::|$)',
+        r.stderr, re.MULTILINE)
+    if (r.returncode != 1 or not assertion
+            or "\tat WatershedRegionPortBridgeChecks." not in r.stderr):
+        raise RuntimeError(f"{source}: Java checks failed without a fixture assertion "
+                           f"(exit {r.returncode}):\n" + log)
+    return False, log
 
 def main():
     parser=argparse.ArgumentParser()
