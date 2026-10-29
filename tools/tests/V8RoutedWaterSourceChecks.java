@@ -326,11 +326,117 @@ public final class V8RoutedWaterSourceChecks {
         V8RoutedWaterSource.closedOceanDomainFingerprint(r4)),"mask edit changes v6 fingerprint");
   }
 
+  /**
+   * Independent audit 2026-10-29T0735: the native priority-flood sample calls
+   * four ocean corners with OR, but v6's classification requires all four
+   * graph masks. This source/API-double fixture proves opt-in v7 uses the
+   * already routed marine flood for its label without changing physical stage
+   * or rewriting saved v6. The real WatershedRegion is NOT compiled here.
+   */
+  private static void shorelineAlignmentVersionSeven() {
+    int[] thresholds={-16,16,8176,-8176};
+    int[] coast={-1,1,8191,-8191};
+    int[] seaward={-64,-32,8128,-8256};
+    int[] inland={32,64,8224,-8128};
+    for(int iteration=0;iteration<thresholds.length;iteration++) {
+      int cutoff=thresholds[iteration];
+      var original=v4(-74000L+iteration,2,1200+iteration);
+      var nodes=new ArrayList<DensityGraph.Node>();
+      nodes.add(DensityGraph.Node.constant("base_height",80));
+      nodes.add(DensityGraph.Node.operation("coordinate_x",DensityGraph.Op.X));
+      nodes.add(DensityGraph.Node.constant("domain_offset",-cutoff));
+      nodes.add(DensityGraph.Node.operation("ocean_domain",DensityGraph.Op.ADD,
+          "coordinate_x","domain_offset"));
+      nodes.add(DensityGraph.Node.constant("continentalness",-0.4));
+      nodes.add(DensityGraph.Node.constant("zero",0));
+      nodes.add(DensityGraph.Node.operation("inert_domain",DensityGraph.Op.MULTIPLY,
+          "ocean_domain","zero"));
+      nodes.add(DensityGraph.Node.operation("inert_continental",DensityGraph.Op.MULTIPLY,
+          "continentalness","zero"));
+      nodes.add(DensityGraph.Node.operation("height_with_domain",DensityGraph.Op.ADD,
+          "base_height","inert_domain"));
+      nodes.add(DensityGraph.Node.operation("height",DensityGraph.Op.ADD,
+          "height_with_domain","inert_continental"));
+      nodes.add(DensityGraph.Node.operation("axis_y",DensityGraph.Op.Y));
+      nodes.add(DensityGraph.Node.constant("minus_one",-1));
+      nodes.add(DensityGraph.Node.operation("negative_y",DensityGraph.Op.MULTIPLY,
+          "axis_y","minus_one"));
+      nodes.add(DensityGraph.Node.operation("density",DensityGraph.Op.ADD,
+          "height","negative_y"));
+      var r4=new V8GeneratorSnapshot(4,original.seed(),original.minY(),original.height(),
+          new DensityGraph.Definition(1,"density",nodes),original.ground(),
+          original.blendPolicy(),original.surfacePolicy(),original.climateBinding());
+      var old=V8RoutedWaterSource.authorClosedOceanDomain(r4);
+      var fresh=V8RoutedWaterSource.authorShorelineAligned(r4);
+      check(fresh.version()==5 && fresh.density().equals(old.density()),
+          "v7 keeps r5 saved graph envelope and does not rewrite v6");
+      check(!fresh.hydrologyBinding().equals(old.hydrologyBinding()),
+          "v7 explicitly stores a distinct authoring policy");
+      check(fresh.hydrologyBinding().sourceFingerprint().equals(
+          V8RoutedWaterSource.shorelineAlignedFingerprint(r4)),"v7 saved fingerprint");
+      var decoded=V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(fresh));
+      check(decoded.equals(fresh),"v7 modeled save/reopen parity");
+      var v6=V8RoutedWaterSource.open(old,r4.seed());
+      var v7=V8RoutedWaterSource.open(decoded,r4.seed());
+      check(!v6.shorelineAlignedPolicy() && v7.shorelineAlignedPolicy(),
+          "saved routing policy restored without migrating v6");
+      check(v7.closedOceanInteriorPolicy() && v7.oceanDomainPolicy(),
+          "v7 retains strict saved interior mask and water-domain provenance");
+      for(int z:new int[]{-33,0,2048,8191}) {
+        var legacyCoast=v6.plan(coast[iteration],z);
+        var newCoast=v7.plan(coast[iteration],z);
+        check(legacyCoast.kind()==V8WaterDomainAdmission.WaterKind.LAKE
+            && legacyCoast.plannedStage()==96,
+            "v6 mixed 2x2 coastal mask reproduces audited false lake label");
+        check(newCoast.kind()==V8WaterDomainAdmission.WaterKind.OCEAN
+            && newCoast.plannedStage()==96,
+            "v7 coastal sea labels match routed sea stage");
+        check(legacyCoast.plannedGround()==newCoast.plannedGround()
+            && legacyCoast.speed()==newCoast.speed()
+            && legacyCoast.plannedStage()==newCoast.plannedStage(),
+            "v7 relabels coastal water without creating physical volume or stage");
+        check(v6.plan(coast[iteration],z).equals(legacyCoast),
+            "older saved v6 replay retains its original label");
+        var olderSea=v6.plan(seaward[iteration],z);
+        var newerSea=v7.plan(seaward[iteration],z);
+        check(olderSea.kind()==V8WaterDomainAdmission.WaterKind.OCEAN
+            && newerSea.kind()==V8WaterDomainAdmission.WaterKind.OCEAN,
+            "uniformly admitted marine columns unchanged");
+        check(v7.plan(inland[iteration],z).kind()!=V8WaterDomainAdmission.WaterKind.OCEAN,
+            "mask-denied inland basin remains protected");
+        check(v7.cachedRegionCount()<=2 && v7.cachedOceanSamplerCount()<=4,
+            "shoreline routing remains bounded");
+      }
+      var restored=V8RoutedWaterSource.open(decoded,r4.seed());
+      for(int z:new int[]{8191,2048,0,-33})
+        check(v7.plan(coast[iteration],z).equals(restored.plan(coast[iteration],z)),
+            "reversed query order preserves v7 signed-coast classification");
+      var jobs=new ArrayList<CompletableFuture<Boolean>>();
+      int shoreX=coast[iteration];
+      var expected=v7.plan(shoreX,2048);
+      for(int n=0;n<8;n++)
+        jobs.add(CompletableFuture.supplyAsync(()->v7.plan(shoreX,2048).equals(expected)));
+      for(var job:jobs) check(job.join(),"parallel signed coast plan deterministic");
+      reject(()->V8RoutedWaterSource.open(fresh,r4.seed()+1),"v7 wrong world seed");
+      reject(()->V8RoutedWaterSource.authorShorelineAligned(fresh),"no in-place r5 migration");
+      var changed=new ArrayList<DensityGraph.Node>(nodes);
+      for(int i=0;i<changed.size();i++)if(changed.get(i).id().equals("domain_offset"))
+        changed.set(i,DensityGraph.Node.constant("domain_offset",-cutoff+1));
+      var edited=new V8GeneratorSnapshot(4,r4.seed(),r4.minY(),r4.height(),
+          new DensityGraph.Definition(1,"density",changed),r4.ground(),
+          r4.blendPolicy(),r4.surfacePolicy(),r4.climateBinding());
+      check(!V8RoutedWaterSource.shorelineAlignedFingerprint(edited).equals(
+          V8RoutedWaterSource.shorelineAlignedFingerprint(r4)),
+          "saved ocean mask edit requires new v7 fingerprint");
+    }
+  }
+
   public static void main(String[] args) {
     authorAndReopen();coordinatesAndLeases();invalidHeightGraphs();
     optInOutletSeededPriorityFlood();
     optInSavedOceanDomain();
     closedOceanInteriorVersionSix();
+    shorelineAlignmentVersionSeven();
     System.out.println("V8_ROUTED_SOURCE_PASS checks="+checks+" samples="+sampled+
         " rejected="+rejected+" actualWatershed=API_DOUBLE");
   }

@@ -41,6 +41,10 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public static final int SAVED_OCEAN_DOMAIN_ROUTE_REVISION = 5;
   /** Opt-in v6: every ocean-flood node, not just edge seeds, obeys saved ocean_domain. */
   public static final int CLOSED_OCEAN_DOMAIN_ROUTE_REVISION = 6;
+  /** Explicit v7: material ocean labels match the routed OR-of-four sea shoreline. */
+  public static final int SHORELINE_ALIGNED_ROUTE_REVISION = 7;
+  private static final String SHORELINE_ALIGNED_FINGERPRINT =
+      "deepprimal-v8-routed-shoreline-four-corner-v7";
   private static final String CLOSED_OCEAN_DOMAIN_FINGERPRINT =
       "deepprimal-v8-closed-ocean-domain-interior-v6";
   private static final String SAVED_OCEAN_DOMAIN_FINGERPRINT =
@@ -203,6 +207,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   private final int marinePolicyRevision;
   private final boolean outletSeeded;
   private final boolean closedOceanInterior;
+  private final boolean shorelineAligned;
   private final LinkedHashMap<Long, Region> regions = new LinkedHashMap<>(4, .75f, true) {
     @Override protected boolean removeEldestEntry(Map.Entry<Long, Region> eldest) {
       return size() > MAX_RESIDENT_REGIONS;
@@ -210,13 +215,17 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   };
 
   private V8RoutedWaterSource(V8GeneratorSnapshot saved, String fingerprint,
-      int marinePolicyRevision, boolean outletSeeded, boolean closedOceanInterior) {
+      int marinePolicyRevision, boolean outletSeeded, boolean closedOceanInterior,
+      boolean shorelineAligned) {
     this.saved = saved;
     this.fingerprint = fingerprint;
     this.graph = saved.density().compile(saved.seed());
     this.marinePolicyRevision = marinePolicyRevision;
     this.outletSeeded = outletSeeded;
     this.closedOceanInterior = closedOceanInterior;
+    this.shorelineAligned = shorelineAligned;
+    if (shorelineAligned && !closedOceanInterior)
+      throw new IllegalArgumentException("shoreline alignment requires closed ocean interior");
     this.stitchedMarine = marinePolicyRevision == 0 ? null
         : new V8OceanConnectivity(graph, marinePolicyRevision);
     this.climate = new TerrainEngine(saved.seed(), V8SavedClimateSource.REFERENCE_TERRAIN_REVISION,
@@ -295,6 +304,29 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
         V8HydrologyBinding.pinned(closedOceanDomainFingerprint(revision4)));
   }
 
+  /**
+   * Opt-in v7: all four graph-mask corners need not be marine for a routed
+   * sea surface to cover a coastal column. Preserve existing v6 and older
+   * classifications, which are part of their saved-profile fingerprints.
+   */
+  public static V8GeneratorSnapshot authorShorelineAligned(V8GeneratorSnapshot revision4) {
+    Objects.requireNonNull(revision4, "saved revision 4");
+    if (revision4.version() != V8GeneratorSnapshot.CLIMATE_VERSION)
+      throw new IllegalArgumentException("shoreline authoring requires explicit revision 4");
+    validateHeightChannel(revision4.density());
+    validateContinentalChannel(revision4.density());
+    validateOceanDomainChannel(revision4.density());
+    return revision4.withHydrologyBinding(
+        V8HydrologyBinding.pinned(shorelineAlignedFingerprint(revision4)));
+  }
+
+  public static String shorelineAlignedFingerprint(V8GeneratorSnapshot profile) {
+    validateOceanDomainChannel(profile.density());
+    validateContinentalChannel(profile.density());
+    return fingerprintFor(profile, SHORELINE_ALIGNED_FINGERPRINT,
+        SHORELINE_ALIGNED_ROUTE_REVISION);
+  }
+
   public static String closedOceanDomainFingerprint(V8GeneratorSnapshot profile) {
     validateOceanDomainChannel(profile.density());
     validateContinentalChannel(profile.density());
@@ -328,6 +360,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     int marineRevision = 0;
     boolean useOutletSeeds = false;
     boolean gateInterior = false;
+    boolean alignShoreline = false;
     if (!fingerprint(revision5).equals(pinned)) {
       validateContinentalChannel(revision5.density());
       if (stitchedFingerprint(revision5).equals(pinned))
@@ -346,9 +379,16 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
         marineRevision = V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
         useOutletSeeds = true;
         gateInterior = true;
+      } else if (revision5.density().nodes().stream().anyMatch(n -> n.id().equals("ocean_domain"))
+          && shorelineAlignedFingerprint(revision5).equals(pinned)) {
+        marineRevision = V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
+        useOutletSeeds = true;
+        gateInterior = true;
+        alignShoreline = true;
       } else throw new IllegalArgumentException("V8 routed source differs from saved provenance");
     }
-    return new V8RoutedWaterSource(revision5, pinned, marineRevision, useOutletSeeds, gateInterior);
+    return new V8RoutedWaterSource(revision5, pinned, marineRevision,
+        useOutletSeeds, gateInterior, alignShoreline);
   }
 
   /** Authority for the existing admitted V8 ecotone path; no arbitrary callback digest. */
@@ -361,6 +401,7 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public String sourceFingerprint() { return fingerprint; }
   public boolean outletSeededPolicy() { return outletSeeded; }
   public boolean closedOceanInteriorPolicy() { return closedOceanInterior; }
+  public boolean shorelineAlignedPolicy() { return shorelineAligned; }
   public boolean stitchedPolicy() { return stitchedMarine != null; }
   public boolean oceanDomainPolicy() {
     return marinePolicyRevision == V8OceanConnectivity.SAVED_OCEAN_DOMAIN_POLICY_REVISION;
@@ -399,7 +440,13 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
     if (!wet) kind = V8WaterDomainAdmission.WaterKind.DRY;
     else if (routed.water() == V8WaterDomainAdmission.SEA_PLANE
         && original <= V8WaterDomainAdmission.SEA_PLANE
-        && (stitchedMarine == null ? region.oceanAt(worldX, worldZ)
+        // Routing samples a sea surface when ANY of its four ocean lattice
+        // corners is connected (WatershedRegion.sample). The v7 saved-policy
+        // label must use that SAME region-seeded flood, not the older all-four
+        // graph-mask query that calls these mixed coastal columns lakes.
+        // Keep v1-v6 unchanged on reopening.
+        && ((shorelineAligned || stitchedMarine == null)
+            ? region.oceanAt(worldX, worldZ)
             : stitchedMarine.isMarineAt(worldX, worldZ)))
       kind = V8WaterDomainAdmission.WaterKind.OCEAN;
     else if (routed.speed() > 0) kind = V8WaterDomainAdmission.WaterKind.RIVER;
