@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0957-normal-angle-fastpath",
+  "source_commit": "ab15e44cdad0a40966b6682f06b486031bb3aa5e",
+  "claim_commit": "2b447a3fab9aeaa81a96ad45743c82278e00ad99",
+  "parent_before_claim": "954e2323727170ea9ef56b2ac4db59fa5f497c32",
+  "source_blob": "af8f3870bdec7013e3e26becff72e7771ca8d51a",
+  "test_blob": "cb18b130b2410447c85692370321ae9412645605",
+  "caller_blob": "2bb1c95d9b800da7b036d0b1a89f4249afca3c87",
+  "modified_production": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumAdaptiveGate.java"
+  ],
+  "added_test": "docs/renderer-jams/20261029-normal-angle-fastpath/tests/com/shnewbs/deepprimal/lod/client/LodPageFrustumNormalAngleChecks.java",
+  "java": "OpenJDK 21.0.12.1",
+  "runs": 17,
+  "assertions": 4218937,
+  "source_checks": "10/10",
+  "negative_mutant": "expected failure at assertion 50",
+  "median_benchmark": "two synthetic 41-sample trials, old 534024/537039 ns vs new 167413/167582 ns per 150k ops; not FPS",
+  "grade": 5.73,
+  "previous_grade": 5.72,
+  "java25_gradle": false,
+  "actual_gpu": false,
+  "qualified_jar": false,
+  "artifact": {
+    "filename": "DeepPrimal_Renderer_NormalAngleFastPath_20261029_ab15e44_SourceEvidence.zip",
+    "bytes": 31071,
+    "sha256": "6e6dff84c6dc3c970948f19c4a1b5508b9b221dee694901663b8a68a8dd5f6d1",
+    "entries": 25,
+    "crc": true,
+    "manifest_sha256": true,
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_NormalAngleFastPath_20261029_ab15e44_SourceEvidence.zip",
+    "uploaded": true
+  },
+  "unrun": [
+    "Java25 full Gradle/NeoForge",
+    "native Vulkan/OpenGL",
+    "Windows/RTX",
+    "FSR temporal/DLSS dispatch",
+    "GPU pixel/VRAM/frame-time",
+    "client resize/reload/worldswitch/save-reopen/shutdown",
+    "JAR packaging"
+  ]
+}
