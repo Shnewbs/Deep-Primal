@@ -46,7 +46,15 @@ def main():
       ("unobserved_water_classification",[("first.ocean() != n.ocean() || first.lake() != n.lake()",
          "false")]),
       ("unobserved_downstream_receiver",[("!Objects.equals(first.downstreamKey(), n.downstreamKey())",
-         "false")])
+         "false")]),
+      ("unbounded_downstream_parent",[("|| dx > WatershedOutletTopology.STEP || dz > WatershedOutletTopology.STEP",
+         "|| false")]),
+      ("discarded_receiver_link",[("if (receiver == null || !local.containsKey(receiver)) continue;",
+         "if (true) continue;")]),
+      ("inverted_receiver_stage_accepted",[("if (node.plannedStage() + 1e-7 < downstream.plannedStage())",
+         "if (false)")]),
+      ("ocean_parent_accepted",[("if (node.ocean() && node.downstreamKey() != null)",
+         "if (false)")])
     ]
     with tempfile.TemporaryDirectory(prefix="dp-v8-port-bridge-") as tmp:
         tmp=Path(tmp)

@@ -125,6 +125,10 @@ public final class WatershedRegionPortBridge {
             || !Double.isFinite(node.catchmentArea())
             || node.catchmentArea() < 0)
           throw new IllegalArgumentException("invalid watershed border measurement");
+        // The production watershed's parent[] is an adjacent 8-neighbour
+        // lattice index within this region. Reject forged/out-of-range edges
+        // before a receiver can be used as a trusted cross-region observation.
+        validateReceiver(node, ox, oz, endX, endZ);
         long key = WatershedOutletTopology.key(x, z);
         if (local.putIfAbsent(key, node) != null)
           throw new IllegalArgumentException("repeated boundary node in one region");
@@ -141,6 +145,19 @@ public final class WatershedRegionPortBridge {
         join(local, links, (long) ox + offset, endZ, (long) ox + offset + step, endZ);
         join(local, links, ox, (long) oz + offset, ox, (long) oz + offset + step);
         join(local, links, endX, (long) oz + offset, endX, (long) oz + offset + step);
+      }
+      // A parent directly connecting two observed perimeter nodes is real
+      // watershed topology, including diagonal corner crossings. Previously
+      // the bridge supplied only artificial orthogonal perimeter walks.
+      // Interior parents are NOT assumed to exit at another observed port:
+      // those paths still require an authoritative interior export.
+      for (var node : local.values()) {
+        Long receiver = node.downstreamKey();
+        if (receiver == null || !local.containsKey(receiver)) continue;
+        var downstream = local.get(receiver);
+        if (node.plannedStage() + 1e-7 < downstream.plannedStage())
+          throw new IllegalArgumentException("inverted watershed receiver stage");
+        join(local, links, node.x(), node.z(), downstream.x(), downstream.z());
       }
     }
     if (samples.size() > WatershedOutletTopology.MAX_PORTS
@@ -174,6 +191,26 @@ public final class WatershedRegionPortBridge {
             (int) (e.getKey().b() >> 32), (int) e.getKey().b(),
             e.getValue())));
     return new Draft(ports, edges, shared, unresolved);
+  }
+
+  /** Only production-valid 8-neighbour parents within the source region. */
+  private static void validateReceiver(WatershedRegion.BoundaryNode node,
+      long ox, long oz, long maxX, long maxZ) {
+    if (node.ocean() && node.lake())
+      throw new IllegalArgumentException("ocean node cannot be an inland lake");
+    if (node.ocean() && node.downstreamKey() != null)
+      throw new IllegalArgumentException("ocean node cannot have a land receiver");
+    if (node.downstreamKey() == null) return;
+    long receiver = node.downstreamKey();
+    int rx = (int) (receiver >> 32), rz = (int) receiver;
+    long dx = Math.abs((long) rx - node.x());
+    long dz = Math.abs((long) rz - node.z());
+    if (rx < ox || rx > maxX || rz < oz || rz > maxZ
+        || Math.floorMod(rx, WatershedOutletTopology.STEP) != 0
+        || Math.floorMod(rz, WatershedOutletTopology.STEP) != 0
+        || dx > WatershedOutletTopology.STEP || dz > WatershedOutletTopology.STEP
+        || (dx == 0 && dz == 0))
+      throw new IllegalArgumentException("invalid watershed downstream parent coordinate");
   }
 
   private static void join(Map<Long, WatershedRegion.BoundaryNode> local,

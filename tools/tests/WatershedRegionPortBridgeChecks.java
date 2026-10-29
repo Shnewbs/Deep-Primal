@@ -84,6 +84,48 @@ public final class WatershedRegionPortBridgeChecks {
         WatershedOutletTopology.key(8192,32))),"nonmarine label");
     reject(()->WatershedRegionPortBridge.assemble(List.of(a,b,b),Set.of()),
         "duplicate region");
+    // Dev78: actual adjacent downstream perimeter parents, including diagonals,
+    // now contribute physical spill links. A source with an interior receiver
+    // must NOT be promoted to a fabricated boundary outlet.
+    var alone=WatershedRegionPortBridge.assemble(List.of(a),Set.of());
+    var diagonal=change(a,0,32,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(32,0)));
+    var diagonalDraft=WatershedRegionPortBridge.assemble(List.of(diagonal),Set.of());
+    check(diagonalDraft.links().size()==alone.links().size()+1,
+        "real diagonal downstream perimeter link must be exported");
+    check(signature(diagonalDraft).equals(signature(
+        WatershedRegionPortBridge.assemble(List.of(diagonal),Set.of()))),
+        "receiver-link canonical replay");
+    var interior=change(a,0,32,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(32,32)));
+    check(WatershedRegionPortBridge.assemble(List.of(interior),Set.of()).links().size()
+        ==alone.links().size(),"interior receiver cannot invent boundary shortcut");
+    var inverted=change(diagonal,0,32,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),90,
+        n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(inverted),Set.of()),
+        "water stage increases along observed downstream parent");
+    for (long invalid : new long[]{WatershedOutletTopology.key(96,0),
+        WatershedOutletTopology.key(-32,32),WatershedOutletTopology.key(0,32),
+        ((long)33<<32)|32L}) {
+      var badReceiver=change(a,0,32,n->new WatershedRegion.BoundaryNode(
+          n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+          n.catchmentArea(),n.ocean(),n.lake(),invalid));
+      reject(()->WatershedRegionPortBridge.assemble(List.of(badReceiver),Set.of()),
+          "invalid distant, external, self or non-lattice downstream parent");
+    }
+    var oceanParent=change(neg1,-8192,-8192,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),n.lake(),WatershedOutletTopology.key(-8160,-8192)));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(oceanParent),Set.of()),
+        "ocean source must be a downstream root");
+    var oceanLake=change(neg1,-8192,-8192,n->new WatershedRegion.BoundaryNode(
+        n.x(),n.z(),n.ground(),n.floodedElevation(),n.plannedStage(),
+        n.catchmentArea(),n.ocean(),true,n.downstreamKey()));
+    reject(()->WatershedRegionPortBridge.assemble(List.of(oceanLake),Set.of()),
+        "ocean and lake classes mutually exclusive");
     var skew=change(b,8192,32,n->new WatershedRegion.BoundaryNode(
         n.x(),n.z(),n.ground()+1,n.floodedElevation(),n.plannedStage(),
         n.catchmentArea(),n.ocean(),n.lake(),n.downstreamKey()));
