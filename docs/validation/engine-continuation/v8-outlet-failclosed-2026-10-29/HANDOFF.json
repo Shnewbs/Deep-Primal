@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-20261029T2315-dev90-outlet-failclosed",
+  "source_only_version": "0.0.1-alpha.29-dev.90-outlet-failclosed.1",
+  "source_commit": "ad3a422985b4200a1c18370c20697fd5c766a4a6",
+  "pinned_main_checked_at": "2026-10-29T23:16:30Z",
+  "old_git_head_before_claim": "04ae92ff2c58deca00a0f405ae84c29f1f2ddde0",
+  "claim_commit": "842c07101205eaa7bcd4d135313c8e7c11433c76",
+  "implemented": [
+    "Fail-closed orphan .pending on open/transaction; no automatic deletion",
+    "canonical path-based single-writer lock across directory aliases",
+    "symlink/hardlink guard for checkpoint and lock/pending paths on supporting Unix providers"
+  ],
+  "tests": {
+    "java": "OpenJDK21.0.12.1 strict --release 21 -Xlint:all -Werror",
+    "positive": [
+      149,
+      149
+    ],
+    "mutants_rejected": [
+      8,
+      8
+    ],
+    "results_sha256": [
+      "8a4e2f42596aedb2480c02558e4860959890b38442d7e041c083d6530417a963",
+      "d0825ec727e02266d38fce6944754b749551d79509b916b790afe584f53fe3b3"
+    ],
+    "previous_test_count_failure": "Historical count 133 required update to 149",
+    "authority_suite_timeout": true
+  },
+  "current_global_version": "0.0.1-alpha.29-dev.88-vegetation-receipts.1",
+  "owner_confirmed_playable": "0.0.1-alpha.29-dev.53-v8callback.1",
+  "root_work_state_validator": "not run on complete pinned local checkout; root unchanged",
+  "external_audit": "docs/engine-hourly-audits/2026-10-29T2131-5f7c3f68/REVIEW.md",
+  "external_grade": 5,
+  "no_jar": true,
+  "remaining": [
+    "native loaded/unloaded finite-cell plus V8 journal atomic account reconciliation",
+    "world/profile saved data identity in real Minecraft",
+    "Java25 Gradle compile and NeoForge native save/reopen and GPU acceptance",
+    "V8 terrain blend native ecology and pre-hydrology relief acceptance",
+    "whole-engine independent grade strictly >8.5 and complete water gates"
+  ]
+}
