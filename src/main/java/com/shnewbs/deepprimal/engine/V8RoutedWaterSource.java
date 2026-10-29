@@ -371,6 +371,9 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
   public int cachedMarineRegionCount() {
     return stitchedMarine == null ? 0 : stitchedMarine.cachedRegionCount();
   }
+  public int cachedOceanSamplerCount() {
+    return stitchedMarine == null ? 0 : stitchedMarine.cachedSamplerCount();
+  }
   public synchronized int cachedRegionCount() { return regions.size(); }
 
   /** One pre-hydrology V8 graph, routed from its frozen absolute-coordinate height. */
