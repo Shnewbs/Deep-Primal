@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0802-pose-frustum",
+  "acquisition_main": "38e846971c08a37e42dbce4143d33a8f0646cf8f",
+  "claim_commit": "dd811eb25c7ed50c40ccc0034b9969eb36b704e2",
+  "source_candidate": "5713d70252e658625fd0fff1b6c911efba073359",
+  "source_implementation_commits": [
+    "fe9b74d4db7dd5ba94f314786719d0923a0bfeef",
+    "743b2f8244f3ee782e7e61a5dbaa947564884489"
+  ],
+  "test_commit": "5713d70252e658625fd0fff1b6c911efba073359",
+  "review_commit": "cfc4fea3669621508acaffc6650660745f743211",
+  "readme_commit": "f6687aeab8d7ff374f72368f884d7583651b3fc4",
+  "source_blobs": {
+    "helper": "39531d82e55d905b503d52d439913914c7c1cfc1",
+    "caller": "2bb1c95d9b800da7b036d0b1a89f4249afca3c87",
+    "test": "61852c3fdd13613a4f85830612560113f2976d2b"
+  },
+  "source_checks": "16/16 PASS",
+  "java": "OpenJDK 21.0.12.1",
+  "javac": "--release 21 -Xlint:all -Werror",
+  "runtime": "-ea -Xverify:all",
+  "assertions": 1103389,
+  "negative_mutant": "fails at assertion 8 as expected",
+  "scores": {
+    "distance": 6.55,
+    "meshing": 6.95,
+    "gpu": 4.55,
+    "upscaling": 5,
+    "compatibility": 5.3,
+    "validation": 5.9,
+    "average": 5.71,
+    "delta": 0.01
+  },
+  "artifact": {
+    "name": "DeepPrimal_Renderer_PoseFrustum_20261029_5713d70_SourceEvidence.zip",
+    "bytes": 12685,
+    "sha256": "1ecaa9c0c209f03d71dac37e0379a334febc777ca0c8a3dd5948df1c1061e726",
+    "zip_crc": true,
+    "manifest": true,
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_PoseFrustum_20261029_5713d70_SourceEvidence.zip",
+    "library_uploaded": true
+  },
+  "owner_override": "Owner performs full Java25 Gradle/Minecraft/GPU JAR builds; source-only work not blocked",
+  "unrun": [
+    "Java25 full Gradle/NeoForge",
+    "native Vulkan/OpenGL and water pixels",
+    "GPU FPS/frame p50/p95/p99 and VRAM",
+    "RTX DLSS and temporal FSR",
+    "packaged JAR and native payload/lifecycle"
+  ],
+  "source_only": true,
+  "qualified_jar": false,
+  "other_workstreams_modified": false
+}
