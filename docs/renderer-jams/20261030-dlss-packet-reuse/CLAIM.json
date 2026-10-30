@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "renderer-hourly-feature-only",
   "jam_id": "renderer-20261030T0200-dlss-packet-reuse",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-30T02:00:00Z",
   "expires_at": "2026-10-30T02:30:00Z",
   "source_head_observed": "d6f84cd7d887099c1ed90c322e646014cba82650",
@@ -21,5 +21,17 @@
     "independent auditor"
   ],
   "build_owner": "owner October27; no full Gradle/GPU/JAR",
-  "no_subagents": true
+  "no_subagents": true,
+  "lease_released": true,
+  "released_at": "2026-10-30T02:05:30Z",
+  "source_commit": "18c8eb774f58a96067eb17f04d0fb3b607ccbc39",
+  "source_blobs": {
+    "DlssVulkanProvider.java": "0549c141cb222261fc7a3d522a306e9aa2f167b0",
+    "DlssPackedFrame.java": "4cbccfbf8cb3c55f93ca549ddde379a581b2ac1a",
+    "DlssPackedFrameChecks.java": "299a51362b0b0b4e002e750e3d6977fbd39c48a3",
+    "DlssFrame.java_unmodified": "d6d0d6a3d3e154d82afc170c0743b250749eb222"
+  },
+  "review": "docs/renderer-jams/20261030-dlss-packet-reuse/REVIEW.md",
+  "score": 5.88,
+  "artifact_library_file_id": "libfile_5b85e60956008191996f1a5608ebff9a"
 }

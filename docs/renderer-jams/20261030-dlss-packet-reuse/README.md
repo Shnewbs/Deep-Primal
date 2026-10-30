@@ -1,0 +1,9 @@
+# Renderer jam 47 — reuse DLSS JNI frame arrays
+
+**Source commit:** [`18c8eb774f58a96067eb17f04d0fb3b607ccbc39`](https://github.com/Shnewbs/Deep-Primal/commit/18c8eb774f58a96067eb17f04d0fb3b607ccbc39) (claim parent `1d98333bd05c0fee93e00fb7b22ba08ce9212669`). Scope is the optional NVIDIA NGX Vulkan provider only.
+
+Instead of allocating a fresh `long[8]` image/view packet and `int[4]` format packet on every optional DLSS evaluation, [`DlssPackedFrame`](https://github.com/Shnewbs/Deep-Primal/blob/18c8eb774f58a96067eb17f04d0fb3b607ccbc39/renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssPackedFrame.java#L9-L26) owns two arrays per render-thread session. [The provider](https://github.com/Shnewbs/Deep-Primal/blob/18c8eb774f58a96067eb17f04d0fb3b607ccbc39/renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssVulkanProvider.java#L175-L186) fills those in the established ABI order. The C++ JNI bridge uses synchronous `GetLongArrayRegion` / `GetIntArrayRegion` copies; no array retention crosses evaluation. Existing owner-thread, failure latch, history, resource distinctness and close/drain rules remain.
+
+**Java21:** strict compilation, three runs × 300,002 packet assertions = 900,006; one intentionally broken reallocating mutant rejected. Three isolated Java benchmark processes reported old/new **112/0 allocated bytes per frame packet** in a `volatile`-escaping synthetic fixture, p50 old 8.0–8.7 ns versus new 3.8–4.1 ns. These are not JNI/GPU/FPS results. Java25/Gradle/NeoForge, RTX, Vulkan/OpenGL pixels and full builds were not run under the owner's build policy.
+
+[Read the scored self-audit](REVIEW.md) and [evidence ledger](LEDGER.json). Source/testing archive `DeepPrimal_Renderer_Jam47_DlssPacketReuse_20261030_18c8eb7_SourceEvidence.zip` is retained in Library at `/Deep Primal/Renderer Jams/`. It is **not a JAR**.
