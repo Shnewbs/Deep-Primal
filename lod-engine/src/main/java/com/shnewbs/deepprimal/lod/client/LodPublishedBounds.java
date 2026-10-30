@@ -80,6 +80,32 @@ final class LodPublishedBounds {
           continue;
         }
       }
+      // Value-equal pages are common after independent mesh extraction. Once
+      // the first two finite boxes match, scan the remaining parts without
+      // entering the union path; this preserves the representative marker and
+      // avoids repeated min/max reductions for separately allocated AABBs.
+      if (parts.length >= 4 && parts[0] != parts[1]
+          && finiteOrdered(parts[0]) && sameBox(parts[0], parts[1])) {
+        AABB representativeBox = parts[0];
+        boolean allEqual = true;
+        for (int j = 2; j < parts.length; j++) {
+          if (!finiteOrdered(parts[j]) || !sameBox(representativeBox, parts[j])) {
+            allEqual = false;
+            break;
+          }
+        }
+        if (allEqual) {
+          pages[detail] = representativeBox;
+          long[] adjacentMask = new long[((parts.length - 1) >>> 6) + 1];
+          java.util.Arrays.fill(adjacentMask, -1L);
+          adjacentMask[0] &= ~1L;
+          int tail = parts.length & 63;
+          if (tail != 0) adjacentMask[adjacentMask.length - 1] &= (1L << tail) - 1;
+          runs[detail] = adjacentMask;
+          if (twoBackRuns != null) twoBackRuns[detail] = NO_REPEATS;
+          continue;
+        }
+      }
       AABB representative = parts.length == 0 ? null : parts[0];
       boolean wholePageValid = true;
       boolean uniform = true;
