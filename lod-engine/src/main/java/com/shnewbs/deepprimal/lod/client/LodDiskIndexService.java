@@ -253,6 +253,49 @@ final class LodDiskIndexService {
     retryCountdown = retryDelayTicks = 0;
   }
 
+  /**
+   * Read-only owner-thread snapshot for renderer diagnostics and bounded
+   * baseline capture. It reports requested work state without touching the
+   * cursor thread or forcing filesystem activity.
+   */
+  record Diagnostics(
+      boolean enabled,
+      boolean started,
+      boolean retryScheduled,
+      int retryCountdown,
+      int retryDelayTicks,
+      int queueSize,
+      int renewalSize,
+      long scanGeneration,
+      long examined,
+      long turns,
+      boolean cursorActive,
+      boolean cursorCompleted,
+      boolean missingDirectory,
+      boolean retiring,
+      int pendingApply) {}
+
+  Diagnostics diagnostics(boolean enabled, int queueSize) {
+    LodDiskNearestScan.Cursor active = cursor;
+    LodDiskNearestScan.Completion completed = active == null ? null : active.completed();
+    return new Diagnostics(
+        enabled,
+        started,
+        retryScheduled,
+        retryCountdown,
+        retryDelayTicks,
+        queueSize,
+        renewed.size(),
+        scanGeneration,
+        active == null ? 0L : active.examined(),
+        active == null ? 0L : active.turns(),
+        active != null,
+        completed != null,
+        active != null && active.missingDirectory(),
+        retiring != null,
+        apply == null ? 0 : 1);
+  }
+
   void reset() {
     if (cursor != null) {
       cursor.cancel();
