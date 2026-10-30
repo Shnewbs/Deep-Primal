@@ -66,8 +66,16 @@ public final class TerrainShapeV8 {
     return definition(floatingFeatures, 6);
   }
 
+  /**
+   * Explicit V7 new-world graph: broad foothill/plateau transition. V6's
+   * nearly empty overlap is frozen for existing saved graphs, not rewritten.
+   */
+  public static Definition definitionReliefV7(boolean floatingFeatures) {
+    return definition(floatingFeatures, 7);
+  }
+
   private static Definition definition(boolean floatingFeatures, int reliefRevision) {
-    if (reliefRevision < 1 || reliefRevision > 6)
+    if (reliefRevision < 1 || reliefRevision > 7)
       throw new IllegalArgumentException("unsupported V8 relief revision");
     Builder b=new Builder();
     b.c("zero",0);b.c("one",1);b.c("negative_one",-1);b.c("sea",96);b.c("continental_scale",320);
@@ -130,7 +138,9 @@ public final class TerrainShapeV8 {
         b.nodes.addAll(V8ReliefJoinV5.nodes());
       if (reliefRevision == 6)
         b.nodes.addAll(V8ReliefJoinV6.nodes());
-      if (reliefRevision == 3 || reliefRevision == 4 || reliefRevision == 5 || reliefRevision == 6) {
+      if (reliefRevision == 7)
+        b.nodes.addAll(V8ReliefJoinV7.nodes());
+      if (reliefRevision == 3 || reliefRevision == 4 || reliefRevision == 5 || reliefRevision == 6 || reliefRevision == 7) {
         // V3 is frozen: its historical .08..16 coastal release is unchanged.
         // V4 retains the same relief proposal, but constrains its final
         // sea-plane side relative to the historical height without flattening
@@ -141,9 +151,10 @@ public final class TerrainShapeV8 {
         b.op("guarded_relief_before_canyon",Op.LERP,
             "coastal_v1_hill_height",
             reliefRevision == 5 ? V8ReliefJoinV5.OUTPUT :
-            reliefRevision == 6 ? V8ReliefJoinV6.OUTPUT : "relief_before_canyon",
+            reliefRevision == 6 ? V8ReliefJoinV6.OUTPUT :
+            reliefRevision == 7 ? V8ReliefJoinV7.OUTPUT : "relief_before_canyon",
             "coastal_guard_release");
-        if (reliefRevision == 4 || reliefRevision == 5 || reliefRevision == 6)
+        if (reliefRevision == 4 || reliefRevision == 5 || reliefRevision == 6 || reliefRevision == 7)
           b.seaBlend("height","coastal_v1_hill_height",
               "guarded_relief_before_canyon","canyon_cut",96,16);
         else

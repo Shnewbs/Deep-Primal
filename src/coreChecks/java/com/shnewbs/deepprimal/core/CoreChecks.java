@@ -27,6 +27,7 @@ public final class CoreChecks {
     com.shnewbs.deepprimal.core.density.NoiseCoreChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityGraphChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.V8ReliefV5GraphChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.density.V8ReliefV7GraphChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityVolumeBoundsChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityVolumePlanChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.ReuseChecks.main(new String[0]);

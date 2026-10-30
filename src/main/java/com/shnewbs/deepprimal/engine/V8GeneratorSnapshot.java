@@ -221,6 +221,24 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
+  /**
+   * Explicit V7 relief authoring only. The complete graph is persisted in the
+   * existing versioned V8 snapshot envelope; reopening never recomputes V7
+   * from the current authoring recipe. No legacy save or native registration
+   * is changed by selecting this factory.
+   */
+  public static V8GeneratorSnapshot newReliefV7(long seed, int minY, int height,
+      GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+      V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    DensityGraph.Definition recipe = TerrainShapeV8.definitionReliefV7(floatingFeatures);
+    recipe.compile(seed); // reject invalid or over-budget VM before authoring
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        recipe,
+        Objects.requireNonNull(ground, "ground"),
+        Objects.requireNonNull(blendPolicy, "blendPolicy"),
+        Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
+  }
+
   /** New explicit revision, never an in-place reinterpretation of existing r3 saves. */
   public V8GeneratorSnapshot withClimateBinding(V8ClimateBinding binding) {
     if (version != SURFACE_VERSION)
