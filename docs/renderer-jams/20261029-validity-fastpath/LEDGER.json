@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T2359-validity-fastpath",
+  "status": "source_committed_audited_claim_released",
+  "initial_main": "fb88f7ca17b8a15a8e8ac40b647ccf1768c8be93",
+  "claim_commit": "d58359b9c70379a62280435d843671114dd7f403",
+  "parent_commit": "d58359b9c70379a62280435d843671114dd7f403",
+  "final_source_commit": "b26868b83cf68e2dde6f9bc298d980d64ee4efcd",
+  "source_blob": "035f7f7aba3914cf404a12942bcd1a34f4e927f5",
+  "previous_source_blob": "32ae24afbfa3c9c5d5f668ac860443f05fc336b2",
+  "source_version_unchanged": "0.0.1-alpha.29-dev.88-vegetation-receipts.1",
+  "changed_production_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java"
+  ],
+  "new_renderer_docs": [
+    "LodPublishedBoundsJam43.java",
+    "LodUniformIdentityFastpathChecks.java",
+    "LodUniformIdentityFastpathBench.java",
+    "stubs/AABB.java",
+    "stubs/LodPageFrustumBounds.java",
+    "README.md",
+    "REVIEW.md",
+    "LEDGER.json",
+    "BACKLOG.md",
+    "CLAIM.json"
+  ],
+  "consumed_previous_audit": "jam43 unique+invalid synthetic overhead, mixed tail and owner native gates; independent Dev90 no overlap",
+  "environment": "Linux x86_64 OpenJDK21.0.12.1; Temurin25 and archive absent",
+  "strict_compile": "PASS: javac --release 21 -Xlint:all -Werror (source + exact previous implementation + fixture; missing separate old LodPartFrustumRuns fixture excluded)",
+  "regression_command": "java -ea -Xverify:all -cp scratch/classes -Ddeepprimal.lod.pageFrustumBroadphase={true,false} -Ddeepprimal.lod.twoBackFrustumReuse={true,false} com.shnewbs.deepprimal.lod.client.LodUniformIdentityFastpathChecks (two repeats)",
+  "regression_processes": 8,
+  "regression_assertions": 938888,
+  "negative_mutation": "PASS: deliberately bad repeated invalid AABB rejected at assertion #95",
+  "benchmark_command": "java -ea -Xverify:all -cp scratch/classes com.shnewbs.deepprimal.lod.client.LodUniformIdentityFastpathBench <shape>; 2 runs x 7 shapes, 251 paired samples x 64 publications",
+  "matched_cpu_benchmark": {
+    "uniform_shared_old_new_p50_ns": [
+      [
+        36515,
+        9194
+      ],
+      [
+        36184,
+        8893
+      ]
+    ],
+    "invalid_uniform_old_new_p50_ns": [
+      [
+        11558,
+        6269
+      ],
+      [
+        11567,
+        6330
+      ]
+    ],
+    "tail_outcome": "mixed, not accepted as native FPS or p99 gain"
+  },
+  "scoring": {
+    "distance_lod": 6.8,
+    "mesh_generation_scheduling": 6.95,
+    "gpu_submission_memory": 4.55,
+    "actual_fsr_dlss": 5,
+    "visual_backend_settings": 5.3,
+    "validation_performance": 6.65,
+    "mean": 5.88,
+    "prior_mean": 5.87,
+    "delta": 0.01
+  },
+  "review_type": "read-only renderer author self-audit",
+  "artifact": {
+    "name": "DeepPrimal_Renderer_Jam44_UniformIdentity_20261029_b26868b_SourceEvidence.zip",
+    "bytes": 22819,
+    "sha256": "3aadf9eb0c36170bf796893496cbd1096e27fe532e1e58c43036e5525e200894",
+    "entries": 16,
+    "sha256_member_checks": 15,
+    "outer_zip_crc": "PASS",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_Jam44_UniformIdentity_20261029_b26868b_SourceEvidence.zip",
+    "library_file_id": "libfile_3ae6f05418b081918e64952ea0562d2d"
+  },
+  "full_build_authority": "owner",
+  "unrun_gates": [
+    "Java25 full Gradle/NeoForge/JAR packaging",
+    "native Vulkan/OpenGL water pixels",
+    "real GPU frame p50/p95/p99 RAM/VRAM and draw counts",
+    "world lifecycle save/reopen/resize/resource reload/shutdown",
+    "temporal FSR and actual RTX DLSS"
+  ],
+  "next_repair": "Owner native Vulkan/GL measurement: identity distribution, shared/mixed/unique p50/p95/p99, two-back on/off, FSR1 native, transparent waterfall pixels and VRAM; revert if harm"
+}
