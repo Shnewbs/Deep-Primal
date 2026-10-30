@@ -81,4 +81,31 @@ public record V8BlendPolicy(int version, EcotoneBlend.Widths widths) {
   public boolean hasSoftEdges() {
     return !EcotoneBlend.Widths.HARD.equals(widths);
   }
+
+  /**
+   * Resolve the saved policy without silently enabling blending in legacy
+   * profiles. Legacy V8-r1 profiles deliberately preserve hard behavior when
+   * the policy field is absent; every newer revision must carry an explicit
+   * versioned policy and fails closed when it is missing or incompatible.
+   */
+  public static V8BlendPolicy effectiveForSnapshot(int snapshotVersion,
+      V8BlendPolicy savedPolicy) {
+    if (snapshotVersion == 1) return savedPolicy == null ? HARD : savedPolicy;
+    if (snapshotVersion < 1)
+      throw new IllegalArgumentException("unsupported V8 snapshot version: " + snapshotVersion);
+    if (savedPolicy == null)
+      throw new IllegalArgumentException("explicit V8 blend policy required for saved revision "
+          + snapshotVersion);
+    if (savedPolicy.version() != VERSION)
+      throw new IllegalArgumentException("incompatible V8 blend policy version");
+    return savedPolicy;
+  }
+
+  /** Fail-closed admission for a persisted non-legacy V8 profile. */
+  public void requireForSnapshotVersion(int snapshotVersion) {
+    if (snapshotVersion <= 1)
+      throw new IllegalArgumentException("legacy V8 snapshots do not require an explicit policy");
+    if (version != VERSION)
+      throw new IllegalArgumentException("incompatible V8 blend policy version");
+  }
 }
