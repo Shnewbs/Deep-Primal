@@ -225,11 +225,19 @@ final class LodDiskNearestScan {
       List<Long> nearest = selection.nearest();
       // Precompute all expensive membership/sort work on the cursor thread.
       // The client applies at most 256 queue mutations per tick.
-      ArrayList<Long> discard = new ArrayList<>();
-      for (long old : recovery)
-        if (!selection.retains(old)) discard.add(old);
+      List<Long> discard = List.of();
+      if (!recovery.isEmpty()) {
+        ArrayList<Long> shed = null;
+        for (long old : recovery) {
+          if (!selection.retains(old)) {
+            if (shed == null) shed = new ArrayList<>();
+            shed.add(old);
+          }
+        }
+        if (shed != null) discard = List.copyOf(shed);
+      }
       if (!cancelled)
-        completed = new Completion(nearest, List.copyOf(discard), null, examined, turns);
+        completed = new Completion(nearest, discard, null, examined, turns);
     }
   }
 
