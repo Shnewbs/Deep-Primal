@@ -38,7 +38,14 @@ final class LodPublishedBounds {
       throw new IllegalArgumentException("LOD publication metadata array length mismatch");
     // Keep the original broadphase-off behavior: no union or repeated-part
     // metadata is computed or retained in the A/B comparison mode.
-    if (!LodPageFrustumBounds.ENABLED) return;
+    if (!LodPageFrustumBounds.ENABLED) {
+      // Broadphase-off mode must not leave publication metadata from an earlier
+      // enabled publication in reused arrays.
+      java.util.Arrays.fill(pages, null);
+      if (runs != null) java.util.Arrays.fill(runs, NO_REPEATS);
+      if (twoBackRuns != null) java.util.Arrays.fill(twoBackRuns, NO_REPEATS);
+      return;
+    }
     for (int detail = 0; detail < levels.length; detail++) {
       // Publication arrays may be reused by the caller. Clear prior metadata before
       // validating this level so an invalid/empty page cannot retain stale bounds
