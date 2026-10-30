@@ -53,16 +53,16 @@ The mod does not depend on TFC or any source mod. TFC 1.21.1, TFC+, Pyrotech, Pr
 
 ### 0.2. Total conversion policy (gutting vanilla; phased and configurable)
 
-By default, vanilla content that the mod replaces is stripped out, in phases. Every phase and every vanilla module is a config option, so players and server owners can keep vanilla content or add it back.
+By default, vanilla content that the mod replaces is stripped out, in phases. General content phases may expose configuration, subject to firm owner exceptions: vanilla XP and all vanilla mobs cannot be restored through coexistence, vanilla-only or general re-enable settings. The October 29, 2026 mob replacement decision supersedes the earlier vanilla.mobs proposal; see [replacement policy](systems/VANILLA-MOB-REPLACEMENT.md).
 
 | Phase | Vanilla content replaced by default | Config module |
 | --- | --- | --- |
 | 1 | Terrain, biomes, stone, soil (dirt/grass/sand/clay/gravel), trees and plants | vanilla.terrain, vanilla.stone, vanilla.soil, vanilla.plants |
 | 2 | Vanilla ores and structures, crops and food | vanilla.ores, vanilla.structures, vanilla.food |
-| 3 | Mobs and animals | vanilla.mobs |
+| 3 | All vanilla mobs and animals; native fauna/threats/NPCs replace them | Mandatory original-population policy; historical vanilla.mobs re-enable mode superseded |
 | 4 | Remaining items, tools/armor, recipes, advancements, extra dimensions | vanilla.items, vanilla.recipes, vanilla.advancements, vanilla.dimensions |
 
-Each module has a mode:
+For modules without a firm owner exception, supported modes may be:
 
 - replaced (default): vanilla version is gone; the mod's version is used.
 - coexist: vanilla content is added back alongside the mod's content and is adapted to the mod's rules by default ([§4.14](#s4-14)).
@@ -71,7 +71,7 @@ Each module has a mode:
 **How removal works**
 
 - World generation: custom biome source, terrain, and feature placement. In replaced mode, vanilla stone and soil blocks are fully removed from world generation so geology, ore, and soil-nutrient systems stay consistent. Vanilla biomes, ores, structures, and vegetation don't generate unless their module is re-enabled.
-- Entities: vanilla mobs removed from spawning and replaced with the mod's fauna and threats, unless vanilla.mobs is re-enabled.
+- Entities: all vanilla mobs are removed from active gameplay across supported dimensions and spawn/admission routes. Native fauna, predators and custom NPCs replace them; there is no production vanilla.mobs re-enable escape. Players/technical non-mob entities and recoverable existing-world records follow the [replacement/migration policy](systems/VANILLA-MOB-REPLACEMENT.md).
 - Items/blocks: vanilla registry entries stay technically loaded (the game requires some of them) but are made unreachable: no worldgen, no spawns, no loot, no recipes, hidden from creative tabs, recipe book, and advancements. Re-enabling a module restores them.
 - Recipes: vanilla recipes cleared by default; restored per module.
 
@@ -319,6 +319,9 @@ Power is designed around the same model Create uses so a future bridge is simple
 <a id="s4-6"></a>
 
 ### 4.6. Food, Farming & Animals
+
+Expanded October 29 research specifications: [agriculture](systems/AGRICULTURE-SYSTEM.md), [animal ecology and original predators](systems/ANIMAL-ECOLOGY-AND-PREDATORS.md), [shared contracts](systems/SHARED-SYSTEM-CONTRACTS.md), and [phased feature roadmap](systems/SYSTEMS-ROADMAP.md). These add detailed proposed behavior and gates; they do not claim implementation.
+
 
 - All food spoils; preservation (salting, drying, smoking, pickling, cooling) is a core skill.
 - Nutrition across multiple groups with long-term effects.
@@ -971,3 +974,8 @@ Resolved by v0.5: loader (NeoForge), platform (a NeoForge mod rather than Hytale
 ## 10. Implementation Roadmap
 
 The former v0.1 checklist is consolidated into the [milestones and acceptance criteria](../roadmap.md#milestones). Track completion there only. All prior prototype goals remain represented; far-terrain LOD remains a proposal awaiting a scope decision.
+
+
+## Authored NPC and questing expansion — October 29, 2026
+
+The owner requests WoW-style NPC quest interactions with an easy native admin workflow: create a custom NPC, choose a skin, assign quests, restrict eligibility by character level and questline, and delegate creation to other authorized admins. [NPC/quest specification](systems/NPC-AND-QUEST-SYSTEM.md) defines the wizard, states, typed conditions/objectives, co-authoring, test/publish/rollback and durable rewards. [Reference study](systems/NPC-QUEST-REFERENCE-STUDY.md) compares the official MMO and Minecraft-tool patterns with their version/license limits. All vanilla mobs are replaced; native NPCs cannot be a hidden vanilla-villager dependency. These are design requirements, not shipped UI or a new release claim.

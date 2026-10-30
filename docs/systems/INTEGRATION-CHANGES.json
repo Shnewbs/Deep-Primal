@@ -1,0 +1,42 @@
+{
+  "source_snapshot": "c1d4035a45f884caba5f7c8ff2ac4df7421c1e29",
+  "scope": "documentation only",
+  "changes": [
+    {
+      "path": "docs/design-reference.md",
+      "reason": "Supersede vanilla-mob re-enable proposal and connect detailed agriculture/fauna/NPC design",
+      "reviewed_base_sha256": "33105ab29dec77b39ca438255493fec1dbfff09f2d4c843a3fec9101f17d4f7f",
+      "published_sha256": "e6a37ecb5ef61878031088f8336725584ef63e23d486772fd9e0facda0e81bb1"
+    },
+    {
+      "path": "docs/design-decisions-2026-10-18.md",
+      "reason": "Record latest owner direction and distinguish confirmed requirements from researched proposals",
+      "reviewed_base_sha256": "11e8d0f99aed986b2c8d89a517ad03becb25375703c8e5ebcac1e7a160159711",
+      "published_sha256": "db4f894a5d300677896d0ae518dce72899492ce798f192a2f8c0453823262663"
+    },
+    {
+      "path": "roadmap.md",
+      "reason": "Add SYS-0 through SYS-7 feature milestones and cross-link the existing implementation roadmap",
+      "reviewed_base_sha256": "6317f47c0f1109f6722706cfd4e1cfc33308590c25938fbf05dab2beafce66c2",
+      "published_sha256": "edd3d9d734c615a21a7b1fc60215922c20610134ed164036ff5a3a8635b9a8d4"
+    },
+    {
+      "path": "docs/README.md",
+      "reason": "Expose the new specifications through the documentation portal",
+      "reviewed_base_sha256": "7704310bdb9dcf9b6b6b1a987d111ebab074fd77c7db86d884ad61792a332eee",
+      "published_sha256": "79660e46f6a8bbbfc08fcd9e3106b2cfb4be025185918e817ff86f8d5443c6c1"
+    },
+    {
+      "path": "docs/handbook/README.md",
+      "reason": "Link the new research expansion without rewriting the historical corpus checkpoint",
+      "reviewed_base_sha256": "ae7e6ec29c58c9cf52498f45b797820fac6a5bbf4a3af109f187bee3b0fb6ebc",
+      "published_sha256": "29503241e085bbfbcf91520d381d0a22afc5a4dd28779bb1f1490433ce470ed6"
+    },
+    {
+      "path": "docs/handbook/REQUIREMENTS.md",
+      "reason": "Add stable cross-system feature requirement references with no completion claims",
+      "reviewed_base_sha256": "23c3cb6b45934b66c4fbae85e53821e9c78a8b355229260e942f541032a58def",
+      "published_sha256": "10636bcbc3bb6f69a7d116f7e2558fa3510fea3c19d8ec3c7b67939aaa09430e"
+    }
+  ]
+}

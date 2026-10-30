@@ -11,3 +11,7 @@ Start with the [merged engineering handbook](handbook/README.md). It organizes c
 - [Audit findings and verification](handbook/AUDIT.md)
 
 The [earlier Dev77 research edition](research-expanded/2026-10-29/README.md) remains a frozen reference. The handbook incorporates later documentation and targeted study without recursively generating another set of replicas. A document merge does not close implementation or native acceptance gates.
+
+## Agriculture, fauna and questing
+
+[Research specifications and source register](systems/README.md) cover seasonal farming/genetics, animal husbandry/ecology, twelve original predator candidates, complete vanilla-mob replacement, and an easy delegated admin NPC/skin/quest creator. Start implementation planning from the [SYS feature roadmap](systems/SYSTEMS-ROADMAP.md) and [shared contracts](systems/SHARED-SYSTEM-CONTRACTS.md).

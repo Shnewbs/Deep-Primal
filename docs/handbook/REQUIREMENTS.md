@@ -74,3 +74,8 @@ Detailed requirements and constraints: [architecture/authoring](ARCHITECTURE-AUT
 ## Continued study queue
 
 The next study should resolve a decision or fixture, not add another general engine survey. Priorities: actual V8 outlet/native-save coupling; source-anchor behavior after player edits; world-depth/hand and temporal guide production; backend presentation ownership; offline editing/LOD invalidation; practical tool/schema migration. Each study records the precise source version, inspected limitation, applicable Deep Primal boundary and a small falsifiable check in [the research register](research/README.md).
+
+
+## Agriculture, fauna and NPC questing extension — October 29, 2026
+
+[SYS-0–7](../systems/SYSTEMS-ROADMAP.md) tracks new gameplay dependencies and native gates. [AG-01–14](../systems/AGRICULTURE-SYSTEM.md), [AN/PRED](../systems/ANIMAL-ECOLOGY-AND-PREDATORS.md), [MOB-01–06](../systems/VANILLA-MOB-REPLACEMENT.md), and [NQ-01–09](../systems/SYSTEMS-ROADMAP.md#npc-authoring-task-register) remain unimplemented here. The [shared contract](../systems/SHARED-SYSTEM-CONTRACTS.md) binds finite water, exact material ownership, accepted events, persistent non-spendable XP and reward recovery. All vanilla mobs are to be replaced; older general re-enable language does not apply to them.

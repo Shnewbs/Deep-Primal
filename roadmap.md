@@ -46,6 +46,8 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 
 ## Navigation
 
+- [Agriculture, original fauna and admin NPC/quest systems](docs/systems/README.md) — researched specifications, twelve predator candidates and [phased feature roadmap](docs/systems/SYSTEMS-ROADMAP.md).
+
 - [Block texture production and ownership](docs/art/BLOCK-TEXTURE-PLAN.md) — 32×32 by default; 64×64 only for necessary detail; preserve approved art and share material families.
 
 - [Confirmed direction](#confirmed-direction)
@@ -338,3 +340,19 @@ The [named type catalogs](docs/NATURAL-TYPE-CATALOG.md) expand the planning rost
 ## Biome planning roster (2026-10-21)
 
 The owner requested a connected natural-world biome plan before environmental implementation. The [biome plan](docs/BIOME-PLAN.md) defines **118 proposed broad biome profiles across 19 families**, **54 regional/community variants** and **63 local habitat/landform/state layers**, with all **62 existing HABITAT-TYPE entries** reconciled. The [named roster](docs/BIOME-CATALOG.md) covers climate, physical setting, ground themes, vegetation/life, water regimes and neighboring environments. The [variant/coverage crosswalk](docs/BIOME-VARIANTS-AND-COVERAGE.md) separates species/material/seasonal variety from biome IDs. **Confirmed planning sequence: complete biomes first, then design the climate scenarios needed to support them.** Existing climate bands must not dictate the biome roster, and quantitative climate thresholds are deferred rather than gating biome planning. Climate eligibility will gate where biomes generate, alongside terrain, water and other habitat requirements. The later climate plan must include northern/southern polar regions, an equatorial region, coherent latitude trends, regional terrain/ocean/moisture variation and hemisphere-aware seasons in procedural worlds as well as Earth mode; coordinates and scale remain open. Ocean circulation must also reflect winds, rotation, basin/coast/seafloor geometry, depth and temperature/salinity, with surface/deep flow, vertical exchange and climate/habitat effects; see the [ocean circulation plan](docs/BIOME-PLAN.md#ocean-circulation--confirmed-direction). The owner also confirmed traits from actual named planets/exoplanets as environmental references; [island and planetary planning](docs/BIOME-PLAN.md#islands-and-planetary-references) records sourced examples and proposed integration rules. Trait selections and world-profile scope remain open. The owner approved [glacial landscape coverage](docs/GLACIAL-LANDSCAPES.md): 3 additional community variants and 8 layers for valleys/fjords, debris, outwash, meltwater, lake margins and foreland communities. Profiles remain planning proposals. Existing generation/renderer work and implementation checkboxes are unchanged. Environmental implementation stays deferred until requested; world block texture tiles default to 32×32, with 64×64 reserved for necessary detail, shared families and material palettes/tints; see the [block texture plan](docs/art/BLOCK-TEXTURE-PLAN.md).
+
+
+## Agriculture, fauna replacement and authored questing — October 29, 2026
+
+The owner requests native agriculture informed by TFC1.21.1 and the exact AgriCraft-ReReloaded fork, deeper animal ecology/husbandry, complete replacement of vanilla mobs, original predator concepts, and easy admin-created skinned NPCs offering level/questline-gated quests. Detailed source comparisons, proposed behavior, accepted project constraints and evidence limits are in [docs/systems](docs/systems/README.md).
+
+- [ ] SYS-0: shared versioned definitions, calendar/units/events and vanilla-route/resource/migration inventory.
+- [ ] SYS-1: original population baseline, native entity-policy enforcement and readable predator/prey prototype.
+- [ ] SYS-2: paid irrigation/soil/crop lifecycle, seed saving, atomic harvest and food-lot storage pilot.
+- [ ] SYS-3: familiarity/handling, breeding/growth and mass-accounted recurring/carcass products.
+- [ ] SYS-4: no-code admin NPC/skin/quest wizard, level and questline gates, delegated revisions and durable rewards.
+- [ ] SYS-5: genetics/analyzer, perennials/shelter and persistent habitat/cohort ecology.
+- [ ] SYS-6: campaigns/branches/repeats/party credit and reviewed original predator variety.
+- [ ] SYS-7: migration/crash/restart, multiplayer abuse, seasonal playthrough and measured native/package qualification.
+
+[SYS phase dependencies and exact exits](docs/systems/SYSTEMS-ROADMAP.md) preserve AG/AN/PRED/MOB/NQ task IDs and connect work to M0/M2/M3/M5/M6. This is a researched design expansion: all runtime boxes remain open and no whole-feature release date or implementation grade is implied. Existing engine-only worker scopes remain intact. The old general vanilla.mobs re-enable option is superseded; [all-route replacement and existing-world preservation](docs/systems/VANILLA-MOB-REPLACEMENT.md) are required before claiming a complete conversion.

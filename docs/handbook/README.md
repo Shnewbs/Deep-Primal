@@ -33,3 +33,7 @@ A [publication refresh](PUBLICATION-SUPPLEMENT.md) additionally audits five newl
 4. Add a dated research finding with a primary source, inspected version/date, applicability, proposed change and qualifying fixture. A source link alone is not a requirement or an integration.
 5. Keep this handbook out of future original-input inventories, along with research-expanded, to prevent recursive replicas. Reconcile new or changed source documents against catalog.json before refreshing the checkpoint.
 6. Publish authorized documentation with a fresh expected-parent check. Preserve other workers' code, leases, state and evidence. No automation schedule or build authority is changed by editing these documents.
+
+## Gameplay-system research expansion — October 29, 2026
+
+[New system specifications](../systems/README.md) add native agriculture, original animal/predator ecology, all-vanilla-mob replacement and delegated admin NPC/quest creation. [The feature roadmap](../systems/SYSTEMS-ROADMAP.md) defines dependencies and gates. The earlier catalog/verification above retains its explicitly pinned checkpoint; this extension has a separate [documentation verification](../systems/VERIFICATION.json). New design does not promote engine/native acceptance.

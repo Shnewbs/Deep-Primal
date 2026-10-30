@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "base_source": "c1d4035a45f884caba5f7c8ff2ac4df7421c1e29",
+  "files": [
+    {
+      "path": "docs/systems/SOURCES.md",
+      "sha256": "d4c6788e5e438ff3858a28958c23e8a44dec0b8e5b7f433ed44a9507d5969a7b",
+      "bytes": 32866
+    },
+    {
+      "path": "docs/systems/NPC-QUEST-REFERENCE-STUDY.md",
+      "sha256": "1fc90d083e3547d1bd4b189639df8815c3b4a0b13e1bd7e02d9b16fa714802f2",
+      "bytes": 19330
+    },
+    {
+      "path": "docs/systems/ANIMAL-ECOLOGY-AND-PREDATORS.md",
+      "sha256": "25738ac3686be5ea0ebdf8a6b8530ec8ddd857790edf99fbf02d6f6f2a7c6552",
+      "bytes": 35293
+    },
+    {
+      "path": "docs/systems/AGRICULTURE-RESEARCH.md",
+      "sha256": "08380c971d60bc89587b59a172554536fdca58bf2cbb6ed3e326cfb529f7801d",
+      "bytes": 22443
+    },
+    {
+      "path": "docs/systems/NPC-AND-QUEST-SYSTEM.md",
+      "sha256": "33e91f586e0cf77086baa5251da9782957f180a04d19fd3ab5b8b77620e2fa4c",
+      "bytes": 31423
+    },
+    {
+      "path": "docs/systems/VANILLA-MOB-REPLACEMENT.md",
+      "sha256": "7259928a16d19986d60a35cf6c7f9ec10e5c1b9d9816c1316c1dd73364c0f113",
+      "bytes": 15430
+    },
+    {
+      "path": "docs/systems/SYSTEMS-ROADMAP.md",
+      "sha256": "bf072de64b30ad8a3fb001bfb84bc08f2f5d8a04884d5ddd55b7654f30a64126",
+      "bytes": 10730
+    },
+    {
+      "path": "docs/systems/SHARED-SYSTEM-CONTRACTS.md",
+      "sha256": "de038cfd91d96a8f34c5d32121be390712288008ebc25daceadcd6a32b992c9b",
+      "bytes": 9963
+    },
+    {
+      "path": "docs/systems/README.md",
+      "sha256": "e47ca855709a762dba1968d23bd386362ee74a5af7bd7907bbeb73de2f4686c2",
+      "bytes": 3415
+    },
+    {
+      "path": "docs/systems/AGRICULTURE-SYSTEM.md",
+      "sha256": "8a29b56b87c5fa7a7c654b962e41dd9b2a84ad0c2c508b1379048cc6ebc6f5a1",
+      "bytes": 28808
+    },
+    {
+      "path": "docs/systems/tools/verify_docs.py",
+      "sha256": "740d4f053b05e2c093bc9604c9db2d60be8f7de38962d2911fa67d4d301958b9",
+      "bytes": 4178
+    },
+    {
+      "path": "docs/systems/INTEGRATION-CHANGES.json",
+      "sha256": "6055eae91c05bb234d52af131f386d9cf9e82d67104d26d2959602e3fb7b5b0d",
+      "bytes": 2208
+    },
+    {
+      "path": "docs/design-reference.md",
+      "sha256": "e6a37ecb5ef61878031088f8336725584ef63e23d486772fd9e0facda0e81bb1",
+      "bytes": 86045
+    },
+    {
+      "path": "docs/design-decisions-2026-10-18.md",
+      "sha256": "db4f894a5d300677896d0ae518dce72899492ce798f192a2f8c0453823262663",
+      "bytes": 54455
+    },
+    {
+      "path": "roadmap.md",
+      "sha256": "edd3d9d734c615a21a7b1fc60215922c20610134ed164036ff5a3a8635b9a8d4",
+      "bytes": 50663
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "79660e46f6a8bbbfc08fcd9e3106b2cfb4be025185918e817ff86f8d5443c6c1",
+      "bytes": 1435
+    },
+    {
+      "path": "docs/handbook/README.md",
+      "sha256": "29503241e085bbfbcf91520d381d0a22afc5a4dd28779bb1f1490433ce470ed6",
+      "bytes": 4748
+    },
+    {
+      "path": "docs/handbook/REQUIREMENTS.md",
+      "sha256": "10636bcbc3bb6f69a7d116f7e2558fa3510fea3c19d8ec3c7b67939aaa09430e",
+      "bytes": 11430
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "scope": "documentation, links, example JSON and published-byte checkpoint only",
+  "research_date": "2026-10-29 America/Los_Angeles",
+  "markdown_documents": 10,
+  "manifest_files_checked": 18,
+  "relative_targets_checked": 178,
+  "local_anchors_checked": 9,
+  "json_examples_parsed": 3,
+  "unique_external_urls": 110,
+  "external_url_live_recheck": "not run; reference retrieval/version limitations recorded in domain ledgers",
+  "independent_content_review": "passed after native-NPC, unloaded-time, mass-partition and saved-water-unit corrections",
+  "runtime_implementation_or_native_tests": "not run for this documentation task",
+  "historical_handbook_catalog": "retains earlier pinned checkpoint; later reviewed source edits can produce expected drift there",
+  "errors": [],
+  "pass": true
+}
