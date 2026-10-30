@@ -34,7 +34,10 @@ final class LodDiskIndexService {
   // An accepted recovery can be removed and requeued while a worker is scanning.
   // Queue membership alone cannot identify a renewed owner. These tokens are
   // scoped to a scan and never require 8192-key comparisons on the render thread.
-  private final HashMap<Long, Long> renewed = new HashMap<>();
+  // Pre-size the bounded renewal map so a full scan handoff does not trigger
+  // client-thread HashMap growth/rehash at the 8,192-key admission limit.
+  private final HashMap<Long, Long> renewed = new HashMap<>(
+      LodDiskNearestScan.MAX_KEYS, 1.0f);
   private long scanGeneration;
   private boolean invalidated;
 
