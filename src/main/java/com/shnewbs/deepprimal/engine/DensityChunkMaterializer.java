@@ -279,6 +279,25 @@ public final class DensityChunkMaterializer {
     return receipt;
   }
 
+  /**
+   * Consume a postwrite r6 receipt through the prepared profile owner. This is
+   * the concrete native downstream handoff: identity admission happens first,
+   * then only realized planned sites are exposed to the caller. The helper is
+   * read-only and never synthesizes missing plants or mutates the chunk.
+   */
+  public static V8VegetationReceiptConsumer.RealizedVegetation
+      consumeSavedEcotoneVegetationReceipt(
+          V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk,
+          V8VegetationColumnPlan planned, V8VegetationNativeReceipt receipt) {
+    Objects.requireNonNull(prepared, "V8 prepared profile");
+    Objects.requireNonNull(chunk, "V8 receipt chunk");
+    Objects.requireNonNull(planned, "V8 planned vegetation");
+    Objects.requireNonNull(receipt, "V8 vegetation receipt");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION)
+      throw new IllegalArgumentException("explicit saved V8 revision 6 vegetation required");
+    return prepared.consumeVegetationReceipt(chunk, planned, receipt);
+  }
+
   private record MaterializedEcotone(V8EcotoneResult ecotone,
                                      V8VegetationColumnPlan vegetation,
                                      V8VegetationNativeReceipt receipt) {}
