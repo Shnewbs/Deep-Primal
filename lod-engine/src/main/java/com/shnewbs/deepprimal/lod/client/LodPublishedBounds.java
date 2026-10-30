@@ -41,6 +41,37 @@ final class LodPublishedBounds {
     if (!LodPageFrustumBounds.ENABLED) return;
     for (int detail = 0; detail < levels.length; detail++) {
       AABB[] parts = levels[detail];
+      // Uploaded quad parts often retain the *same immutable AABB object*.
+      // A single-identity page needs just one validation and an adjacent mask:
+      // no union reductions or part-by-part equality tests. The first pair is
+      // a cheap guard so unique pages keep their existing one-pass path.
+      if (parts.length >= 4 && parts[0] == parts[1]) {
+        AABB shared = parts[0];
+        boolean allShared = true;
+        for (int j = 2; j < parts.length; j++) {
+          if (parts[j] != shared) {
+            allShared = false;
+            break;
+          }
+        }
+        if (allShared) {
+          if (finiteOrdered(shared)) {
+            pages[detail] = shared;
+            long[] adjacentMask = new long[((parts.length - 1) >>> 6) + 1];
+            java.util.Arrays.fill(adjacentMask, -1L);
+            adjacentMask[0] &= ~1L;
+            int tail = parts.length & 63;
+            if (tail != 0) adjacentMask[adjacentMask.length - 1] &= (1L << tail) - 1;
+            runs[detail] = adjacentMask;
+          } else {
+            // Invalid repeated bounds are never eligible for coarse or fine
+            // reuse; the ordinary scan also leaves pages[detail] untouched.
+            runs[detail] = NO_REPEATS;
+          }
+          if (twoBackRuns != null) twoBackRuns[detail] = NO_REPEATS;
+          continue;
+        }
+      }
       AABB representative = parts.length == 0 ? null : parts[0];
       boolean wholePageValid = true;
       boolean uniform = true;
