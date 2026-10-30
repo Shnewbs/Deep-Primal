@@ -39,7 +39,7 @@ final class DlssNative {
   static native void create(long context, long commandBuffer, int renderWidth, int renderHeight,
       int outputWidth, int outputHeight, int quality, boolean hdr, boolean invertedDepth);
   static native void evaluate(long context, long commandBuffer, long[] images, int[] formats,
-      float jitterX, float jitterY, float motionScaleX, float motionScaleY,
+      long[] memoryBindings, float jitterX, float jitterY, float motionScaleX, float motionScaleY,
       float frameTimeMillis, float preExposure, boolean reset);
   static native void close(long context);
 
