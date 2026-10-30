@@ -48,7 +48,13 @@ def once(source, mutant=None):
             if match is None or int(match.group(1)) < 100000:
                 raise RuntimeError('missing/count-insufficient executed Java assertions')
             return {'assertions':int(match.group(1)),'receipt':done.stdout.strip()}
-        if done.returncode == 0 or 'AssertionError' not in done.stderr:
+        assertion = re.search(r'^Exception in thread "main" java\.lang\.AssertionError(?::|$)',
+                              done.stderr, re.MULTILINE)
+        frame = re.search(r'^\s+at ' + re.escape(MAIN) +
+                          r'\.[\w$<>]+\(V8ReliefJoinV5ComponentChecks\.java:\d+\)',
+                          done.stderr, re.MULTILINE)
+        if (done.returncode != 1 or assertion is None or frame is None
+                or 'RELIEF5_JOIN_COMPONENT_PASS' in done.stdout + done.stderr):
             raise RuntimeError('broken implementation escaped detection: '+mutant)
         return {'mutation':mutant,'rejected':True}
 
