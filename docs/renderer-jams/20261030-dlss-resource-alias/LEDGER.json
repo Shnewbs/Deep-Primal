@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261030T0108-dlss-image-alias",
+  "status": "source_committed_read_only_self_audited_claim_released",
+  "claim_commit": "ab05bbf93f41b179b6a9fd231144f21272554a4b",
+  "parent_commit": "ab05bbf93f41b179b6a9fd231144f21272554a4b",
+  "final_source_commit": "0addab7688686c53863324f72e6e3c840f84e4a0",
+  "unchanged_version": "0.0.1-alpha.29-dev.88-vegetation-receipts.1",
+  "changed_production_files": [
+    "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssFrame.java"
+  ],
+  "changed_test_files": [
+    "renderer-vulkan/src/nativeChecks/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssImageAliasChecks.java"
+  ],
+  "new_renderer_docs": [
+    "docs/renderer-jams/20261030-dlss-resource-alias/CLAIM.json",
+    "docs/renderer-jams/20261030-dlss-resource-alias/README.md",
+    "docs/renderer-jams/20261030-dlss-resource-alias/REVIEW.md",
+    "docs/renderer-jams/20261030-dlss-resource-alias/LEDGER.json",
+    "docs/renderer-jams/20261030-dlss-resource-alias/BACKLOG.md"
+  ],
+  "source_blob": "d6d0d6a3d3e154d82afc170c0743b250749eb222",
+  "test_blob": "a1da4b5466ac3790ba55131eacd89601d5e1b476",
+  "previous_source_blob": "e1cfcb84b7dc9458e04139ceab084c799acc1f34",
+  "consumed_audits": "jam44 and October27 upscaling; active renderer prefix-resume LOD claim avoided; independent Dev90 no overlap",
+  "environment": "Linux x86_64 OpenJDK21.0.12.1; Java25 and provided archive absent",
+  "compile": "PASS javac --release 21 -Xlint:all -Werror -d classes src/net/vulkanmod/deepprimal/upscaling/dlss/DlssFrame.java tests/net/vulkanmod/deepprimal/upscaling/dlss/DlssImageAliasChecks.java",
+  "regressions": "PASS 4 x java -ea -Xverify:all -cp classes net.vulkanmod.deepprimal.upscaling.dlss.DlssImageAliasChecks",
+  "regression_assertions": 4152,
+  "negative_control": "Predecessor source compiled and rejected by new fixture at pair=0:1 image, exit 1, as expected",
+  "matched_before_after_measurements": "NOT RUN; no frame-time, FPS, VRAM or allocations claimed",
+  "scoring": {
+    "distance_lod": 6.8,
+    "mesh_generation_scheduling": 6.95,
+    "gpu_submission_memory": 4.55,
+    "actual_fsr_dlss": 5,
+    "visual_backend_settings": 5.3,
+    "validation_performance": 6.65,
+    "mean": 5.88,
+    "previous_completed_renderer_jam44_mean": 5.88,
+    "delta": 0
+  },
+  "review_type": "read-only renderer author self-audit, not independent",
+  "build_owner": "owner October27 override",
+  "artifact": {
+    "name": "DeepPrimal_Renderer_Jam46_DlssImageAlias_20261030_0addab7_SourceEvidence.zip",
+    "bytes": 11971,
+    "sha256": "f81612e160075c36b4c4f1150223550ae8aa346c5a13eb72dd225a4f970fbb02",
+    "outer_crc": "PASS",
+    "members_verified": 13,
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_Jam46_DlssImageAlias_20261030_0addab7_SourceEvidence.zip",
+    "library_file_id": "libfile_c4546f55a61081918837b812c35c12ef",
+    "type": "source/testing evidence, NOT JAR"
+  },
+  "unrun": [
+    "Java25 Gradle NeoForge",
+    "full native RTX/Vulkan/OpenGL and water pixels",
+    "GPU frame metrics and VRAM",
+    "renderer reload resize world lifecycle",
+    "qualified JAR packaging and archive CRC"
+  ]
+}
