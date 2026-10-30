@@ -564,6 +564,21 @@ public record V8GeneratorSnapshot(
           EcotoneBlend.sample(climate, domain, snapshot.blendPolicy().widths()), frozen);
     }
 
+    /**
+     * Admit a postwrite V8-r6 vegetation receipt through the prepared profile
+     * owner. This keeps the profile/chunk identity gate adjacent to the saved
+     * snapshot rather than allowing callers to pass an unrelated fingerprint.
+     * No terrain, water or chunk state is mutated by this admission step.
+     */
+    public V8VegetationReceiptConsumer.RealizedVegetation consumeVegetationReceipt(
+        net.minecraft.world.level.chunk.ChunkAccess chunk,
+        V8VegetationColumnPlan planned,
+        V8VegetationNativeReceipt receipt) {
+      if (snapshot.version() != VEGETATION_VERSION || snapshot.vegetationPolicy() == null)
+        throw new IllegalStateException("V8 vegetation receipt requires revision 6 snapshot");
+      return V8VegetationReceiptConsumer.consume(this, chunk, planned, receipt);
+    }
+
     public void requireHeight(int actualMinY, int actualHeight) {
       snapshot.requireHeight(actualMinY, actualHeight);
     }
