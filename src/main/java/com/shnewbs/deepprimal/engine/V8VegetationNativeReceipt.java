@@ -94,6 +94,8 @@ public final class V8VegetationNativeReceipt {
 
   public void requireSameProfileAndChunk(long expectedFingerprint, ChunkAccess chunk) {
     Objects.requireNonNull(chunk, "V8 receipt chunk");
+    if (expectedFingerprint == 0L)
+      throw new IllegalArgumentException("V8 vegetation receipt requires a bound saved profile");
     if (!matchesProfile(expectedFingerprint))
       throw new IllegalArgumentException("V8 vegetation receipt belongs to another saved profile");
     if (!matchesChunk(chunk))
