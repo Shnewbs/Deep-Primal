@@ -158,7 +158,10 @@ final class LodDiskIndexService {
     private final java.util.List<Long> discard, incoming;
     private final HashMap<Long, Long> renewed;
     private final long generation;
-    private final HashSet<Long> shed = new HashSet<>();
+    // Most scan applies never need to evict a discovered page. Keep this
+    // allocation lazy so ordinary bounded refreshes do not allocate an empty
+    // HashSet on the client/render thread.
+    private HashSet<Long> shed;
     private int removed, added, farthest;
 
     PendingApply(java.util.List<Long> discard, java.util.List<Long> incoming,
@@ -185,7 +188,7 @@ final class LodDiskIndexService {
       }
       while (remaining > 0 && added < incoming.size()) {
         long key = incoming.get(added);
-        if (shed.contains(key) || queue.contains(key)) {
+        if ((shed != null && shed.contains(key)) || queue.contains(key)) {
           added++;
           remaining--;
           continue;
@@ -200,6 +203,7 @@ final class LodDiskIndexService {
             long victim = incoming.get(farthest--);
             remaining--;
             if (!isRenewed(victim) && queue.remove(victim)) {
+              if (shed == null) shed = new HashSet<>();
               shed.add(victim);
               forgotten.accept(victim);
             }
