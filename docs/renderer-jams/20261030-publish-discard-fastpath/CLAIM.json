@@ -11,6 +11,6 @@
     "docs/GRAPHICS-UPSCALING-WORK-STATE.json"
   ],
   "bounded": true,
-  "released_at": null,
+  "released_at": "2026-10-30T17:55:00Z",
   "notes": "Renderer-only claim. No other feature schedule or automation modified."
 }
