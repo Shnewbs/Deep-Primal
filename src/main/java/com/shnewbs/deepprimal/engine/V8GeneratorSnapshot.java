@@ -484,7 +484,8 @@ public record V8GeneratorSnapshot(
         && version != SURFACE_VERSION && version != CLIMATE_VERSION
         && version != HYDROLOGY_VERSION && version != VEGETATION_VERSION)
       throw new IllegalArgumentException("unsupported V8 generator snapshot version: " + version);
-    Objects.requireNonNull(blendPolicy, "blendPolicy");
+    blendPolicy = V8BlendPolicy.effectiveForSnapshot(version,
+        Objects.requireNonNull(blendPolicy, "blendPolicy"));
     if (version == VERSION && !V8BlendPolicy.HARD.equals(blendPolicy))
       throw new IllegalArgumentException("legacy V8 snapshot cannot silently enable soft blending");
     if (version >= SURFACE_VERSION && surfacePolicy == null)
