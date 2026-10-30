@@ -32,7 +32,25 @@ public final class V8EcotoneColumnPlan {
       if (soilDepth < 1 || soilDepth > 16)
         throw new IllegalArgumentException("V8 soil depth outside 1..16");
     }
+
+    /** Continuous, nonphysical surface properties consumed by downstream material preflight. */
+    public double snowFraction() { return cover.snow(); }
+    public double vegetationDensity() { return cover.vegetation(); }
+    public double soilFactor() { return cover.soilFactor(); }
+
+    /**
+     * Stable bounded material band for callers that need a discrete block family.
+     * The continuous fields remain authoritative; this band must not drive height or water.
+     */
+    public MaterialBand materialBand() {
+      if (cover.cover() == EcotoneSurfaceField.Cover.BARE) return MaterialBand.BARE;
+      if (cover.snowPatch() || cover.snow() >= 0.66) return MaterialBand.SNOW;
+      return cover.cover() == EcotoneSurfaceField.Cover.PODZOL
+          ? MaterialBand.PODZOL : MaterialBand.GRASS;
+    }
   }
+
+  public enum MaterialBand { BARE, GRASS, PODZOL, SNOW }
 
   private final Column[] columns;
   private V8EcotoneColumnPlan(Column[] columns) {
