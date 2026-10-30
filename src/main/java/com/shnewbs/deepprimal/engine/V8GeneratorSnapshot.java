@@ -553,6 +553,24 @@ public record V8GeneratorSnapshot(
     return h == 0L ? 1L : h;
   }
 
+  /**
+   * Sample the saved relief graph at an absolute X/Z column for explicit
+   * parity/reopen checks. This reads the persisted graph only; it does not
+   * mutate chunks, choose a dominant biome, or create physical water.
+   */
+  public double sampleHeightAt(int worldX, int worldZ) {
+    if (snapshot.version() < 2)
+      throw new IllegalStateException("V8 relief sampling requires an explicit saved profile revision");
+    return surface.graph().channel("height", worldX, 0, worldZ);
+  }
+
+  /** Require exact signed-coordinate replay for a saved relief sample. */
+  public void requireExactHeightReplay(int worldX, int worldZ, double expected) {
+    double actual = sampleHeightAt(worldX, worldZ);
+    if (Double.doubleToLongBits(actual) != Double.doubleToLongBits(expected))
+      throw new IllegalArgumentException("V8 saved relief height replay mismatch");
+  }
+
   /** Reject another world's geometry before any native block write. */
   public void requireHeight(int actualMinY, int actualHeight) {
     if (minY != actualMinY || height != actualHeight)
