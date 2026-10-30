@@ -370,8 +370,9 @@ public final class DensityChunkMaterializer {
           EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
       // Postwrite observation detects callback-overwritten species or support.
       // Any read failure triggers the existing complete prewrite rollback.
-      var receipt = plants == null ? null : V8VegetationNativeReceipt.capture(
-          chunk, plants, columns, grass, podzol, shortGrass, fern);
+      var receipt = plants == null ? null : V8VegetationNativeReceipt.captureBoundToProfile(
+          chunk, plants, columns, grass, podzol, shortGrass, fern,
+          prepared.snapshot().vegetationProfileFingerprint());
       return new MaterializedEcotone(preflight, plants, receipt);
     } catch (RuntimeException | Error failure) {
       undo.rollback(failure);
