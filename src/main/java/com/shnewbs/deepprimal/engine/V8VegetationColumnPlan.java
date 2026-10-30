@@ -91,7 +91,10 @@ public final class V8VegetationColumnPlan {
         int az = (int) (unit(savedSeed ^ Z_SALT, gx, gz) * spacing);
         if (Math.floorMod(wx, spacing) != ax || Math.floorMod(wz, spacing) != az)
           continue;
-        if (unit(savedSeed ^ THIN_SALT, gx, gz) >= policy.densityScale()) continue;
+        // Consume the continuous ecotone vegetation weight; policy scale remains
+        // the saved global cap while the blended field supplies local density.
+        double localDensity = policy.densityScale() * cover.vegetation();
+        if (!(localDensity > 0) || unit(savedSeed ^ THIN_SALT, gx, gz) >= localDensity) continue;
         double speciesSum = cover.grass() + cover.podzol();
         if (!(speciesSum > 0)) continue;
         double fernWeight = cover.podzol() / speciesSum;
