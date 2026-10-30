@@ -3,8 +3,11 @@ from pathlib import Path
 snap = Path("src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java").read_text()
 prop = Path("gradle.properties").read_text()
 
-assert "sampleHeightAt(int worldX, int worldZ)" in snap
-assert "requireExactHeightReplay(int worldX, int worldZ, double expected)" in snap
+prepared = snap.index("public static final class Prepared")
+sample = snap.index("sampleHeightAt(int worldX, int worldZ)")
+replay = snap.index("requireExactHeightReplay(int worldX, int worldZ, double expected)")
+assert sample > prepared and replay > sample
+assert "sampleHeightAt(int worldX, int worldZ)" not in snap[:prepared]
 assert 'surface.graph().channel("height", worldX, 0, worldZ)' in snap
 assert "Double.doubleToLongBits(actual)" in snap
 assert "V8 relief sampling requires an explicit saved profile revision" in snap
