@@ -46,6 +46,9 @@ final class LodDiskIndexService {
   private long appliedRemovals;
   private long appliedAdds;
   private long appliedSheds;
+  private long retargets;
+  private long completedScans;
+  private long failedScans;
 
   /** Caller invokes this on every requeue/renewal after changing its queue. */
   void recoveryQueued(long key) {
@@ -114,6 +117,7 @@ final class LodDiskIndexService {
       cursor = null;
     }
     if (retarget && cursor == null) {
+      retargets++;
       scanGeneration++;
       renewed.clear();
       cursor = LodDiskNearestScan.start(folder, cameraX, cameraZ,
@@ -135,10 +139,12 @@ final class LodDiskIndexService {
     LodDiskNearestScan.Completion completed = cursor.completed();
     if (completed == null) return false;
     if (completed.failure() != null) {
+      failedScans++;
       retireCursor();
       scheduleRetry();
       return true;
     }
+    completedScans++;
     boolean missingDirectory = cursor.missingDirectory();
     // The scanner returns immutable, ranked candidates and a discard list.
     // Apply both in small turns; neither List.sort nor an 8192-entry hash rebuild
@@ -292,7 +298,10 @@ final class LodDiskIndexService {
       long appliedRemovals,
       long appliedAdds,
       long appliedSheds,
-      int pendingApplyRemaining) {}
+      int pendingApplyRemaining,
+      long retargets,
+      long completedScans,
+      long failedScans) {}
 
   Diagnostics diagnostics(boolean enabled, int queueSize) {
     LodDiskNearestScan.Cursor active = cursor;
@@ -316,7 +325,10 @@ final class LodDiskIndexService {
         appliedRemovals,
         appliedAdds,
         appliedSheds,
-        apply == null ? 0 : apply.remaining());
+        apply == null ? 0 : apply.remaining(),
+        retargets,
+        completedScans,
+        failedScans);
   }
 
   void reset() {
