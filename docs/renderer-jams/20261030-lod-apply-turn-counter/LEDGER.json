@@ -1,0 +1,11 @@
+{
+  "jam_id": "renderer-20261030-lod-apply-turn-counter",
+  "parent_main": "62eeb5851f737f898c3117057a7f9713fcd1c050",
+  "implementation_commit": "dc914d3351707ed28c0cea763212a9801ac5f851",
+  "final_source_sha": "dc914d3351707ed28c0cea763212a9801ac5f851",
+  "rubric_average": 5.97,
+  "delta_from_previous": 0,
+  "qualified_jar": false,
+  "gpu_acceptance": false,
+  "claim_released": true
+}
