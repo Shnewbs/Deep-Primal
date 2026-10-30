@@ -180,7 +180,7 @@ public final class DlssVulkanProvider implements AutoCloseable {
     frameArgs.fill(frame);
     try {
       DlssNative.evaluate(context, frame.commandBuffer(), frameArgs.images, frameArgs.formats,
-          frame.jitterX(), frame.jitterY(), frame.motionScaleX(), frame.motionScaleY(),
+          frameArgs.bindings, frame.jitterX(), frame.jitterY(), frame.motionScaleX(), frame.motionScaleY(),
           frame.frameTimeMillis(), frame.preExposure(), resetHistory || frame.resetHistory());
       resetHistory = false;
     } catch (RuntimeException | LinkageError failure) {
