@@ -290,28 +290,41 @@ JNIEXPORT void JNICALL JNI_NAME(create)(JNIEnv* env, jclass, jlong id, jlong com
 }
 
 JNIEXPORT void JNICALL JNI_NAME(evaluate)(JNIEnv* env, jclass, jlong id, jlong commandBuffer,
-    jlongArray imageArray, jintArray formatArray, jfloat jitterX, jfloat jitterY,
+    jlongArray imageArray, jintArray formatArray, jlongArray bindingArray,
+    jfloat jitterX, jfloat jitterY,
     jfloat motionScaleX, jfloat motionScaleY, jfloat frameTime, jfloat preExposure, jboolean reset) {
   try {
     std::lock_guard<std::mutex> lock(ngxMutex);
     Session& value = session(id);
     require(commandBuffer != 0 && value.feature, "DLSS feature is not created");
-    require(imageArray && formatArray && env->GetArrayLength(imageArray) == 8
-        && env->GetArrayLength(formatArray) == 4, "Invalid DLSS image arrays");
+    require(imageArray && formatArray && bindingArray && env->GetArrayLength(imageArray) == 8
+        && env->GetArrayLength(formatArray) == 4 && env->GetArrayLength(bindingArray) == 12,
+        "Invalid DLSS image or memory-binding arrays");
     require(std::isfinite(jitterX) && std::isfinite(jitterY) && std::isfinite(motionScaleX)
         && std::isfinite(motionScaleY) && motionScaleX != 0 && motionScaleY != 0
         && std::isfinite(frameTime) && frameTime > 0 && std::isfinite(preExposure)
         && preExposure > 0, "Invalid DLSS temporal constants");
     std::array<jlong, 8> handles{};
     std::array<jint, 4> formats{};
+    std::array<jlong, 12> bindingValues{};
     env->GetLongArrayRegion(imageArray, 0, 8, handles.data());
     env->GetIntArrayRegion(formatArray, 0, 4, formats.data());
+    env->GetLongArrayRegion(bindingArray, 0, 12, bindingValues.data());
     if (env->ExceptionCheck()) return;
     // Duplicate VkImage / VkImageView handles must not reach NGX, including via
     // a direct JNI caller that bypasses the Java DlssFrame contract.
     // Distinct handles do not prove disjoint VkDeviceMemory allocations.
     require(deepprimal::dlss::hasDistinctImagesAndViews(handles),
         "DLSS sampled inputs and output require distinct image/view handles");
+    std::array<deepprimal::dlss::MemoryBinding, 4> bindings{};
+    for (std::size_t index = 0; index < bindings.size(); ++index) {
+      const std::size_t base = index * 3;
+      bindings[index] = {static_cast<std::uint64_t>(bindingValues[base]),
+          static_cast<std::uint64_t>(bindingValues[base + 1]),
+          static_cast<std::uint64_t>(bindingValues[base + 2])};
+    }
+    require(deepprimal::dlss::hasDisjointBindings(bindings),
+        "DLSS resources require valid, disjoint VkDeviceMemory bindings");
     require(formats[2] == VK_FORMAT_R16G16_SFLOAT || formats[2] == VK_FORMAT_R32G32_SFLOAT,
         "DLSS requires floating point RG motion vectors");
     require(formats[1] == VK_FORMAT_D16_UNORM || formats[1] == VK_FORMAT_X8_D24_UNORM_PACK32
