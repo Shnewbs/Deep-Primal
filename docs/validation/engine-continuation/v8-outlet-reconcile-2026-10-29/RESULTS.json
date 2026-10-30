@@ -12,7 +12,7 @@
     "tools/tests/V8OutletLedgerStoreChecks.java": "b1d6b3ffa7c2e9b6fa89740bd80f7e915100fbb1113e0187570512779278cad6",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8ConservedOutletLedger.java": "5c9552b4a1919287ca08b44639c5b9a745695f609d47706b037e5154c68b2aef",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedOutletTopology.java": "a912949a188ec7d1ca1d6e102b4f764c771a671da211989c2bad7dc13512fb64",
-    "tools/test_v8_outlet_store.py": ""
+    "tools/test_v8_outlet_store.py": "291375c72e39d1eda6abeed0dd278afc86602629a37e5cef1dc8753f73799351"
   },
   "toolchain": "OpenJDK 21.0.12.1; javac --release 21 -Xlint:all -Werror; java -ea -Xverify:all",
   "runs": {
@@ -36,7 +36,8 @@
         "overwrite-forensic-quarantine": true,
         "ignore-native-no-pending-mismatch": true,
         "allow-unsorted-accounts": true
-      }
+      },
+      "source_observed": "V8_OUTLET_STORE_PASS assertions=181 generation=42 persistedTriplet=[800, 420, 260]"
     },
     "optimized": {
       "positive": true,
@@ -58,7 +59,8 @@
         "overwrite-forensic-quarantine": true,
         "ignore-native-no-pending-mismatch": true,
         "allow-unsorted-accounts": true
-      }
+      },
+      "source_observed": "V8_OUTLET_STORE_PASS assertions=181 generation=42 persistedTriplet=[800, 420, 260]"
     }
   },
   "audit_consumed": {
@@ -68,5 +70,6 @@
   "native_or_gradle": false,
   "qualified_jar": false,
   "external_grade": 5,
-  "complete": false
+  "complete": false,
+  "source_commit": "18ec3a4d1ecb02cbc4e4c0fb794f2795616d8721"
 }
