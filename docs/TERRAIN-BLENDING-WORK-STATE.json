@@ -76,7 +76,7 @@
     "lease_released": true
   },
   "latest_relief_v5_vm_gate": {
-    "status": "source_implementation_pending_native_owner_validation",
+    "status": "checkpointed_source_only",
     "source_version": "0.0.1-alpha.29-dev.93-relief-core-gate.1",
     "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0125-32efd75d/REVIEW.md",
     "audit_source": "32efd75ddb17817757dc13c33a2da1cc721fcf20",
@@ -85,6 +85,13 @@
     "owner_full_java25_gradle_native_gpu_required": true,
     "no_jar_or_full_build": true,
     "native_border_and_water_acceptance": false,
-    "last_external_grade": 5
+    "last_external_grade": 5,
+    "source_commit": "dd336db894f24c755150f162cacbfdf200abbad2",
+    "evidence": "docs/validation/engine-continuation/v8-relief-graph-gate-2026-10-30/README.md",
+    "results": "docs/validation/engine-continuation/v8-relief-graph-gate-2026-10-30/RESULTS.json",
+    "tested_exact_new_core_check_blob": "0a28e99945fe0d0861253603afd7b2512b4f8785",
+    "source_regression": "OpenJDK21 V5 unchanged production join isolated API-double normal and Python -OO: 4 positive processes x212735 assertions and 4/4 compiled broken controls rejected",
+    "actual_full_core_gate_ran": false,
+    "lease_released": true
   }
 }

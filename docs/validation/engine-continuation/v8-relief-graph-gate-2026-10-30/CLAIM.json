@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "hourly-engine-builder",
   "run": "20261030T0200-v8-relief-graph-gate",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-10-30T02:04:00Z",
   "expires_at": "2026-10-30T02:28:00Z",
   "source_head_observed": "18c8eb774f58a96067eb17f04d0fb3b607ccbc39",
@@ -20,5 +20,13 @@
   "owner_builds_full_jars": true,
   "measurement_reservation": "none; no timed benchmark",
   "acceptance_complete": false,
-  "last_external_grade": 5
+  "last_external_grade": 5,
+  "lease_released": true,
+  "ended_at": "2026-10-30T02:08:00Z",
+  "implementation_commit": "dd336db894f24c755150f162cacbfdf200abbad2",
+  "evidence": "docs/validation/engine-continuation/v8-relief-graph-gate-2026-10-30/README.md",
+  "results": "docs/validation/engine-continuation/v8-relief-graph-gate-2026-10-30/RESULTS.json",
+  "focused_regression": "4 x 212735 isolated Java21 assertions, 4 compiled mutants rejected; new mandatory real core gate not run",
+  "full_core_native_java25_gpu_run": false,
+  "next": "Owner Java25 full core checks on real DensityGraph V5, native V8 profile reopening, signed old/new generation borders and finite-water native outlet ownership"
 }
