@@ -40,6 +40,12 @@ final class LodDiskIndexService {
       LodDiskNearestScan.MAX_KEYS, 1.0f);
   private long scanGeneration;
   private boolean invalidated;
+  // Lifetime counters for owner-thread bounded streaming work. These are
+  // diagnostics-only and let baseline capture report actual apply pressure
+  // without instrumenting filesystem or GPU paths.
+  private long appliedRemovals;
+  private long appliedAdds;
+  private long appliedSheds;
 
   /** Caller invokes this on every requeue/renewal after changing its queue. */
   void recoveryQueued(long key) {
@@ -188,7 +194,10 @@ final class LodDiskIndexService {
         long key = discard.get(removed++);
         // A post-snapshot renewal owns the key, even if its identity and
         // membership look identical to the original scan's candidate.
-        if (!isRenewed(key) && queue.remove(key)) forgotten.accept(key);
+        if (!isRenewed(key) && queue.remove(key)) {
+          appliedRemovals++;
+          forgotten.accept(key);
+        }
         remaining--;
       }
       while (remaining > 0 && added < incoming.size()) {
@@ -215,6 +224,7 @@ final class LodDiskIndexService {
                     LodDiskNearestScan.MAX_KEYS, incoming.size())), 1.0f);
               }
               shed.add(victim);
+              appliedSheds++;
               forgotten.accept(victim);
             }
           }
@@ -227,6 +237,7 @@ final class LodDiskIndexService {
           }
         }
         queue.add(key);
+        appliedAdds++;
         added++;
         remaining--;
       }
@@ -273,7 +284,10 @@ final class LodDiskIndexService {
       boolean cursorCompleted,
       boolean missingDirectory,
       boolean retiring,
-      int pendingApply) {}
+      int pendingApply,
+      long appliedRemovals,
+      long appliedAdds,
+      long appliedSheds) {}
 
   Diagnostics diagnostics(boolean enabled, int queueSize) {
     LodDiskNearestScan.Cursor active = cursor;
@@ -293,7 +307,10 @@ final class LodDiskIndexService {
         completed != null,
         active != null && active.missingDirectory(),
         retiring != null,
-        apply == null ? 0 : 1);
+        apply == null ? 0 : 1,
+        appliedRemovals,
+        appliedAdds,
+        appliedSheds);
   }
 
   void reset() {
