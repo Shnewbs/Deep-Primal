@@ -39,36 +39,7 @@ public record DlssFrame(
     Objects.requireNonNull(depth, "Scene depth");
     Objects.requireNonNull(motionVectors, "Scene motion vectors");
     Objects.requireNonNull(output, "Output");
-    if (!sameSize(color, depth) || !sameSize(color, motionVectors))
-      throw new IllegalArgumentException("DLSS inputs must share the render resolution");
-    if (output.width() < color.width() || output.height() < color.height())
-      throw new IllegalArgumentException("DLSS output must not be smaller than scene inputs");
-    // Reject both read/write collisions and collisions between simultaneous sampled inputs.
-    // This is allocation-free on the per-frame contract hot path; a distinct VkImageView
-    // of the same VkImage is not a distinct rendering resource.
-    if (aliases(color, depth) || aliases(color, motionVectors) || aliases(color, output)
-        || aliases(depth, motionVectors) || aliases(depth, output)
-        || aliases(motionVectors, output))
-      throw new IllegalArgumentException("DLSS inputs and output require distinct image/view handles");
-    // VK_FORMAT_R16G16_SFLOAT / VK_FORMAT_R32G32_SFLOAT.
-    if (motionVectors.format() != 83 && motionVectors.format() != 103)
-      throw new IllegalArgumentException("DLSS motion vectors require RG16F or RG32F");
-    // This bridge supports sampled depth-only views; combined stencil views are not accepted.
-    if (depth.format() != 124 && depth.format() != 125 && depth.format() != 126)
-      throw new IllegalArgumentException("DLSS depth requires D16, D24, or D32F");
-    if (!Float.isFinite(jitterX) || !Float.isFinite(jitterY)
-        || !Float.isFinite(motionScaleX) || !Float.isFinite(motionScaleY)
-        || motionScaleX == 0 || motionScaleY == 0
-        || !Float.isFinite(frameTimeMillis) || frameTimeMillis <= 0
-        || !Float.isFinite(preExposure) || preExposure <= 0)
-      throw new IllegalArgumentException("Invalid DLSS temporal constants");
-  }
-
-  private static boolean aliases(Image a, Image b) {
-    return a.image() == b.image() || a.view() == b.view();
-  }
-
-  private static boolean sameSize(Image a, Image b) {
-    return a.width() == b.width() && a.height() == b.height();
+    DlssTemporalContract.validate(color, depth, motionVectors, output,
+        jitterX, jitterY, motionScaleX, motionScaleY, frameTimeMillis, preExposure);
   }
 }
