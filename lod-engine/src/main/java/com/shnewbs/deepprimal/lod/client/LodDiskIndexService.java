@@ -41,12 +41,15 @@ final class LodDiskIndexService {
   /** Caller invokes this on every requeue/renewal after changing its queue. */
   void recoveryQueued(long key) {
     if (cursor == null && apply == null) return;
-    if (!renewed.containsKey(key) && renewed.size() == LodDiskNearestScan.MAX_KEYS) {
+    // Put once and branch on the previous value: this avoids the old
+    // containsKey()+put() double-probe on the hot renewal path while preserving
+    // the exact same generation token semantics.
+    Long previous = renewed.putIfAbsent(key, scanGeneration);
+    if (previous == null && renewed.size() > LodDiskNearestScan.MAX_KEYS) {
       // Never silently discard an untracked owner. Rebuild an exact snapshot.
+      renewed.remove(key);
       invalidated = true;
-      return;
     }
-    renewed.put(key, scanGeneration);
   }
 
   /** Returns true only when a completed scan failed (never on transient latency). */
