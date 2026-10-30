@@ -40,7 +40,10 @@ final class LodDiskIndexService {
 
   /** Caller invokes this on every requeue/renewal after changing its queue. */
   void recoveryQueued(long key) {
-    if (cursor == null && apply == null) return;
+    // A cancelled cursor may still be retiring while its directory stream closes.
+    // Keep recording renewals during that handoff so a requeued page cannot be
+    // mistaken for stale scan output when the bounded apply resumes.
+    if (cursor == null && apply == null && retiring == null) return;
     // Put once and branch on the previous value: this avoids the old
     // containsKey()+put() double-probe on the hot renewal path while preserving
     // the exact same generation token semantics.
