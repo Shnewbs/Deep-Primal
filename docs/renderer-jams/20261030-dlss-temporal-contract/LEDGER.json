@@ -2,7 +2,7 @@
   "jam_id": "renderer-20261030T0357-dlss-temporal-contract",
   "status": "source_committed_read_only_self_audited_claim_released",
   "source_parent": "9107f0f316a81adf76f8acbf3285e5bf1a676077",
-  "final_source_commit": "PENDING_DOC_COMMIT",
+  "final_source_commit": "f2dcef9011824c6a4097c433ed8c1c44e7071a81",
   "tests": [
     "javac -Xlint:all -Werror -d <tmp>/out DlssTemporalContract.java DlssFrame.java Test.java",
     "java -cp <tmp>/out Test -> PASS"
