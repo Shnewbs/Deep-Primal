@@ -7,6 +7,9 @@ import java.util.Objects;
  * Motion vectors must include moving geometry, be unjittered current-to-previous motion, and
  * become render-pixel units after applying motionScaleX/Y. Camera-only reconstruction does
  * not satisfy this contract for a scene containing animated objects.
+ * All four image handles and all four view handles must be pairwise distinct. Separate
+ * handles may still alias device memory; the calling renderer must prevent that and
+ * provide correct Vulkan layouts, barriers and GPU lifetime synchronization.
  */
 public record DlssFrame(
     long commandBuffer,
@@ -40,9 +43,13 @@ public record DlssFrame(
       throw new IllegalArgumentException("DLSS inputs must share the render resolution");
     if (output.width() < color.width() || output.height() < color.height())
       throw new IllegalArgumentException("DLSS output must not be smaller than scene inputs");
-    if (output.image() == color.image() || output.image() == depth.image()
-        || output.image() == motionVectors.image())
-      throw new IllegalArgumentException("DLSS output must not alias an input image");
+    // Reject both read/write collisions and collisions between simultaneous sampled inputs.
+    // This is allocation-free on the per-frame contract hot path; a distinct VkImageView
+    // of the same VkImage is not a distinct rendering resource.
+    if (aliases(color, depth) || aliases(color, motionVectors) || aliases(color, output)
+        || aliases(depth, motionVectors) || aliases(depth, output)
+        || aliases(motionVectors, output))
+      throw new IllegalArgumentException("DLSS inputs and output require distinct image/view handles");
     // VK_FORMAT_R16G16_SFLOAT / VK_FORMAT_R32G32_SFLOAT.
     if (motionVectors.format() != 83 && motionVectors.format() != 103)
       throw new IllegalArgumentException("DLSS motion vectors require RG16F or RG32F");
@@ -55,6 +62,10 @@ public record DlssFrame(
         || !Float.isFinite(frameTimeMillis) || frameTimeMillis <= 0
         || !Float.isFinite(preExposure) || preExposure <= 0)
       throw new IllegalArgumentException("Invalid DLSS temporal constants");
+  }
+
+  private static boolean aliases(Image a, Image b) {
+    return a.image() == b.image() || a.view() == b.view();
   }
 
   private static boolean sameSize(Image a, Image b) {
