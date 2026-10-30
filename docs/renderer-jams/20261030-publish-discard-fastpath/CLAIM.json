@@ -1,0 +1,16 @@
+{
+  "claim_id": "renderer-20261030T1052-publish-discard-fastpath",
+  "owner": "renderer-scheduler",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261030-publish-discard-fastpath"
+  ],
+  "conflicts_checked": [
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/WATER-ENGINE-WORK-STATE.json",
+    "docs/GRAPHICS-UPSCALING-WORK-STATE.json"
+  ],
+  "bounded": true,
+  "released_at": null,
+  "notes": "Renderer-only claim. No other feature schedule or automation modified."
+}
