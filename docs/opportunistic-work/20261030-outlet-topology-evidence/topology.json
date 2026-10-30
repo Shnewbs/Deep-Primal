@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "test_kind": "isolated Java21 real production helper; no Minecraft/Gradle/GPU",
+  "java_version": "openjdk version \"25.0.5\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-25.0.5+8 (build 25.0.5+8-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.5+8 (build 25.0.5+8-LTS, mixed mode, sharing)",
+  "source_sha256": "88a4aadd6d33c8d92774324228ab7730b0bee6830be30806cd048640928d97ca",
+  "test_sha256": "b5b049dbe6a67cad8a5a61fdad8ddb64cade93958573d3d955dea93b9839128e",
+  "source_path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedOutletTopology.java",
+  "test_path": "tools/tests/WatershedOutletTopologyChecks.java",
+  "results": {
+    "positive": {
+      "exit": 0,
+      "accepted": true,
+      "output": "WATERSHED_OUTLET_TOPOLOGY_PASS checks=18111 modes=marine,spill,closed,unresolved,runoff,seams,ordering,guards\n",
+      "compiled_sha256": "26792ed6a3dd3ee03716f8c05fca835af84408b65504af19ded01bdb9b3bf66b"
+    },
+    "unverified_water_as_ocean": {
+      "exit": 1,
+      "accepted": false,
+      "output": "Exception in thread \"main\" java.lang.AssertionError: upland lake must overtop 118 sill before ocean at 5\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.check(WatershedOutletTopologyChecks.java:15)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.oceanAndSpill(WatershedOutletTopologyChecks.java:40)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.runChecks(WatershedOutletTopologyChecks.java:179)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.main(WatershedOutletTopologyChecks.java:171)\n",
+      "compiled_sha256": "593d2dc0c0012d8419192ffa17603bdb7631bff6b96237ba006d2fe45b38c3f2"
+    },
+    "duplicated_routed_runoff": {
+      "exit": 1,
+      "accepted": false,
+      "output": "Exception in thread \"main\" java.lang.AssertionError: outlet fixture rejected valid input\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.main(WatershedOutletTopologyChecks.java:175)\nCaused by: java.lang.IllegalStateException: runoff lost or duplicated in outlet tree\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopology$Solution.<init>(WatershedOutletTopology.java:68)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopology.solve(WatershedOutletTopology.java:215)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.oceanAndSpill(WatershedOutletTopologyChecks.java:35)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.runChecks(WatershedOutletTopologyChecks.java:179)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.main(WatershedOutletTopologyChecks.java:171)\n",
+      "compiled_sha256": "591f062dd3278e686f6277cabf1932f9ad1acabfad54501a31d4e03c3ef5b396"
+    },
+    "unknown_frontier_treated_as_closed": {
+      "exit": 1,
+      "accepted": false,
+      "output": "Exception in thread \"main\" java.lang.AssertionError: unknown cross-region boundary taints entire water component at 314\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.check(WatershedOutletTopologyChecks.java:15)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.inlandAndUncertain(WatershedOutletTopologyChecks.java:73)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.runChecks(WatershedOutletTopologyChecks.java:180)\n\tat com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks.main(WatershedOutletTopologyChecks.java:171)\n",
+      "compiled_sha256": "71fe8ad224af95fac7c5261792aabe3a22b8b819de8d75cce207f8bfdfca324c"
+    }
+  },
+  "native_gates": false,
+  "full_build": false,
+  "finite_water_acceptance": false,
+  "v8_gameplay_active": false
+}

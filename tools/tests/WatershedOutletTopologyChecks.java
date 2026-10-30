@@ -167,6 +167,15 @@ public final class WatershedOutletTopologyChecks {
         "empty admitted domain neutral");
   }
   public static void main(String[] args) {
+    try {
+      runChecks();
+    } catch (RuntimeException failure) {
+      // Valid fixture inputs must execute successfully. A production invariant
+      // rejecting a mutated implementation is a test failure, not a JVM failure.
+      throw new AssertionError("outlet fixture rejected valid input", failure);
+    }
+  }
+  private static void runChecks() {
     oceanAndSpill();
     inlandAndUncertain();
     portGraphRunoff();
@@ -176,3 +185,4 @@ public final class WatershedOutletTopologyChecks {
         " modes=marine,spill,closed,unresolved,runoff,seams,ordering,guards");
   }
 }
+

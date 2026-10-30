@@ -7,7 +7,8 @@
   "scope": [
     "tools/test_watershed_outlet_topology.py",
     "tools/test_watershed_outlet_runner_failures.py",
-    "docs/opportunistic-work/20261030-outlet-topology-runner.md"
+    "docs/opportunistic-work/20261030-outlet-topology-runner.md",
+    "tools/tests/WatershedOutletTopologyChecks.java"
   ],
   "requirement": "docs/WATER-BUDGET-REQUIREMENTS.md / Ocean recycling and stable average sea level; conserve at joins and splits. Repair false-positive validation of these invariants.",
   "lease_released": false,

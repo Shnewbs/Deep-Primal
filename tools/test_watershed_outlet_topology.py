@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -16,6 +17,21 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedOutletTopology.java"
 TEST = ROOT / "tools/tests/WatershedOutletTopologyChecks.java"
+CLASS = "com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks"
+
+
+def validate_execution(name, run):
+    if name == "positive":
+        valid = (run.returncode == 0
+                 and "WATERSHED_OUTLET_TOPOLOGY_PASS checks=" in run.stdout)
+    else:
+        valid = (run.returncode == 1
+                 and re.search(r'^(?:Exception in thread "[^"]+" |Caused by: )java\.lang\.AssertionError(?::|$)',
+                               run.stderr, flags=re.MULTILINE) is not None
+                 and "\tat " + CLASS + "." in run.stderr)
+    if not valid:
+        raise RuntimeError(f"{name}: unexpected exit or missing fixture evidence "
+                           f"{run.returncode}: {run.stdout} {run.stderr}")
 
 
 def sha256(content):
@@ -66,8 +82,7 @@ def main():
             run = subprocess.run([java, "-ea", "-Xverify:all", "-cp", str(directory),
                 "com.shnewbs.deepprimal.core.WatershedOutletTopologyChecks"],
                 text=True, capture_output=True)
-            if (name == "positive") != (run.returncode == 0):
-                raise RuntimeError(f"{name}: unexpected exit {run.returncode}: {run.stdout} {run.stderr}")
+            validate_execution(name, run)
             results[name] = {"exit": run.returncode,
                              "accepted": name == "positive",
                              "output": (run.stdout + run.stderr)[:4000],
@@ -91,3 +106,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
