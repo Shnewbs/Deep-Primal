@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261030T2358-pending-apply-counter-compile-fix",
+  "scope": "renderer-only",
+  "owner": "Deep Primal renderer schedule",
+  "status": "active",
+  "started_at": "2026-10-30T23:58:39Z",
+  "active_until": "2026-10-31T00:23:39Z",
+  "parent_main": "6c5cd3dcad696a523b040619dd7943cca30fbf29",
+  "affected_paths": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "docs/renderer-jams/20261030-pending-apply-counter-compile-fix/*"
+  ],
+  "excluded": [
+    "engine builder",
+    "water builder",
+    "other renderer writer active files",
+    "automations",
+    "ports",
+    "shared build outputs"
+  ],
+  "reason": "Repair source-level Java compilation regression in static PendingApply instance counter access; preserve bounded apply behavior."
+}
