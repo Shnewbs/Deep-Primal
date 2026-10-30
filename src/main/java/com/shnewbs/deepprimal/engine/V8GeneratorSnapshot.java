@@ -208,6 +208,19 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
+  /** Explicit new-world authoring selection for the V8 relief V6 graph. */
+  public static V8GeneratorSnapshot newReliefV6(long seed, int minY, int height,
+      GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+      V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    DensityGraph.Definition recipe = TerrainShapeV8.definitionReliefV6(floatingFeatures);
+    recipe.compile(seed);
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        recipe,
+        Objects.requireNonNull(ground, "ground"),
+        Objects.requireNonNull(blendPolicy, "blendPolicy"),
+        Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
+  }
+
   /** New explicit revision, never an in-place reinterpretation of existing r3 saves. */
   public V8GeneratorSnapshot withClimateBinding(V8ClimateBinding binding) {
     if (version != SURFACE_VERSION)
