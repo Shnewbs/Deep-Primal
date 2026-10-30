@@ -100,14 +100,26 @@ public final class EcotoneBlend {
 
     /** Blend unit-range properties, e.g. vegetation cover, without averaging surface heights. */
     public double blendUnitValues(double[] palette) {
+      return blendBoundedValues(palette, 0, 1, "palette value");
+    }
+
+    /**
+     * Blend a finite continuous material property against the saved biome weights.
+     * This is for bounded cover/snow/soil coefficients only; callers must not use it
+     * for physical heights, liquid volume or hydrology ownership.
+     */
+    public double blendBoundedValues(double[] palette, double min, double max, String name) {
       Objects.requireNonNull(palette, "palette");
+      Objects.requireNonNull(name, "name");
       if (palette.length != PALETTE_SIZE) throw new IllegalArgumentException("palette length");
+      if (!Double.isFinite(min) || !Double.isFinite(max) || min > max)
+        throw new IllegalArgumentException("invalid bounds");
       double result = 0;
       for (int i = 0; i < PALETTE_SIZE; i++) {
-        interval(palette[i], 0, 1, "palette value");
+        interval(palette[i], min, max, name);
         result += values[i] * palette[i];
       }
-      return Math.max(0, Math.min(1, result));
+      return Math.max(min, Math.min(max, result));
     }
   }
 

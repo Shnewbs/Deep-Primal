@@ -179,6 +179,7 @@ public final class EcotoneBlendChecks {
     double[] properties = new double[40];
     properties[36] = .8;properties[37] = .2;
     close(equal.blendUnitValues(properties),.5,1e-15,"continuous property mixing");
+    close(equal.blendBoundedValues(new double[]{0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}, -2, 2, "bounded property"), .2, 1e-15, "bounded continuous property mixing");
     Arrays.fill(properties,1);close(equal.blendUnitValues(properties),1,1e-15,"constant property preserved");
     double[] copy = equal.toArray();Arrays.fill(copy,0);
     close(equal.weight(36),.5,0,"immutable distribution");
