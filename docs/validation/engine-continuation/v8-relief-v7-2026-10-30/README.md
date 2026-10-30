@@ -42,6 +42,12 @@ V6 control. **This full VM gate was added but not executed here.**
 - Python 3.13.5 source-identity-pinned join-window regression:
   **37,316 assertions each** in normal and `python3 -OO` runs.
   Reproduce with `python3 tools/test_v8_relief_v7_window.py`.
+- Negative control: an independently altered V7 highland band (.12 to .14)
+  was rejected in both normal and Python `-OO` runs by the pinned source
+  identity; after updating the isolated mutant's expected identity, the
+  **behavioral** guard also rejected it with
+  `V7 join not broader than frozen V6`. This is a Python source-window
+  mutation control, not a compiled DensityGraph VM mutation.
 - Post-commit GitHub re-fetch checked the actual committed V7/V6 helper,
   V7 graph wiring, saved factory, mandatory CoreChecks entry, signed-zero
   correction in the VM fixture, and `gradle.properties` version.

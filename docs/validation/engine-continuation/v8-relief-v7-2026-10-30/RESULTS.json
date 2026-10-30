@@ -40,6 +40,18 @@
       "name": "post-commit source wiring",
       "status": "pass",
       "checks": 8
+    },
+    {
+      "name": "independent narrow-window V7 mutation control",
+      "status": "rejected_as_expected",
+      "modes": [
+        "Python normal",
+        "Python -OO"
+      ],
+      "source_identity_rejection": true,
+      "behavioral_rejection_after_mutant_identity_update": true,
+      "reason": "V7 join not broader than frozen V6",
+      "vm": false
     }
   ],
   "not_executed": [
