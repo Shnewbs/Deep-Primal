@@ -518,6 +518,28 @@ public record V8GeneratorSnapshot(
     graph.channel(ground.channel(), 0, 0, 0);
   }
 
+  /**
+   * Stable identity for the complete saved V8 profile envelope. This is used by
+   * reopen/edit callers to prove that the decoded profile is the same immutable
+   * profile that prepared the chunk; it does not replace the serialized fields
+   * or silently migrate old saves.
+   */
+  public long savedProfileFingerprint() {
+    long h = 0xD6E8FEB86659FD93L;
+    h = mix(h, version);
+    h = mix(h, seed);
+    h = mix(h, minY);
+    h = mix(h, height);
+    h = mix(h, density.hashCode());
+    h = mix(h, ground.hashCode());
+    h = mix(h, blendPolicy.hashCode());
+    h = mix(h, surfacePolicy == null ? 0 : surfacePolicy.hashCode());
+    h = mix(h, climateBinding == null ? 0 : climateBinding.hashCode());
+    h = mix(h, hydrologyBinding == null ? 0 : hydrologyBinding.hashCode());
+    h = mix(h, vegetationPolicy == null ? 0 : vegetationPolicy.hashCode());
+    return h == 0L ? 1L : h;
+  }
+
   /** Reject another world's geometry before any native block write. */
   public void requireHeight(int actualMinY, int actualHeight) {
     if (minY != actualMinY || height != actualHeight)
@@ -578,6 +600,12 @@ public record V8GeneratorSnapshot(
       if (snapshot.version() != VEGETATION_VERSION || snapshot.vegetationPolicy() == null)
         throw new IllegalStateException("V8 vegetation receipt requires revision 6 snapshot");
       return V8VegetationReceiptConsumer.consume(this, chunk, planned, receipt);
+    }
+
+    /** Require the decoded/reopened profile to be byte-equivalent by saved identity. */
+    public void requireSavedProfileFingerprint(long expected) {
+      if (snapshot.savedProfileFingerprint() != expected)
+        throw new IllegalArgumentException("V8 saved profile fingerprint mismatch");
     }
 
     public void requireHeight(int actualMinY, int actualHeight) {
