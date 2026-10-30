@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "owner": "hourly-engine-builder",
+  "run": "20261030T0200-v8-relief-graph-gate",
+  "status": "active",
+  "started_at": "2026-10-30T02:04:00Z",
+  "expires_at": "2026-10-30T02:28:00Z",
+  "source_head_observed": "18c8eb774f58a96067eb17f04d0fb3b607ccbc39",
+  "scope": [
+    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/density/V8ReliefV5GraphChecks.java",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-relief-graph-gate-2026-10-30/**",
+    "docs/TERRAIN-BLENDING-WORK-STATE.json"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0125-32efd75d/REVIEW.md",
+  "audit_source": "32efd75ddb17817757dc13c33a2da1cc721fcf20",
+  "scope_reason": "Actual production DensityGraph V5 construction validation plus first-party core-check auto-registration; no native water or renderer writes",
+  "owner_builds_full_jars": true,
+  "measurement_reservation": "none; no timed benchmark",
+  "acceptance_complete": false,
+  "last_external_grade": 5
+}
