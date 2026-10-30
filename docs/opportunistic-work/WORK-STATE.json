@@ -1,15 +1,21 @@
 {
   "schema": 1,
   "worker": "opportunistic-20261030-relief-runner",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-30T01:20:05.285Z",
-  "expires_at": "2026-10-30T01:40:05.285Z",
+  "expires_at": "2026-10-30T01:24:24.130Z",
   "scope": [
     "tools/test_v8_relief_v5.py",
     "tools/test_v8_relief_runner_failures.py",
     "docs/opportunistic-work/20261030-relief-runner.md"
   ],
   "requirement": "docs/TERRAIN-BLENDING.md / Integration sequence 3-4; reliable bounded-relief validation",
-  "lease_released": false,
-  "last_delivered_jar": null
+  "lease_released": true,
+  "last_delivered_jar": null,
+  "ended_at": "2026-10-30T01:24:24.130Z",
+  "source_commit": "953c4d6738cac386afdf61556f85351d4c6cbdec",
+  "tests": "4 Python regressions each normal/-OO; 850940 Java21-target assertions on JDK25; 4 compiled mutants rejected",
+  "build": "failed: partial source checkout plus network-unreachable NeoForge dependencies",
+  "cleanup": "none; no replacement JAR",
+  "handoff": "docs/opportunistic-work/20261030-relief-runner.md"
 }
