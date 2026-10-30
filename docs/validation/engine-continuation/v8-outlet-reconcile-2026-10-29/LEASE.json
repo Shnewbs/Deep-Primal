@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-20261030T0003-dev91-outlet-reconcile",
+  "status": "active",
+  "lease_released": false,
+  "started_at": "2026-10-30T00:03:11Z",
+  "active_until": "2026-10-30T00:35:00Z",
+  "base_ref": "d58359b9c70379a62280435d843671114dd7f403",
+  "candidate_version": "0.0.1-alpha.29-dev.91-outlet-reconcile.1",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletLedgerStore.java",
+    "tools/tests/V8OutletLedgerStoreChecks.java",
+    "tools/test_v8_outlet_store.py",
+    "docs/validation/engine-continuation/v8-outlet-reconcile-2026-10-29/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-29T2330-655ab648/REVIEW.md",
+  "audit_pinned_source": "655ab648212c3d378d638ea0a99ca1c42f2bf4ec",
+  "coordination": "Read GitHub main, current renderer jam44 claim, expired terrain and water claims, stale root work-state and independent Dev90 audit. Full local checkout and pinned root validator unavailable; root state remains unmodified. No renderer or native HydrologyRuntime edits. Owner handles full builds.",
+  "last_external_average": 5,
+  "acceptance_complete": false,
+  "planned": "Add owner-confirmed durable native-account reconciliation of valid pending V8 outlet frames, with fail-closed poison, canonical receipt and conservation checks; focused Java21 filesystem tests. Native evidence is caller-supplied; not proof of Minecraft integration.",
+  "owner_full_builds": true
+}
