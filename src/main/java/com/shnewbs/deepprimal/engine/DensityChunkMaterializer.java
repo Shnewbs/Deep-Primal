@@ -332,10 +332,10 @@ public final class DensityChunkMaterializer {
         // Snow completely replaces the visible cover. Once snow is cached,
         // do not accidentally resolve an unused grass/podzol/bare registry
         // value on later snow columns (the dev58 else binding did exactly that).
-        if (column.cover().snowPatch()) {
+        if (column.materialBand() == V8EcotoneColumnPlan.MaterialBand.SNOW) {
           if (snow == null)
             snow = Objects.requireNonNull(Blocks.SNOW_BLOCK.defaultBlockState(), "V8 snow");
-        } else switch (column.cover().cover()) {
+        } else switch (column.materialBand()) {
           case BARE -> { if (bare == null) bare = Objects.requireNonNull(
               GroundMaterials.DIRT.get().defaultBlockState(), "V8 bare surface"); }
           case GRASS -> { if (grass == null) grass = Objects.requireNonNull(
@@ -368,7 +368,8 @@ public final class DensityChunkMaterializer {
           var column = columns.column(x, z);
           if (column == null) continue;
           var cover = column.cover();
-          BlockState topState = cover.snowPatch() ? snow : switch (cover.cover()) {
+          BlockState topState = switch (column.materialBand()) {
+            case SNOW -> snow;
             case BARE -> bare;
             case GRASS -> grass;
             case PODZOL -> podzol;
@@ -388,11 +389,12 @@ public final class DensityChunkMaterializer {
           var place = plants.placement(x, z);
           if (place == null) continue;
           var column = columns.column(x, z);
-          if (column == null || column.cover().snowPatch()) continue;
-          BlockState expectedSupport = switch (column.cover().cover()) {
+          if (column == null || column.materialBand() == V8EcotoneColumnPlan.MaterialBand.SNOW) continue;
+          BlockState expectedSupport = switch (column.materialBand()) {
             case BARE -> null;
             case GRASS -> grass;
             case PODZOL -> podzol;
+            case SNOW -> null;
           };
           if (expectedSupport == null) continue;
           int worldX = origin.getMinBlockX() + x, worldZ = origin.getMinBlockZ() + z;
