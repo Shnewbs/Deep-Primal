@@ -246,6 +246,26 @@ public final class DensityChunkMaterializer {
         new V8VegetatedResult(written.ecotone(), written.vegetation()), written.receipt());
   }
 
+  /**
+   * Reopen/edit-safe r6 receipt path. The caller must present the fingerprint
+   * captured from the exact saved profile that prepared this chunk. The gate
+   * runs before the climate callback, density sampling, or first native setter,
+   * so a mismatched decoded/edited profile cannot produce a receipt for the
+   * wrong saved world. The existing overload remains the explicit first-save
+   * entry point for callers that already own the prepared profile.
+   */
+  public static V8VegetatedReceiptResult fillSavedEcotoneVegetatedWithReceipt(
+      V8GeneratorSnapshot.Prepared prepared, long expectedSavedProfileFingerprint,
+      ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
+    return fillSavedEcotoneVegetatedWithReceipt(prepared, chunk, queriesPerSlab,
+        referenceClimate, authority);
+  }
+
   /** Same V8 surface-plan contract for non-writing base-column/vegetation queries. */
   public static V8VegetatedResult planSavedEcotoneVegetated(
       V8GeneratorSnapshot.Prepared prepared, int originWorldX, int originWorldZ,
