@@ -40,6 +40,26 @@ public final class V8VegetationColumnPlan {
 
   public int count() { return count; }
 
+  /**
+   * Planned WORLD_SURFACE_WG height for an explicit r6 column. A plant adds
+   * one block only when its saved position is exactly the top air cell in the
+   * independently computed raw/soil column. This is a PREWRITE prediction:
+   * native setter callbacks may veto or overwrite the plant, in which case
+   * the actual chunk heightmap and realized receipt take precedence.
+   * OCEAN_FLOOR_WG ignores these non-motion-blocking plant species.
+   * No neighboring chunk, climate callback or per-call randomness is used.
+   */
+  public int plannedWorldSurfaceExclusive(int localX, int localZ,
+      int rawHeightExclusive, int minY, int maxYExclusive) {
+    if (minY >= maxYExclusive || rawHeightExclusive < minY
+        || rawHeightExclusive > maxYExclusive)
+      throw new IllegalArgumentException("V8 raw height outside world column");
+    Placement site = placement(localX, localZ);
+    if (site == null || site.y() != rawHeightExclusive
+        || site.y() >= maxYExclusive) return rawHeightExclusive;
+    return Math.addExact(site.y(), 1);
+  }
+
   /** Build after climate/material preflight, before the first native write. */
   public static V8VegetationColumnPlan build(V8EcotoneColumnPlan columns,
       int originX, int originZ, int minY, int height, long savedSeed,

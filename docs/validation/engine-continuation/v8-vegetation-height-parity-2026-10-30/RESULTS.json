@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1-alpha.29-dev.94-vegetation-height-parity.1",
+  "base_main": "b84e3048acf23b40aa48ba1ca129e759cb1d680a",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
+  "audit_pinned_source": "c57d2924562a7dd35eed007a164205953bb13061",
+  "last_full_external_grade": 5,
+  "grade_fresh": false,
+  "strict_java21_source_only": true,
+  "api_doubles": true,
+  "positive_processes": 4,
+  "assertions_per_process": 163503,
+  "assertions_total": 654012,
+  "compiled_mutants_rejected": 12,
+  "tested_blobs": {
+    "planner": "62e6f3f2d38aa8db62b9d6a4baeb37f61112708a",
+    "test": "13659582efdb9177d703ada0f3890f2671c2a77f",
+    "runner": "05567abb13ee3d50806ef6e58e1bdacf7b10bdda"
+  },
+  "materializer_compiled": false,
+  "real_v5_corechecks_executed": false,
+  "native_minecraft": false,
+  "java25_full_gradle": false,
+  "real_gpu": false,
+  "complete_workstate_validator_executed": false,
+  "jar_built": false,
+  "water_acceptance_complete": false
+}

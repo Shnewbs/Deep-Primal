@@ -499,7 +499,8 @@ public final class DensityChunkMaterializer {
     int minY = density.minY(), maxY = density.maxYExclusive();
     BlockState[] states = new BlockState[maxY - minY];
     for (int y = minY; y < maxY; y++) states[y - minY] = base.getBlock(y);
-    if (plant.y() >= minY && plant.y() < maxY
+    if (plant.y() == baseHeight(result.ecotone().terrain(), localX, localZ)
+        && plant.y() >= minY && plant.y() < maxY
         && states[plant.y() - minY].isAir())
       states[plant.y() - minY] = (plant.plant() == V8VegetationColumnPlan.Plant.FERN
           ? Blocks.FERN : Blocks.SHORT_GRASS).defaultBlockState();
@@ -683,6 +684,30 @@ public final class DensityChunkMaterializer {
     int height = chunk.maxYExclusive() - chunk.minY();
     return Math.max(chunk.minY() + Math.min(2, height),
         chunk.surfaceExclusive(localX, localZ));
+  }
+
+
+  /**
+   * Planned V8-r6 heightmap query using the SAME deterministic plant positions
+   * as baseColumnVegetated. Only the two native world-generation heightmaps
+   * are supported: non-motion-blocking short grass and ferns can increase
+   * WORLD_SURFACE_WG but never OCEAN_FLOOR_WG. This is not a postwrite
+   * observation; callbacks/player edits require the native heightmap and
+   * V8VegetationNativeReceipt instead of predicting a realized plant.
+   */
+  public static int baseHeightVegetated(V8VegetatedResult result,
+      int localX, int localZ, Heightmap.Types type) {
+    Objects.requireNonNull(result, "V8 vegetated plan");
+    Objects.requireNonNull(type, "V8 heightmap type");
+    if (type != Heightmap.Types.WORLD_SURFACE_WG
+        && type != Heightmap.Types.OCEAN_FLOOR_WG)
+      throw new IllegalArgumentException("unsupported V8 planned heightmap type");
+    var terrain = result.ecotone().terrain();
+    int raw = baseHeight(terrain, localX, localZ);
+    if (type == Heightmap.Types.OCEAN_FLOOR_WG) return raw;
+    var chunk = terrain.chunk();
+    return result.vegetation().plannedWorldSurfaceExclusive(
+        localX, localZ, raw, chunk.minY(), chunk.maxYExclusive());
   }
 
   /**

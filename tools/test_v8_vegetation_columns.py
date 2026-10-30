@@ -55,6 +55,8 @@ def main():
       'snow_loss': ('|| cover.snowPatch()', ''),
       'plant_count_copy': ('placed++;', 'placed += 2;'),
       'density_thinning': ('if (unit(savedSeed ^ THIN_SALT, gx, gz) >= policy.densityScale()) continue;', 'if (false) continue;'),
+      'height_loss': ('return Math.addExact(site.y(), 1);', 'return rawHeightExclusive;'),
+      'height_wrong_ground': ('site.y() != rawHeightExclusive', 'site.y() == rawHeightExclusive'),
     }
     bad=[]
     for name,(before,after) in negative.items():
@@ -73,4 +75,3 @@ def main():
     print(json.dumps(receipt,indent=2))
 
 if __name__=='__main__': main()
-

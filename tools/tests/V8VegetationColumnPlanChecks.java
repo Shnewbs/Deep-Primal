@@ -106,6 +106,21 @@ public final class V8VegetationColumnPlanChecks {
         new V8VegetationPolicy(1,4,1)));
     rejects(()->V8VegetationColumnPlan.build(grass,0,0,0,100,1,null));
     var p=sample(grass,-16,0,17,4,1);
+    // Planned r6 WORLD_SURFACE_WG includes plants, OCEAN_FLOOR_WG does
+    // not. An absent or out-of-range site cannot invent a height increment.
+    for (int z=0; z<16; z++) for (int x=0; x<16; x++) {
+      var site=p.placement(x,z);
+      int expected=site==null?99:100;
+      require(p.plannedWorldSurfaceExclusive(x,z,99,-64,320)==expected,
+          "planned surface height exactly follows vegetation");
+      require(p.plannedWorldSurfaceExclusive(x,z,98,-64,320)==98,
+          "no plant height when raw ground differs");
+      require(p.plannedWorldSurfaceExclusive(x,z,99,-64,99)==99,
+          "top-exclusive clipping prevents out-of-height plants");
+    }
+    rejects(()->p.plannedWorldSurfaceExclusive(0,0,10,20,21));
+    rejects(()->p.plannedWorldSurfaceExclusive(0,0,40,20,30));
+    rejects(()->p.plannedWorldSurfaceExclusive(0,0,20,30,20));
     try {p.placement(16,0);throw new AssertionError("local out-of-range accepted");}
     catch(IndexOutOfBoundsException good){checks++;}
     // Reversed and concurrent independent calls yield the same immutable plans.
