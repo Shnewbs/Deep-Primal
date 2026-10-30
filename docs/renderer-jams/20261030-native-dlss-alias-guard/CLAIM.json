@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "owner": "renderer-hourly-feature-only",
+  "jam_id": "renderer-20261030T0300-native-dlss-alias-guard",
+  "status": "active",
+  "started_at": "2026-10-30T03:00:00Z",
+  "expires_at": "2026-10-30T03:25:00Z",
+  "source_head_observed": "69b4a241fc1be55301453dead8d9700cfada2d2b",
+  "scope": [
+    "renderer-vulkan/src/main/native/dlss/deepprimal_dlss.cpp",
+    "renderer-vulkan/src/main/native/dlss/DlssImageAliasGuard.h",
+    "renderer-vulkan/src/nativeChecks/cpp/DlssImageAliasGuardChecks.cpp",
+    "docs/renderer-jams/20261030-native-dlss-alias-guard/**"
+  ],
+  "purpose": "Reject all sampled-input and output VkImage/VkImageView handle aliases at the native JNI/NGX boundary, including direct native callers. Standalone C++20 validation; preserve conservative Vulkan resource identity, no active DLSS or GPU claims.",
+  "measurement_reservation": "Native-free C++20 deterministic fuzz/negative control only; no GPU and no LOD cache measurements",
+  "exclusions": [
+    "lod-engine and renderer prefix-resume claim",
+    "engine-core",
+    "water engine",
+    "graphics settings/upscaler UI",
+    "Java25/full build owned by user"
+  ],
+  "previous_audit": "docs/renderer-jams/20261030-dlss-packet-reuse/REVIEW.md",
+  "no_subagents": true,
+  "owner_build_policy": "owner Oct27 Java25/Gradle/Minecraft/GPU/JAR"
+}
