@@ -1,21 +1,15 @@
 {
   "schema": 1,
-  "worker": "opportunistic-20261030-outlet-topology-runner",
-  "status": "released",
-  "started_at": "2026-10-30T00:22:08.809Z",
-  "expires_at": "2026-10-30T00:24:50.013Z",
+  "worker": "opportunistic-20261030-relief-runner",
+  "status": "active",
+  "started_at": "2026-10-30T01:20:05.285Z",
+  "expires_at": "2026-10-30T01:40:05.285Z",
   "scope": [
-    "tools/test_watershed_outlet_topology.py",
-    "tools/test_watershed_outlet_runner_failures.py",
-    "docs/opportunistic-work/20261030-outlet-topology-runner.md",
-    "tools/tests/WatershedOutletTopologyChecks.java"
+    "tools/test_v8_relief_v5.py",
+    "tools/test_v8_relief_runner_failures.py",
+    "docs/opportunistic-work/20261030-relief-runner.md"
   ],
-  "requirement": "docs/WATER-BUDGET-REQUIREMENTS.md / Ocean recycling and stable average sea level; conserve at joins and splits. Repair false-positive validation of these invariants.",
-  "lease_released": true,
-  "last_delivered_jar": null,
-  "ended_at": "2026-10-30T00:24:50.013Z",
-  "source_commit": "9838b2ed0e869112d986231cdf62e712b95d5d4e",
-  "tests": "4 Python regressions pass normal/-OO; 18111 Java assertions and 3 compiled mutants per mode; Gradle blocked by missing Foojay plugin",
-  "cleanup": "none; no replacement JAR",
-  "handoff": "docs/opportunistic-work/20261030-outlet-topology-runner.md"
+  "requirement": "docs/TERRAIN-BLENDING.md / Integration sequence 3-4; reliable bounded-relief validation",
+  "lease_released": false,
+  "last_delivered_jar": null
 }
