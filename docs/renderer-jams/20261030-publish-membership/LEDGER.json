@@ -1,0 +1,17 @@
+{
+  "jam_id": "renderer-20261030T1000-publish-membership",
+  "parent_main": "2e3f30c212e56697a735d912803bf33cea5c8099",
+  "implementation_commit": "95ab79f433ab1921f490cfb97515fd2cc49e1052",
+  "final_source_sha": "2e3f30c212e56697a735d912803bf33cea5c8099",
+  "rubric_average": 5.97,
+  "delta_from_previous": 0,
+  "qualified_jar": false,
+  "gpu_acceptance": false,
+  "claim_released": true,
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261030-publish-membership/README.md",
+    "docs/renderer-jams/20261030-publish-membership/REVIEW.md",
+    "docs/renderer-jams/20261030-publish-membership/LEDGER.json"
+  ]
+}
