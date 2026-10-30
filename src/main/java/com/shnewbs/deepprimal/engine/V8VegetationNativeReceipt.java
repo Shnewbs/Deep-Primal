@@ -25,9 +25,10 @@ public final class V8VegetationNativeReceipt {
   private final int realizedCount;
   private final int originX;
   private final int originZ;
+  private final long profileFingerprint;
 
   private V8VegetationNativeReceipt(long[] words, int plannedCount, int realizedCount,
-      int originX, int originZ) {
+      int originX, int originZ, long profileFingerprint) {
     if (plannedCount < 0 || plannedCount > SIDE * SIDE
         || realizedCount < 0 || realizedCount > plannedCount)
       throw new IllegalArgumentException("V8 vegetation receipt counts");
@@ -36,6 +37,7 @@ public final class V8VegetationNativeReceipt {
     this.realizedCount = realizedCount;
     this.originX = originX;
     this.originZ = originZ;
+    this.profileFingerprint = profileFingerprint;
   }
 
   /** Total deterministic candidates before native writes or callback vetoes. */
@@ -48,6 +50,19 @@ public final class V8VegetationNativeReceipt {
   public int originX() { return originX; }
   /** Absolute minimum Z of the chunk whose postwrite states were observed. */
   public int originZ() { return originZ; }
+
+  /** Stable saved-profile identity captured with this native observation. */
+  public long profileFingerprint() { return profileFingerprint; }
+
+  /** A receipt is valid only for the exact saved V8 vegetation profile that produced it. */
+  public boolean matchesProfile(long expectedFingerprint) {
+    return profileFingerprint == expectedFingerprint;
+  }
+
+  public void requireSameProfile(long expectedFingerprint) {
+    if (!matchesProfile(expectedFingerprint))
+      throw new IllegalArgumentException("V8 vegetation receipt belongs to another saved profile");
+  }
 
   /**
    * Receipts are world-coordinate observations, not portable placement masks.
@@ -88,6 +103,21 @@ public final class V8VegetationNativeReceipt {
       V8VegetationColumnPlan plants, V8EcotoneColumnPlan columns,
       BlockState expectedGrass, BlockState expectedPodzol,
       BlockState shortGrass, BlockState fern) {
+    return captureBoundToProfile(chunk, plants, columns, expectedGrass, expectedPodzol,
+        shortGrass, fern, 0L);
+  }
+
+  /**
+   * Capture a receipt bound to the exact saved V8 vegetation-profile identity.
+   * The fingerprint is supplied by the profile codec/owner; this helper does
+   * not hash mutable chunk state or invent identity. A zero fingerprint is
+   * reserved for legacy unbound observations and must be rejected by callers
+   * that require profile-safe reuse.
+   */
+  public static V8VegetationNativeReceipt captureBoundToProfile(ChunkAccess chunk,
+      V8VegetationColumnPlan plants, V8EcotoneColumnPlan columns,
+      BlockState expectedGrass, BlockState expectedPodzol,
+      BlockState shortGrass, BlockState fern, long profileFingerprint) {
     Objects.requireNonNull(chunk, "V8 receipt chunk");
     Objects.requireNonNull(plants, "V8 saved placement plan");
     Objects.requireNonNull(columns, "V8 saved surface preflight");
@@ -133,6 +163,7 @@ public final class V8VegetationNativeReceipt {
       }
     if (candidateCount != plants.count())
       throw new IllegalStateException("V8 vegetation plan candidate count changed");
-    return new V8VegetationNativeReceipt(words, candidateCount, observed, originX, originZ);
+    return new V8VegetationNativeReceipt(words, candidateCount, observed, originX, originZ,
+        profileFingerprint);
   }
 }
