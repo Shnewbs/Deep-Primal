@@ -105,6 +105,8 @@ public final class DlssVulkanProvider implements AutoCloseable {
 
   private final Thread owner = Thread.currentThread();
   private final Runnable drainGpu;
+  // Session-owned scratch: JNI copies both arrays synchronously before returning.
+  private final DlssPackedFrame frameArgs = new DlssPackedFrame();
   private long context;
   private boolean poisoned;
   private boolean resetHistory = true;
@@ -175,13 +177,9 @@ public final class DlssVulkanProvider implements AutoCloseable {
     if (frame.color().width() != renderWidth || frame.color().height() != renderHeight
         || frame.output().width() != outputWidth || frame.output().height() != outputHeight)
       throw new IllegalArgumentException("DLSS frame dimensions differ from the created feature");
-    long[] images = {frame.color().image(), frame.color().view(), frame.depth().image(),
-        frame.depth().view(), frame.motionVectors().image(), frame.motionVectors().view(),
-        frame.output().image(), frame.output().view()};
-    int[] formats = {frame.color().format(), frame.depth().format(),
-        frame.motionVectors().format(), frame.output().format()};
+    frameArgs.fill(frame);
     try {
-      DlssNative.evaluate(context, frame.commandBuffer(), images, formats,
+      DlssNative.evaluate(context, frame.commandBuffer(), frameArgs.images, frameArgs.formats,
           frame.jitterX(), frame.jitterY(), frame.motionScaleX(), frame.motionScaleY(),
           frame.frameTimeMillis(), frame.preExposure(), resetHistory || frame.resetHistory());
       resetHistory = false;
