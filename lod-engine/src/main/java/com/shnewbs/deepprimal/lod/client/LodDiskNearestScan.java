@@ -260,11 +260,14 @@ final class LodDiskNearestScan {
     }
 
     private void accept(int x, int z) {
+      // Duplicate filenames are common on periodic rediscovery. Reject them
+      // before distance arithmetic or RankedKey allocation.
+      long key = ((long) x << 32) ^ (z & 0xffffffffL);
+      if (retained.contains(key)) return;
       if (farthest.size() == maxKeys) {
         // Compare the full rank against the worst retained page *before*
-        // boxing the key, probing the HashSet or allocating RankedKey.
-        // Same-ring rejects are common along a large saved-region perimeter;
-        // ring-only rejection still allocated for every one of them.
+        // allocating RankedKey. Same-ring rejects are common along a large
+        // saved-region perimeter; ring-only rejection still allocates nothing.
         RankedKey worst = farthest.peek();
         long dx = Math.abs((long) x - cameraX);
         long dz = Math.abs((long) z - cameraZ);
@@ -272,8 +275,6 @@ final class LodDiskNearestScan {
         if (ring > worst.ring || (ring == worst.ring
             && !betterOnSameRing(x, z, dx, dz, worst))) return;
       }
-      long key = ((long) x << 32) ^ (z & 0xffffffffL);
-      if (retained.contains(key)) return;
       RankedKey candidate = new RankedKey(x, z, cameraX, cameraZ);
       if (farthest.size() < maxKeys) {
         farthest.add(candidate);
