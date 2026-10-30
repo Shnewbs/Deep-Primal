@@ -6,7 +6,7 @@ This is the renderer jam's read-only self-audit, not an independent external aud
 
 - Parent main: 041a532350838f6e93ca8dc2071f1d4b7802d827
 - Implementation commit: e383f61e7f0e3897b237228f14ce0134e4c0558a
-- Final main: to be recorded after guarded integration
+- Final main: 9694124eb0df1fe004c20f85cd0f5bbf3f133092
 - Changed production file: lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java
 - Focused check: docs/renderer-jams/20261030-lod-diagnostics/LodDiskDiagnosticsChecks.java
 
@@ -22,3 +22,20 @@ This is the renderer jam's read-only self-audit, not an independent external aud
 | Validation / measured performance | 6.85 | Focused diagnostics check is source-only; no matched native timing, GPU memory, or named-hardware evidence. |
 
 Average: 5.97/10. Change from jam 63: 0.00.
+
+## Validation
+
+Passed:
+- current main re-read before integration
+- guarded expected-parent fast-forward update
+- final main readback
+- production-file and docs scope review
+- focused source-only diagnostics check added
+
+Not run:
+- Java 25 and full Gradle/NeoForge
+- native Vulkan/OpenGL
+- GPU frame-time p50/p95/p99, draw/descriptor counts, RAM/VRAM
+- water-pixel, reload, resize, world-switch, save/reopen, shutdown
+- actual FSR/DLSS dispatch
+- packaged JAR, CRC, native payload, source/compiled identity, release verification
