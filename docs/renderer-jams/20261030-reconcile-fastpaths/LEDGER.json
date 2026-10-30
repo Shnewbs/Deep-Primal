@@ -2,7 +2,7 @@
   "jam_id": "renderer-20261030T0800-reconcile-fastpaths",
   "parent_main": "8a0c0045a71ff4a06dcf96faec355381ed749bea",
   "implementation_commit": "342535d9fae07c2cca651ef563d1c265ff1435df",
-  "final_source_sha": "e6ee7b711e149a8d2ebbf1427a72203822ee3056",
+  "final_source_sha": "06c2022438322cdfab9c26cb30527acb44c0a531",
   "changed_files": [
     "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java"
   ],
