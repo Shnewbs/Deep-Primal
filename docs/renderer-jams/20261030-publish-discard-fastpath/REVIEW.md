@@ -5,7 +5,7 @@ This is the jam's author self-audit, not an independent external audit.
 ## Exact candidate
 - Implementation commit: 3e006784887363c0184be1f45b4ae09928eeadd9
 - Candidate branch: renderer-jam-63-publish-discard-fastpath
-- Final integration: pending fresh-parent main update
+- Final integration: 6182bb354459e10f98aee8f5b96b82a87b5063e0
 
 ## Evidence
 - Production file changed: lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java
