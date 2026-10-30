@@ -72,8 +72,18 @@ final class LodDiskNearestScan {
     checkLimit(maxKeys);
     if (existing.size() > MAX_KEYS || incoming.size() > MAX_KEYS)
       throw new IllegalArgumentException("oversized disk index input");
+    if (existing.isEmpty() && incoming.isEmpty()) return List.of();
     Selection selected = new Selection(cameraX, cameraZ, maxKeys);
-    HashSet<Long> seen = new HashSet<>(existing.size() + incoming.size());
+    if (incoming.isEmpty()) {
+      for (long key : existing) selected.accept(key);
+      return selected.nearest();
+    }
+    if (existing.isEmpty()) {
+      for (long key : incoming) selected.accept(key);
+      return selected.nearest();
+    }
+    int expectedUnique = Math.min(MAX_KEYS, existing.size() + incoming.size());
+    HashSet<Long> seen = new HashSet<>(Math.max(16, expectedUnique), 1.0f);
     for (long key : existing)
       if (seen.add(key)) selected.accept(key);
     for (long key : incoming)
