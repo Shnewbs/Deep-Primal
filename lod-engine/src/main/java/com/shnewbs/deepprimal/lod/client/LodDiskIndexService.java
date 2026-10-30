@@ -243,6 +243,10 @@ final class LodDiskIndexService {
       }
       return removed == discard.size() && added == incoming.size();
     }
+
+    int remaining() {
+      return (discard.size() - removed) + (incoming.size() - added);
+    }
   }
 
   private void retireCursor() {
@@ -287,7 +291,8 @@ final class LodDiskIndexService {
       int pendingApply,
       long appliedRemovals,
       long appliedAdds,
-      long appliedSheds) {}
+      long appliedSheds,
+      int pendingApplyRemaining) {}
 
   Diagnostics diagnostics(boolean enabled, int queueSize) {
     LodDiskNearestScan.Cursor active = cursor;
@@ -310,7 +315,8 @@ final class LodDiskIndexService {
         apply == null ? 0 : 1,
         appliedRemovals,
         appliedAdds,
-        appliedSheds);
+        appliedSheds,
+        apply == null ? 0 : apply.remaining());
   }
 
   void reset() {
