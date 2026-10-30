@@ -74,6 +74,23 @@ public final class V8OutletLedgerStoreChecks {
     return frame;
   }
 
+  /** Rehash a V2 pending frame after deliberately minting one quantum. The
+   * SHA is valid, so rejection must come from conserved receipt deltas. */
+  private static byte[] rehashedMintedWater(byte[] good) throws Exception {
+    byte[] altered = good.clone();
+    ByteBuffer bytes = ByteBuffer.wrap(altered);
+    check(bytes.getInt(4) == 2, "minted witness uses bound V2 envelope");
+    int firstKey = 16 + 16 + 32 + 4 + 4;
+    check(bytes.getInt(firstKey - 4) >= 1, "minted witness has accounts");
+    long old = bytes.getLong(firstKey + Long.BYTES);
+    bytes.putLong(firstKey + Long.BYTES, Math.addExact(old, 1));
+    int hashOffset = altered.length - 32;
+    byte[] seal = MessageDigest.getInstance("SHA-256")
+        .digest(Arrays.copyOf(altered, hashOffset));
+    System.arraycopy(seal, 0, altered, hashOffset, seal.length);
+    return altered;
+  }
+
   public static void main(String[] args) throws Exception {
     if (args.length != 1) throw new IllegalArgumentException("one scratch directory required");
     Path root = Path.of(args[0]);
@@ -298,6 +315,113 @@ public final class V8OutletLedgerStoreChecks {
       check(intact.generation() == 42,
           "original legacy account survives path alias rejections");
     }
+    // Dev91: a complete pending frame may be promoted ONLY when a separate
+    // durable native ownership generation/account witness matches it exactly.
+    // The V2 authority and its original receipt bytes are retained verbatim.
+    Path futurePath = root.resolve("recovery-future.snapshot");
+    var futureSnapshot = V8ConservedOutletLedger.apply(starting, t(1, 12)).snapshot();
+    try (var futureStore = V8OutletLedgerStore.createBound(futurePath, starting, worldA)) {
+      check(futureStore.transact(1, List.of(t(1, 12))).generation() == 2,
+          "known complete next-generation frame constructed");
+    }
+    byte[] futureBytes = Files.readAllBytes(futurePath);
+    Path promote = root.resolve("recovery-promote.snapshot");
+    try (var current = V8OutletLedgerStore.createBound(promote, starting, worldA)) {
+      check(current.generation() == 1, "recovery starts at committed generation one");
+    }
+    Path promotePending = root.resolve("recovery-promote.snapshot.pending");
+    Files.write(promotePending, futureBytes);
+    var nextWitness = new V8OutletLedgerStore.NativeCheckpoint(
+        worldA, 2, futureSnapshot.accounts());
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBound(promote, worldA));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBoundReconciled(
+        promote, worldB, nextWitness));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBoundReconciled(
+        promote, worldA, new V8OutletLedgerStore.NativeCheckpoint(
+            worldA, 1, futureSnapshot.accounts())));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBoundReconciled(
+        promote, worldA, new V8OutletLedgerStore.NativeCheckpoint(
+            worldA, 2, starting.accounts())));
+    check(Arrays.equals(Files.readAllBytes(promotePending), futureBytes),
+        "wrong native witness cannot consume pending bytes");
+    try (var restored = V8OutletLedgerStore.openBoundReconciled(promote, worldA, nextWitness)) {
+      check(restored.generation() == 2, "certified pending generation promoted once");
+      check(restored.snapshot().equals(futureSnapshot), "promoted exact funded snapshot");
+      check(Arrays.equals(totals(restored.snapshot()), conserved),
+          "recovery promotion conserves water salt and sediment");
+      var replay = restored.transact(2, List.of(t(1, 12)));
+      check(replay.generation() == 2 && replay.result().replayed() == 1,
+          "recovery retains same sequence receipt");
+    }
+    check(!Files.exists(promotePending), "complete promoted frame removed from pending path");
+    check(Arrays.equals(Files.readAllBytes(promote), futureBytes),
+        "promoted physical checkpoint matches original sealed bytes");
+    try (var restored = V8OutletLedgerStore.openBoundReconciled(promote, worldA,
+        nextWitness)) {
+      check(restored.generation() == 2, "native checkpoint idempotent without pending");
+    }
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBoundReconciled(
+        promote, worldA, new V8OutletLedgerStore.NativeCheckpoint(
+            worldA, 1, starting.accounts())));
+
+    // If persisted native state still matches the committed generation, save
+    // the unused pending bytes in a one-slot forensic quarantine; never delete
+    // them automatically or overwrite evidence from a previous recovery.
+    Path rollback = root.resolve("recovery-rollback.snapshot");
+    try (var current = V8OutletLedgerStore.createBound(rollback, starting, worldA)) {
+      check(current.generation() == 1, "rollback starts at old durable generation");
+    }
+    Path rollbackPending = root.resolve("recovery-rollback.snapshot.pending");
+    Path quarantine = root.resolve("recovery-rollback.snapshot.reconciled-aborted");
+    Files.write(rollbackPending, futureBytes);
+    var oldWitness = new V8OutletLedgerStore.NativeCheckpoint(worldA, 1,
+        starting.accounts());
+    try (var restored = V8OutletLedgerStore.openBoundReconciled(
+        rollback, worldA, oldWitness)) {
+      check(restored.generation() == 1, "native-absent transfer never debits old ledger");
+      check(restored.snapshot().equals(starting), "native rollback retains exact starting state");
+    }
+    check(!Files.exists(rollbackPending), "rejected pending no longer blocks verified old state");
+    check(Files.exists(quarantine), "aborted pending must leave forensic checkpoint");
+    check(Arrays.equals(Files.readAllBytes(quarantine), futureBytes),
+        "aborted pending preserved byte exact for forensic inspection");
+    Files.write(rollbackPending, futureBytes);
+    byte[] archivedForensics = new byte[]{9, 8, 7, 6};
+    Files.write(quarantine, archivedForensics);
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBoundReconciled(
+        rollback, worldA, oldWitness));
+    check(Arrays.equals(Files.readAllBytes(quarantine), archivedForensics),
+        "existing forensic quarantine cannot be silently replaced");
+    check(Arrays.equals(Files.readAllBytes(rollbackPending), futureBytes),
+        "duplicate pending remains intact after rejected quarantine");
+
+    // Even a valid SHA256 envelope and a caller-supplied matching native map
+    // cannot authorize an unreceipted new unit of water.
+    Path forged = root.resolve("recovery-forged.snapshot");
+    try (var current = V8OutletLedgerStore.createBound(forged, starting, worldA)) {
+      check(current.generation() == 1, "forgery test initialized");
+    }
+    Path forgedPending = root.resolve("recovery-forged.snapshot.pending");
+    byte[] minted = rehashedMintedWater(futureBytes);
+    Files.write(forgedPending, minted);
+    Map<Long, V8ConservedOutletLedger.Balance> bogus = new HashMap<>(futureSnapshot.accounts());
+    long firstKey = bogus.keySet().stream().min(Long::compare).orElseThrow();
+    var balance = bogus.get(firstKey);
+    bogus.put(firstKey, new V8ConservedOutletLedger.Balance(
+        balance.water() + 1, balance.salt(), balance.sediment(), balance.capacity()));
+    rejected(IOException.class, () -> V8OutletLedgerStore.openBoundReconciled(
+        forged, worldA, new V8OutletLedgerStore.NativeCheckpoint(worldA, 2, bogus)));
+    check(Arrays.equals(Files.readAllBytes(forgedPending), minted),
+        "invalid but rehashed pending image retained, not promoted");
+    try (var known = V8OutletLedgerStore.openBound(futurePath, worldA)) {
+      check(Arrays.equals(totals(known.snapshot()), conserved),
+          "rejected forged pending did not alter the known future authority");
+    }
+    rejected(IllegalArgumentException.class, () -> new V8OutletLedgerStore.NativeCheckpoint(
+        worldA, 0, starting.accounts()));
+    rejected(NullPointerException.class, () -> new V8OutletLedgerStore.NativeCheckpoint(
+        worldA, 1, null));
+
     System.out.println("V8_OUTLET_STORE_PASS assertions="+checks+
         " generation=42 persistedTriplet="+Arrays.toString(conserved));
   }

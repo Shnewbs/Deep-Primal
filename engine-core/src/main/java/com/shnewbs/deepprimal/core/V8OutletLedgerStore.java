@@ -81,6 +81,25 @@ public final class V8OutletLedgerStore implements AutoCloseable {
   private record Image(long generation, V8ConservedOutletLedger.Snapshot snapshot,
                        WorldBinding binding, byte[] fingerprint) {}
 
+  /**
+   * A separately persisted, native-world ownership witness. It MUST be
+   * reconstructed from the authoritative saved finite-cell/coarse-store state,
+   * never from this outlet checkpoint or its pending image. The stamp and all
+   * balances must be durable at the same world transaction boundary. Java
+   * cannot authenticate a caller's claim of Minecraft durability: the native
+   * integration and crash/save tests remain required.
+   */
+  public record NativeCheckpoint(WorldBinding binding, long generation,
+      Map<Long, V8ConservedOutletLedger.Balance> accounts) {
+    public NativeCheckpoint {
+      Objects.requireNonNull(binding, "native world binding");
+      if (generation <= 0) throw new IllegalArgumentException("invalid native checkpoint generation");
+      accounts = Map.copyOf(Objects.requireNonNull(accounts, "native balances"));
+      if (accounts.size() > V8ConservedOutletLedger.MAX_ACCOUNTS)
+        throw new IllegalArgumentException("unbounded native outlet accounts");
+    }
+  }
+
   private final Path file;
   private final Path pending;
   private final FileChannel mutexChannel;
@@ -144,6 +163,143 @@ public final class V8OutletLedgerStore implements AutoCloseable {
   public static V8OutletLedgerStore openBound(Path file, WorldBinding binding)
       throws IOException {
     return openImage(file, Objects.requireNonNull(binding, "binding"));
+  }
+
+  /**
+   * Explicit, bounded crash reconciliation for a COMPLETE, sealed pending
+   * image. Normal openBound still refuses ALL pending frames. The caller must
+   * supply an independently durable native account/receipt-generation witness;
+   * a reconstructed ledger snapshot is NOT such evidence.
+   *
+   * <p>If native evidence confirms the pending generation, atomically promote
+   * that exact image. If it confirms the original generation, move the pending
+   * bytes to a single non-overwritable forensic quarantine. Any identity,
+   * quantity, sequence, missing file, damaged frame or durability ambiguity
+   * fails closed without touching either ledger image. No automatic adoption
+   * of legacy V1 snapshots or cross-world migration is possible.
+   *
+   * <p>This API does NOT itself make native Minecraft writes atomic with this
+   * file: the caller must prove it saved its native witness before invoking it.
+   */
+  public static V8OutletLedgerStore openBoundReconciled(Path file,
+      WorldBinding binding, NativeCheckpoint nativeWitness) throws IOException {
+    Objects.requireNonNull(binding, "world binding");
+    Objects.requireNonNull(nativeWitness, "durable native witness");
+    if (!binding.equals(nativeWitness.binding()))
+      throw new IOException("native checkpoint is from a different world/profile");
+    Path path = checkedPath(file);
+    LockHandle handle = acquire(path);
+    try {
+      Image committed = read(path);
+      if (!binding.equals(committed.binding()))
+        throw new IOException("committed outlet checkpoint world/profile mismatch");
+      Path pendingPath = path.resolveSibling(path.getFileName().toString() + ".pending");
+      Image chosen = committed;
+      if (Files.exists(pendingPath, LinkOption.NOFOLLOW_LINKS)) {
+        if (!checkedPath(pendingPath).equals(pendingPath))
+          throw new IOException("pending outlet checkpoint path identity changed");
+        Image pendingImage = read(pendingPath);
+        if (!binding.equals(pendingImage.binding())
+            || pendingImage.generation() != Math.addExact(committed.generation(), 1L))
+          throw new IOException("pending outlet checkpoint generation/world mismatch");
+        checkReconstructableTransition(committed.snapshot(), pendingImage.snapshot());
+        if (nativeWitness.generation() == pendingImage.generation()
+            && nativeWitness.accounts().equals(pendingImage.snapshot().accounts())) {
+          chosen = pendingImage;
+        } else if (nativeWitness.generation() == committed.generation()
+            && nativeWitness.accounts().equals(committed.snapshot().accounts())) {
+          chosen = committed;
+        } else {
+          throw new IOException("native checkpoint does not certify either outlet generation");
+        }
+        // Re-check physical identities under the same participating file lock.
+        // Out-of-band writers are not permitted to replace observed bytes.
+        if (!Arrays.equals(read(path).fingerprint(), committed.fingerprint())
+            || !Arrays.equals(read(pendingPath).fingerprint(), pendingImage.fingerprint()))
+          throw new IOException("out-of-band change during outlet reconciliation");
+        if (chosen == pendingImage) {
+          Files.move(pendingPath, path, StandardCopyOption.ATOMIC_MOVE,
+              StandardCopyOption.REPLACE_EXISTING);
+        } else {
+          Path quarantine = path.resolveSibling(path.getFileName().toString() + ".reconciled-aborted");
+          if (Files.exists(quarantine, LinkOption.NOFOLLOW_LINKS))
+            throw new IOException("outlet forensic quarantine already exists");
+          Files.move(pendingPath, quarantine, StandardCopyOption.ATOMIC_MOVE);
+        }
+        forceDirectory(path.getParent());
+        Image disk = read(path);
+        if (disk.generation() != chosen.generation()
+            || !Arrays.equals(disk.fingerprint(), chosen.fingerprint()))
+          throw new IOException("reconciled outlet checkpoint differs from chosen image");
+        chosen = disk;
+      } else if (nativeWitness.generation() != committed.generation()
+          || !nativeWitness.accounts().equals(committed.snapshot().accounts())) {
+        throw new IOException("native checkpoint differs from committed outlet authority");
+      }
+      return new V8OutletLedgerStore(path, handle.channel(), handle.lock(), chosen);
+    } catch (IOException | RuntimeException | Error failure) {
+      handle.close();
+      throw failure;
+    }
+  }
+
+  /**
+   * A complete pending frame can have at most one newly retained sequence per
+   * source for deterministic reconstruction. A batch with multiple new events
+   * from one source needs an external explicit recovery journal and fails
+   * closed here; never infer missing intermediate receipts or minted volume.
+   */
+  private static void checkReconstructableTransition(
+      V8ConservedOutletLedger.Snapshot old,
+      V8ConservedOutletLedger.Snapshot next) throws IOException {
+    if (old.version() != next.version()
+        || !old.receivers().equals(next.receivers())
+        || !old.accounts().keySet().equals(next.accounts().keySet())
+        || !next.lastReceipts().keySet().containsAll(old.lastReceipts().keySet()))
+      throw new IOException("pending outlet authority changed immutable account topology");
+    Map<Long, long[]> deltas = new HashMap<>();
+    int advanced = 0;
+    try {
+      for (var entry : next.lastReceipts().entrySet()) {
+        long source = entry.getKey();
+        V8ConservedOutletLedger.Transfer transfer = entry.getValue();
+        V8ConservedOutletLedger.Transfer previous = old.lastReceipts().get(source);
+        if (transfer.equals(previous)) continue;
+        long expected = previous == null ? 1L : Math.addExact(previous.sequence(), 1L);
+        if (transfer.sequence() != expected
+            || !Objects.equals(old.receivers().get(source), transfer.receiver()))
+          throw new IOException("pending outlet receipt is missing an intermediate event");
+        addDelta(deltas, source, transfer, false);
+        addDelta(deltas, transfer.receiver(), transfer, true);
+        advanced++;
+      }
+      if (advanced == 0)
+        throw new IOException("pending outlet generation advanced without a new receipt");
+      for (var entry : old.accounts().entrySet()) {
+        long key = entry.getKey();
+        var before = entry.getValue();
+        long[] delta = deltas.getOrDefault(key, new long[3]);
+        var expected = new V8ConservedOutletLedger.Balance(
+            Math.addExact(before.water(), delta[0]),
+            Math.addExact(before.salt(), delta[1]),
+            Math.addExact(before.sediment(), delta[2]), before.capacity());
+        if (!expected.equals(next.accounts().get(key)))
+          throw new IOException("pending outlet balances do not conserve accepted receipts");
+      }
+    } catch (ArithmeticException | IllegalArgumentException failure) {
+      throw new IOException("invalid or overflowing outlet recovery account delta", failure);
+    }
+  }
+
+  private static void addDelta(Map<Long, long[]> deltas, long key,
+      V8ConservedOutletLedger.Transfer transfer, boolean credit) {
+    long[] value = deltas.computeIfAbsent(key, unused -> new long[3]);
+    value[0] = credit ? Math.addExact(value[0], transfer.water())
+        : Math.subtractExact(value[0], transfer.water());
+    value[1] = credit ? Math.addExact(value[1], transfer.salt())
+        : Math.subtractExact(value[1], transfer.salt());
+    value[2] = credit ? Math.addExact(value[2], transfer.sediment())
+        : Math.subtractExact(value[2], transfer.sediment());
   }
 
   private static V8OutletLedgerStore openImage(Path file, WorldBinding expected)
@@ -298,7 +454,11 @@ public final class V8OutletLedgerStore implements AutoCloseable {
     }
     Files.move(pending, file, StandardCopyOption.ATOMIC_MOVE,
         StandardCopyOption.REPLACE_EXISTING);
-    try (FileChannel directory = FileChannel.open(file.getParent(), StandardOpenOption.READ)) {
+    forceDirectory(file.getParent());
+  }
+
+  private static void forceDirectory(Path parent) throws IOException {
+    try (FileChannel directory = FileChannel.open(parent, StandardOpenOption.READ)) {
       directory.force(true);
     }
   }

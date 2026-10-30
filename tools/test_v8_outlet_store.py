@@ -71,6 +71,24 @@ def main():
          '/* broken: overwrite unacknowledged pending at commit */'),
         ('accept-symlinked-checkpoint', 'if (Files.isSymbolicLink(path)',
          'if (false && Files.isSymbolicLink(path)'),
+        ('skip-durable-native-accounts',
+         '&& nativeWitness.accounts().equals(pendingImage.snapshot().accounts()))',
+         '&& true)'),
+        ('skip-pending-conservation-receipts',
+         'checkReconstructableTransition(committed.snapshot(), pendingImage.snapshot());',
+         '/* broken: no conservation/replay verification of pending */'),
+        ('skip-native-generation',
+         'nativeWitness.generation() == pendingImage.generation()',
+         'true'),
+        ('discard-forensics',
+         'Files.move(pendingPath, quarantine, StandardCopyOption.ATOMIC_MOVE);',
+         'Files.delete(pendingPath);'),
+        ('overwrite-forensic-quarantine',
+         'if (Files.exists(quarantine, LinkOption.NOFOLLOW_LINKS))',
+         'if (false && Files.exists(quarantine, LinkOption.NOFOLLOW_LINKS))'),
+        ('ignore-native-no-pending-mismatch',
+         'nativeWitness.generation() != committed.generation()\n          || !nativeWitness.accounts().equals(committed.snapshot().accounts())',
+         'false'),
         ('allow-unsorted-accounts',
          'if (i > 0 && key <= previous)\n          throw new IOException("noncanonical V8 outlet account order");',
          'if (false && i > 0 && key <= previous)\n          throw new IOException("noncanonical V8 outlet account order");'),
@@ -86,7 +104,7 @@ def main():
     success = (positive['compile']['returncode'] == 0
                and positive['test'] is not None
                and positive['test']['returncode'] == 0
-               and 'V8_OUTLET_STORE_PASS assertions=149 generation=42' in positive['test']['stdout'])
+               and 'V8_OUTLET_STORE_PASS assertions=181 generation=42' in positive['test']['stdout'])
     controls = {name: caught_by_fixture(item) for name, item in negatives.items()}
     manifest = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in [SOURCE, TEST, LEDGER, TOPOLOGY]}
