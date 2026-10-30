@@ -47,12 +47,17 @@ final class LodDiskIndexService {
     // Keep recording renewals during that handoff so a requeued page cannot be
     // mistaken for stale scan output when the bounded apply resumes.
     if (cursor == null && apply == null && retiring == null) return;
-    // Put once and branch on the previous value: this avoids the old
-    // containsKey()+put() double-probe on the hot renewal path while preserving
-    // the exact same generation token semantics.
+    // Keep the common path to one probe. Once the bounded map is full, reject
+    // a new key before insertion so the overflow path cannot transiently grow
+    // the backing table or allocate a remove tombstone.
+    if (renewed.size() >= LodDiskNearestScan.MAX_KEYS
+        && !renewed.containsKey(key)) {
+      invalidated = true;
+      return;
+    }
     Long previous = renewed.putIfAbsent(key, scanGeneration);
     if (previous == null && renewed.size() > LodDiskNearestScan.MAX_KEYS) {
-      // Never silently discard an untracked owner. Rebuild an exact snapshot.
+      // Defensive fail-closed guard if the admission bound changes concurrently.
       renewed.remove(key);
       invalidated = true;
     }
@@ -258,9 +263,3 @@ final class LodDiskIndexService {
     renewed.clear();
     invalidated = false;
     clearRetry();
-  }
-
-  // Focused check accessors; never poll them from a different client thread.
-  boolean scanning() { return cursor != null || apply != null; }
-  boolean started() { return started; }
-}
