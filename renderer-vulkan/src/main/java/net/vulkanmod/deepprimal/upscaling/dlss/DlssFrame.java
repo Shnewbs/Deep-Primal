@@ -49,7 +49,7 @@ public record DlssFrame(
     public static MemoryBinding unavailable() { return new MemoryBinding(0, 0, 0); }
 
     public boolean available() {
-      return memory != 0 && size > 0 && offset <= Long.MAX_VALUE - size;
+      return memory != 0 && offset >= 0 && size > 0 && offset <= Long.MAX_VALUE - size;
     }
   }
 
