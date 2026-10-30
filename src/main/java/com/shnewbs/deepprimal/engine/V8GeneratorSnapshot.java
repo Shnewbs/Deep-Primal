@@ -37,6 +37,38 @@ public record V8GeneratorSnapshot(
   /** Explicit r6 freezes new vegetation placement. All earlier saved snapshots remain intact. */
   public static final int VEGETATION_VERSION = 6;
 
+  /**
+   * Stable identity for the explicit saved V8-r6 vegetation profile.
+   * This is a profile guard, not a cryptographic world hash: it prevents a
+   * receipt from one immutable saved profile being applied to another while
+   * preserving the existing serialized fields and legacy revisions.
+   */
+  public long vegetationProfileFingerprint() {
+    if (version != VEGETATION_VERSION || vegetationPolicy == null) return 0L;
+    long h = 0x9E3779B97F4A7C15L;
+    h = mix(h, version);
+    h = mix(h, seed);
+    h = mix(h, minY);
+    h = mix(h, height);
+    h = mix(h, density.hashCode());
+    h = mix(h, ground.hashCode());
+    h = mix(h, blendPolicy.hashCode());
+    h = mix(h, surfacePolicy.hashCode());
+    h = mix(h, climateBinding.hashCode());
+    h = mix(h, hydrologyBinding.hashCode());
+    h = mix(h, vegetationPolicy.hashCode());
+    return h == 0L ? 1L : h;
+  }
+
+  private static long mix(long state, long value) {
+    long z = state ^ (value + 0x9E3779B97F4A7C15L + (state << 6) + (state >>> 2));
+    z ^= z >>> 30;
+    z *= 0xBF58476D1CE4E5B9L;
+    z ^= z >>> 27;
+    z *= 0x94D049BB133111EBL;
+    return z ^ (z >>> 31);
+  }
+
   /** Retain the ten-argument revision-5 source API. */
   public V8GeneratorSnapshot(int version, long seed, int minY, int height,
       DensityGraph.Definition density, GroundSurfaceProfile ground,
