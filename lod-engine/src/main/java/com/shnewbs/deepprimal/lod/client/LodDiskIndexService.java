@@ -203,7 +203,12 @@ final class LodDiskIndexService {
             long victim = incoming.get(farthest--);
             remaining--;
             if (!isRenewed(victim) && queue.remove(victim)) {
-              if (shed == null) shed = new HashSet<>();
+              if (shed == null) {
+                // A single bounded allocation sized to this scan avoids
+                // repeated HashSet growth when a full queue sheds many pages.
+                shed = new HashSet<>(Math.max(16, Math.min(
+                    LodDiskNearestScan.MAX_KEYS, incoming.size())), 1.0f);
+              }
               shed.add(victim);
               forgotten.accept(victim);
             }
