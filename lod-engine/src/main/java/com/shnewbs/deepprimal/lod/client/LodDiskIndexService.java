@@ -49,6 +49,7 @@ final class LodDiskIndexService {
   private long retargets;
   private long completedScans;
   private long failedScans;
+  private long applyTurns;
 
   /** Caller invokes this on every requeue/renewal after changing its queue. */
   void recoveryQueued(long key) {
@@ -128,6 +129,7 @@ final class LodDiskIndexService {
       started = true;
     }
     if (apply != null) {
+      applyTurns++;
       if (apply.advance(queue, forgotten)) {
         apply = null;
         renewed.clear();
@@ -163,6 +165,7 @@ final class LodDiskIndexService {
       retryCountdown = completed.keys().isEmpty()
           ? EMPTY_RESCAN_TICKS : NONEMPTY_RESCAN_TICKS;
     }
+    applyTurns++;
     if (apply.advance(queue, forgotten)) {
       apply = null;
       renewed.clear();
@@ -301,7 +304,8 @@ final class LodDiskIndexService {
       int pendingApplyRemaining,
       long retargets,
       long completedScans,
-      long failedScans) {}
+      long failedScans,
+      long applyTurns) {}
 
   Diagnostics diagnostics(boolean enabled, int queueSize) {
     LodDiskNearestScan.Cursor active = cursor;
@@ -328,7 +332,8 @@ final class LodDiskIndexService {
         apply == null ? 0 : apply.remaining(),
         retargets,
         completedScans,
-        failedScans);
+        failedScans,
+        applyTurns);
   }
 
   void reset() {
