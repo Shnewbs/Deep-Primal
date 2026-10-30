@@ -320,6 +320,9 @@ JNIEXPORT void JNICALL JNI_NAME(evaluate)(JNIEnv* env, jclass, jlong id, jlong c
     std::array<deepprimal::dlss::MemoryBinding, 4> bindings{};
     for (std::size_t index = 0; index < bindings.size(); ++index) {
       const std::size_t base = index * 3;
+      require(bindingValues[base] != 0 && bindingValues[base + 1] >= 0
+          && bindingValues[base + 2] > 0,
+          "DLSS memory-binding provenance must use non-negative offset and positive size");
       bindings[index] = {static_cast<std::uint64_t>(bindingValues[base]),
           static_cast<std::uint64_t>(bindingValues[base + 1]),
           static_cast<std::uint64_t>(bindingValues[base + 2])};
