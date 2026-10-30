@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "worker": "hourly-engine-builder-20261029T2202-dev88-vegetation-receipts",
-  "status": "active",
-  "lease_released": false,
+  "status": "checkpointed",
+  "lease_released": true,
   "started_at": "2026-10-29T22:06:24.438Z",
   "updated_at": "2026-10-29T22:06:24.438Z",
   "active_until": "2026-10-29T22:33:24.438Z",
@@ -54,5 +54,25 @@
     "Playable qualified JAR or owner-run full build"
   ],
   "ended_at": "2026-10-29T21:14:52Z",
-  "archive_bytes": 10391
+  "archive_bytes": 10391,
+  "latest_relief_v5_checkpoint": {
+    "worker": "hourly-engine-builder-20261029T1800-relief-v5",
+    "updated_at": "2026-10-30T01:16:00Z",
+    "version": "0.0.1-alpha.29-dev.92-relief-joins.1",
+    "source_commit": "a5aee4c694559d2a9ed7d866917105cce7072976",
+    "baseline_main": "365fd29de436a922946349f193b03204697564c8",
+    "audit_consumed": "docs/engine-hourly-audits/2026-10-29T2330-655ab648/REVIEW.md",
+    "audit_source": "655ab648212c3d378d638ea0a99ca1c42f2bf4ec",
+    "source": "engine-core/.../V8ReliefJoinV5.java + TerrainShapeV8.definitionReliefV5, V8GeneratorSnapshot.newReliefV5",
+    "evidence": "docs/validation/engine-continuation/v8-relief-v5-2026-10-29/README.md",
+    "results": "docs/validation/engine-continuation/v8-relief-v5-2026-10-29/RESULTS.json",
+    "validated": "Java21 isolated compiled production join, 4 x 212735 positive assertions across Python normal/-OO; 4 compiled negative controls rejected. Historical shape source reverse diff bit-exact.",
+    "missing": "Real DensityGraph VM V5 check, complete native Java25/Gradle/Minecraft/V8 profile reopen, ocean/rivers, saved edges and GPU/performance; no full root pinned Python validator",
+    "water_priority": "Native accountable finite-water cell/witness integration with Dev91 durable outlet ledger",
+    "render_scope": "Separate current renderer LOD claim left untouched",
+    "owner_built_version": "0.0.1-alpha.29-dev.53-v8callback.1",
+    "last_external_score": 5,
+    "acceptance_complete": false,
+    "lease_released": true
+  }
 }
