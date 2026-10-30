@@ -261,6 +261,24 @@ public final class DensityChunkMaterializer {
     }
   }
 
+  /**
+   * Downstream admission for a receipt captured by the same prepared V8-r6
+   * profile and destination chunk. Callers must use this before applying a
+   * read-back mask to later native work. The receipt is returned for fluent
+   * use only after both immutable identities pass; no state is changed.
+   */
+  public static V8VegetationNativeReceipt requireCompatibleVegetationReceipt(
+      V8GeneratorSnapshot.Prepared prepared, ChunkAccess chunk,
+      V8VegetationNativeReceipt receipt) {
+    Objects.requireNonNull(prepared, "V8 prepared profile");
+    Objects.requireNonNull(chunk, "V8 receipt chunk");
+    Objects.requireNonNull(receipt, "V8 vegetation receipt");
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION)
+      throw new IllegalArgumentException("explicit saved V8 revision 6 vegetation required");
+    receipt.requireSameProfileAndChunk(prepared.snapshot().vegetationProfileFingerprint(), chunk);
+    return receipt;
+  }
+
   private record MaterializedEcotone(V8EcotoneResult ecotone,
                                      V8VegetationColumnPlan vegetation,
                                      V8VegetationNativeReceipt receipt) {}
