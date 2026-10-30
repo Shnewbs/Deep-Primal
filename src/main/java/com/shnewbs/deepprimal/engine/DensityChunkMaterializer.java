@@ -545,6 +545,32 @@ public final class DensityChunkMaterializer {
     return new NoiseColumn(minY, states);
   }
 
+  /**
+   * Read-only realized base-column projection for a postwrite V8-r6 receipt.
+   * Identity admission must already have occurred through the prepared-profile
+   * handoff; this method projects only the observed local site and leaves
+   * rejected/unobserved candidates as air.
+   */
+  public static NoiseColumn baseColumnVegetatedRealized(
+      V8VegetatedReceiptResult result, int localX, int localZ) {
+    Objects.requireNonNull(result, "V8 realized vegetation result");
+    if (localX < 0 || localX >= DensityChunk.WIDTH || localZ < 0 || localZ >= DensityChunk.WIDTH)
+      throw new IndexOutOfBoundsException("V8 realized base-column local coordinate");
+    var base = baseColumn(result.planned().ecotone(), localX, localZ);
+    var receipt = result.realized();
+    if (!receipt.realized(localX, localZ)) return base;
+    var plant = result.planned().vegetation().placement(localX, localZ);
+    if (plant == null) throw new IllegalStateException("V8 receipt realized an unplanned site");
+    var density = result.planned().ecotone().terrain().chunk();
+    int minY = density.minY(), maxY = density.maxYExclusive();
+    BlockState[] states = new BlockState[maxY - minY];
+    for (int y = minY; y < maxY; y++) states[y - minY] = base.getBlock(y);
+    if (plant.y() >= minY && plant.y() < maxY && states[plant.y() - minY].isAir())
+      states[plant.y() - minY] = (plant.plant() == V8VegetationColumnPlan.Plant.FERN
+          ? Blocks.FERN : Blocks.SHORT_GRASS).defaultBlockState();
+    return new NoiseColumn(minY, states);
+  }
+
   private static DensityChunk.Planned fillPlannedRaw(
       DensityGraph graph, ChunkAccess chunk, int queriesPerSlab, boolean primeMaps) {
     Objects.requireNonNull(graph, "graph");
