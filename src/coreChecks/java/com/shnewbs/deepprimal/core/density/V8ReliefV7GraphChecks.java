@@ -58,11 +58,11 @@ public final class V8ReliefV7GraphChecks {
           coast++;
           require(bits(h0) == bits(h7), "historical protected coast changed");
           require(bits(h6) == bits(h7), "V6 protected coast changed");
-          require(bits(delta) == bits(0.0), "coastal join not zero");
+          require(delta == 0.0, "coastal join not zero");
         } else if (c >= .80) {
           highland++;
           require(bits(h6) == bits(h7), "protected highland changed");
-          require(bits(delta) == bits(0.0), "highland join not zero");
+          require(delta == 0.0, "highland join not zero");
         } else if (c >= .20 && c <= .65) {
           transition++;
           require(window > 0, "missing broad transition window");
