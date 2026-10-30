@@ -165,8 +165,12 @@ public record V8GeneratorSnapshot(
   public static V8GeneratorSnapshot newReliefV5(long seed, int minY, int height,
       GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
       V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    // Validate the actual VM program BEFORE emitting a new saved graph/profile.
+    // Never reinterpret or recompile an older snapshot during reopen.
+    DensityGraph.Definition recipe = TerrainShapeV8.definitionReliefV5(floatingFeatures);
+    recipe.compile(seed); // bounds, reachable nodes, cycles, depth and work budget
     return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
-        TerrainShapeV8.definitionReliefV5(floatingFeatures),
+        recipe,
         Objects.requireNonNull(ground, "ground"),
         Objects.requireNonNull(blendPolicy, "blendPolicy"),
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));

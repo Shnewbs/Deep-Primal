@@ -74,5 +74,17 @@
     "last_external_score": 5,
     "acceptance_complete": false,
     "lease_released": true
+  },
+  "latest_relief_v5_vm_gate": {
+    "status": "source_implementation_pending_native_owner_validation",
+    "source_version": "0.0.1-alpha.29-dev.93-relief-core-gate.1",
+    "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0125-32efd75d/REVIEW.md",
+    "audit_source": "32efd75ddb17817757dc13c33a2da1cc721fcf20",
+    "changes": "Explicit newReliefV5 factory compiles production DensityGraph before creating a new saved profile; adds real DensityGraph V5 coast/canyon/seed/chunk-order gate automatically invoked by CoreChecks. Old saved revisions and graph bytes untouched.",
+    "source_head_observed": "61282dc3949ba5f526b29cae3a25440f138ab3fb",
+    "owner_full_java25_gradle_native_gpu_required": true,
+    "no_jar_or_full_build": true,
+    "native_border_and_water_acceptance": false,
+    "last_external_grade": 5
   }
 }
