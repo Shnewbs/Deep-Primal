@@ -2,7 +2,7 @@
   "schema": 1,
   "owner": "renderer-hourly-feature-only",
   "jam_id": "renderer-20261030T0300-native-dlss-alias-guard",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-30T03:00:00Z",
   "expires_at": "2026-10-30T03:25:00Z",
   "source_head_observed": "69b4a241fc1be55301453dead8d9700cfada2d2b",
@@ -23,5 +23,16 @@
   ],
   "previous_audit": "docs/renderer-jams/20261030-dlss-packet-reuse/REVIEW.md",
   "no_subagents": true,
-  "owner_build_policy": "owner Oct27 Java25/Gradle/Minecraft/GPU/JAR"
+  "owner_build_policy": "owner Oct27 Java25/Gradle/Minecraft/GPU/JAR",
+  "lease_released": true,
+  "released_at": "2026-10-30T03:04:00Z",
+  "source_commit": "5cf284fd62632757a8cb740e565c541f58c07c58",
+  "verified_source_blobs": {
+    "renderer-vulkan/src/main/native/dlss/deepprimal_dlss.cpp": "6ff42ef55bd48a56b5f4b73d2401e75b235f8a7a",
+    "renderer-vulkan/src/main/native/dlss/DlssImageAliasGuard.h": "42b1baf5703a999541c5f4ed20a793941f91f195",
+    "renderer-vulkan/src/nativeChecks/cpp/DlssImageAliasGuardChecks.cpp": "8b8b85c790452f3478e44f0268381f34bd8e9686"
+  },
+  "review": "docs/renderer-jams/20261030-native-dlss-alias-guard/REVIEW.md",
+  "grade": 5.88,
+  "library_file_id": "libfile_5affef34dd308191bb4d56e2f5d84b53"
 }
