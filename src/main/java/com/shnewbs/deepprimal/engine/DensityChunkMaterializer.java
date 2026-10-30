@@ -171,6 +171,25 @@ public final class DensityChunkMaterializer {
   }
 
   /**
+   * Reopen/edit-safe V8 entry point. The caller must present the fingerprint
+   * captured from the exact saved profile that prepared this chunk. This gate
+   * runs before density sampling or the first native setter, so a decoded
+   * profile from another world or an edited profile cannot silently materialize
+   * against the wrong terrain/material policy. The legacy overload above remains
+   * available for explicit first-generation callers that already own the
+   * prepared profile object.
+   */
+  public static DensityChunk.Planned fillSavedSnapshot(
+      V8GeneratorSnapshot.Prepared prepared, long expectedSavedProfileFingerprint,
+      ChunkAccess chunk, int queriesPerSlab) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
+    prepared.requireHeight(chunk.getMinY(), chunk.getHeight());
+    return fillPlannedSurface(prepared.surface(), chunk, queriesPerSlab);
+  }
+
+  /**
    * Explicit, opt-in V8 revision-3 native surface pass for NEW chunks only.
    * Legacy V8 fillSavedSnapshot and V1-V7 generators remain bit-for-bit
    * unchanged. A caller must supply a deterministic absolute-coordinate
