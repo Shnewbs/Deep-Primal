@@ -10,6 +10,10 @@ World of Warcraft supplies a broad creative direction: recognizable habitat comm
 
 The existing [design decisions](../design-decisions-2026-10-18.md) remain binding: individual weight governs every animal's material yield; anatomical hits follow the animated body and are validated by the server; hunting includes tracking and carcass processing. The calendar pauses on an empty running server by default, has a configurable override, and never gains elapsed wall-clock time while shut down. One absent player does not pause a populated server. All numerical ranges below are proposed tuning data unless identified as reference evidence.
 
+### MMO threat scope clarification
+
+The owner clarified that predators must also sit alongside WoW-style monsters, villains and other MMO enemy types suited to Deep Primal. This document owns wildlife/husbandry and twelve animal concepts. The broader [encounter framework](MMO-THREATS-AND-ENCOUNTERS.md), [hostile factions and named villains](HOSTILE-FACTIONS-AND-VILLAINS.md), and [primary-source study](MMO-THREAT-REFERENCE-STUDY.md) own intelligent opponents, fantastical lineages, camps, patrols, regional arcs, rares and bosses. A creature's species, hostility, combat role, rarity and story role are separate properties. Wildlife does not all become permanently hostile, and a villain is not merely an animal with inflated health.
+
 ## 2. Research comparison: adopt, adapt, reject
 
 TerraFirmaCraft is studied specifically as **Minecraft 1.21.1, TFC v4.x**, confirmed by its official developer documentation. The stable **v4.2.12** release is explicitly labeled 1.21.1; selected source files were read at that tag. The online guide supplies gameplay context but can show an older guide edition or configurable defaults. Moving branch source and a downloaded release must never be treated as identical evidence. [A01–A04]
@@ -96,7 +100,7 @@ Packs have persistent group identity, home, membership and a bounded shared thre
 
 Prey scan, watch, alarm, group, flee, hide or defend young. Escape paths avoid cliffs, deep water and predator intercepts where navigable. Cornered prey can threaten or fight; not every herbivore is free food. Herd alarms have radius, cooldown and confidence decay, preventing a continent-wide panic cascade. Injury affects escape and tracking but never guarantees every hit becomes a kill.
 
-## 9. Original predator roster
+## 9. Original wildlife predator roster
 
 **Threat bands are proposed encounter levels, not automatic player scaling:** I(1–5), II(6–12), III(13–20), IV(21–30). Population, age, condition and habitat bound variation. A level never resizes anatomy or grants arbitrary immunity. Every creature has discoverable signs, a safe avoidance route and rewards beyond repeated killing. Working names require final originality/art review.
 
@@ -153,7 +157,7 @@ Use spatial queries and cached habitat summaries, never all-entity scans per ani
 | **AN-04** | Carcass and recurring-product pipeline | Randomized concurrent processing/splitting/storage/scavenging preserves the joint disjoint partition, units, remainders and recurring-product debits; damage/contamination/age persist; distinct hides/horns stay anatomical |
 | **PRED-01** | One prey herd, one solitary predator, one pack | Perception occlusion/expiry, alarm limits, pursuit exit, injury and attack telegraphs tested; no path-budget stalls or omniscient reacquisition |
 | **PRED-02** | Habitat populations and aggregate cohorts | Same seed/revision initialization; generation/load-order witnesses; materialize/dematerialize/crash conservation; no duplicate offspring or loot from virtualization |
-| **PRED-03** | Twelve distinct roster prototypes | Each habitat/role/counterplay observed; accessibility cues, water/cliff navigation and pack attack limits pass; no copied assets; density and prey capacity enforced |
+| **PRED-03** | Twelve distinct wildlife roster prototypes; broader MMO threats tracked separately as THR-01–08 | Each habitat/role/counterplay observed; accessibility cues, water/cliff navigation and pack attack limits pass; no copied assets; density and prey capacity enforced |
 | **AN/PRED-04** | Integrated seasonal farm/hunt expedition | Prepare winter, travel, sleep, reopen, process a scavenged carcass and move draft cargo; actual server/client captures, latency traces, memory/AI tails and no-state-loss evidence |
 
 Every phase records source/artifact hashes, configuration, seed/calendar history, loaded-area pattern, runtime and sample counts. Unit/model tests prove bounded rules; native integration proves spawn/lifecycle/animation/hit behavior; playtests establish whether care and combat are understandable and enjoyable. Neither a roster document nor source-only helper counts as accepted fauna.

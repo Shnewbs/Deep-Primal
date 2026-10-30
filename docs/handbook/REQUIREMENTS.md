@@ -79,3 +79,7 @@ The next study should resolve a decision or fixture, not add another general eng
 ## Agriculture, fauna and NPC questing extension — October 29, 2026
 
 [SYS-0–7](../systems/SYSTEMS-ROADMAP.md) tracks new gameplay dependencies and native gates. [AG-01–14](../systems/AGRICULTURE-SYSTEM.md), [AN/PRED](../systems/ANIMAL-ECOLOGY-AND-PREDATORS.md), [MOB-01–06](../systems/VANILLA-MOB-REPLACEMENT.md), and [NQ-01–09](../systems/SYSTEMS-ROADMAP.md#npc-authoring-task-register) remain unimplemented here. The [shared contract](../systems/SHARED-SYSTEM-CONTRACTS.md) binds finite water, exact material ownership, accepted events, persistent non-spendable XP and reward recovery. All vanilla mobs are to be replaced; older general re-enable language does not apply to them.
+
+## MMO enemy and villain extension — October 29, 2026
+
+[THR-01–08](../systems/MMO-THREATS-AND-ENCOUNTERS.md) adds the owner-confirmed broader enemy direction: wildlife, monsters, intelligent factions and named villains with MMO-readable regional encounters. The [candidate catalog](../systems/HOSTILE-FACTIONS-AND-VILLAINS.md) is original proposed content. Gates require bounded terrain-aware AI, camp/event ownership, quest-linked shared outcomes, scoped delegated encounter authoring, solo/story routes, finite physical loot and restart/admission fault evidence. All implementation gates remain open; neither research completion nor an existing engine grade accepts them.

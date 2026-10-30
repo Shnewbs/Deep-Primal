@@ -46,7 +46,7 @@ Owner decisions and detailed follow-up: [2026-10-18 design decisions](docs/desig
 
 ## Navigation
 
-- [Agriculture, original fauna and admin NPC/quest systems](docs/systems/README.md) — researched specifications, twelve predator candidates and [phased feature roadmap](docs/systems/SYSTEMS-ROADMAP.md).
+- [Agriculture, original fauna and admin NPC/quest systems](docs/systems/README.md) — researched specifications, wildlife predators, original MMO-style factions/monsters/villains and [phased feature roadmap](docs/systems/SYSTEMS-ROADMAP.md).
 
 - [Block texture production and ownership](docs/art/BLOCK-TEXTURE-PLAN.md) — 32×32 by default; 64×64 only for necessary detail; preserve approved art and share material families.
 
@@ -344,7 +344,7 @@ The owner requested a connected natural-world biome plan before environmental im
 
 ## Agriculture, fauna replacement and authored questing — October 29, 2026
 
-The owner requests native agriculture informed by TFC1.21.1 and the exact AgriCraft-ReReloaded fork, deeper animal ecology/husbandry, complete replacement of vanilla mobs, original predator concepts, and easy admin-created skinned NPCs offering level/questline-gated quests. Detailed source comparisons, proposed behavior, accepted project constraints and evidence limits are in [docs/systems](docs/systems/README.md).
+The owner requests native agriculture informed by TFC1.21.1 and the exact AgriCraft-ReReloaded fork, deeper animal ecology/husbandry, complete replacement of vanilla mobs, original predators plus MMO-style monsters/intelligent hostile factions/named villains, and easy admin-created skinned NPCs offering level/questline-gated quests. Detailed source comparisons, proposed behavior, accepted project constraints and evidence limits are in [docs/systems](docs/systems/README.md).
 
 - [ ] SYS-0: shared versioned definitions, calendar/units/events and vanilla-route/resource/migration inventory.
 - [ ] SYS-1: original population baseline, native entity-policy enforcement and readable predator/prey prototype.
@@ -352,7 +352,11 @@ The owner requests native agriculture informed by TFC1.21.1 and the exact AgriCr
 - [ ] SYS-3: familiarity/handling, breeding/growth and mass-accounted recurring/carcass products.
 - [ ] SYS-4: no-code admin NPC/skin/quest wizard, level and questline gates, delegated revisions and durable rewards.
 - [ ] SYS-5: genetics/analyzer, perennials/shelter and persistent habitat/cohort ecology.
-- [ ] SYS-6: campaigns/branches/repeats/party credit and reviewed original predator variety.
-- [ ] SYS-7: migration/crash/restart, multiplayer abuse, seasonal playthrough and measured native/package qualification.
+- [ ] SYS-6: campaigns/branches/repeats/party credit, wildlife predator variety, one original faction camp/patrol and named villain arc, and scoped encounter authoring (THR-03–07).
+- [ ] SYS-7: migration/crash/restart, multiplayer abuse, seasonal playthrough, editable-terrain/villain persistence and measured native/package qualification (THR-08).
 
 [SYS phase dependencies and exact exits](docs/systems/SYSTEMS-ROADMAP.md) preserve AG/AN/PRED/MOB/NQ task IDs and connect work to M0/M2/M3/M5/M6. This is a researched design expansion: all runtime boxes remain open and no whole-feature release date or implementation grade is implied. Existing engine-only worker scopes remain intact. The old general vanilla.mobs re-enable option is superseded; [all-route replacement and existing-world preservation](docs/systems/VANILLA-MOB-REPLACEMENT.md) are required before claiming a complete conversion.
+
+## Original MMO threats — owner clarification, October 29, 2026
+
+The hostile replacement roster includes wildlife, fantastical monsters, intelligent enemy groups and named regional villains in the broad style of WoW and other MMORPGs, fitted to Minecraft terrain and Deep Primal's survival/progression systems. The [threat framework and THR-01–08 gates](docs/systems/MMO-THREATS-AND-ENCOUNTERS.md), [five candidate factions/villains](docs/systems/HOSTILE-FACTIONS-AND-VILLAINS.md) and [primary reference study](docs/systems/MMO-THREAT-REFERENCE-STUDY.md) extend the SYS roadmap. Threat roles are not only extra animal health/damage. Camps, telegraphs, motives, world outcomes and questline links need explicit prototypes; no new gameplay milestone is marked complete by the documents.

@@ -71,7 +71,7 @@ For modules without a firm owner exception, supported modes may be:
 **How removal works**
 
 - World generation: custom biome source, terrain, and feature placement. In replaced mode, vanilla stone and soil blocks are fully removed from world generation so geology, ore, and soil-nutrient systems stay consistent. Vanilla biomes, ores, structures, and vegetation don't generate unless their module is re-enabled.
-- Entities: all vanilla mobs are removed from active gameplay across supported dimensions and spawn/admission routes. Native fauna, predators and custom NPCs replace them; there is no production vanilla.mobs re-enable escape. Players/technical non-mob entities and recoverable existing-world records follow the [replacement/migration policy](systems/VANILLA-MOB-REPLACEMENT.md).
+- Entities: all vanilla mobs are removed from active gameplay across supported dimensions and spawn/admission routes. Native fauna, predators, fantastical monsters, intelligent hostile factions, named villains and custom NPCs replace them; there is no production vanilla.mobs re-enable escape. Players/technical non-mob entities and recoverable existing-world records follow the [replacement/migration policy](systems/VANILLA-MOB-REPLACEMENT.md).
 - Items/blocks: vanilla registry entries stay technically loaded (the game requires some of them) but are made unreachable: no worldgen, no spawns, no loot, no recipes, hidden from creative tabs, recipe book, and advancements. Re-enabling a module restores them.
 - Recipes: vanilla recipes cleared by default; restored per module.
 
@@ -334,7 +334,7 @@ Expanded October 29 research specifications: [agriculture](systems/AGRICULTURE-S
 ### 4.7. Danger & Hardcore Rules
 
 - Darkness is dangerous; unlit areas are more hostile.
-- Custom fauna and threats replace vanilla mobs; danger scales with time and progress.
+- Original fauna, monsters, hostile factions and named villains replace vanilla mobs. Authored regions and explicit world/quest progression set danger; player level alone does not silently rewrite a nearby actor or grant hidden immunity. The exact encounter scaling model remains proposed in the [MMO threat framework](systems/MMO-THREATS-AND-ENCOUNTERS.md).
 - Keep inventory on by default, configurable off by the world/server owner. Cargo remains for recovery and respawn fatigue escalates only with closely spaced deaths and resets after a configurable death-free interval; see the [decision update](design-decisions-2026-10-18.md#death-and-recovery).
 - Shelter, fire, and light have real radius and fuel costs.
 - Real hazards: cave-ins, gas pockets, lava, drowning.
@@ -935,7 +935,7 @@ Resolved by v0.5: loader (NeoForge), platform (a NeoForge mod rather than Hytale
 5. Default day length for single-player vs server presets?
 6. Updated: water uses hybrid depletion/recharge; ore veins are finite, with high-reserve bedrock-style deposits. See the owner update for renewal, recycling, and salvage rules.
 7. Updated: keep personal inventory is on by default and configurable off; cargo remains for recovery. Configurable escalating respawn fatigue is required. Exact fatigue values, injury restoration, and profession-XP retention remain to specify.
-8. Mobs/fauna: a fully original roster, or realistic regional wildlife plus a small set of threats?
+8. Updated October 29: all vanilla mobs are replaced. The confirmed direction includes regional wildlife plus original MMO-style monsters, intelligent factions and named villains. The final roster/mix, names and release selection remain open; see the [threat and villain specifications](systems/MMO-THREATS-AND-ENCOUNTERS.md).
 9. Config format and UI: plain TOML files only at first, or JSON/datapack formats for list-heavy settings? In-game config screen in v0.1 or later?
 10. Existing-world changes: when a toggle removes content already placed in a world, should the mod keep it, convert it, or block the change?
 11. Adapt vs convert default: is adapt (keep vanilla blocks, apply our properties) the right default, or should vanilla soil/stone convert into the mod's own blocks on placement and generation?
@@ -979,3 +979,7 @@ The former v0.1 checklist is consolidated into the [milestones and acceptance cr
 ## Authored NPC and questing expansion — October 29, 2026
 
 The owner requests WoW-style NPC quest interactions with an easy native admin workflow: create a custom NPC, choose a skin, assign quests, restrict eligibility by character level and questline, and delegate creation to other authorized admins. [NPC/quest specification](systems/NPC-AND-QUEST-SYSTEM.md) defines the wizard, states, typed conditions/objectives, co-authoring, test/publish/rollback and durable rewards. [Reference study](systems/NPC-QUEST-REFERENCE-STUDY.md) compares the official MMO and Minecraft-tool patterns with their version/license limits. All vanilla mobs are replaced; native NPCs cannot be a hidden vanilla-villager dependency. These are design requirements, not shipped UI or a new release claim.
+
+## Original hostile factions and villains — October 29, 2026
+
+The owner clarified that predators must include the broader creative range of WoW and other MMO threats fitting Minecraft and Deep Primal. Natural predators remain part of an ecosystem; monsters, intelligent faction forces, patrols, camps, elites and named antagonists add regional conflicts and quest arcs. [Encounter design](systems/MMO-THREATS-AND-ENCOUNTERS.md), [faction/villain concepts](systems/HOSTILE-FACTIONS-AND-VILLAINS.md) and the [reference study](systems/MMO-THREAT-REFERENCE-STUDY.md) define the proposed adaptation. They preserve editable-terrain counterplay, existing character progression/death rules, solo viability, protected builds and durable shared-world outcomes. Specific faction names, enemy rigs, abilities and balance values are original candidates awaiting review, not implemented systems or copies of another game's roster.

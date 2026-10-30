@@ -14,4 +14,4 @@ The [earlier Dev77 research edition](research-expanded/2026-10-29/README.md) rem
 
 ## Agriculture, fauna and questing
 
-[Research specifications and source register](systems/README.md) cover seasonal farming/genetics, animal husbandry/ecology, twelve original predator candidates, complete vanilla-mob replacement, and an easy delegated admin NPC/skin/quest creator. Start implementation planning from the [SYS feature roadmap](systems/SYSTEMS-ROADMAP.md) and [shared contracts](systems/SHARED-SYSTEM-CONTRACTS.md).
+[Research specifications and source register](systems/README.md) cover seasonal farming/genetics, animal husbandry/ecology, wildlife predators, original MMO monsters/factions/named villains, complete vanilla-mob replacement, and an easy delegated admin NPC/skin/quest creator. Start implementation planning from the [SYS feature roadmap](systems/SYSTEMS-ROADMAP.md) and [shared contracts](systems/SHARED-SYSTEM-CONTRACTS.md).

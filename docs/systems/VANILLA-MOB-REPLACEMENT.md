@@ -55,7 +55,7 @@ A resource-obtainability audit covers recipes, repairs, food, medicine abstracti
 
 ## 5. Original threats with MMO readability
 
-The [predator roster](ANIMAL-ECOLOGY-AND-PREDATORS.md) supplies candidate species and combat roles. The owner has chosen the direction, not approved every proposed creature name or balance value. Use recognizable behavior roles: territorial bruiser, pursuit pack, ambush stalker, river hazard, burrow defender, flying scavenger and rare apex. Combine habitat, footprints/calls, posture and attack wind-up so danger can be understood before damage.
+The [wildlife predator roster](ANIMAL-ECOLOGY-AND-PREDATORS.md), [MMO threat framework](MMO-THREATS-AND-ENCOUNTERS.md), and [hostile factions/villains](HOSTILE-FACTIONS-AND-VILLAINS.md) jointly supply candidate species, monsters, intelligent opponents and combat/story roles. Wildlife alone does not replace the full hostile roster. The owner has chosen the direction, not approved every proposed creature name or balance value. Use recognizable behavior roles: territorial bruiser, pursuit pack, ambush stalker, river hazard, burrow defender, flying scavenger and rare apex. Combine habitat, footprints/calls, posture and attack wind-up so danger can be understood before damage.
 
 Naturalistic predators hunt for modeled needs and defend territory; they do not all behave as permanent player-seeking enemies. Fantasy threats may use encounter rules, with explicit origin, limits and reward model. Nearby ecology and encounters share admission budgets without pretending a scripted elite was naturally born. Spawned event actors, test actors and breeder offspring need provenance so they cannot be laundered into unrestricted kill/butchery rewards.
 

@@ -79,3 +79,13 @@ Queue and memory limits cover plot updates, plant spread/crossing, perception/pa
 | Remove a vanilla-mob route or migrate a named mount | No denied vanilla actor enters active gameplay; player/cargo/ownership records remain recoverable |
 
 These are proposed fixtures. The feature roadmap links each to a real implementation and native evidence before marking its milestone complete. Existing core/renderer audits cannot close these new gameplay gates by association.
+
+## MMO threat and villain joins
+
+Species/body type, faction affiliation, current hostility, combat role, encounter rank and narrative identity are orthogonal typed fields. A herbivore can defend itself without belonging to an enemy faction; an individual can leave a hostile group; a construct uses component/salvage rules rather than an animal meat table. [Encounter definitions](MMO-THREATS-AND-ENCOUNTERS.md) and [faction/villain data](HOSTILE-FACTIONS-AND-VILLAINS.md) compile through the same identity, bounded-query and scoped-publication contracts.
+
+Persist authored camp/encounter IDs, materialized actor IDs, villain outcomes and admitted reinforcements so unload, rollback and restart cannot create a second encounter reward or population. Biological actors preserve individual/carcase accounting; carried equipment and constructed components have separately owned salvage accounts. Story credit and minted quest entitlements never duplicate physical equipment, cargo or carcasses.
+
+Combat queries recheck accepted world geometry and authority. Changed blocks invalidate relevant paths/attack previews; stale workers cannot strike through a newly placed wall. A player tower, shut door, flood or blocked route does not authorize teleporting, omniscient digging, unlimited path work or unconfigured block destruction. Infeasible encounters suspend/retreat with durable state and declared recovery. Region admission and active-actor quotas apply to quest/event actors too. No event physically raids unloaded settlements, simulates shutdown time, or secretly advances a region from one character's private story flag.
+
+Integrated fixtures now also cover a camp whose route is blocked during a windup, two characters resolving the same named villain, restart during reinforcement admission, an unauthorized author placing a camp over a claim, and an absent player returning after public story progress. Require one durable world outcome, each eligible character's separate progress, one physical resource budget and recoverable alternate quest completion.

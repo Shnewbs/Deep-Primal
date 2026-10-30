@@ -37,3 +37,7 @@ A [publication refresh](PUBLICATION-SUPPLEMENT.md) additionally audits five newl
 ## Gameplay-system research expansion — October 29, 2026
 
 [New system specifications](../systems/README.md) add native agriculture, original animal/predator ecology, all-vanilla-mob replacement and delegated admin NPC/quest creation. [The feature roadmap](../systems/SYSTEMS-ROADMAP.md) defines dependencies and gates. The earlier catalog/verification above retains its explicitly pinned checkpoint; this extension has a separate [documentation verification](../systems/VERIFICATION.json). New design does not promote engine/native acceptance.
+
+## MMO threat expansion — October 29, 2026
+
+The latest owner clarification expands predators into a full original enemy ecosystem: wildlife, fantasy threats, intelligent factions and named regional antagonists. Read the [encounter framework](../systems/MMO-THREATS-AND-ENCOUNTERS.md), [faction/villain candidates](../systems/HOSTILE-FACTIONS-AND-VILLAINS.md), [source study](../systems/MMO-THREAT-REFERENCE-STUDY.md) and [THR/SYS roadmap](../systems/SYSTEMS-ROADMAP.md). These are later reviewed design additions; the handbook's historical source catalog and its byte checkpoint remain pinned to their stated earlier snapshot. Current system document checks use [VERIFICATION.json](../systems/VERIFICATION.json), with no gameplay implementation claim.

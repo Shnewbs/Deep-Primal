@@ -9,6 +9,7 @@ Inspected October 29, 2026, Pacific. The studies use primary maintainer document
 | Agriculture | Exact Vivoxti AgriCraft-ReReloaded branch 1.21.1/4.0.24 pinned 836f911; TFC1.21.x targetingMinecraft 1.21.1 pinned 72750e42 | [Agriculture ledger](AGRICULTURE-RESEARCH.md) |
 | Animal ecology | TFC v4.2.12 forMinecraft 1.21.1; Alex's Mobs, Naturalist, BetterAnimalsPlus and Animania at separately stated versions | [Animal source register](ANIMAL-ECOLOGY-AND-PREDATORS.md#13-sources-and-inspection-limits) |
 | MMORPG interaction | Blizzard WoW historical quest/Party Sync/UI publications; Square Enix FFXIV UI/NewGame+; ArenaNet GW2 DynamicEvents | [NPC reference matrix](NPC-AND-QUEST-SYSTEM.md#1-lessons-from-primary-mmorpg-sources) |
+| MMO enemy ecosystems | Blizzard zone/dungeon publications, ArenaNet dynamic events, Square Enix Hunt and ESO regional-threat publications at the study's stated scopes | [Threat reference study](MMO-THREAT-REFERENCE-STUDY.md) |
 | NPC authoring tools | Citizens2, EasyNPC, FTBQuests, BetonQuest2.2 and AzerothCore quest schema/admin commands | [Authoring study](NPC-QUEST-REFERENCE-STUDY.md) |
 | Mob replacement boundaries | NeoForge 1.21.1 official biome modifiers and inspected spawn/join source; Mojang command guide | [Replacement references](VANILLA-MOB-REPLACEMENT.md#primary-reference-evidence) |
 
@@ -129,3 +130,7 @@ This index deduplicates exact referenced URLs. Multiple code paths from one repo
 | [www.curseforge.com/minecraft/mc-mods/naturalist/files/9280587](https://www.curseforge.com/minecraft/mc-mods/naturalist/files/9280587) | [ANIMAL-ECOLOGY-AND-PREDATORS.md](ANIMAL-ECOLOGY-AND-PREDATORS.md) |
 | [www.guildwars2.com/en-gb/the-game/dynamic-events/](https://www.guildwars2.com/en-gb/the-game/dynamic-events/) | [NPC-AND-QUEST-SYSTEM.md](NPC-AND-QUEST-SYSTEM.md) |
 | [www.minecraft.net/en-us/article/minecraft-commands](https://www.minecraft.net/en-us/article/minecraft-commands) | [VANILLA-MOB-REPLACEMENT.md](VANILLA-MOB-REPLACEMENT.md) |
+
+## Expanded predator, monster and villain study
+
+The [MMO threat evidence ledger](MMO-THREAT-REFERENCE-STUDY.md) records the specific primary pages inspected for this owner clarification, including historical/publication limits and blocked-access caveats. It supports layered regional threats, named antagonists, conditional rare encounters and cooperative event storytelling. Deep Primal's [five faction candidates](HOSTILE-FACTIONS-AND-VILLAINS.md), named villains, unit mechanics, terrain rules, editor extensions and transaction design are original proposals, not facts about proprietary MMO server implementations.
