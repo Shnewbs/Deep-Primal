@@ -40,3 +40,17 @@ Repository timestamps above are preserved in UTC for exact provenance. October29
 Dev78's tested perimeter-cycle admission was corrected in Dev79's source tests. Dev83's successor-candidate ledger concern progresses through Dev84's durable CAS store, then Dev85's world/profile-bound canonical envelope. These component closures remain linked to their original findings while native finite-cell atomicity and real saved-world recovery stay open. Dev86 placement plans and Dev87 prewrite guards have source/API-double evidence; a realized native placement receipt and lifecycle acceptance are different gates. See the [file/line-backed progression](audit/evidence-audit.md).
 
 The Dev88 version/state declaration does not close any of those gates by itself. This handbook does not promote staged R57/R60/R61/R62, activate V8, change existing geography, replace approved art or infer performance from assertion counts.
+
+
+## Publication refresh — October 30, 2026
+
+This addendum refreshes the coordination view without rewriting the October 29 snapshot above. Current \`main\` is [\\`aa8043fd\\`](https://github.com/Shnewbs/Deep-Primal/commit/aa8043fdcca0692349f233ce905ae3518ca736d4), source version \`0.0.1-alpha.29-dev.101-prepared-receipt-handoff.1\`. The latest engine sequence (Dev101) wires the prepared V8 vegetation receipt handoff and adds a focused admission guard; the latest renderer sequence is jam 55's bounded LOD renewal-map capacity work. These are source checkpoints only.
+
+| Current observation | Boundary |
+| --- | --- |
+| Dev101 receipt handoff is present in current source and recorded by the engine builder. | No Java 25/Gradle/NeoForge production build, native save/reopen/readback, or GPU acceptance is established by these commits. |
+| Renderer jam 55 pre-sizes the bounded renewal map and records its evidence separately. | No native Vulkan/OpenGL frame-time, VRAM, water-pixel, or packaged-JAR qualification is established by the renderer commits. |
+| The current engine lease file is checkpointed and explicitly released; the water work-state remains a historical owner record with an expired \`active_until\`. | Recorded timestamps and old in-progress flags do not prove a live worker. Re-read the live lease before any source write. |
+| Roadmap items P0-RENDER, WATER-01..08, LOD-01/02 and broader native visual/performance gates remain open. | Do not convert source-only assertions or carried scores into native completion, a new grade, or a delivered artifact. |
+
+This documentation refresh does not change build/JAR authority, schedules, ownership, saved-world policy, approved art, or any runtime behavior. It records the exact current boundary so later reviews do not mistake the October 29 handbook snapshot for current main.
