@@ -82,12 +82,10 @@ final class LodDiskNearestScan {
       for (long key : incoming) selected.accept(key);
       return selected.nearest();
     }
-    int expectedUnique = Math.min(MAX_KEYS, existing.size() + incoming.size());
-    HashSet<Long> seen = new HashSet<>(Math.max(16, expectedUnique), 1.0f);
-    for (long key : existing)
-      if (seen.add(key)) selected.accept(key);
-    for (long key : incoming)
-      if (seen.add(key)) selected.accept(key);
+    // Selection already owns a bounded retained-key set, so a second dedupe
+    // table only duplicates memory and hashing work during reconciliation.
+    for (long key : existing) selected.accept(key);
+    for (long key : incoming) selected.accept(key);
     return selected.nearest();
   }
 
