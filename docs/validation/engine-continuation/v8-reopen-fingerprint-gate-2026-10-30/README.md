@@ -8,7 +8,7 @@
 
 ## Focused validation
 Final source was re-fetched from `main` after the guarded writes.
-Static replay result: **DEV110_SOURCE_GUARD_FAIL**
+Static replay result: **DEV110_SOURCE_GUARD_PASS**
 Checked:
 1. fingerprint-gated overload exists;
 2. fail-closed fingerprint admission precedes materialization;
