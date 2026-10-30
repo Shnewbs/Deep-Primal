@@ -80,6 +80,26 @@ public final class V8VegetationNativeReceipt {
       throw new IllegalArgumentException("V8 vegetation receipt belongs to another chunk");
   }
 
+  /**
+   * Validate the two immutable identities required before a downstream native
+   * consumer reuses this observation. This is deliberately a pure admission
+   * check: it never re-reads or mutates the chunk and never upgrades an
+   * unbound legacy receipt.
+   */
+  public boolean matchesProfileAndChunk(long expectedFingerprint, ChunkAccess chunk) {
+    return expectedFingerprint != 0L
+        && matchesProfile(expectedFingerprint)
+        && matchesChunk(chunk);
+  }
+
+  public void requireSameProfileAndChunk(long expectedFingerprint, ChunkAccess chunk) {
+    Objects.requireNonNull(chunk, "V8 receipt chunk");
+    if (!matchesProfile(expectedFingerprint))
+      throw new IllegalArgumentException("V8 vegetation receipt belongs to another saved profile");
+    if (!matchesChunk(chunk))
+      throw new IllegalArgumentException("V8 vegetation receipt belongs to another chunk");
+  }
+
   public boolean realized(int localX, int localZ) {
     if (localX < 0 || localX >= SIDE || localZ < 0 || localZ >= SIDE)
       throw new IndexOutOfBoundsException("V8 vegetation receipt local column");
