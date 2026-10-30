@@ -54,3 +54,18 @@ This addendum refreshes the coordination view without rewriting the October 29 s
 | Roadmap items P0-RENDER, WATER-01..08, LOD-01/02 and broader native visual/performance gates remain open. | Do not convert source-only assertions or carried scores into native completion, a new grade, or a delivered artifact. |
 
 This documentation refresh does not change build/JAR authority, schedules, ownership, saved-world policy, approved art, or any runtime behavior. It records the exact current boundary so later reviews do not mistake the October 29 handbook snapshot for current main.
+
+
+## Publication refresh — October 30, 2026 (Dev107 / renderer jam 61)
+
+This addendum refreshes the coordination view to current `main` without rewriting earlier historical snapshots. Current `main` is [`4f968616`](https://github.com/Shnewbs/Deep-Primal/commit/4f96861645a5bd05aa14727769a62a5d88926e8a), source version `0.0.1-alpha.29-dev.107-surface-properties.1`.
+
+| Current observation | Boundary |
+| --- | --- |
+| Dev107 exposes continuous snow, vegetation, and soil factors from the saved ecotone sample through `V8EcotoneColumnPlan.Column`, with a bounded nonphysical material-band projection for downstream preflight. | The discrete band is explicitly not authoritative for height or water. No Java 25/Gradle/NeoForge production build, native save/reopen, GPU, visual transect, performance, or full water-engine acceptance was run. |
+| The focused Dev107 source guard passed as `DEV107_SOURCE_GUARD_PASS` after re-fetching final files from `main`. | This is source/static evidence only; no playable or qualified JAR was built or published. |
+| Renderer jam 61 reuses bounded selection dedupe during LOD reconciliation. Its final source checkpoint is [`6db63869`](https://github.com/Shnewbs/Deep-Primal/commit/6db638692d3bff0646d43001f0bed64c91b460a8), with rubric average 5.97 and no change from the previous jam. | Jam 61 records no qualified JAR and no GPU acceptance; native Vulkan/OpenGL, frame-time/VRAM, packaged-build and broader visual gates remain open. |
+| The current water work-state still contains an expired foreground claim (`active_until` 2026-10-28T01:15:00Z). | Treat it as historical coordination evidence, not proof of a live writer; re-read live ownership before touching water files. |
+| Roadmap items `P0-RENDER`, `WATER-01..08`, `LOD-01/02`, broader terrain visual acceptance and native/performance gates remain open. | Do not promote source guards, carried scores, or component assertions into native completion, a new grade, or a delivered artifact. |
+
+This documentation refresh changes no schedules, ownership, build/JAR authority, saved-world policy, approved art, or runtime behavior.
