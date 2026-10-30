@@ -2,7 +2,7 @@
   "jam_id": "renderer-20261030-streaming-counters",
   "parent_main": "7364d882b267d3f2c77f3cf1a4386f2e49e9266b",
   "implementation_commit": "66698c4e4c250ee07576c093c3fa5e9af32a22fe",
-  "final_source_sha": "pending",
+  "final_source_sha": "d8636141345dfe203c7d5a1cc6c744b9df9c20c0",
   "rubric_average": 5.97,
   "delta_from_previous": 0,
   "qualified_jar": false,
