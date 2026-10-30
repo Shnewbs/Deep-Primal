@@ -1,16 +1,22 @@
 {
   "schema": 1,
   "worker": "opportunistic-20261030-relief-v7-mutation-regression",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-30T23:18:30Z",
-  "expires_at": "2026-10-30T23:48:30Z",
+  "expires_at": "2026-10-30T23:21:40Z",
   "scope": [
     "tools/test_v8_relief_v7_runner_failures.py",
     "docs/opportunistic-work/20261030-relief-v7-mutation-regression.md",
     "docs/opportunistic-work/WORK-STATE.json"
   ],
   "requirement": "docs/TERRAIN-BLENDING.md / Integration sequence 3-4; reproducible bounded-relief validation",
-  "lease_released": false,
+  "lease_released": true,
+  "ended_at": "2026-10-30T23:21:40Z",
+  "source_commit": "a60578e522c0430e4fa1e0134deeeef4d7d5c0d1",
+  "tests": "4 Python runner regressions passed in normal and -OO modes (8 total executions)",
+  "build": "failed before Gradle: fresh GitHub clone required credentials unavailable in runtime; installed Java is 17, not supported Java 25",
   "last_delivered_jar": null,
-  "coordination": "Engine dev114 and renderer jam68 claims released; water record expired. This validation-only scope does not edit production, renderer, water, texture, Gradle, or existing V7 files."
+  "cleanup": "none; no new or previous opportunistic-worker JAR existed",
+  "handoff": "docs/opportunistic-work/20261030-relief-v7-mutation-regression.md",
+  "next": "Owner Java25 real DensityGraph V5/V7 CoreChecks, then native signed chunk/heightmap/save-reopen and old/new border acceptance"
 }
