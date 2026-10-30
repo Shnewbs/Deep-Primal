@@ -1,0 +1,18 @@
+{
+  "jam_id": "renderer-20261030T1052-publish-discard-fastpath",
+  "parent_main": "dfecaafcfae223efbfa6a3de65198365d6106e9c",
+  "implementation_commit": "3e006784887363c0184be1f45b4ae09928eeadd9",
+  "final_source_sha": "PENDING_MAIN_INTEGRATION",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261030-publish-discard-fastpath/README.md",
+    "docs/renderer-jams/20261030-publish-discard-fastpath/REVIEW.md",
+    "docs/renderer-jams/20261030-publish-discard-fastpath/LEDGER.json",
+    "docs/renderer-jams/20261030-publish-discard-fastpath/CLAIM.json"
+  ],
+  "rubric_average": 5.97,
+  "delta_from_previous": 0,
+  "qualified_jar": false,
+  "gpu_acceptance": false,
+  "claim_released": false
+}
