@@ -5,6 +5,7 @@
 #include <nvsdk_ngx_helpers_vk.h>
 
 #include "DlssImageAliasGuard.h"
+#include "DlssMemoryBindingGuard.h"
 
 #include <array>
 #include <cmath>
