@@ -4,6 +4,8 @@
 #include <nvsdk_ngx_helpers.h>
 #include <nvsdk_ngx_helpers_vk.h>
 
+#include "DlssImageAliasGuard.h"
+
 #include <array>
 #include <cmath>
 #include <cstdint>
@@ -305,8 +307,11 @@ JNIEXPORT void JNICALL JNI_NAME(evaluate)(JNIEnv* env, jclass, jlong id, jlong c
     env->GetLongArrayRegion(imageArray, 0, 8, handles.data());
     env->GetIntArrayRegion(formatArray, 0, 4, formats.data());
     if (env->ExceptionCheck()) return;
-    require(handles[6] != handles[0] && handles[6] != handles[2] && handles[6] != handles[4],
-        "DLSS output must not alias inputs");
+    // Duplicate VkImage / VkImageView handles must not reach NGX, including via
+    // a direct JNI caller that bypasses the Java DlssFrame contract.
+    // Distinct handles do not prove disjoint VkDeviceMemory allocations.
+    require(deepprimal::dlss::hasDistinctImagesAndViews(handles),
+        "DLSS sampled inputs and output require distinct image/view handles");
     require(formats[2] == VK_FORMAT_R16G16_SFLOAT || formats[2] == VK_FORMAT_R32G32_SFLOAT,
         "DLSS requires floating point RG motion vectors");
     require(formats[1] == VK_FORMAT_D16_UNORM || formats[1] == VK_FORMAT_X8_D24_UNORM_PACK32
