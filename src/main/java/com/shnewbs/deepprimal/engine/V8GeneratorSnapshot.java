@@ -156,6 +156,22 @@ public record V8GeneratorSnapshot(
         Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
   }
 
+  /**
+   * Create an explicitly new V8-r3 envelope containing the complete frozen
+   * relief V5 density graph. Existing saved r1-r6 profiles and their graph
+   * bytes are not rewritten. Caller may author subsequent climate/hydrology/
+   * vegetation revisions explicitly; this method never activates native V8.
+   */
+  public static V8GeneratorSnapshot newReliefV5(long seed, int minY, int height,
+      GroundSurfaceProfile ground, V8BlendPolicy blendPolicy,
+      V8SurfacePolicy surfacePolicy, boolean floatingFeatures) {
+    return new V8GeneratorSnapshot(SURFACE_VERSION, seed, minY, height,
+        TerrainShapeV8.definitionReliefV5(floatingFeatures),
+        Objects.requireNonNull(ground, "ground"),
+        Objects.requireNonNull(blendPolicy, "blendPolicy"),
+        Objects.requireNonNull(surfacePolicy, "surfacePolicy"));
+  }
+
   /** New explicit revision, never an in-place reinterpretation of existing r3 saves. */
   public V8GeneratorSnapshot withClimateBinding(V8ClimateBinding binding) {
     if (version != SURFACE_VERSION)
