@@ -1,21 +1,16 @@
 {
   "schema": 1,
-  "worker": "opportunistic-20261030-relief-runner",
-  "status": "released",
-  "started_at": "2026-10-30T01:20:05.285Z",
-  "expires_at": "2026-10-30T01:24:24.130Z",
+  "worker": "opportunistic-20261030-relief-v7-mutation-regression",
+  "status": "active",
+  "started_at": "2026-10-30T23:18:30Z",
+  "expires_at": "2026-10-30T23:48:30Z",
   "scope": [
-    "tools/test_v8_relief_v5.py",
-    "tools/test_v8_relief_runner_failures.py",
-    "docs/opportunistic-work/20261030-relief-runner.md"
+    "tools/test_v8_relief_v7_runner_failures.py",
+    "docs/opportunistic-work/20261030-relief-v7-mutation-regression.md",
+    "docs/opportunistic-work/WORK-STATE.json"
   ],
-  "requirement": "docs/TERRAIN-BLENDING.md / Integration sequence 3-4; reliable bounded-relief validation",
-  "lease_released": true,
+  "requirement": "docs/TERRAIN-BLENDING.md / Integration sequence 3-4; reproducible bounded-relief validation",
+  "lease_released": false,
   "last_delivered_jar": null,
-  "ended_at": "2026-10-30T01:24:24.130Z",
-  "source_commit": "953c4d6738cac386afdf61556f85351d4c6cbdec",
-  "tests": "4 Python regressions each normal/-OO; 850940 Java21-target assertions on JDK25; 4 compiled mutants rejected",
-  "build": "failed: partial source checkout plus network-unreachable NeoForge dependencies",
-  "cleanup": "none; no replacement JAR",
-  "handoff": "docs/opportunistic-work/20261030-relief-runner.md"
+  "coordination": "Engine dev114 and renderer jam68 claims released; water record expired. This validation-only scope does not edit production, renderer, water, texture, Gradle, or existing V7 files."
 }
