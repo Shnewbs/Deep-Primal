@@ -40,6 +40,14 @@ final class LodPublishedBounds {
     // metadata is computed or retained in the A/B comparison mode.
     if (!LodPageFrustumBounds.ENABLED) return;
     for (int detail = 0; detail < levels.length; detail++) {
+      // Publication arrays may be reused by the caller. Clear prior metadata before
+      // validating this level so an invalid/empty page cannot retain stale bounds
+      // or repeat masks from an earlier publication.
+      pages[detail] = null;
+      if (LodPageFrustumBounds.ENABLED) {
+        runs[detail] = NO_REPEATS;
+        if (twoBackRuns != null) twoBackRuns[detail] = NO_REPEATS;
+      }
       AABB[] parts = levels[detail];
       // Uploaded quad parts often retain the *same immutable AABB object*.
       // A single-identity page needs just one validation and an adjacent mask:
