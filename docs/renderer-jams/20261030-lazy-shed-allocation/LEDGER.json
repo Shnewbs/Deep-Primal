@@ -1,0 +1,12 @@
+{
+  "jam_id":"renderer-20261030T0354-lazy-shed-allocation",
+  "parent":"162ab4bf5a2f638ef260861c0b0bf2f156601816",
+  "implementation_commit":"b548d7b8ca43e4c9696a3d20ba4b4d2e8005ea88",
+  "final_source_sha":"b548d7b8ca43e4c9696a3d20ba4b4d2e8005ea88",
+  "changed_files":["lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java"],
+  "rubric_average":5.97,
+  "delta_from_previous":0.0,
+  "claim_released":true,
+  "qualified_jar":false,
+  "gpu_acceptance":false
+}
