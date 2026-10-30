@@ -23,11 +23,19 @@ public final class V8VegetationNativeReceipt {
   private final long[] realizedWords;
   private final int plannedCount;
   private final int realizedCount;
+  private final int originX;
+  private final int originZ;
 
-  private V8VegetationNativeReceipt(long[] words, int plannedCount, int realizedCount) {
+  private V8VegetationNativeReceipt(long[] words, int plannedCount, int realizedCount,
+      int originX, int originZ) {
+    if (plannedCount < 0 || plannedCount > SIDE * SIDE
+        || realizedCount < 0 || realizedCount > plannedCount)
+      throw new IllegalArgumentException("V8 vegetation receipt counts");
     this.realizedWords = words.clone();
     this.plannedCount = plannedCount;
     this.realizedCount = realizedCount;
+    this.originX = originX;
+    this.originZ = originZ;
   }
 
   /** Total deterministic candidates before native writes or callback vetoes. */
@@ -35,6 +43,27 @@ public final class V8VegetationNativeReceipt {
   /** Count still supported and matching the intended species at read-back. */
   public int realizedCount() { return realizedCount; }
   public int skippedCount() { return plannedCount - realizedCount; }
+
+  /** Absolute minimum X of the chunk whose postwrite states were observed. */
+  public int originX() { return originX; }
+  /** Absolute minimum Z of the chunk whose postwrite states were observed. */
+  public int originZ() { return originZ; }
+
+  /**
+   * Receipts are world-coordinate observations, not portable placement masks.
+   * A native caller must not apply one to another chunk or to a different
+   * signed-coordinate origin.
+   */
+  public boolean matchesChunk(ChunkAccess chunk) {
+    Objects.requireNonNull(chunk, "V8 receipt chunk");
+    return chunk.getPos().getMinBlockX() == originX
+        && chunk.getPos().getMinBlockZ() == originZ;
+  }
+
+  public void requireSameChunk(ChunkAccess chunk) {
+    if (!matchesChunk(chunk))
+      throw new IllegalArgumentException("V8 vegetation receipt belongs to another chunk");
+  }
 
   public boolean realized(int localX, int localZ) {
     if (localX < 0 || localX >= SIDE || localZ < 0 || localZ >= SIDE)
@@ -104,6 +133,6 @@ public final class V8VegetationNativeReceipt {
       }
     if (candidateCount != plants.count())
       throw new IllegalStateException("V8 vegetation plan candidate count changed");
-    return new V8VegetationNativeReceipt(words, candidateCount, observed);
+    return new V8VegetationNativeReceipt(words, candidateCount, observed, originX, originZ);
   }
 }
