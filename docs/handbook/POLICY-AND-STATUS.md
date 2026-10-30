@@ -69,3 +69,17 @@ This addendum refreshes the coordination view to current `main` without rewritin
 | Roadmap items `P0-RENDER`, `WATER-01..08`, `LOD-01/02`, broader terrain visual acceptance and native/performance gates remain open. | Do not promote source guards, carried scores, or component assertions into native completion, a new grade, or a delivered artifact. |
 
 This documentation refresh changes no schedules, ownership, build/JAR authority, saved-world policy, approved art, or runtime behavior.
+
+## Publication refresh — October 30, 2026 (Dev113 / relief replay)
+
+This addendum refreshes the coordination view to the current `main` tip without rewriting earlier historical snapshots. Current `main` is [`9924b0b`](https://github.com/Shnewbs/Deep-Primal/commit/9924b0b80c3bde501ed9aeabc4d1986a4b3a8037). The newest committed handoff records Dev113's saved V8 relief replay sampling boundary.
+
+| Current observation | Boundary |
+| --- | --- |
+| `V8GeneratorSnapshot.Prepared.sampleHeightAt(int worldX, int worldZ)` samples the persisted compiled relief graph at absolute coordinates, and `requireExactHeightReplay(...)` compares exact IEEE-754 bits before a native write. | The replay helper is explicit saved-profile support only (revision >= 2); it does not activate legacy V8, mutate chunks, choose a dominant biome, or create physical water. |
+| The direct-main source sequence is recorded by commits `187dd74`, `9799ae4`, `0c62af5`, and `9924b0b`. The focused guard is `python3 tools/test_v8_relief_replay_guard.py`. | The handoff explicitly did not run Java 25/Gradle, native Minecraft save/reopen/edit replay, GPU validation, visual transects, performance measurement, or full water acceptance. |
+| Current enabled Deep Primal coordination records include the opportunistic worker, engine builder, renderer builder, independent auditor, and three-hour review/fix task. | Their scheduler timestamps and historical work-state records are coordination evidence only; they do not prove live activity or close native acceptance gates. |
+| `docs/WATER-ENGINE-WORK-STATE.json` still contains an expired foreground-water claim (`active_until` 2026-10-28T01:15:00Z). | Treat that claim as historical. Re-read live ownership before touching water files. |
+| The roadmap remains open for `P0-RENDER`, `TERRAIN-01..10`, `WATER-01..08`, `OCEAN-01..03`, `SNOW-01`, `LOD-01/02`, and the broader native visual/performance gates. | Do not convert source guards, replay helpers, carried scores, or assertion counts into native completion, a new grade, or a delivered artifact. |
+
+This documentation refresh changes no schedules, ownership, build/JAR authority, saved-world policy, approved art, or runtime behavior.
