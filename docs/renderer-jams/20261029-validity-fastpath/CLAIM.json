@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "owner": "renderer-hourly-feature-only",
+  "jam_id": "renderer-20261029T2359-validity-fastpath",
+  "status": "active",
+  "started_at": "2026-10-29T23:59:00Z",
+  "expires_at": "2026-10-30T00:30:00Z",
+  "source_head_observed": "fb88f7ca17b8a15a8e8ac40b647ccf1768c8be93",
+  "source_blob_expected": "32ae24afbfa3c9c5d5f668ac860443f05fc336b2",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "docs/renderer-jams/20261029-validity-fastpath/**"
+  ],
+  "purpose": "Measured, parity-protected hot-path improvement for repeated immutable resident-page AABB references, prioritizing prior invalid/unique CPU regressions, without touching draw order, water, GPU or other feature-owned source",
+  "separate_from": [
+    "engine/water builder",
+    "independent engine auditor",
+    "upscaling owner"
+  ],
+  "owner_build_policy": "Owner Java25/full Gradle/Minecraft/GPU/JAR; isolated Java21 source tests permitted",
+  "no_other_workstreams": true
+}
