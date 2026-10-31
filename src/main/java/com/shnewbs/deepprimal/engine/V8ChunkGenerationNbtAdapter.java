@@ -31,8 +31,8 @@ public final class V8ChunkGenerationNbtAdapter {
   public record Generated(V8ChunkGenerationStamp.Stamp stamp, long epoch) {
     public Generated {
       Objects.requireNonNull(stamp, "V8 generation stamp");
-      if (epoch < 0L)
-        throw new IllegalArgumentException("negative durable V8 epoch");
+      if (epoch <= 0L)
+        throw new IllegalArgumentException("generated V8 epoch must be positive");
     }
 
     public String encode() {
@@ -52,7 +52,7 @@ public final class V8ChunkGenerationNbtAdapter {
       throw new IllegalArgumentException("oversized V8 NBT generation marker");
     String[] parts = encoded.split("\\|", -1);
     if (parts.length != 9 || !PREFIX.equals(parts[0])
-        || !parts[1].matches("0|[1-9][0-9]*")
+        || !parts[1].matches("[1-9][0-9]*")
         || !parts[8].matches("[0-9a-f]{8}"))
       throw new IllegalArgumentException("invalid V8 NBT generation envelope");
     try {

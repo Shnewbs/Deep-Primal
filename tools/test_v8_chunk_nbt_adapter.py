@@ -60,7 +60,7 @@ def main() -> None:
         raise AssertionError('missing or duplicated durable-epoch guard')
     digest = hashlib.sha256(production.encode('utf-8')).hexdigest()
     first, out = run(production)
-    if first or 'V8_NBT_ADAPTER_PASS assertions=94706' not in out:
+    if first or 'V8_NBT_ADAPTER_PASS assertions=94709' not in out:
         raise AssertionError('production failed: '+out[-1200:])
     second, repeat = run(production)
     if second or repeat != out:
@@ -74,8 +74,14 @@ def main() -> None:
     broken_marker, marker_failure = run(production.replace(marker_anchor, 'if (false)', 1))
     if broken_marker == 0 or 'accepted invalid input' not in marker_failure:
         raise AssertionError('prewrite marker mutant not rejected: '+marker_failure[-1200:])
+    positive_anchor = 'if (epoch <= 0L)'
+    if production.count(positive_anchor) != 1:
+        raise AssertionError('missing unique positive-generated-epoch guard')
+    broken_zero, zero_failure = run(production.replace(positive_anchor, 'if (epoch < 0L)', 1))
+    if broken_zero == 0 or 'accepted invalid input' not in zero_failure:
+        raise AssertionError('zero-epoch mutant not rejected: '+zero_failure[-1200:])
     mode = 'real-core-plus-nbt-doubles' if all((CORE / name).is_file() for name in CORE_CLASSES) else 'core-and-nbt-doubles'
-    print('V8_NBT_ADAPTER_PASS 2x94706 assertions; epoch and marker mutants rejected; mode='+mode+'; sha256='+digest)
+    print('V8_NBT_ADAPTER_PASS 2x94709 assertions; epoch, marker and zero-epoch mutants rejected; mode='+mode+'; sha256='+digest)
 
 if __name__ == '__main__':
     main()

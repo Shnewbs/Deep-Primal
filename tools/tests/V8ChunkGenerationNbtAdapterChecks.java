@@ -22,7 +22,7 @@ public final class V8ChunkGenerationNbtAdapterChecks {
     SplittableRandom rng=new SplittableRandom(0xD119L);
     for(int i=0;i<5000;i++) {
       int x=rng.nextInt(),z=rng.nextInt(),revision=rng.nextInt(2,7);
-      long fingerprint=rng.nextLong()|1L,epoch=rng.nextLong(0,Long.MAX_VALUE);
+      long fingerprint=rng.nextLong()|1L,epoch=Math.max(1L,rng.nextLong(0,Long.MAX_VALUE));
       var stamp=new V8ChunkGenerationStamp.Stamp(revision,x,z,fingerprint);
       var identity=new V8ChunkGenerationNbtAdapter.Generated(stamp,epoch);
       CompoundTag tag=new CompoundTag();
@@ -71,7 +71,21 @@ public final class V8ChunkGenerationNbtAdapterChecks {
       malformed.putString(V8ChunkGenerationNbtAdapter.KEY,text);
       reject(()->V8ChunkGenerationNbtAdapter.readGenerated(malformed));
     }
-    reject(()->new V8ChunkGenerationNbtAdapter.Generated(new V8ChunkGenerationStamp.Stamp(6,0,0,1),-1));
+    var zeroStamp = new V8ChunkGenerationStamp.Stamp(6, -123, 456, 1234L);
+    reject(()->new V8ChunkGenerationNbtAdapter.Generated(zeroStamp, -1));
+    // The native coordinator publishes nextEpoch=targetEpoch+1, so a
+    // GENERATED marker at epoch zero was never a committed chunk.
+    reject(()->new V8ChunkGenerationNbtAdapter.Generated(zeroStamp, 0));
+    String zeroBody = "dp-v8-nbt/1|0|" + zeroStamp.encode();
+    var crc = new java.util.zip.CRC32();
+    crc.update(zeroBody.getBytes(java.nio.charset.StandardCharsets.US_ASCII));
+    CompoundTag zeroNbt = new CompoundTag();
+    zeroNbt.putString(V8ChunkGenerationNbtAdapter.KEY, zeroBody + "|"
+        + String.format(java.util.Locale.ROOT, "%08x", crc.getValue()));
+    reject(()->V8ChunkGenerationNbtAdapter.readGenerated(zeroNbt));
+    reject(()->V8ChunkGenerationNbtAdapter.neighbor(V8GenerationBorderAdmission.Direction.NORTH,
+        V8GenerationBorderAdmission.State.GENERATED, zeroNbt, 0,
+        zeroStamp.chunkX(), zeroStamp.chunkZ(), zeroStamp.revision(), zeroStamp.profileFingerprint()));
     check(checks>70000);
     System.out.println("V8_NBT_ADAPTER_PASS assertions="+checks);
   }
