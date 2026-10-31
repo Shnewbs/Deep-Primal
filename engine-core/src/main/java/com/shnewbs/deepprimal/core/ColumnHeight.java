@@ -8,11 +8,16 @@ public final class ColumnHeight {
         if (step <= 0 || upper < lower || !Double.isFinite(height)) {
             throw new IllegalArgumentException("Invalid column geometry");
         }
-        int first = Math.floorDiv(upper, step) * step;
-        if (height > first) return Math.max(lower, first);
+        // floorDiv(upper, step) * step can fall below Integer.MIN_VALUE.
+        // Keep the aligned cell coordinate wide until it is clamped to lower.
+        long first = Math.floorDiv((long) upper, step) * step;
+        if (height > first) return (int) Math.max((long) lower, first);
         if (height <= lower) return lower;
-        // Density is strictly positive below the surface: an exact cell boundary belongs below it.
-        int candidate = (int) ((Math.ceil(height / step) - 1.0) * step);
-        return Math.max(lower, Math.min(first, candidate));
+        // Find the greatest integer strictly below height *before* aligning to
+        // a cell. Dividing a tiny positive height by step can underflow to zero,
+        // incorrectly skipping the zero cell (or another grid boundary).
+        long below = (long) Math.ceil(height) - 1L;
+        long candidate = Math.floorDiv(below, step) * step;
+        return (int) Math.max((long) lower, Math.min(first, candidate));
     }
 }
