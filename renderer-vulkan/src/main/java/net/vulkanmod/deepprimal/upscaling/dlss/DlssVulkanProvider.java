@@ -177,6 +177,9 @@ public final class DlssVulkanProvider implements AutoCloseable {
     if (frame.color().width() != renderWidth || frame.color().height() != renderHeight
         || frame.output().width() != outputWidth || frame.output().height() != outputHeight)
       throw new IllegalArgumentException("DLSS frame dimensions differ from the created feature");
+    // Reject unknown or aliased allocation provenance before JNI/NGX dispatch.
+    // The native bridge repeats this guard; the renderer still owns real VkMemory bindings.
+    DlssMemoryBindingContract.validate(frame);
     frameArgs.fill(frame);
     try {
       DlssNative.evaluate(context, frame.commandBuffer(), frameArgs.images, frameArgs.formats,
