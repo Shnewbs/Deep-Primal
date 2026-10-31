@@ -11,6 +11,7 @@ public final class CoreChecks {
     FrameIntervalChecks.main(args);
     AquiferTickChecks.main(args);
     EngineIntegrationTest.main(new String[0]);
+    WaterSimulationMaterialChecks.main(new String[0]);
     CacheLifecycleChecks.main(new String[0]);
     CoreCloseLifecycleChecks.main(new String[0]);
     PipelineInlineCloseChecks.main(new String[0]);

@@ -30,14 +30,28 @@ public final class WaterSimulation {
     var move=WaterTransport.pressure(ground[from],units[from],ground[to],units[to]);units[from]=move.from();units[to]=move.to();
     if(units[to]>0)materials[to]=1;double v=move.moved()/16.0*(reverse?-1:1);double[] flow=x?flowX:flowZ;flow[a]+=v;flow[b]+=v;
   }
-  public synchronized void setWaterLevel(int x,int z,double level,boolean source){int i=index(x,z);units[i]=volume(level);sources[i]=source;materials[i]=(byte)(units[i]>0?1:0);update();}
+  /** Replacing water must not silently erase a solid cell or attach a source to one. */
+  public synchronized void setWaterLevel(int x,int z,double level,boolean source){
+    int i=index(x,z),next=volume(level);
+    if(materials[i]==2){
+      if(next!=0||source)throw new IllegalStateException("solid cell");
+      return; // Zero-volume writes preserve the solid material.
+    }
+    units[i]=next;sources[i]=source;materials[i]=(byte)(next>0?1:0);update();
+  }
   public synchronized void addWater(int x,int z,double amount){int i=index(x,z),add=volume(amount);if(materials[i]>1)throw new IllegalStateException("solid cell");if(add>16-units[i])throw new IllegalArgumentException("cell capacity");units[i]+=add;if(units[i]>0)materials[i]=1;update();}
   public synchronized double removeWater(int x,int z,double amount){int i=index(x,z),take=Math.min(units[i],volume(amount));units[i]-=take;update();return take/16.0;}
   public synchronized double getWaterLevel(int x,int z){return units[index(x,z)]/16.0;}
   public synchronized double getFlowX(int x,int z){return flowX[index(x,z)];}public synchronized double getFlowZ(int x,int z){return flowZ[index(x,z)];}
   public synchronized double getPressure(int x,int z){int i=index(x,z);return (ground[i]+units[i]/16.0)*9810;}
   public synchronized boolean isSource(int x,int z){return sources[index(x,z)];}
-  public synchronized void setMaterial(int x,int z,byte material){if(material<0||material>2)throw new IllegalArgumentException("material");int i=index(x,z);if(units[i]>0&&material!=1)throw new IllegalStateException("drain water before replacing material");materials[i]=material;}
+  public synchronized void setMaterial(int x,int z,byte material){
+    if(material<0||material>2)throw new IllegalArgumentException("material");
+    int i=index(x,z);
+    if(units[i]>0&&material!=1)throw new IllegalStateException("drain water before replacing material");
+    materials[i]=material;
+    if(material==2)sources[i]=false; // A solid cannot remain a source after conversion.
+  }
   public synchronized byte getMaterial(int x,int z){return materials[index(x,z)];}
   /** Independent versioned query snapshot, not WaterCornerPacket or world saved data. */
   public synchronized void encodeToPacket(ByteBuffer buffer,int offset,long timestamp){
