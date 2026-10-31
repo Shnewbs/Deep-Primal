@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "owner": "existing-hourly-engine-builder",
+  "status": "active",
+  "started_at": "2026-10-31T02:02:00Z",
+  "active_until": "2026-10-31T02:32:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/V8ChunkGenerationCommitGate.java",
+    "tools/tests/V8ChunkGenerationCommitGateChecks.java",
+    "tools/test_v8_chunk_commit_gate.py",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/**"
+  ],
+  "baseline_main": "7eca33c263b181215fef3c9127a1ef5c2904a0bd",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
+  "auditor_pinned_source": "c57d2924562a7dd35eed007a164205953bb13061",
+  "no_renderer_or_water_edits": true,
+  "owner_full_build_override": true,
+  "measurement_reservation": "Java21 isolated functional checks only; no timed benchmark",
+  "lease_released": false
+}
