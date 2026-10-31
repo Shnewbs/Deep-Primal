@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "independent-audit",
+  "audit_start_sha": "f3afacbe718a0dce3d7f14ed341169d4eeba6432",
+  "corrective_commit": "8bc672f4c0c5dbce81255aae7e9c8d7586a2c906",
+  "version": "0.0.1-alpha.29-dev.123-world-coordinate-admission.1",
+  "host": "Linux x86_64",
+  "java": "OpenJDK 21.0.12.1",
+  "java25": false,
+  "checks": {
+    "strict_javac21": "PASS",
+    "pre_fix_reproduction": "PASS",
+    "positive_assertions_per_process": 94709,
+    "positive_processes": 6,
+    "positive_total": 568254,
+    "compiled_negative_controls_rejected": 9,
+    "independent_zero_epoch_checks": 13,
+    "full_gradle25": "NOT_RUN",
+    "native_save_reopen": "NOT_RUN",
+    "windows_gpu": "NOT_RUN",
+    "jar": "NOT_BUILT"
+  },
+  "blobs": {
+    "adapter": "33782f5ef55b904c4cb3c3ac261d794ef5306c0e",
+    "test": "5a807345333644989290c3128055567c63c4ab83",
+    "runner": "3a5724503bce97d7ac798cce9e1b560b81f8dc99"
+  },
+  "evidence": {
+    "filename": "DeepPrimal_Dev123_IndependentAudit_20261031T0733_f3afacbe_8bc672f4_Evidence.zip",
+    "bytes": 17791,
+    "sha256": "7243b50f1a7cb34525e8a46730ee7917841aeec8673b00ca13b372646520b270"
+  },
+  "grade": "50/100 carried forward",
+  "builder_interrupted": false,
+  "jar_deleted": false,
+  "github_actions": false
+}
