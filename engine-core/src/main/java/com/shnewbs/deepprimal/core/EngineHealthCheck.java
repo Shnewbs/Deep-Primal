@@ -9,7 +9,7 @@ public final class EngineHealthCheck {
   public static synchronized void register(String name,Supplier<CheckResult> check){checks.put(Objects.requireNonNull(name),Objects.requireNonNull(check));}
   public static synchronized void setEnabled(boolean value){enabled=value;}public static synchronized boolean isEnabled(){return enabled;}
   public static List<CheckResult> runAll(){Map<String,Supplier<CheckResult>> copy;synchronized(EngineHealthCheck.class){if(!enabled)return List.of();copy=new LinkedHashMap<>(checks);}
-    var failures=new ArrayList<CheckResult>();copy.forEach((name,check)->{try{var result=check.get();if(!result.passed())failures.add(result);}catch(Exception e){failures.add(new CheckResult(name,false,e.toString(),e));}});return List.copyOf(failures);}
+    var failures=new ArrayList<CheckResult>();copy.forEach((name,check)->{try{var result=check.get();if(!result.passed())failures.add(result);}catch(Exception e){failures.add(new CheckResult(name,false,e.toString(),e));}catch(AssertionError e){failures.add(new CheckResult(name,false,e.toString(),new Exception(e)));}});return List.copyOf(failures);}
   public static void runOrThrow(){var failures=runAll();if(!failures.isEmpty())throw new IllegalStateException("Engine invariants: "+failures);}
   public static synchronized void initDefaultChecks(){
     checks.putIfAbsent("water_conservation",()->{var e=WaterTransport.exchange(16,0,false);return e.from()+e.to()==16?CheckResult.pass("water_conservation"):CheckResult.fail("water_conservation","volume changed");});

@@ -172,6 +172,7 @@ public final class CoreChecks {
     check(ticks.count() == 3 && ticks.snapshot().medianMs() == 3, "tick ring rollover");
     ticks.clear();
     check(ticks.snapshot().count() == 0, "tick reset");
+    EngineHealthCheckIsolationChecks.main(new String[0]);
     System.out.println(
         "PASS: "
             + checked
