@@ -36,5 +36,14 @@
   "qualified_jar": false,
   "audit": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
   "audit_source": "c57d2924562a7dd35eed007a164205953bb13061",
-  "last_independent_full_grade": "50/100 carried October 24 baseline"
+  "last_independent_full_grade": "50/100 carried October 24 baseline",
+  "local_jar_requested": true,
+  "local_build_attempt": {
+    "git_ls_remote": "failed: Could not resolve host github.com",
+    "complete_checkout": false,
+    "available_jdk": "OpenJDK 21.0.12.1",
+    "java25_present": false,
+    "gradle_build_executed": false,
+    "jar_produced": false
+  }
 }
