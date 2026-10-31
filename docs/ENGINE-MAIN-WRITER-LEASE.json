@@ -1,30 +1,23 @@
 {
   "schema": 1,
-  "worker": "existing-hourly-engine-builder-dev94-vegetation-height-parity",
-  "start": "2026-10-30T03:00:00Z",
-  "expires": "2026-10-30T03:27:00Z",
-  "source_head": "5cf284fd62632757a8cb740e565c541f58c07c58",
-  "status": "checkpointed",
+  "worker": "hourly-deep-primal-engine-dev130-ready-admission",
+  "status": "active",
+  "start": "2026-10-31T14:03:00Z",
+  "expires": "2026-10-31T14:28:00Z",
+  "source_head": "b4442bc7c574e4bfaa2dd2810dbcf50805eb197e",
   "scope": [
-    "src/main/java/com/shnewbs/deepprimal/engine/V8VegetationColumnPlan.java",
-    "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
-    "tools/tests/V8VegetationColumnPlanChecks.java",
-    "tools/test_v8_vegetation_columns.py",
-    "docs/validation/engine-continuation/v8-vegetation-height-parity-2026-10-30/**",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/NearestChunks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/NearestChunksOverflowChecks.java",
+    "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/PlayerChunkSenderMixin.java",
+    "docs/validation/engine-continuation/nearest-chunk-ready-admission-2026-10-31/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
-  "note": "Scoped opt-in V8-r6 planned vegetation heightmap parity; no renderer/water ownership; owner handles full builds. Root ENGINE-WORK-STATE not claimed; no full-workstate validator in partial checkout.",
-  "lease_released": true,
-  "ended_at": "2026-10-30T03:19:30Z",
-  "source_commit": "6aaa3410c21f3dee6336a3229e3ef3075450e3e4",
-  "source_version": "0.0.1-alpha.29-dev.94-vegetation-height-parity.1",
-  "implementation": "Explicit V8-r6 planned WORLD_SURFACE_WG height uses same deterministic vegetation plan as baseColumnVegetated; OCEAN_FLOOR_WG excludes short grass/ferns; preserves V1-V7 and saved V8 revisions.",
-  "consumed_audit": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
-  "evidence": "docs/validation/engine-continuation/v8-vegetation-height-parity-2026-10-30/README.md",
-  "tests": "OpenJDK21.0.12.1 Java21 source-only/API-double 4 positives x 163503 assertions=654012 total, 12/12 compiled defective controls rejected; no native materializer compile.",
-  "validation_limits": "No full root work-state validator (partial checkout), Java25/Gradle, production V5 VM CoreChecks, native save/reopen/GPU, water acceptance or qualified JAR.",
-  "last_external_average": 5,
-  "acceptance_complete": false,
-  "next": "Owner native Java25 V5 VM gate and V8-r6 heightmap/receipt/readback; continue native finite water conserved outlet ledger persistence."
+  "audit": "docs/engine-hourly-audits/2026-10-31T1330-ddcf22c5/REVIEW.md",
+  "note": "Claim bounded chunk-send readiness prefilter to avoid expensive readiness lookups for candidates that cannot displace selected nearest ready chunks. Renderer, water, terrain and native chunk-save files excluded. No full Java25/JAR claim.",
+  "previous_checkpoint": {
+    "worker": "existing-hourly-engine-builder-dev94-vegetation-height-parity",
+    "source_commit": "6aaa3410c21f3dee6336a3229e3ef3075450e3e4",
+    "ended_at": "2026-10-30T03:19:30Z",
+    "lease_released": true
+  }
 }
