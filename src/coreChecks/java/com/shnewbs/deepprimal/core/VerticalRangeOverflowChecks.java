@@ -19,8 +19,9 @@ public final class VerticalRangeOverflowChecks {
         return Math.toIntExact(lo);
     }
     public static void main(String[] args) {
+        // Keep the window smaller than the world: a full-height window would mask camera underflow.
         // Previously camera MIN_VALUE - 96 wrapped to a positive Y, selecting the top of the world.
-        check(VerticalRange.low(Integer.MIN_VALUE, -64, 128, 96) == -64,
+        check(VerticalRange.low(Integer.MIN_VALUE, -64, 512, 96) == -64,
             "underflow camera selects top instead of bottom");
         // Previously slot - low overflowed and produced an incorrect section for negative low.
         check(VerticalRange.coordinate(Integer.MIN_VALUE, 63, Integer.MAX_VALUE) ==
