@@ -43,3 +43,13 @@ remains 50/100, 5.0/10; no new grade.
 
 Next: authoritative native chunk+stamp durable CAS and crash recovery;
 old/new V8 border save/reopen, relief V7 native parity and finite-water ledger.
+
+Implementation commit: `84f7f30aae3a678fff2f1d2e23471380f3204c62` (direct main, expected-parent guarded).
+Committed source blob: `4b45b97a5dc7aab724a03d51a097a4353b08de65`;
+exact extracted guard blob: `dd2bc9a4fb03a9e42ac0be35c40a3fd4ff0a6054`;
+Java test blob: `060ef645893c345ff750a8e403ae2b72fa0110a6`;
+Python runner blob: `8434cd20942b0fcd2aca49a4306527c6a2561722`.
+Both normal and optimized Python runners passed: four positive processes,
+**520,484 total assertions**, four compiled mutants rejected. The committed
+source's three entrypoint callsites were checked against the pinned Git blob.
+Scoped writer lease released; no JAR was built or deleted.

@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.125-v8-materializer-coordinate.1",
+  "source_commit": "84f7f30aae3a678fff2f1d2e23471380f3204c62",
+  "source_blob": "4b45b97a5dc7aab724a03d51a097a4353b08de65",
+  "method_blob": "dd2bc9a4fb03a9e42ac0be35c40a3fd4ff0a6054",
+  "java_test_blob": "060ef645893c345ff750a8e403ae2b72fa0110a6",
+  "python_runner_blob": "8434cd20942b0fcd2aca49a4306527c6a2561722",
+  "toolchain": "OpenJDK 21.0.12.1",
+  "mode": "isolated exact-production-method + API doubles + static entrypoint guards",
+  "positive_runs": [
+    {
+      "python": "normal",
+      "processes": 2,
+      "assertions_per_process": 130121,
+      "compiled_mutants_rejected": 2
+    },
+    {
+      "python": "-OO",
+      "processes": 2,
+      "assertions_per_process": 130121,
+      "compiled_mutants_rejected": 2
+    }
+  ],
+  "omitted": [
+    "full materializer compilation",
+    "Java25/Gradle",
+    "native Minecraft save/reopen",
+    "GPU",
+    "finite water",
+    "JAR"
+  ],
+  "independent_grade_baseline": 5
+}
