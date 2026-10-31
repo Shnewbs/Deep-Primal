@@ -4,8 +4,8 @@
   "status": "checkpointed",
   "lease_released": true,
   "started_at": "2026-10-31T09:56:17Z",
-  "updated_at": "2026-10-31T10:01:00Z",
-  "active_until": "2026-10-31T10:01:00Z",
+  "updated_at": "2026-10-31T09:59:46Z",
+  "active_until": "2026-10-31T09:59:46Z",
   "base_ref": "3b00a3d3399e5a8ea98ba77f61997b613cfb44ed",
   "candidate_version": "0.0.1-alpha.29-dev.126-v8-revision-publication.1",
   "scope": [
@@ -49,7 +49,7 @@
     "Vulkan/OpenGL graphics, LOD/performance, finite-water acceptance",
     "Fresh complete independent grade"
   ],
-  "ended_at": "2026-10-31T10:01:00Z",
+  "ended_at": "2026-10-31T09:59:46Z",
   "archive_bytes": 10391,
   "latest_relief_v5_checkpoint": {
     "worker": "hourly-engine-builder-20261029T1800-relief-v5",
