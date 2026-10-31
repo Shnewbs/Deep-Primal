@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "role": "independent-auditor",
+  "run": "2026-10-31T0633Z-dev122-84208b59",
+  "pinned_main": "84208b59eaa7f72370b3f82b8dc4a33c3932860c",
+  "source_version": "0.0.1-alpha.29-dev.122-nbt-prewrite-admission.1",
+  "correction_commit": "1c270ac6f7c6c9fefb980e2ce505a660ab43d635",
+  "regression_commit": "6c7543d2d8c88b7c7fe9449ad49057e2fc1bc8a1",
+  "production_blob_after": "1748ea6fd0ebd51c2b8964aec5724a178a818aad",
+  "toolchains": [
+    "Temurin 25.0.5+8",
+    "OpenJDK 21.0.12.1"
+  ],
+  "host": "Linux x86_64",
+  "focused_integration_checks_per_jdk": 586012,
+  "committed_epoch_checks_per_run": 72009,
+  "positive_repetitions_per_jdk": 2,
+  "compiled_mutant_rejected": true,
+  "full_gradle": false,
+  "qualified_jar": false,
+  "native_save_reopen": false,
+  "windows_gpu": false,
+  "neo_version": "26.1.2.122",
+  "baseline_grade": 50,
+  "baseline_grade_fresh": false,
+  "builder_interrupted": false,
+  "github_actions_used": false,
+  "old_jars_deleted": false
+}
