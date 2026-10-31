@@ -203,6 +203,8 @@ public final class DensityChunkMaterializer {
       ChunkAccess chunk, int queriesPerSlab) {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(chunk, "chunk");
+    if (prepared.snapshot().version() < V8GeneratorSnapshot.BLENDED_VERSION)
+      throw new IllegalArgumentException("legacy V8 profiles cannot use border admission");
     prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
     V8GenerationBorderAdmission.requireCompatible(border,
         chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);
@@ -300,6 +302,8 @@ public final class DensityChunkMaterializer {
       V8WaterDomainAdmission.Authority authority) {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(chunk, "chunk");
+    if (prepared.snapshot().version() < V8GeneratorSnapshot.BLENDED_VERSION)
+      throw new IllegalArgumentException("legacy V8 profiles cannot use border admission");
     prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
     V8GenerationBorderAdmission.requireCompatible(border,
         chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);

@@ -53,6 +53,8 @@ def main() -> None:
         'fillSavedSnapshot(prepared, expectedSavedProfileFingerprint, chunk, queriesPerSlab)',
     ]
     if materializer:
+        if materializer.count('prepared.snapshot().version() < V8GeneratorSnapshot.BLENDED_VERSION') < 2:
+            raise AssertionError('missing explicit legacy V8 border rejection')
         for anchor in required:
             if anchor not in materializer:
                 raise AssertionError('missing native opt-in border gate: ' + anchor)
