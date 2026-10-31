@@ -116,6 +116,7 @@ public final class CoreChecks {
                 "window inside saved height");
           }
       }
+    WorkBudgetTelemetryChecks.main(new String[0]);
     WorkBudget budget = new WorkBudget();
     for (int i = 0; i < 100; i++) budget.observe(50, 16.67, 0.5);
     check(budget.fraction() == 0.125, "work backoff floor");
