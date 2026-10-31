@@ -26,8 +26,11 @@ public final class V8ChunkGenerationNbtAdapterChecks {
       var stamp=new V8ChunkGenerationStamp.Stamp(revision,x,z,fingerprint);
       var identity=new V8ChunkGenerationNbtAdapter.Generated(stamp,epoch);
       CompoundTag tag=new CompoundTag();
+      V8ChunkGenerationNbtAdapter.requireFreshCandidate(tag);
+      check(tag.get(V8ChunkGenerationNbtAdapter.KEY)==null);
       reject(()->V8ChunkGenerationNbtAdapter.readGenerated(tag));
       V8ChunkGenerationNbtAdapter.writeNewGenerated(tag,identity);
+      reject(()->V8ChunkGenerationNbtAdapter.requireFreshCandidate(tag));
       check(V8ChunkGenerationNbtAdapter.readGenerated(tag).equals(identity));
       check(V8ChunkGenerationNbtAdapter.requireGenerated(tag,x,z,revision,fingerprint,epoch).equals(identity));
       reject(()->V8ChunkGenerationNbtAdapter.writeNewGenerated(tag,identity));

@@ -98,6 +98,9 @@ public final class V8ChunkGenerationNativeFill {
     Objects.requireNonNull(owner, "V8 authoritative native owner");
     Objects.requireNonNull(candidateNbt, "V8 private candidate NBT");
     Objects.requireNonNull(discard, "V8 mandatory candidate discard action");
+    // Reject reused candidates before a ticket or native setter. The owner
+    // must still certify UNGENERATED independently from absent NBT.
+    V8ChunkGenerationNbtAdapter.requireFreshCandidate(candidateNbt);
     // begin() rejects UNKNOWN, legacy, missing or changed border observations.
     // No native block write may precede this call.
     var ticket = V8ChunkGenerationNativeCommit.begin(owner, intended);

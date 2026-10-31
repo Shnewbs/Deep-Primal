@@ -18,6 +18,17 @@ public final class V8ChunkGenerationNativeFillChecks {
       var stamp=new V8ChunkGenerationStamp.Stamp(6,x,z,1234);
       var profile=new V8GeneratorSnapshot.Prepared(6,1234);
       var nbt=new CompoundTag();int[] discards={0};
+      var alreadyStamped=new CompoundTag();alreadyStamped.marker=true;
+      int beforeBegin=V8ChunkGenerationNativeCommit.begins;
+      int beforeWrites=DensityChunkMaterializer.calls;
+      reject(()->V8ChunkGenerationNativeFill.fillSavedSnapshotAndCommit(
+          profile,1234,owner,stamp,chunk,5,alreadyStamped,(c,n)->discards[0]++));
+      reject(()->V8ChunkGenerationNativeFill.fillSavedVegetationAndCommit(
+          profile,1234,owner,stamp,chunk,4,alreadyStamped,(c,n)->discards[0]++,
+          (a,b)->7,(a,b)->true));
+      ok(V8ChunkGenerationNativeCommit.begins==beforeBegin);
+      ok(DensityChunkMaterializer.calls==beforeWrites);
+      ok(discards[0]==0);
       var result=V8ChunkGenerationNativeFill.fillSavedSnapshotAndCommit(profile,1234,owner,stamp,chunk,5,nbt,(c,n)->discards[0]++);
       ok(result.result().id()==5);ok(result.identity().epoch()==42);ok(discards[0]==0);
       ok(profile.identityChecks==1&&profile.heightChecks==1);ok(nbt.marker);

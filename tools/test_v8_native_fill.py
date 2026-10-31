@@ -38,7 +38,7 @@ def main():
     baseline = None
     for _ in range(2):
         code, output = execute(source)
-        if code or 'V8_NATIVE_FILL_PASS assertions=25000' not in output:
+        if code or 'V8_NATIVE_FILL_PASS assertions=30000' not in output:
             raise RuntimeError('production failed: ' + output[-900:])
         if baseline is not None and output != baseline:
             raise RuntimeError('nondeterministic positive run')
@@ -56,6 +56,9 @@ def main():
         'skip-coordinate-identity': (
             '|| intended.chunkX() != candidate.getPos().x',
             '|| false'),
+        'skip-prewrite-nbt-admission': (
+            'V8ChunkGenerationNbtAdapter.requireFreshCandidate(candidateNbt);',
+            'Objects.requireNonNull(candidateNbt);'),
     }
     for name, (anchor, broken) in mutants.items():
         if source.count(anchor) != 1:
@@ -64,7 +67,7 @@ def main():
         if code == 0 or ('accepted invalid input' not in output
                          and 'AssertionError' not in output):
             raise RuntimeError('broken variant not rejected: ' + name + ': ' + output[-900:])
-    print('V8_NATIVE_FILL_PASS 2x25000 assertions; 4/4 compiled broken controls rejected; '
+    print('V8_NATIVE_FILL_PASS 2x30000 assertions; 5/5 compiled broken controls rejected; '
           'Java21 API doubles; sha256=' + hashlib.sha256(source.encode('utf-8')).hexdigest())
 
 

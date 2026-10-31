@@ -88,11 +88,20 @@ public final class V8ChunkGenerationNbtAdapter {
    * candidate NBT atomically. This method cannot provide that transaction.
    */
   public static void writeNewGenerated(CompoundTag candidate, Generated generated) {
-    Objects.requireNonNull(candidate, "candidate V8 chunk NBT");
+    requireFreshCandidate(candidate);
     Objects.requireNonNull(generated, "V8 generated identity");
+    candidate.putString(KEY, generated.encode());
+  }
+
+  /**
+   * Reject reused or previously stamped candidates BEFORE native writes or
+   * the owner's border-ticket acquisition. Any marker type is a rejection.
+   * Marker absence alone never certifies an ungenerated native chunk.
+   */
+  public static void requireFreshCandidate(CompoundTag candidate) {
+    Objects.requireNonNull(candidate, "candidate V8 chunk NBT");
     if (candidate.get(KEY) != null)
       throw new IllegalStateException("V8 generation marker already exists");
-    candidate.putString(KEY, generated.encode());
   }
 
   /**
