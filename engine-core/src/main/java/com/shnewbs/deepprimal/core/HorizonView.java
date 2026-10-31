@@ -6,6 +6,12 @@ package com.shnewbs.deepprimal.core;
 public record HorizonView(double x, double z, double fineSquared, double mediumSquared) {
   public static HorizonView create(
       double x, double z, int pixelsHigh, double fov, double workload) {
+    // A minimized/zero-sized viewport or invalid telemetry must not request
+    // fine LOD tiles. Zero thresholds choose the cheapest detail for every tile.
+    if (pixelsHigh <= 0 || !Double.isFinite(fov) || fov <= 0 || fov >= 180
+        || !Double.isFinite(workload)) {
+      return new HorizonView(x, z, 0, 0);
+    }
     double projection =
         Math.clamp(
             pixelsHigh / 720.0 * Math.tan(Math.toRadians(35)) / Math.tan(Math.toRadians(fov / 2)),
