@@ -52,8 +52,13 @@ public final class V8ChunkGenerationNativeCommit {
   public static Ticket begin(Owner owner, V8ChunkGenerationStamp.Stamp intended) {
     Objects.requireNonNull(owner, "native V8 chunk owner");
     Objects.requireNonNull(intended, "intended V8 generation identity");
-    return new Ticket(owner, V8ChunkGenerationCommitGate.prepare(intended,
-        Objects.requireNonNull(owner.snapshot(), "durable V8 admission snapshot")));
+    var admission = V8ChunkGenerationCommitGate.prepare(intended,
+        Objects.requireNonNull(owner.snapshot(), "durable V8 admission snapshot"));
+    // An exhausted durable epoch can never publish a successor. Reject before
+    // native materialization, whose callbacks may have external side effects.
+    if (admission.snapshot().targetEpoch() == Long.MAX_VALUE)
+      throw new IllegalStateException("V8 durable target epoch exhausted");
+    return new Ticket(owner, admission);
   }
 
   /**
