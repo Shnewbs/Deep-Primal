@@ -9,6 +9,7 @@
     "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
     "gradle.properties",
     "tools/test_v8_chunk_generation_stamp.py",
+    "tools/tests/V8ChunkGenerationStampChecks.java",
     "docs/validation/engine-continuation/v8-chunk-stamp-2026-10-30/**"
   ],
   "baseline_main": "0c30fa5420da45d74a34ee18365e7542b860d2f4",
