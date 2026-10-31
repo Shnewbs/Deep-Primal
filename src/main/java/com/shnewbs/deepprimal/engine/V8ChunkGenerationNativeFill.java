@@ -44,6 +44,12 @@ public final class V8ChunkGenerationNativeFill {
       V8ChunkGenerationNativeCommit.Owner owner,
       V8ChunkGenerationStamp.Stamp intended, ChunkAccess candidate,
       int queriesPerSlab, CompoundTag candidateNbt, Discarder discard) {
+    // V8-r6 saves require the vegetation/receipt pass in the SAME generation
+    // transaction. Terrain-only publication would mark an incomplete r6 chunk
+    // GENERATED and prevent the missing vegetation pass on reopen.
+    Objects.requireNonNull(prepared, "V8 saved prepared profile");
+    if (prepared.snapshot().version() >= V8GeneratorSnapshot.VEGETATION_VERSION)
+      throw new IllegalArgumentException("V8 vegetation profile requires vegetation publication");
     requireIdentity(prepared, expectedSavedProfileFingerprint, intended, candidate,
         V8GeneratorSnapshot.BLENDED_VERSION, false);
     return execute(owner, intended, candidate, candidateNbt, discard,

@@ -5,6 +5,7 @@ No Minecraft runtime, real chunk serializer, durable CAS, Gradle, or GPU is used
 """
 from pathlib import Path
 import hashlib
+import re
 import subprocess
 import tempfile
 
@@ -38,7 +39,8 @@ def main():
     baseline = None
     for _ in range(2):
         code, output = execute(source)
-        if code or 'V8_NATIVE_FILL_PASS assertions=32044' not in output:
+        found = re.search(r'V8_NATIVE_FILL_PASS assertions=(\d+)', output)
+        if code or not found or int(found.group(1)) != 36044:
             raise RuntimeError('production failed: ' + output[-900:])
         if baseline is not None and output != baseline:
             raise RuntimeError('nondeterministic positive run')
@@ -59,6 +61,9 @@ def main():
         'skip-coordinate-range-admission': (
             'requireWorldCoordinateRange(intended.chunkX(), intended.chunkZ());',
             'Objects.requireNonNull(intended);'),
+        'skip-vegetation-revision-admission': (
+            'if (prepared.snapshot().version() >= V8GeneratorSnapshot.VEGETATION_VERSION)',
+            'if (false)'),
         'skip-prewrite-nbt-admission': (
             'V8ChunkGenerationNbtAdapter.requireFreshCandidate(candidateNbt);',
             'Objects.requireNonNull(candidateNbt);'),
@@ -70,7 +75,8 @@ def main():
         if code == 0 or ('accepted invalid input' not in output
                          and 'AssertionError' not in output):
             raise RuntimeError('broken variant not rejected: ' + name + ': ' + output[-900:])
-    print('V8_NATIVE_FILL_PASS 2x30000 assertions; 6/6 compiled broken controls rejected; '
+    print('V8_NATIVE_FILL_PASS 2x' + re.search(r'assertions=(\d+)', baseline).group(1)
+          + ' assertions; 7/7 compiled broken controls rejected; '
           'Java21 API doubles; sha256=' + hashlib.sha256(source.encode('utf-8')).hexdigest())
 
 
