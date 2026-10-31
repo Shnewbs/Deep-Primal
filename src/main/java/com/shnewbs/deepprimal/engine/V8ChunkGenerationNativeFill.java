@@ -88,7 +88,21 @@ public final class V8ChunkGenerationNativeFill {
         || intended.chunkX() != candidate.getPos().x
         || intended.chunkZ() != candidate.getPos().z)
       throw new IllegalArgumentException("V8 saved profile/chunk generation identity mismatch");
+    // ChunkPos uses int block coordinates; its usual left shift can wrap at
+    // extreme signed chunk coordinates. Refuse aliases before any native setter.
+    requireWorldCoordinateRange(intended.chunkX(), intended.chunkZ());
     prepared.requireHeight(candidate.getMinY(), candidate.getHeight());
+  }
+
+  private static void requireWorldCoordinateRange(int chunkX, int chunkZ) {
+    try {
+      int originX = Math.multiplyExact(chunkX, DensityChunk.WIDTH);
+      int originZ = Math.multiplyExact(chunkZ, DensityChunk.WIDTH);
+      Math.addExact(originX, DensityChunk.WIDTH - 1);
+      Math.addExact(originZ, DensityChunk.WIDTH - 1);
+    } catch (ArithmeticException overflow) {
+      throw new IllegalArgumentException("V8 native chunk world-coordinate overflow", overflow);
+    }
   }
 
   private static <T> Published<T> execute(

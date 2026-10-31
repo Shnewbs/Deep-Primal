@@ -77,6 +77,43 @@ public final class V8ChunkGenerationNativeFillChecks {
         ok(observed.getSuppressed().length==0);
       }
     }
+
+    // ChunkPos block origins wrap outside the signed 32-bit block domain.
+    // Reject before owner admission, materialization or discard for BOTH paths.
+    int[][] invalid = {
+      {134217728, 0}, {-134217729, 0}, {0, 134217728}, {0, -134217729},
+      {Integer.MAX_VALUE, 1}, {Integer.MIN_VALUE, 1},
+      {1, Integer.MAX_VALUE}, {1, Integer.MIN_VALUE}
+    };
+    for (int[] coords : invalid) {
+      int[] discards = {0};
+      var owner = new Owner();
+      var chunk = new ChunkAccess(coords[0], coords[1], -64, 384);
+      var stamp = new V8ChunkGenerationStamp.Stamp(6, coords[0], coords[1], 1234);
+      var profile = new V8GeneratorSnapshot.Prepared(6, 1234);
+      int begins = V8ChunkGenerationNativeCommit.begins;
+      int writes = DensityChunkMaterializer.calls;
+      reject(() -> V8ChunkGenerationNativeFill.fillSavedSnapshotAndCommit(
+          profile, 1234, owner, stamp, chunk, 5, new CompoundTag(), (c,n)->discards[0]++));
+      reject(() -> V8ChunkGenerationNativeFill.fillSavedVegetationAndCommit(
+          profile, 1234, owner, stamp, chunk, 5, new CompoundTag(), (c,n)->discards[0]++,
+          (a,b)->7, (a,b)->true));
+      ok(V8ChunkGenerationNativeCommit.begins == begins);
+      ok(DensityChunkMaterializer.calls == writes);
+      ok(discards[0] == 0);
+    }
+    // Both signed block-domain edges remain valid and do not get clipped.
+    int[][] valid = {{134217727, -134217728}, {-134217728, 134217727}};
+    for (int[] coords : valid) {
+      var owner = new Owner();
+      var chunk = new ChunkAccess(coords[0], coords[1], -64, 384);
+      var stamp = new V8ChunkGenerationStamp.Stamp(6, coords[0], coords[1], 1234);
+      var profile = new V8GeneratorSnapshot.Prepared(6, 1234);
+      var published = V8ChunkGenerationNativeFill.fillSavedSnapshotAndCommit(
+          profile, 1234, owner, stamp, chunk, 5, new CompoundTag(), (c,n)->{});
+      ok(published.identity().epoch() == 42);
+      ok(published.result().id() == 5);
+    }
     System.out.println("V8_NATIVE_FILL_PASS assertions="+checks);
   }
 }
