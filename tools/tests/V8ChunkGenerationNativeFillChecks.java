@@ -31,7 +31,7 @@ public final class V8ChunkGenerationNativeFillChecks {
       ok(discards[0]==0);
       var result=V8ChunkGenerationNativeFill.fillSavedSnapshotAndCommit(profile,1234,owner,stamp,chunk,5,nbt,(c,n)->discards[0]++);
       ok(result.result().id()==5);ok(result.identity().epoch()==42);ok(discards[0]==0);
-      ok(profile.identityChecks==1&&profile.heightChecks==1);ok(nbt.marker);
+      ok(profile.identityChecks==3&&profile.heightChecks==3);ok(nbt.marker);
       var plants=V8ChunkGenerationNativeFill.fillSavedVegetationAndCommit(profile,1234,owner,stamp,chunk,4,new CompoundTag(),(c,n)->discards[0]++, (a,b)->7,(a,b)->true);
       ok(plants.result().realized()==7);ok(discards[0]==0);
       int before=DensityChunkMaterializer.calls;

@@ -38,7 +38,7 @@ def main():
     baseline = None
     for _ in range(2):
         code, output = execute(source)
-        if code or 'V8_NATIVE_FILL_PASS assertions=30044' not in output:
+        if code or 'V8_NATIVE_FILL_PASS assertions=32044' not in output:
             raise RuntimeError('production failed: ' + output[-900:])
         if baseline is not None and output != baseline:
             raise RuntimeError('nondeterministic positive run')
