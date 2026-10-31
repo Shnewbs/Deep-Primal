@@ -98,6 +98,7 @@ public final class DensityChunkMaterializer {
       GroundSurfaceProfile.Compiled profile, ChunkAccess chunk, int queriesPerSlab) {
     Objects.requireNonNull(profile, "profile");
     Objects.requireNonNull(chunk, "chunk");
+    requireRepresentableChunk(chunk);
     var origin = chunk.getPos();
     int minY = chunk.getMinY(), height = chunk.getHeight();
     // Finish sampling and resolve every required surface block BEFORE the first
@@ -447,6 +448,7 @@ public final class DensityChunkMaterializer {
       V8EcotoneColumnPlan.ClimateSource climate, V8VegetationPolicy vegetationPolicy) {
     Objects.requireNonNull(prepared, "prepared");
     Objects.requireNonNull(chunk, "chunk");
+    requireRepresentableChunk(chunk);
     int minY = chunk.getMinY();
     var origin = chunk.getPos();
     // Use the exact same independent, pre-generation plan as base-column
@@ -713,10 +715,31 @@ public final class DensityChunkMaterializer {
     return new NoiseColumn(minY, states);
   }
 
+  /**
+   * Reject aliased ChunkPos origins before any V8 sampling, climate callback,
+   * block setter or heightmap update. ChunkPos#getMinBlockX/Z left-shifts an
+   * int and can silently wrap for extreme signed chunk coordinates.
+   *
+   * This opt-in V8 gate does not change legacy V1-V7 generation.
+   */
+  private static void requireRepresentableChunk(ChunkAccess chunk) {
+    Objects.requireNonNull(chunk, "V8 native chunk");
+    int chunkX = chunk.getPos().x, chunkZ = chunk.getPos().z;
+    try {
+      int originX = Math.multiplyExact(chunkX, DensityChunk.WIDTH);
+      int originZ = Math.multiplyExact(chunkZ, DensityChunk.WIDTH);
+      Math.addExact(originX, DensityChunk.WIDTH - 1);
+      Math.addExact(originZ, DensityChunk.WIDTH - 1);
+    } catch (ArithmeticException overflow) {
+      throw new IllegalArgumentException("V8 materializer chunk world-coordinate overflow", overflow);
+    }
+  }
+
   private static DensityChunk.Planned fillPlannedRaw(
       DensityGraph graph, ChunkAccess chunk, int queriesPerSlab, boolean primeMaps) {
     Objects.requireNonNull(graph, "graph");
     Objects.requireNonNull(chunk, "chunk");
+    requireRepresentableChunk(chunk);
     int minY = chunk.getMinY(), height = chunk.getHeight();
     var origin = chunk.getPos();
     var planned = DensityChunk.samplePlanned(graph, origin.getMinBlockX(), minY,
