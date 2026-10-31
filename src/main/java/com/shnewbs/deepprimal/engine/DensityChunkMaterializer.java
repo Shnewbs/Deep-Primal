@@ -5,6 +5,7 @@ import com.shnewbs.deepprimal.core.density.DensityChunk;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
 import com.shnewbs.deepprimal.core.density.DensitySectionLayout;
 import com.shnewbs.deepprimal.core.density.V8GenerationBorderAdmission;
+import com.shnewbs.deepprimal.core.density.V8ChunkGenerationStamp;
 import java.util.EnumSet;
 import java.util.Objects;
 import net.minecraft.core.BlockPos;
@@ -209,6 +210,61 @@ public final class DensityChunkMaterializer {
     V8GenerationBorderAdmission.requireCompatible(border,
         chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);
     return fillSavedSnapshot(prepared, expectedSavedProfileFingerprint, chunk, queriesPerSlab);
+  }
+
+  /**
+   * Strict persisted-identity admission for an explicit NEW V8 chunk.
+   * A native persistence owner supplies the target's authoritative absent
+   * state and four neighbor stamp observations; this method never infers
+   * absence from an unloaded chunk or writes a stamp after generation.
+   * Identity checks finish before density sampling and native block writes.
+   */
+  public static DensityChunk.Planned fillSavedSnapshot(
+      V8GeneratorSnapshot.Prepared prepared, long expectedSavedProfileFingerprint,
+      V8ChunkGenerationStamp.Stamp intended,
+      V8GenerationBorderAdmission.State targetState, String targetPersistedStamp,
+      java.util.List<V8ChunkGenerationStamp.Observation> neighbors,
+      ChunkAccess chunk, int queriesPerSlab) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    Objects.requireNonNull(intended, "intended V8 chunk stamp");
+    prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
+    if (prepared.snapshot().version() != intended.revision()
+        || intended.profileFingerprint() != expectedSavedProfileFingerprint
+        || intended.chunkX() != chunk.getPos().x || intended.chunkZ() != chunk.getPos().z)
+      throw new IllegalArgumentException("V8 intended chunk stamp/profile mismatch");
+    var witness = V8ChunkGenerationStamp.witnessForNewChunk(
+        intended, targetState, targetPersistedStamp, neighbors);
+    return fillSavedSnapshot(prepared, expectedSavedProfileFingerprint,
+        witness, chunk, queriesPerSlab);
+  }
+
+  /**
+   * Equivalent strict persisted-identity admission for explicit V8-r6
+   * vegetation/receipt writes. This is not a native NBT storage adapter.
+   * The native owner must publish the final stamp with its completed chunk.
+   */
+  public static V8VegetatedReceiptResult fillSavedEcotoneVegetatedWithReceipt(
+      V8GeneratorSnapshot.Prepared prepared, long expectedSavedProfileFingerprint,
+      V8ChunkGenerationStamp.Stamp intended,
+      V8GenerationBorderAdmission.State targetState, String targetPersistedStamp,
+      java.util.List<V8ChunkGenerationStamp.Observation> neighbors,
+      ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    Objects.requireNonNull(intended, "intended V8 chunk stamp");
+    prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
+    if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION
+        || intended.revision() != prepared.snapshot().version()
+        || intended.profileFingerprint() != expectedSavedProfileFingerprint
+        || intended.chunkX() != chunk.getPos().x || intended.chunkZ() != chunk.getPos().z)
+      throw new IllegalArgumentException("V8 intended vegetation stamp/profile mismatch");
+    var witness = V8ChunkGenerationStamp.witnessForNewChunk(
+        intended, targetState, targetPersistedStamp, neighbors);
+    return fillSavedEcotoneVegetatedWithReceipt(prepared, expectedSavedProfileFingerprint,
+        witness, chunk, queriesPerSlab, referenceClimate, authority);
   }
 
   /**
