@@ -7,6 +7,7 @@ public final class CoreChecks {
   public static void main(String[] args) throws Exception {
     com.shnewbs.deepprimal.engine.WaterWriteScopeChecks.main(args);
     UpscalingPolicyChecks.main(args);
+    VisualBudgetFrameLimitChecks.main(new String[0]);
     FrameIntervalChecks.main(args);
     AquiferTickChecks.main(args);
     EngineIntegrationTest.main(new String[0]);

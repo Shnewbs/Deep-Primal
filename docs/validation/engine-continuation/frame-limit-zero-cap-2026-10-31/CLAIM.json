@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev137",
-  "status": "active",
+  "status": "completed-released",
   "base_main": "1b7046a0c5cb6f367aa76a1fd8259525b6b4b50d",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/VisualBudget.java",
@@ -12,5 +12,10 @@
   "consumed_audit": "docs/engine-hourly-audits/2026-10-31T2030-914fca38/REVIEW.md",
   "reason": "Background/minimized FPS ceiling must still apply when the native frame limit uses zero as the uncapped sentinel; do not touch renderer-native, water, terrain, or V8 files.",
   "release_policy": "source-only until complete Java25 NeoForge build and verified JAR",
-  "expires_utc": "2026-10-31T22:00:00Z"
+  "expires_utc": "2026-10-31T22:00:00Z",
+  "lease_released": true,
+  "evidence": "docs/validation/engine-continuation/frame-limit-zero-cap-2026-10-31/README.md",
+  "validation": "Java21 isolated 100565 PASS; baseline and raised-native-cap mutants rejected",
+  "full_build": false,
+  "qualified_jar": false
 }

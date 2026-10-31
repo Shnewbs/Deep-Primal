@@ -12,7 +12,9 @@ public final class VisualBudget {
     }
     public static int frameLimit(int nativeLimit, boolean focused, boolean minimized, int background, int hidden) {
         int cap = minimized ? hidden : !focused ? background : 0;
-        return cap > 0 ? Math.min(nativeLimit, cap) : nativeLimit;
+        // A native limit of zero means uncapped; do not let it suppress a
+        // configured background or minimized ceiling.
+        return cap > 0 ? (nativeLimit == 0 ? cap : Math.min(nativeLimit, cap)) : nativeLimit;
     }
     private VisualBudget() {}
 }
