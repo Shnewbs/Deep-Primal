@@ -6,19 +6,33 @@ public final class VerticalRange {
     private VerticalRange() {}
 
     public static int count(int worldSections, int radius) {
-        return radius == 0 ? worldSections : Math.min(worldSections, radius * 2 + 1);
+        if (worldSections < 1 || radius < 0) throw new IllegalArgumentException("Invalid section window");
+        // Radius is a user-facing setting. Use long arithmetic so even malformed
+        // extreme values cannot wrap a valid section count negative.
+        return radius == 0 ? worldSections : (int)Math.min((long)worldSections, 2L * radius + 1);
     }
 
     public static int low(int cameraY, int worldMin, int worldSections, int radius) {
         int size = count(worldSections, radius);
-        return radius == 0 ? worldMin : Math.clamp(cameraY - radius, worldMin, worldMin + worldSections - size);
+        long worldLast = (long)worldMin + worldSections - 1;
+        if (worldLast > Integer.MAX_VALUE) throw new IllegalArgumentException("Unrepresentable world sections");
+        if (radius == 0) return worldMin;
+        // Camera positions may be outside the world. Clamp *before* narrowing
+        // to int, avoiding underflow at MIN_VALUE and overflow near MAX_VALUE.
+        long start = Math.max((long)worldMin,
+            Math.min((long)cameraY - radius, (long)worldMin + worldSections - size));
+        return (int)start;
     }
 
     public static int coordinate(int low, int count, int slot) {
-        return low + Math.floorMod(slot - low, count);
+        if (count < 1 || (long)low + count - 1 > Integer.MAX_VALUE)
+            throw new IllegalArgumentException("Invalid section ring");
+        // slot-low may span 2^32-1; int subtraction aliases unrelated slots.
+        return (int)((long)low + Math.floorMod((long)slot - low, count));
     }
 
     public static int visibilityRadius(int worldSections, int radius) {
+        if (worldSections < 1 || radius < 0) throw new IllegalArgumentException("Invalid section window");
         return radius == 0 ? worldSections : Math.min(worldSections, radius);
     }
 

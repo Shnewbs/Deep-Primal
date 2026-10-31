@@ -14,6 +14,7 @@ public final class CoreChecks {
     CoreCloseLifecycleChecks.main(new String[0]);
     PipelineInlineCloseChecks.main(new String[0]);
     ByteLruOverflowChecks.main(new String[0]);
+    VerticalRangeOverflowChecks.main(new String[0]);
     DensityGridFiniteChecks.main(new String[0]);
 
     com.shnewbs.deepprimal.core.lod.DeliveredChunkScanChecks.main(new String[0]);
