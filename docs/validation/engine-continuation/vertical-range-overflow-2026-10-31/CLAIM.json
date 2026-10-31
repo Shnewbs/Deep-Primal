@@ -1,0 +1,21 @@
+{
+  "claim_id": "engine-20261031T1801-vertical-range-overflow",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-10-31T18:01:00Z",
+  "expires_utc": "2026-10-31T18:25:00Z",
+  "base_sha": "cacd1654496952e78344608d4e36654c0e9ace85",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/VerticalRange.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/VerticalRangeOverflowChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/vertical-range-overflow-2026-10-31/**"
+  ],
+  "excluded": [
+    "water runtime",
+    "V8 terrain native",
+    "renderer-vulkan",
+    "LOD worker sources"
+  ],
+  "reason": "Fix signed overflow in vertical render section-window arithmetic without changing normal world bounds or other writers' scopes."
+}
