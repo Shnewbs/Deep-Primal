@@ -16,8 +16,13 @@ public final class WorkBudget {
         }
         if (elapsedMs > targetMs * 1.15 || heapFraction > 0.85) {
             fraction = Math.max(0.125, fraction * 0.75); stable = 0;
-        } else if (elapsedMs <= targetMs * 1.05 && heapFraction < 0.75 && ++stable >= 60) {
-            fraction = Math.min(1, fraction + 0.025); stable = 0;
+        } else if (elapsedMs <= targetMs * 1.05 && heapFraction < 0.75) {
+            if (++stable >= 60) {
+                fraction = Math.min(1, fraction + 0.025); stable = 0;
+            }
+        } else {
+            // Neutral frames are not healthy recovery frames; break the streak.
+            stable = 0;
         }
     }
     public double fraction() { return fraction; }
