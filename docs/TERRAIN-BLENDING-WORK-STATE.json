@@ -93,5 +93,21 @@
     "source_regression": "OpenJDK21 V5 unchanged production join isolated API-double normal and Python -OO: 4 positive processes x212735 assertions and 4/4 compiled broken controls rejected",
     "actual_full_core_gate_ran": false,
     "lease_released": true
+  },
+  "latest_native_commit_coordinator": {
+    "status": "checkpointed_source_only",
+    "version": "0.0.1-alpha.29-dev.120-native-commit-coordinator.1",
+    "source_commit": "00057a46dadc5857dc471a2913290d3870f9cd1b",
+    "source_blob": "f97b8da626867429de8ad65bb35e91d6103b41dc",
+    "evidence": "docs/validation/engine-continuation/v8-native-commit-coordinator-2026-10-31/README.md",
+    "test": "Java21 API doubles normal and Python -OO: 120016 assertions total; 3/3 compiled mutants rejected per mode",
+    "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
+    "native_hook_registered": false,
+    "real_atomic_publication_tested": false,
+    "full_java25_gradle_build": false,
+    "qualified_jar": false,
+    "independent_grade": 5,
+    "lease_released": true,
+    "next": "Authoritative native chunk owner, serializer hook and durable CAS+reopen; signed old/new chunk seams; V7 relief and finite-water ledger"
   }
 }
