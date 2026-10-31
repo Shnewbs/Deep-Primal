@@ -174,7 +174,7 @@ final class LodDiskIndexService {
   }
 
   /** Owner-thread mutations are individually capped to avoid a frame-time spike. */
-  private static final class PendingApply {
+  private final class PendingApply {
     private final java.util.List<Long> discard, incoming;
     private final HashMap<Long, Long> renewed;
     private final long generation;
@@ -346,3 +346,18 @@ final class LodDiskIndexService {
     renewed.clear();
     invalidated = false;
     clearRetry();
+    // Diagnostic counters are scoped to a world/session, not a JVM lifetime.
+    // Preserve scanGeneration and the retiring worker ownership across reset.
+    appliedRemovals = 0L;
+    appliedAdds = 0L;
+    appliedSheds = 0L;
+    retargets = 0L;
+    completedScans = 0L;
+    failedScans = 0L;
+    applyTurns = 0L;
+  }
+
+  // Focused check accessors; only call these from the owning client thread.
+  boolean scanning() { return cursor != null || apply != null; }
+  boolean started() { return started; }
+}
