@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev140-horizon-view-safety",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-10-31T23:58:30Z",
   "expires": "2026-11-01T00:13:30Z",
   "source_head": "ef0a4a61ffcc05d841fefc99abfd92fe6539c1fb",
@@ -18,5 +18,15 @@
     "worker": "hourly-deep-primal-engine-dev130-ready-admission",
     "source_commit": "dc95b4cd0366c3aa199c2f91d699163b232f1f1f",
     "lease_released": true
-  }
+  },
+  "lease_released": true,
+  "ended_at": "2026-10-31T23:59:18Z",
+  "source_commit": "b8f209b22d533e149ae3535546bb745a27b45f1b",
+  "source_version": "dev140-horizon-view-safety-source-only",
+  "evidence": "docs/validation/engine-continuation/horizon-view-safety-2026-10-31/README.md",
+  "tests": "Java21 --release 21 -Xlint:all -Werror, -ea -Xverify:all: 100038 checks, LOD tier coverage [102,433,99465], original source failed, 3/3 guard mutants rejected",
+  "full_build": false,
+  "qualified_jar": false,
+  "independent_grade": 5,
+  "next": "Full Java25/NeoForge and native minimized/restore LOD, Vulkan GPU acceptance, V8 persistence and finite-water save/reopen"
 }
