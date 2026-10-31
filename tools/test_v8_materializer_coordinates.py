@@ -32,6 +32,10 @@ def static_guards(source: str) -> None:
     # Every direct V8 native write path must guard the actual ChunkPos before
     # reading its potentially overflowed getMinBlockX/getMinBlockZ coordinates.
     segments = (
+        # The direct graph preview writes native cells too. Its profile overload
+        # delegates to this method before performing any additional writes.
+        ('public static DensityChunk fill(DensityGraph graph, ChunkAccess chunk) {',
+         'int minY = chunk.getMinY(), height = chunk.getHeight();'),
         ('public static DensityChunk.Planned fillPlannedSurface(', 'var origin = chunk.getPos();'),
         ('private static DensityChunk.Planned fillPlannedRaw(', 'var origin = chunk.getPos();'),
         ('private static MaterializedEcotone fillSavedEcotoneInternal(', 'int minY = chunk.getMinY();'),

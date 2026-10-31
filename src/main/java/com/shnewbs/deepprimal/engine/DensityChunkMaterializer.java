@@ -45,6 +45,8 @@ public final class DensityChunkMaterializer {
   public static DensityChunk fill(DensityGraph graph, ChunkAccess chunk) {
     Objects.requireNonNull(graph, "graph");
     Objects.requireNonNull(chunk, "chunk");
+    // This direct V8 preview also writes native cells; reject aliased origins first.
+    requireRepresentableChunk(chunk);
     int minY = chunk.getMinY(), height = chunk.getHeight();
     var origin = chunk.getPos();
     var density = DensityChunk.sample(graph, origin.getMinBlockX(), minY, origin.getMinBlockZ(), height);
