@@ -3,7 +3,7 @@
   "owner": "Deep Primal hourly engineering",
   "status": "completed-released",
   "claimed_utc": "2026-10-31T18:01:00Z",
-  "released_utc": "2026-10-31T18:08:00Z",
+  "released_utc": "2026-10-31T18:03:07Z",
   "base_sha": "cacd1654496952e78344608d4e36654c0e9ace85",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/VerticalRange.java",
