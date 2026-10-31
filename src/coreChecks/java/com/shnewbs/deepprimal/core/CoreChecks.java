@@ -66,6 +66,7 @@ public final class CoreChecks {
     RuntimeChecks.run();
     NearestChunksOverflowChecks.main(new String[0]);
     NearestChunksReadyAdmissionChecks.main(new String[0]);
+    SyncRebuildBudgetOverflowChecks.main(new String[0]);
     HorizonChecks.run();
     WaterDynamicsChecks.run();
     HydrologyChecks.run();

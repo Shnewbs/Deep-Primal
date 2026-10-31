@@ -8,5 +8,11 @@ public final class SyncRebuildBudget {
         this.maximum = maximum; limit = nanoseconds; count = 0; elapsed = 0;
     }
     public boolean allows(boolean playerEdit) { return playerEdit || count < maximum && elapsed < limit; }
-    public void completed(long nanoseconds) { count++; elapsed += Math.max(0, nanoseconds); }
+    public void completed(long nanoseconds) {
+        // A malformed/very large native duration must not wrap the accounting
+        // negative and re-enable ordinary synchronous builds in the same frame.
+        if (count < Integer.MAX_VALUE) count++;
+        long duration = Math.max(0L, nanoseconds);
+        elapsed = duration > Long.MAX_VALUE - elapsed ? Long.MAX_VALUE : elapsed + duration;
+    }
 }
