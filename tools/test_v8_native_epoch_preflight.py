@@ -68,7 +68,7 @@ def main() -> None:
     broken_coordinate, coordinate_failure = execute(source.replace(guard, '/* coordinate gate bypassed */', 1))
     if broken_coordinate == 0 or 'coordinate overflow admitted' not in coordinate_failure:
         raise AssertionError('coordinate mutant not rejected: ' + coordinate_failure[-1000:])
-    print('V8_NATIVE_EPOCH_PREFLIGHT_PASS 2x72037 assertions; 2 mutants rejected; 
+    print('V8_NATIVE_EPOCH_PREFLIGHT_PASS 2x72037 assertions; 2 mutants rejected; '
           'sha256=' + hashlib.sha256(source.encode('utf-8')).hexdigest())
 
 
