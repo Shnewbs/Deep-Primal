@@ -28,7 +28,7 @@ public final class WaterSimulation {
     if(materials[a]>1||materials[b]>1)return;
     boolean reverse=(long)ground[a]*16+units[a]<(long)ground[b]*16+units[b];int from=reverse?b:a,to=reverse?a:b;
     var move=WaterTransport.pressure(ground[from],units[from],ground[to],units[to]);units[from]=move.from();units[to]=move.to();
-    if(units[to]>0)materials[to]=1;double v=move.moved()/16.0*(reverse?-1:1);double[] flow=x?flowX:flowZ;flow[a]+=v;flow[b]+=v;
+    materials[from]=(byte)(units[from]>0?1:0);materials[to]=(byte)(units[to]>0?1:0);double v=move.moved()/16.0*(reverse?-1:1);double[] flow=x?flowX:flowZ;flow[a]+=v;flow[b]+=v;
   }
   /** Replacing water must not silently erase a solid cell or attach a source to one. */
   public synchronized void setWaterLevel(int x,int z,double level,boolean source){
@@ -40,7 +40,7 @@ public final class WaterSimulation {
     units[i]=next;sources[i]=source;materials[i]=(byte)(next>0?1:0);update();
   }
   public synchronized void addWater(int x,int z,double amount){int i=index(x,z),add=volume(amount);if(materials[i]>1)throw new IllegalStateException("solid cell");if(add>16-units[i])throw new IllegalArgumentException("cell capacity");units[i]+=add;if(units[i]>0)materials[i]=1;update();}
-  public synchronized double removeWater(int x,int z,double amount){int i=index(x,z),take=Math.min(units[i],volume(amount));units[i]-=take;update();return take/16.0;}
+  public synchronized double removeWater(int x,int z,double amount){int i=index(x,z),take=Math.min(units[i],volume(amount));units[i]-=take;if(units[i]==0&&materials[i]==1)materials[i]=0;update();return take/16.0;}
   public synchronized double getWaterLevel(int x,int z){return units[index(x,z)]/16.0;}
   public synchronized double getFlowX(int x,int z){return flowX[index(x,z)];}public synchronized double getFlowZ(int x,int z){return flowZ[index(x,z)];}
   public synchronized double getPressure(int x,int z){int i=index(x,z);return (ground[i]+units[i]/16.0)*9810;}
