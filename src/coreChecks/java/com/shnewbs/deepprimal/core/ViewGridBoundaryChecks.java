@@ -27,22 +27,26 @@ public final class ViewGridBoundaryChecks {
     }
 
     private static void compare(int camera, int radius, int index) {
+        final int expected;
         try {
-            int expected = oracle(camera, radius, index);
-            int actual = ViewGrid.coordinate(camera, radius, index);
-            check(actual == expected, "ring coordinate: " + camera + "/" + radius + "/" + index);
-            check((long) actual >= (long) camera - radius
-                    && (long) actual <= (long) camera + radius, "inside window");
-            check(Math.floorMod((long) actual, 2L * radius + 1)
-                    == Math.floorMod((long) index, 2L * radius + 1), "slot identity");
-        } catch (IllegalArgumentException expected) {
+            expected = oracle(camera, radius, index);
+        } catch (IllegalArgumentException invalidOracleInput) {
             try {
                 ViewGrid.coordinate(camera, radius, index);
                 throw new AssertionError("invalid window accepted: " + camera + "/" + radius);
-            } catch (IllegalArgumentException ok) {
+            } catch (IllegalArgumentException expectedRejection) {
                 check(true, "invalid rejected");
             }
+            return;
         }
+        // Only the oracle may classify an input as invalid. A production exception
+        // for a representable window is a regression, not a successful rejection.
+        int actual = ViewGrid.coordinate(camera, radius, index);
+        check(actual == expected, "ring coordinate: " + camera + "/" + radius + "/" + index);
+        check((long) actual >= (long) camera - radius
+                && (long) actual <= (long) camera + radius, "inside window");
+        check(Math.floorMod((long) actual, 2L * radius + 1)
+                == Math.floorMod((long) index, 2L * radius + 1), "slot identity");
     }
 
     public static void main(String[] args) {
