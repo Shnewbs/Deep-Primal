@@ -28,6 +28,8 @@ public final class WorkBudgetTelemetryChecks {
                     fraction = Math.min(1, fraction + 0.025);
                     stable = 0;
                 }
+            } else {
+                stable = 0;
             }
         }
     }
@@ -59,6 +61,20 @@ public final class WorkBudgetTelemetryChecks {
         check(budget.fraction() > before, "60 valid frames recover");
         budget.reset();
         check(budget.fraction() == 1, "reset");
+        // A neutral (neither overloaded nor healthy) sample must break the
+        // 60-consecutive-healthy-frame recovery streak, for both frame time and heap.
+        for (int mode = 0; mode < 2; mode++) {
+            WorkBudget neutral = new WorkBudget();
+            for (int i = 0; i < 100; i++) neutral.observe(50, 16.67, 0.5);
+            check(neutral.fraction() == 0.125, "neutral test starts at floor");
+            for (int i = 0; i < 59; i++) neutral.observe(16, 16.67, 0.5);
+            if (mode == 0) neutral.observe(18, 16.67, 0.5);
+            else neutral.observe(16, 16.67, 0.8);
+            neutral.observe(16, 16.67, 0.5);
+            check(neutral.fraction() == 0.125, "neutral sample broke recovery streak");
+            for (int i = 0; i < 59; i++) neutral.observe(16, 16.67, 0.5);
+            check(neutral.fraction() > 0.125, "60 consecutive healthy samples recover");
+        }
         Random random = new Random(0x131A11DL);
         Oracle oracle = new Oracle();
         for (int i = 0; i < 150_000; i++) {
