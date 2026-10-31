@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "kind": "independent-audit",
+  "pinned_main": "5003a9709d9d02acd124df1f3299a515600f765b",
+  "version": "0.0.1-alpha.29-dev.124-generated-epoch-admission.1",
+  "source_modified": false,
+  "production_fixes": 0,
+  "grade_status": "carried-forward",
+  "grade_total": 50,
+  "grade_average": 5,
+  "java21_pass": 180009,
+  "java25_release21_pass": 180009,
+  "java25_release25_pass": 180009,
+  "java25_independent_pass": 80000,
+  "mutants_rejected": 4,
+  "full_gradle": false,
+  "native": false,
+  "jar_produced": false,
+  "windows_gpu": false,
+  "github_actions": false,
+  "owner_builder_touched": false,
+  "source_blobs": {
+    "gate": "08650c6c289b6595be7ec3c38ad4a297b31b5180",
+    "stamp": "0919a453d67956e3fd81185535df1fe2f2b613e2",
+    "border": "1b5ae577fc7f57fcff85c21a0ac67735fcafd349"
+  },
+  "evidence_zip_sha256": "21f8304b4f3b051dcfe529266a1c76a74d606b4b740b7de8277bb55aaea8fbe8"
+}
