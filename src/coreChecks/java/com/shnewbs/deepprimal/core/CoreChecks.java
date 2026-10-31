@@ -64,6 +64,7 @@ public final class CoreChecks {
     WaterwayChecks.run();
     DrainageChecks.run();
     RuntimeChecks.run();
+    NearestChunksOverflowChecks.main(new String[0]);
     HorizonChecks.run();
     WaterDynamicsChecks.run();
     HydrologyChecks.run();
