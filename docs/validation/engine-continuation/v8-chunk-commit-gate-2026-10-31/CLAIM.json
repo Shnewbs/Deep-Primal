@@ -18,7 +18,7 @@
   "owner_full_build_override": true,
   "measurement_reservation": "Java21 isolated functional checks only; no timed benchmark",
   "lease_released": true,
-  "released_at": "2026-10-31T02:17:00Z",
+  "released_at": "2026-10-31T02:05:55Z",
   "source_version": "0.0.1-alpha.29-dev.118-chunk-commit-gate.1",
   "source_commit": "cf71e7a4e00574b3c933d54f2a59e30dfbe58969",
   "evidence": "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/README.md",
