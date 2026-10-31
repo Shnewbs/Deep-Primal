@@ -25,6 +25,10 @@ public final class V8ChunkGenerationCommitGate {
       Objects.requireNonNull(direction, "direction");
       Objects.requireNonNull(state, "state");
       if (epoch < 0L) throw new IllegalArgumentException("negative V8 neighbor epoch");
+      // A generated neighbor must have passed an atomic publication, which
+      // advances its durable epoch from a nonnegative value at least once.
+      if (state == V8GenerationBorderAdmission.State.GENERATED && epoch == 0L)
+        throw new IllegalArgumentException("generated V8 neighbor requires positive durable epoch");
     }
   }
 
@@ -35,6 +39,8 @@ public final class V8ChunkGenerationCommitGate {
     public Snapshot {
       Objects.requireNonNull(targetState, "targetState");
       if (targetEpoch < 0L) throw new IllegalArgumentException("negative V8 target epoch");
+      if (targetState == V8GenerationBorderAdmission.State.GENERATED && targetEpoch == 0L)
+        throw new IllegalArgumentException("generated V8 target requires positive durable epoch");
       neighbors = List.copyOf(Objects.requireNonNull(neighbors, "neighbors"));
     }
   }
