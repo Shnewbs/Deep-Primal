@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.116-border-admission.1",
+  "source_base": "ba9479935848f51ed75909f1a25b29ec9c260efe",
+  "java": "OpenJDK 21.0.12.1",
+  "java_mode": "isolated production helper with standalone test",
+  "positive_assertions_per_process": 8102,
+  "positive_processes": 2,
+  "positive_total_assertions": 16204,
+  "compiled_mutant_rejections": 2,
+  "source_blob": "1b5ae577fc7f57fcff85c21a0ac67735fcafd349",
+  "test_blob": "ce46a8e8ed374e5ab0b4a4a020f1d8dbf8780b15",
+  "runner_blob": "73d47c3bf650db1e6d75e01f079d83e877852449",
+  "full_java25_gradle": false,
+  "native_minecraft": false,
+  "native_adapter_compiled": false,
+  "water_acceptance": false,
+  "grade": 5,
+  "jar": false
+}

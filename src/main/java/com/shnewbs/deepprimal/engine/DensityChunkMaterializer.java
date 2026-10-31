@@ -4,6 +4,7 @@ import com.shnewbs.deepprimal.core.biome.EcotoneSurfaceField;
 import com.shnewbs.deepprimal.core.density.DensityChunk;
 import com.shnewbs.deepprimal.core.density.DensityGraph;
 import com.shnewbs.deepprimal.core.density.DensitySectionLayout;
+import com.shnewbs.deepprimal.core.density.V8GenerationBorderAdmission;
 import java.util.EnumSet;
 import java.util.Objects;
 import net.minecraft.core.BlockPos;
@@ -190,6 +191,25 @@ public final class DensityChunkMaterializer {
   }
 
   /**
+   * Optional new-generation border admission for explicit V8 snapshots.
+   * The caller supplies four authoritative persisted-neighbor observations.
+   * Unknown, legacy, edited, or incompatible neighboring chunks are rejected
+   * BEFORE density sampling or any native block write. This does not load
+   * neighbors, rewrite existing chunks, or solve cross-version seam geometry.
+   */
+  public static DensityChunk.Planned fillSavedSnapshot(
+      V8GeneratorSnapshot.Prepared prepared, long expectedSavedProfileFingerprint,
+      V8GenerationBorderAdmission.Witness border,
+      ChunkAccess chunk, int queriesPerSlab) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
+    V8GenerationBorderAdmission.requireCompatible(border,
+        chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);
+    return fillSavedSnapshot(prepared, expectedSavedProfileFingerprint, chunk, queriesPerSlab);
+  }
+
+  /**
    * Explicit, opt-in V8 revision-3 native surface pass for NEW chunks only.
    * Legacy V8 fillSavedSnapshot and V1-V7 generators remain bit-for-bit
    * unchanged. A caller must supply a deterministic absolute-coordinate
@@ -264,6 +284,27 @@ public final class DensityChunkMaterializer {
     prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
     return fillSavedEcotoneVegetatedWithReceipt(prepared, chunk, queriesPerSlab,
         referenceClimate, authority);
+  }
+
+  /**
+   * Optional V8-r6 new-generation border gate for the native vegetation receipt
+   * path. The same four persisted-neighbor observations are admitted before
+   * climate callbacks, density preflight, setters or receipt readback.
+   * No automatic old/new chunk blending or save migration is performed.
+   */
+  public static V8VegetatedReceiptResult fillSavedEcotoneVegetatedWithReceipt(
+      V8GeneratorSnapshot.Prepared prepared, long expectedSavedProfileFingerprint,
+      V8GenerationBorderAdmission.Witness border,
+      ChunkAccess chunk, int queriesPerSlab,
+      V8EcotoneColumnPlan.ClimateSource referenceClimate,
+      V8WaterDomainAdmission.Authority authority) {
+    Objects.requireNonNull(prepared, "prepared");
+    Objects.requireNonNull(chunk, "chunk");
+    prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
+    V8GenerationBorderAdmission.requireCompatible(border,
+        chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);
+    return fillSavedEcotoneVegetatedWithReceipt(prepared, expectedSavedProfileFingerprint,
+        chunk, queriesPerSlab, referenceClimate, authority);
   }
 
   /** Same V8 surface-plan contract for non-writing base-column/vegetation queries. */
