@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "worker": "existing-hourly-engine-builder-dev122-nbt-prewrite-admission",
-  "status": "active",
-  "lease_released": false,
+  "status": "checkpointed",
+  "lease_released": true,
   "started_at": "2026-10-31T06:00:00Z",
-  "updated_at": "2026-10-31T06:00:00Z",
-  "active_until": "2026-10-31T06:35:00Z",
+  "updated_at": "2026-10-31T06:05:00Z",
+  "active_until": "2026-10-31T06:05:00Z",
   "base_ref": "e66fe35a11ef9dad5495797272b38a0ab91d2836",
   "candidate_version": "0.0.1-alpha.29-dev.121-native-fill-publication.1",
   "scope": [
@@ -35,13 +35,13 @@
   "native_integration": false,
   "last_full_external_grade": 5,
   "coordination": "Independent audit fixed Dev121 self-suppression; latest main includes its correction. Water foreground lease expired; renderer files excluded. Root validator cannot run without complete checkout; root state untouched. Owner handles full JAR builds under Oct 27 override. Scoped NBT prewrite admission only.",
-  "next_action": "Register real NeoForge native chunk lifecycle owner/serializer with durable atomic chunk+NBT+epoch compare-and-publish and candidate discard; native signed old/new border and save/reopen/edit tests. Run full V5/V7 graph gates, continue finite-water ledger authority in separate water scope.",
-  "source_ref": "8b41ae1bd01b60e3b3baa0ce05a2aa6b73de5885",
-  "source_commit": "8b41ae1bd01b60e3b3baa0ce05a2aa6b73de5885",
-  "completed_version": "0.0.1-alpha.29-dev.121-native-fill-publication.1",
-  "evidence": "docs/validation/engine-continuation/v8-native-fill-publication-2026-10-31/README.md",
+  "next_action": "Connect a durable NeoForge chunk-save owner and native CAS, then run save/reopen/edit and old/new-generation border fixtures; continue V7 relief and finite-water ledger work.",
+  "source_ref": "7a94db54c279031a258609d76c6a91788426bef0",
+  "source_commit": "7a94db54c279031a258609d76c6a91788426bef0",
+  "completed_version": "0.0.1-alpha.29-dev.122-nbt-prewrite-admission.1",
+  "evidence": "docs/validation/engine-continuation/v8-nbt-prewrite-admission-2026-10-31/README.md",
   "source_code_changes": "Added explicit native V8 terrain and r6 vegetation/receipt materialize-and-publish lifecycle joining saved profile/signed chunk/height admission, durable border ticket and owner CAS. Mandatory discard on native or publication failure, preserving original error. No registered native hook or water/renderer changes.",
-  "tests": "Java21 isolated API-double tests normal and Python -OO: 4 x 25000 = 100000 positive assertions, 8/8 compiled mutants rejected. Exact new production blob 1130a888fe9d6077bfef7984920da7bda845577f and SHA256 c9d01326f34571a72c93ab2542d53d8cbfd4c5db1b684e279cd472db3943e664; full Java25/Gradle/native/GPU/JAR omitted.",
+  "tests": "Exact committed NativeFill and NBT adapter Java21 source with isolated API doubles: 2x16000 and 2x60002 assertions, 2 compiled broken controls rejected; Git blobs match. Repo runner additions committed but not run from complete checkout.",
   "source_archive": "DeepPrimal_Dev86_V8Vegetation_SourceEvidence.zip",
   "archive_sha256": "da71a78069133f93967e49a3ae59b68ae4c6d0cfefc15e212c303a8ab0c84bd2",
   "not_claimed": [
@@ -53,7 +53,7 @@
     "Vulkan/OpenGL GPU/performance and water acceptance",
     "New complete independent ten-category grade"
   ],
-  "ended_at": "2026-10-31T05:06:44.505Z",
+  "ended_at": "2026-10-31T06:05:00Z",
   "archive_bytes": 10391,
   "latest_relief_v5_checkpoint": {
     "worker": "hourly-engine-builder-20261029T1800-relief-v5",
@@ -121,6 +121,21 @@
     "toolchain": "OpenJDK 21.0.12.1 isolated API doubles",
     "native_hook_registered": false,
     "full_gradle_build": false,
+    "qualified_jar": false,
+    "independent_grade": 5,
+    "lease_released": true
+  },
+  "latest_nbt_prewrite_admission": {
+    "version": "0.0.1-alpha.29-dev.122-nbt-prewrite-admission.1",
+    "source_ref": "7a94db54c279031a258609d76c6a91788426bef0",
+    "source_blobs": {
+      "fill": "f1973e3e6f9555e733ddea25e18f989595935c94",
+      "nbt": "b57e311d165a826f0cf9c8a8aa6c83266680c38e"
+    },
+    "positive_assertions": 152004,
+    "compiled_mutants_rejected": 2,
+    "full_gradle": false,
+    "native_save_reopen": false,
     "qualified_jar": false,
     "independent_grade": 5,
     "lease_released": true

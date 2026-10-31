@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "source_commit": "7a94db54c279031a258609d76c6a91788426bef0",
+  "source_version": "0.0.1-alpha.29-dev.122-nbt-prewrite-admission.1",
+  "toolchain": "OpenJDK 21.0.12.1; javac --release 21 -Xlint:all -Werror; java -ea -Xverify:all",
+  "production_blobs": {
+    "native_fill": "f1973e3e6f9555e733ddea25e18f989595935c94",
+    "nbt_adapter": "b57e311d165a826f0cf9c8a8aa6c83266680c38e"
+  },
+  "local_api_double": {
+    "nbt_positive_processes": 2,
+    "nbt_assertions_per_process": 60002,
+    "fill_positive_processes": 2,
+    "fill_assertions_per_process": 16000,
+    "total_positive_assertions": 152004,
+    "compiled_mutants_rejected": 2
+  },
+  "repo_runners_executed": false,
+  "full_gradle": false,
+  "real_minecraft": false,
+  "gpu": false,
+  "qualified_jar": false,
+  "independent_grade": 5
+}
