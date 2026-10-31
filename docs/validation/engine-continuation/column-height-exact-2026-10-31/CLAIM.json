@@ -1,0 +1,23 @@
+{
+  "claim_id": "engine-20261031T1904-column-height-exact",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-10-31T19:04:00Z",
+  "expires_utc": "2026-10-31T19:28:00Z",
+  "base_sha": "91a8c3605bb144276f93b046c88e6e1f03b64b4a",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/ColumnHeight.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/ColumnHeightBoundaryChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/column-height-exact-2026-10-31/**"
+  ],
+  "exclusions": [
+    "V8 native persistence",
+    "water runtime",
+    "renderer-vulkan",
+    "LOD worker sources",
+    "saved profiles"
+  ],
+  "intent": "Prevent signed-int overflow and double division rounding at extreme signed column bounds while preserving normal terrain density behavior.",
+  "build_policy": "Java21 isolated tests only unless complete JDK25/Gradle checkout becomes available; no Actions; retain prior qualified JAR."
+}
