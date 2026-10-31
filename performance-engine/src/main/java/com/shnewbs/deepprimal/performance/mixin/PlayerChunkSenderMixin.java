@@ -36,7 +36,12 @@ public abstract class PlayerChunkSenderMixin {
     }
     deepprimal$nearest.reset(limit, center.x(), center.z());
     var iterator = pendingChunks.iterator();
-    while (iterator.hasNext()) deepprimal$nearest.offer(iterator.nextLong());
+    // Only ready chunks compete for the bounded send quota. Selecting pending-but-
+    // unavailable near chunks first can otherwise starve ready farther chunks.
+    while (iterator.hasNext()) {
+      long position = iterator.nextLong();
+      if (map.getChunkToSend(position) != null) deepprimal$nearest.offer(position);
+    }
     deepprimal$nearest.sort();
     var ready = new ArrayList<LevelChunk>(deepprimal$nearest.size());
     int candidates = pendingChunks.size();
