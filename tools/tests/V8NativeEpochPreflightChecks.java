@@ -24,7 +24,10 @@ public final class V8NativeEpochPreflightChecks {
   private static void rejectCoordinate(Runnable action) {
     checks++;
     try { action.run(); }
-    catch (IllegalArgumentException expected) { return; }
+    catch (IllegalArgumentException expected) {
+      if ("V8 native commit chunk world-coordinate overflow".equals(expected.getMessage())) return;
+      throw new AssertionError("coordinate overflow admitted at check " + checks, expected);
+    }
     throw new AssertionError("coordinate overflow admitted at check " + checks);
   }
   private static final class Owner implements V8ChunkGenerationNativeCommit.Owner {
