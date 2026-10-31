@@ -1,0 +1,16 @@
+{
+  "source_commit": "20cf1c0534766017934aafd4774d24bcef2756a3",
+  "fix_commit": "fdc704b0fba29aa39bb3ac91f63f9a14124664bd",
+  "source_blob_nearest": "fc264d32c4b0a8afa9db6c350c42c5700ff772fa",
+  "fixed_mixin_blob": "7a19907468a7420c77eaa4724b148dfc994ee790",
+  "checks": {
+    "committed": 56707,
+    "independent": 657961,
+    "mixin_differential_trials": 5000,
+    "readiness_model_trials": 10000,
+    "mutant_rejected": true
+  },
+  "jar_qualified": false,
+  "full_gradle": false,
+  "actions_used": false
+}
