@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.121-native-fill-publication.1",
+  "base_main": "a5553fd99b2c3d912158dd589dab56187db07e9a",
+  "source_blob": "1130a888fe9d6077bfef7984920da7bda845577f",
+  "source_sha256": "c9d01326f34571a72c93ab2542d53d8cbfd4c5db1b684e279cd472db3943e664",
+  "java": "OpenJDK 21.0.12.1",
+  "mode": "isolated API doubles",
+  "positive_processes": 4,
+  "assertions_per_process": 25000,
+  "total_assertions": 100000,
+  "negative_controls_rejected": 8,
+  "full_gradle": false,
+  "native_minecraft": false,
+  "java25": false,
+  "real_gpu": false,
+  "jar_built": false,
+  "independent_grade_carried": "50/100"
+}
