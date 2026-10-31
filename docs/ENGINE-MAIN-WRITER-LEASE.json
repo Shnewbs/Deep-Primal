@@ -1,34 +1,22 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev130-ready-admission",
-  "status": "checkpointed",
-  "start": "2026-10-31T14:03:00Z",
-  "expires": "2026-10-31T14:07:00Z",
-  "source_head": "b4442bc7c574e4bfaa2dd2810dbcf50805eb197e",
+  "worker": "hourly-deep-primal-engine-dev140-horizon-view-safety",
+  "status": "active",
+  "start": "2026-10-31T23:58:30Z",
+  "expires": "2026-11-01T00:13:30Z",
+  "source_head": "ef0a4a61ffcc05d841fefc99abfd92fe6539c1fb",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/NearestChunks.java",
-    "performance-engine/src/main/java/com/shnewbs/deepprimal/performance/mixin/PlayerChunkSenderMixin.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonView.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/HorizonViewSafetyChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/NearestChunksReadyAdmissionChecks.java",
-    "docs/validation/engine-continuation/nearest-chunk-ready-admission-2026-10-31/**",
+    "docs/validation/engine-continuation/horizon-view-safety-2026-10-31/README.md",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-10-31T1330-ddcf22c5/REVIEW.md",
-  "note": "Claim bounded chunk-send readiness prefilter to avoid expensive readiness lookups for candidates that cannot displace selected nearest ready chunks. Renderer, water, terrain and native chunk-save files excluded. No full Java25/JAR claim.",
+  "audit": "docs/engine-hourly-audits/2026-10-31T2330-dev139/REVIEW.md",
+  "note": "Claim only LOD horizon view malformed telemetry/zero viewport safety. Independent auditor water fixes, native water, V8, Vulkan, and saved-world files excluded. Java21 isolated regression already reproduced original and passed patch. No Java25/Gradle/JAR claim.",
   "previous_checkpoint": {
-    "worker": "existing-hourly-engine-builder-dev94-vegetation-height-parity",
-    "source_commit": "6aaa3410c21f3dee6336a3229e3ef3075450e3e4",
-    "ended_at": "2026-10-30T03:19:30Z",
+    "worker": "hourly-deep-primal-engine-dev130-ready-admission",
+    "source_commit": "dc95b4cd0366c3aa199c2f91d699163b232f1f1f",
     "lease_released": true
-  },
-  "lease_released": true,
-  "ended_at": "2026-10-31T14:07:00Z",
-  "source_commit": "dc95b4cd0366c3aa199c2f91d699163b232f1f1f",
-  "source_version": "dev130-ready-admission-source-only",
-  "evidence": "docs/validation/engine-continuation/nearest-chunk-ready-admission-2026-10-31/README.md",
-  "tests": "Java21 exact 65-bit old 224254 assertions, new 498393, compiled mixin API doubles 33503, 3/3 mutants rejected",
-  "full_build": false,
-  "qualified_jar": false,
-  "independent_grade": 5,
-  "next": "Full Java25 Gradle/NeoForge and native chunk-send throughput/readiness churn; V8 crash-safe persistence and finite water acceptance"
+  }
 }
