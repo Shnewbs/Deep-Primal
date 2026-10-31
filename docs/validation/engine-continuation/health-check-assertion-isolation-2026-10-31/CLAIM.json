@@ -1,0 +1,19 @@
+{
+  "status": "active",
+  "owner": "Deep Primal hourly engineering",
+  "claimed_at": "2026-10-31T22:00:00Z",
+  "expires_at": "2026-10-31T23:15:00Z",
+  "base": "34fdcdacab2834e8d4297b799106e54faa09a7ec",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineHealthCheck.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/EngineHealthCheckIsolationChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/health-check-assertion-isolation-2026-10-31/**"
+  ],
+  "excludes": [
+    "water/terrain/V8 persistence",
+    "Vulkan/LOD renderer",
+    "other schedulers' files"
+  ],
+  "goal": "Isolate AssertionError thrown by invariant suppliers so one failed health check does not terminate the tick and remaining checks run. Preserve fatal VM errors."
+}
