@@ -39,6 +39,28 @@ public final class NearestChunksOverflowChecks {
         check(nearest.size() == count, "selection count");
         for (int i = 0; i < count; i++)
             check(nearest.position(i) == expected.get(i), "distance or tie order");
+        // A second sort must preserve the result, not heap-sort an already sorted array.
+        nearest.sort();
+        for (int i = 0; i < count; i++)
+            check(nearest.position(i) == expected.get(i), "repeated sort order");
+        // Offering after a read must restore heap ordering before replacement.
+        long late = pack(cx, cz);
+        nearest.offer(late);
+        nearest.sort();
+        expected.add(late);
+        expected.sort(Comparator.<Long, BigInteger>comparing(p -> distance(p, cx, cz))
+            .thenComparingLong(Long::longValue));
+        check(nearest.size() == Math.min(capacity, expected.size()), "late offer count");
+        for (int i = 0; i < nearest.size(); i++)
+            check(nearest.position(i) == expected.get(i), "late offer order");
+        long distant = pack(cx ^ Integer.MIN_VALUE, cz ^ Integer.MAX_VALUE);
+        nearest.offer(distant);
+        nearest.sort();
+        expected.add(distant);
+        expected.sort(Comparator.<Long, BigInteger>comparing(p -> distance(p, cx, cz))
+            .thenComparingLong(Long::longValue));
+        for (int i = 0; i < nearest.size(); i++)
+            check(nearest.position(i) == expected.get(i), "distant late offer order");
     }
 
     public static void main(String[] args) {

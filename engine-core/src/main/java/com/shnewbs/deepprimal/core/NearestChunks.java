@@ -8,6 +8,7 @@ public final class NearestChunks {
     private final long[] distances;
     private final byte[] distanceCarries;
     private int size, limit, centerX, centerZ;
+    private boolean sorted;
     public NearestChunks(int capacity) {
         if (capacity < 1) throw new IllegalArgumentException("Empty selection capacity");
         positions = new long[capacity]; distances = new long[capacity];
@@ -15,9 +16,15 @@ public final class NearestChunks {
     }
     public void reset(int limit, int centerX, int centerZ) {
         if (limit < 1 || limit > positions.length) throw new IllegalArgumentException("Invalid selection limit");
-        this.limit = limit; this.centerX = centerX; this.centerZ = centerZ; size = 0;
+        this.limit = limit; this.centerX = centerX; this.centerZ = centerZ; size = 0; sorted = false;
     }
     public void offer(long packedPosition) {
+        // Heap sort destroys the max-heap. Rebuild only if a caller offers
+        // another candidate after reading sorted results (not the hot path).
+        if (sorted) {
+            for (int index = (size >>> 1) - 1; index >= 0; index--) siftDown(index, size);
+            sorted = false;
+        }
         long dx = (int)packedPosition - (long)centerX;
         long dz = (int)(packedPosition >>> 32) - (long)centerZ;
         // Each square fits in unsigned 64 bits; the sum can carry once.
@@ -43,7 +50,9 @@ public final class NearestChunks {
         }
     }
     public void sort() {
+        if (sorted) return;
         for (int end = size - 1; end > 0; end--) { swap(0, end); siftDown(0, end); }
+        sorted = true;
     }
     private void siftDown(int index, int end) {
         while (index * 2 + 1 < end) {
