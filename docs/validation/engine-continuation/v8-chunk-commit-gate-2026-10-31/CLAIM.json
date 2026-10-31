@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "owner": "existing-hourly-engine-builder",
-  "status": "active",
+  "status": "released",
   "started_at": "2026-10-31T02:02:00Z",
   "active_until": "2026-10-31T02:32:00Z",
   "scope": [
@@ -17,5 +17,12 @@
   "no_renderer_or_water_edits": true,
   "owner_full_build_override": true,
   "measurement_reservation": "Java21 isolated functional checks only; no timed benchmark",
-  "lease_released": false
+  "lease_released": true,
+  "released_at": "2026-10-31T02:17:00Z",
+  "source_version": "0.0.1-alpha.29-dev.118-chunk-commit-gate.1",
+  "source_commit": "cf71e7a4e00574b3c933d54f2a59e30dfbe58969",
+  "evidence": "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/README.md",
+  "results": "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/RESULTS.json",
+  "tests": "OpenJDK21 isolated API-double normal/-OO 4x60009 assertions; 2/2 compiled epoch mutants rejected",
+  "next_priority": "Native authoritative durable chunk-stamp/epoch CAS and atomic chunk data publication; signed-coordinate native seam and water ledger acceptance"
 }
