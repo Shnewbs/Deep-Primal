@@ -18,6 +18,23 @@ public final class NearestChunks {
         if (limit < 1 || limit > positions.length) throw new IllegalArgumentException("Invalid selection limit");
         this.limit = limit; this.centerX = centerX; this.centerZ = centerZ; size = 0; sorted = false;
     }
+    /**
+     * Exact admission preflight without changing heap state. Call before an
+     * expensive readiness probe; false means offer() cannot select this chunk.
+     * Works both before and after sort(), including equal-distance tie breaks.
+     */
+    public boolean wouldAccept(long packedPosition) {
+        if (size < limit) return true;
+        long dx = (int)packedPosition - (long)centerX;
+        long dz = (int)(packedPosition >>> 32) - (long)centerZ;
+        long xSquare = dx * dx, zSquare = dz * dz;
+        long distance = xSquare + zSquare;
+        byte carry = (byte)(Long.compareUnsigned(distance, xSquare) < 0 ? 1 : 0);
+        int farthest = sorted ? size - 1 : 0;
+        int comparison = compareDistance(carry, distance,
+            distanceCarries[farthest], distances[farthest]);
+        return comparison < 0 || (comparison == 0 && packedPosition < positions[farthest]);
+    }
     public void offer(long packedPosition) {
         // Heap sort destroys the max-heap. Rebuild only if a caller offers
         // another candidate after reading sorted results (not the hot path).
