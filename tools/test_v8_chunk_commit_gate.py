@@ -8,7 +8,7 @@ import subprocess
 import sys
 import tempfile
 
-ROOT = pathlib.Path(__file__).resolve().parents[0]
+ROOT = pathlib.Path(__file__).resolve().parents[1]
 PKG = pathlib.Path('com/shnewbs/deepprimal/core/density')
 CORE = ROOT / 'engine-core/src/main/java' / PKG
 TEST = ROOT / 'tools/tests/V8ChunkGenerationCommitGateChecks.java'
