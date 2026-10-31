@@ -8,7 +8,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = ROOT / 'engine-core/src/main/java/com/shnewbs/deepprimal/core/density'
-TEST = ROOT / 'tools/tests/V8GeneratedEpochChecks.java'
+TEST = ROOT / 'tools/tests/GeneratedEpochChecks.java'
 FILES = ('V8GenerationBorderAdmission.java', 'V8ChunkGenerationStamp.java',
          'V8ChunkGenerationCommitGate.java')
 NEIGHBOR = 'if (state == V8GenerationBorderAdmission.State.GENERATED && epoch == 0L)'
