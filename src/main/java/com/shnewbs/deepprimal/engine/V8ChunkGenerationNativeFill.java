@@ -109,7 +109,9 @@ public final class V8ChunkGenerationNativeFill {
       try {
         discard.discard(candidate, candidateNbt);
       } catch (RuntimeException | Error discardFailure) {
-        failure.addSuppressed(discardFailure);
+        // A discarder may rethrow the original failure instance. Java forbids
+        // self-suppression; preserve that original failure unchanged.
+        if (discardFailure != failure) failure.addSuppressed(discardFailure);
       }
       throw failure;
     }
