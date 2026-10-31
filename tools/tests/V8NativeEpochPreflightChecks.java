@@ -21,6 +21,12 @@ public final class V8NativeEpochPreflightChecks {
     catch (IllegalStateException expected) { return; }
     throw new AssertionError("exhausted epoch admitted at check " + checks);
   }
+  private static void rejectCoordinate(Runnable action) {
+    checks++;
+    try { action.run(); }
+    catch (IllegalArgumentException expected) { return; }
+    throw new AssertionError("coordinate overflow admitted at check " + checks);
+  }
   private static final class Owner implements V8ChunkGenerationNativeCommit.Owner {
     final V8ChunkGenerationStamp.Stamp stamp;
     long epoch;
@@ -49,7 +55,8 @@ public final class V8NativeEpochPreflightChecks {
     var random = new SplittableRandom(202610310630L);
     for (int i = 0; i < 12000; i++) {
       var stamp = new V8ChunkGenerationStamp.Stamp((i & 1) == 0 ? 2 : 6,
-          random.nextInt(), random.nextInt(), random.nextLong() | 1L);
+          random.nextInt(-134217728, 134217728),
+          random.nextInt(-134217728, 134217728), random.nextLong() | 1L);
       var owner = new Owner(stamp, i);
       var ticket = V8ChunkGenerationNativeCommit.begin(owner, stamp);
       ok(owner.snapshots == 1);
@@ -76,6 +83,26 @@ public final class V8NativeEpochPreflightChecks {
     ok(almost.publications == 1);
     reject(() -> V8ChunkGenerationNativeCommit.begin(almost, stamp));
     ok(almost.publications == 1);
+    // The direct commit API must refuse aliases even if the native-fill
+    // facade is bypassed. Invalid preflight must not call owner.snapshot().
+    for (int invalid : new int[] {Integer.MIN_VALUE, -134217729, 134217728, Integer.MAX_VALUE}) {
+      var badX = new V8ChunkGenerationStamp.Stamp(6, invalid, 57, 42L);
+      var xOwner = new Owner(badX, 0L);
+      rejectCoordinate(() -> V8ChunkGenerationNativeCommit.begin(xOwner, badX));
+      ok(xOwner.snapshots == 0);
+      ok(xOwner.publications == 0);
+      var badZ = new V8ChunkGenerationStamp.Stamp(6, -91, invalid, 42L);
+      var zOwner = new Owner(badZ, 0L);
+      rejectCoordinate(() -> V8ChunkGenerationNativeCommit.begin(zOwner, badZ));
+      ok(zOwner.snapshots == 0);
+      ok(zOwner.publications == 0);
+    }
+    for (int x : new int[] {-134217728, 134217727})
+      for (int z : new int[] {-134217728, 134217727}) {
+        var edge = new V8ChunkGenerationStamp.Stamp(6, x, z, 42L);
+        var edgeOwner = new Owner(edge, 0L);
+        ok(V8ChunkGenerationNativeCommit.begin(edgeOwner, edge).intended().equals(edge));
+      }
     System.out.println("V8_NATIVE_EPOCH_PREFLIGHT_PASS assertions=" + checks);
   }
 }

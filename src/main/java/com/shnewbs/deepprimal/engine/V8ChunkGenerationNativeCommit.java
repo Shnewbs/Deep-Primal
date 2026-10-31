@@ -52,6 +52,10 @@ public final class V8ChunkGenerationNativeCommit {
   public static Ticket begin(Owner owner, V8ChunkGenerationStamp.Stamp intended) {
     Objects.requireNonNull(owner, "native V8 chunk owner");
     Objects.requireNonNull(intended, "intended V8 generation identity");
+    // Direct coordinator clients must not bypass the native-fill/materializer
+    // guard: signed chunk origins must fit the 32-bit Minecraft block grid.
+    // Reject before observing the owner or acquiring a generation ticket.
+    requireWorldCoordinateRange(intended.chunkX(), intended.chunkZ());
     var admission = V8ChunkGenerationCommitGate.prepare(intended,
         Objects.requireNonNull(owner.snapshot(), "durable V8 admission snapshot"));
     // An exhausted durable epoch can never publish a successor. Reject before
@@ -59,6 +63,19 @@ public final class V8ChunkGenerationNativeCommit {
     if (admission.snapshot().targetEpoch() == Long.MAX_VALUE)
       throw new IllegalStateException("V8 durable target epoch exhausted");
     return new Ticket(owner, admission);
+  }
+
+  private static void requireWorldCoordinateRange(int chunkX, int chunkZ) {
+    // Minecraft chunks span 16 blocks; shifts silently wrap at extreme
+    // signed chunk positions. Check origin and inclusive last block.
+    try {
+      int originX = Math.multiplyExact(chunkX, 16);
+      int originZ = Math.multiplyExact(chunkZ, 16);
+      Math.addExact(originX, 15);
+      Math.addExact(originZ, 15);
+    } catch (ArithmeticException overflow) {
+      throw new IllegalArgumentException("V8 native commit chunk world-coordinate overflow", overflow);
+    }
   }
 
   /**

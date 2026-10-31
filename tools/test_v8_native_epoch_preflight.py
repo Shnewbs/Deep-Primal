@@ -54,7 +54,7 @@ def main() -> None:
     if source.count(anchor) != 1:
         raise AssertionError('missing or duplicate epoch preflight')
     first, output = execute(source)
-    if first or 'V8_NATIVE_EPOCH_PREFLIGHT_PASS assertions=72009' not in output:
+    if first or 'V8_NATIVE_EPOCH_PREFLIGHT_PASS assertions=72037' not in output:
         raise AssertionError('production failed: ' + output[-1000:])
     second, repeated = execute(source)
     if second or repeated != output:
@@ -62,7 +62,13 @@ def main() -> None:
     broken, failure = execute(source.replace(anchor, 'if (false)', 1))
     if broken == 0 or 'exhausted epoch admitted' not in failure:
         raise AssertionError('epoch-overflow mutant not rejected: ' + failure[-1000:])
-    print('V8_NATIVE_EPOCH_PREFLIGHT_PASS 2x72009 assertions; mutant rejected; '
+    guard = 'requireWorldCoordinateRange(intended.chunkX(), intended.chunkZ());'
+    if source.count(guard) != 1:
+        raise AssertionError('missing or duplicate coordinate preflight')
+    broken_coordinate, coordinate_failure = execute(source.replace(guard, '/* coordinate gate bypassed */', 1))
+    if broken_coordinate == 0 or 'coordinate overflow admitted' not in coordinate_failure:
+        raise AssertionError('coordinate mutant not rejected: ' + coordinate_failure[-1000:])
+    print('V8_NATIVE_EPOCH_PREFLIGHT_PASS 2x72037 assertions; 2 mutants rejected; 
           'sha256=' + hashlib.sha256(source.encode('utf-8')).hexdigest())
 
 
