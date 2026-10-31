@@ -53,6 +53,18 @@ public final class V8ChunkGenerationNativeFillChecks {
         ok("cleanup".equals(expected.getSuppressed()[0].getMessage()));
       }
       ok(discards[0]==4);owner.commit=true;
+      // The native callback and cleanup may throw the exact same Error object.
+      // Preserve that original Error instead of triggering Java self-suppression.
+      var shared=new AssertionError("shared native error");
+      try {
+        V8ChunkGenerationNativeFill.fillSavedVegetationAndCommit(profile,1234,owner,stamp,
+            chunk,4,new CompoundTag(),(c,n)->{throw shared;},
+            (a,b)->{throw shared;},(a,b)->true);
+        throw new AssertionError("accepted shared native error");
+      } catch (AssertionError observed) {
+        ok(observed==shared);
+        ok(observed.getSuppressed().length==0);
+      }
     }
     System.out.println("V8_NATIVE_FILL_PASS assertions="+checks);
   }
