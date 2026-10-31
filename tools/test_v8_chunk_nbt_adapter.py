@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'src/main/java/com/shnewbs/deepprimal/engine/V8ChunkGenerationNbtAdapter.java'
 TEST = ROOT / 'tools/tests/V8ChunkGenerationNbtAdapterChecks.java'
 ANCHOR = 'actual.epoch() != expectedDurableEpoch'
+CORE = ROOT / 'engine-core/src/main/java/com/shnewbs/deepprimal/core/density'
+CORE_CLASSES = ('V8GenerationBorderAdmission.java', 'V8ChunkGenerationStamp.java',
+                'V8ChunkGenerationCommitGate.java')
 STUBS = {
  'net/minecraft/nbt/Tag.java': '''package net.minecraft.nbt; public interface Tag {}''',
  'net/minecraft/nbt/StringTag.java': '''package net.minecraft.nbt; public final class StringTag implements Tag {private final String value; public StringTag(String v){value=v;} public String getAsString(){return value;}}''',
@@ -26,7 +29,10 @@ def run(source: str) -> tuple[int, str]:
     with tempfile.TemporaryDirectory(prefix='v8-nbt-adapter-') as tmp:
         work = Path(tmp)
         java = []
+        real_core = all((CORE / name).is_file() for name in CORE_CLASSES)
         for name, content in STUBS.items():
+            if real_core and name.startswith('com/shnewbs/deepprimal/core/density/'):
+                continue
             path = work / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding='utf-8')
@@ -34,6 +40,8 @@ def run(source: str) -> tuple[int, str]:
         production = work / 'com/shnewbs/deepprimal/engine/V8ChunkGenerationNbtAdapter.java'
         production.parent.mkdir(parents=True, exist_ok=True)
         production.write_text(source, encoding='utf-8')
+        if real_core:
+            java.extend(str(CORE / name) for name in CORE_CLASSES)
         java += [str(production), str(TEST)]
         classes = work / 'classes'
         classes.mkdir()
@@ -60,7 +68,8 @@ def main() -> None:
     broken, failure = run(production.replace(ANCHOR,'false',1))
     if broken == 0 or 'accepted invalid input' not in failure:
         raise AssertionError('epoch mutant not rejected: '+failure[-1200:])
-    print('V8_NBT_ADAPTER_PASS 2x84706 assertions; epoch mutant rejected; sha256='+digest)
+    mode = 'real-core-plus-nbt-doubles' if all((CORE / name).is_file() for name in CORE_CLASSES) else 'core-and-nbt-doubles'
+    print('V8_NBT_ADAPTER_PASS 2x84706 assertions; epoch mutant rejected; mode='+mode+'; sha256='+digest)
 
 if __name__ == '__main__':
     main()
