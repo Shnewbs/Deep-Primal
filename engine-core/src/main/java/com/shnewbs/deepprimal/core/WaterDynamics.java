@@ -77,6 +77,14 @@ public final class WaterDynamics {
     return (int) Math.floor(checkedWaterline(waterline));
   }
 
+  /** Exclusive native water-top Y; reject overflow before the aquifer caches the column. */
+  public static int surfaceTopY(double waterline) {
+    int y = surfaceY(waterline);
+    if (y == Integer.MAX_VALUE)
+      throw new IllegalArgumentException("Native water top exceeds integer Y: " + waterline);
+    return y + 1;
+  }
+
   public static int surfaceLevel(double waterline) {
     double target = checkedWaterline(waterline);
     int amount = Math.clamp(Math.round((target - Math.floor(target)) * 9), 1, 8);
