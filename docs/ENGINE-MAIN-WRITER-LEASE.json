@@ -1,32 +1,18 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev140-horizon-view-safety",
-  "status": "checkpointed",
-  "start": "2026-10-31T23:58:30Z",
-  "expires": "2026-11-01T00:13:30Z",
-  "source_head": "ef0a4a61ffcc05d841fefc99abfd92fe6539c1fb",
+  "worker": "hourly-deep-primal-engine-dev141-section-slots",
+  "status": "active",
+  "start": "2026-11-01T01:04:44Z",
+  "expires": "2026-11-01T01:24:44Z",
+  "source_head": "837312fca6fa2e0a31362c12b1888be496c46204",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonView.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/HorizonViewSafetyChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/DistancePolicy.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/DistancePolicySlotChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/horizon-view-safety-2026-10-31/README.md",
+    "docs/validation/engine-continuation/distance-policy-slots-2026-11-01/README.md",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-10-31T2330-dev139/REVIEW.md",
-  "note": "Claim only LOD horizon view malformed telemetry/zero viewport safety. Independent auditor water fixes, native water, V8, Vulkan, and saved-world files excluded. Java21 isolated regression already reproduced original and passed patch. No Java25/Gradle/JAR claim.",
-  "previous_checkpoint": {
-    "worker": "hourly-deep-primal-engine-dev130-ready-admission",
-    "source_commit": "dc95b4cd0366c3aa199c2f91d699163b232f1f1f",
-    "lease_released": true
-  },
-  "lease_released": true,
-  "ended_at": "2026-10-31T23:59:18Z",
-  "source_commit": "b8f209b22d533e149ae3535546bb745a27b45f1b",
-  "source_version": "dev140-horizon-view-safety-source-only",
-  "evidence": "docs/validation/engine-continuation/horizon-view-safety-2026-10-31/README.md",
-  "tests": "Java21 --release 21 -Xlint:all -Werror, -ea -Xverify:all: 100038 checks, LOD tier coverage [102,433,99465], original source failed, 3/3 guard mutants rejected",
-  "full_build": false,
-  "qualified_jar": false,
-  "independent_grade": 5,
-  "next": "Full Java25/NeoForge and native minimized/restore LOD, Vulkan GPU acceptance, V8 persistence and finite-water save/reopen"
+  "audit": "docs/engine-hourly-audits/2026-10-31T1730-dev140/REVIEW.md",
+  "note": "Bounded isolated section-slot overflow and invalid-window correctness. No renderer, water, V8, native, or owner build resources. Java21 isolated baseline negative reproduced and corrected test passed. No JAR claim.",
+  "lease_released": false
 }
