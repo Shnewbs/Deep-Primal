@@ -19,6 +19,16 @@ Only IDs 0–15 (flow vectors) and 16 (still water) are valid. Invalid initial d
 - Corrected production source SHA-256: `579f745955ed5fcf34de2a6c10a32264f1d302ac121da7d66405402462f8f661`.
 - New regression source SHA-256: `caa9b30a03aefb817908aef01a8a7c048e22d94b0f7b43515991e9c902b38a81`.
 
+## Independent negative controls and committed identity
+
+- Original unguarded implementation: fails at assertion 1 (invalid initial ID).
+- Mutant accepting invalid updates: fails at assertion 3 (bad endpoint).
+- Mutant validating only after updating the revision: fails at assertion 4 (newer corrupt revision suppresses valid recovery).
+- Verified implementation commit: `4fdcc42d415a0c9b9c99d12129149aa6d912d575`.
+- Verified production Git blob: `8725b453a74b3b6ba4e6288801e85d2c9b55050b`.
+- Verified regression Git blob: `13d91f366d7d5af0a056d40d01cbeba36a135f6a`.
+- Evidence archive SHA-256: `d1ba3d66386dd9d1e3cbbdc228fabf657b902115dfc47451f25be171640e758f`.
+
 ## Limitations
 
-These tests exercise exact core logic in isolation, not a full NeoForge client or GPU shader. This environment lacks a complete private repository checkout, Java 25, cached Gradle/NeoForge dependencies and a native GPU test target; Git CLI cannot resolve github.com. No playable JAR or JAR SHA-256 was produced, no GitHub Actions were run, and no older qualified JAR was deleted. Historical whole-engine grade remains 5.0/10 pending full validation.
+These tests exercise exact core logic in isolation, not a full NeoForge client or GPU shader. The guard protects retained transition state, but it does not normalize malformed raw direction IDs in the upstream snapshot when no transition exists; upstream admission remains a separate acceptance task. This environment lacks a complete private repository checkout, Java 25, cached Gradle/NeoForge dependencies and a native GPU test target; Git CLI cannot resolve github.com. No playable JAR or JAR SHA-256 was produced, no GitHub Actions were run, and no older qualified JAR was deleted. Historical whole-engine grade remains 5.0/10 pending full validation.
