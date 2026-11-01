@@ -49,6 +49,9 @@ public final class WaterSimulation {
     if(material<0||material>2)throw new IllegalArgumentException("material");
     int i=index(x,z);
     if(units[i]>0&&material!=1)throw new IllegalStateException("drain water before replacing material");
+    // Material 1 is a water-filled cell, never an independent dry marker.
+    // Reject malformed imports rather than serializing phantom water materials.
+    if(units[i]==0&&material==1)throw new IllegalStateException("dry cell cannot have water material");
     materials[i]=material;
     if(material==2)sources[i]=false; // A solid cannot remain a source after conversion.
   }
