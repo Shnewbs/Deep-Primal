@@ -27,7 +27,11 @@ public final class WaterSurfaceTransition {
 
   public float at(long now) {
     float t = Math.clamp((now - started) / (float) MILLIS, 0, 1);
-    return from + (target - from) * t;
+    float delta = target - from;
+    float value = from + delta * t;
+    // Even finite endpoints can overflow a float subtraction/addition, yielding Inf or NaN.
+    // Retain the exact legacy rounding for ordinary values; recover exceptional cases in double.
+    return Float.isFinite(value) ? value : (float) (from + ((double) target - from) * t);
   }
 
   public void target(float next, long now) {
