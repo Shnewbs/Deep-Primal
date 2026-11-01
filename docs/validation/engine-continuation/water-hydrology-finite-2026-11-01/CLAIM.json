@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261101T1857-water-hydrology-finite",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-11-01T18:57:24Z",
+  "expires_utc": "2026-11-01T19:25:00Z",
+  "baseline_main": "f253aa5d076be71275fbfa3c6fb1a02efaa091c4",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterDynamicsHydrologyFiniteChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-hydrology-finite-2026-11-01/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-01T1830-dev161/REVIEW.md",
+  "coordination": "Independent auditor Dev161 read-only; root main writer lease completed-released; organics separate. Avoid renderer, hydrology runtime and audit-owned paths. No Actions.",
+  "purpose": "Reject nonfinite water speed and ocean terrain shaping inputs; fix signed-int floor overflow while preserving normal finite-domain output.",
+  "qualified_jar": false,
+  "lease_released": false
+}
