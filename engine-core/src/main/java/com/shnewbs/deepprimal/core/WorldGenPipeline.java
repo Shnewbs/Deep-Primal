@@ -30,12 +30,12 @@ public final class WorldGenPipeline {
           // strand the shared query future (whenComplete's return value is ignored).
           if(chunk==null)failure=new IllegalStateException("materializer returned null chunk");
           else try{cache.put(key,chunk,chunk.payloadBytes());}
-          catch(RuntimeException cacheFailure){failure=cacheFailure;}
+          catch(Throwable cacheFailure){failure=cacheFailure;}
         }
       }
       // User continuations may call back into EngineCore: never run them under this lock.
       if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
-    });}catch(RuntimeException error){synchronized(this){pending.remove(key);}result.completeExceptionally(error);}
+    });}catch(Throwable error){synchronized(this){pending.remove(key);}result.completeExceptionally(error);}
     return result.copy();
   }
   public CompletableFuture<Void> generateChunks(Iterable<ChunkKey> keys,Consumer<MaterializedChunk> consumer){
