@@ -9,6 +9,10 @@ public final class WaterDynamics {
   }
 
   public static double speed(double slope, double catchment, double width) {
+    // Invalid hydrology samples must not reach animation/flow-band selection as NaN.
+    // Preserve the exact historical calculation for every finite input.
+    if (!Double.isFinite(slope) || !Double.isFinite(catchment) || !Double.isFinite(width))
+      return SPEEDS[0];
     return Math.clamp(
         .3
             + 2.2 * Math.sqrt(Math.max(0, slope) + .0025)
@@ -63,9 +67,17 @@ public final class WaterDynamics {
   }
 
   public static double oceanHeight(double base, double continent, double noise, int floor) {
+    // A corrupt climate/noise sample cannot become a NaN terrain column.
+    // Preserve the supplied finite base when shaping is unavailable.
+    double minimum = (double) floor + 40.0;
+    if (!Double.isFinite(base)) return minimum;
+    if (!Double.isFinite(continent) || !Double.isFinite(noise))
+      return Math.max(minimum, base);
     double offshore = smooth(Math.clamp((-continent - .25) / .35, 0, 1));
     double trench = smooth(Math.clamp((.19 - Math.abs(noise)) / .19, 0, 1));
-    return Math.max(floor + 40, base - offshore * (35 + trench * (96 - floor - 80)));
+    // Promote before arithmetic: integer floor+40 and 96-floor-80 can overflow.
+    double shaped = base - offshore * (35 + trench * (96.0 - floor - 80.0));
+    return Double.isFinite(shaped) ? Math.max(minimum, shaped) : Math.max(minimum, base);
   }
 
   private static double smooth(double t) {
