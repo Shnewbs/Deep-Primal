@@ -8,6 +8,7 @@ public final class CoreChecks {
     com.shnewbs.deepprimal.engine.WaterWriteScopeChecks.main(args);
     UpscalingPolicyChecks.main(args);
     VisualBudgetFrameLimitChecks.main(new String[0]);
+    VisualBudgetOutsideChecks.main(new String[0]);
     FrameIntervalChecks.main(args);
     SampleStatsDurationChecks.main(new String[0]);
     TickWindowDurationChecks.main(new String[0]);
