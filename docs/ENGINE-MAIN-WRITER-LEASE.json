@@ -1,26 +1,18 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev146-pipeline-completion",
-  "status": "checkpointed",
-  "start": "2026-11-01T05:57:00Z",
-  "expires": "2026-11-01T06:27:00Z",
-  "source_head": "39abfe101e02e901525ad53060b3864389745875",
+  "worker": "hourly-deep-primal-engine-dev147-flow-direction-admission",
+  "status": "active",
+  "start": "2026-11-01T07:05:00Z",
+  "expires": "2026-11-01T07:30:00Z",
+  "source_head": "f6c555786edf13ecfc5e7602fd37c2b623617665",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
-    "tools/tests/PipelineCompletionChecks.java",
-    "docs/validation/engine-continuation/pipeline-completion-2026-11-01/**",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowDirectionAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/flow-direction-admission-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "note": "Resolve null successful materializer results and cache insertion exceptions without leaving pending query futures incomplete; isolated source-only regression. Do not edit water/V8/renderer/LOD writers.",
-  "audit": "docs/engine-hourly-audits/2026-11-01T0530-dev145/REVIEW.md",
-  "full_build": false,
-  "qualified_jar": false,
-  "lease_released": true,
-  "ended_at": "2026-11-01T06:05:00Z",
-  "source_commit": "2a4a2da4c090f79cb81e41eda5b71d8e8c5db5d7",
-  "source_version": "dev146-pipeline-completion-source-only",
-  "evidence": "docs/validation/engine-continuation/pipeline-completion-2026-11-01/README.md",
-  "tests": "Java21 strict isolated 3750 checks/250 deterministic trials; baseline and two mutants fail with timeout",
-  "independent_grade": 5,
-  "next": "Restore Java25 complete local checkout; native worldgen cache shutdown integration and saved-world/GPU acceptance"
+  "note": "Reject malformed water flow direction IDs (valid 0..16) without advancing revision authority; strict Java21 core tests; no renderer or native-water writers.",
+  "audit": "docs/engine-hourly-audits/2026-11-01T0630-dev146/REVIEW.md",
+  "lease_released": false
 }
