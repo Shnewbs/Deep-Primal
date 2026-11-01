@@ -83,7 +83,7 @@ public final class SurfaceWaterAquifer implements Aquifer {
                 exactChannels[z * 16 + x] = true;
                 bedLevels[z * 16 + x] = (int) Math.floor(sample.height());
                 waterLevels[z * 16 + x] =
-                    com.shnewbs.deepprimal.core.WaterDynamics.surfaceY(sample.waterLevel()) + 1;
+                    com.shnewbs.deepprimal.core.WaterDynamics.surfaceTopY(sample.waterLevel());
                 surfaceStates[z * 16 + x] =
                     waterStates[z * 16 + x].setValue(
                         net.minecraft.world.level.block.LiquidBlock.LEVEL,
