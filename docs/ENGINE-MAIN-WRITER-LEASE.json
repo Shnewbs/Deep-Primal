@@ -1,27 +1,18 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev145-tick-window-invalid-duration",
-  "status": "checkpointed",
-  "start": "2026-11-01T05:06:00Z",
-  "expires": "2026-11-01T05:36:00Z",
-  "source_head": "2ccca88839f8d94436290349b3f9719f4255e5bb",
+  "worker": "hourly-deep-primal-engine-dev146-pipeline-completion",
+  "status": "active",
+  "start": "2026-11-01T05:57:00Z",
+  "expires": "2026-11-01T06:27:00Z",
+  "source_head": "39abfe101e02e901525ad53060b3864389745875",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/TickWindowDurationChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/tick-window-duration-2026-11-01/**",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
+    "tools/tests/PipelineCompletionChecks.java",
+    "docs/validation/engine-continuation/pipeline-completion-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "note": "Discard invalid negative server tick durations rather than publishing fabricated zero-latency samples; preserve tick ring and nonnegative behavior. No native water/V8/Vulkan/LOD writer overlap.",
-  "audit": "docs/engine-hourly-audits/2026-11-01T0430-dev144/REVIEW.md",
+  "note": "Resolve null successful materializer results and cache insertion exceptions without leaving pending query futures incomplete; isolated source-only regression. Do not edit water/V8/renderer/LOD writers.",
+  "audit": "docs/engine-hourly-audits/2026-11-01T0530-dev145/REVIEW.md",
   "full_build": false,
-  "qualified_jar": false,
-  "lease_released": true,
-  "ended_at": "2026-11-01T05:06:37Z",
-  "source_commit": "fdc4116cfb82cd3cbdc980aa8247ad57d93bc58c",
-  "source_version": "dev145-tick-window-duration-source-only",
-  "evidence": "docs/validation/engine-continuation/tick-window-duration-2026-11-01/README.md",
-  "tests": "Java21 isolated 688297 checks; 256000 randomized operations; original + 3 defective controls rejected",
-  "independent_grade": 5,
-  "next": "Restore Java25/full Gradle native build, finite-water save/reopen and Vulkan/LOD hardware acceptance"
+  "qualified_jar": false
 }
