@@ -61,6 +61,7 @@ public final class CoreChecks {
     BoatBuoyancyChecks.run();
     TerrainV4Checks.run();
     DepositFieldChecks.run();
+    DepositPlanFiniteAdmissionChecks.main(new String[0]);
     DepositAllocationChecks.run();
     WaterAnimationChecks.run();
     WaterSurfaceFiniteChecks.main(new String[0]);
