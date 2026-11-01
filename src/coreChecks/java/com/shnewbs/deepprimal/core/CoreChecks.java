@@ -82,6 +82,7 @@ public final class CoreChecks {
     TerrainRevisionChecks.run();
     WatershedChecks.run();
     WaterwayChecks.run();
+    WaterwayFiniteAdmissionChecks.main(new String[0]);
     DrainageChecks.run();
     RuntimeChecks.run();
     DistancePolicySlotChecks.main(new String[0]);
