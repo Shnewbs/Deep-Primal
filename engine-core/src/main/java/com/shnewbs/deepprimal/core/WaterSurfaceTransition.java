@@ -19,6 +19,8 @@ public final class WaterSurfaceTransition {
   private long revision = Long.MIN_VALUE;
 
   public WaterSurfaceTransition(float initial, long now) {
+    // An invalid initial mesh sample must not poison the entire future surface history.
+    if (!Float.isFinite(initial)) initial = 0;
     from = target = lastRaw = initial;
     started = now;
   }
@@ -29,6 +31,8 @@ public final class WaterSurfaceTransition {
   }
 
   public void target(float next, long now) {
+    // A malformed upload must not poison the interpolation or its last good endpoint.
+    if (!Float.isFinite(next)) return;
     if (Math.abs(next - target) < 0.00001f) return;
     from = at(now);
     target = next;
@@ -36,6 +40,8 @@ public final class WaterSurfaceTransition {
   }
 
   public void target(float next, long now, long version) {
+    // Reject before recording the version: bad packets cannot suppress later valid revisions.
+    if (!Float.isFinite(next)) return;
     if (version < revision) return;
     revision = version;
     advance(now);

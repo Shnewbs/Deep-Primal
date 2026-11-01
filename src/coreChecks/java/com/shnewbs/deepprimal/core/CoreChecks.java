@@ -52,6 +52,7 @@ public final class CoreChecks {
     DepositFieldChecks.run();
     DepositAllocationChecks.run();
     WaterAnimationChecks.run();
+    WaterSurfaceFiniteChecks.main(new String[0]);
     WaterFlowTextureChecks.run();
     WaterFlowBlendChecks.run();
     WaterFlowFieldChecks.run();
