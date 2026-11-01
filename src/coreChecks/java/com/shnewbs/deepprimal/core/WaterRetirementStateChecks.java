@@ -37,6 +37,16 @@ final class WaterRetirementStateChecks {
       try { WaterCornerPacket.retirementState(legacy,range[0],range[1],0); throw new AssertionError("Invalid range accepted"); }
       catch (IllegalArgumentException expected) { }
     }
+    // The mutating API must enforce the same slice contract as retirementState.
+    // Previously retire(legacy, 144, 0, ...) silently returned false on a reversed range.
+    for (int[] range : new int[][]{{-144,0},{0,288},{1,144},{0,1},{144,0}}) {
+      byte[] before = legacy.array().clone();
+      try { WaterCornerPacket.retire(legacy,range[0],range[1],0); throw new AssertionError("Invalid retirement mutation range accepted"); }
+      catch (IllegalArgumentException expected) { }
+      if (!Arrays.equals(before,legacy.array())) throw new AssertionError("Invalid retirement range mutated data");
+    }
+    if (WaterCornerPacket.retire(legacy,0,0,0) || WaterCornerPacket.retire(legacy,144,144,0))
+      throw new AssertionError("Empty valid retirement range modified data");
     System.out.println("WATER_RETIREMENT_STATE_CORE_PASS cases=" + cases + " mixedAges=true readOnly=true");
   }
   public static void main(String[] args) { run(); }
