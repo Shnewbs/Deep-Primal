@@ -85,6 +85,7 @@ public final class CoreChecks {
     SyncRebuildBudgetOverflowChecks.main(new String[0]);
     HorizonChecks.run();
     HorizonViewSafetyChecks.main(new String[0]);
+    FarTerrainAdmissionChecks.main(new String[0]);
     IndependentHorizonGeometryChecks.main(new String[0]);
     WaterDynamicsChecks.run();
     HydrologyChecks.run();
