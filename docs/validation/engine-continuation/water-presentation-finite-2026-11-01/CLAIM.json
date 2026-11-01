@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261101T1202-water-presentation-finite",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-11-01T12:02:06Z",
+  "expires_utc": "2026-11-01T12:28:00Z",
+  "baseline_main": "ff2f92fa00cae01e402186f1f18482a244352b48",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterDynamicsPresentationFiniteChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-presentation-finite-2026-11-01/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-01T1130-dev150/REVIEW.md",
+  "coordination": "Scoped source-only water presentation arithmetic; previous dev144 WaterDynamics lease released, root work state checkpointed, water work state expired 2026-10-28. Auditor's dev150 source scope is WaterSimulation; no overlap. No native build or Actions.",
+  "purpose": "Reject invalid water color blend and wave telemetry before shader-facing arithmetic; preserve valid finite rendering output."
+}
