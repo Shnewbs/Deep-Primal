@@ -20,11 +20,16 @@ public record BenchmarkReport(int[] xs, int[] zs, long[] requestNanos, double el
     @Override public long[] requestNanos() { return requestNanos.clone(); }
 
     public String summary() {
+        if (!Double.isFinite(elapsedSeconds) || elapsedSeconds <= 0.0)
+            throw new IllegalArgumentException("Invalid benchmark elapsed seconds");
         SampleStats s = SampleStats.of(requestNanos);
+        double throughput = s.count() / elapsedSeconds;
+        if (!Double.isFinite(throughput))
+            throw new IllegalArgumentException("Invalid benchmark throughput");
         return String.format(Locale.ROOT,
             "BENCH COMPLETE count=%d median=%.2fms p95=%.2fms p99=%.2fms max=%.2fms elapsed=%.2fs throughput=%.2f/s heapEndMiB=%d peakObservedHeapMiB=%d tickP95=%.2fms tickMax=%.2fms gcCount=%d gcMillis=%d seed=%d dimension=%s",
             s.count(), s.medianMs(), s.p95Ms(), s.p99Ms(), s.maxMs(), elapsedSeconds,
-            s.count() / elapsedSeconds, heapEndBytes / 1048576, peakObservedHeapBytes / 1048576,
+            throughput, heapEndBytes / 1048576, peakObservedHeapBytes / 1048576,
             ticks.p95Ms(), ticks.maxMs(), gcCount, gcMillis, seed, dimension);
     }
     public void write(Path directory) throws Exception {
