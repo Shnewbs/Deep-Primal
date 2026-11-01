@@ -71,6 +71,7 @@ public final class CoreChecks {
     WaterFlowFieldChecks.run();
     WaterFlowFieldPacketAdmissionChecks.main(new String[0]);
     WaterCornerPacketChecks.run();
+    WaterCornerLegacyAdmissionChecks.main(new String[0]);
     WaterCornerBulkChecks.run();
     WaterBoundaryIndexChecks.run();
     WaterCornerRetryChecks.run();
