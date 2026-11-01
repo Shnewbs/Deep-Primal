@@ -1,26 +1,18 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev156-water-corner-predicate-admission",
-  "status": "completed-released",
-  "start": "2026-11-01T16:03:00Z",
-  "expires": "2026-11-01T16:29:00Z",
-  "source_head": "d0c4c1131774bdbc6de9d27c7d599de5f7d4b10e",
+  "worker": "hourly-deep-primal-engine-dev158-flow-clock-admission",
+  "status": "active",
+  "start": "2026-11-01T16:58:00Z",
+  "expires": "2026-11-01T17:25:00Z",
+  "source_head": "831abf36d52e1c393f5fcc88a9e25c56a97f8c80",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPredicateAdmissionChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowClockAdmissionChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/water-corner-predicate-admission-2026-11-01/**",
+    "docs/validation/engine-continuation/water-flow-clock-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-11-01T1530-dev155/REVIEW.md",
-  "note": "Bounded follow-up: make changedCorners and matches predicate admission consistent with sanitized corner/patchCorners; Java21 source excerpt regression, preserve all unrelated source.",
-  "lease_released": true,
-  "ended_at": "2026-11-01T16:08:00Z",
-  "source_commit": "52e9db049dcff0a0fac26bf5d59799d04d37fabd",
-  "source_version": "dev156-water-corner-predicate-admission-source-only",
-  "evidence": "docs/validation/engine-continuation/water-corner-predicate-admission-2026-11-01/README.md",
-  "tests": "Java21 isolated source excerpt 4307250 assertions; 50000 malformed + 50000 valid quads; 60 malformed five-bit lanes + 28 signed scalar extremes; two original-method negative controls rejected",
-  "full_build": false,
-  "qualified_jar": false,
-  "next": "Restore complete Java25/Gradle/NeoForge checkout; native V8 water save/reopen conservation and Vulkan/LOD hardware acceptance."
+  "audit": "docs/engine-hourly-audits/2026-11-01T1630-dev157/REVIEW.md",
+  "note": "Bounded Java21 full-class clock overflow regression; excludes organics, native water simulation, renderer, and audit-owned paths. No GitHub Actions or native build claim.",
+  "lease_released": false
 }
