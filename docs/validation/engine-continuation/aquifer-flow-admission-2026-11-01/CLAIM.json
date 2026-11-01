@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "worker": "hourly-deep-primal-engine-dev164-aquifer-flow-admission",
+  "status": "active",
+  "started_at": "2026-11-01T19:58:00Z",
+  "active_until": "2026-11-01T20:25:00Z",
+  "baseline_main": "6ea26073cc4573fbae36f6b037ccf4438d500154",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/Aquifer.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/AquiferFlowAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/aquifer-flow-admission-2026-11-01/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-01T1930-dev163/REVIEW.md",
+  "purpose": "Saturate overflowing nonnegative aquifer baseflow quota and reject nonfinite groundwater head/surface inputs before debit; preserve ordinary finite behavior.",
+  "exclusions": [
+    "renderer-vulkan",
+    "lod-engine",
+    "organics",
+    "worldgen revision files",
+    "native water runtime",
+    "auditor-owned paths"
+  ],
+  "build_authority": "No Actions. Full local Java25 build attempted only if dependencies available; otherwise report precise blocker.",
+  "note": "Current ENGINE-MAIN-WRITER-LEASE.json is completed-released and prior water work-state timestamp expired; narrow claim, SHA-checked updates only."
+}
