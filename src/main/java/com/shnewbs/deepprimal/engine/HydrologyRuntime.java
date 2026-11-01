@@ -94,11 +94,16 @@ public final class HydrologyRuntime {
     BlockPos cell = p.immutable();
     if (!l.isInWorldBounds(cell) || !l.hasChunkAt(cell)) return false;
     var before = l.getBlockState(cell);
-    boolean wrote = write(l, cell, requested);
+    var admission = WaterWriteScope.begin(l, cell.asLong(), before, requested);
+    boolean wrote;
+    try { wrote = write(l, cell, requested); }
+    finally { admission.close(); }
     // A callback may also move a caller-owned MutableBlockPos. Never let the
     // caller publish this cell's chemistry at that new coordinate.
     if (p.asLong() != cell.asLong() || !l.isInWorldBounds(cell) || !l.hasChunkAt(cell))
       throw new IllegalStateException("Finite-water accounted write lost loaded cell");
+    if (admission.hasUnexpectedTransition())
+      throw new IllegalStateException("Finite-water accounted write observed an unowned cell transition");
     var observed = l.getBlockState(cell);
     if (wrote) {
       if (!observed.equals(requested))

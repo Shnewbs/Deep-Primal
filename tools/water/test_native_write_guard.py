@@ -100,6 +100,10 @@ def main() -> int:
     parser.add_argument("--java", default="java")
     parser.add_argument("--release", type=int, default=21)
     parser.add_argument("--result", type=Path)
+    parser.add_argument("--candidate-only", action="store_true",
+                        help="Skip mutation controls for a focused custom fixture.")
+    parser.add_argument("--aba-control", action="store_true",
+                        help="Verify the custom fixture fails without the ABA barrier.")
     args = parser.parse_args()
     source_path = args.source or args.root / JAVA_PATH / "HydrologyRuntime.java"
     scope_path = args.scope or args.root / JAVA_PATH / "WaterWriteScope.java"
@@ -109,13 +113,14 @@ def main() -> int:
                "java": subprocess.run([args.java, "-version"], capture_output=True, text=True, timeout=15).stderr,
                "javac": subprocess.run([args.javac, "-version"], capture_output=True, text=True, timeout=15).stdout,
                "release": args.release,
+               "candidate_only": args.candidate_only,
                "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                 for p in (source_path, scope_path, fixture_path)}}
     run = lambda text, accounted=True: execute(text, scope, fixture, args.javac, args.java, args.release, accounted)
     results["integration_assertions"] = integration(source)
     results["candidate"] = run(source)
     ok = results["candidate"].get("run_exit") == 0
-    mutants = {
+    mutants = {} if args.candidate_only else {
         "accept_replaced_success": ("if (!observed.equals(requested))", "if (false)"),
         "omit_unload_guards": ("!l.hasChunkAt(cell)", "false"),
         "skip_compensation": ("    write(l, cell, before);", "    // mutation: skipped compensation"),
@@ -140,6 +145,14 @@ def main() -> int:
     except ValueError:
         results["integration_bypass_rejected"] = True
     ok &= results["integration_bypass_rejected"]
+    if args.aba_control:
+        guard = "if (admission.hasUnexpectedTransition())"
+        if guard not in source:
+            raise ValueError("ABA admission guard target absent")
+        record = run(source.replace(guard, "if (false)"))
+        record["rejected"] = record["compile_exit"] == 0 and record.get("run_exit", 0) != 0
+        results["aba_barrier_mutation"] = record
+        ok &= record["rejected"]
     if args.baseline:
         results["baseline"] = run(args.baseline.read_text(encoding="utf-8"), False)
         results["baseline_reproduces_failure"] = (results["baseline"]["compile_exit"] == 0

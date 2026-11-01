@@ -1,0 +1,9 @@
+{
+  "parent": "deepprimal:block/ground_material",
+  "textures": {
+    "top": "deepprimal:block/ground/grass_top",
+    "bottom": "deepprimal:block/ground/dirt_top",
+    "side": "deepprimal:block/ground/grass_side_material",
+    "particle_side": "deepprimal:block/ground/grass_side"
+  }
+}

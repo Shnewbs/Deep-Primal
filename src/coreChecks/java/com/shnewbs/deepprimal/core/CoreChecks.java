@@ -218,4 +218,3 @@ public final class CoreChecks {
     if (!value) throw new AssertionError(message);
   }
 }
-

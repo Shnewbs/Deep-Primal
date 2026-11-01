@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+[[mods]]
+modId="deepprimal_lod"
+version="${mod_version}"
+displayName="Deep Primal LOD"
+description='''Explored terrain capture, bounded streaming, mesh reduction and rendering. An independent Deep Primal feature module.'''
+[[dependencies.deepprimal_lod]]
+modId="minecraft"
+type="required"
+versionRange="[26.1.2]"
+side="BOTH"
+[[dependencies.deepprimal_lod]]
+modId="neoforge"
+type="required"
+versionRange="[26.1.2.122,26.1.3)"
+side="BOTH"
+[[dependencies.deepprimal_lod]]
+modId="deepprimal_graphics"
+type="required"
+versionRange="[${mod_version}]"
+ordering="AFTER"
+side="CLIENT"
+[[mixins]]
+config="deepprimal-lod.mixins.json"

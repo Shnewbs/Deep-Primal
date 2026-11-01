@@ -69,7 +69,8 @@ public final class EcotoneSurfaceFieldChecks {
         check(sampleA.equals(sampleB),"signed absolute-coord replay");
       }
     check(Double.doubleToLongBits(b.coverField(0,0))!=Double.doubleToLongBits(new EcotoneSurfaceField(99).coverField(0,0)),"seed separation");
-    var hard=new V8GeneratorSnapshot(1,91L,-64,256,graph(),new GroundSurfaceProfile("climate",3));
+    var ground = new GroundSurfaceProfile(1, List.of(GroundSurfaceProfile.Material.DIRT, GroundSurfaceProfile.Material.GRASS, GroundSurfaceProfile.Material.PODZOL), List.of(0.33, 0.66, 1.0), 0.1, 1.0, 0L, 4, "climate", -1.0, 1.0);
+    var hard=new V8GeneratorSnapshot(1,91L,-64,256,graph(),ground);
     reject(()->hard.prepare().previewEcotoneSurface(0,0,new Climate(100,.5,.5,.5,0),Domain.LAND));
     var soft=hard.withBlendPolicy(new V8BlendPolicy(1,Widths.PREVIEW));
     var prepared=soft.prepare();
@@ -79,7 +80,8 @@ public final class EcotoneSurfaceFieldChecks {
         EcotoneBlend.sample(c,Domain.LAND,Widths.PREVIEW),EcotoneSurfaceField.PREVIEW_R1);
     check(actual.equals(expected),"saved policy width and seed correctly wired");
     reject(()->prepared.previewEcotoneSurface(0,0,c,Domain.RIVER));
-    var reloaded=V8GeneratorSnapshot.CODEC.decode(V8GeneratorSnapshot.CODEC.encode(soft)).prepare();
+    var encoded=V8GeneratorSnapshot.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, soft).getOrThrow();
+    var reloaded=V8GeneratorSnapshot.CODEC.decode(com.mojang.serialization.JsonOps.INSTANCE, encoded).getOrThrow().getFirst().prepare();
     check(reloaded.previewEcotoneSurface(-16,16,c,Domain.LAND).equals(actual),"saved policy object-codec roundtrip parity");
     try (var exec=Executors.newFixedThreadPool(4)) {
       var jobs=new java.util.ArrayList<Callable<Boolean>>();

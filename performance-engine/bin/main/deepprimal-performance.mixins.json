@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.shnewbs.deepprimal.performance.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ChunkMapMixin",
+    "ChunkSaveBudgetMixin",
+    "ChunkTaskPriorityQueueMixin",
+    "DistanceManagerMixin",
+    "PlayerListMixin",
+    "PlayerChunkSenderMixin",
+    "MobIdleMixin"
+  ],
+  "client": [
+    "client.MemoryDistanceMixin",
+    "client.IntegratedMemoryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

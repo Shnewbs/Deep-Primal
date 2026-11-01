@@ -21,6 +21,7 @@ public final class WaterWriteScope {
     final Object before;
     final Object after;
     boolean consumed;
+    boolean unexpectedTransition;
 
     Write(Object level, long position, Object before, Object after) {
       this.level = level;
@@ -56,8 +57,12 @@ public final class WaterWriteScope {
     if (stack == null) return false;
     for (var write : stack) {
       if (write.level != level || write.position != position) continue;
-      if (write.consumed || !write.before.equals(before) || !write.after.equals(after))
+      if (write.consumed || !write.before.equals(before) || !write.after.equals(after)) {
+        for (var active : stack)
+          if (active.level == level && active.position == position)
+            active.unexpectedTransition = true;
         return false;
+      }
       write.consumed = true;
       return true;
     }
@@ -75,6 +80,8 @@ public final class WaterWriteScope {
       this.write = write;
       this.ownerThread = Thread.currentThread();
     }
+
+    public boolean hasUnexpectedTransition() { return write.unexpectedTransition; }
 
     @Override public void close() {
       if (closed || Thread.currentThread() != ownerThread || stack.peek() != write)

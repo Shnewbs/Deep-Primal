@@ -11,6 +11,7 @@ sourceSets {
     soilData {}
     coreChecks {
         compileClasspath += sourceSets.main.output
+        compileClasspath += configurations.compileClasspath
         runtimeClasspath += sourceSets.main.output
     }
     moduleValidation {

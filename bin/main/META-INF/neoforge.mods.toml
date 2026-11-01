@@ -1,0 +1,39 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="deepprimal"
+version="${mod_version}"
+displayName="Deep Primal"
+description='''Original continental terrain and volume-based water, explored-chunk LOD, custom graphics settings, and modular performance/rendering. Early alpha; use disposable new worlds. Existing block assets are temporary palettes.'''
+
+[[dependencies.deepprimal]]
+modId="neoforge"
+type="required"
+versionRange="[26.1.2.122,26.1.3)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.deepprimal]]
+modId="minecraft"
+type="required"
+versionRange="[26.1.2]"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="deepprimal.mixins.json"
+
+[[dependencies.deepprimal]]
+modId="deepprimal_performance"
+type="required"
+versionRange="[${mod_version}]"
+side="BOTH"
+
+[[dependencies.deepprimal]]
+modId="deepprimal_graphics"
+type="required"
+versionRange="[${mod_version}]"
+side="CLIENT"
+
