@@ -100,7 +100,10 @@ public final class DepositPlan {
         double x=(long)gx*d.spacing+d.spacing*(.2+.6*noise.hash(gx,gz,salt+1));
         double z=(long)gz*d.spacing+d.spacing*(.2+.6*noise.hash(gx,gz,salt+2));
         if(x+bound<ox||z+bound<oz||x-bound>(long)ox+15||z-bound>(long)oz+15)continue;
-        double value=d.min+noise.hash(gx,gz,salt+3)*(d.max-d.min),ground=surface.applyAsDouble(x,z);
+        double value=d.min+noise.hash(gx,gz,salt+3)*(d.max-d.min);
+        // Only DEPTH deposits require the surface callback. Other references
+        // must not invoke a potentially expensive or invalid unused callback.
+        double ground=d.reference==Reference.DEPTH?surface.applyAsDouble(x,z):0;
         double y=switch(d.reference) {
           case ABSOLUTE -> value;
           case DEPTH -> ground-value;
