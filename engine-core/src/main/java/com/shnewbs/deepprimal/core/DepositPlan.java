@@ -110,6 +110,10 @@ public final class DepositPlan {
             yield value-fold-fault;
           }
         };
+        // A nonfinite depth/surface must not compile a NaN-centered body:
+        // integer-cast bounds otherwise collapse to y=0 and NaN comparisons
+        // can incorrectly admit ore there. Finite saved geography is unchanged.
+        if (!Double.isFinite(y)) continue;
         double angle=noise.hash(gx,gz,salt+4)*Math.PI;
         double dip=d.shape==Shape.PIPE?Math.PI/2:d.shape==Shape.DISC?0:(noise.hash(gx,gz,salt+5)-.5)*.8;
         bodies.add(new Body(d,x,y,z,Math.cos(angle),Math.sin(angle),Math.cos(dip),Math.sin(dip),bound,d.contents.stream().mapToInt(Content::weight).sum(),salt));
