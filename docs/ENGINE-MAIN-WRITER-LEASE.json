@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev158-flow-clock-admission",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-01T16:58:00Z",
   "expires": "2026-11-01T17:25:00Z",
   "source_head": "831abf36d52e1c393f5fcc88a9e25c56a97f8c80",
@@ -14,5 +14,13 @@
   ],
   "audit": "docs/engine-hourly-audits/2026-11-01T1630-dev157/REVIEW.md",
   "note": "Bounded Java21 full-class clock overflow regression; excludes organics, native water simulation, renderer, and audit-owned paths. No GitHub Actions or native build claim.",
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-01T16:59:00Z",
+  "source_commit": "732c619f216951d1e02b048cea79340b9fbee646",
+  "source_version": "dev158-water-flow-clock-source-only",
+  "evidence": "docs/validation/engine-continuation/water-flow-clock-2026-11-01/README.md",
+  "tests": "Java21 complete class compile; 500011 assertions; original negative control failed as expected",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Restore Java25 Gradle and NeoForge dependency-resolved checkout for full JAR; validate native water save/reopen and Vulkan LOD."
 }
