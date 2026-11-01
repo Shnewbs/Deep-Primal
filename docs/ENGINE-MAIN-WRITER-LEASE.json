@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev148-far-terrain-admission",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-11-01T07:59:00Z",
   "expires": "2026-11-01T08:15:00Z",
   "source_head": "2edb3bb2a270c216e60cdb2fb4e36ad24b914a1a",
@@ -14,5 +14,14 @@
   ],
   "note": "Fail-closed horizon tile range admission for negative chunk radii and nonfinite camera coordinates; strict isolated Java21 parity and baseline reproduction; no native/GPU claims.",
   "audit": "docs/engine-hourly-audits/2026-11-01T0630-dev146/REVIEW.md",
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-01T08:00:00Z",
+  "source_commit": "335e4cd1ac22c1b4d7d3f1ceeec54c321b2bccbf",
+  "final_validation_commit": "bf89a755ab85a1bcfac99fb3bf983baa5f5d7981",
+  "source_version": "dev148-far-terrain-admission-source-only",
+  "evidence": "docs/validation/engine-continuation/far-terrain-admission-2026-11-01/README.md",
+  "tests": "Java21 strict isolated 300067 checks, baseline negative-radius reproduction, 300000 independent oracle cases",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Restore Java25 full checkout and Gradle/NeoForge dependencies; qualify a playable JAR; continue water persistence and native Vulkan/LOD acceptance"
 }
