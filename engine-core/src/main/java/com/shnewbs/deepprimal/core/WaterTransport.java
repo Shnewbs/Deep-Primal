@@ -39,6 +39,21 @@ public final class WaterTransport {
         && proposal.to() - moved == beforeTo;
   }
 
+  /** Preserve legacy rounding for ordinary corners; finite extremes can overflow b-a. */
+  private static double surfaceLerp(double a, double b, double t) {
+    double value = TerrainNoise.lerp(a, b, t);
+    if (!Double.isFinite(a) || !Double.isFinite(b)) return value;
+    // At exact tile edges, cancellation of huge finite heights can produce a
+    // wrong *finite* result. Endpoints must be exact for shared-page continuity.
+    if (t == 0.0) return a;
+    if (t == 1.0) return b;
+    // Ordinary interpolation retains the original arithmetic and rounding.
+    // Only overflow or an out-of-hull result uses the stable convex form.
+    if (Double.isFinite(value) && value >= Math.min(a, b) && value <= Math.max(a, b))
+      return value;
+    return a * (1.0 - t) + b * t;
+  }
+
   /** Shared global corners make independently rebuilt neighboring cells meet exactly. */
   public static double surface(
       double nw, double ne, double sw, double se, double center, double u, double v) {
@@ -47,7 +62,7 @@ public final class WaterTransport {
     // Volume belongs to transport; per-cell center corrections create repeated bowls/tents.
     // Corner heights may cross the cell's vertical boundary. Clipping each layer separately
     // gives two different world heights at the very same shared edge.
-    return TerrainNoise.lerp(TerrainNoise.lerp(nw, ne, u), TerrainNoise.lerp(sw, se, u), v);
+    return surfaceLerp(surfaceLerp(nw, ne, u), surfaceLerp(sw, se, u), v);
   }
 
   /** Nearby connected surface height relative to this Y, or NaN for a dry column. */
