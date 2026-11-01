@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev164-aquifer-flow-admission",
-  "status": "active",
+  "status": "completed-released",
   "started_at": "2026-11-01T19:58:00Z",
   "active_until": "2026-11-01T20:25:00Z",
   "baseline_main": "6ea26073cc4573fbae36f6b037ccf4438d500154",
@@ -22,5 +22,12 @@
     "auditor-owned paths"
   ],
   "build_authority": "No Actions. Full local Java25 build attempted only if dependencies available; otherwise report precise blocker.",
-  "note": "Current ENGINE-MAIN-WRITER-LEASE.json is completed-released and prior water work-state timestamp expired; narrow claim, SHA-checked updates only."
+  "note": "Current ENGINE-MAIN-WRITER-LEASE.json is completed-released and prior water work-state timestamp expired; narrow claim, SHA-checked updates only.",
+  "lease_released": true,
+  "ended_at": "2026-11-01T20:01:00Z",
+  "source_commit": "2bb335568102cf6b88caf8c2ba1605b741582c63",
+  "report": "docs/validation/engine-continuation/aquifer-flow-admission-2026-11-01/README.md",
+  "tests": "Java21 strict exact production source, 1,248,640 new assertions and 50,144 existing tick scenarios; 2/2 mutation controls rejected",
+  "full_build": false,
+  "qualified_jar": false
 }
