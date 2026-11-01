@@ -49,7 +49,9 @@ public final class WaterCornerPacket {
     write(b,p,pairs,(int)(now-ages[0])&65535,(int)(now-ages[1])&65535,(int)(now-ages[2])&65535,(int)(now-ages[3])&65535,(b.get(p+33)&127)>=64);
   }
   public static boolean matches(ByteBuffer b,int p,int n,int to,int from,int age,long now){
-    if(target(b,p,n)!=to)return false;int old=source(b,p,n);return old==to||age(b,p,n,now)>=100?from==to:old==from&&start(b,p,n)==(((int)now-age)&65535);
+    // Public scalar admission must agree with corner(), which maps invalid IDs to still water.
+    int safeTo=to>=0&&to<=16?to:16,safeFrom=from>=0&&from<=16?from:16;
+    if(target(b,p,n)!=safeTo)return false;int old=source(b,p,n);return old==safeTo||age(b,p,n,now)>=100?safeFrom==safeTo:old==safeFrom&&start(b,p,n)==(((int)now-age)&65535);
   }
   public static void corner(ByteBuffer b,int q,int n,int to,int from,int age,long now){
     int safeTo=to>=0&&to<=16?to:16,safeFrom=from>=0&&from<=16?from:16;
@@ -77,8 +79,10 @@ public final class WaterCornerPacket {
     int a = word1(b, q), c = word2(b, q), marker = b.get(q + 33), changed = 0;
     for (int n = 0; n < 4; n++) {
       if ((mask & (1 << n)) == 0) continue;
-      int pair = (int) (pairs / POW[n] % 289), to = (targets >>> (n * 5)) & 31;
-      int from = (sources >>> (n * 5)) & 31, oldStart = start(a, c, marker, n);
+      // Match patchCorners() admission: five-bit values 17..31 encode still water.
+      int pair = (int) (pairs / POW[n] % 289), to = Math.min(16, (targets >>> (n * 5)) & 31);
+      int from = Math.min(16, (sources >>> (n * 5)) & 31),
+          oldStart = start(a, c, marker, n);
       boolean same = pair / 17 == to &&
           (pair % 17 == to || (((int) now - oldStart) & 65535) >= 100
               ? from == to
