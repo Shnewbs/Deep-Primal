@@ -75,9 +75,16 @@ public final class Aquifer {
    * permeability. Never below the 32-unit dry-land quota; still debited from this finite store.
    */
   public static int baseflowUnits(int rainQuantaPerColumnSecond) {
-    return (int) Math.max(32, Math.max(0, rainQuantaPerColumnSecond) * 4096L * 18_000 / 114_000 / 2 / WaterAccount.SCALE);
+    long quota = Math.max(0, rainQuantaPerColumnSecond) * 4096L * 18_000
+        / 114_000 / 2 / WaterAccount.SCALE;
+    // Configured recharge can exceed the signed-int output range. Saturate rather
+    // than wrapping a positive finite supply quota into a negative discharge.
+    return (int) Math.min(Integer.MAX_VALUE, Math.max(32L, quota));
   }
   public int dischargeUnits(double datum, double surface, int receivingCapacity, int rate) {
+    // A malformed height must not turn infinity into an unbounded source pressure.
+    // All output is still debited from the finite groundwater account by the caller.
+    if (!Double.isFinite(datum) || !Double.isFinite(surface)) return 0;
     if (!active || ground.water() <= stop() || head(datum) <= surface || receivingCapacity <= 0) return 0;
     int pressure = (int) Math.ceil((head(datum) - surface) * 2);
     // Multiple outlets can deliver before step() next updates the drought latch.

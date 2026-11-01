@@ -15,6 +15,7 @@ public final class CoreChecks {
     BenchmarkReportWriteChecks.main(new String[0]);
     BenchmarkReportElapsedChecks.main(new String[0]);
     AquiferTickChecks.main(args);
+    AquiferFlowAdmissionChecks.main(new String[0]);
     EngineIntegrationTest.main(new String[0]);
     WaterSimulationMaterialChecks.main(new String[0]);
     WaterSimulationDryMaterialChecks.main(new String[0]);
