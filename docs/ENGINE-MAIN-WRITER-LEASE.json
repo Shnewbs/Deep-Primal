@@ -1,27 +1,20 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev143-sample-stats-duration-guard",
-  "status": "checkpointed",
-  "start": "2026-11-01T03:05:00Z",
-  "expires": "2026-11-01T03:35:00Z",
-  "source_head": "b693b3e5824974e811b7c269ea2755f3a299bb8c",
+  "worker": "hourly-deep-primal-engine-dev145-tick-window-invalid-duration",
+  "status": "active",
+  "start": "2026-11-01T05:06:00Z",
+  "expires": "2026-11-01T05:36:00Z",
+  "source_head": "2ccca88839f8d94436290349b3f9719f4255e5bb",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/SampleStatsDurationChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/TickWindowDurationChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/sample-stats-duration-2026-11-01/**",
+    "docs/validation/engine-continuation/tick-window-duration-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "note": "Isolated engine performance diagnostic guard for negative elapsed-time samples; no water/V8/renderer-native/LOD writer overlap, no GPU benchmark or JAR claim.",
-  "audit": "docs/engine-hourly-audits/2026-10-31T2330-dev139/REVIEW.md",
+  "note": "Discard invalid negative server tick durations rather than publishing fabricated zero-latency samples; preserve tick ring and nonnegative behavior. No native water/V8/Vulkan/LOD writer overlap.",
+  "audit": "docs/engine-hourly-audits/2026-11-01T0430-dev144/REVIEW.md",
   "full_build": false,
   "qualified_jar": false,
-  "lease_released": true,
-  "ended_at": "2026-11-01T03:06:00Z",
-  "source_version": "dev143-sample-stats-duration-source-only",
-  "source_commit": "d3ac646dcf3fd3a537b121602eb4c68f348c669a",
-  "evidence": "docs/validation/engine-continuation/sample-stats-duration-2026-11-01/README.md",
-  "tests": "Java21 isolated 120009 checks; 20000 randomized arrays; original negative control fails",
-  "independent_grade": 5,
-  "next": "Restore Java25/full Gradle private checkout; finite-water save/reopen and Vulkan/LOD native acceptance"
+  "lease_released": false
 }
