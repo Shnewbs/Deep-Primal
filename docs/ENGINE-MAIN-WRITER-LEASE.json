@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev143-sample-stats-duration-guard",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-11-01T03:05:00Z",
   "expires": "2026-11-01T03:35:00Z",
   "source_head": "b693b3e5824974e811b7c269ea2755f3a299bb8c",
@@ -15,5 +15,13 @@
   "note": "Isolated engine performance diagnostic guard for negative elapsed-time samples; no water/V8/renderer-native/LOD writer overlap, no GPU benchmark or JAR claim.",
   "audit": "docs/engine-hourly-audits/2026-10-31T2330-dev139/REVIEW.md",
   "full_build": false,
-  "qualified_jar": false
+  "qualified_jar": false,
+  "lease_released": true,
+  "ended_at": "2026-11-01T03:06:00Z",
+  "source_version": "dev143-sample-stats-duration-source-only",
+  "source_commit": "d3ac646dcf3fd3a537b121602eb4c68f348c669a",
+  "evidence": "docs/validation/engine-continuation/sample-stats-duration-2026-11-01/README.md",
+  "tests": "Java21 isolated 120009 checks; 20000 randomized arrays; original negative control fails",
+  "independent_grade": 5,
+  "next": "Restore Java25/full Gradle private checkout; finite-water save/reopen and Vulkan/LOD native acceptance"
 }
