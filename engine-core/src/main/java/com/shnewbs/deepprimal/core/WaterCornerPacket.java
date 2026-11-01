@@ -32,9 +32,20 @@ public final class WaterCornerPacket {
     b.put(p+33,(byte)(128|normal));
   }
   public static void fromLegacy(ByteBuffer b,int p,long now){
-    int to=Math.round(-b.getFloat(p+16))-2,from=Math.round(b.getFloat(p+20));
+    float targetPacket=b.getFloat(p+16),sourcePacket=b.getFloat(p+20);
+    boolean finite=Float.isFinite(targetPacket)&&Float.isFinite(sourcePacket);
+    int to=finite?Math.round(-targetPacket)-2:0,from=finite?Math.round(sourcePacket):0;
     int[] ages={(b.getShort(p+26)>>>8)&255,(b.getShort(p+28)>>>8)&255,(b.getShort(p+30)>>>8)&255,((to>>>20)&15)|(((from>>>20)&7)<<4)};
-    long pairs=0;for(int n=0;n<4;n++)pairs+=(((to>>>(n*5))&31)*17L+((from>>>(n*5))&31))*POW[n];
+    long pairs=0;
+    // Each base-289 digit must encode only a 0..16 direction pair. A legacy
+    // five-bit ID of 17..31 would carry into the adjacent corner otherwise.
+    // Nonfinite legacy packets fail closed to still water instead of animating
+    // arbitrary flow directions.
+    for(int n=0;n<4;n++){
+      int target=finite?Math.min(16,(to>>>(n*5))&31):16;
+      int source=finite?Math.min(16,(from>>>(n*5))&31):16;
+      pairs+=(target*17L+source)*POW[n];
+    }
     write(b,p,pairs,(int)(now-ages[0])&65535,(int)(now-ages[1])&65535,(int)(now-ages[2])&65535,(int)(now-ages[3])&65535,(b.get(p+33)&127)>=64);
   }
   public static boolean matches(ByteBuffer b,int p,int n,int to,int from,int age,long now){
