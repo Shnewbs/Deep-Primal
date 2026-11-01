@@ -25,7 +25,13 @@ public final class WorldGenPipeline {
       synchronized(this){
         pending.remove(key);
         if(stopped)failure=new CancellationException("pipeline stopped");
-        else if(failure==null)cache.put(key,chunk,chunk.payloadBytes());
+        else if(failure==null){
+          // An invalid successful result or a rejected cache admission must not
+          // strand the shared query future (whenComplete's return value is ignored).
+          if(chunk==null)failure=new IllegalStateException("materializer returned null chunk");
+          else try{cache.put(key,chunk,chunk.payloadBytes());}
+          catch(RuntimeException cacheFailure){failure=cacheFailure;}
+        }
       }
       // User continuations may call back into EngineCore: never run them under this lock.
       if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
