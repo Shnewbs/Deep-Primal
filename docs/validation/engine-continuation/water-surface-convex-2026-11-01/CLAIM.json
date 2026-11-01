@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "owner": "hourly-engineering-dev168",
+  "status": "active",
+  "started_at": "2026-11-01T22:00:16Z",
+  "active_until": "2026-11-01T22:25:00Z",
+  "baseline": "608c6ee68aef65418f1b323dbee94042bb519223",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceConvexAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-surface-convex-2026-11-01/"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-01T2130-dev167/REVIEW.md",
+  "intent": "Fix overflow of finite water-corner interpolation without changing ordinary geometry; isolated validation only until full Java25 build available.",
+  "no_actions": true
+}
