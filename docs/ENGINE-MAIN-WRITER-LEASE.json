@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev149-visual-culling-admission",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-11-01T10:00:00Z",
   "expires": "2026-11-01T10:25:00Z",
   "source_head": "b05984693a47422348665a2c4756a8da41df6efd",
@@ -14,5 +14,14 @@
   ],
   "note": "Fail-closed malformed visual culling AABB/camera admission; avoid independent water auditor scope. Java21 isolated tests and parity, full Java25/NeoForge unavailable.",
   "audit": "docs/engine-hourly-audits/2026-11-01T0830-dev148/REVIEW.md",
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-01T10:06:00Z",
+  "source_commit": "ea0420bba981ae32091c7713e6085bfeabc1030c",
+  "final_validation_commit": "2a19e892897dfcb671e6debe857518a673c1f58a",
+  "source_version": "dev149-visual-culling-admission-source-only",
+  "evidence": "docs/validation/engine-continuation/visual-culling-admission-2026-11-01/README.md",
+  "tests": "Java21 strict isolated 350057 checks, 250000 finite parity cases, 4/4 negative controls",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Restore Java25 full checkout/Gradle/NeoForge, qualify playable JAR; V8 persistence and native Vulkan/LOD/water acceptance."
 }
