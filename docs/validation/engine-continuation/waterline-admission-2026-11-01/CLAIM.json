@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "owner": "deep-primal-hourly-engineering",
-  "status": "active",
+  "status": "completed-released",
   "claimed_at": "2026-11-01T04:00:00Z",
   "active_until": "2026-11-01T04:55:00Z",
   "baseline": "0e7ecfdf2e084fae0f149d816f16aba5ac29f75a",
@@ -20,5 +20,14 @@
     "graphics",
     "gradle.properties"
   ],
-  "verification": "isolated Java21 strict compile and deterministic differential; full Java25 NeoForge and GPU not claimed"
+  "verification": "isolated Java21 strict compile and deterministic differential; full Java25 NeoForge and GPU not claimed",
+  "lease_released": true,
+  "released_at": "2026-11-01T04:00:00Z",
+  "evidence": "docs/validation/engine-continuation/waterline-admission-2026-11-01/README.md",
+  "not_claimed": [
+    "full NeoForge build",
+    "new playable JAR",
+    "native Minecraft acceptance",
+    "new whole-engine grade"
+  ]
 }

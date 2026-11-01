@@ -61,14 +61,25 @@ public final class WaterDynamics {
     return t * t * (3 - 2 * t);
   }
 
+  /** A bad sampled waterline must not silently place a source at Y=0 or a saturated int edge. */
+  private static double checkedWaterline(double waterline) {
+    double target = waterline - 1.0 / 9;
+    // floor(target) must fit in a native integer Y. Test the half-open range without
+    // narrowing the double first; casting NaN/Infinity silently returns an integer.
+    if (!Double.isFinite(target) || target < Integer.MIN_VALUE
+        || target >= (double) Integer.MAX_VALUE + 1.0)
+      throw new IllegalArgumentException("Nonfinite or unrepresentable waterline: " + waterline);
+    return target;
+  }
+
   /** Native water surface quantization; integer waterlines preserve source-water height. */
   public static int surfaceY(double waterline) {
-    return (int) Math.floor(waterline - 1.0 / 9);
+    return (int) Math.floor(checkedWaterline(waterline));
   }
 
   public static int surfaceLevel(double waterline) {
-    double target = waterline - 1.0 / 9;
-    int amount = (int) Math.clamp(Math.round((target - Math.floor(target)) * 9), 1, 8);
+    double target = checkedWaterline(waterline);
+    int amount = Math.clamp(Math.round((target - Math.floor(target)) * 9), 1, 8);
     return 8 - amount;
   }
 
