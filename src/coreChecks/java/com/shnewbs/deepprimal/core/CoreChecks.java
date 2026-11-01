@@ -10,6 +10,7 @@ public final class CoreChecks {
     VisualBudgetFrameLimitChecks.main(new String[0]);
     FrameIntervalChecks.main(args);
     SampleStatsDurationChecks.main(new String[0]);
+    BenchmarkReportWriteChecks.main(new String[0]);
     AquiferTickChecks.main(args);
     EngineIntegrationTest.main(new String[0]);
     WaterSimulationMaterialChecks.main(new String[0]);

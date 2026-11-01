@@ -28,13 +28,15 @@ public record BenchmarkReport(int[] xs, int[] zs, long[] requestNanos, double el
             ticks.p95Ms(), ticks.maxMs(), gcCount, gcMillis, seed, dimension);
     }
     public void write(Path directory) throws Exception {
+        // Reject invalid telemetry before creating directories or partial CSV files.
+        String reportSummary = summary();
         Files.createDirectories(directory);
         String stamp = System.currentTimeMillis() + "-" + UUID.randomUUID().toString().substring(0, 8);
         StringBuilder csv = new StringBuilder("chunk_x,chunk_z,request_to_ready_ms\n");
         for (int i = 0; i < requestNanos.length; i++) csv.append(xs[i]).append(',').append(zs[i])
             .append(',').append(requestNanos[i] / 1e6).append('\n');
         Files.writeString(directory.resolve(stamp + ".csv"), csv);
-        Files.writeString(directory.resolve(stamp + ".txt"), summary() + "\n"
+        Files.writeString(directory.resolve(stamp + ".txt"), reportSummary + "\n"
             + "Request latency includes tick polling, queueing, neighbor generation and I/O; not pure generator CPU.\n"
             + "Tick timings measure event Pre-to-Post; heap peak is observed at ticks, not an exact allocation peak.\n"
             + "Java=" + System.getProperty("java.version") + " processors=" + Runtime.getRuntime().availableProcessors()
