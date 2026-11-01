@@ -25,6 +25,9 @@ public final class WaterDynamics {
   }
 
   public static int mix(int a, int b, double amount) {
+    // Invalid climate/opacity samples must not round NaN channels to black.
+    // Preserve the original color until a finite blend factor is available.
+    if (!Double.isFinite(amount)) return a & 0xFFFFFF;
     double t = Math.clamp(amount, 0, 1);
     int r = (int) Math.round((a >> 16 & 255) * (1 - t) + (b >> 16 & 255) * t);
     int g = (int) Math.round((a >> 8 & 255) * (1 - t) + (b >> 8 & 255) * t);
@@ -33,13 +36,19 @@ public final class WaterDynamics {
   }
 
   public static int palette(int nativeColor, double temperature, double rainfall) {
+    // Invalid climate fields cannot be interpreted as a real biome tint.
+    if (!Double.isFinite(temperature) || !Double.isFinite(rainfall))
+      return nativeColor & 0xFFFFFF;
     int cold = mix(nativeColor, 0x63a9b6, Math.clamp((.5 - temperature) * 1.5, 0, .8));
     return mix(cold, 0x77724a, Math.clamp((temperature - .8) * rainfall * .65, 0, .7));
   }
 
   public static double wave(double x, double z, double ticks, double storm) {
+    // Do not publish NaN displacement to a water vertex buffer.
+    if (!Double.isFinite(x) || !Double.isFinite(z)
+        || !Double.isFinite(ticks) || !Double.isFinite(storm)) return 0;
     double p = ticks * .045;
-    return (Math.sin(x * .095 + z * .031 - p)
+    double displacement = (Math.sin(x * .095 + z * .031 - p)
             + .45 * Math.sin(z * .17 - x * .04 - p * 1.41)
             + .2 * Math.sin(x * .29 + z * .12 - p * 1.9)
             + .12 * Math.sin(x * .37 - z * .23 - p * 2.3)
@@ -49,6 +58,8 @@ public final class WaterDynamics {
             + .02 * Math.sin(z * 1.07 - x * .73 - p * 4.1))
         * (1.65 / 1.95)
         * (.10 + Math.clamp(storm, 0, 1) * .15);
+    // Finite but extreme coordinates can overflow the intermediate phase sums.
+    return Double.isFinite(displacement) ? displacement : 0;
   }
 
   public static double oceanHeight(double base, double continent, double noise, int floor) {
