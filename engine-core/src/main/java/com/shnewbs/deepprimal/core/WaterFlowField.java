@@ -15,16 +15,29 @@ public final class WaterFlowField {
     return (int) Math.round(Math.atan2(vz, vx) * (8 / Math.PI)) & 15;
   }
   /** Four 5-bit IDs plus the low/high four/three bits of the fourth age.
-   * The valid ID range leaves every encoded integer strictly below 2^24. */
+   * Only IDs 0..16 and ages 0..100 fit the shader's exact-float packet. */
+  private static int safeDirections(int packed) {
+    // Strip unrelated high bits and map each unsupported direction to still water.
+    // Do not allow a bad lane to corrupt its neighboring corners or age bits.
+    int result = packed & 0xfffff;
+    for (int shift = 0; shift < 20; shift += 5) {
+      int id = (result >>> shift) & 31;
+      if (id > 16) result = (result & ~(31 << shift)) | (16 << shift);
+    }
+    return result;
+  }
   public static float targets(int directions, int fourthAge) {
-    return -(directions | ((fourthAge & 15) << 20)) - 2f;
+    int age = Math.clamp(fourthAge, 0, WaterSurfaceTransition.MILLIS);
+    return -(safeDirections(directions) | ((age & 15) << 20)) - 2f;
   }
   public static float sources(int directions, int fourthAge) {
-    return directions | ((fourthAge >>> 4) << 20);
+    int age = Math.clamp(fourthAge, 0, WaterSurfaceTransition.MILLIS);
+    return safeDirections(directions) | ((age >>> 4) << 20);
   }
   /** Preserve an active height morph; expired offsets need no more than its full window. */
   public static int heightClock(int offset, int cornerAge) {
-    return (Math.clamp(offset, -WaterSurfaceTransition.MILLIS, 0) & 255) | (cornerAge << 8);
+    return (Math.clamp(offset, -WaterSurfaceTransition.MILLIS, 0) & 255)
+        | (Math.clamp(cornerAge, 0, WaterSurfaceTransition.MILLIS) << 8);
   }
   private WaterFlowField() {}
 }
