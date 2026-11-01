@@ -34,11 +34,17 @@ public final class WaterwayShape {
   public static double coastHeight(
       double original, double continents, double erosion, int seaLevel) {
     double shelf = seaLevel + 3.0 + 150.0 * (continents + 0.15);
-    return original + coastWeight(continents, erosion) * (shelf - original);
+    double weight = coastWeight(continents, erosion);
+    // Full-strength blends must hit the target even when a finite upstream Y
+    // exceeds double's unit precision; cancellation otherwise yields a wrong Y.
+    if (weight == 1.0 && Math.abs(original) >= 0x1.0p53) return shelf;
+    return original + weight * (shelf - original);
   }
 
   public static double riverHeight(double coast, double continents, double ridges, double bed) {
-    return coast - riverWeight(continents, ridges) * Math.max(0.0, coast - bed);
+    double weight = riverWeight(continents, ridges);
+    if (weight == 1.0 && coast > bed && Math.abs(coast) >= 0x1.0p53) return bed;
+    return coast - weight * Math.max(0.0, coast - bed);
   }
 
   public static double height(
@@ -60,7 +66,9 @@ public final class WaterwayShape {
     double river = riverHeight(coast, continents, ridges, bed);
     // Branches share the parent's bed. Neither channel raises the seabed or
     // leaves a lip across its river mouth. Their shoulders fade continuously.
-    double shaped = river - streamWeight(continents, ridges, tributaries) * Math.max(0.0, river - bed);
+    double stream = streamWeight(continents, ridges, tributaries);
+    double shaped = stream == 1.0 && river > bed && Math.abs(river) >= 0x1.0p53
+        ? bed : river - stream * Math.max(0.0, river - bed);
     // Even finite but unbounded upstream values can overflow intermediate shelf
     // arithmetic. Fail closed instead of writing a nonfinite terrain height.
     return Double.isFinite(shaped) ? shaped : original;
