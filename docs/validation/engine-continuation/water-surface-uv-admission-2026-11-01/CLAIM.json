@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "owner": "hourly-deep-primal-engine-dev170",
+  "status": "active",
+  "started_at": "2026-11-01T23:02:00Z",
+  "active_until": "2026-11-01T23:25:00Z",
+  "baseline": "eac7a372b24351f6ec6270d4ee8899e69eb4d8aa",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceUvAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-surface-uv-admission-2026-11-01/"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-01T2230-dev169/REVIEW.md",
+  "excluded": [
+    "organics",
+    "renderer-vulkan",
+    "lod-engine",
+    "native water",
+    "auditor-owned paths"
+  ],
+  "no_actions": true
+}
