@@ -18,6 +18,7 @@ public final class CoreChecks {
     EngineIntegrationTest.main(new String[0]);
     WaterSimulationMaterialChecks.main(new String[0]);
     WaterSimulationDryMaterialChecks.main(new String[0]);
+    WaterSimulationMaterialAdmissionChecks.main(new String[0]);
     WaterDynamicsSurfaceAdmissionChecks.main(new String[0]);
     WaterDynamicsNativeTopChecks.main(new String[0]);
     CacheLifecycleChecks.main(new String[0]);
