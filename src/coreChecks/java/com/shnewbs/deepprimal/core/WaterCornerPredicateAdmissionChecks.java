@@ -123,6 +123,13 @@ public final class WaterCornerPredicateAdmissionChecks {
       from[lane] = invalid;
       run(still, still, oldAges, to, from, ages, 1 << lane, 65535L);
     }
+    // The scalar public API accepts signed ints, unlike packed five-bit bulk lanes.
+    ByteBuffer stillPacket = packet(new int[]{16, 16, 16, 16},
+        new int[]{16, 16, 16, 16}, new int[]{0, 0, 0, 0}, 12345L);
+    for (int invalid : new int[]{-100, -1, 17, 31, 32, Integer.MIN_VALUE, Integer.MAX_VALUE})
+      for (int lane = 0; lane < 4; lane++)
+        need(WaterCornerPacket.matches(stillPacket, 0, lane, invalid, invalid, 0, 12345L),
+            "signed scalar admission mismatch");
     System.out.println("WATER_CORNER_PREDICATE_ADMISSION_PASS assertions=" + checks
         + " randomizedMalformed=50000 randomizedValid=50000 invalidLanes=60");
   }
