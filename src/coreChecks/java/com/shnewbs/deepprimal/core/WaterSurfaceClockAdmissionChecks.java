@@ -70,7 +70,7 @@ public final class WaterSurfaceClockAdmissionChecks {
     for (int scenario = 0; scenario < 2_000; scenario++) {
       float initial = parity.nextInt(17) / 16f;
       WaterSurfaceTransition actual = new WaterSurfaceTransition(initial, 0);
-      LegacySurface legacy = new LegacySurface(initial, 0);
+      BaselineWaterSurfaceTransition legacy = new BaselineWaterSurfaceTransition(initial, 0);
       long now = 0;
       for (int step = 0; step < 100; step++) {
         now += parity.nextInt(75);
