@@ -2,7 +2,7 @@
   "schema": 1,
   "claim_id": "engine-20261101T1758-water-surface-clock",
   "owner": "Deep Primal hourly engineering",
-  "status": "active",
+  "status": "completed-released",
   "claimed_utc": "2026-11-01T17:58:25Z",
   "expires_utc": "2026-11-01T18:25:00Z",
   "baseline_main": "f6aa6a7b5f803e3d13c84e8b95c9a8f00ddd4869",
@@ -16,5 +16,14 @@
   "coordination": "Dev159 independent auditor owns WaterCornerPacket and review only; organics owns SoilNutrientLedger. Prior engine main writer lease completed-released; historical WATER-ENGINE-WORK-STATE expired Oct28. No native renderer or gameplay file overlap.",
   "purpose": "Saturate signed-long animation clocks and settling deadlines for finite water-surface presentation; preserve ordinary timing parity. Java21 isolated tests; no Actions or full build claims.",
   "qualified_jar": false,
-  "lease_released": false
+  "lease_released": true,
+  "released_utc": "2026-11-01T18:07:00Z",
+  "production_commit": "bbdccca6e6377c0c62722ce2344033fab27a5e49",
+  "test_commit": "d71e7bc1fd711926626ea8eebf6f172e0d213e8a",
+  "core_registry_commit": "05528bf64df35ca77e5a41977b6031c2c0e13f21",
+  "report_commit": "01a60475c5db82b88fc22cde21cc3c2250cc0775",
+  "isolated_assertions": 4200021,
+  "negative_variants_rejected": 2,
+  "previous_jar_preserved": true,
+  "evidence_zip_sha256": "85af93695d15dc3aadfcbfb826c618126d28cd9a5f213de96c74300bf0aeba19"
 }
