@@ -60,6 +60,7 @@ public final class CoreChecks {
     WaterSurfaceFiniteChecks.main(new String[0]);
     WaterSurfaceOverflowChecks.main(new String[0]);
     WaterFlowTextureChecks.run();
+    WaterSnapshotDirectionChecks.main(new String[0]);
     WaterFlowDirectionAdmissionChecks.main(new String[0]);
     WaterFlowBlendChecks.run();
     WaterFlowFieldChecks.run();

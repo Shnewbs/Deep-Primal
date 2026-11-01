@@ -22,7 +22,9 @@ public final class WaterPatchMesher {
     }
 
     public int direction(int x, int y, int z) {
-      return flow == null ? 16 : flow[index(x, y, z)] & 255;
+      int raw = flow == null ? 16 : flow[index(x, y, z)] & 255;
+      // A malformed captured byte is still water, never an undefined material ID.
+      return raw <= 16 ? raw : 16;
     }
 
     public int water(int x, int y, int z) {
