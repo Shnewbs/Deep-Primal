@@ -18,10 +18,14 @@ public final class V8ReliefJoinV7 {
 
   public static List<Node> nodes() {
     return List.of(
+        // Bands are expressed inside the engine's actual continentalness domain
+        // (warped fBm reaching roughly -0.28..+0.28). The join must open after
+        // the frozen coastal guard (.08) and close by the full-inland threshold
+        // (.16) or it leaks across the whole interior and never closes.
         Node.bounded("relief7_foothill_entry", Op.SMOOTHSTEP,
-            "continentalness", .10, .34),
+            "continentalness", .08, .12),
         Node.bounded("relief7_highland_entry", Op.SMOOTHSTEP,
-            "continentalness", .56, .80),
+            "continentalness", .12, .16),
         Node.operation("relief7_negative_highland", Op.MULTIPLY,
             "relief7_highland_entry", "negative_one"),
         Node.operation("relief7_low_highland", Op.ADD,

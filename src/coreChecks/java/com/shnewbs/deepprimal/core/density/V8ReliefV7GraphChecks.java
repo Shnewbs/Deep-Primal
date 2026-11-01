@@ -59,14 +59,15 @@ public final class V8ReliefV7GraphChecks {
           require(bits(h0) == bits(h7), "historical protected coast changed");
           require(bits(h6) == bits(h7), "V6 protected coast changed");
           require(delta == 0.0, "coastal join not zero");
-        } else if (c > .10 && c < .34) {
-          transition++;
-          require(window > 0, "missing broad transition window");
-          if (bits(h6) != bits(h7)) changed++;
-        } else if (c >= .80) {
+        // The retuned join closes at the actual full-inland threshold.
+        } else if (c >= .16) {
           highland++;
           require(bits(h6) == bits(h7), "protected highland changed");
           require(delta == 0.0, "highland join not zero");
+        } else if (c > .08) {
+          transition++;
+          require(window > 0, "missing broad transition window");
+          if (bits(h6) != bits(h7)) changed++;
         }
         double adjacent = v7.channel("height", x + 1, 96, z);
         require(Double.isFinite(adjacent) && Math.abs(adjacent - h7) < 24,
@@ -109,7 +110,7 @@ public final class V8ReliefV7GraphChecks {
       survey(seed, false);
     survey(73L, true);
     chunkOrder(73L);
-    require(coast > 100 && transition > 20,
+    require(coast > 100 && transition > 20 && highland > 10,
         "incomplete multi-seed/climate V7 survey: coast="+coast+
             " transition="+transition+" highland="+highland);
     require(changed > 20, "V7 did not correct the narrow V6 join: changed="+changed);

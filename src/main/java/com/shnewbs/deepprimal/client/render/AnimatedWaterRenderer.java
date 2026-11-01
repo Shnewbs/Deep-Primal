@@ -310,10 +310,12 @@ public final class AnimatedWaterRenderer {
     retirePresentation();
     retryCornerPublications();
     // Retirement consumes this frame's shared admission budget; expiry service is mandatory.
+    // Resident water keeps this budget every frame: the upload and dispatch turns
+    // below run before speculative discovery, which gets its own slice further down.
     long deadline = now + 2_000_000;
     int uploadedThisFrame = 0;
     for (var it = work.iterator();
-        it.hasNext() && uploadedThisFrame < 2 && System.nanoTime() < deadline; ) {
+        it.hasNext() && uploadedThisFrame < 4 && System.nanoTime() < deadline; ) {
       var future = it.next();
       if (!future.isDone()) continue;
       it.remove();
@@ -335,32 +337,6 @@ public final class AnimatedWaterRenderer {
       }
     }
     var camera = event.getCamera().position();
-    var view = ((LevelRendererAccessor) mc.levelRenderer).deepprimal$viewArea();
-    if (view != null)
-      for (int n = 0;
-          n < Math.min(512, view.sections.length) && System.nanoTime() < deadline;
-          n++) {
-        var section = view.sections[Math.floorMod(discovery++, view.sections.length)];
-        long key = section.getSectionNode();
-        if (pages.containsKey(key)
-            || hidden.contains(key)
-            || !event.getFrustum().isVisible(section.getBoundingBox())) continue;
-        int x = SectionPos.x(key), y = SectionPos.y(key), z = SectionPos.z(key);
-        if (y < level.getMinSectionY() || y >= level.getMaxSectionY()) continue;
-        var chunk = level.getChunkSource().getChunk(x, z, false);
-        if (chunk == null || chunk instanceof EmptyLevelChunk) continue;
-        if (chunk
-            .getSection(chunk.getSectionIndexFromSectionY(y))
-            .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
-          Page p = new Page(key);
-          if (pages.size() >= MAX_PAGES) evict(camera, p);
-          if (pages.size() < MAX_PAGES) {
-            if (fresh.remove(key)) p.snapshot = EMPTY;
-            pages.put(key, p);
-            dirty.add(key);
-          }
-        }
-      }
     var visible = new ArrayList<Page>();
     for (var it = pages.values().iterator(); it.hasNext(); ) {
       Page page = it.next();
@@ -382,8 +358,8 @@ public final class AnimatedWaterRenderer {
     // Existing dirty pages get turns in FIFO order; a newer update never cancels coherent work.
     int attempts = dirty.size() + urgent.size(), submitted = 0;
     while (attempts-- > 0
-        && submitted < 2
-        && work.size() < 4
+        && submitted < 4
+        && work.size() < 6
         && (!dirty.isEmpty() || !urgent.isEmpty())
         && System.nanoTime() < deadline) {
       var queue =
@@ -423,6 +399,36 @@ public final class AnimatedWaterRenderer {
                       page,
                       snapshot,
                       WaterPatchMesher.build(snapshot, before, smooth))));
+    }
+    // Speculative prefetch runs last on its own slice so it can never starve the
+    // resident water updates above; a starved page is what reads as stutter.
+    var view = ((LevelRendererAccessor) mc.levelRenderer).deepprimal$viewArea();
+    if (view != null) {
+      long discoveryDeadline = System.nanoTime() + 1_000_000;
+      for (int n = 0;
+          n < Math.min(512, view.sections.length) && System.nanoTime() < discoveryDeadline;
+          n++) {
+        var section = view.sections[Math.floorMod(discovery++, view.sections.length)];
+        long key = section.getSectionNode();
+        if (pages.containsKey(key)
+            || hidden.contains(key)
+            || !event.getFrustum().isVisible(section.getBoundingBox())) continue;
+        int x = SectionPos.x(key), y = SectionPos.y(key), z = SectionPos.z(key);
+        if (y < level.getMinSectionY() || y >= level.getMaxSectionY()) continue;
+        var chunk = level.getChunkSource().getChunk(x, z, false);
+        if (chunk == null || chunk instanceof EmptyLevelChunk) continue;
+        if (chunk
+            .getSection(chunk.getSectionIndexFromSectionY(y))
+            .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
+          Page p = new Page(key);
+          if (pages.size() >= MAX_PAGES) evict(camera, p);
+          if (pages.size() < MAX_PAGES) {
+            if (fresh.remove(key)) p.snapshot = EMPTY;
+            pages.put(key, p);
+            dirty.add(key);
+          }
+        }
+      }
     }
     synchronizeVisibleHeights(visible);
     visible.sort(Comparator.comparingDouble((Page p) -> p.bounds.distanceToSqr(camera)).reversed());
