@@ -120,7 +120,9 @@ public final class WaterCornerPacket {
    * Full monotonic elapsed time disambiguates the queued16-bit timestamps across later wraps. */
   public static void rebaseCorners(ByteBuffer current, int dst, ByteBuffer queued, int src,
       int mask, long queuedAt, long now) {
-    long elapsed = Math.max(0, now - queuedAt);
+    // Saturate positive signed-long clock overflow; never revive expired queued corners.
+    long elapsed = now <= queuedAt ? 0 : now - queuedAt;
+    if (elapsed < 0) elapsed = Long.MAX_VALUE;
     int targets = 0, sources = 0, ages = 0;
     for (int n = 0; n < 4; n++) {
       int to = target(queued, src, n);
