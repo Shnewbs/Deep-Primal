@@ -1,27 +1,18 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev148-far-terrain-admission",
-  "status": "checkpointed",
-  "start": "2026-11-01T07:59:00Z",
-  "expires": "2026-11-01T08:15:00Z",
-  "source_head": "2edb3bb2a270c216e60cdb2fb4e36ad24b914a1a",
+  "worker": "hourly-deep-primal-engine-dev149-visual-culling-admission",
+  "status": "active",
+  "start": "2026-11-01T10:00:00Z",
+  "expires": "2026-11-01T10:25:00Z",
+  "source_head": "b05984693a47422348665a2c4756a8da41df6efd",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/FarTerrain.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/FarTerrainAdmissionChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/VisualBudget.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/VisualBudgetOutsideChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/far-terrain-admission-2026-11-01/**",
+    "docs/validation/engine-continuation/visual-culling-admission-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "note": "Fail-closed horizon tile range admission for negative chunk radii and nonfinite camera coordinates; strict isolated Java21 parity and baseline reproduction; no native/GPU claims.",
-  "audit": "docs/engine-hourly-audits/2026-11-01T0630-dev146/REVIEW.md",
-  "lease_released": true,
-  "ended_at": "2026-11-01T08:00:00Z",
-  "source_commit": "335e4cd1ac22c1b4d7d3f1ceeec54c321b2bccbf",
-  "final_validation_commit": "bf89a755ab85a1bcfac99fb3bf983baa5f5d7981",
-  "source_version": "dev148-far-terrain-admission-source-only",
-  "evidence": "docs/validation/engine-continuation/far-terrain-admission-2026-11-01/README.md",
-  "tests": "Java21 strict isolated 300067 checks, baseline negative-radius reproduction, 300000 independent oracle cases",
-  "full_build": false,
-  "qualified_jar": false,
-  "next": "Restore Java25 full checkout and Gradle/NeoForge dependencies; qualify a playable JAR; continue water persistence and native Vulkan/LOD acceptance"
+  "note": "Fail-closed malformed visual culling AABB/camera admission; avoid independent water auditor scope. Java21 isolated tests and parity, full Java25/NeoForge unavailable.",
+  "audit": "docs/engine-hourly-audits/2026-11-01T0830-dev148/REVIEW.md",
+  "lease_released": false
 }
