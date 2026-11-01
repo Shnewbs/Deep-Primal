@@ -1,26 +1,17 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev141-section-slots",
-  "status": "checkpointed",
-  "start": "2026-11-01T01:04:44Z",
-  "expires": "2026-11-01T01:24:44Z",
-  "source_head": "837312fca6fa2e0a31362c12b1888be496c46204",
+  "worker": "hourly-deep-primal-engine-dev142-water-surface-finite-guard",
+  "status": "active",
+  "start": "2026-11-01T02:01:03.332Z",
+  "expires": "2026-11-01T02:23:03.332Z",
+  "source_head": "bda1b3c588a7e0f9efcc1dfbfa614fafb6423ace",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/DistancePolicy.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/DistancePolicySlotChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSurfaceTransition.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceFiniteChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/distance-policy-slots-2026-11-01/README.md",
+    "docs/validation/engine-continuation/water-surface-finite-2026-11-01/README.md",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-10-31T1730-dev140/REVIEW.md",
-  "note": "Bounded isolated section-slot overflow and invalid-window correctness. No renderer, water, V8, native, or owner build resources. Java21 isolated baseline negative reproduced and corrected test passed. No JAR claim.",
-  "lease_released": true,
-  "ended_at": "2026-11-01T01:06:00Z",
-  "source_version": "dev141-section-slot-accounting-source-only",
-  "evidence": "docs/validation/engine-continuation/distance-policy-slots-2026-11-01/README.md",
-  "tests": "Java21 isolated: 400205 checks; original failed; 3/3 mutants rejected",
-  "full_build": false,
-  "qualified_jar": false,
-  "independent_grade": 5,
-  "next": "Restore Java25/Gradle complete checkout and run full NeoForge build; V8 persistence and finite-water native acceptance"
+  "audit": "docs/engine-hourly-audits/2026-10-31T1830-dev141/REVIEW.md",
+  "note": "Isolated water-surface nonfinite packet fail-closed, preserve revision and valid interpolation. No live solver, renderer-native, GPU or build resource changes."
 }
