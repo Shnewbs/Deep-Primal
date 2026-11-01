@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261101T1758-water-surface-clock",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-11-01T17:58:25Z",
+  "expires_utc": "2026-11-01T18:25:00Z",
+  "baseline_main": "f6aa6a7b5f803e3d13c84e8b95c9a8f00ddd4869",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSurfaceTransition.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceClockAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-surface-clock-2026-11-01/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-01T1730-dev159/REVIEW.md",
+  "coordination": "Dev159 independent auditor owns WaterCornerPacket and review only; organics owns SoilNutrientLedger. Prior engine main writer lease completed-released; historical WATER-ENGINE-WORK-STATE expired Oct28. No native renderer or gameplay file overlap.",
+  "purpose": "Saturate signed-long animation clocks and settling deadlines for finite water-surface presentation; preserve ordinary timing parity. Java21 isolated tests; no Actions or full build claims.",
+  "qualified_jar": false,
+  "lease_released": false
+}
