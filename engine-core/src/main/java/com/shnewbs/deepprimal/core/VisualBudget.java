@@ -5,6 +5,12 @@ public final class VisualBudget {
     public static boolean outside(double minX, double minY, double minZ, double maxX, double maxY, double maxZ,
                                   double x, double y, double z, int radius) {
         if (radius <= 0) return false;
+        // Malformed native bounds/camera telemetry must never silently admit
+        // visual work: NaN otherwise makes the squared-distance test false.
+        if (!Double.isFinite(minX) || !Double.isFinite(minY) || !Double.isFinite(minZ)
+                || !Double.isFinite(maxX) || !Double.isFinite(maxY) || !Double.isFinite(maxZ)
+                || !Double.isFinite(x) || !Double.isFinite(y) || !Double.isFinite(z)
+                || minX > maxX || minY > maxY || minZ > maxZ) return true;
         double dx = Math.max(Math.max(minX - x, x - maxX), 0);
         double dy = Math.max(Math.max(minY - y, y - maxY), 0);
         double dz = Math.max(Math.max(minZ - z, z - maxZ), 0);
