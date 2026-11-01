@@ -28,7 +28,10 @@ public final class WaterPatchMesher {
     }
 
     public int water(int x, int y, int z) {
-      return units[index(x, y, z)];
+      // Only 0..16 are valid volume units. Malformed signed captures must not
+      // create phantom water faces or feed invalid heights to the mesher.
+      int raw = units[index(x, y, z)] & 255;
+      return raw <= WaterTransport.CAPACITY ? raw : 0;
     }
 
     public boolean solid(int x, int y, int z) {
