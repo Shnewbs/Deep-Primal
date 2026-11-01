@@ -158,7 +158,7 @@ public final class WaterCornerPacket {
     return (retirementState(b, begin, end, now) & RETIRE_EXPIRED) != 0;
   }
   public static boolean retire(ByteBuffer b,int begin,int end,long now){
-    if(begin<0||end>b.limit()||begin%144!=0||end%144!=0)throw new IllegalArgumentException();boolean changed=false;
+    if(begin<0||end>b.limit()||begin>end||begin%144!=0||end%144!=0)throw new IllegalArgumentException();boolean changed=false;
     for(int q=begin;q<end;q+=144){
       if(!packed(b,q))continue;long pairs=pairCode(b,q),next=0;boolean expired=false;
       for(int n=0;n<4;n++){int pair=(int)(pairs/POW[n]%289),to=pair/17,from=pair%17;if(to!=from&&age(b,q,n,now)>=100){from=to;expired=true;}next+=(to*17L+from)*POW[n];}
