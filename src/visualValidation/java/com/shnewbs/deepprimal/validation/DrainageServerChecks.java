@@ -403,7 +403,7 @@ public final class DrainageServerChecks {
   private static void blocksAt(
       ServerLevel level, WaterwayHeight h, int x, int z, int water, String kind) {
     if (h.naturalSteps() && h.sample(x, z).strength() > 0)
-      water = com.shnewbs.deepprimal.core.WaterDynamics.surfaceY(h.sample(x, z).waterLevel()) + 1;
+      water = com.shnewbs.deepprimal.core.WaterDynamics.surfaceTopY(h.sample(x, z).waterLevel());
     var chunk = level.getChunkSource().getChunk(x >> 4, z >> 4, ChunkStatus.SURFACE, true);
     support(chunk, level, kind);
     var noise =
