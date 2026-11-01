@@ -10,7 +10,10 @@ public final class TickWindow {
         nanos = new long[capacity];
     }
     public void record(long duration) {
-        nanos[next] = Math.max(0L, duration);
+        // A negative elapsed time is invalid telemetry, not a zero-duration tick.
+        // Drop it without advancing the ring; never fail the live server tick callback.
+        if (duration < 0) return;
+        nanos[next] = duration;
         next = (next + 1) % nanos.length;
         count = Math.min(count + 1, nanos.length);
     }
