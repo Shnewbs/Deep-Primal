@@ -13,6 +13,7 @@ public final class CoreChecks {
     SampleStatsDurationChecks.main(new String[0]);
     TickWindowDurationChecks.main(new String[0]);
     BenchmarkReportWriteChecks.main(new String[0]);
+    BenchmarkReportElapsedChecks.main(new String[0]);
     AquiferTickChecks.main(args);
     EngineIntegrationTest.main(new String[0]);
     WaterSimulationMaterialChecks.main(new String[0]);
