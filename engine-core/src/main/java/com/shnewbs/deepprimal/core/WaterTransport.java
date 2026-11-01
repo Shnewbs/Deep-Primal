@@ -57,8 +57,11 @@ public final class WaterTransport {
   /** Shared global corners make independently rebuilt neighboring cells meet exactly. */
   public static double surface(
       double nw, double ne, double sw, double se, double center, double u, double v) {
-    u = Math.clamp(u, 0, 1);
-    v = Math.clamp(v, 0, 1);
+    // A NaN UV can arise from malformed mesh coordinates. Math.clamp preserves
+    // NaN, which would otherwise poison every interpolated vertex height.
+    // Use the cell midpoint for undefined UVs; retain normal edge clamping.
+    u = Double.isNaN(u) ? 0.5 : Math.clamp(u, 0, 1);
+    v = Double.isNaN(v) ? 0.5 : Math.clamp(v, 0, 1);
     // Volume belongs to transport; per-cell center corrections create repeated bowls/tents.
     // Corner heights may cross the cell's vertical boundary. Clipping each layer separately
     // gives two different world heights at the very same shared edge.

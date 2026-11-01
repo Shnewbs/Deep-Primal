@@ -86,6 +86,7 @@ public final class CoreChecks {
     WaterCornerRebaseOverflowChecks.main(new String[0]);
     WaterRetirementStateChecks.run();
     WaterSurfaceConvexAdmissionChecks.main(new String[0]);
+    WaterSurfaceUvAdmissionChecks.main(new String[0]);
     WaterSurfaceShapeChecks.run();
     WaterfallSideChecks.run();
     CaveColumnChecks.run();
