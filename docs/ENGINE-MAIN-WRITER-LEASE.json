@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev156-water-corner-predicate-admission",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-01T16:03:00Z",
   "expires": "2026-11-01T16:29:00Z",
   "source_head": "d0c4c1131774bdbc6de9d27c7d599de5f7d4b10e",
@@ -13,5 +13,14 @@
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
   "audit": "docs/engine-hourly-audits/2026-11-01T1530-dev155/REVIEW.md",
-  "note": "Bounded follow-up: make changedCorners and matches predicate admission consistent with sanitized corner/patchCorners; Java21 source excerpt regression, preserve all unrelated source."
+  "note": "Bounded follow-up: make changedCorners and matches predicate admission consistent with sanitized corner/patchCorners; Java21 source excerpt regression, preserve all unrelated source.",
+  "lease_released": true,
+  "ended_at": "2026-11-01T16:08:00Z",
+  "source_commit": "52e9db049dcff0a0fac26bf5d59799d04d37fabd",
+  "source_version": "dev156-water-corner-predicate-admission-source-only",
+  "evidence": "docs/validation/engine-continuation/water-corner-predicate-admission-2026-11-01/README.md",
+  "tests": "Java21 isolated source excerpt 4307250 assertions; 50000 malformed + 50000 valid quads; 60 malformed five-bit lanes + 28 signed scalar extremes; two original-method negative controls rejected",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Restore complete Java25/Gradle/NeoForge checkout; native V8 water save/reopen conservation and Vulkan/LOD hardware acceptance."
 }
