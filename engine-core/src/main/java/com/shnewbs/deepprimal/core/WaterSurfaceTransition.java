@@ -25,8 +25,19 @@ public final class WaterSurfaceTransition {
     started = now;
   }
 
+  /** Signed-long-safe elapsed milliseconds; backward clocks do not advance animation. */
+  private static long elapsedSince(long now, long start) {
+    if (now <= start) return 0;
+    long elapsed = now - start;
+    return elapsed < 0 ? Long.MAX_VALUE : elapsed;
+  }
+
+  private static long deadline(long now, int millis) {
+    return now > Long.MAX_VALUE - millis ? Long.MAX_VALUE : now + millis;
+  }
+
   public float at(long now) {
-    float t = Math.clamp((now - started) / (float) MILLIS, 0, 1);
+    float t = Math.clamp(elapsedSince(now, started) / (float) MILLIS, 0, 1);
     float delta = target - from;
     float value = from + delta * t;
     // Even finite endpoints can overflow a float subtraction/addition, yielding Inf or NaN.
@@ -53,9 +64,9 @@ public final class WaterSurfaceTransition {
     if (Math.abs(next - lastRaw) < 0.00001f) return;
     boolean reverts = Math.abs(next - previousRaw) < 0.00001f
         && Math.abs(next - lastRaw) <= SETTLE_BAND
-        && now - rawAt <= SETTLE_MILLIS;
+        && now >= rawAt && elapsedSince(now, rawAt) <= SETTLE_MILLIS;
     float shown = reverts ? (next + lastRaw) * .5f : next;
-    settleUntil = reverts ? now + SETTLE_MILLIS : Long.MIN_VALUE;
+    settleUntil = reverts ? deadline(now, SETTLE_MILLIS) : Long.MIN_VALUE;
     previousRaw = lastRaw;
     lastRaw = next;
     rawAt = now;
@@ -76,9 +87,10 @@ public final class WaterSurfaceTransition {
 
   /** Cleanup must also wake a visually still midpoint after the last real volume change. */
   public int remaining(long now) {
-    long animation = Math.abs(from - target) < .00001f ? 0 : Math.max(0, MILLIS - (now - started));
-    return (int) Math.clamp(Math.max(animation, settleUntil == Long.MIN_VALUE ? 0 : settleUntil - now),
-        0, Integer.MAX_VALUE);
+    long animation = Math.abs(from - target) < .00001f
+        ? 0 : Math.max(0, MILLIS - elapsedSince(now, started));
+    long settling = settleUntil == Long.MIN_VALUE ? 0 : elapsedSince(settleUntil, now);
+    return (int) Math.min(Integer.MAX_VALUE, Math.max(animation, settling));
   }
 
   public void restart(long now) {
@@ -87,10 +99,10 @@ public final class WaterSurfaceTransition {
   }
 
   public float from(long now) {
-    return now - started >= MILLIS ? target : from;
+    return elapsedSince(now, started) >= MILLIS ? target : from;
   }
 
   public int offset(long now) {
-    return (int) Math.clamp(started - now, -32768, 0);
+    return -(int) Math.min(32768, elapsedSince(now, started));
   }
 }
