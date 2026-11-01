@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev147-flow-direction-admission",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-11-01T07:05:00Z",
   "expires": "2026-11-01T07:30:00Z",
   "source_head": "f6c555786edf13ecfc5e7602fd37c2b623617665",
@@ -14,5 +14,13 @@
   ],
   "note": "Reject malformed water flow direction IDs (valid 0..16) without advancing revision authority; strict Java21 core tests; no renderer or native-water writers.",
   "audit": "docs/engine-hourly-audits/2026-11-01T0630-dev146/REVIEW.md",
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-01T07:09:00Z",
+  "source_commit": "4fdcc42d415a0c9b9c99d12129149aa6d912d575",
+  "source_version": "dev147-flow-direction-admission-source-only",
+  "evidence": "docs/validation/engine-continuation/flow-direction-admission-2026-11-01/README.md",
+  "tests": "Java21 strict isolated 1,000,045 checks; 272 legacy direction pairs; baseline and two mutants fail",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Restore Java25 full checkout and native build; clamp malformed raw Snapshot.direction before GPU packing; water persistence/Vulkan/LOD acceptance"
 }
