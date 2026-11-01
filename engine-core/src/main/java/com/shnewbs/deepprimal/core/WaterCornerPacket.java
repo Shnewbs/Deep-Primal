@@ -52,7 +52,8 @@ public final class WaterCornerPacket {
     if(target(b,p,n)!=to)return false;int old=source(b,p,n);return old==to||age(b,p,n,now)>=100?from==to:old==from&&start(b,p,n)==(((int)now-age)&65535);
   }
   public static void corner(ByteBuffer b,int q,int n,int to,int from,int age,long now){
-    long pairs=pairCode(b,q),old=pairs/POW[n]%289;pairs+=(to*17L+from-old)*POW[n];
+    int safeTo=to>=0&&to<=16?to:16,safeFrom=from>=0&&from<=16?from:16;
+    long pairs=pairCode(b,q),old=pairs/POW[n]%289;pairs+=(safeTo*17L+safeFrom-old)*POW[n];
     int a=start(b,q,0),c=start(b,q,1),d=start(b,q,2),e=start(b,q,3),value=((int)now-age)&65535;
     switch(n){case 0->a=value;case 1->c=value;case 2->d=value;case 3->e=value;default->throw new IllegalArgumentException();}
     for(int v=0;v<4;v++){int p=q+v*36;write(b,p,pairs,a,c,d,e,opacityTarget(b,p)==127);}
@@ -98,7 +99,9 @@ public final class WaterCornerPacket {
     int d = start(w1, w2, marker, 2), e = start(w1, w2, marker, 3);
     for (int n = 0; n < 4; n++) {
       if ((mask & (1 << n)) == 0) continue;
-      long pair = ((targets >>> (n * 5)) & 31) * 17L + ((sources >>> (n * 5)) & 31);
+      // Invalid five-bit directions must not carry into adjacent base-289 corners.
+      long pair = Math.min(16, (targets >>> (n * 5)) & 31) * 17L
+          + Math.min(16, (sources >>> (n * 5)) & 31);
       pairs += (pair - pairs / POW[n] % 289) * POW[n];
       int value = ((int) now - (ages >>> (n * 8) & 255)) & 65535;
       switch (n) { case 0 -> a = value; case 1 -> c = value; case 2 -> d = value; case 3 -> e = value; }
