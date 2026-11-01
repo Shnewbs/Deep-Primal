@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev142-water-surface-finite-guard",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-11-01T02:01:03.332Z",
   "expires": "2026-11-01T02:23:03.332Z",
   "source_head": "bda1b3c588a7e0f9efcc1dfbfa614fafb6423ace",
@@ -13,5 +13,14 @@
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
   "audit": "docs/engine-hourly-audits/2026-10-31T1830-dev141/REVIEW.md",
-  "note": "Isolated water-surface nonfinite packet fail-closed, preserve revision and valid interpolation. No live solver, renderer-native, GPU or build resource changes."
+  "note": "Isolated water-surface nonfinite packet fail-closed, preserve revision and valid interpolation. No live solver, renderer-native, GPU or build resource changes.",
+  "lease_released": true,
+  "ended_at": "2026-11-01T02:02:45.940Z",
+  "source_version": "dev142-water-surface-finite-source-only",
+  "evidence": "docs/validation/engine-continuation/water-surface-finite-2026-11-01/README.md",
+  "tests": "Java21 isolated 1000027 checks, finite baseline parity 200000 operations, original failed, 3/3 mutants rejected",
+  "full_build": false,
+  "qualified_jar": false,
+  "independent_grade": 5,
+  "next": "Restore complete Java25/Gradle build and test finite-water save/reopen and Vulkan/LOD live acceptance"
 }
