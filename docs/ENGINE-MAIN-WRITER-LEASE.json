@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev153-water-corner-packet-safety",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-01T14:02:00Z",
   "expires": "2026-11-01T14:30:00Z",
   "source_head": "b7da8b0c029555620ba886f3dc96b538094a0511",
@@ -13,5 +13,14 @@
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
   "audit": "docs/engine-hourly-audits/2026-11-01T1330-dev152/REVIEW.md",
-  "note": "Scoped corner GPU packet direction and age sanitization; preserve valid 0..16 direction/0..100 age bit parity, no renderer/water volume/native save edits; Java21 isolated validation pending full build."
+  "note": "Scoped corner GPU packet direction and age sanitization; preserve valid 0..16 direction/0..100 age bit parity, no renderer/water volume/native save edits; Java21 isolated validation pending full build.",
+  "lease_released": true,
+  "ended_at": "2026-11-01T14:09:00Z",
+  "source_commit": "b4fc0a3f23fb630df0a035dbfea38af9363919a1",
+  "source_version": "dev153-water-corner-packet-admission-source-only",
+  "evidence": "docs/validation/engine-continuation/water-corner-packet-admission-2026-11-01/README.md",
+  "tests": "Java21 isolated 8340112 new assertions plus 8435621 existing codec cases, 98307 clock cases, 34000 halo-edge checks; original baseline rejected",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Restore Java25 full Gradle checkout and native water save/reopen, GPU corner packet and Vulkan/LOD hardware acceptance."
 }
