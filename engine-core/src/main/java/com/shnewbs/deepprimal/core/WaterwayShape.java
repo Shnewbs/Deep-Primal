@@ -49,11 +49,20 @@ public final class WaterwayShape {
       double detail,
       double tributaries,
       int seaLevel) {
+    // Noise and climate adapters must not inject NaN/Infinity into native terrain
+    // materialization. Preserve the uncarved height when a shaping input is invalid.
+    if (!Double.isFinite(original)) return seaLevel;
+    if (!Double.isFinite(continents) || !Double.isFinite(ridges)
+        || !Double.isFinite(erosion) || !Double.isFinite(detail)
+        || !Double.isFinite(tributaries)) return original;
     double coast = coastHeight(original, continents, erosion, seaLevel);
     double bed = seaLevel - 7.0 + 1.5 * Math.clamp(detail, -1.0, 1.0);
     double river = riverHeight(coast, continents, ridges, bed);
     // Branches share the parent's bed. Neither channel raises the seabed or
     // leaves a lip across its river mouth. Their shoulders fade continuously.
-    return river - streamWeight(continents, ridges, tributaries) * Math.max(0.0, river - bed);
+    double shaped = river - streamWeight(continents, ridges, tributaries) * Math.max(0.0, river - bed);
+    // Even finite but unbounded upstream values can overflow intermediate shelf
+    // arithmetic. Fail closed instead of writing a nonfinite terrain height.
+    return Double.isFinite(shaped) ? shaped : original;
   }
 }
