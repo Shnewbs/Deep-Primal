@@ -16,6 +16,7 @@ public final class CoreChecks {
     WaterSimulationMaterialChecks.main(new String[0]);
     WaterSimulationDryMaterialChecks.main(new String[0]);
     WaterDynamicsSurfaceAdmissionChecks.main(new String[0]);
+    WaterDynamicsNativeTopChecks.main(new String[0]);
     CacheLifecycleChecks.main(new String[0]);
     CoreCloseLifecycleChecks.main(new String[0]);
     PipelineInlineCloseChecks.main(new String[0]);
