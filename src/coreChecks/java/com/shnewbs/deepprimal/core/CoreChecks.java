@@ -70,6 +70,7 @@ public final class CoreChecks {
     WaterwayChecks.run();
     DrainageChecks.run();
     RuntimeChecks.run();
+    DistancePolicySlotChecks.main(new String[0]);
     NearestChunksOverflowChecks.main(new String[0]);
     NearestChunksReadyAdmissionChecks.main(new String[0]);
     SyncRebuildBudgetOverflowChecks.main(new String[0]);

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev141-section-slots",
-  "status": "active",
+  "status": "checkpointed",
   "start": "2026-11-01T01:04:44Z",
   "expires": "2026-11-01T01:24:44Z",
   "source_head": "837312fca6fa2e0a31362c12b1888be496c46204",
@@ -14,5 +14,13 @@
   ],
   "audit": "docs/engine-hourly-audits/2026-10-31T1730-dev140/REVIEW.md",
   "note": "Bounded isolated section-slot overflow and invalid-window correctness. No renderer, water, V8, native, or owner build resources. Java21 isolated baseline negative reproduced and corrected test passed. No JAR claim.",
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-01T01:06:00Z",
+  "source_version": "dev141-section-slot-accounting-source-only",
+  "evidence": "docs/validation/engine-continuation/distance-policy-slots-2026-11-01/README.md",
+  "tests": "Java21 isolated: 400205 checks; original failed; 3/3 mutants rejected",
+  "full_build": false,
+  "qualified_jar": false,
+  "independent_grade": 5,
+  "next": "Restore Java25/Gradle complete checkout and run full NeoForge build; V8 persistence and finite-water native acceptance"
 }

@@ -30,8 +30,16 @@ public final class DistancePolicy {
         // The queue's empty sentinel is one past the last valid bucket.
         return Math.max(nativeCount, clampRender(trackingCapacity) + 3);
     }
+    /** Nonnegative section-slot estimate, saturated when it exceeds a signed long. */
     public static long sectionSlots(int distance, int verticalSections) {
+        if (distance < 0 || verticalSections < 0)
+            throw new IllegalArgumentException("Negative section window");
+        if (verticalSections == 0) return 0;
         long side = 2L * distance + 1;
-        return side * side * verticalSections;
+        try {
+            return Math.multiplyExact(Math.multiplyExact(side, side), verticalSections);
+        } catch (ArithmeticException overflow) {
+            return Long.MAX_VALUE;
+        }
     }
 }
