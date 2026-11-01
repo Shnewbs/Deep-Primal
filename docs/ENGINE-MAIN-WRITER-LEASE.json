@@ -1,26 +1,19 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev142-water-surface-finite-guard",
-  "status": "checkpointed",
-  "start": "2026-11-01T02:01:03.332Z",
-  "expires": "2026-11-01T02:23:03.332Z",
-  "source_head": "bda1b3c588a7e0f9efcc1dfbfa614fafb6423ace",
+  "worker": "hourly-deep-primal-engine-dev143-sample-stats-duration-guard",
+  "status": "active",
+  "start": "2026-11-01T03:05:00Z",
+  "expires": "2026-11-01T03:35:00Z",
+  "source_head": "b693b3e5824974e811b7c269ea2755f3a299bb8c",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSurfaceTransition.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceFiniteChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/SampleStatsDurationChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/water-surface-finite-2026-11-01/README.md",
+    "docs/validation/engine-continuation/sample-stats-duration-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-10-31T1830-dev141/REVIEW.md",
-  "note": "Isolated water-surface nonfinite packet fail-closed, preserve revision and valid interpolation. No live solver, renderer-native, GPU or build resource changes.",
-  "lease_released": true,
-  "ended_at": "2026-11-01T02:02:45.940Z",
-  "source_version": "dev142-water-surface-finite-source-only",
-  "evidence": "docs/validation/engine-continuation/water-surface-finite-2026-11-01/README.md",
-  "tests": "Java21 isolated 1000027 checks, finite baseline parity 200000 operations, original failed, 3/3 mutants rejected",
+  "note": "Isolated engine performance diagnostic guard for negative elapsed-time samples; no water/V8/renderer-native/LOD writer overlap, no GPU benchmark or JAR claim.",
+  "audit": "docs/engine-hourly-audits/2026-10-31T2330-dev139/REVIEW.md",
   "full_build": false,
-  "qualified_jar": false,
-  "independent_grade": 5,
-  "next": "Restore complete Java25/Gradle build and test finite-water save/reopen and Vulkan/LOD live acceptance"
+  "qualified_jar": false
 }
