@@ -1,26 +1,17 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev154-water-legacy-corner-admission",
-  "status": "completed-released",
-  "start": "2026-11-01T15:03:00Z",
-  "expires": "2026-11-01T15:30:00Z",
-  "source_head": "52fa24e46712db37faa81abd49638e9caf9e5aa8",
+  "worker": "hourly-deep-primal-engine-dev156-water-corner-predicate-admission",
+  "status": "active",
+  "start": "2026-11-01T16:03:00Z",
+  "expires": "2026-11-01T16:29:00Z",
+  "source_head": "d0c4c1131774bdbc6de9d27c7d599de5f7d4b10e",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerLegacyAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPredicateAdmissionChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/water-corner-legacy-admission-2026-11-01/**",
+    "docs/validation/engine-continuation/water-corner-predicate-admission-2026-11-01/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-11-01T1430-dev153/REVIEW.md",
-  "note": "Bounded legacy GPU water-corner direction sanitization, valid-input byte parity, no Vulkan/native or physical water changes; Java21 isolated regression before publishing.",
-  "lease_released": true,
-  "ended_at": "2026-11-01T15:06:00Z",
-  "source_commit": "3a09d854bd51b19c32dc8ef0a6d9e142dec5fa3c",
-  "source_version": "dev154-water-corner-legacy-admission-source-only",
-  "evidence": "docs/validation/engine-continuation/water-corner-legacy-admission-2026-11-01/README.md",
-  "tests": "Java21 isolated 7102787 assertions; 100000 valid + 100000 malformed randomized packets; 60 invalid lane cases; 6 nonfinite cases; original method negative control fails",
-  "full_build": false,
-  "qualified_jar": false,
-  "next": "Restore full Java25/Gradle checkout; native V8 water conservation/save-reopen, GPU and Vulkan/LOD hardware acceptance."
+  "audit": "docs/engine-hourly-audits/2026-11-01T1530-dev155/REVIEW.md",
+  "note": "Bounded follow-up: make changedCorners and matches predicate admission consistent with sanitized corner/patchCorners; Java21 source excerpt regression, preserve all unrelated source."
 }
