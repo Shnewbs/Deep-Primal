@@ -9,6 +9,7 @@ public final class CoreChecks {
     UpscalingPolicyChecks.main(args);
     VisualBudgetFrameLimitChecks.main(new String[0]);
     FrameIntervalChecks.main(args);
+    SampleStatsDurationChecks.main(new String[0]);
     AquiferTickChecks.main(args);
     EngineIntegrationTest.main(new String[0]);
     WaterSimulationMaterialChecks.main(new String[0]);
