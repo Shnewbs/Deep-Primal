@@ -183,6 +183,7 @@ public final class HorizonChecks {
     cache.clear();
     if (cache.bytes() != 0 || cache.hits() != 0) throw new AssertionError("Clear");
     HorizonSamplesOwnershipChecks.run();
+    HorizonGeometryFiniteAdmissionChecks.run();
     System.out.println(
         "PASS: horizon snapshots, closed mesh bounds, "
             + comparisons
