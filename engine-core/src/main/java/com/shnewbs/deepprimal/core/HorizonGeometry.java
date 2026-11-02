@@ -16,6 +16,11 @@ public final class HorizonGeometry {
   }
 
   public static double sample(short[] heights, int cells, double x, double z) {
+    // A corrupt camera/sample coordinate must not become NaN terrain geometry.
+    // The first captured lattice anchor is deterministic and finite (short-backed).
+    // Keep all finite-coordinate interpolation, including out-of-tile clamping,
+    // bit-identical to the original triangle-plane calculation.
+    if (!Double.isFinite(x) || !Double.isFinite(z)) return heights[0];
     double gx = Math.clamp(x / FarTerrain.TILE_BLOCKS * cells, 0, cells);
     double gz = Math.clamp(z / FarTerrain.TILE_BLOCKS * cells, 0, cells);
     int ix = Math.min(cells - 1, (int) gx), iz = Math.min(cells - 1, (int) gz), width = cells + 1;
