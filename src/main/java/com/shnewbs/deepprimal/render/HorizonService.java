@@ -85,7 +85,8 @@ public final class HorizonService {
       HorizonSamples reduced = CACHE.get(key);
       if (reduced == null) {
         reduced = data.forDetail(p.detail());
-        reusedSamples += reduced.heights().length;
+        // Counting samples must not allocate a defensive snapshot of the height buffer.
+        reusedSamples += reduced.payloadBytes() / 6L;
         CACHE.put(key, reduced);
       }
       data = reduced;
@@ -101,7 +102,8 @@ public final class HorizonService {
             true,
             data.heights(),
             data.colors()));
-    sentBytes += data.heights().length * 6L;
+    // Count the immutable payload directly; heights() deliberately returns a copy.
+    sentBytes += data.payloadBytes();
   }
 
   private static void request(HorizonRequest p, ServerPlayer player) {
@@ -133,7 +135,8 @@ public final class HorizonService {
         var available = CACHE.get(new TileKey(p.dimension(), p.x(), p.z(), finer));
         if (available != null) {
           cached = available.forDetail(p.detail());
-          reusedSamples += cached.heights().length;
+          // Counting samples must not allocate a defensive snapshot of the height buffer.
+          reusedSamples += cached.payloadBytes() / 6L;
           CACHE.put(key, cached);
           break;
         }
