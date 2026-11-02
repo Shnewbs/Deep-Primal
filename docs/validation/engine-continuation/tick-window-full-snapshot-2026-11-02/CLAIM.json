@@ -1,8 +1,8 @@
 {
   "owner": "deep-primal-hourly-engineering-dev202",
-  "status": "active",
+  "status": "completed-released",
   "started_at": "2026-11-02T15:06:00Z",
-  "active_until": "2026-11-02T15:25:00Z",
+  "active_until": "2026-11-02T15:12:00Z",
   "baseline_sha": "121f443bb4b02bc13cd9d1672e00e140751c151a",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
@@ -21,5 +21,10 @@
     "shared root work state",
     "Gradle and GitHub Actions"
   ],
-  "acceptance": "Isolated Java21 strict compile, deterministic oracle and negative control; native JAR gate remains open."
+  "acceptance": "Isolated Java21 strict compile, deterministic oracle and negative control; native JAR gate remains open.",
+  "released_at": "2026-11-02T15:12:00Z",
+  "implementation_commit": "e6d4c2f32f53b68596cd587092a8ee3835298980",
+  "report_commit": "9df6d9ffc5fd48676474119aa91eba7755379e91",
+  "evidence_sha256": "c86deb7efa792d375df84dd5fa365bd8466210cd018e07e04206c39e5921bacb",
+  "result": "469065 isolated assertions; full/partial snapshot allocation reduced; full Java25/Gradle/JAR blocked."
 }
