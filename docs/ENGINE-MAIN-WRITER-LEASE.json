@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev210-water-mesh-finite-phases",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T19:03:00Z",
   "expires": "2026-11-02T19:25:00Z",
   "source_head": "2f9dc0aa02899490afe22c76c6d2ccf9f736af3a",
@@ -16,5 +16,15 @@
   "coordination": "Pure-core water-mesh shader phase finite admission; no native water quantities, saved formats, renderer ownership, worldgen or Actions. Exact ordinary output parity and extreme-finite negative control.",
   "full_build": false,
   "qualified_jar": false,
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-02T19:10:00Z",
+  "implementation_commit": "ea181439762ff2da057d5f62375ecd4adf1658a1",
+  "final_source_commit": "f3b8edaae880b71d864608293ad71d94cc6b3427",
+  "test_commit": "13163fc924cd48ba533df68cd3d48f88dde53a09",
+  "registration_commit": "b4de7984e1df2153e531a276f175f3ed3650fd6c",
+  "validation_commit": "249675825b64cde1ef0800f9e3be3c49d2aff63e",
+  "tests": "OpenJDK21 strict compile and bytecode verify; 303003 new regression assertions, 274625 legacy grid samples and 64 side-UV cases; original exact blob fails negative control at assertion 1; ordinary 100000 samples bitwise parity",
+  "evidence": "docs/validation/engine-continuation/water-mesh-finite-phases-2026-11-02/README.md",
+  "evidence_zip_sha256": "98313fbca7725c7ab6a37d871fd2a9f1e9b2f61b0b17dc162ecc608adcd850a2",
+  "next": "Java25 Gradle/NeoForge full production build; native Vulkan/OpenGL waterfall continuity and frame acceptance; no prior JAR deletion."
 }
