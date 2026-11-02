@@ -12,6 +12,7 @@ public final class CoreChecks {
     FrameIntervalChecks.main(args);
     SampleStatsDurationChecks.main(new String[0]);
     TickWindowDurationChecks.main(new String[0]);
+    TickWindowSnapshotChecks.main(new String[0]);
     BenchmarkReportWriteChecks.main(new String[0]);
     BenchmarkReportElapsedChecks.main(new String[0]);
     AquiferTickChecks.main(args);
