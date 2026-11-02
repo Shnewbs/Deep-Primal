@@ -14,7 +14,25 @@ public final class SeededNoiseZeroGainChecks {
       throw new AssertionError(context + " expected=" + expected + " actual=" + actual);
   }
 
+  // Output parity alone cannot catch a future removal of the zero-octave fast path.
+  // Check the private allocation only here, without expanding the public API.
+  private static void assertElidedOctaves() throws ReflectiveOperationException {
+    var frequencies = SeededNoise3D.class.getDeclaredField("fx");
+    frequencies.setAccessible(true);
+    var zero = new SeededNoise3D(42L, new NoiseSpec(1.0 / 192, 1.0 / 96,
+        1.0 / 192, 8, 2, 0, 42L));
+    var nonzero = new SeededNoise3D(42L, new NoiseSpec(1.0 / 192, 1.0 / 96,
+        1.0 / 192, 8, 2, .5, 42L));
+    if (((double[]) frequencies.get(zero)).length != 1)
+      throw new AssertionError("zero-gain octaves were allocated instead of elided");
+    if (((double[]) frequencies.get(nonzero)).length != 8)
+      throw new AssertionError("nonzero-gain octaves were unexpectedly elided");
+    if (zero.spec().octaves() != 8)
+      throw new AssertionError("saved zero-gain NoiseSpec was mutated");
+  }
+
   public static void main(String[] args) throws Exception {
+    assertElidedOctaves();
     var digest = MessageDigest.getInstance("SHA-256");
     var bytes = ByteBuffer.allocate(Long.BYTES);
     Random random = new Random(0x2e021220L);
