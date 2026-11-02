@@ -30,7 +30,9 @@ public final class ChunkCache implements AutoCloseable {
     synchronized(this){ensureOpen();T ready=get(key);if(ready!=null)return ready;observed=generation;}
     T computed=Objects.requireNonNull(computer.apply(key));
     synchronized(this){
-      // clear() invalidates pending admissions without waiting for terrain computation.
+      // close() is terminal: never deliver a chunk computed for a retired world.
+      ensureOpen();
+      // clear() alone invalidates admission while preserving the caller's result.
       if(generation!=observed)return computed;
       Entry existing=entries.get(key);
       if(existing!=null){@SuppressWarnings("unchecked") T winner=(T)existing.value;return winner;}
