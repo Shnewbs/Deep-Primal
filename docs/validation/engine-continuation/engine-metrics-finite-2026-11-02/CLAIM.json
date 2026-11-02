@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T0502-metrics-finite",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-11-02T05:02:00Z",
+  "expires_utc": "2026-11-02T05:40:00Z",
+  "parent_at_claim": "be25f82584b8b04ce1c93eb7331fbdfab747a57d",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineMetrics.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/EngineMetricsTimingChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/engine-metrics-finite-2026-11-02/**"
+  ],
+  "exclusions": [
+    "renderer-vulkan/**",
+    "lod-engine/**",
+    "src/main/java/**",
+    "docs/engine-hourly-audits/**",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/organic/**"
+  ],
+  "purpose": "Bound and validate engine duration telemetry and cache hit-rate arithmetic without changing physical simulation or rendering",
+  "no_actions": true
+}
