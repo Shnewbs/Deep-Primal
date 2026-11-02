@@ -5,21 +5,30 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
   public enum Kind { LOAM, SAND, CLAY, PODZOL, GRAVEL, FROZEN }
   public int depth() { return topsoil+subsoil+weathered; }
   /** Material revisions 0 and 1: exact legacy horizons. */
-  public static SoilProfile at(TerrainEngine.Sample s,Geology.Column g) { return at(s,g,s.slope(),false); }
+  public static SoilProfile at(TerrainEngine.Sample s,Geology.Column g) { return at(s,g,s.slope(),false,true); }
 
   /**
    * Material revision 2. The world-space slope jitter breaks iso-slope contours, and a
    * profile with no topsoil or subsoil exposes parent rock instead of a weathered ribbon.
    */
   public static SoilProfile at(TerrainNoise noise,int x,int z,TerrainEngine.Sample s,Geology.Column g) {
-    return at(s,g,s.slope()+slopeJitter(noise,x,z),true);
+    return at(s,g,s.slope()+slopeJitter(noise,x,z),true,false);
   }
 
   public static double slopeJitter(TerrainNoise noise,int x,int z) {
     return noise.field(x,z,48,34101)*.32+noise.field(x,z,13,34102)*.14;
   }
 
-  private static SoilProfile at(TerrainEngine.Sample s,Geology.Column g,double slope,boolean outcrop) {
+  private static SoilProfile at(TerrainEngine.Sample s,Geology.Column g,double slope,
+      boolean outcrop, boolean legacyMaterials) {
+    // Frozen material revisions 0/1 must replay the original dry-soil threshold.
+    // Revision 2 retains its existing dither byte-for-byte until a new saved
+    // material revision can explicitly opt into a corrected two-sided blend.
+    if (legacyMaterials) {
+      Kind kind=s.temperature()<.23?Kind.FROZEN:s.wet()?(s.speed()>.3?Kind.GRAVEL:s.rain()>.72?Kind.CLAY:Kind.LOAM)
+          :s.ground()<101||s.rain()<.35?Kind.SAND:s.temperature()<.42?Kind.PODZOL:s.rain()>.8?Kind.CLAY:Kind.LOAM;
+      return profile(s,g,slope,outcrop,kind);
+    }
     Kind kind;
     if (s.temperature() < .23) {
       kind = Kind.FROZEN;
@@ -48,6 +57,11 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
         kind = s.temperature() < .42 ? Kind.PODZOL : s.rain() > .8 ? Kind.CLAY : Kind.LOAM;
       }
     }
+    return profile(s,g,slope,outcrop,kind);
+  }
+
+  private static SoilProfile profile(TerrainEngine.Sample s,Geology.Column g,
+      double slope,boolean outcrop,Kind kind) {
     int top=slope>1.6?0:kind==Kind.GRAVEL?1:s.rain()>.7?2:1;
     int sub=(int)Math.clamp(1+s.rain()*3+s.sediment()*2-slope*2,0,6);
     int weathered;
