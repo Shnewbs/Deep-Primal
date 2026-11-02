@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.LongSupplier;
+import java.util.function.LongBinaryOperator;
 
 /**
  * Production metrics collection for the terrain/water engine.
@@ -50,28 +51,39 @@ public final class EngineMetrics {
         java.lang.management.ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed() / (1024 * 1024)
     );
 
+    // Preserve nonnegative timing sums even when a single sample would overflow long.
+    // A shared operator avoids allocating a new capturing lambda on every engine sample.
+    private static final LongBinaryOperator SATURATING_NANOS = (current, sample) -> {
+        long safe = Math.max(0, current);
+        return sample > Long.MAX_VALUE - safe ? Long.MAX_VALUE : safe + sample;
+    };
+
+    private static void recordDuration(long nanos, LongAdder samples, AtomicLong total) {
+        // An invalid clock delta is not a successful engine operation.
+        if (nanos < 0) return;
+        samples.increment();
+        total.accumulateAndGet(nanos, SATURATING_NANOS);
+    }
+
     /**
      * Record terrain sample timing.
      */
     public static void recordTerrainSample(long nanos) {
-        TERRAIN_SAMPLES.increment();
-        TERRAIN_GEN_TIME_NS.addAndGet(nanos);
+        recordDuration(nanos, TERRAIN_SAMPLES, TERRAIN_GEN_TIME_NS);
     }
 
     /**
      * Record water simulation timing.
      */
     public static void recordWaterSim(long nanos) {
-        WATER_SAMPLES.increment();
-        WATER_SIM_TIME_NS.addAndGet(nanos);
+        recordDuration(nanos, WATER_SAMPLES, WATER_SIM_TIME_NS);
     }
 
     /**
      * Record chunk materialization timing.
      */
     public static void recordChunkMaterialize(long nanos) {
-        CHUNKS_MATERIALIZED.increment();
-        CHUNK_MATERIALIZE_TIME_NS.addAndGet(nanos);
+        recordDuration(nanos, CHUNKS_MATERIALIZED, CHUNK_MATERIALIZE_TIME_NS);
     }
 
     /**
@@ -88,7 +100,8 @@ public final class EngineMetrics {
     public static double getCacheHitRate() {
         long hits = CACHE_HITS.sum();
         long misses = CACHE_MISSES.sum();
-        long total = hits + misses;
+        // Convert before addition: two individually valid counters can overflow a long.
+        double total = (double) hits + misses;
         return total > 0 ? (hits * 100.0 / total) : 100.0;
     }
 
