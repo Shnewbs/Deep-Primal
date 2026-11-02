@@ -35,11 +35,11 @@ public final class WorldGenPipelineShutdownChecks {
       ChunkKey key = new ChunkKey(i, -i, "dimension-" + (i & 3));
       CompletableFuture<MaterializedChunk> supplied = new CompletableFuture<>();
       AtomicInteger calls = new AtomicInteger();
-      ChunkCache cache = new ChunkCache();
-      WorldGenPipeline pipeline = new WorldGenPipeline(new ChunkMaterializer(k -> {
+      ChunkCache cache = new ChunkCache(1, 64);
+      WorldGenPipeline pipeline = new WorldGenPipeline((k, cancelled) -> {
         calls.incrementAndGet();
         return supplied;
-      }), cache);
+      }, cache);
       CompletableFuture<MaterializedChunk> first = pipeline.generateChunk(key);
       CompletableFuture<MaterializedChunk> second = pipeline.generateChunk(key);
       need(calls.get() == 1 && pipeline.pendingCount() == 1, "coalescing before shutdown");
@@ -47,7 +47,7 @@ public final class WorldGenPipelineShutdownChecks {
       cancelled(first);
       cancelled(second);
       need(pipeline.pendingCount() == 0 && cache.size() == 0, "shutdown must clear pending/cache");
-      supplied.complete(new MaterializedChunk(key, 16));
+      supplied.complete(PipelineTestFixtures.chunk(key));
       need(cache.size() == 0, "late completion must not restore cache");
       try {
         pipeline.generateChunk(key).join();

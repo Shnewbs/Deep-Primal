@@ -2,7 +2,7 @@
   "schema": 1,
   "claim_id": "engine-20261102T1313-pipeline-retry-corechecks",
   "owner": "Deep Primal hourly engineering",
-  "status": "active",
+  "status": "completed-released",
   "baseline_main": "d9741199024840d983f6ba0ac31ce7a17ef0d5eb",
   "started_utc": "2026-11-02T13:13:00Z",
   "expires_utc": "2026-11-02T14:00:00Z",
@@ -27,5 +27,9 @@
   ],
   "github_actions": false,
   "full_build": false,
-  "qualified_jar": false
+  "qualified_jar": false,
+  "lease_released": true,
+  "ended_utc": "2026-11-02T13:17:00Z",
+  "production_validation": "Isolated Java21 266000 assertions passed; original order negative control failed; full CoreChecks pending",
+  "report": "docs/validation/engine-continuation/pipeline-reentrant-retry-2026-11-02/README.md"
 }

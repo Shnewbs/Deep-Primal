@@ -2,12 +2,15 @@ package com.shnewbs.deepprimal.core;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
+import java.util.function.BiFunction;
+import java.util.function.BooleanSupplier;
 import java.util.concurrent.atomic.AtomicInteger;
 import com.shnewbs.deepprimal.core.ChunkMaterializer.*;
 
 /** Coalesced, bounded CPU queries. Worlds and dimensions are part of cache identity. */
 public final class WorldGenPipeline {
-  private final ChunkMaterializer materializer;private final ChunkCache cache;
+  private final BiFunction<ChunkKey,BooleanSupplier,CompletableFuture<MaterializedChunk>> dispatch;
+  private final ChunkCache cache;
   private static final int OPEN=0, SETTLING=1, CANCELLED=2;
   private static final class Query {
     final CompletableFuture<MaterializedChunk> future=new CompletableFuture<>();
@@ -15,7 +18,14 @@ public final class WorldGenPipeline {
   }
   private final Map<ChunkKey,Query> pending=new HashMap<>();
   private volatile boolean stopped;
-  public WorldGenPipeline(ChunkMaterializer materializer,ChunkCache cache){this.materializer=materializer;this.cache=cache;}
+  public WorldGenPipeline(ChunkMaterializer materializer,ChunkCache cache){
+    this(Objects.requireNonNull(materializer)::materializeAsync,cache);
+  }
+  /** Package-private seam for deterministic completion/shutdown tests; no fake terrain objects. */
+  WorldGenPipeline(BiFunction<ChunkKey,BooleanSupplier,CompletableFuture<MaterializedChunk>> dispatch,
+                   ChunkCache cache){
+    this.dispatch=Objects.requireNonNull(dispatch);this.cache=Objects.requireNonNull(cache);
+  }
   public CompletableFuture<MaterializedChunk> generateChunk(ChunkKey key){
     final Query request;
     synchronized(this){
@@ -26,7 +36,7 @@ public final class WorldGenPipeline {
     request=new Query();pending.put(key,request);
     }
     // An Executor may run inline or block on admission: dispatch outside the monitor.
-    try{materializer.materializeAsync(key,()->stopped).whenComplete((chunk,error)->{
+    try{dispatch.apply(key,()->stopped).whenComplete((chunk,error)->{
       Throwable failure=error;
       synchronized(this){
         if(stopped)failure=new CancellationException("pipeline stopped");
@@ -57,10 +67,12 @@ public final class WorldGenPipeline {
     // A shutdown decision made after cache admission but before this CAS wins.
     // Future completion stays outside the pipeline monitor (user callbacks can reenter).
     if(request.decision.compareAndSet(OPEN,SETTLING)){
-      try {
-        if(failure!=null)request.future.completeExceptionally(failure);
-        else request.future.complete(chunk);
-      } finally {synchronized(this){pending.remove(key,request);}}
+      // Retire the query BEFORE invoking user continuations. A failure handler may
+      // synchronously retry the same key; it must not coalesce with this failed future.
+      // The CAS is the completion/shutdown decision point, not future notification.
+      synchronized(this){pending.remove(key,request);}
+      if(failure!=null)request.future.completeExceptionally(failure);
+      else request.future.complete(chunk);
     } else synchronized(this){pending.remove(key,request);}
   }
   public void shutdown(){
