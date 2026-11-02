@@ -23,8 +23,8 @@ public final class WakeField {
     double length = Math.hypot(vx, vz);
     if (length == 0) return;
     double unitX, unitZ;
-    if (Double.isInfinite(length)) {
-      // hypot may overflow for two finite, nonzero velocities; scale before normalizing.
+    if (Double.isInfinite(length) || length < Double.MIN_NORMAL) {
+      // hypot can overflow or lose relative precision for subnormal velocities; scale first.
       double scale = Math.max(Math.abs(vx), Math.abs(vz));
       double scaledX = vx / scale, scaledZ = vz / scale;
       double scaledLength = Math.hypot(scaledX, scaledZ);
