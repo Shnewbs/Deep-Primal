@@ -69,13 +69,19 @@ public final class WaterPatchMesher {
   public static float flowUOffset(int direction, int worldX, int worldZ) {
     if (direction < 0 || direction >= 16) return 0;
     double phase = .5 * ((double) FLOW_Z[direction] * worldX - (double) FLOW_X[direction] * worldZ);
-    return (float) (phase - Math.floor(phase));
+    // A double fraction below one can round to exactly 1.0f, outside the atlas.
+    // Preserve every other phase bit-for-bit, including the cardinal flow axes.
+    float wrapped = (float) (phase - Math.floor(phase));
+    return wrapped < 1.0f ? wrapped : Math.nextDown(1.0f);
   }
 
   public static float flowVOffset(int direction, int worldX, int worldZ) {
     if (direction < 0 || direction >= 16) return 0;
     double phase = .5 * ((double) FLOW_X[direction] * worldX + (double) FLOW_Z[direction] * worldZ);
-    return (float) (phase - Math.floor(phase));
+    // A double fraction below one can round to exactly 1.0f, outside the atlas.
+    // Preserve every other phase bit-for-bit, including the cardinal flow axes.
+    float wrapped = (float) (phase - Math.floor(phase));
+    return wrapped < 1.0f ? wrapped : Math.nextDown(1.0f);
   }
 
   public static float flowX(int direction) { return FLOW_X[direction]; }
