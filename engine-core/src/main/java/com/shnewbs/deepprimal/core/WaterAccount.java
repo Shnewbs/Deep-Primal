@@ -30,6 +30,9 @@ public final class WaterAccount {
   }
   private static long portion(long mass, long amount, long volume) {
     if (mass == 0 || amount == 0) return 0;
+    // A full-volume transfer carries all constituents exactly. Avoid multiplying
+    // near-limit masses and allocating BigIntegers for this common case.
+    if (amount == volume) return mass;
     if (mass <= Long.MAX_VALUE / amount) return mass * amount / volume;
     return java.math.BigInteger.valueOf(mass).multiply(java.math.BigInteger.valueOf(amount))
         .divide(java.math.BigInteger.valueOf(volume)).longValueExact();
