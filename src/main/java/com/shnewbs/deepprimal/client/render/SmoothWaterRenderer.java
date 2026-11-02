@@ -233,7 +233,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
       float ny,
       float nz) {
     float u = mode == 1 ? dz : dx,
-        v = mode == 0 ? dz : WaterMeshShape.flowingV(x + dx, y + dy, z + dz);
+        v = mode == 0 ? dz : WaterMeshShape.sideV(dy);
     out.addVertex(
         WaterMeshShape.x(x + dx, y + dy, z + dz),
         y + dy,

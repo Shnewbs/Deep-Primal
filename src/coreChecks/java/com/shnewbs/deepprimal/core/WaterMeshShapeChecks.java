@@ -35,10 +35,24 @@ public final class WaterMeshShapeChecks {
         }
     if (maxX - minX < .07 || maxZ - minZ < .07)
       throw new AssertionError("Water surface has no measurable organic variation");
+    // Side texture coordinates must decrease continuously through every vertical quad.
+    // Modulo on each vertex instead jumps from 0 to .75 in the first quarter block.
+    int sideUvCases = 0;
+    for (int units = 1; units <= 16; units++) {
+      float height = units / 16f;
+      for (int section = 0; section < 4; section++) {
+        float low = height * section / 4f, high = height * (section + 1f) / 4f;
+        float lowV = WaterMeshShape.sideV(low), highV = WaterMeshShape.sideV(high);
+        if (lowV < 0 || highV < 0 || lowV > 1 || highV > 1
+            || Math.abs((lowV - highV) - (high - low)) > 1e-6f)
+          throw new AssertionError("Waterfall UV direction reverses inside a quad");
+        sideUvCases++;
+      }
+    }
     System.out.println(
         "WATER_MESH_SHAPE_PASS samples="
             + checked
-            + " periodicPages=true boundedDisplacement=true organicVariation=true");
+            + " periodicPages=true boundedDisplacement=true organicVariation=true sideUvCases=" + sideUvCases);
   }
 
   private WaterMeshShapeChecks() {}

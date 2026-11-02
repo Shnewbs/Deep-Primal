@@ -29,5 +29,10 @@ public final class WaterMeshShape {
     return (float) (phase - Math.floor(phase));
   }
 
+  /** Atlas-local vertical coordinate for a single block's falling-water side. */
+  public static float sideV(float relativeY) {
+    return 1.0f - relativeY;
+  }
+
   private WaterMeshShape() {}
 }
