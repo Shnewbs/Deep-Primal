@@ -1,10 +1,13 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev192-fluid-volume-admission",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T10:01:46Z",
   "expires": "2026-11-02T10:48:00Z",
+  "ended_at": "2026-11-02T10:03:40Z",
   "source_head": "970466f6e0f4752a213fc7f274fbc4f9694fdc6e",
+  "claim_commit": "c8e19538d2041455544a30f5c9d94f515e2dc010",
+  "implementation_commit": "28c187b17897898aaf9104756053ad048169a92a",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/FluidVolume.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/FluidVolumeAdmissionChecks.java",
@@ -13,5 +16,11 @@
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
   "consumed_audit": "docs/engine-hourly-audits/2026-11-02T0930-dev191/REVIEW.md",
-  "coordination": "Bounded legacy finite-water integer-volume admission only; avoid auditor WaterSimulation, organics, native renderer and LOD writer paths. No GitHub Actions. No qualified JAR until Java25 full build."
+  "coordination": "Scoped 8-unit legacy native-water admission; independent auditor's WaterSimulation, organics, renderer and LOD source untouched. No GitHub Actions.",
+  "evidence": "docs/validation/engine-continuation/fluid-volume-admission-2026-11-02/README.md",
+  "tests": "Java21 strict production-class compilation, 376053 assertions, original negative control failed as expected; four GitHub blobs verified",
+  "full_build": false,
+  "qualified_jar": false,
+  "lease_released": true,
+  "next": "Restore complete Java25 checkout/Gradle NeoForge dependencies; full CoreChecks/native save-reopen; Vulkan and LOD acceptance."
 }
