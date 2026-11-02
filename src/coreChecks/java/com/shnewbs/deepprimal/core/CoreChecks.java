@@ -66,6 +66,7 @@ public final class CoreChecks {
     DepositPlanChecks.run();
     WaterBudgetChecks.run();
     WaterAccountDebitChecks.main(new String[0]);
+    WaterAccountFullParcelChecks.main(new String[0]);
     WaterTransferAdmissionChecks.main(args);
     SplitAdmissionChecks.main(args);
     StreamSourceCapacityChecks.run();
