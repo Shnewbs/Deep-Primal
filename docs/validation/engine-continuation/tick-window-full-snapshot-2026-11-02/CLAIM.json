@@ -1,0 +1,23 @@
+{
+  "owner": "deep-primal-hourly-engineering-dev202",
+  "status": "active",
+  "started_at": "2026-11-02T15:06:00Z",
+  "active_until": "2026-11-02T15:25:00Z",
+  "baseline_sha": "121f443bb4b02bc13cd9d1672e00e140751c151a",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/TickWindowDurationChecks.java",
+    "docs/validation/engine-continuation/tick-window-full-snapshot-2026-11-02/**"
+  ],
+  "intent": "Avoid redundant snapshot copy for full tick telemetry rings; preserve percentiles and caller isolation.",
+  "exclusions": [
+    "water physics",
+    "worldgen",
+    "Vulkan renderer",
+    "LOD source",
+    "organics",
+    "shared root work state",
+    "Gradle and GitHub Actions"
+  ],
+  "acceptance": "Isolated Java21 strict compile, deterministic oracle and negative control; native JAR gate remains open."
+}
