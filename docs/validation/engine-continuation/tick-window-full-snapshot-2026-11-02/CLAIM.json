@@ -6,10 +6,11 @@
   "baseline_sha": "121f443bb4b02bc13cd9d1672e00e140751c151a",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/TickWindowDurationChecks.java",
     "docs/validation/engine-continuation/tick-window-full-snapshot-2026-11-02/**"
   ],
-  "intent": "Avoid redundant snapshot copy for full tick telemetry rings; preserve percentiles and caller isolation.",
+  "intent": "Avoid redundant snapshot copy for both partial and full tick telemetry rings; preserve public SampleStats.of, percentiles and caller isolation.",
   "exclusions": [
     "water physics",
     "worldgen",
