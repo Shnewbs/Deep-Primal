@@ -2,7 +2,7 @@
   "schema": 1,
   "claim_id": "engine-20261102T0256-horizon-sample-finite",
   "owner": "Deep Primal hourly engineering",
-  "status": "active",
+  "status": "completed-released",
   "claimed_utc": "2026-11-02T02:56:38Z",
   "expires_utc": "2026-11-02T03:25:00Z",
   "parent_at_claim": "2abf1a6081bb35bc16d5b1f2d2d85fc0941fa718",
@@ -22,5 +22,9 @@
     "auditor/**"
   ],
   "no_actions": true,
-  "local_build": "isolated Java21 class checks only; no JAR claim"
+  "local_build": "isolated Java21 class checks only; no JAR claim",
+  "released_utc": "2026-11-02T03:00:00Z",
+  "production_commit": "b448e7ba94fc76525889b40f0d4b05cba8d9e620",
+  "validation_report_commit": "e76db5cd4d9774067d35916de14c010f4fee8aaf",
+  "result": "480135 isolated Java21 assertions pass; original defect reproduced; no playable Java25 JAR"
 }
