@@ -101,6 +101,7 @@ public final class CoreChecks {
     WaterSurfaceUvAdmissionChecks.main(new String[0]);
     WaterSurfaceShapeChecks.run();
     WaterMeshShapeChecks.run();
+    WaterMeshShapeFiniteChecks.main(new String[0]);
     WaterfallSideChecks.run();
     CaveColumnChecks.run();
     IntegratedEngineChecks.run();
