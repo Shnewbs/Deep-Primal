@@ -8,6 +8,7 @@
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/TickWindowDurationChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
     "docs/validation/engine-continuation/tick-window-full-snapshot-2026-11-02/**"
   ],
   "intent": "Avoid redundant snapshot copy for both partial and full tick telemetry rings; preserve public SampleStats.of, percentiles and caller isolation.",
