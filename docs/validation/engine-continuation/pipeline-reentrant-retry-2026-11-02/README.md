@@ -1,6 +1,6 @@
 # Dev198 — worldgen completion retry and production-shaped CoreChecks repair (2026-11-02)
 
-**Base:** `d9741199024840d983f6ba0ac31ce7a17ef0d5eb`. **Coordination claim:** `c4cd25cfc5487ef3cfbe7746b1a8ec494f41a991`. **Audit consumed:** [Dev197 independent review](../../../../engine-hourly-audits/2026-11-02T1230-dev197/REVIEW.md).
+**Base:** `d9741199024840d983f6ba0ac31ce7a17ef0d5eb`. **Coordination claim:** `c4cd25cfc5487ef3cfbe7746b1a8ec494f41a991`. **Audit consumed:** [Dev197 independent review](../../../engine-hourly-audits/2026-11-02T1230-dev197/REVIEW.md).
 
 ## Correctness fix
 

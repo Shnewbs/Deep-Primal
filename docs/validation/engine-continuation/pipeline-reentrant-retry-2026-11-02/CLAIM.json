@@ -10,6 +10,7 @@
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/WorldGenPipelineKeyChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/WorldGenPipelineShutdownChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/PipelineTestFixtures.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/WorldGenPipelineReentrantRetryChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
     "docs/validation/engine-continuation/pipeline-reentrant-retry-2026-11-02/**"
