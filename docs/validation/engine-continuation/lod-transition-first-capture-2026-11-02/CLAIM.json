@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T0600-lod-transition-first-capture",
+  "owner": "Deep Primal hourly engineering",
+  "status": "completed-released",
+  "baseline_main": "b76b2dea0ebb1ad735f2909fa03924afccf638ac",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TransitionDependencies.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/TransitionDependenciesLifecycleChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/lod-transition-first-capture-2026-11-02/**"
+  ],
+  "tests": "Java21 strict compilation and 225011 deterministic assertions passed; exact original Git blob negative control fails at assertion 1",
+  "native_jar": false,
+  "source_only": true,
+  "other_writers": "Auditor, organics, native renderer and independent LOD owner paths excluded; no GitHub Actions",
+  "lease_released": true
+}

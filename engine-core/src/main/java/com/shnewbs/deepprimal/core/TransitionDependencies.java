@@ -5,10 +5,12 @@ public final class TransitionDependencies {
     private final Object[] sources;
     private long x = Long.MIN_VALUE, z;
     private int radius, count, next;
-    private boolean changed;
+    // A coordinate sentinel is not a substitute for an initialized capture: every long is valid.
+    private boolean initialized, changed;
     public TransitionDependencies(int capacity) { sources = new Object[capacity]; }
     public void begin(long x, long z, int radius) {
-        changed = this.x != x || this.z != z || this.radius != radius;
+        changed = !initialized || this.x != x || this.z != z || this.radius != radius;
+        initialized = true;
         this.x = x; this.z = z; this.radius = radius; next = 0;
     }
     public void include(Object source) {
@@ -22,5 +24,5 @@ public final class TransitionDependencies {
         count = next;
         return changed;
     }
-    public void clear() { java.util.Arrays.fill(sources, null); count = next = 0; x = Long.MIN_VALUE; }
+    public void clear() { java.util.Arrays.fill(sources, null); count = next = 0; x = Long.MIN_VALUE; initialized = false; }
 }

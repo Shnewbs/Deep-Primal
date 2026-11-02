@@ -105,6 +105,7 @@ public final class CoreChecks {
     NearestChunksReadyAdmissionChecks.main(new String[0]);
     SyncRebuildBudgetOverflowChecks.main(new String[0]);
     HorizonChecks.run();
+    TransitionDependenciesLifecycleChecks.main(new String[0]);
     HorizonViewSafetyChecks.main(new String[0]);
     FarTerrainAdmissionChecks.main(new String[0]);
     IndependentHorizonGeometryChecks.main(new String[0]);
