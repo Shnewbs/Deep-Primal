@@ -22,7 +22,9 @@ public final class SeededNoise3D implements DensityField {
   public SeededNoise3D(long seed, NoiseSpec spec) {
     this.seed = seed;
     this.spec = Objects.requireNonNull(spec, "spec");
-    int count = spec.octaves();
+    // With zero persistence every octave after the first has exactly zero weight.
+    // Do not allocate or evaluate those octaves; the saved spec remains unchanged.
+    int count = spec.gain() == 0.0 ? 1 : spec.octaves();
     fx = new double[count]; fy = new double[count]; fz = new double[count];
     weights = new double[count]; px = new double[count]; py = new double[count]; pz = new double[count];
     salts = new long[count];

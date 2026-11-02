@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "worker": "hourly-engine-dev220-zero-gain-noise",
-  "status": "active",
+  "status": "checkpointed",
   "started_at": "2026-11-02T23:00:00Z",
   "active_until": "2026-11-02T23:50:00Z",
   "base_main": "81679e94c36ca4f76e8534de2437015083508f9b",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/SeededNoise3D.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/density/SeededNoiseZeroGainChecks.java",
-    "docs/validation/engine-continuation/seeded-noise-zero-gain-2026-11-02/**"
+    "docs/validation/engine-continuation/seeded-noise-zero-gain-2026-11-02/**",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/density/NoiseCoreChecks.java"
   ],
   "excluded": [
     "WaterSimulation.java",
@@ -16,5 +17,9 @@
     "renderer-vulkan/**",
     "lod-engine/**"
   ],
-  "goal": "Skip mathematically zero-weight 3D noise octaves while retaining bit-exact gain=0 scalar and bulk output; isolated Java21 exact-source regression, full Java25 build if available."
+  "goal": "Skip mathematically zero-weight 3D noise octaves while retaining bit-exact gain=0 scalar and bulk output; isolated Java21 exact-source regression, full Java25 build if available.",
+  "lease_released": true,
+  "ended_at": "2026-11-02T23:12:00Z",
+  "test_result": "108006 checks per variant; bit-identical digest; default version-one fingerprint unchanged; isolated zero-gain median 56.4ms to 10.5ms",
+  "build": "full Java25/Gradle/NeoForge JAR unavailable; no prior JAR removed"
 }

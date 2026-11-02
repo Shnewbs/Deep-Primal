@@ -65,6 +65,7 @@ public final class NoiseCoreChecks {
       var jobs=new ArrayList<Future<Long>>();for(int i=0;i<64;i++)jobs.add(executor.submit(()->hash(grid)));
       for(var job:jobs)require(job.get()==expected,"immutable concurrent replay");
     }
+    SeededNoiseZeroGainChecks.main(new String[0]);
     String fingerprint=fingerprint();
     require(fingerprint.equals("6d53af6ab4d0f54f725723a6fcf0708bb6a7ff82b0b8a6082bb78b31d07267c1"),"algorithm version-one fingerprint changed");
     System.out.println("NOISE_CORE_PASS checks="+checks+" oracleSamples=40000 sharedFaceSamples="+seams+" parallelJobs=64 fingerprint="+fingerprint);
