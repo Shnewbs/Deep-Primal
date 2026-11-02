@@ -28,6 +28,7 @@ public final class CoreChecks {
     WaterDynamicsHydrologyFiniteChecks.main(new String[0]);
     WaterDynamicsNativeTopChecks.main(new String[0]);
     CacheLifecycleChecks.main(new String[0]);
+    CacheCloseRaceChecks.main(new String[0]);
     CoreCloseLifecycleChecks.main(new String[0]);
     PipelineInlineCloseChecks.main(new String[0]);
     WorldGenPipelineKeyChecks.main(new String[0]);
