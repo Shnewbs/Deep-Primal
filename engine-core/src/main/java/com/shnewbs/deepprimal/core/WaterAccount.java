@@ -34,9 +34,13 @@ public final class WaterAccount {
     return java.math.BigInteger.valueOf(mass).multiply(java.math.BigInteger.valueOf(amount))
         .divide(java.math.BigInteger.valueOf(volume)).longValueExact();
   }
+  /** Commit an already-previewed parcel exactly once after receiver admission. */
+  private void debit(Parcel p) {
+    water -= p.water(); salt -= p.salt(); sediment -= p.sediment();
+  }
   public Parcel take(long requested) {
     var p = preview(requested);
-    water -= p.water(); salt -= p.salt(); sediment -= p.sediment();
+    debit(p);
     return p;
   }
   public boolean add(Parcel p) {
@@ -52,7 +56,8 @@ public final class WaterAccount {
     if (from == to) return 0;
     var p = from.preview(Math.min(Math.max(0, requested), to.room()));
     if (!to.add(p)) return 0;
-    from.take(p.water()); return p.water();
+    // The same admitted parcel must be debited; recomputing its fractions is redundant.
+    from.debit(p); return p.water();
   }
   /** Split a finite supply; the second store receives rounding dust.
    * A receiver admission failure returns zero without mutating any of the three accounts. */
@@ -74,7 +79,8 @@ public final class WaterAccount {
       return 0;
     first.add(firstParcel);
     second.add(secondParcel);
-    from.take(total);
+    // The split was computed from this exact parcel before either receiver changed.
+    from.debit(parcel);
     return total;
   }
   /** Evaporation moves water alone; dissolved/entrained constituents remain in the source. */
