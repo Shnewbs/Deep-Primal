@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T2059-water-full-parcel-fast-path",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "claimed_utc": "2026-11-02T20:59:00Z",
+  "expires_utc": "2026-11-02T21:18:00Z",
+  "parent_at_claim": "82161f5e2014a917dec489f1ddd3e7a1555869bf",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterAccountFullParcelChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-full-parcel-2026-11-02/**"
+  ],
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-02T2030-dev213/REVIEW.md",
+  "purpose": "Exact full-volume water/chemistry parcel transfer fast path; eliminate redundant long multiplication/BigInteger for amount==volume, preserve all conservation and admission semantics",
+  "no_actions": true,
+  "build_policy": "Java21 isolated production-source test; no full JAR claim without Java25/Gradle"
+}
