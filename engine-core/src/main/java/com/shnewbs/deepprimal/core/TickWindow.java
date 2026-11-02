@@ -20,7 +20,8 @@ public final class TickWindow {
     public int count() { return count; }
     public SampleStats snapshot() {
         if (count == 0) return new SampleStats(0, 0, 0, 0, 0);
-        return SampleStats.of(java.util.Arrays.copyOf(nanos, count));
+        // SampleStats makes the single defensive copy; do not copy this ring twice.
+        return SampleStats.of(nanos, count);
     }
     public void clear() { next = 0; count = 0; }
 }
