@@ -90,10 +90,15 @@ public final class DensityVolumeBounds {
                     (long)z + countZ - 1L);
   }
 
+  private static boolean validCoordinate(double value) {
+    return Double.isFinite(value) && Math.abs(value) <= DensityGraph.WORLD_LIMIT;
+  }
+
   private static void checkBox(Box b) {
-    for (double value : new double[]{b.minX, b.minY, b.minZ, b.maxX, b.maxY, b.maxZ})
-      if (!Double.isFinite(value) || Math.abs(value) > DensityGraph.WORLD_LIMIT)
-        throw new IllegalArgumentException("box coordinate outside density world bounds");
+    // Called for every occupancy probe: validate scalars without a temporary array.
+    if (!validCoordinate(b.minX) || !validCoordinate(b.minY) || !validCoordinate(b.minZ)
+        || !validCoordinate(b.maxX) || !validCoordinate(b.maxY) || !validCoordinate(b.maxZ))
+      throw new IllegalArgumentException("box coordinate outside density world bounds");
     if (b.minX > b.maxX || b.minY > b.maxY || b.minZ > b.maxZ)
       throw new IllegalArgumentException("inverted density box");
   }
@@ -171,13 +176,13 @@ public final class DensityVolumeBounds {
   }
 
   private static Range multiply(Range a, Range b) {
-    double[] p={a.low*b.low,a.low*b.high,a.high*b.low,a.high*b.high};
-    double lo=Double.POSITIVE_INFINITY,hi=Double.NEGATIVE_INFINITY;
-    for(double v:p) {
-      if(Double.isNaN(v))return UNKNOWN;
-      lo=Math.min(lo,v);hi=Math.max(hi,v);
-    }
-    return outward(lo,hi);
+    // Four interval corners, evaluated in the same order as the old array loop.
+    // Avoid an array allocation for every MULTIPLY node in a V8 preflight.
+    double p0=a.low*b.low,p1=a.low*b.high,p2=a.high*b.low,p3=a.high*b.high;
+    if (Double.isNaN(p0) || Double.isNaN(p1) || Double.isNaN(p2) || Double.isNaN(p3))
+      return UNKNOWN;
+    return outward(Math.min(Math.min(p0,p1),Math.min(p2,p3)),
+        Math.max(Math.max(p0,p1),Math.max(p2,p3)));
   }
 
   private static Range outward(double lo, double hi) {
