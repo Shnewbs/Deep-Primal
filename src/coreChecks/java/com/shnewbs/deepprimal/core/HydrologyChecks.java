@@ -30,6 +30,7 @@ final class HydrologyChecks {
       if (8 - FluidVolume.nativeLevel(units) != units) throw new AssertionError("Native levels");
     if (FluidVolume.sideways(1, 0) != 0 || FluidVolume.pressure(0, 8, 1, 0) != 0)
       throw new AssertionError("Puddle/head limit");
+    FluidVolumeAdmissionChecks.main(new String[0]);
     var wakes = new WakeField();
     for (int i = 0; i < 100000; i++) wakes.add(i, 64, 0, 1, .2, 1);
     int live = 0;
