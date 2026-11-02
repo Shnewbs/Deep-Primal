@@ -10,6 +10,9 @@ import java.nio.*;
 public final class WaterSimulation {
   public static final int CHUNK_SIZE=16,CELL_COUNT=256,PACKET_BYTES=16+CELL_COUNT*3;
   private final int[] units=new int[CELL_COUNT],ground=new int[CELL_COUNT];
+  // Reused only while holding the tick monitor. Sample every height before committing
+  // so an invalid callback cannot partially change the authoritative ground grid.
+  private final int[] nextGround=new int[CELL_COUNT];
   private final double[] flowX=new double[CELL_COUNT],flowZ=new double[CELL_COUNT];
   private final boolean[] sources=new boolean[CELL_COUNT];private final byte[] materials=new byte[CELL_COUNT];
   private double fraction;
@@ -19,7 +22,7 @@ public final class WaterSimulation {
   public synchronized void tick(double dt,DoubleSupplier height){tick(dt,(x,z)->height.getAsDouble());}
   public synchronized void tick(double dt,DoubleBinaryOperator height){
     if(!Double.isFinite(dt)||dt<0||dt>4)throw new IllegalArgumentException("tick delta 0..4");Objects.requireNonNull(height);
-    int[] nextGround=new int[256];for(int z=0;z<16;z++)for(int x=0;x<16;x++){double h=height.applyAsDouble(x,z);if(!Double.isFinite(h)||Math.abs(h)>30_000_000)throw new IllegalArgumentException("ground height");nextGround[index(x,z)]=(int)Math.floor(h);}
+    for(int z=0;z<16;z++)for(int x=0;x<16;x++){double h=height.applyAsDouble(x,z);if(!Double.isFinite(h)||Math.abs(h)>30_000_000)throw new IllegalArgumentException("ground height");nextGround[index(x,z)]=(int)Math.floor(h);}
     System.arraycopy(nextGround,0,ground,0,256);long start=System.nanoTime();Arrays.fill(flowX,0);Arrays.fill(flowZ,0);fraction+=dt;
     while(fraction>=1){fraction--;for(int z=0;z<16;z++)for(int x=0;x<16;x++){int i=index(x,z);if(x<15)exchange(i,i+1,true);if(z<15)exchange(i,i+16,false);}}
     update();long elapsed=System.nanoTime()-start;simulationTimeNs.addAndGet(elapsed);EngineMetrics.recordWaterSim(elapsed);
@@ -60,7 +63,23 @@ public final class WaterSimulation {
   public synchronized void encodeToPacket(ByteBuffer buffer,int offset,long timestamp){
     if(buffer.isReadOnly()||offset<0||offset>buffer.limit()-PACKET_BYTES)throw new IllegalArgumentException("packet buffer");var out=buffer.duplicate().order(ByteOrder.BIG_ENDIAN);out.position(offset);out.putInt(0x44505753).putInt(1).putLong(timestamp);for(int i=0;i<256;i++)out.put((byte)units[i]).put((byte)(sources[i]?1:0)).put(materials[i]);
   }
-  public static WaterSimulation fromChunkData(double[] levels,boolean[] sources,byte[] materials){if(levels.length!=256||sources.length!=256||materials.length!=256)throw new IllegalArgumentException("256 cells required");var result=new WaterSimulation();for(int i=0;i<256;i++){result.setWaterLevel(i%16,i/16,levels[i],sources[i]);result.setMaterial(i%16,i/16,materials[i]);}return result;}
+  public static WaterSimulation fromChunkData(double[] levels,boolean[] sources,byte[] materials){
+    if(levels.length!=CELL_COUNT||sources.length!=CELL_COUNT||materials.length!=CELL_COUNT)
+      throw new IllegalArgumentException("256 cells required");
+    var result=new WaterSimulation();
+    // A new instance has no observers. Populate each validated cell directly,
+    // preserving setMaterial's dry/wet/solid rules and solid-source normalization.
+    // Calling setWaterLevel here recalculated all 256 totals for every cell (O(n^2)).
+    for(int i=0;i<CELL_COUNT;i++){
+      int amount=volume(levels[i]);
+      result.units[i]=amount;
+      result.sources[i]=sources[i];
+      result.materials[i]=(byte)(amount>0?1:0);
+      result.setMaterial(i&15,i>>>4,materials[i]);
+    }
+    result.update();
+    return result;
+  }
   private void update(){long sum=0,active=0;for(int u:units){sum+=u;if(u>0)active++;}totalWaterVolume.set(sum*62500L);activeCells.set(active);}
   public record Stats(long activeCells,long totalWaterVolumeMl,long simulationTimeNs){}
   public synchronized Stats getStats(){update();return new Stats(activeCells.get(),totalWaterVolume.get(),simulationTimeNs.get());}
