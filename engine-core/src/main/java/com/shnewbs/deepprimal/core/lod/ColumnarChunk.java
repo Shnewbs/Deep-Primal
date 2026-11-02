@@ -70,9 +70,15 @@ public final class ColumnarChunk {
     if (localX < 0 || localX > 15 || localZ < 0 || localZ > 15 || y < minY || y >= minY + height)
       throw new IndexOutOfBoundsException();
     int c = localZ * 16 + localX;
-    for (int j = offsets[c]; j < offsets[c + 1]; j += 3)
-      if (y < runs[j + 1]) return palette.get(runs[j + 2]);
-    throw new AssertionError("Missing run");
+    // Constructor validation guarantees contiguous, nonempty, sorted runs in
+    // each column. Binary search avoids scanning thousands of thin LOD layers.
+    int low = offsets[c] / 3, high = offsets[c + 1] / 3;
+    while (low < high) {
+      int mid = low + (high - low) / 2;
+      if (y < runs[mid * 3 + 1]) high = mid;
+      else low = mid + 1;
+    }
+    return palette.get(runs[low * 3 + 2]);
   }
 
   public long estimatedBytes() {
