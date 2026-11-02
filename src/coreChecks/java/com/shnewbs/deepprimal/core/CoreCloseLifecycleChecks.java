@@ -20,7 +20,13 @@ public final class CoreCloseLifecycleChecks {
       worker.submit(core::close).get(2,TimeUnit.SECONDS);
       if (load.isDone() || worker.isShutdown()) throw new AssertionError("close must preserve caller executor ownership");
       release.countDown();
-      if (!load.get(5,TimeUnit.SECONDS).equals("computed")) throw new AssertionError("caller result lost");
+      try {
+        load.get(5,TimeUnit.SECONDS);
+        throw new AssertionError("closed world returned obsolete cache result");
+      } catch (ExecutionException expected) {
+        if (!(expected.getCause() instanceof IllegalStateException))
+          throw new AssertionError("terminal close must reject late cache completion", expected);
+      }
       if (core.getDensityCache().size()!=0 || core.getDensityCache().getMemoryUsage()!=0 || core.getMeshCache().size()!=0)
         throw new AssertionError("closed caches repopulated");
       if (!core.generateChunkAsync(new ChunkMaterializer.ChunkKey(0,0,0)).isCompletedExceptionally())
