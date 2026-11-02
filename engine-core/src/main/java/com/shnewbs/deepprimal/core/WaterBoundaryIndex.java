@@ -12,17 +12,44 @@ public final class WaterBoundaryIndex {
   public static WaterBoundaryIndex of(int[] quads) {
     if (quads.length == 0) return EMPTY;
     int[] offsets = new int[10];
-    for (int entry : quads) for (int slot = 0; slot < 9; slot++) {
-      if (slot != 4 && mask(entry, slot % 3 - 1, slot / 3 - 1) != 0)
-        offsets[slot + 1]++;
+    // Only cells on a page edge can contribute to a neighbor. Classifying each
+    // cell once avoids 9 mask evaluations per quad in each of the two passes.
+    // Slots retain row-major neighbor order: NW,N,NE,W,center,E,SW,S,SE.
+    for (int entry : quads) {
+      int x = entry & 15, z = (entry >>> 4) & 15;
+      if (z == 0) {
+        if (x == 0) offsets[1]++; // NW
+        offsets[2]++; // N
+        if (x == 15) offsets[3]++; // NE
+      }
+      if (x == 0) offsets[4]++; // W
+      if (x == 15) offsets[6]++; // E
+      if (z == 15) {
+        if (x == 0) offsets[7]++; // SW
+        offsets[8]++; // S
+        if (x == 15) offsets[9]++; // SE
+      }
     }
     offsets[0] = 10;
-    for (int slot = 0; slot < 9; slot++) offsets[slot + 1] = Math.addExact(offsets[slot + 1], offsets[slot]);
+    for (int slot = 0; slot < 9; slot++)
+      offsets[slot + 1] = Math.addExact(offsets[slot + 1], offsets[slot]);
     int[] entries = new int[offsets[9]];
     System.arraycopy(offsets, 0, entries, 0, 10);
-    for (int entry : quads) for (int slot = 0; slot < 9; slot++) {
-      if (slot != 4 && mask(entry, slot % 3 - 1, slot / 3 - 1) != 0)
-        entries[offsets[slot]++] = entry;
+    // Append to each bucket in original input order, preserving GPU ordering.
+    for (int entry : quads) {
+      int x = entry & 15, z = (entry >>> 4) & 15;
+      if (z == 0) {
+        if (x == 0) entries[offsets[0]++] = entry;
+        entries[offsets[1]++] = entry;
+        if (x == 15) entries[offsets[2]++] = entry;
+      }
+      if (x == 0) entries[offsets[3]++] = entry;
+      if (x == 15) entries[offsets[5]++] = entry;
+      if (z == 15) {
+        if (x == 0) entries[offsets[6]++] = entry;
+        entries[offsets[7]++] = entry;
+        if (x == 15) entries[offsets[8]++] = entry;
+      }
     }
     return new WaterBoundaryIndex(entries);
   }

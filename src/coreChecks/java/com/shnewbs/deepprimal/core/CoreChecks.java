@@ -87,6 +87,7 @@ public final class CoreChecks {
     WaterCornerPredicateAdmissionChecks.main(new String[0]);
     WaterCornerBulkChecks.run();
     WaterBoundaryIndexChecks.run();
+    WaterBoundaryIndexFastPathChecks.main(new String[0]);
     WaterCornerRetryChecks.run();
     WaterCornerRebaseOverflowChecks.main(new String[0]);
     WaterRetirementStateChecks.run();
