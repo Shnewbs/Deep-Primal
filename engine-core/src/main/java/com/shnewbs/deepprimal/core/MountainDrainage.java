@@ -33,12 +33,21 @@ public final class MountainDrainage {
 
   public MountainDrainage(DoubleBinaryOperator terrain, double seaLevel, boolean contained,
       boolean naturalSteps, boolean supportedSteps) {
+    if (terrain == null || !Double.isFinite(seaLevel))
+      throw new IllegalArgumentException("Invalid drainage input");
     this.supportedSteps = supportedSteps;
     this.terrain = terrain;
     this.seaLevel = seaLevel;
     this.contained = contained;
     this.naturalSteps = naturalSteps;
     Arrays.setAll(locks, i -> new Object());
+  }
+
+  /** Reject invalid grid, bank, profile and lake probes before caching a waterline. */
+  private double terrainHeight(double x, double z) {
+    double height = terrain.applyAsDouble(x, z);
+    if (!Double.isFinite(height)) throw new IllegalArgumentException("Non-finite terrain");
+    return height;
   }
 
   public Sample sample(int x, int z, double original) {
@@ -152,8 +161,7 @@ public final class MountainDrainage {
         long hash = mix(((long) (rx * (SIDE - 1) + x) << 32) ^ (rz * (SIDE - 1) + z));
         localX[n] = (short) (x * CELL + (int) Math.floorMod(hash, 25) - 12);
         localZ[n] = (short) (z * CELL + (int) Math.floorMod(hash >>> 8, 25) - 12);
-        h[n] = terrain.applyAsDouble(ox + localX[n], oz + localZ[n]);
-        if (!Double.isFinite(h[n])) throw new IllegalArgumentException("Non-finite terrain");
+        h[n] = terrainHeight(ox + localX[n], oz + localZ[n]);
         area[n] = 1;
         if (h[n] < seaLevel - 1) {
           if (fallback < 0 || h[n] < h[fallback]) fallback = n;
@@ -234,14 +242,14 @@ public final class MountainDrainage {
           double t = s / (double) (STATIONS - 1);
           double x = ox + localX[n] + t * dx, z = oz + localZ[n] + t * dz;
           double bank = width[n] + t * (Math.max(width[n], width[p]) - width[n]) + 4;
-          double ceiling = terrain.applyAsDouble(x, z);
+          double ceiling = terrainHeight(x, z);
           for (int side = supportedSteps ? -(int) Math.ceil(bank / 2) : -1;
               side <= (supportedSteps ? (int) Math.ceil(bank / 2) : 1);
               side += supportedSteps ? 1 : 2)
             ceiling =
                 Math.min(
                     ceiling,
-                    terrain.applyAsDouble(
+                    terrainHeight(
                         x - side * bank / (supportedSteps ? Math.ceil(bank / 2) : 1) * dz / distance,
                         z + side * bank / (supportedSteps ? Math.ceil(bank / 2) : 1) * dx / distance));
           last = Math.min(last, Math.max(seaLevel, ceiling - 2));
@@ -272,7 +280,7 @@ public final class MountainDrainage {
           bank =
               Math.min(
                   bank,
-                  terrain.applyAsDouble(
+                  terrainHeight(
                       ox + localX[n] + radius * Math.cos(a),
                       oz + localZ[n] + radius * Math.sin(a)));
         }
