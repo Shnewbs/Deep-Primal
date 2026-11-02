@@ -1,9 +1,10 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev172-wake-finite-admission",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T00:04:00Z",
   "expires": "2026-11-02T00:35:00Z",
+  "ended_at": "2026-11-02T00:09:00Z",
   "source_head": "3e9786d2129bd3278bce5a5e6fa6ccaba0e35a4c",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WakeField.java",
@@ -13,5 +14,12 @@
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
   "audit": "docs/engine-hourly-audits/2026-11-01T2330-dev171/REVIEW.md",
-  "note": "Core wake-field admission only; no edits to native hydrology, Vulkan/LOD, renderer, organics or auditor files. Java21 isolated tests and exact GitHub source. No Actions or playable JAR claim."
+  "source_commit": "963959bebf11fe24b8f1b6a8301da1de604f20c9",
+  "source_version": "dev172-wake-finite-source-only",
+  "evidence": "docs/validation/engine-continuation/wake-finite-admission-2026-11-02/README.md",
+  "tests": "Java21 complete-class strict compile; 1200269 assertions; baseline negative failed as expected; production and regression Git blobs verified",
+  "full_build": false,
+  "qualified_jar": false,
+  "lease_released": true,
+  "next": "Java25 complete checkout/Gradle/NeoForge full build and native GPU water/LOD acceptance; preserve last successful JAR."
 }
