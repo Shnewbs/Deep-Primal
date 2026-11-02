@@ -70,6 +70,7 @@ public final class DrainageChecks {
     check(calls.get() == cold, "neighboring catchments thrash the routing cache");
     contained();
     natural();
+    MountainDrainageFiniteProbeChecks.run();
     System.out.println(
         "DRAINAGE_CORE_PASS channels="
             + channels
