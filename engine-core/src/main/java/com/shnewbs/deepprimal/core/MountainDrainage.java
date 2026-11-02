@@ -33,7 +33,7 @@ public final class MountainDrainage {
 
   public MountainDrainage(DoubleBinaryOperator terrain, double seaLevel, boolean contained,
       boolean naturalSteps, boolean supportedSteps) {
-    if (terrain == null || !Double.isFinite(seaLevel))
+    if (terrain == null || !Double.isFinite(seaLevel) || Math.abs(seaLevel) > Float.MAX_VALUE)
       throw new IllegalArgumentException("Invalid drainage input");
     this.supportedSteps = supportedSteps;
     this.terrain = terrain;
@@ -46,7 +46,8 @@ public final class MountainDrainage {
   /** Reject invalid grid, bank, profile and lake probes before caching a waterline. */
   private double terrainHeight(double x, double z) {
     double height = terrain.applyAsDouble(x, z);
-    if (!Double.isFinite(height)) throw new IllegalArgumentException("Non-finite terrain");
+    if (!Double.isFinite(height) || Math.abs(height) > Float.MAX_VALUE)
+      throw new IllegalArgumentException("Non-finite or float-unrepresentable terrain");
     return height;
   }
 

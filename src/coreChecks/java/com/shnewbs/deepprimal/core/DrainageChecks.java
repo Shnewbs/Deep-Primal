@@ -71,6 +71,7 @@ public final class DrainageChecks {
     contained();
     natural();
     MountainDrainageFiniteProbeChecks.run();
+    MountainDrainageFloatStorageChecks.run();
     System.out.println(
         "DRAINAGE_CORE_PASS channels="
             + channels
