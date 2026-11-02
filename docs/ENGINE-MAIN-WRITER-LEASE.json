@@ -1,25 +1,16 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev172-wake-finite-admission",
-  "status": "completed-released",
-  "start": "2026-11-02T00:04:00Z",
-  "expires": "2026-11-02T00:35:00Z",
-  "ended_at": "2026-11-02T00:09:00Z",
-  "source_head": "3e9786d2129bd3278bce5a5e6fa6ccaba0e35a4c",
+  "worker": "hourly-deep-primal-engine-dev176-horizon-snapshot-ownership",
+  "status": "active",
+  "start": "2026-11-02T02:05:25Z",
+  "expires": "2026-11-02T02:28:00Z",
+  "source_head": "870d8f2ac082683e1b911ac494ec460070f598f3",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WakeField.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WakeFieldFiniteAdmissionChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/HydrologyChecks.java",
-    "docs/validation/engine-continuation/wake-finite-admission-2026-11-02/**",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/HorizonSamples.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/HorizonSamplesOwnershipChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/HorizonChecks.java",
+    "docs/validation/engine-continuation/horizon-snapshot-ownership-2026-11-02/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "audit": "docs/engine-hourly-audits/2026-11-01T2330-dev171/REVIEW.md",
-  "source_commit": "963959bebf11fe24b8f1b6a8301da1de604f20c9",
-  "source_version": "dev172-wake-finite-source-only",
-  "evidence": "docs/validation/engine-continuation/wake-finite-admission-2026-11-02/README.md",
-  "tests": "Java21 complete-class strict compile; 1200269 assertions; baseline negative failed as expected; production and regression Git blobs verified",
-  "full_build": false,
-  "qualified_jar": false,
-  "lease_released": true,
-  "next": "Java25 complete checkout/Gradle/NeoForge full build and native GPU water/LOD acceptance; preserve last successful JAR."
+  "coordination": "Scoped engine-core snapshot data integrity only. Renderer/Vulkan/LOD worker-owned source, organics and independent auditor files excluded. No Actions. Local Java21 production-class regression; Java25 packaged JAR not claimed."
 }
