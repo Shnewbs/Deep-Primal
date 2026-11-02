@@ -19,18 +19,21 @@ public final class HorizonViewSafetyChecks {
           "invalid FOV must be coarsest");
       checks++;
     }
-    for (double invalid : new double[] {Double.NaN, Double.POSITIVE_INFINITY,
-        Double.NEGATIVE_INFINITY}) {
-      check(HorizonView.create(0, 0, 1080, 70, invalid).detail(0, 0) == 2,
+    for (double invalid : new double[] {0, -0.0, -Double.MIN_VALUE, -1, -Double.MAX_VALUE,
+        Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY}) {
+      var view = HorizonView.create(0, 0, 1080, 70, invalid);
+      check(view.detail(0, 0) == 2 && view.fineSquared() == 0 && view.mediumSquared() == 0,
           "invalid workload must be coarsest");
       checks++;
     }
     for (double invalid : new double[] {Double.NaN, Double.POSITIVE_INFINITY,
         Double.NEGATIVE_INFINITY}) {
-      check(HorizonView.create(invalid, 0, 1080, 70, 1).detail(0, 0) == 2,
-          "invalid camera X must be coarsest");
-      check(HorizonView.create(0, invalid, 1080, 70, 1).detail(0, 0) == 2,
-          "invalid camera Z must be coarsest");
+      var x = HorizonView.create(invalid, 0, 1080, 70, 1);
+      var z = HorizonView.create(0, invalid, 1080, 70, 1);
+      check(x.detail(0, 0) == 2 && Double.isFinite(x.x()) && x.fineSquared() == 0,
+          "invalid camera X must be coarsest with finite origin");
+      check(z.detail(0, 0) == 2 && Double.isFinite(z.z()) && z.mediumSquared() == 0,
+          "invalid camera Z must be coarsest with finite origin");
       checks += 2;
     }
     Random random = new Random(20261031L);
@@ -40,7 +43,7 @@ public final class HorizonViewSafetyChecks {
       double z = random.nextDouble() * 50000 - 25000;
       int height = random.nextInt(4000) + 1;
       double fov = 1 + random.nextDouble() * 178;
-      double workload = random.nextDouble() * 2 - .5;
+      double workload = Math.max(Double.MIN_VALUE, random.nextDouble() * 1.5);
       int tx = random.nextInt(200) - 100, tz = random.nextInt(200) - 100;
       HorizonView view = HorizonView.create(x, z, height, fov, workload);
       double projection = Math.clamp(height / 720.0 * Math.tan(Math.toRadians(35))
