@@ -3,6 +3,7 @@ package com.shnewbs.primalengine.client;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.shnewbs.primalengine.*;
 import com.shnewbs.primalengine.core.WaterTransport;
+import com.shnewbs.primalengine.core.WaterMeshShape;
 import com.shnewbs.primalengine.mixin.client.FluidModelAccess;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.block.*;
@@ -16,7 +17,7 @@ import net.neoforged.neoforge.client.fluid.CustomFluidRenderer;
 public final class SmoothWaterRenderer implements CustomFluidRenderer {
   public static volatile long renderedCells;
   public static volatile long curvedCells;
-  private static final int SUB = 2;
+  private static final int SUB = 2, SIDE_ALONG = 2, SIDE_VERTICAL = 4;
 
   private static boolean water(BlockAndTintGetter l, BlockPos p) {
     return l.getFluidState(p).getType() == PrimalEngine.WATER.get();
@@ -52,10 +53,17 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
     if (!exposed) return true;
     var model = ((FluidModelAccess) renderer).primalengine$models().get(state);
     var out = output.getBuilder(model.layer());
-    var sprite = model.stillMaterial().sprite();
-    int color =
-        0xff000000
-            | (net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(l, p) & 0xffffff);
+    var still = model.stillMaterial().sprite();
+    var flowing = model.flowingMaterial().sprite();
+    // Bilinear biome color for smoother tint transitions
+    int c1 = net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(l, p);
+    int c2 = net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(l, p.east());
+    int c3 = net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(l, p.south());
+    int c4 = net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(l, p.east().south());
+    int r = (((c1 >> 16) & 255) + ((c2 >> 16) & 255) + ((c3 >> 16) & 255) + ((c4 >> 16) & 255)) >> 2;
+    int g = (((c1 >> 8) & 255) + ((c2 >> 8) & 255) + ((c3 >> 8) & 255) + ((c4 >> 8) & 255)) >> 2;
+    int b = ((c1 & 255) + (c2 & 255) + (c3 & 255) + (c4 & 255)) >> 2;
+    int color = 0xff000000 | (r << 16) | (g << 8) | b;
     int light = LevelRenderer.getLightCoords(l, p.above());
     float x = p.getX() & 15, y = p.getY() & 15, z = p.getZ() & 15;
     double nw = corner(l, p),
@@ -63,8 +71,9 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         sw = corner(l, p.south()),
         se = corner(l, p.east().south());
     double center = water(l, p.above()) ? 1 : state.getOwnHeight();
-    int divisions = Math.abs(center - (nw + ne + sw + se) * .25) < 1e-5 ? 1 : SUB;
-    if (top && divisions > 1) curvedCells++;
+    boolean curved = Math.abs(center - (nw + ne + sw + se) * .25) >= 1e-5;
+    int divisions = SUB;
+    if (top && curved) curvedCells++;
     if (top)
       for (int iz = 0; iz < divisions; iz++)
         for (int ix = 0; ix < divisions; ix++) {
@@ -74,7 +83,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
               vv = (iz + 1) / (float) divisions;
           face(
               out,
-              sprite,
+              still,
               x,
               y,
               z,
@@ -108,35 +117,42 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         bx = 1;
         bz = az;
       }
-      {
-        float x0 = ax, z0 = az, x1 = bx, z1 = bz;
-        float h0 = (float) WaterTransport.surface(nw, ne, sw, se, center, x0, z0),
-            h1 = (float) WaterTransport.surface(nw, ne, sw, se, center, x1, z1);
-        face(
-            out,
-            sprite,
-            x,
-            y,
-            z,
-            x0,
-            0,
-            z0,
-            x1,
-            0,
-            z1,
-            x1,
-            h1,
-            z1,
-            x0,
-            h0,
-            z0,
-            color,
-            light,
-            d.getAxis() == Direction.Axis.X ? 1 : 2);
+      for (int across = 0; across < SIDE_ALONG; across++) {
+        float from = across / (float) SIDE_ALONG, to = (across + 1f) / SIDE_ALONG;
+        float x0 = ax + (bx - ax) * from, z0 = az + (bz - az) * from;
+        float x1 = ax + (bx - ax) * to, z1 = az + (bz - az) * to;
+        float h0 =
+            (float) WaterTransport.surface(nw, ne, sw, se, center, x0, z0),
+            h1 =
+                (float) WaterTransport.surface(nw, ne, sw, se, center, x1, z1);
+        for (int vertical = 0; vertical < SIDE_VERTICAL; vertical++) {
+          float low = vertical / (float) SIDE_VERTICAL, high = (vertical + 1f) / SIDE_VERTICAL;
+          face(
+              out,
+              flowing,
+              x,
+              y,
+              z,
+              x0,
+              h0 * low,
+              z0,
+              x1,
+              h1 * low,
+              z1,
+              x1,
+              h1 * high,
+              z1,
+              x0,
+              h0 * high,
+              z0,
+              color,
+              light,
+              d.getAxis() == Direction.Axis.X ? 1 : 2);
+        }
       }
     }
     if (!water(l, p.below()) && !l.getBlockState(p.below()).isSolid())
-      face(out, sprite, x, y, z, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, color, light, 0);
+      face(out, still, x, y, z, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, color, light, 0);
     renderedCells++;
     return true;
   }
@@ -162,7 +178,17 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
       int color,
       int light,
       int mode) {
-    float ax = x1 - x0, ay = y1 - y0, az = z1 - z0, bx = x2 - x0, by = y2 - y0, bz = z2 - z0;
+    float px0 = WaterMeshShape.x(x + x0, y + y0, z + z0);
+    float py0 = y + y0;
+    float pz0 = WaterMeshShape.z(x + x0, y + y0, z + z0);
+    float px1 = WaterMeshShape.x(x + x1, y + y1, z + z1);
+    float py1 = y + y1;
+    float pz1 = WaterMeshShape.z(x + x1, y + y1, z + z1);
+    float px2 = WaterMeshShape.x(x + x2, y + y2, z + z2);
+    float py2 = y + y2;
+    float pz2 = WaterMeshShape.z(x + x2, y + y2, z + z2);
+    float ax = px1 - px0, ay = py1 - py0, az = pz1 - pz0,
+        bx = px2 - px0, by = py2 - py0, bz = pz2 - pz0;
     float nx = ay * bz - az * by, ny = az * bx - ax * bz, nz = ax * by - ay * bx;
     float length = (float) Math.sqrt(nx * nx + ny * ny + nz * nz);
     if (length < 1e-6) return;
@@ -194,11 +220,12 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
       float nx,
       float ny,
       float nz) {
-    float u = mode == 1 ? dz : dx, v = mode == 0 ? dz : 1 - dy;
+    float u = mode == 1 ? dz : dx,
+        v = mode == 0 ? dz : WaterMeshShape.flowingV(x + dx, y + dy, z + dz);
     out.addVertex(
-        x + dx,
+        WaterMeshShape.x(x + dx, y + dy, z + dz),
         y + dy,
-        z + dz,
+        WaterMeshShape.z(x + dx, y + dy, z + dz),
         color,
         sprite.getU(u),
         sprite.getV(v),

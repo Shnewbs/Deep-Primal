@@ -140,33 +140,36 @@ public final class WaterAnimationChecks {
     var right = strip(16);
     var a = WaterPatchMesher.build(left, null, true);
     var b = WaterPatchMesher.build(right, null, true);
-    Map<Float, Float> edge = new HashMap<>();
+    Map<Integer, Float> edge = new HashMap<>();
     for (int i = 0; i < a.vertices().length; i += WaterPatchMesher.STRIDE)
-      if (a.vertices()[i] == 16 && a.vertices()[i + 10] == 0)
-        edge.put(a.vertices()[i + 2], a.vertices()[i + 3]);
+      if (Math.abs(a.vertices()[i] - 16) < .1 && a.vertices()[i + 10] == 0)
+        edge.put(Math.round(a.vertices()[i + 2] * 1024), a.vertices()[i + 3]);
     int shared = 0;
     for (int i = 0; i < b.vertices().length; i += WaterPatchMesher.STRIDE)
-      if (b.vertices()[i] == 0 && b.vertices()[i + 10] == 0) {
+      if (Math.abs(b.vertices()[i]) < .1 && b.vertices()[i + 10] == 0) {
         float z = b.vertices()[i + 2];
-        require(Math.abs(edge.get(z) - b.vertices()[i + 3]) < .000001, "shared page edge");
+        require(
+            Math.abs(edge.get(Math.round(z * 1024)) - b.vertices()[i + 3]) < .000001,
+            "shared page edge");
         shared++;
       }
     require(shared > 16, "multiple shared samples");
     var tintedLeft = WaterPatchMesher.build(coloredStrip(0), null, true);
     var tintedRight = WaterPatchMesher.build(coloredStrip(16), null, true);
-    var leftEdge = new HashMap<Float, Integer>();
+    var leftEdge = new HashMap<Integer, Integer>();
     for (int i = 0; i < tintedLeft.vertices().length; i += WaterPatchMesher.STRIDE)
       if (WaterPatchMesher.face(tintedLeft.vertices()[i + 10]) == 0
-          && tintedLeft.vertices()[i] == 16)
-        leftEdge.put(tintedLeft.vertices()[i + 2],
+          && Math.abs(tintedLeft.vertices()[i] - 16) < .1)
+        leftEdge.put(Math.round(tintedLeft.vertices()[i + 2] * 1024),
             Float.floatToRawIntBits(tintedLeft.vertices()[i + 7]));
     int tintedShared = 0;
     for (int i = 0; i < tintedRight.vertices().length; i += WaterPatchMesher.STRIDE)
       if (WaterPatchMesher.face(tintedRight.vertices()[i + 10]) == 0
-          && tintedRight.vertices()[i] == 0) {
+          && Math.abs(tintedRight.vertices()[i]) < .1) {
         float z = tintedRight.vertices()[i + 2];
-        require(leftEdge.get(z) != null
-            && leftEdge.get(z) == Float.floatToRawIntBits(tintedRight.vertices()[i + 7]),
+        Integer leftColor = leftEdge.get(Math.round(z * 1024));
+        require(leftColor != null
+            && leftColor == Float.floatToRawIntBits(tintedRight.vertices()[i + 7]),
             "halo-backed water colors match across adjacent page edges");
         tintedShared++;
       }

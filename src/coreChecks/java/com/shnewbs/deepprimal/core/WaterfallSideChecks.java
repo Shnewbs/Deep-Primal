@@ -66,7 +66,9 @@ public final class WaterfallSideChecks {
                   var previous = ledgeSnapshot(axis, sign, origin, upperY, 17 - amount, 17 - pool);
                   var mesh = WaterPatchMesher.build(current, previous, smooth).vertices();
                   for (int i = 0; i < mesh.length; i += WaterPatchMesher.STRIDE) {
-                    if (WaterPatchMesher.face(mesh[i + 10]) != 0 || mesh[i] != 8 || mesh[i + 2] != 8)
+                    if (WaterPatchMesher.face(mesh[i + 10]) != 0
+                        || Math.abs(mesh[i] - 8) > .1
+                        || Math.abs(mesh[i + 2] - 8) > .1)
                       continue;
                     int y = origin + (int) mesh[i + 1];
                     if (y != upperY && y != upperY - 1) continue;
@@ -125,7 +127,7 @@ public final class WaterfallSideChecks {
           }
         var snapshot = new WaterPatchMesher.Snapshot(units, solid, new int[units.length], new int[256]);
         var mesh = WaterPatchMesher.build(snapshot, snapshot, smooth);
-        if (mesh.count() != 16 * 16 * 4)
+        if (mesh.count() != 16 * 16 * 4 * (smooth ? 4 : 1))
           throw new AssertionError("Stepped lake bed generated internal water faces: " + mesh.count());
         for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
           var v = mesh.vertices();

@@ -41,12 +41,13 @@ final class WaterSurfaceShapeChecks {
             true);
     int top = 0;
     for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
-      if (mesh.vertices()[i + 9] != (8 | (8 << 4)) || mesh.vertices()[i + 10] != 0) continue;
+      if (mesh.vertices()[i + 9] != (8 | (8 << 4))
+          || mesh.vertices()[i + 10] != 0) continue;
       if (mesh.vertices()[i + 3] != 17 / 32f)
         throw new AssertionError("Patch checkerboard dimples");
       top++;
     }
-    if (top != 4) throw new AssertionError("Unnecessary planar subdivision");
+    if (top != 16) throw new AssertionError("Unexpected smooth top tessellation: " + top);
     int verticalSeams = 0;
     for (int amount = 1; amount <= 16; amount++) {
       byte[] stepped = new byte[WaterPatchMesher.CELLS];
@@ -64,7 +65,7 @@ final class WaterSurfaceShapeChecks {
       int shared = 0;
       for (int i = 0; i < step.vertices().length; i += WaterPatchMesher.STRIDE) {
         float[] a = step.vertices();
-        if (a[i + 10] != 0 || a[i] != 8 || a[i + 2] != 8) continue;
+        if (a[i + 10] != 0 || Math.abs(a[i] - 8) > .1 || Math.abs(a[i + 2] - 8) > .1) continue;
         if (a[i + 1] + a[i + 3] != 9 + amount / 32f)
           throw new AssertionError(
               "Water surface tears across a vertical voxel boundary: units="
@@ -100,7 +101,9 @@ final class WaterSurfaceShapeChecks {
                   true);
           for (int i = 0; i < step.vertices().length; i += WaterPatchMesher.STRIDE) {
             float[] a = step.vertices();
-            if (a[i + 10] != 0 || a[i] != 8 || a[i + 2] != 8) continue;
+            if (a[i + 10] != 0
+                || Math.abs(a[i] - 8) > .1
+                || Math.abs(a[i + 2] - 8) > .1) continue;
             if (origin + a[i + 1] + a[i + 3] != 15.5f + (lower + upper) / 32f)
               throw new AssertionError(
                   "Vertical section seam changed world surface height: lower="

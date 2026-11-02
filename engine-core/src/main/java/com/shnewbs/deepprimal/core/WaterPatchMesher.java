@@ -86,14 +86,16 @@ public final class WaterPatchMesher {
   private float[] vertices = new float[8192];
   private int size;
   private final Snapshot current, previous;
+  private final boolean smooth;
   private final float[] currentCorners = new float[17 * 16 * 17];
   private final float[] previousCorners;
   private final int[] currentTints = new int[17 * 17], previousTints;
   private final boolean[] currentTintSet = new boolean[17 * 17], previousTintSet;
 
-  private WaterPatchMesher(Snapshot current, Snapshot previous) {
+  private WaterPatchMesher(Snapshot current, Snapshot previous, boolean smooth) {
     this.current = current;
     this.previous = previous == null ? current : previous;
+    this.smooth = smooth;
     Arrays.fill(currentCorners, Float.NaN);
     previousCorners = this.previous == current ? currentCorners : new float[currentCorners.length];
     if (previousCorners != currentCorners) Arrays.fill(previousCorners, Float.NaN);
@@ -102,7 +104,7 @@ public final class WaterPatchMesher {
   }
 
   public static Mesh build(Snapshot current, Snapshot previous, boolean smooth) {
-    var m = new WaterPatchMesher(current, previous);
+    var m = new WaterPatchMesher(current, previous, smooth);
     for (int y = 0; y < 16; y++)
       for (int z = 0; z < 16; z++)
         for (int x = 0; x < 16; x++) {
@@ -117,8 +119,7 @@ public final class WaterPatchMesher {
           }
           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
           if (top || oldTop) {
-            int sub =
-                smooth && (!m.planar(current, x, y, z) || !m.planar(m.previous, x, y, z)) ? 2 : 1;
+            int sub = smooth ? 2 : 1;
             for (int iz = 0; iz < sub; iz++)
               for (int ix = 0; ix < sub; ix++) {
                 float a = ix / (float) sub,
@@ -147,10 +148,16 @@ public final class WaterPatchMesher {
               bx = 1;
               bz = az;
             }
-            m.vertex(x, y, z, ax, az, side, false, old, next);
-            m.vertex(x, y, z, bx, bz, side, false, old, next);
-            m.vertex(x, y, z, bx, bz, side, true, old, next);
-            m.vertex(x, y, z, ax, az, side, true, old, next);
+            int subdivisions = smooth ? 2 : 1;
+            for (int section = 0; section < subdivisions; section++) {
+              float from = section / (float) subdivisions, to = (section + 1f) / subdivisions;
+              float ax0 = ax + (bx - ax) * from, az0 = az + (bz - az) * from;
+              float ax1 = ax + (bx - ax) * to, az1 = az + (bz - az) * to;
+              m.vertex(x, y, z, ax0, az0, side, false, old, next);
+              m.vertex(x, y, z, ax1, az1, side, false, old, next);
+              m.vertex(x, y, z, ax1, az1, side, true, old, next);
+              m.vertex(x, y, z, ax0, az0, side, true, old, next);
+            }
           }
           boolean bottom = m.face(current, x, y, z, 5), oldBottom = m.face(m.previous, x, y, z, 5);
           if (bottom || oldBottom) {
@@ -232,15 +239,6 @@ public final class WaterPatchMesher {
     return (float) WaterTransport.surface(a, b, c, d, 0, u, v);
   }
 
-  private boolean planar(Snapshot s, int x, int y, int z) {
-    return Math.abs(
-            corner(s, x, y, z)
-                - corner(s, x + 1, y, z)
-                - corner(s, x, y, z + 1)
-                + corner(s, x + 1, y, z + 1))
-        < .00001;
-  }
-
   /**
    * Shared-corner biome tint. Averaging the up-to-four columns meeting at a corner is the
    * same identity the surface height uses, so neighbouring cells blend into one gradient
@@ -316,9 +314,12 @@ public final class WaterPatchMesher {
         textureV *= .5f;
       }
     }
-    vertices[size++] = x + u;
+    float positionX = x + u, positionZ = z + v, positionY = y + target;
+    vertices[size++] =
+        smooth ? WaterMeshShape.x(positionX, positionY, positionZ) : positionX;
     vertices[size++] = y;
-    vertices[size++] = z + v;
+    vertices[size++] =
+        smooth ? WaterMeshShape.z(positionX, positionY, positionZ) : positionZ;
     vertices[size++] = target;
     vertices[size++] = old;
     vertices[size++] = textureU;
