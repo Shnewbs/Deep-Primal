@@ -8,9 +8,11 @@ public record HorizonView(double x, double z, double fineSquared, double mediumS
       double x, double z, int pixelsHigh, double fov, double workload) {
     // A minimized/zero-sized viewport or invalid telemetry must not request
     // fine LOD tiles. Zero thresholds choose the cheapest detail for every tile.
-    if (pixelsHigh <= 0 || !Double.isFinite(fov) || fov <= 0 || fov >= 180
-        || !Double.isFinite(workload)) {
-      return new HorizonView(x, z, 0, 0);
+    if (!Double.isFinite(x) || !Double.isFinite(z) || pixelsHigh <= 0
+        || !Double.isFinite(fov) || fov <= 0 || fov >= 180
+        || !Double.isFinite(workload) || workload <= 0) {
+      // Never retain a NaN camera origin in the published snapshot.
+      return new HorizonView(Double.isFinite(x) ? x : 0, Double.isFinite(z) ? z : 0, 0, 0);
     }
     double projection =
         Math.clamp(
