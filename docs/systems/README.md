@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | Agriculture | [AGRICULTURE-SYSTEM.md](AGRICULTURE-SYSTEM.md) | Seasonal physiology, soil/NPK, rotations, finite irrigation, seed genetics/analysis, weeds, perennials, greenhouses, food lots and preservation |
 | Animal ecology and original predators | [ANIMAL-ECOLOGY-AND-PREDATORS.md](ANIMAL-ECOLOGY-AND-PREDATORS.md) | Familiarity, husbandry, breeding, body condition, weight-based products, persistent populations, perception/territories/packs and twelve original predator candidates |
+| Organic hunting | [HUNTING-SYSTEM.md](HUNTING-SYSTEM.md) | Living hunt loop, tracks and weather, animal senses, animated hit validation, injury/recovery, single-carcass processing, ecology and phased acceptance |
 | MMO threats and encounters | [MMO-THREATS-AND-ENCOUNTERS.md](MMO-THREATS-AND-ENCOUNTERS.md) | Wildlife, monsters, intelligent enemies, rare/elite/captain/boss roles, editable terrain, regional events and encounter authoring |
 | Hostile factions and villains | [HOSTILE-FACTIONS-AND-VILLAINS.md](HOSTILE-FACTIONS-AND-VILLAINS.md) | Five original faction candidates, unit roles, named antagonists and linked story arcs |
 | NPCs and questing | [NPC-AND-QUEST-SYSTEM.md](NPC-AND-QUEST-SYSTEM.md) | Easy admin wizard, custom skins, questline editor, level/prerequisite gates, delegated authors, publish/rollback, party credit and durable rewards |
