@@ -7,7 +7,8 @@
   "source_head": "e833d7655862366b38fea1f839c625d4c5ae510b",
   "scope": [
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBudgetChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterAccountDebitChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
     "docs/validation/engine-continuation/water-account-debit-2026-11-02/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
