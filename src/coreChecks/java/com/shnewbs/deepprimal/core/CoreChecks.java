@@ -42,6 +42,7 @@ public final class CoreChecks {
 
     com.shnewbs.deepprimal.core.lod.DeliveredChunkScanChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.lod.DeliveredRetargetChecks.main(new String[0]);
+    com.shnewbs.deepprimal.core.lod.ColumnarChunkLookupChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.lod.LodStoreBudgetChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.lod.LodByteAccountingChecks.main(new String[0]);
     TerrainV6Checks.run();
