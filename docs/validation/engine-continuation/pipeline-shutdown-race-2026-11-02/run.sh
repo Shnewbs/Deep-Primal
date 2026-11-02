@@ -24,11 +24,11 @@ git -C "$ROOT" cat-file blob "$EXPECTED_OLD" > "$TMP/old-src/WorldGenPipeline.ja
 python3 - "$TMP/race-src/WorldGenPipeline.java" "$TMP/old-src/WorldGenPipeline.java" <<'PY'
 from pathlib import Path
 import sys
-needle = '      // User continuations may call back into EngineCore: never run them under this lock.\\n'
+needle = '      // User continuations may call back into EngineCore: never run them under this lock.\n'
 for path in sys.argv[1:]:
     s=Path(path).read_text()
     assert s.count(needle)==1
-    Path(path).write_text(s.replace(needle,needle+'      RaceGate.pause();\\n',1))
+    Path(path).write_text(s.replace(needle,needle+'      RaceGate.pause();\n',1))
 PY
 for kind in race old; do
   javac --release 21 -Xlint:all -Werror -d "$TMP/$kind" "$TMP/$kind-src/WorldGenPipeline.java" \
