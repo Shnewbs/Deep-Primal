@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T0814-worldgen-shutdown-race",
+  "owner": "Deep Primal hourly engineering",
+  "status": "active",
+  "baseline_main": "672ae409788ccce600a1eba9af0709eb984aa6e7",
+  "started_utc": "2026-11-02T08:14:00Z",
+  "expires_utc": "2026-11-02T08:55:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WorldGenPipelineShutdownChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/pipeline-shutdown-race-2026-11-02/**"
+  ],
+  "purpose": "Prevent terminal shutdown from missing a materialization completion after pending removal but before shared future settlement; deterministic paused-interleaving regression",
+  "exclusions": [
+    "auditor-owned reports",
+    "organics",
+    "Vulkan renderer",
+    "LOD writer",
+    "finite water simulation"
+  ],
+  "source_only": true,
+  "github_actions": false,
+  "native_jar": false
+}
