@@ -27,6 +27,7 @@ public final class CoreChecks {
     CacheLifecycleChecks.main(new String[0]);
     CoreCloseLifecycleChecks.main(new String[0]);
     PipelineInlineCloseChecks.main(new String[0]);
+    WorldGenPipelineKeyChecks.main(new String[0]);
     ByteLruOverflowChecks.main(new String[0]);
     VerticalRangeOverflowChecks.main(new String[0]);
     ViewGridBoundaryChecks.main(new String[0]);
