@@ -55,8 +55,13 @@ public final class TerrainNoise {
     z /= scale;
     x += phaseX;
     z += phaseZ;
-    int a = (int) Math.floor(x), b = (int) Math.floor(z);
-    double dx = x - a, dz = z - b;
+    // Cast through long to preserve the 32-bit hash lattice's wraparound instead
+    // of saturating at Integer.MIN/MAX_VALUE. Keep fractional offsets separate:
+    // subtracting the saturated int produced enormous gradients near the border
+    // for fine scales, while normal in-range samples remain bit-identical.
+    double floorX = Math.floor(x), floorZ = Math.floor(z);
+    int a = (int) (long) floorX, b = (int) (long) floorZ;
+    double dx = x - floorX, dz = z - floorZ;
     return lerp(
             lerp(gradient(a, b, dx, dz, salt), gradient(a + 1, b, dx - 1, dz, salt), smooth(dx)),
             lerp(
@@ -75,10 +80,13 @@ public final class TerrainNoise {
 
   public double volume(double x, double y, double z, double scale, long salt) {
     double q = y / scale;
-    int iy = (int) Math.floor(q);
+    // A tall/small-scale query must not saturate the vertical lattice at 2^31.
+    // The salt arithmetic already uses long, so preserve its full integer range.
+    double floorY = Math.floor(q);
+    long iy = (long) floorY;
     return lerp(
         noise(x, z, scale, salt + iy * 7919L),
         noise(x, z, scale, salt + (iy + 1) * 7919L),
-        smooth(q - iy));
+        smooth(q - floorY));
   }
 }
