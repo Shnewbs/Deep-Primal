@@ -2,7 +2,7 @@
   "schema": 1,
   "claim_id": "engine-20261102T0814-worldgen-shutdown-race",
   "owner": "Deep Primal hourly engineering",
-  "status": "active",
+  "status": "completed-released",
   "baseline_main": "672ae409788ccce600a1eba9af0709eb984aa6e7",
   "started_utc": "2026-11-02T08:14:00Z",
   "expires_utc": "2026-11-02T08:55:00Z",
@@ -22,5 +22,13 @@
   ],
   "source_only": true,
   "github_actions": false,
-  "native_jar": false
+  "native_jar": false,
+  "lease_released": true,
+  "ended_utc": "2026-11-02T08:30:00Z",
+  "verified_source_blob": "a2f7080346a1e24d594187f12b0105059b92231b",
+  "verified_test_blob": "8e7339b072b7f147a5d601bb5faeba7d4f733751",
+  "validation": "OpenJDK21 strict production-class compile, 176000 positive assertions PASS, deterministic old-blob negative control FAIL as expected",
+  "report": "docs/validation/engine-continuation/pipeline-shutdown-race-2026-11-02/README.md",
+  "full_build": false,
+  "release_note": "No playable JAR; preserve last successful artifact; Java25, Gradle and native GPU acceptance blocked."
 }
