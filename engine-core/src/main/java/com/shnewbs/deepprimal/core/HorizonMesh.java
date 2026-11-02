@@ -40,11 +40,14 @@ public record HorizonMesh(
     if (source.length != width * width || sourceColors.length != source.length)
       throw new IllegalArgumentException("Invalid horizon samples");
     short[] heights = source.clone();
-    int high = floor;
+    int low = floor, high = floor;
     for (int z = 0; z <= cells; z++) {
       for (int x = 0; x <= cells; x++) {
         heights[z * width + x] = (short) Math.round(HorizonGeometry.stitched(source, cells, x, z));
-        high = Math.max(high, heights[z * width + x]);
+        int i = z * width + x;
+        high = Math.max(high, heights[i]);
+        // The water roof is lowered by 1/8 block; bounds must include that offset.
+        low = Math.min(low, heights[i] - ((sourceColors[i] >>> 24) == 249 ? 1 : 0));
       }
     }
     Builder mesh = new Builder(vertexCount(detail), indexCount(detail));
@@ -106,7 +109,7 @@ public record HorizonMesh(
     if (mesh.nextVertex != mesh.colors.length || mesh.nextIndex != mesh.indices.length)
       throw new IllegalStateException("Mesh topology size mismatch");
     return new HorizonMesh(
-        mesh.positions, mesh.colors, mesh.indices, mesh.normals, heights, floor, high);
+        mesh.positions, mesh.colors, mesh.indices, mesh.normals, heights, low, high);
   }
 
   private static int normal(double x, double y, double z) {
