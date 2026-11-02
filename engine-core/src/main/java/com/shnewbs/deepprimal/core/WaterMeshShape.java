@@ -5,7 +5,7 @@ public final class WaterMeshShape {
   private static final double PHASE = Math.PI / 8.0;
 
   public static float offsetX(double x, double y, double z) {
-    // A bad or extreme captured position must not publish NaN water vertices.
+    // A bad or extreme captured position must not publish NaN displacement or UV phase.
     // Preserve the exact historical trigonometry for ordinary finite phases.
     double a = (x + 2 * z + y) * PHASE;
     double b = (2 * x - z + 3 * y) * PHASE;
