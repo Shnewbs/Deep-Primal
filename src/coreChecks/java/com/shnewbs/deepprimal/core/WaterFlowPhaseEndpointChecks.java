@@ -56,6 +56,12 @@ public final class WaterFlowPhaseEndpointChecks {
       for (int x = -32; x <= 32; x++)
         for (int z = -32; z <= 32; z++) sample(direction, x, z);
 
+    int[] extremes = {Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -30_000_000,
+        -1, 0, 1, 30_000_000, Integer.MAX_VALUE - 1, Integer.MAX_VALUE};
+    for (int direction = 0; direction < 16; direction++)
+      for (int x : extremes)
+        for (int z : extremes) sample(direction, x, z);
+
     Random random = new Random(0xD212F10FL);
     for (int i = 0; i < 100_000; i++) {
       int direction = random.nextInt(16);
