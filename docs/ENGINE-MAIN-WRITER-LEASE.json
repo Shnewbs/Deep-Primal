@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev176-horizon-snapshot-ownership",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T02:05:25Z",
   "expires": "2026-11-02T02:28:00Z",
   "source_head": "870d8f2ac082683e1b911ac494ec460070f598f3",
@@ -12,5 +12,16 @@
     "docs/validation/engine-continuation/horizon-snapshot-ownership-2026-11-02/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "coordination": "Scoped engine-core snapshot data integrity only. Renderer/Vulkan/LOD worker-owned source, organics and independent auditor files excluded. No Actions. Local Java21 production-class regression; Java25 packaged JAR not claimed."
+  "coordination": "Scoped engine-core snapshot data integrity only. Renderer/Vulkan/LOD worker-owned source, organics and independent auditor files excluded. No Actions. Local Java21 production-class regression; Java25 packaged JAR not claimed.",
+  "ended_at": "2026-11-02T02:08:00Z",
+  "source_commit": "3222d2f15cfd97d346d06e567a0d6447f1fa4ff9",
+  "test_commit": "dad9709772a9ce6821ef835da92ad8fca9bb1373",
+  "registration_commit": "2a63ae37de2e2d1ed0ac05dce0d434dcb7f91678",
+  "report_commit": "ef474472bc2886ae553ef1ea2dac48c50445f459",
+  "evidence": "docs/validation/engine-continuation/horizon-snapshot-ownership-2026-11-02/README.md",
+  "tests": "Java21 complete production-class strict compile; 25,776 assertions passed; old production negative control failed as expected; remote blobs verified",
+  "full_build": false,
+  "qualified_jar": false,
+  "lease_released": true,
+  "next": "Java25 full build and renderer/network allocation benchmark; preserve prior successful JAR until verified replacement"
 }
