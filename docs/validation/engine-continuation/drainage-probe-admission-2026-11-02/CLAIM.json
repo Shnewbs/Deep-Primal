@@ -1,0 +1,21 @@
+{
+  "id": "dev174-drainage-probe-admission",
+  "status": "in-progress",
+  "claimed_utc": "2026-11-02T01:04:00Z",
+  "expires_utc": "2026-11-02T01:50:00Z",
+  "base_sha": "7d257452b4af338784152fed0c4bfc4bbe4fbd49",
+  "files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/MountainDrainage.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/MountainDrainageFiniteProbeChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/DrainageChecks.java",
+    "docs/validation/engine-continuation/drainage-probe-admission-2026-11-02/**"
+  ],
+  "purpose": "Reject nonfinite off-grid terrain probes in contained river profile/lake sampling before NaN can enter cached waterline, preserving valid geography.",
+  "exclusions": [
+    "renderer-vulkan",
+    "lod-engine",
+    "organic",
+    "independent audit files"
+  ],
+  "build_policy": "No Actions; Java21 isolated checks; no full Java25 JAR claim"
+}
