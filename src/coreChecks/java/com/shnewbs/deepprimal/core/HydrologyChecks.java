@@ -38,6 +38,7 @@ final class HydrologyChecks {
     for (int i = 0; i < WakeField.LIFETIME; i++) wakes.tick();
     for (int i = 0; i < WakeField.CAPACITY; i++)
       if (wakes.alive(i)) throw new AssertionError("Wake expiration");
+    WakeFieldFiniteAdmissionChecks.main(new String[0]);
     var stamina = new SwimmingState();
     for (int i = 0; i < 1799; i++)
       if (stamina.tick(true, 1800)) throw new AssertionError("Early exhaustion");

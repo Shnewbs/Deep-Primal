@@ -17,15 +17,30 @@ public final class WakeField {
   }
 
   public void add(double x, double y, double z, double vx, double vz, double strength) {
+    // Checking a sum rejects finite positions whenever its intermediate sum overflows.
+    if (!Double.isFinite(x) || !Double.isFinite(y) || !Double.isFinite(z)
+        || !Double.isFinite(vx) || !Double.isFinite(vz) || !Double.isFinite(strength)) return;
     double length = Math.hypot(vx, vz);
-    if (!Double.isFinite(x + y + z + length + strength) || length <= 0) return;
+    if (length == 0) return;
+    double unitX, unitZ;
+    if (Double.isInfinite(length)) {
+      // hypot may overflow for two finite, nonzero velocities; scale before normalizing.
+      double scale = Math.max(Math.abs(vx), Math.abs(vz));
+      double scaledX = vx / scale, scaledZ = vz / scale;
+      double scaledLength = Math.hypot(scaledX, scaledZ);
+      unitX = scaledX / scaledLength;
+      unitZ = scaledZ / scaledLength;
+    } else {
+      unitX = vx / length;
+      unitZ = vz / length;
+    }
     int i = next;
     next = (next + 1) % CAPACITY;
     this.x[i] = x;
     this.y[i] = y;
     this.z[i] = z;
-    dx[i] = (float) (vx / length);
-    dz[i] = (float) (vz / length);
+    dx[i] = (float) unitX;
+    dz[i] = (float) unitZ;
     this.strength[i] = (float) Math.clamp(strength, 0, 1);
     age[i] = 0;
   }
