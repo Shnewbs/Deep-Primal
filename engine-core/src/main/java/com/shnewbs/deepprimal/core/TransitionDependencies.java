@@ -14,7 +14,11 @@ public final class TransitionDependencies {
         this.x = x; this.z = z; this.radius = radius; next = 0;
     }
     public void include(Object source) {
-        if (next == sources.length) throw new IllegalStateException("Transition dependency limit");
+        if (next == sources.length) {
+            // An incomplete capture cannot be used as a baseline on retry.
+            initialized = false;
+            throw new IllegalStateException("Transition dependency limit");
+        }
         if (sources[next] != source) { changed = true; sources[next] = source; }
         next++;
     }
