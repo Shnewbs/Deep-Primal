@@ -31,7 +31,10 @@ public final class WaterMeshShape {
   public static float flowingV(double x, double y, double z) {
     double phase = 1.0 - y + (x + z) / 16.0;
     if (!Double.isFinite(phase)) return 0;
-    return (float) (phase - Math.floor(phase));
+    // A double fraction below one can round to 1.0f when converted to a float.
+    // Clamp only that endpoint; ordinary texture phases keep their exact bits.
+    float wrapped = (float) (phase - Math.floor(phase));
+    return wrapped < 1.0f ? wrapped : Math.nextDown(1.0f);
   }
 
   /** Atlas-local vertical coordinate for a single block's falling-water side. */
