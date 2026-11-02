@@ -20,7 +20,10 @@ public final class VisualBudget {
         int cap = minimized ? hidden : !focused ? background : 0;
         // A native limit of zero means uncapped; do not let it suppress a
         // configured background or minimized ceiling.
-        return cap > 0 ? (nativeLimit == 0 ? cap : Math.min(nativeLimit, cap)) : nativeLimit;
+        // A negative native value is malformed; normalize it to the existing zero/unlimited
+        // sentinel before applying a positive background/minimized ceiling.
+        int nativeCap = Math.max(0, nativeLimit);
+        return cap > 0 ? (nativeCap == 0 ? cap : Math.min(nativeCap, cap)) : nativeCap;
     }
     private VisualBudget() {}
 }

@@ -2,7 +2,7 @@
   "schema": 1,
   "claim_id": "engine-20261102T1412-frame-limit-negative-native",
   "owner": "Deep Primal hourly engineering",
-  "status": "active",
+  "status": "completed-released",
   "baseline_main": "fa3f55b531f5cd79e4c3082c3779eade2dce1398",
   "started_utc": "2026-11-02T14:12:00Z",
   "expires_utc": "2026-11-02T14:50:00Z",
@@ -24,5 +24,8 @@
   "consumed_audit": "docs/engine-hourly-audits/2026-11-02T1330-dev199/REVIEW.md",
   "github_actions": false,
   "full_build": false,
-  "qualified_jar": false
+  "qualified_jar": false,
+  "lease_released": true,
+  "validation": "Java21 strict compile and bytecode verification, 100808 checks; original negative control failed",
+  "report": "docs/validation/engine-continuation/frame-limit-negative-cap-2026-11-02/README.md"
 }
