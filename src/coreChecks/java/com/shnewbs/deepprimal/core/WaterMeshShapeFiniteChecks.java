@@ -22,6 +22,16 @@ public final class WaterMeshShapeFiniteChecks {
       check(Float.isFinite(dz) && Math.abs(dz) <= 0.057001f, "offset Z finite/bounded");
       check(Float.isFinite(v) && v >= 0 && v < 1, "flow V finite/unit interval");
     }
+    // A valid double phase just below one may round to 1.0f, which is
+    // outside the half-open texture atlas interval [0, 1).
+    for (int exponent = 25; exponent <= 53; exponent++) {
+      double y = Math.scalb(1.0, -exponent);
+      float v = WaterMeshShape.flowingV(0.0, y, 0.0);
+      check(Float.isFinite(v) && v >= 0.0f && v < 1.0f,
+          "float-rounded near-unit flow phase must remain wrapped");
+    }
+    check(WaterMeshShape.flowingV(16.0 - Math.scalb(1.0, -21), 1.0, 0.0) < 1.0f,
+        "horizontal near-unit flow phase must remain wrapped");
     var random = new Random(0x210BEEF);
     for (int i = 0; i < 100_000; i++) {
       double x = random.nextDouble(-30_000_000, 30_000_000);
