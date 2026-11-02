@@ -29,6 +29,8 @@ public final class WorldGenPipeline {
           // An invalid successful result or a rejected cache admission must not
           // strand the shared query future (whenComplete's return value is ignored).
           if(chunk==null)failure=new IllegalStateException("materializer returned null chunk");
+          else if(!key.equals(chunk.key()))
+            failure=new IllegalStateException("materializer returned a chunk for a different key");
           else try{cache.put(key,chunk,chunk.payloadBytes());}
           catch(Throwable cacheFailure){failure=cacheFailure;}
         }
