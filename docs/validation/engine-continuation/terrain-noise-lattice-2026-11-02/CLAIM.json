@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T2210-terrain-noise-lattice",
+  "owner": "Deep Primal engineering independent terrain scope",
+  "status": "active",
+  "claimed_utc": "2026-11-02T22:10:00Z",
+  "expires_utc": "2026-11-02T22:29:00Z",
+  "parent_at_claim": "b1780bd0c00b7ef2ad7f06cf4a0089f6e6bbe009",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainNoise.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/TerrainNoiseLatticeChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/TerrainV7Checks.java",
+    "docs/validation/engine-continuation/terrain-noise-lattice-2026-11-02/**"
+  ],
+  "excludes": [
+    "WaterSimulation.java",
+    "CoreChecks.java",
+    "water-simulation-stats-2026-11-02/**",
+    "renderer Vulkan/LOD writer scopes"
+  ],
+  "purpose": "Prevent saturated int lattice coordinates in tiny-scale or far-coordinate noise sampling while retaining bit-exact ordinary V1-V7 noise and seeded deterministic replay.",
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-02T2130-dev215/REVIEW.md",
+  "no_actions": true
+}
