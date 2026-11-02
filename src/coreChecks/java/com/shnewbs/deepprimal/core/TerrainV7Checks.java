@@ -2,6 +2,7 @@ package com.shnewbs.deepprimal.core;
 import java.util.*;
 final class TerrainV7Checks {
   static void run() {
+    TerrainNoiseLatticeChecks.main(new String[0]);
     var heights=new HashSet<Long>();var climates=new HashSet<Long>();var biomes=new HashSet<Integer>();
     double low=Double.POSITIVE_INFINITY,high=-low,rainLow=1,rainHigh=0;long columns=0;int streams=0;
     for(long seed:new long[]{0,1,2,3,73,20261020,8675309,-987654321}) {
