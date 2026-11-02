@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev204-cache-terminal-close",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T16:00:42Z",
   "expires": "2026-11-02T16:50:00Z",
   "source_head": "15c3bd7573ca4c54fdd29296ab00dd63b584ba75",
@@ -14,5 +14,15 @@
   ],
   "consumed_audit": "docs/engine-hourly-audits/2026-11-02T1530-dev203/REVIEW.md",
   "coordination": "Bounded terminal cache close race only. No water/terrain/renderer/organics/native/saved-world changes. GitHub connector CAS; no Actions or binaries.",
-  "repro": "Exact main ChunkCache blob 0ed8a911; deterministic close-while-loader-blocked negative control failed. Java21 isolated candidate passed 5001 assertions and existing 14 CacheLifecycleChecks."
+  "repro": "Exact main ChunkCache blob 0ed8a911; deterministic close-while-loader-blocked negative control failed. Java21 isolated candidate passed 5001 assertions and existing 14 CacheLifecycleChecks.",
+  "ended_at": "2026-11-02T16:10:00Z",
+  "lease_released": true,
+  "implementation_commit": "4bb311cbb8c87c245955e8634700d207b95445a2",
+  "test_commit": "62121edce7bbd0ec36e1c015fdb030dedf5f9023",
+  "validation_commit": "871209805ec4f0e664d671033e9e3427cfa3ad3a",
+  "tests": "Java21 strict exact-source compile, existing CacheLifecycleChecks 14, new close-race 5001, original negative control rejected",
+  "full_build": false,
+  "qualified_jar": false,
+  "evidence": "docs/validation/engine-continuation/cache-close-race-2026-11-02/README.md",
+  "next": "Java25 Gradle/NeoForge full build, client/server cache close cancellation and finite-water/Vulkan/LOD native acceptance."
 }
