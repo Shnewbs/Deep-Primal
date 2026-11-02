@@ -8,7 +8,7 @@ CHECKS="$ROOT/src/coreChecks/java/com/shnewbs/deepprimal/core"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$TMP/normal" "$TMP/race" "$TMP/old" "$TMP/race-src" "$TMP/old-src"
 # Full exact production source, not a hand-reimplemented method.
-EXPECTED_NEW=3f4f86a7e7fc0b61b458fbb87835886219c6acca
+EXPECTED_NEW=a2f7080346a1e24d594187f12b0105059b92231b
 EXPECTED_OLD=2e1a5cb55007d10745260dd355fbf180d5f2920b
 [[ "$(git hash-object "$SOURCE")" == "$EXPECTED_NEW" ]] || { echo 'Source changed; review and update the pinned regression.' >&2; exit 2; }
 javac --release 21 -Xlint:all -Werror -d "$TMP/normal" "$SOURCE" \
@@ -16,42 +16,19 @@ javac --release 21 -Xlint:all -Werror -d "$TMP/normal" "$SOURCE" \
   "$CHECKS/WorldGenPipelineKeyChecks.java" "$CHECKS/WorldGenPipelineShutdownChecks.java"
 java -ea -Xverify:all -cp "$TMP/normal" com.shnewbs.deepprimal.core.WorldGenPipelineKeyChecks
 java -ea -Xverify:all -cp "$TMP/normal" com.shnewbs.deepprimal.core.WorldGenPipelineShutdownChecks
-python3 - "$SOURCE" "$TMP/race-src/WorldGenPipeline.java" "$TMP/old-src/WorldGenPipeline.java" <<'PY'
+cp "$SOURCE" "$TMP/race-src/WorldGenPipeline.java"
+git -C "$ROOT" cat-file blob "$EXPECTED_OLD" > "$TMP/old-src/WorldGenPipeline.java"
+[[ "$(git hash-object "$TMP/old-src/WorldGenPipeline.java")" == "$EXPECTED_OLD" ]] || exit 2
+# Inject a test-only pause after cache admission but before the completion decision.
+# No RaceGate or hook is linked into the real production class/JAR.
+python3 - "$TMP/race-src/WorldGenPipeline.java" "$TMP/old-src/WorldGenPipeline.java" <<'PY'
 from pathlib import Path
 import sys
-source = Path(sys.argv[1]).read_text()
-old = source
-new_guard = '''        // Keep this query discoverable by shutdown until its shared future is settled.
-        // Otherwise shutdown can miss a completion between cache admission and complete().
-        if(stopped)failure'''
-old_guard = '''        pending.remove(key);
-        if(stopped)failure'''
-new_settle = '''      try {
-        if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
-      } finally {
-        synchronized(this){pending.remove(key,result);}
-      }
-    });}catch(Throwable error){
-      try {result.completeExceptionally(error);}
-      finally {synchronized(this){pending.remove(key,result);}}
-    }'''
-old_settle = '''      if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
-    });}catch(Throwable error){synchronized(this){pending.remove(key);}result.completeExceptionally(error);}'''
-assert source.count(new_guard) == source.count(new_settle) == 1
-old = old.replace(new_guard, old_guard).replace(new_settle, old_settle)
-Path(sys.argv[3]).write_text(old)
-needle = '      // User continuations may call back into EngineCore: never run them under this lock.\n'
-assert source.count(needle) == old.count(needle) == 1
-for body, path in [(source, sys.argv[2]), (old, sys.argv[3])]:
-    Path(path).write_text(body.replace(needle, needle + '      RaceGate.pause();\n', 1))
-PY
-# Verify the reverse-patched original is byte-identical to the audited prior Git blob.
-python3 - "$TMP/old-src/WorldGenPipeline.java" "$EXPECTED_OLD" <<'PY'
-from pathlib import Path
-import hashlib, sys
-s=Path(sys.argv[1]).read_text().replace('      RaceGate.pause();\n','',1).encode()
-hash=hashlib.sha1(b'blob '+str(len(s)).encode()+b'\0'+s).hexdigest()
-if hash != sys.argv[2]: raise SystemExit('Original negative-control source identity mismatch: '+hash)
+needle = '      // User continuations may call back into EngineCore: never run them under this lock.\\n'
+for path in sys.argv[1:]:
+    s=Path(path).read_text()
+    assert s.count(needle)==1
+    Path(path).write_text(s.replace(needle,needle+'      RaceGate.pause();\\n',1))
 PY
 for kind in race old; do
   javac --release 21 -Xlint:all -Werror -d "$TMP/$kind" "$TMP/$kind-src/WorldGenPipeline.java" \
