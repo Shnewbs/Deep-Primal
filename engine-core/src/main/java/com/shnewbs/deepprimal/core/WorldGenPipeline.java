@@ -23,7 +23,8 @@ public final class WorldGenPipeline {
     try{materializer.materializeAsync(key,()->stopped).whenComplete((chunk,error)->{
       Throwable failure=error;
       synchronized(this){
-        pending.remove(key);
+        // Keep this query discoverable by shutdown until its shared future is settled.
+        // Otherwise shutdown can miss a completion between cache admission and complete().
         if(stopped)failure=new CancellationException("pipeline stopped");
         else if(failure==null){
           // An invalid successful result or a rejected cache admission must not
@@ -36,8 +37,15 @@ public final class WorldGenPipeline {
         }
       }
       // User continuations may call back into EngineCore: never run them under this lock.
-      if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
-    });}catch(Throwable error){synchronized(this){pending.remove(key);}result.completeExceptionally(error);}
+      try {
+        if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
+      } finally {
+        synchronized(this){pending.remove(key,result);}
+      }
+    });}catch(Throwable error){
+      try {result.completeExceptionally(error);}
+      finally {synchronized(this){pending.remove(key,result);}}
+    }
     return result.copy();
   }
   public CompletableFuture<Void> generateChunks(Iterable<ChunkKey> keys,Consumer<MaterializedChunk> consumer){
