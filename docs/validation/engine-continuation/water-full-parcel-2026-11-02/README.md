@@ -1,7 +1,7 @@
 # Dev214 — full-volume water constituent fast path (2026-11-02)
 
 ## Audit and scope
-Consumed [Dev213 independent audit](../../../../engine-hourly-audits/2026-11-02T2030-dev213/REVIEW.md). No new confirmed defect; the native build, conservation and GPU gates remain open. Writer claim is in [CLAIM.json](CLAIM.json).
+Consumed [Dev213 independent audit](../../../engine-hourly-audits/2026-11-02T2030-dev213/REVIEW.md). No new confirmed defect; the native build, conservation and GPU gates remain open. Writer claim is in [CLAIM.json](CLAIM.json).
 
 ## Implementation
 `WaterAccount.portion(mass, amount, volume)` now returns the original constituent mass when `amount == volume` after the existing zero checks. Full-volume water transfers therefore avoid unnecessary multiplication and `BigInteger` allocations while preserving exact salt/sediment conservation. Partial-transfer rounding and all admission logic are unchanged. The new `WaterAccountFullParcelChecks` is registered in `CoreChecks`.
