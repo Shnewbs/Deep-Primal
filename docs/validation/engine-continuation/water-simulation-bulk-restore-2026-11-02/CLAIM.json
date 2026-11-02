@@ -26,7 +26,7 @@
   "github_actions": false,
   "native_jar": false,
   "lease_released": true,
-  "ended_utc": "2026-11-02T09:27:00Z",
+  "ended_utc": "2026-11-02T09:22:00Z",
   "production_commit": "2b5ba02119f049502babd8d36260d59858b54371",
   "verified_source_blob": "cb0de12bdef9b536a63e512ef6452b06d2218aff",
   "verified_test_blob": "050e0342dc12f8b329a91adf82a8bbbbc6f0f806",
