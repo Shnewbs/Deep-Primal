@@ -37,6 +37,11 @@ public final class WaterPatchMesher {
     public boolean solid(int x, int y, int z) {
       return solid[index(x, y, z)] != 0;
     }
+
+    public int color(int x, int z) {
+      if (colors.length >= 18 * 18) return colors[(z + 1) * 18 + x + 1];
+      return colors[Math.max(0, Math.min(15, z)) * 16 + Math.max(0, Math.min(15, x))];
+    }
   }
 
   public record Mesh(float[] vertices) {
@@ -83,6 +88,8 @@ public final class WaterPatchMesher {
   private final Snapshot current, previous;
   private final float[] currentCorners = new float[17 * 16 * 17];
   private final float[] previousCorners;
+  private final int[] currentTints = new int[17 * 17], previousTints;
+  private final boolean[] currentTintSet = new boolean[17 * 17], previousTintSet;
 
   private WaterPatchMesher(Snapshot current, Snapshot previous) {
     this.current = current;
@@ -90,6 +97,8 @@ public final class WaterPatchMesher {
     Arrays.fill(currentCorners, Float.NaN);
     previousCorners = this.previous == current ? currentCorners : new float[currentCorners.length];
     if (previousCorners != currentCorners) Arrays.fill(previousCorners, Float.NaN);
+    previousTints = this.previous == current ? currentTints : new int[currentTints.length];
+    previousTintSet = this.previous == current ? currentTintSet : new boolean[currentTints.length];
   }
 
   public static Mesh build(Snapshot current, Snapshot previous, boolean smooth) {
@@ -232,6 +241,48 @@ public final class WaterPatchMesher {
         < .00001;
   }
 
+  /**
+   * Shared-corner biome tint. Averaging the up-to-four columns meeting at a corner is the
+   * same identity the surface height uses, so neighbouring cells blend into one gradient
+   * instead of tiling a flat patch per block. Captured tint includes a one-cell halo, keeping
+   * the gradient continuous where adjacent pages meet.
+   */
+  private int cornerTint(Snapshot s, int x, int z) {
+    int key = z * 17 + x;
+    int[] tints = s == current ? currentTints : previousTints;
+    boolean[] set = s == current ? currentTintSet : previousTintSet;
+    if (set[key]) return tints[key];
+    int r = 0, g = 0, b = 0;
+    for (int dz = -1; dz <= 0; dz++)
+      for (int dx = -1; dx <= 0; dx++) {
+        int c = s.color(x + dx, z + dz);
+        r += (c >> 16) & 255;
+        g += (c >> 8) & 255;
+        b += c & 255;
+      }
+    set[key] = true;
+    return tints[key] = ((r >> 2) << 16) | ((g >> 2) << 8) | (b >> 2);
+  }
+
+  /**
+   * Bilinear shared-corner tint. Vertical faces pass one constant axis and one spanning
+   * axis, so this degenerates to the exact edge blend and still matches the top face
+   * wherever a wall meets the surface it drains from.
+   */
+  private int tint(Snapshot s, int x, int z, float u, float v) {
+    int a = cornerTint(s, x, z), b = cornerTint(s, x + 1, z),
+        c = cornerTint(s, x, z + 1), d = cornerTint(s, x + 1, z + 1);
+    float wa = (1 - u) * (1 - v), wb = u * (1 - v), wc = (1 - u) * v, wd = u * v;
+    int r =
+        (int) (((a >> 16) & 255) * wa + ((b >> 16) & 255) * wb + ((c >> 16) & 255) * wc
+            + ((d >> 16) & 255) * wd);
+    int g =
+        (int) (((a >> 8) & 255) * wa + ((b >> 8) & 255) * wb + ((c >> 8) & 255) * wc
+            + ((d >> 8) & 255) * wd);
+    int bl = (int) ((a & 255) * wa + (b & 255) * wb + (c & 255) * wc + (d & 255) * wd);
+    return (r << 16) | (g << 8) | bl;
+  }
+
   private void vertex(
       int x, int y, int z, float u, float v, int face, boolean moving, boolean was, boolean next) {
     if (size + STRIDE > vertices.length) vertices = Arrays.copyOf(vertices, vertices.length * 2);
@@ -244,7 +295,7 @@ public final class WaterPatchMesher {
       if (previous.water(x, y + 1, z) > 0) old = 1;
     }
     Snapshot material = current.water(x, y, z) > 0 ? current : previous;
-    int color = material.colors[z * 16 + x], light = material.lights[index(x, y, z)];
+    int color = tint(material, x, z, u, v), light = material.lights[index(x, y, z)];
     float shade = face == 0 ? 1 : face == 5 ? .5f : face == 2 || face == 4 ? .8f : .9f;
     color =
         0xff000000

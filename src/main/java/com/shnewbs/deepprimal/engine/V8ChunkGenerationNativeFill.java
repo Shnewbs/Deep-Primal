@@ -91,8 +91,8 @@ public final class V8ChunkGenerationNativeFill {
     if ((exactRevision ? revision != minimumRevision : revision < minimumRevision)
         || intended.revision() != revision
         || intended.profileFingerprint() != expectedFingerprint
-        || intended.chunkX() != candidate.getPos().x
-        || intended.chunkZ() != candidate.getPos().z)
+        || intended.chunkX() != candidate.getPos().x()
+        || intended.chunkZ() != candidate.getPos().z())
       throw new IllegalArgumentException("V8 saved profile/chunk generation identity mismatch");
     // ChunkPos uses int block coordinates; its usual left shift can wrap at
     // extreme signed chunk coordinates. Refuse aliases before any native setter.

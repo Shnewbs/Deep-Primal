@@ -35,7 +35,7 @@ public final class CaveNetwork {
       // Chamber expansion stays in soluble host; intact surface cover is never carved away.
       return x*x+z*z<width || rock==Geology.Rock.CALCITE && x*x+z*z<.09 && chamber>.33;
     }
-    public boolean flooded(int y) { return y<waterTable && geology.permeability()<.7 && contains(y); }
+    public boolean flooded(int y) { return y<waterTable && geology.permeability()<.75 && contains(y); }
   }
   public Column column(int x,int z,double surface,int minY,int maxY,Geology.Column geology) {
     return new Column(x,z,surface,minY,maxY,geology);

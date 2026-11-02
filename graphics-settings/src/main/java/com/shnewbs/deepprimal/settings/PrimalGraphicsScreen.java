@@ -390,7 +390,7 @@ public final class PrimalGraphicsScreen extends Screen {
         () -> minecraft.options.renderDistance().get(),
         v -> minecraft.options.renderDistance().set(v),
         2,
-        125,
+        512,
         "Requested full-detail radius in chunks. Server delivery and memory guards can lower the"
             + " effective value.");
     add(

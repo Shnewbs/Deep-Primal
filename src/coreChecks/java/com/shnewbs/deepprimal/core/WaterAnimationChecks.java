@@ -19,6 +19,20 @@ public final class WaterAnimationChecks {
     return new WaterPatchMesher.Snapshot(u, s, l, c);
   }
 
+  private static WaterPatchMesher.Snapshot coloredStrip(int originX) {
+    byte[] u = new byte[WaterPatchMesher.CELLS], s = new byte[u.length];
+    int[] l = new int[u.length], c = new int[18 * 18];
+    for (int z = -1; z <= 16; z++)
+      for (int x = -1; x <= 16; x++) {
+        u[WaterPatchMesher.index(x, 0, z)] = 8;
+        s[WaterPatchMesher.index(x, -1, z)] = 1;
+        int worldX = originX + x;
+        c[(z + 1) * 18 + x + 1] =
+            ((worldX * 7 & 255) << 16) | ((z * 11 & 255) << 8) | ((worldX + z) & 255);
+      }
+    return new WaterPatchMesher.Snapshot(u, s, l, c);
+  }
+
   public static void run() {
     Random random = new Random(211004);
     var ordered = new WaterSurfaceTransition(0, 0);
@@ -138,6 +152,25 @@ public final class WaterAnimationChecks {
         shared++;
       }
     require(shared > 16, "multiple shared samples");
+    var tintedLeft = WaterPatchMesher.build(coloredStrip(0), null, true);
+    var tintedRight = WaterPatchMesher.build(coloredStrip(16), null, true);
+    var leftEdge = new HashMap<Float, Integer>();
+    for (int i = 0; i < tintedLeft.vertices().length; i += WaterPatchMesher.STRIDE)
+      if (WaterPatchMesher.face(tintedLeft.vertices()[i + 10]) == 0
+          && tintedLeft.vertices()[i] == 16)
+        leftEdge.put(tintedLeft.vertices()[i + 2],
+            Float.floatToRawIntBits(tintedLeft.vertices()[i + 7]));
+    int tintedShared = 0;
+    for (int i = 0; i < tintedRight.vertices().length; i += WaterPatchMesher.STRIDE)
+      if (WaterPatchMesher.face(tintedRight.vertices()[i + 10]) == 0
+          && tintedRight.vertices()[i] == 0) {
+        float z = tintedRight.vertices()[i + 2];
+        require(leftEdge.get(z) != null
+            && leftEdge.get(z) == Float.floatToRawIntBits(tintedRight.vertices()[i + 7]),
+            "halo-backed water colors match across adjacent page edges");
+        tintedShared++;
+      }
+    require(tintedShared > 16, "tinted page edge has shared samples");
     byte[] empty = new byte[WaterPatchMesher.CELLS];
     var dry =
         new WaterPatchMesher.Snapshot(

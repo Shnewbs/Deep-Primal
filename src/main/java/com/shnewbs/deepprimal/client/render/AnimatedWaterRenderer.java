@@ -512,7 +512,7 @@ public final class AnimatedWaterRenderer {
   private WaterPatchMesher.Snapshot capture(Page page) {
     byte[] units = new byte[WaterPatchMesher.CELLS],
         solid = new byte[units.length], flow = new byte[units.length];
-    int[] light = new int[units.length], colors = new int[256];
+    int[] light = new int[units.length], colors = new int[18 * 18];
     var chunks = new net.minecraft.world.level.chunk.LevelChunk[9];
     for (int dz = -1; dz <= 1; dz++)
       for (int dx = -1; dx <= 1; dx++) {
@@ -538,9 +538,9 @@ public final class AnimatedWaterRenderer {
             light[i] = LevelRenderer.getLightCoords(level, pos.above());
           } else if (state.isSolid()) solid[i] = 1;
         }
-        if (x >= 0 && x < 16 && z >= 0 && z < 16) {
+        if (x >= -1 && x <= 16 && z >= -1 && z <= 16) {
           pos.set(page.x + x, page.y + 8, page.z + z);
-          colors[z * 16 + x] = BiomeColors.getAverageWaterColor(level, pos);
+          colors[(z + 1) * 18 + x + 1] = BiomeColors.getAverageWaterColor(level, pos);
         }
       }
     return new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);

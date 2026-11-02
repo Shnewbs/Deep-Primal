@@ -211,7 +211,7 @@ public final class DensityChunkMaterializer {
       throw new IllegalArgumentException("legacy V8 profiles cannot use border admission");
     prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
     V8GenerationBorderAdmission.requireCompatible(border,
-        chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);
+        chunk.getPos().x(), chunk.getPos().z(), expectedSavedProfileFingerprint);
     return fillSavedSnapshot(prepared, expectedSavedProfileFingerprint, chunk, queriesPerSlab);
   }
 
@@ -234,7 +234,7 @@ public final class DensityChunkMaterializer {
     prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
     if (prepared.snapshot().version() != intended.revision()
         || intended.profileFingerprint() != expectedSavedProfileFingerprint
-        || intended.chunkX() != chunk.getPos().x || intended.chunkZ() != chunk.getPos().z)
+        || intended.chunkX() != chunk.getPos().x() || intended.chunkZ() != chunk.getPos().z())
       throw new IllegalArgumentException("V8 intended chunk stamp/profile mismatch");
     var witness = V8ChunkGenerationStamp.witnessForNewChunk(
         intended, targetState, targetPersistedStamp, neighbors);
@@ -262,7 +262,7 @@ public final class DensityChunkMaterializer {
     if (prepared.snapshot().version() != V8GeneratorSnapshot.VEGETATION_VERSION
         || intended.revision() != prepared.snapshot().version()
         || intended.profileFingerprint() != expectedSavedProfileFingerprint
-        || intended.chunkX() != chunk.getPos().x || intended.chunkZ() != chunk.getPos().z)
+        || intended.chunkX() != chunk.getPos().x() || intended.chunkZ() != chunk.getPos().z())
       throw new IllegalArgumentException("V8 intended vegetation stamp/profile mismatch");
     var witness = V8ChunkGenerationStamp.witnessForNewChunk(
         intended, targetState, targetPersistedStamp, neighbors);
@@ -365,7 +365,7 @@ public final class DensityChunkMaterializer {
       throw new IllegalArgumentException("legacy V8 profiles cannot use border admission");
     prepared.requireSavedProfileFingerprint(expectedSavedProfileFingerprint);
     V8GenerationBorderAdmission.requireCompatible(border,
-        chunk.getPos().x, chunk.getPos().z, expectedSavedProfileFingerprint);
+        chunk.getPos().x(), chunk.getPos().z(), expectedSavedProfileFingerprint);
     return fillSavedEcotoneVegetatedWithReceipt(prepared, expectedSavedProfileFingerprint,
         chunk, queriesPerSlab, referenceClimate, authority);
   }
@@ -726,7 +726,7 @@ public final class DensityChunkMaterializer {
    */
   private static void requireRepresentableChunk(ChunkAccess chunk) {
     Objects.requireNonNull(chunk, "V8 native chunk");
-    int chunkX = chunk.getPos().x, chunkZ = chunk.getPos().z;
+    int chunkX = chunk.getPos().x(), chunkZ = chunk.getPos().z();
     try {
       int originX = Math.multiplyExact(chunkX, DensityChunk.WIDTH);
       int originZ = Math.multiplyExact(chunkZ, DensityChunk.WIDTH);
