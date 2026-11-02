@@ -2,7 +2,7 @@
   "schema": 1,
   "claim_id": "engine-20261102T2059-water-full-parcel-fast-path",
   "owner": "Deep Primal hourly engineering",
-  "status": "active",
+  "status": "completed-released",
   "claimed_utc": "2026-11-02T20:59:00Z",
   "expires_utc": "2026-11-02T21:18:00Z",
   "parent_at_claim": "82161f5e2014a917dec489f1ddd3e7a1555869bf",
@@ -15,5 +15,9 @@
   "consumed_audit": "docs/engine-hourly-audits/2026-11-02T2030-dev213/REVIEW.md",
   "purpose": "Exact full-volume water/chemistry parcel transfer fast path; eliminate redundant long multiplication/BigInteger for amount==volume, preserve all conservation and admission semantics",
   "no_actions": true,
-  "build_policy": "Java21 isolated production-source test; no full JAR claim without Java25/Gradle"
+  "build_policy": "Java21 isolated production-source test; no full JAR claim without Java25/Gradle",
+  "released_utc": "2026-11-02T21:02:00Z",
+  "source_commit": "7ee61efc2473cd4a98ba942a6b3e308320138b69",
+  "final_validation_commit": "49638220d78474ca2289b4d283fff85ee2ebd8aa",
+  "result": "700000 deterministic full-parcel checks per variant, 150000 existing debit checks, isolated allocation 744 to 40 bytes/preview; Java25/Gradle/JAR blocked"
 }
