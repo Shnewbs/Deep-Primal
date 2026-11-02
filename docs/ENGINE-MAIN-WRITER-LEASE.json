@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev212-flow-phase-endpoint",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T20:03:00Z",
   "expires": "2026-11-02T20:25:00Z",
   "source_head": "b9b7f8a089e54f78bc729d3b16fce83287dd9138",
@@ -16,5 +16,15 @@
   "coordination": "Dev211 repaired WaterMeshShape.flowingV near-one float rounding. Distinct WaterPatchMesher.flowUOffset/flowVOffset share the defect. Preserve WaterMeshShape and audit files. No native fluid accounts, terrain, renderer, saved formats or Actions.",
   "full_build": false,
   "qualified_jar": false,
-  "lease_released": false
+  "lease_released": true,
+  "ended_at": "2026-11-02T20:08:15Z",
+  "implementation_commit": "69ecfc76c953e79a97b2bdd4e7138e6dbd385d6b",
+  "test_commit": "36ba1779d6685861f04d290550aafa808d3b2045",
+  "test_extremes_commit": "226991c9264cbfea9d2e813fd52e07b1e9f6d0b0",
+  "registration_commit": "7b5c9ceb9e32f2410dbfc232ebf8b0abd35108c8",
+  "validation_commit": "7054f5151cbd3e8ceedab8e7e7e58a5a1dd5c062",
+  "tests": "Java21 isolated exact-method fixture strict compile and verify; 675603 assertions passed, 9821 rounded endpoint witnesses; original negative control fails at assertion 3. Exact Dev211 WaterMeshShape blob passed 303003 finite assertions, 274625 shape samples, 64 side UV and 30 near-unit checks. Full coreChecks/Gradle/GPU unexecuted.",
+  "evidence": "docs/validation/engine-continuation/water-flow-phase-endpoint-2026-11-02/README.md",
+  "evidence_zip_sha256": "d12b305ee956021c28b1190df8386774d6a38c85e10447d8b52de12f9bb48909",
+  "next": "Java25 Gradle/NeoForge full production build and verified JAR; packaged Vulkan/OpenGL flow UV seams and natural waterfall continuity, finite-water save/reopen, LOD/terrain native performance. Preserve previous JAR until verified replacement."
 }
