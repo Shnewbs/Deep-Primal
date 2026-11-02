@@ -77,12 +77,15 @@ public final class HorizonChecks {
       var samples = new HorizonSamples(detail, heights, colors);
       for (int target = detail; target <= 2; target++) {
         var reduced = samples.forDetail(target);
+        // Copy each immutable snapshot buffer once per check, not per sample cell.
+        short[] reducedHeights = reduced.heights();
+        int[] reducedColors = reduced.colors();
         int cells = HorizonGeometry.cells(target), ratio = n / cells;
         for (int z = 0; z <= cells; z++)
           for (int x = 0; x <= cells; x++) {
             int source = z * ratio * (n + 1) + x * ratio, dest = z * (cells + 1) + x;
-            if (reduced.heights()[dest] != heights[source]
-                || reduced.colors()[dest] != colors[source])
+            if (reducedHeights[dest] != heights[source]
+                || reducedColors[dest] != colors[source])
               throw new AssertionError("Sample reuse changed data");
           }
       }
@@ -179,6 +182,7 @@ public final class HorizonChecks {
     }
     cache.clear();
     if (cache.bytes() != 0 || cache.hits() != 0) throw new AssertionError("Clear");
+    HorizonSamplesOwnershipChecks.run();
     System.out.println(
         "PASS: horizon snapshots, closed mesh bounds, "
             + comparisons
