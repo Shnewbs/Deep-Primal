@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "worker": "hourly-deep-primal-engine-dev194-water-boundary-fast-path",
-  "status": "active",
+  "status": "completed-released",
   "start": "2026-11-02T11:07:08Z",
   "expires": "2026-11-02T11:48:00Z",
   "source_head": "344eb06bb91f272e99357e348b4fd28aa32ee6ea",
@@ -14,6 +14,13 @@
   ],
   "consumed_audit": "docs/engine-hourly-audits/2026-11-02T1030-dev193/REVIEW.md",
   "coordination": "Only engine-core water neighbor boundary index and regression; do not touch auditor, organic, native renderer, LOD, terrain, or save formats. No Actions or binaries in GitHub.",
-  "tests": "Java21 strict isolated production class, 1,098,120 exact legacy parity assertions and 688,129 existing coordinate-oracle cases; isolated microbench pending final verification.",
-  "qualified_jar": false
+  "tests": "Java21 strict compile; 1,098,120 exact differential assertions, 688,129 existing oracle cases; isolated 120-run 32,768-quad benchmark 5.44x; exact Git blobs verified.",
+  "qualified_jar": false,
+  "ended_at": "2026-11-02T11:08:40Z",
+  "claim_commit": "8511714cc8f7e8a1f5d8e7e6b12e1f19852f8cab",
+  "implementation_commit": "94498205e02b27f8e6600d5cc9bb1a2a53067445",
+  "lease_released": true,
+  "evidence": "docs/validation/engine-continuation/water-boundary-fast-path-2026-11-02/README.md",
+  "full_build": false,
+  "next": "Full Java25 Gradle/NeoForge build when private checkout and dependencies available; native water neighbor render and Vulkan LOD frame-time acceptance."
 }
