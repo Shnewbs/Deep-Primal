@@ -1,6 +1,6 @@
 # Organic World Simulation — first portable increment
 
-**Checkpoint:** 2026-11-01. **Status:** portable N/P/K ledger implemented; no native soil, plants, tree growth, seasons, fungi, persistence adapter or gameplay integration is claimed.
+**Checkpoint:** 2026-11-02. **Status:** portable N/P/K ledger and read-only Foundations Soil physical compatibility implemented; no native soil, plants, tree growth, seasons, fungi, persistence adapter or gameplay integration is claimed.
 
 ## Ownership and integration boundaries
 
@@ -22,12 +22,16 @@ Run the isolated check using `python3 tools/organics/test_soil_ledger.py`. It co
 
 **Important limitation:** A revision alone does not provide durable compare-and-swap, exactly-once transfer, save/reopen or cross-owner atomicity. A caller that credits the counterparty but fails to save the soil debit can still duplicate nutrients. No native adapter is registered, and no plant is presently grown by this class.
 
+## Implemented: OS-02 portable read-only Foundations Soil physical bridge
+
+The [Foundations Soil compatibility note](FOUNDATIONS-SOIL-COMPATIBILITY.md) records the reviewed upstream 0.1.0-beta model, read-only adapter and isolated checks. FoundationsSoilPhysicsBridge reproduces upstream derived texture/moisture/root/soil-response equations with absent-input fail-closed behavior; it neither stores nor owns soil, water or nutrients. Native horizons, patch identity, water authority and save integration are still unimplemented.
+
 ## Dependency-aware implementation roadmap
 
 | Milestone | Scope | Dependencies and acceptance |
 | --- | --- | --- |
 | **OS-01** | Portable conserved mineral/detrital N/P/K pool | **Component implemented and locally tested**; native transaction/persistence still absent |
-| **OS-02** | Versioned soil patch identity, horizon capacity, pH/texture/structure and explicit finite-water pore owner link | Real saved `SoilProfile`, geology and finite-water ownership; unknown/unsupported data must not create ideal soil |
+| **OS-02** | Versioned soil patch identity, horizon capacity, pH/texture/structure and explicit finite-water pore owner link | **Read-only physical compatibility slice implemented and isolated-tested**; native patch identity, horizons, water ownership and persistence still absent |
 | **OS-03** | Versioned species definitions (annual, perennial, tree, grass, fungus), climate and root requirements | Validated data codec/registry and stable IDs; reject missing/invalid species fields and keep existing saves on pinned revisions |
 | **OS-04** | Deterministic bounded phenology and growth, including seedbank, dormancy and seasonal stress | Authoritative paused-when-empty calendar and admitted climate/light/soil inputs; no offline invented growth or free water |
 | **OS-05** | Procedural tree architecture, structural age, canopy competition and root footprint | Independent from frozen V1–V7 geography; stable tree IDs and seed/address-order invariance; approval before new texture families |
