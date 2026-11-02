@@ -1,26 +1,18 @@
 {
   "schema": 1,
-  "worker": "hourly-deep-primal-engine-dev194-water-boundary-fast-path",
-  "status": "completed-released",
-  "start": "2026-11-02T11:07:08Z",
-  "expires": "2026-11-02T11:48:00Z",
-  "source_head": "344eb06bb91f272e99357e348b4fd28aa32ee6ea",
+  "worker": "hourly-deep-primal-engine-dev204-cache-terminal-close",
+  "status": "active",
+  "start": "2026-11-02T16:00:42Z",
+  "expires": "2026-11-02T16:50:00Z",
+  "source_head": "15c3bd7573ca4c54fdd29296ab00dd63b584ba75",
   "scope": [
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBoundaryIndexFastPathChecks.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CacheCloseRaceChecks.java",
     "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "docs/validation/engine-continuation/water-boundary-fast-path-2026-11-02/**",
+    "docs/validation/engine-continuation/cache-close-race-2026-11-02/**",
     "docs/ENGINE-MAIN-WRITER-LEASE.json"
   ],
-  "consumed_audit": "docs/engine-hourly-audits/2026-11-02T1030-dev193/REVIEW.md",
-  "coordination": "Only engine-core water neighbor boundary index and regression; do not touch auditor, organic, native renderer, LOD, terrain, or save formats. No Actions or binaries in GitHub.",
-  "tests": "Java21 strict compile; 1,098,120 exact differential assertions, 688,129 existing oracle cases; isolated 120-run 32,768-quad benchmark 5.44x; exact Git blobs verified.",
-  "qualified_jar": false,
-  "ended_at": "2026-11-02T11:08:40Z",
-  "claim_commit": "8511714cc8f7e8a1f5d8e7e6b12e1f19852f8cab",
-  "implementation_commit": "94498205e02b27f8e6600d5cc9bb1a2a53067445",
-  "lease_released": true,
-  "evidence": "docs/validation/engine-continuation/water-boundary-fast-path-2026-11-02/README.md",
-  "full_build": false,
-  "next": "Full Java25 Gradle/NeoForge build when private checkout and dependencies available; native water neighbor render and Vulkan LOD frame-time acceptance."
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-02T1530-dev203/REVIEW.md",
+  "coordination": "Bounded terminal cache close race only. No water/terrain/renderer/organics/native/saved-world changes. GitHub connector CAS; no Actions or binaries.",
+  "repro": "Exact main ChunkCache blob 0ed8a911; deterministic close-while-loader-blocked negative control failed. Java21 isolated candidate passed 5001 assertions and existing 14 CacheLifecycleChecks."
 }
