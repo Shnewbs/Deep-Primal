@@ -13,6 +13,9 @@ public final class WaterSimulation {
   // Reused only while holding the tick monitor. Sample every height before committing
   // so an invalid callback cannot partially change the authoritative ground grid.
   private final int[] nextGround=new int[CELL_COUNT];
+  // A height callback may synchronously reenter tick on the same instance.
+  // Nested sampling needs its own scratch so it cannot overwrite the outer grid.
+  private int groundSamplingDepth;
   private final double[] flowX=new double[CELL_COUNT],flowZ=new double[CELL_COUNT];
   private final boolean[] sources=new boolean[CELL_COUNT];private final byte[] materials=new byte[CELL_COUNT];
   private double fraction;
@@ -22,8 +25,19 @@ public final class WaterSimulation {
   public synchronized void tick(double dt,DoubleSupplier height){tick(dt,(x,z)->height.getAsDouble());}
   public synchronized void tick(double dt,DoubleBinaryOperator height){
     if(!Double.isFinite(dt)||dt<0||dt>4)throw new IllegalArgumentException("tick delta 0..4");Objects.requireNonNull(height);
-    for(int z=0;z<16;z++)for(int x=0;x<16;x++){double h=height.applyAsDouble(x,z);if(!Double.isFinite(h)||Math.abs(h)>30_000_000)throw new IllegalArgumentException("ground height");nextGround[index(x,z)]=(int)Math.floor(h);}
-    System.arraycopy(nextGround,0,ground,0,256);long start=System.nanoTime();Arrays.fill(flowX,0);Arrays.fill(flowZ,0);fraction+=dt;
+    int[] sampledGround=groundSamplingDepth==0?nextGround:new int[CELL_COUNT];
+    groundSamplingDepth++;
+    try {
+      for(int z=0;z<16;z++)for(int x=0;x<16;x++){
+        double h=height.applyAsDouble(x,z);
+        if(!Double.isFinite(h)||Math.abs(h)>30_000_000)throw new IllegalArgumentException("ground height");
+        sampledGround[index(x,z)]=(int)Math.floor(h);
+      }
+      System.arraycopy(sampledGround,0,ground,0,CELL_COUNT);
+    } finally {
+      groundSamplingDepth--;
+    }
+    long start=System.nanoTime();Arrays.fill(flowX,0);Arrays.fill(flowZ,0);fraction+=dt;
     while(fraction>=1){fraction--;for(int z=0;z<16;z++)for(int x=0;x<16;x++){int i=index(x,z);if(x<15)exchange(i,i+1,true);if(z<15)exchange(i,i+16,false);}}
     update();long elapsed=System.nanoTime()-start;simulationTimeNs.addAndGet(elapsed);EngineMetrics.recordWaterSim(elapsed);
   }

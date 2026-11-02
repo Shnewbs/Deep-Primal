@@ -21,6 +21,7 @@ public final class CoreChecks {
     WaterSimulationDryMaterialChecks.main(new String[0]);
     WaterSimulationMaterialAdmissionChecks.main(new String[0]);
     WaterSimulationBulkRestoreChecks.main(new String[0]);
+    WaterSimulationReentrantSamplingChecks.main(new String[0]);
     WaterDynamicsSurfaceAdmissionChecks.main(new String[0]);
     WaterDynamicsPresentationFiniteChecks.main(new String[0]);
     WaterDynamicsHydrologyFiniteChecks.main(new String[0]);
