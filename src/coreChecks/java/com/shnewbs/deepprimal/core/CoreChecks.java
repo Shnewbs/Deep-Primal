@@ -35,6 +35,7 @@ public final class CoreChecks {
     WorldGenPipelineShutdownChecks.main(new String[0]);
     WorldGenPipelineReentrantRetryChecks.main(new String[0]);
     ByteLruOverflowChecks.main(new String[0]);
+    DistancePolicyNullInputChecks.main(new String[0]);
     VerticalRangeOverflowChecks.main(new String[0]);
     ViewGridBoundaryChecks.main(new String[0]);
     ColumnHeightBoundaryChecks.main(new String[0]);

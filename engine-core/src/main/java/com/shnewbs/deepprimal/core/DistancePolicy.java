@@ -12,7 +12,7 @@ public final class DistancePolicy {
         return parse(text, 2, maximum);
     }
     public static OptionalInt parse(String text, int minimum, int maximum) {
-        if (text.isEmpty() || text.length() > 10) return OptionalInt.empty();
+        if (text == null || text.isEmpty() || text.length() > 10) return OptionalInt.empty();
         long parsed = 0;
         for (int i = 0; i < text.length(); i++) {
             char digit = text.charAt(i);
