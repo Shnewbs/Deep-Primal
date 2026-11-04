@@ -3,6 +3,7 @@ package com.shnewbs.deepprimal.validation;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.shnewbs.deepprimal.client.GroundMaterialColors;
+import com.shnewbs.deepprimal.client.SandColorMap;
 import com.shnewbs.deepprimal.engine.GroundSurfaceProfile;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -54,6 +55,7 @@ public final class GroundResourceChecks {
           require(image.getRGB(i, 0) == image.getRGB(i, 63), "Vertical repeat: " + resource);
       }
     }
+    sandColorMap();
     for (String material : List.of("grass", "podzol")) {
       var surface = ImageIO.read(new java.io.ByteArrayInputStream(bytes(
           "assets/deepprimal/textures/block/ground/masks/" + material + "_side_surface.png")));
@@ -139,6 +141,23 @@ public final class GroundResourceChecks {
       if (stream == null) throw new AssertionError("Missing runtime resource " + name);
       return stream.readAllBytes();
     }
+  }
+
+  private static void sandColorMap() throws IOException {
+    var image = ImageIO.read(new java.io.ByteArrayInputStream(
+        bytes("assets/deepprimal/textures/colormap/sand.png")));
+    require(image != null && image.getWidth() == 256 && image.getHeight() == 256,
+        "Sand climate colormap dimensions");
+    for (int y = 0; y < 256; y++)
+      for (int x = 0; x < 256; x++)
+        require((image.getRGB(x, y) >>> 24) == 255, "Opaque sand colormap");
+    int arid = SandColorMap.sample(1, 0), wet = SandColorMap.sample(1, 1);
+    int defaultClimate = SandColorMap.sample(.5, .5);
+    require(arid != wet, "Sand colormap varies with downfall");
+    require(arid != SandColorMap.sample(0, 0), "Sand colormap varies with temperature");
+    require((defaultClimate & 0xff000000) == 0, "Sand climate tint is an RGB multiplier");
+    require(SandColorMap.sample(Double.NaN, .5) == 0xd6c49a,
+        "Invalid climate falls back to default sand tint");
   }
 
     private static void soilResources(JsonObject lang, com.google.gson.JsonArray shovel,
