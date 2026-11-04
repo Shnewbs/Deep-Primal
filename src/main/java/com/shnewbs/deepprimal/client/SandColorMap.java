@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 import javax.imageio.ImageIO;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
@@ -76,12 +77,10 @@ public final class SandColorMap implements BlockTintSource {
   @Override
   public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
     if (level == null || pos == null) return SoilTexture.SAND.color();
-    return level.getBlockTint(
-        pos,
-        (biome, x, z) -> {
-          var climate = biome.getModifiedClimateSettings();
-          return sample(climate.temperature(), climate.downfall());
-        });
+    var clientLevel = Minecraft.getInstance().level;
+    if (clientLevel == null) return SoilTexture.SAND.color();
+    var climate = clientLevel.getBiome(pos).value().getModifiedClimateSettings();
+    return sample(climate.temperature(), climate.downfall());
   }
 
   private SandColorMap() {}
