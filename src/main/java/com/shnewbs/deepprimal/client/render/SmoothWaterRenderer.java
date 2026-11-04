@@ -17,7 +17,7 @@ import net.neoforged.neoforge.client.fluid.CustomFluidRenderer;
 public final class SmoothWaterRenderer implements CustomFluidRenderer {
   public static volatile long renderedCells;
   public static volatile long curvedCells;
-  private static final int SUB = 2, SIDE_ALONG = 2, SIDE_VERTICAL = 4;
+  private static final int SUB = 3, SIDE_ALONG = 3, SIDE_VERTICAL = 4;
 
   private static boolean water(BlockAndTintGetter l, BlockPos p) {
     return l.getFluidState(p).getType() == EngineRegistry.WATER.get();

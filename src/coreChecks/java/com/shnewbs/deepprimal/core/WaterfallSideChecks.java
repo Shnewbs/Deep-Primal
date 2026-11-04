@@ -127,7 +127,7 @@ public final class WaterfallSideChecks {
           }
         var snapshot = new WaterPatchMesher.Snapshot(units, solid, new int[units.length], new int[256]);
         var mesh = WaterPatchMesher.build(snapshot, snapshot, smooth);
-        if (mesh.count() != 16 * 16 * 4 * (smooth ? 4 : 1))
+        if (mesh.count() != 16 * 16 * 4 * (smooth ? 9 : 1))
           throw new AssertionError("Stepped lake bed generated internal water faces: " + mesh.count());
         for (int i = 0; i < mesh.vertices().length; i += WaterPatchMesher.STRIDE) {
           var v = mesh.vertices();

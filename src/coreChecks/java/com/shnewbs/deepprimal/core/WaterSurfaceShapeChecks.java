@@ -47,7 +47,7 @@ final class WaterSurfaceShapeChecks {
         throw new AssertionError("Patch checkerboard dimples");
       top++;
     }
-    if (top != 16) throw new AssertionError("Unexpected smooth top tessellation: " + top);
+    if (top != 36) throw new AssertionError("Unexpected smooth top tessellation: " + top);
     int verticalSeams = 0;
     for (int amount = 1; amount <= 16; amount++) {
       byte[] stepped = new byte[WaterPatchMesher.CELLS];

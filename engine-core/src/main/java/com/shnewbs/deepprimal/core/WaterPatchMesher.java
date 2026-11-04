@@ -125,7 +125,7 @@ public final class WaterPatchMesher {
           }
           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
           if (top || oldTop) {
-            int sub = smooth ? 2 : 1;
+            int sub = smooth ? 3 : 1;
             for (int iz = 0; iz < sub; iz++)
               for (int ix = 0; ix < sub; ix++) {
                 float a = ix / (float) sub,
@@ -154,7 +154,7 @@ public final class WaterPatchMesher {
               bx = 1;
               bz = az;
             }
-            int subdivisions = smooth ? 2 : 1;
+            int subdivisions = smooth ? 3 : 1;
             for (int section = 0; section < subdivisions; section++) {
               float from = section / (float) subdivisions, to = (section + 1f) / subdivisions;
               float ax0 = ax + (bx - ax) * from, az0 = az + (bz - az) * from;
