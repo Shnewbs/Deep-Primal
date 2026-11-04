@@ -53,6 +53,12 @@ public final class Geology {
     };
   }
 
+  /** Revision-4 outcrops are limited to steep highlands and their shallow rock face. */
+  public static boolean isMountainOutcrop(int surfaceY, double slope, int y) {
+    return Double.isFinite(slope) && surfaceY >= 150 && slope > 1.3
+        && y <= surfaceY && surfaceY - y <= 96;
+  }
+
   /**
    * Material-revision-3 outcrop palette. It perturbs bedding laterally and
    * varies band thickness and facies; the frozen host-rock function remains

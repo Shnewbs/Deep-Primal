@@ -38,7 +38,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
-        Codec.intRange(0,3).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
+        Codec.intRange(0,4).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
         Codec.intRange(0,6).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
     ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
         profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
@@ -74,7 +74,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,
       TerrainProfile profile,int materialRevision,int channelRevision) {
     super(source);
-    if(materialRevision<0||materialRevision>3||(materialRevision!=0&&revision!=7))
+    if(materialRevision<0||materialRevision>4||(materialRevision!=0&&revision!=7))
       throw new IllegalArgumentException("Soil material revision requires V7 geography");
     this.materialRevision=materialRevision;
     this.channelRevision=channelRevision;
@@ -266,7 +266,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         }
         int ore=deposits.at(y);
         if (ore >= 0) return orePalette.get(ore);
-        Geology.Rock host = materialRevision >= 3 ? outcrop.rock(y) : geology.rock(y);
+        boolean layered = materialRevision == 3
+            || materialRevision >= 4 && Geology.isMountainOutcrop(bed, s.slope(), y);
+        Geology.Rock host = layered ? outcrop.rock(y) : geology.rock(y);
         return rock(host);
       }
       return s.wet()&&y<s.water()?water(s,y,ocean):Blocks.AIR.defaultBlockState();

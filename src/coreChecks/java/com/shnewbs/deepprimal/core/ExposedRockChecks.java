@@ -7,6 +7,7 @@ final class ExposedRockChecks {
   private ExposedRockChecks() {}
 
   static void run() {
+    checkMountainOutcropBounds();
     var rocks = new EnumMap<Geology.Lithology, EnumSet<Geology.Rock>>(Geology.Lithology.class);
     for (var type : Geology.Lithology.values()) rocks.put(type, EnumSet.noneOf(Geology.Rock.class));
     long samples = 0, bandTransitions = 0;
@@ -39,5 +40,32 @@ final class ExposedRockChecks {
       throw new AssertionError("Insufficient layered outcrop coverage");
     System.out.println("EXPOSED_ROCK_PASS samples=" + samples + " bandTransitions="
         + bandTransitions + " facies=" + rocks + " replay=true");
+  }
+
+  private static void checkMountainOutcropBounds() {
+    if (!Geology.isMountainOutcrop(240, 1.31, 240)
+        || !Geology.isMountainOutcrop(240, 1.31, 144)
+        || Geology.isMountainOutcrop(240, 1.31, 143)
+        || Geology.isMountainOutcrop(240, 1.3, 240)
+        || Geology.isMountainOutcrop(149, 2, 149)
+        || Geology.isMountainOutcrop(240, Double.NaN, 240)
+        || Geology.isMountainOutcrop(240, 2, 241))
+      throw new AssertionError("Mountain outcrop material escaped elevation, slope, or depth limits");
+
+    long candidateColumns = 0;
+    for (long seed : new long[] {0, 73, 20261020}) {
+      var terrain = new TerrainEngine(seed, 7);
+      for (int z = -2048; z <= 2048; z += 32)
+        for (int x = -2048; x <= 2048; x += 32) {
+          var sample = terrain.sample(x, z);
+          if (Geology.isMountainOutcrop((int) Math.floor(sample.ground()),
+              sample.slope(), (int) Math.floor(sample.ground())))
+            candidateColumns++;
+        }
+    }
+    if (candidateColumns < 1_000)
+      throw new AssertionError("Mountain outcrop policy missed steep highland terrain: " + candidateColumns);
+    System.out.println("MOUNTAIN_OUTCROP_POLICY_PASS candidateColumns=" + candidateColumns
+        + " elevation=150 slope>1.3 depth<=96");
   }
 }
