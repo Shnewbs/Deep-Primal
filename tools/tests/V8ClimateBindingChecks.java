@@ -36,7 +36,7 @@ public final class V8ClimateBindingChecks {
   private static void strictCodec() {
     Random random = new Random(64);
     var opts=TerrainOptions.DEFAULT;
-    var binding=V8ClimateBinding.fromSavedV7(opts,5);
+    var binding=V8ClimateBinding.fromSavedV7(opts,6);
     need(V8ClimateBinding.CODEC.decode(binding.key()).equals(binding),"binding exact source roundtrip");
     var old=frozen(-4);
     var oldEncoded=(Map<String,Object>)V8GeneratorSnapshot.CODEC.encode(old);
@@ -49,7 +49,7 @@ public final class V8ClimateBindingChecks {
       TerrainOptions option=new TerrainOptions(random.nextBoolean(),random.nextBoolean(),
           random.nextBoolean(),random.nextBoolean(),random.nextBoolean(),
           .5+random.nextDouble()*1.5,4000+random.nextDouble()*996000);
-      V8ClimateBinding policy=V8ClimateBinding.fromSavedV7(option,i%6);
+      V8ClimateBinding policy=V8ClimateBinding.fromSavedV7(option,i%7);
       var v4=frozen(seed).withClimateBinding(policy);
       var stored=(Map<String,Object>)V8GeneratorSnapshot.CODEC.encode(v4);
       need(stored.size()==9&&stored.containsKey("climate_binding"),"r4 exact 9-field envelope");
@@ -61,7 +61,7 @@ public final class V8ClimateBindingChecks {
       if(i<80) {
         V8SavedClimateSource source=V8SavedClimateSource.fromSavedV8(v4,seed);
         need(source.savedOptions().equals(option),"reopen exact boolean and double bits");
-        need(source.savedChannelRevision()==i%6,"reopen channel revision");
+        need(source.savedChannelRevision()==i%7,"reopen channel revision");
         reject(()->V8SavedClimateSource.fromSavedV8(v4,seed^1),"wrong seed admitted");
       }
     }
@@ -71,7 +71,7 @@ public final class V8ClimateBindingChecks {
       var altered=new LinkedHashMap<>(encoded);altered.remove(key);
       reject(()->V8GeneratorSnapshot.CODEC.decode(altered),"removed root field:"+key);
     }
-    for(String invalid:List.of("","1:7:6:11111:3ff4cccccccccccd:40cf400000000000",
+    for(String invalid:List.of("","1:7:7:11111:3ff4cccccccccccd:40cf400000000000",
         "1:7:5:21111:3ff4cccccccccccd:40cf400000000000",
         "1:7:5:11111:7ff8000000000000:40cf400000000000",
         "1:7:5:11111:3ff4CCCCCCCCCCCD:40cf400000000000",

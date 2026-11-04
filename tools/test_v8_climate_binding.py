@@ -50,19 +50,19 @@ public final class BindingCheck {
       TerrainOptions options=new TerrainOptions(r.nextBoolean(),r.nextBoolean(),
         r.nextBoolean(),r.nextBoolean(),r.nextBoolean(),
         .5+r.nextDouble()*1.5,4000+r.nextDouble()*996000);
-      V8ClimateBinding binding=V8ClimateBinding.fromSavedV7(options,i%6);
+      V8ClimateBinding binding=V8ClimateBinding.fromSavedV7(options,i%7);
       need(binding.equals(V8ClimateBinding.CODEC.decode(binding.key())));
       need(binding.key().equals(V8ClimateBinding.CODEC.encode(binding)));
       need(binding.savedOptions().equals(options));
     }
-    for(String bad:new String[]{"", "1:7:6:11111:3ff4cccccccccccd:40cf400000000000",
+    for(String bad:new String[]{"", "1:7:7:11111:3ff4cccccccccccd:40cf400000000000",
       "1:7:0:21111:3ff4cccccccccccd:40cf400000000000",
       "1:7:0:11111:7ff8000000000000:40cf400000000000",
       "1:7:0:11111:3ff4CCCCCCCCCCCD:40cf400000000000",
       "1:7:0:11111:3ff4cccccccccccd:0000000000000000"}) {
       deny(()->V8ClimateBinding.CODEC.decode(bad));
     }
-    deny(()->new V8ClimateBinding(1,7,6,TerrainOptions.DEFAULT));
+    deny(()->new V8ClimateBinding(1,7,7,TerrainOptions.DEFAULT));
     deny(()->new V8ClimateBinding(2,7,5,TerrainOptions.DEFAULT));
     deny(()->new V8ClimateBinding(1,6,5,TerrainOptions.DEFAULT));
     System.out.println("V8_BINDING_ISOLATED_PASS assertions="+checks+" java="+System.getProperty("java.version")+" apiDoubles=true");
@@ -102,7 +102,7 @@ def main():
     parser.add_argument('--output', type=Path)
     args=parser.parse_args()
     original=ENGINE.read_text()
-    mutation='|| channelRevision > 5'
+    mutation='|| channelRevision > 6'
     if original.count(mutation) != 1:
         raise RuntimeError('negative mutation anchor missing')
     with tempfile.TemporaryDirectory(prefix='deepprimal-v8-binding-') as root:

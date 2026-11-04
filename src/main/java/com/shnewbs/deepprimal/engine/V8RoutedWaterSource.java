@@ -169,13 +169,14 @@ public final class V8RoutedWaterSource implements V8WaterDomainAdmission.WaterSo
             seed, (x, z) -> {
               int at = latticeIndex(x, z, ox, oz);
               return at >= 0 && allowedOceanCells[at];
-            });
+            }, channelRevision >= 6);
       } else {
         // Preserve the exact old constructor and its unfenced interior flood.
         waterways = new WatershedRegion(ox, oz, heightLookup, savedClimate::rainfall,
             true, channelRevision >= 1,
             channelRevision >= 2 ? savedClimate.noise : null,
-            channelRevision >= 3, channelRevision >= 4, channelRevision >= 5, seed);
+            channelRevision >= 3, channelRevision >= 4, channelRevision >= 5,
+            seed, null, channelRevision >= 6);
       }
     }
 

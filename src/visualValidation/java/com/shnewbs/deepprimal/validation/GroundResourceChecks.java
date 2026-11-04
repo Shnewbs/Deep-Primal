@@ -156,8 +156,23 @@ public final class GroundResourceChecks {
     require(arid != wet, "Sand colormap varies with downfall");
     require(arid != SandColorMap.sample(0, 0), "Sand colormap varies with temperature");
     require((defaultClimate & 0xff000000) == 0, "Sand climate tint is an RGB multiplier");
+    int grass = 0x78b84f;
+    int dryBlend = SandColorMap.blendWithGrass(arid, grass, 0);
+    int wetBlend = SandColorMap.blendWithGrass(wet, grass, 1);
+    require(dryBlend == arid, "Arid sand preserves its climate-map color");
+    require(colorDistance(wetBlend, grass) < colorDistance(wet, grass),
+        "Humid sand transitions toward the biome grass color");
+    require(SandColorMap.blendWithGrass(wet, grass, Double.NaN) == wet,
+        "Invalid humidity preserves the sand color");
     require(SandColorMap.sample(Double.NaN, .5) == 0xd6c49a,
         "Invalid climate falls back to default sand tint");
+  }
+
+  private static long colorDistance(int first, int second) {
+    int r = ((first >>> 16) & 255) - ((second >>> 16) & 255);
+    int g = ((first >>> 8) & 255) - ((second >>> 8) & 255);
+    int b = (first & 255) - (second & 255);
+    return (long) r * r + (long) g * g + (long) b * b;
   }
 
     private static void soilResources(JsonObject lang, com.google.gson.JsonArray shovel,

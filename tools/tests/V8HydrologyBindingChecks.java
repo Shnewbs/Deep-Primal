@@ -64,7 +64,7 @@ public final class V8HydrologyBindingChecks {
       var options=new TerrainOptions(rand.nextBoolean(),rand.nextBoolean(),rand.nextBoolean(),
           rand.nextBoolean(),rand.nextBoolean(),.5+rand.nextDouble()*1.5,
           4000+rand.nextDouble()*996000);
-      var climateBinding=V8ClimateBinding.fromSavedV7(options,i%6);
+      var climateBinding=V8ClimateBinding.fromSavedV7(options,i%7);
       String source=fingerprint(rand);
       var hydro=V8HydrologyBinding.pinned(source);
       var r5=v3(seed).withClimateBinding(climateBinding).withHydrologyBinding(hydro);

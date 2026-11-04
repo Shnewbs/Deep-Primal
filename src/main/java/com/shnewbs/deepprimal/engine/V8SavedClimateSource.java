@@ -18,7 +18,7 @@ import java.util.Objects;
 public final class V8SavedClimateSource implements V8EcotoneColumnPlan.ClimateSource {
   public static final int REFERENCE_TERRAIN_REVISION = 7;
   private static final int MIN_CHANNEL_REVISION = 0;
-  private static final int MAX_CHANNEL_REVISION = 5;
+  private static final int MAX_CHANNEL_REVISION = 6;
   private static final double PATCH_SCALE = 1100.0;
   private static final long PATCH_SALT = 3130L;
 

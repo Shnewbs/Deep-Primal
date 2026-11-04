@@ -36,7 +36,7 @@ public final class V8BlendAuthoringGuardChecks {
       long seed=i==0?Long.MIN_VALUE:i==1?Long.MAX_VALUE:random.nextLong();
       var legacy=new V8GeneratorSnapshot(1,seed,-128,96,shape(),
           new GroundSurfaceProfile("climate",5));
-      var binding=V8ClimateBinding.fromSavedV7(TerrainOptions.DEFAULT,i%6);
+      var binding=V8ClimateBinding.fromSavedV7(TerrainOptions.DEFAULT,i%7);
       var r2=legacy.withBlendPolicy(V8BlendPolicy.HARD);
       var r3=r2.withSurfacePolicy(V8SurfacePolicy.FROZEN_R1);
       var r4=r3.withClimateBinding(binding);

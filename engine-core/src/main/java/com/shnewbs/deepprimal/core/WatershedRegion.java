@@ -21,7 +21,7 @@ public final class WatershedRegion {
   private static final int OXBOW_LIMIT = 24;
   private final double ox, oz;
   private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas, floodplainLakes,
-      budgetedDistributaries;
+      budgetedDistributaries, deepChannels;
   private final Oxbow[] oxbows;
   private final int[][] oxbowIndex;
   private final Distributary[] distributaries;
@@ -276,14 +276,30 @@ public final class WatershedRegion {
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior, false);
+  }
+
+  /**
+   * {@code deepChannels} selects channel revision 6: discharge-scaled thalwegs
+   * for flowing channels, excluding delta branches and lake basins.
+   */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels) {
     if (admittedOceanInterior != null && admittedSea == null)
       throw new IllegalArgumentException("ocean interior authority requires seeded ocean boundary");
     this.floodplainLakes = floodplainLakes;
     this.budgetedDistributaries = budgetedDistributaries;
+    this.deepChannels = deepChannels;
     if (floodplainLakes && !riverDeltas)
       throw new IllegalArgumentException("Oxbow lakes require channel revision 3");
     if (budgetedDistributaries && !riverDeltas)
       throw new IllegalArgumentException("Distributary budgets require channel revision 3");
+    if (deepChannels && !budgetedDistributaries)
+      throw new IllegalArgumentException("Deep channels require channel revision 5");
     this.broadChannels=broadChannels;
     this.cascadeBeds=cascadeBeds;
     this.riverNoise=riverNoise;
@@ -1067,11 +1083,15 @@ public final class WatershedRegion {
         double t = Math.clamp(((x - s.ax) * vx + (z - s.az) * vz) / len, 0, 1);
         double dist = Math.hypot(x - s.ax - vx * t, z - s.az - vz * t), r = lerp(s.ra, s.rb, t);
         if (dist > r + 36 + s.reach) continue;
+        boolean deepen =
+            deepChannels && !s.delta && delta == null && !Double.isFinite(lakeLevel) && !lakeHalo[a];
         double level = lerp(s.sa, s.sb, t),
             braid = earthRivers ? lerp(s.wa, s.wb, t) : 0,
             depth =
                 earthRivers
-                    ? Math.clamp(.6 + 1.1 * Math.sqrt(r), 1.5, 8) * (1 - .45 * braid)
+                    ? (deepen
+                        ? Math.clamp(1 + 1.6 * Math.sqrt(r), 2.5, 20)
+                        : Math.clamp(.6 + 1.1 * Math.sqrt(r), 1.5, 8)) * (1 - .45 * braid)
                     : Math.clamp(1.35 + r * .17, 1.5, 6),
             bank = Math.clamp(5 + r * .4 + Math.sqrt(Math.max(0, base - level)) * 2, 5, 24);
         if (dist < r + 1.01) {

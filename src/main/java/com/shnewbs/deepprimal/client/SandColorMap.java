@@ -8,11 +8,12 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** Climate tint for sand, sampled from the packaged temperature/downfall colormap. */
+/** Climate tint for sand, transitioning humid shores toward the local grass palette. */
 public final class SandColorMap implements BlockTintSource {
   static final SandColorMap INSTANCE = new SandColorMap();
   private static final int SIZE = 256;
@@ -59,6 +60,25 @@ public final class SandColorMap implements BlockTintSource {
     return (int) Math.round(top * (1 - v) + bottom * v);
   }
 
+  public static int blendWithGrass(int sandColor, int grassColor, double downfall) {
+    if (!Double.isFinite(downfall)) return sandColor;
+    double humidity = smooth((downfall - .2) / .7) * .6;
+    int r = blendChannel(sandColor, grassColor, 16, humidity);
+    int g = blendChannel(sandColor, grassColor, 8, humidity);
+    int b = blendChannel(sandColor, grassColor, 0, humidity);
+    return (r << 16) | (g << 8) | b;
+  }
+
+  private static double smooth(double value) {
+    double t = Math.clamp(value, 0, 1);
+    return t * t * (3 - 2 * t);
+  }
+
+  private static int blendChannel(int first, int second, int shift, double amount) {
+    int a = (first >>> shift) & 255, b = (second >>> shift) & 255;
+    return (int) Math.round(a * (1 - amount) + b * amount);
+  }
+
   @Override
   public int color(BlockState state) {
     return SoilTexture.SAND.color();
@@ -80,7 +100,9 @@ public final class SandColorMap implements BlockTintSource {
     var clientLevel = Minecraft.getInstance().level;
     if (clientLevel == null) return SoilTexture.SAND.color();
     var climate = clientLevel.getBiome(pos).value().getModifiedClimateSettings();
-    return sample(climate.temperature(), climate.downfall());
+    int sand = sample(climate.temperature(), climate.downfall());
+    int grass = level.getBlockTint(pos, BiomeColors.GRASS_COLOR_RESOLVER);
+    return blendWithGrass(sand, grass, climate.downfall());
   }
 
   private SandColorMap() {}

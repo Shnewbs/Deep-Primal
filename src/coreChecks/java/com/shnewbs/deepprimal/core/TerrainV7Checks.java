@@ -27,6 +27,7 @@ final class TerrainV7Checks {
     System.out.println("TERRAIN_V7_PASS seeds=8 columns="+columns+" biomeIds="+biomes+" uniqueOriginHeights=8 uniqueOriginRain=8 reaches="+streams);
     channels();
     EarthRiverChecks.run();
+    RiverDepthChecks.run();
     DeltaChecks.run();
     OxbowChecks.run();
     DistributaryChecks.run();

@@ -26,7 +26,7 @@ public record V8ClimateBinding(int version, int terrainRevision,
 
   public V8ClimateBinding {
     if (version != VERSION || terrainRevision != REFERENCE_TERRAIN_REVISION
-        || channelRevision < 0 || channelRevision > 5)
+        || channelRevision < 0 || channelRevision > 6)
       throw new IllegalArgumentException("unsupported climate/reference/channel revision");
     Objects.requireNonNull(savedOptions, "savedOptions");
   }
@@ -48,7 +48,7 @@ public record V8ClimateBinding(int version, int terrainRevision,
   }
 
   private static V8ClimateBinding decodeKey(String key) {
-    if (key == null || !key.matches("1:7:[0-5]:[01]{5}:[0-9a-f]{16}:[0-9a-f]{16}"))
+    if (key == null || !key.matches("1:7:[0-6]:[01]{5}:[0-9a-f]{16}:[0-9a-f]{16}"))
       throw new IllegalArgumentException("noncanonical reference-climate key");
     String[] fields = key.split(":", -1);
     String bools = fields[3];

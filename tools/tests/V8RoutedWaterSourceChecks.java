@@ -42,7 +42,7 @@ public final class V8RoutedWaterSourceChecks {
     var random=new Random(0xCAFE2868L);
     for(int i=0;i<32;i++) {
       long seed=i==0?Long.MIN_VALUE:i==1?Long.MAX_VALUE:random.nextLong();
-      int channel=i%6;
+      int channel=i%7;
       var r4=v4(seed,channel,8100+i);
       String expected=V8RoutedWaterSource.fingerprint(r4);
       check(expected.matches("[0-9a-f]{64}"),"canonical digest");

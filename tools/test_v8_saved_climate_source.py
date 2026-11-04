@@ -85,7 +85,13 @@ public final class DensityChunk {
     "com/shnewbs/deepprimal/core/biome/EcotoneSurfaceField.java": '''package com.shnewbs.deepprimal.core.biome;
 public final class EcotoneSurfaceField {
   private EcotoneSurfaceField() {}
-  public record Sample(double soilFactor) {}
+  public enum Cover { BARE, GRASS, PODZOL }
+  public record Sample(double soilFactor, double snow, double vegetation,
+      Cover cover, boolean snowPatch) {
+    public Sample(double soilFactor) {
+      this(soilFactor, 0, 0, Cover.GRASS, false);
+    }
+  }
 }
 ''',
     "com/shnewbs/deepprimal/engine/GroundSurfaceProfile.java": '''package com.shnewbs.deepprimal.engine;
@@ -104,6 +110,12 @@ import com.shnewbs.deepprimal.core.biome.EcotoneBlend;
 import com.shnewbs.deepprimal.core.biome.EcotoneSurfaceField;
 public record V8GeneratorSnapshot(int version,long seed,V8SurfacePolicy surfacePolicy) {
   public static final int SURFACE_VERSION=3;
+  public static final int CLIMATE_VERSION=4;
+  public static final int HYDROLOGY_VERSION=5;
+  public static final int VEGETATION_VERSION=6;
+  public V8ClimateBinding climateBinding() {
+    return new V8ClimateBinding(new com.shnewbs.deepprimal.core.TerrainOptions(0), 0);
+  }
   public record Prepared(V8GeneratorSnapshot snapshot,int minY,int height,
       GroundSurfaceProfile surface) {
     public void requireHeight(int min,int value) {
@@ -116,6 +128,10 @@ public record V8GeneratorSnapshot(int version,long seed,V8SurfacePolicy surfaceP
     }
   }
 }\n''',
+    "com/shnewbs/deepprimal/engine/V8ClimateBinding.java": '''package com.shnewbs.deepprimal.engine;
+import com.shnewbs.deepprimal.core.TerrainOptions;
+public record V8ClimateBinding(TerrainOptions savedOptions,int channelRevision) {}
+''',
 }
 
 

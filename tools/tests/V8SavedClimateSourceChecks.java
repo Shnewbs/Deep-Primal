@@ -52,9 +52,9 @@ public final class V8SavedClimateSourceChecks {
     var profile = new TerrainProfile(opts);
     var seed = 0x5b5bc0ffeeL;
     var snap = new V8GeneratorSnapshot(3, seed, V8SurfacePolicy.FROZEN_R1);
-    var source = V8SavedClimateSource.fromSavedV7(snap, profile, seed, 7, 5);
+    var source = V8SavedClimateSource.fromSavedV7(snap, profile, seed, 7, 6);
     check(source.savedOptions().equals(opts), "saved options lost");
-    check(source.savedChannelRevision() == 5, "saved channels lost");
+    check(source.savedChannelRevision() == 6, "saved channels lost");
     rejects(() -> V8SavedClimateSource.fromSavedV7(null, profile, seed, 7, 0), "null V8 accepted");
     rejects(() -> V8SavedClimateSource.fromSavedV7(snap, null, seed, 7, 0), "null profile accepted");
     rejects(() -> V8SavedClimateSource.fromSavedV7(new V8GeneratorSnapshot(1, seed,
@@ -72,12 +72,12 @@ public final class V8SavedClimateSourceChecks {
     for (int rev : new int[]{0, 1, 6, 8, Integer.MAX_VALUE})
       rejects(() -> V8SavedClimateSource.fromSavedV7(snap, profile, seed, rev, 0),
           "wrong V7 version accepted " + rev);
-    for (int channel : new int[]{-1, 6, Integer.MIN_VALUE, Integer.MAX_VALUE})
+    for (int channel : new int[]{-1, 7, Integer.MIN_VALUE, Integer.MAX_VALUE})
       rejects(() -> V8SavedClimateSource.fromSavedV7(snap, profile, seed, 7, channel),
           "wrong V7 channel revision accepted " + channel);
 
     int land = 0, river = 0, ocean = 0, stillLake = 0;
-    for (int channel = 0; channel <= 5; channel++) {
+    for (int channel = 0; channel <= 6; channel++) {
       var adapter = newSource(seed, opts, channel);
       for (int i = 0; i < 3072; i++) {
         int x = (i % 2 == 0 ? 1 : -1) * (i * 37 + 11);
