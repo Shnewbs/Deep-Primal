@@ -19,7 +19,7 @@ final class WaterBedChecks {
       }
     int seams=0;
     for(int amount=1;amount<=16;amount++) {
-      var edges=new HashMap<String,Float>();
+      var leftEdges=new HashMap<String,Float>();var rightEdges=new HashMap<String,Float>();
       for(int ox:new int[]{0,16}) {
         byte[] u=new byte[WaterPatchMesher.CELLS],s=new byte[u.length];
         for(int z=-1;z<=16;z++)for(int x=-1;x<=16;x++) {
@@ -28,13 +28,25 @@ final class WaterBedChecks {
           s[WaterPatchMesher.index(x,high-1,z)]=1;
         }
         var v=WaterPatchMesher.build(new WaterPatchMesher.Snapshot(u,s,new int[u.length],new int[256]),null,true).vertices();
-        for(int i=0;i<v.length;i+=WaterPatchMesher.STRIDE)if(WaterPatchMesher.face(v[i+10])==0&&v[i]+ox==16) {
-          String key=v[i+1]+":"+v[i+2];Float old=edges.putIfAbsent(key,v[i+3]);
-          if(old!=null){if(old!=v[i+3])throw new AssertionError("Shared support differs across pages");seams++;}
+        for(int i=0;i<v.length;i+=WaterPatchMesher.STRIDE)if(WaterPatchMesher.face(v[i+10])==0) {
+          int cell=(int)v[i+9],cellX=cell&15,cellZ=(cell>>>4)&15,cellY=cell>>>8;
+          float worldX=ox+cellX+v[i+5],worldZ=cellZ+v[i+6];
+          if(worldX!=16)continue;
+          String key=worldZ+":"+cellY;
+          Float old=(ox==0?leftEdges:rightEdges).putIfAbsent(key,v[i+3]);
+          if(old!=null&&old!=v[i+3])throw new AssertionError("Shared support differs within a page");
+        }
+      }
+      for(var edge:leftEdges.entrySet()) {
+        Float other=rightEdges.get(edge.getKey());
+        if(other!=null) {
+          if(other.floatValue()!=edge.getValue())
+            throw new AssertionError("Shared support differs across pages");
+          seams++;
         }
       }
     }
-    if(vertices<24000||seams<100)throw new AssertionError("Missing coverage");
+    if(vertices<24000||seams<100)throw new AssertionError("Missing coverage: vertices="+vertices+" seams="+seams);
     System.out.println("WATER_BED_PASS cases="+cases+" supportedVertices="+vertices+" sharedPageVertices="+seams+" volumeUnchanged=true");
   }
 }

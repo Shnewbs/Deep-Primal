@@ -32,10 +32,11 @@ final class TerrainV7Checks {
     OxbowChecks.run();
     DistributaryChecks.run();
     soilOutcrops();
+    ExposedRockChecks.run();
   }
   /** Material revision 2 removes iso-slope weathered ribbons; revisions 0/1 replay exact legacy horizons. */
   private static void soilOutcrops() {
-    long land=0,ribbons1=0,ribbons2=0,edgeSoil=0,edgeRock=0,below=0,above=0,outcrops=0;
+    long land=0,ribbons1=0,ribbons2=0,edgeSoil=0,edgeRock=0,below=0,above=0,outcrops=0,blendedKinds=0;
     for(long seed:new long[]{0,73,20261020}) {
       var t=new TerrainEngine(seed,7);var geology=new Geology(t.noise);
       for(int z=-1536;z<1536;z+=5)for(int x=-1536;x<1536;x+=5) {
@@ -48,7 +49,12 @@ final class TerrainV7Checks {
         int weathered=slope>2.2?0:g.permeability()>.4?2:1;
         if(legacy.topsoil()!=top||legacy.subsoil()!=sub||legacy.weathered()!=weathered)
           throw new AssertionError("Legacy soil horizons changed at "+x+","+z);
-        if(next.kind()!=legacy.kind()||!next.equals(SoilProfile.at(t.noise,x,z,s,g)))throw new AssertionError("Revision-2 soil replay");
+        if(!next.equals(SoilProfile.at(t.noise,x,z,s,g)))throw new AssertionError("Revision-2 soil replay");
+        if(next.kind()!=legacy.kind()) {
+          if(s.wet() || s.ground()<101 || s.rain()<=.33 || s.rain()>=.37)
+            throw new AssertionError("Revision-2 soil blend escaped its rainfall transition");
+          blendedKinds++;
+        }
         double jitter=SoilProfile.slopeJitter(t.noise,x,z);
         if(Math.abs(jitter)>.47)throw new AssertionError("Unbounded slope jitter "+jitter);
         if(s.wet())continue;
@@ -60,11 +66,12 @@ final class TerrainV7Checks {
       }
     }
     if(ribbons1<1000)throw new AssertionError("Legacy weathered ribbon witness missing: "+ribbons1);
+    if(blendedKinds==0)throw new AssertionError("Revision-2 soil transition was not sampled");
     if(ribbons2!=0)throw new AssertionError("Revision-2 dry land still exposes weathered ribbons: "+ribbons2);
     double mix=Math.min(edgeSoil,edgeRock)/(double)Math.max(1,edgeSoil+edgeRock);
     if(mix<.2)throw new AssertionError("Soil edge still follows a sharp slope contour: mix="+mix);
-    System.out.printf("SOIL_OUTCROP_REVISION_PASS land=%d legacyRibbons=%d revision2Ribbons=0 outcrops=%d edgeMix=%.3f legacyReplay=true%n",
-        land,ribbons1,outcrops,mix);
+    System.out.printf("SOIL_OUTCROP_REVISION_PASS land=%d legacyRibbons=%d revision2Ribbons=0 outcrops=%d edgeMix=%.3f blendedKinds=%d legacyReplay=true%n",
+        land,ribbons1,outcrops,mix,blendedKinds);
   }
   /** Channel revision 1 only raises perched channel beds; stages and dry land replay revision 0. */
   private static void channels() {

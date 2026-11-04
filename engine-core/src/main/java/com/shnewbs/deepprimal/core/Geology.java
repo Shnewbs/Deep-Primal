@@ -3,6 +3,7 @@ package com.shnewbs.deepprimal.core;
 /** Seeded folded strata, faults, intrusions, finite host-dependent deposits and soil horizons. */
 public final class Geology {
   public enum Rock { GRANITE, ANDESITE, DIORITE, BASALT, TUFF, SANDSTONE, CALCITE, DEEPSLATE }
+  public enum Lithology { SEDIMENTARY, IGNEOUS, METAMORPHIC }
   public enum Ore { NONE, COAL, COPPER, IRON, GOLD, REDSTONE, LAPIS, DIAMOND, EMERALD }
   public record Column(double bedding, double fault, int province, double intrusion,
       int soilDepth, double permeability, double veinX, double veinZ, double veinY,
@@ -43,6 +44,61 @@ public final class Geology {
   }
   private final TerrainNoise noise;
   public Geology(TerrainNoise noise) { this.noise = noise; }
+  /** Broad surface-rock province; existing Minecraft blocks are visual proxies for each family. */
+  public Lithology lithology(Column column) {
+    return switch (column.province()) {
+      case 0 -> Lithology.SEDIMENTARY;
+      case 1 -> Lithology.IGNEOUS;
+      default -> Lithology.METAMORPHIC;
+    };
+  }
+
+  /**
+   * Material-revision-3 outcrop palette. It perturbs bedding laterally and
+   * varies band thickness and facies; the frozen host-rock function remains
+   * authoritative for caves, ores, permeability, and older material revisions.
+   * Bedding and facies noise are amortized across vertical blocks.
+   */
+  public final class OutcropColumn {
+    private final int x, z;
+    private final double thickness, beddingOffset;
+    private final Lithology lithology;
+    private int cachedBand = Integer.MIN_VALUE;
+    private Rock cachedRock;
+
+    private OutcropColumn(int x, int z, Column column) {
+      this.x = x;
+      this.z = z;
+      thickness = 26 + noise.field(x, z, 1900, 1885) * 4;
+      beddingOffset = column.bedding() + column.fault()
+          + noise.field(x, z, 560, 1881) * 15
+          + noise.field(x, z, 170, 1882) * 4;
+      lithology = lithology(column);
+    }
+
+    /** This sampler is intended to be owned by one generated column. */
+    public Rock rock(int y) {
+      int band = (int) Math.floor((y + beddingOffset) / thickness);
+      if (band != cachedBand) {
+        double facies = noise.field(x, z, 920, 1883L + band * 37L);
+        cachedRock = switch (lithology) {
+          case SEDIMENTARY -> facies > .32 ? Rock.SANDSTONE
+              : facies > -.48 ? Rock.CALCITE : Rock.TUFF;
+          case IGNEOUS -> facies > .25 ? Rock.ANDESITE
+              : facies > -.42 ? Rock.BASALT : Rock.TUFF;
+          case METAMORPHIC -> facies > .25 ? Rock.DIORITE
+              : facies > -.42 ? Rock.GRANITE : Rock.DEEPSLATE;
+        };
+        cachedBand = band;
+      }
+      return cachedRock;
+    }
+  }
+
+  public OutcropColumn outcropColumn(int x, int z, Column column) {
+    return new OutcropColumn(x, z, column);
+  }
+
   /** Exact hydraulic subset; no terrain, strata, deposit or soil-horizon evaluation. */
   public double permeability(int x, int z) {
     double faultField = noise.field(x, z, 1400, 1802);
