@@ -390,9 +390,10 @@ public final class PrimalGraphicsScreen extends Screen {
         () -> minecraft.options.renderDistance().get(),
         v -> minecraft.options.renderDistance().set(v),
         2,
-        512,
-        "Requested full-detail radius in chunks. Server delivery and memory guards can lower the"
-            + " effective value.");
+        com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER,
+        "Requested full-detail radius in chunks. Capped at "
+            + com.shnewbs.deepprimal.core.DistancePolicy.MAX_RENDER
+            + " by the native tracker's signed-byte level; use LOD radius for the far view.");
     add(
         0,
         "simulation",
