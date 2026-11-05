@@ -31,6 +31,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_edge_vegetation"));
   private static final TagKey<Biome> WATER_ROOTED_TREES = TagKey.create(
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_rooted_trees"));
+  private static final TagKey<Biome> WATER_EMERGENT_PLANTS = TagKey.create(
+      Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_emergent_plants"));
   public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
   public static final MapCodec<EngineChunkGenerator> CODEC_V2 = codecFor(2);
   public static final MapCodec<EngineChunkGenerator> CODEC_V3 = codecFor(3);
@@ -612,12 +614,35 @@ public final class EngineChunkGenerator extends ChunkGenerator {
             biomeHolder != null
                 && biomeHolder.is(WATER_EDGE_VEGETATION)
                 && nearWater(wx, wz, 3);
+        boolean emergentPlants =
+            channelRevision >= 8
+                && biomeHolder != null
+                && biomeHolder.is(WATER_EMERGENT_PLANTS);
         double coverDraw =
             materialRevision >= 6
                 ? engine.noise.field(wx, wz, 24, 4401) * .5 + .5
                 : engine.noise.hash(wx, wz, 401);
+        int y = (int) Math.floor(s.ground()) + 1;
+        if (emergentPlants
+            && engine.noise.hash(wx, wz, 4412) < .018
+            && !s.wet()
+            && s.slope() < .45
+            && s.temperature() > .2
+            && emergentWaterSupport(wx, y, wz)) {
+          var plant = new BlockPos(wx, y, wz);
+          var support = c.getBlockState(plant.below());
+          if (c.getBlockState(plant).isAir()
+              && (support.is(net.minecraft.tags.BlockTags.DIRT)
+                  || support.is(net.minecraft.tags.BlockTags.SAND))) {
+            int height = 1 + (int) (engine.noise.hash(wx, wz, 4410) * 3);
+            for (int dy = 0; dy < height && y + dy < c.getMaxY(); dy++) {
+              var segment = new BlockPos(wx, y + dy, wz);
+              if (!c.getBlockState(segment).isAir()) break;
+              c.setBlockState(segment, Blocks.SUGAR_CANE.defaultBlockState());
+            }
+          }
+        }
         if (coverDraw < (shorePlants ? .42 : .11)) {
-          int y = (int) Math.floor(s.ground()) + 1;
           var p = new BlockPos(wx, y, wz);
           if (!s.wet()
               && (c.getBlockState(p.below()).is(Blocks.GRASS_BLOCK)
@@ -650,6 +675,16 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         if(engine.column(x+n,z-r).wet()||engine.column(x+n,z+r).wet()
             ||engine.column(x-r,z+n).wet()||engine.column(x+r,z+n).wet())return true;
       }
+    return false;
+  }
+
+  private boolean emergentWaterSupport(int x, int y, int z) {
+    for (Direction direction : Direction.Plane.HORIZONTAL) {
+      int wx = x + direction.getStepX(), wz = z + direction.getStepZ();
+      var neighbor = engine.column(wx, wz);
+      if (neighbor.wet() && y > Math.floor(neighbor.ground()) && y < neighbor.water())
+        return true;
+    }
     return false;
   }
 }

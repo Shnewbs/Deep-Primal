@@ -8,6 +8,13 @@ This extends the existing integrated shoreline ground-cover rule; it does not
 replace water or add underwater/floating plants. The tag remains additive for
 datapacks.
 
+The new additive `deepprimal:water_emergent_plants` biome tag enables sparse,
+deterministic one-to-three-block sugar cane stands in warm, low-slope dry bank
+cells directly adjacent to generated water. Placement checks actual water
+occupancy at the plant's base height and sturdy ground support; it only writes
+air cells above land, preserving custom water quantity and flow. This does not
+add underwater plants or claim native in-game visual acceptance.
+
 ## 2026-11-04 downstream flow advection
 
 The animated water shader now slowly advects flowing-water texture coordinates
