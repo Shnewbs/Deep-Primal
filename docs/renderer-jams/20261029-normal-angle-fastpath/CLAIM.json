@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0957-normal-angle-fastpath",
+  "owner": "renderer-hourly-only",
+  "status": "released",
+  "started_at": "2026-10-29T09:57:00Z",
+  "active_until": "2026-10-29T10:20:00Z",
+  "baseline_sha": "954e2323727170ea9ef56b2ac4db59fa5f497c32",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumAdaptiveGate.java",
+    "docs/renderer-jams/20261029-normal-angle-fastpath/**"
+  ],
+  "measurement_reservation": "Isolated Java21 deterministic visibility parity and CPU microbench only; no named GPU/native reserve",
+  "consumed": [
+    "docs/renderer-jams/20261029-finite-yaw-overflow/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T0935-8968d3d/REVIEW.md"
+  ],
+  "goal": "Eliminate ordinary-camera floating-point remainder from opt-in frustum pose comparison while preserving previous finite overflow fix and ordered fine-part culling",
+  "excluded": [
+    "other engine/water/terrain modules",
+    "other rendering/graphics modules",
+    "other schedulers and shared caches",
+    "native/GPU or owner build outputs"
+  ],
+  "released_at": "2026-10-29T10:03:20Z",
+  "reviewed_source_sha": "ab15e44cdad0a40966b6682f06b486031bb3aa5e",
+  "source_blob": "af8f3870bdec7013e3e26becff72e7771ca8d51a",
+  "test_blob": "cb18b130b2410447c85692370321ae9412645605",
+  "score": 5.73,
+  "previous_score": 5.72,
+  "assertions_passed": 4218937,
+  "source_checks": "10/10",
+  "artifact": "DeepPrimal_Renderer_NormalAngleFastPath_20261029_ab15e44_SourceEvidence.zip",
+  "artifact_sha256": "6e6dff84c6dc3c970948f19c4a1b5508b9b221dee694901663b8a68a8dd5f6d1",
+  "artifact_library_uploaded": true,
+  "qualified_jar": false
+}

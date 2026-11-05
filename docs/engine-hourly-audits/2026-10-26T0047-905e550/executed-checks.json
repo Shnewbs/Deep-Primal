@@ -1,0 +1,129 @@
+{
+  "build-output.txt": {
+    "sha256": "1c65329ee2197c3c6f4b1dd0acd1812c1727a4f661dba7a81c0adfe5f8cb60cc",
+    "tail": [
+      "You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.",
+      "",
+      "For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.",
+      "",
+      "BUILD FAILED in 13s",
+      "2 actionable tasks: 2 executed"
+    ]
+  },
+  "independent-core.txt": {
+    "sha256": "f25cef429278a35e22fa0f1066536b431a46b1cc9ed6c9f2caacb738c2fea528",
+    "tail": [
+      "             com.shnewbs.deepprimal.settings.UpscalingConfig.FsrQuality.values()) {",
+      "                                                            ^",
+      "Note: /workspace/scratch/1a7cb29b04a2/audit-905e550-20261026T0047/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java uses unchecked or unsafe operations.",
+      "Note: Recompile with -Xlint:unchecked for details.",
+      "100 errors",
+      "only showing the first 100 errors, of 105 total; use -Xmaxerrs if you would like to see more"
+    ]
+  },
+  "work-state-validator.txt": {
+    "sha256": "cee504390cf6ae4c6fd3290ab65bb3d4ce591691f2c1aba8b9ac0872bf869bad",
+    "tail": [
+      "ENGINE_WORK_STATE_PASS source_ref=main status=checkpointed"
+    ]
+  },
+  "module-boundary-all.txt": {
+    "sha256": "d6f26ef562cd969b82f27b77227630fe7dac2c39cf76aa5d2597ab67966e9d84",
+    "tail": [
+      "You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.",
+      "",
+      "For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.",
+      "",
+      "BUILD FAILED in 6s",
+      "2 actionable tasks: 2 executed"
+    ]
+  },
+  "state-tests.txt": {
+    "sha256": "199c859ed16989299ddd84f4611bbcc5e69964d711e35ad381fec8d9a39abcab",
+    "tail": [
+      "test_valid_expired_claim_remains_readable (test_engine_work_state.WorkStateChecks.test_valid_expired_claim_remains_readable) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 12 tests in 0.063s",
+      "",
+      "OK"
+    ]
+  },
+  "state-tests-optimized.txt": {
+    "sha256": "f803cdfdb47e8f8f0a11a07b403f6d70501e43595513ff0db33485eead69cb79",
+    "tail": [
+      "test_valid_expired_claim_remains_readable (test_engine_work_state.WorkStateChecks.test_valid_expired_claim_remains_readable) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 12 tests in 0.303s",
+      "",
+      "OK"
+    ]
+  },
+  "shutdown-tests.txt": {
+    "sha256": "a307a2cd2d6499c906d5d9dc39c3b76c6288ce75293c8c097cf8cf4d4df30c34",
+    "tail": [
+      "test_unacknowledged_flush_rejects_receipt (test_server_smoke.ShutdownChecks.test_unacknowledged_flush_rejects_receipt) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 16 tests in 0.031s",
+      "",
+      "OK"
+    ]
+  },
+  "state-tests-double-optimized.txt": {
+    "sha256": "2b95b3a446d54337b1dae34271b9ba987779cd135b71c2489bdc814214e8f1b5",
+    "tail": [
+      "test_valid_expired_claim_remains_readable (test_engine_work_state.WorkStateChecks.test_valid_expired_claim_remains_readable) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 12 tests in 0.305s",
+      "",
+      "OK"
+    ]
+  },
+  "source-inspection.txt": {
+    "sha256": "df9cb6d6e89c0134ec5fc64e212b35efe99dc66d7ef91215e232cd03af8ceef7",
+    "tail": [
+      "197:    }",
+      "198:",
+      "199:    private ChunkMaterializer() {",
+      "200:        throw new UnsupportedOperationException();",
+      "201:    }",
+      "202:}"
+    ]
+  },
+  "shutdown-tests-double-optimized.txt": {
+    "sha256": "28913646f37bf152456061e81a667df56b2afba62b683667390af2f9a5c4c52b",
+    "tail": [
+      "test_unacknowledged_flush_rejects_receipt (test_server_smoke.ShutdownChecks.test_unacknowledged_flush_rejects_receipt) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 16 tests in 0.035s",
+      "",
+      "OK"
+    ]
+  },
+  "module-boundary-output.txt": {
+    "sha256": "2af4de8ac432837fdd0aabf48c15ccc17274503ceb04a41776da657e3f997bca",
+    "tail": [
+      "You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.",
+      "",
+      "For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.",
+      "",
+      "BUILD FAILED in 5s",
+      "1 actionable task: 1 executed"
+    ]
+  },
+  "shutdown-tests-optimized.txt": {
+    "sha256": "9cd5e1d5714a95083194d76e0765f4ba62de6afd79325dbf658482222e287f59",
+    "tail": [
+      "test_unacknowledged_flush_rejects_receipt (test_server_smoke.ShutdownChecks.test_unacknowledged_flush_rejects_receipt) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 16 tests in 0.036s",
+      "",
+      "OK"
+    ]
+  }
+}

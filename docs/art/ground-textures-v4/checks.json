@@ -1,0 +1,13 @@
+{
+  "runtime_pngs": 10,
+  "repeat_export_byte_matches": 10,
+  "opaque_rgb_neutral": true,
+  "intended_wrap_edges": "pass",
+  "mask_partition_checks": 8192,
+  "original_crop_interior_pixels_matched": 14268,
+  "source_crops_verified": 5,
+  "dirt_top_side_identical": true,
+  "surface_bottom_to_dirt_top_identical": true,
+  "full_build": false,
+  "native_game_execution": false
+}

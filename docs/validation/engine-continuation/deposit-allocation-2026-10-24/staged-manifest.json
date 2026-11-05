@@ -1,0 +1,68 @@
+[
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+    "bytes": 3646,
+    "sha256": "be695826440c15daa634ba1ed5fe0aaae2869304019dbdc6958244263d86ad56",
+    "git_sha": "c6610e29f1382b68e6bfdbaef363d59932a0f24a"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/DepositField.java",
+    "bytes": 3220,
+    "sha256": "0566beff7e02f7b70a69967f8594b42342fff69d83adaf8ba780e42b55c775b7",
+    "git_sha": "c62286473582d83f79d6750a9909def0bfd91443"
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+    "bytes": 17738,
+    "sha256": "de7eb40fdd82b3973c07c4247612eeb595bca6391b7dc414d699d44c3de07854",
+    "git_sha": "b8696dc7e49c0032e3472492d348b626b610d38c"
+  },
+  {
+    "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+    "bytes": 18465,
+    "sha256": "f9018d7592aaaecf750fa486fb329eacd745471bf3f410de160c60f34336790d",
+    "git_sha": "909b714746f96d9220af82cd160d0a8bd662d15a"
+  },
+  {
+    "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java",
+    "bytes": 2439,
+    "sha256": "c44bb482ff5988391ac04b64c65412275c424f79d197c892098404877595bac8",
+    "git_sha": "cabc58d70779ae1bcd77018ee523d60379f89ba3"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "bytes": 6231,
+    "sha256": "30c6a048495dc60d9096f0ce915fd783a7fad366b34317cf2151f1ea5865d377",
+    "git_sha": "1c1095bcaec276190e672d57fe692941e57c1c0d"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/DepositFieldChecks.java",
+    "bytes": 3979,
+    "sha256": "14b96d64b5ded2386eabe1668eaa631face527b86cdb0822a23c114a0b81b39c",
+    "git_sha": "e9e7580b560608ecaf3f8f597b2255855e638af2"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/DepositAllocationChecks.java",
+    "bytes": 2092,
+    "sha256": "1a7e03ff31924649df18c6cbd0467f6bc2747ceb949898e5500070346496f89f",
+    "git_sha": "4d20f9c8ec5c958bec6ea54b19cc2d550d161099"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/R50DepositField.java",
+    "bytes": 2715,
+    "sha256": "5eda607720828a3a26656286a8531f90afe68565789513acead0a55868576f83",
+    "git_sha": "302429c6134b8d8662ddc2270114a633af9b91d1"
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositNativeChecks.java",
+    "bytes": 12767,
+    "sha256": "c6273389c0b968205db558ca58ca817874bdd4943e4900e6d3c30c27f07b59e7",
+    "git_sha": "8d962fad922cd688e8a63e4b36e88008d3f5efd9"
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DepositCoverageChecks.java",
+    "bytes": 8151,
+    "sha256": "016c18b06955ba46469cee7d9d0fd80838a4f1876c5985a61a9d4a6c3bae81e6",
+    "git_sha": "fc9685e05787ff749236c93c66d5619e2f01a558"
+  }
+]

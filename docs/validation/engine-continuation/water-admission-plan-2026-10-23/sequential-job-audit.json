@@ -1,0 +1,92 @@
+{
+  "pass": true,
+  "recorded_jobs": [
+    {
+      "case": "build-baseline",
+      "start": "2026-10-23T19:35:06.444176+00:00",
+      "finish": "2026-10-23T19:36:23.271868+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-admission-baseline",
+      "start": "2026-10-23T19:37:51.435519+00:00",
+      "finish": "2026-10-23T19:38:29.482430+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-admission-baseline-mesh",
+      "start": "2026-10-23T19:40:35.995700+00:00",
+      "finish": "2026-10-23T19:41:09.035926+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-admission-baseline-mesh-rebuilt",
+      "start": "2026-10-23T19:44:21.667763+00:00",
+      "finish": "2026-10-23T19:44:52.693122+00:00",
+      "exit": 0
+    },
+    {
+      "case": "compile-validation-fresh",
+      "start": "2026-10-23T19:47:41.514280+00:00",
+      "finish": "2026-10-23T19:48:05.521664+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-admission-baseline-fresh",
+      "start": "2026-10-23T19:48:10.528845+00:00",
+      "finish": "2026-10-23T19:48:43.567203+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-admission-baseline-no-cache",
+      "start": "2026-10-23T19:49:02.514152+00:00",
+      "finish": "2026-10-23T19:49:45.551428+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-admission-baseline-identity",
+      "start": "2026-10-23T19:50:38.884284+00:00",
+      "finish": "2026-10-23T19:51:22.935057+00:00",
+      "exit": 0
+    },
+    {
+      "case": "build-candidate",
+      "start": "2026-10-23T19:51:34.546564+00:00",
+      "finish": "2026-10-23T19:52:43.587910+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-corners-shared-final-admission",
+      "start": "2026-10-23T19:52:50.618198+00:00",
+      "finish": "2026-10-23T19:54:18.756549+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-corners-shared-final-admission-packaged",
+      "start": "2026-10-23T19:54:25.785120+00:00",
+      "finish": "2026-10-23T19:54:49.807179+00:00",
+      "exit": -15
+    },
+    {
+      "case": "build-candidate-package-recovery",
+      "start": "2026-10-23T19:56:11.113520+00:00",
+      "finish": "2026-10-23T19:57:26.332348+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-corners-shared-final-admission-packaged-verified",
+      "start": "2026-10-23T19:57:35.842332+00:00",
+      "finish": "2026-10-23T19:58:51.926072+00:00",
+      "exit": 0
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-admission",
+      "start": "2026-10-23T19:59:06.003906+00:00",
+      "finish": "2026-10-23T20:00:30.107301+00:00",
+      "exit": 0
+    }
+  ],
+  "overlapping_launcher_intervals": [],
+  "all_gradle_native_jobs_sequential": true,
+  "only_owned_isolated_checkout_modified": true
+}

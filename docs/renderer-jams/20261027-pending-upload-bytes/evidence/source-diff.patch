@@ -1,0 +1,17 @@
+--- a/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java
++++ b/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java
+@@ -94,7 +94,13 @@
+     }
+ 
+     long bytes() {
+-      return levels.stream().flatMap(List::stream).mapToLong(p -> p.byteSize).sum();
++      long bytes = 0;
++      // Both dimensions are private ArrayLists; avoid per-frame stream/iterator allocation.
++      for (int detail = 0, count = levels.size(); detail < count; detail++) {
++        List<TerrainGpuMesh> parts = levels.get(detail);
++        for (int part = 0, size = parts.size(); part < size; part++) bytes += parts.get(part).byteSize;
++      }
++      return bytes;
+     }
+ 
+     void close() {

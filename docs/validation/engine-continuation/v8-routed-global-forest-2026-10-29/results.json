@@ -1,0 +1,37 @@
+{
+  "version": "0.0.1-alpha.29-dev.82-routed-forest.1",
+  "audit": "docs/engine-hourly-audits/2026-10-29T1532-b6448f52/REVIEW.md",
+  "toolchain": "OpenJDK 21.0.12.1",
+  "bridge": {
+    "normal": {
+      "positive_processes": 2,
+      "assertions_per_positive": 3935,
+      "broken_rejected": 14
+    },
+    "python_optimized": {
+      "positive_processes": 2,
+      "assertions_per_positive": 3935,
+      "broken_rejected": 14
+    }
+  },
+  "interior": {
+    "positive_processes": 2,
+    "broken_rejected": 3
+  },
+  "topology": {
+    "positive_exit_code": 0,
+    "broken_nonzero": 3
+  },
+  "dev81_source_negative": {
+    "rejected": true,
+    "failure": "accepted invalid reciprocal collapsed interior receivers"
+  },
+  "omitted": [
+    "root pinned validator (no complete local checkout)",
+    "Java25 Gradle NeoForge Minecraft",
+    "native saved reopen",
+    "physical quantity and constituents",
+    "real GPU and performance",
+    "new JAR or regrade"
+  ]
+}

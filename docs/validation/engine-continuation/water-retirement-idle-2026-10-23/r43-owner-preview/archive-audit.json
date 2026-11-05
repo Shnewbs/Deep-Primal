@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "product_checkpoint": "136892bc3b060fb12d75f063d3e92d40a7f45bac",
+  "build": "experimental R43 Windows preview; internal mod version0.0.1-alpha.25-dev",
+  "r44_changes_included": false,
+  "sha256": "ef56e9bb5cb6bf03a24078e8d18e189e139b56ec010defdcfb8510bea75385d4",
+  "bytes": 11571073,
+  "crc_archives": 6,
+  "same_compiled_classes_as_tested_R43_linux": 4366,
+  "all_compiled_class_bytes_equal": true,
+  "windows_native_files": [
+    "windows/x64/org/lwjgl/shaderc/shaderc.dll",
+    "windows/x64/org/lwjgl/vma/lwjgl_vma.dll"
+  ],
+  "linux_reference_sha256": "a19c44f2237b39edcf53267bda8755a27e2b2e5e5649fd5ecd8327752d695124",
+  "windows_native_execution": false,
+  "performance_promotion": false
+}

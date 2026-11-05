@@ -1,0 +1,1549 @@
+{
+  "schema": 1,
+  "source_commit": "7f1d6310accf40649f25bf2f6698cec1949940f3",
+  "source_path": "docs/NATURAL-TYPES-GEOLOGY.md",
+  "catalog_rows": 88,
+  "new_assets": 70,
+  "mapped_rows": 88,
+  "provisional_rows": [
+    "ROCK-ADD-043"
+  ],
+  "unique_base_candidates": 81,
+  "reused_prior_candidates": 11,
+  "runtime_integrated": false,
+  "full_family_acceptance": false,
+  "rows": [
+    {
+      "id": "ROCK-LEGACY-001",
+      "name": "Granite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Hard, durable building and foundation stone; weathers to sandy, acidic soils; slow to work",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/granite",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/granite.png",
+          "sha256": "70aadcd16bfedbda1301c976c60e28df8328b644a10b4bd91b6d33d3dcb942a9"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-002",
+      "name": "Diorite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Hard, speckled building stone; durable paving",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/diorite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/diorite.png",
+          "sha256": "ef3238bc1bc332bc1e1e5cf356188679b71901b703448969a3c5db20047aa11c"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-003",
+      "name": "Gabbro",
+      "kind": "Legacy rock/material entry",
+      "notes": "Dense, dark, tough; paving and heavy construction; weathers to richer soils",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/gabbro",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/gabbro.png",
+          "sha256": "867b18d7e55adfc43d0fc9978b03fcb40030467cca0b3aa975c78e4fe67f902c"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-004",
+      "name": "Basalt",
+      "kind": "Legacy rock/material entry",
+      "notes": "Dense and fine; columns and paving; weathers to fertile clay soils; heat-stable",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/basalt",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/basalt.png",
+          "sha256": "e172f9edd5724c158597c5f87f08f9b278ac360502a7f7ce9ca08b423bc39906"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-005",
+      "name": "Andesite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Workable volcanic building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/andesite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/andesite.png",
+          "sha256": "e9ecc5a819ada620f27cc08230e231bb5a94fb8fe4ae1fdf30951d829daf7ce1"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-006",
+      "name": "Rhyolite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Silica-rich and fine; sometimes knappable",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/rhyolite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/rhyolite.png",
+          "sha256": "e212268d9c964c90b89274650a0b3b271b44bedc2fd447875939f9c82e3b4b1f"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-007",
+      "name": "Obsidian",
+      "kind": "Legacy rock/material entry",
+      "notes": "Volcanic glass with razor-sharp fracture; blades and points",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/obsidian",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/obsidian.png",
+          "sha256": "60b161b7f7f0f97adebb02b5b03b56c0d5608fe3b37a7c286439dc133430f770"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-008",
+      "name": "Pumice",
+      "kind": "Legacy rock/material entry",
+      "notes": "Porous, floats; abrasive, lightweight aggregate, soil conditioner",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/pumice",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/pumice.png",
+          "sha256": "8b81f0264c6d74003ebdfad12b1e0b57a6237f04469650c465f89e770079d15b"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-009",
+      "name": "Tuff",
+      "kind": "Legacy rock/material entry",
+      "notes": "Soft, easy to carve, light and insulating building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/tuff",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/tuff.png",
+          "sha256": "1096a23a632bf5a931b8c88c8014f65540988bf4d14f763f5a5033a3eaf18762"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-010",
+      "name": "Scoria",
+      "kind": "Legacy rock/material entry",
+      "notes": "Porous volcanic rock; drainage and lightweight aggregate",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "volcanic/scoria",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/volcanic/scoria.png",
+          "sha256": "310fb47229119e8030323b6f3f478d30d65331f3391700631ea2cc0bb8d76ddc"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-011",
+      "name": "Peridotite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Dense deep rock; ore host (e.g. chromium, nickel)",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/peridotite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/peridotite.png",
+          "sha256": "02e979fa454bf87a15323d51329ed37a928426eef9ef018a77aa05cdfebe4c48"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-012",
+      "name": "Pegmatite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Coarse-crystal rock; host of mica, feldspar, and gems",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/pegmatite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/pegmatite.png",
+          "sha256": "f38e08d3059e79c3432ceac8db73ed6fcf4b8437c3168d71fd0f55c60c16107a"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-013",
+      "name": "Dolerite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Tough; tool stone and road stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/dolerite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/dolerite.png",
+          "sha256": "f1095e76ed440be711c6f317b4ccfbeb82005cd93f36e72b951a227426263081"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-014",
+      "name": "Syenite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Granite-like, alkaline building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/syenite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/syenite.png",
+          "sha256": "41e7394e8ae1461bb291bc6c300f3770d1edb72b23b0893925721464107b5aec"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-015",
+      "name": "Sandstone",
+      "kind": "Legacy rock/material entry",
+      "notes": "Layered and porous; easy to carve; grindstones and whetstones; aquifer",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/sandstone",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/sandstone.png",
+          "sha256": "94195a56088cc4178fa7abd7b6961d7fcf7215f0c6aa4cff5c4b045f9350a404"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-016",
+      "name": "Limestone",
+      "kind": "Legacy rock/material entry",
+      "notes": "Building stone; burned to quicklime for mortar, fertilizer, and flux; dissolves in acid; forms caves",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/limestone",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/limestone.png",
+          "sha256": "6ee7abacbeae866901bd027eab1bf5264747be4cee56452e2e1ff6caa20ae901"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-017",
+      "name": "Chalk",
+      "kind": "Legacy rock/material entry",
+      "notes": "Soft limestone; marking, lime, soil sweetener; holds flint nodules",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/chalk",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/chalk.png",
+          "sha256": "b60f1e9e51ac244c7d7ef65973b8a82174825fda78b038426816ca704949ff50"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-018",
+      "name": "Dolomite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Magnesium carbonate; flux and building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/dolostone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/dolostone.png",
+          "sha256": "5537ade9a6276d5e770cd2cb3362dfa05021f9cc841de96333df83dd5afd3d68"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Retained Dolomite rock label maps to the dolostone base; mineral dolomite is a separate catalog subject."
+    },
+    {
+      "id": "ROCK-LEGACY-019",
+      "name": "Shale",
+      "kind": "Legacy rock/material entry",
+      "notes": "Layered and brittle; clay source; high cave-in risk",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/shale",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/shale.png",
+          "sha256": "3f3a188b237a18af9719b19e70daccbf0283f9ab7b5e35d114f1ed42feabd2bd"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-020",
+      "name": "Mudstone / claystone",
+      "kind": "Legacy rock/material entry",
+      "notes": "Soft; clay source",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/mudstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/mudstone.png",
+          "sha256": "a51bbf079bc2dcecaf1b98061196cab6f69b0dea80d1f0df25839ee688e95702"
+        },
+        {
+          "id": "stone/claystone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/claystone.png",
+          "sha256": "fe4cf57e2887df4834760c01efff3eff4c7a2389243bc32c264f88453737674d"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Retained grouped row now has distinct mudstone and claystone candidates."
+    },
+    {
+      "id": "ROCK-LEGACY-021",
+      "name": "Siltstone",
+      "kind": "Legacy rock/material entry",
+      "notes": "Fine layered stone; weak bedding",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/siltstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/siltstone.png",
+          "sha256": "34af6dfd5a3e3f043b671d74607c0bb80866b2d144fb81de52690e7c183e52e2"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-022",
+      "name": "Conglomerate",
+      "kind": "Legacy rock/material entry",
+      "notes": "Cemented gravel; strong, rough building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/conglomerate",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/conglomerate.png",
+          "sha256": "daa62c4d894eeffc3722df020b65cdddca0445778f1d65e3af8c02d6a7f5acef"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-023",
+      "name": "Breccia",
+      "kind": "Legacy rock/material entry",
+      "notes": "Angular fragments; decorative building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/breccia",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/breccia.png",
+          "sha256": "743b5a292eb8a1f2a4405e31ee7b1dca94c626e4378a25727e2b3516c2334b35"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-024",
+      "name": "Greywacke",
+      "kind": "Legacy rock/material entry",
+      "notes": "Tough, dark sandstone; paving and tools",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/greywacke",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/greywacke.png",
+          "sha256": "0bdead7b9e6c6ebe4756b423fd6d8a4b111a7ac5b3a0cf2e2cb62a7668692d29"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-025",
+      "name": "Chert",
+      "kind": "Legacy rock/material entry",
+      "notes": "Hard silica; knappable; fire-striking",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/chert",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/chert.png",
+          "sha256": "9c49b4de31367e8c6555614fbfdfd26b9558ef8bbd42e10187966289a936fbd0"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-026",
+      "name": "Flint",
+      "kind": "Legacy rock/material entry",
+      "notes": "Knapped tools and arrowheads; strikes sparks on steel for fire",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/flint",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/flint.png",
+          "sha256": "fcf625c41ba91c2bdad361b08dea53c407533a98cbf0fc7b252fe2b0782e3104"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-027",
+      "name": "Coal (lignite, bituminous, anthracite)",
+      "kind": "Legacy rock/material entry",
+      "notes": "Fuel of increasing heat; carbon source",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/lignite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/lignite.png",
+          "sha256": "3d3b67e30abac9ee800900a218ba5d9e443b7a4f516310a95ce5889d2211405e"
+        },
+        {
+          "id": "stone/bituminous_coal",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/bituminous_coal.png",
+          "sha256": "4f97abfef4c64935f8e077d69f7bd1079613f2428d8ada322515e4ba2d3ccdc3"
+        },
+        {
+          "id": "stone/anthracite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/anthracite.png",
+          "sha256": "b0edacb8abff5e62876094c2ae997ed743144508dec3f77d5c67b3c726d6e5a4"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "The three ranks named in this retained row now have separate candidates. Generic batch-01 coal remains a historical comparison, not a rank assignment."
+    },
+    {
+      "id": "ROCK-LEGACY-028",
+      "name": "Gypsum",
+      "kind": "Legacy rock/material entry",
+      "notes": "Soft; plaster and soil conditioner",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/gypsum",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/gypsum.png",
+          "sha256": "608c941e3e44f7c77d1507be39a222daff6bb94a6c185d03a98aaf9b1c7ab57b"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-029",
+      "name": "Rock salt (halite)",
+      "kind": "Legacy rock/material entry",
+      "notes": "Preservation, flavor, trade",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/halite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/halite.png",
+          "sha256": "8fb1c86c7fda0adddd7cd8430cb5c523bc273e620a0eacb93244321954fed576"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-030",
+      "name": "Travertine",
+      "kind": "Legacy rock/material entry",
+      "notes": "Banded, porous; decorative building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/travertine",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/travertine.png",
+          "sha256": "b499fa17323a1ad038308619aae228313ea65fa27f5a57fce8df501a7f3d2488"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-031",
+      "name": "Ironstone / banded iron",
+      "kind": "Legacy rock/material entry",
+      "notes": "Iron ore host",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/ironstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/ironstone.png",
+          "sha256": "8bf5c4a8e4ae6e60f48c06e268656ba6b2ec590dd653cfeaca51283c27a93c4f"
+        },
+        {
+          "id": "stone/banded_iron_formation",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/banded_iron_formation.png",
+          "sha256": "01bc68393373bcecb8efcb27beece48ab7790cdba1a565098d3deb02317a29b3"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Ironstone and banded iron formation have separate candidate surfaces."
+    },
+    {
+      "id": "ROCK-LEGACY-032",
+      "name": "Coquina",
+      "kind": "Legacy rock/material entry",
+      "notes": "Shell limestone; coastal building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/coquina",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/coquina.png",
+          "sha256": "1e54c972ae1bd986933c0468c0ffc9029ad0d739bd55abf4b15938046ddcd97b"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-033",
+      "name": "Laterite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Tropical weathering product; hardens into bricks; aluminum ore source",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/laterite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/laterite.png",
+          "sha256": "c7d8924f309c604c69b6d986426a591d9a4a1459ebae25741111501928011f51"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-034",
+      "name": "Marble",
+      "kind": "Legacy rock/material entry",
+      "notes": "Carves and polishes well; sculpture and fine building; lime source",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/marble",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/marble.png",
+          "sha256": "3f359afbeafad25dc260ca64b103300c0a458ff1fa6fe041ffa4fec7c3159a92"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-035",
+      "name": "Slate",
+      "kind": "Legacy rock/material entry",
+      "notes": "Splits into thin sheets; roofing and flooring; waterproof",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/slate",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/slate.png",
+          "sha256": "6c5b86d88f34a0754136987cd4293da667e69b7c1cb266b2b6a5e6a0c9593a33"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-036",
+      "name": "Schist",
+      "kind": "Legacy rock/material entry",
+      "notes": "Layered and glittering; weak planes (collapse risk); gem host",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/schist",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/schist.png",
+          "sha256": "e8cc933e88ee8e0e61ecac15690e36f88175f0b615659fab847e7a15452573b5"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-037",
+      "name": "Gneiss",
+      "kind": "Legacy rock/material entry",
+      "notes": "Banded and strong; heavy building stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/gneiss",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/gneiss.png",
+          "sha256": "6134646de7c0c23622bcc941e1ce75b299e29d7e6e6c0d6ffd3fb314c6c63db6"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-038",
+      "name": "Quartzite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Very hard and durable; grinding and heavy-duty stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/quartzite",
+          "batch": "block-textures-32-batch01",
+          "path": "docs/art/block-textures-32-batch01/tiles/stone/quartzite.png",
+          "sha256": "aa9d24a804e2890875bb890deb4367f287b91776dd71951ba7e47989d47d2681"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-039",
+      "name": "Phyllite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Fine layered; roofing stone of lower quality",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/phyllite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/phyllite.png",
+          "sha256": "d9097386f2e36ae89a4f5f4226f3b4b1befc1ea15dcf90f4a0f010dc81f8c03b"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-040",
+      "name": "Hornfels",
+      "kind": "Legacy rock/material entry",
+      "notes": "Hard, tough; tool stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/hornfels",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/hornfels.png",
+          "sha256": "d3f6497f8ce057723b2a9cacbbb4482d3c5b4887aeb01f4aa4a3a0ecd2a4550e"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-041",
+      "name": "Amphibolite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Dense, dark; building and paving",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/amphibolite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/amphibolite.png",
+          "sha256": "c9f336e23b72be1e3caee2e12afa297382badb103d59a657a7ccadca472a989c"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-042",
+      "name": "Serpentinite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Soft, green; carving; asbestos-associated hazards",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/serpentinite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/serpentinite.png",
+          "sha256": "aad6b55c8839ff60030115c1f6970d9f5a86a52366c804f5d316ffcaced88301"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-043",
+      "name": "Soapstone (steatite)",
+      "kind": "Legacy rock/material entry",
+      "notes": "Soft, holds heat; stoves, cookware, carving",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/soapstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/soapstone.png",
+          "sha256": "a15c9d476a78d6fb39973cb45c248f54e5252915076350058264d8a1300cf0bc"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-LEGACY-044",
+      "name": "Eclogite / granulite",
+      "kind": "Legacy rock/material entry",
+      "notes": "Rare deep rocks; specialty stone",
+      "provenance": "Existing named entry",
+      "assets": [
+        {
+          "id": "stone/eclogite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/eclogite.png",
+          "sha256": "0dbbacc2e118d681fe4d3499b5ff963c8f21b36d3b00e041605a3af1d94b6e79"
+        },
+        {
+          "id": "stone/granulite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/granulite.png",
+          "sha256": "b894692cb0afb480ea46381e284d0195edd42e1c72bec36dab9ee0954adde751"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Eclogite and granulite have separate candidate surfaces."
+    },
+    {
+      "id": "ROCK-ADD-001",
+      "name": "Granodiorite",
+      "kind": "Rock type",
+      "notes": "Intermediate intrusive rock candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/granodiorite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/granodiorite.png",
+          "sha256": "b4a3a45191618de9207d680cd5fc385753d0d470ad42533a3d57589436fe8eb9"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-002",
+      "name": "Tonalite",
+      "kind": "Rock type",
+      "notes": "Intrusive compositional coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/tonalite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/tonalite.png",
+          "sha256": "68a8249e01d0ddf2e8c9ce033b85664b4892328899cab3b5a7a606097b7ecc15"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-003",
+      "name": "Monzonite",
+      "kind": "Rock type",
+      "notes": "Intrusive compositional coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/monzonite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/monzonite.png",
+          "sha256": "c2442524e3471f533d52c48bb45b888e8dd7345578805da643fd522e99ef5f06"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-004",
+      "name": "Anorthosite",
+      "kind": "Rock type",
+      "notes": "Plagioclase-rich intrusive coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/anorthosite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/anorthosite.png",
+          "sha256": "816d94e33f01e22de7a3a54dbf43a9f133d03024672adc934f0d2799c563cea0"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-005",
+      "name": "Dunite",
+      "kind": "Rock type",
+      "notes": "Split within peridotite/ultramafic coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/dunite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/dunite.png",
+          "sha256": "b9de7525bfe9a7a4e6c8c875a03d4c55b79c97383cd4f2c066530128529cc834"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-006",
+      "name": "Harzburgite",
+      "kind": "Rock type",
+      "notes": "Split within peridotite coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/harzburgite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/harzburgite.png",
+          "sha256": "7bd6031d8a3b3fcaee2622245b57225de3d75cf020fe9a53b8f77b48530ea6d6"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-007",
+      "name": "Lherzolite",
+      "kind": "Rock type",
+      "notes": "Split within peridotite coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/lherzolite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/lherzolite.png",
+          "sha256": "4499ab877979691313a1a3449fa9bc352dc1d89fe40c4e513c4ae5149e80da43"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-008",
+      "name": "Pyroxenite",
+      "kind": "Rock type",
+      "notes": "Ultramafic rock coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/pyroxenite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/pyroxenite.png",
+          "sha256": "4322746aa8421626af40b70867f65bd4aa0a3feee208b01b7e37bed85ec8f277"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-009",
+      "name": "Dacite",
+      "kind": "Rock type",
+      "notes": "Volcanic compositional coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/dacite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/dacite.png",
+          "sha256": "8ba117d16e5e87f8dbcfe8a90b2f310351b536d2fe746de312831dfd9cd529be"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-010",
+      "name": "Trachyte",
+      "kind": "Rock type",
+      "notes": "Alkaline volcanic coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/trachyte",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/trachyte.png",
+          "sha256": "ca6bbe85868a43688b74d9eea7acebc9af888db1df7db625ce78c3d06de1ba76"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-011",
+      "name": "Phonolite",
+      "kind": "Rock type",
+      "notes": "Alkaline volcanic coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/phonolite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/phonolite.png",
+          "sha256": "10a47f81224d9238c3b4dc97ba90a84db9419ca3b2320aa9429d0cb3d57e036a"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-012",
+      "name": "Trachyandesite",
+      "kind": "Rock type",
+      "notes": "Volcanic compositional transition.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/trachyandesite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/trachyandesite.png",
+          "sha256": "a40f40ee4c672a7f982cc29edc361101694107ddc106f6338ba09b698d79bbaa"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-013",
+      "name": "Komatiite",
+      "kind": "Rock type",
+      "notes": "Rare ultramafic volcanic candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/komatiite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/komatiite.png",
+          "sha256": "2ff2d3542e10d504bbd0a91f157ae90859d93979c1db4602d10ca1ce40d3db4f"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-014",
+      "name": "Kimberlite",
+      "kind": "Rock type",
+      "notes": "Specialty intrusion/host-rock candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/kimberlite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/kimberlite.png",
+          "sha256": "fda6c755d54fecbca6e4c790c0feab31372f8d22c7d4e4889770fa458ebe22eb"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-015",
+      "name": "Lamproite",
+      "kind": "Rock type",
+      "notes": "Specialty volcanic/host-rock candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/lamproite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/lamproite.png",
+          "sha256": "1b5f2c8a6e25372edbfba6fcc10c9a6076e528fb7460193b87225e0f5461efbc"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-016",
+      "name": "Ignimbrite",
+      "kind": "Volcaniclastic rock descriptor",
+      "notes": "Depositional/texture subtype; may map to tuff.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/ignimbrite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/ignimbrite.png",
+          "sha256": "7db2b04b44e61ce6696043e9c2043a61a67cf33e720c96c8bf89e1a9617eb01d"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-017",
+      "name": "Volcanic agglomerate",
+      "kind": "Volcaniclastic rock type",
+      "notes": "Coarse volcanic-fragment coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/volcanic_agglomerate",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/volcanic_agglomerate.png",
+          "sha256": "96e10f9f2b62ae49f4876e9dd5b5d16c372d70ae62d37e98358d326e592c82b7"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-018",
+      "name": "Arkose",
+      "kind": "Sandstone subtype",
+      "notes": "Feldspar-rich sandstone coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/arkose",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/arkose.png",
+          "sha256": "cfefd728e57aa0cfb957a07d6e999c69de2b701041a9758e6c14d1c17383bdba"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-019",
+      "name": "Quartz arenite",
+      "kind": "Sandstone subtype",
+      "notes": "Quartz-rich sandstone coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/quartz_arenite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/quartz_arenite.png",
+          "sha256": "1426b2c2592222c0eb564252fc89880ead1b0bd562f43e1a35a90365879db966"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-020",
+      "name": "Claystone",
+      "kind": "Rock type",
+      "notes": "Split from original mudstone/claystone grouping.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/claystone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/claystone.png",
+          "sha256": "fe4cf57e2887df4834760c01efff3eff4c7a2389243bc32c264f88453737674d"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-021",
+      "name": "Mudstone",
+      "kind": "Rock type",
+      "notes": "Split from original mudstone/claystone grouping.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/mudstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/mudstone.png",
+          "sha256": "a51bbf079bc2dcecaf1b98061196cab6f69b0dea80d1f0df25839ee688e95702"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Reuses the retained mudstone candidate."
+    },
+    {
+      "id": "ROCK-ADD-022",
+      "name": "Marlstone",
+      "kind": "Rock type",
+      "notes": "Mixed carbonate/clay rock coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/marlstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/marlstone.png",
+          "sha256": "f6c291273d7f230891956843ae6fefb737a92d4ab6517e4242c1240b6e0d3398"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-023",
+      "name": "Dolostone",
+      "kind": "Rock type",
+      "notes": "Canonical rock mapping for original Dolomite label; mineral dolomite is separate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/dolostone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/dolostone.png",
+          "sha256": "5537ade9a6276d5e770cd2cb3362dfa05021f9cc841de96333df83dd5afd3d68"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Reuses the dolostone candidate mapped from the retained Dolomite rock label."
+    },
+    {
+      "id": "ROCK-ADD-024",
+      "name": "Diatomite",
+      "kind": "Biogenic sedimentary rock",
+      "notes": "Siliceous biogenic material candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/diatomite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/diatomite.png",
+          "sha256": "8e3bb15ae05dda99b2579acc17ad82ee2ac8f44bb4838b9b88387a81d186f59a"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-025",
+      "name": "Radiolarite",
+      "kind": "Biogenic sedimentary rock",
+      "notes": "Siliceous biogenic material candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/radiolarite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/radiolarite.png",
+          "sha256": "14f77d55fbafbe49633b4513b418435f906ba441829c8fcce0046871750ff10b"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-026",
+      "name": "Phosphorite",
+      "kind": "Sedimentary rock/material",
+      "notes": "Phosphate-bearing sediment coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/phosphorite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/phosphorite.png",
+          "sha256": "2135e00870b7d2f7b3abd033fc38c7243afb6c0a2eae313b660fbed7ac3bccbc"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-027",
+      "name": "Oil shale",
+      "kind": "Organic-rich rock",
+      "notes": "Optional resource candidate; no technology expansion implied.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/oil_shale",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/oil_shale.png",
+          "sha256": "472e9ae1c3ed77f7925695f6d8992a58de515f505592af0ca07200383995bb36"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-028",
+      "name": "Lignite",
+      "kind": "Coal rank",
+      "notes": "Split from original grouped coal entry.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/lignite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/lignite.png",
+          "sha256": "3d3b67e30abac9ee800900a218ba5d9e443b7a4f516310a95ce5889d2211405e"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-029",
+      "name": "Subbituminous coal",
+      "kind": "Coal rank",
+      "notes": "Additional coal-rank coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/subbituminous_coal",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/subbituminous_coal.png",
+          "sha256": "ad6fb4dd047f33e5852a4a12ae8059786f35f96bcef934144e2d12de0765890d"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-030",
+      "name": "Bituminous coal",
+      "kind": "Coal rank",
+      "notes": "Split from original grouped coal entry.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/bituminous_coal",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/bituminous_coal.png",
+          "sha256": "4f97abfef4c64935f8e077d69f7bd1079613f2428d8ada322515e4ba2d3ccdc3"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-031",
+      "name": "Anthracite",
+      "kind": "Coal rank",
+      "notes": "Split from original grouped coal entry.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/anthracite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/anthracite.png",
+          "sha256": "b0edacb8abff5e62876094c2ae997ed743144508dec3f77d5c67b3c726d6e5a4"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-032",
+      "name": "Banded iron formation",
+      "kind": "Rock/deposit class",
+      "notes": "Split from original ironstone/banded iron grouping.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/banded_iron_formation",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/banded_iron_formation.png",
+          "sha256": "01bc68393373bcecb8efcb27beece48ab7790cdba1a565098d3deb02317a29b3"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-033",
+      "name": "Ironstone",
+      "kind": "Rock/material class",
+      "notes": "Split from original ironstone/banded iron grouping.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/ironstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/ironstone.png",
+          "sha256": "8bf5c4a8e4ae6e60f48c06e268656ba6b2ec590dd653cfeaca51283c27a93c4f"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Reuses the ironstone candidate from the retained grouped row."
+    },
+    {
+      "id": "ROCK-ADD-034",
+      "name": "Eclogite",
+      "kind": "Rock type",
+      "notes": "Split from original eclogite/granulite grouping.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/eclogite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/eclogite.png",
+          "sha256": "0dbbacc2e118d681fe4d3499b5ff963c8f21b36d3b00e041605a3af1d94b6e79"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Reuses the eclogite candidate from the retained grouped row."
+    },
+    {
+      "id": "ROCK-ADD-035",
+      "name": "Granulite",
+      "kind": "Metamorphic rock class",
+      "notes": "Split from original eclogite/granulite grouping.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/granulite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/granulite.png",
+          "sha256": "b894692cb0afb480ea46381e284d0195edd42e1c72bec36dab9ee0954adde751"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Reuses the granulite candidate from the retained grouped row."
+    },
+    {
+      "id": "ROCK-ADD-036",
+      "name": "Migmatite",
+      "kind": "Composite rock",
+      "notes": "Mixed metamorphic/igneous texture coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/migmatite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/migmatite.png",
+          "sha256": "9666ad19b02e2ddc7387eeab1476ed3b16686ba447f74e81d3c744b4e97b635e"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-037",
+      "name": "Skarn",
+      "kind": "Metasomatic rock class",
+      "notes": "Contact-altered rock coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/skarn",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/skarn.png",
+          "sha256": "832e032f955f4af02eea2ae9b6afbad9ca0341254295bcdabd7b8bc8bf14dcf6"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-038",
+      "name": "Greenschist",
+      "kind": "Rock class",
+      "notes": "Metamorphic mineral/texture coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/greenschist",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/greenschist.png",
+          "sha256": "85467d36fef7690262228eb58c75096d6254454f1811bfdef708aeeb3d64a4ab"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-039",
+      "name": "Blueschist",
+      "kind": "Rock class",
+      "notes": "High-pressure metamorphic coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/blueschist",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/blueschist.png",
+          "sha256": "b7b027252231327247481d8a8a34683f9b415c264cea1882a3b0b7464f6a42ef"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-040",
+      "name": "Mylonite",
+      "kind": "Deformation rock",
+      "notes": "Fault-zone texture candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/mylonite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/mylonite.png",
+          "sha256": "86153c3f0610cb1be598ca4b42e689419374f7ed6645cfe77b52d66cb9d22602"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-041",
+      "name": "Cataclasite",
+      "kind": "Deformation rock",
+      "notes": "Brittle fault-rock candidate.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/cataclasite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/cataclasite.png",
+          "sha256": "9f4a83052a574b65936b0bea29376566d432c2967b2232bf9b4a78cecda301d1"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-042",
+      "name": "Metaconglomerate",
+      "kind": "Metamorphic rock type",
+      "notes": "Metamorphosed conglomerate coverage.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/metaconglomerate",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/metaconglomerate.png",
+          "sha256": "953224c823b3478fd849e3c53d830185b0c5284672dc935a094d8d014ef92699"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Individual grayscale base candidate; palette, directional faces and native rendering review remain pending."
+    },
+    {
+      "id": "ROCK-ADD-043",
+      "name": "Argillite",
+      "kind": "Fine-grained rock term",
+      "notes": "Resolve terminology against mudstone/slate rather than duplicate blindly.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/mudstone",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/mudstone.png",
+          "sha256": "a51bbf079bc2dcecaf1b98061196cab6f69b0dea80d1f0df25839ee688e95702"
+        }
+      ],
+      "status": "provisional_shared_base",
+      "mapping_note": "Provisional art reuse of compact mudstone. Argillite terminology and rock classification still require a design decision; this is not a taxonomy or gameplay change."
+    },
+    {
+      "id": "ROCK-ADD-044",
+      "name": "Evaporite rock",
+      "kind": "Rock family",
+      "notes": "Umbrella for salt/gypsum-bearing assemblages.",
+      "provenance": "Planning expansion",
+      "assets": [
+        {
+          "id": "stone/halite",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/halite.png",
+          "sha256": "8fb1c86c7fda0adddd7cd8430cb5c523bc273e620a0eacb93244321954fed576"
+        },
+        {
+          "id": "stone/gypsum",
+          "batch": "block-textures-32-batch02",
+          "path": "docs/art/block-textures-32-batch02/tiles/stone/gypsum.png",
+          "sha256": "608c941e3e44f7c77d1507be39a222daff6bb94a6c185d03a98aaf9b1c7ab57b"
+        }
+      ],
+      "status": "base_candidate_mapped",
+      "mapping_note": "Umbrella family selects salt- or gypsum-bearing base art; no third duplicate evaporite resource is introduced."
+    }
+  ]
+}

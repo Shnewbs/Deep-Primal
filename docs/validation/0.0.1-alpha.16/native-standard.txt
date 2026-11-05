@@ -1,0 +1,73 @@
+DRAINAGE_SERVER_STARTED
+DRAINAGE_PROFILE settings=deepprimal:waterways_v6 minY=-128 values=0x1.bp7,0x1.0p7,0x1.8p6,0x1.8p6,0x1.6p6,0x1.ep7,
+HEADWATER_LAKE_POINT x=6277 z=-250 water=104.8367919921875 radius=14.0
+RIVER_SUPPORT_PASS kind=headwater-lake-full currentBlocks=677 partialSurfaces=234 chunk=[392, -16]
+DRAINAGE_FULL_PASS kind=headwater-lake waterLevel=104 water=98
+HEADWATER_MAP_PASS naturalSteps=true sources=649 lakes=9
+DRAINAGE_MAP_PASS seed=20261018 minY=-128 channels=3521 elevated=484 gorges=960 millis=8246
+RIVER_SUPPORT_PASS kind=mountain currentBlocks=176 partialSurfaces=123 chunk=[-241, 75]
+DRAINAGE_BLOCKS_PASS kind=mountain x=-3847 z=1212 waterLevel=322 water=66 elevatedWater=66 gravel=147 rock=375 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=gorge currentBlocks=292 partialSurfaces=149 chunk=[-189, 4]
+DRAINAGE_BLOCKS_PASS kind=gorge x=-3010 z=65 waterLevel=126 water=98 elevatedWater=98 gravel=0 rock=453 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-0-0 currentBlocks=176 partialSurfaces=123 chunk=[-241, 75]
+DRAINAGE_BLOCKS_PASS kind=course-0-0 x=-3847 z=1212 waterLevel=322 water=66 elevatedWater=66 gravel=147 rock=375 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-0-2 currentBlocks=173 partialSurfaces=117 chunk=[-239, 74]
+DRAINAGE_BLOCKS_PASS kind=course-0-2 x=-3811 z=1186 waterLevel=319 water=57 elevatedWater=57 gravel=144 rock=387 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-1-0 currentBlocks=329 partialSurfaces=186 chunk=[-236, 72]
+DRAINAGE_BLOCKS_PASS kind=course-1-0 x=-3776 z=1160 waterLevel=316 water=63 elevatedWater=63 gravel=147 rock=368 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-1-2 currentBlocks=273 partialSurfaces=146 chunk=[-235, 72]
+DRAINAGE_BLOCKS_PASS kind=course-1-2 x=-3747 z=1155 waterLevel=305 water=85 elevatedWater=85 gravel=147 rock=346 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-2-0 currentBlocks=235 partialSurfaces=126 chunk=[-233, 71]
+DRAINAGE_BLOCKS_PASS kind=course-2-0 x=-3719 z=1149 waterLevel=294 water=87 elevatedWater=87 gravel=147 rock=325 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-2-2 currentBlocks=191 partialSurfaces=96 chunk=[-231, 71]
+DRAINAGE_BLOCKS_PASS kind=course-2-2 x=-3688 z=1151 waterLevel=283 water=85 elevatedWater=85 gravel=147 rock=343 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-3-0 currentBlocks=172 partialSurfaces=107 chunk=[-229, 72]
+DRAINAGE_BLOCKS_PASS kind=course-3-0 x=-3657 z=1152 waterLevel=272 water=92 elevatedWater=92 gravel=147 rock=337 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-3-2 currentBlocks=317 partialSurfaces=165 chunk=[-227, 70]
+DRAINAGE_BLOCKS_PASS kind=course-3-2 x=-3618 z=1120 waterLevel=254 water=80 elevatedWater=80 gravel=138 rock=392 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-4-0 currentBlocks=196 partialSurfaces=103 chunk=[-224, 67]
+DRAINAGE_BLOCKS_PASS kind=course-4-0 x=-3580 z=1087 waterLevel=237 water=90 elevatedWater=90 gravel=133 rock=324 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-4-2 currentBlocks=285 partialSurfaces=144 chunk=[-223, 67]
+DRAINAGE_BLOCKS_PASS kind=course-4-2 x=-3554 z=1082 waterLevel=187 water=89 elevatedWater=89 gravel=16 rock=509 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-5-0 currentBlocks=390 partialSurfaces=202 chunk=[-221, 67]
+DRAINAGE_BLOCKS_PASS kind=course-5-0 x=-3529 z=1077 waterLevel=187 water=98 elevatedWater=98 gravel=140 rock=322 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-5-2 currentBlocks=136 partialSurfaces=73 chunk=[-219, 68]
+DRAINAGE_BLOCKS_PASS kind=course-5-2 x=-3489 z=1088 waterLevel=187 water=98 elevatedWater=98 gravel=76 rock=396 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-6-0 currentBlocks=362 partialSurfaces=185 chunk=[-216, 68]
+DRAINAGE_BLOCKS_PASS kind=course-6-0 x=-3450 z=1098 waterLevel=187 water=90 elevatedWater=90 gravel=147 rock=310 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-6-2 currentBlocks=298 partialSurfaces=147 chunk=[-215, 68]
+DRAINAGE_BLOCKS_PASS kind=course-6-2 x=-3426 z=1090 waterLevel=168 water=85 elevatedWater=85 gravel=146 rock=350 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-7-0 currentBlocks=348 partialSurfaces=180 chunk=[-213, 67]
+DRAINAGE_BLOCKS_PASS kind=course-7-0 x=-3402 z=1081 waterLevel=149 water=84 elevatedWater=84 gravel=142 rock=276 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-7-2 currentBlocks=324 partialSurfaces=164 chunk=[-211, 66]
+DRAINAGE_BLOCKS_PASS kind=course-7-2 x=-3364 z=1056 waterLevel=107 water=93 elevatedWater=93 gravel=98 rock=387 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-8-0 currentBlocks=108 partialSurfaces=0 chunk=[-208, 64]
+DRAINAGE_BLOCKS_PASS kind=course-8-0 x=-3326 z=1030 waterLevel=98 water=49 elevatedWater=49 gravel=52 rock=467 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-8-2 currentBlocks=193 partialSurfaces=0 chunk=[-209, 61]
+DRAINAGE_BLOCKS_PASS kind=course-8-2 x=-3333 z=989 waterLevel=98 water=49 elevatedWater=49 gravel=34 rock=503 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-9-0 currentBlocks=180 partialSurfaces=0 chunk=[-209, 59]
+DRAINAGE_BLOCKS_PASS kind=course-9-0 x=-3340 z=948 waterLevel=98 water=49 elevatedWater=49 gravel=125 rock=405 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-9-2 currentBlocks=133 partialSurfaces=0 chunk=[-211, 57]
+DRAINAGE_BLOCKS_PASS kind=course-9-2 x=-3363 z=917 waterLevel=98 water=49 elevatedWater=49 gravel=73 rock=450 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-10-0 currentBlocks=224 partialSurfaces=0 chunk=[-212, 55]
+DRAINAGE_BLOCKS_PASS kind=course-10-0 x=-3387 z=885 waterLevel=98 water=49 elevatedWater=49 gravel=30 rock=507 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-10-2 currentBlocks=161 partialSurfaces=0 chunk=[-210, 53]
+DRAINAGE_BLOCKS_PASS kind=course-10-2 x=-3360 z=857 waterLevel=98 water=49 elevatedWater=49 gravel=81 rock=442 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-11-0 currentBlocks=195 partialSurfaces=30 chunk=[-209, 51]
+DRAINAGE_BLOCKS_PASS kind=course-11-0 x=-3333 z=828 waterLevel=98 water=49 elevatedWater=49 gravel=101 rock=411 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=course-11-2 currentBlocks=165 partialSurfaces=0 chunk=[-207, 50]
+DRAINAGE_BLOCKS_PASS kind=course-11-2 x=-3303 z=800 waterLevel=98 water=49 elevatedWater=49 gravel=86 rock=453 centerWet=true supported=true
+RIVER_SUPPORT_PASS kind=mountain-full currentBlocks=176 partialSurfaces=123 chunk=[-241, 75]
+DRAINAGE_FULL_PASS kind=mountain waterLevel=321 water=17
+RIVER_SUPPORT_PASS kind=gorge-full currentBlocks=292 partialSurfaces=149 chunk=[-189, 4]
+DRAINAGE_FULL_PASS kind=gorge waterLevel=125 water=49
+DRAINAGE_COAST_PASS x=-320 z=-3232
+DRAINAGE_COURSE_PASS nodes=12 sharedPlanner=true quarterSamples=true fullChunks=true
+OCEAN_TRENCH_PASS x=-2816 z=-6656 bed=-88 waterDepth=183
+RIVER_PARTIAL_CURRENT_PASS levels=7 nativeFlow=true
+RIVER_SPEED_PASS slow=5.155694146729791 fast=11.375 boatSlow=0.5280947071352022 boatFast=2.7419163110269444
+RIVER_CURRENT_PASS directions=16 codec=true nativeWater=true bucket=true itemDrift=11.375 itemOff=0.0 boatDrift=1.4431138479089185 boatOff=0.0
+DISTANCE_LIMIT_PASS requested=125 sentinel=127 packetRoundTrip=true
+HYDROLOGY_NATIVE_PASS stableNativeTicks=50 basinConservation=8 U-bend=true rollback=true committed=true quantization125=true soil=8 runoff=true unlimitedSnow=true
+WATER_ENVIRONMENT_PASS snowCap=24 partialCap=10 entityLift=0.625 rainRefill=true dryAir=true pressure40=true airPocket20=true sourcePolicy=true farmCollision=true mountedHorse=true
+DRAINAGE_AUTO_PASS case=standard

@@ -1,0 +1,24 @@
+{
+  "scope": "accepted solver plus centralized pressure admission validation and defensive ownership guard; no retained-drain experiment",
+  "non_vulkan": true,
+  "archives_crc_pass": [
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar"
+  ],
+  "compiled_class_byte_matches": {
+    "main": 103,
+    "engine-core": 58,
+    "graphics-settings": 37,
+    "lod-engine": 13,
+    "performance-engine": 14
+  },
+  "jar_bytes": 614396,
+  "jar_sha256": "791c460fba8431091679bba7c5a86c22d52e8a05b0f6c928ebe945e3c3715ce5",
+  "runtime_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+  "core_source_sha256": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97",
+  "validation_and_private_agent_payload_absent": true,
+  "installer_release": false
+}

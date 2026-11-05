@@ -1,0 +1,21 @@
+{
+  "accepted": true,
+  "development_only": true,
+  "source_sha": "ec687c2158563f03c8f6737cade635f7e2de66b9",
+  "version": "0.0.1-alpha.29-dev.3-audit-20261025T1646-ec687c2",
+  "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T1646-ec687c2-vulkan-windows.jar",
+  "sha256": "57534d5b5cf40f62da99ccf688bfed6aa30e15b3528a2c852b3f6e149ba9a7a9",
+  "size": 125150824,
+  "full_build": true,
+  "archive_crc_classes_resources": true,
+  "native_fresh_save_reopen_shutdown": true,
+  "windows_execution": false,
+  "visual_acceptance": false,
+  "fresh_benchmark": false,
+  "producer_completed": true,
+  "final_export_matches_producer": true,
+  "post_upload_sha256_unchanged": true,
+  "library_file_id": "libfile_8ea0a610675c8191938bb7f18f3bb31f",
+  "library_url": "https://chatgpt.com/library?file_id=libfile_8ea0a610675c8191938bb7f18f3bb31f&account_id=personal",
+  "local_metadata_applied": true
+}

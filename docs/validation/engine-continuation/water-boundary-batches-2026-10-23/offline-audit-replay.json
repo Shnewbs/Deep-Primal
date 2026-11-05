@@ -1,0 +1,1082 @@
+{
+  "pass": true,
+  "verified_archived_members": 980,
+  "verified_capture_paths": 26155,
+  "verified_capture_content_objects": 968,
+  "restored_source": {
+    "pass": true,
+    "source_inputs": 582,
+    "all_archive_member_and_source_hashes_verified_before_writing": true,
+    "target": "replay-compacted/source",
+    "build_or_native_validation_repeated": false
+  },
+  "expanded_baseline": {
+    "case": "vulkan-batch-baseline-capacity",
+    "pass": true,
+    "baseline": true,
+    "cases": 44,
+    "paired_cpu_gpu_reads": 88,
+    "raw_readback_bytes": 33237504,
+    "raw_sha256": "264c0ce7a8b5a6dd813f3feb893dad2ffdd45fecd27e2d53991f38e2dc770499",
+    "all_bytes_match_independent_packet_and_rejection_oracle": true,
+    "normal_routes": [
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 17.983089
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 9.463409
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 3.162164
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 2.422873
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 3.341044
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 2.852979
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 2.339317
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 5.764948
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 27.569021
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 25.341562
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 28.651358
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 17.57195
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 10.948721
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 10.099805
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 10.520508
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 2048,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 8.760292
+      }
+    ],
+    "fixture_class_sha256": "bdf29438fda423de63707546e45abbe9b27cf6814f305a4a126eeb76271675ca",
+    "new_crashes": 0,
+    "normal_save_shutdown": true,
+    "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+  },
+  "expanded_candidates": [
+    {
+      "case": "vulkan-corners-shared-final-capacity",
+      "pass": true,
+      "baseline": false,
+      "cases": 44,
+      "paired_cpu_gpu_reads": 88,
+      "raw_readback_bytes": 33237504,
+      "raw_sha256": "cb99fca2dfac2579854eefb5fc3e33c8185e475973897cc34cdfb96f0b6b8415",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 1.66897
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 1.108557
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.451749
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.999303
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.423507
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.948867
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.351459
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 1.87569
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 4.661619
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 10.433167
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 4.359034
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 6.27897
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 2.271926
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 6.041653
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 2.011745
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 6.189916
+        }
+      ],
+      "fixture_class_sha256": "bdf29438fda423de63707546e45abbe9b27cf6814f305a4a126eeb76271675ca",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-capacity-packaged",
+      "pass": true,
+      "baseline": false,
+      "cases": 44,
+      "paired_cpu_gpu_reads": 88,
+      "raw_readback_bytes": 33237504,
+      "raw_sha256": "cb99fca2dfac2579854eefb5fc3e33c8185e475973897cc34cdfb96f0b6b8415",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.744128
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 4.087981
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.132049
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.643057
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.169906
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.755866
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.273111
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.539391
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.559705
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 7.690012
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 4.621689
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 4.182298
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.331051
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 4.555209
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.56284
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 4.082958
+        }
+      ],
+      "fixture_class_sha256": "bdf29438fda423de63707546e45abbe9b27cf6814f305a4a126eeb76271675ca",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-capacity",
+      "pass": true,
+      "baseline": false,
+      "cases": 44,
+      "paired_cpu_gpu_reads": 88,
+      "raw_readback_bytes": 33237504,
+      "raw_sha256": "cb99fca2dfac2579854eefb5fc3e33c8185e475973897cc34cdfb96f0b6b8415",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.854025
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.539731
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.418709
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.461694
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.278509
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.438459
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.227953
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.228984
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.000665
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.325342
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.107095
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.493085
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.893063
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.313725
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.900804
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 256,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.603991
+        }
+      ],
+      "fixture_class_sha256": "bdf29438fda423de63707546e45abbe9b27cf6814f305a4a126eeb76271675ca",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    }
+  ],
+  "initial_diagnostic_baseline": {
+    "case": "vulkan-batch-baseline",
+    "pass": true,
+    "baseline": true,
+    "cases": 20,
+    "paired_cpu_gpu_reads": 40,
+    "raw_readback_bytes": 3163392,
+    "raw_sha256": "82d26b4b5ec974a972ebb6376f857149072b576f5dd2920afabe7a76071cb3f2",
+    "all_bytes_match_independent_packet_and_rejection_oracle": true,
+    "normal_routes": [
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 16.578234
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 4.367297
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 3.203737
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 2.958829
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 4.702341
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 2.851718
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 2.550775
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 256,
+        "bytes": 36864,
+        "sync_cpu_ms": 3.71714
+      }
+    ],
+    "fixture_class_sha256": "1ff1b2b4cf21b400c33443e44e4bf4fce68f7c82533ea088c53a3aac68acfbbf",
+    "new_crashes": 0,
+    "normal_save_shutdown": true,
+    "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+  },
+  "initial_diagnostic_candidates": [
+    {
+      "case": "vulkan-corners-shared-final-batches",
+      "pass": true,
+      "baseline": false,
+      "cases": 20,
+      "paired_cpu_gpu_reads": 40,
+      "raw_readback_bytes": 3163392,
+      "raw_sha256": "e06f24266634385503ced550adb6e7b949a4ba407c094dca78365b0b75474581",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.783298
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.603928
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.18619
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.616838
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.135504
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.543066
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.129215
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.415915
+        }
+      ],
+      "fixture_class_sha256": "1ff1b2b4cf21b400c33443e44e4bf4fce68f7c82533ea088c53a3aac68acfbbf",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-batches-packaged",
+      "pass": true,
+      "baseline": false,
+      "cases": 20,
+      "paired_cpu_gpu_reads": 40,
+      "raw_readback_bytes": 3163392,
+      "raw_sha256": "e06f24266634385503ced550adb6e7b949a4ba407c094dca78365b0b75474581",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.83156
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.595936
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.191788
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.653763
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.13965
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.606392
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.130276
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 32,
+          "bytes": 36864,
+          "sync_cpu_ms": 0.441384
+        }
+      ],
+      "fixture_class_sha256": "1ff1b2b4cf21b400c33443e44e4bf4fce68f7c82533ea088c53a3aac68acfbbf",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    }
+  ],
+  "fixture_variants_preserved_separately": true,
+  "final_corner_comparisons": 15336,
+  "final_deadline_sessions": [
+    {
+      "case": "vulkan-corners-shared-final-capacity",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-corners-shared-final-capacity-packaged",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-capacity",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    }
+  ],
+  "final_frame_sessions": [
+    {
+      "case": "vulkan-corners-shared-final-capacity",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 1.608468,
+      "retire_cpu_max_ms": 5.797546,
+      "frame_cpu_p95_ms": 5.734678,
+      "frame_cpu_max_ms": 11.124466,
+      "frame_interval_p95_ms": 77.946365,
+      "frame_interval_max_ms": 105.994868,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-capacity-packaged",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 1.370791,
+      "retire_cpu_max_ms": 15.202327,
+      "frame_cpu_p95_ms": 6.672983,
+      "frame_cpu_max_ms": 21.909792,
+      "frame_interval_p95_ms": 66.175526,
+      "frame_interval_max_ms": 87.706129,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-capacity",
+      "pass": true,
+      "moving": true,
+      "distinct_rendered_frames": 129,
+      "range_writes": 2175,
+      "range_bytes": 33554304,
+      "maximum_writes_per_frame": 18,
+      "maximum_bytes_per_frame": 262080,
+      "staging_wrap_predictions": 0,
+      "retire_cpu_p95_ms": 0.946683,
+      "retire_cpu_max_ms": 1.35697,
+      "frame_cpu_p95_ms": 35.900752,
+      "frame_cpu_max_ms": 46.732968,
+      "frame_interval_p95_ms": 48.853537,
+      "frame_interval_max_ms": 60.33578,
+      "fixture_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+      "all_gpu_hashes_match_independent_packet": true,
+      "normal_save_shutdown": true,
+      "new_crashes": 0,
+      "scope": "Private non-drawn pages under real rendered-frame scheduling; no admission/churn/full-scene/ownerGPU/FPS acceptance"
+    }
+  ],
+  "final_publication_sessions": [
+    {
+      "case": "vulkan-corners-shared-final-capacity",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-corners-shared-final-capacity-packaged",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-capacity",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    }
+  ],
+  "four_full_builds_pass": true,
+  "historical_publication_baseline_not_fresh": true,
+  "new_native_execution": false
+}

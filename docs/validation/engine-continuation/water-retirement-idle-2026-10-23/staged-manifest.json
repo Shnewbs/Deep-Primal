@@ -1,0 +1,218 @@
+[
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java",
+    "bytes": 2163,
+    "sha256": "2bf3f43e2c5a9f9f0f4c88a799d16ea598b598c8071e249340820788833b3ced",
+    "git_sha": "c1aa1b9a286f91bb8d35f6328c8640afbe634386",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+    "bytes": 9255,
+    "sha256": "46688e61c400065db99e0d599cf485015641aa3158e344fc1eb218c777e3d869",
+    "git_sha": "4fe8b5a28edff0d883dc52e0a03d79e7c5a12625",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "graphics-settings/src/main/java/com/shnewbs/deepprimal/graphics/WaterGpuMesh.java",
+    "bytes": 2209,
+    "sha256": "b9f9fae7570c59d4c9bf051c214a472c272817eebb80ee7be0cced13f25b8dd6",
+    "git_sha": "a193c3b26465f04676a4901f78471c49687fb630",
+    "public_parent_sha": "0b5ce79d33b8fc8cad6fd66735f032925665faf6",
+    "staged": true
+  },
+  {
+    "path": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh",
+    "bytes": 5403,
+    "sha256": "39c4238ad343c0a4a3d0cabb350921cdf5cbfceb18c665beda130a6d2de76e59",
+    "git_sha": "a96085367195fc062c0067ab4d64b84848728a7c",
+    "public_parent_sha": "baf2cb20a4d18df8d6eb59fa6c92d57e2d504a71",
+    "staged": true
+  },
+  {
+    "path": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh",
+    "bytes": 6887,
+    "sha256": "11cc8172dc3d0358ad7bc0c24bb1647ef277a5dd0d3876a172e0d8f924b81dc8",
+    "git_sha": "2d8e3bee1d51729f7af63c473057fa486981879b",
+    "public_parent_sha": "a2750b95cd9c0b1837358b23327871639ed4476a",
+    "staged": true
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "bytes": 6110,
+    "sha256": "6b90fd30bcee10c28e3be3f15845bd2899d71a88d559f28ecab697086d253304",
+    "git_sha": "1f89c4799f242f9ee5c48c69e90a2c3710d498c3",
+    "public_parent_sha": "64617b969da0d624daddb7015ca7221a055b3b22",
+    "staged": true
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBoundaryIndexChecks.java",
+    "bytes": 3293,
+    "sha256": "660c77a7c19d6a6f41f4ab0f0b7414c5cfa694b74fbbb7ba06cb36eb52507ab6",
+    "git_sha": "c57407955160458216737f4ae8e21196825394f1",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerBulkChecks.java",
+    "bytes": 4446,
+    "sha256": "e60091f97350de5ee9a0e727376e53399a5c43c1c3695e7032c4342a716431ce",
+    "git_sha": "17d1c2dfaa5b46b1f2fad3256be75f058fa711ce",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerPacketChecks.java",
+    "bytes": 3704,
+    "sha256": "a18536bf47cd92cc7bb0e681ce10c90314d87b23bcffe9b23c79eeb36e2281c1",
+    "git_sha": "1a14de145a9007cbb34b76c372ed2142e7066ab5",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterCornerRetryChecks.java",
+    "bytes": 2845,
+    "sha256": "48b26f1aee529288a46426fe123b78830a3e551a686ad614ac2177e2dbe0272d",
+    "git_sha": "310e20fe8a96ed7c08c9513b1583c1e113ccab47",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterRetirementStateChecks.java",
+    "bytes": 2743,
+    "sha256": "55c422be3c39fc670800ec9ddfed2c06459929dfdc6042d90344835a2bf5e442",
+    "git_sha": "6f52517dac9728b25a8349086869fb52ec3450e6",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "bytes": 46726,
+    "sha256": "87379f98c6e47653b2604ab747c4812939981b91522de1bcacbe3f7e16876064",
+    "git_sha": "21a07399cb8d71194489bc14e1d4ac0d7741fb2b",
+    "public_parent_sha": "deb10fdb50923e3d466da9c11185cb1d7d9c5c36",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
+    "bytes": 25934,
+    "sha256": "6bc2358eb3c9688ae88f0ad0ee1d32185d463fd3c4f27f0db31b755a0d01c8fc",
+    "git_sha": "5a016d354ba8b880935d8b781d23175f24d273d6",
+    "public_parent_sha": "b4e29973589c4885aa7dae76bb70cfb251b450b8",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterAdmissionPlanChecks.java",
+    "bytes": 16406,
+    "sha256": "5ddb8fbefcc9c043cab738f40111675382ca53346b52f8ebf5fd5ed4320f4e91",
+    "git_sha": "4ce9e39006a408c9f04d19c6584b3d9b98859379",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryBatchChecks.java",
+    "bytes": 11709,
+    "sha256": "7e454437d4cb82c753d75c12590ed348676776daf93472655a82a902b106978d",
+    "git_sha": "62489692ad8690657ebbc5949e7885b5e55ee1ef",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterBoundaryRetryChecks.java",
+    "bytes": 15409,
+    "sha256": "a0ea77b05927267e594cb92db366fe8db525880bf9ab0a50f6337159e87eeabf",
+    "git_sha": "301fdeed6b2eb9043bbdc785151bcf2d40b87cbf",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerFieldChecks.java",
+    "bytes": 26912,
+    "sha256": "1186d1a3dd53143385a080aecb3fe24c1769f5673b6e65cd610123df4da76bf1",
+    "git_sha": "e44012c946bae9d46e28d43d424c1336931dd860",
+    "public_parent_sha": "2aae762d03b9e158be9296a35759ad739bfdd8c9",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerPacking.java",
+    "bytes": 2706,
+    "sha256": "08a8334d0ef6669184ab0ae18f5abab1916de28cef6a22233dc5fb3f7c98d965",
+    "git_sha": "50f830d030efb23b1cb09acd0ffc377b057c84dc",
+    "public_parent_sha": "3cf553968f8ba5b45f55f2dc9d421ffefd2f90cd",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterDirectionUploadChecks.java",
+    "bytes": 6848,
+    "sha256": "f5e441a8e9371517b139d8ed13ef57bf5b9d0f6444eac65dbf2cc886fffe1500",
+    "git_sha": "61a46bc274ea7aa3979bc4f5619ee94134c161e3",
+    "public_parent_sha": "d241af987faf38d103de4e1860e5e4496b0c2ba1",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterExtractionDeadlineChecks.java",
+    "bytes": 10036,
+    "sha256": "ece85204bc9011a8737f30d31360e6c059426b7089dace670e8da8787b3d8fdb",
+    "git_sha": "8b9160086b8c50416470a11a232f94190569424c",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterFrameRetirementChecks.java",
+    "bytes": 25832,
+    "sha256": "739037862a6ec5237b43467b1bff37dfd2f7aec5c8480eed9216448347dbf2d9",
+    "git_sha": "8040c936a3eade8088952a9b44092fcf0f839a02",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMaterialTransitionChecks.java",
+    "bytes": 16251,
+    "sha256": "aa30216afcbde0ef572bfbbf2d28d0d3a6155a7a883effe6aed12c656bf42a98",
+    "git_sha": "226852da798215059bd59eee6e2c62144c85f68d",
+    "public_parent_sha": "fb10ec7f5b94e0eb6831e54c3c9977d16f8d5f9e",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPartialFadeChecks.java",
+    "bytes": 9283,
+    "sha256": "4912154e6b82130c3f086fab865a8e0a2b153a5d98d3d4fbdec164cc418af0a5",
+    "git_sha": "f3bc6ba848830a79fc10ca809baf785f87b137c4",
+    "public_parent_sha": "bc537fed0e8cb343c6ca711d04bcce25bbbb6e32",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterPublicationFailureChecks.java",
+    "bytes": 9748,
+    "sha256": "6e5b87e6efc360a0ae69a77df8ec360dae347132c332e0ae523466bfc5d70839",
+    "git_sha": "83a5bdf768b013c01a5dd7cae2339c5de274dbfe",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterRetirementBudgetChecks.java",
+    "bytes": 11970,
+    "sha256": "6f4af8d1f6fe83b09882df0812458e4b3fcc71b73e219444c0987f3c547a7e1b",
+    "git_sha": "a148a6937be30bf05cab6baaf2db59f96947a8b8",
+    "public_parent_sha": null,
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideMaterialChecks.java",
+    "bytes": 21835,
+    "sha256": "b861ca2b6064c0d5929f0f4a74d7d515393275d3fc0970db9b05cc0131563073",
+    "git_sha": "7ab35cf6cdba36d2795972880a99bfa447312bad",
+    "public_parent_sha": "3de468509d10403d1046574132f38b17e9ea8eda",
+    "staged": true
+  },
+  {
+    "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterSideUvUploadChecks.java",
+    "bytes": 7781,
+    "sha256": "6c07dc60f37d6f6507e98eeac6f05d3f513ba1bc050c4bb8f276aefeb8cb3485",
+    "git_sha": "614fd5fa56721d56dea95fbaca174b3ef377af7c",
+    "public_parent_sha": "f6ab7d3b0cf40ac9fc74acdf17f7411741cbfc3c",
+    "staged": true
+  }
+]

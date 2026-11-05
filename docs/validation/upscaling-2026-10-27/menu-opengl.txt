@@ -1,0 +1,1 @@
+UPSCALING_MENU_PASS methods=4 staged=true apply=true revert=true persistence=true resize=true nativeFallback=true frameGenerationUnavailable=true

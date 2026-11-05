@@ -1,0 +1,19 @@
+{
+  "owner": "renderer-20261026-candidate-runner",
+  "status": "completed",
+  "active_until": null,
+  "parent": "38a140431881cdb49a4287e48fc84a6d904e7e9b",
+  "scope": [
+    "docs/renderer-jams/20261026-candidate-runner"
+  ],
+  "production_runtime_changed": false,
+  "measurement": {
+    "exclusive_benchmark": false,
+    "status": "functional_only"
+  },
+  "purpose": "Reproducible isolated candidate qualification runner; full build still storage blocked",
+  "completed_at": "2026-10-26 20:00:01 UTC",
+  "lease_released": true,
+  "runner_sha256": "8218955d1677aaf5467dcf944068d92a60684c631400d71cebfa839a49242c70",
+  "evidence": "REVIEW.md"
+}

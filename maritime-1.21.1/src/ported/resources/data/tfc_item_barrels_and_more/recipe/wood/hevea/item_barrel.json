@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/lumber/hevea"
+    },
+    {
+      "item": "afc:wood/barrel/hevea"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/hevea/item_barrel"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "afc"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+[
+  {
+    "case": "reload-before-reproduction",
+    "project": "engine-drain-reload-base",
+    "exit_code": 0,
+    "explicit_pass": false,
+    "elapsed_seconds": 57.58,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Long route must reach its distant drop",
+      "[09:34:29] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Long route must reach its distant drop"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_09.34.29-server.txt"
+    ],
+    "expected_failure_reproduced": true
+  },
+  {
+    "case": "final-fixed",
+    "project": "engine-drain-reload",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 37.63,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=fixed ticks=240 conservedEveryTick=true initialUnits=3 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=1488 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=false gapReloaded=false unitsSha=59006f31ee22d413f75f33b70df56b2258582576710097aab699d07e76a8f44e flowSha=7e048b32b0ecdba952e93863f7625a029e20e23ece0748a69c82eaaad9ab7d70 medianLevelTickMs=0.5769 p95LevelTickMs=2.252419"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "final-edit",
+    "project": "engine-drain-reload",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 33.68,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=edit ticks=240 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=55 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=0 gapUnloaded=false gapReloaded=false unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.278149 p95LevelTickMs=1.108292"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "final-unload",
+    "project": "engine-drain-reload",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "elapsed_seconds": 32.83,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=unload ticks=240 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=1 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=128 drainJobs=0 saturated=0 restarts=1 waitingJobs=1 waitingLinks=1 idleSamples=0 gapUnloaded=true gapReloaded=false unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.180442 p95LevelTickMs=0.907309"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": []
+  },
+  {
+    "case": "final-reload",
+    "project": "engine-drain-reload",
+    "exit_code": 0,
+    "explicit_pass": false,
+    "elapsed_seconds": 43.05,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Settled routes release all work/watches",
+      "[09:36:57] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Settled routes release all work/watches"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_09.36.57-server.txt"
+    ]
+  }
+]

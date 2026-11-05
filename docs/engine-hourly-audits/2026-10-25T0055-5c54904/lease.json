@@ -1,0 +1,10 @@
+{
+  "role": "auditor",
+  "run": "20261025T0055",
+  "source_sha": "5c54904a1316b27d6512aa219f938867d31a49f5",
+  "status": "completed",
+  "builder_mutated": false,
+  "performance_reservation": "none active; owner-paused builder",
+  "isolated_cache_outputs": true,
+  "all_gates_passed": true
+}

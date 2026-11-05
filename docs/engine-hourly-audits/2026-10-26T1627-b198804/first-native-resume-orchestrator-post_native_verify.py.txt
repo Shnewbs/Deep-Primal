@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/a2f7076b7762/audit-b198804-20261026T1627-iut76dcp/post_native_verify.py", line 3, in <module>
+    r=Path(__file__).resolve().parent;e=r/'evidence';a=json.loads((e/'package.json').read_text());q=json.loads((e/'qualification-result.json').read_text());assert q['pass'];dll=[];archives=[]
+                                                                                                                                                                   ~^^^^^^^^
+AssertionError

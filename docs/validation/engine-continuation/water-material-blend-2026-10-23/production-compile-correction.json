@@ -1,0 +1,5 @@
+{
+  "error": "Used Snapshot.flow(x,y,z) instead of its direction(x,y,z) accessor",
+  "scope": "Initial candidate compileJava failed before core/native acceptance",
+  "correction": "Use existing typed direction accessor;full uncached serial build rerun"
+}

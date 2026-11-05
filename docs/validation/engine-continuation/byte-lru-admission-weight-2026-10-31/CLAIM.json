@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "owner": "deep-primal-engineering",
+  "status": "completed-released",
+  "date": "2026-10-31",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/ByteLru.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/ByteLruOverflowChecks.java",
+    "docs/validation/engine-continuation/byte-lru-admission-weight-2026-10-31/**"
+  ],
+  "baseline_main": "9ea2591a0f23b328ff129d6ff941b2d7714f6135",
+  "no_actions": true,
+  "validated": "Java21 isolated 3x3566640 checks; 3/3 defective controls rejected",
+  "no_jar": true,
+  "lease_released": true
+}

@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "unchanged_existing_project_classes": 504,
+  "added_project_classes": [
+    "com/shnewbs/deepprimal/core/density/DensityField.class",
+    "com/shnewbs/deepprimal/core/density/DensityGrid.class",
+    "com/shnewbs/deepprimal/core/density/NoiseSpec.class",
+    "com/shnewbs/deepprimal/core/density/SeededNoise3D.class",
+    "com/shnewbs/deepprimal/engine/NoiseProfileCodec.class"
+  ],
+  "scope": "Every existing project production class is byte-identical to released alpha28; new density/codec classes are unused by V7"
+}

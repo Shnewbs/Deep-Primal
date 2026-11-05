@@ -1,0 +1,19 @@
+{
+  "base_commit": "da03d9cecc54d3302281890cfc1310ed6b143b68",
+  "source_sha256": {
+    "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java": "4343bf62836b66ac760b7cb46737094d73a2f42407a73fa33e762a5caed2c466",
+    "src/main/java/com/shnewbs/deepprimal/mixin/PressureChunkMutationMixin.java": "6d82ef7e243931d520c0d21feee0b4867a772db3c93bb1f32ef01106ad7049fb",
+    "src/main/resources/deepprimal.mixins.json": "e61521cda6e9eb08943e32383c9c46469a5a2367ed7363322ad0998958215132",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/LongPressureChecks.java": "3d89faa95f863f0584d6ea7fbb50ed5d17631f94b435c2f7afca027020ff96b8",
+    "tools/water/reproduce_pressure_cutoff.py": "525eac7bbb070a7c09d638c54c320cc6d61ea8ccc39bcdd58cf2b0b0524e9010"
+  },
+  "existing_recovered_production_inputs": 370,
+  "unchanged_existing_production_inputs": 368,
+  "modified_existing": [
+    "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+    "src/main/resources/deepprimal.mixins.json"
+  ],
+  "new_production_file": "src/main/java/com/shnewbs/deepprimal/mixin/PressureChunkMutationMixin.java",
+  "geography_sources_unchanged": true,
+  "performance_promotion_blocked": true
+}

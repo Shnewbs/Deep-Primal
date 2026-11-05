@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "pixels": 40960,
+  "actualPackComposeCases": 40960,
+  "masks": 8192,
+  "nativeGame": false,
+  "log_sha256": "395aa0fde8212f10f33536bfb762e108dbb39db102e0a689b09d764d971a7e2c"
+}

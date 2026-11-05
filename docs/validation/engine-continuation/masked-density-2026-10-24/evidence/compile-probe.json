@@ -1,0 +1,13 @@
+{
+  "scope": "Separate single-JVM-per-variant constructor probe;50warm/200measured,profiledefinition creation excluded; not sampling/native latency",
+  "records": [
+    {
+      "mode": "control",
+      "output": "COMPILE_PROBE n=200 meanNanos=80505.215 meanAllocatedBytes=21140.88\n"
+    },
+    {
+      "mode": "candidate",
+      "output": "COMPILE_PROBE n=200 meanNanos=127675.975 meanAllocatedBytes=41337.2\n"
+    }
+  ]
+}

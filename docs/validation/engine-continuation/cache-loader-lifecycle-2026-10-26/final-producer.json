@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "full_build_exit": 0,
+  "four_native_sessions_completed": true,
+  "artifact_bytes_unchanged": true,
+  "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.24-vulkan-windows.jar",
+  "sha256": "8c7079b4d174ffbe4d2a42c6fa259c0732a3abbb870b71f40ab2c3d344d0275e",
+  "bytes": 125288625
+}

@@ -1,0 +1,7 @@
+{
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+  "java": "25.0.4.1+1",
+  "controlled_timing_measurement": false,
+  "allocation_scope": "helper only, constructor and native adapter excluded"
+}

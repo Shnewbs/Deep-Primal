@@ -1,0 +1,24 @@
+{
+  "parent": "44b89f541ae098f0ad6c16f622c7bffb058ffcc7",
+  "public_files_changed": 0,
+  "staged_modified_files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java"
+  ],
+  "staged_reused_files": [
+    "TerrainShapeV8.java"
+  ],
+  "scalar_evaluator_text_unchanged": true,
+  "recipe_bytes_unchanged": true,
+  "candidate_product_core_classes": 102,
+  "sampler_storage_raw_bytes_per_node": 33,
+  "max_sampler_storage_raw_bytes": 4224,
+  "graph_dependency_array_raw_bytes_max": 512,
+  "native_or_full_gradle_run": false,
+  "production_source_snapshot": "density-reuse-r60/parent",
+  "staged_sha256": {
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java": "1f6b0d1a008c69eeea96161d00bdc97b8d48b44c57c783a2bdd5c60bd3b184db",
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/density/TerrainShapeV8.java": "fee1568e838df6be914cca76bd4a350347d2bcf7368ea452006acf34c77a218a"
+  },
+  "fresh_clean_own_output": true,
+  "timed_density_classes_match_final_clean_compile": true
+}

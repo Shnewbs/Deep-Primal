@@ -1,0 +1,25 @@
+{
+  "owner": "renderer-chat-20261028T1102Z-near-ring-fast-reject",
+  "scope": "renderer-only",
+  "status": "completed-released",
+  "started_at": "2026-10-28T11:02:00Z",
+  "active_until": "2026-10-28T11:28:00Z",
+  "parent_at_claim": "5a22f6428fa87ebf7de7603d40d4e8c66e4ca1b1",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261028-near-ring-fast-reject/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excluded": [
+    "water and engine core",
+    "other renderer files",
+    "full Gradle/Minecraft builds and releases"
+  ],
+  "exclusive_measurement": false,
+  "intent": "Early-discard disk LOD candidate pages that provably cannot outrank the retained farthest Chebyshev ring, avoiding ranked-key construction and per-entry distance arithmetic while preserving exact nearest ordering and strict capacity.",
+  "lease_released": true,
+  "completed_at": "2026-10-28T11:08:00Z",
+  "source_sha": "eeeb3d711949f0a867b89ac4474cbad7815be532",
+  "audited_source_sha": "eeeb3d711949f0a867b89ac4474cbad7815be532",
+  "self_audit": "docs/renderer-jams/20261028-near-ring-fast-reject/REVIEW.md"
+}

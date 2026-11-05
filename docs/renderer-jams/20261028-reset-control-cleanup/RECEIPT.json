@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261028T1854-reset-control-cleanup",
+  "code_parent": "e88904f4f9419a5be1d17e198c9bf46e960eb11b",
+  "pre_claim_main": "999343ac5ea0213ee99b6e43898520b879496227",
+  "code_commit": "969abe129b94df7734afe61bc3b5d76f5155bf13",
+  "product_version": "0.0.1-alpha.29-dev.60-relief-v2.1",
+  "production_file": "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+  "production_blob": "ec24272a0486edf105a70dd7b06ace371cfc339a",
+  "helper_blob": "9756d3b42b232a90b2c5af4c3686205dd2c48279",
+  "test_blob": "842ac668c872d7a230867fc87d8ae3d779b5a019",
+  "changed_production_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+  ],
+  "changed_test_files": [
+    "docs/renderer-jams/20261028-reset-control-cleanup/LodResetControlChecks.java"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1830-7b854ed/REVIEW.md",
+  "jdk21": {
+    "java": "openjdk 21.0.12.1",
+    "javac": "21.0.12.1",
+    "compile": "javac --release 21 -Xlint:all -Werror -d out source/com/shnewbs/deepprimal/lod/client/LodGpuResetCleanup.java tests/com/shnewbs/deepprimal/lod/client/LodResetControlChecks.java",
+    "run": "java -ea -Xverify:all -cp out com.shnewbs.deepprimal.lod.client.LodResetControlChecks",
+    "result": "LOD_RESET_CONTROL_PASS assertions=1664 masks=128 throwableKinds=2",
+    "negative": "Deletion of the disk-reset operation from isolated rig: compile succeeded; runtime exited 1 with first-assertion failure, as expected",
+    "static": "14 source reset integration anchors in correct order; old fail-fast calls absent; test and helper Git blob hashes verified"
+  },
+  "measured_before_after": "No applicable native FPS/VRAM/frame-time comparison; exceptional reset path not a throughput benchmark.",
+  "grades": [
+    6.5,
+    6.85,
+    4.3,
+    5,
+    5.25,
+    5.25
+  ],
+  "average": 5.53,
+  "previous_average": 5.51,
+  "delta": 0.02,
+  "unrun": [
+    "Java25 toolchain and focused compile (archive and unpacked path absent)",
+    "full Gradle/NeoForge build (owner)",
+    "native Vulkan/OpenGL fault injection",
+    "frame-time/GPU memory/draw counts",
+    "world reopen/reload/resize/shutdown/water pixel checks",
+    "FSR3/4 temporal and NVIDIA RTX NGX acceptance",
+    "JAR/archive/native package qualification and release"
+  ],
+  "jar_produced": false,
+  "owner_build_override": true,
+  "scope": "renderer reset control and GPU resource ownership only"
+}

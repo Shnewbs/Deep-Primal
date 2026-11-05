@@ -1,0 +1,3 @@
+BENCH COMPLETE count=25 median=149.97ms p95=150.62ms p99=251.12ms max=251.12ms elapsed=3.85s throughput=6.50/s heapEndMiB=380 seed=20261018 dimension=minecraft:overworld
+Observational request latency includes tick polling, queueing, neighbor generation and disk I/O; not pure generator CPU.
+Java=25.0.4.1 processors=8 minY=-128 maxY=639 concurrency=1

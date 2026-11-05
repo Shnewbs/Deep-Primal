@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/lumber/kapok"
+    },
+    {
+      "item": "tfc:wood/barrel/kapok"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/kapok/item_barrel"
+  }
+}

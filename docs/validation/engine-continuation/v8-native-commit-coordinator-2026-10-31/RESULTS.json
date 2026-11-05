@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.120-native-commit-coordinator.1",
+  "base": "3a5136d41b1bf35c6d5320bf582e67ed0f2d6c85",
+  "source_sha256": "73fe78ed8a8d7b256dfe72bbce5e0a9349f6f307bb4aac3014592a636a0d96f9",
+  "source_git_blob": "f97b8da626867429de8ad65bb35e91d6103b41dc",
+  "java": "OpenJDK 21.0.12.1",
+  "test_mode": "isolated API doubles",
+  "normal_python_assertions": 60008,
+  "optimized_python_assertions": 60008,
+  "mutants_rejected_per_mode": 3,
+  "full_build": false,
+  "native_save": false,
+  "gpu": false,
+  "jar": false,
+  "baseline_grade": 5
+}

@@ -1,0 +1,12 @@
+{
+  "runtime_source_sha": "5b0204dd0bfb32a144e4fa5b62d64fb3528d72ef",
+  "build_execution_source_sha": "bfca642e2f06e1d3ddf8dd0b1210a0014a15eb09",
+  "build_input_identity_proof": "rebase-build-input-identity.json",
+  "artifact": "/workspace/scratch/c748d58856d9/jam4/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-renderer.4-vulkan-windows.jar",
+  "size": 125294588,
+  "sha256": "dbc1f00aaf9f73e79b2c1e5e7b383252ff323e85b2de1fc1cc0c2958b807133f",
+  "producer_finished": true,
+  "native_sessions": 2,
+  "producer_export_equal_after_native": true,
+  "gpu_validation": false
+}

@@ -1,0 +1,15 @@
+Deep Primal alpha 22 — native ocean regression checks
+
+Linux software Mesa; packaged installers plus development-only fixture classes.
+Initial alpha 21 generated-ocean captures reproduced false walls; all 74,716 expected server cells were full.
+
+OCEAN_WATER_NATIVE_PASS backend=Vulkan animatedAndFallback=true views=9 resourceReload=true validationErrors=0 generatedCells=74716 missing=0 partial=0 unloadedPages=0 unloadedBoundaryFaces=0
+Process exit: 0. Actual Vulkan backend; validation active. Resource reload completed.
+VULKAN_RESOURCES_RELEASED buffers=0 images=0
+Existing unused shader-output warnings remain.
+
+OCEAN_WATER_NATIVE_PASS backend=OpenGL animatedAndFallback=true views=9 resourceReload=true validationErrors=notApplicable generatedCells=74716 missing=0 partial=0 unloadedPages=0 unloadedBoundaryFaces=0
+Process exit: 0. Actual OpenGL backend; resource reload completed.
+
+Full core/module-boundary checks pass. Default, no-LOD and Windows Vulkan installers audited.
+Windows natives packaged/audited; not executed on Windows hardware.

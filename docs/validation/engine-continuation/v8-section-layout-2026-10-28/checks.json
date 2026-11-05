@@ -1,0 +1,39 @@
+{
+  "candidate_version": "0.0.1-alpha.29-dev.45-v8sections.1",
+  "exact_product_sources": [
+    "DensityChunk:c98ee12b6499ff2904ae32e294e7ad966ff9d76f",
+    "DensityGraph:95ff21354e95dbd5d8fd0d57873db8e7c1a19337",
+    "DensityVolumeBounds:a8f811a2676ae74d93b52506ed747e88f0d354a4",
+    "DensityVolumePlan:8b7f764f52735ea9c7aa9496037b7a2e61de741b",
+    "SeededNoise3D:130e339ae8fd8536fd91118de9e8d3ba848d09af",
+    "TerrainShapeV8:2c63c39e9d4c03a6582a82e0788ade6a136e3e90"
+  ],
+  "added_blobs": {
+    "layout": "669a9781fb6c7cb78d7de7744b85d26d9b0bf712",
+    "checks": "75ee8114a375cde51c3560d52244fd667ab804f5"
+  },
+  "java_21": {
+    "javac_release_21": true,
+    "lint_werror": true,
+    "java_ea_verify_all": true,
+    "exit_code": 0,
+    "assertions": 3792966,
+    "native_section_positions_compared": 2043904,
+    "sections": 499,
+    "empty_sections": 186,
+    "certified_cells_in_selected_corpus": 1452800
+  },
+  "compiled_mutants_rejected": [
+    "transpose_xz",
+    "negative_truncation",
+    "partial_upper_bound",
+    "mutable_word_export"
+  ],
+  "java_25": false,
+  "gradle": false,
+  "minecraft_native": false,
+  "windows_gpu": false,
+  "jar": false,
+  "last_full_independent_grade": 5,
+  "audit": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md"
+}

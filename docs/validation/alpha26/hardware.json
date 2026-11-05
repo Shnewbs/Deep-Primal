@@ -1,0 +1,9 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "logical_cpus": 9,
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "build_workers": 2,
+  "client_gpu": "Mesa lavapipe software Vulkan; owner GPU not available",
+  "java": "25.0.4.1+1",
+  "gradle": "9.2.1"
+}

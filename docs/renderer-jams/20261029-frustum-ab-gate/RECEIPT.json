@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0555-frustum-ab-gate",
+  "status": "complete_source_only",
+  "review_kind": "read-only renderer self-audit",
+  "preclaim_main": "05c61ec056f96adf2bc196ab5fca729d0d017e0a",
+  "claim_commit": "006d06d68de0069bba3c97c50ed01364fab7c357",
+  "reviewed_source_sha": "ec4aab72cddc4c8c80c36384918121c09ebaa710",
+  "implementation_test_commit": "5743b44e2583036b0cc09e3b15588167f195042d",
+  "review_doc_commit": "0a89b78c324e2de5a70fe64fb26a3572e31223ce",
+  "version": "no version bump; owner handles builds",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumBounds.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-frustum-ab-gate/CLAIM.json",
+    "docs/renderer-jams/20261029-frustum-ab-gate/tests/com/shnewbs/deepprimal/lod/client/LodPageFrustumOptionChecks.java",
+    "docs/renderer-jams/20261029-frustum-ab-gate/README.md",
+    "docs/renderer-jams/20261029-frustum-ab-gate/REVIEW.md",
+    "docs/renderer-jams/20261029-frustum-ab-gate/RECEIPT.json",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "source_blobs": {
+    "LodPageFrustumBounds": "3ec09a3ef7c4aa217510f0195d5e67c9caf62fbc",
+    "VoxelLodRenderer": "1ca2814bc052bf0fab6c12c76b64b41899c142e5",
+    "LodClient": "29973f705ae4fa7fb0af400fc4344725131e6c04",
+    "committed_test": "7f064130651be66ce7205cbb0db3f5e12b0dec84"
+  },
+  "tests": {
+    "host": "Linux OpenJDK21.0.12.1",
+    "compile": "javac --release 21 -Xlint:all -Werror -d classes [two production-excluded API doubles] [exact production helper] [tests]",
+    "run": "java -ea -Xverify:all [optional -Ddeepprimal.lod.pageFrustumBroadphase=false|FALSE|true] -cp classes com.shnewbs.deepprimal.lod.client.LodPageFrustumOptionChecks",
+    "committed_option_assertions": {
+      "default": 60005,
+      "false": 60003,
+      "FALSE": 60003,
+      "true": 60005
+    },
+    "extended_fixture_assertions": {
+      "default": 80006,
+      "false": 80004,
+      "FALSE": 80004,
+      "true": 80006,
+      "invalid": 80006
+    },
+    "prior_regression_assertions_each": 332530,
+    "prior_regression_runs": 2,
+    "negative_mutant": "hardcoded true rejected by disabled test assertion 1",
+    "static_pinned_checks": "25/25 PASS"
+  },
+  "cpu_fixture": {
+    "scope": "synthetic component p50, not Minecraft/GPU FPS",
+    "pages": 4096,
+    "parts_per_page": 6,
+    "paired_samples": 201,
+    "mostly_offscreen_fine_coarse_ns": [
+      [
+        58136,
+        15242
+      ],
+      [
+        58767,
+        15212
+      ]
+    ],
+    "all_visible_fine_coarse_ns": [
+      [
+        72858,
+        77695
+      ],
+      [
+        70084,
+        76433
+      ]
+    ]
+  },
+  "grades": {
+    "distance_lod": 6.55,
+    "mesh": 6.95,
+    "gpu_culling": 4.55,
+    "fsr_dlss": 5,
+    "visual_compat": 5.3,
+    "validation_performance": 5.8,
+    "average": 5.69,
+    "previous": 5.68,
+    "display_delta": 0.01,
+    "independent_engine_unchanged": 5
+  },
+  "unrun": [
+    "JDK25 unavailable locally",
+    "owner full Gradle9.2.1/NeoForge and current JAR",
+    "native Vulkan/OpenGL/Windows/RTX pixel comparisons",
+    "real CPU/GPU frame-time and VRAM",
+    "transparent-water/world reload-save-reopen-shutdown",
+    "temporal FSR and DLSS actual game dispatch"
+  ],
+  "artifact": {
+    "filename": "DeepPrimal_Renderer_PageFrustumAB_20261029_5743b44_SourceEvidence.zip",
+    "bytes": 13671,
+    "sha256": "7793b48398ded37269b440dcfe2092f80baeef33e8f94fabd7a381bf9acd9dcd",
+    "members": 16,
+    "zip_crc_and_member_sha256": "PASS",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_PageFrustumAB_20261029_5743b44_SourceEvidence.zip",
+    "library_uploaded": true,
+    "jar": false
+  },
+  "other_writer": "one unrelated engine lease path interleaved; no renderer source collision",
+  "next": "Owner-run matched Vulkan/OpenGL on/off GPU/pixel and worst-case all-visible A/B, then tune measured bottleneck."
+}

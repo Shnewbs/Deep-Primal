@@ -1,0 +1,13 @@
+{
+  "exit_code": 0,
+  "seconds": 41.60548660700442,
+  "crashes": [],
+  "saved": true,
+  "actions": [],
+  "images": [
+    "screenshots/creation-form.png"
+  ],
+  "vuid_lines": [],
+  "software_vulkan": true,
+  "pass": true
+}

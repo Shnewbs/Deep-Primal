@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "base_source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
+  "baseline_sha256": "ec9c07dcc1b3b7621fe6b099e3e51d812bda9984dfee270ffb63fa67a820c311",
+  "candidate_sha256": "0db53c649469b5fe64d94de3fc0695038e42788207bb8f210e68fdf0adb88892",
+  "checks": {
+    "baseline": "REGULAR_ADMISSION_PASS fixed=false matrix=3360 simulatedTicks=100 regularVisits=0",
+    "candidate": "REGULAR_ADMISSION_PASS fixed=true matrix=3360 simulatedTicks=100 regularVisits=500"
+  },
+  "scope": "Exact tick extraction with deterministic platform doubles; not Minecraft execution or a latency benchmark",
+  "promoted": false,
+  "remaining_gates": [
+    "headwater quota and weather cadence actual native tests",
+    "full Java25 build/module/package qualification",
+    "long-travel loaded/unloaded single-owner and multiplayer soak",
+    "per-column/page fairness is not repaired; one callback can consume all reserved time"
+  ]
+}

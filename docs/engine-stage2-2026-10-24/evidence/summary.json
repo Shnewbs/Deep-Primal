@@ -1,0 +1,80 @@
+{
+  "native_scope": "Native ProtoChunk fillFromNoise including authored decoration; excludes construction, biome population, lighting, IO and host status graph",
+  "native_replay_hashes_match_released": 12,
+  "warm_count": 96,
+  "warm_mean_ms": 14.529000541666665,
+  "warm_p95_ms": 17.795389999999998,
+  "warm_max_ms": 33.954774,
+  "warm_allocated_bytes": 2314123.75,
+  "native_worldgen_unchanged": true,
+  "current_generation_performance_improvement_claimed": false,
+  "component_timing_forks": [
+    {
+      "exact_graph": {
+        "samples": 196608.0,
+        "iterations": 16.0,
+        "mean_ms": 1137.871284,
+        "p50_ms": 1114.315508,
+        "p95_ms": 1379.704341,
+        "p99_ms": 1379.704341,
+        "max_ms": 1379.704341,
+        "mean_thread_allocated_bytes": 10.0
+      },
+      "lattice_graph": {
+        "samples": 196608.0,
+        "iterations": 16.0,
+        "mean_ms": 18.698732,
+        "p50_ms": 17.495108,
+        "p95_ms": 23.941359,
+        "p99_ms": 23.941359,
+        "max_ms": 23.941359,
+        "mean_thread_allocated_bytes": 19472.0
+      }
+    },
+    {
+      "exact_graph": {
+        "samples": 196608.0,
+        "iterations": 16.0,
+        "mean_ms": 1057.993487,
+        "p50_ms": 1037.780814,
+        "p95_ms": 1258.540218,
+        "p99_ms": 1258.540218,
+        "max_ms": 1258.540218,
+        "mean_thread_allocated_bytes": 10.0
+      },
+      "lattice_graph": {
+        "samples": 196608.0,
+        "iterations": 16.0,
+        "mean_ms": 17.667204,
+        "p50_ms": 17.131084,
+        "p95_ms": 21.221412,
+        "p99_ms": 21.221412,
+        "max_ms": 21.221412,
+        "mean_thread_allocated_bytes": 19472.0
+      }
+    },
+    {
+      "exact_graph": {
+        "samples": 196608.0,
+        "iterations": 16.0,
+        "mean_ms": 1069.95212,
+        "p50_ms": 1051.848959,
+        "p95_ms": 1185.427823,
+        "p99_ms": 1185.427823,
+        "max_ms": 1185.427823,
+        "mean_thread_allocated_bytes": 10.0
+      },
+      "lattice_graph": {
+        "samples": 196608.0,
+        "iterations": 16.0,
+        "mean_ms": 18.876468,
+        "p50_ms": 18.608085,
+        "p95_ms": 24.477111,
+        "p99_ms": 24.477111,
+        "max_ms": 24.477111,
+        "mean_thread_allocated_bytes": 19472.0
+      }
+    }
+  ],
+  "stratified_error_summary": "DENSITY_STRATIFIED_ERROR_COMPLETE samples=1572864 nearSurfaceSamples=193265 rms=0.007190563 max=0.106991034 signMismatches=906"
+}

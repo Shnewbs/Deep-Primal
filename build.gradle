@@ -1,0 +1,315 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+group = 'com.shnewbs.deepprimal'
+version = project.mod_version
+base.archivesName = 'DeepPrimal-26.1.2'
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+sourceSets {
+    soilData {}
+    coreChecks {
+        compileClasspath += sourceSets.main.output
+        compileClasspath += configurations.compileClasspath
+        runtimeClasspath += sourceSets.main.output
+    }
+    moduleValidation {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
+    visualValidation {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
+dependencies { soilDataImplementation project(':engine-core') }
+
+def soilResources = layout.buildDirectory.dir('generated/soilResources')
+tasks.register('generateSoilResources', JavaExec) {
+    dependsOn soilDataClasses
+    classpath = sourceSets.soilData.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.data.SoilResources'
+    args soilResources.get().asFile.absolutePath
+    args project.file('src/main/resources/assets/deepprimal/lang/en_us.json').absolutePath
+    inputs.files(sourceSets.soilData.allSource)
+    inputs.file('engine-core/src/main/java/com/shnewbs/deepprimal/core/SoilTexture.java')
+    inputs.file('src/main/resources/assets/deepprimal/lang/en_us.json')
+    outputs.dir(soilResources)
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('processResources') {
+    dependsOn 'generateSoilResources'
+    from(soilResources)
+    eachFile { entry ->
+        if (entry.file == project.file('src/main/resources/assets/deepprimal/lang/en_us.json'))
+            entry.exclude()
+    }
+}
+
+neoForge {
+    version = project.neo_version
+    runs {
+        client {
+            client()
+            gameDirectory = project.file(findProperty('clientRunDir') ?: 'run')
+            if (project.hasProperty('groundMaterialClient')) {
+                systemProperty 'deepprimal.validationGroundMaterials', 'true'
+                systemProperty 'deepprimal.graphicsBackend', project.property('groundMaterialClient')
+                systemProperty 'deepprimal.validationCapture', project.file(
+                    findProperty('captureDir') ?: 'build/ground-material-client-captures').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+            }
+            if (project.hasProperty('worldCreationValidation')) {
+                systemProperty 'deepprimal.validationWorldCreation','true'
+                if(project.hasProperty('creationName')) systemProperty 'deepprimal.validationCreationName',project.property('creationName')
+                systemProperty 'deepprimal.validationCreationMode',findProperty('creationMode') ?: 'fresh'
+                systemProperty 'deepprimal.validationCapture',project.file(findProperty('captureDir') ?: 'build/world-creation-validation').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+                jvmArgument '-Xmx2G'
+            }
+            if (project.hasProperty('lodHotEdits')) systemProperty 'deepprimal.validationLodHotEdits', 'true'
+            if (project.hasProperty('graphicsValidation')) {
+                systemProperty 'deepprimal.validationGraphics', 'true'
+                systemProperty 'deepprimal.validationGraphicsRestart', project.hasProperty('graphicsRestart').toString()
+                systemProperty 'deepprimal.validationNoLod', project.hasProperty('withoutLod').toString()
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/graphics-validation').absolutePath
+                if (project.hasProperty('delegateRenderer')) systemProperty 'deepprimal.renderer.disabled', 'true'
+                programArguments.addAll '--width','1200','--height','800'
+            }
+            if (project.hasProperty('upscalingValidation')) {
+                systemProperty 'deepprimal.validationUpscaling', 'true'
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/upscaling-validation').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+            }
+            if (project.hasProperty('upscalingFrameValidation')) {
+                systemProperty 'deepprimal.validationUpscalingFrames', 'true'
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/upscaling-frames').absolutePath
+                programArguments.addAll '--width','1200','--height','800'
+            }
+            if (project.hasProperty('engineValidation')) { systemProperty 'deepprimal.validationEngine', 'true'; programArguments.addAll '--width','1200','--height','800' }
+            if (project.hasProperty('fillingValidation')) { systemProperty 'deepprimal.validationFilling', 'true'; programArguments.addAll '--width','1200','--height','800' }
+            if(project.hasProperty('waterShapeValidation')) systemProperty 'deepprimal.validationWaterShape','true'
+            if(project.hasProperty('waterShapeBefore')) systemProperty 'deepprimal.validationOldSurface','true'
+            if (project.hasProperty('animatedWaterValidation')) systemProperty 'deepprimal.validationAnimatedWater', 'true'
+            if (project.hasProperty('guiOrientationValidation')) systemProperty 'deepprimal.validationGuiOrientation', 'true'
+            if (project.hasProperty('oceanWaterValidation')) systemProperty 'deepprimal.validationOceanWater', 'true'
+            if (project.hasProperty('engineScenes')) systemProperty 'deepprimal.validationEngineScenes','true'
+            if (project.hasProperty('engineReopen')) systemProperty 'deepprimal.validationEngineReopen', 'true'
+            if (project.hasProperty('visualValidation') && (project.hasProperty('captureServer') || project.hasProperty('captureWorld'))) {
+                gameDirectory = project.file(findProperty('clientRunDir') ?: 'run-visual')
+                if (project.hasProperty('captureServer')) programArguments.addAll '--quickPlayMultiplayer', project.property('captureServer')
+                if (project.hasProperty('captureWorld')) programArguments.addAll '--quickPlaySingleplayer', project.property('captureWorld')
+                systemProperty 'deepprimal.validationCapture', project.file(findProperty('captureDir') ?: 'build/visual-validation').absolutePath
+                if (project.hasProperty('distanceValidation')) systemProperty 'deepprimal.validationDistances', 'true'
+                if (project.hasProperty('acceptWorldWarning')) systemProperty 'deepprimal.validationAcceptWorldWarning', 'true'
+                if (project.hasProperty('terrainValidation')) systemProperty 'deepprimal.validationTerrain', 'true'
+                if (project.hasProperty('nativeRendererValidation')) systemProperty 'deepprimal.validationRenderer', 'true'
+                if (project.hasProperty('queueStartupValidation')) systemProperty 'deepprimal.validationQueueStartup', 'true'
+                jvmArgument '-Xmx' + (findProperty('validationHeap') ?: '2G')
+            }
+        }
+        server {
+            server()
+            if (project.hasProperty('queueValidation')) systemProperty 'deepprimal.queueValidation', project.property('queueValidation')
+            programArgument '--nogui'
+            gameDirectory = project.file(findProperty('runDir') ?: 'run')
+            jvmArgument '-Xmx2G'
+        }
+    }
+    mods {
+        if (project.hasProperty("moduleOnlyValidation")) {
+            deepprimal_validation { sourceSet(sourceSets.moduleValidation) }
+        } else deepprimal {
+            sourceSet(sourceSets.main)
+            if (project.hasProperty('visualValidation')) sourceSet(sourceSets.visualValidation)
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.named('jar') {
+    exclude '**/.rsync-tmp/**', '**/.*'
+    manifest.attributes('Implementation-Version': project.version)
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.named('wrapper') { gradleVersion = '9.2.1'; distributionType = Wrapper.DistributionType.BIN }
+
+tasks.register('verifyCoreBoundary') {
+    inputs.files(fileTree('engine-core/src/main/java'))
+    doLast {
+        inputs.files.each { f ->
+            if (f.text.contains('net.minecraft') || f.text.contains('net.neoforged'))
+                throw new GradleException("Platform dependency inside core: $f")
+        }
+    }
+}
+tasks.register('coreChecks', JavaExec) {
+    dependsOn coreChecksClasses
+    classpath = sourceSets.coreChecks.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.core.CoreChecks'
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
+tasks.register('groundMaterialResources', JavaExec) {
+    dependsOn visualValidationClasses
+    classpath = sourceSets.visualValidation.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.validation.GroundResourceChecks'
+    args project.file('docs/art/ground-textures-v4/validation.json').absolutePath
+    args project.file('docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json').absolutePath
+    args project.file('docs/art/sand-final/validation.json').absolutePath
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+    jvmArgs '-Djava.awt.headless=true'
+}
+tasks.named('check') { dependsOn 'groundMaterialResources' }
+tasks.named('runServer') { standardInput = System.in }
+if (project.hasProperty('packagedValidation')) {
+    ['runServer', 'runClient'].each { runName -> tasks.named(runName, JavaExec) {
+        dependsOn tasks.named('jar')
+        // Filter the ModDev launch provider during configuration, before Gradle finalizes it.
+        // Filtering JavaExec.classpath in doFirst is too late: RunGameTask appends this provider.
+        def developmentOutputs = rootProject.allprojects.collectMany { p ->
+            ['build/libs', 'build/classes/java/main', 'build/resources/main'].collect {
+                p.file(it).canonicalPath
+            }
+        }
+        def originalClasspath = files(new ArrayList(classpathProvider.from))
+        classpathProvider.setFrom(originalClasspath.filter { f ->
+            def path = f.canonicalPath
+            !developmentOutputs.any { path == it || path.startsWith(it + File.separator) }
+        })
+        doFirst {
+            String paths = 'deepprimal%%' + project.file(findProperty('validationJar') ?: tasks.named('jar').get().archiveFile.get().asFile).absolutePath
+            if (project.hasProperty('visualValidation'))
+                paths += File.pathSeparator + 'deepprimal%%' + sourceSets.visualValidation.output.classesDirs.singleFile.absolutePath
+            environment 'MOD_CLASSES', paths
+            systemProperty 'fml.modFolders', paths
+        }
+    } }
+}
+
+processResources {
+    inputs.property 'mod_version', project.mod_version
+    filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.mod_version) }
+}
+
+ext.minecraftClasspath = configurations.compileClasspath.copyRecursive().files.toList()
+if (findProject(':renderer-vulkan') != null) evaluationDependsOn(':renderer-vulkan')
+def bundleVulkan = findProject(':renderer-vulkan') != null && (project.hasProperty('vulkanPlatform') || project.hasProperty('bundleVulkan'))
+def bundleLod = !project.hasProperty('withoutLod')
+def modules = [':engine-core', ':performance-engine', ':graphics-settings', ':gui-themes']
+if (bundleLod) modules.add(':lod-engine')
+if (bundleVulkan) modules.add(':renderer-vulkan')
+modules.each { path ->
+ evaluationDependsOn(path)
+ dependencies { implementation(project(path)); jarJar(project(path)) }
+}
+// JarJar copies into a generated directory without removing older versions.
+// Rebuild that directory when its task runs, including after module/profile changes.
+tasks.named('jarJar') {
+ outputDirectory.set(layout.buildDirectory.dir("generated/jarJar-${project.version}-${bundleLod ? 'lod-' : 'no-lod-'}${!bundleVulkan ? 'opengl' : 'vulkan-' + (findProperty('vulkanPlatform') ?: 'universal')}"))
+ doFirst { project.delete(outputDirectory.get().asFile) }
+}
+dependencies {
+ coreChecksImplementation(project(':engine-core'))
+ visualValidationCompileOnly(project(':lod-engine'))
+}
+neoForge.mods {
+ deepprimal_performance { sourceSet(project(':performance-engine').sourceSets.main) }
+ deepprimal_graphics { sourceSet(project(':graphics-settings').sourceSets.main) }
+ deepprimal_themes { sourceSet(project(':gui-themes').sourceSets.main) }
+}
+if (project.hasProperty('themeValidation')) {
+ neoForge.mods.deepprimal_themes.sourceSet(project(':gui-themes').sourceSets.validation)
+}
+if (bundleLod) neoForge.mods { deepprimal_lod { sourceSet(project(':lod-engine').sourceSets.main) } }
+if (findProject(':renderer-vulkan') != null) {
+ if (bundleVulkan) neoForge.mods { deepprimal_vulkan { sourceSet(project(':renderer-vulkan').sourceSets.main) } }
+ neoForge.runs.client {
+  if (project.hasProperty('graphicsBackend')) systemProperty 'deepprimal.graphicsBackend', project.property('graphicsBackend')
+  if (project.hasProperty('vulkanRetry')) systemProperty 'deepprimal.vulkan.retry', 'true'
+  if (project.hasProperty('vulkanValidation')) systemProperty 'deepprimal.vulkan.validation', 'true'
+  if (project.hasProperty('vulkanDebug')) systemProperty 'deepprimal.vulkan.debug', 'true'
+ }
+}
+
+// Architectural checks are source based, so an accidental cross-module import fails the build.
+tasks.register('verifyModuleBoundaries') {
+    def roots = ['engine-core', 'performance-engine', 'graphics-settings', 'lod-engine', 'renderer-vulkan']
+    inputs.files(roots.collect { fileTree(it + '/src/main/java') } + fileTree('src/main/java'))
+    doLast {
+        fileTree('src/main/java').matching { include '**/*.java' }.each { f ->
+            if (f.text.contains('com.shnewbs.deepprimal.lod.'))
+                throw new GradleException("Main mod depends on optional LOD implementation: $f")
+        }
+        roots.each { module ->
+            fileTree(module + '/src/main/java').matching { include '**/*.java' }.each { file ->
+                def text = file.text
+                def allowed = module == 'engine-core' ? ['core'] : module == 'performance-engine' ? ['performance','core'] : module == 'lod-engine' ? ['lod','settings','graphics','core'] : ['settings','graphics','core']
+                (text =~ /com\.shnewbs\.deepprimal\.([a-zA-Z]+)\./).each { match ->
+                    if (!(match[1] in allowed)) throw new GradleException("Cross-module import in $file: ${match[0]}")
+                }
+                if (module != 'renderer-vulkan' && (text =~ /net\.vulkanmod\./).find())
+                    throw new GradleException("Vulkan implementation dependency in $file")
+                if (module == 'engine-core' && (text.contains('org.lwjgl') || text.contains('net.minecraft') || text.contains('net.neoforged')))
+                    throw new GradleException("Platform dependency in $file")
+            }
+        }
+    }
+}
+tasks.named('check') { dependsOn 'verifyModuleBoundaries' }
+if (findProject(':renderer-vulkan') != null) {
+    sourceSets { cacheChecks {
+        compileClasspath += project(':renderer-vulkan').sourceSets.main.output
+        runtimeClasspath += project(':renderer-vulkan').sourceSets.main.output
+    } }
+    tasks.register('cacheChecks', JavaExec) {
+        dependsOn cacheChecksClasses, ':renderer-vulkan:classes'
+        classpath = sourceSets.cacheChecks.runtimeClasspath
+        mainClass = 'com.shnewbs.deepprimal.validation.CacheChecks'
+        javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+    }
+    tasks.named('check') { dependsOn 'cacheChecks' }
+}
+
+
+// The packaged mod must describe the modules it actually contains.
+tasks.named('jar') {
+ doLast {
+  new java.util.zip.ZipFile(archiveFile.get().asFile).withCloseable { zip ->
+   def metadata = new groovy.json.JsonSlurper().parse(zip.getInputStream(zip.getEntry('META-INF/jarjar/metadata.json')))
+   def expected = metadata.jars.collect { it.path }.toSet()
+   def actual = zip.entries().findAll { it.name.startsWith('META-INF/jarjar/') && it.name.endsWith('.jar') }.collect { it.name }.toSet()
+   if (expected != actual) throw new GradleException("JarJar manifest mismatch: expected=$expected actual=$actual")
+   zip.entries().each { e ->
+    if (e.name.contains('/.') || e.name.startsWith('com/shnewbs/primalengine/') || e.name.startsWith('com/shnewbs/deepprimal/validation/'))
+      throw new GradleException("Non-release entry: ${e.name}")
+   }
+  }
+ }
+}
+
+if (bundleVulkan || !bundleLod) {
+ tasks.named('jar') { archiveClassifier.set((bundleVulkan ? 'vulkan-' + (project.findProperty('vulkanPlatform') ?: 'universal') : '') + (!bundleLod ? (bundleVulkan ? '-no-lod' : 'no-lod') : '')) }
+}
+
+// Stage-one component benchmark: excludes native chunk materialization and host status/lighting.
+sourceSets {
+    noiseBenchmark {
+        compileClasspath += project(':engine-core').sourceSets.main.output
+        runtimeClasspath += project(':engine-core').sourceSets.main.output
+    }
+}
+tasks.register('noiseBenchmark', JavaExec) {
+    dependsOn noiseBenchmarkClasses
+    classpath = sourceSets.noiseBenchmark.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.benchmark.NoiseBenchmark'
+}
+tasks.register('densityBenchmark', JavaExec) {
+    dependsOn noiseBenchmarkClasses
+    classpath = sourceSets.noiseBenchmark.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.benchmark.DensityBenchmark'
+}
+

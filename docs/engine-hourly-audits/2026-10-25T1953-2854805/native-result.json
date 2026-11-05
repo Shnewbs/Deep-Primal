@@ -1,0 +1,23 @@
+{
+  "pass": true,
+  "platform": "Linux dedicated server; Windows client untested",
+  "sessions": [
+    {
+      "run": 0,
+      "exit": 0,
+      "pass": true
+    },
+    {
+      "run": 1,
+      "exit": 0,
+      "pass": true
+    }
+  ],
+  "replay_hashes_equal": true,
+  "loaded_classes_match": true,
+  "native_hashes_match_previous_verified_31dd0b2": true,
+  "native_failure_precedence_and_ordered_shutdown": true,
+  "save_flush_acknowledged": true,
+  "legacy_V1_V5_deposit_fresh_reopen": true,
+  "soil_revision2_fresh_reopen": true
+}

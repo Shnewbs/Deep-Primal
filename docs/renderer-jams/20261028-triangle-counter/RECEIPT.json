@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261028T2358-triangle-counter",
+  "owner": "dedicated-renderer-schedule",
+  "parent": "d629e74036c4a494cb0faea7520fb86057bc9df0",
+  "source_sha": "61dc92eb52b030fa19bfd3572ac12661a3bc4579",
+  "production_blob": "7e92858d7fead77d7efc0c295581f0caf0a9b4d9",
+  "changed_production_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+  ],
+  "tested_runtime": "OpenJDK 21.0.12.1 Linux x64",
+  "test_assertions": 25130,
+  "test_scenarios": 4796,
+  "static_source_checks": {
+    "passed": 7,
+    "total": 7
+  },
+  "negative_mutant": {
+    "status": "expected-failure",
+    "failed_assertion": 133
+  },
+  "cpu_benchmark": "501-pair 3000-warmup counter-only Java CPU loop, two runs; 4096 p50 7461->320 and 7150->320 ns; no frame/FPS inference",
+  "self_audit": {
+    "distance": 6.5,
+    "mesh": 6.95,
+    "gpu": 4.45,
+    "fsrDlss": 5,
+    "compatibility": 5.25,
+    "validation": 5.5,
+    "mean": 5.61,
+    "previous": 5.59
+  },
+  "unrun": [
+    "Java25",
+    "full Gradle 9.2.1",
+    "Minecraft/NeoForge",
+    "Vulkan/OpenGL GPU pixels",
+    "water transparency",
+    "CPU/GPU frame p50/p95/p99",
+    "VRAM",
+    "RTX DLSS",
+    "temporal FSR",
+    "JAR packaging"
+  ],
+  "library_artifact": {
+    "path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_TriangleCounter_20261028_61dc92e_SourceEvidence.zip",
+    "bytes": 4976,
+    "sha256": "bed78d08b98c8a9052ec205be0c0fa1efec90a25be09771fecd1f274ec86de58",
+    "crc": "pass",
+    "manifest": "pass"
+  },
+  "independent_engine_grade_modified": false
+}

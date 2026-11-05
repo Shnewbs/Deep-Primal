@@ -1,0 +1,33 @@
+{
+  "owner": "renderer-20261026-lod-scratch",
+  "status": "completed",
+  "active_until": null,
+  "released_at": "2026-10-26T16:23:00.260Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodScratchChecks.java",
+    "docs/renderer-jams/20261026-lod-scratch"
+  ],
+  "measurement": {
+    "status": "completed",
+    "exclusive_benchmark": false
+  },
+  "runtime_source_sha": "5b0204dd0bfb32a144e4fa5b62d64fb3528d72ef",
+  "build_execution_source_sha": "bfca642e2f06e1d3ddf8dd0b1210a0014a15eb09",
+  "version": "0.0.1-alpha.29-dev.30-renderer.4",
+  "library_file_id": "libfile_6e306263bef881918a18cfb7808030e5",
+  "sha256": "dbc1f00aaf9f73e79b2c1e5e7b383252ff323e85b2de1fc1cc0c2958b807133f",
+  "size": 125294588,
+  "scores": [
+    4,
+    6,
+    4,
+    0,
+    4,
+    4
+  ],
+  "average": 3.6666666666666665,
+  "previous": 3.5,
+  "delta": 0.16666666666666666,
+  "next": "Controlled named-device timing/culling and remaining rebuild/upload/GPU memory baselines"
+}

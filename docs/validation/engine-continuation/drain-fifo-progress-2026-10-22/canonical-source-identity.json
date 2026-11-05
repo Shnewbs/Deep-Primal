@@ -1,0 +1,7 @@
+{
+  "safety_batch_source_sha256": "26211cdd4156cbd798936ab1cfbeea9e8e500df4fa798bb840b950b95da37411",
+  "canonical_source_sha256": "8ca0d657c403d4a65118202ad34cd9e6ffa0aee5ff5f125861f98e9a41ae3ee8",
+  "change": "one comment says drain-request FIFO instead of active FIFO; no source body or line-count change",
+  "compiled_main_class_digests_equal": true,
+  "matched_classes": 104
+}

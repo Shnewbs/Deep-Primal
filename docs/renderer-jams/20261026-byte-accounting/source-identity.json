@@ -1,0 +1,10 @@
+{
+  "parent": "bf7b36a21b7063c1d273c383008ddfd073d5e5b1",
+  "core_tree": "6b217a520d2707f6bda78d66440e38d8c0018454",
+  "verified_production_sources": 75,
+  "baseline_changes": "class rename only",
+  "private_retained_fixtures": 3,
+  "candidate_files": 1,
+  "packaged_or_cached_classpath": false,
+  "pass": true
+}

@@ -1,0 +1,127 @@
+{
+  "parent": "3a15c0b9b7e7ae53a2c7080a70ecf2c9a32aa1c5",
+  "files": [
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Aquifer.java",
+      "sha256": "3da65d7cf2c044cc41c365627011acd28d67ebfd7b7c3b7f65e4f122060bb2fe",
+      "bytes": 2661
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+      "sha256": "fcabb1445a5f0906091bfbea07c528e920bfd498e1c77fdbfbb6993b771777d7",
+      "bytes": 3382
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+      "sha256": "ab1e1130aa245a1d84180feb3a689462155efe624009cb5b1ef61bbc7f5a1bd8",
+      "bytes": 17738
+    },
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
+      "sha256": "c40a638e798986fb716273bbf5ab7b6a10db231648e8a409cd2193aad766dcf4",
+      "bytes": 2773
+    },
+    {
+      "path": "gradle.properties",
+      "sha256": "4dec15c749958cbb49fb74709a82a67ec67ba4069002c574f148c50c301e457f",
+      "bytes": 150
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+      "sha256": "36a142c45d017dab7d3c2825a66207ea308db76c79c4d75e72af181fab7c1aca",
+      "bytes": 6166
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/TerrainV4Checks.java",
+      "sha256": "887354562717af6e13bfa3c54fd75da9f018916fe6ec76bb42f328ede68dda61",
+      "bytes": 1920
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBudgetChecks.java",
+      "sha256": "2e6aeaf3b6c1393f4f4e23e39dfd27d7dcfb2e5b64c96da34bea9805c52f1339",
+      "bytes": 3751
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/DeepPrimal.java",
+      "sha256": "821abb9923ad9b3626480b9996d565383159ed8ecf098f7341e7ec0c66ee0371",
+      "bytes": 4092
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/WorldgenProbe.java",
+      "sha256": "f297a316a1a53f7ad7717d54b6ecb5c28461cc5260da5735b2020fab12b38819",
+      "bytes": 18896
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineBucket.java",
+      "sha256": "e26efd5c419ceaaeb2c92b7709b79eb08bee3da410f13fcda9f98fb20e7fd248",
+      "bytes": 2349
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+      "sha256": "faa2cc7562a2f81170e75fa2e9a14997cdc08ee287b98ce057a550977454d4c6",
+      "bytes": 17908
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineRegistry.java",
+      "sha256": "23e2bfdb710af19cc05d5b3ba082c6f2b9f32a5f01739cf912f69ec173c48a68",
+      "bytes": 2359
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/EngineWaterBlock.java",
+      "sha256": "018c364620a8922e5ebaacc127c7a49dbfa1e43c7e1e2e5453605d49ff1ff4ed",
+      "bytes": 3160
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/HydrologyConfig.java",
+      "sha256": "f76dc83ca3c3b544c362bd35882cf0373c06a2a45ef35ab6d0daa64b225692b0",
+      "bytes": 1260
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/HydrologyData.java",
+      "sha256": "0870edf5f091dd6263b8fa0c9a801730fddcf4d7f9171cd2b7ce50767d59b019",
+      "bytes": 5315
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+      "sha256": "fd55f4b4aaa12c58044e6264289dfdb50ec7ae1ffa970ff48211074246d40455",
+      "bytes": 16664
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "sha256": "b646a57b240c7f0016e4597f7836974d4069bc35d389b2ad71feba9994352a0e",
+      "bytes": 29417
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/water/Precipitation.java",
+      "sha256": "8032de801f6ba2f2c6f8e15599da5b18be7a357f8481d3bf131dc4701a1be253",
+      "bytes": 4228
+    },
+    {
+      "path": "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json",
+      "sha256": "8e9b24b148179c2220b2330f0704ab6095f1dabdd1d666f5dc033c4d21233bb6",
+      "bytes": 1144
+    },
+    {
+      "path": "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json",
+      "sha256": "ea72cc58f214d0dc71a22b7e90040ab5e0b9a845e01dd60891ec6e73bd30d5db",
+      "bytes": 1138
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/EngineSceneChecks.java",
+      "sha256": "cd86e514bda8b16d5d94f6cea80dd28958376a3ccb48439ee2b26ee974537ba4",
+      "bytes": 11140
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/EnvironmentalWaterChecks.java",
+      "sha256": "63bc59089e4cf3cc299949765adaf8bae9295965e0aabd5b00a12fc018ff5e6a",
+      "bytes": 9883
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/WatershedServerChecks.java",
+      "sha256": "139a8d4ba865425662a4939fa8bf22e2f23bfdb6195ac9d9ebabf50ca39880aa",
+      "bytes": 8177
+    }
+  ],
+  "build_source_parent": "c0f311a1abcbe3230d27430f955ce45019075f66",
+  "integration_note": "Concurrent main changes only validation helper and audit documentation; runtime inputs unchanged. This build already used explicit :runClient/:runServer."
+}

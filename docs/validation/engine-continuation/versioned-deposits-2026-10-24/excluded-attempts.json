@@ -1,0 +1,18 @@
+[
+  {
+    "path": "failed-compile/server-baseline",
+    "kind": "private fixture switch-expression syntax; no Minecraft launch"
+  },
+  {
+    "path": "failed-resources-baseline",
+    "kind": "generated Themes destination temporary file vanished; no Minecraft launch; cause unproven"
+  },
+  {
+    "path": "failed-empty-coverage/server-candidate",
+    "kind": "fixture picked no changed ore, assertion crashed game despite Gradle0; excluded"
+  },
+  {
+    "path": "server-baseline-final",
+    "kind": "expanded source had12sites but compiled fixture retained8; excluded as expanded control; cause unproven; rebuilt nonincremental"
+  }
+]

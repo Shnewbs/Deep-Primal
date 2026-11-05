@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "tfc_item_barrels_and_more:wood/acacia/item_barrel",
+    "tfc_item_barrels_and_more:wood/ash/item_barrel",
+    "tfc_item_barrels_and_more:wood/aspen/item_barrel",
+    "tfc_item_barrels_and_more:wood/birch/item_barrel",
+    "tfc_item_barrels_and_more:wood/blackwood/item_barrel",
+    "tfc_item_barrels_and_more:wood/chestnut/item_barrel",
+    "tfc_item_barrels_and_more:wood/douglas_fir/item_barrel",
+    "tfc_item_barrels_and_more:wood/hickory/item_barrel",
+    "tfc_item_barrels_and_more:wood/kapok/item_barrel",
+    "tfc_item_barrels_and_more:wood/mangrove/item_barrel",
+    "tfc_item_barrels_and_more:wood/maple/item_barrel",
+    "tfc_item_barrels_and_more:wood/oak/item_barrel",
+    "tfc_item_barrels_and_more:wood/palm/item_barrel",
+    "tfc_item_barrels_and_more:wood/pine/item_barrel",
+    "tfc_item_barrels_and_more:wood/rosewood/item_barrel",
+    "tfc_item_barrels_and_more:wood/sequoia/item_barrel",
+    "tfc_item_barrels_and_more:wood/spruce/item_barrel",
+    "tfc_item_barrels_and_more:wood/sycamore/item_barrel",
+    "tfc_item_barrels_and_more:wood/white_cedar/item_barrel",
+    "tfc_item_barrels_and_more:wood/willow/item_barrel"
+  ]
+}

@@ -1,0 +1,10 @@
+save-all flush => Saving the game (this may take a moment!)
+Saved the game
+
+stop => Stopping the server
+
+Traceback (most recent call last):
+  File "/workspace/scratch/a22609fabda0/builder1100/precipitation-native/run_native.py", line 30, in <module>
+    if hashlib.sha256(jar.read_bytes()).hexdigest()!=digest:raise RuntimeError('Archive changed')
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Archive changed

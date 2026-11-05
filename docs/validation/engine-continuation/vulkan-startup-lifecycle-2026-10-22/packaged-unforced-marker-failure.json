@@ -1,0 +1,19 @@
+{
+  "case": "vulkan-marker-packaged-unforced-after",
+  "clean_unforced_reopen_accepted": false,
+  "actual_backend": "Vulkan",
+  "launcher_exit": 0,
+  "build_successful": true,
+  "normal_saved_disconnect": true,
+  "final_buffers": 0,
+  "final_images": 0,
+  "validation_errors": 0,
+  "reason": "Fresh final-source unforced packaged start begins with no marker, but owner/preferences both report the marker present at join/reload/disconnect and after exit. This fails the marker-cleanup gate despite other native correctness passes. One preceding unforced development run was clean; persistence remains intermittent. Do not claim the rearm reset repairs the original symptom.",
+  "console_sha256": "2b04c9ef6cdcf4674a66845abdfbb1fc0b9d33249d2ebb67eed95ed684a97092",
+  "observations": [
+    "STARTUP_LIFECYCLE_OBSERVATION label=joined backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "STARTUP_LIFECYCLE_OBSERVATION label=reloaded backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "STARTUP_LIFECYCLE_OBSERVATION label=before-disconnect backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "STARTUP_LIFECYCLE_OBSERVATION label=after-disconnect backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-audit-2127/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-audit-2127/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "default": {
+    "artifact": {
+      "name": "DeepPrimal-26.1.2-0.0.1-alpha.22.jar",
+      "bytes": 577352,
+      "classes": 98,
+      "sha256": "9f30705f290f6fdefacc0247559053cfee0857eb99d53c66651a59432ad1219c"
+    },
+    "nestedJars": [
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.22.jar",
+        "bytes": 80598,
+        "classes": 49,
+        "sha256": "ff8b1402ea0067ead26435ee847e2f960cb0569b85f2fd133a0a63ca364c78a2"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.22.jar",
+        "bytes": 85882,
+        "classes": 36,
+        "sha256": "ef0b8da8c3d25cd7bb0e19a86727784bc30143f845402a8d2ba79561ae835e67"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.22.jar",
+        "bytes": 40181,
+        "classes": 13,
+        "sha256": "a1ca05aaf84277848f463e528b303edf7cc1e401a11edcc8c7825df5b80f8146"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.22.jar",
+        "bytes": 19658,
+        "classes": 14,
+        "sha256": "5699bdeb9b8f7cf089ddd8935483ac4d78c3e2780fc280a70a5e657e81e03d6b"
+      }
+    ],
+    "nativeLibraries": [],
+    "uniqueClassCount": 210
+  },
+  "without_lod": {
+    "artifact": {
+      "name": "DeepPrimal-26.1.2-0.0.1-alpha.22-no-lod.jar",
+      "bytes": 540163,
+      "classes": 98,
+      "sha256": "182f8258b6e8c8cb3a083b6a88e74507e6b613cc3213966927ac4ce5ac5dfbc9"
+    },
+    "nestedJars": [
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.22.jar",
+        "bytes": 80598,
+        "classes": 49,
+        "sha256": "ff8b1402ea0067ead26435ee847e2f960cb0569b85f2fd133a0a63ca364c78a2"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.22.jar",
+        "bytes": 85882,
+        "classes": 36,
+        "sha256": "ef0b8da8c3d25cd7bb0e19a86727784bc30143f845402a8d2ba79561ae835e67"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.22.jar",
+        "bytes": 19658,
+        "classes": 14,
+        "sha256": "5699bdeb9b8f7cf089ddd8935483ac4d78c3e2780fc280a70a5e657e81e03d6b"
+      }
+    ],
+    "nativeLibraries": [],
+    "uniqueClassCount": 197
+  },
+  "windows_vulkan": {
+    "artifact": {
+      "name": "DeepPrimal-26.1.2-0.0.1-alpha.22-vulkan-windows.jar",
+      "bytes": 11506991,
+      "classes": 98,
+      "sha256": "86c718bf2e8ad0ba83726aeabbd7013bfb48d750152bc4499fc4b57d1515c1c6"
+    },
+    "nestedJars": [
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.22.jar",
+        "bytes": 80598,
+        "classes": 49,
+        "sha256": "ff8b1402ea0067ead26435ee847e2f960cb0569b85f2fd133a0a63ca364c78a2"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.22.jar",
+        "bytes": 85882,
+        "classes": 36,
+        "sha256": "ef0b8da8c3d25cd7bb0e19a86727784bc30143f845402a8d2ba79561ae835e67"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.22.jar",
+        "bytes": 40181,
+        "classes": 13,
+        "sha256": "a1ca05aaf84277848f463e528b303edf7cc1e401a11edcc8c7825df5b80f8146"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.22.jar",
+        "bytes": 19658,
+        "classes": 14,
+        "sha256": "5699bdeb9b8f7cf089ddd8935483ac4d78c3e2780fc280a70a5e657e81e03d6b"
+      },
+      {
+        "name": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.22-windows.jar",
+        "bytes": 11592763,
+        "classes": 4132,
+        "sha256": "473f14eb494a4e1e6c7a45c06d5f187f03a5d431dbd74ffc01f71d308497fca8"
+      }
+    ],
+    "nativeLibraries": [
+      "windows/x64/org/lwjgl/shaderc/shaderc.dll",
+      "windows/x64/org/lwjgl/vma/lwjgl_vma.dll"
+    ],
+    "uniqueClassCount": 4342
+  },
+  "checks": {
+    "rootClassesIdenticalAcrossProfiles": true,
+    "sharedGraphicsJarIdenticalAcrossProfiles": true,
+    "duplicateClasses": 0,
+    "rootOptionalLodImplementationReferences": 0,
+    "terrainOrGeneratorResourceChanges": 0,
+    "validationAndStandaloneClasses": 0
+  }
+}

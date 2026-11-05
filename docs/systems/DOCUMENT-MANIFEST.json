@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "base_source": "328f10cda3ed54af12d8ef40106b4264536cfda9",
+  "checkpoint": "MMO predators, monsters, factions and villains; October 29, 2026 Pacific",
+  "files": [
+    {
+      "path": "docs/README.md",
+      "sha256": "1253d7690a69ed030d1642c0cbebb3f6dbd08c5de361880ca9a04b56e7842c50",
+      "bytes": 1465
+    },
+    {
+      "path": "docs/design-decisions-2026-10-18.md",
+      "sha256": "c529610d074dbd7508126a645a242505772d2bdb6aca64a21b7ea98cdedd6743",
+      "bytes": 55717
+    },
+    {
+      "path": "docs/design-reference.md",
+      "sha256": "b4db2622d4ac60bdbe562c7670db972374e3802e6688b4949b395a5b7420d3f5",
+      "bytes": 87532
+    },
+    {
+      "path": "docs/handbook/README.md",
+      "sha256": "95c457ef6890435b8f269087713e0534c5bc482bb6cfeb104f4e4f11ee59577f",
+      "bytes": 5503
+    },
+    {
+      "path": "docs/handbook/REQUIREMENTS.md",
+      "sha256": "247612761f49662eff865b65a98a5566f2308ab30223fe99793e3f68c41fcfdf",
+      "bytes": 12109
+    },
+    {
+      "path": "docs/systems/AGRICULTURE-RESEARCH.md",
+      "sha256": "08380c971d60bc89587b59a172554536fdca58bf2cbb6ed3e326cfb529f7801d",
+      "bytes": 22443
+    },
+    {
+      "path": "docs/systems/AGRICULTURE-SYSTEM.md",
+      "sha256": "8a29b56b87c5fa7a7c654b962e41dd9b2a84ad0c2c508b1379048cc6ebc6f5a1",
+      "bytes": 28808
+    },
+    {
+      "path": "docs/systems/ANIMAL-ECOLOGY-AND-PREDATORS.md",
+      "sha256": "e0db12171b5fe56932bf22937ff7b59c89cb736b2e32a03b9dde1f1160319ee8",
+      "bytes": 36104
+    },
+    {
+      "path": "docs/systems/HOSTILE-FACTIONS-AND-VILLAINS.md",
+      "sha256": "f6a1bd4324ae24e0d9938498407a6ca6f1540f88acdc7a8a391d3f59918d5eb0",
+      "bytes": 20911
+    },
+    {
+      "path": "docs/systems/INTEGRATION-CHANGES.json",
+      "sha256": "e18dd67918bffb58d86d2640e4bb701ebf3cf018bc17de29b8ffdc9bbb1859be",
+      "bytes": 5377
+    },
+    {
+      "path": "docs/systems/MMO-THREAT-REFERENCE-STUDY.md",
+      "sha256": "2bab38a6a3eca10cca7b57f6797ca2041fe25bd0c9f438191ed18b05280c5957",
+      "bytes": 13151
+    },
+    {
+      "path": "docs/systems/MMO-THREATS-AND-ENCOUNTERS.md",
+      "sha256": "0f008bfd8ceeaaf703b2104bca035b0e960409f203f43e915fcd2d2cb01019f1",
+      "bytes": 22187
+    },
+    {
+      "path": "docs/systems/NPC-AND-QUEST-SYSTEM.md",
+      "sha256": "149bd3715973a68a02302a7b3fa3f2a1b80046b057f3b60b82ea1714900b4305",
+      "bytes": 33439
+    },
+    {
+      "path": "docs/systems/NPC-QUEST-REFERENCE-STUDY.md",
+      "sha256": "1fc90d083e3547d1bd4b189639df8815c3b4a0b13e1bd7e02d9b16fa714802f2",
+      "bytes": 19330
+    },
+    {
+      "path": "docs/systems/README.md",
+      "sha256": "af8043a6cfaba108b1e567bb1d9801174fcb89884b240c25895f2d173e569d32",
+      "bytes": 5013
+    },
+    {
+      "path": "docs/systems/SHARED-SYSTEM-CONTRACTS.md",
+      "sha256": "611b41294f4029f4915254cbc6e2ede6daa1847c4baf3e7836444facb67e0f8b",
+      "bytes": 12026
+    },
+    {
+      "path": "docs/systems/SOURCES.md",
+      "sha256": "fa1639c4966d1923efe53514f2978efa8681bb9029308a59acde6246d07ac36a",
+      "bytes": 33716
+    },
+    {
+      "path": "docs/systems/SYSTEMS-ROADMAP.md",
+      "sha256": "79a88e343773b7af3553f3629dd31fba7579fba2f26f7ff806247e0e2936852c",
+      "bytes": 12733
+    },
+    {
+      "path": "docs/systems/VANILLA-MOB-REPLACEMENT.md",
+      "sha256": "7156a1ce25bbe8f620ca04d707f9eccf8fb107205090138faa6a700ab7ab8604",
+      "bytes": 15663
+    },
+    {
+      "path": "docs/systems/tools/verify_docs.py",
+      "sha256": "d43c10db1a8fb8b9fbc029580498a7b2f77b3b5f0065bbe0e76e4a645e5dc63d",
+      "bytes": 4134
+    },
+    {
+      "path": "roadmap.md",
+      "sha256": "89e9aaf08073f975b3cefbab462965e46d00a8414dabda9bdbd129ed97b26490",
+      "bytes": 51689
+    }
+  ]
+}

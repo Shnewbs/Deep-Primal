@@ -1,0 +1,57 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 29.03
+  },
+  {
+    "action": "water-corner-field-check",
+    "completed": true,
+    "elapsed": 34.03
+  },
+  {
+    "action": "water-material-check",
+    "completed": true,
+    "elapsed": 35.04
+  },
+  {
+    "action": "water-side-material-check",
+    "completed": true,
+    "elapsed": 38.04
+  },
+  {
+    "action": "water-direction-upload-check",
+    "completed": true,
+    "elapsed": 39.04
+  },
+  {
+    "action": "water-side-uv-upload-check",
+    "completed": true,
+    "elapsed": 40.04
+  },
+  {
+    "action": "water-partial-fade-check",
+    "completed": true,
+    "elapsed": 41.04
+  },
+  {
+    "action": "water-gpu-reuse-check",
+    "completed": true,
+    "elapsed": 42.04
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 43.04
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 44.05
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 45.05
+  }
+]

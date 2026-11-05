@@ -1,0 +1,19 @@
+{
+  "checked_at_utc": "2026-10-27T00:08:11Z",
+  "workspace_available_bytes": 0,
+  "private_memory_available_bytes": 629309440,
+  "minimum_isolated_full_qualification_headroom_bytes": 2147483648,
+  "full_build_can_start": false,
+  "full_build_executed": false,
+  "full_build_target": "Java25 Gradle9.2.1 --no-daemon --no-build-cache --max-workers=1 --rerun-tasks -PvulkanPlatform=windows :build :visualValidationClasses with all four staged Java files applied in a fresh isolated checkout",
+  "reason": "Neither disk nor private memory has enough headroom for full isolated producer/module/archive/native qualification; direct core and adapter checks are not full Gradle or delivery acceptance.",
+  "gpu_device_available": false,
+  "host": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "own_cleanup": [
+    "renderer-work/gui-themes/build",
+    "qualification/native-cache",
+    "renderer-work/build/generated"
+  ],
+  "cleanup_reclaimed_bytes_claimed": 0,
+  "cleanup_result": "Directories initially disappeared but reappeared; reported disk availability remained zero. No durable reclamation claimed."
+}

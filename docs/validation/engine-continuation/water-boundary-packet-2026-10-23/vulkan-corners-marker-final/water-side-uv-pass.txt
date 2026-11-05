@@ -1,0 +1,1 @@
+WATER_SIDE_UV_PIXEL_NATIVE_PASS pairs=6 renders=12 stillAndFlowing=true times=0,50,100 exactPixels=true isolatedGpuReleased=true scope=controlledProductionShaderNotLiveStreamAcceptance

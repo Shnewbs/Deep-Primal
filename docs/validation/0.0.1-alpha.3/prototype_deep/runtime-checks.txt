@@ -1,0 +1,28 @@
+deepprimal perf => PERF ticks=171 median=0.71ms p95=11.31ms max=63.93ms heapMiB=257 loadedChunks=729 pendingTasks=741 sampleCache=289/1024 cacheHits=4 cacheMisses=289 benchmark=idle
+RUNTIME trackingCapacity=32 chunkSelections=0 maxSendBatch=0 candidates=0 selectionMillis=0 viewColumns=0 viewSectionsMoved=0
+
+deepprimal sample 12345 -12345 => Sampler (12345,-12345): preliminary surface=168.0, continentalness=0.045, vertical top=639. No chunk generated.
+
+deepprimal sample 12345 -12345 => Sampler (12345,-12345): preliminary surface=168.0, continentalness=0.045, vertical top=639. No chunk generated.
+
+deepprimal perf => PERF ticks=171 median=0.71ms p95=11.31ms max=63.93ms heapMiB=262 loadedChunks=529 pendingTasks=0 sampleCache=290/1024 cacheHits=5 cacheMisses=290 benchmark=idle
+RUNTIME trackingCapacity=32 chunkSelections=0 maxSendBatch=0 candidates=0 selectionMillis=0 viewColumns=0 viewSectionsMoved=0
+
+reload => Reloading!
+
+deepprimal perf => PERF ticks=172 median=0.71ms p95=11.31ms max=63.93ms heapMiB=250 loadedChunks=529 pendingTasks=0 sampleCache=0/1024 cacheHits=0 cacheMisses=0 benchmark=idle
+RUNTIME trackingCapacity=32 chunkSelections=0 maxSendBatch=0 candidates=0 selectionMillis=0 viewColumns=0 viewSectionsMoved=0
+
+deepprimal bench 400 400 5 => Radius exceeds maxBenchmarkRadius in deepprimal-performance.toml.
+
+deepprimal bench 400 400 4 => Benchmark started: 81 FULL chunk requests, concurrency=1. Use untouched coordinates for cold terrain.
+
+deepprimal bench 500 500 0 => A benchmark request is active; wait or use /deepprimal cancel.
+
+deepprimal cancel => Benchmark stopped; any submitted engine request may finish.
+
+deepprimal perf => PERF ticks=186 median=0.70ms p95=11.48ms max=63.93ms heapMiB=578 loadedChunks=529 pendingTasks=0 sampleCache=0/1024 cacheHits=0 cacheMisses=0 benchmark=idle
+RUNTIME trackingCapacity=32 chunkSelections=0 maxSendBatch=0 candidates=0 selectionMillis=0 viewColumns=0 viewSectionsMoved=0
+
+forceload query => No force loaded chunks were found in Overworld
+

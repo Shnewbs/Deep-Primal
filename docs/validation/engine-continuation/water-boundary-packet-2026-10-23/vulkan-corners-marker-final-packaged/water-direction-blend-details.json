@@ -1,0 +1,2402 @@
+[
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 0,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 0,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 0,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 0,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 0,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 1,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 1,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 1,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 1,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 1,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 2,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 2,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 2,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 2,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 2,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 3,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 3,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 3,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 3,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 3,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 4,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 4,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 4,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 4,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 4,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 5,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 5,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 5,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 5,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 5,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 6,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 6,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 6,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 6,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 6,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 7,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 7,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 7,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 7,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 7,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 8,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 8,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 8,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 8,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 8,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 9,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 9,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 9,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 9,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 9,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 10,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 10,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 10,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 10,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 10,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 11,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 11,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 11,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 11,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 11,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 12,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 12,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 12,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 12,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 12,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 13,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 13,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 13,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 13,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 13,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 14,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 14,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 14,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 14,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 14,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 0,
+    "cellX": 0,
+    "sourceDirection": 15,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 25,
+    "cellX": 0,
+    "sourceDirection": 15,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 50,
+    "cellX": 0,
+    "sourceDirection": 15,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 75,
+    "cellX": 0,
+    "sourceDirection": 15,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 0,
+    "millis": 100,
+    "cellX": 0,
+    "sourceDirection": 15,
+    "originX": 0
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": false,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 0,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 1,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 2,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 3,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 4,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 5,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 6,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 7,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 8,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 9,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 10,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 11,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 12,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 13,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 14,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 0,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 25,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 1,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 50,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 75,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  },
+  {
+    "channelsBeyondTolerance": 0,
+    "maxChannelError": 0,
+    "mipControl": true,
+    "cellZ": 15,
+    "millis": 100,
+    "cellX": 15,
+    "sourceDirection": 15,
+    "originX": 29999984
+  }
+]

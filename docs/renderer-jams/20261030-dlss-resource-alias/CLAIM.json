@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "owner": "renderer-feature-dlss-input-contract",
+  "jam_id": "renderer-20261030T0108-dlss-image-alias",
+  "status": "released",
+  "started_at": "2026-10-30T01:08:00Z",
+  "expires_at": "2026-10-30T01:40:00Z",
+  "main_observed": "d5078155b33b75e197d5ca162b9c947da00e86c5",
+  "source_blob_expected": "e1cfcb84b7dc9458e04139ceab084c799acc1f34",
+  "scope": [
+    "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssFrame.java",
+    "renderer-vulkan/src/nativeChecks/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssProviderChecks.java",
+    "docs/renderer-jams/20261030-dlss-resource-alias/**"
+  ],
+  "separate_from": [
+    "active renderer-20261030T0059-prefix-resume: LodPublishedBounds.java and docs/renderer-jams/20261030-prefix-resume/**",
+    "engine V8 relief builder",
+    "water",
+    "independent engine auditor"
+  ],
+  "measurement_reservation": "isolated Java21 DLSS Java input-contract unit/negative controls only; no GPU or LOD metrics",
+  "purpose": "Prevent read/write and input resource handle/view collisions before invoking optional NVIDIA NGX Vulkan evaluation; preserve native fallback and full-scene temporal gate.",
+  "full_build": "owner; Java25/Gradle/Minecraft/GPU/JAR not operated",
+  "no_unrelated_files": true,
+  "lease_released": true,
+  "released_at": "2026-10-30T01:14:00Z",
+  "source_commit": "0addab7688686c53863324f72e6e3c840f84e4a0",
+  "source_blob": "d6d0d6a3d3e154d82afc170c0743b250749eb222",
+  "test_blob": "a1da4b5466ac3790ba55131eacd89601d5e1b476",
+  "review": "docs/renderer-jams/20261030-dlss-resource-alias/REVIEW.md",
+  "score": 5.88,
+  "artifact_library_file_id": "libfile_c4546f55a61081918837b812c35c12ef"
+}

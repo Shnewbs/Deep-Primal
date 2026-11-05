@@ -1,0 +1,19 @@
+Full build (expanded command retained in evidence/build-command.json):
+python3 jam4/run_build.py
+
+Frozen output/ownership/max-height/cancellation checks:
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/javac -g -d jam4/direct-classes -sourcepath jam4/project/engine-core/src/main/java jam4/fixtures/BaselineLodMesher.java jam4/fixtures/ReductionBench.java jam4/project/src/coreChecks/java/com/shnewbs/deepprimal/core/lod/{LodScratchChecks,LodReductionChecks,LodPartBoundsChecks}.java
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/java -Xmx512m -cp jam4/direct-classes com.shnewbs.deepprimal.core.lod.LodScratchChecks
+
+Matched component allocation/timing probe:
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/java -Xmx512m -cp jam4/direct-classes com.shnewbs.deepprimal.core.lod.ReductionBench
+
+Final archive/class/resource verification:
+python3 jam4/validate_package.py
+
+After extracting the unique nested Core JAR, packaged actual-class checks:
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/javac -g -cp jam4/packaged-core.jar:jam4/project/build/classes/java/coreChecks -d jam4/direct-classes jam4/PackagedScratch.java
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/java -Xmx512m -cp jam4/packaged-core.jar:jam4/project/build/classes/java/coreChecks:jam4/direct-classes PackagedScratch jam4/packaged-core.jar
+
+Sequential packaged fresh/reopen default-profile sessions:
+python3 jam4/native_smoke.py

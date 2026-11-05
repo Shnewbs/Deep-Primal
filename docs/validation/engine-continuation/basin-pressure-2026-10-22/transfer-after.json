@@ -1,0 +1,18 @@
+{
+  "case": "transfer-after",
+  "mode": "transfer",
+  "suite": "drain-transfer",
+  "trace_enabled": false,
+  "packaged": false,
+  "exit_code": 0,
+  "explicit_pass": true,
+  "records": [
+    "DRAIN_TRANSFER_NATIVE_PASS DRAIN_TRANSFER_OBSERVED turns=3 from=15 to=0 outlet=4 source=11 total=4127 visits=257 maxSlice=128 conserved=true noInterveningLevelStep=true"
+  ],
+  "failures": [],
+  "normal_save": true,
+  "crash_reports": [],
+  "elapsed_seconds": 23.86,
+  "traced_source_sha256": "38795c5ad5f963364b6f973043f1b9fb0c8263a4ab52aa77c8698978f1bb2796",
+  "log_sha256": "db68ae6c23ecc8e3504da0070cb5ce1fd007e2dc8b725a269972d3bc7d297701"
+}

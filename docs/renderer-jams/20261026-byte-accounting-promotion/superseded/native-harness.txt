@@ -1,0 +1,26 @@
+save-all flush => Saving the game (this may take a moment!)
+Saved the game
+
+stop => Stopping the server
+
+save-all flush => Saving the game (this may take a moment!)
+Saved the game
+
+stop => Stopping the server
+
+NATIVE_PROFILE_PASS default
+save-all flush => Saving the game (this may take a moment!)
+Saved the game
+
+stop => Stopping the server
+
+save-all flush => Saving the game (this may take a moment!)
+Saved the game
+
+stop => Stopping the server
+
+Traceback (most recent call last):
+  File "/workspace/scratch/c748d58856d9/qualification/native_smoke.py", line 37, in <module>
+    assert hashlib.sha256(Path(jar).read_bytes()).hexdigest()==a['sha256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

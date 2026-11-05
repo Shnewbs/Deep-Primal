@@ -1,0 +1,263 @@
+{
+  "base": "a1583a508b0d67130d387bc018defd5758acd496",
+  "head": "cd2dc3cbe8065a7e302455923a1d4599648c3c5f",
+  "roots": [
+    [
+      {
+        "path": ".gitignore",
+        "sha": "bc192560b2106b2e62179b2c2917705c884a5c74",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": ".vscode",
+        "sha": "3d72ecc8a965221f05dc2add6e6a36dc55363693",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "ENGINE_CORE_SUMMARY.md",
+        "sha": "1ff24126ff8d76dd751068ac59475338d47ddeb6",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "README.md",
+        "sha": "10ff92c727b0827c049632a8a4e807ab9139d9ea",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "build.gradle",
+        "sha": "3fd248d01b60ae1690430c10caa74b5daa53d203",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "engine-core",
+        "sha": "6b217a520d2707f6bda78d66440e38d8c0018454",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "gradle.properties",
+        "sha": "30853e0d790b1b34b58248818f50d710388340f8",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "gradle",
+        "sha": "1baf30cf580f96464a0de358eaef0f318333bb8d",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "gradlew",
+        "sha": "adff685a0348c64b2b64f0b302f1f82b28eeaaea",
+        "type": "blob",
+        "mode": "100755"
+      },
+      {
+        "path": "gradlew.bat",
+        "sha": "c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "graphics-settings",
+        "sha": "2ff539d5252bf916a16af53edbffacf69305a218",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "gui-themes",
+        "sha": "8881f6a98c5654721971d67deff75c586033a68e",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "lod-engine",
+        "sha": "6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "maritime-1.21.1",
+        "sha": "72006208f45b971396160f050916faaff1819302",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "performance-engine",
+        "sha": "4d93cca2e09acdb132f1a0377d9e10231f5db014",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "renderer-vulkan",
+        "sha": "a781ad176d0f455626d1e6daf191b5dfa6c2dc6c",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "roadmap.md",
+        "sha": "ea7a174154f710f5bbff2d756405b047bb750a77",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "settings.gradle",
+        "sha": "92ab970c19f8beda4b3ecfb89d1eb5b85056ea86",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "src",
+        "sha": "be8a06b1bcf97fac1d051abb638eb419afc83d28",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "standalone-engine",
+        "sha": "1745890a43d4adc0fdb7e239a481955f7ac56a96",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "tools",
+        "sha": "72611fa7cda71295c0cbf3df1edff402c7756f6b",
+        "type": "tree",
+        "mode": "040000"
+      }
+    ],
+    [
+      {
+        "path": ".gitignore",
+        "sha": "bc192560b2106b2e62179b2c2917705c884a5c74",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": ".vscode",
+        "sha": "3d72ecc8a965221f05dc2add6e6a36dc55363693",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "ENGINE_CORE_SUMMARY.md",
+        "sha": "1ff24126ff8d76dd751068ac59475338d47ddeb6",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "README.md",
+        "sha": "10ff92c727b0827c049632a8a4e807ab9139d9ea",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "build.gradle",
+        "sha": "3fd248d01b60ae1690430c10caa74b5daa53d203",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "engine-core",
+        "sha": "6b217a520d2707f6bda78d66440e38d8c0018454",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "gradle.properties",
+        "sha": "30853e0d790b1b34b58248818f50d710388340f8",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "gradle",
+        "sha": "1baf30cf580f96464a0de358eaef0f318333bb8d",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "gradlew",
+        "sha": "adff685a0348c64b2b64f0b302f1f82b28eeaaea",
+        "type": "blob",
+        "mode": "100755"
+      },
+      {
+        "path": "gradlew.bat",
+        "sha": "c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "graphics-settings",
+        "sha": "2ff539d5252bf916a16af53edbffacf69305a218",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "gui-themes",
+        "sha": "8881f6a98c5654721971d67deff75c586033a68e",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "lod-engine",
+        "sha": "6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "maritime-1.21.1",
+        "sha": "72006208f45b971396160f050916faaff1819302",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "performance-engine",
+        "sha": "4d93cca2e09acdb132f1a0377d9e10231f5db014",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "renderer-vulkan",
+        "sha": "a781ad176d0f455626d1e6daf191b5dfa6c2dc6c",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "roadmap.md",
+        "sha": "ea7a174154f710f5bbff2d756405b047bb750a77",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "settings.gradle",
+        "sha": "92ab970c19f8beda4b3ecfb89d1eb5b85056ea86",
+        "type": "blob",
+        "mode": "100644"
+      },
+      {
+        "path": "src",
+        "sha": "be8a06b1bcf97fac1d051abb638eb419afc83d28",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "standalone-engine",
+        "sha": "1745890a43d4adc0fdb7e239a481955f7ac56a96",
+        "type": "tree",
+        "mode": "040000"
+      },
+      {
+        "path": "tools",
+        "sha": "72611fa7cda71295c0cbf3df1edff402c7756f6b",
+        "type": "tree",
+        "mode": "040000"
+      }
+    ]
+  ],
+  "equal": true
+}

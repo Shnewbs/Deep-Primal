@@ -1,0 +1,128 @@
+[
+  {
+    "case": "vulkan-order-flow-packed",
+    "profile": "waves-off-lod-on",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "case": "vulkan-order-flow-packed",
+    "profile": "waves-enabled",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "case": "vulkan-order-flow-packed",
+    "profile": "lod-disabled",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "false",
+      "false",
+      "false"
+    ]
+  },
+  {
+    "case": "vulkan-order-flow-packed-packaged",
+    "profile": "waves-off-lod-on",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "case": "vulkan-order-flow-packed-packaged",
+    "profile": "waves-enabled",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "case": "vulkan-order-flow-packed-packaged",
+    "profile": "lod-disabled",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "false",
+      "false",
+      "false"
+    ]
+  },
+  {
+    "case": "vulkan-reuse-gl-flow-packed",
+    "profile": "waves-off-lod-on",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "case": "vulkan-reuse-gl-flow-packed",
+    "profile": "waves-enabled",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "case": "vulkan-reuse-gl-flow-packed",
+    "profile": "lod-disabled",
+    "wave_bytes": [
+      0,
+      0,
+      0
+    ],
+    "lod_active": [
+      "false",
+      "false",
+      "false"
+    ]
+  }
+]

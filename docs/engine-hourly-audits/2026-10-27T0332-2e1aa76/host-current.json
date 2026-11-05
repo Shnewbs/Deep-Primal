@@ -1,0 +1,1 @@
+{"eligible_cpus":9,"memory_limit":"8589934592","memory_events":"low 0\nhigh 0\nmax 430150\noom 1\noom_kill 1\noom_group_kill 0\n","workload":"sequential one-worker full build attempt and independent functional checks; no timed benchmark"}

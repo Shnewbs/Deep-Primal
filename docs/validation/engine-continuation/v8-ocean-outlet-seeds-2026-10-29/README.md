@@ -1,0 +1,19 @@
+# Dev71 — V8 outlet-seeded priority flood (source-only)
+
+This cycle consumes the latest completed independent source audit at `docs/engine-hourly-audits/2026-10-28T2331-d99837b/REVIEW.md` (pinned `d99837bb76ddfa6fd56cb5f133eb5021dde8c131`); carried historical full grade **50/100, 5.0/10**, unchanged. Current source version `0.0.1-alpha.29-dev.71-v8-outlet-seeds.1`.
+
+## Source changes
+
+* Actual production `WatershedRegion` now accepts an optional deterministic ocean-boundary authority at exact 32-block sea-edge lattice vertices. Under this new explicit caller only, it omits the legacy forced sea elevation for initial flooded heights and downstream boundary-root stages. **Null preserves all legacy V1–V7 and saved V8 routing behavior**. The new caller must be tied to saved world source identity.
+* `V8OceanConnectivity.isMarineSeedAt` distinguishes exact source-bound per-vertex marine admission from legacy four-corner surface material classification. Adds bounded 256-entry component witness cache and retains v3 bounded search for fully enclosed deep basins; the v2/v3 `isMarineAt` path remains unchanged. There are still false-positive risks for inland basins larger than its search budget.
+* `V8RoutedWaterSource` adds *opt-in*, separately domain-fingerprinted route policy **v4** and `authorOutletSeeded` / `outletSeedFingerprint` / saved r5 reopen handling; the same admitted marine-edge seeds now feed its regional sea mask AND the actual production `WatershedRegion` priority-flood constructor. Older routing v1-v3, saved profiles/graphs, chemistry and finite water amounts remain untouched.
+
+## Executed verification
+
+Linux OpenJDK/javac **21.0.12.1**. Portable `run_focused.py` compiled 45 selected source and API-double files, 19 Java21 suites with `javac --release 21 -Xlint:all -Werror`, and executed `java -ea -Xverify:all`: **19/19 suites PASS, 21,012,727 aggregate fixture assertions/checks**. Included new closed deep-basin/nonmarine seed, open corridor seed, signed seam, bounded cache and saved r5 v4 fingerprint/reopen checks. A first failed testing attempt used an unreachable continentalness node in a *test-only* graph; fixed by connecting it through a zero-weight density node, without changing product output. Three independently compiled broken-control variants were correctly rejected under `python3 -OO`: skipping boundary-marine gate, skipping modeled priority-flood seed predicate, trusting a closed lake as a sea seed. Separate logs/receipts and exact source Git blob IDs in `results.json` and portable source-only ZIP.
+
+**Critical exclusions:** Java21 selected production V8 classes compiled with isolated Mojang and `WatershedRegion` API doubles. The actual modified `WatershedRegion.java` was inspected and changed from current Git content, **but not independently compiled**; the modeled lower basin stage is not an actual native stage, lake spill or geography proof. No Java25/full Gradle9.2.1, real Mojang codec, native chunk or saved-world reopen, whole-engine legacy replay, real cross-region discharge, finite-water chemistry conservation, gameplay world seam, OpenGL/Vulkan or CPU/memory benchmark. `tools/test_ecotone_blend.py` was not rerun (component unchanged). No JAR produced or published per October 27 owner instruction.
+
+## Next gates
+
+Implement authoritative saved global ocean-outlet topology, cross-region priority-flood receiver/flow area and lake spill/discharge conservation rather than bounded wet-area heuristics; verify actual WatershedRegion Java25 full/native parity across signed watershed and chunk borders and real saved profile reopen. Continue water quantity/constituent loaded/unloaded transaction and owner-side Vulkan/OpenGL visual latency checks. No legacy save conversion or native V8 registration is authorized by this source-only checkpoint.

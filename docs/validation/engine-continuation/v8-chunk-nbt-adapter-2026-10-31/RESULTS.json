@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.119-native-nbt-stamp.1",
+  "source": "src/main/java/com/shnewbs/deepprimal/engine/V8ChunkGenerationNbtAdapter.java",
+  "production_git_blob": "1c2f6b5b2fcebc337e88344298cd239e4ca33782",
+  "production_sha256": "38bc6a9dcc9f4bbc66fea65997735813469e8bde233bbfb19f1b435ca1ba6e47",
+  "test_git_blob": "70c138860d978ffd62ef9bb71a45d20c7cfc69e3",
+  "runner_git_blob": "ce00e1ed9396661046058ad569be26c66eb744fc",
+  "toolchain": "OpenJDK 21.0.12.1; javac --release 21 -Xlint:all -Werror; java -ea -Xverify:all",
+  "local_mode": "exact production adapter + isolated NBT and core API doubles",
+  "runs": [
+    {
+      "mode": "python3",
+      "positive_processes": 2,
+      "assertions_each": 84706,
+      "mutant_rejected": true
+    },
+    {
+      "mode": "python3 -OO",
+      "positive_processes": 2,
+      "assertions_each": 84706,
+      "mutant_rejected": true
+    }
+  ],
+  "total_positive_assertions": 338824,
+  "mutants_rejected": 2,
+  "note": "Runner can compile actual three production core classes when invoked from a complete checkout; that mode was not run in this isolated workspace.",
+  "passed": true,
+  "full_gradle": false,
+  "java25": false,
+  "native_minecraft": false,
+  "native_nbt_serialization": false,
+  "real_chunk_commit": false,
+  "save_reopen": false,
+  "gpu": false,
+  "qualified_jar": false,
+  "audit": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
+  "audit_source": "c57d2924562a7dd35eed007a164205953bb13061",
+  "last_independent_full_grade": "50/100 carried October 24 baseline",
+  "local_jar_requested": true,
+  "local_build_attempt": {
+    "git_ls_remote": "failed: Could not resolve host github.com",
+    "complete_checkout": false,
+    "available_jdk": "OpenJDK 21.0.12.1",
+    "java25_present": false,
+    "gradle_build_executed": false,
+    "jar_produced": false
+  }
+}

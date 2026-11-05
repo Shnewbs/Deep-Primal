@@ -1,0 +1,1 @@
+package com.shnewbs.deepprimal.lod; public class LodModule { public static final Log LOGGER=new Log(); public static class Log { public void warn(String s,Throwable t){throw new AssertionError(s,t);} } }

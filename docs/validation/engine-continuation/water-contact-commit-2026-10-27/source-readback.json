@@ -1,0 +1,202 @@
+{
+  "pass": true,
+  "source_sha": "66c0bde251278f31a45f4965f5cc4dc2a79852fe",
+  "files": [
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks/ContactChecks.java",
+      "sha": "5b756e62f87056ea27988dfe591a80cb4e128922"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks/ContactCommitChecks.java",
+      "sha": "71faae756f1e6ad1d3a44295cb63d9afc7329aa4"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks/ContactNativeChecks.java",
+      "sha": "b1f523ca6add623934aa65f37d7b0f30ef52c680"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks/ContactUnloadChecks.java",
+      "sha": "2b088603d16f2a113a712e6271c51317b1079fd7"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks/StreamIndexNativeChecks.java",
+      "sha": "0cc273ef7fe1875d83aa24489219610cb0cf85d2"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks/WaterContactBudgetChecks.java",
+      "sha": "5d448cf3306135c57c1674ecc68c84dfc78fca2a"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/ContactChecks.log",
+      "sha": "b7b4fee33c6bd4b7f00ea0f3aeba5cfc68ac1614"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/ContactCommitChecks.log",
+      "sha": "e3a29b052fe5b74a208e38d37589f9a5e098628c"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/ContactUnloadChecks.log",
+      "sha": "a47604f827c5db95c5db8e1cc020a369ce42c06d"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/README.md",
+      "sha": "51b81d2c5bbdc0d96d841b85e3eb7fe9f305b939"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/WaterContactBudgetChecks.log",
+      "sha": "98981055a19c500f63b50ad55829a2080f01a15a"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/api-compile-final.log",
+      "sha": "b62eafded24aa085912b55874b9142b94514dd94"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/api-compile.log",
+      "sha": "b62eafded24aa085912b55874b9142b94514dd94"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/api-inputs.json",
+      "sha": "80040cdabe55cd32672d10a497039e5abfd1c177"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/api_compile.py",
+      "sha": "319065c1814d227bac7237434f0e4806779b8a38"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/capacity-probe.json",
+      "sha": "1a803656c175715aed37918b392b278997185ccf"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/checks.json",
+      "sha": "eb693d0924e0dfa070f6aaf79a027b022cd44d48"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/core-source-snapshot.json",
+      "sha": "1ede39913dfc057049145fd52371ba0023622837"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/diagnostic-package.json",
+      "sha": "5902e3f421cc6202533502e8c124418702f48c3d"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/double-compile.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/extracted-contact-commit.txt",
+      "sha": "2cd5d16e25530e94dbc7db2c5583750cf21637b7"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/fresh-native-marker.txt",
+      "sha": "b5f736927adb8b6daf80712c54a00186b6ac476c"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/fresh-native-result.json",
+      "sha": "da290a90115ef2b26641e84c68079d235ef92291"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/fresh-native.log",
+      "sha": "814b0ab6e6fcaa7395965c0f11b181a14139fa4e"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/full-core-compile.log",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/full-core-result.json",
+      "sha": "c65e5a0cc076f97079e73ee17391b95d0a8e7694"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/full-core.log",
+      "sha": "c5efb5f88cdeca94a651016a61e2eb45ce324b80"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/late-core-sources.json",
+      "sha": "3c1a8b32edb4db645e0c9ef9fc8128474ea1b1ca"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/make_fixture.py",
+      "sha": "ec7208e2863dc97a2d9336911ac6a7022fbd84f1"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/native-assembly.json",
+      "sha": "3f97eb0d7fe0722d2cdb80c7a7b14063c6e08eea"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/negative-volume-guard.log",
+      "sha": "3e6078d8479603e951ae4dd58af0242f0211351f"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/physical-methods.json",
+      "sha": "c42b79e19c3579414e8152c8e5907797a4788897"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/prepare_native.py",
+      "sha": "a798b5cc7ec99f7447fbf1a9ac94f101c8313e86"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/reopen-native-marker.txt",
+      "sha": "7b9f885b29bde658aeb957e7fd9e55d129715942"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/reopen-native-result.json",
+      "sha": "1234ee198a73ddf3f771082d1c07891eb6c0ed87"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/reopen-native.log",
+      "sha": "75eb8e78129551dcbeedc6837fc9e717cab33fc3"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/run_core.py",
+      "sha": "dbf2f32fe23ab93e157073c21e13220c2cc27eb4"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/run_native.py",
+      "sha": "10edb9c3a2e867c3edeb6ae110a36cc2ff19072f"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/saved-index-quantities.txt",
+      "sha": "8f474efa86c6868ec1e96e086f4efe4ff3c6a28c"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/serverLog4j2.xml",
+      "sha": "0e0e8d138bc8d0521212a650778b6d5b26d2c4b2"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/split-modules.json",
+      "sha": "afdecd5bffcd5a23a791063f424e456440debe71"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/split_native.py",
+      "sha": "bc33c940353ffe3b8505eae8000f7918d9ce4b78"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/unload-before.log",
+      "sha": "aa8d088a61e7ff2a30da1d23853568283c8238f3"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/HydrologyRuntime.java",
+      "sha": "ea2158a616261f9b50e96b18b1fb9667aa9c35be"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/StreamSourceIndex.java",
+      "sha": "dc463744cd1d7c6e25ac01f73d620ff3eb5cb29e"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/WaterAccount.java",
+      "sha": "e0c318f06049495700d977bb1c3b17be9d2489c5"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/WaterContactBudget.java",
+      "sha": "d49a89126f80da81c555f9582c1d08e34c892024"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/WaterContactRuntime.java",
+      "sha": "290f16c85bded7489ad635929aec4df40998a3af"
+    },
+    {
+      "path": "docs/validation/engine-continuation/water-contact-commit-2026-10-27/stage/WaterRuntime.java",
+      "sha": "5fc50e7af868769009a6624755893fdf6ed72535"
+    }
+  ]
+}

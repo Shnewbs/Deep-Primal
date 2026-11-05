@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "jam": "20261028-disk-cursor",
+  "owner": "renderer-hourly-20261028T0558",
+  "status": "checkpointed",
+  "started_at": "2026-10-28T05:58:19Z",
+  "updated_at": "2026-10-28T06:15:50Z",
+  "active_until": "2026-10-28T06:15:50Z",
+  "released_at": "2026-10-28T06:15:50Z",
+  "parent_sha": "d96fd950de3fd61ff0c66a9fa27ab5e51d8e6147",
+  "source_commit": "004a436c7ba01b4662eb25299009b8c41ab9d075",
+  "source_scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261028-disk-cursor/"
+  ],
+  "consumed_independent_audit": "docs/engine-hourly-audits/2026-10-28T0530-4cf0f1b/REVIEW.md",
+  "last_renderer_self_audit": "docs/renderer-jams/20261028-disk-nearest/REVIEW.md",
+  "reserved_measurement": false,
+  "other_scopes_excluded": [
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/WATER-ENGINE-WORK-STATE.json",
+    "src/main/java/com/shnewbs/deepprimal/engine/",
+    "renderer-vulkan/",
+    "graphics-settings/"
+  ],
+  "qualified_jar_produced": false,
+  "release_policy": "owner builds; source-only Java21/Java25 focused tests",
+  "next": "Owner native world reopen/travel/edit, GPU frame and water coverage gates"
+}

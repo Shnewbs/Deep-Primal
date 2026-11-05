@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LGL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "tfc:wood/lumber/ash"
+    },
+    "G": {
+      "item": "tfc:wrought_iron_grill"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/ash/smoke_shack"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "owner": "hourly-engine-builder",
+  "run": "20261029T1800-relief-v5",
+  "status": "checkpointed",
+  "started_at": "2026-10-30T01:05:44Z",
+  "expires_at": "2026-10-30T01:32:00Z",
+  "source_head_observed": "365fd29de436a922946349f193b03204697564c8",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/TerrainShapeV8.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8GeneratorSnapshot.java",
+    "tools/tests/V8ReliefV5JoinChecks.java",
+    "tools/test_v8_relief_v5.py",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-relief-v5-2026-10-29/**"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-29T2330-655ab648/REVIEW.md",
+  "audit_source": "655ab648212c3d378d638ea0a99ca1c42f2bf4ec",
+  "scope_reason": "Independent audit's native outlet gaps remain open after dev91 witness API. Nonoverlapping explicit V8 relief-v5 graph joins and signed coast preservation are requested alongside water; no renderer or finite-water runtime files.",
+  "measurement_reservation": "none; bounded offline Java21 component check only",
+  "full_build_owner": "user",
+  "acceptance_complete": false,
+  "lease_released": true,
+  "ended_at": "2026-10-30T01:16:00Z",
+  "implementation_commit": "a5aee4c694559d2a9ed7d866917105cce7072976",
+  "evidence": "docs/validation/engine-continuation/v8-relief-v5-2026-10-29/README.md",
+  "verification": "4 passing Java21 component processes, 850940 executed assertions, 4/4 compiled mutant rejects; real core/native/GPU not executed",
+  "last_external_grade": 5,
+  "next": "Native V8 relief-5 old/new border and real core graph acceptance; native outlet world-ledger once-only transfer coupling"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R",
+    "R",
+    "R"
+  ],
+  "key": {
+    "R": {
+      "item": "tfc:metal/rod/cast_iron"
+    }
+  },
+  "result": {
+    "count": 3,
+    "id": "tfc_item_barrels_and_more:cast_iron_axle"
+  }
+}

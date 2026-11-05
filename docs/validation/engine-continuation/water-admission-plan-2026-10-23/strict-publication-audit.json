@@ -1,0 +1,45 @@
+{
+  "pass": true,
+  "baseline_historical": true,
+  "sessions": [
+    {
+      "case": "vulkan-corners-shared-final-admission",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-corners-shared-final-admission-packaged-verified",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-admission",
+      "baseline": false,
+      "pass": true,
+      "reproduction_verified": false,
+      "cases": 16,
+      "readbacks": 64,
+      "different_bytes": 0,
+      "raw_bytes": 184320,
+      "raw_sha256": "d911ef57f5ec87496f4ce227701518afbcc2d7993a7c25798046cdba41a40952",
+      "new_crashes": 0,
+      "normal_save_shutdown": true
+    }
+  ]
+}

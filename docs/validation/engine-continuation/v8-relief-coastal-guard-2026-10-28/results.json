@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.61-coastal-relief-guard.1",
+  "implementation_commit": "0c0e97d7c8194962dd8d273135b05de64dfd5956",
+  "audit_pinned_commit": "7b854edd9c32c8d20d621495d4a935a5e6418946",
+  "auditor_report": "docs/engine-hourly-audits/2026-10-28T1830-7b854ed/REVIEW.md",
+  "environment": "OpenJDK/javac 21.0.12.1, source-only isolated API doubles; --release 21 -Xlint:all -Werror and -ea -Xverify:all",
+  "suite_count": 13,
+  "tests": {
+    "DensityNativeBaseHeightChecks": 874642,
+    "DensityNativeSectionBridgeChecks": 11047019,
+    "DensityPlannedGroundChecks": 1235414,
+    "EcotoneSurfaceFieldChecks": 297752,
+    "V8BlendPolicyChecks": 53316,
+    "V8EcotoneNativeChecks": 27748,
+    "V8EcotonePrewriteQueryChecks": 26128,
+    "V8GeneratorSnapshotChecks": 594901,
+    "V8ReliefV2Checks": 262265,
+    "V8ReliefV3CoastalChecks": 2583320,
+    "V8SnapshotRootFieldChecks": 14392,
+    "V8SnowPreflightChecks": 516,
+    "V8SurfacePolicyChecks": 5235
+  },
+  "total_assertions": 17022648,
+  "coast_survey": {
+    "seeds": [
+      0,
+      73,
+      -20261028,
+      "Long.MIN_VALUE+37"
+    ],
+    "world_coordinate_columns": 148996,
+    "nearshore": 91956,
+    "old_v2_flips": 3611,
+    "new_v3_flips": 0,
+    "transition": 20678,
+    "full_v2_parity_inland": 4018,
+    "maximum_adjacent_delta": 4.438454164713136
+  },
+  "historical_v1_v2_graph_digests_match": true,
+  "mutant_built": true,
+  "mutant_failed": true,
+  "source_git_blobs": {
+    "TerrainShapeV8": "7c518f9dbef345fa74051356aad4fbd52fda4834",
+    "V8GeneratorSnapshot": "bd5c211fc05c36db1741b28c75df04c0a7bd9583",
+    "V8ReliefV3CoastalChecks": "66eb1f315f9ce9bbf7f756deafaa402cfa294464"
+  },
+  "zip": {
+    "name": "DeepPrimal_Dev61_V8_CoastalRelief_SourceEvidence.zip",
+    "size_bytes": 95727,
+    "sha256": "cb93a17fdfa6ac45bc23b4c3f38939e365b5256fd17f790f30845050b41915f9",
+    "crc_entries": 69
+  },
+  "full_gradle": "not run: owner operated",
+  "java25": "not present",
+  "native_minecraft": "not run",
+  "real_mojang_save_reopen": "not run",
+  "vulkan_opengl_gpu": "not run",
+  "water_accounting": "not run",
+  "independent_grade": "50/100 carried, not regraded"
+}

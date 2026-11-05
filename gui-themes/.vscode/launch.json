@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - DeepPrimal-Themes",
+        "order": 0
+      },
+      "projectName": "DeepPrimal-Themes",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\ProArt\\.copilot\\repos\\Deep-Primal\\gui-themes\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\ProArt\\.copilot\\repos\\Deep-Primal\\gui-themes\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003ddeepprimal_themes%%C:\\Users\\ProArt\\.copilot\\repos\\Deep-Primal\\gui-themes\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}

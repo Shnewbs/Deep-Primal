@@ -1,0 +1,10 @@
+{
+  "expected_failure_control": true,
+  "candidate_pass": false,
+  "explicit_marker": "WATER_RECEIVER_EXPECTED_REPRO failures=4",
+  "exit": 0,
+  "jar": "/workspace/scratch/a22609fabda0/builder0731/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.27-vulkan-windows.jar",
+  "sha256": "6f7fdf17717b2557c5f905e02bca87e5c809e463d56a5e66f130d30657dc481f",
+  "saved_flush_acknowledged": true,
+  "clean_shutdown": true
+}

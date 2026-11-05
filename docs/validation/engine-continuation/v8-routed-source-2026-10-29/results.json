@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "source_baseline": "aed6bb2d7db0c7002355ef9ad57ecdd44aa94c9c",
+  "scoped_lease_commit": "751aa46c3a3e23fc793cfd287e9aca6fcfc9ae9c",
+  "candidate_version": "0.0.1-alpha.29-dev.68-v8-routed-regions.1",
+  "focused_suites": 18,
+  "assertions": 21012488,
+  "new_suite_assertions": 4798,
+  "positive": true,
+  "compiled_negative_controls_rejected": 2,
+  "java": "OpenJDK 21.0.12.1",
+  "real_watershed_executed": false,
+  "api_doubles": true,
+  "real_minecraft": false,
+  "java25": false,
+  "full_gradle": false,
+  "gpu": false,
+  "artifact_bytes": 126904,
+  "artifact_sha256": "f0ce6a13637855aa19df3991f09a6e8e265ead5c9df28e144a0b23fcc0c8f161",
+  "source_sha256": "20d8ed625e87146ab4626a2bdb63ba57711969aff92d6385d6d2fc11ca3d3a3c",
+  "test_sha256": "2d25a2538be69e83c16fc6985116d6e12dff8d37069523d63ab7ec196dccfbe1"
+}

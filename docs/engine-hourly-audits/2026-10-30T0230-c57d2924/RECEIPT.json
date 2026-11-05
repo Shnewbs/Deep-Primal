@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "run": "2026-10-30T0230-c57d2924",
+  "role": "independent-auditor",
+  "pinned_source_sha": "c57d2924562a7dd35eed007a164205953bb13061",
+  "version": "0.0.1-alpha.29-dev.93-relief-core-gate.1",
+  "source_changes_by_auditor": 0,
+  "grade_type": "carried October24 ten-category baseline, not a fresh regrade",
+  "scores": [
+    5,
+    4,
+    6,
+    4,
+    3,
+    7,
+    6,
+    4,
+    7,
+    4
+  ],
+  "total": 50,
+  "mean": 5,
+  "target_strictly_greater_than": 8.5,
+  "target_met": false,
+  "host": "Linux x86_64 isolated auditor",
+  "jdk25": "Temurin 25.0.5+8",
+  "jdk21": "OpenJDK 21.0.12.1",
+  "checks": {
+    "static_dev93_wiring": {
+      "passed": 12,
+      "total": 12
+    },
+    "frozen_v5_relief_oracle": {
+      "java25": 2419907,
+      "java21": 2419907,
+      "mutants_rejected": 6
+    },
+    "renderer_dlss_packet": {
+      "java25": 600004,
+      "java21": 300002,
+      "mutants_rejected": 1
+    },
+    "executed_assertions_total": 5739820,
+    "mutants_rejected_total": 7
+  },
+  "new_dev93_real_densitygraph_vm_executed": false,
+  "full_gradle": false,
+  "qualified_jar": false,
+  "platform_package_checked": false,
+  "native_minecraft": false,
+  "windows_gpu": false,
+  "changes_since_last_audit": [
+    "Dev93 pre-save graph compile and mandatory test wiring",
+    "Renderer jam47 session-owned reused JNI packets"
+  ],
+  "blockers": [
+    "Owner Oct27 override handles complete builds",
+    "Full isolated git checkout blocked by github.com DNS",
+    "Native, full Gradle and Windows GPU unrun"
+  ],
+  "evidence_library_path": "/Deep Primal/Independent Audits/DeepPrimal_Dev93_IndependentAudit_20261030T0230_c57d2924_Java25Evidence.zip",
+  "evidence_bytes": 15708,
+  "evidence_sha256": "6dfbf100a70509f160454a967b7b418dc199dc45d8c3a937079233ca95238610",
+  "flags": {
+    "builder_lease_touched": false,
+    "renderer_checkout_touched": false,
+    "staged_r57_r60_r61_promoted": false
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "initial_ordinary_frame_runtime_class_sha256": "9fbece132e87a66c4fc3ea213797e126afdf163cefb9b8485b18e36716047624",
+  "initial_variant_description": "Initial frame runs preceded addition of windowFocused/effectiveFpsLimit metadata. Source reconstructed by removing that single line; original compiled bytes not retained. Full runtime hash is in each capture JSON.",
+  "current_class_sha256": "a94a956bda1e8ea6c04d01ac19e7442d5a75a0a763ee85d239d29544e5c07006",
+  "deadline_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7"
+}

@@ -1,0 +1,29 @@
+{
+  "owner": "renderer-20261026-lod-reduction",
+  "status": "completed",
+  "active_until": null,
+  "released_at": "2026-10-26T15:03:24.194Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodReductionChecks.java",
+    "docs/renderer-jams/20261026-lod-reduction"
+  ],
+  "runtime_source_sha": "5a2131a6309aaf5de6377bef57f433f8f624ef7b",
+  "build_execution_source_sha": "3b1de33ebc3e09d9528bfe3f0ff972518579eb1a",
+  "build_inputs_identical_proof": "evidence/rebase-build-input-identity.json",
+  "version": "0.0.1-alpha.29-dev.30-renderer.3",
+  "library_file_id": "libfile_abf1214694f48191a9de1ec96dd4632b",
+  "sha256": "9fcca4f2693c0e509440708cbd7133ed647b71d3287ae43d25e6f9e665086375",
+  "size": 125294519,
+  "scores": [
+    4,
+    5,
+    4,
+    0,
+    4,
+    4
+  ],
+  "average": 3.5,
+  "delta": 0,
+  "next": "Controlled named-device frame/culling baselines and mixed CPU-tail investigation"
+}

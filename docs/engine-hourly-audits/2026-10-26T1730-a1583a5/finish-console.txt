@@ -1,0 +1,6 @@
+GATE_PASS validate_package.py.log
+GATE_PASS packaged_regressions.py.log
+GATE_PASS source-excerpts.py.log
+GATE_PASS SplitAdmissionChecks.txt
+GATE_PASS lod.LodPartBoundsChecks.txt
+{"pass": false, "source_sha": "a1583a508b0d67130d387bc018defd5758acd496", "error": "precipitation-fresh-harness.txt exit 1", "traceback": "Traceback (most recent call last):\n  File \"/workspace/scratch/a2f7076b7762/audit-a1583a5-20261026T1730/finish_gates.py\", line 14, in <module>\n    for mode in ['fresh','reopen']:run(['python3',str(r/'precipitation-native/run_native.py'),mode,jar],'precipitation-'+mode+'-harness.txt')\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/scratch/a2f7076b7762/audit-a1583a5-20261026T1730/finish_gates.py\", line 6, in run\n    if rc:raise RuntimeError(log+' exit '+str(rc))\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: precipitation-fresh-harness.txt exit 1\n"}

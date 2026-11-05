@@ -1,0 +1,37 @@
+[
+  {
+    "nested_path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "standalone": "engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "sha256": "c1fb89e0ef02ff38ee6c15603f98815bee4204c85d5a20763bd54a788024646d",
+    "bytes": 102664,
+    "identical": true
+  },
+  {
+    "nested_path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "standalone": "graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "sha256": "2be9ea29f23546c72efeeb39c68fa7d0ede577c26ff69f4d419685b4e2d81789",
+    "bytes": 89608,
+    "identical": true
+  },
+  {
+    "nested_path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "standalone": "lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "sha256": "fca58acd406a46d72be01cb36f2b639bcb54d7a3515fa680ae9aeea91f210a2b",
+    "bytes": 42354,
+    "identical": true
+  },
+  {
+    "nested_path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "standalone": "performance-engine/build/libs/DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "sha256": "d8753a0d957efe0549380a07bf0e4ba80f2142839974e728b2be682870c1a622",
+    "bytes": 19660,
+    "identical": true
+  },
+  {
+    "nested_path": "META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "standalone": "renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+    "sha256": "2bedfa7d34947e355c83b8672669bcf4f0bbe360402952f1ec85a25781176d81",
+    "bytes": 12818196,
+    "identical": true
+  }
+]

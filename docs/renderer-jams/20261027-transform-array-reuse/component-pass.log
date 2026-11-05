@@ -1,0 +1,3 @@
+Java 25.0.5+8 javac --release 25: PASS
+Java -Xverify:all: PASS
+REUSABLE_TRANSFORM_ARRAYS_PASS checks=320014 baselineTransformArrays=20000 candidateTransformArrays=2 allocationDelta=19998 gpuTimingClaim=false

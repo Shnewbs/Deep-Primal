@@ -1,0 +1,5 @@
+{
+  "matched": 862,
+  "mismatch": [],
+  "inherited_proof": "qualification/evidence/source-identity.json and rebase-input-identity.json; current main non-doc root equality; five intended candidate source rows"
+}

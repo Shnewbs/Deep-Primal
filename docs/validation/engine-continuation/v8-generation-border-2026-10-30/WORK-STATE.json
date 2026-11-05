@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "worker": "hourly-engine-builder-20261031T0003-v8-border-admission",
+  "status": "checkpointed",
+  "started_at": "2026-10-31T00:03:00Z",
+  "updated_at": "2026-10-31T00:16:00Z",
+  "active_until": "2026-10-31T00:35:00Z",
+  "base_ref": "57da04b967a034159338e74ea31ae3b87a47e066",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/V8GenerationBorderAdmission.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
+    "tools/tests/V8GenerationBorderAdmissionChecks.java",
+    "tools/test_v8_generation_border_admission.py",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-generation-border-2026-10-30/**"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
+  "audit_pinned_source": "c57d2924562a7dd35eed007a164205953bb13061",
+  "coordination": "Current main 57da04b; renderer recent commits and no overlap in scoped files. Terrain scoped lease released; foreground water scoped lease expired. Root state Dev53 stale; pinned validator unavailable without full checkout, no root claim. No timing reservations observed in inspected scoped state; other-chat runtime unavailable.",
+  "owner_full_builds": true,
+  "acceptance_complete": false,
+  "lease_released": true,
+  "ended_at": "2026-10-31T00:16:00Z",
+  "completed_version": "0.0.1-alpha.29-dev.116-border-admission.1",
+  "source_commit": "54ddb9ed4ca061b0a7c38e6b5a6819ffd59fe7ae",
+  "evidence": "docs/validation/engine-continuation/v8-generation-border-2026-10-30/README.md",
+  "validation": "Java21 exact production helper 8102 assertions normal and Python -OO (16204 total), 2/2 compiled broken controls rejected. Post-commit static native adapter anchors 2/2 and explicit legacy version gates 2/2. No full native materializer compile, Java25, Gradle or GPU.",
+  "next_action": "Persist authoritative per-chunk generation revision/profile identity and provide fresh four-neighbor observations at native new-generation boundary; test native signed seams and old/new profile transitions; real V5/V7 DensityGraph VM; water authority and conservation."
+}

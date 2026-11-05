@@ -1,0 +1,34 @@
+{
+  "jam_id": "renderer-20261030T0357-dlss-temporal-contract",
+  "status": "source_committed_read_only_self_audited_claim_released",
+  "source_parent": "9107f0f316a81adf76f8acbf3285e5bf1a676077",
+  "final_source_commit": "f2dcef9011824c6a4097c433ed8c1c44e7071a81",
+  "tests": [
+    "javac -Xlint:all -Werror -d <tmp>/out DlssTemporalContract.java DlssFrame.java Test.java",
+    "java -cp <tmp>/out Test -> PASS"
+  ],
+  "unrun": [
+    "Java25/full Gradle/NeoForge",
+    "production JNI/NGX build",
+    "Vulkan/OpenGL client",
+    "GPU frame p50/p95/p99 and VRAM",
+    "water pixels/reload/resize/world-switch/save/reopen/shutdown",
+    "playable JAR/package CRC"
+  ],
+  "scores": {
+    "distance_lod": 6.8,
+    "mesh_scheduling": 6.95,
+    "gpu_submission_memory": 4.55,
+    "actual_fsr_dlss": 5,
+    "visual_backend_settings": 5.3,
+    "validation_measured_performance": 6.65,
+    "mean": 5.88,
+    "previous_mean": 5.88,
+    "change": 0
+  },
+  "artifact": {
+    "type": "none",
+    "reason": "owner override says do not block on JAR/publication; source-only jam"
+  },
+  "lease_released": true
+}

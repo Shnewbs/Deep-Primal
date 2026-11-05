@@ -1,0 +1,41 @@
+{
+  "source_sha": "e061ee22ce0c8111f5818e6cc2b4219a21671e99",
+  "artifact": "/workspace/scratch/1a7cb29b04a2/audit-e061ee2-20261025T0949/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar",
+  "sha256": "1e95a80a8d4d7a0b17c814b944de2d581e505e8869d1b8acc01d38c3830df14c",
+  "size": 125150810,
+  "archives": [
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar",
+      "entries": 506
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2.jar",
+      "entries": 115
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2.jar",
+      "entries": 57
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2.jar",
+      "entries": 31
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2.jar",
+      "entries": 24
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2.jar",
+      "entries": 2873
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.3-audit-20261025T0949-e061ee2-windows.jar",
+      "entries": 4293
+    }
+  ],
+  "product_class_matches": 540,
+  "independent_core_matches": 107,
+  "private_leaks": [],
+  "class_mismatches": [],
+  "windows_execution": false
+}

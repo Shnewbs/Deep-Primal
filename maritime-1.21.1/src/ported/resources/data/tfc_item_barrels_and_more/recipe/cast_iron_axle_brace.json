@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "R R",
+    "   "
+  ],
+  "key": {
+    "R": {
+      "item": "tfc:metal/rod/cast_iron"
+    },
+    "S": {
+      "item": "tfc:metal/sheet/cast_iron"
+    }
+  },
+  "result": {
+    "count": 2,
+    "id": "tfc_item_barrels_and_more:cast_iron_axle_brace"
+  }
+}

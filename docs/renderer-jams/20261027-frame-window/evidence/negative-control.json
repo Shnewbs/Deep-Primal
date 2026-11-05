@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "mutation": "world-identity invalidation removed from private control only",
+  "expected_rejection": true,
+  "results": [
+    {
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/javac",
+        "-g",
+        "-d",
+        "/dev/shm/dp-renderer-frame-window-c748d588/negative-control/classes",
+        "/workspace/scratch/c748d58856d9/renderer-work/engine-core/src/main/java/com/shnewbs/deepprimal/core/RollingTiming.java",
+        "/dev/shm/dp-renderer-frame-window-c748d588/negative-control/FrameIntervalWindow.java",
+        "/dev/shm/dp-renderer-frame-window-c748d588/checks/FrameIntervalChecks.java"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xverify:all",
+        "-cp",
+        "/dev/shm/dp-renderer-frame-window-c748d588/negative-control/classes",
+        "com.shnewbs.deepprimal.core.FrameIntervalChecks"
+      ],
+      "exit": 1
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-10-22T14:37:16.886334+00:00",
+  "production_runtime_changed": false,
+  "native_rerun": false,
+  "base_commit": "2c431bb9a4cb922dae5b441c29676ad9d9a6bc5a",
+  "patch_apply_check": "Both patches apply in sequence to verified production base; resulting bytes exactly match candidate source",
+  "files": {
+    "README.md": "fb80cec4bfaca50e4ed009bdd1420607e84c167f66fe2274a8d380250fbf9d56",
+    "staged-WaterRuntime.java": "7fef33cd462b0d67dde73c12aa167e905705f9b0cb585a73cf764093bb19aae6",
+    "unaccepted-drain-experiment.patch": "5a283c214b4300eea65ea5b46d0d39c387a3aa15df1780d193a64ceceb378074",
+    "deferred-drain-load-candidate.patch": "3380f3c598c76b83130181f412ea9f11dee5d73b45edcaf0b01941e1899939da",
+    "ClosedWaterChecks.java": "f3357be3ca2a1675531903932c0a0c836223bbdbe6e56491b47a4e19b592f31c",
+    "prepare_deferred_patch.py": "f768fa09990d540ca35b5020d58acf7bb30a37a220e6918ab076787f3a292f4a",
+    "check_deferred_load.py": "8503cc8a86d5c9862f06038f7ac8b97a5de6e86cace8987c1a26759f80bb34c7",
+    "inspect_closed_save.py": "71d2050bffc033c059e2020d1e1758c2702d761d0a132ea3817f341c8c7e7f1c",
+    "saved-state-evidence.json": "b895720e0ed7d7a59ba6c1a0e0bf14b33269416c4a7fc5faee7cc846d516c000",
+    "final-drain-matrix.json": "9f526efba13d3fca269d6d8fc6873345c91f81b7c75e24b734911e41a3c6501c",
+    "prior-native-reload-excerpt.txt": "22f0c3df7df342c67cf709143f2f0ef1462075bb77a11955ace4b69904631b48",
+    "lifecycle-results.json": "6890e894e85189726d5aed4b47bc5d92d3fc80160ac9b8367154f92f84a3f384",
+    "environment.json": "295f3ffefca3a4bb7fa35358d67aefb69de7cdb3747fc6809116759ac774f5c3",
+    "basin-after-a.json": "cde71bd079971b06e7cadb4c368e764b3c72be211ec8ddab3dc3d5a601aa3bc3",
+    "wet-prefix-basin-probe.json": "9341fe74734d468e4f56726bd4dcbb4fae2fa0610520bf1e9867b6e79a76f4e3",
+    "basin-base-a.json": "86e6d9060787e3550204a301531ebf636f1cd3feea471908bb9042a98ff5e1d4"
+  }
+}

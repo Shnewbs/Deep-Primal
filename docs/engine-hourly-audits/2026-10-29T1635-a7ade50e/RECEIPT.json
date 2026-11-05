@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "run": "2026-10-29T1635-a7ade50e",
+  "pinned_sha": "a7ade50ea8aac1458db8f2d6b1461e16967bc00d",
+  "mod_version": "0.0.1-alpha.29-dev.82-routed-forest.1",
+  "source_commit_engine": "937de781cc4479ce7392c91d8fd59e08384cf225",
+  "source_commit_renderer": "c876db37e6e5e772497551d1da98e79232b297dc",
+  "newer_source_unreviewed": "e9d9a5db536dc24105fc44849614388b6ed155ba",
+  "source_blobs": {
+    "watershed_bridge": "46fdfaaeea3e741260c77c1001d56041d6ff2c2c",
+    "lod_bounds": "e8b289266fb33ed2b10e22acae0ab6bd8d3f893b",
+    "lod_runs": "eea4bb00d9652796426fcc7a966bd6bb002dc6aa",
+    "committed_smoke": "71ad5017d7d99a245acbe2eaffb4b2f8fabb40f1"
+  },
+  "host": "Linux x86_64 OpenJDK21.0.12.1",
+  "java25": "absent_this_run",
+  "independent_test": {
+    "renderer_compilation": "strict_pass",
+    "renderer_positive_runs": 12,
+    "renderer_assertions": 6606201,
+    "old_mutable_negative": "expected_failure",
+    "dev82_model_graphs": 65000,
+    "dev82_model_assertions": 130004,
+    "full_production_bridge_compilation": "not_run"
+  },
+  "grade": {
+    "kind": "carried_not_regraded",
+    "scores": [
+      5,
+      4,
+      6,
+      4,
+      3,
+      7,
+      6,
+      4,
+      7,
+      4
+    ],
+    "total": 50,
+    "average": 5,
+    "threshold_met": false
+  },
+  "artifact": {
+    "name": "DeepPrimal_Dev82_IndependentAudit_20261029T1635_a7ade50e_SourceEvidence.zip",
+    "size_bytes": 15255,
+    "sha256": "6066c08835888593d7303fb4c33041790fc1b02204dde1f12d617be2c3bc2851",
+    "library_path": "/Deep Primal/Independent Audits/DeepPrimal_Dev82_IndependentAudit_20261029T1635_a7ade50e_SourceEvidence.zip",
+    "qualified_jar": false
+  },
+  "omitted": [
+    "Java25 Gradle full",
+    "NeoForge/game build",
+    "packaged JAR CRC/class identity",
+    "native water save/reopen/shutdown",
+    "Windows AMD8060S Vulkan/OpenGL",
+    "real GPU perf and water pixels"
+  ],
+  "builder_interrupted": false,
+  "source_modified_by_auditor": false
+}

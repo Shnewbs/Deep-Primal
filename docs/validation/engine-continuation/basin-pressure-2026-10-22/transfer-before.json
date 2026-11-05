@@ -1,0 +1,22 @@
+{
+  "case": "transfer-before",
+  "mode": "transfer",
+  "suite": "drain-transfer",
+  "trace_enabled": false,
+  "packaged": false,
+  "exit_code": 0,
+  "explicit_pass": false,
+  "records": [],
+  "failures": [
+    "java.lang.AssertionError: Head-limited distant wet-path transfer: expected=4 actual=1",
+    "[13:09:30] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+    "java.lang.AssertionError: Head-limited distant wet-path transfer: expected=4 actual=1"
+  ],
+  "normal_save": true,
+  "crash_reports": [
+    "crash-2026-10-22_13.09.30-server.txt"
+  ],
+  "elapsed_seconds": 38.95,
+  "traced_source_sha256": "8ca0d657c403d4a65118202ad34cd9e6ffa0aee5ff5f125861f98e9a41ae3ee8",
+  "log_sha256": "956fbd5c94f276fe7aa80dc78dbb2e301e3e69d5e657c9811963b58a27702199"
+}

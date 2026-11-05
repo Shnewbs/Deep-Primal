@@ -1,0 +1,9 @@
+{
+  "role": "auditor",
+  "run": "20261025T0247",
+  "source_sha": "75c7ffff6878ef5ee6498400ed9ff2050f3ee848",
+  "status": "completed-build-gate-failed",
+  "builder_mutated": false,
+  "performance_reservation": "No active timing reservation observed; no Java/benchmark process at start",
+  "isolated_cache_outputs": true
+}

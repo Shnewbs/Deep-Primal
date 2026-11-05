@@ -1,0 +1,322 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/audit_water_fade.py",
+    "bytes": 8294,
+    "sha256": "7aecb8263af503570aef707ae74f1eb1c0c90245b1c270c9545237e167118949"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/strict-water-fade-native-audit.json",
+    "bytes": 6269,
+    "sha256": "98ec04029bdb997e8ebd4b7a30113f536e0b5ead0f1f054906685546ab75cf63"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/source-baseline.json",
+    "bytes": 41343,
+    "sha256": "757972e7970f9c7a1f1cf159e7bd0c005c9b8038d6eb2807fa218bd251d3f47b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/run_vulkan.py",
+    "bytes": 14293,
+    "sha256": "188dbd74cbed6897c1db4ab1286536aeefe8fd1bb653a3ca5c5ca1b2654137e3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/before-AnimatedWaterRenderer.java",
+    "bytes": 23429,
+    "sha256": "70501f745ab22e7488f16c9ad072a63e847781e0d60bef0320c931b9c8d95864"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/audit_vulkan_package.py",
+    "bytes": 3464,
+    "sha256": "7fc3190e976ce2243701d47006976f5bace0d7abc2ee9bd1341235a04b8e2310"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-build-audit.json",
+    "bytes": 1722,
+    "sha256": "a3c934a6848adf4a2143444829b45da6f0626ed969bb6bd44c7f970bda00c527"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/README.md",
+    "bytes": 5283,
+    "sha256": "cf07c9eae39b57c4a7fa0375fd2e2e5aabc4708d07768ba2d7a4d10294534e58"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/candidate-build-result.json",
+    "bytes": 2378,
+    "sha256": "19ecf592ed684f1fa11f7756ff5cffac0ecfcc6f7665f5ed95d0fe3755498f7d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/candidate-build-final.gz",
+    "bytes": 3418,
+    "sha256": "15f65fc756072b45b0748e3050db74d4702bc4b7a58d4f71594e8c2e5ef6714d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/screenshot-inspection.json",
+    "bytes": 796,
+    "sha256": "384b87a236d695e48e2d558283ffa9dafe2625f17c1c39fd8bd2263899826e35"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/water-dry-fade.patch",
+    "bytes": 644,
+    "sha256": "4d71cfb5e0b13728ee3382fcbea871ec0954cfb77676c345484ee3d574a00a23"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/module-identities.json",
+    "bytes": 1114,
+    "sha256": "71b05909b7f0dc46a3177a1572130f551394feb4b388df6713ebec47c3af3079"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/source-scope-audit.json",
+    "bytes": 1097,
+    "sha256": "1014e75819fee45fe2dd2e4e024510ed0c462ccabd025d84419e68c83a95ee5f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/build_candidate.py",
+    "bytes": 2339,
+    "sha256": "24e4bc259238f917606eec242b3eaee90c0c4afe3e126c113a6298fe49ba4a15"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/selected-records.txt",
+    "bytes": 559,
+    "sha256": "f2a5b58997c891979b3d28f6522c6d93033a79b019678a6a21679caea0da82c9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/command.json",
+    "bytes": 1337,
+    "sha256": "3ac60f4d68170fb1da5b1ab730507895bced2d9fa39b24a206e7be64e5ed1cb5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/action-history.json",
+    "bytes": 94,
+    "sha256": "695a9cc8e78a8e90cfde5cac49ca91f776483ee6c7c0f7f720653125d1e63e91"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/result.json",
+    "bytes": 3442,
+    "sha256": "c63d2d5c049b7353bb08a5f70fa88da7fbe5352d19c80077febf6eda6dd645ca"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/console-final.gz",
+    "bytes": 11311,
+    "sha256": "9f7e04136734a52efdffd931beb867d9c28bff0ced086224ca888ea1cf087466"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/crash-excerpt.txt",
+    "bytes": 2310,
+    "sha256": "f729007814df02aee40aa65dc88563fe0886b011c0cda7cf7bfce2dd2d786fc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/crash-delta.json",
+    "bytes": 382,
+    "sha256": "89abd9424fb3de1159983c72b9a6370079d4ef4bf338e21ee1eda389146a52f3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-baseline/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "eeb1c371dedd8d90d19034eb3089d91baf1351882d8b961b8dcd70157ea02281"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/selected-records.txt",
+    "bytes": 4070,
+    "sha256": "64186c4188cea6e31f8b75dcb625e24c52bf5666a04c1fe673d3fb36f1a57c4d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/command.json",
+    "bytes": 1511,
+    "sha256": "dc0744ec0bba03c57c682112b55931574cca10a89ea5517fe4a346a06237622c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/action-history.json",
+    "bytes": 897,
+    "sha256": "12887f4df28eeb1ea0f4afca35065d6b24075cbfd994d1f9abfd588594964f59"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/result.json",
+    "bytes": 8629,
+    "sha256": "4fd9d746d7d598c2fc395e71bbd275bdc37f293241aa375babdb699c7c29aa9c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/startup-lifecycle.txt",
+    "bytes": 877,
+    "sha256": "ebf1dffe8811314aa80a53c793850701c85247e3d3f8c8e9399464529b6f7892"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/console-final.gz",
+    "bytes": 8541,
+    "sha256": "2d5b9dfee4b409bfdfbdcf5c39941462ea61f53e922e8c66bf8b222e2b0754b1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/crash-delta.json",
+    "bytes": 380,
+    "sha256": "be2cb0044a2607b7f7dff0102ba14da97d556e3e9001e81fbfa9ed2579cff403"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "84cd558a9ed497e7af2f8a4a3e2cb0d604ec809476d994e6b7f4a3d6b11d453e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/selected-records.txt",
+    "bytes": 3924,
+    "sha256": "484454841f532f0f3c15cbf162386247ebd5283d02a00b6c1aa1ffcb4d8f9e25"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/command.json",
+    "bytes": 1334,
+    "sha256": "6c33d69eb168bdba92c0f6d531c3f673f46a7feefc2588869551608711b9e04f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/action-history.json",
+    "bytes": 897,
+    "sha256": "12887f4df28eeb1ea0f4afca35065d6b24075cbfd994d1f9abfd588594964f59"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/result.json",
+    "bytes": 9172,
+    "sha256": "e0ba478e9dcd051e26c3c7469364b03d259ec76f97b3a81d4d4b9fb0fd8d9fa6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/startup-lifecycle.txt",
+    "bytes": 811,
+    "sha256": "4a2b3631e7b3fcefe31f35f83d4cb676c599cfe284e008ca872f4d73f49456a6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/console-final.gz",
+    "bytes": 8421,
+    "sha256": "4b8ef9e1d4a01868c138c2d52d7673ff5f7cac2ffb096377289975d706de60eb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/crash-delta.json",
+    "bytes": 380,
+    "sha256": "be2cb0044a2607b7f7dff0102ba14da97d556e3e9001e81fbfa9ed2579cff403"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "4e2a9bb247bc7e96dbdf75ef63bbc0687d39b720202804af7de359997b4b2df2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final-packaged/screenshots/fade-recovery.png",
+    "bytes": 723904,
+    "sha256": "bc141ce8efbc2ddfbc4aed184c050da90342d454fee1315c9249797f89027a2f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-dry-fade-2026-10-23/vulkan-fade-final/screenshots/fade-recovery.png",
+    "bytes": 727010,
+    "sha256": "23ff223315b2dd0eefe75d77322254f6b6aa21805d0f5e2e623fd88056e3c694"
+  }
+]

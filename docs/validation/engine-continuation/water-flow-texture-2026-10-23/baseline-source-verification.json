@@ -1,0 +1,10 @@
+{
+  "parent": "2de9543be41a7e287df15d4550c4c7c0a55fb421",
+  "checked": 515,
+  "unchanged": 514,
+  "only_changed_validation_hook": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java"
+  ],
+  "new_fixture": "WaterFlowTextureChecks.java",
+  "production_unchanged": true
+}

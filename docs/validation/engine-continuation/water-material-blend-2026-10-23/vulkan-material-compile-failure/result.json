@@ -1,0 +1,27 @@
+{
+  "case": "vulkan-material-baseline",
+  "run_directory": "/tmp/deepprimal-travel-correct-0035",
+  "started_utc": "2026-10-23T08:43:25.998950+00:00",
+  "finished_utc": "2026-10-23T08:43:38.016700+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 12.02,
+  "build_successful": false,
+  "records": [],
+  "console_sha256": "7c684e5016070fd3753d2dd77e2bb7e482becf776dd144ea25867842c2f427c1",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_20.40.04-client.txt",
+    "crash-2026-10-23_03.19.06-client.txt",
+    "crash-2026-10-22_23.01.54-client.txt",
+    "crash-2026-10-22_21.38.12-client.txt",
+    "crash-2026-10-22_20.58.01-client.txt",
+    "crash-2026-10-22_22.49.13-client.txt",
+    "crash-2026-10-22_21.18.41-client.txt",
+    "crash-2026-10-22_22.06.10-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

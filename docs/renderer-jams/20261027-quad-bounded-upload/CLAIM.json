@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "jam_id": "20261027-quad-bounded-upload",
+  "owner": "renderer-schedule",
+  "status": "checkpointed",
+  "base_sha": "3d4980de6202b65838e3e3b86f6ccb65a7353476",
+  "claimed_at": "2026-10-28T02:58:00Z",
+  "active_until": null,
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodMeshPartSplitter.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-quad-bounded-upload/"
+  ],
+  "non_overlap": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/",
+    "src/main/java/com/shnewbs/deepprimal/engine/",
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/WATER-ENGINE-WORK-STATE.json",
+    "graphics-settings/"
+  ],
+  "benchmark_reservation": "none",
+  "intention": "Upload-part quad-boundary partition for configuration-limited byte budgets, with canonical topology fallback; source-only, owner native build.",
+  "scoped_lease_released": true,
+  "source_code_commit": "f569a31cd3e59593c0343a8617fa0934289bb3e9",
+  "source_blob": "770dfde8609da73d3e96bdbfad8d9606cc09efda",
+  "test_assertions": 282240,
+  "java25_verified": false,
+  "owner_full_build_handoff": true,
+  "qualified_jar_produced": false,
+  "renderer_self_audit_score": 4.67,
+  "previous_renderer_self_audit_score": 4.67,
+  "review_path": "docs/renderer-jams/20261027-quad-bounded-upload/REVIEW.md",
+  "next_priority": "Actual same-scene AMD Vulkan/OpenGL default-vs-opt-in A/B, frame/GPU/VRAM tails and water/order; keep split off by default"
+}

@@ -1,0 +1,30 @@
+--- a/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java
++++ b/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java
+@@ -318,6 +318,7 @@
+   private static void advance(ServerLevel level, BlockPos p, Budget budget) {
+     budget.count++;
+     if (!level.isInWorldBounds(p) || !level.hasChunkAt(p) || units(level, p) == 0) return;
++    WaterContactRuntime.mix(level, p);
+     boolean moved = move(level, p, p.below(), true);
+     boolean triedDrain = !moved && units(level, p) <= SIDE_TRANSFER;
+     if (triedDrain) moved = drain(level, p, budget);
+@@ -656,6 +657,7 @@
+     @net.neoforged.bus.api.SubscribeEvent
+     public void stopped(net.neoforged.neoforge.event.server.ServerStoppedEvent event) {
+       BUDGETS.clear();
++      WaterContactRuntime.clear();
+     }
+ 
+     @net.neoforged.bus.api.SubscribeEvent
+@@ -668,7 +670,10 @@
+ 
+     @net.neoforged.bus.api.SubscribeEvent
+     public void unloaded(net.neoforged.neoforge.event.level.LevelEvent.Unload event) {
+-      if (event.getLevel() instanceof ServerLevel level) BUDGETS.remove(level);
++      if (event.getLevel() instanceof ServerLevel level) {
++        BUDGETS.remove(level);
++        WaterContactRuntime.forget(level);
++      }
+     }
+   }
+ 

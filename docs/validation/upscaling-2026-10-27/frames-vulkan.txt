@@ -1,0 +1,13 @@
+UPSCALING_FRAME_ENV backend=Vulkan fixture=creative-superflat scope=functional-native-world-path hardwarePerformance=false
+UPSCALING_FRAME_PASS phase=FSR mode=FSR source=534x400 output=800x600 dispatches=8 fsrDispatches=8 hostFrames=8 nativeHud=true targetRestored=true
+UPSCALING_READBACK_PASS file=01-fsr-quality.png width=800 height=600 sampledColors=2079 nonBlack=5488/5488
+UPSCALING_FRAME_PASS phase=SPATIAL mode=SPATIAL source=504x378 output=800x600 dispatches=8 fsrDispatches=0 hostFrames=8 nativeHud=true targetRestored=true
+UPSCALING_NATIVE_PASS phase=DLSS reason=DLSS unavailable output=800x600 hostFrames=8 nativeHud=true dispatches=0 resourcesReleased=true
+UPSCALING_READBACK_PASS file=02-dlss-native-fallback.png width=800 height=600 sampledColors=1702 nonBlack=5488/5488
+UPSCALING_NATIVE_PASS phase=OFF reason=Off output=800x600 hostFrames=8 nativeHud=true dispatches=0 resourcesReleased=true
+UPSCALING_FRAME_PASS phase=ODD_FSR mode=FSR source=534x401 output=801x601 dispatches=9 fsrDispatches=9 hostFrames=9 nativeHud=true targetRestored=true
+UPSCALING_READBACK_PASS file=03-fsr-odd-size.png width=801 height=601 sampledColors=1963 nonBlack=5544/5544
+UPSCALING_FRAME_PASS phase=RELOADED_FSR mode=FSR source=534x401 output=801x601 dispatches=8 fsrDispatches=8 hostFrames=8 nativeHud=true targetRestored=true
+UPSCALING_READBACK_PASS file=04-fsr-reloaded.png width=801 height=601 sampledColors=1880 nonBlack=5544/5544
+UPSCALING_DISCONNECT_PASS resourcesReleased=true targetRestored=true nativeMenus=true
+UPSCALING_FRAMES_PASS fsrQuality=true spatial63=true dlssNativeFallback=true off=true oddResize=801x601 shaderReload=true nativeHud=true readbacks=4 disconnect=true ownerGpuPerformance=false dlssHardwareExecution=false

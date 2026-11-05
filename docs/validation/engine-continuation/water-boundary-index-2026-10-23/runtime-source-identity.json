@@ -1,0 +1,25 @@
+{
+  "pass": true,
+  "runtime_renderer_class_identities": [
+    {
+      "case": "vulkan-corners-shared-final-r41-control",
+      "renderer_runtime_sha256": "f982fbd71ed0cb5b5087bff9eca82308ddf42e07f347af4c16ea059a6d822514"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index",
+      "renderer_runtime_sha256": "215a7b48f15c324c09ed7c2a40639f95417cbb96ef72d7d37f71d8c4698f6d6e"
+    },
+    {
+      "case": "vulkan-corners-shared-final-index-packaged",
+      "renderer_runtime_sha256": "215a7b48f15c324c09ed7c2a40639f95417cbb96ef72d7d37f71d8c4698f6d6e"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-index",
+      "renderer_runtime_sha256": "215a7b48f15c324c09ed7c2a40639f95417cbb96ef72d7d37f71d8c4698f6d6e"
+    }
+  ],
+  "candidate_runtime_differs_from_R41_control": true,
+  "all_candidate_runtime_renderer_classes_identical_to_current_compiled_output": true,
+  "candidate_bytecode_references_WaterBoundaryIndex_of_begin_end_entry_mask": true,
+  "renderer_disassembly_sha256": "9a74a91a43ef734dab1cf8bfaa67e41df90bcaf50e1d3a40b5d04a36421eeed3"
+}

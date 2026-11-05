@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/dev/shm/dp-audit-c5abe45-2333/precipitation-native/run_native.py", line 20, in <module>
+    if proc.poll() is not None: raise RuntimeError('Exited before required record: '+str(proc.returncode))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Exited before required record: 1

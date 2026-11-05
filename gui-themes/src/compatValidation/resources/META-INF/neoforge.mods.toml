@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+[[mods]]
+modId="deepprimal"
+version="0.0.0-validation"
+displayName="Deep Primal presence stub (validation only)"

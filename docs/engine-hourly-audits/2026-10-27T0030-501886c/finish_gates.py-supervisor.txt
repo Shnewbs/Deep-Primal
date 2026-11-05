@@ -1,0 +1,11 @@
+GATE_PASS validate_package.py.log
+GATE_PASS packaged_regressions.py.log
+GATE_PASS source-excerpts.py.log
+GATE_PASS SplitAdmissionChecks.txt
+GATE_PASS lod.LodPartBoundsChecks.txt
+GATE_PASS precipitation-fresh-harness.txt
+GATE_PASS precipitation-reopen-harness.txt
+GATE_PASS native-harness.txt
+GATE_PASS aquifer-harness.txt
+GATE_PASS receiver-harness.txt
+{"pass": true, "source_sha": "501886ce09f64809fdb19dca3d9c6d275e4e4c04", "pass_all_native": true, "native_sessions": 10, "producer_export_unchanged": true, "sha256": "03840c91accba411ad6d79921fda78f20ced2f0e6f02448515a2c0ed01f085d6"}

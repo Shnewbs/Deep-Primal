@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.AssertionError: global-volume-preserving cell shift rejected
+	at com.shnewbs.deepprimal.engine.ContactCommitChecks.require(ContactCommitChecks.java:13)
+	at com.shnewbs.deepprimal.engine.ContactCommitChecks.rejected(ContactCommitChecks.java:26)
+	at com.shnewbs.deepprimal.engine.ContactCommitChecks.main(ContactCommitChecks.java:45)

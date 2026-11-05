@@ -1,0 +1,21 @@
+{
+  "removed_verified_download_archives": [
+    {
+      "file": "jdk25.tar.gz",
+      "bytes": 141329719,
+      "previously_verified_sha256": "dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e"
+    },
+    {
+      "file": "jdk21.tar.gz",
+      "bytes": 207473347,
+      "previously_verified_sha256": "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94"
+    },
+    {
+      "file": "gradle.zip",
+      "bytes": 135535598,
+      "previously_verified_sha256": "72f44c9f8ebcb1af43838f45ee5c4aa9c5444898b3468ab3f4af7b6076c5bc3f"
+    }
+  ],
+  "bytes_reclaimed": 484338664,
+  "retained": "Extracted JDKs/Gradle, dependency cache, source, native worlds and evidence; no owner data removed."
+}

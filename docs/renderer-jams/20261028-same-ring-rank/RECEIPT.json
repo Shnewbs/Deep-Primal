@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261028T1555-same-ring-ranked-precheck",
+  "source_parent": "ef23d6481a8be638ab7fd30742b6645187727da1",
+  "product_commit": "322bd170fc32cc14e1752358be4a05150d79b0f5",
+  "scanner_blob": "89acf662fd079f70272eab462c36302aa76e8981",
+  "oracle_blob": "871ede8f87afa77119cc999eaaf366795bb58e31",
+  "shared_version_unchanged": "0.0.1-alpha.29-dev.57-surface-policy.1",
+  "changes": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261028-same-ring-rank/LodSameRingRankChecks.java"
+  ],
+  "java21": {
+    "strict_compiled": true,
+    "suites": 9,
+    "passed_assertions": 144361,
+    "negative_mutant_exit": 1,
+    "paired_cpu_runs": 2,
+    "samples_per_run": 220,
+    "alloc_p50_baseline_bytes": 558728,
+    "alloc_p50_candidate_bytes": 307880,
+    "cpu_p50_baseline_ns": [
+      241954,
+      245499
+    ],
+    "cpu_p50_candidate_ns": [
+      187471,
+      203256
+    ]
+  },
+  "grade": {
+    "distance": 6.5,
+    "mesh": 6.85,
+    "gpu": 4,
+    "fsr_dlss": 5,
+    "compatibility": 5.25,
+    "validation": 5.1,
+    "average": 5.45,
+    "previous": 5.42
+  },
+  "unrun": [
+    "Java25",
+    "full Gradle/NeoForge",
+    "Minecraft GPU",
+    "Vulkan/OpenGL frame and pixels",
+    "VRAM",
+    "Windows AMD/NVIDIA",
+    "water transparency",
+    "world reopen",
+    "JAR"
+  ],
+  "qualified_jar": false,
+  "published_release": false
+}

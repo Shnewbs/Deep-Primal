@@ -1,0 +1,12 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/workspace/scratch/a2f7076b7762/audit-4a8b0fb-20261026T2232/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=37735 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=37735 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a2f7076b7762/audit-4a8b0fb-20261026T2232/toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :createMinecraftArtifacts
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/workspace/scratch/a2f7076b7762/audit-4a8b0fb-20261026T2232/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=37735 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=37735 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/a2f7076b7762/audit-4a8b0fb-20261026T2232/toolchain/checked-agent/neoform-process-fallback.jar
+Loaded 127 artifacts from /workspace/scratch/a2f7076b7762/audit-4a8b0fb-20261026T2232/project/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties

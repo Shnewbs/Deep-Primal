@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "independent-readonly",
+  "run": "2026-10-29T2330-655ab648",
+  "pinned_source_sha": "655ab648212c3d378d638ea0a99ca1c42f2bf4ec",
+  "source_version_note": "Dev90 source-only; gradle.properties Dev88",
+  "production_modifications": 0,
+  "source_blobs": {
+    "V8OutletLedgerStore.java": "0a7e659432e8ef796e555ea6f73db82fd374fe92",
+    "V8ConservedOutletLedger.java": "e41226dbf0daf40ea455ee44247e2c4be81f29e9",
+    "WatershedOutletTopology.java": "068d75588c41eb3b4af5a813b24b8dc9db4c9e4a"
+  },
+  "independent_checks": {
+    "host": "Linux x86_64",
+    "toolchain": "OpenJDK21.0.12.1",
+    "strict_compile": true,
+    "classfile_major": 65,
+    "positive_assertions": 768,
+    "positive_runs": 2,
+    "rejected_compiled_mutants": 5,
+    "mutant_total": 5,
+    "conserved_totals": [
+      8000,
+      4400,
+      3700
+    ],
+    "finite_store_generations": 120
+  },
+  "carried_grade": {
+    "total": 50,
+    "mean": 5,
+    "category_scores": [
+      5,
+      4,
+      6,
+      4,
+      3,
+      7,
+      6,
+      4,
+      7,
+      4
+    ],
+    "fresh_full_regrade": false,
+    "target_strictly_above": 8.5,
+    "target_met": false
+  },
+  "unrun": [
+    "Java25",
+    "Gradle9.2.1 full build",
+    "Minecraft/NeoForge native",
+    "Windows AMD8060S Vulkan/OpenGL",
+    "native save/reopen/shutdown",
+    "JAR/nested archive CRC/class/package identity"
+  ],
+  "jar": null,
+  "builder_interrupted": false,
+  "auditor_lease": "independent-released",
+  "evidence_zip": {
+    "file": "DeepPrimal_Dev90_IndependentAudit_20261029T2330_655ab648_Java21Evidence.zip",
+    "size_bytes": 26097,
+    "sha256": "b43c327dee5daada70d280456da4740ad8249722aed727447825ca306cf6c2f2",
+    "library_path": "/Deep Primal/Independent Audits/DeepPrimal_Dev90_IndependentAudit_20261029T2330_655ab648_Java21Evidence.zip"
+  }
+}

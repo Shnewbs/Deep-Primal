@@ -1,0 +1,8 @@
+{
+  "sha256": "fb62d8fd1074da67c4a71cdbfa28e6934cd5c200fd2a1d79b8325af6b8f49e6f",
+  "size": 125215116,
+  "producer_completed": true,
+  "producer_export_equal": true,
+  "native_gate_pass": true,
+  "export_memory_backed_workspace_symlink": true
+}

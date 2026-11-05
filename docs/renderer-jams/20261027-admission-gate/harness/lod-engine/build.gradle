@@ -1,0 +1,34 @@
+plugins { id 'java-library' }
+group = 'com.shnewbs.deepprimal'
+version = rootProject.mod_version
+base.archivesName = 'DeepPrimal-LOD'
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+dependencies {
+    compileOnly files(rootProject.minecraftClasspath)
+    implementation project(':engine-core')
+    implementation project(':graphics-settings')
+}
+processResources { inputs.property 'mod_version', rootProject.mod_version; filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: rootProject.mod_version) } }
+tasks.named('compileJava') { dependsOn rootProject.tasks.named('createMinecraftArtifacts') }
+tasks.named('jar') { preserveFileTimestamps = false; reproducibleFileOrder = true }
+
+sourceSets {
+    admissionChecks {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+def pendingAdmissionCheck = tasks.register('pendingGpuBytesChecks', JavaExec) {
+    group = 'verification'
+    description = 'Checks real pending LOD upload byte accounting without creating GPU resources.'
+    dependsOn tasks.named('admissionChecksClasses')
+    classpath = sourceSets.admissionChecks.runtimeClasspath
+    mainClass = 'com.shnewbs.deepprimal.core.lod.PendingUploadBytesChecks'
+    args sourceSets.main.output.classesDirs.singleFile.absolutePath
+    javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+}
+tasks.named('check') { dependsOn pendingAdmissionCheck }
+if (!rootProject.hasProperty('withoutLod')) {
+    rootProject.tasks.named('check') { dependsOn pendingAdmissionCheck }
+}
+

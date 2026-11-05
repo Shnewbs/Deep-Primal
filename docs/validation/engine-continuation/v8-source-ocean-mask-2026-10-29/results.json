@@ -1,0 +1,33 @@
+{
+  "source_version": "0.0.1-alpha.29-dev.72-saved-ocean-domain.1",
+  "source_commit": "adbefcc16b3c5ac16526a93c2024a2cff3b05d75",
+  "test_commits": [
+    "a8a88a8178768ded6df1c6c36f228cc89c9db7fd",
+    "316b940de29b2d9a8777ac364f362bf20323aa50"
+  ],
+  "audit": "docs/engine-hourly-audits/2026-10-29T0526-9c2fe3a5/REVIEW.md",
+  "audit_source": "9c2fe3a5dddeeb1f0f80184fbd9ab90081c123fe",
+  "jdk": "OpenJDK 21.0.12.1",
+  "java_compilation": "javac --release 21 -Xlint:all -Werror with Mojang/Minecraft and WatershedRegion API doubles",
+  "suites": 19,
+  "assertions": 21013270,
+  "compiled_mutation_controls_rejected": 2,
+  "git_blob_sha1": {
+    "V8OceanConnectivity": "d1be856365be1b2368d8a87f305311389451b0b7",
+    "V8RoutedWaterSource": "e21c7be748340668c274ac803472967c9530516b",
+    "V8OceanConnectivityChecks": "e20b7b6539a0be3c12be3b0f6664e76a7e006bde",
+    "V8RoutedWaterSourceChecks": "e3dacb44a97b83d9e777bfaf2183c2ef939f5c32"
+  },
+  "evidence": {
+    "name": "DeepPrimal_Dev72_SavedOceanDomain_SourceEvidence.zip",
+    "bytes": 157780,
+    "sha256": "ab5181b92a377b49df1657b9f66477ec7d962f541f361dab6ecf71038b252224",
+    "zip_members": 73,
+    "zip_crc_pass": true
+  },
+  "no_native": true,
+  "no_full_gradle": true,
+  "no_jar": true,
+  "no_regrade": true,
+  "last_full_grade": "50/100 5.0/10"
+}

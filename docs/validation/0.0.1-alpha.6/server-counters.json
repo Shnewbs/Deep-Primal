@@ -1,0 +1,58 @@
+{
+  "worlds": [
+    {
+      "maxY": 639,
+      "pendingChunkTasks": 0,
+      "seaLevel": 96,
+      "dimension": "minecraft:overworld",
+      "entities": 3,
+      "players": 1,
+      "blockTicks": 49371,
+      "minY": -128,
+      "fluidTicks": 1189,
+      "gameTime": 5942,
+      "chunkHolders": 1521
+    },
+    {
+      "maxY": 255,
+      "pendingChunkTasks": 0,
+      "seaLevel": 0,
+      "dimension": "minecraft:the_end",
+      "entities": 0,
+      "players": 0,
+      "blockTicks": 0,
+      "minY": 0,
+      "fluidTicks": 0,
+      "gameTime": 5942,
+      "chunkHolders": 0
+    },
+    {
+      "maxY": 255,
+      "pendingChunkTasks": 0,
+      "seaLevel": 32,
+      "dimension": "minecraft:the_nether",
+      "entities": 0,
+      "players": 0,
+      "blockTicks": 0,
+      "minY": 0,
+      "fluidTicks": 0,
+      "gameTime": 5942,
+      "chunkHolders": 0
+    }
+  ],
+  "horizonCached": 238,
+  "viewColumnsScanned": 0,
+  "tps": 19.999674305303937,
+  "sampleTime": 1792366687485,
+  "tickP95Ms": 1.261003,
+  "horizonQueued": 0,
+  "trackingCapacity": 32,
+  "players": 1,
+  "state": "Running",
+  "horizonCompleted": 238,
+  "horizonSamples": 19278,
+  "tickMaxMs": 3.771,
+  "tickMedianMs": 0.936233,
+  "maxChunkSendBatch": 9,
+  "horizonCacheHits": 42
+}

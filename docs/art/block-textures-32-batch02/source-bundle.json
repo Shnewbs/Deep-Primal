@@ -1,0 +1,15 @@
+{
+  "name": "Deep-Primal-32px-Texture-Batch-02.zip",
+  "bytes": 86783544,
+  "sha256": "0cb6bd9f8767c5cdcd50e8369c7e7ba1860f106b1047afe3decd55fa542f0a7d",
+  "archive_files": 266,
+  "new_tiles": 70,
+  "original_masters": 70,
+  "individual_repeat_proofs": 70,
+  "prior_reference_tiles": 12,
+  "crc_check": "pass",
+  "library_file_id": "libfile_1c2e81cae8608191bbedcd874430254a",
+  "file_id": "file_00000000a52481f58f973750c390d1e8",
+  "download_url": "https://chatgpt.com/library?file_id=libfile_1c2e81cae8608191bbedcd874430254a&account_id=personal",
+  "note": "Source bundle saved after inspection. The archived README precedes this download receipt; archive bytes and checksums are final."
+}

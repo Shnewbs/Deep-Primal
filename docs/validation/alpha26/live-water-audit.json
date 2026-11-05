@@ -1,0 +1,17 @@
+{
+  "seed": 20261020,
+  "chunkX": [
+    100,
+    109
+  ],
+  "chunkZ": [
+    -39,
+    -31
+  ],
+  "totalWaterCells": 7289,
+  "withinGeneratedWetColumns": 7126,
+  "outsideGeneratedWetColumns": 163,
+  "outsideUnits": 325,
+  "unitsPerBlock": 16,
+  "note": "Short active clear-weather scene run. Local finite spill is possible; this is not long-duration rain/drought or entire-world flood acceptance."
+}

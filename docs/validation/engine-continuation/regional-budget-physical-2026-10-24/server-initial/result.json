@@ -1,0 +1,14 @@
+{
+  "mode": "initial",
+  "exit_code": 0,
+  "elapsed_seconds": 37.55,
+  "environment": null,
+  "regional": null,
+  "raw_sha256": "29c5d4bf0fd8bc2f8f6487e0140a714eeb7758a07718b7e07d2d926a354c0bed",
+  "saved": true,
+  "stopped": false,
+  "crashes": [
+    "crash-2026-10-23_23.28.03-server.txt"
+  ],
+  "pass": false
+}

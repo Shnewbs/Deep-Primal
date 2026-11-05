@@ -1,0 +1,152 @@
+{
+  "research_checked": "2026-10-29",
+  "scope": "Architecture, authoring, assets, settings UX, schema evolution, and validation for Deep Primal",
+  "source_count": 12,
+  "notes": "Primary sources only. Evidence is separated from project proposals. No software dependency, license entitlement, implementation, migration, performance result, or reproducibility result is claimed.",
+  "sources": [
+    {
+      "id": "AA-01",
+      "title": "Unreal Engine — Data Driven Gameplay Elements",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/data-driven-gameplay-elements-in-unreal-engine",
+      "source_type": "Official engine documentation",
+      "version_scope": "Page presented as Unreal Engine 5.8 documentation; a workflow reference, not a project dependency",
+      "limits": [
+        "Does not establish a serialization format for Deep Primal.",
+        "Spreadsheet macros and Unreal DataTables are not recommended dependencies.",
+        "Engine data-driven authoring does not by itself prove safe live simulation changes."
+      ]
+    },
+    {
+      "id": "AA-02",
+      "title": "Unreal Engine — Asset Management",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/asset-management-in-unreal-engine",
+      "source_type": "Official engine documentation",
+      "version_scope": "Page presented as Unreal Engine 5.8 documentation",
+      "limits": [
+        "Unreal-specific identifiers and handles are examples, not a Java API prescription.",
+        "The source does not prove that one global manager is the best architecture for this project.",
+        "Memory/loading behavior must be measured in Deep Primal."
+      ]
+    },
+    {
+      "id": "AA-03",
+      "title": "Godot 4.4 — Import process",
+      "url": "https://docs.godotengine.org/en/4.4/tutorials/assets_pipeline/import_process.html",
+      "source_type": "Official engine documentation",
+      "version_scope": "Pinned Godot 4.4 manual",
+      "limits": [
+        "Godot's exact file layout should not be copied into an existing Deep Primal repository without inspection.",
+        "Checksum-based change detection is not a proof of deterministic import.",
+        "Source access was via the official indexed manual."
+      ]
+    },
+    {
+      "id": "AA-04",
+      "title": "Unity 6.2 — Asset metadata",
+      "url": "https://docs.unity3d.com/6000.2/Documentation/Manual/AssetMetadata.html",
+      "source_type": "Official engine documentation",
+      "version_scope": "Unity 6.2 / 6000.2 manual; page build identifies 6000.2.16f1",
+      "limits": [
+        "This does not require Unity-style sidecar files; a project manifest may carry equivalent identity.",
+        "Renaming a saved gameplay ID requires a migration even if a texture file move is harmless.",
+        "The metadata page was read as HTML text."
+      ]
+    },
+    {
+      "id": "AA-05",
+      "title": "Blender — Geometry Nodes Modifier",
+      "url": "https://docs.blender.org/manual/en/5.2/modeling/modifiers/geometry_nodes.html",
+      "source_type": "Official authoring-tool manual",
+      "version_scope": "Retrieved page is labeled Blender 5.2 LTS; no installed tool version is assumed",
+      "limits": [
+        "Official search-index text was inspected; direct manual fetch encountered a tool access error.",
+        "This does not guarantee deterministic outputs across Blender versions.",
+        "Procedural render meshes must not silently define authoritative voxel geography."
+      ]
+    },
+    {
+      "id": "AA-06",
+      "title": "Blender — Geometry Nodes Baking",
+      "url": "https://docs.blender.org/manual/en/5.2/modeling/geometry_nodes/baking.html",
+      "source_type": "Official authoring-tool manual",
+      "version_scope": "Retrieved page is labeled Blender 5.2 LTS",
+      "limits": [
+        "Official indexed text was inspected; direct manual fetch returned a tool access error.",
+        "No general claim about other Blender export formats follows from the bake-cache caveat.",
+        "No Blender runtime integration is selected."
+      ]
+    },
+    {
+      "id": "AA-07",
+      "title": "Adobe Substance 3D Designer — Overview",
+      "url": "https://experienceleague.adobe.com/en/docs/substance-3d-designer/using/getting-started/overview/overview",
+      "source_type": "Official authoring-tool documentation",
+      "version_scope": "Page updated September 25, 2026",
+      "limits": [
+        "The source does not prescribe pixel-art style, texture sizes, or stone taxonomy; those are project choices.",
+        "No Substance runtime licensing or distribution entitlement was evaluated.",
+        "Archived helpx pages returned 404; the current official Experience League page was successfully inspected."
+      ]
+    },
+    {
+      "id": "AA-08",
+      "title": "Godot — EditorInspector",
+      "url": "https://docs.godotengine.org/en/stable/classes/class_editorinspector.html",
+      "source_type": "Official editor API documentation",
+      "version_scope": "Stable documentation retrieved 2026-10-29",
+      "limits": [
+        "A grouped inspector is not proof of usability; keyboard navigation and task completion need project tests.",
+        "Do not expose every engine field as a player setting.",
+        "Godot UI classes are references, not dependencies for NeoForge or the standalone frontend."
+      ]
+    },
+    {
+      "id": "AA-09",
+      "title": "Godot — ConfigFile",
+      "url": "https://docs.godotengine.org/en/stable/classes/class_configfile.html",
+      "source_type": "Official persistence API documentation",
+      "version_scope": "Stable documentation retrieved 2026-10-29",
+      "limits": [
+        "ConfigFile is a persistence example, not a recommended Java format or library.",
+        "The page does not guarantee atomic writes or crash recovery; those are proposed project requirements.",
+        "The required config/deepprimal location comes from project instructions, not Godot's user path."
+      ]
+    },
+    {
+      "id": "AA-10",
+      "title": "JSON Schema — Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12",
+      "source_type": "Official schema specification overview",
+      "version_scope": "Draft 2020-12; publication June 16, 2022",
+      "limits": [
+        "JSON Schema alone does not prove gameplay validity, cross-file referential integrity, or deterministic results.",
+        "No validator library is selected.",
+        "Source overview inspected; implementation must select the exact relevant validation specification and vocabulary."
+      ]
+    },
+    {
+      "id": "AA-11",
+      "title": "FlatBuffers — Schema Evolution",
+      "url": "https://flatbuffers.dev/evolution/",
+      "source_type": "Official serialization documentation",
+      "version_scope": "Official documentation retrieved 2026-10-29",
+      "limits": [
+        "FlatBuffers is not selected as a project serialization dependency.",
+        "Its binary evolution rules must not be copied verbatim to unrelated JSON or native host formats.",
+        "Syntactic compatibility does not guarantee unchanged gameplay meaning."
+      ]
+    },
+    {
+      "id": "AA-12",
+      "title": "Reproducible Builds — Definitions",
+      "url": "https://reproducible-builds.org/docs/definition/",
+      "source_type": "Primary reproducibility guidance",
+      "version_scope": "Official definition retrieved 2026-10-29",
+      "limits": [
+        "A fixed random seed alone does not establish cross-platform determinism.",
+        "This source does not guarantee bit-identical outputs from Blender, Substance, GPU processing, or compression tools.",
+        "Select exact reproducibility targets and test the chosen pipeline."
+      ]
+    }
+  ]
+}

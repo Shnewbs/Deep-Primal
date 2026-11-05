@@ -1,0 +1,153 @@
+{
+  "version": "0.0.1-alpha.29-dev.73-closed-ocean-interior.1",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-29T0634-84dda6f/REVIEW.md",
+  "audit_source": "84dda6fb293647482b560c3a13cb47a98707e8d0",
+  "test_toolchain": "OpenJDK 21.0.12.1+1-1-deb13u1-Debian",
+  "compiler_options": "--release 21 -Xlint:all -Werror",
+  "runtime_options": "-ea -Xverify:all",
+  "backend": "isolated Java production components plus Mojang/Minecraft/WatershedRegion API doubles; not native Minecraft",
+  "suites": [
+    {
+      "name": "DensityNativeBaseHeightChecks",
+      "assertions": 874642,
+      "exit": 0
+    },
+    {
+      "name": "DensityNativeSectionBridgeChecks",
+      "assertions": 11047019,
+      "exit": 0
+    },
+    {
+      "name": "DensityPlannedGroundChecks",
+      "assertions": 1235414,
+      "exit": 0
+    },
+    {
+      "name": "EcotoneSurfaceFieldChecks",
+      "assertions": 297752,
+      "exit": 0
+    },
+    {
+      "name": "V8BlendAuthoringGuardChecks",
+      "assertions": 15873,
+      "exit": 0
+    },
+    {
+      "name": "V8BlendPolicyChecks",
+      "assertions": 53316,
+      "exit": 0
+    },
+    {
+      "name": "V8ClimateBindingChecks",
+      "assertions": 16138,
+      "exit": 0
+    },
+    {
+      "name": "V8EcotoneNativeChecks",
+      "assertions": 27748,
+      "exit": 0
+    },
+    {
+      "name": "V8EcotonePrewriteQueryChecks",
+      "assertions": 26128,
+      "exit": 0
+    },
+    {
+      "name": "V8GeneratorSnapshotChecks",
+      "assertions": 594901,
+      "exit": 0
+    },
+    {
+      "name": "V8HydrologyBindingChecks",
+      "assertions": 45895,
+      "exit": 0
+    },
+    {
+      "name": "V8OceanConnectivityChecks",
+      "assertions": 737,
+      "exit": 0
+    },
+    {
+      "name": "V8ReliefV2Checks",
+      "assertions": 262265,
+      "exit": 0
+    },
+    {
+      "name": "V8ReliefV3CoastalChecks",
+      "assertions": 2583320,
+      "exit": 0
+    },
+    {
+      "name": "V8ReliefV4CoastalChecks",
+      "assertions": 3907136,
+      "exit": 0
+    },
+    {
+      "name": "V8RoutedWaterSourceChecks",
+      "assertions": 4904,
+      "exit": 0
+    },
+    {
+      "name": "V8SnapshotRootFieldChecks",
+      "assertions": 14392,
+      "exit": 0
+    },
+    {
+      "name": "V8SnowPreflightChecks",
+      "assertions": 516,
+      "exit": 0
+    },
+    {
+      "name": "V8SurfacePolicyChecks",
+      "assertions": 5235,
+      "exit": 0
+    }
+  ],
+  "all_suites_passed": true,
+  "count": 19,
+  "sum_checks": 21013331,
+  "invocation_note": "Two complete result batches; prior all-suite wrapper timed out after 14 successes. Remaining five and ecotone core package rerun successfully. Source-only Java21, not full Gradle or native.",
+  "mutants": [
+    {
+      "name": "reverse_saved_ocean_mask",
+      "compiled": true,
+      "rejected": true,
+      "reason": "AssertionError: admitted marine interior keeps legacy ocean stage"
+    },
+    {
+      "name": "bypass_interior_callback",
+      "compiled": true,
+      "rejected": true,
+      "reason": "AssertionError: new interior mask prevents incorrect sea-stage flood"
+    },
+    {
+      "name": "single_sampler_cross_thread",
+      "compiled": true,
+      "rejected": true,
+      "reason": "CompletionException caused by IllegalStateException: Density sampler changed job thread"
+    }
+  ],
+  "git_blob_ids": {
+    "V8RoutedWaterSource.java": "2a19635c511403baf6eea40e60f084aa7abc146c",
+    "V8OceanConnectivity.java": "14d58488fb7591d8a977858d7d09eea4f79b123b",
+    "V8RoutedWaterSourceChecks.java": "dff4ecbe847124bb57cf81516b9c3fde75e5fe5c",
+    "WatershedRegion.java": "3066eac9ecae5fc5979bf1c3b3b663b06ee56fc0",
+    "gradle.properties": "fa420af03c38239b393aa8b315e6e65c80257dfa"
+  },
+  "not_run": [
+    "complete pinned checkout/root validator",
+    "standalone tools/test_ecotone_blend.py",
+    "real production WatershedRegion dependency graph compilation",
+    "JDK25 and Gradle9.2.1 full build",
+    "Mojang/native codec save/reopen",
+    "native cross-region receiver/discharge or lake spill",
+    "old/new chunk borders",
+    "finite water and chemistry restart lifecycle",
+    "Vulkan/OpenGL/GPU and hardware latency",
+    "multi-seed native visual transects"
+  ],
+  "owner_builds_jars": true,
+  "jar_produced": false,
+  "independent_grade_carried": 5,
+  "acceptance_complete": false
+}

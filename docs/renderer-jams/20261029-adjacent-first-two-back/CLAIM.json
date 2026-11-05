@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1900-adjacent-first-two-back",
+  "worker": "dedicated-renderer-hourly",
+  "status": "checkpointed",
+  "started_at": "2026-10-29T19:00:00Z",
+  "expires_at": "2026-10-29T20:00:00Z",
+  "parent": "ba04d8ecf0db7dd562b40e032d4af1862359b85a",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "docs/renderer-jams/20261029-adjacent-first-two-back/**"
+  ],
+  "excluded": [
+    "water and terrain source",
+    "engine-core",
+    "graphics-settings",
+    "renderer-vulkan",
+    "VoxelLodRenderer.java",
+    "other automation schedules",
+    "shared build outputs"
+  ],
+  "consumed": [
+    "docs/renderer-jams/20261029-two-back-frustum/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1834-f53abbf6/REVIEW.md"
+  ],
+  "intent": "Avoid duplicate adjacent AABB comparisons and short-circuit two-back matching on proven adjacent bounds; preserve exact masks, conservative culling and water draw order; run strict focused isolated tests and matched CPU publication measurements. Owner retains full GPU/Gradle builds.",
+  "lease_released": true,
+  "ended_at": "2026-10-29T19:06:00Z",
+  "source_commit": "c6b4aa0d074b00a737a3d488c118a73ff76994bc",
+  "last_self_audit_average": 5.83,
+  "evidence_library_file_id": "libfile_1ad055d6b2cc81919f68ab2ab7482ac3",
+  "evidence_sha256": "6b4680d9563a33d6617235add846fb2fe1ef8e03afa9377d3398bfdbdd9d0bcd",
+  "qualified_jar": false,
+  "next": "Owner-native Vulkan/OpenGL native-vs-FSR1 and fixed/adaptive/disabled page culling, uniform/alternating/unique pages, transparent water and frame/RAM/VRAM baselines; prioritize measured bottleneck."
+}

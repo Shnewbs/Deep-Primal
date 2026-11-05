@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "cycle": "dev81-global-route-dag",
+  "version": "0.0.1-alpha.29-dev.81-route-dag.1",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-29T0735-f71c48ad/REVIEW.md",
+  "audit_pinned_source": "f71c48ad869e6c2ecd6ad02194d07e3a108c1a20",
+  "source_blobs": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedInteriorPortRoutes.java": "6b527106571054e88352cc5bdf07b289fdca73a0",
+    "tools/tests/WatershedInteriorPortRoutesChecks.java": "cd0b57873c27b62bac26090c87219357bca8fa6c",
+    "tools/test_watershed_interior_ports.py": "ff042d3c2eb1061a4435b5b0ec7add161e83a673"
+  },
+  "toolchain": "OpenJDK 21.0.12.1 Linux; javac --release 21 -Xlint:all -Werror; java -ea -Xverify:all",
+  "checks": {
+    "normal": {
+      "positive_runs": 2,
+      "assertions_each": 1040,
+      "compiled_mutants_rejected": 3
+    },
+    "python_optimized": {
+      "positive_runs": 2,
+      "assertions_each": 1040,
+      "compiled_mutants_rejected": 3
+    },
+    "previous_dev80_source_rejected_new_regression": true,
+    "bridge_api_double_assertions": 3931,
+    "topology_positive": true,
+    "topology_compiled_mutants_rejected": 3
+  },
+  "full_build": false,
+  "native_minecraft": false,
+  "java25_full": false,
+  "graphics": false,
+  "water_acceptance": false,
+  "blend_native": false,
+  "new_jar": false,
+  "new_grade": false,
+  "root_validator_run": false
+}

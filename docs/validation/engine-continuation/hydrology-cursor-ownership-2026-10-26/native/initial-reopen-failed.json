@@ -1,0 +1,4 @@
+{
+  "failure": "Native server failure: [04:08:54] [main/ERROR] [os.so.os.li.LinuxOperatingSystem/]: Did not JNA classes. Investigate incompatible version or missing native dll.",
+  "exit": 0
+}

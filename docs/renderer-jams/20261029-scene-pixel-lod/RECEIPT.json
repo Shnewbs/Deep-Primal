@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1100-scene-pixel-lod",
+  "version": "0.0.1-alpha.29-dev.76-native-outlet-ports.1 (unchanged repository mod_version)",
+  "initial_main": "c48b7bc6148be4c2f0013ae685d4bed7ad3ffdee",
+  "claim_commit": "653cd781272eda17b66925f9d332b1b3581984e4",
+  "source_parent": "783e446609c817de2ee4c38e483ebbf20889dbfa",
+  "source_commit": "cf578b2e36fcdbde04320cc2564c5b1cd89004d6",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodErrorProjection.java",
+    "docs/renderer-jams/20261029-scene-pixel-lod/tests/com/shnewbs/deepprimal/lod/client/LodScenePixelChecks.java"
+  ],
+  "source_blobs": {
+    "renderer": "71ed726cd3723beba3fa1fe88d8fef00fc3fe01b",
+    "diagnostics": "8483c0f1a5e90dda37e8f9bc39d953f780af443c",
+    "helper": "895c4beef16e9d251cf8fe1f0b200f35a280e782",
+    "test": "24fa8ad1d3beda28b33195844aa33cf75a0100f5"
+  },
+  "tests": {
+    "java": "OpenJDK 21.0.12.1",
+    "compiler": "javac --release 21 -Xlint:all -Werror -d classes @sources.list",
+    "command": "java -ea -Xverify:all -cp classes com.shnewbs.deepprimal.lod.client.LodScenePixelChecks",
+    "runs": 2,
+    "assertions_per_run": 501280,
+    "total_assertions": 1002560,
+    "static_checks": "19/19",
+    "negative_mutant": "expected assertion 3 FSR1 quality target",
+    "native_game_or_gpu": false,
+    "measured_fps": false
+  },
+  "grade": 5.74,
+  "previous_grade": 5.73,
+  "external_engine_grade_carried": 5,
+  "unrun": [
+    "Java25 full Gradle/NeoForge",
+    "packaged JAR/CRC/native payload",
+    "Vulkan/OpenGL GPU pixels and water alpha",
+    "GPU CPU frame p50/p95/p99 and VRAM/FPS",
+    "world reload/resize/save/reopen",
+    "temporal FSR3/4 and DLSS runtime"
+  ],
+  "artifact": {
+    "filename": "DeepPrimal_Renderer_ScenePixelLod_20261029_cf578b2_SourceEvidence.zip",
+    "bytes": 12880,
+    "sha256": "9578e6c648b4f84611761c3fa27852a6a953c4138ccd421d94cd10df9af02258",
+    "entries": 12,
+    "crc_verified": true,
+    "manifest_member_sha256_verified": true,
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_ScenePixelLod_20261029_cf578b2_SourceEvidence.zip",
+    "uploaded": true
+  },
+  "owner_build": true,
+  "claim_status": "released",
+  "released_at": "2026-10-29T11:14:35Z"
+}

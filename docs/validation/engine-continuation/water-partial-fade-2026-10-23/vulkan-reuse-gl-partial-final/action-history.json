@@ -1,0 +1,37 @@
+[
+  {
+    "action": "backend-check=OpenGL",
+    "completed": true,
+    "elapsed": 25.04
+  },
+  {
+    "action": "water-partial-fade-check",
+    "completed": true,
+    "elapsed": 26.04
+  },
+  {
+    "action": "water-gpu-reuse-check",
+    "completed": true,
+    "elapsed": 27.05
+  },
+  {
+    "action": "water-fade-continuity-check",
+    "completed": true,
+    "elapsed": 28.05
+  },
+  {
+    "action": "reuse-gl-recovery",
+    "completed": true,
+    "elapsed": 30.05
+  },
+  {
+    "action": "reload-check",
+    "completed": true,
+    "elapsed": 35.06
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 36.06
+  }
+]

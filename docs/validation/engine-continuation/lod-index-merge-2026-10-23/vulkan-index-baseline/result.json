@@ -1,0 +1,35 @@
+{
+  "case": "vulkan-index-baseline",
+  "run_directory": "/tmp/deepprimal-travel-correct-0035",
+  "started_utc": "2026-10-23T00:57:27.449051+00:00",
+  "finished_utc": "2026-10-23T00:58:04.496754+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 37.05,
+  "build_successful": false,
+  "records": [
+    "[20:57:45] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[20:57:53] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[20:57:53] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=32",
+    "[20:57:56] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xa2e0000000a2e, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0xa2f0000000a2f, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[20:57:57] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[20:58:00] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xa2e0000000a2e, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0xa2f0000000a2f, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "[20:58:01] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xa2e0000000a2e, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0xa2f0000000a2f, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193",
+    "java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193",
+    "[20:58:01] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 82582bd2-642b-44bb-8888-62fc9f0a5e10",
+    "java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193",
+    "[20:58:01] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 44ad7d3a-05aa-4fe3-bb30-92f2dde35818"
+  ],
+  "console_sha256": "053b19a370b8f2cd13e1b16aae5a5a2d5b84b5de35187b59e1a34e306b7e5738",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_20.40.04-client.txt",
+    "crash-2026-10-22_20.58.01-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

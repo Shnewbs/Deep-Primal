@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261030T0200-dlss-packet-reuse",
+  "status": "source_committed_read_only_self_audited_claim_released",
+  "claim_commit": "1d98333bd05c0fee93e00fb7b22ba08ce9212669",
+  "parent_commit": "1d98333bd05c0fee93e00fb7b22ba08ce9212669",
+  "final_source_commit": "18c8eb774f58a96067eb17f04d0fb3b607ccbc39",
+  "unchanged_version": "0.0.1-alpha.29-dev.92-relief-joins.1",
+  "changed_production_files": [
+    "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssVulkanProvider.java",
+    "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssPackedFrame.java"
+  ],
+  "changed_test_files": [
+    "renderer-vulkan/src/nativeChecks/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssPackedFrameChecks.java"
+  ],
+  "new_renderer_docs": [
+    "docs/renderer-jams/20261030-dlss-packet-reuse/CLAIM.json",
+    "docs/renderer-jams/20261030-dlss-packet-reuse/README.md",
+    "docs/renderer-jams/20261030-dlss-packet-reuse/REVIEW.md",
+    "docs/renderer-jams/20261030-dlss-packet-reuse/LEDGER.json",
+    "docs/renderer-jams/20261030-dlss-packet-reuse/BACKLOG.md"
+  ],
+  "source_blobs": {
+    "DlssVulkanProvider.java": "0549c141cb222261fc7a3d522a306e9aa2f167b0",
+    "DlssPackedFrame.java": "4cbccfbf8cb3c55f93ca549ddde379a581b2ac1a",
+    "DlssPackedFrameChecks.java": "299a51362b0b0b4e002e750e3d6977fbd39c48a3",
+    "DlssFrame.java_unmodified": "d6d0d6a3d3e154d82afc170c0743b250749eb222"
+  },
+  "consumed_audits": [
+    "renderer jam46 DLSS resource alias",
+    "renderer jam44 LOD publication",
+    "docs/UPSCALING.md temporal integration gates"
+  ],
+  "environment": "Linux x86_64 OpenJDK/Javac21.0.12.1; Java25 and provided archive absent; git checkout DNS blocked",
+  "compile": "PASS javac --release 21 -Xlint:all -Werror -d classes DlssFrame.java DlssPackedFrame.java DlssPackedFrameChecks.java",
+  "regressions": "3 PASS x java -ea -Xverify:all -cp classes net.vulkanmod.deepprimal.upscaling.dlss.DlssPackedFrameChecks",
+  "regression_assertions": 900006,
+  "negative_control": "Reallocating mutant compiled and rejected at DlssPackedFrameChecks.java:22 (exit 1); PASS",
+  "measurement": "Synthetic Java21, 3 independent processes x nine 100000-iteration alternating samples: escaped allocations old=112.00 B/frame new=0.00 B/frame; p50 CPU old=8.0-8.7 ns new=3.8-4.1 ns; no native/GPU/FPS inference",
+  "scoring": {
+    "distance_lod": 6.8,
+    "mesh_generation_scheduling": 6.95,
+    "gpu_submission_memory": 4.55,
+    "actual_fsr_dlss": 5,
+    "visual_backend_settings": 5.3,
+    "validation_performance": 6.65,
+    "mean": 5.88,
+    "previous_renderer_jam46_mean": 5.88,
+    "delta": 0
+  },
+  "review_type": "read-only author self-audit of exact source commit; independent whole-engine grade not altered",
+  "unrun": [
+    "Java25/full Gradle/NeoForge/JAR",
+    "native Vulkan/OpenGL/RTX/water pixel",
+    "actual GPU frame metrics/VRAM",
+    "resource reload/resize/world lifecycle",
+    "outer/nested archive/native payload verification"
+  ],
+  "artifact": {
+    "name": "DeepPrimal_Renderer_Jam47_DlssPacketReuse_20261030_18c8eb7_SourceEvidence.zip",
+    "type": "source-testing-evidence-not-JAR",
+    "bytes": 8850,
+    "sha256": "46f1e33e6fd8b45c6ddb7772d498b7b80adca984959619c6622d8257b3d78ea3",
+    "outer_crc": "PASS",
+    "verified_members": 13,
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_Jam47_DlssPacketReuse_20261030_18c8eb7_SourceEvidence.zip",
+    "library_file_id": "libfile_5b85e60956008191996f1a5608ebff9a"
+  }
+}

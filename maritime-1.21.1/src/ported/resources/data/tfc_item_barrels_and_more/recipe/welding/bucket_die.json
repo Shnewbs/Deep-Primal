@@ -1,0 +1,18 @@
+{
+  "type": "tfc:welding",
+  "first_input": [
+    {
+      "item": "tfc:metal/bucket/red_steel"
+    },
+    {
+      "item": "tfc:metal/bucket/blue_steel"
+    }
+  ],
+  "second_input": {
+    "tag": "c:ingots/steel"
+  },
+  "tier": 4,
+  "result": {
+    "id": "tfc_item_barrels_and_more:bucket_die"
+  }
+}

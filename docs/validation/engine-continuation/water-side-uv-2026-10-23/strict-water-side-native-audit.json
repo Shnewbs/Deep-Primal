@@ -1,0 +1,145 @@
+{
+  "all_focused_gates_pass": true,
+  "engine_acceptance_complete": false,
+  "scope": "Side UV morph fix: six exact production-pipeline image pairs at matched displayed heights, plus12 actual upload readbacks/8640bytes checking side/still/flow flags, light coordinates, repeated uploads and stale revisions. Also retains prior flow direction fix: real client capture and six production GPU UV samples per session, before/after resource reload, restore the source cell and preserve geometry/quantity. Selected actual GPU vertex bytes and expected atlas UVs retained. Existing production page sort survives three live map-order permutations in three wave/LOD profiles, with nine real frame captures per session and production-pipeline two-layer pixel A/B. Baseline changing a real source cell FLOW produced identical UVs; candidate carries flow and selects/rotates water_flow. This does not establish per-primitive order, matched physical state, full live-flow flicker or coverage acceptance. Also mixed wet/dry page preserves 40 actual GPU vertices through recapture and original fade/rewet deadlines; six GPU readbacks check 8640 bytes of geometry and shader-input opacity timing, not scene pixels. Retained CPU floats remain 1120 bytes with packed face/flow metadata, keep original capture revision, and are discarded on rewet. Also near-capacity same/smaller water updates reuse allocation; blocked oversized update retries after actual ballast release, and separate legal COPY_SRC mesh verifies 288 GPU bytes after partial update. Controlled pages, not full live-scene pixel proof. Also actual water GPU meshes with a controlled presentation clock preserve a dry fade through three empty recaptures, release at deadline and retarget rewet opacity continuously. This is GPU ownership/transition validation, not pixel-complete live-scene flicker acceptance. Also repeats four controlled completed-scan/native-tick cases enforce the 8192-key index bound while preserving queued order/edit guards and nearest remaining slots. This is injected scan completion, not full filesystem discovery or scene coverage. Also repeats real 552-byte partial GPU upload cancelled by an 8-to-4 MiB budget reduction beside 4194304 bytes of actual GPU ballast; bounded idle retry and same-view recovery after ballast closure. Five cancellation guards use an explicit occupancy ledger. Also repeats prior eviction/edit/capture, Vulkan GPU/frame/reload/save/shutdown controls. Isolated renderer; physical travel data is audited separately. Software driver, not owner GPU/FPS or full visual coverage acceptance.",
+  "sessions": [
+    {
+      "case": "vulkan-order-side-final",
+      "strict_pass": true,
+      "started_utc": "2026-10-23T04:49:24.296542+00:00",
+      "finished_utc": "2026-10-23T04:50:30.363922+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/graphics-settings/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/renderer-vulkan/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/classes/java/main/"
+      ],
+      "console_sha256": "dfd8913535ab6ea36d3db60e2c47e37d55036c55670c1a45097c8d880ee53cc6",
+      "sealed_console_gzip_sha256": "8cf9aa9cba8760b7d2e263c1aa18bb56354b617a411970558a5eb297c2fdb29b",
+      "live_console_sha256_at_audit": "dfd8913535ab6ea36d3db60e2c47e37d55036c55670c1a45097c8d880ee53cc6",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-order-side-final/screenshots/order-recovery.png",
+          "bytes": 777572,
+          "sha256": "278bb4af1647092ed3dddc6f8b47fe913e9bb022644c684e6df429e489c9b85c"
+        },
+        {
+          "path": "vulkan-order-side-final/screenshots/order-live-frame-1.png",
+          "bytes": 733326,
+          "sha256": "f0bc48ddfe6bb8e7810af7a9b3d633042866e2ed2edbdc5d87b676f859246982"
+        },
+        {
+          "path": "vulkan-order-side-final/screenshots/order-live-frame-3.png",
+          "bytes": 733360,
+          "sha256": "17172e08ad9e1d60e9539f5c9c9c0a8b1e6cbb9db9ca2d6e575df0f15bb7fdbf"
+        },
+        {
+          "path": "vulkan-order-side-final/screenshots/order-live-frame-2.png",
+          "bytes": 733407,
+          "sha256": "effdb9b8ef7ce43d25dcb1f26472fbeeaeccefcd895d7c47fbf7e1e5668f9ed0"
+        }
+      ]
+    },
+    {
+      "case": "vulkan-order-side-final-packaged",
+      "strict_pass": true,
+      "started_utc": "2026-10-23T04:51:00.464350+00:00",
+      "finished_utc": "2026-10-23T04:52:09.541186+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-side-uv-0433/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar"
+      ],
+      "console_sha256": "d23ba7bbc9127c99febe339497e6f823cbc2a71649304739f739c048efe01bff",
+      "sealed_console_gzip_sha256": "cfbcfefcdf2ca09b524c03d81dc608480db6d25f42fda301660c54b43cf899fd",
+      "live_console_sha256_at_audit": "d23ba7bbc9127c99febe339497e6f823cbc2a71649304739f739c048efe01bff",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-order-side-final-packaged/screenshots/order-recovery.png",
+          "bytes": 775916,
+          "sha256": "22a7fb58b4b0f5aa82501697314637cb7c7982fe8af684841cfb599ba3f3d72e"
+        },
+        {
+          "path": "vulkan-order-side-final-packaged/screenshots/order-live-frame-1.png",
+          "bytes": 732668,
+          "sha256": "fde03d9880e52b84ff2979c0a485e41d97bd2220ce1f071dfc0c98c6163d128c"
+        },
+        {
+          "path": "vulkan-order-side-final-packaged/screenshots/order-live-frame-3.png",
+          "bytes": 729314,
+          "sha256": "d7260b160903cc870a89c53af81d0930bdaf2de161539d5655aa679f36807744"
+        },
+        {
+          "path": "vulkan-order-side-final-packaged/screenshots/order-live-frame-2.png",
+          "bytes": 732644,
+          "sha256": "3562d779cb284ff379babeb17865cd038429ebadfe0729f27ed30c7550e88b3b"
+        }
+      ]
+    }
+  ]
+}

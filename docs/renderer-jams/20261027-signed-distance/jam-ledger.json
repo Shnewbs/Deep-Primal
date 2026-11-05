@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "jam_id": "20261027-signed-distance",
+  "initial_main": "c17295b7f79163b2c1602da53f782a75fa6e9f83",
+  "lease_parent": "263a8693544e1e58aa6f75ed8c468f68d09d5a3d",
+  "claim_commit": "051f23bd6dc2813a6cf85dd9d86a41aa3cceb528",
+  "source_commit": "52635aa9c774c61c20271102b7719d49985ef1e5",
+  "source_version": "0.0.1-alpha.29-dev.34-conservativewrites.1 (build not run; no version bump claimed)",
+  "changed_production_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodChunkDistance.java"
+  ],
+  "private_checks": [
+    "docs/renderer-jams/20261027-signed-distance/checks/LodChunkDistanceChecks.java",
+    "docs/renderer-jams/20261027-signed-distance/checks/LodNormalRangeParityChecks.java"
+  ],
+  "jdk": "Temurin 25.0.5+8",
+  "pass": {
+    "signed_bigint_cases": 100008,
+    "world_border_parity_cases": 1000000,
+    "old_bug_negative_control_rejected": true,
+    "exact_git_blob_match": true
+  },
+  "unrun": [
+    "full Java25 Gradle/NeoForge",
+    "native client",
+    "GPU waterfall/FSR and DLSS",
+    "Windows AMD8060S/RTX",
+    "complete JAR packaging/CRC"
+  ],
+  "self_audit_previous": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "self_audit_current": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "mean": 4.666666666666667,
+  "independent_engine_baseline": 5,
+  "new_jar": false,
+  "new_release": false,
+  "global_builder_lease_observed_released": true,
+  "review": "REVIEW.md",
+  "next": "Owner-run exact-SHA native build and camera/travel test; measure scene GPU/client timing, then address upload streaming and NGX temporal inputs."
+}

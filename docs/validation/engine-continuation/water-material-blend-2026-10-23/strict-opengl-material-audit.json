@@ -1,0 +1,21 @@
+{
+  "case": "vulkan-reuse-gl-material-final",
+  "material": {
+    "routes": 64,
+    "shader_renders": 768,
+    "weighted_RGBA_samples": 640,
+    "actual_upload_readbacks": 393,
+    "readback_bytes": 282960,
+    "pass": true
+  },
+  "pass": true,
+  "backend": "OpenGL software llvmpipe",
+  "scope": "New top still/flow blend:64 near/far routes,768 actual-upload shader renders,640 weighted RGBA samples,393 actual GPU readbacks/282960 bytes,queued/repeated/stale/deadline/sparse-still checks. Retained prior regressions: Flow-direction single-draw blend,336 shader renders and7 real uploads with bounded history, queued/stale/reupload checks. Six exact periodic top-phase pairs plus six diagnostic mip controls with one-channel-unit rounding allowance across negative/distant/section origins. Side UV morph pixels/actual upload packing, plus real capture and before/after-reload actual GPU flow UV fix, plus page order and actual frames in three wave/LOD profiles, production-pipeline pixel A/B; not full scene acceptance. Also mixed-page fade retention, six GPU readbacks of geometry/original opacity timing, and shared water buffer update API, actual near-capacity allocations, same/smaller/regrowth/bounded growth retry, 288-byte fenced GPU readback, prior fade checks, reload/capture/normal save. Not full OpenGL performance or visual acceptance.",
+  "started_utc": "2026-10-23T08:57:58.817060+00:00",
+  "finished_utc": "2026-10-23T08:59:01.900559+00:00",
+  "console_sha256": "886af1ca4c1e23e821c2c75e015200a179fb0c836557851d52de9dca6fdfadce",
+  "sealed_console_gzip_sha256": "85a99b00484e323054232d81fd40c47e69860821bc4abf69a22b43535c9b9f4f",
+  "new_crashes": 0,
+  "save_errors": 0,
+  "owner_gpu_fps_acceptance": false
+}

@@ -1,0 +1,6 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/dev/shm/dp-audit-c5abe45-2333/mutable/gradle-cache/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.17.0/33d12735bef894440780fce64f9758d420c7bae2/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+JNA_NATIVE_DISPATCH_PASS lastError=0 tmp=/dev/shm/dp-audit-685a739-0004/tmp

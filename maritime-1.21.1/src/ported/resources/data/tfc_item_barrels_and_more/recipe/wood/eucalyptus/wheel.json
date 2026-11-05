@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LBL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "afc:wood/lumber/eucalyptus"
+    },
+    "B": {
+      "tag": "c:double_ingots/brass"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/eucalyptus/vs_sails_helm_wheel"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "afc"
+    },
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "vs_sails"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "crash-2026-10-22_15.18.00-client.txt",
+  "sha256": "84a79a5aa9af384b38f1fb2a10d53a81625ed79dbfab5606ea9d8940705566a9",
+  "assertion": "Wrong backend OpenGL",
+  "expected_vulkan": true,
+  "accepted": false,
+  "same_inherited_hash_in_final_crash_delta": true
+}

@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.80-interior-ports.1",
+  "audit": "docs/engine-hourly-audits/2026-10-29T1333-83801d65/REVIEW.md",
+  "pinned_audit_source": "83801d658dc717be63bb0e3a301084cc7443d126",
+  "toolchain": "OpenJDK 21.0.12.1; javac --release 21 -Xlint:all -Werror; java -ea -Xverify:all; Python 3.13.5",
+  "core": {
+    "positive_runs": 2,
+    "checks_per_run": 1035,
+    "mutants_compiled_rejected": 2,
+    "mutants_total": 2,
+    "pass": true
+  },
+  "bridge": {
+    "focused_positive_runs": 1,
+    "assertions": 3931,
+    "pass": true,
+    "multi_mutation_runner": "timed out - not accepted"
+  },
+  "identity": {
+    "WatershedInteriorPortRoutes.java": "93f82561d5d856af70f56ac9de1b6a20d21cc144",
+    "WatershedRegion.java": "08c0a9e412c0a0a9842f2c5658bef2ff121a3d5d",
+    "WatershedRegionPortBridge.java": "cd14393174af306bf3a0ca3c4cf7bb26f3b4a937",
+    "WatershedInteriorPortRoutesChecks.java": "bfd3f19abcd307330a1b260172564f04247a7ec2",
+    "WatershedRegionPortBridgeChecks.java": "f874b9b54a46d8298e8e213f8679af1c0bb1d372",
+    "test_watershed_interior_ports.py": "02e7892ecfaf027eb6905e1db31bfd3fb21800e3",
+    "test_watershed_region_port_bridge.py": "e157ade7fe6e3dbc5ec5adb197001013b36d9253"
+  },
+  "omitted": [
+    "root validator complete pinned checkout",
+    "whole WatershedRegion dependency compilation",
+    "Java25/Gradle/full NeoForge",
+    "native V8 save/reopen",
+    "GPU OpenGL/Vulkan",
+    "physical runoff and salt/sediment conservation",
+    "old/new borders and performance"
+  ],
+  "new_jar": false,
+  "new_grade": false
+}

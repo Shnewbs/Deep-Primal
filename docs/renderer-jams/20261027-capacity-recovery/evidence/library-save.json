@@ -1,0 +1,13 @@
+{
+  "status": "succeeded",
+  "file_id": "file_00000000b0b881f589bf2ab0a26ab4a0",
+  "library_file_id": "libfile_86fb5c7d020c8191a5dfdb450a6e47e9",
+  "file_name": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar",
+  "local_metadata_applied": true,
+  "source_sha": "2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e",
+  "build_source_sha": "f948194d255cae51684525b49c802afa3c7d7c77",
+  "artifact": "/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar",
+  "sha256": "cea144872616bd6d02bd7d3af3f9b275c06a5442c36c77f515deb48d0f737068",
+  "size": 125298439,
+  "post_save_producer_export_identity": true
+}

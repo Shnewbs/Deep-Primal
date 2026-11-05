@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1656-fused-resident-publication",
+  "worker": "dedicated-renderer-hourly",
+  "status": "checkpointed",
+  "started_at": "2026-10-29T16:56:01Z",
+  "expires_at": "2026-10-29T17:30:00Z",
+  "parent": "ac431e7074d0654e8589371f436f3c3c1b35ac97",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java:849-865",
+    "docs/renderer-jams/20261029-fused-resident-publication/**"
+  ],
+  "excluded": [
+    "engine-core",
+    "water/simulation",
+    "gradle.properties",
+    "graphics-settings",
+    "renderer-vulkan",
+    "other schedules",
+    "shared build outputs"
+  ],
+  "consumed": [
+    "docs/renderer-jams/20261029-frozen-resident-bounds/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1635-a7ade50e/REVIEW.md"
+  ],
+  "intent": "Fuse one-pass page union and adjacent-run metadata from the already frozen resident AABB snapshot, preserve exact old selection semantics and minimize publication CPU overhead. Owner runs Java25 full/native builds.",
+  "lease_released": true,
+  "ended_at": "2026-10-29T17:06:28Z",
+  "source_parent": "88491c225954c3524775a3f5da27d095b1996f82",
+  "source_commit": "d20f9c92c682309ea5d8c944f15a90a58fa9d6d1",
+  "verified_helper_blob": "9352ccaa7403d4ca36240fbb64cd6f47dfe13ec7",
+  "last_self_audit_average": 5.81,
+  "artifact_sha256": "bc6bdfeeda190ba05129f832f3d01fe88e8077ef60c25f8db69dd7308f06af72",
+  "artifact_library_file_id": "libfile_7f6635d96dc4819197b62ef8c5092574",
+  "next": "native GPU Vulkan/OpenGL fixed/adaptive/off, FSR1/native, water pixels and resident publication profiling"
+}

@@ -1,0 +1,86 @@
+# Expanded replica — DeepPrimal_Audit_20261027T1834_ed919c35_REVIEW.md
+
+**Edition:** 2026-10-29 · **Status:** research expansion and proposed design.
+
+| Provenance | Value |
+| --- | --- |
+| Original | [Open original source](https://chatgpt.com/library?file_id=libfile_ea3d05cac2bc8191b109c795598eb85d&account_id=personal) |
+| Source identity | library: DeepPrimal_Audit_20261027T1834_ed919c35_REVIEW.md |
+| Preserved source SHA-256 | `2caef6d2e1c94afc9e6238e4bdb219f7451ffe3242a21a068eaf7504d5a66535` |
+| Review method | structured-evidence |
+| Proposed-work priority | P1 |
+
+The original document is preserved byte-for-byte below. New material is a dated proposal; historical results keep their original source, environment, and limitations. The priority describes follow-up design work, not a newly reproduced runtime defect.
+
+[Corpus guide](../../README.md) · [Integrated design](../../ENGINE-DESIGN-EXPANSION.md) · [Detailed chapter](../../chapters/validation-evidence.md) · [Discrepancy register](../../DISCREPANCIES.md)
+
+## Research expansion — source scope
+
+This preserved record is “Deep Primal — independent engine audit 2026-10-27T18:34Z”. Its original opening states: “Pinned source: ed919c35a933ae54b0b8f9bee5c910d71a8be953, main HEAD observed via the GitHub branch endpoint at audit start. The production candidate is 0.0.1-alpha.29-dev.34-conservativewrites.1. This audit made zero changes to production source and did not use or touch the builder's checkout, resources, claims or schedules. Last builder run was complete and its work-state lease was released; no exclusive benchmark reservation was reported by the pinned work-state. This audit uses its own isolated output under …”. Those statements retain the source document's date and environment; this expansion has not rerun the reported checks. Named source subjects include `Landforms.java`, `Landscape.java`, `WaterRuntime.java`, `EngineChunkGenerator.java`.
+
+## Research expansion — gaps and details to deepen
+
+- Carry the water finding through the real native callback boundary while preserving quantity, constituent identity, and exactly-once ownership.
+- Editorial addition: connect this record's evidence to a stable finding/claim ID and a dated supersession record; do not reinterpret a historical limitation as a newly reproduced current defect.
+
+## Research expansion — proposed contracts
+
+- Bind write scopes to world, level, immutable cell coordinates, expected state, and revision; unrelated callbacks must retain their own invalidation and accounting.
+- Recheck final state after synchronous callbacks before committing water/salt/sediment ledgers; define bounded compensation and explicit failure when restoration is impossible.
+
+## Research expansion — acceptance checks
+
+- Exercise refused-but-applied and accepted-but-replaced writes, same-volume chemistry changes, unrelated-cell mutation, cross-level callbacks, and unload during commit.
+- Compare joint loaded/unloaded/reservoir quantity and composition before and after edit, save, restart, and reopen using the actual host runtime.
+
+## Research expansion — source anchors
+
+- Deep Primal — independent engine audit 2026-10-27T18:34Z
+- Priority after this audit
+
+Related design: [terrain water](../../chapters/terrain-water.md)
+
+## Preserved source document
+
+Original links retain their original document context. Use the pinned source and source-context index above for dependencies not copied into this edition.
+
+<!-- BEGIN PRESERVED SOURCE -->
+# Deep Primal — independent engine audit 2026-10-27T18:34Z
+
+**Pinned source:** [`ed919c35a933ae54b0b8f9bee5c910d71a8be953`](https://github.com/Shnewbs/Deep-Primal/commit/ed919c35a933ae54b0b8f9bee5c910d71a8be953), `main` HEAD observed via the GitHub branch endpoint at audit start. The production candidate is **`0.0.1-alpha.29-dev.34-conservativewrites.1`**. This audit made **zero changes to production source** and did not use or touch the builder's checkout, resources, claims or schedules. Last builder run was complete and its work-state lease was released; no exclusive benchmark reservation was reported by the pinned work-state. This audit uses its own isolated output under `deepprimal_audit_20261027_T1834_ed919c35/`.
+
+## Verdict
+
+**50/100 = 5.0/10, Tier 2 — CARRIED baseline, not a fresh complete native/visual regrade.** The original strict rubric is [`docs/engine-review-2026-10-24/REVIEW.md`](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/docs/engine-review-2026-10-24/REVIEW.md). The ten equally weighted categories and prior scores are retained because unavailable dependencies/checkout prevented new module/native/visual gates. The target is a **fresh independent average strictly greater than 8.5/10**, and complete water-engine acceptance; neither has been demonstrated.
+
+| Equal-weight category | /10 | Pinned evidence and critical missing acceptance |
+| --- | ---: | --- |
+| Terrain realism/variety | 5 | [`Landforms.java` L12–28](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/engine-core/src/main/java/com/shnewbs/deepprimal/core/Landforms.java#L12-L28); frozen legacy landforms and staged V8 do not establish production 3D density acceptance. |
+| Biome coherence/blending | 4 | [`Landscape.java` L76–97](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/engine-core/src/main/java/com/shnewbs/deepprimal/core/Landscape.java#L76-L97); categorical thresholds remain, no accepted weighted ecotone/vegetation gate. |
+| Hydrology/caves | 6 | [`WaterRuntime.java` L137–171 and L207–239](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java#L137-L239); dev34 loaded-cell/matching/rollback defenses present, but native unload/save/constituents, multi-cell cave and real GPU waterfall/temporal gates missing. |
+| Features/structures | 4 | [`EngineChunkGenerator.java` L96–129](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java#L96-L129); general spacing/structure ownership remains unaccepted. |
+| Performance/threading | 3 | [Original strict native timings](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/docs/engine-review-2026-10-24/REVIEW.md#L17-L17): warm fills about 14–15 ms versus 5 ms target, ~2.314 MB/chunk; no matched fresh full-tick p50/p95/p99 or owner AMD hardware pass. |
+| Determinism/stability | 7 | [Original native legacy replay evidence](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/docs/engine-review-2026-10-24/REVIEW.md#L18-L18); dev34 save/reopen/rollback fault injection unrun. |
+| Architecture/code quality | 6 | [`settings.gradle`](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/settings.gradle) lists independent core/graphics/performance/LOD/Themes/Vulkan; full Java25 Gradle module and native boundary tests unrun. |
+| Extensibility/data-driven | 4 | [`TerrainProfile.java` L54–73](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/TerrainProfile.java#L54-L73); no complete stable worldgen stage graph API. |
+| Testing/benchmarks/docs | 7 | [Dev34 source-check receipt](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/docs/validation/engine-continuation/loaded-write-admission-2026-10-27/README.md) and this independent focused Java25 check; no current full native/bundled package/OS matrix. |
+| Polish/config/tooling | 4 | [`TerrainConfig.java`](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/TerrainConfig.java); broad profile authoring, long-world travel, production fallback and owner GPU acceptance missing. |
+
+## Fresh independent checks
+
+1. **PASS: Exact production `WaterTransport.java` blob** fetched at pinned SHA, copied into independent source tree, `git hash-object` = `0ede1c7312e40ecf063b6cc86e5a690cce190443`, exactly matching GitHub. Audit-only `TerrainNoise.lerp` stub is deliberately not represented as production source; that method body matches the published two-line production implementation.
+2. **PASS: Temurin JDK 25.0.5+8**, `javac --release 25`, `java -Xverify:all` with `WaterTransferAuditChecks`: `AUDITOR_JAVA25_WATER_CORE_PASS checks=1198395 admitted=1632 rejected=1112775 edgeMaxDiff=0`. Covers all native-cell volume pairs, gravity/lateral exchange, millions of adversarial preimages and proposals, extreme 32-bit height differences, and algebraic adjacent water-surface continuity. **This verifies the exact core class only**, not loaded-world I/O, chemistry, native GPU pixels or frame-time. The `TerrainNoise` dependency is audit-only.
+3. **PASS but historical binary only:** Rechecked pre-existing **dev32-upscaling.1** Windows Vulkan/OpenGL-fallback JAR SHA256 `04a7a8bf6f88c9b69e3b6cba2c24e6030e1d5e8c38192ee14b8c0e8e16a6d083`, 125,383,020 bytes: outer archive (676 entries) and six nested JAR CRC checks passed, including Themes and Windows Vulkan. This old binary **does not contain the dev34 water-write changes** and cannot qualify the current source.
+4. **Blocker, precisely observed:** Isolated host has Java25 but no current complete repository checkout, Gradle wrapper in checkout, Gradle executable or dependency cache; `git ls-remote https://github.com/Shnewbs/Deep-Primal.git refs/heads/main` fails DNS (`Could not resolve host: github.com`, exit 128). GitHub connector permitted authoritative pinned source reading but cannot produce a full checkout in this runtime. Therefore a fresh `./gradlew`/NeoForge build could not start.
+5. **Not run:** dev34 class/package identity; version/source-matched development JAR; Windows/AMD8060S; production Java25/Gradle/module validation; native loaded/unloaded water + rollback fault injection; save/reopen/shutdown and long-soak multiplayer; real OpenGL/Vulkan waterfall, side-water frame continuity, and named-hardware p50/p95/p99/memory tests. No release/upload was performed.
+
+## Additional static residual risk
+
+[`HydrologyRuntime.place` L160–163](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java#L160-L163) still invokes `getBlockState` after `hasChunkAt` without explicit `isInWorldBounds` before the read. The common [`HydrologyRuntime.write` L72–79](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java#L72-L79) *does* guard dimensions/chunk before read. This is a source-only review observation, **not a reproduced native bug**; verify `ServerLevel.hasChunkAt` height semantics and instrument world-border calls before labeling it an exploit/fix. Failed donor rollback now throws in [`WaterRuntime.transfer` L224–231](https://github.com/Shnewbs/Deep-Primal/blob/ed919c35a933ae54b0b8f9bee5c910d71a8be953/src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java#L224-L231), but that detects rather than resolves native partial writes. Retain the rollback-failure integration gate.
+
+## Priority after this audit
+
+Restore a **complete pinned** checkout/dependencies in an isolated audit workspace, validate dev34 with Java25 Gradle + actual packaged native water ledger, zero unloaded reads/writes and forced rollback-failure tests. Once source-matched JAR qualifies, exercise save/reopen/world-switch/shutdown and water contact/readback continuity on both real Vulkan/OpenGL, then named-hardware p95/p99 water/tick/frame measurements. In parallel, the separate builder owns fixes, including the optional `place` admission review; auditor must not change production code. Frozen V1–V7 geography and staged R57/R60/R61/R62 remain unaltered. No builder stop criterion has passed; leave schedules enabled.
+
+
+<!-- END PRESERVED SOURCE -->

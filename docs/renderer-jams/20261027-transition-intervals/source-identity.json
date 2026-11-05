@@ -1,0 +1,203 @@
+{
+  "initial_main": "878cfdb126d30c76a6b9844d0848d2c7101e6be8",
+  "reviewed_source": "302b93f12976c9a37cb680a677218daa9e0ed4e4",
+  "implementation_checkpoint": "2ce27032e3af79f6b6b4ca8ee78208c71bcf1e7a",
+  "base_root_tree": {
+    "sha": "878cfdb126d30c76a6b9844d0848d2c7101e6be8",
+    "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/878cfdb126d30c76a6b9844d0848d2c7101e6be8",
+    "tree": [
+      {
+        "path": ".gitignore",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "bc192560b2106b2e62179b2c2917705c884a5c74",
+        "size": 107,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/bc192560b2106b2e62179b2c2917705c884a5c74"
+      },
+      {
+        "path": ".vscode",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "3d72ecc8a965221f05dc2add6e6a36dc55363693",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/3d72ecc8a965221f05dc2add6e6a36dc55363693"
+      },
+      {
+        "path": "ENGINE_CORE_SUMMARY.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "1ff24126ff8d76dd751068ac59475338d47ddeb6",
+        "size": 2736,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/1ff24126ff8d76dd751068ac59475338d47ddeb6"
+      },
+      {
+        "path": "README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "10ff92c727b0827c049632a8a4e807ab9139d9ea",
+        "size": 12148,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/10ff92c727b0827c049632a8a4e807ab9139d9ea"
+      },
+      {
+        "path": "build.gradle",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3fd248d01b60ae1690430c10caa74b5daa53d203",
+        "size": 17013,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/3fd248d01b60ae1690430c10caa74b5daa53d203"
+      },
+      {
+        "path": "docs",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "47d8d208711ae0b31ed94f005c7b6149f5c5f9ca",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/47d8d208711ae0b31ed94f005c7b6149f5c5f9ca"
+      },
+      {
+        "path": "engine-core",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "cdb78e5e084a98f0eb1d92899ddb0c871876d3c1",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/cdb78e5e084a98f0eb1d92899ddb0c871876d3c1"
+      },
+      {
+        "path": "gradle.properties",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "30853e0d790b1b34b58248818f50d710388340f8",
+        "size": 156,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/30853e0d790b1b34b58248818f50d710388340f8"
+      },
+      {
+        "path": "gradle",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "1baf30cf580f96464a0de358eaef0f318333bb8d",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/1baf30cf580f96464a0de358eaef0f318333bb8d"
+      },
+      {
+        "path": "gradlew",
+        "mode": "100755",
+        "type": "blob",
+        "sha": "adff685a0348c64b2b64f0b302f1f82b28eeaaea",
+        "size": 8618,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/adff685a0348c64b2b64f0b302f1f82b28eeaaea"
+      },
+      {
+        "path": "gradlew.bat",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39",
+        "size": 2803,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/c4bdd3ab8e3ccd2ac3a2bc0db0f856f16b79ef39"
+      },
+      {
+        "path": "graphics-settings",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "2ff539d5252bf916a16af53edbffacf69305a218",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/2ff539d5252bf916a16af53edbffacf69305a218"
+      },
+      {
+        "path": "gui-themes",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "7a38573db11f0d314f1a10afb0f2054396a04086",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/7a38573db11f0d314f1a10afb0f2054396a04086"
+      },
+      {
+        "path": "lod-engine",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/6ddd6ee28f1b5ddb14fa479f37f717eaab6e1dd8"
+      },
+      {
+        "path": "maritime-1.21.1",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "72006208f45b971396160f050916faaff1819302",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/72006208f45b971396160f050916faaff1819302"
+      },
+      {
+        "path": "performance-engine",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "4d93cca2e09acdb132f1a0377d9e10231f5db014",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/4d93cca2e09acdb132f1a0377d9e10231f5db014"
+      },
+      {
+        "path": "renderer-vulkan",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "a781ad176d0f455626d1e6daf191b5dfa6c2dc6c",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/a781ad176d0f455626d1e6daf191b5dfa6c2dc6c"
+      },
+      {
+        "path": "roadmap.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ea7a174154f710f5bbff2d756405b047bb750a77",
+        "size": 48221,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ea7a174154f710f5bbff2d756405b047bb750a77"
+      },
+      {
+        "path": "settings.gradle",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "92ab970c19f8beda4b3ecfb89d1eb5b85056ea86",
+        "size": 438,
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/92ab970c19f8beda4b3ecfb89d1eb5b85056ea86"
+      },
+      {
+        "path": "src",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "74e5d8e5766aafa2aaaeedf0ad2d3e929d9b3e8d",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/74e5d8e5766aafa2aaaeedf0ad2d3e929d9b3e8d"
+      },
+      {
+        "path": "standalone-engine",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "1745890a43d4adc0fdb7e239a481955f7ac56a96",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/1745890a43d4adc0fdb7e239a481955f7ac56a96"
+      },
+      {
+        "path": "tools",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "c7a93794f908e8ed07204f74594d265b5e4f0975",
+        "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/c7a93794f908e8ed07204f74594d265b5e4f0975"
+      }
+    ],
+    "truncated": false
+  },
+  "candidate_source_readback_exact": true,
+  "candidate_hashes": [
+    {
+      "path": "candidate/FrameIntervalWindow.java",
+      "sha256": "4101a6ca32a34a768777c4e351b2a2dda06c78df725090159e407aaacafb4518"
+    },
+    {
+      "path": "candidate/ClientTelemetry.java",
+      "sha256": "8c0b487a4bc2277bb5459e24e314dbcfb15a2fff7c41fb03ca10741575d650c0"
+    },
+    {
+      "path": "candidate/CoreChecks.java",
+      "sha256": "6e0a8c2608954588043782199a218b65d0816070c605dfffa16ebdfcda47587f"
+    },
+    {
+      "path": "checks/TransitionIntervalChecks.java",
+      "sha256": "49c4ec5d615d67f1d752769fd02cbd754b5b59c22042d596baa888d768053433"
+    },
+    {
+      "path": "checks/FrameIntervalChecks.java",
+      "sha256": "9e173eac7f92a17b5d99e8a75d5c607d1b418bf4042fca2d932c3c69e90918b2"
+    },
+    {
+      "path": "run_checks.py",
+      "sha256": "5a8efb285cc14590dddd0d435498a54a7cdd32888b4b66319402c861c13fa3c7"
+    }
+  ],
+  "production_unchanged": true
+}

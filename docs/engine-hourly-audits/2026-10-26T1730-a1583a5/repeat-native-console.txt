@@ -1,0 +1,8 @@
+GATE_PASS SplitAdmissionChecks.txt
+GATE_PASS lod.LodPartBoundsChecks.txt
+GATE_PASS precipitation-fresh-harness.txt
+GATE_PASS precipitation-reopen-harness.txt
+GATE_PASS native-harness.txt
+GATE_PASS aquifer-harness.txt
+GATE_PASS receiver-harness.txt
+{"pass": true, "source_sha": "a1583a508b0d67130d387bc018defd5758acd496", "pass_all_native": true, "native_sessions": 10, "producer_export_unchanged": true, "sha256": "4661080982896a19bca54751c33b78fbbe07a4b59b7bbafa8d9b64e039630229"}

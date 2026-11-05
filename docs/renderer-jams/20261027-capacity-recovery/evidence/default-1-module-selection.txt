@@ -1,0 +1,6 @@
+ - deepprimal (composite(jar(/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar), folder(/workspace/scratch/c748d58856d9/renderer-work/build/classes/java/visualValidation)))
+ - deepprimal_graphics (jar(/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31-renderer.7.jar))
+ - deepprimal_lod (jar(/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.31-renderer.7.jar))
+ - deepprimal_performance (jar(/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.31-renderer.7.jar))
+ - deepprimal_themes (jar(/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar))
+ - deepprimal_vulkan (jar(/workspace/scratch/c748d58856d9/qualification/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.31-renderer.7-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.31-renderer.7-windows.jar))

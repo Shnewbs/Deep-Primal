@@ -1,0 +1,57 @@
+{
+  "id": "renderer-20261028T1102-near-ring-fast-reject",
+  "parent": "a6ee38079422d1e317928ffb50ae57bf2cfd59b1",
+  "implementation": "eeeb3d711949f0a867b89ac4474cbad7815be532",
+  "version": "0.0.1-alpha.29-dev.51-v8preflight.1",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskNearestScan.java",
+    "docs/renderer-jams/20261028-near-ring-fast-reject/LodNearRingFastRejectChecks.java",
+    "docs/renderer-jams/20261028-near-ring-fast-reject/README.md"
+  ],
+  "consumed_audits": [
+    "docs/engine-hourly-audits/2026-10-28T1030-10cb0c6/REVIEW.md",
+    "docs/renderer-jams/20261028-filename-parser/REVIEW.md"
+  ],
+  "tests": [
+    "javac --release 21 -Xlint:all -Werror -d candidate-classes @candidate-sources.txt",
+    "java -ea -Xverify:all -cp candidate-classes com.shnewbs.deepprimal.lod.client.<suite>"
+  ],
+  "java21_passed_assertions": 79526,
+  "mutation_expected_failure": "yes: strict > mutated to >= loses same-ring nearest key",
+  "unrun": [
+    "Java25 absent",
+    "full Gradle/NeoForge owner-operated",
+    "Minecraft client Vulkan/OpenGL and water pixels",
+    "AMD/NVIDIA frame p50/p95/p99 and VRAM",
+    "JAR/publisher"
+  ],
+  "performance": {
+    "runs": 2,
+    "files": 6000,
+    "retained": 512,
+    "p50_alloc_reduction_pct": [
+      7.69,
+      6.73
+    ],
+    "cpu": "mixed; no FPS claim"
+  },
+  "score": {
+    "distance": 6.5,
+    "mesh": 6.25,
+    "gpu": 4,
+    "fsr_dlss": 5,
+    "visual": 5,
+    "validation": 4.5,
+    "average": 5.208333333333333,
+    "delta": 0
+  },
+  "artifact": {
+    "path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_NearRingFastReject_20261028_eeeb3d7_SourceEvidence.zip",
+    "bytes": 40847,
+    "sha256": "c1e89e0a22f899200b87ffcb73b6354eb9a9c862ac2ff4e82c78b0341761565b",
+    "library_upload": "succeeded",
+    "zip_crc": "passed"
+  },
+  "claim_status": "completed-released",
+  "next": "owner-native LOD and frame/VRAM/water pixels; stabilize transient scanning check"
+}

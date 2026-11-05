@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/lumber/spruce"
+    },
+    {
+      "item": "tfc:wood/barrel/spruce"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/spruce/item_barrel"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1558-frozen-resident-bounds",
+  "preclaim_main": "307452b5dfff09778fd8e3bb1a1a55259826ba53",
+  "claim_commit": "d6af7a2b70ac4ef02e04022c4459a3a5f5cc237e",
+  "source_parent": "f8321f8db822162e4a953d5e251fc2dff0cf2f6f",
+  "reviewed_final_source_sha": "c876db37e6e5e772497551d1da98e79232b297dc",
+  "version": "0.0.1-alpha.29-dev.82-routed-forest.1",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumBounds.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPartFrustumRuns.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261029-frozen-resident-bounds/tests/com/shnewbs/deepprimal/lod/client/LodFrozenBoundsCommittedSmoke.java",
+    "docs/renderer-jams/20261029-frozen-resident-bounds/stubs/net/minecraft/world/phys/AABB.java",
+    "docs/renderer-jams/20261029-frozen-resident-bounds/stubs/com/shnewbs/deepprimal/graphics/TerrainGpuMesh.java",
+    "docs/renderer-jams/20261029-frozen-resident-bounds/README.md"
+  ],
+  "source_blobs": {
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumBounds.java": "e8b289266fb33ed2b10e22acae0ab6bd8d3f893b",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPartFrustumRuns.java": "eea4bb00d9652796426fcc7a966bd6bb002dc6aa",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java": "39f8435b9389ce233321696bcf53315a38bf6511"
+  },
+  "committed_smoke_sha": "71ad5017d7d99a245acbe2eaffb4b2f8fabb40f1",
+  "consumed": [
+    "docs/renderer-jams/20261029-adjacent-bounds-runs/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1532-b6448f52/REVIEW.md"
+  ],
+  "scope": "lod-engine only plus dedicated production-excluded docs",
+  "tests": {
+    "os": "Linux x86_64",
+    "java": "21.0.12.1",
+    "compiler": "javac --release 21 -Xlint:all -Werror -d out @sources.txt",
+    "positive_runs": 12,
+    "positive_assertions": 6606201,
+    "classes": [
+      "LodFrozenBoundsSmoke",
+      "LodFrozenBoundsCommittedSmoke",
+      "LodAdjacentRunSmoke",
+      "LodPartFrustumRunsChecks",
+      "LodUniformPageVisibilityChecks",
+      "LodUniformPageVisibilitySmoke"
+    ],
+    "modes": [
+      "default broadphase enabled",
+      "-Ddeepprimal.lod.pageFrustumBroadphase=false"
+    ],
+    "negative_control": "LodFrozenBoundsOldLiveNegative exit1: old mutable fine bounds hid frozen GPU geometry",
+    "read_only_pinned_static_checks": "25/25",
+    "source_helper_git_sha_verified": true
+  },
+  "cpu_fixture": {
+    "domain": "synthetic Java21, four levels x64 part AABBs, 400 paired warmed samples each 128 page publications; not game frames or GPU",
+    "old_p50_ns": [
+      936177,
+      1004309
+    ],
+    "new_p50_ns": [
+      1026970,
+      1101640
+    ],
+    "old_p95_ns": [
+      1818988,
+      2178997
+    ],
+    "new_p95_ns": [
+      2098006,
+      2467798
+    ],
+    "old_p99_ns": [
+      3268158,
+      3323755
+    ],
+    "new_p99_ns": [
+      3627135,
+      3859137
+    ],
+    "old_bytes_allocated": 21299200,
+    "new_bytes_allocated": 78643200,
+    "new_extra_bytes_per_page": 1120,
+    "performance_improvement_claimed": false
+  },
+  "grades": {
+    "distance_lod": 6.75,
+    "mesh": 6.95,
+    "gpu": 4.55,
+    "fsr_dlss": 5,
+    "compatibility": 5.3,
+    "validation": 6.25,
+    "average": 5.8,
+    "prior_average": 5.79,
+    "displayed_change": 0.01
+  },
+  "unrun": [
+    "JDK25 missing and owner archive not found in local workspace/Library search",
+    "full Java25 Gradle9.2.1/NeoForge and qualified JAR owner-operated",
+    "packaged Vulkan/OpenGL/water pixels/resize/resource reload/world-switch/save/reopen/shutdown",
+    "real CPU/GPU frame-time p50/p95/p99, draw/descriptor count, VRAM and full RAM",
+    "temporal AMD FSR and NVIDIA RTX DLSS evaluate/native acceptance"
+  ],
+  "artifact": {
+    "name": "DeepPrimal_Renderer_FrozenResidentBounds_20261029_c876db3_SourceEvidence.zip",
+    "size_bytes": 27233,
+    "sha256": "9bf862bf3fde687fdcb9958b3a95724421c824d07b7b96e7d1d3a29b74395128",
+    "crc_sha256_verified_entries": 23,
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_FrozenResidentBounds_20261029_c876db3_SourceEvidence.zip",
+    "library_uploaded": true,
+    "qualified_jar": false
+  },
+  "remaining_defects": [
+    "Published GPU part AABB reference is still mutable in shared class; snapshots freeze renderer selection but owner GPU validation necessary",
+    "one pointer per part publication overhead, +9.7% CPU p50 in isolated fixture",
+    "native Vulkan/OpenGL water pixels/performance, GPU memory, temporal FSR/DLSS still unproven"
+  ],
+  "next": "Owner matched Vulkan/OpenGL fixed/adaptive/off, FSR1/native, water transparency, edit/world reset and real GPU metrics; optimize publication metadata if observed significant"
+}

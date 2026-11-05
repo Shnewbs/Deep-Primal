@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: Wrong product code source: /dev/shm/deepprimal-builder-2225/shadow
+	at PackagedOverflowChecks.main(PackagedOverflowChecks.java:8)

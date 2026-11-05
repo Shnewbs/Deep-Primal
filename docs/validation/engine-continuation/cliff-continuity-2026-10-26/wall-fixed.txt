@@ -1,0 +1,4 @@
+WATERFALL_SIDE_PASS vertices=131072 amounts=16 previousAmounts=16 smoothModes=2 verticalPages=true
+STEPPED_BASIN_MESH_PASS vertices=6144 signedSections=3 smoothModes=2 internalFaces=0 levelSurface=true
+ROCK_LEDGE_PASS cases=8192 axes=2 signs=2 verticalSections=true interpolationSamples=5
+CLIFF_WALL_CONTINUITY_PASS vertices=12288 volumePairs=256 smoothModes=2 verticalSections=3 interpolationFrames=13

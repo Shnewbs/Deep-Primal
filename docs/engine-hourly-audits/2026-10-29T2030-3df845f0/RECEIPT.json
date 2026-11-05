@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "audit_id": "2026-10-29T2030-3df845f0",
+  "pinned_main_sha": "3df845f0b26511ce676d006ced01969e3aa00699",
+  "builder_implementation_sha": "93b7df1e747c0c7d2df726dc644aa641b2e72589",
+  "version": "0.0.1-alpha.29-dev.86-v8-vegetation.1",
+  "host": "Linux x86_64",
+  "java": "OpenJDK 21.0.12.1",
+  "production_planner_blob": "df0c7a273eee94657ab28c4847872854d1f55e25",
+  "production_planner_sha256": "240aebc49007166ee89d2b8cc17870d583342b6588c64b0f22ada9cebc74d451",
+  "focused_strict_javac21": "PASS",
+  "java21_assertions_per_run": 152491,
+  "java21_runs": 2,
+  "negative_compiled_mutations_rejected": 4,
+  "negative_mutations_total": 4,
+  "grade": {
+    "kind": "CARRIED prior accepted complete review",
+    "sum": 50,
+    "average": 5,
+    "threshold": "strict >8.5",
+    "fresh_comprehensive": false
+  },
+  "full_gradle": "NOT_RUN",
+  "java25": "NOT_AVAILABLE",
+  "native": "NOT_RUN",
+  "windows_gpu": "NOT_RUN",
+  "qualified_jar": null,
+  "owner_policy": "Oct 27 full build delegated to owner",
+  "product_edits": 0,
+  "lease_modified": false,
+  "files": [
+    "docs/engine-hourly-audits/2026-10-29T2030-3df845f0/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T2030-3df845f0/RECEIPT.json"
+  ]
+}

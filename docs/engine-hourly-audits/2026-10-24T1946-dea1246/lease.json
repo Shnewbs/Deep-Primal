@@ -1,0 +1,9 @@
+{
+  "role": "auditor",
+  "source_sha": "dea1246899f52c3392a094ab389e91416bc57b71",
+  "builder_modified": false,
+  "timed_reservation_found": false,
+  "status": "completed",
+  "builder_state_mutated": false,
+  "current_jar_native_gate": true
+}

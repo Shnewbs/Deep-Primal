@@ -1,0 +1,54 @@
+{
+  "pass": true,
+  "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
+  "artifact": "/workspace/scratch/a22609fabda0/builder1425/final/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar",
+  "producer": "/workspace/scratch/a22609fabda0/builder0731/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar",
+  "sha256": "c27c2869584431fd0fbaf7ce1462976854b274e0f39d34bea0ddfb7b58c6313c",
+  "size": 125294356,
+  "archives": [
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar",
+      "entries": 676
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.30.jar",
+      "entries": 152
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.30.jar",
+      "entries": 58
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.30.jar",
+      "entries": 31
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.30.jar",
+      "entries": 24
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+      "entries": 2873
+    },
+    {
+      "archive": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.30-vulkan-windows.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.30-windows.jar",
+      "entries": 4299
+    }
+  ],
+  "product_class_matches": 590,
+  "independent_core_matches": 144,
+  "private_class_exclusions": 218,
+  "themes_resource_hash_matches": 2508,
+  "themes_version": "0.1.0-alpha.8",
+  "palette_hashes": 43,
+  "ground_hashes": 11,
+  "generated_soil_hashes": 148,
+  "notices": [
+    "META-INF/licenses/vulkanmod/LICENSE",
+    "META-INF/licenses/vulkanmod/COPYING",
+    "META-INF/licenses/vulkanmod/UPSTREAM.json"
+  ],
+  "windows_payload": true,
+  "windows_execution": false,
+  "opengl_fallback": true
+}

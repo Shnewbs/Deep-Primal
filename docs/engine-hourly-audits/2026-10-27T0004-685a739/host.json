@@ -1,0 +1,1 @@
+{"platform":"Linux","machine":"x86_64","eligible_cpus":9,"cpu_model":"AMD EPYC 9V74 80-Core Processor","memory_limit_bytes":8589934592,"java":"25.0.4.1+1","gradle":"9.2.1","workload":"one-worker forced full build; fresh139-source independent core; ten packaged Linux native sessions; no exclusive timing benchmark","private_resource_root":"/dev/shm/dp-audit-685a739-0004"}

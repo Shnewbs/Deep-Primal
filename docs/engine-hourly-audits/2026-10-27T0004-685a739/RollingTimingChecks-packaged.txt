@@ -1,0 +1,2 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/dev/shm/dp-audit-685a739-0004/tmp
+ROLLING_TIMING_PASS oracleWindows=1580 samples=30000 concurrentWrites=100000 bounded=4096 reset=true overflow=true

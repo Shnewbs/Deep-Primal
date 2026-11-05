@@ -1,0 +1,17 @@
+{
+  "fresh_pinned_documents": [
+    {
+      "path": "docs/validation/engine-continuation/density-metadata-2026-10-24/README.md",
+      "blob_sha": "ab1e004d239bb64039195695c74c98d5fc4bce77"
+    },
+    {
+      "path": "docs/engine-review-2026-10-24/REVIEW.md",
+      "blob_sha": "574ed311723992aac86785b4a662a94d7acd89f5"
+    },
+    {
+      "path": "docs/validation/engine-continuation/r62-full-validation-pause-2026-10-24/README.md",
+      "blob_sha": "049cc2a6f456d6cf8faecc8eac268cce4ccdeeca"
+    }
+  ],
+  "copied_documents_not_used_for_identity": true
+}

@@ -1,0 +1,12 @@
+OpenJDK 64-Bit Server VM warning: Insufficient space for shared memory file: /tmp/hsperfdata_root/8
+
+builder1758/stage/StreamSourceLifecycleChecks.java:4: error: error while writing StreamSourceLifecycleChecks: No space left on device
+public class StreamSourceLifecycleChecks {
+       ^
+Note: builder1758/stage/HydrologyRuntime.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: builder1758/stage/StreamSourceLifecycleChecks.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 error
+Filesystem      Size  Used Avail Use% Mounted on
+shm             4.9G  3.9G  996M  81% /dev/shm

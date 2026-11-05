@@ -1,0 +1,27 @@
+{
+  "pinned_source": "7f314d34caaff2931f6bbb7e5c40671dd299d3ef",
+  "verified_current_core_inputs": 57,
+  "candidate": "R61 staged, unpromoted",
+  "full_gradle_build": false,
+  "owner_jar_built": false,
+  "core_sources": 57,
+  "compile_exit": 0,
+  "ReuseChecks": {
+    "exit": 0,
+    "pass": true,
+    "output": "DENSITY_REUSE_PASS checks=1581340 recipeVolumes=8 exactSamples=1572864 sharedWarpCoordinates=true signedZero=true independentJobs=16\n"
+  },
+  "com.shnewbs.deepprimal.core.density.NoiseCoreChecks": {
+    "exit": 0,
+    "pass": true,
+    "output": "NOISE_CORE_PASS checks=183806 oracleSamples=40000 sharedFaceSamples=77394 parallelJobs=64 fingerprint=6d53af6ab4d0f54f725723a6fcf0708bb6a7ff82b0b8a6082bb78b31d07267c1\n"
+  },
+  "com.shnewbs.deepprimal.core.density.DensityGraphChecks": {
+    "exit": 0,
+    "pass": true,
+    "output": "DENSITY_GRAPH_PASS checks=40987 sharedFaceSamples=29784 overhangColumns=5 minHeight=20.93897487422737 maxHeight=325.50950620538816 fingerprint=c997cbd6ea9c6149ebc0942d841e4632e919c184a9b1bf809274dd36a2614f26\n"
+  },
+  "pass": true,
+  "product_class_count": 102,
+  "all_runtime_processes_completed": true
+}

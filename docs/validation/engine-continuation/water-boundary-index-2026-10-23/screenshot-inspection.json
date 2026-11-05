@@ -1,0 +1,39 @@
+{
+  "pass": true,
+  "captures": [
+    {
+      "path": "vulkan-corners-shared-final-index/screenshots/corners-scene-before.png",
+      "bytes": 736505,
+      "sha256": "95df7b2d7424695d64a2ada45d169a8362e227acc8284dfbbdedb0a2184c2967",
+      "dimensions": [
+        854,
+        480
+      ],
+      "manually_viewed": true,
+      "observation": "Lake water, banks, hillside and terrain present; no error screen. Stepped shoreline/underwater bands visible; static capture does not establish temporal smoothness or complete distant coverage."
+    },
+    {
+      "path": "vulkan-corners-shared-final-index-packaged/screenshots/corners-scene-before.png",
+      "bytes": 728101,
+      "sha256": "21400615f2e0b8ecab09748b35105feec19faf3126beaafc9b245c6d36f043cd",
+      "dimensions": [
+        854,
+        480
+      ],
+      "manually_viewed": true,
+      "observation": "Lake water, banks, hillside and terrain present; no error screen. Stepped shoreline/underwater bands visible; static capture does not establish temporal smoothness or complete distant coverage."
+    },
+    {
+      "path": "vulkan-reuse-gl-corners-shared-final-index/screenshots/reuse-gl-recovery.png",
+      "bytes": 1761839,
+      "sha256": "e02d3de2f4ffeb950f8f2785a65c9555a2ac1316bb5e0139cb5bda2f775998c2",
+      "dimensions": [
+        1200,
+        800
+      ],
+      "manually_viewed": true,
+      "observation": "Lake water, banks, hillside and terrain present; no error screen. Stepped shoreline/underwater bands visible; static capture does not establish temporal smoothness or complete distant coverage."
+    }
+  ],
+  "limits": "Vulkan captures854x480;GL1200x800,live states/phase can differ. No matched full temporal/API-parity/visible-cap-pressure or ownerGPU acceptance. Distant rectangular LOD/horizon cutoff remains open; no geography change."
+}

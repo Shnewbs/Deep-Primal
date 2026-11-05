@@ -1,0 +1,3 @@
+BALANCE_ORACLE_PASS cases=116279272 columns=262144 seeds=4 belts=8 chunks=1024 hits=51370 overlaps=91 candidates=926
+ore_counts=[10807, 10181, 29804, 0, 0, 0, 577, 1]
+host_pairs={coal:SANDSTONE=1170, coal:TUFF=9637, copper:ANDESITE=9070, copper:CALCITE=1111, diamond:BASALT=137, diamond:DEEPSLATE=440, emerald:CALCITE=1, iron:ANDESITE=8943, iron:BASALT=5035, iron:CALCITE=145, iron:DEEPSLATE=4428, iron:GRANITE=727, iron:SANDSTONE=2083, iron:TUFF=8443}

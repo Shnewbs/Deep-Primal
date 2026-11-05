@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "scope": "Actual API-compiled HydrologyRuntime loaded in isolated JVM; no Minecraft server/native/save/reopen execution",
+  "records": [
+    {
+      "variant": "baseline",
+      "source_sha256": "ec9c07dcc1b3b7621fe6b099e3e51d812bda9984dfee270ffb63fa67a820c311",
+      "compiled_classes": 7,
+      "compile_exit": 0,
+      "test_exit": 1,
+      "test_output": "",
+      "expected_negative_control": true
+    },
+    {
+      "variant": "fixed",
+      "source_sha256": "8ae71149ab3507b715e26c24212066dd5017791f4434460ebec7489181b68978",
+      "compiled_classes": 7,
+      "compile_exit": 0,
+      "test_exit": 0,
+      "test_output": "STREAM_ALLOWANCE_RUNTIME_PASS cases=1445 exactIntegerOracle=true signedOverflow=true rewind=true sentinel=true runtime=file:/workspace/scratch/a22609fabda0/builder1600/api-fixed/classes/",
+      "expected_negative_control": false
+    },
+    {
+      "variant": "combined",
+      "source_sha256": "92a00108526a107f2dc95a0c176579eb0b013ca65c47157b4818645fcb82657b",
+      "compiled_classes": 7,
+      "compile_exit": 0,
+      "test_exit": 0,
+      "test_output": "STREAM_ALLOWANCE_RUNTIME_PASS cases=1445 exactIntegerOracle=true signedOverflow=true rewind=true sentinel=true runtime=file:/workspace/scratch/a22609fabda0/builder1600/api-combined/classes/",
+      "expected_negative_control": false
+    }
+  ]
+}

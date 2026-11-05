@@ -1,0 +1,29 @@
+{
+  "scope": "LOD persisted eviction recovery and queued edit guards; accepted solver and Vulkan startup/frame code unchanged; temporary tracing absent",
+  "non_vulkan": false,
+  "changed_source_sha256": {
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java": "affa95c8daa6d2e9378f1c06e58f02401c4ba1a9b94489d6f216ddd9e518660c"
+  },
+  "archives_crc_pass": [
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.25-dev.jar",
+    "DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar!META-INF/jarjar/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+  ],
+  "compiled_class_byte_matches": {
+    "main": 103,
+    "engine-core": 58,
+    "graphics-settings": 37,
+    "lod-engine": 14,
+    "performance-engine": 14,
+    "renderer-vulkan": 181
+  },
+  "jar_bytes": 12756830,
+  "jar_sha256": "490e2d4cb9bbc6829de302ed093f168de2f741ffe0e02b51ecca027a69d832e2",
+  "runtime_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+  "core_source_sha256": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97",
+  "validation_and_private_agent_payload_absent": true,
+  "installer_release": false
+}

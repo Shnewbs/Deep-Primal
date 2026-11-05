@@ -1,0 +1,44 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.shnewbs.deepprimal.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ServerLevelMetricsAccessor",
+    "WaterwayAquiferMixin",
+    "RiverCurrentMixin",
+    "RiverImpulseMixin",
+    "FarmWaterMixin",
+    "SwimmingMixin",
+    "HorseBuoyancyMixin",
+    "OceanBoatMixin",
+    "PrecipitationMixin",
+    "FiniteWaterMixin",
+    "WaterImportMixin",
+    "PressureChunkMutationMixin",
+    "compat.KubeJsRegistryContextMixin"
+  ],
+  "client": [
+    "client.OptionsMixin",
+    "client.OptionsAccessor",
+    "client.ViewAreaMixin",
+    "client.SectionOcclusionGraphMixin",
+    "client.GraphStorageMixin",
+    "client.FogRendererMixin",
+    "client.CameraMixin",
+    "client.LevelRendererAccessor",
+    "client.WaterColorMixin",
+    "client.SnowFoliageMixin",
+    "client.WaterFogMixin",
+    "client.FluidModelAccess",
+    "client.WaterPresentationMixin",
+    "client.WaterSectionBoundsMixin",
+    "client.GroundSideLightingMixin",
+    "client.GroundSideVertexMixin",
+    "client.GroundMaterialShaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin"
+}

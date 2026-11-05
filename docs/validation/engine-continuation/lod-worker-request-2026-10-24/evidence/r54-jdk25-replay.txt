@@ -1,0 +1,11 @@
+LOD_PREFIX_BUG_REPRODUCED files=8205 retained=8192 omittedReadableCamera=-3813,-8
+INDEX_SCAN entries=8205 turns=33 budget=256 retained=8192 camera=-3813,-8
+INDEX_SCAN entries=8213 turns=484 budget=17 retained=31 camera=-4102,-8
+INDEX_SCAN entries=8213 turns=484 budget=17 retained=31 camera=4102,8
+INDEX_SCAN entries=8213 turns=484 budget=17 retained=31 camera=-2147483648,2147483647
+INDEX_SCAN entries=8213 turns=484 budget=17 retained=31 camera=2147483647,-2147483648
+INDEX_SCAN entries=15 turns=16 budget=1 retained=15 camera=-2147483648,-2147483648
+INDEX_SCAN entries=15 turns=16 budget=1 retained=15 camera=2147483647,2147483647
+INDEX_SCAN entries=15 turns=16 budget=1 retained=15 camera=0,0
+LOD_PAGED_INDEX_PASS checks=14303 actualSnapshots=8205 prefixOmissionFixed=true fullNearestOracle=true turnBound256=true keyBound8192=true invalidNames=true travelRescans=true extremeCoordinates=true cancellation=true
+

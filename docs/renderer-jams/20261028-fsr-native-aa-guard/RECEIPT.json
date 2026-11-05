@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "jam_id": "RND-20261028-1355-FSR-QUALITY-GUARD",
+  "grade_type": "renderer_read_only_self_audit_not_independent",
+  "started_main": "9922b9d3733986848a31b65f3c911b928c0b3bc7",
+  "claim_commit": "6068458949cfde3b57b7842b0ab33f9eccd0d495",
+  "source_parent": "6068458949cfde3b57b7842b0ab33f9eccd0d495",
+  "source_commit": "baacdebc80d4a26cff893a30a962a144ef43b519",
+  "source_blobs": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/UpscalingPolicy.java": "8cb56a92010413a2cb9e7e13d6764c99c063f96b",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/UpscalingPolicyChecks.java": "d3060c7b10726cdac9f8783aa5bb83286d7b92c1",
+    "graphics-settings/src/main/java/com/shnewbs/deepprimal/settings/PrimalGraphicsScreen.java": "3a1703e219de77a5b6bfba1cb386b58ef1ad7c88"
+  },
+  "docs_source": "docs/renderer-jams/20261028-fsr-native-aa-guard/README.md",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1330-643ac790/REVIEW.md",
+  "validation": {
+    "java21_version": "21.0.12.1",
+    "strict_javac": "PASS",
+    "verified_runtime": "PASS",
+    "assertions": 139,
+    "negative_old_oracle": "EXPECTED_FAILURE FSR_31",
+    "git_blob_identities": "MATCH",
+    "ui_native": "NOT_RUN",
+    "java25": "NOT_RUN_NO_TOOLCHAIN",
+    "gradle": "NOT_RUN_OWNER_POLICY",
+    "gpu": "NOT_RUN_OWNER_POLICY",
+    "jar": "NOT_RUN_OWNER_POLICY",
+    "frame_time": "NO_MATCHED_DATA"
+  },
+  "categories": {
+    "distance_lod": 6.5,
+    "mesh_scheduling": 6.5,
+    "gpu_submission_memory": 4,
+    "actual_fsr_dlss": 5,
+    "visual_settings": 5.25,
+    "validation_performance": 4.75
+  },
+  "average": 5.333333333333333,
+  "previous_average": 5.25,
+  "delta_rounded": 0.08,
+  "engine_grade_unchanged": 5,
+  "score_evidence": "REVIEW.md",
+  "next": "Owner native upscaling UI legacy/apply/revert/Vulkan-GL and GPU frame-time/VRAM/water pixel tests",
+  "status": "source_pushed_self_reviewed_ownership_released_no_new_jar"
+}

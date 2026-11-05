@@ -1,0 +1,10 @@
+{
+  "role": "auditor",
+  "run": "20261026T0154",
+  "source_sha": "4fb29e06282bfa860c7ac2dbaae8fe7d69dbc6bc",
+  "status": "completed",
+  "builder_mutated": false,
+  "performance_reservation": "No active timing reservation observed; no Java/benchmark process at start",
+  "isolated_cache_outputs": true,
+  "result": "qualified dev24 development JAR"
+}

@@ -1,0 +1,21 @@
+{
+  "owner": "renderer-rediscovery-retarget-20261027",
+  "status": "checkpointed-staged",
+  "started_at": "2026-10-27T16:01:32Z",
+  "active_until": null,
+  "completed_at": "2026-10-27T16:08:45Z",
+  "scope": [
+    "docs/renderer-jams/20261027-rediscovery-retarget/**"
+  ],
+  "production_files_claimed": [],
+  "candidate_scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+  ],
+  "exclusive_benchmark": false,
+  "upscaling_owner_exclusion": "docs/GRAPHICS-UPSCALING-WORK-STATE.json; avoid all FSR/DLSS settings/providers",
+  "implementation_policy": "staged documentation only until full root Java25, GPU and package gates qualify the integrated change",
+  "review_pin": "3bae9d401019563f138739fc244e78ffb0c67749",
+  "production_promoted": false,
+  "lease_released": true
+}

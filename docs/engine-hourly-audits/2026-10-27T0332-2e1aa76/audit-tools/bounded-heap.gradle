@@ -1,0 +1,1 @@
+allprojects { tasks.withType(JavaExec).configureEach { maxHeapSize = '512m' } }

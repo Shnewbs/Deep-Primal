@@ -1,0 +1,11 @@
+{
+  "mode": "baseline",
+  "exit_code": 1,
+  "elapsed_seconds": 21.54,
+  "deposit_record": null,
+  "raw_sha256": "e9d67eed7a1c726dc477afcdc426f21e52781899575c7d6dd34ad3a877bc813c",
+  "saved": false,
+  "stopped": false,
+  "crashes": [],
+  "pass": false
+}

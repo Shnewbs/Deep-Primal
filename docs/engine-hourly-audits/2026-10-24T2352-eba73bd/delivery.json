@@ -1,0 +1,14 @@
+{
+  "local_path": "/workspace/scratch/1a7cb29b04a2/audit-eba73bd-20261024T2352/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2-audit-20261024T2352-eba73bd-vulkan-windows.jar",
+  "purpose": "create_library_file",
+  "status": "succeeded",
+  "file_id": "file_00000000e584820ca8958d1b654262be",
+  "library_file_id": "libfile_74e52da975948191a04de68419fde074",
+  "file_name": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2-audit-20261024T2352-eba73bd-vulkan-windows.jar",
+  "local_metadata_applied": true,
+  "path": "/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.2-audit-20261024T2352-eba73bd-vulkan-windows.jar",
+  "current_version_number": 0,
+  "url": "https://chatgpt.com/library?file_id=libfile_74e52da975948191a04de68419fde074&account_id=personal",
+  "source_sha": "eba73bdb7f30610469f822dec3dacfe8e0fad0d4",
+  "sha256": "4df561680d03ed7d64a8510214406353da311445f67196e3bda0eb7e09bb5de0"
+}

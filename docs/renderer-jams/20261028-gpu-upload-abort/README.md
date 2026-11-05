@@ -1,0 +1,7 @@
+# Renderer jam 13 — fault-safe pending LOD GPU uploads
+
+**Jam:** `renderer-20261028T1700-gpu-upload-failure-unwind`. Source [`61f6405d55d05b0f1d762e50c3d6d6ef4e4486fd`](https://github.com/Shnewbs/Deep-Primal/commit/61f6405d55d05b0f1d762e50c3d6d6ef4e4486fd), parent claim `ad950094b844fe73b75d58ba07f52b6ae06cc137`. Audit consumed: [2026-10-28 16:28 UTC](../../engine-hourly-audits/2026-10-28T1628-1e6e530/REVIEW.md).
+
+Changed production: `lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java` and new `LodGpuUploadFailure.java`; reproducible `LodGpuUploadFailureChecks.java` lives here. A partial upload failure now clears pending ownership before rollback; accepted buffers are closed without masking the original exception; committed byte accounting is paired with accept, and completed cache buffers are never freed twice after superseded-entry close failure. No GPU retry or device-loss recovery is promised. Water geometry, shaders and other schedules unchanged.
+
+Strict Java21 compilation/verification and **450,015** focused assertions passed; intentional no-release negative control failed as expected. Git source/test blobs matched. Whole module Java25/Gradle, Minecraft/Vulkan/OpenGL, FPS/VRAM, water pixels and JAR publishing remain unrun with the owner. See [REVIEW.md](REVIEW.md) and [RECEIPT.json](RECEIPT.json). Next: owner-native forced-failure and world/resize/reload validation plus real GPU frame-time baselines.

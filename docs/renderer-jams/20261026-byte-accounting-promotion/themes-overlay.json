@@ -1,0 +1,327 @@
+{
+  "archive_sha256": "eb3999558e19ca36ef44b0e7d3dcdea171a5cce6e59dff7f7e1e12841abb5018",
+  "archive_bytes": 112210843,
+  "existing_git_files_not_overwritten": [
+    {
+      "path": "gui-themes/README.md",
+      "archive_matches_git_file": false
+    },
+    {
+      "path": "gui-themes/build.gradle",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/ALPHA3-VALIDATION.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/ALPHA4-VALIDATION.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/ALPHA5-VALIDATION.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/ALPHA6-VALIDATION.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/ALPHA7-AUDIT.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/ALPHA8-JOURNAL-FIX.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/docs/VALIDATION.md",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/gradle.properties",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/settings.gradle",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/compatValidation/java/com/shnewbs/deepprimal/themes/validation/DeepPrimalPresence.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/compatValidation/resources/META-INF/neoforge.mods.toml",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/Theme.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeActions.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeArt.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeButton.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeConfig.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeContainerArt.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeCraftingScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeDayBadge.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeFurnaceScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeHud.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeHudEditorScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeInventoryScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeJournalScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeMenuArt.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeMod.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemePacks.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeRecipes.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeScreens.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeSlotLayout.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/ThemeTitleScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/api/ThemeIntegration.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeButtonLabelMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeContainerAccessor.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeGraphicsMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeLabelMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeMenuMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeRecipeAccessor.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeRecipeBookMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeRecipeScreenMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeRecoveryMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeSlotAccessor.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeToastMixin.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/java/com/shnewbs/deepprimal/themes/mixin/ThemeWidgetAccessor.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/META-INF/neoforge.mods.toml",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/lang/en_us.json",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/basalt_copper.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/basalt_copper.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/clay_ember.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/clay_ember.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/field_journal.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/field_journal.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/frost_slate.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/frost_slate.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/obsidian_ash.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/obsidian_ash.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/rawhide_flint.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/rawhide_flint.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/riverstone_moss.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/riverstone_moss.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/timber_iron.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/menu/timber_iron.png.mcmeta",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/basalt_copper.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/clay_ember.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/field_journal.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/frost_slate.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/obsidian_ash.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/rawhide_flint.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/riverstone_moss.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/assets/deepprimal_themes/textures/reference/timber_iron.png",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/main/resources/deepprimal-themes.mixins.json",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/themeAssets/java/com/shnewbs/deepprimal/themes/assets/GenerateThemes.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/validation/java/com/shnewbs/deepprimal/themes/ThemeHudValidation.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/validation/java/com/shnewbs/deepprimal/themes/ThemeJournalValidation.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/validation/java/com/shnewbs/deepprimal/themes/ThemeMenuValidation.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/validation/java/com/shnewbs/deepprimal/themes/ThemeToastValidationScreen.java",
+      "archive_matches_git_file": true
+    },
+    {
+      "path": "gui-themes/src/validation/java/com/shnewbs/deepprimal/themes/ThemeValidation.java",
+      "archive_matches_git_file": true
+    }
+  ],
+  "added": []
+}

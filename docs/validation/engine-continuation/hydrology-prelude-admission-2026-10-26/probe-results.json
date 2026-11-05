@@ -1,0 +1,26 @@
+[
+  {
+    "variant": "baseline",
+    "source_sha256": "92a00108526a107f2dc95a0c176579eb0b013ca65c47157b4818645fcb82657b",
+    "cases": 180,
+    "expired_sort_admissions": 105,
+    "initial_skips": 0,
+    "cleanup_skips": 0
+  },
+  {
+    "variant": "single_guard",
+    "source_sha256": "1c4b3d9c177945a40fddf931eb3e4596aca5bd39164bee6e5f094cec5dcf445e",
+    "cases": 180,
+    "expired_sort_admissions": 45,
+    "initial_skips": 60,
+    "cleanup_skips": 0
+  },
+  {
+    "variant": "candidate",
+    "source_sha256": "c21da0819f250d557d17080ad8cc3355e1e2a811dd0c7edc383f80474ed54696",
+    "cases": 180,
+    "expired_sort_admissions": 0,
+    "initial_skips": 60,
+    "cleanup_skips": 45
+  }
+]

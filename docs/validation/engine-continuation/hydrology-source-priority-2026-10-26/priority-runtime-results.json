@@ -1,0 +1,12 @@
+[
+  {
+    "variant": "baseline",
+    "exit": 1,
+    "output": "Exception in thread \"main\" java.lang.AssertionError: runtime same-window source priority changed\n\tat com.shnewbs.deepprimal.engine.StreamPriorityRuntimeChecks.main(StreamPriorityRuntimeChecks.java:16)\n"
+  },
+  {
+    "variant": "candidate",
+    "exit": 0,
+    "output": "SOURCE_PRIORITY_RUNTIME_PASS cases=1000 sameWindow=true nextPass=true actualRuntimeMethods=true nativeWorld=false\n"
+  }
+]

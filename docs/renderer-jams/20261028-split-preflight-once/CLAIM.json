@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "owner": "dedicated-renderer-schedule",
+  "jam_id": "renderer-20261028T1952-split-preflight-once",
+  "status": "released",
+  "claimed_utc": "2026-10-28T19:52:15Z",
+  "expires_utc": "2026-10-28T20:45:00Z",
+  "source_head": "26b94829d158bed70576ba250802e903403819b7",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodMeshPartSplitter.java",
+    "docs/renderer-jams/20261028-split-preflight-once/",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excluded": [
+    "water engine",
+    "terrain generation",
+    "FSR/DLSS provider",
+    "native backend",
+    "gradle.properties",
+    "other automations"
+  ],
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1930-2a341f9/REVIEW.md",
+  "measurement_reservation": "isolated Java21 bounded CPU splitter fixture only; no GPU, hardware benchmark, shared outputs or caches",
+  "owner_build_override": true,
+  "intent": "Reduce redundant canonical-quad index scanning for optional 32KiB LOD part splitting without changing default behavior or geometry. Test source parity, cancellation and cap.",
+  "lease_released": true,
+  "released_at": "2026-10-28T20:00:00Z",
+  "source_commit": "0daeacbb7f5c3f26893a0c258341290abb96fa5c",
+  "source_blob": "e9ab67d591b5628e61d7b2576d90adced763f1aa",
+  "self_audit_score": 5.55,
+  "validation": "Java21 strict source-shape 14,154,029 assertions; committed smoke 256 cases, same-process paired CPU fixture; negative inverted-decision mutant rejected; no native Java25/GPU/Gradle/JAR",
+  "next": "Owner Vulkan/OpenGL same-camera default-vs-32KiB GPU telemetry, water pixels, lifecycle fault injection"
+}

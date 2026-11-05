@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.20)
+project(deepprimal_dlss LANGUAGES CXX)
+
+set(NGX_SDK_ROOT "" CACHE PATH "External NVIDIA DLSS SDK checkout")
+set(VULKAN_HEADERS_ROOT "" CACHE PATH "External Vulkan-Headers checkout")
+find_package(JNI REQUIRED)
+find_package(Threads REQUIRED)
+find_path(VULKAN_INCLUDE_DIR vulkan/vulkan.h
+    HINTS "${VULKAN_HEADERS_ROOT}/include" REQUIRED)
+
+if(NOT EXISTS "${NGX_SDK_ROOT}/include/nvsdk_ngx_helpers_vk.h")
+    message(FATAL_ERROR "NGX_SDK_ROOT must point to an external NVIDIA DLSS SDK checkout")
+endif()
+
+if(WIN32 AND MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(NGX_STATIC "${NGX_SDK_ROOT}/lib/Windows_x86_64/x64/nvsdk_ngx_d.lib")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64)$")
+        set(NGX_STATIC "${NGX_SDK_ROOT}/lib/Linux_aarch64/libnvsdk_ngx.a")
+    else()
+        set(NGX_STATIC "${NGX_SDK_ROOT}/lib/Linux_x86_64/libnvsdk_ngx.a")
+    endif()
+else()
+    message(FATAL_ERROR "This adapter is configured for Linux x64/arm64 and Windows x64 MSVC")
+endif()
+if(NOT EXISTS "${NGX_STATIC}")
+    message(FATAL_ERROR "The matching NGX static loader is missing: ${NGX_STATIC}")
+endif()
+
+add_library(deepprimal_dlss SHARED deepprimal_dlss.cpp)
+target_compile_features(deepprimal_dlss PRIVATE cxx_std_17)
+target_include_directories(deepprimal_dlss SYSTEM PRIVATE
+    "${NGX_SDK_ROOT}/include" "${VULKAN_INCLUDE_DIR}" ${JNI_INCLUDE_DIRS})
+target_link_libraries(deepprimal_dlss PRIVATE "${NGX_STATIC}" Threads::Threads ${CMAKE_DL_LIBS})
+set_target_properties(deepprimal_dlss PROPERTIES
+    CXX_VISIBILITY_PRESET hidden VISIBILITY_INLINES_HIDDEN YES)
+if(MSVC)
+    # The _d SDK loader uses the dynamic release CRT. Build the Release configuration.
+    set_property(TARGET deepprimal_dlss PROPERTY MSVC_RUNTIME_LIBRARY MultiThreadedDLL)
+    target_compile_definitions(deepprimal_dlss PRIVATE _ITERATOR_DEBUG_LEVEL=0)
+    target_compile_options(deepprimal_dlss PRIVATE /W4 /EHsc)
+else()
+    target_compile_options(deepprimal_dlss PRIVATE -Wall -Wextra -Werror -Wno-missing-field-initializers)
+    target_link_options(deepprimal_dlss PRIVATE -Wl,--no-undefined -Wl,--exclude-libs,ALL)
+endif()

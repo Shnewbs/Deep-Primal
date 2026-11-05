@@ -1,0 +1,84 @@
+{
+  "pass": true,
+  "independent_byte_oracle": true,
+  "all_variants_identical_final_packets": true,
+  "runs": 4,
+  "order": [
+    "scalar",
+    "bulk",
+    "bulk",
+    "scalar"
+  ],
+  "quads_per_pass": 2048,
+  "passes_per_sample": 16,
+  "warmup_rounds": 16,
+  "samples_per_mask_per_run": 31,
+  "per_update_counter_removed_from_timed_paths": true,
+  "two_masks": [
+    {
+      "run": 0,
+      "variant": "scalar",
+      "mask": 3,
+      "median_packet_cpu_ms_per_16_passes": 3.683298,
+      "p95_packet_cpu_ms_per_16_passes": 3.965082,
+      "payload_sha256": "d96ff339809252b1d30479831be4780d800b848d410eed2a494027df96f7d679"
+    },
+    {
+      "run": 0,
+      "variant": "scalar",
+      "mask": 15,
+      "median_packet_cpu_ms_per_16_passes": 8.507351,
+      "p95_packet_cpu_ms_per_16_passes": 13.872618,
+      "payload_sha256": "3b62af2615b63573f7387832708b282beb52ba1475845e6def82bbbda01100e4"
+    },
+    {
+      "run": 1,
+      "variant": "bulk",
+      "mask": 3,
+      "median_packet_cpu_ms_per_16_passes": 1.864223,
+      "p95_packet_cpu_ms_per_16_passes": 2.134459,
+      "payload_sha256": "d96ff339809252b1d30479831be4780d800b848d410eed2a494027df96f7d679"
+    },
+    {
+      "run": 1,
+      "variant": "bulk",
+      "mask": 15,
+      "median_packet_cpu_ms_per_16_passes": 2.508362,
+      "p95_packet_cpu_ms_per_16_passes": 2.753089,
+      "payload_sha256": "3b62af2615b63573f7387832708b282beb52ba1475845e6def82bbbda01100e4"
+    },
+    {
+      "run": 2,
+      "variant": "bulk",
+      "mask": 3,
+      "median_packet_cpu_ms_per_16_passes": 1.879777,
+      "p95_packet_cpu_ms_per_16_passes": 2.200108,
+      "payload_sha256": "d96ff339809252b1d30479831be4780d800b848d410eed2a494027df96f7d679"
+    },
+    {
+      "run": 2,
+      "variant": "bulk",
+      "mask": 15,
+      "median_packet_cpu_ms_per_16_passes": 2.49379,
+      "p95_packet_cpu_ms_per_16_passes": 2.785398,
+      "payload_sha256": "3b62af2615b63573f7387832708b282beb52ba1475845e6def82bbbda01100e4"
+    },
+    {
+      "run": 3,
+      "variant": "scalar",
+      "mask": 3,
+      "median_packet_cpu_ms_per_16_passes": 3.668736,
+      "p95_packet_cpu_ms_per_16_passes": 3.849468,
+      "payload_sha256": "d96ff339809252b1d30479831be4780d800b848d410eed2a494027df96f7d679"
+    },
+    {
+      "run": 3,
+      "variant": "scalar",
+      "mask": 15,
+      "median_packet_cpu_ms_per_16_passes": 7.972056,
+      "p95_packet_cpu_ms_per_16_passes": 9.09161,
+      "payload_sha256": "3b62af2615b63573f7387832708b282beb52ba1475845e6def82bbbda01100e4"
+    }
+  ],
+  "scope": "Standalone packet CPU arithmetic only; separate JVM warmups and sampled elapsed times are diagnostic, not GPU publication, full-neighbor scan, frame/FPS or owner-GPU acceptance."
+}

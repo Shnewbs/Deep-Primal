@@ -1,0 +1,262 @@
+[
+  {
+    "case": "cleanup-admission",
+    "mode": "admission",
+    "suite": "pressure-admission",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "PRESSURE_ADMISSION_NATIVE_PASS PRESSURE_ADMISSION_OBSERVED beforeHead=128 beforeTail=129 afterHead=128 afterTail=129 sameJob=true orphanJobs=0 watchedJobsAfterFinish=0 total=4104 conserved=true noInterveningLevelStep=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 23.05,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "446f38eeb288ec348ebe7ddd6e39aa37380973a22b73e5a6a34c3ea6c011f4c6"
+  },
+  {
+    "case": "cleanup-filling",
+    "mode": "filling",
+    "suite": "filling",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 24.85,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "47c3e69faf68112608144cea640e0504039e6a9c8c079dc728508fcf324848ef"
+  },
+  {
+    "case": "cleanup-pressure-fixed",
+    "mode": "fixed",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_CONTINUATION_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=2166 peakTickPressureVisits=5484 restarts=2 coalesced=8023 completed=356 saturated=0 headFrontierRetained=false headRefreshes=18 headDeferrals=2 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 30.81,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "7f5f1bbccbd33c47cfa9fdb7e5b121b2941adedfe8af5b5f1c94c381297ea358"
+  },
+  {
+    "case": "cleanup-pressure-heads",
+    "mode": "heads",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_HEAD_CHANGE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4190 finalUnits=4190 outletUnits=7 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=118468 peakTickPressureVisits=6144 restarts=5 coalesced=6078 completed=537 saturated=45 headFrontierRetained=true headRefreshes=22 headDeferrals=3 idleSamples=0 finalWatchedChunks=9 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 27.92,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "e88b9478cf6c1e453ba667046db09251da69afa275c7294b79bb376b14e0daea"
+  },
+  {
+    "case": "cleanup-pressure-edit",
+    "mode": "edit",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_EDIT_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4176 finalUnits=4176 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=118507 peakTickPressureVisits=6144 restarts=1 coalesced=6398 completed=525 saturated=45 headFrontierRetained=false headRefreshes=14 headDeferrals=1 idleSamples=0 finalWatchedChunks=17 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 28.88,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "f92957283ebd8be3e8a24c00ec3caa850fdf6c29bbc52c193f0eb53e3f7de692"
+  },
+  {
+    "case": "cleanup-pressure-unload",
+    "mode": "unload",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_UNLOAD_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=2 peakRetainedNodes=14916 peakTickPressureVisits=768 restarts=1 coalesced=2 completed=12 saturated=2 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=true independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 30.7,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "c477962bd9329359cfe64eaf904047d66ebed6b9802d3471e16f025ab3d518b0"
+  },
+  {
+    "case": "cleanup-pressure-idle",
+    "mode": "idle",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_IDLE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=4 peakRetainedNodes=906 peakTickPressureVisits=1301 restarts=4 coalesced=3 completed=11 saturated=0 headFrontierRetained=false headRefreshes=1 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 29.19,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "198a4d510faae3b989bdc035206e8ada9a4887a93b7b620a221b9bf4a07617da"
+  },
+  {
+    "case": "cleanup-pressure-reopen",
+    "mode": "reopen",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_REOPEN_NATIVE_PASS ticks=120 initialWaterCells=263 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=34 firstSearchVisits=0 maxSliceVisits=0 peakJobs=0 peakRetainedNodes=0 peakTickPressureVisits=0 restarts=0 coalesced=0 completed=0 saturated=0 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 23.42,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "244fd2160e91b848f13e55ced29d45d41d45585dba5504be39509a12a68b1a82"
+  },
+  {
+    "case": "cleanup-short-pressure",
+    "mode": "pressure",
+    "suite": "pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "ENGINE_PRESSURE_NATIVE_PASS units=144 raisedSurface=true conserved=true disconnected=true noForceLoad=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 20.05,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "db32090f3cb3c5bb1ff3de40d49f8d313fd4707790e30dfc76da4893c588b458"
+  },
+  {
+    "case": "cleanup-active-queue",
+    "mode": "queue",
+    "suite": "queue",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "ACTIVE_QUEUE_NATIVE_PASS cells=65536 admissions=262144 fifo=true mutableSnapshots=true negativeCoordinates=true duplicateAtCapacity=true scheduledOverflow=true allocatedBytes=304 queue=it.unimi.dsi.fastutil.longs.LongLinkedOpenHashSet"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 21.55,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "f5abeb07fdc15909e099490c4e751f01ef7bb668bf91bebfeda8066dd7f141d4"
+  },
+  {
+    "case": "cleanup-packaged-admission",
+    "mode": "admission",
+    "suite": "pressure-admission",
+    "trace_enabled": false,
+    "packaged": true,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "PRESSURE_ADMISSION_NATIVE_PASS PRESSURE_ADMISSION_OBSERVED beforeHead=128 beforeTail=129 afterHead=128 afterTail=129 sameJob=true orphanJobs=0 watchedJobsAfterFinish=0 total=4104 conserved=true noInterveningLevelStep=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 20.08,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "c4f32221a7d3e18818fbb5b980d4f29b80322937057df12df1ef3b428458ad75"
+  },
+  {
+    "case": "cleanup-packaged-filling",
+    "mode": "filling",
+    "suite": "filling",
+    "trace_enabled": false,
+    "packaged": true,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 25.18,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "8b8502599e21323a8dc0787f2c7df606f67cb77dfa137a296d2d68eac9c4618e"
+  },
+  {
+    "case": "cleanup-packaged-pressure",
+    "mode": "fixed",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": true,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_CONTINUATION_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=2230 peakTickPressureVisits=5424 restarts=4 coalesced=7213 completed=374 saturated=0 headFrontierRetained=false headRefreshes=25 headDeferrals=2 idleSamples=0 finalWatchedChunks=5 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "record_file_matches": true,
+    "build_successful": true,
+    "crash_reports": [],
+    "elapsed_seconds": 33.29,
+    "traced_source_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+    "log_sha256": "306ace4a64e7a6e7db4a20a56a87227ef88a803b91482fa52d24ab0124310fad"
+  }
+]

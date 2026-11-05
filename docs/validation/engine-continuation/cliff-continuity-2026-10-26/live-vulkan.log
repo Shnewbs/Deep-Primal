@@ -1,0 +1,244 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/ProArt/Documents/ChatGPT/Deep%20Primal/build-tools/gradle-home/wrapper/dists/gradle-9.2.1-bin/2t0n5ozlw9xmuyvbp7dnzaxug/gradle-9.2.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+> Task :engine-core:compileJava UP-TO-DATE
+> Task :gui-themes:compileJava UP-TO-DATE
+> Task :graphics-settings:compileJava UP-TO-DATE
+> Task :performance-engine:compileJava UP-TO-DATE
+> Task :lod-engine:compileJava UP-TO-DATE
+> Task :compileSoilDataJava UP-TO-DATE
+> Task :processSoilDataResources NO-SOURCE
+> Task :soilDataClasses UP-TO-DATE
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes UP-TO-DATE
+> Task :engine-core:jar UP-TO-DATE
+> Task :generateSoilResources UP-TO-DATE
+> Task :renderer-vulkan:compileJava UP-TO-DATE
+> Task :graphics-settings:processResources UP-TO-DATE
+> Task :graphics-settings:classes UP-TO-DATE
+> Task :graphics-settings:jar UP-TO-DATE
+> Task :gui-themes:compileThemeAssetsJava UP-TO-DATE
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :gui-themes:generateThemeAssets UP-TO-DATE
+> Task :gui-themes:processResources UP-TO-DATE
+> Task :gui-themes:classes UP-TO-DATE
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar UP-TO-DATE
+> Task :lod-engine:processResources UP-TO-DATE
+> Task :lod-engine:classes UP-TO-DATE
+> Task :lod-engine:jar UP-TO-DATE
+> Task :performance-engine:processResources UP-TO-DATE
+> Task :performance-engine:classes UP-TO-DATE
+> Task :performance-engine:jar UP-TO-DATE
+> Task :renderer-vulkan:processResources UP-TO-DATE
+> Task :renderer-vulkan:classes UP-TO-DATE
+> Task :renderer-vulkan:jar UP-TO-DATE
+
+> Task :compileVisualValidationJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :jarJar UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :prepareClientRun
+> Task :processVisualValidationResources NO-SOURCE
+> Task :visualValidationClasses
+
+> Task :runClient
+2026-10-26T09:44:49.293057800Z main WARN Advanced terminal features are not available in this environment
+[02:44:49] [main/INFO] [ne.ne.fm.st.Entrypoint/]: JVM Uptime at startup: 427ms
+[02:44:49] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Starting FancyModLoader version 11.0.15 (CLIENT in DEV)
+[02:44:49] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Game directory: C:\Users\ProArt\Documents\ChatGPT\Deep Primal\Deep-Primal\build\water-scene-client
+[02:44:49] [main/INFO] [ne.ne.fm.lo.EarlyServiceDiscovery/]: Found 2 early service jars (out of 107) in 50ms
+[02:44:49] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Early Services:
+[02:44:49] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/ProArt/Documents/ChatGPT/Deep Primal/build-tools/gradle-home/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/11.0.15/69ddd98736a6b095783523404d1af8992842722/loader-11.0.15.jar
+[02:44:49] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/ProArt/Documents/ChatGPT/Deep Primal/build-tools/gradle-home/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/11.0.15/b254aa4ec40828f8ce65411dcb7fb9f6ce008064/earlydisplay-11.0.15.jar
+[02:44:49] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[02:44:50] [ForkJoinPool.commonPool-worker-2/INFO] [ne.ne.fm.lo.mo.lo.GameLocator/]: Detected a joined NeoForge and Minecraft configuration. Applying filtering...
+[02:44:51] [ForkJoinPool.commonPool-worker-2/INFO] [ne.ne.fm.lo.mo.lo.InDevFolderLocator/CORE]: Got mod coordinates deepprimal%%C:\Users\ProArt\Documents\ChatGPT\Deep Primal\Deep-Primal\build\libs\DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar;deepprimal%%C:\Users\ProArt\Documents\ChatGPT\Deep Primal\Deep-Primal\build\classes\java\visualValidation from env
+[02:44:51] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: AMD Radeon(TM) 8060S Graphics GL version 3.3.0 Core Profile Context 26.10.1.261008, ATI Technologies Inc.
+[02:44:51] [ForkJoinPool.commonPool-worker-2/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 8 dependencies adding them to mods collection
+[02:44:51] [ForkJoinPool.commonPool-worker-2/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Deep Primal 0.0.1-alpha.29-dev.28-water.2 (deepprimal)
+		Deep Primal Graphics Settings 0.0.1-alpha.29-dev.28-water.2 (deepprimal_graphics)
+		Deep Primal LOD 0.0.1-alpha.29-dev.28-water.2 (deepprimal_lod)
+		Deep Primal Performance 0.0.1-alpha.29-dev.28-water.2 (deepprimal_performance)
+		Deep Primal Themes 0.1.0-alpha.8 (deepprimal_themes)
+		Deep Primal Vulkan (experimental) 0.0.1-alpha.29-dev.28-water.2 (deepprimal_vulkan)
+		Minecraft 26.1.2 (minecraft)
+		NeoForge 26.1.2.122 (neoforge)
+[02:44:52] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/ProArt/Documents/ChatGPT/Deep%20Primal/build-tools/gradle-home/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/5f66cc9f59b8efaa942155a3d5a30599bf6640dd/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=FML Env=CLIENT
+[02:44:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Plugins:
+[02:44:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/ProArt/Documents/ChatGPT/Deep Primal/build-tools/gradle-home/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/dc8fb88129b30b1afe62cb59a047eb3f837220b8/neoforge-26.1.2.122-universal.jar > net.neoforged.neoforge-coremods-26.1.2.122.jar
+[02:44:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.28-water.2.jar
+[02:44:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Building game content classloader:
+ - deepprimal (composite(jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar), folder(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/classes/java/visualValidation)))
+ - deepprimal_graphics (jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.28-water.2.jar))
+ - deepprimal_lod (jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.28-water.2.jar))
+ - deepprimal_performance (jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.28-water.2.jar))
+ - deepprimal_themes (jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar))
+ - deepprimal_vulkan (jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar > com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.28-water.2-windows.jar))
+ - minecraft (composite(filtered(jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/moddev/artifacts/minecraft-patched-26.1.2.122.jar)), filtered(jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/Deep-Primal/build/moddev/artifacts/minecraft-patched-26.1.2.122.jar))))
+ - mixinextras.neoforge (jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/build-tools/gradle-home/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/dc8fb88129b30b1afe62cb59a047eb3f837220b8/neoforge-26.1.2.122-universal.jar > mixinextras-neoforge-0.5.5.jar))
+ - neoforge (composite(filtered(jar(C:/Users/ProArt/Documents/ChatGPT/Deep Primal/build-tools/gradle-home/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.122/dc8fb88129b30b1afe62cb59a047eb3f837220b8/neoforge-26.1.2.122-universal.jar))))
+ - net.neoforged.fml.generated (empty(VirtualJar/net.neoforged.fml.generated))
+[02:44:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Built game content classloader in 39ms
+[02:44:54] [main/WARN] [os.ut.pl.wi.WmiQueryHandler/]: COM exception querying Win32_Processor, which might not be on your system. Will not attempt to query it again. Error was -2147024891: Access is denied.(HRESULT: 80070005)
+[02:44:54] [main/WARN] [os.ut.pl.wi.WmiQueryHandler/]: COM exception querying Win32_Processor, which might not be on your system. Will not attempt to query it again. Error was -2147024891: Access is denied.(HRESULT: 80070005)
+[02:44:54] [main/WARN] [os.ut.pl.wi.WmiQueryHandler/]: COM exception querying Win32_PhysicalMemory, which might not be on your system. Will not attempt to query it again. Error was -2147024891: Access is denied.(HRESULT: 80070005)
+[02:44:54] [main/WARN] [os.dr.wi.pe.PerfmonDisabled/]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[02:44:54] [main/WARN] [os.ut.pl.wi.PerfDataUtil/]: Failed to add PDH Counter: \Paging File(_Total)\% Usage, Error code: 0xC0000BC8
+[02:44:54] [main/WARN] [os.ut.pl.wi.PerfCounterQueryHandler/]: Failed to add counter for PDH counter: \Paging File(_Total)\% Usage
+[02:44:54] [main/INFO] [os.ut.pl.wi.PerfCounterQuery/]: Disabling further attempts to query Paging File.
+[02:44:54] [main/WARN] [os.ut.pl.wi.WmiQueryHandler/]: COM exception querying Win32_PerfRawData_PerfOS_PagingFile, which might not be on your system. Will not attempt to query it again. Error was -2147024891: Access is denied.(HRESULT: 80070005)
+[02:44:54] [Datafixer Bootstrap/INFO] [mojang/DataFixerBuilder]: 294 Datafixer optimizations took 411 milliseconds
+[02:44:54] [pool-14-thread-1/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, set, time] and [time, set, timemarker] with inputs: [0, 0s, 0d, 0t]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, set, timemarker] and [time, set, time] with inputs: [012]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, of, clock, set, time] and [time, of, clock, set, timemarker] with inputs: [0, 0s, 0d, 0t]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [time, of, clock, set, timemarker] and [time, of, clock, set, time] with inputs: [012]
+[02:45:00] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [waypoint, modify, waypoint, color, reset] and [waypoint, modify, waypoint, color, color] with inputs: [reset]
+[02:45:00] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 26.1.2.122, for MC 26.1.2
+[02:45:00] [modloading-worker-0/INFO] [co.sh.de.DeepPrimal/]: Deep Primal terrain/liquid engine registered; saved generators preserved. Block assets are temporary palettes.
+[02:45:00] [modloading-worker-0/INFO] [co.sh.de.DeepPrimal/]: Client renderer owner: Deep Primal
+[02:45:01] [Render thread/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[02:45:01] [Render thread/INFO] [minecraft/Minecraft]: Setting user: Dev
+[02:45:01] [Render thread/INFO] [minecraft/Minecraft]: Backend library: LWJGL version 3.4.1+2
+[02:45:02] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE false debugUtils=false
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.lwjgl.util.vma.LibVma$$Lambda/0x00000000311c4630 in module deepprimal_vulkan (file:/C:/Users/ProArt/Documents/ChatGPT/Deep%20Primal/Deep-Primal/build/water-scene-client/.cache/jij/536ef0e72ff9b6fb1d759cdd87be3584193c3e54f3f5e6d1a8da8896602b83cf/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.28-water.2-windows.jar)
+WARNING: Use --enable-native-access=deepprimal_vulkan to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+[02:45:03] [Render thread/INFO] [minecraft/Minecraft]: Using optional rendering extensions: VK_KHR_swapchain, VK_EXT_memory_budget, VK_EXT_pipeline_creation_feedback, VK_KHR_dynamic_rendering
+[02:45:04] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=165756
+[02:45:05] [Render thread/INFO] [minecraft/ReloadableResourceManager]: Reloading ResourceManager: vanilla, mod_resources, mod/deepprimal_vulkan, mod/deepprimal_graphics, mod/deepprimal_lod, mod/deepprimal_themes, mod/deepprimal, mod/neoforge, mod/deepprimal_performance, mod/deepprimal:renderer/native
+[02:45:05] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_all_no_pua-17.0.01.hex, loading
+[02:45:05] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_pua-17.0.01.hex, loading
+[02:45:05] [Render thread/WARN] [co.sh.de.DeepPrimal/]: Local performance dashboard unavailable: java.io.IOException: Unable to establish loopback connection
+[02:45:06] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_jp_patch-17.0.01.hex, loading
+Exception in thread "NeoForge Version Check" java.io.UncheckedIOException: java.io.IOException: Unable to establish loopback connection
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.<init>(HttpClientImpl.java:482)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.create(HttpClientImpl.java:420)
+	at java.net.http/jdk.internal.net.http.HttpClientBuilderImpl.build(HttpClientBuilderImpl.java:142)
+	at net.neoforged.fml.VersionChecker$1.run(VersionChecker.java:104)
+Caused by: java.io.IOException: Unable to establish loopback connection
+	at java.base/sun.nio.ch.PipeImpl$Initializer.init(PipeImpl.java:96)
+	at java.base/sun.nio.ch.PipeImpl.<init>(PipeImpl.java:186)
+	at java.base/sun.nio.ch.WEPollSelectorImpl.<init>(WEPollSelectorImpl.java:78)
+	at java.base/sun.nio.ch.WEPollSelectorProvider.openSelector(WEPollSelectorProvider.java:33)
+	at java.base/java.nio.channels.Selector.open(Selector.java:295)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.<init>(HttpClientImpl.java:1094)
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.<init>(HttpClientImpl.java:479)
+	... 3 more
+Caused by: java.net.SocketException: Permission denied: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:546)
+	at java.base/sun.nio.ch.Net.connect(Net.java:553)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:952)
+	at java.base/java.nio.channels.SocketChannel.open(SocketChannel.java:281)
+	at java.base/sun.nio.ch.PipeImpl$Initializer$LoopbackConnector.run(PipeImpl.java:123)
+	at java.base/sun.nio.ch.PipeImpl$Initializer.init(PipeImpl.java:78)
+	... 9 more
+[02:45:07] [Render thread/INFO] [mojang/Library]: OpenAL initialized on device OpenAL Soft on Speakers (Plugable Audio)
+[02:45:07] [Render thread/INFO] [minecraft/SoundEngine]: Sound engine started
+[02:45:07] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[02:45:07] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[02:45:07] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 2048x1024x0 minecraft:textures/atlas/armor_trims.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/beds.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/signs.png-atlas
+[02:45:08] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[02:45:08] [Render thread/INFO] [ne.ne.ne.cl.en.an.js.AnimationLoader/]: Loaded 0 entity animations
+[02:45:09] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME
+[02:45:10] [Render thread/INFO] [minecraft/RecipeManager]: Loaded 1516 recipes
+[02:45:10] [Render thread/INFO] [minecraft/AdvancementTree]: Loaded 1617 advancements
+[02:45:10] [Render thread/INFO] [ne.ne.ne.co.cr.RecipePriorityManager/]: Loaded 0 recipe priority overrides
+[02:45:10] [Server thread/INFO] [minecraft/IntegratedServer]: Starting integrated minecraft server version 26.1.2
+[02:45:10] [Server thread/INFO] [minecraft/MinecraftServer]: Generating keypair
+[02:45:10] [Server thread/INFO] [co.sh.de.pe.DistanceRuntime/]: Render tracking capacity for this session: 32 chunks
+[02:45:11] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Loading 0 persistent chunks...
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[water-engine-live-20261026]'/minecraft:overworld
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[water-engine-live-20261026]'/minecraft:the_end
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[water-engine-live-20261026]'/minecraft:the_nether
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[02:45:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[02:45:11] [Server thread/INFO] [ne.ne.ne.se.pe.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[02:45:11] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Loading 49 chunks for player spawn...
+[02:45:11] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Preparing spawn area: 16%
+[02:45:11] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Preparing spawn area: 16%
+[02:45:12] [Server thread/INFO] [minecraft/LoggingLevelLoadListener]: Time elapsed: 888 ms
+[02:45:12] [Server thread/INFO] [minecraft/PlayerList]: Dev[local:E:8adb627a] logged in with entity id 1 at (27.5, 535.0, 39.5)
+[02:45:12] [Server thread/INFO] [minecraft/MinecraftServer]: Dev joined the game
+[02:45:12] [Render thread/WARN] [os.ut.pl.wi.WmiQueryHandler/]: COM exception querying Win32_Processor, which might not be on your system. Will not attempt to query it again. Error was -2147024891: Access is denied.(HRESULT: 80070005)
+[02:45:12] [Render thread/WARN] [os.ut.pl.wi.WmiQueryHandler/]: COM exception querying Win32_Processor, which might not be on your system. Will not attempt to query it again. Error was -2147024891: Access is denied.(HRESULT: 80070005)
+[02:45:12] [Server thread/INFO] [minecraft/IntegratedServer]: Changing view distance to 4, from 6
+[02:45:13] [Server thread/INFO] [minecraft/IntegratedServer]: Changing simulation distance to 4, from 0
+[02:45:13] [Render thread/WARN] [minecraft/ClientPacketListener]: Ignoring chat session from Dev due to missing Services public key
+[02:45:13] [Render thread/INFO] [minecraft/AdvancementTree]: Loaded 2 advancements
+[02:45:13] [Server thread/INFO] [minecraft/MinecraftServer]: Set minecraft:overworld to time marker minecraft:noon
+[02:45:13] [Server thread/INFO] [minecraft/MinecraftServer]: Set the weather to clear
+[02:45:13] [Server thread/INFO] [minecraft/MinecraftServer]: Teleported Dev to 27.500000, 535.000000, 39.500000
+[02:45:13] [Render thread/INFO] [minecraft/DynamicUniformStorage]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[02:45:13] [Render thread/INFO] [minecraft/ChatComponent]: [System] [CHAT] [Server: Set minecraft:overworld to time marker minecraft:noon]
+[02:45:13] [Render thread/INFO] [minecraft/ChatComponent]: [System] [CHAT] [Server: Set the weather to clear]
+[02:45:13] [Render thread/INFO] [minecraft/ChatComponent]: [System] [CHAT] [Server: Teleported Dev to 27.500000, 535.000000, 39.500000]
+[02:45:17] [Render thread/INFO] [minecraft/DynamicUniformStorage]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[02:45:17] [Render thread/INFO] [minecraft/DynamicUniformStorage]: Resizing Chunk Sections UBO, capacity limit of 2 reached during a single frame. New capacity will be 8.
+[02:45:17] [Render thread/INFO] [minecraft/DynamicUniformStorage]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
+WATER_CLIFF_LIVE_SCENE_PASS frames=323 comparisons=158593 mismatches=0 maximumGap=6.1035156E-5
+[02:45:28] [Render thread/INFO] [minecraft/Minecraft]: Stopping!
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Saving players
+[02:45:28] [Server thread/INFO] [minecraft/ServerGamePacketListenerImpl]: Dev lost connection: Disconnected
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Dev left the game
+[02:45:28] [Server thread/INFO] [minecraft/ServerCommonPacketListenerImpl]: Stopping singleplayer server as player logged out
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Saving worlds
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[water-engine-live-20261026]'/minecraft:overworld
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[water-engine-live-20261026]'/minecraft:the_end
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[water-engine-live-20261026]'/minecraft:the_nether
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[02:45:28] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[02:45:29] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE savedBytes=165756
+[02:45:29] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_SHADER_CACHE compiled=0 hits=204 outstandingResults=0
+[02:45:29] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[02:45:29] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCreates=43, descriptorBindSkips=0, pipelineCreationNanos=9914000, descriptorUpdates=80570, pipelineCacheHits=43, descriptorReuse=9299, pipelineFeedbackValid=43, descriptorBinds=89869, validationErrors=0}
+
+[Incubating] Problems report is available at: file:///C:/Users/ProArt/Documents/ChatGPT/Deep%20Primal/Deep-Primal/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 3s
+28 actionable tasks: 3 executed, 25 up-to-date

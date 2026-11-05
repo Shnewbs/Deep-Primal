@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "phase": "before fixture execution",
+  "message": "error: file not found: lod-store-1035/candidate/ColumnarChunk.java",
+  "cause_observed": "Workspace maintenance pruned prior compilation inputs; no compiler or product-source diagnosis follows.",
+  "resolution": "Fetch immutable current-parent LodStore and ColumnarChunk from Git; verify blob IDs; compile and execute through the retained system jdk.compiler module.",
+  "shell_exit_code": 1,
+  "separate_compiler_exit_not_recorded": true
+}

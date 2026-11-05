@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "private_class_exclusions": 183,
+  "themes_resource_hash_matches": 2508,
+  "notices": [
+    "META-INF/licenses/vulkanmod/LICENSE",
+    "META-INF/licenses/vulkanmod/COPYING",
+    "META-INF/licenses/vulkanmod/UPSTREAM.json"
+  ],
+  "opengl_fallback_present": true,
+  "sha256": "045705a3bda89ad2cc7d6b8a1d68d3cfb977b554d4d50ad0e154293a9c18a025",
+  "colormap_and_water_palette_hash_matches": 43,
+  "approved_ground_texture_hash_matches": 11
+}

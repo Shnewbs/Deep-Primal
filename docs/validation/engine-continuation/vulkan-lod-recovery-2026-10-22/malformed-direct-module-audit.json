@@ -1,0 +1,8 @@
+{
+  "direct_bytes": 12818185,
+  "direct_sha256": "f13fcca747e898f1dd76611ec4ff2ccf5201b9de320150cd7dcea91d853e4ed8",
+  "direct_eocd_offset": 12818163,
+  "nested_bytes": 12818185,
+  "nested_sha256": "f13fcca747e898f1dd76611ec4ff2ccf5201b9de320150cd7dcea91d853e4ed8",
+  "scope": "Prior direct-output audits failed. This later snapshot has EOCD and matches the verified nested module. Cause unproven. Prelaunch now requires CRC/current class identity and pins those module bytes without rerunning its jar task."
+}

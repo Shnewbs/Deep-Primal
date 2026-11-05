@@ -1,0 +1,92 @@
+2026-10-26T21:17:35.577098546Z main WARN Advanced terminal features are not available in this environment
+[03:17:35] [main/INFO] [ne.ne.fm.st.Entrypoint/]: JVM Uptime at startup: 147ms
+[03:17:35] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Starting FancyModLoader version 11.0.15 (DEDICATED_SERVER in DEV)
+[03:17:35] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Game directory: /dev/shm/dp-builder2108/native/world
+[03:17:35] [main/INFO] [ne.ne.fm.lo.EarlyServiceDiscovery/]: Found 2 early service jars (out of 90) in 21ms
+[03:17:35] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Early Services:
+[03:17:35] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - /workspace/scratch/a22609fabda0/builder1700/gradle-cache/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/11.0.15/b254aa4ec40828f8ce65411dcb7fb9f6ce008064/earlydisplay-11.0.15.jar
+[03:17:35] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - /workspace/scratch/a22609fabda0/builder1700/gradle-cache/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/11.0.15/69ddd98736a6b095783523404d1af8992842722/loader-11.0.15.jar
+[03:17:35] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: Not loading early display in headless mode.
+[03:17:35] [main/ERROR] [ne.ne.fm.lo.mo.lo.RequiredSystemFiles/]: Couldn't find [net/neoforged/neoforge/common/NeoForgeMod.class, NeoForge MANIFEST.MF] on classpath, while we did find other required files in: [jar(/workspace/scratch/a22609fabda0/builder1700/project/build/moddev/artifacts/minecraft-patched-26.1.2.122-merged.jar)]
+[03:17:35] [main/INFO] [ne.ne.fm.lo.mo.lo.InDevFolderLocator/CORE]: Got mod coordinates deepprimal%%/dev/shm/dp-builder2108/native/private-index-diagnostic.jar:deepprimal%%/dev/shm/dp-builder2108/native/fixtures:deepprimal_core%%/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/87594f15d0b3e6a84b56a30617ad291e866f3c4f8c6498591dbe07afa3fc96cc/com.shnewbs.deepprimal.DeepPrimal-Core-0.0.1-alpha.29-dev.31.jar:deepprimal_graphics%%/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/9f6012fe3ff3a10608448fe82958b381d924925c322e1ca00b7f63948df06318/com.shnewbs.deepprimal.DeepPrimal-GraphicsSettings-0.0.1-alpha.29-dev.31.jar:deepprimal_lod%%/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/876680aa5d800227cbaad6dcc48b26d120c56bb58bc7b212555ab8a64b592de5/com.shnewbs.deepprimal.DeepPrimal-LOD-0.0.1-alpha.29-dev.31.jar:deepprimal_performance%%/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/7e8633f2ca858680f50f83cec2e1dffd434190d8af43a259fbb734d1dac53ed3/com.shnewbs.deepprimal.DeepPrimal-Performance-0.0.1-alpha.29-dev.31.jar:deepprimal_themes%%/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/36f80179b7d0900ab5964e16ac7e0137fc831d707eee445e9d11c7cc3f3276bf/com.shnewbs.deepprimal.DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar:deepprimal_vulkan%%/workspace/scratch/a22609fabda0/builder1700/final/native-cache/jij/586e7fee0172df725ca3612b495653311197b6bc0497efd49eb298f65321f8a9/com.shnewbs.deepprimal.DeepPrimal-Vulkan-0.0.1-alpha.29-dev.31-windows.jar from env
+[03:17:36] [main/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[03:17:36] [main/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Deep Primal 0.0.1-alpha.29-dev.31 (deepprimal)
+		Deep Primal Graphics Settings 0.0.1-alpha.29-dev.31 (deepprimal_graphics)
+		Deep Primal LOD 0.0.1-alpha.29-dev.31 (deepprimal_lod)
+		Deep Primal Performance 0.0.1-alpha.29-dev.31 (deepprimal_performance)
+		Deep Primal Themes 0.1.0-alpha.8 (deepprimal_themes)
+		Deep Primal Vulkan (experimental) 0.0.1-alpha.29-dev.31 (deepprimal_vulkan)
+		Minecraft 26.1.2 (minecraft)
+[03:17:36] [main/ERROR] [ne.ne.fm.lo.ModSorter/LOADING]: Missing or unsupported mandatory dependencies:
+	Mod ID: 'neoforge', Requested by: 'deepprimal_performance', Expected range: '[26.1.2.122,26.1.3)', Actual version: '[MISSING]'
+	Mod ID: 'neoforge', Requested by: 'deepprimal_lod', Expected range: '[26.1.2.122,26.1.3)', Actual version: '[MISSING]'
+	Mod ID: 'neoforge', Requested by: 'deepprimal', Expected range: '[26.1.2.122,26.1.3)', Actual version: '[MISSING]'
+[03:17:36] [main/ERROR] [ne.ne.fm.lo.FMLLoader/]: The patched Minecraft jar is missing. Please try to reinstall NeoForge.
+[03:17:36] [main/ERROR] [ne.ne.fm.lo.FMLLoader/]: Mod deepprimal_performance requires neoforge 26.1.2.122 or above, and below 26.1.3
+Currently, neoforge is not installed
+
+[03:17:36] [main/ERROR] [ne.ne.fm.lo.FMLLoader/]: Mod deepprimal_lod requires neoforge 26.1.2.122 or above, and below 26.1.3
+Currently, neoforge is not installed
+
+[03:17:36] [main/ERROR] [ne.ne.fm.lo.FMLLoader/]: Mod deepprimal requires neoforge 26.1.2.122 or above, and below 26.1.3
+Currently, neoforge is not installed
+
+[03:17:36] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Closing FML Loader acdb094
+[03:17:36] [main/ERROR] [ne.ne.fm.lo.mo.BackgroundScanHandler/SCAN]: An error occurred scanning file jar(/workspace/scratch/a22609fabda0/builder1700/project/build/moddev/artifacts/minecraft-patched-26.1.2.122-merged.jar)
+java.util.concurrent.CancellationException: null
+	at java.base/java.util.concurrent.CompletableFuture.cancel(CompletableFuture.java:2552) [?:?] {}
+	at net.neoforged.fml.loading.moddiscovery.ModFile.close(ModFile.java:246) [loader-11.0.15.jar:11.0] {}
+	at net.neoforged.fml.loading.FMLLoader.close(FMLLoader.java:239) [loader-11.0.15.jar:11.0] {}
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:415) [loader-11.0.15.jar:11.0] {}
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65) [loader-11.0.15.jar:11.0] {}
+	at net.neoforged.fml.startup.Server.main(Server.java:17) [loader-11.0.15.jar:11.0] {}
+[03:17:36] [main/INFO] [ne.ne.fm.ModLoader/]: Clearing ModLoader
+[03:17:36] [main/ERROR] [ne.ne.fm.st.Entrypoint/]: Failed to start FML: net.neoforged.fml.ModLoadingException: Loading errors encountered:
+	- The patched Minecraft jar is missing. Please try to reinstall NeoForge.
+	- Mod deepprimal_performance requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+	- Mod deepprimal_lod requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+	- Mod deepprimal requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:356)
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65)
+	at net.neoforged.fml.startup.Server.main(Server.java:17)
+
+net.neoforged.fml.startup.FatalStartupException: Failed to start FML: net.neoforged.fml.ModLoadingException: Loading errors encountered:
+	- The patched Minecraft jar is missing. Please try to reinstall NeoForge.
+	- Mod deepprimal_performance requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+	- Mod deepprimal_lod requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+	- Mod deepprimal requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:71)
+	at net.neoforged.fml.startup.Server.main(Server.java:17)
+Caused by: net.neoforged.fml.ModLoadingException: Loading errors encountered:
+	- The patched Minecraft jar is missing. Please try to reinstall NeoForge.
+	- Mod deepprimal_performance requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+	- Mod deepprimal_lod requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+	- Mod deepprimal requires neoforge 26.1.2.122 or above, and below 26.1.3
+	  Currently, neoforge is not installed
+	  
+
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:356)
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65)
+	... 1 more

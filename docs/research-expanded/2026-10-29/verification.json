@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "replicas": 487,
+  "git_source_blobs_verified": 468,
+  "preserved_source_sections_verified": 487,
+  "review_cards_verified": 487,
+  "review_depths": {
+    "full-text": 95,
+    "structured-evidence": 392
+  },
+  "authored_relative_file_links_checked": 2808,
+  "exact_duplicate_groups": 9,
+  "historical_unresolved_relative_references": 0,
+  "errors": [],
+  "edition": "2026-10-29",
+  "source_commit": "33c43c943f0469195e7ab1a6852ab4360fad1788",
+  "source_version": "0.0.1-alpha.29-dev.77-seam-contract.1",
+  "literal_source_anchors_verified": 942,
+  "documents_with_verified_source_anchors": 487,
+  "final_changed_subtree_inventory_blobs_verified": 364,
+  "project_collection_markdown_rechecked": 19,
+  "runtime_tests_executed_by_documentation_task": false
+}

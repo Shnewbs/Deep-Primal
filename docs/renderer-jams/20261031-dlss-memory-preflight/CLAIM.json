@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261031T0053-dlss-memory-preflight",
+  "owner": "dedicated-renderer-schedule",
+  "status": "released",
+  "started_at": "2026-10-31T00:53:41Z",
+  "active_until": "2026-10-31T01:18:41Z",
+  "parent_main": "c16e9af1856cfb170c96398f8823d257a82bbfd8",
+  "affected_paths": [
+    "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssVulkanProvider.java",
+    "renderer-vulkan/src/main/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssMemoryBindingContract.java",
+    "renderer-vulkan/src/nativeChecks/java/net/vulkanmod/deepprimal/upscaling/dlss/DlssMemoryBindingContractChecks.java",
+    "docs/renderer-jams/20261031-dlss-memory-preflight/**"
+  ],
+  "measurement_reservation": "Java21 CPU contract tests only; no native GPU performance reservation",
+  "exclusions": [
+    "engine",
+    "water",
+    "terrain",
+    "graphics UI",
+    "FSR",
+    "other renderer active files",
+    "automations",
+    "build outputs"
+  ],
+  "owner_build_override": "owner performs full Java25 Gradle Minecraft GPU JAR builds",
+  "no_subagents": true,
+  "released_at": "2026-10-31T00:56:00Z",
+  "implementation_commit": "ada8b3255c6d9d00229918e3293fdbc2b4e91d2f",
+  "lease_released": true
+}

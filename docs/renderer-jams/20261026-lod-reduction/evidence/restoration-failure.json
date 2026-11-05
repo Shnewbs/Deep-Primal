@@ -1,0 +1,30 @@
+{
+  "invalidates_first_full_build": true,
+  "mismatches": [
+    {
+      "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
+      "only_extra_trailing_newline": true
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+      "only_extra_trailing_newline": true
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/SplitAdmissionChecks.java",
+      "only_extra_trailing_newline": true
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBudgetChecks.java",
+      "only_extra_trailing_newline": true
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/PrecipitationPersistenceChecks.java",
+      "only_extra_trailing_newline": true
+    },
+    {
+      "path": "gradle.properties",
+      "only_extra_trailing_newline": true
+    }
+  ],
+  "production_candidate_changed": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "audit_id": "2026-10-27T1834-ed919c35",
+  "pinned_source_sha": "ed919c35a933ae54b0b8f9bee5c910d71a8be953",
+  "version": "0.0.1-alpha.29-dev.34-conservativewrites.1",
+  "role": "read_only_independent_auditor",
+  "baseline_carried": 50,
+  "average_carried": 5,
+  "fresh_full_regrade": false,
+  "jdk25_checks": 1198395,
+  "jdk25_checks_pass": true,
+  "current_source_jar_qualified": false,
+  "full_build_blocker": "isolated checkout/Gradle dependencies absent; github.com DNS resolution failed exit128",
+  "production_changes": 0,
+  "old_dev32_jars_uploaded_as_current": false,
+  "library_report_id": "libfile_ea3d05cac2bc8191b109c795598eb85d",
+  "library_evidence_id": "libfile_65d318b8ae288191836a4fc936fde886"
+}

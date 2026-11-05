@@ -1,0 +1,16 @@
+[
+  {
+    "variant": "baseline",
+    "exit": 1,
+    "output": "Exception in thread \"main\" java.lang.AssertionError: retired survey requeued\n\tat com.shnewbs.deepprimal.engine.SurveyCallbackChecks.one(SurveyCallbackChecks.java:109)\n\tat com.shnewbs.deepprimal.engine.SurveyCallbackChecks.main(SurveyCallbackChecks.java:118)\n",
+    "source_sha256": "a284f95611259d38e08ea20e5de7724e3b6e3ba3159c870c246a5167a42fab7e",
+    "fixture_sha256": "3ef5b7d95e9d2ff0aa6dd9e8a370ff0e3ff4f97b30e54076cbaa9da1361167c8"
+  },
+  {
+    "variant": "candidate",
+    "exit": 0,
+    "output": "SURVEY_CALLBACK_PASS cases=480\n",
+    "source_sha256": "03ac5d71ba26afc9e89976120378adc4d802973dbba5c0ecbbd861b053c61f2c",
+    "fixture_sha256": "7407c89109692646dd19842f1a87101d00838afbd868238953312cc65068b9f7"
+  }
+]

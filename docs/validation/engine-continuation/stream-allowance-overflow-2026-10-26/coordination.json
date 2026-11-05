@@ -1,0 +1,31 @@
+{
+  "base": "431c9ecdcea9cacfad3dd5c4d11931436c485ebf",
+  "rootClaim": "06717429b46c86be36368cd76816afdd873dba2e",
+  "latestRead": "535a504e5d8fafdef1e210db9c6bbdb247cb2b08",
+  "renderer": {
+    "owner": "renderer-20261026-lod-scratch",
+    "status": "active",
+    "active_until": "2026-10-26T16:35:41.092Z",
+    "scope": [
+      "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+      "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodScratchChecks.java",
+      "docs/renderer-jams/20261026-lod-scratch"
+    ],
+    "parent": "591bf64d36d6c41157aa2dcc4b4ffe85f893cc01",
+    "measurement": {
+      "status": "completed",
+      "exclusive_benchmark": false,
+      "scope": "CPU component microbenchmark finished; remaining Gradle/package/native checks are functional only",
+      "completed_at": "2026-10-26T16:08:38.260Z"
+    },
+    "validation_phase": "active, isolated, nonexclusive"
+  },
+  "context": "Requested foreground conversation ownership evidence unavailable from personal-context; did not infer live coordination.",
+  "observedProducerReappearance": {
+    "before_inode": 1081448,
+    "after_inode": 1059107,
+    "bytes": 125294356,
+    "cause": "unknown; no further changes to this producer workspace"
+  },
+  "completed_at": "2026-10-26T16:14:16Z"
+}

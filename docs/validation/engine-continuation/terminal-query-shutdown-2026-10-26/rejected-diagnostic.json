@@ -1,0 +1,12 @@
+[
+  {
+    "run": 0,
+    "exit": 0,
+    "output": "PIPELINE_INLINE_CLOSE_PASS no dispatch lock; cancelled result; empty caches and queue\n"
+  },
+  {
+    "run": 1,
+    "exit": 1,
+    "output": "Exception in thread \"main\" java.lang.AssertionError: shutdown pending=0 density=1 mesh=0\n\tat com.shnewbs.deepprimal.core.PipelineInlineCloseProbe.main(PipelineInlineCloseProbe.java:23)\n"
+  }
+]

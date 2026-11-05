@@ -1,0 +1,25 @@
+{
+  "base": "044aa85fd1ecdc9f62faa33ee6a3ca38aaa7221b",
+  "matched": 837,
+  "changed": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/Aquifer.java",
+    "gradle.properties",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterfallUploadChecks.java"
+  ],
+  "new_private_tests": [
+    "AquiferTickChecks.java",
+    "AquiferPersistenceChecks.java"
+  ],
+  "absent_nonbuild_input_counts": {
+    ".gitignore": 1,
+    ".vscode": 2,
+    "ENGINE_CORE_SUMMARY.md": 1,
+    "README.md": 1,
+    "gradlew": 1,
+    "gradlew.bat": 1,
+    "maritime-1.21.1": 915,
+    "roadmap.md": 1,
+    "standalone-engine": 39
+  }
+}

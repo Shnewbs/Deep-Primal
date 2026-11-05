@@ -1,0 +1,98 @@
+[
+  {
+    "pair": 0,
+    "direction": 0,
+    "originX": 15,
+    "coveredPixels": 1024,
+    "mipControl": false,
+    "differentPixels": 0
+  },
+  {
+    "pair": 1,
+    "direction": 2,
+    "originX": -1,
+    "coveredPixels": 1024,
+    "mipControl": false,
+    "differentPixels": 0
+  },
+  {
+    "pair": 2,
+    "direction": 4,
+    "originX": -16,
+    "coveredPixels": 1024,
+    "mipControl": false,
+    "differentPixels": 0
+  },
+  {
+    "pair": 3,
+    "direction": 6,
+    "originX": 29999998,
+    "coveredPixels": 1024,
+    "mipControl": false,
+    "differentPixels": 0
+  },
+  {
+    "pair": 4,
+    "direction": 10,
+    "originX": -29999999,
+    "coveredPixels": 1024,
+    "mipControl": false,
+    "differentPixels": 0
+  },
+  {
+    "pair": 5,
+    "direction": 14,
+    "originX": 31,
+    "coveredPixels": 1024,
+    "mipControl": false,
+    "differentPixels": 0
+  },
+  {
+    "pair": 6,
+    "direction": 0,
+    "originX": 15,
+    "coveredPixels": 1024,
+    "mipControl": true,
+    "differentPixels": 0
+  },
+  {
+    "pair": 7,
+    "direction": 2,
+    "originX": -1,
+    "coveredPixels": 1024,
+    "mipControl": true,
+    "differentPixels": 421
+  },
+  {
+    "pair": 8,
+    "direction": 4,
+    "originX": -16,
+    "coveredPixels": 1024,
+    "mipControl": true,
+    "differentPixels": 0
+  },
+  {
+    "pair": 9,
+    "direction": 6,
+    "originX": 29999998,
+    "coveredPixels": 1024,
+    "mipControl": true,
+    "differentPixels": 314
+  },
+  {
+    "pair": 10,
+    "direction": 10,
+    "originX": -29999999,
+    "coveredPixels": 1024,
+    "mipControl": true,
+    "differentPixels": 558
+  },
+  {
+    "pair": 11,
+    "direction": 14,
+    "originX": 31,
+    "coveredPixels": 1024,
+    "mipControl": true,
+    "differentPixels": 420
+  }
+]

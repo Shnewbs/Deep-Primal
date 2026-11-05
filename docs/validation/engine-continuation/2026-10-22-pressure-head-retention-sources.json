@@ -1,0 +1,35 @@
+{
+  "base_commit": "0432800ec599f50d4df1f8482072a85f3a0ef4e4",
+  "existing_non_document_inputs_checked": 377,
+  "changed": [
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/engine/WaterRuntime.java",
+      "base_git_blob": "d3611f1255e1d03a666649ee97e693f9d50b1dd0",
+      "current_git_blob": "3d9e6c4e29d532d0c8c4a46f4ab0c674567ed2dd",
+      "sha256": "b8a2c69e71b837a20657f7b3c7a69aafa9f9db3da1566f57bc39b0712a27bfca"
+    },
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/LongPressureChecks.java",
+      "base_git_blob": "45e17c06312c76b2fd10839c557f01a69420cbf2",
+      "current_git_blob": "667b8c67429a4e845c626dc195c4e69588ce984c",
+      "sha256": "cd8f8725eac2b2e3704cc87d64add62b8f0359c15d4ae5d6926bc67201794998"
+    }
+  ],
+  "omitted_optional_renderer_source_paths": 124,
+  "unexpected_missing_source_paths": [],
+  "scope": "377 locally restored existing non-document inputs; omitted optional renderer inputs remain preserved in the repository base tree",
+  "added_files": [
+    {
+      "path": "src/visualValidation/java/com/shnewbs/deepprimal/validation/HeadFrontierProbe.java",
+      "bytes": 3596,
+      "sha256": "bd96b0efffc5f9dcbc599b4e1d96893e56f87fac55c52fb2fb618b5c5c906bd2",
+      "git_blob": "f29f4652b3554fdc1c921325b6f8b5693d024a7b"
+    },
+    {
+      "path": "tools/water/WaterJfrSummary.java",
+      "bytes": 3581,
+      "sha256": "153ce4c9d6f7d45303a86d5418aa6dc7dd6714fad66f44e2e4dfcc42207753d9",
+      "git_blob": "dff870ff0dd21414e771b05731469525cc076c08"
+    }
+  ]
+}

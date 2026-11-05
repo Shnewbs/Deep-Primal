@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: nonfinite axis=0 a=-1.7976931348623157E308 b=8.988465674311579E307 t=4.9E-324 got=Infinity
+	at DensityGridFiniteChecks.main(DensityGridFiniteChecks.java:14)

@@ -1,0 +1,18 @@
+{
+  "case": "basin-pressure-a",
+  "mode": "basin-fixed",
+  "suite": "closed",
+  "trace_enabled": false,
+  "packaged": false,
+  "exit_code": 0,
+  "explicit_pass": true,
+  "records": [
+    "CLOSED_WATER_NATIVE_PASS mode=basin-fixed ticks=3200 conservedEveryTick=true initialUnits=8192 firstVisits=0 pending=0 firstSettledTick=2369 basinIdleSamples=832 remainingUpperUnits=0 bottomUnits=8192 peakDrainJobs=16 peakDrainNodes=5553 maxDrainSlice=128 peakDrainVisits=6144 drainJobs=0 saturated=0 restarts=37173 waitingJobs=0 waitingLinks=0 idleSamples=0 gapUnloaded=false gapReloaded=false unitsSha=957f23583a886c7f3cb4d71565c65c07789f01bf043018552eddca270f07c036 flowSha=e5ca581bb0bdd20fde0ecb10da51cae55369c07b55814bec8e1b90eb22844b8f medianLevelTickMs=2.765976 p95LevelTickMs=5.941476"
+  ],
+  "failures": [],
+  "normal_save": true,
+  "crash_reports": [],
+  "elapsed_seconds": 182.13,
+  "traced_source_sha256": "38795c5ad5f963364b6f973043f1b9fb0c8263a4ab52aa77c8698978f1bb2796",
+  "log_sha256": "e134a3c780210f7f6814db27f6db08d72a48622358e4c56a5f28aad4deb1512a"
+}

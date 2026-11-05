@@ -1,0 +1,692 @@
+{
+  "sha": "6b217a520d2707f6bda78d66440e38d8c0018454",
+  "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/6b217a520d2707f6bda78d66440e38d8c0018454",
+  "tree": [
+    {
+      "path": "build.gradle",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ceaf0a7ca2ca3bc413f7b8a92556e50792aa8922",
+      "size": 378,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ceaf0a7ca2ca3bc413f7b8a92556e50792aa8922"
+    },
+    {
+      "path": "src",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0da7d441f3a5dba866405dd9fbc9d355eb59ade6",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/0da7d441f3a5dba866405dd9fbc9d355eb59ade6"
+    },
+    {
+      "path": "src/main",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7b10ddd78c006d7f90581fcdc186810a8c9e3c7b",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/7b10ddd78c006d7f90581fcdc186810a8c9e3c7b"
+    },
+    {
+      "path": "src/main/java",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4a531ee3069b22e206c8b7aa023c976854e3c4f7",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/4a531ee3069b22e206c8b7aa023c976854e3c4f7"
+    },
+    {
+      "path": "src/main/java/com",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ec31f51618024b7b42bec9701c06099535600432",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/ec31f51618024b7b42bec9701c06099535600432"
+    },
+    {
+      "path": "src/main/java/com/shnewbs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9cfebf3a16ea638b6dbd5698ee682dc3e0b8c3d9",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/9cfebf3a16ea638b6dbd5698ee682dc3e0b8c3d9"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bb7ffde53a66a4c23199ca2cfe5e049220e2b61e",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/bb7ffde53a66a4c23199ca2cfe5e049220e2b61e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6604c13cd1212eade99678cf97685296406812ad",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/6604c13cd1212eade99678cf97685296406812ad"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/Aquifer.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9be73c20ab0ee8e93cff88bb5767481dfbd6cfd9",
+      "size": 4662,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/9be73c20ab0ee8e93cff88bb5767481dfbd6cfd9"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/BoundedLru.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ae5ae68d1a6b325156bfba757ef1e57165867544",
+      "size": 1104,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ae5ae68d1a6b325156bfba757ef1e57165867544"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/ByteLru.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "176b513d6bacb521a702a4f2332916b4c4e66ccf",
+      "size": 1691,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/176b513d6bacb521a702a4f2332916b4c4e66ccf"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/CaveColumn.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "16b6b61da4ad01fdb64e7e39850c8333e8b8cac4",
+      "size": 1799,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/16b6b61da4ad01fdb64e7e39850c8333e8b8cac4"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/CaveNetwork.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a97e6f295d860b786171585d2750876595ef7181",
+      "size": 2182,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/a97e6f295d860b786171585d2750876595ef7181"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0ed8a911b0baabc6c35f204761e2e6b4c9e2a826",
+      "size": 3756,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/0ed8a911b0baabc6c35f204761e2e6b4c9e2a826"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/ChunkMaterializer.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "adcfafcdb9af2c00eea556fe92c7637346b73fc2",
+      "size": 2733,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/adcfafcdb9af2c00eea556fe92c7637346b73fc2"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/ColumnHeight.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b48533c85e846ee39184e8f10efbf24c0f035dc7",
+      "size": 825,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/b48533c85e846ee39184e8f10efbf24c0f035dc7"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/CoreValidation.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7b051799d44dc9ee62920df77d2176602f5dc28",
+      "size": 1452,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/b7b051799d44dc9ee62920df77d2176602f5dc28"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/DepositField.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c62286473582d83f79d6750a9909def0bfd91443",
+      "size": 3220,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/c62286473582d83f79d6750a9909def0bfd91443"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/DepositPlan.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9fc5da42607d17f55e17a7d8533dc8a611cda8c6",
+      "size": 6789,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/9fc5da42607d17f55e17a7d8533dc8a611cda8c6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/DistancePolicy.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ec952430f75c15812ed64d82f9bf15faac6ac681",
+      "size": 1789,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ec952430f75c15812ed64d82f9bf15faac6ac681"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/EngineBoatBuoyancy.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55c4460f2076cea4f865b99a3646ba5f3d41a4f3",
+      "size": 306,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/55c4460f2076cea4f865b99a3646ba5f3d41a4f3"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/EngineBootstrap.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f7116b9329c475276098e3efab3d1aebf6b3bd2",
+      "size": 525,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/9f7116b9329c475276098e3efab3d1aebf6b3bd2"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/EngineCore.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8da45c77d39b61435dd2f9ce5fbb368745dc3a89",
+      "size": 5884,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/8da45c77d39b61435dd2f9ce5fbb368745dc3a89"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/EngineHealthCheck.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ed0c8e89afad6a5cb3a2a7084801bba6e1892a4a",
+      "size": 2102,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ed0c8e89afad6a5cb3a2a7084801bba6e1892a4a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/EngineMetrics.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f0eb833ba029cf2532bde9adf1bbec7f3c01e8b",
+      "size": 6544,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/3f0eb833ba029cf2532bde9adf1bbec7f3c01e8b"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/FarTerrain.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dab0e72284152dadf32a7666dd891a3b3fa10030",
+      "size": 846,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/dab0e72284152dadf32a7666dd891a3b3fa10030"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/FluidVolume.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "65ad5c85173976553caf3029826b90edc3fc0fda",
+      "size": 900,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/65ad5c85173976553caf3029826b90edc3fc0fda"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/Geology.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1315be8126bd0c0ce162124b5a1b1837542c5140",
+      "size": 4095,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/1315be8126bd0c0ce162124b5a1b1837542c5140"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/GradientPalette.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a2c2ac6d39eee25ed6c034fa26a97cf3c89e9637",
+      "size": 3448,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/a2c2ac6d39eee25ed6c034fa26a97cf3c89e9637"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/HorizonGeometry.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c6f3b230fec14bad36eb377e44b51fc1f71f429",
+      "size": 2091,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/4c6f3b230fec14bad36eb377e44b51fc1f71f429"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/HorizonMesh.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c252bc0d9febf42cb7881ddd11aa14bf67e5f8d",
+      "size": 5408,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/3c252bc0d9febf42cb7881ddd11aa14bf67e5f8d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/HorizonSamples.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f592eb0dcd68fa618ff32334485f26ba79c10799",
+      "size": 1303,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/f592eb0dcd68fa618ff32334485f26ba79c10799"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/HorizonView.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b2a2e50c767880e6edd89d4e58f3e9713a10ea5b",
+      "size": 1171,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/b2a2e50c767880e6edd89d4e58f3e9713a10ea5b"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/Landforms.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e871ba780f058f5ecb18060984a0fafed8496eda",
+      "size": 1443,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/e871ba780f058f5ecb18060984a0fafed8496eda"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/Landscape.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c7b31e84c952878671511924188175f2b5181a0",
+      "size": 4894,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/3c7b31e84c952878671511924188175f2b5181a0"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/MemoryDistancePolicy.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d3363c1f2602f62f3e212ee854ecbd9fc62015ef",
+      "size": 660,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/d3363c1f2602f62f3e212ee854ecbd9fc62015ef"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/MountainDrainage.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ff64ba8d3aadd62ac457b53789e1508ff72a5b8d",
+      "size": 15358,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ff64ba8d3aadd62ac457b53789e1508ff72a5b8d"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/NearestChunks.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b9a9e3ddebd6a203bf6a0c3707417fcc19373b1",
+      "size": 2499,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/9b9a9e3ddebd6a203bf6a0c3707417fcc19373b1"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/RendererPolicy.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a7055afeab44c2083d5a4051beac5cfcbc700d9f",
+      "size": 488,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/a7055afeab44c2083d5a4051beac5cfcbc700d9f"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/RollingTiming.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0be7512957537596295ba204f8f1dfc176aa686f",
+      "size": 1167,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/0be7512957537596295ba204f8f1dfc176aa686f"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/SampleStats.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20dd04e231591b47ac969438a239b14a21690e90",
+      "size": 810,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/20dd04e231591b47ac969438a239b14a21690e90"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/SoilProfile.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cf941e068c7f034353e6276a1cb3ffdcddb96e0e",
+      "size": 1621,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/cf941e068c7f034353e6276a1cb3ffdcddb96e0e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/SoilTexture.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d0fab74dce06ca00d4dad25ad816b04ce4224cd5",
+      "size": 3203,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/d0fab74dce06ca00d4dad25ad816b04ce4224cd5"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/StreamSourceCapacity.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d64b6266962c7875c530aa53dbb9bb9686af1049",
+      "size": 612,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/d64b6266962c7875c530aa53dbb9bb9686af1049"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/SwimmingState.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a2d8ee0571b5f866c154ff69feb76210ef89fbd",
+      "size": 439,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/3a2d8ee0571b5f866c154ff69feb76210ef89fbd"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/SyncRebuildBudget.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5c6da623fc052f1aedfb44c6025717935cb6c474",
+      "size": 571,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/5c6da623fc052f1aedfb44c6025717935cb6c474"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "206bf664fb6417a22c4b0f88e0786bf7a2eda158",
+      "size": 23202,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/206bf664fb6417a22c4b0f88e0786bf7a2eda158"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/TerrainNoise.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd107471d6700d7491b865a7dbec0e254af46df2",
+      "size": 2552,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/cd107471d6700d7491b865a7dbec0e254af46df2"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/TerrainOptions.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "62c92fec60876d3e220b47acfe5d2b1e5c7ae61a",
+      "size": 706,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/62c92fec60876d3e220b47acfe5d2b1e5c7ae61a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/TickWindow.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "381f49c14d725d6b7dd56e4faab361b6ee7853e1",
+      "size": 828,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/381f49c14d725d6b7dd56e4faab361b6ee7853e1"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/TransitionDependencies.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa1177425109fafca5d17a6abe48540510e7ad58",
+      "size": 1145,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/fa1177425109fafca5d17a6abe48540510e7ad58"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/UpscalingPolicy.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "67d9ff691e5cdc9427ada8c33d1bbb305af9ce69",
+      "size": 935,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/67d9ff691e5cdc9427ada8c33d1bbb305af9ce69"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/Vegetation.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e24fe02419202158fda62f3d7fcc8df18da9498e",
+      "size": 561,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/e24fe02419202158fda62f3d7fcc8df18da9498e"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/VerticalRange.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61721b77424022b795a360b857d8251a381074d3",
+      "size": 1093,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/61721b77424022b795a360b857d8251a381074d3"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/ViewGrid.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dda6ca5a0cffbcffcd9f2bf8529549de3b7c2da6",
+      "size": 338,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/dda6ca5a0cffbcffcd9f2bf8529549de3b7c2da6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/VisualBudget.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0ce7d63afe62aadcbf6e42f705d16f0eff39489",
+      "size": 935,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/a0ce7d63afe62aadcbf6e42f705d16f0eff39489"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WakeField.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "571dac721de68ae2021b82f547822f974124eaac",
+      "size": 1643,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/571dac721de68ae2021b82f547822f974124eaac"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d8512869d8e06740d57898381145ece344f4661b",
+      "size": 4162,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/d8512869d8e06740d57898381145ece344f4661b"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterBoundaryIndex.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c1aa1b9a286f91bb8d35f6328c8640afbe634386",
+      "size": 2163,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/c1aa1b9a286f91bb8d35f6328c8640afbe634386"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterCornerPacket.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4fe8b5a28edff0d883dc52e0a03d79e7c5a12625",
+      "size": 9255,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/4fe8b5a28edff0d883dc52e0a03d79e7c5a12625"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "645532d2ce5e2f65964979a57701c9dc833426bd",
+      "size": 2909,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/645532d2ce5e2f65964979a57701c9dc833426bd"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterFlowField.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "943cee26227e1d3901a625a894bdf86a3bd7b4e6",
+      "size": 1419,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/943cee26227e1d3901a625a894bdf86a3bd7b4e6"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterFlowTransition.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c535ba95955b1743995e425e665063f0495e7133",
+      "size": 1019,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/c535ba95955b1743995e425e665063f0495e7133"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a5d6fe77c851c5c748c0be46d78fbfbb576e643",
+      "size": 11642,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/4a5d6fe77c851c5c748c0be46d78fbfbb576e643"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterSimulation.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6219c6e9f7f59a999a0bc5dff30ba78ee321e061",
+      "size": 5561,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/6219c6e9f7f59a999a0bc5dff30ba78ee321e061"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterSurfaceTransition.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46f04e32ff3053d7ee4668ab367810f16a98f721",
+      "size": 2966,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/46f04e32ff3053d7ee4668ab367810f16a98f721"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterTransport.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b88068d2a12b1561bfb54b15d519542b12cd31a8",
+      "size": 2896,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/b88068d2a12b1561bfb54b15d519542b12cd31a8"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a3865c82b7c459f7ed2df459d659e23998f8da19",
+      "size": 52102,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/a3865c82b7c459f7ed2df459d659e23998f8da19"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WaterwayShape.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e9f3a8bf000f20fb81f747fb04fc13dfadeee95",
+      "size": 2293,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/8e9f3a8bf000f20fb81f747fb04fc13dfadeee95"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WorkBudget.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1f7676281c562e82269ec998b2ac27a565600c82",
+      "size": 755,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/1f7676281c562e82269ec998b2ac27a565600c82"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3815c4395af2bccb893bcb24c9d3b18bc1e4613a",
+      "size": 3239,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/3815c4395af2bccb893bcb24c9d3b18bc1e4613a"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c99492265f41d6a959e01c7c5e74096d1c07d6e7",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/c99492265f41d6a959e01c7c5e74096d1c07d6e7"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/AdvancedDensityField.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e9e5e65a3987a770fdec04f1db7150befdbdfb0",
+      "size": 7934,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/9e9e5e65a3987a770fdec04f1db7150befdbdfb0"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/DensityChunk.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "be014224866e8b736bcbe95f0329b88bd8239bbb",
+      "size": 3835,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/be014224866e8b736bcbe95f0329b88bd8239bbb"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/DensityField.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ae21097a27fe21b1992b2c2790245436de97649b",
+      "size": 247,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/ae21097a27fe21b1992b2c2790245436de97649b"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95ff21354e95dbd5d8fd0d57873db8e7c1a19337",
+      "size": 13412,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/95ff21354e95dbd5d8fd0d57873db8e7c1a19337"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/DensityGrid.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b68d315aee6c77bd5e6722bd7d6c921eec966fa9",
+      "size": 3420,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/b68d315aee6c77bd5e6722bd7d6c921eec966fa9"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/NoiseSpec.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "67af7fba4b55aad858034fcc9cf2655271c95dc4",
+      "size": 1157,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/67af7fba4b55aad858034fcc9cf2655271c95dc4"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/SeededNoise3D.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "130e339ae8fd8536fd91118de9e8d3ba848d09af",
+      "size": 5647,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/130e339ae8fd8536fd91118de9e8d3ba848d09af"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/density/TerrainShapeV8.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c63c39e9d4c03a6582a82e0788ade6a136e3e90",
+      "size": 4604,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/2c63c39e9d4c03a6582a82e0788ade6a136e3e90"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/lod",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c7753861467177f3b7464f7a96b05d130e201a72",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/trees/c7753861467177f3b7464f7a96b05d130e201a72"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/lod/ColumnarChunk.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "402a89d7b8da4ad90bd3759355f87f7191a06b6f",
+      "size": 4120,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/402a89d7b8da4ad90bd3759355f87f7191a06b6f"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/lod/DeliveredChunkScan.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6674f1afb4b460f468b340d514f99c7e24ad45f8",
+      "size": 1914,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/6674f1afb4b460f468b340d514f99c7e24ad45f8"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4289e15924934ae048b270731dea87b0b83b431b",
+      "size": 10680,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/4289e15924934ae048b270731dea87b0b83b431b"
+    },
+    {
+      "path": "src/main/java/com/shnewbs/deepprimal/core/lod/LodStore.java",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c3ddd1a8a3effe2989481e45fc4cbed9e010a89a",
+      "size": 3941,
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/git/blobs/c3ddd1a8a3effe2989481e45fc4cbed9e010a89a"
+    }
+  ],
+  "truncated": false,
+  "fixtures": [
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodReductionChecks.java",
+      "sha": "f7725a4215fa91bdddb6ef3cf6c49846ae6a3763"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodPartBoundsChecks.java",
+      "sha": "4b9c1598dfbd50f1a81d05f3ed3c2b1f82928845"
+    },
+    {
+      "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodScratchChecks.java",
+      "sha": "435b0fb58bb310d916e85071b3482442863ce5c0"
+    }
+  ]
+}

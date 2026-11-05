@@ -1,0 +1,7 @@
+{
+  "jar_sha256": "11cd5aaad448976364ecd5459fd1a7e5269dbc4f806b07d97bfa2e4735497beb",
+  "unchanged_after_native": true,
+  "packaged_explicit_passes": true,
+  "accepted_for_release": false,
+  "reason": "Known 3200-tick basin settling failure remains"
+}

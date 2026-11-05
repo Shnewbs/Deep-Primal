@@ -1,0 +1,16 @@
+--- a/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java
++++ b/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java
+@@ -264,7 +264,12 @@
+                   long dx = x(k) - cx, dz = z(k) - cz;
+                   return dx * dx + dz * dz;
+                 }));
+-        disk.addAll(keys);
++        // Evictions or rejected uploads may already have queued recovery while scanning.
++        // Preserve their order/edit guards and admit only the remaining nearest scan keys.
++        for (long k : keys) {
++          if (disk.size() >= MAX_DISK_KEYS) break;
++          disk.add(k);
++        }
+       } catch (Exception failure) {
+         status = "Cache index unavailable";
+       }

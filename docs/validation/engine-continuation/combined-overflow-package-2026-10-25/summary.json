@@ -1,0 +1,22 @@
+{
+  "source_sha": "ec434fa97b790bd2ac1677184882c5f281666e42",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-25T2155-19491a1/REVIEW.md",
+  "candidate_runtime_changes_this_cycle": 0,
+  "new_validation_sources": 2,
+  "staged_candidates_promoted": false,
+  "full_mod_build": false,
+  "native_game_run": false,
+  "installable_jar": false,
+  "release_published": false,
+  "external_grade": 5.0,
+  "fresh_regrade": false,
+  "stale_source_rejected": true,
+  "shadowed_product_rejected": true,
+  "post_run_archive_unchanged": true,
+  "file_sha256": {
+    "result.json": "b5df125132022b185f3b17bc814cadfeeac14d22368c41598e3335a3fa4c59d0",
+    "regression.log": "f13ed19a82a1f5c97728c9d8da1a53e2f53a93470f0162ed056ce7c4c1f1281b",
+    "core.log": "6f0876866c0f2a3f060ea71b9e24814d488e7f9327be6e05228e8e1b1bdeb13f",
+    "source-rejection.log": "be5a47ca8bbbd1f202bfda87a8c6f5026e92f5b621dabe1b0d072b9f3e2d3ee2"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "BHB",
+    "BIB"
+  ],
+  "key": {
+    "B": {
+      "item": "tfc:burlap_cloth"
+    },
+    "H": {
+      "item": "tfc_item_barrels_and_more:air_hose"
+    },
+    "I": {
+      "item": "tfc:metal/ingot/brass"
+    }
+  },
+  "result": {
+    "id": "tfc_item_barrels_and_more:diving_suit"
+  }
+}

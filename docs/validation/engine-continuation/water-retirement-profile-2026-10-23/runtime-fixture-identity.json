@@ -1,0 +1,11 @@
+{
+  "pass": true,
+  "compiled_fixture_sha256": "848b6ba0daaa692ed49f7f684af9be4f3a171cd4e0626ca12532a5306d89a645",
+  "runtime_final_fixture_sha256": [
+    "848b6ba0daaa692ed49f7f684af9be4f3a171cd4e0626ca12532a5306d89a645",
+    "848b6ba0daaa692ed49f7f684af9be4f3a171cd4e0626ca12532a5306d89a645"
+  ],
+  "final_fixture_source_sha256": "6f4af8d1f6fe83b09882df0812458e4b3fcc71b73e219444c0987f3c547a7e1b",
+  "prior_variant_runtime_class_hash_not_captured": true,
+  "validation_class_packaged_in_released_installer": false
+}

@@ -1,0 +1,24 @@
+{
+  "checkpoint": "dev49-v8snapshot.1",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0731-5a23f28/REVIEW.md",
+  "audit_source": "5a23f285d4680f9537b8baf1639b75036e7392ef",
+  "jdk": "Temurin 25.0.5+8",
+  "focus": "source and API stand-ins only",
+  "snapAssertions": 594901,
+  "snapVoxels": 116736,
+  "seedReplay": 384,
+  "retained": [
+    1235414,
+    874642,
+    11047019
+  ],
+  "totalAssertions": 13751976,
+  "mutantsRejected": 5,
+  "fullGradle": false,
+  "nativeMinecraft": false,
+  "realMojangCodec": false,
+  "realWorldSaveReopen": false,
+  "GPU": false,
+  "JAR": false,
+  "gradeCarried": 5
+}

@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: retired cursor removed newer source generation
+	at com.shnewbs.deepprimal.engine.ExtractedLifecycleChecks.main(ExtractedLifecycleChecks.java:26)

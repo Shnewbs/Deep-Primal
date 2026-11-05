@@ -1,0 +1,69 @@
+{
+  "scope": "Exact source units/admission/lifecycle methods and PressureJob; explicit Java world/collection/surface/equalize doubles; not native, transport or FPS acceptance",
+  "records": [
+    {
+      "mode": "baseline",
+      "runtime_sha256": "b86fd1b63f57c666ca9fac5ff2b8b74935fa1a5dae709f05f6270cdc34565d33",
+      "exact_extracted_bodies": {
+        "  public static int units(ServerLevel l, BlockPos p) {": "15e662d46704228ce8976ebc97ce3760559a82f320cb6cddb563e54f8937b1f5",
+        "  private static final class PressureJob {": "7cc538dc59fa92e69dbada12548d3348e7ddf0743f8c370e601ffbd05e9539ff",
+        "  private static void watch(Budget budget, PressureJob job, BlockPos p) {": "f370a73a4afcfaa3a64f6e6b4dcc500c7f1b8c33a169dfd61cd3d46084edcdbc",
+        "  private static void finish(Budget budget, PressureJob job) {": "c409c36bdda281feaba6f4ca1f5d9908721cc939a08a7524d44f3fde0e59a9b2",
+        "  private static void runPressure(ServerLevel level, Budget budget) {": "5c8a42a147d56f04b4f61485bba18b401f0f715659b8e0c19caf7d992c4f9c42",
+        "  private static PressureJob startPressure(ServerLevel level, BlockPos origin, Budget budget) {": "10b09daee3551887993b077006e828cec5079bec7088428b04bf659221e687b0"
+      },
+      "observation": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=false retainedHead=0 orphanJobs=1 watchersAfterFinish=1 duplicateValidationCalls=8\nFRESH_PRESSURE_ADMISSION_OBSERVED validationCalls=8 waterStateReads=3\nPRESSURE_ADMISSION_BOUNDARY_PASS cases=12 unavailableStateReads=0\nPRESSURE_ADMISSION_MODEL_PASS fixed=false randomizedOperations=10000 fifoAtCapacity=true invalidatedRetained=true repeatedWatchers=513 repeatedLeft=512\n",
+      "acceptance_exit": 1,
+      "acceptance_stdout": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=false retainedHead=0 orphanJobs=1 watchersAfterFinish=1 duplicateValidationCalls=8\n",
+      "acceptance_stderr": "Exception in thread \"main\" java.lang.AssertionError: Duplicate queued admission must retain the exact frontier/heads/flags and all watcher ownership\n\tat AdmissionOwnership.check(AdmissionOwnership.java:37)\n\tat AdmissionOwnership.main(AdmissionOwnership.java:119)\n"
+    },
+    {
+      "mode": "accepted-baseline",
+      "runtime_sha256": "8c00bdf921875b432c5c41bcb669db2993a84f298684d98271cecdb3b2e3f62e",
+      "exact_extracted_bodies": {
+        "  public static int units(ServerLevel l, BlockPos p) {": "15e662d46704228ce8976ebc97ce3760559a82f320cb6cddb563e54f8937b1f5",
+        "  private static final class PressureJob {": "7cc538dc59fa92e69dbada12548d3348e7ddf0743f8c370e601ffbd05e9539ff",
+        "  private static void watch(Budget budget, PressureJob job, BlockPos p) {": "f370a73a4afcfaa3a64f6e6b4dcc500c7f1b8c33a169dfd61cd3d46084edcdbc",
+        "  private static void finish(Budget budget, PressureJob job) {": "c409c36bdda281feaba6f4ca1f5d9908721cc939a08a7524d44f3fde0e59a9b2",
+        "  private static void runPressure(ServerLevel level, Budget budget) {": "5c8a42a147d56f04b4f61485bba18b401f0f715659b8e0c19caf7d992c4f9c42",
+        "  private static PressureJob startPressure(ServerLevel level, BlockPos origin, Budget budget) {": "10b09daee3551887993b077006e828cec5079bec7088428b04bf659221e687b0"
+      },
+      "observation": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=false retainedHead=0 orphanJobs=1 watchersAfterFinish=1 duplicateValidationCalls=8\nFRESH_PRESSURE_ADMISSION_OBSERVED validationCalls=8 waterStateReads=3\nPRESSURE_ADMISSION_BOUNDARY_PASS cases=12 unavailableStateReads=0\nPRESSURE_ADMISSION_MODEL_PASS fixed=false randomizedOperations=10000 fifoAtCapacity=true invalidatedRetained=true repeatedWatchers=513 repeatedLeft=512\n",
+      "acceptance_exit": 1,
+      "acceptance_stdout": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=false retainedHead=0 orphanJobs=1 watchersAfterFinish=1 duplicateValidationCalls=8\n",
+      "acceptance_stderr": "Exception in thread \"main\" java.lang.AssertionError: Duplicate queued admission must retain the exact frontier/heads/flags and all watcher ownership\n\tat AdmissionOwnership.check(AdmissionOwnership.java:37)\n\tat AdmissionOwnership.main(AdmissionOwnership.java:119)\n"
+    },
+    {
+      "mode": "accepted-cleanup",
+      "runtime_sha256": "9206ab0b23c6393d084fdf216d97dfed7c47aeb55b718335ae7959c40201a981",
+      "exact_extracted_bodies": {
+        "  public static int units(ServerLevel l, BlockPos p) {": "15e662d46704228ce8976ebc97ce3760559a82f320cb6cddb563e54f8937b1f5",
+        "  private static final class PressureJob {": "7cc538dc59fa92e69dbada12548d3348e7ddf0743f8c370e601ffbd05e9539ff",
+        "  private static void watch(Budget budget, PressureJob job, BlockPos p) {": "f370a73a4afcfaa3a64f6e6b4dcc500c7f1b8c33a169dfd61cd3d46084edcdbc",
+        "  private static void finish(Budget budget, PressureJob job) {": "c409c36bdda281feaba6f4ca1f5d9908721cc939a08a7524d44f3fde0e59a9b2",
+        "  private static void runPressure(ServerLevel level, Budget budget) {": "9357bbeeaf27da7b613c7f63bb7fb32f590c6b43e9f8f191d0f3429acbb6c63c",
+        "  private static PressureJob startPressure(ServerLevel level, BlockPos origin, Budget budget) {": "e028df4a277009c03b8ae33158090556bccd86d358dfe16a582b7d4180d52eda"
+      },
+      "observation": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=true retainedHead=128 orphanJobs=0 watchersAfterFinish=0 duplicateValidationCalls=0\nFRESH_PRESSURE_ADMISSION_OBSERVED validationCalls=4 waterStateReads=1\nPRESSURE_ADMISSION_BOUNDARY_PASS cases=12 unavailableStateReads=0\nPRESSURE_ADMISSION_MODEL_PASS fixed=false randomizedOperations=10000 fifoAtCapacity=true invalidatedRetained=true repeatedWatchers=1 repeatedLeft=0\n",
+      "acceptance_exit": 0,
+      "acceptance_stdout": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=true retainedHead=128 orphanJobs=0 watchersAfterFinish=0 duplicateValidationCalls=0\nFRESH_PRESSURE_ADMISSION_OBSERVED validationCalls=4 waterStateReads=1\nPRESSURE_ADMISSION_BOUNDARY_PASS cases=12 unavailableStateReads=0\nPRESSURE_ADMISSION_MODEL_PASS fixed=true randomizedOperations=10000 fifoAtCapacity=true invalidatedRetained=true repeatedWatchers=1 repeatedLeft=0\n",
+      "acceptance_stderr": ""
+    },
+    {
+      "mode": "staged-cleanup",
+      "runtime_sha256": "996885e96d2f3cd6c680845a989417d113953e14aaafff047fb67aef7d447fe8",
+      "exact_extracted_bodies": {
+        "  public static int units(ServerLevel l, BlockPos p) {": "15e662d46704228ce8976ebc97ce3760559a82f320cb6cddb563e54f8937b1f5",
+        "  private static final class PressureJob {": "7cc538dc59fa92e69dbada12548d3348e7ddf0743f8c370e601ffbd05e9539ff",
+        "  private static void watch(Budget budget, PressureJob job, BlockPos p) {": "f370a73a4afcfaa3a64f6e6b4dcc500c7f1b8c33a169dfd61cd3d46084edcdbc",
+        "  private static void finish(Budget budget, PressureJob job) {": "c409c36bdda281feaba6f4ca1f5d9908721cc939a08a7524d44f3fde0e59a9b2",
+        "  private static void runPressure(ServerLevel level, Budget budget) {": "9357bbeeaf27da7b613c7f63bb7fb32f590c6b43e9f8f191d0f3429acbb6c63c",
+        "  private static PressureJob startPressure(ServerLevel level, BlockPos origin, Budget budget) {": "e028df4a277009c03b8ae33158090556bccd86d358dfe16a582b7d4180d52eda"
+      },
+      "observation": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=true retainedHead=128 orphanJobs=0 watchersAfterFinish=0 duplicateValidationCalls=0\nFRESH_PRESSURE_ADMISSION_OBSERVED validationCalls=4 waterStateReads=1\nPRESSURE_ADMISSION_BOUNDARY_PASS cases=12 unavailableStateReads=0\nPRESSURE_ADMISSION_MODEL_PASS fixed=false randomizedOperations=10000 fifoAtCapacity=true invalidatedRetained=true repeatedWatchers=1 repeatedLeft=0\n",
+      "acceptance_exit": 0,
+      "acceptance_stdout": "PRESSURE_ADMISSION_MODEL_OBSERVED sameJob=true retainedHead=128 orphanJobs=0 watchersAfterFinish=0 duplicateValidationCalls=0\nFRESH_PRESSURE_ADMISSION_OBSERVED validationCalls=4 waterStateReads=1\nPRESSURE_ADMISSION_BOUNDARY_PASS cases=12 unavailableStateReads=0\nPRESSURE_ADMISSION_MODEL_PASS fixed=true randomizedOperations=10000 fifoAtCapacity=true invalidatedRetained=true repeatedWatchers=1 repeatedLeft=0\n",
+      "acceptance_stderr": ""
+    }
+  ]
+}

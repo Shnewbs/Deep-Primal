@@ -1,0 +1,10 @@
+BACKEND_SELECTION_PASS backend=Vulkan
+LOD_TRAVEL_PHASE phase=0
+LOD_TRAVEL_PHASE phase=1
+BACKEND_SELECTION_PASS backend=Vulkan
+LOD_TRAVEL_EDIT_PERSISTED revision=-1
+LOD_TRAVEL_PHASE phase=2
+java.lang.AssertionError: LOD travel deadline phase=2 loaded=true revision=-1 stored=ffafd5db|Block{minecraft:glass} bytes=4124728 queued=65
+java.lang.AssertionError: LOD travel deadline phase=2 loaded=true revision=-1 stored=ffafd5db|Block{minecraft:glass} bytes=4124728 queued=65
+java.lang.AssertionError: LOD travel deadline phase=2 loaded=true revision=-1 stored=ffafd5db|Block{minecraft:glass} bytes=4124728 queued=65
+BUILD FAILED in 2m 25s

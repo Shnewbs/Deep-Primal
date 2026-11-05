@@ -1,0 +1,447 @@
+[
+  {
+    "case": "reload-before",
+    "mode": "reload",
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Settled routes release all work/watches",
+      "[11:36:09] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Settled routes release all work/watches"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_11.36.09-server.txt"
+    ],
+    "elapsed_seconds": 86.28,
+    "traced_source_sha256": "fd8c80875400e2642638461cc2200a69c15c1aa8ff51370eaa3e77e75a083720",
+    "log_sha256": "594755d6c14c7b82630be73ad39d340041208fac91d0a4e66c7dd1859ee5bc3a"
+  },
+  {
+    "case": "reload-ticket",
+    "mode": "reload",
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=reload ticks=480 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=759 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=df3e6b16f351ec7280c632dc789e4ed2e557607e10eda184ed3ee99507f946db flowSha=cc734f137be6d94319609bbf88ff155cbfc2fb4a74e765efd2bebbdf3822cb8c medianLevelTickMs=0.228926 p95LevelTickMs=1.201448"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 49.09,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "73d325d333a497d698da510d45ba8ed5c962479e0e07bf6c57ceabe770d00916"
+  },
+  {
+    "case": "physical-reload-ticket",
+    "mode": "physical-reload",
+    "exit_code": 124,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 480.01,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "9f6791c6708b4f62830e41355ab892907025efd9f3a6da9b745536ac3fd45bd1"
+  },
+  {
+    "case": "physical-reload-rerun",
+    "mode": "physical-reload",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Settled routes release all work/watches",
+      "[11:50:44] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Settled routes release all work/watches"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_11.50.44-server.txt"
+    ],
+    "elapsed_seconds": 122.49,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "7d3a9254a725cdbd7f05140f8717ad1bdcfb833175e97a804f523b0e749e6628"
+  },
+  {
+    "case": "physical-reload-3200",
+    "mode": "physical-reload",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=physical-reload ticks=3200 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=1026 maxDrainSlice=128 peakDrainVisits=759 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=6aabc5562b2335907c098ee95ca6d4a63b37b347c7060f54a37ed9a134fad8a9 flowSha=d865cb3ce41d95a6bbe7a1808890f6d0d19c6505106d95ff00c4689a6de9c9c3 medianLevelTickMs=0.354487 p95LevelTickMs=0.744918"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 186.94,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "1e9654e5921cce38921246f95df8235879c6727ff2355bfb84ebf79b8498f892"
+  },
+  {
+    "case": "matrix-fixed",
+    "mode": "fixed",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=fixed ticks=240 conservedEveryTick=true initialUnits=3 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=1488 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=false gapReloaded=false unitsSha=59006f31ee22d413f75f33b70df56b2258582576710097aab699d07e76a8f44e flowSha=7e048b32b0ecdba952e93863f7625a029e20e23ece0748a69c82eaaad9ab7d70 medianLevelTickMs=0.559216 p95LevelTickMs=3.010106"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 37.68,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "6d0bf0e987f1202f319b8b633743370816e036587ee9066e120ec757bb90e6d1"
+  },
+  {
+    "case": "matrix-edit",
+    "mode": "edit",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=edit ticks=240 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=55 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=0 gapUnloaded=false gapReloaded=false unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.227604 p95LevelTickMs=1.125283"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 36.29,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "e9d43b0a8af2ef4f6fcfa6dea71413684750259ba5c14062d74769dde3644fc6"
+  },
+  {
+    "case": "matrix-reload-edit",
+    "mode": "reload-edit",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=reload-edit ticks=480 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=127 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.18501 p95LevelTickMs=0.649763"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 46.77,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "3ea1f6d6c4b2c4236f0b85d68e50f565ddcbbe22165545d2fe2db9602fb455ed"
+  },
+  {
+    "case": "matrix-unavailable",
+    "mode": "unload",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=unload ticks=240 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=1 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=128 peakDrainVisits=127 drainJobs=0 saturated=0 restarts=1 waitingJobs=1 waitingLinks=1 idleSamples=0 gapUnloaded=true gapReloaded=false unitsSha=c7db4601265cd150df351fc8ed424d8b0eeb0ad42f8f51885af7faf2590cf5d6 flowSha=83b82c17025a379d5f1d175364ea2bfc8f712395790b99c1bee068b407312508 medianLevelTickMs=0.170417 p95LevelTickMs=1.055807"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 33.29,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "f8e9f02b6b53509d7e8d0b05e10f4e446aa92df54c840549d8319f8ddb8ad42d"
+  },
+  {
+    "case": "matrix-reopen",
+    "mode": "reopen",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=reopen ticks=240 conservedEveryTick=true initialUnits=3 firstVisits=0 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=0 peakDrainVisits=0 drainJobs=0 saturated=0 restarts=0 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=false gapReloaded=false unitsSha=59006f31ee22d413f75f33b70df56b2258582576710097aab699d07e76a8f44e flowSha=7e048b32b0ecdba952e93863f7625a029e20e23ece0748a69c82eaaad9ab7d70 medianLevelTickMs=0.253073 p95LevelTickMs=2.347052"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 29.01,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "9547ffdfcd864944862660968af227e7840010830e5d2dfd911e2015d8b26187"
+  },
+  {
+    "case": "matrix-pressure-heads",
+    "mode": "heads",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_HEAD_CHANGE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4190 finalUnits=4190 outletUnits=7 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=118115 peakTickPressureVisits=6144 restarts=41 coalesced=2955 completed=1253 saturated=43 headFrontierRetained=true headRefreshes=23 headDeferrals=3 idleSamples=0 finalWatchedChunks=14 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 28.06,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "4c556994fa919f166431cc8d336f36d23f9c8e9f04b5b19b71c1a6fef93293e3"
+  },
+  {
+    "case": "matrix-pressure-fixed",
+    "mode": "fixed",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_CONTINUATION_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=2102 peakTickPressureVisits=5916 restarts=204 coalesced=4659 completed=2162 saturated=0 headFrontierRetained=false headRefreshes=49 headDeferrals=0 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 30.17,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "f75ed3b957da1a9b328a49b8068f10b033356d81bee726acfa536215b331d26c"
+  },
+  {
+    "case": "matrix-pressure-edit",
+    "mode": "edit",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_EDIT_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4176 finalUnits=4176 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=16 peakRetainedNodes=119495 peakTickPressureVisits=6144 restarts=41 coalesced=2973 completed=1072 saturated=45 headFrontierRetained=false headRefreshes=14 headDeferrals=1 idleSamples=0 finalWatchedChunks=7 actualGapUnloaded=false independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 27.59,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "03436af981903f76c514b9d370188f8623fdabca9b0a32ebdbec6081c873fdfc"
+  },
+  {
+    "case": "matrix-pressure-unload",
+    "mode": "unload",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_UNLOAD_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=0 forcedChunks=18 firstSearchVisits=128 maxSliceVisits=128 peakJobs=2 peakRetainedNodes=14506 peakTickPressureVisits=768 restarts=1 coalesced=2 completed=12 saturated=2 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=0 finalWatchedChunks=0 actualGapUnloaded=true independentComponents=1 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 28.63,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "ccd5962bb85d73fd8c7d1ce64a74e8d764be70089030f6d753aa252ba509f8e5"
+  },
+  {
+    "case": "matrix-pressure-idle",
+    "mode": "idle",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_IDLE_NATIVE_PASS ticks=120 initialWaterCells=262 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=35 firstSearchVisits=128 maxSliceVisits=128 peakJobs=4 peakRetainedNodes=906 peakTickPressureVisits=1301 restarts=3 coalesced=3 completed=11 saturated=0 headFrontierRetained=false headRefreshes=2 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 29.63,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "b9be7cdb4b17f38a728fe6981e5af74d470ec2a759d4d5aae2d91d4c89b71708"
+  },
+  {
+    "case": "matrix-pressure-reopen",
+    "mode": "reopen",
+    "suite": "long-pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "LONG_PRESSURE_REOPEN_NATIVE_PASS ticks=120 initialWaterCells=263 initialUnits=4192 finalUnits=4192 outletUnits=8 forcedChunks=34 firstSearchVisits=0 maxSliceVisits=0 peakJobs=0 peakRetainedNodes=0 peakTickPressureVisits=0 restarts=0 coalesced=0 completed=0 saturated=0 headFrontierRetained=false headRefreshes=0 headDeferrals=0 idleSamples=21 finalWatchedChunks=0 actualGapUnloaded=false independentComponents=2 conserved=true solverAcceptance=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 22.24,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "6c66e76f6ee56aa639838915c3119f988a332e8c31d623eed7eeb26d4395cacb"
+  },
+  {
+    "case": "matrix-filling",
+    "mode": "filling",
+    "suite": "filling",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Thin film reaches the lower outlet without stopping",
+      "[12:02:09] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Thin film reaches the lower outlet without stopping"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_12.02.09-server.txt"
+    ],
+    "elapsed_seconds": 27.91,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "d33482b82f4d54c2678c0ecb6f5c16760302e64520a0a5ee2c411efd4d9db137"
+  },
+  {
+    "case": "inherited-filling",
+    "mode": "filling",
+    "suite": "filling",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Thin film reaches the lower outlet without stopping",
+      "[12:07:00] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Thin film reaches the lower outlet without stopping"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_12.07.00-server.txt"
+    ],
+    "elapsed_seconds": 31.79,
+    "traced_source_sha256": "fd8c80875400e2642638461cc2200a69c15c1aa8ff51370eaa3e77e75a083720",
+    "log_sha256": "c059835e53f1ceb700b2e69822b1d882dc1a9bf694282186e0ac80bbee5dca2e"
+  },
+  {
+    "case": "accepted-filling",
+    "mode": "filling",
+    "suite": "filling",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "WATER_FILLING_NATIVE_PASS ticks=120 nominalSolverHz=60 firstTickFall=3 basinFilledTick=4 thinFilm=8 plant=16 basin=32 interiorFall=true progressTicks=4 maxProgressGap=1 competingStableCells=1024 conserved=true noForceLoad=true pending=0"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 28.81,
+    "traced_source_sha256": "8c00bdf921875b432c5c41bcb669db2993a84f298684d98271cecdb3b2e3f62e",
+    "log_sha256": "fd42684a208f1e7d599bfb64e00f7db8a57d9aaf9e605b33da650150d37bbc67"
+  },
+  {
+    "case": "remaining-pressure",
+    "mode": "pressure",
+    "suite": "pressure",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "ENGINE_PRESSURE_NATIVE_PASS units=144 raisedSurface=true conserved=true disconnected=true noForceLoad=true"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 22.81,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "a433874abf758d36b055edd9a5b50495c3b8322ba95962df4fc4da7151aefad4"
+  },
+  {
+    "case": "remaining-queue",
+    "mode": "queue",
+    "suite": "queue",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "ACTIVE_QUEUE_NATIVE_PASS cells=65536 admissions=262144 fifo=true mutableSnapshots=true negativeCoordinates=true duplicateAtCapacity=true scheduledOverflow=true allocatedBytes=304 queue=it.unimi.dsi.fastutil.longs.LongLinkedOpenHashSet"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 22.6,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "6e1c1311b0d727b23bfd5ea0e09235ae5335e5c51a247fb34167b8b276d21eda"
+  },
+  {
+    "case": "basin-ticket-a",
+    "mode": "basin-fixed",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": false,
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: The closed stepped basin must drain fully: upper=698 bottom=7457 pending=500",
+      "[12:12:27] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: The closed stepped basin must drain fully: upper=698 bottom=7457 pending=500"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_12.12.27-server.txt"
+    ],
+    "elapsed_seconds": 180.58,
+    "traced_source_sha256": "dc36161850fc0dd5d7571e1732975c8cce578a35dbd648085847798a9eb641fa",
+    "log_sha256": "ba542ee3aed0e0f1c08ed5cc209d3a909cad3940bf5ce7346ca34b3953bf52d5"
+  },
+  {
+    "case": "packaged-reload",
+    "mode": "reload",
+    "suite": "closed",
+    "trace_enabled": false,
+    "packaged": true,
+    "exit_code": 0,
+    "explicit_pass": true,
+    "records": [
+      "CLOSED_WATER_NATIVE_PASS mode=reload ticks=480 conservedEveryTick=true initialUnits=2 firstVisits=128 pending=0 remainingUpperUnits=0 bottomUnits=0 peakDrainJobs=1 peakDrainNodes=258 maxDrainSlice=128 peakDrainVisits=759 drainJobs=0 saturated=0 restarts=1 waitingJobs=0 waitingLinks=0 idleSamples=21 gapUnloaded=true gapReloaded=true unitsSha=df3e6b16f351ec7280c632dc789e4ed2e557607e10eda184ed3ee99507f946db flowSha=cc734f137be6d94319609bbf88ff155cbfc2fb4a74e765efd2bebbdf3822cb8c medianLevelTickMs=0.206612 p95LevelTickMs=1.067365"
+    ],
+    "failures": [],
+    "normal_save": true,
+    "crash_reports": [],
+    "elapsed_seconds": 50.48,
+    "traced_source_sha256": "d3449da9be7ab9f8992db77127e5b168f04ca350ee0b0d25a7907b8dfac29f59",
+    "log_sha256": "992e01bd8485fee2ef30097e3249d6ed5d1937fbb9bb5c30300b7f95b5d98d16"
+  },
+  {
+    "case": "packaged-filling",
+    "mode": "filling",
+    "suite": "filling",
+    "trace_enabled": false,
+    "packaged": true,
+    "exit_code": 0,
+    "explicit_pass": false,
+    "records": [],
+    "failures": [
+      "java.lang.AssertionError: Thin film reaches the lower outlet without stopping",
+      "[12:17:45] [Server thread/ERROR] [minecraft/MinecraftServer]: Encountered an unexpected exception",
+      "java.lang.AssertionError: Thin film reaches the lower outlet without stopping"
+    ],
+    "normal_save": true,
+    "crash_reports": [
+      "crash-2026-10-22_12.17.45-server.txt"
+    ],
+    "elapsed_seconds": 25.85,
+    "traced_source_sha256": "d3449da9be7ab9f8992db77127e5b168f04ca350ee0b0d25a7907b8dfac29f59",
+    "log_sha256": "0b67a338d0599b8434df78e278f179eee76cc8d123189cd48b4bc66fd13ca5d7"
+  }
+]

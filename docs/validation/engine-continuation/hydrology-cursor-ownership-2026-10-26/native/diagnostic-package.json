@@ -1,0 +1,19 @@
+{
+  "base_source": "a1583a508b0d67130d387bc018defd5758acd496",
+  "base_sha256": "d1823835f3c2a8c54217edfcf7349df379375df29f0714707c8d028aaaeac876",
+  "diagnostic_sha256": "89fcfc8dce5f7276ff6cd86ce8c8db4d9d3108daf4b8f2c39dca37e4e046ac82",
+  "bytes": 684212,
+  "replacements": {
+    "com/shnewbs/deepprimal/engine/StreamSourceIndex.class": "bc07c62f5ae78339ad079634f948294ac10ce89cc8190b754a4e0a488bbfbc60",
+    "com/shnewbs/deepprimal/engine/StreamSourceIndex$Pass.class": "31d4063eec5c76fcab56c1e80c945f98bed5b80632ad8373a529c6523499b560",
+    "com/shnewbs/deepprimal/engine/StreamSourceIndex$Node.class": "4ed5be85a0dc4e180430326035b772dd504cb4828b41bcfe25afb10e9bcdb94b",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime.class": "0e7954c0bc081a496c4410d4d6a49742aefede4eb58429a3bec04b86d0f4a23f",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$Transfer.class": "b0e8408fa6409d0a2d69e283f46ae93af4eb589a9e600b3b09082c953aac7cce",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$Work.class": "ef0c480503bfec7eaa7f9f0b91dd027d1824cd04ed0f45bf75c0eeee1b1e1130",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$RegionWork.class": "f06f8b9e948f61cb365d1108f9d98a3753bd8a18bd79ed040371a1cd7631d3a1",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$Cursor.class": "2bad310bdbc37656990ce04f6a2e28f1bfbf773ea0a4daa2d392977f072a89d7"
+  },
+  "release": false,
+  "full_build": false,
+  "assembly": "Private diagnostic root plus six separately loaded immutable nested module JARs; not a distributable bundle"
+}

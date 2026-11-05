@@ -1,0 +1,40 @@
+{
+  "case": "vulkan-flow-baseline",
+  "run_directory": "/tmp/deepprimal-travel-correct-0035",
+  "started_utc": "2026-10-23T03:01:06.860576+00:00",
+  "finished_utc": "2026-10-23T03:01:56.923979+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 50.06,
+  "build_successful": false,
+  "records": [
+    "[23:01:28] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[23:01:36] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[23:01:37] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=32",
+    "[23:01:39] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x7a400000007a4, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x7a500000007a5, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[23:01:41] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[23:01:43] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x7a400000007a4, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x7a500000007a5, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "[23:01:45] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x7a400000007a4, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x7a500000007a5, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "java.lang.AssertionError: Animated capture/meshing ignored a real water cell FLOW direction change",
+    "java.lang.AssertionError: Animated capture/meshing ignored a real water cell FLOW direction change",
+    "[23:01:54] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID c2090600-35db-4d93-9217-21836b8943f2",
+    "java.lang.AssertionError: Animated capture/meshing ignored a real water cell FLOW direction change",
+    "[23:01:54] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 9293f711-081b-4b71-9de9-42a411a5cf31"
+  ],
+  "console_sha256": "eac9bfc7c70189ed0cc2df0705d2d9d6a1de171cd8c48dd7aac329a506c84d75",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_20.40.04-client.txt",
+    "crash-2026-10-22_23.01.54-client.txt",
+    "crash-2026-10-22_21.38.12-client.txt",
+    "crash-2026-10-22_20.58.01-client.txt",
+    "crash-2026-10-22_22.49.13-client.txt",
+    "crash-2026-10-22_21.18.41-client.txt",
+    "crash-2026-10-22_22.06.10-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

@@ -1,0 +1,35 @@
+{
+  "stable_samples": 4,
+  "observations": [
+    {
+      "sample": 0,
+      "bytes": 60326,
+      "sha256": "080afc3a56e8e271ce1f5954b9763876b842146df75e5e1f6d6f94c2a2f43bd2"
+    },
+    {
+      "sample": 1,
+      "bytes": 60326,
+      "sha256": "080afc3a56e8e271ce1f5954b9763876b842146df75e5e1f6d6f94c2a2f43bd2"
+    },
+    {
+      "sample": 2,
+      "bytes": 60326,
+      "sha256": "080afc3a56e8e271ce1f5954b9763876b842146df75e5e1f6d6f94c2a2f43bd2"
+    },
+    {
+      "sample": 3,
+      "bytes": 60326,
+      "sha256": "080afc3a56e8e271ce1f5954b9763876b842146df75e5e1f6d6f94c2a2f43bd2"
+    },
+    {
+      "sample": 4,
+      "bytes": 60326,
+      "sha256": "080afc3a56e8e271ce1f5954b9763876b842146df75e5e1f6d6f94c2a2f43bd2"
+    }
+  ],
+  "raw_bytes": 60326,
+  "raw_sha256": "080afc3a56e8e271ce1f5954b9763876b842146df75e5e1f6d6f94c2a2f43bd2",
+  "gzip_sha256": "939e4e0d2f9bde42df9a4b6d66a13cb72b199b7c94ce1efa41138f06a444c160",
+  "launcher_exit": 0,
+  "scope": "Closed-launcher console snapshot; live-console changes after this snapshot do not alter these sealed bytes."
+}

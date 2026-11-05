@@ -1,0 +1,12 @@
+{
+  "source_sha": "dba66620bc6af6282f721f2cc2ab49085d572657",
+  "version": "0.0.1-alpha.29-dev.31-renderer.6",
+  "files": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java": "4c8d6b60a71c1021d245df622105b1d1a8a4f0bd0dc58fd2a205f83c9be85eec",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java": "09bed43184bf7bd8f5066bd26f67323eae9b6a98f7dea64dd418b029d6899410",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodByteAccountingChecks.java": "c0d172b3844bfffa72b5bcf9b8b7997c0efae2a1f4c55e5f2a17b05ae414f692",
+    "gui-themes/build.gradle": "f6cc92637e85f1014b9a5e7ad2a28fb9c4e9d65c3ae73176f43b6bcbda32ca02"
+  },
+  "review": "read-only renderer self-audit; no code changes after packaging correction",
+  "tests_pending_at_freeze": true
+}

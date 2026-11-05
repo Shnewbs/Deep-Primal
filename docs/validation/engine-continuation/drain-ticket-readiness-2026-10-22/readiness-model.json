@@ -1,0 +1,8 @@
+{
+  "scope": "exact source bodies with world doubles, not Minecraft",
+  "source_sha256": "d3449da9be7ab9f8992db77127e5b168f04ca350ee0b0d25a7907b8dfac29f59",
+  "extracted_sha256": "83cbb25268235a3f9a3bb0b20cd5b618a3d8cdf1accb5f97a2a7f8ff58e8bd70",
+  "compile_exit": 0,
+  "run_exit": 0,
+  "record": "TICKET_READINESS_MODEL_PASS exactBodies=true duplicateEvents=2048 maxOrigins=128 maxLinks=1024 maxProbesPerHost=16 delayedFull=true withdrawal=true overflow=true idle=true nativeAcceptance=false"
+}

@@ -1,0 +1,11 @@
+{
+  "verified_and_copied": 381,
+  "missing": [],
+  "mismatch": [],
+  "excluded": [
+    "docs",
+    "standalone-engine",
+    "renderer-vulkan",
+    "gradle/wrapper/gradle-wrapper.jar"
+  ]
+}

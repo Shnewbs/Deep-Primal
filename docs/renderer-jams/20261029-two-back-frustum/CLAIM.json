@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1757-two-back-frustum",
+  "worker": "dedicated-renderer-hourly",
+  "status": "checkpointed",
+  "started_at": "2026-10-29T17:57:21Z",
+  "expires_at": "2026-10-29T18:40:00Z",
+  "parent": "5cbc6ec2bfa7f595e8e955a38821844c24ea3ba4",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java (part selection, resident publication, telemetry/reset only)",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java (LOD diagnostics only)",
+    "docs/renderer-jams/20261029-two-back-frustum/**"
+  ],
+  "excluded": [
+    "water",
+    "terrain-generation",
+    "engine-core",
+    "graphics-settings",
+    "renderer-vulkan",
+    "other schedules",
+    "shared builds"
+  ],
+  "consumed": [
+    "docs/renderer-jams/20261029-fused-resident-publication/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1635-a7ade50e/REVIEW.md"
+  ],
+  "intent": "Add bounded two-back duplicate resident AABB verdict reuse for alternating mixed-bound parts without per-frame coordinate comparisons or changed transparent draw ordering; execute Java21 strict isolated parity/negative regression; owner builds.",
+  "lease_released": true,
+  "ended_at": "2026-10-29T18:09:09Z",
+  "implementation_parent": "daf72986659871600f635ae6f5a17dfed0ce12a3",
+  "source_commit": "2d7959741f8a43c1790d19f5e976e5eef95cdfb5",
+  "verified_source_blobs": {
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java": "a2beb3975af01e7e4935404628c6a0e5b5d3d116",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java": "7a63182b273b66b71e1ebf705a5bb3ecb8f12232",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java": "a9a2978fa4952f4ada736f92a301efa36265ff25",
+    "docs/renderer-jams/20261029-two-back-frustum/tests/com/shnewbs/deepprimal/lod/client/LodTwoBackCommittedSmoke.java": "6f4030730ecbaea3a0cea664954e3d7751f42f74"
+  },
+  "last_self_audit_average": 5.83,
+  "evidence_library_file_id": "libfile_bbb3e51f51e481919382dffddbf898fe",
+  "evidence_sha256": "41dbe7d979a6da8f95b28c0a65fac91874718c4c88c0b096f71dd6a9e973c53a",
+  "qualified_jar": false,
+  "next": "Owner native Vulkan/OpenGL benchmark, alternating vs unique pages; water and FSR1 native pixel testing; measure GPU frame/VRAM and revise alias tradeoff"
+}

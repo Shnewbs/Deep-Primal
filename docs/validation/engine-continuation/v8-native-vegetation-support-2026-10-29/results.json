@@ -1,0 +1,18 @@
+{
+  "java": "openjdk version \"21.0.12.1\" 2026-08-18",
+  "suite": "source-only Java21 exact new native-admission helper with API doubles; not Minecraft",
+  "runners": [
+    "normal",
+    "Python -OO"
+  ],
+  "positives_per_runner": 2,
+  "assertions_per_positive": 25409,
+  "positive_assertions_total": 101636,
+  "broken_compiled_controls_per_runner": 5,
+  "total_rejected": 10,
+  "dev86_archived_planner_replay_assertions": 162732,
+  "full_native_materializer_compiled": false,
+  "full_gradle": false,
+  "gpu": false,
+  "world_save_reopen": false
+}

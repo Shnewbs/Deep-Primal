@@ -1,0 +1,3 @@
+Source snapshot: 7535060000b19d4def0295ba83252a81c3b8e77f
+Actual GroundSideSpriteSource.pack/compose methods compiled with JDK25.0.4.1+1.
+APPROVED_V4_IMAGE_PASS pixels=40960 actualPackComposeCases=40960 masks=8192 nativeGame=false

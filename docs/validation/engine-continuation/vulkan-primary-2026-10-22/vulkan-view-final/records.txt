@@ -1,0 +1,28 @@
+[15:26:41] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true
+[15:26:48] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BACKEND_SELECTION_PASS backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+BACKEND_SELECTION_PASS backend=Vulkan
+WATER_VIEW_OPTIONS animated=true waves=false lod=true
+WATER_VIEW_OBSERVATION label=enabled-animated backend=Vulkan animated=true waves=false lod=true ownsWater=true waterBytes=837216 drawnPages=12299 pending=22 loadedChunks=117 horizonTiles=0 visibleTiles=0 lodActive=true lodBytes=5945132 lodVisible=2 lodCaptured=46 lodTriangles=1426320 camera=107.68827612381756,176.5875,-226.797007486035
+WATER_VIEW_OPTIONS animated=false waves=false lod=true
+WATER_VIEW_OBSERVATION label=enabled-fallback backend=Vulkan animated=false waves=false lod=true ownsWater=false waterBytes=0 drawnPages=13339 pending=0 loadedChunks=117 horizonTiles=0 visibleTiles=0 lodActive=true lodBytes=9426964 lodVisible=2 lodCaptured=69 lodTriangles=3056562 camera=107.68827612381756,176.5875,-226.797007486035
+WATER_VIEW_OPTIONS animated=true waves=true lod=true
+WATER_VIEW_OPTIONS animated=true waves=false lod=false
+WATER_VIEW_OPTIONS animated=true waves=false lod=true
+RESOURCE_RELOAD_PASS
+WATER_VIEW_OBSERVATION label=enabled-reloaded backend=Vulkan animated=true waves=false lod=true ownsWater=true waterBytes=749664 drawnPages=28582 pending=13 loadedChunks=117 horizonTiles=0 visibleTiles=0 lodActive=true lodBytes=3239504 lodVisible=7 lodCaptured=113 lodTriangles=9863986 camera=107.68827612381756,176.5875,-226.797007486035
+MEMORY_GUARD_CHECKS_PASS requested=125 memoryLimit=7 effective=4
+VULKAN_SHUTDOWN_FAILURE_QUEUED
+[15:28:40] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[15:28:40] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
+[15:28:40] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCacheHits=0, descriptorUpdates=363234, pipelineCreationNanos=108024760, descriptorBindSkips=8, pipelineCreates=80, validationErrors=0, descriptorBinds=664462, pipelineFeedbackValid=80, descriptorReuse=301236}
+BUILD SUCCESSFUL in 2m 17s

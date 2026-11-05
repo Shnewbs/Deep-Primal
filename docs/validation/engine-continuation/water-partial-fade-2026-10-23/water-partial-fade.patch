@@ -1,0 +1,236 @@
+--- a/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
++++ b/src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java
+@@ -93,6 +93,7 @@
+     DynamicUniforms.Transform transform;
+     WaterPatchMesher.Snapshot snapshot;
+     WaterGpuMesh gpu;
++    Map<Integer, WaterFaces> fading = Map.of();
+     boolean changed = true, busy;
+     long uploaded, used, cleanup;
+ 
+@@ -106,6 +107,8 @@
+     }
+   }
+ 
++  private record WaterFaces(float[] vertices, long revision) {}
++
+   private record Ready(
+       long session,
+       long revision,
+@@ -142,6 +145,7 @@
+   }
+ 
+   private void release(Page page) {
++    page.fading = Map.of();
+     dirty.remove(page.key);
+     urgent.remove(page.key);
+     fresh.remove(page.key);
+@@ -432,10 +436,51 @@
+     return value;
+   }
+ 
++  private static int faceKey(float[] values, int i) {
++    return (int) values[i + 9] * 6 + (int) values[i + 10];
++  }
++
++  private boolean fading(Page page, int face) {
++    int cell = face / 6;
++    long key = BlockPos.asLong(page.x + (cell & 15), page.y + (cell >> 8), page.z + ((cell >> 4) & 15));
++    var value = alpha.get(face % 6).get(key);
++    return value != null && value.target() == 0 && value.at(clock) > 0;
++  }
++
++  private Map<Integer, WaterFaces> rememberFading(Page page, List<WaterFaces> parts) {
++    var result = new LinkedHashMap<Integer, WaterFaces>();
++    for (var faces : parts) {
++      float[] values = faces.vertices;
++      for (int i = 0; i < values.length; ) {
++        int key = faceKey(values, i), end = i + WaterPatchMesher.STRIDE * 4;
++        while (end < values.length && faceKey(values, end) == key)
++          end += WaterPatchMesher.STRIDE * 4;
++        if (values[i + 13] == 0 && fading(page, key))
++          result.put(
++              key,
++              i == 0 && end == values.length
++                  ? faces
++                  : new WaterFaces(Arrays.copyOfRange(values, i, end), faces.revision));
++        i = end;
++      }
++    }
++    return result;
++  }
++
+   private void upload(Ready ready) {
+     Page p = ready.page;
+-    float[] values = ready.mesh.vertices();
+-    int count = ready.mesh.count();
++    var parts = new ArrayList<WaterFaces>();
++    parts.add(new WaterFaces(ready.mesh.vertices(), ready.revision));
++    var present = new BitSet(4096 * 6);
++    float[] incoming = ready.mesh.vertices();
++    for (int i = 0; i < incoming.length; i += WaterPatchMesher.STRIDE * 4)
++      present.set(faceKey(incoming, i));
++    // A dry cell can disappear from worker snapshots while its last faces are still fading.
++    // Retain only absent, still-dying faces; rewet/new geometry replaces them immediately.
++    for (var entry : p.fading.entrySet())
++      if (!present.get(entry.getKey()) && fading(p, entry.getKey())) parts.add(entry.getValue());
++    int count = 0;
++    for (var faces : parts) count += faces.vertices.length / WaterPatchMesher.STRIDE;
+     if (count == 0) {
+       // An edit during capture/meshing must get another turn before a negative result is cached.
+       if (p.changed) return;
+@@ -457,7 +502,8 @@
+       return;
+     }
+     ByteBuffer data = MemoryUtil.memAlloc((int) bytes).order(ByteOrder.nativeOrder());
+-    boolean animating = false;
++    boolean animating = false, dyingFaces = false;
++    int remaining = 0;
+     WaterSurfaceTransition opacity = null;
+     var sprite =
+         ((TextureAtlas)
+@@ -466,51 +512,59 @@
+                     .getTexture(TextureAtlas.LOCATION_BLOCKS))
+             .getSprite(Identifier.withDefaultNamespace("block/water_still"));
+     try {
+-      for (int v = 0; v < count; v++) {
+-        int i = v * WaterPatchMesher.STRIDE;
+-        int cell = (int) values[i + 9];
+-        int cx = cell & 15, cz = (cell >> 4) & 15, cy = cell >> 8;
+-        long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
+-        if ((v & 3) == 0) {
+-          opacity =
+-              transition(alpha.get((int) values[i + 10]), cellKey, values[i + 12], values[i + 13]);
+-          opacity.restart(clock);
+-        }
+-        float target = values[i + 3], from = target;
+-        int offset = 0;
+-        if (values[i + 11] != 0) {
+-          int x2 = Math.round(values[i] * 2),
+-              z2 = Math.round(values[i + 2] * 2),
+-              part = (x2 & 1) | ((z2 & 1) << 1);
+-          long key =
+-              BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2));
+-          var map = heights.get(part);
+-          var h = map.getAndMoveToLast(key);
+-          if (h == null) {
+-            h = new WaterSurfaceTransition(values[i + 4], clock);
+-            map.put(key, h);
+-          }
+-          h.target(target, clock, ready.revision);
+-          target = h.target();
+-          while (map.size() > MAX_HISTORY) map.removeFirst();
+-          from = h.from(clock);
+-          offset = h.offset(clock);
+-        }
+-        animating |=
+-            Math.abs(from - target) > .0001
+-                || Math.abs(opacity.from(clock) - opacity.target()) > .0001;
+-        int color = Float.floatToRawIntBits(values[i + 7]),
+-            light = Float.floatToRawIntBits(values[i + 8]);
+-        data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
+-        data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
+-        data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(values[i + 6]));
+-        data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
+-            .putShort((short) offset);
+-        data.putShort((short) (light & 65535)).putShort((short) (light >>> 16));
+-        data.put((byte) Math.round(opacity.from(clock) * 127))
+-            .put((byte) Math.round(opacity.target() * 127))
+-            .put((byte) 0)
+-            .put((byte) 0);
++      for (var faces : parts) {
++        float[] values = faces.vertices;
++        for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
++          int i = v * WaterPatchMesher.STRIDE;
++          int cell = (int) values[i + 9];
++          int cx = cell & 15, cz = (cell >> 4) & 15, cy = cell >> 8;
++          long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
++          if ((v & 3) == 0) {
++            opacity =
++                transition(alpha.get((int) values[i + 10]), cellKey, values[i + 12], values[i + 13]);
++            dyingFaces |= values[i + 13] == 0;
++          }
++          float target = values[i + 3], from = target;
++          int offset = 0;
++          if (values[i + 11] != 0) {
++            int x2 = Math.round(values[i] * 2),
++                z2 = Math.round(values[i + 2] * 2),
++                part = (x2 & 1) | ((z2 & 1) << 1);
++            long key =
++                BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2));
++            var map = heights.get(part);
++            var h = map.getAndMoveToLast(key);
++            if (h == null) {
++              h = new WaterSurfaceTransition(values[i + 4], clock);
++              map.put(key, h);
++            }
++            h.target(target, clock, faces.revision);
++            target = h.target();
++            while (map.size() > MAX_HISTORY) map.removeFirst();
++            from = h.from(clock);
++            offset = h.offset(clock);
++          }
++          if (Math.abs(from - target) > .0001) {
++            animating = true;
++            remaining = Math.max(remaining, WaterSurfaceTransition.MILLIS + offset);
++          }
++          if (Math.abs(opacity.from(clock) - opacity.target()) > .0001) {
++            animating = true;
++            remaining = Math.max(remaining, WaterSurfaceTransition.MILLIS + opacity.offset(clock));
++          }
++          int color = Float.floatToRawIntBits(values[i + 7]),
++              light = Float.floatToRawIntBits(values[i + 8]);
++          data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
++          data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color).put((byte) 255);
++          data.putFloat(sprite.getU(values[i + 5])).putFloat(sprite.getV(values[i + 6]));
++          data.putShort((short) Math.round(Math.clamp(from - target, -1, 1) * 16384))
++              .putShort((short) offset);
++          data.putShort((short) (light & 65535)).putShort((short) (light >>> 16));
++          data.put((byte) Math.round(opacity.from(clock) * 127))
++              .put((byte) Math.round(opacity.target() * 127))
++              .put((byte) Math.clamp(opacity.offset(clock), -WaterSurfaceTransition.MILLIS, 0))
++              .put((byte) 0);
++        }
+       }
+       data.flip();
+       if (reuse) {
+@@ -525,9 +579,11 @@
+         p.gpu = mesh;
+         residentBytes += mesh.bytes;
+       }
++      // Retained CPU faces are a subset of the admitted GPU payload; failed admission changes neither.
++      p.fading = rememberFading(p, parts);
+       p.snapshot = ready.snapshot;
+       p.uploaded = clock;
+-      p.cleanup = animating ? clock + WaterSurfaceTransition.MILLIS + 1 : 0;
++      p.cleanup = animating || dyingFaces ? clock + Math.max(0, remaining) + 1 : 0;
+       uploads++;
+     } finally {
+       MemoryUtil.memFree(data);
+@@ -604,11 +660,13 @@
+     session++;
+     for (var f : work) f.cancel(true);
+     work.clear();
+-    for (Page p : pages.values())
++    for (Page p : pages.values()) {
++      p.fading = Map.of();
+       if (p.gpu != null) {
+         p.gpu.close();
+         p.gpu = null;
+       }
++    }
+     pages.clear();
+     dirty.clear();
+     urgent.clear();
+--- a/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
++++ b/graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.vsh
+@@ -19,6 +19,8 @@
+     relativePosition = p + ModelOffset;
+     gl_Position = ProjMat * ModelViewMat * vec4(relativePosition, 1.0);
+     vertexColor = Color * ColorModulator * texelFetch(Sampler2, clamp(UV2 / 16, ivec2(0), ivec2(15)), 0);
+-    vertexColor.a *= mix(Normal.x, Normal.y, clamp(TextureMat[0][0] / 100.0, 0.0, 1.0));
++    // Signed normalized Normal.z stores the original opacity start offset in milliseconds.
++    float alphaT = clamp((TextureMat[0][0] - Normal.z * 127.0) / 100.0, 0.0, 1.0);
++    vertexColor.a *= mix(Normal.x, Normal.y, alphaT);
+     texCoord = UV0;
+ }

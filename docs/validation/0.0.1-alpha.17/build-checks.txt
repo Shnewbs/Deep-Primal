@@ -1,0 +1,14 @@
+INTEGRATED_CORE_PASS samples=5776 river=6 land=1621 ocean=4149 height=-44.93363252194638..288.3561252973467 lodBytes=101016 ms=828.40461
+WATERWAY_CORE_PASS randomCases=100000 riverMouth=true dryBeach=true narrowTributary=true cliffs=true bounds=true continuity=true
+CONTAINED_CORE_PASS courseSamples=44088 terraces=38113 descents=4639 random=20000 directions=true
+NATURAL_RIVER_CORE_PASS sources=137 lakes=7 partial=36473 integerSourceHeights=true
+DRAINAGE_CORE_PASS channels=1312 elevated=1127 gorges=122 random=20000 acyclic=true downhill=true cacheEviction=true
+PASS: 3000 nearest-queue differential cases, distance validation, 34300 ring-grid coordinates.
+PASS: horizon snapshots, closed mesh bounds, 5684 interpolation/seam cases, byte-budget stress.
+WATER_DYNAMICS_PASS slope RGB speedBands ocean20000 waveBounds minimumUpload
+HYDROLOGY_PASS randomizedTransfers=500000 conserved=16244 nativeLevels=8 pressure=true stamina=true
+PASS: 200000 differential surface cases, bounded-cache stress, tick-ring rollover.
+CACHE_CHECKS_PASS corruption truncation bounds LRU250 exactDescriptorEquality dynamicOffsets commandReset
+> Task :verifyCoreBoundary
+> Task :verifyModuleBoundaries
+BUILD SUCCESSFUL in 11s

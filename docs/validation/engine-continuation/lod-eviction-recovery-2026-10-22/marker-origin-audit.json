@@ -1,0 +1,47 @@
+{
+  "original_cause": "Unproven; ptrace denied; JFR observes Java FileWrite and cannot identify every native/external filesystem actor.",
+  "workspace_observation": "Delete confirmed absent, then ENTRY_CREATE with different inode and unchanged original mtime; no second traced owner arm; only initial marker Java FileWrite recorded.",
+  "workspace_marker_write_count": 1,
+  "matched_controls": [
+    {
+      "case": "vulkan-marker-origin-packaged",
+      "diagnostic_completed": true,
+      "clean_marker_gate": false,
+      "startup_owner_arm_count": 1,
+      "successful_delete_count": 1,
+      "watch_create_count": 2,
+      "observations": [
+        "STARTUP_LIFECYCLE_OBSERVATION label=joined backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "STARTUP_LIFECYCLE_OBSERVATION label=reloaded backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "STARTUP_LIFECYCLE_OBSERVATION label=before-disconnect backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "STARTUP_LIFECYCLE_OBSERVATION label=after-disconnect backend=Vulkan markerPresent=true armed=true complete=true marker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarker=/workspace/scratch/a22609fabda0/marker-origin-2229/project/run-vulkan-primary/config/deepprimal-vulkan-starting ownerMarkerPresent=true owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+      ],
+      "console_sha256": "9c8b5750654d7a2f89532dac5f03e0de652709083519b22beac5a6f825ef8e50",
+      "gzip_sha256": "7d1f34b6fb5445fc3ff11e754e7cd9d260ab01444aa6f118c9d0d56db6c87913",
+      "jfr_sha256": "bcfe38db0d56cf925558a28b9aa874f4b91f7ce84e7b683858604045dcf4f8f7",
+      "started_utc": "2026-10-22T22:32:09.167177+00:00",
+      "finished_utc": "2026-10-22T22:32:57.231219+00:00",
+      "scope": "Temporary bounded instrumented source, not final payload; /tmp vs workspace is correlation only."
+    },
+    {
+      "case": "vulkan-marker-origin-tmp-packaged",
+      "diagnostic_completed": true,
+      "clean_marker_gate": true,
+      "startup_owner_arm_count": 1,
+      "successful_delete_count": 1,
+      "watch_create_count": 1,
+      "observations": [
+        "STARTUP_LIFECYCLE_OBSERVATION label=joined backend=Vulkan markerPresent=false armed=true complete=true marker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "STARTUP_LIFECYCLE_OBSERVATION label=reloaded backend=Vulkan markerPresent=false armed=true complete=true marker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "STARTUP_LIFECYCLE_OBSERVATION label=before-disconnect backend=Vulkan markerPresent=false armed=true complete=true marker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "STARTUP_LIFECYCLE_OBSERVATION label=after-disconnect backend=Vulkan markerPresent=false armed=true complete=true marker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarker=/tmp/deepprimal-marker-origin-2229/config/deepprimal-vulkan-starting ownerMarkerPresent=false owner=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+      ],
+      "console_sha256": "e4867c3d531aff4c9ec8ec676e7259b7bf44d68f6299b363b728fc74e3eeca91",
+      "gzip_sha256": "9abf5716ce59282aec309ce3d291428e4a587589f94f08191fb30a2f4ea2c58c",
+      "jfr_sha256": "358e311a79ec56d86f745c989035f1f6c0cdd0d56141b73e815e32d2ef3ef496",
+      "started_utc": "2026-10-22T22:34:00.499323+00:00",
+      "finished_utc": "2026-10-22T22:34:43.594274+00:00",
+      "scope": "Temporary bounded instrumented source, not final payload; /tmp vs workspace is correlation only."
+    }
+  ]
+}

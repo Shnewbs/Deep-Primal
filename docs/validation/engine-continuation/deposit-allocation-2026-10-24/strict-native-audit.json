@@ -1,0 +1,118 @@
+{
+  "pass": true,
+  "sessions": [
+    {
+      "session": "baseline-guard-1-reopen",
+      "variant": "control",
+      "pass": true,
+      "raw_console_sha256": "d60177fcd8a01b98f0566315ee158138d680a9fd96b04f267b011073216146f1",
+      "root_jar_sha256": "a81383ab77ce8635f2c4425b9b1975d5cdf219189a5e5081d1318437459ca098",
+      "loaded_deposit_class_sha256": "0529686b74ff6e1ff187227e487948364edc0ba470bc39d81bd715f5ce36422f",
+      "fixture_class_sha256": "766f321ade1bb34233edbe0105de7393b4b67f4de2774bb179dc1214c8e31346",
+      "saved_revision": 5,
+      "edit_reopened": true,
+      "crashes": 0
+    },
+    {
+      "session": "candidate-guard-1-reopen",
+      "variant": "candidate",
+      "pass": true,
+      "raw_console_sha256": "ac454116b68f125acae49c6f1253c656a2a5a844b320229979dfd5af3ab189d1",
+      "root_jar_sha256": "400f743a7ab16f66ad901bd7663c7dd5b7887a0cac31cab467268f2a85217846",
+      "loaded_deposit_class_sha256": "15411e2c22e74f3a6b019343db0918ad8a2e8d59a5aa61d4318e33831a702a38",
+      "fixture_class_sha256": "766f321ade1bb34233edbe0105de7393b4b67f4de2774bb179dc1214c8e31346",
+      "saved_revision": 5,
+      "edit_reopened": true,
+      "crashes": 0
+    },
+    {
+      "session": "candidate-guard-2-reopen",
+      "variant": "candidate",
+      "pass": true,
+      "raw_console_sha256": "3bdb668486b97a020599a17f741342852b27905ebdc37b26e6156188fc41b31e",
+      "root_jar_sha256": "400f743a7ab16f66ad901bd7663c7dd5b7887a0cac31cab467268f2a85217846",
+      "loaded_deposit_class_sha256": "15411e2c22e74f3a6b019343db0918ad8a2e8d59a5aa61d4318e33831a702a38",
+      "fixture_class_sha256": "766f321ade1bb34233edbe0105de7393b4b67f4de2774bb179dc1214c8e31346",
+      "saved_revision": 5,
+      "edit_reopened": true,
+      "crashes": 0
+    },
+    {
+      "session": "baseline-guard-2-reopen",
+      "variant": "control",
+      "pass": true,
+      "raw_console_sha256": "d387ac03408d0d13607146992cf56cba29feb8972924e198998ab2f3500431f2",
+      "root_jar_sha256": "a81383ab77ce8635f2c4425b9b1975d5cdf219189a5e5081d1318437459ca098",
+      "loaded_deposit_class_sha256": "0529686b74ff6e1ff187227e487948364edc0ba470bc39d81bd715f5ce36422f",
+      "fixture_class_sha256": "766f321ade1bb34233edbe0105de7393b4b67f4de2774bb179dc1214c8e31346",
+      "saved_revision": 5,
+      "edit_reopened": true,
+      "crashes": 0
+    }
+  ],
+  "legacy_V1_V4_chunk_digests_match": 96,
+  "all_R50_native_digests_match": 120,
+  "expanded_V5_chunk_digests_match": 128,
+  "ore_witnesses": 128,
+  "seeds": 16,
+  "all_eight_ore_types": {
+    "COAL": 16,
+    "COPPER": 16,
+    "IRON": 16,
+    "GOLD": 16,
+    "REDSTONE": 16,
+    "LAPIS": 16,
+    "DIAMOND": 16,
+    "EMERALD": 16
+  },
+  "ore_host_pairs": [
+    "COAL:TUFF",
+    "COPPER:ANDESITE",
+    "COPPER:CALCITE",
+    "DIAMOND:BASALT",
+    "DIAMOND:DEEPSLATE",
+    "EMERALD:CALCITE",
+    "EMERALD:GRANITE",
+    "GOLD:DIORITE",
+    "GOLD:GRANITE",
+    "IRON:ANDESITE",
+    "IRON:DEEPSLATE",
+    "IRON:TUFF",
+    "LAPIS:CALCITE",
+    "REDSTONE:BASALT"
+  ],
+  "compatible_pairs": 21,
+  "missing_host_pairs": [
+    "COAL:SANDSTONE",
+    "IRON:BASALT",
+    "IRON:CALCITE",
+    "IRON:DIORITE",
+    "IRON:GRANITE",
+    "IRON:SANDSTONE",
+    "REDSTONE:GRANITE"
+  ],
+  "native_counts": [
+    0,
+    5543,
+    6671,
+    6623,
+    5073,
+    7141,
+    4234,
+    6000,
+    8318
+  ],
+  "footprint_histogram": [
+    19255,
+    13454,
+    59,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "latency_or_visual_acceptance": false
+}

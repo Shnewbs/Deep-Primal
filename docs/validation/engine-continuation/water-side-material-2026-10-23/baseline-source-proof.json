@@ -1,0 +1,10 @@
+{
+  "parent": "d8aa5a47892ece5272549058dc61b3b6e9b814f7",
+  "checked_existing_inputs": 568,
+  "unchanged": 567,
+  "production_unchanged": true,
+  "changed_existing": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java"
+  ],
+  "new_fixture": "WaterSideMaterialChecks.java"
+}

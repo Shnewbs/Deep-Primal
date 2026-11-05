@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/a22609fabda0/builder0731/receiver-next/run_native.py", line 19, in <module>
+    if proc.poll() is not None: raise RuntimeError('Exited before required record: '+str(proc.returncode))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Exited before required record: 0

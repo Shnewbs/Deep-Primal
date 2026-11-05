@@ -1,0 +1,17 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 27.03
+  },
+  {
+    "action": "water-flow-phase-check",
+    "completed": true,
+    "elapsed": 28.04
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 29.04
+  }
+]

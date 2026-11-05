@@ -1,0 +1,58 @@
+{
+  "run": "auditor-20261028T1030Z-10cb0c6",
+  "source_main_sha": "10cb0c6bfcc32492e573aa8c282da75d13864e91",
+  "source_implementation_sha": "61369484aff15c0a0d7130ea69c397c5819a2341",
+  "version": "0.0.1-alpha.29-dev.51-v8preflight.1",
+  "source_blobs": {
+    "DensityChunkMaterializer.java": "58c4b7d0f04435620858c1eef919d50ec171f15f",
+    "LodDiskNearestScan.java": "4452f36a0b0162b8194729cc3b97a47f8172228d"
+  },
+  "checks": {
+    "v8_java21_api_doubles": 13766368,
+    "lod_existing_java21": 26286,
+    "lod_independent_filesystem": 12440,
+    "dev51_fault_injection": 11,
+    "total_passed": 13805105,
+    "failed": 0
+  },
+  "postwrite_fault": {
+    "injected_native_setter_attempt": 1000,
+    "partial_block_writes": 999,
+    "final_heightmap_prime": "not_reached",
+    "native_confirmation": false
+  },
+  "heightmap_update_calls_avoided_in_double": 7168,
+  "jdk25_present": false,
+  "gradle_run": false,
+  "native_run": false,
+  "windows_gpu_run": false,
+  "jar_built": false,
+  "jar_published": false,
+  "production_changed": false,
+  "grade": {
+    "scores": [
+      5,
+      4,
+      6,
+      4,
+      3,
+      7,
+      6,
+      4,
+      7,
+      4
+    ],
+    "total": 50,
+    "average": 5,
+    "tier": 2,
+    "fresh_complete": false,
+    "completion_threshold": ">8.5"
+  },
+  "owner_override": "2026-10-27 owner handles full builds",
+  "auditor_scope": "independent read-only; no builder interruption",
+  "evidence_zip": {
+    "filename": "DeepPrimal_Audit_20261028T1030_10cb0c6_SourceEvidence.zip",
+    "bytes": 85286,
+    "sha256": "7b19d4f82550237f833df8a0f4839b203afbcfbd1becf4bcb6565157354809eb"
+  }
+}

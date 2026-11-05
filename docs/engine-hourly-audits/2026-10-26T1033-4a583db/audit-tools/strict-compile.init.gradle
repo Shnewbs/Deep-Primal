@@ -1,0 +1,1 @@
+gradle.projectsEvaluated { gradle.rootProject.sourceSets.visualValidation.java.srcDir(new File(gradle.rootProject.projectDir.parentFile,"private-validation")) }

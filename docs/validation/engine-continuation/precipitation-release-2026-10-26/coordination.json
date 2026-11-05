@@ -1,0 +1,15 @@
+{
+  "main_start": "d6e32501827565239220d61078f6d9c41ebf70fd",
+  "builder_claim": "82c3c32157ce269c28e8485f01af2043e962b547",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-26T1033-4a583db/REVIEW.md",
+  "audit_pin": "4a583dbcdec4df4be1ac7572c384813986067f2a",
+  "last_full_grade": 5.0,
+  "latest_provisional_grade": 4.8,
+  "auditor_recorded_completed_at": "2026-10-26T10:44:06.132586Z",
+  "personal_context_checked": true,
+  "direct_other_chat_liveness": "unavailable; not inferred",
+  "concurrent_renderer_commit": "7772c36daf3fd6cd6a90bea95484272eaf1c603f",
+  "combined_parent": "5f879e7996606b73fa4e72008626f9200adcea5a",
+  "independent_output_and_cache": true,
+  "timed_performance_claim": false
+}

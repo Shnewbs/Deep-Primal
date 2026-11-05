@@ -1,0 +1,27 @@
+{
+  "status": "completed-released",
+  "owner": "Deep Primal hourly engineering",
+  "claimed_at": "2026-10-31T23:03:00Z",
+  "expires_at": "2026-10-31T23:25:00Z",
+  "base_head": "b2e2ab64670af69b37c50a8389b775a9c497b30e",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSimulation.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSimulationMaterialChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-simulation-solid-guard-2026-10-31/**"
+  ],
+  "exclusions": [
+    "src/main/java/com/shnewbs/deepprimal/water/**",
+    "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+    "renderer-vulkan/**",
+    "lod-engine/**"
+  ],
+  "purpose": "Prevent query-water setter from overwriting solid cells and validate material/volume safety with deterministic Java21 tests; native finite-water solver untouched",
+  "full_build": false,
+  "lease_released": true,
+  "ended_at": "2026-10-31T23:13:00Z",
+  "source_commit": "3a1e704971d24960564f387612a64105cbc153f0",
+  "evidence": "docs/validation/engine-continuation/water-simulation-solid-guard-2026-10-31/README.md",
+  "test": "Java21 isolated 693494 assertions; 300 seeded 16x16 worlds; 3/3 mutants rejected",
+  "qualified_jar": false
+}

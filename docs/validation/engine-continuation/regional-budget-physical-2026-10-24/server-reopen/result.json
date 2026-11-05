@@ -1,0 +1,12 @@
+{
+  "mode": "reopen",
+  "exit_code": 0,
+  "elapsed_seconds": 18.02,
+  "environment": "ENVIRONMENT_REOPEN_PASS aquifer=true chemistry=true savedV4=true edits=true\n",
+  "regional": null,
+  "raw_sha256": "c37bd85bfbd0fbfb9b5304cd4f31f4ceab09f2af683ff5d5a50db2a49bf29ea8",
+  "saved": true,
+  "stopped": true,
+  "crashes": [],
+  "pass": true
+}

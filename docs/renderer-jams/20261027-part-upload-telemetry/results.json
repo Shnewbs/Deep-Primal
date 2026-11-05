@@ -1,0 +1,16 @@
+{
+  "kind": "renderer-source-evidence",
+  "source_commit": "a6e24b0d2301a4101262c3912c02467e4bf49af2",
+  "host": "Linux x86_64; Java21.0.12.1; Java25 not mounted",
+  "helper_git_sha": "3320dbc1833aa64796caf8e8bf3e89a89bc0b969",
+  "test_git_sha": "26b8aeb2413b1cffe0164a8f35e4d4b41adbe791",
+  "test_assertions": 40551,
+  "model_attempts": 77100,
+  "accepted": 72498,
+  "failed": 4602,
+  "negative_control": "EXPECTED exit 1",
+  "gpu_accepted": false,
+  "jar_built": false,
+  "evidence_zip_sha256": "a10a75bd21d1cdd297865b494453c1f9a44eb320897ccea7105aaf7942b123f5",
+  "evidence_zip_bytes": 12998
+}

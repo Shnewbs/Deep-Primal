@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261031-view-grid-signed-boundaries",
+  "worker": "hourly-deep-primal-engine",
+  "status": "completed-released",
+  "source_head": "f9d70f5011bc98ea8e865272669c4e185af66f35",
+  "active_until": "2026-10-31T20:40:00Z",
+  "lease_released": true,
+  "affected_paths": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/ViewGrid.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/ViewGridBoundaryChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/view-grid-signed-boundaries-2026-10-31/**"
+  ],
+  "excluded": [
+    "V8 terrain and persistence",
+    "finite-water simulation",
+    "Vulkan/LOD implementation",
+    "graphics UI",
+    "approved assets",
+    "saved-world format"
+  ],
+  "validation": "Java21 isolated 293252 assertions; original and no-guard negative controls rejected",
+  "full_build": false,
+  "qualified_jar": false
+}

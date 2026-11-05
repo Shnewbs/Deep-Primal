@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/lumber/ash"
+    },
+    {
+      "item": "tfc:wood/barrel/ash"
+    }
+  ],
+  "result": {
+    "id": "tfc_item_barrels_and_more:wood/ash/item_barrel"
+  }
+}

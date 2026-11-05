@@ -1,0 +1,12 @@
+{
+  "base": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
+  "runtime_candidate": "3b1de33ebc3e09d9528bfe3f0ff972518579eb1a",
+  "verified_inputs": 850,
+  "mismatches": [],
+  "changed": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodReductionChecks.java"
+  ],
+  "superseded_old_main_candidate": "0f277618a697e00ba847798f06cc406dddb7a0d4",
+  "whitespace_preflight_repaired": true
+}

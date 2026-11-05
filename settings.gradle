@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url = 'https://maven.neoforged.net/releases' }
+    }
+}
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+rootProject.name = 'Deep-Primal'
+include('engine-core', 'performance-engine', 'graphics-settings', 'lod-engine', 'gui-themes')
+if (!providers.gradleProperty('withoutVulkan').isPresent()) include('renderer-vulkan')

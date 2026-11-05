@@ -1,0 +1,47 @@
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=44181 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=44181 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/1a7cb29b04a2/audit-d38ea7e-20261024T2151/toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+> Task :engine-core:compileJava UP-TO-DATE
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes UP-TO-DATE
+> Task :engine-core:jar UP-TO-DATE
+> Task :graphics-settings:processResources UP-TO-DATE
+> Task :gui-themes:createMinecraftArtifacts UP-TO-DATE
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :gui-themes:compileJava UP-TO-DATE
+> Task :graphics-settings:compileJava UP-TO-DATE
+> Task :graphics-settings:classes UP-TO-DATE
+> Task :graphics-settings:jar UP-TO-DATE
+> Task :gui-themes:compileThemeAssetsJava UP-TO-DATE
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses UP-TO-DATE
+> Task :lod-engine:compileJava UP-TO-DATE
+> Task :lod-engine:processResources UP-TO-DATE
+> Task :lod-engine:classes UP-TO-DATE
+> Task :lod-engine:jar UP-TO-DATE
+> Task :performance-engine:compileJava UP-TO-DATE
+> Task :performance-engine:processResources UP-TO-DATE
+> Task :performance-engine:classes UP-TO-DATE
+> Task :performance-engine:jar UP-TO-DATE
+> Task :renderer-vulkan:compileJava UP-TO-DATE
+> Task :renderer-vulkan:processResources UP-TO-DATE
+> Task :renderer-vulkan:classes UP-TO-DATE
+> Task :gui-themes:generateThemeAssets UP-TO-DATE
+> Task :gui-themes:processResources UP-TO-DATE
+> Task :gui-themes:classes UP-TO-DATE
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar UP-TO-DATE
+> Task :renderer-vulkan:jar
+> Task :jarJar
+
+[Incubating] Problems report is available at: file:///workspace/scratch/1a7cb29b04a2/audit-19491a1-20261025T2155/project/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 9s
+22 actionable tasks: 2 executed, 20 up-to-date

@@ -1,0 +1,42 @@
+{
+  "completed_auditor_outputs_and_git_restorable_copies_removed": [
+    "audit-c9f3db3-20261025T1453/project/build",
+    "audit-c9f3db3-20261025T1453/project/.gradle",
+    "audit-c9f3db3-20261025T1453/project/lod-engine/build",
+    "audit-c9f3db3-20261025T1453/project/engine-core/build",
+    "audit-c9f3db3-20261025T1453/project/graphics-settings/build",
+    "audit-c9f3db3-20261025T1453/project/renderer-vulkan/build",
+    "audit-c9f3db3-20261025T1453/project/performance-engine/build",
+    "audit-c9f3db3-20261025T1453/project/gui-themes/build",
+    "audit-c9f3db3-20261025T1453/native-world-normal/.cache",
+    "audit-c9f3db3-20261025T1453/library-helpers",
+    "/workspace/scratch/1a7cb29b04a2/audit-8524b32-20261024T2253/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-89e7cf0-20261025T0254/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-3cfb730-20261025T0746/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-10a6d7a-20261025T0646/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-5c54904-20261025T0055/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-e2cc2b1-20261025T1155/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-d8a38d9-20261025T0555/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-2d53a92-20261025T0350/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-e061ee2-20261025T0949/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-d38ea7e-20261024T2151/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-eba73bd-20261024T2352/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-88f2bba-20261025T0450/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-441c83d-20261025T0846/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-4cb8b0d-20261025T1046/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-71428eb-20261025T1253/project",
+    "/workspace/scratch/1a7cb29b04a2/audit-d9bda34-20261025T1347/project"
+  ],
+  "builder_untouched": true,
+  "completed_previous_audit_extra_generated_outputs_reclaimed": [
+    "audit-c9f3db3-20261025T1453/project/build",
+    "audit-c9f3db3-20261025T1453/project/.gradle",
+    "audit-c9f3db3-20261025T1453/project/lod-engine/build",
+    "audit-c9f3db3-20261025T1453/project/engine-core/build",
+    "audit-c9f3db3-20261025T1453/project/graphics-settings/build",
+    "audit-c9f3db3-20261025T1453/project/renderer-vulkan/build",
+    "audit-c9f3db3-20261025T1453/project/performance-engine/build",
+    "audit-c9f3db3-20261025T1453/project/gui-themes/build",
+    "audit-c9f3db3-20261025T1453/native-world-normal/.cache"
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "workload": "sparse",
+  "dense_arguments": [],
+  "scope": "CPU microprobe only, 8 warmups, 9 alternating batches/process, 3 processes/variant; no native, frame/FPS, GPU or full-generation acceptance",
+  "columns": 8192,
+  "heights": 384,
+  "records": [
+    {
+      "label": "control",
+      "file": "0-control.json",
+      "command": [
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xms512m",
+        "-Xmx512m",
+        "-cp",
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/profile-classes:/workspace/scratch/a22609fabda0/deposit-allocation-0702/baseline-project/engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+        "DepositCost"
+      ],
+      "jar_sha256": "5882c817b657620b1f1f5c7225085062965cf4db634c039b5cf08242c01bad4c",
+      "sha256": "dbb443c17b103f732a6b5ae084f66ffcb3c90b9981ddd5dccfe099ba62e9a7a5"
+    },
+    {
+      "label": "candidate",
+      "file": "1-candidate.json",
+      "command": [
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xms512m",
+        "-Xmx512m",
+        "-cp",
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/profile-classes:/workspace/scratch/a22609fabda0/deposit-allocation-0702/project/engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+        "DepositCost"
+      ],
+      "jar_sha256": "a1d9b38b1132e4bc948b7d1dd75f1ebede5d4dd74aa34bad6ce2bd0d4c0590b0",
+      "sha256": "858321aeb356c06421345eac8d6e5610b463d47ce99e13e6a28cbbd5454083c9"
+    },
+    {
+      "label": "candidate",
+      "file": "2-candidate.json",
+      "command": [
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xms512m",
+        "-Xmx512m",
+        "-cp",
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/profile-classes:/workspace/scratch/a22609fabda0/deposit-allocation-0702/project/engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+        "DepositCost"
+      ],
+      "jar_sha256": "a1d9b38b1132e4bc948b7d1dd75f1ebede5d4dd74aa34bad6ce2bd0d4c0590b0",
+      "sha256": "b3ad5c9087381fadf4c24d09ad18054c12107206c9d435c6451a24c0025d6d43"
+    },
+    {
+      "label": "control",
+      "file": "3-control.json",
+      "command": [
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xms512m",
+        "-Xmx512m",
+        "-cp",
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/profile-classes:/workspace/scratch/a22609fabda0/deposit-allocation-0702/baseline-project/engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+        "DepositCost"
+      ],
+      "jar_sha256": "5882c817b657620b1f1f5c7225085062965cf4db634c039b5cf08242c01bad4c",
+      "sha256": "cce2f1754555c939cc924f6ccf93afc3e7d69674d70097493cbcd097620591c8"
+    },
+    {
+      "label": "control",
+      "file": "4-control.json",
+      "command": [
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xms512m",
+        "-Xmx512m",
+        "-cp",
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/profile-classes:/workspace/scratch/a22609fabda0/deposit-allocation-0702/baseline-project/engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+        "DepositCost"
+      ],
+      "jar_sha256": "5882c817b657620b1f1f5c7225085062965cf4db634c039b5cf08242c01bad4c",
+      "sha256": "efaf227f710d393eb2bd7b06ab6569be79e765b04a0bdea1d00815dbbf0b2768"
+    },
+    {
+      "label": "candidate",
+      "file": "5-candidate.json",
+      "command": [
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/toolchain/jdk-25.0.4.1+1/bin/java",
+        "-Xms512m",
+        "-Xmx512m",
+        "-cp",
+        "/workspace/scratch/a22609fabda0/deposit-allocation-0702/profile-classes:/workspace/scratch/a22609fabda0/deposit-allocation-0702/project/engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+        "DepositCost"
+      ],
+      "jar_sha256": "a1d9b38b1132e4bc948b7d1dd75f1ebede5d4dd74aa34bad6ce2bd0d4c0590b0",
+      "sha256": "6fa21a7f38c48e9147b3a1c1c6c8ba2d89326973dea8b64647412bc0f7939abf"
+    }
+  ],
+  "results": {
+    "control": {
+      "legacy_build_ns_bytes": {
+        "median_ns_per_operation": 357.685546875,
+        "allocated_bytes_per_operation": [
+          88.0
+        ]
+      },
+      "candidate_build_ns_bytes": {
+        "median_ns_per_operation": 484.5152587890625,
+        "allocated_bytes_per_operation": [
+          480.0
+        ]
+      },
+      "legacy_query_ns_bytes_sum": {
+        "median_ns_per_operation": 3.9523531595865884,
+        "allocated_bytes_per_operation": [
+          0.0
+        ]
+      },
+      "candidate_query_ns_bytes_sum": {
+        "median_ns_per_operation": 2.0596847534179688,
+        "allocated_bytes_per_operation": [
+          0.0
+        ]
+      },
+      "active_histogram": [
+        6843,
+        1348,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "candidate": {
+      "legacy_build_ns_bytes": {
+        "median_ns_per_operation": 417.9639892578125,
+        "allocated_bytes_per_operation": [
+          88.0
+        ]
+      },
+      "candidate_build_ns_bytes": {
+        "median_ns_per_operation": 509.744140625,
+        "allocated_bytes_per_operation": [
+          179.2822265625
+        ]
+      },
+      "legacy_query_ns_bytes_sum": {
+        "median_ns_per_operation": 4.018439928690593,
+        "allocated_bytes_per_operation": [
+          0.0
+        ]
+      },
+      "candidate_query_ns_bytes_sum": {
+        "median_ns_per_operation": 2.044046719868978,
+        "allocated_bytes_per_operation": [
+          0.0
+        ]
+      },
+      "active_histogram": [
+        6843,
+        1348,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "matched_query_checksums": {
+    "control": [
+      5064
+    ],
+    "candidate": [
+      5064
+    ]
+  },
+  "candidate_query_change_percent": -0.7592440310605797
+}

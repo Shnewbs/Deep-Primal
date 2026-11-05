@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: missing negative-quota reproduction
+	at AllowanceChecks.main(AllowanceChecks.java:45)

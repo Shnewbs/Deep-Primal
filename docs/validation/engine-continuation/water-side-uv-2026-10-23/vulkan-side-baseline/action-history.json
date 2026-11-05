@@ -1,0 +1,17 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 74.07
+  },
+  {
+    "action": "water-side-uv-check",
+    "completed": true,
+    "elapsed": 75.07
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 76.07
+  }
+]

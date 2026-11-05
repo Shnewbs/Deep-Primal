@@ -1,0 +1,18 @@
+[
+  {
+    "path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/Aquifer.java",
+    "sha256": "b6a38422fd0234aa41f2d7009333b2f3b588830f099e3196eeefe612b6181ca9"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/AquiferTickChecks.java",
+    "sha256": "8d12da9c8168d8e8de1e51380f89059ca9d994b6e93bbc0ac09e122e8e540827"
+  },
+  {
+    "path": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "sha256": "97ee960aa01396892b27a883511041c03fbfd854f87169b76250fff8d6d0f9f6"
+  },
+  {
+    "path": "gradle.properties",
+    "sha256": "bc749962db132b696e7a2fbc2b8e69048fc5e4810be3c1d575c9cae6e1ebc70a"
+  }
+]

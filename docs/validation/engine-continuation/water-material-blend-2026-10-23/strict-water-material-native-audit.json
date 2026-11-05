@@ -1,0 +1,169 @@
+{
+  "all_focused_gates_pass": true,
+  "engine_acceptance_complete": false,
+  "scope": "New top still/flow blend:64 near/far routes,768 actual-upload shader renders,640 weighted RGBA samples,393 actual GPU readbacks/282960 bytes,queued/repeated/stale/deadline/sparse-still checks. Retained prior regressions: Flow-direction single-draw blend,336 shader renders and7 real uploads with bounded history, queued/stale/reupload checks. Six exact periodic top-phase pairs plus six diagnostic mip controls with one-channel-unit rounding allowance across negative/distant/section origins. Side UV morph fix: six exact production-pipeline image pairs at matched displayed heights, plus12 actual upload readbacks/8640bytes checking side/still/flow flags, light coordinates, repeated uploads and stale revisions. Also retains prior flow direction fix: real client capture and six production GPU UV samples per session, before/after resource reload, restore the source cell and preserve geometry/quantity. Selected actual GPU vertex bytes and expected atlas UVs retained. Existing production page sort survives three live map-order permutations in three wave/LOD profiles, with nine real frame captures per session and production-pipeline two-layer pixel A/B. Retained real-client FLOW capture checks use flow-oriented textures and restore cell state/quantity. This does not establish per-primitive order, matched physical state, full live-flow flicker or coverage acceptance. Also mixed wet/dry page preserves 40 actual GPU vertices through recapture and original fade/rewet deadlines; six GPU readbacks check 8640 bytes of geometry and shader-input opacity timing, not scene pixels. Retained CPU floats remain 1120 bytes with packed face/flow metadata, keep original capture revision, and are discarded on rewet. Also near-capacity same/smaller water updates reuse allocation; blocked oversized update retries after actual ballast release, and separate legal COPY_SRC mesh verifies 288 GPU bytes after partial update. Controlled pages, not full live-scene pixel proof. Also actual water GPU meshes with a controlled presentation clock preserve a dry fade through three empty recaptures, release at deadline and retarget rewet opacity continuously. This is GPU ownership/transition validation, not pixel-complete live-scene flicker acceptance. Also repeats four controlled completed-scan/native-tick cases enforce the 8192-key index bound while preserving queued order/edit guards and nearest remaining slots. This is injected scan completion, not full filesystem discovery or scene coverage. Also repeats real 552-byte partial GPU upload cancelled by an 8-to-4 MiB budget reduction beside 4194304 bytes of actual GPU ballast; bounded idle retry and same-view recovery after ballast closure. Five cancellation guards use an explicit occupancy ledger. Also repeats prior eviction/edit/capture, Vulkan GPU/frame/reload/save/shutdown controls. Isolated renderer; physical travel data is audited separately. Software driver, not owner GPU/FPS or full visual coverage acceptance.",
+  "sessions": [
+    {
+      "case": "vulkan-order-material-final",
+      "material": {
+        "routes": 64,
+        "shader_renders": 768,
+        "weighted_RGBA_samples": 640,
+        "actual_upload_readbacks": 393,
+        "readback_bytes": 282960,
+        "pass": true
+      },
+      "strict_pass": true,
+      "started_utc": "2026-10-23T08:53:01.964803+00:00",
+      "finished_utc": "2026-10-23T08:54:18.041758+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/graphics-settings/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/renderer-vulkan/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/classes/java/main/"
+      ],
+      "console_sha256": "196c4afd4d414be6be1574275c7a1a65691648e2adf0a6a13ba06aea5f9b09d7",
+      "sealed_console_gzip_sha256": "f6eeb9d39018ce8ef2436b2ea8f24b12e5b844a7d2a7c2a41466138abd07d094",
+      "live_console_sha256_at_audit": "196c4afd4d414be6be1574275c7a1a65691648e2adf0a6a13ba06aea5f9b09d7",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-order-material-final/screenshots/order-recovery.png",
+          "bytes": 768705,
+          "sha256": "4a4e0afd83f587a19f7c2fb818b5f570c329f2879cbdf9d87b9e13f2726c5e30"
+        },
+        {
+          "path": "vulkan-order-material-final/screenshots/order-live-frame-1.png",
+          "bytes": 729898,
+          "sha256": "9d2fb00fb85188c006f9e63882f830675081da46539638f7589bbf295ba6f1ad"
+        },
+        {
+          "path": "vulkan-order-material-final/screenshots/order-live-frame-3.png",
+          "bytes": 730783,
+          "sha256": "1083c17c2baa3a1010907e19d03dcaab4790796b49fd04aa3f87511fe1a2aa8a"
+        },
+        {
+          "path": "vulkan-order-material-final/screenshots/order-live-frame-2.png",
+          "bytes": 730469,
+          "sha256": "81fc70dfd41969f97c022965da187bfca3bab7b33a8d6fcab5896fa9ed5d6772"
+        }
+      ]
+    },
+    {
+      "case": "vulkan-order-material-final-packaged",
+      "material": {
+        "routes": 64,
+        "shader_renders": 768,
+        "weighted_RGBA_samples": 640,
+        "actual_upload_readbacks": 393,
+        "readback_bytes": 282960,
+        "pass": true
+      },
+      "strict_pass": true,
+      "started_utc": "2026-10-23T08:55:42.606769+00:00",
+      "finished_utc": "2026-10-23T08:56:57.689745+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-material-blend-0828/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar"
+      ],
+      "console_sha256": "ea487df0cc27ee6c5202f64c0a58e32c33273fb3f04f1312f45b2620ccf42317",
+      "sealed_console_gzip_sha256": "d808ce6aa2b4ca7b282ed8cd02bc9a1172103a285d0894d114a09177463565da",
+      "live_console_sha256_at_audit": "ea487df0cc27ee6c5202f64c0a58e32c33273fb3f04f1312f45b2620ccf42317",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-order-material-final-packaged/screenshots/order-recovery.png",
+          "bytes": 776255,
+          "sha256": "c8210899fea2a52a96f61e7d5d615ef15621a5acdfef899b662f50d69ade934a"
+        },
+        {
+          "path": "vulkan-order-material-final-packaged/screenshots/order-live-frame-1.png",
+          "bytes": 729367,
+          "sha256": "4f1d19bf9ccbe6351f771d49a63b21e4b190ede14315c511e799443b547d8d31"
+        },
+        {
+          "path": "vulkan-order-material-final-packaged/screenshots/order-live-frame-3.png",
+          "bytes": 725648,
+          "sha256": "ec8effb5800aca40c7523fc5a434a668b5b03306f97b9b57b42e8fc7809c1ab7"
+        },
+        {
+          "path": "vulkan-order-material-final-packaged/screenshots/order-live-frame-2.png",
+          "bytes": 725450,
+          "sha256": "a8011da0ced70473c5d71129a8b258d418041d1b875dd7356fa48a451e097ef4"
+        }
+      ]
+    }
+  ]
+}

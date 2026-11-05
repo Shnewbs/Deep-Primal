@@ -1,0 +1,16 @@
+#Finite environmental recharge, dynamic springs and accounted ocean boundaries.
+enabled = true
+#Apply new hydrology to saved continental_v1/v2/v3 worlds without rebuilding terrain.
+existingEngineWorlds = true
+#Maximum loaded surface columns examined per server tick; no remote chunks are loaded.
+# Default: 64
+# Range: 1 ~ 256
+columnsPerTick = 64
+#Maximum native sixteenth-block units delivered per outlet per hydrology visit.
+# Default: 4
+# Range: 1 ~ 16
+outletUnitsPerVisit = 4
+#Recharge per exposed column per second of active rain; 256 quanta = one native unit.
+# Default: 64
+# Range: 0 ~ 4096
+rainQuantaPerColumnSecond = 64

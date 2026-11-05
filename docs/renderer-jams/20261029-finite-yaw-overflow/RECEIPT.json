@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0855-finite-yaw-overflow",
+  "reviewed_source_sha": "ce3ff1d88b468c26c1c3ce2f1471dd00d04fe1ad",
+  "baseline_sha": "c08932fba9431cbef4badfaf5b7735d7553f1bf1",
+  "owner": "renderer-hourly-only",
+  "status": "source_reviewed",
+  "modified_source": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumAdaptiveGate.java"
+  ],
+  "new_tests": [
+    "docs/renderer-jams/20261029-finite-yaw-overflow/tests/com/shnewbs/deepprimal/lod/client/LodPageFrustumFiniteYawChecks.java"
+  ],
+  "source_blob_sha": "8fbcc9c4018dd5dd6c7093c59857132ab14361fe",
+  "test_blob_sha": "5d747f87830d8a48da0bbc7cb3820e80c04c08b4",
+  "test_command": "javac --release 21 -Xlint:all -Werror -d classes @results/sources.list; java -ea -Xverify:all -Ddeepprimal.lod.pageFrustumAutoSkip={true,false} -cp classes six focused test classes; three pageFrustumBroadphase overrides",
+  "assertions": 1418131,
+  "java": "OpenJDK 21.0.12.1",
+  "runs": 15,
+  "negative": "unmodified production gate failed at assertion 3 (expected)",
+  "static_checks": "12/12",
+  "gpu_frametime": "unrun",
+  "full_java25_gradle": "unrun owner builds",
+  "qualified_jar": false,
+  "grade": 5.72,
+  "previous_grade": 5.71,
+  "artifact": {
+    "name": "DeepPrimal_Renderer_FiniteYaw_20261029_ce3ff1d_SourceEvidence.zip",
+    "bytes": 25098,
+    "sha256": "a75703c45913108f35f936b7db9fc6167f0abd81b61762e2580f837637e0c3c9",
+    "entries": 19,
+    "crc": "pass",
+    "manifest": "pass",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_FiniteYaw_20261029_ce3ff1d_SourceEvidence.zip",
+    "uploaded": true
+  }
+}

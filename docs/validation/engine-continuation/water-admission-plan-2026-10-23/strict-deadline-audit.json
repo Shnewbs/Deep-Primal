@@ -1,0 +1,74 @@
+{
+  "pass": true,
+  "sessions": [
+    {
+      "case": "vulkan-corners-shared-final-admission",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-corners-shared-final-admission-packaged-verified",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-admission",
+      "baseline": false,
+      "budget_regression_reproduced": false,
+      "shared_admission_deadline_pass": true,
+      "controlled_delays_ms": [
+        8,
+        12,
+        20
+      ],
+      "retirement_writes": 3,
+      "pending_probes_after_retirement": [
+        0,
+        0,
+        0
+      ],
+      "different_bytes": 0,
+      "raw_readback_sha256": "4f37fa779d500951d4d53b0894456a058bd8e82e2b3f3fe9fb47b5345f084747",
+      "fixture_class_sha256": "8e73f68f23d9106f3d7910662626f2e582460037a1368302d288eeaf06e151d7",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Controlled injected retirement stalls verify optional-work admission; not a hard total extraction bound or ordinary latency benchmark"
+    }
+  ]
+}

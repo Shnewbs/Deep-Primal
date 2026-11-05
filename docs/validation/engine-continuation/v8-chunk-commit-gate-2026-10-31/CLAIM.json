@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "owner": "existing-hourly-engine-builder",
+  "status": "released",
+  "started_at": "2026-10-31T02:02:00Z",
+  "active_until": "2026-10-31T02:32:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/V8ChunkGenerationCommitGate.java",
+    "tools/tests/V8ChunkGenerationCommitGateChecks.java",
+    "tools/test_v8_chunk_commit_gate.py",
+    "gradle.properties",
+    "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/**"
+  ],
+  "baseline_main": "7eca33c263b181215fef3c9127a1ef5c2904a0bd",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-30T0230-c57d2924/REVIEW.md",
+  "auditor_pinned_source": "c57d2924562a7dd35eed007a164205953bb13061",
+  "no_renderer_or_water_edits": true,
+  "owner_full_build_override": true,
+  "measurement_reservation": "Java21 isolated functional checks only; no timed benchmark",
+  "lease_released": true,
+  "released_at": "2026-10-31T02:05:55Z",
+  "source_version": "0.0.1-alpha.29-dev.118-chunk-commit-gate.1",
+  "source_commit": "cf71e7a4e00574b3c933d54f2a59e30dfbe58969",
+  "evidence": "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/README.md",
+  "results": "docs/validation/engine-continuation/v8-chunk-commit-gate-2026-10-31/RESULTS.json",
+  "tests": "OpenJDK21 isolated API-double normal/-OO 4x60009 assertions; 2/2 compiled epoch mutants rejected",
+  "next_priority": "Native authoritative durable chunk-stamp/epoch CAS and atomic chunk data publication; signed-coordinate native seam and water ledger acceptance"
+}

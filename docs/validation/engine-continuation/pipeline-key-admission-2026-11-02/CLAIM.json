@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T0700-worldgen-key-admission",
+  "owner": "Deep Primal hourly engineering",
+  "status": "completed-released",
+  "baseline_main": "493a970bb7ce7ba7ee6cbfc9542e2b4d98c86710",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WorldGenPipelineKeyChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/pipeline-key-admission-2026-11-02/**"
+  ],
+  "purpose": "Reject materializer completions whose chunk identity does not match requested chunk/dimension, before cache admission; isolate regression and preserve previous JAR",
+  "exclusions": [
+    "engine auditor",
+    "organics",
+    "native Vulkan renderer",
+    "LOD writer",
+    "water simulation"
+  ],
+  "source_only": true,
+  "github_actions": false,
+  "lease_released": true,
+  "verified_source_blob": "2e1a5cb55007d10745260dd355fbf180d5f2920b",
+  "verified_test_blob": "6df4e82840e17463c4c2918214baf4ba4bbe4d84",
+  "validation": "OpenJDK21 strict compilation and 110000 deterministic assertions PASS; original negative control FAIL expected; repo-style runner replay PASS",
+  "native_jar": false,
+  "report": "docs/validation/engine-continuation/pipeline-key-admission-2026-11-02/README.md"
+}

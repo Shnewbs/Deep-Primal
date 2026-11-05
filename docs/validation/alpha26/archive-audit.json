@@ -1,0 +1,52 @@
+{
+  "jar": "DeepPrimal-26.1.2-0.0.1-alpha.26-vulkan-windows.jar",
+  "bytes": 124893144,
+  "sha256": "f282128baa482759571f5478c25d95f494a0615491181b60132f8affb91c4d5d",
+  "crc": "pass",
+  "rootClassIdentities": 114,
+  "modules": [
+    {
+      "module": "engine-core",
+      "sha256": "7e0128ef93226206db3e147777077a4243ce76b501dd464f106ac9b84308d9a7",
+      "crc": "pass",
+      "builtJarIdentity": "engine-core/build/libs/DeepPrimal-Core-0.0.1-alpha.26.jar",
+      "classIdentities": 69
+    },
+    {
+      "module": "graphics-settings",
+      "sha256": "b59b47876736e9e1bb03f4084eb6d595d9fe5fa518046d806cd03fd825683d7e",
+      "crc": "pass",
+      "builtJarIdentity": "graphics-settings/build/libs/DeepPrimal-GraphicsSettings-0.0.1-alpha.26.jar",
+      "classIdentities": 37
+    },
+    {
+      "module": "gui-themes",
+      "sha256": "36f80179b7d0900ab5964e16ac7e0137fc831d707eee445e9d11c7cc3f3276bf",
+      "crc": "pass",
+      "builtJarIdentity": "gui-themes/build/libs/DeepPrimal-Themes-26.1.2-0.1.0-alpha.8.jar",
+      "classIdentities": 46
+    },
+    {
+      "module": "lod-engine",
+      "sha256": "8e8b260b60d8833414208331abe44b3858fa53439eaf646b76566a0f436eb239",
+      "crc": "pass",
+      "builtJarIdentity": "lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.26.jar",
+      "classIdentities": 14
+    },
+    {
+      "module": "performance-engine",
+      "sha256": "fe9359fe14528e9bff63a6ed6746df4d3589ba28517d88823421bdc06b3147d4",
+      "crc": "pass",
+      "builtJarIdentity": "performance-engine/build/libs/DeepPrimal-Performance-0.0.1-alpha.26.jar",
+      "classIdentities": 14
+    },
+    {
+      "module": "renderer-vulkan",
+      "sha256": "03ce4b58dd43afdcbf1ee9b1a7db2d15ad5e772238014c594bd1841a7ac49e13",
+      "crc": "pass",
+      "builtJarIdentity": "renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.26-windows.jar",
+      "classIdentities": 0
+    }
+  ],
+  "allGatesPass": true
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "variant": "baseline",
+    "exit": 0,
+    "command": [
+      "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/javap",
+      "-c",
+      "-p",
+      "-classpath",
+      "/dev/shm/dp-renderer-pending-bytes-c748d588/baseline-classes",
+      "com.shnewbs.deepprimal.lod.client.VoxelLodRenderer$PendingGpu"
+    ]
+  },
+  {
+    "variant": "candidate",
+    "exit": 0,
+    "command": [
+      "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/javap",
+      "-c",
+      "-p",
+      "-classpath",
+      "/dev/shm/dp-renderer-pending-bytes-c748d588/candidate-classes",
+      "com.shnewbs.deepprimal.lod.client.VoxelLodRenderer$PendingGpu"
+    ]
+  }
+]

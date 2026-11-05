@@ -1,0 +1,13 @@
+{
+  "jam_id": "renderer-20261030T0600-renewal-overflow-preflight",
+  "parent": "b98f7fc3b75f5c9605c7cdef9f9e1de92a8578cc",
+  "implementation_commit": "88fe13f3d7ad493d36e63b234a9edffc1f400c3c",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java"
+  ],
+  "rubric_average": 5.97,
+  "delta_from_previous": 0,
+  "qualified_jar": false,
+  "gpu_acceptance": false,
+  "claim_released": true
+}

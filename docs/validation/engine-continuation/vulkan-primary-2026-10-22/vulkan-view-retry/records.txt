@@ -1,0 +1,18 @@
+[15:20:43] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true
+[15:20:50] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+BACKEND_SELECTION_PASS backend=Vulkan
+VULKAN_SHADER_CACHE_PASS sourceIdentity=true nativeResults=0 invalidShaderRejected=true
+VULKAN_BUFFER_QUERY_PASS bytes=16
+VULKAN_STORAGE_BYTES_PASS offset=65792 count=17
+VULKAN_DEPTH_READBACK_PASS pixels=16
+VULKAN_TEXTURE_COPY_PASS pixels=4
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH24_STENCIL8 reference=1
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=0
+VULKAN_STENCIL_PASS format=DEPTH32_STENCIL8 reference=1
+BACKEND_SELECTION_PASS backend=Vulkan
+WATER_VIEW_OPTIONS animated=true waves=false lod=true
+WATER_VIEW_OBSERVATION label=enabled-animated backend=Vulkan animated=true waves=false lod=true ownsWater=true waterBytes=1156176 drawnPages=14860 pending=51 loadedChunks=168 horizonTiles=0 visibleTiles=0 camera=107.68827612381756,176.5875,-226.797007486035
+WATER_VIEW_OPTIONS animated=false waves=false lod=true
+WATER_VIEW_OBSERVATION label=enabled-fallback backend=Vulkan animated=false waves=false lod=true ownsWater=false waterBytes=0 drawnPages=16314 pending=0 loadedChunks=168 horizonTiles=0 visibleTiles=0 camera=107.68827612381756,176.5875,-226.797007486035
+WATER_VIEW_OPTIONS animated=true waves=true lod=true

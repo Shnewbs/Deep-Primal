@@ -1,0 +1,1 @@
+INTEGRATED_CLIENT_PASS scenes=coast,headwater,river,lake,outlet,ridge backend=Vulkan waterResidentBytes=1440 waterUploads=776 waterDrawnPages=11795 waterPending=0

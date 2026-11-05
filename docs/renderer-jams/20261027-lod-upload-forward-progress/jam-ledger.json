@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "jam": "20261027-lod-upload-forward-progress",
+  "role": "dedicated-renderer",
+  "claim_commit": "698bc2c69b889a88e42d10011bf8372f3dd536ab",
+  "source_parent": "579516aba72bdb96006cdfabfd50837887e86c22",
+  "pinned_production_sha": "daaeabb1a60c970e23d396af34a359eac60cf87e",
+  "common_version": "0.0.1-alpha.29-dev.38-guarddominance.1",
+  "production_changes": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/UploadWorkBudget.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java"
+  ],
+  "test": "docs/renderer-jams/20261027-lod-upload-forward-progress/UploadWorkBudgetChecks.java",
+  "test_host": "Linux Java21.0.12.1; no JDK25 archive on this host",
+  "results": {
+    "focused_java21": "PASS 398690",
+    "telemetry_java21": "PASS 724271",
+    "retention_java21": "PASS 625529",
+    "negative_mutation": "EXPECTED_FAILURE exit1",
+    "gradle": "NOT_RUN owner build",
+    "gpu": "NOT_RUN",
+    "jar": "NOT_PRODUCED"
+  },
+  "source_blobs": {
+    "helper": "6482ba88bb71741fc53b5ea387b37cec3661adb5",
+    "fixture": "d1f4246f94db4c6b8956ebbed573186d9d383b8d",
+    "renderer": "43d8cd124b65ada6a90308e40e42d6f536710217",
+    "client": "87b496232e1c6a41db5b9bf4cae8626351289153"
+  },
+  "evidence": {
+    "sha256": "26f2bd6cd7e520f4fca72fda1ee7ab50c30b8b832c0873f5bfc0d7bce439abe4",
+    "bytes": 5455,
+    "library_file_id": "libfile_61980b5dd360819186879aaa448549fe"
+  },
+  "scores": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "average": 4.666666666666667,
+  "previous_average": 4.666666666666667,
+  "whole_engine_external_carry": 5,
+  "release_qualified": false,
+  "scoped_lease_status": "released",
+  "next": "GPU-native bounded upload forward-progress, worst mesh p95/p99, cap spike guard and resource reload; temporal DLSS inputs"
+}

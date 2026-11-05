@@ -1,0 +1,95 @@
+# Expanded replica — docs/renderer-jams/20261027-part-upload-telemetry/REVIEW.md
+
+**Edition:** 2026-10-29 · **Status:** research expansion and proposed design.
+
+| Provenance | Value |
+| --- | --- |
+| Original | [Open original source](https://github.com/Shnewbs/Deep-Primal/blob/33c43c943f0469195e7ab1a6852ab4360fad1788/docs/renderer-jams/20261027-part-upload-telemetry/REVIEW.md) |
+| Source identity | git: docs/renderer-jams/20261027-part-upload-telemetry/REVIEW.md |
+| Preserved source SHA-256 | `6a6b149016dbacd4db50003812cb5cfd90bda2bf396033cda27fd5c5b0a46099` |
+| Review method | structured-evidence |
+| Proposed-work priority | P1 |
+
+The original document is preserved byte-for-byte below. New material is a dated proposal; historical results keep their original source, environment, and limitations. The priority describes follow-up design work, not a newly reproduced runtime defect.
+
+[Corpus guide](../../../../../README.md) · [Integrated design](../../../../../ENGINE-DESIGN-EXPANSION.md) · [Detailed chapter](../../../../../chapters/render-performance.md) · [Discrepancy register](../../../../../DISCREPANCIES.md)
+
+## Research expansion — source scope
+
+Adds LodGpuUploadProbe observations for accepted-part CPU time and actual payload bytes, separate failure attempts, saturating counters, and reset. It also closes a newly created buffer when later bounds/admission work fails before ownership is appended. The fixture’s 77,100 attempts and 72,498 accepted records are CPU-model evidence.
+
+## Research expansion — gaps and details to deepen
+
+- Accepted CPU upload calls are not completed GPU transfers. The ownership interval between allocation and pending append should join the shared lifecycle ledger, while the probe needs frame/part identity and a clear denominator for failed or rejected work.
+
+## Research expansion — proposed contracts
+
+- Define allocation, accepted ownership, returned API result, submission, and completion as distinct events. Preserve the primary exception when cleanup fails, record accepted part-size distribution, and correlate part observations with page commit and retired-memory state.
+
+## Research expansion — acceptance checks
+
+- Retain the focused 40,551-assertion accounting/failure coverage and inject faults after buffer creation but before ownership transfer in the actual backend. Verify no orphaned allocation, accurate attempt counts, and native frame/GPU evidence before performance claims.
+
+## Research expansion — source anchors
+
+- Dedicated renderer jam self-audit — accepted-part GPU upload telemetry
+- Consumed findings and ownership
+
+## Research expansion — source-context links
+
+These pinned links resolve original dependencies outside their new replica locations. Exact tracked repository paths also resolve original links with an incorrect relative base; the original text remains unchanged. Project-collection references use an identical Git counterpart, an explicit tracked path, or a unique tracked filename where available.
+
+| Original relative target | Pinned source target |
+| --- | --- |
+| `CLAIM.json` | [Open](https://github.com/Shnewbs/Deep-Primal/blob/33c43c943f0469195e7ab1a6852ab4360fad1788/docs/renderer-jams/20261027-part-upload-telemetry/CLAIM.json) |
+
+## Preserved source document
+
+Original links retain their original document context. Use the pinned source and source-context index above for dependencies not copied into this edition.
+
+<!-- BEGIN PRESERVED SOURCE -->
+# Dedicated renderer jam self-audit — accepted-part GPU upload telemetry
+
+**Jam ID:** `20261027-part-upload-telemetry` (scoped renderer only). **Read-only code self-audit** of committed source [`a6e24b0d2301a4101262c3912c02467e4bf49af2`](https://github.com/Shnewbs/Deep-Primal/commit/a6e24b0d2301a4101262c3912c02467e4bf49af2), source parent and claim `d40cf15b3dd602412229cb78c7cc77bcab53032a`. Mod version is the independently owned `0.0.1-alpha.29-dev.42-v8bounds.1`; this renderer jam did not bump it. Code was not changed during the scored review. This is **not** the independent whole-engine audit.
+
+## Consumed findings and ownership
+
+The prior [pending GPU ledger review](../20261027-pending-gpu-ledger/REVIEW.md) reported 4.67/10 and required actual camera/travel/edit upload latency, part-size distributions and real GPU lifetime observations before tuning oversized parts. The latest [independent engine audit at 01:34 UTC](../../engine-hourly-audits/2026-10-28T0134-4fc83e6/REVIEW.md) likewise classified renderer scene/GPU coverage as unaccepted; its water and V8 findings belong to their independent workstreams. At claim time the separate builder worked on V8 density and the water worker on `HydrologyRuntime`; neither owns these three `lod-engine` files. The previous renderer claim was released; new bounded [scoped claim](CLAIM.json) covers only these files and this dedicated folder. No other scheduler, user edit, saved geography, texture, shader, SDK, engine work state or mutable build cache was touched.
+
+## Actual source change
+
+1. [`LodGpuUploadProbe`](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodGpuUploadProbe.java#L1-L54) adds fixed-capacity 240-entry rolling p50/p95/p99/max windows for accepted part CPU upload costs and actual accepted GPU allocation sizes; separate attempt-failure, over-time-budget, lifetime accepted-byte and peak counters reset on world change. Observation is strictly off unless the existing JVM `deepprimal.lod.telemetry` switch is true. Counts saturate rather than overflowing negative. Duration includes CPU packing, synchronous device buffer creation and submission—not actual GPU completion.
+2. [Active renderer upload path L664–697](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java#L664-L697) records only successfully accepted parts; failed native allocations are counted separately. If GPU buffer allocation succeeded but AABB/admission fails before transfer into `PendingGpu`, newly created buffers are closed and cleanup failures are suppressed onto the original exception instead of hiding it. The prior admission/byte cap, per-frame work, geometry, paint, water draw order, player edits and cache/persistence semantics are otherwise unchanged. [World reset L810–813](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java#L810-L813) clears the probe.
+3. [Client diagnostic export](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java#L50-L89) labels byte percentiles correctly and exposes accepted/failed/over-budget/peak totals alongside existing cull/upload/submit CPU timings. The diagnostic avoids implying GPU timestamps or frame rates.
+
+Only **three production files** changed, plus a dedicated production-excluded Java test. [Exact 4-file diff](https://github.com/Shnewbs/Deep-Primal/compare/d40cf15b3dd602412229cb78c7cc77bcab53032a...a6e24b0d2301a4101262c3912c02467e4bf49af2). No native DLSS/FSR change, no distance-slider-only change, no CPU/GPU pipeline speed claim.
+
+## Tests and limitations
+
+On isolated Linux x86_64 AMD EPYC host with OpenJDK/javac 21.0.12.1, the exact checked production helper and registered 122-line test compile with `--release 21 -Xlint:all -Werror`. Fresh Java checks pass **40,551 assertions / 77,100 modeled attempts** (72,498 accepted, 4,602 injected failures), including rolling ring percentiles, negative/overflow inputs, strict budget comparison and world reset. Mutating the strict-budget `>` into `>=` produces an expected failing result (exit 1). Original `RollingTiming` matches Git blob `0be7512957537596295ba204f8f1dfc176aa686f`. Source blob/test identities and complete command/output are in [TESTS.md](TESTS.md). This measures **behavior of the probe on modeled inputs**, not any improvement in actual per-part CPU time, render FPS or real upload/rejection recovery.
+
+**Unrun:** Java25/Gradle 9.2.1 root/module build, Minecraft/NeoForge selected package, Vulkan/OpenGL actual GPU pixels, GPU timestamp/fence completion, driver buffer allocation failure, water transparency/LOD handoff/negative seams, change of resolution/world/reload, VRAM peak, Intel/AMD/NVIDIA hardware, RTX NGX DLSS, whole-frame CPU/GPU p50/p95/p99, source-to-JAR/CRC/platform/fixture-exclusion checks. JDK25 handoff binary and owner archive were absent in this isolated workspace; only Java21 is installed. The owner expressly handles full builds and GPU tests. **No JAR, hosted Actions, GitHub prerelease or stable release was created.**
+
+## Conservative six-category renderer grade (equal weight)
+
+| Category | Previous | Current | Verified basis and missing acceptance |
+|---|---:|---:|---|
+| Distance/LOD usable coverage | 4 | **4** | [Current near/native selection and culling](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java#L500-L554) is unchanged; no fresh travel/edits/silhouette/unexplored-terrain delivery |
+| Mesh generation/reuse/scheduling | 6 | **6** | [Existing LodMesher](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java#L237-L306) and [capture priority](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodCapturePriority.java) unchanged, no native throughput |
+| GPU culling/submission/memory | 4 | **4** | New [real-path upload probe](https://github.com/Shnewbs/Deep-Primal/blob/a6e24b0d2301a4101262c3912c02467e4bf49af2/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java#L664-L697) and exceptional buffer close; device/tail/VRAM unvalidated |
+| Actual FSR/DLSS | 5 | **5** | [FSR1 EASU/RCAS, incomplete NGX](../../UPSCALING.md) carried; no temporal inputs, NVIDIA dispatch, RTX qualification this jam |
+| Visual/backend/settings compatibility | 5 | **5** | Existing native-resolution HUD/FSR option behavior unchanged; real water ordering, Vulkan/GL pixels, reload/resize unrun |
+| Validation and measured performance | 4 | **4** | 40,551 focused Java21 assertions and negative mutant, static final-code readback; no real upload/FPS/Java25/product/JAR measurement |
+| **Sum / mean / change** | **28/60 · 4.67/10** | **28/60 · 4.67/10** | **Δ 0.00**; unmeasured renderer target above 8.5 unmet |
+
+The independent whole-engine baseline remains **50/100 = 5.0/10 carried**, not freshly regraded. No credit is awarded for hypothetical FPS gains, absent GPU data or unfinished DLSS.
+
+## Next renderer-only repair
+
+Owner-side fixed-seed camera, travel, edit, high-density water/LOD handoff and resize/reload native sessions must capture both CPU/GPU p50/p95/p99 and the newly exported accepted-part size/time distributions with names/settings. If a single indivisible upload demonstrably exceeds the soft time/byte budget, test splitting at existing quad boundaries while preserving 16-bit index counts, material/normal, water transparency, bounds, fairness, cache/regression and memory limit. Longer-term pending work: actual visible-scene LOD/distant coverage, bounded coarser hierarchy, independent useful distance/vertical semantics, and temporal motion/depth/jitter inputs plus SDK-licensed NVIDIA NGX device dispatch. Do not label basic scaling as DLSS, or owner GPU acceptance from these CPU-only checks.
+## Verified source-evidence artifact
+
+The owner-downloadable **source-only** ZIP is `DeepPrimal_Renderer_PartUploadTelemetry_20261027_a6e24b0_SourceEvidence.zip`, **12,998 bytes**, SHA-256 `a10a75bd21d1cdd297865b494453c1f9a44eb320897ccea7105aaf7942b123f5`; ZIP CRC check passed (14 entries). Library file `libfile_9d904cef77f88191a84f366f4325fd16` was uploaded and verified. It contains the exact Java probe/test/rolled window source, focused+negative outputs and the jam report, not a game artifact.
+
+
+<!-- END PRESERVED SOURCE -->

@@ -1,0 +1,3526 @@
+{
+  "pass": true,
+  "baseline_historical_r42": {
+    "case": "vulkan-corners-shared-final-r41-control",
+    "pass": true,
+    "baseline": false,
+    "cases": 256,
+    "paired_cpu_gpu_reads": 512,
+    "raw_readback_bytes": 194291712,
+    "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+    "all_bytes_match_independent_packet_and_rejection_oracle": true,
+    "normal_routes": [
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 1.36312
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.06654
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.268824
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.092459
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.064337
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.300843
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.135624
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.071297
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.303446
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.185479
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.177247
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.411038
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.167942
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.129886
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.265479
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.09313
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.057216
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.340782
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.084697
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.067251
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.403607
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.09991
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.059189
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.25946
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.090506
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.098308
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.412821
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.190706
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.101713
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.469296
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.151478
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.101172
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.39284
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.155244
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.348044
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.293661
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.095634
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.05978
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.230086
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.084877
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.056755
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.238779
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.083014
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.056335
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.370257
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 2048,
+        "writes": 1,
+        "bytes": 36864,
+        "quads": 256,
+        "sync_cpu_ms": 0.082675
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 256,
+        "writes": 1,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.097116
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 8,
+        "writes": 16,
+        "bytes": 18432,
+        "quads": 128,
+        "sync_cpu_ms": 0.344408
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.39648
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.618309
+      },
+      {
+        "origin": 0,
+        "axis": 0,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.12146
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.820554
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.517218
+      },
+      {
+        "origin": 0,
+        "axis": 1,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.537825
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.870068
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.588164
+      },
+      {
+        "origin": 0,
+        "axis": 2,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.035731
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.898301
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.559211
+      },
+      {
+        "origin": 0,
+        "axis": 3,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.791123
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.729797
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.469446
+      },
+      {
+        "origin": 0,
+        "axis": 4,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.835339
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.830859
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.46596
+      },
+      {
+        "origin": 0,
+        "axis": 5,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.817523
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.747444
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.470898
+      },
+      {
+        "origin": 0,
+        "axis": 6,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.722089
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.735556
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.466181
+      },
+      {
+        "origin": 0,
+        "axis": 7,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.643151
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.024711
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.533873
+      },
+      {
+        "origin": 29999968,
+        "axis": 0,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.236052
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.846853
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.648745
+      },
+      {
+        "origin": 29999968,
+        "axis": 1,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 2.008639
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.827505
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.614414
+      },
+      {
+        "origin": 29999968,
+        "axis": 2,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.851353
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.999182
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.513522
+      },
+      {
+        "origin": 29999968,
+        "axis": 3,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.84925
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 1.332123
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.821304
+      },
+      {
+        "origin": 29999968,
+        "axis": 4,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.937423
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.627323
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.490177
+      },
+      {
+        "origin": 29999968,
+        "axis": 5,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.623671
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.580483
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.421063
+      },
+      {
+        "origin": 29999968,
+        "axis": 6,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.837332
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 2048,
+        "writes": 2,
+        "bytes": 294912,
+        "quads": 2048,
+        "sync_cpu_ms": 0.605801
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 256,
+        "writes": 8,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 0.408304
+      },
+      {
+        "origin": 29999968,
+        "axis": 7,
+        "group": 8,
+        "writes": 128,
+        "bytes": 147456,
+        "quads": 1024,
+        "sync_cpu_ms": 1.539345
+      }
+    ],
+    "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+    "new_crashes": 0,
+    "normal_save_shutdown": true,
+    "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+  },
+  "sessions": [
+    {
+      "case": "vulkan-corners-shared-final-retry",
+      "pass": true,
+      "baseline": false,
+      "cases": 256,
+      "paired_cpu_gpu_reads": 512,
+      "raw_readback_bytes": 194291712,
+      "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.785862
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.203717
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.348955
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.107452
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.070626
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.308083
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.161162
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.077868
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.302576
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.130036
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.069104
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.356807
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.096115
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.147402
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.275654
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.095995
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.062735
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.243356
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.09986
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.13978
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.242345
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.150136
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.084788
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.241263
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.09988
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.25276
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.353652
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.101272
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.064457
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.25872
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.123336
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.062835
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.246852
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.10623
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.081292
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.308354
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.094703
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.058779
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.263897
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.153351
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.089886
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.213971
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.11991
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.061763
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.240191
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.091678
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056575
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.257498
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.855177
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.443417
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.582702
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.515005
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.37235
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.996344
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.595657
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.53119
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.502571
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.543067
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.382226
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 2.069334
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.490308
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.358359
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.476462
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.601104
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.415175
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.615001
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.701606
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.400172
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.490183
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.683999
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.529187
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.456752
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.509206
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.372721
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.545516
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.584579
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.342806
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.704735
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.53109
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.33234
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.54818
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.522766
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.326812
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.510663
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.467704
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.319901
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.709463
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.468696
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.315555
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.517984
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.574054
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.44528
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.576602
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.519852
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.336637
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.425515
+        }
+      ],
+      "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-corners-shared-final-retry-packaged",
+      "pass": true,
+      "baseline": false,
+      "cases": 256,
+      "paired_cpu_gpu_reads": 512,
+      "raw_readback_bytes": 194291712,
+      "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.778801
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.165719
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.315705
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.090647
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.087231
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.203606
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.094322
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.054803
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.230406
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.095093
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.056525
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.211958
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.083315
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.060591
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.174623
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.082344
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.052198
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.163516
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.080592
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.048753
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.162976
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.102434
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.048222
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.158198
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.17264
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.054843
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.159089
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.090736
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.070425
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.216366
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.109044
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.051818
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.161152
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.294723
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.06617
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.243166
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.079439
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.04672
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.151538
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.078548
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.048694
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.183496
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.078859
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.068823
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.153271
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.077657
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.05347
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.176375
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.626152
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.372951
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.233004
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.609817
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.365019
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.194306
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.599542
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.3723
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.050269
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.608645
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.344658
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.11711
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.549206
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.313712
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.96433
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.980875
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.306912
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.958492
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.566472
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.306972
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.151321
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.683618
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.3458
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.1641
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.781786
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.625531
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.324601
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.798661
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.351749
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.109479
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.617078
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.347253
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.9244
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.903999
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.347443
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.942197
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.661084
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.297097
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.961035
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.647915
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.2925
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 1.046404
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.53228
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.248223
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.760243
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.420873
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.262935
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.757259
+        }
+      ],
+      "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    },
+    {
+      "case": "vulkan-reuse-gl-corners-shared-final-retry",
+      "pass": true,
+      "baseline": false,
+      "cases": 256,
+      "paired_cpu_gpu_reads": 512,
+      "raw_readback_bytes": 194291712,
+      "raw_sha256": "37919621582ba3cf32aaf91c7934a3905739cb97e27d18ce08e23e7ca5f4e358",
+      "all_bytes_match_independent_packet_and_rejection_oracle": true,
+      "normal_routes": [
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.893093
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.104977
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.136034
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.091798
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.049855
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.098268
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.113641
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.052669
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.118418
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.090646
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.059149
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.109064
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.084787
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.047822
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.092839
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.086921
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.045549
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.104457
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.1061
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.051948
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.13306
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.105889
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.048694
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.085218
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.086199
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.04706
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.089645
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.086159
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.047451
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.124267
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.098428
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.057436
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.0932
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.111107
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.08635
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.092129
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.075213
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.044186
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.085399
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.074482
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.043345
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.085338
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.076405
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.042734
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.085378
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 1,
+          "bytes": 36864,
+          "quads": 256,
+          "sync_cpu_ms": 0.076254
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 1,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.044006
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 16,
+          "bytes": 18432,
+          "quads": 128,
+          "sync_cpu_ms": 0.085328
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 1.107355
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.390026
+        },
+        {
+          "origin": 0,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.758681
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.644539
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.51239
+        },
+        {
+          "origin": 0,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.548795
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.674484
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.343437
+        },
+        {
+          "origin": 0,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.556106
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.753903
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.321253
+        },
+        {
+          "origin": 0,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.551609
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.586071
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.29933
+        },
+        {
+          "origin": 0,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.506952
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.568745
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.317337
+        },
+        {
+          "origin": 0,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.495626
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.633513
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.286801
+        },
+        {
+          "origin": 0,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.481854
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.552751
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.284778
+        },
+        {
+          "origin": 0,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.460633
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.623007
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.327403
+        },
+        {
+          "origin": 29999968,
+          "axis": 0,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.626682
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.624058
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.328734
+        },
+        {
+          "origin": 29999968,
+          "axis": 1,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.490056
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.849537
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.255134
+        },
+        {
+          "origin": 29999968,
+          "axis": 2,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.413562
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.560503
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.251298
+        },
+        {
+          "origin": 29999968,
+          "axis": 3,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.421925
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.460903
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.231007
+        },
+        {
+          "origin": 29999968,
+          "axis": 4,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.308785
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.447493
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.228183
+        },
+        {
+          "origin": 29999968,
+          "axis": 5,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.33285
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.488825
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.249365
+        },
+        {
+          "origin": 29999968,
+          "axis": 6,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.323437
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 2048,
+          "writes": 2,
+          "bytes": 294912,
+          "quads": 2048,
+          "sync_cpu_ms": 0.504339
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 256,
+          "writes": 8,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.230486
+        },
+        {
+          "origin": 29999968,
+          "axis": 7,
+          "group": 8,
+          "writes": 128,
+          "bytes": 147456,
+          "quads": 1024,
+          "sync_cpu_ms": 0.306641
+        }
+      ],
+      "fixture_class_sha256": "c73d7ede823ac43fe388a153488016207b5f6e9e1b7e04d52e0be4d066877899",
+      "new_crashes": 0,
+      "normal_save_shutdown": true,
+      "scope": "Synchronous private neighbor-range fixture, no full-scene/capchurn/ownerGPU/FPS acceptance"
+    }
+  ],
+  "all_before_after_call_and_retry_packets_match_baseline": true
+}

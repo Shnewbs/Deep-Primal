@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "jam_id": "20261028-page-upload-latency",
+  "owner": "renderer-schedule",
+  "status": "checkpointed",
+  "base_sha": "3bc5909c0226477b2184fe1db5805f8b9eb7a061",
+  "claimed_at": "2026-10-28T04:03:00Z",
+  "active_until": null,
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageUploadProbe.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261028-page-upload-latency/"
+  ],
+  "non_overlap": [
+    "docs/ENGINE-WORK-STATE.json",
+    "docs/WATER-ENGINE-WORK-STATE.json",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/",
+    "src/main/java/com/shnewbs/deepprimal/engine/",
+    "gradle.properties",
+    "graphics-settings/",
+    "renderer-vulkan/"
+  ],
+  "benchmark_reservation": "none; prior engine reservation released",
+  "consumed_renderer_audit": "docs/renderer-jams/20261027-quad-bounded-upload/REVIEW.md",
+  "consumed_engine_audit": "docs/engine-hourly-audits/2026-10-28T0330-b14f8ba/REVIEW.md",
+  "intention": "Bounded render-thread LOD page completion/abandonment metrics to measure delayed partial uploads under owner A/B; no GPU completion claim",
+  "owner_build_handoff": true,
+  "scoped_lease_released": true,
+  "completed_at": "2026-10-28T04:08:00Z",
+  "source_code_commit": "0f1ef9cd0f0e739a6bd757421105df42b3f85d44",
+  "source_blobs": {
+    "probe": "ca5535ad8d6ce443455c266b821ccd51e1dc8842",
+    "renderer": "ec9c1785ada7bee01f24603a1e89d18d979ff8fc",
+    "client": "ac486c40240be52ff993620d8472047c6f9a459e",
+    "smoke": "ba5a8d5686e6da74b83af3ad23c10df10e58f6b9"
+  },
+  "java21_focused_assertions": 36117,
+  "java25_verified": false,
+  "owner_full_build_handoff": true,
+  "qualified_jar_produced": false,
+  "renderer_self_audit_score": 4.67,
+  "previous_renderer_self_audit_score": 4.67,
+  "review_path": "docs/renderer-jams/20261028-page-upload-latency/REVIEW.md",
+  "next_priority": "Owner same-scene default/32KiB GPU/frame/VRAM and page commit latency A/B; keep split opt-in"
+}

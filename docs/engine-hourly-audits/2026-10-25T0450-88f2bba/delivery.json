@@ -1,0 +1,16 @@
+{
+  "accepted": false,
+  "diagnostic_archive_only": true,
+  "source_sha": "88f2bba41866bcea30d5b3397eabe690b26c9baf",
+  "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.3-audit-20261025T0450-88f2bba-vulkan-windows.jar",
+  "sha256": "d057db4e5035c27d762d359ed6c769cda6c308829ffb7e302db99fc9167acc7e",
+  "size": 125120012,
+  "final_export_matches_producer": true,
+  "producer_completed": true,
+  "reason": "Full build fails groundMaterialResources historical texture hash gate",
+  "native_smoke": "not run after essential build failure",
+  "windows_execution": false,
+  "library_uploaded": false,
+  "last_verified_source": "5c54904a1316b27d6512aa219f938867d31a49f5",
+  "last_verified_library_file_id": "libfile_c282e4a126688191926a0876c4959747"
+}

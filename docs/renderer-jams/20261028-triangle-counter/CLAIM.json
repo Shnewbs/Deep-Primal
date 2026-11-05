@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "owner": "dedicated-renderer-schedule",
+  "jam_id": "renderer-20261028T2358-triangle-counter",
+  "status": "released",
+  "claimed_utc": "2026-10-28T23:58:00Z",
+  "expires_utc": "2026-10-29T00:58:00Z",
+  "source_head": "a564df3c1ae74c7332770e65c01d2beede571a59",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261028-triangle-counter/",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excluded": [
+    "engine-core",
+    "water",
+    "terrain",
+    "renderer-vulkan",
+    "graphics-settings",
+    "gradle.properties",
+    "other jobs"
+  ],
+  "measurement_reservation": "Isolated Java21 triangle accounting synthetic CPU/correctness; owner Vulkan/OpenGL/GPU measurement unreserved",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-28T2331-d99837b/REVIEW.md",
+  "previous": "docs/renderer-jams/20261028-batch-hard-limit/REVIEW.md",
+  "intent": "Eliminate per-record volatile triangle counter writes during synchronous indexed draw preparation; make reset and submission accounting correct without touching GPU/water paths",
+  "owner_build_override": true,
+  "lease_released": true,
+  "released_at": "2026-10-29T00:03:00Z",
+  "source_commit": "61dc92eb52b030fa19bfd3572ac12661a3bc4579",
+  "self_audit_score": 5.61,
+  "validation": "Java21 4796 modeled cases 25130 assertions; expected mutant fail; 7/7 pinned source checks; two counter-only paired CPU runs; GPU/build unrun",
+  "artifact": "DeepPrimal_Renderer_TriangleCounter_20261028_61dc92e_SourceEvidence.zip"
+}

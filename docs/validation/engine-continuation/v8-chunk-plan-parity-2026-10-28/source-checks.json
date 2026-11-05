@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1-alpha.29-dev.44-v8chunk.1",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0233-2805140/REVIEW.md",
+  "audit_source_sha": "28051408b079d3f378083554a6fb789ee43e5124",
+  "java": "21.0.12.1",
+  "actual_graph_compiled": true,
+  "compiler": "javac --release 21 -Xlint:all -Werror",
+  "runtime": "java -ea -Xverify:all",
+  "assertions": 1218333,
+  "voxels": 1208064,
+  "certified_sample_calls_skipped": 902118,
+  "max_classification_queries": 362,
+  "mutation_variants_rejected": 5,
+  "old_chunk_blob": "be014224866e8b736bcbe95f0329b88bd8239bbb",
+  "new_chunk_blob": "c98ee12b6499ff2904ae32e294e7ad966ff9d76f",
+  "new_test_blob": "b578e4849c233024721ad7dca4ad931211f42b0e",
+  "java25": false,
+  "full_build": false,
+  "native_minecraft": false,
+  "owner_GPU": false,
+  "qualified_jar": false,
+  "external_score_carried": 5
+}

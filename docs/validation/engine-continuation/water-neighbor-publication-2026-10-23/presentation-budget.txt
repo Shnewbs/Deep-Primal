@@ -1,0 +1,1 @@
+WATER_PRESENTATION_BUDGET bytes=33554304 vertices=932064 samples=15 medianNanos=7802113 p95Nanos=8536877 extractionDeadlineNanos=2000000 fitsDeadline=false scope=syntheticFullResidencyRebaseOnlyExcludesScanCopyGpuWrite

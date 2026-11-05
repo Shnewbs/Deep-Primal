@@ -1,0 +1,122 @@
+[
+  {
+    "v0": 0.625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 0,
+    "direction": 16,
+    "time": 0
+  },
+  {
+    "v0": 0.625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 100,
+    "direction": 16,
+    "time": 100
+  },
+  {
+    "v0": 0.625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 125,
+    "direction": 16,
+    "time": 125
+  },
+  {
+    "v0": 0.625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 150,
+    "direction": 16,
+    "time": 150
+  },
+  {
+    "v0": 0.625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 200,
+    "direction": 16,
+    "time": 200
+  },
+  {
+    "v0": 0.625,
+    "stale": true,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 225,
+    "direction": 16,
+    "time": 225
+  },
+  {
+    "v0": 0.0390625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 0,
+    "direction": 0,
+    "time": 0
+  },
+  {
+    "v0": 0.0390625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 100,
+    "direction": 0,
+    "time": 100
+  },
+  {
+    "v0": 0.0390625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 125,
+    "direction": 0,
+    "time": 125
+  },
+  {
+    "v0": 0.0390625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 150,
+    "direction": 0,
+    "time": 150
+  },
+  {
+    "v0": 0.0390625,
+    "stale": false,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 200,
+    "direction": 0,
+    "time": 200
+  },
+  {
+    "v0": 0.0390625,
+    "stale": true,
+    "surfaceVertices": 4,
+    "sideVertices": 16,
+    "vSpan": 0.0078125,
+    "uploaded": 225,
+    "direction": 0,
+    "time": 225
+  }
+]

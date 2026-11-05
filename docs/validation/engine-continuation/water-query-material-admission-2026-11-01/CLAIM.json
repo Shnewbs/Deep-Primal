@@ -1,0 +1,28 @@
+{
+  "claim_id": "engine-20261101T1100-water-query-material-admission",
+  "owner": "Deep Primal hourly engineering",
+  "status": "completed-released",
+  "claimed_utc": "2026-11-01T11:00:55Z",
+  "expires_utc": "2026-11-01T11:25:00Z",
+  "baseline_main": "8e6005a358379f99cfe91b23b201d5400e97e4c1",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSimulation.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSimulationMaterialAdmissionChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-query-material-admission-2026-11-01/**"
+  ],
+  "coordination": "Latest auditor dev149 and repository work states inspected; WaterSimulation not in latest auditor or renderer scope; stale 2026-10-28 water work-state lease expired. Source-only isolated Java21; no native build ownership.",
+  "purpose": "Reject dry water-material states at query simulation setMaterial and chunk import without affecting valid finite-water volume.",
+  "no_actions": true,
+  "lease_released": true,
+  "released_utc": "2026-11-01T11:15:00Z",
+  "production_commit": "013f5b92085ea62366d09152fd9e5de1c48fda38",
+  "test_commit": "ed75fbd1b5e384fa84f15812159581c02b8e94ef",
+  "core_registry_commit": "7433887a30e44b8cbb9f66e33f8cc17f8882857d",
+  "report_commit": "566458e9fee4f26d865a3aeba54c93f60ea48b37",
+  "isolated_assertions": 1301352,
+  "compiled_mutants_rejected": 3,
+  "qualified_jar": false,
+  "native_tests": false,
+  "previous_jar_preserved": true
+}

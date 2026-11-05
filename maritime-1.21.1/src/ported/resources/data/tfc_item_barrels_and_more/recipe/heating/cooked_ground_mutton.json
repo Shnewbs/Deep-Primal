@@ -1,0 +1,25 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc_item_barrels_and_more:raw_ground_mutton"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "result_item": {
+    "stack": {
+      "id": "tfc_item_barrels_and_more:cooked_ground_mutton"
+    },
+    "modifiers": [
+      {
+        "type": "tfc:copy_food"
+      }
+    ]
+  },
+  "temperature": 200
+}

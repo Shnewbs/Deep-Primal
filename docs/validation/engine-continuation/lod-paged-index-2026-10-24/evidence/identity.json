@@ -1,0 +1,43 @@
+{
+  "pass": true,
+  "parent": "c8f37b813da28fe769fc479f50eaaaa120bfa310",
+  "java": "openjdk version \"17.0.20\" 2026-07-21\nOpenJDK Runtime Environment (build 17.0.20+8-1-24.04-Ubuntu)\nOpenJDK 64-Bit Server VM (build 17.0.20+8-1-24.04-Ubuntu, mixed mode, sharing)\n",
+  "compile_command": [
+    "java",
+    "-m",
+    "jdk.compiler/com.sun.tools.javac.Main",
+    "-g",
+    "-d",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/classes",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/evidence/BaselineIndex.java",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/evidence/IndexChecks.java",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/evidence/ColumnarChunk.java",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/evidence/LodStore.java"
+  ],
+  "run_command": [
+    "java",
+    "-Xmx256m",
+    "-cp",
+    "/workspace/scratch/a22609fabda0/lod-index-1130/classes",
+    "IndexChecks"
+  ],
+  "source_sha256": {
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java": "d7e62afc327d0c43ed2c602edc4e40593e5a01847751470d7e812569ef2fce5a",
+    "evidence/BaselineIndex.java": "9ad7cda6bf6c02c636f568249ae708f305e0d7e1cb23b0db26e8aa56faec454f",
+    "evidence/IndexChecks.java": "97167ed605117e09a9a8991dd7ca0263fb5bbc7f3fde76017f26cfcee502b2bc",
+    "evidence/ColumnarChunk.java": "9e2293d597e35c9bd47d22ed60be949819cad5d91e2f8fd7c55beb0bbf41131f",
+    "evidence/LodStore.java": "b8c453020c10458b884d8eaaebd4d91a76303deaa3d279295411d911e9cd9dad"
+  },
+  "class_sha256": {
+    "BaselineIndex.class": "776cc4d7ce03e2e09cf9f3927bb4403ae7d7faf0ddba39e2f311d1c58095f17b",
+    "IndexChecks.class": "9fa100b32d5284f70648c01e5b2af1b9bcd14fe714e058c88e05151d36a2a4e9",
+    "com/shnewbs/deepprimal/core/lod/ColumnarChunk$Builder.class": "04c7bb7da09ae1db4004052bca7b73059fd31bbf69657ad65420c362cf0a542b",
+    "com/shnewbs/deepprimal/core/lod/ColumnarChunk.class": "4b240c83e32544c38570aef14db1d2879d72213d975521f9acec73b504f75064",
+    "com/shnewbs/deepprimal/core/lod/LodDiskIndex$Candidate.class": "13914902a76f54566aef76f73298b49f9cf7f9490ba5a8b2100f086c23dca301",
+    "com/shnewbs/deepprimal/core/lod/LodDiskIndex.class": "30ab31e6bd43ff1cf8dc74eabcb9d9884b0fa2d4de384d35de9c87c4e50dd070",
+    "com/shnewbs/deepprimal/core/lod/LodStore.class": "6ebf18e80a97ba517ccc59dfeb4029328c8917ae87da668f77ddcab94c90b46d"
+  },
+  "result_sha256": "3f5957b34aea66ca5377e61888f4f3fbed0943837351cc2ae365da68574347bd",
+  "full_engine_or_native_validation": false
+}

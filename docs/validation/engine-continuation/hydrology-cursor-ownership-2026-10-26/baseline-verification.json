@@ -1,0 +1,7 @@
+{
+  "hashes": {
+    "HydrologyRuntime.java": "a284f95611259d38e08ea20e5de7724e3b6e3ba3159c870c246a5167a42fab7e",
+    "StreamSourceIndex.java": "7eb396e0332549a0f6be4b82f0492e641a223b993f5042b5ccc2a80adb051be0"
+  },
+  "serialization_correction": "apply_patch appended one extra newline to fetched text; removed exact one extra byte, then exact baseline comparison passed"
+}

@@ -1,0 +1,1 @@
+LOD_TRAVEL_NATIVE_PASS backend=Vulkan authoritativeTeleports=3 clientUnload=true serverBlockEdits=2 diskStateMatches=true reload=true samples=1441 peakLodBytes=4191796 peakWaterBytes=69696 diskReadsDelta=15 capturesDelta=101 scope=authoritativeTravelAndEditDataNotCompleteVisualCoverage

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/native-tools/run_native.py", line 20, in <module>
+    if proc.poll() is not None: raise RuntimeError('Exited before required record: '+str(proc.returncode))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Exited before required record: 0

@@ -1,0 +1,39 @@
+{
+  "type": "tfc:welding",
+  "first_input": [
+    {
+      "tag": "c:rods/bismuth_bronze"
+    },
+    {
+      "tag": "c:rods/black_bronze"
+    },
+    {
+      "tag": "c:rods/black_steel"
+    },
+    {
+      "tag": "c:rods/blue_steel"
+    },
+    {
+      "tag": "c:rods/bronze"
+    },
+    {
+      "tag": "c:rods/copper"
+    },
+    {
+      "tag": "c:rods/red_steel"
+    },
+    {
+      "tag": "c:rods/steel"
+    },
+    {
+      "tag": "c:rods/wrought_iron"
+    }
+  ],
+  "second_input": {
+    "tag": "c:ingots/wrought_iron"
+  },
+  "tier": 3,
+  "result": {
+    "id": "tfc_item_barrels_and_more:rod_die"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "one-fresh-paired-generated-basin-run; not FPS or output-equivalence certification",
+  "baseline_source": "da03d9cecc54d3302281890cfc1310ed6b143b68",
+  "seed": 20261020,
+  "ticks": 1000,
+  "view_distance": 2,
+  "simulation_distance": 2,
+  "forced_chunks": 49,
+  "runs": [
+    {
+      "case": "baseline",
+      "exit_code": 0,
+      "explicit_pass": true,
+      "elapsed_seconds": 70.67,
+      "fixture_sha256": "792eacf1b3a402f558513c78f79af60e93dfb19f29b1a7c84d78fbbe937ed138",
+      "records": [
+        "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.375..153.4375 forcedChunks=49 peakPending=9057 pending=3676 diagnostics=Diagnostics[active=2039, pressure=1637, processed=6130, pressureVisits=12288, drainVisits=6144, transfers=553] medianTickMs=15.595064 p95TickMs=24.754237"
+      ]
+    },
+    {
+      "case": "continuation",
+      "exit_code": 0,
+      "explicit_pass": true,
+      "elapsed_seconds": 69.33,
+      "fixture_sha256": "792eacf1b3a402f558513c78f79af60e93dfb19f29b1a7c84d78fbbe937ed138",
+      "records": [
+        "LAKE_RETENTION_NATIVE_PASS ticks=1000 initialLevel=153.1875 retainedLevel=153.1875..153.1875 forcedChunks=49 peakPending=9105 pending=7093 diagnostics=Diagnostics[active=1956, pressure=5137, processed=5868, pressureVisits=6144, drainVisits=6144, transfers=115] medianTickMs=17.092144 p95TickMs=27.238918"
+      ]
+    }
+  ],
+  "performance_promotion_gate": "BLOCKED: increased tick cost and larger final pending queue",
+  "slope_or_geography_changed": false,
+  "surface_acceptance": "25 center columns within configured spill-level tolerance; no whole-region mass ledger claimed",
+  "note": "New pending counts include resident searches (at most16); this does not explain the much larger final queue. No repeated benchmark distribution or owner GPU results."
+}

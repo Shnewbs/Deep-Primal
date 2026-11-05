@@ -1,0 +1,86 @@
+[
+  {
+    "mode": "normal",
+    "mutation": "none",
+    "exit": 0,
+    "accepted": true,
+    "no_world_write": true
+  },
+  {
+    "mode": "normal",
+    "mutation": "source",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "normal",
+    "mutation": "class",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "normal",
+    "mutation": "jar",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "-O",
+    "mutation": "none",
+    "exit": 0,
+    "accepted": true,
+    "no_world_write": true
+  },
+  {
+    "mode": "-O",
+    "mutation": "source",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "-O",
+    "mutation": "class",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "-O",
+    "mutation": "jar",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "-OO",
+    "mutation": "none",
+    "exit": 0,
+    "accepted": true,
+    "no_world_write": true
+  },
+  {
+    "mode": "-OO",
+    "mutation": "source",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "-OO",
+    "mutation": "class",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  },
+  {
+    "mode": "-OO",
+    "mutation": "jar",
+    "exit": 1,
+    "accepted": false,
+    "no_world_write": true
+  }
+]

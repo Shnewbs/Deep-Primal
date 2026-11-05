@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "jam": "20261027-pending-gpu-ledger",
+  "role": "dedicated-renderer",
+  "claim_commit": "363140f925c27bfc0c23eb601595ac5a4e20528c",
+  "production_parent": "363140f925c27bfc0c23eb601595ac5a4e20528c",
+  "pinned_production_sha": "598c860d57687b37b2c24f7f329569354dd4b113",
+  "evidence_commit": "9e17551029f6ce1c856fe471cde62fba7d7d84f6",
+  "version": "0.0.1-alpha.29-dev.41-waterwriteverify.1",
+  "production_changes": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/PendingGpuBytes.java"
+  ],
+  "source_blobs": {
+    "renderer": "79970c0491579b20efe4b05934d7b4535c5d9b7d",
+    "helper": "bd3a1f251133b23eb616f6f13d7865baafbf99c2",
+    "test": "5a312cd78eb1fb8b9248dd4b86743a63e8efdded",
+    "benchmark": "27715806fc6d60b27ce9c5a08350c0a9d6a6e0e7"
+  },
+  "results": {
+    "focused_java": "PASS 418317 assertions; 393216 uploads; 512 pages; 768 parts/page",
+    "negative_mutant": "EXPECTED_REJECTION exit1",
+    "cpu_only_benchmark": "4096 parts traversal p99 3515ns; running count p99 31ns; no game FPS",
+    "full_java25_gradle": "NOT_RUN under owner build override; absent Java25/checkout",
+    "gpu_client": "NOT_RUN",
+    "qualified_jar": "NOT_PRODUCED"
+  },
+  "scores": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "total": 28,
+  "average": 4.666666666666667,
+  "previous_average": 4.666666666666667,
+  "change": 0,
+  "whole_engine_external_grade": "50/100 carried; not regraded",
+  "artifact": {
+    "name": "DeepPrimal_Renderer_PendingGpuLedger_20261027_598c860_SourceEvidence.zip",
+    "bytes": 6669,
+    "sha256": "e0338ebd654d924e8885efa95a30596b09a833c8990527d5812ed78e4a6023b5",
+    "archive_crc_pass": true,
+    "type": "source/evidence only; not a JAR",
+    "library_file_id": "libfile_fde2d6e296e0819187840e340b37e8e8",
+    "library_path": "/DeepPrimal_Renderer_PendingGpuLedger_20261027_598c860_SourceEvidence.zip",
+    "library_upload_verified": true
+  },
+  "lease_status": "released",
+  "next": "Native Vulkan/GL warm/cold camera travel/edit upload/frame/memory baselines and hard bound/transparent water; then splitting and temporal DLSS inputs"
+}

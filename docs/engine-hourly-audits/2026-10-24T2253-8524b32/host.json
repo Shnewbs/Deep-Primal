@@ -1,0 +1,12 @@
+{
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "logical_cpus": 9,
+  "cpu_info": "AMD EPYC 9V74 80-Core Processor",
+  "java": "25.0.4.1+1",
+  "gradle": "9.2.1",
+  "workload": "forced full build and independent core; packaged Linux server fresh/reopen; Windows bundle packaging",
+  "windows_execution": false,
+  "gpu_execution": false,
+  "timing_acceptance": false
+}

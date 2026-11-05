@@ -1,0 +1,28 @@
+{
+  "owner": "renderer-20261026-lod-telemetry",
+  "status": "completed",
+  "active_until": null,
+  "released_at": "2026-10-26T12:07:24.111Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/RollingTiming.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/RollingTimingChecks.java",
+    "docs/renderer-jams/20261026-lod-telemetry"
+  ],
+  "runtime_source_sha": "9c27df7af31c57c7c59aef8254be29590001d315",
+  "version": "0.0.1-alpha.29-dev.29-renderer.2",
+  "artifact": "f59be2b93f2fa5933eaa5a6c3e0e6e87fad608242199f23f86fe9308b00fd637",
+  "library_file_id": "libfile_cf30e66e397c819182dd72f68bc7e854",
+  "scores": [
+    4,
+    5,
+    4,
+    0,
+    4,
+    4
+  ],
+  "average": 3.5,
+  "delta": 0,
+  "next": "Named GPU/API camera/travel/edit baselines and telemetry-hook acceptance"
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "8baffc9e89697d0abeec11345091b3f9ef95f78e",
+  "checked_existing_inputs": 563,
+  "unchanged": 562,
+  "only_hook_changed": [
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java"
+  ],
+  "production_unchanged": true,
+  "new_fixture": "WaterDirectionBlendChecks.java"
+}

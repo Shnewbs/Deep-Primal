@@ -1,0 +1,28 @@
+{
+  "base_main": "d6d7fc5c0fc317debc31a9b9556eb4e7d2e67eb1",
+  "production_changed": false,
+  "staged_sha256": {
+    "split0940/staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterAccount.java": "d95b9125f5a372708d9de0a7d85192afcef0741182ee5503a194f9997e345af5",
+    "split0940/staged/src/coreChecks/java/com/shnewbs/deepprimal/core/WaterBudgetChecks.java": "03e7f124cd69a7e95d1a7d0056685ec691b2f6347cd817db157a3bd0394fde15"
+  },
+  "jdk": "25.0.4.1+1",
+  "regression_cases": 80000,
+  "new_full_build": false,
+  "new_native_run": false,
+  "new_jar": false,
+  "compiled_inputs": 131,
+  "focused_regression_pass": true,
+  "initial_core_attempt": {
+    "status": "interrupted",
+    "exit": 130,
+    "cause": "undetermined",
+    "thread_attach": "No such process",
+    "completed_receipt": false
+  },
+  "full_core_pass": false,
+  "core_retry_exit": 124,
+  "core_retry_deadline_seconds": 180,
+  "affected_water_budget_pass": true,
+  "water_budget_transfers": 200000,
+  "weather_intervals": 180000
+}

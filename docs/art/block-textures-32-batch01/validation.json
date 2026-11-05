@@ -1,0 +1,607 @@
+{
+  "assets_checked": 40,
+  "pass_dimensions_channels_alpha_hashes": true,
+  "repeat_note": "Wrap statistics are screening data, not proof of seamless artwork; inspect actual tiled proofs. No native render validation claimed.",
+  "assets": [
+    {
+      "id": "stone/granite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        84,
+        169
+      ],
+      "interior_mean_step": 15.946,
+      "wrap_x_mean_step": 12.906,
+      "wrap_y_mean_step": 11.562,
+      "max_wrap_to_interior_ratio": 0.809,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/basalt",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        60,
+        106
+      ],
+      "interior_mean_step": 7.327,
+      "wrap_x_mean_step": 5.875,
+      "wrap_y_mean_step": 7.656,
+      "max_wrap_to_interior_ratio": 1.045,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/gabbro",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        40,
+        139
+      ],
+      "interior_mean_step": 19.03,
+      "wrap_x_mean_step": 16.625,
+      "wrap_y_mean_step": 15.688,
+      "max_wrap_to_interior_ratio": 0.874,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/limestone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        124,
+        163
+      ],
+      "interior_mean_step": 6.4,
+      "wrap_x_mean_step": 5.531,
+      "wrap_y_mean_step": 7.531,
+      "max_wrap_to_interior_ratio": 1.177,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/sandstone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        133,
+        180
+      ],
+      "interior_mean_step": 9.179,
+      "wrap_x_mean_step": 6.344,
+      "wrap_y_mean_step": 11.312,
+      "max_wrap_to_interior_ratio": 1.232,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/shale",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        79,
+        127
+      ],
+      "interior_mean_step": 9.842,
+      "wrap_x_mean_step": 4.094,
+      "wrap_y_mean_step": 10.156,
+      "max_wrap_to_interior_ratio": 1.032,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/slate",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        69,
+        106
+      ],
+      "interior_mean_step": 6.081,
+      "wrap_x_mean_step": 3,
+      "wrap_y_mean_step": 6.906,
+      "max_wrap_to_interior_ratio": 1.136,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/marble",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        119,
+        175
+      ],
+      "interior_mean_step": 7.586,
+      "wrap_x_mean_step": 6.625,
+      "wrap_y_mean_step": 8.812,
+      "max_wrap_to_interior_ratio": 1.162,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/quartzite",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        98,
+        176
+      ],
+      "interior_mean_step": 13.51,
+      "wrap_x_mean_step": 8,
+      "wrap_y_mean_step": 12.562,
+      "max_wrap_to_interior_ratio": 0.93,
+      "repeat_attention": false
+    },
+    {
+      "id": "stone/chert",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        100,
+        148
+      ],
+      "interior_mean_step": 6.958,
+      "wrap_x_mean_step": 5.25,
+      "wrap_y_mean_step": 6.125,
+      "max_wrap_to_interior_ratio": 0.88,
+      "repeat_attention": false
+    },
+    {
+      "id": "sediment/rounded_gravel",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        84,
+        168
+      ],
+      "interior_mean_step": 13.702,
+      "wrap_x_mean_step": 14.5,
+      "wrap_y_mean_step": 14.594,
+      "max_wrap_to_interior_ratio": 1.065,
+      "repeat_attention": false
+    },
+    {
+      "id": "sediment/angular_gravel",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        76,
+        139
+      ],
+      "interior_mean_step": 13.35,
+      "wrap_x_mean_step": 11.906,
+      "wrap_y_mean_step": 12.531,
+      "max_wrap_to_interior_ratio": 0.939,
+      "repeat_attention": false
+    },
+    {
+      "id": "sediment/silt",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        108,
+        132
+      ],
+      "interior_mean_step": 4.337,
+      "wrap_x_mean_step": 3.125,
+      "wrap_y_mean_step": 4.031,
+      "max_wrap_to_interior_ratio": 0.929,
+      "repeat_attention": false
+    },
+    {
+      "id": "soil/compact_clay",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        95,
+        130
+      ],
+      "interior_mean_step": 7.598,
+      "wrap_x_mean_step": 4.156,
+      "wrap_y_mean_step": 7.156,
+      "max_wrap_to_interior_ratio": 0.942,
+      "repeat_attention": false
+    },
+    {
+      "id": "soil/crumbly_loam",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        57,
+        120
+      ],
+      "interior_mean_step": 10.318,
+      "wrap_x_mean_step": 7.938,
+      "wrap_y_mean_step": 7.75,
+      "max_wrap_to_interior_ratio": 0.769,
+      "repeat_attention": false
+    },
+    {
+      "id": "organic/fibrous_peat",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        32,
+        90
+      ],
+      "interior_mean_step": 10.667,
+      "wrap_x_mean_step": 8,
+      "wrap_y_mean_step": 8.781,
+      "max_wrap_to_interior_ratio": 0.823,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/oak_bark",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        60,
+        135
+      ],
+      "interior_mean_step": 16.802,
+      "wrap_x_mean_step": 18.656,
+      "wrap_y_mean_step": 7.156,
+      "max_wrap_to_interior_ratio": 1.11,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/oak_endgrain",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        45,
+        169
+      ],
+      "interior_mean_step": 12.976,
+      "wrap_x_mean_step": 12.656,
+      "wrap_y_mean_step": 14.344,
+      "max_wrap_to_interior_ratio": 1.105,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/oak_planks",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        85,
+        138
+      ],
+      "interior_mean_step": 5.268,
+      "wrap_x_mean_step": 2.688,
+      "wrap_y_mean_step": 4.844,
+      "max_wrap_to_interior_ratio": 0.92,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/pine_bark",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        58,
+        143
+      ],
+      "interior_mean_step": 17.255,
+      "wrap_x_mean_step": 24.719,
+      "wrap_y_mean_step": 10.188,
+      "max_wrap_to_interior_ratio": 1.433,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/pine_endgrain",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        55,
+        171
+      ],
+      "interior_mean_step": 11.936,
+      "wrap_x_mean_step": 13.188,
+      "wrap_y_mean_step": 16.312,
+      "max_wrap_to_interior_ratio": 1.367,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/pine_planks",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        106,
+        157
+      ],
+      "interior_mean_step": 5.01,
+      "wrap_x_mean_step": 2.156,
+      "wrap_y_mean_step": 3.438,
+      "max_wrap_to_interior_ratio": 0.686,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/birch_bark",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        118,
+        206
+      ],
+      "interior_mean_step": 13.664,
+      "wrap_x_mean_step": 8.25,
+      "wrap_y_mean_step": 13.906,
+      "max_wrap_to_interior_ratio": 1.018,
+      "repeat_attention": false
+    },
+    {
+      "id": "wood/stripped_grain",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        119,
+        162
+      ],
+      "interior_mean_step": 7.305,
+      "wrap_x_mean_step": 10.688,
+      "wrap_y_mean_step": 2.188,
+      "max_wrap_to_interior_ratio": 1.463,
+      "repeat_attention": false
+    },
+    {
+      "id": "building/dressed_stone",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        90,
+        159
+      ],
+      "interior_mean_step": 9.439,
+      "wrap_x_mean_step": 5.625,
+      "wrap_y_mean_step": 14.438,
+      "max_wrap_to_interior_ratio": 1.53,
+      "repeat_attention": false
+    },
+    {
+      "id": "building/thatch",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        81,
+        155
+      ],
+      "interior_mean_step": 14.307,
+      "wrap_x_mean_step": 9.5,
+      "wrap_y_mean_step": 11.844,
+      "max_wrap_to_interior_ratio": 0.828,
+      "repeat_attention": false
+    },
+    {
+      "id": "ceramic/fired_clay",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        141,
+        167
+      ],
+      "interior_mean_step": 3.487,
+      "wrap_x_mean_step": 3.406,
+      "wrap_y_mean_step": 3.594,
+      "max_wrap_to_interior_ratio": 1.031,
+      "repeat_attention": false
+    },
+    {
+      "id": "metal/hammered_metal",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        105,
+        146
+      ],
+      "interior_mean_step": 7.957,
+      "wrap_x_mean_step": 6.375,
+      "wrap_y_mean_step": 9.125,
+      "max_wrap_to_interior_ratio": 1.147,
+      "repeat_attention": false
+    },
+    {
+      "id": "growth/lichen",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        74,
+        166
+      ],
+      "interior_mean_step": 14.763,
+      "wrap_x_mean_step": 14.781,
+      "wrap_y_mean_step": 15,
+      "max_wrap_to_interior_ratio": 1.016,
+      "repeat_attention": false
+    },
+    {
+      "id": "frozen/glacier_ice",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        133,
+        178
+      ],
+      "interior_mean_step": 7.352,
+      "wrap_x_mean_step": 5.812,
+      "wrap_y_mean_step": 6.719,
+      "max_wrap_to_interior_ratio": 0.914,
+      "repeat_attention": false
+    },
+    {
+      "id": "mineral/coal",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        36,
+        77
+      ],
+      "interior_mean_step": 7.547,
+      "wrap_x_mean_step": 8.5,
+      "wrap_y_mean_step": 7.844,
+      "max_wrap_to_interior_ratio": 1.126,
+      "repeat_attention": false
+    },
+    {
+      "id": "mineral/ore_vein",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 289,
+      "grayscale_range": [
+        92,
+        210
+      ],
+      "interior_mean_step": 35.513,
+      "wrap_x_mean_step": 23.281,
+      "wrap_y_mean_step": 19.188,
+      "max_wrap_to_interior_ratio": 0.656,
+      "repeat_attention": false
+    },
+    {
+      "id": "growth/moss",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        72,
+        129
+      ],
+      "interior_mean_step": 13.202,
+      "wrap_x_mean_step": 12.281,
+      "wrap_y_mean_step": 11.062,
+      "max_wrap_to_interior_ratio": 0.93,
+      "repeat_attention": false
+    },
+    {
+      "id": "foliage/broadleaf",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 809,
+      "grayscale_range": [
+        69,
+        147
+      ],
+      "interior_mean_step": 15.806,
+      "wrap_x_mean_step": 14.031,
+      "wrap_y_mean_step": 14.906,
+      "max_wrap_to_interior_ratio": 0.943,
+      "repeat_attention": false
+    },
+    {
+      "id": "foliage/needles",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 769,
+      "grayscale_range": [
+        60,
+        143
+      ],
+      "interior_mean_step": 14.765,
+      "wrap_x_mean_step": 13.312,
+      "wrap_y_mean_step": 15,
+      "max_wrap_to_interior_ratio": 1.016,
+      "repeat_attention": false
+    },
+    {
+      "id": "plant/grass_tuft",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 128,
+      "grayscale_range": [
+        56,
+        151
+      ],
+      "interior_mean_step": 12.383,
+      "wrap_x_mean_step": 0,
+      "wrap_y_mean_step": 0,
+      "max_wrap_to_interior_ratio": 0.0,
+      "repeat_attention": false
+    },
+    {
+      "id": "aquatic/kelp",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 82,
+      "grayscale_range": [
+        66,
+        143
+      ],
+      "interior_mean_step": 9.477,
+      "wrap_x_mean_step": 0,
+      "wrap_y_mean_step": 1.875,
+      "max_wrap_to_interior_ratio": 0.198,
+      "repeat_attention": false
+    },
+    {
+      "id": "plant/fern",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 286,
+      "grayscale_range": [
+        40,
+        149
+      ],
+      "interior_mean_step": 14.744,
+      "wrap_x_mean_step": 7.281,
+      "wrap_y_mean_step": 3.781,
+      "max_wrap_to_interior_ratio": 0.494,
+      "repeat_attention": false
+    },
+    {
+      "id": "fungi/mushroom_cap",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        102,
+        171
+      ],
+      "interior_mean_step": 9.668,
+      "wrap_x_mean_step": 8.5,
+      "wrap_y_mean_step": 7.906,
+      "max_wrap_to_interior_ratio": 0.879,
+      "repeat_attention": false
+    },
+    {
+      "id": "volcanic/scoria",
+      "dimensions_and_channels": true,
+      "distinct_export": true,
+      "opaque_texels": 1024,
+      "grayscale_range": [
+        51,
+        107
+      ],
+      "interior_mean_step": 9.199,
+      "wrap_x_mean_step": 8.281,
+      "wrap_y_mean_step": 9.375,
+      "max_wrap_to_interior_ratio": 1.019,
+      "repeat_attention": false
+    }
+  ]
+}

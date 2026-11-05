@@ -1,0 +1,12 @@
+{
+  "initial_failure": "Missing documented surface example in sparse audit restoration, after new texture gate passed",
+  "correction": "Restored immutable pinned Git blob; production unchanged",
+  "path": "docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json",
+  "git_blob_sha": "0f3b2ae1e7927585e4b33b5df6516f7357f2c11a",
+  "full_build_retry": true,
+  "server_launch": {
+    "initial_failure": "Gradle PrepareRun requires assetProperties even for dedicated server when downloadAssets is excluded",
+    "correction": "Dedicated-server-only empty asset root and explicit unused index; no client visual/resource acceptance is claimed",
+    "client_assets_downloaded": false
+  }
+}

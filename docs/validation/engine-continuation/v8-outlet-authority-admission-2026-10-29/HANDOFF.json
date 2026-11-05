@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "status": "source_only_committed",
+  "source_version": "0.0.1-alpha.29-dev.89-outlet-admission.1",
+  "source_commit": "00b2a655ac36ed38746102e37c6711472a490d07",
+  "code_path": "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletAuthorityAdmission.java",
+  "code_blob": "6a0ac8880ce229c6f1f6d0f1df7bc198553223f4",
+  "scope": "Bounded opt-in admission from observed watershed ports and independently certified marine/receiver identity to pre-funded, immutable V8 ledger and optional new world-bound store",
+  "test_runner": "tools/test_v8_outlet_authority.py",
+  "test_runner_blob": "51f8b0e9ff11924f5e5f49eef01e309d7aa2f0a8",
+  "tests": "tools/tests/V8OutletAuthorityAdmissionChecks.java",
+  "tests_blob": "fc602eb6a8da50771072179240171ad637249ca2",
+  "evidence": "docs/validation/engine-continuation/v8-outlet-authority-admission-2026-10-29/README.md",
+  "results": "docs/validation/engine-continuation/v8-outlet-authority-admission-2026-10-29/RESULTS.json",
+  "portable_archive_name": "DeepPrimal_Dev89_OutletAuthority_SourceEvidence.zip",
+  "portable_archive_bytes": 37406,
+  "portable_archive_sha256": "b1346717c5f7a2b6a3be6e0d317832f43ff7ac48171cb3f6030d7b866268a8f5",
+  "toolchain": "OpenJDK21.0.12.1",
+  "validation": {
+    "positive_assertions_per_mode": 8220,
+    "positive_modes": [
+      "normal Python",
+      "Python -OO"
+    ],
+    "source_mutations_rejected_per_mode": 6,
+    "store_regression_assertions_per_mode": 133,
+    "store_regression_mutations_rejected_per_mode": 5,
+    "java25_gradle_full_build": false,
+    "minecraft_native": false,
+    "gpu": false
+  },
+  "last_full_independent_grade": "50/100 (5.0/10), carried, not regraded",
+  "consumed_audit": "docs/engine-hourly-audits/2026-10-29T2131-5f7c3f68/REVIEW.md",
+  "owner_last_confirmed_playable": "0.0.1-alpha.29-dev.53-v8callback.1",
+  "global_mod_version_note": "The other active terrain writer owns gradle.properties at this checkpoint; no conflicting version edit was attempted; git main mod_version remains 0.0.1-alpha.29-dev.88-vegetation-receipts.1",
+  "limits": [
+    "Native independent marine certification and directed receivers not yet wired",
+    "Finite fluid cells not in same durable transaction as outlet journal",
+    "No native world saved-profile reopen or mixed old/new border acceptance",
+    "No Java25 NeoForge full build, GPU, multiplayer/long soak or qualified JAR"
+  ],
+  "next": "Native finite-liquid account and ledger ownership/commit protocol, loaded/unloaded reconciliation, crash-safe restart; native ecotone and relief save/reopen visual parity; respect active terrain/renderer scopes."
+}

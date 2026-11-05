@@ -1,0 +1,2 @@
+PACKAGED_DISCOVERY_CLASS /workspace/scratch/c748d58856d9/jam5/packaged-core.jar
+DELIVERED_SCAN_PASS coordinates=108999 outerBeyond32=92064 workBound=128 nearestFirst=true unique=true pauseRetry=true negativeCoordinates=true noChunkReferences=true

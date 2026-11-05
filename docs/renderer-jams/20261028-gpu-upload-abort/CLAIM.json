@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "owner": "renderer-schedule",
+  "jam_id": "renderer-20261028T1700-gpu-upload-failure-unwind",
+  "status": "released",
+  "claimed_utc": "2026-10-28T17:00:00Z",
+  "expires_utc": "2026-10-28T17:30:00Z",
+  "source_head": "b7f70538f849d2132a174dd744806610b298fc0f",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261028-gpu-upload-abort/",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "excludes": [
+    "engine builder",
+    "water",
+    "terrain",
+    "graphics-settings",
+    "renderer-vulkan",
+    "gradle.properties"
+  ],
+  "measurement_reservation": "isolated Java21 source-level partial-upload failure tests; no GPU time slot",
+  "audit_consumed": "docs/engine-hourly-audits/2026-10-28T1628-1e6e530/REVIEW.md",
+  "owner_build_override": true,
+  "lease_released": true,
+  "source_commit": "61f6405d55d05b0f1d762e50c3d6d6ef4e4486fd",
+  "source_blobs": {
+    "renderer": "5e50adfe812413babfbe8463c301ead5bcaf5275",
+    "helper": "ca79e0b1e8bb69b861077f63872e6fcbd6244841",
+    "checks": "5c424c299647472ffcb1409f67fc49b821235bcc"
+  },
+  "validation": "Java21 strict compilation and 450015 assertions; negative mutant rejected; no Java25/full build/native",
+  "self_audit_score": 5.48,
+  "next": "Owner native GPU forced-failure, Vulkan/GL transparency and frame tails"
+}

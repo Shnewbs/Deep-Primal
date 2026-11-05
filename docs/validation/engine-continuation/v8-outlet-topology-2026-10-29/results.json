@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "version": "0.0.1-alpha.29-dev.75-outlet-topology.1",
+  "kind": "isolated Java21 source compilation, real production helper (not full engine)",
+  "java": "OpenJDK 21.0.12.1",
+  "compiled_command": "javac --release 21 -Xlint:all -Werror",
+  "execution": "java -ea -Xverify:all",
+  "positive": {
+    "exit": 0,
+    "assertions": 18111
+  },
+  "compiled_broken_controls": {
+    "unverified_water_as_ocean": "rejected",
+    "duplicated_routed_runoff": "rejected",
+    "unknown_frontier_treated_as_closed": "rejected"
+  },
+  "sha256": {
+    "source": "a912949a188ec7d1ca1d6e102b4f764c771a671da211989c2bad7dc13512fb64",
+    "test": "084e5ef0f2ce21665b1c3330f68bd0972ad2aa1e6202b2241fd6a64708e9c1bf"
+  },
+  "git_blobs": {
+    "source": "068d75588c41eb3b4af5a813b24b8dc9db4c9e4a",
+    "test": "5d4fcbec71a38a8d56f5f4a7a374c421958295f4",
+    "runner": "75fe5e3053a90f68a0bbaf9ab78e1405d4639549"
+  },
+  "native": false,
+  "full_gradle": false,
+  "java25": false,
+  "gpu": false,
+  "finite_water_acceptance": false,
+  "v8_gameplay_active": false,
+  "independent_regrade": false,
+  "separate_unchanged_legacy_source_api_double_suites": {
+    "passed": 19,
+    "total": 19,
+    "java": "OpenJDK 21.0.12.1",
+    "dependency_graph": "dev74 portable API doubles; production WatershedRegion not compiled"
+  },
+  "source_archive": {
+    "filename": "DeepPrimal_Dev75_OutletTopology_SourceEvidence.zip",
+    "bytes": 13397,
+    "sha256": "b3599ab36af9874e0a356da82a4430d3c8080c1234b5760ca7469de7363cf82c",
+    "crc": true,
+    "member_sha256_manifest": true
+  }
+}

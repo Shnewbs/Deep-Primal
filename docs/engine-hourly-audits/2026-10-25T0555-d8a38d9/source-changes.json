@@ -1,0 +1,29 @@
+{
+  "base": "88f2bba41866bcea30d5b3397eabe690b26c9baf",
+  "head": "d8a38d9067bf1ed6557957ec391a718cccd48e5b",
+  "total_commits": 1,
+  "files": [
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/archive-diagnostic.txt",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/build-command.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/build-output.txt",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/build-result.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/delivery.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/executed-checks.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/extra-package.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/helper-identity.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/host.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/independent-core-result.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/independent-core.txt",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/lease.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/module-boundary-output.txt",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/module-boundary-result.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/package.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/resource-manifest-preflight.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/source-changes.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/source-identity.json",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/source-inspection.txt",
+    "docs/engine-hourly-audits/2026-10-25T0450-88f2bba/toolchain-verification.json"
+  ],
+  "production_changes": false
+}

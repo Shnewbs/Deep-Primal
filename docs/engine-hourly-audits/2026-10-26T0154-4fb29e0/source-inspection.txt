@@ -1,0 +1,225 @@
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/ChunkCache.java
+1:package com.shnewbs.deepprimal.core;
+2:
+3:import java.util.*;
+4:import java.util.concurrent.atomic.AtomicLong;
+5:import java.util.function.Function;
+6:
+7:/** World-scoped, synchronized weighted LRU; byte reservation cannot overflow. */
+8:public final class ChunkCache {
+9:  private record Entry(Object value,long bytes) {}
+10:  private final LinkedHashMap<Object,Entry> entries = new LinkedHashMap<>(16,.75f,true);
+11:  private final long capacity;
+12:  private final int limit;
+13:  private long bytes;
+14:  private long generation;
+15:  public final AtomicLong hits=new AtomicLong(), misses=new AtomicLong(), evictions=new AtomicLong(), memoryPressureEvents=new AtomicLong();
+16:  public ChunkCache(long megabytes,int limit) {
+17:    if(megabytes<0 || megabytes>Long.MAX_VALUE/(1024*1024) || limit<1) throw new IllegalArgumentException("cache limits");
+18:    capacity=megabytes*1024*1024; this.limit=limit;
+19:  }
+20:  @SuppressWarnings("unchecked") public synchronized <T> T get(Object key) {
+21:    Entry e=entries.get(Objects.requireNonNull(key));
+22:    if(e==null){misses.incrementAndGet();EngineMetrics.CACHE_MISSES.increment();return null;}
+23:    hits.incrementAndGet();EngineMetrics.CACHE_HITS.increment();return (T)e.value;
+24:  }
+25:  public <T> T getOrCompute(Object key,Function<Object,T> computer,long weight) {
+26:    Objects.requireNonNull(key);Objects.requireNonNull(computer);
+27:    if(weight<0)throw new IllegalArgumentException("negative cache weight");
+28:    final long observed;
+29:    synchronized(this){T ready=get(key);if(ready!=null)return ready;observed=generation;}
+30:    T computed=Objects.requireNonNull(computer.apply(key));
+31:    synchronized(this){
+32:      // clear() invalidates pending admissions without waiting for terrain computation.
+33:      if(generation!=observed)return computed;
+34:      Entry existing=entries.get(key);
+35:      if(existing!=null){@SuppressWarnings("unchecked") T winner=(T)existing.value;return winner;}
+36:      put(key,computed,weight);
+37:      return computed;
+38:    }
+39:  }
+40:  public synchronized void put(Object key,Object value,long weight) {
+41:    Objects.requireNonNull(key);Objects.requireNonNull(value);
+42:    if(weight<0)throw new IllegalArgumentException("negative cache weight");
+43:    remove(key);
+44:    if(weight>capacity || capacity==0)return;
+45:    while(!entries.isEmpty() && (bytes>capacity-weight || entries.size()>=limit))evict();
+46:    entries.put(key,new Entry(value,weight));bytes+=weight;
+47:  }
+48:  private void evict(){var it=entries.entrySet().iterator();bytes-=it.next().getValue().bytes;it.remove();evictions.incrementAndGet();EngineMetrics.CACHE_EVICTIONS.increment();}
+49:  public synchronized boolean remove(Object key){var e=entries.remove(key);if(e==null)return false;bytes-=e.bytes;return true;}
+50:  public synchronized void clear(){entries.clear();bytes=0;generation++;}
+51:  public synchronized long getMemoryUsage(){return bytes;}
+52:  public synchronized int size(){return entries.size();}
+53:  public double getHitRate(){double h=hits.get(),m=misses.get();return h+m==0?1:h/(h+m);}
+54:  public synchronized void trimTo(long target){if(target<0)throw new IllegalArgumentException("negative target");while(bytes>target && !entries.isEmpty())evict();}
+55:  public synchronized void handleMemoryPressure(){memoryPressureEvents.incrementAndGet();trimTo(bytes/2);}
+56:  public record Snapshot(int entries,long bytes,double hitRate,long evictions) {
+57:    public static Snapshot from(ChunkCache c){synchronized(c){return new Snapshot(c.size(),c.bytes,c.getHitRate(),c.evictions.get());}}
+58:  }
+59:}
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineCore.java
+1:package com.shnewbs.deepprimal.core;
+2:import com.shnewbs.deepprimal.core.density.AdvancedDensityField;
+3:import java.util.*;
+4:import java.util.concurrent.*;
+5:
+6:/** World-scoped query facade over the saved engine; owns only executors it creates. */
+7:public final class EngineCore implements AutoCloseable {
+8:  private final TerrainEngine terrain;
+9:  private final ChunkCache densityCache,meshCache;
+10:  private final AdvancedDensityField field;
+11:  private final ChunkMaterializer materializer;
+12:  private final WorldGenPipeline pipeline;
+13:  private final ExecutorService ownedWorker;
+14:  private final WaterSimulation water=new WaterSimulation();
+15:  private final long seed;
+16:  private boolean running,closed;
+17:  private EngineCore(Builder b){
+18:    seed=b.seed;terrain=b.terrain!=null?b.terrain:new TerrainEngine(b.seed,b.revision,b.options,b.channelRevision);
+19:    densityCache=new ChunkCache(b.densityMB,b.densityEntries);meshCache=new ChunkCache(b.meshMB,b.meshEntries);
+20:    field=new AdvancedDensityField(terrain,b.minY,b.height,densityCache);
+21:    ownedWorker=b.worker==null?new ThreadPoolExecutor(1,Math.max(1,Math.min(2,Runtime.getRuntime().availableProcessors()/2)),30,TimeUnit.SECONDS,new ArrayBlockingQueue<>(64),job->{var t=new Thread(job,"DeepPrimal-Query");t.setDaemon(true);return t;},new ThreadPoolExecutor.AbortPolicy()):null;
+22:    materializer=new ChunkMaterializer(terrain,field,b.worker!=null?b.worker:ownedWorker);pipeline=new WorldGenPipeline(materializer,meshCache);
+23:  }
+24:  public synchronized void start(){if(closed)throw new IllegalStateException("engine closed");running=true;}
+25:  public void stop(){
+26:    synchronized(this){if(closed)return;running=false;closed=true;}
+27:    pipeline.shutdown();if(ownedWorker!=null)ownedWorker.shutdownNow();field.clearCaches();meshCache.clear();
+28:  }
+29:  @Override public void close(){stop();}
+30:  public synchronized boolean isRunning(){return running;}
+31:  public CompletableFuture<ChunkMaterializer.MaterializedChunk> generateChunkAsync(ChunkMaterializer.ChunkKey key){if(!isRunning())return CompletableFuture.failedFuture(new IllegalStateException("engine stopped"));return pipeline.generateChunk(key);}
+32:  public CompletableFuture<Void> generateChunks(Iterable<ChunkMaterializer.ChunkKey> keys,java.util.function.Consumer<ChunkMaterializer.MaterializedChunk> callback){if(!isRunning())return CompletableFuture.failedFuture(new IllegalStateException("engine stopped"));return pipeline.generateChunks(keys,callback);}
+33:  public double getHeight(double x,double z){synchronized(terrain){return terrain.column(x,z).ground();}}
+34:  public TerrainEngine.Sample sample(double x,double z){long start=System.nanoTime();try{synchronized(terrain){return terrain.sample(x,z);}}finally{EngineMetrics.recordTerrainSample(System.nanoTime()-start);}}
+35:  public int getBiome(double x,double z){synchronized(terrain){return terrain.biome(x,z);}}
+36:  public int getBiome(double x,double y,double z){synchronized(terrain){return terrain.biome(x,y,z);}}
+37:  public boolean isOcean(double x,double z){return terrain.ocean(x,z);}
+38:  public double getTemperature(double x,double z,double h){return terrain.temperature(x,z,h);}
+39:  public double getRainfall(double x,double z){return terrain.rainfall(x,z);}
+40:  public WatershedRegion getWatershed(double x,double z){return terrain.waterways(x,z);}
+41:  public boolean hasCave(double x,double y,double z,double surface,int minY){synchronized(terrain){return terrain.cave(x,y,z,surface,minY);}}
+42:  public boolean hasTunnel(double x,double z){synchronized(terrain){return terrain.tunnel(x,z);}}
+43:  public double getSurfaceWithoutIce(double x,double z){synchronized(terrain){return terrain.surfaceWithoutIce(x,z);}}
+44:  public void simulateWater(double dt,java.util.function.DoubleSupplier ground){water.tick(dt,ground);}
+45:  public AdvancedDensityField.SurfaceHit raycastTerrain(double x,double y,double z,double dx,double dy,double dz,double distance){return field.raycast(x,y,z,dx,dy,dz,distance);}
+46:  public AdvancedDensityField.MeshData computeChunkMesh(int x,int z){return field.computeMesh(x,z);}
+47:  public TerrainEngine getTerrainEngine(){return terrain;}
+48:  public ChunkMaterializer getMaterializer(){return materializer;}
+49:  public ChunkCache getDensityCache(){return densityCache;}public ChunkCache getMeshCache(){return meshCache;}
+50:  public WorldGenPipeline getWorldGenPipeline(){return pipeline;}public AdvancedDensityField getDensityField(){return field;}
+51:  public WaterSimulation getWaterSimulation(){return water;}
+52:  public long getWorldSeed(){return seed;}public int getTerrainRevision(){return terrain.revision;}public TerrainOptions getTerrainOptions(){return terrain.options;}
+53:  public static final class Builder {
+54:    private long seed;private int revision=7,channelRevision,minY=-128,height=768;
+55:    private TerrainOptions options=TerrainOptions.DEFAULT;private TerrainEngine terrain;private Executor worker;
+56:    private int densityMB=16,densityEntries=128,meshMB=32,meshEntries=64;
+57:    public Builder seed(long value){seed=value;return this;}public Builder revision(int value){revision=value;return this;}
+58:    public Builder channelRevision(int value){channelRevision=value;return this;}public Builder options(TerrainOptions value){options=Objects.requireNonNull(value);return this;}
+59:    public Builder terrain(TerrainEngine value){terrain=Objects.requireNonNull(value);return this;}
+60:    public Builder verticalRange(int min,int size){minY=min;height=size;return this;}
+61:    public Builder workerExecutor(Executor value){worker=Objects.requireNonNull(value);return this;}
+62:    public Builder densityCacheMB(int value){densityMB=value;return this;}public Builder densityCacheEntries(int value){densityEntries=value;return this;}
+63:    public Builder meshCacheMB(int value){meshMB=value;return this;}public Builder meshCacheEntries(int value){meshEntries=value;return this;}
+64:    public EngineCore build(){return new EngineCore(this);}
+65:  }
+66:}
+
+engine-core/src/main/java/com/shnewbs/deepprimal/core/WorldGenPipeline.java
+1:package com.shnewbs.deepprimal.core;
+2:import java.util.*;
+3:import java.util.concurrent.*;
+4:import java.util.function.Consumer;
+5:import com.shnewbs.deepprimal.core.ChunkMaterializer.*;
+6:
+7:/** Coalesced, bounded CPU queries. Worlds and dimensions are part of cache identity. */
+8:public final class WorldGenPipeline {
+9:  private final ChunkMaterializer materializer;private final ChunkCache cache;
+10:  private final Map<ChunkKey,CompletableFuture<MaterializedChunk>> pending=new HashMap<>();
+11:  private volatile boolean stopped;
+12:  public WorldGenPipeline(ChunkMaterializer materializer,ChunkCache cache){this.materializer=materializer;this.cache=cache;}
+13:  public synchronized CompletableFuture<MaterializedChunk> generateChunk(ChunkKey key){
+14:    if(stopped)return CompletableFuture.failedFuture(new IllegalStateException("pipeline stopped"));
+15:    MaterializedChunk ready=cache.get(key);if(ready!=null)return CompletableFuture.completedFuture(ready);
+16:    var existing=pending.get(key);if(existing!=null)return existing.copy();
+17:    if(pending.size()>=64)return CompletableFuture.failedFuture(new RejectedExecutionException("64 pending chunk queries"));
+18:    var result=new CompletableFuture<MaterializedChunk>();pending.put(key,result);
+19:    try{materializer.materializeAsync(key,()->stopped).whenComplete((chunk,error)->{
+20:      Throwable failure=error;
+21:      synchronized(this){
+22:        pending.remove(key);
+23:        if(stopped)failure=new CancellationException("pipeline stopped");
+24:        else if(failure==null)cache.put(key,chunk,chunk.payloadBytes());
+25:      }
+26:      // User continuations may call back into EngineCore: never run them under this lock.
+27:      if(failure!=null)result.completeExceptionally(failure);else result.complete(chunk);
+28:    });}catch(RuntimeException error){pending.remove(key);result.completeExceptionally(error);}
+29:    return result.copy();
+30:  }
+31:  public CompletableFuture<Void> generateChunks(Iterable<ChunkKey> keys,Consumer<MaterializedChunk> consumer){
+32:    Objects.requireNonNull(consumer);
+33:    var batch=new ArrayList<ChunkKey>();for(var key:keys){if(batch.size()>=4096)return CompletableFuture.failedFuture(new IllegalArgumentException("batch exceeds 4096"));batch.add(Objects.requireNonNull(key));}
+34:    Iterator<ChunkKey> iterator=batch.iterator();
+35:    CompletableFuture<Void> chain=CompletableFuture.completedFuture(null);
+36:    // At most 4096 items per explicit batch; sequential admission avoids queue floods.
+37:    int count=0;while(iterator.hasNext()){if(++count>4096)return CompletableFuture.failedFuture(new IllegalArgumentException("batch exceeds 4096"));ChunkKey key=iterator.next();chain=chain.thenCompose(v->generateChunk(key).thenAccept(consumer));}return chain;
+38:  }
+39:  public void shutdown(){
+40:    List<CompletableFuture<MaterializedChunk>> cancelled;
+41:    synchronized(this){stopped=true;cancelled=new ArrayList<>(pending.values());pending.clear();cache.clear();}
+42:    for(var future:cancelled)future.completeExceptionally(new CancellationException("pipeline stopped"));
+43:  }
+44:  public synchronized int pendingCount(){return pending.size();}
+45:}
+
+src/main/java/com/shnewbs/deepprimal/EngineCoreModule.java
+1:package com.shnewbs.deepprimal;
+2:import com.shnewbs.deepprimal.core.*;
+3:import com.shnewbs.deepprimal.engine.EngineChunkGenerator;
+4:import com.shnewbs.deepprimal.engine.EngineRuntimeConfig;
+5:import java.util.*;
+6:import net.neoforged.bus.api.SubscribeEvent;
+7:import net.neoforged.neoforge.event.server.*;
+8:import net.neoforged.neoforge.event.tick.ServerTickEvent;
+9:
+10:/** Adapter owned by DeepPrimal's existing mod; it never registers a second mod or registry. */
+11:public final class EngineCoreModule {
+12:  private static final Map<String,EngineCore> worlds=new HashMap<>();
+13:  @SubscribeEvent public void started(ServerStartedEvent event){
+14:    shutdown();EngineBootstrap.initialize();
+15:    try {for(var level:event.getServer().getAllLevels())if(level.getChunkSource().getGenerator() instanceof EngineChunkGenerator generator){
+16:      var core=new EngineCore.Builder().seed(level.getSeed()).terrain(generator.geography())
+17:          .verticalRange(generator.getMinY(),generator.getGenDepth())
+18:          .densityCacheMB(EngineRuntimeConfig.DENSITY_MB.get()).densityCacheEntries(EngineRuntimeConfig.DENSITY_ENTRIES.get())
+19:          .meshCacheMB(EngineRuntimeConfig.MESH_MB.get()).meshCacheEntries(EngineRuntimeConfig.MESH_ENTRIES.get()).build();core.start();
+20:      synchronized(worlds){worlds.put(level.dimension().identifier().toString(),core);}
+21:    }}catch(RuntimeException failure){shutdown();throw failure;}
+22:  }
+23:  @SubscribeEvent public void tick(ServerTickEvent.Post event){CoreValidation.tick();}
+24:  @SubscribeEvent public void stopping(ServerStoppingEvent event){shutdown();}
+25:  @SubscribeEvent public void stopped(ServerStoppedEvent event){shutdown();}
+26:  public static EngineCore getEngineCore(){return getEngineCore("minecraft:overworld");}
+27:  public static EngineCore getEngineCore(String dimension){synchronized(worlds){return worlds.get(dimension);}}
+28:  private static void shutdown(){
+29:    List<EngineCore> closing;
+30:    synchronized(worlds){closing=new ArrayList<>(worlds.values());worlds.clear();}
+31:    closing.forEach(EngineCore::close);EngineBootstrap.shutdown();
+32:  }
+33:}
+
+src/main/java/com/shnewbs/deepprimal/engine/EngineRuntimeConfig.java
+1:package com.shnewbs.deepprimal.engine;
+2:import net.neoforged.neoforge.common.ModConfigSpec;
+3:/** Limits for the world-scoped query facade; never rewrites saved generation profiles. */
+4:public final class EngineRuntimeConfig {
+5:  public static final ModConfigSpec SPEC;
+6:  public static final ModConfigSpec.IntValue DENSITY_MB,MESH_MB,DENSITY_ENTRIES,MESH_ENTRIES;
+7:  static {var b=new ModConfigSpec.Builder();
+8:    DENSITY_MB=b.comment("Maximum query occupancy cache MiB per engine dimension. Zero disables caching.").defineInRange("densityCacheMiB",16,0,256);
+9:    MESH_MB=b.comment("Maximum query mesh cache MiB per engine dimension. Zero disables caching.").defineInRange("meshCacheMiB",32,0,512);
+10:    DENSITY_ENTRIES=b.defineInRange("densityCacheEntries",128,1,4096);MESH_ENTRIES=b.defineInRange("meshCacheEntries",64,1,2048);SPEC=b.build();}
+11:  private EngineRuntimeConfig(){}
+12:}

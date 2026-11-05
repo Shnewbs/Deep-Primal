@@ -1,0 +1,122 @@
+{
+  "version": "dev.32-contact-candidate.1 (source only)",
+  "production_promoted": false,
+  "full_core": {
+    "pass": true,
+    "sources": 139,
+    "production_sources": 75,
+    "test_sources": 64,
+    "exit": 0
+  },
+  "contact_double_checks": {
+    "pass": true,
+    "cases": 12302,
+    "random_pairs": 12288,
+    "dry_reentries": 100000,
+    "negative_control": "disabled mixing rejected: AssertionError contact oracle"
+  },
+  "api_compile": {
+    "pass": true,
+    "compiled_classes": 13,
+    "actual_minecraft_neoforge_api": true
+  },
+  "native_fresh": {
+    "mode": "fresh",
+    "exit": 0,
+    "marker": true,
+    "commands_sent": true,
+    "flush": true,
+    "stopped": true,
+    "errors": [],
+    "sha256_unchanged": true,
+    "seconds": 12.286874281000564,
+    "diagnostic_only": true,
+    "pass": true,
+    "offline_auth_network_warnings": [
+      "[03:19:56] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com"
+    ]
+  },
+  "native_reopen": {
+    "mode": "reopen",
+    "exit": 0,
+    "marker": true,
+    "commands_sent": true,
+    "flush": true,
+    "stopped": true,
+    "errors": [],
+    "sha256_unchanged": true,
+    "seconds": 10.02041004199964,
+    "diagnostic_only": true,
+    "pass": true,
+    "offline_auth_network_warnings": [
+      "[03:20:38] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key",
+      "com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to api.minecraftservices.com",
+      "Caused by: java.net.UnknownHostException: api.minecraftservices.com"
+    ]
+  },
+  "regressions": {
+    "exact_diffusion_oracle": 201134,
+    "pair_properties": 101024,
+    "equilibrium_repeats": 10000,
+    "network_steps": 200000,
+    "account_transfers": 200000,
+    "weather_intervals": 180000,
+    "pass": true
+  },
+  "unpassed_gates": [
+    "full Gradle build and module tasks",
+    "full new distribution producer and package qualification",
+    "combined hydrology source index integration",
+    "real OpenGL/Vulkan scenes",
+    "Windows AMD8060S",
+    "multiplayer and long soak",
+    "named-hardware latency and allocation"
+  ],
+  "fresh_grade": false,
+  "last_full_external_average": 5,
+  "host": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "files": [
+    {
+      "path": "WaterAccount.java",
+      "bytes": 6295,
+      "sha256": "0c05d694c257970ad99d4acf6da3afd86bf4b1ae19ada2955d4c35413d5e2457"
+    },
+    {
+      "path": "WaterRuntime.java",
+      "bytes": 29655,
+      "sha256": "c197ead0d3f08a041d8f4ac8a28206d83396bcabd573ed370b66f313b7fa6a18"
+    },
+    {
+      "path": "WaterContactRuntime.java",
+      "bytes": 4656,
+      "sha256": "38066096f0f245c90030be5428c5f67ef37bcb868b6a27300f74381512e91f90"
+    },
+    {
+      "path": "ContactChecks.java",
+      "bytes": 6003,
+      "sha256": "2a06d69abf4724c02c6d0202ee73e2cf2cb5dff56fc94a3d68959fc078c34651"
+    },
+    {
+      "path": "ContactNativeChecks.java",
+      "bytes": 3305,
+      "sha256": "3406b64d0b76754f2f19e36bcf2bae9d342f1de46b7640d00024850a280efff9"
+    },
+    {
+      "path": "full-core.log",
+      "bytes": 11199,
+      "sha256": "256e6993f71e8f0b1c32c58548c899be2674b69d91dc3ee1970f8fe3a0b3aec5"
+    },
+    {
+      "path": "fresh-native.log",
+      "bytes": 17313,
+      "sha256": "b6ccc2fa9e7b1c3c50a8b2732947cabe3620af08bf7cc01ea38d3d9a624832c1"
+    },
+    {
+      "path": "reopen-native.log",
+      "bytes": 16979,
+      "sha256": "fdc97ee89f1c8b86d882f3e9c1be9c34fede962a48b06b041c615cc2c164480b"
+    }
+  ]
+}

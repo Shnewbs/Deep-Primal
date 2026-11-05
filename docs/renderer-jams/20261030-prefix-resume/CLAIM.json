@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "owner": "renderer-hourly-feature-only",
+  "jam_id": "renderer-20261030T0059-prefix-resume",
+  "status": "active",
+  "started_at": "2026-10-30T00:59:00Z",
+  "expires_at": "2026-10-30T01:20:00Z",
+  "source_head_observed": "efe9f4d3d583ae4d0e8fda36ce1b02a258445ee3",
+  "source_blob_expected": "035f7f7aba3914cf404a12942bcd1a34f4e927f5",
+  "scope": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPublishedBounds.java",
+    "docs/renderer-jams/20261030-prefix-resume/**"
+  ],
+  "purpose": "Avoid repeat metadata scan for identity-shared resident bounds prefix that diverges late; exact predecessor parity and bounded CPU benchmark; no geometry, water, temporal upscaler, simulator or native GPU changes",
+  "measurement_reservation": "isolated Java21 CPU old/new deterministic fixture only; native GPU measurements not reserved",
+  "separate_from": [
+    "general engine/water",
+    "independent engine auditor",
+    "graphics-upscaling owner"
+  ],
+  "owner_build_policy": "owner Java25/full Gradle/Minecraft/GPU/JAR; isolated Java21 tests here",
+  "no_other_workstreams": true,
+  "lease_released": false
+}

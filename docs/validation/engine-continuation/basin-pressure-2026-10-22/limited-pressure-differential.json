@@ -1,0 +1,8 @@
+{
+  "scope": "actual core source against exact preserved old body; not native world acceptance",
+  "baseline_core_sha256": "d804ddbc035bf64afdbbe5d72eb52256750f015942931e329f566b40d8128b97",
+  "candidate_core_sha256": "df59081de2c2456e179e8c36055b907a62461916b2e3fff5ab2db9a0bf3fd645",
+  "record": "LIMITED_PRESSURE_DIFFERENTIAL_PASS legacy=34969 capped=629442 exactOldBody=true actualNewCore=true extremeHeights=true negativeLimit=true",
+  "compile_exit": 0,
+  "run_exit": 0
+}

@@ -1,0 +1,14 @@
+{
+  "owner": "deep-primal-engineering",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WorkBudget.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WorkBudgetTelemetryChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/work-budget-telemetry-2026-10-31/**"
+  ],
+  "status": "completed-released",
+  "parent": "5d0a68174e12b56a58502117248083a860ee017a",
+  "validation": "isolated Java21 300031 checks; original compiled control rejected",
+  "no_actions": true,
+  "no_jar": true
+}

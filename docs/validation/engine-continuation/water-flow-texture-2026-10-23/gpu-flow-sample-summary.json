@@ -1,0 +1,38 @@
+[
+  {
+    "case": "vulkan-order-flow-packed",
+    "phase": "before-reload",
+    "top_vertices": 12,
+    "readback_bytes": 187920
+  },
+  {
+    "case": "vulkan-order-flow-packed",
+    "phase": "after-reload",
+    "top_vertices": 12,
+    "readback_bytes": 172368
+  },
+  {
+    "case": "vulkan-order-flow-packed-packaged",
+    "phase": "before-reload",
+    "top_vertices": 12,
+    "readback_bytes": 172800
+  },
+  {
+    "case": "vulkan-order-flow-packed-packaged",
+    "phase": "after-reload",
+    "top_vertices": 12,
+    "readback_bytes": 174528
+  },
+  {
+    "case": "vulkan-reuse-gl-flow-packed",
+    "phase": "before-reload",
+    "top_vertices": 12,
+    "readback_bytes": 174528
+  },
+  {
+    "case": "vulkan-reuse-gl-flow-packed",
+    "phase": "after-reload",
+    "top_vertices": 12,
+    "readback_bytes": 165888
+  }
+]

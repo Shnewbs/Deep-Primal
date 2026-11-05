@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1100-scene-pixel-lod",
+  "owner": "dedicated-renderer-hourly",
+  "status": "released",
+  "started_at": "2026-10-29T11:00:00Z",
+  "active_until": "2026-10-29T11:14:35Z",
+  "baseline_sha": "c48b7bc6148be4c2f0013ae685d4bed7ad3ffdee",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodErrorProjection.java",
+    "docs/renderer-jams/20261029-scene-pixel-lod/**"
+  ],
+  "measurement_reservation": "isolated Java21 source parity/selection fixture; no native/GPU or shared Gradle reservation",
+  "consumed": [
+    "docs/renderer-jams/20261029-normal-angle-fastpath/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1032-00921e12/REVIEW.md"
+  ],
+  "goal": "Select LOD screen error from active scaled world-target pixel height, preserve native fallback and water/order/mesh semantics, expose effective height in diagnostics",
+  "excluded": [
+    "terrain generation",
+    "finite water",
+    "graphics-settings and renderer-vulkan modules",
+    "other worker files and build outputs",
+    "other schedules"
+  ],
+  "owner_build_override": "User performs full Java25 Gradle/Minecraft/GPU/JAR builds",
+  "released_at": "2026-10-29T11:14:35Z",
+  "reviewed_source_sha": "cf578b2e36fcdbde04320cc2564c5b1cd89004d6",
+  "source_commit": "cf578b2e36fcdbde04320cc2564c5b1cd89004d6",
+  "source_blobs": {
+    "renderer": "71ed726cd3723beba3fa1fe88d8fef00fc3fe01b",
+    "diagnostics": "8483c0f1a5e90dda37e8f9bc39d953f780af443c",
+    "helper": "895c4beef16e9d251cf8fe1f0b200f35a280e782",
+    "test": "24fa8ad1d3beda28b33195844aa33cf75a0100f5"
+  },
+  "grade": 5.74,
+  "previous_grade": 5.73,
+  "assertions_passed": 1002560,
+  "source_checks": "19/19",
+  "artifact": "DeepPrimal_Renderer_ScenePixelLod_20261029_cf578b2_SourceEvidence.zip",
+  "artifact_sha256": "9578e6c648b4f84611761c3fa27852a6a953c4138ccd421d94cd10df9af02258",
+  "artifact_library_uploaded": true,
+  "qualified_jar": false,
+  "java25_gradle": false,
+  "actual_gpu": false
+}

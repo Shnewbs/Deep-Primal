@@ -1,0 +1,69 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "tools/build_with_current_proxy.py",
+    "--java-home",
+    "/workspace/scratch/a22609fabda0/water-side-material-0930/toolchain/jdk-25.0.4.1+1",
+    "--gradle",
+    "/workspace/scratch/a22609fabda0/water-side-material-0930/toolchain/gradle-9.2.1/bin/gradle",
+    "--gradle-user-home",
+    "/workspace/scratch/a22609fabda0/water-side-material-0930/toolchain/gradle-cache",
+    "--trust-store",
+    "/etc/ssl/certs/java/cacerts",
+    "--neoform-agent",
+    "/workspace/scratch/a22609fabda0/water-side-material-0930/toolchain/checked-agent/neoform-process-fallback.jar",
+    "--",
+    "--no-daemon",
+    "--console=plain",
+    "--max-workers=2",
+    "-Dorg.gradle.jvmargs=-Xmx1G",
+    "-Porg.gradle.java.installations.paths=/workspace/scratch/a22609fabda0/water-side-material-0930/toolchain/jdk-21.0.12.1+1,/workspace/scratch/a22609fabda0/water-side-material-0930/toolchain/jdk-25.0.4.1+1",
+    "-PvulkanPlatform=linux",
+    "-Pmod_version=0.0.1-alpha.25-dev",
+    "--no-build-cache",
+    "--no-parallel",
+    "--rerun-tasks",
+    "build"
+  ],
+  "started_utc": "2026-10-23T09:45:30.156810+00:00",
+  "finished_utc": "2026-10-23T09:46:42.282462+00:00",
+  "elapsed_seconds": 72.13,
+  "exit_code": 0,
+  "stable_samples": 4,
+  "observations": [
+    {
+      "bytes": 14514,
+      "sha256": "ad10410a2ff09c2e23142856573755c2572613293f41d2947225433c77df7b58"
+    },
+    {
+      "bytes": 14514,
+      "sha256": "ad10410a2ff09c2e23142856573755c2572613293f41d2947225433c77df7b58"
+    },
+    {
+      "bytes": 14514,
+      "sha256": "ad10410a2ff09c2e23142856573755c2572613293f41d2947225433c77df7b58"
+    },
+    {
+      "bytes": 14514,
+      "sha256": "ad10410a2ff09c2e23142856573755c2572613293f41d2947225433c77df7b58"
+    },
+    {
+      "bytes": 14514,
+      "sha256": "ad10410a2ff09c2e23142856573755c2572613293f41d2947225433c77df7b58"
+    }
+  ],
+  "raw_sha256": "ad10410a2ff09c2e23142856573755c2572613293f41d2947225433c77df7b58",
+  "gzip_sha256": "347da9223a95e69ddcc92e2d46ac310d32296299f87fb0a0328293298d9de0f2",
+  "required_records": {
+    "BUILD SUCCESSFUL": true,
+    "CACHE_CHECKS_PASS": true,
+    "WATER_SURFACE_SHAPE_PASS": true,
+    "INTEGRATED_CORE_PASS": true,
+    "TERRAIN_V2_CORE_PASS": true,
+    "WATERSHED_CORE_PASS": true,
+    "WATER_DYNAMICS_PASS": true,
+    "HYDROLOGY_PASS": true,
+    "25 actionable tasks: 25 executed": true
+  },
+  "pass": true
+}

@@ -1,0 +1,13 @@
+{
+  "mode": "candidate",
+  "exit_code": 0,
+  "elapsed_seconds": 28.03,
+  "deposit_record": null,
+  "raw_sha256": "118c9e354fc9a712bdd03287ef88cb8274ca154bfa52e5820afe6b97bf739a5d",
+  "saved": true,
+  "stopped": false,
+  "crashes": [
+    "crash-2026-10-24_01.38.19-server.txt"
+  ],
+  "pass": false
+}

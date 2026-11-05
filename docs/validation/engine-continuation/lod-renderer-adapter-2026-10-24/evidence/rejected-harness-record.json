@@ -1,0 +1,14 @@
+{
+  "earlier_18_check_pass": "Before explicit out-and-back regression. Superseded by final20.",
+  "rejected_backtrack_attempt": {
+    "log": "intermediate/out-and-back-failure.log",
+    "assertion": "camera cancellation cleanup",
+    "reason": "Harness completion accepted a cancelled terminal request before replacement serviced; scheduling race. Not accepted as candidate failure or pass."
+  },
+  "subsequent_final_attempt": {
+    "exit": 1,
+    "assertion": "out-and-back camera restarts cancelled owner",
+    "reason": "Same premature harness completion; terminal must also be uncancelled and match requested view. Transcript retained; stdout file overwritten by final run."
+  },
+  "correction": "Completion requires terminal, uncancelled, current camera and consumed Future. Barrier yields to pending cancellation cleanup. Corrected harness reproduces initial adapter backtrack bug and final passes12repeats. No product/native failure inferred."
+}

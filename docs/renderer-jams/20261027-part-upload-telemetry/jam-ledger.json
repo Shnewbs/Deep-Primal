@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "jam": "20261027-part-upload-telemetry",
+  "role": "dedicated-renderer",
+  "claim_commit": "d40cf15b3dd602412229cb78c7cc77bcab53032a",
+  "production_parent": "d40cf15b3dd602412229cb78c7cc77bcab53032a",
+  "pinned_production_sha": "a6e24b0d2301a4101262c3912c02467e4bf49af2",
+  "version": "0.0.1-alpha.29-dev.42-v8bounds.1",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodGpuUploadProbe.java",
+    "docs/renderer-jams/20261027-part-upload-telemetry/LodGpuUploadProbeChecks.java"
+  ],
+  "source_blobs": {
+    "renderer": "5398cc8911224084127d0f784e745e374a3f8ff0",
+    "client": "244efcc1bef0f87b31d4328500e697931fa52a6f",
+    "probe": "3320dbc1833aa64796caf8e8bf3e89a89bc0b969",
+    "test": "26b8aeb2413b1cffe0164a8f35e4d4b41adbe791",
+    "rolling_timing": "0be7512957537596295ba204f8f1dfc176aa686f"
+  },
+  "results": {
+    "focused_java": "PASS 40551 assertions; 77100 attempts, 72498 accepted/4602 modeled failures; exact RollingTiming blob; Java21 --release21 -Xlint:all -Werror",
+    "negative_mutant": "EXPECTED_REJECTION exit1 strict > vs >=",
+    "java25": "NOT_RUN: owner JDK25 binary and archive not mounted",
+    "full_gradle_native": "NOT_RUN: owner build override",
+    "gpu_frames": "NOT_RUN",
+    "jars": "NOT_PRODUCED"
+  },
+  "scores": [
+    4,
+    6,
+    4,
+    5,
+    5,
+    4
+  ],
+  "total": 28,
+  "average": 4.666666666666667,
+  "previous_average": 4.666666666666667,
+  "delta": 0,
+  "whole_engine_grade_carried": "50/100 (5.0/10), no new external grade",
+  "lease_status": "released",
+  "next": "owner Vulkan/GL real frame+device/upload p50/p95/p99, then bounded mesh quad split only if measured; NGX depth/jitter/motion vectors.",
+  "artifact": {
+    "name": "DeepPrimal_Renderer_PartUploadTelemetry_20261027_a6e24b0_SourceEvidence.zip",
+    "type": "source/evidence only; no JAR",
+    "bytes": 12998,
+    "sha256": "a10a75bd21d1cdd297865b494453c1f9a44eb320897ccea7105aaf7942b123f5",
+    "archive_crc_pass": true,
+    "library_file_id": "libfile_9d904cef77f88191a84f366f4325fd16",
+    "library_path": "/DeepPrimal_Renderer_PartUploadTelemetry_20261027_a6e24b0_SourceEvidence.zip"
+  }
+}

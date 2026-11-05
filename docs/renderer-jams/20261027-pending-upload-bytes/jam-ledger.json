@@ -1,0 +1,166 @@
+{
+  "jam_id": "20261027-pending-upload-bytes",
+  "status": "completed-staging-not-promoted",
+  "started_at": "2026-10-27 03:56:50 UTC",
+  "completed_at": "2026-10-27 04:08:06 UTC",
+  "initial_main_sha": "3ced10a9e1491bf3b57e45bfa64489166fba2a9b",
+  "claim_commit": "5c625a29fd3ebce3dc988a1a9b115407ca95019c",
+  "candidate_parent_sha": "5c625a29fd3ebce3dc988a1a9b115407ca95019c",
+  "final_candidate_source_sha": "b0cd440bb11818a35f3042b8c5bd17e9deed24f0",
+  "candidate_blob_sha": "1259429a9b95b765a51555a4519f3aa499b5d6e1",
+  "production_source_sha": "2e1aa76da93518fe87ba1bc07e5dfb5b3cf4564e",
+  "production_version": "0.0.1-alpha.29-dev.31-renderer.7",
+  "new_version": null,
+  "new_artifact": null,
+  "changes": {
+    "candidate_paths": [
+      "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java"
+    ],
+    "main_scope": [
+      "docs/renderer-jams/20261027-pending-upload-bytes/**"
+    ],
+    "summary": "Indexed long summation over existing private ArrayLists; no stream/iterator allocation, recomputes actual current byteSize; only pending CPU admission query changes"
+  },
+  "consumed_audits": [
+    "docs/renderer-jams/20261027-capacity-recovery/REVIEW.md @3ced10a9e1491bf3b57e45bfa64489166fba2a9b",
+    "docs/engine-hourly-audits/2026-10-27T0230-2e15d24/REVIEW.md @3ced10a9e1491bf3b57e45bfa64489166fba2a9b",
+    "docs/engine-hourly-audits/2026-10-27T0332-2e1aa76/REVIEW.md @0dd3d8bec006de27d742e96e7758b00359e8e7dd"
+  ],
+  "fresh_checks": {
+    "verified_current_main_java_blobs": 385,
+    "fresh_java25_source_count": 142,
+    "production_core_sources": 76,
+    "core_fixture_sources": 66,
+    "full_core_suite_exit": 0,
+    "full_core_seconds": 258.2633810389998,
+    "actual_api_client_compiles": [
+      "baseline",
+      "candidate"
+    ],
+    "prior_qualified_module_dependency_class_matches": 400,
+    "matched_fresh_jvm_forks": [
+      "baseline",
+      "candidate",
+      "candidate",
+      "baseline"
+    ],
+    "assertions_each_fork": 10063,
+    "negative_controls_expected_rejections": 2,
+    "frozen_compiled_class_snapshots": 238,
+    "exact_commands": "evidence/*-compile.json, evidence/probe-*.json, evidence/full-core.json and evidence/negative-controls.json"
+  },
+  "measurements": {
+    "scope": "CPU actual private PendingGpu.bytes query; no actual GPU upload or running game",
+    "scenes": 5,
+    "warmup_queries_per_scene": 100000,
+    "measured_batches_per_scene": 128,
+    "queries_per_batch": 1024,
+    "observed_bytes_per_query": {
+      "baseline_min": 544,
+      "baseline_max": 550.882568,
+      "candidate_min": 0,
+      "candidate_max": 0.002258
+    },
+    "geometry_signatures_identical": true,
+    "raw_rows": "evidence/component-measurements.json",
+    "batch_timing_not_frame_percentiles": true,
+    "no_universal_tail_improvement": true,
+    "exclusive_hardware": false
+  },
+  "review": {
+    "kind": "author renderer jam read-only scoped self-audit",
+    "started_at": "2026-10-27 04:03:12 UTC",
+    "candidate_frozen": true,
+    "no_implementation_edits_during_scored_review": true,
+    "categories": [
+      "distance_LOD",
+      "mesh_reuse_scheduling",
+      "GPU_culling_submission_memory",
+      "actual_FSR_DLSS",
+      "visual_backend_settings",
+      "validation_measured_performance"
+    ],
+    "scores": [
+      4,
+      6,
+      4,
+      0,
+      4,
+      4
+    ],
+    "equally_weighted": true,
+    "average": 3.6666666666666665,
+    "previous_average": 3.6666666666666665,
+    "delta": 0,
+    "all_scores_carried": true,
+    "external_engine_grade_unchanged": 5
+  },
+  "unrun": [
+    "candidate full Java25 Gradle/module build",
+    "candidate distribution producer/outer/nested CRCs/native payload/fixture exclusions/source-compiled-packaged identity/hash/size",
+    "candidate packaged client/backends/reload/resize/world-switch/save/reopen/shutdown",
+    "actual GPU/Windows/AMD8060S/NVIDIA hardware",
+    "complete game-frame/pipeline/draw/descriptor/VRAM/RAM/cold-travel-edit baselines",
+    "vendor SDK provider/input/dispatch/lifetime/license/hardware integration"
+  ],
+  "blocker": "ENOSPC on actual 1MiB workspace and /tmp writes; private memory fluctuates below full isolated Themes/distribution/build/native footprint",
+  "remaining_defects": [
+    "Candidate unregistered in normal focused client checks and unqualified/unpromoted",
+    "real GPU client coverage/performance absent",
+    "unexplored delivery/hierarchy/streaming completeness open",
+    "FSR/DLSS absent"
+  ],
+  "next_repair": "Recover private build headroom, register and fully qualify candidate before promotion/new JAR; actual GPU coverage and baselines remain priority",
+  "ownership_released": true,
+  "other_schedules_unchanged": true,
+  "final_receipt_parent_sha": "3d24e86f9dc0473d1ffa07dda7617e3c1dcf1c91",
+  "actual_changed_main_files": [
+    "docs/renderer-jams/20261027-pending-upload-bytes/BACKLOG.md",
+    "docs/renderer-jams/20261027-pending-upload-bytes/REVIEW.md",
+    "docs/renderer-jams/20261027-pending-upload-bytes/baseline/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-pending-upload-bytes/candidate/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-pending-upload-bytes/checks/PendingUploadBytesChecks.java",
+    "docs/renderer-jams/20261027-pending-upload-bytes/claim.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/baseline-compile.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/baseline-compile.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/baseline-pending-bytecode.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/bytecode-inspection.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/candidate-compile.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/candidate-compile.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/candidate-pending-bytecode.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/checks-complete.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/class-sha256.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/component-measurements.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/core-compile.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/core-compile.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/fixture-compile.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/fixture-compile.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/full-build-preflight.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/full-core.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/full-core.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/generated-test-output-identities.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/negative-controls.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/prior-qualified-module-dependencies.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-0-baseline.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-0-baseline.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-1-candidate.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-1-candidate.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-2-candidate.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-2-candidate.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-3-baseline.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/probe-3-baseline.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/review-frozen-snapshot.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/source-diff.patch",
+    "docs/renderer-jams/20261027-pending-upload-bytes/evidence/source-identity.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/inputs.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/jam-ledger.json",
+    "docs/renderer-jams/20261027-pending-upload-bytes/negative-controls/narrow-integer/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-pending-upload-bytes/negative-controls/narrow-integer/checks.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/negative-controls/narrow-integer/compile.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/negative-controls/omit-coarse/VoxelLodRenderer.java",
+    "docs/renderer-jams/20261027-pending-upload-bytes/negative-controls/omit-coarse/checks.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/negative-controls/omit-coarse/compile.txt",
+    "docs/renderer-jams/20261027-pending-upload-bytes/run_checks.py",
+    "docs/renderer-jams/20261027-pending-upload-bytes/integration-proof.json"
+  ]
+}

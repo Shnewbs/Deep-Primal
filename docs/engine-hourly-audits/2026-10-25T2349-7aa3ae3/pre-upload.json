@@ -1,0 +1,8 @@
+{
+  "sha256": "2856a1d61f5e7372525b9b4ead11861ead9c5cc931d90b01f0ffe8862b70f368",
+  "size": 125231202,
+  "producer_completed": true,
+  "producer_export_equal": true,
+  "default_and_optin_native_gates_pass": true,
+  "regular_workspace_file": true
+}

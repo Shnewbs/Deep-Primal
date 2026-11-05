@@ -1,0 +1,1037 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/before-WaterPatchMesher.java",
+    "bytes": 7084,
+    "sha256": "0e15170affdf3cd58d2f097d0a82608b48cf0257efb3bff0a7f73698b15d1eed"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/source-baseline.json",
+    "bytes": 39117,
+    "sha256": "3f82f22206ae85cda417d5167ba54c9fe287ac19673389560d940488b873dec5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/run_vulkan.py",
+    "bytes": 19013,
+    "sha256": "d644ad0a32098f90624bc0ca0aa10df9615449a3a436c6e423b5ac41fd18f226"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/before-AnimatedWaterRenderer.java",
+    "bytes": 26669,
+    "sha256": "04ec1c39771f528916ca9b4fce175e3e908a6ebb13020193992042a5f111aecb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/audit_vulkan_package.py",
+    "bytes": 3830,
+    "sha256": "8f7ce271d84b9ba83eadd716144d6e650a8b0fb96f119bc450de3ae7306e1f68"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/audit_opengl_flow.py",
+    "bytes": 7698,
+    "sha256": "c2f3e9fa672ce79f56610892656f6db59c265901fcc87f0d14546c14be653096"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-build-audit.json",
+    "bytes": 1869,
+    "sha256": "09ccb79a949e638d42a4ded2e4d8b0db6fa4d91912bd7ba048eb959c97b6de05"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/README.md",
+    "bytes": 5919,
+    "sha256": "0d846066b4fb12ed9f9d7c41a661c83e69085fe8707e6cd5a96f70274c488009"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/candidate-build-result.json",
+    "bytes": 2378,
+    "sha256": "e0c947c83c86b733d189946f98ba78442c2c77017974caa682d0d149bad9f164"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/code-self-audit.json",
+    "bytes": 1641,
+    "sha256": "f6b1614f1c70380826af2d2885d73c225ec674f1f0f7be771b5d579ad5dbc599"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/prepare_checkpoint.py",
+    "bytes": 23159,
+    "sha256": "07221d67d20ccf62dddf51003fe1334924e4d68c3f15a0e8ec4bc64959d584f3"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/candidate-build-final.gz",
+    "bytes": 3482,
+    "sha256": "692ecd63117057e152e0edd4e7552fc6098e66d0028e04f2a01767d2bc08a974"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/screenshot-inspection.json",
+    "bytes": 4644,
+    "sha256": "77b85b8b60b3c19ae694b9306a123f3229d3a86a9f383fd0491c92f5e419abd8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/module-identities.json",
+    "bytes": 1114,
+    "sha256": "6e849ab70bf8294016132484a70c80ef491536f049dbc641c0b50cc7b528d42b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/source-scope-audit.json",
+    "bytes": 2240,
+    "sha256": "42f0126510ff8141ed497372c610aa1c380618f06079336e3d3c81351b227c18"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/flow-mesh-cpu-observations.json",
+    "bytes": 8107,
+    "sha256": "ed7d515dcf59946a53d040a0ce1660f6c2879828cb0fd30c817f07870938fc93"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/strict-opengl-flow-audit.json",
+    "bytes": 996,
+    "sha256": "ab6bc9f0d412ee472136df47ffc548ed80deefdefb78f81356855ef92d672c72"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/make_frame_video.py",
+    "bytes": 2172,
+    "sha256": "218eda492d9ad450a8e08c1e1c15878f41cef558c4b0796f85248efa4904ec28"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/actual-view-activity.json",
+    "bytes": 1863,
+    "sha256": "3a90d9a48484795479b1021b3410ef32fbbb56827b5381b25e63383712721cad"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/build_candidate.py",
+    "bytes": 2339,
+    "sha256": "24e4bc259238f917606eec242b3eaee90c0c4afe3e126c113a6298fe49ba4a15"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/audit_water_flow.py",
+    "bytes": 15435,
+    "sha256": "139bb177d0c948894db0a759fed98c09c16a3886bb0ed5a2d81082648e2bf661"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/baseline-source-verification.json",
+    "bytes": 303,
+    "sha256": "d94ae4f3fd9c818d302a586fa513c8fb949d478806d32435470f48a501b49ba5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/strict-water-flow-native-audit.json",
+    "bytes": 12330,
+    "sha256": "3da9bf9c10d3f3afdb0f9e68cc9b25a24ff953dfda123284db1b4043726e9172"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/gpu-flow-sample-summary.json",
+    "bytes": 816,
+    "sha256": "aeb69d7c1132a7a3aa3f52bda2413f2f643495aa181e3ab9c9633a3ef33b2774"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/water-flow-texture.patch",
+    "bytes": 7162,
+    "sha256": "dcc80f9399d8d3d2969186438bdd37037a16725c588f9642b35d6b7cd1f75288"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-flow-mesh-cpu-observations.json",
+    "bytes": 7989,
+    "sha256": "c8a7cc3854d547aea9cb7f7e25274255ca4eb85bec7385253ad80972cc42506a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-first-package-audit.json",
+    "bytes": 1777,
+    "sha256": "cb4ebff9b73b820070c8edae9f614292f96bbd1096dc0fd49cedc6aa40ceca39"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-WaterPatchMesher.java",
+    "bytes": 8270,
+    "sha256": "2659514c31af7031cad8294bb2e08697ce194c52ee6603e20d87c10f610d4842"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-candidate-build-final.gz",
+    "bytes": 3482,
+    "sha256": "e33e1c30840320f794b45cbaf664daf76e60e835d1535f26c786ea5ffe14eb30"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/status.json",
+    "bytes": 375,
+    "sha256": "eaa5005c733ccd0dc2a0fee52fb224dd292d5d5e45aeb1b2a7c1cd4e3224a8ae"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-candidate-build-result.json",
+    "bytes": 2378,
+    "sha256": "4776c9605f75f39f269fec5169cbf5832e2cd73e11b5c710c06189918e2fe224"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-WaterFlowTextureChecks.java",
+    "bytes": 9559,
+    "sha256": "8d7ed1a4e3c5cd6b0102b291abf9ff1329c7a3e1f4e8c0ae20dc6c0c87774bbc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/packed-short-warmup-cpu-observations.json",
+    "bytes": 7993,
+    "sha256": "8e4066a5fb8272c123b8d8853d523264d7f9f049a5e4403788a9f2b66d7d54c2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/superseded/initial-AnimatedWaterRenderer.java",
+    "bytes": 26894,
+    "sha256": "684454656c6b44aa832b7f03195fc8aea963af0eda3f7bdbc26985d7dff670bd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/selected-records.txt",
+    "bytes": 710,
+    "sha256": "4a34a5c1b027a2c42abb9f3cdc0f44933de1e6b774737cf8d02249c9afa0280d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/command.json",
+    "bytes": 1337,
+    "sha256": "fe7c85663e67843b722ed0184a3d3499715b04214dc1c6b010358e0aa5bd9df0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/action-history.json",
+    "bytes": 279,
+    "sha256": "920bbe12cb48df60ecf55d92ba3818469aca00da5b02ad617d2b881b23f74028"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/result.json",
+    "bytes": 3669,
+    "sha256": "00437d744d2da0cd1297c67cfa30de58f0457921c5d8ca62295f0c781145736e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/console-final.gz",
+    "bytes": 11945,
+    "sha256": "81f119c2141dc41e417376c04fcb2d02096e701bb04f95a7c6ae85ffe881e780"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/crash-excerpt.txt",
+    "bytes": 3918,
+    "sha256": "1d2539026fbfbe1563f2428fe663a90e74e63824e8c1a4e5c9be0446aaa54e91"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/crash-delta.json",
+    "bytes": 830,
+    "sha256": "2c2257d425fee14348ce7e33283f42e68108ec6a41216f1772c9b20cc2d44a75"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/expected-failure.json",
+    "bytes": 288,
+    "sha256": "bd9b311693a348e42a7fe5da435fc24ffdc7bfd046ecad355da0049123a7937c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/live-action.json",
+    "bytes": 278,
+    "sha256": "9ab0d28b8c3572bb55731a16ac068d045a46478e54d83f16e30f4fde5f933341"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-flow-baseline/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "a704a88cbc2e1f49b5566885901dd8e76164b14bb05821238803c9a87a29e079"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/selected-records.txt",
+    "bytes": 8246,
+    "sha256": "c45ffaadccd296cb28c8139e77a922c7537584bf69d0005d470102d1a0ea0671"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "4c14c7fb7dd0104cd69714d90ee3eaed5aeb1a04dbdbd655af7a97365e4ed42e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/frame-video-provenance.json",
+    "bytes": 1478,
+    "sha256": "2fe311431e06ca9137fd49021fde3c91dcb98eb4fc1ef69cc6c294f2d1964433"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/order-live-frames.webm",
+    "bytes": 729618,
+    "sha256": "6703d8626a7fbc1a5683cd7e7992af43d8d9c90f3ff7df50a9c896ce9911b97c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/command.json",
+    "bytes": 1344,
+    "sha256": "2b16d4a4c370313824754c1cb1ca4a66cc8184a16b2cc161a3f31d9a317d1cf4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "ca86743c8c749244e2859006c4ba87ce13e7392006d37e8d4b4db7f7a2672216"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/action-history.json",
+    "bytes": 1610,
+    "sha256": "d7fd9715d84ccf4371302f5a66bd1a7d819a50cf65ba0565062eb8bfd30e31cb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/result.json",
+    "bytes": 8326,
+    "sha256": "4b594258f5038672a08c4264e050ea51fd41ad799e245095fedeb33bd6e6ff2a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/startup-lifecycle.txt",
+    "bytes": 815,
+    "sha256": "a860452986c3cf71ed489f43b782bcb8adea597c48cd0d7cc49b781f18da2482"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/console-final.gz",
+    "bytes": 7994,
+    "sha256": "4dbe61787fde0b0b9c8a789d43b4a27cb9c793378594ec3ad6eabbc62d27256b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "90078f9f83a44bd26ac77a5cea1b303909068447b3c27ae3aef97e63165c1043"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-page-order-frames.txt",
+    "bytes": 882,
+    "sha256": "efc1ff9c4840df3e5fdd932bbb43a59a9eb5c1ed2a927e8ef4aad07fc711f0ab"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/crash-delta.json",
+    "bytes": 828,
+    "sha256": "4d1c65e9ab6992fe6049c30c5a247f2dd79ebd46ae524fabf3aaf96e391b4987"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-page-order-state.txt",
+    "bytes": 117,
+    "sha256": "c026538fae7841f4b65d74547da4b1ac5221733dfb626be30ac66854a135341a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "5d3a5a5f5c494bdb88cd95945dc089e3c7753a6726dd6fe8fdd970c81a4226e0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/frame-videos.json",
+    "bytes": 4784,
+    "sha256": "6198bd57799756127e561ca31e33f5f87e2013288bace71faef7f5a90930c6dc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/live-action.json",
+    "bytes": 186,
+    "sha256": "92101284e71305eeab81bc7e966f7ef7f4ba5ca6cec93bb57f4eaa436e6d7ccd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "59836d598784422b5bb9fa2a224b98d7d5e5a700fccb4ed4c27eaf9b05fae5d7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/selected-records.txt",
+    "bytes": 11844,
+    "sha256": "586842d87bd4de483912b300b1eac18c3adb327585948fe45d8a250915a5125f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "c06147746d3d34345b4a6c2d6ee0e44274ec8b9fb555490523c1a44ce615c5fc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/frame-video-provenance.json",
+    "bytes": 1478,
+    "sha256": "5e7b3f3f4e92b001b3f55a9e35d27bb360a0a8869f7871b14004f36b86fb87f9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/order-live-frames.webm",
+    "bytes": 728672,
+    "sha256": "8f07487228e86e4df6e3cd162afd0848361cdf20de88b6ad1a160eff832c9772"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/command.json",
+    "bytes": 1518,
+    "sha256": "c949150f2782f75cb0caffd7503c9b8d1911e93ecf01a2a12d234ae71b053c82"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/action-history.json",
+    "bytes": 2070,
+    "sha256": "e14947506c117dc4e30f9bbf767d0a5604a9249da0919ccb4604bf0206bf5033"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/result.json",
+    "bytes": 16012,
+    "sha256": "c15f0455629f4c5dee26b8614bd8646c5735574ebb2b5743587d0bbe52001c45"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/startup-lifecycle.txt",
+    "bytes": 877,
+    "sha256": "aed4564bd142370beabb223d345b1896017abc8f80475a1e28ca0a161b684bb6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/console-final.gz",
+    "bytes": 9869,
+    "sha256": "5bb6675d96f9202453dbbdbf59d7d48204bf5a265fddd9cf9c7f0b5c3e87ee54"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "dd24e5b21262ee159399775fdb102671a313bd5471166bce08e18e87fa1b9036"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-page-order-frames.txt",
+    "bytes": 885,
+    "sha256": "daa61d9f2e25bb7bb0d7af20904276d3bb0de9493d42fe437df754527e005b38"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/crash-delta.json",
+    "bytes": 828,
+    "sha256": "4d1c65e9ab6992fe6049c30c5a247f2dd79ebd46ae524fabf3aaf96e391b4987"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-page-order-state.txt",
+    "bytes": 117,
+    "sha256": "60f364378d6cced438398ae82566b727871b656526759525b4dc067ea04d5ca9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "5d3a5a5f5c494bdb88cd95945dc089e3c7753a6726dd6fe8fdd970c81a4226e0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/frame-videos.json",
+    "bytes": 4784,
+    "sha256": "d1d7681307bcc4a790c9ef5681dd3fbfee67f4ce9b14c5471097a6773357ec67"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/live-action.json",
+    "bytes": 418,
+    "sha256": "19143e3cadb07f114c8f310128f0c32d1846424be3fbbc4f59fd9b2d192268d7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "69d9286d9dafaf74c088ac75780813f67abe38fccd013b071d9b1855b9990fc2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/selected-records.txt",
+    "bytes": 11381,
+    "sha256": "4e3151f41b4e34d2b4f66204af41a3cedbb743a4af36eee2062c3760e9f69da2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "4c14c7fb7dd0104cd69714d90ee3eaed5aeb1a04dbdbd655af7a97365e4ed42e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/frame-video-provenance.json",
+    "bytes": 1478,
+    "sha256": "d2304b0e7eb4efca113caaa4a7845ce4740bde423fde99ef6948eea1db8b6ed5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/order-live-frames.webm",
+    "bytes": 716663,
+    "sha256": "b2508797b824b8bc967ad650ec76f9a8efc511442b2d53d7b160ab78045cf6fb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/command.json",
+    "bytes": 1341,
+    "sha256": "7c41dcc335a8119b7f171e52a336ebc73ac1756ccd57f604d8ba6659ed2c1a41"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/action-history.json",
+    "bytes": 2070,
+    "sha256": "f0307e384ec8b97ef2490d0e29b0a301911c9660ee1a8c80f77923f3adaf27c0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/result.json",
+    "bytes": 16002,
+    "sha256": "c4cd1883b93501cb29caa1f91bf742c0c8aaad6b9deadbfd733f3b884dbfbd37"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/startup-lifecycle.txt",
+    "bytes": 811,
+    "sha256": "4f12e553a508342934fa73d55e9c0964c25e323071472b5ae0a8c457d5d1ac67"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/console-final.gz",
+    "bytes": 9919,
+    "sha256": "cbdad106dfaafb868d2d88483372a0010f1c8092b5d535beffb256e53f191d6f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "29a5c3ad5958500844619ff35d9707ecfd8f8263b69f28d0a8e965c05d23b4c0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-page-order-frames.txt",
+    "bytes": 884,
+    "sha256": "46df43cc69af3b026ae6055b47fa1268f361a1397ebc874cc696c6421ae54359"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/crash-delta.json",
+    "bytes": 828,
+    "sha256": "4d1c65e9ab6992fe6049c30c5a247f2dd79ebd46ae524fabf3aaf96e391b4987"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-page-order-state.txt",
+    "bytes": 117,
+    "sha256": "60f364378d6cced438398ae82566b727871b656526759525b4dc067ea04d5ca9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "5d3a5a5f5c494bdb88cd95945dc089e3c7753a6726dd6fe8fdd970c81a4226e0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/frame-videos.json",
+    "bytes": 4784,
+    "sha256": "193b8dc2546c439461c3d7c27d21495331a2fbd3222201db976a6efc02143dc9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/live-action.json",
+    "bytes": 257,
+    "sha256": "b84db47c2a6f3461c8bd29b5b90eb4f5cea13dd612b14bfd77884d2f6f48e732"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "217573062d926cd5ab311b8da240415d808539390ca722a070bfc2a55d8030f9"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/benchmark/1-baseline.jsonl",
+    "bytes": 716,
+    "sha256": "57da22d76bcfc045e562e7812a32091b6d1b98f2212c0c858325866adcd5f3f0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/benchmark/1-candidate.jsonl",
+    "bytes": 715,
+    "sha256": "afc6f5fa9d1711c98462482104ea856fa7cdca35d42d5ecf127ca1c9880934b1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/benchmark/0-candidate.jsonl",
+    "bytes": 717,
+    "sha256": "45ed8ee12199e9d29677f25ddb92bf50c43b174a1380e2f794f0a9c963bc48db"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/benchmark/0-baseline.jsonl",
+    "bytes": 715,
+    "sha256": "43c530bf34459043ff99adea924cf84fc4857d136f5625f412e211404e103362"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/benchmark/FlowMeshBenchmark.java",
+    "bytes": 2218,
+    "sha256": "b8ed11cf55ee85d35549567e15c7004fd7641b40d4d0211af1ebdef3a7cfd448"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/benchmark/run_benchmark.py",
+    "bytes": 2839,
+    "sha256": "3858e75dfdb0cf8324f605bdc038a1b2a630260a24e6ddd29825df6a3da4cd22"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/frame-video-provenance.json",
+    "bytes": 1539,
+    "sha256": "12668a524ef9706d0346a8b048a5b87910f0485ec02da2c55e3e4cacbd2eaa58"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/order-live-frames.webm",
+    "bytes": 642037,
+    "sha256": "970810e8d16c47b85eefefcabbac6ab8c94d8933554787e5579f88d849f255b6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/water-page-order-frames.txt",
+    "bytes": 870,
+    "sha256": "0f165fbf8f51bc843399d3979cb79d37f78fe288f8d367a790bae6c1ced21ab1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/water-page-order-state.txt",
+    "bytes": 118,
+    "sha256": "a30261ed0b368cbe17d615b1f2820b0c456c967943c11f5ae9d1e82657478474"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/lod-disabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/frame-video-provenance.json",
+    "bytes": 1545,
+    "sha256": "d1d5c51fc93627e3e362ffecac49535a9e95dfa523efc594deb74c818f4105c1"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/order-live-frames.webm",
+    "bytes": 707703,
+    "sha256": "1a2d3b472bc4fd7938f40d2d544ddb06b8180b0c4d37b2e2fd765b7409fad74e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/water-page-order-frames.txt",
+    "bytes": 886,
+    "sha256": "1decaf5439443042c3c7a38438a23778ce5fdf37a0de9d371913f3d65375d405"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/water-page-order-state.txt",
+    "bytes": 116,
+    "sha256": "e316ae413ec05e572767725d2edeed0415d75ce560ae3a7ba0b794fe684fdf7c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/waves-enabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/after-reload/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "4c14c7fb7dd0104cd69714d90ee3eaed5aeb1a04dbdbd655af7a97365e4ed42e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/after-reload/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "72b1a83f2329de966478751911a77731ba23e84b0ae54eb47cbc8b8ec093419e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/after-reload/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "5d3a5a5f5c494bdb88cd95945dc089e3c7753a6726dd6fe8fdd970c81a4226e0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-reuse-gl-flow-packed/screenshots/reuse-gl-recovery.png",
+    "bytes": 776758,
+    "sha256": "1653339f1de64023a79c7d7f27e0e152e830687204066aeb447dd169caf30bda"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/frame-video-provenance.json",
+    "bytes": 1539,
+    "sha256": "a9cff880a9ddeb426cd1d808e23ce7aa0a28000ab9fe86f102f388da684904af"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/order-live-frames.webm",
+    "bytes": 634512,
+    "sha256": "311bebbbeaad2843ba2bc14d89c6f240ac27681157895526f97dd68929db830b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/water-page-order-frames.txt",
+    "bytes": 870,
+    "sha256": "0bf03a775f40ff4e7b49ef104500446ef1b8d3380bf49bf8b82b81c5b84f941b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/water-page-order-state.txt",
+    "bytes": 118,
+    "sha256": "e0654197b8f5afd5a6ae0b74d171203aa417841a949ebca3665a537b25c6f64a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/lod-disabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/frame-video-provenance.json",
+    "bytes": 1545,
+    "sha256": "e5b7d7f2d7d74c74517c4daabca84014d9377fc2a665fae57c223c64b38b0b52"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/order-live-frames.webm",
+    "bytes": 721917,
+    "sha256": "3d038a1638ee821423d8d6f11a4ed43e91bf53908f3c6a52cd15a6aadaa95ba0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/water-page-order-frames.txt",
+    "bytes": 886,
+    "sha256": "60d1681537a279e86879eedd2f4caec8f5adf843b821098d18094cee2f75403a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/water-page-order-state.txt",
+    "bytes": 116,
+    "sha256": "11efd2ff3501efe1e451bc274a145de870eb54d10e740456b57f3c72e8d23e33"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/waves-enabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/after-reload/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "c06147746d3d34345b4a6c2d6ee0e44274ec8b9fb555490523c1a44ce615c5fc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/after-reload/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "90078f9f83a44bd26ac77a5cea1b303909068447b3c27ae3aef97e63165c1043"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/after-reload/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "5d3a5a5f5c494bdb88cd95945dc089e3c7753a6726dd6fe8fdd970c81a4226e0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed-packaged/screenshots/order-recovery.png",
+    "bytes": 779170,
+    "sha256": "9fc7523ec1aa9539789e8f887fd177aead7c9e8103a18c930eecb38a58440f59"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/frame-video-provenance.json",
+    "bytes": 1539,
+    "sha256": "72647fc9f70373a1f64daa65aa08d3655152dfdc557cdfedc75829ba08c1b38e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/order-live-frames.webm",
+    "bytes": 640070,
+    "sha256": "6597cfa9ee979a95c8e46d474eff8c7295ec20dddbfd25db713895877c8438e2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/water-page-order-frames.txt",
+    "bytes": 870,
+    "sha256": "bb35b016c7a1c68b9b0123b9f283d37b1ba52f555b3a5faf6530866dca8cd687"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/water-page-order-state.txt",
+    "bytes": 118,
+    "sha256": "e0654197b8f5afd5a6ae0b74d171203aa417841a949ebca3665a537b25c6f64a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/lod-disabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/frame-video-provenance.json",
+    "bytes": 1545,
+    "sha256": "71586f383d1776f615053b7878e9d8625f004fb23c124a98bfffac3b2217f46a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/order-live-frames.webm",
+    "bytes": 723495,
+    "sha256": "9b6163f630bd02c55ff0661146aae1fb7bff307cd15b812635eb8e04faab73f5"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "ca86743c8c749244e2859006c4ba87ce13e7392006d37e8d4b4db7f7a2672216"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/water-page-order-frames.txt",
+    "bytes": 885,
+    "sha256": "edf27bad36576d41724da1e13aa9de012178f445c2c8fef76b7148730d517699"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/water-page-order-state.txt",
+    "bytes": 116,
+    "sha256": "11efd2ff3501efe1e451bc274a145de870eb54d10e740456b57f3c72e8d23e33"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/waves-enabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/after-reload/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "4c14c7fb7dd0104cd69714d90ee3eaed5aeb1a04dbdbd655af7a97365e4ed42e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/after-reload/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "ed9aeb4cb6a7b82f2c902baa2829e719a4f0f6d4ba21fa9ae54aafce90875497"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/after-reload/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "5d3a5a5f5c494bdb88cd95945dc089e3c7753a6726dd6fe8fdd970c81a4226e0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-flow-texture-2026-10-23/vulkan-order-flow-packed/screenshots/order-recovery.png",
+    "bytes": 779096,
+    "sha256": "22cd88fcce4481d8fb0d9e18967508a65ab93ed47c63ae8bd17c83c294acf41d"
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "variant": "baseline-runtime",
+      "test": "StreamSourceLifecycleChecks",
+      "exit": 1,
+      "output": "Exception in thread \"main\" java.lang.AssertionError: retired cursor removed newer source generation\n\tat com.shnewbs.deepprimal.engine.StreamSourceLifecycleChecks.main(StreamSourceLifecycleChecks.java:26)\n"
+    },
+    {
+      "variant": "candidate-runtime",
+      "test": "StreamSourceLifecycleChecks",
+      "exit": 0,
+      "output": "SOURCE_LIFECYCLE_PASS checks=5512 generations=1000 actualRuntime=true staleRefresh=true dryRemoval=true unloadIdempotence=true allIndexesEmpty=true\n"
+    },
+    {
+      "variant": "candidate-runtime",
+      "test": "StreamSourceIndexChecks",
+      "exit": 0,
+      "output": "STREAM_SOURCE_INDEX_PASS mutations=20000 checks=20008 ordering=true ties=true replacements=true unload=true callerPrefix=true\n"
+    }
+  ],
+  "source_sha256": {
+    "HydrologyRuntime.java": "819ba6131180da17acbc03682052730ff9da93f12953b7bf185cca57996c3930",
+    "StreamSourceIndex.java": "000590204a4fde5011963e1d51cb373b9286c2341e805eb763313e1cf7cb4271",
+    "StreamSourceIndexChecks.java": "678a5995497c19f22b2ba74338b8d6340a56c3acbc4d180188e60902371dc544",
+    "StreamSourceLifecycleChecks.java": "97cd18afb715ea013ad819dc773bb06d0960533cf96961772443b3626fc7d339"
+  },
+  "class_sha256": {
+    "com/shnewbs/deepprimal/engine/StreamSourceIndexChecks.class": "02d0f479e08d4671ae62f2e10c884949af0501eefaef8132238fd0e8d60da990",
+    "com/shnewbs/deepprimal/engine/StreamSourceIndexChecks$Value.class": "8480aa35ec9ab1c40bec96a274184df08e1d76796432bdc93181251686212a62",
+    "com/shnewbs/deepprimal/engine/StreamSourceLifecycleChecks.class": "c4afa140c890a66284bf4b4f5a9d882f42da03733424f7b86b10992e0df83bbc",
+    "com/shnewbs/deepprimal/engine/StreamSourceIndex.class": "5338e0a5a197afe3833255452e71f44619c37cb4a575d43de245a133a590cda8",
+    "com/shnewbs/deepprimal/engine/StreamSourceIndex$1.class": "d71b88b73c8cfa15fca8682c38042ad184443c94a53b85705167b2eb8447d076",
+    "com/shnewbs/deepprimal/engine/StreamSourceIndex$Node.class": "05a7c9cd4d7ad436a77e235d03dd7bfd4a0177d52aedca247108739f98859725",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime.class": "691b1c805daff07348729782eae18ffc0494ab8e7cebbbe081a3ef787eff7a0b",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$Transfer.class": "b0e8408fa6409d0a2d69e283f46ae93af4eb589a9e600b3b09082c953aac7cce",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$Work.class": "ef0c480503bfec7eaa7f9f0b91dd027d1824cd04ed0f45bf75c0eeee1b1e1130",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$RegionWork.class": "f06f8b9e948f61cb365d1108f9d98a3753bd8a18bd79ed040371a1cd7631d3a1",
+    "com/shnewbs/deepprimal/engine/HydrologyRuntime$Cursor.class": "2bad310bdbc37656990ce04f6a2e28f1bfbf773ea0a4daa2d392977f072a89d7"
+  },
+  "scope": "Complete candidate API compile and direct JVM fixtures; not Gradle/native/package qualification"
+}

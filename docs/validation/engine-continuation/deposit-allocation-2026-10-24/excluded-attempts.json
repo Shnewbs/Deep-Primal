@@ -1,0 +1,12 @@
+[
+  {
+    "path": "failed-output-snapshot",
+    "accepted": false,
+    "reason": "Gradle unreadable .rsync-tmp output before Minecraft; cleaned own outputs and retried; cause unproven"
+  },
+  {
+    "path": "rejected-stale-full-build",
+    "accepted_for_revised_source": false,
+    "reason": "Gradle31task success and compiled/package equality retained intermediate outer classc60d43 instead of source-derived15411; outputs cleared and independently verified retry required; cause unproven"
+  }
+]

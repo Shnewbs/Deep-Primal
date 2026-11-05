@@ -1,0 +1,44 @@
+[
+  {
+    "differentPixels": 0,
+    "flowing": false,
+    "elapsedMillis": 0,
+    "pair": 0,
+    "coveredPixels": 128
+  },
+  {
+    "differentPixels": 0,
+    "flowing": false,
+    "elapsedMillis": 50,
+    "pair": 1,
+    "coveredPixels": 192
+  },
+  {
+    "differentPixels": 0,
+    "flowing": false,
+    "elapsedMillis": 100,
+    "pair": 2,
+    "coveredPixels": 256
+  },
+  {
+    "differentPixels": 0,
+    "flowing": true,
+    "elapsedMillis": 0,
+    "pair": 3,
+    "coveredPixels": 128
+  },
+  {
+    "differentPixels": 0,
+    "flowing": true,
+    "elapsedMillis": 50,
+    "pair": 4,
+    "coveredPixels": 192
+  },
+  {
+    "differentPixels": 0,
+    "flowing": true,
+    "elapsedMillis": 100,
+    "pair": 5,
+    "coveredPixels": 256
+  }
+]

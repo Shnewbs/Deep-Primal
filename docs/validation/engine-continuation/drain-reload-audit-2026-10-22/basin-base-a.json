@@ -1,0 +1,13 @@
+{
+  "case": "basin-base-a",
+  "project": "engine-continuation-base",
+  "exit_code": 0,
+  "explicit_pass": true,
+  "elapsed_seconds": 61.4,
+  "records": [
+    "CLOSED_WATER_NATIVE_PASS mode=basin-before ticks=800 conservedEveryTick=true initialUnits=8192 firstVisits=0 pending=0 remainingUpperUnits=4064 bottomUnits=4128 peakDrainJobs=0 peakDrainNodes=0 maxDrainSlice=0 peakDrainVisits=6144 drainJobs=0 saturated=0 restarts=0 idleSamples=0 gapUnloaded=false unitsSha=ecadbf6c244d821f89ed69be5e5d730b22e240ce5f416824595c5bbd17efdb33 flowSha=85d85018d1cf73590d8fd5ed569c076377dbb1220f7465e677f46eed900d9053 medianLevelTickMs=0.167553 p95LevelTickMs=5.386867"
+  ],
+  "failures": [],
+  "normal_save": true,
+  "crash_reports": []
+}

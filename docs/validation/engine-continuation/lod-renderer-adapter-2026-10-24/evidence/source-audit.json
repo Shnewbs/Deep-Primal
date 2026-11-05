@@ -1,0 +1,46 @@
+{
+  "parent": "6deeeced1294e7d2e76ff95beef42c69bfe0749c",
+  "inputs_git_verified": {
+    "evidence/before-VoxelLodRenderer.java": "3a784cc3da5230b898ae22acce21202b9f1163a9",
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java": "edae09a5eba19e83b0b2b51a5e4fc698c76a3742",
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexRequest.java": "1228a5098cab3d3f22b260425d3e91afa37739a5",
+    "evidence/RequestChecks.java": "50dd617f3baf6964ac01549d73537c8867da24b3"
+  },
+  "staged_files": {
+    "staged/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java": {
+      "sha256": "26a4742df183074819ea9862d5898511aa34d8b81571f42692e0892f19e8b4fa",
+      "bytes": 28303
+    },
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexWorker.java": {
+      "sha256": "8fdcdff1d49ea0a4a3027112670f63c726c17e279214000d1372134ab300cbd3",
+      "bytes": 3533
+    },
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java": {
+      "sha256": "d7e62afc327d0c43ed2c602edc4e40593e5a01847751470d7e812569ef2fce5a",
+      "bytes": 4744
+    },
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexRequest.java": {
+      "sha256": "2d27ebf00976422df793b64b02846c3a03addec0147a5ad607f83fa0975b7071",
+      "bytes": 4039
+    }
+  },
+  "compiled_classes": {
+    "AdapterChecks$LodConfig$Flag.class": "6ab5653531cfd23d7956a6f0ebc9d87a871028685d4281b06c910c3fac8e0e54",
+    "AdapterChecks$Entry.class": "1c456c7bc885646fa09b0aada8bb3d9738ae5847979c86c5936050e4fde356df",
+    "WorkerChecks.class": "151f87c491009490d549fc294f959927d1937916652179457abebe17f7e2d91d",
+    "AdapterChecks$LodConfig.class": "25a54a7331287dff0eff589a2d0c1e24a64a8774e0e69cb2ea2ce165c6c53a3f",
+    "AdapterChecks.class": "19e6b5ee1b52b90e0c6e9b63637cb849f79df0992af1d5a87472bcd4d036c9c9",
+    "com/shnewbs/deepprimal/lod/LodModule.class": "6bd02bdb441735d8dcf5f82e1d160b0c74f918afd034a90f04ec68aebea93778",
+    "com/shnewbs/deepprimal/lod/LodModule$Log.class": "971cfa9ced0f946b764fd28b925379f76c187fa33f81596d32d5a68a1a659178",
+    "com/shnewbs/deepprimal/core/lod/LodIndexWorker.class": "bab093b3c12c670070fd44fd08421f12c003943c86bfbda03747fa5ada43ca17",
+    "com/shnewbs/deepprimal/core/lod/LodDiskIndex$Candidate.class": "13914902a76f54566aef76f73298b49f9cf7f9490ba5a8b2100f086c23dca301",
+    "com/shnewbs/deepprimal/core/lod/LodIndexRequest$Status.class": "230cf361218ab0bd0be754e5b9003c600eba4c5851ae9a898bf6f8ce0181f665",
+    "com/shnewbs/deepprimal/core/lod/LodIndexRequest.class": "0223a781ae688e4b2abaff7ad77634063937a03625f4ba6dd479c6e2f898de8c",
+    "com/shnewbs/deepprimal/core/lod/RequestChecks.class": "6a07adaa31a916607d8acdef842a509f6eb4490d0daea4b5965da6b72d54e439",
+    "com/shnewbs/deepprimal/core/lod/LodDiskIndex.class": "30ab31e6bd43ff1cf8dc74eabcb9d9884b0fa2d4de384d35de9c87c4e50dd070",
+    "com/shnewbs/deepprimal/core/lod/LodIndexRequest$Step.class": "8209bf7512e4d06b5a1869ba9bb1e1c12d6bc32abdd848c7c23a3f757600badd"
+  },
+  "public_source_changes": 0,
+  "full_renderer_compiled": false,
+  "native_checks": false
+}

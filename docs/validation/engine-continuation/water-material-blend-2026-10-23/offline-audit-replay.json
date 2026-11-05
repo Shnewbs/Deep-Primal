@@ -1,0 +1,35 @@
+{
+  "pass": true,
+  "at": "2026-10-23T09:06:44.390660+00:00",
+  "commands": [
+    {
+      "command": [
+        "rehydrate_evidence.py"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "1fe835607ffcf2f8056f1528729666852e0b79a10a41f8f8cd326a9cefbefb2d",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "audit_water_side.py",
+        "vulkan-order-material-final",
+        "vulkan-order-material-final-packaged"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "6c42708669fad29634241f35be702f6680d874f8c7333fbebed8c1d96e1fa6f9",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "audit_opengl_side.py"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "186cc0e2b7ea4dbf225b1e94986bc605e0f84df561db623e6c0f8505486e6c2d",
+      "stderr": ""
+    }
+  ],
+  "strict_reports_match_except_reencoded_png_compression": true,
+  "all27_restored_RGB_frames_bit_exact": true,
+  "scope": "CPU-only lossless archive/log replay;not another native acceptance session"
+}

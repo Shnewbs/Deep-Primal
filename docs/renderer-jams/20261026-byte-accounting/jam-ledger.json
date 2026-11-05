@@ -1,0 +1,24 @@
+{
+  "jam_id": "20261026-byte-accounting",
+  "parent": "bf7b36a21b7063c1d273c383008ddfd073d5e5b1",
+  "candidate_sha256": "4c8d6b60a71c1021d245df622105b1d1a8a4f0bd0dc58fd2a205f83c9be85eec",
+  "status": "tested_candidate_full_build_blocked",
+  "source_version": "dev.31",
+  "new_artifact": false,
+  "changed_runtime_files": [],
+  "staged_target": "engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodMesher.java",
+  "scores": [
+    4,
+    6,
+    4,
+    0,
+    4,
+    4
+  ],
+  "average": 3.6666666666666665,
+  "delta": 0,
+  "checks": "75 core source identities; fresh javac25; five real mesh allocation/geometry fixtures and scratch/bounds/parallel/max/cancel pass",
+  "not_run": "full Gradle/module/package/native/client/GPU/Windows",
+  "blocker": "disk headroom reached0; no sufficient isolated build capacity",
+  "next": "restore private full qualification then promote"
+}

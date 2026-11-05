@@ -1,0 +1,6 @@
+{
+  "rejected_assertion": "Original/replayed auditJSON byte equality incorrectly assumes reconstructed PNG compression identical",
+  "observed": "Only bytes and compressed SHA of6 restored Vulkan base lake PNGs differ. RGB hashes match video provenance. Native gates passed unchanged.",
+  "correction": "Sort screenshot records,check original PNG SHA against provenance,check reconstructedRGB SHA and compressed-file SHA,then compare all other report fields exactly. This changes offline packaging verification only.",
+  "source_changed": false
+}

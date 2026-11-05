@@ -1,0 +1,11 @@
+{
+  "recorded_at_utc": "2026-10-22T14:34:34.334724+00:00",
+  "java": "OpenJDK 17.0.20",
+  "compiler": "java com.sun.tools.javac.Main 17.0.20",
+  "private_jdk25_present": false,
+  "private_gradle_present": false,
+  "native_dependency_cache_present": false,
+  "base_production_git_blob": "581134f7e05b72190deabf86aa8ebba39739e2d6",
+  "staged_source_sha256": "7fef33cd462b0d67dde73c12aa167e905705f9b0cb585a73cf764093bb19aae6",
+  "blocker": "Workspace maintenance removed private JDK25/Gradle/native dependencies. Java17 can run the extracted lifecycle fixture, not this MC26.1.2 build."
+}

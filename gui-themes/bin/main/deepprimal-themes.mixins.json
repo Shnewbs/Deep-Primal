@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.shnewbs.deepprimal.themes.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["ThemeLabelMixin", "ThemeToastMixin", "ThemeRecoveryMixin", "ThemeSlotAccessor", "ThemeContainerAccessor", "ThemeGraphicsMixin", "ThemeMenuMixin", "ThemeButtonLabelMixin", "ThemeWidgetAccessor", "ThemeRecipeAccessor", "ThemeRecipeScreenMixin", "ThemeRecipeBookMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

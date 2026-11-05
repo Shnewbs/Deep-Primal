@@ -1,0 +1,7 @@
+AQUIFER_DROUGHT_RESERVE_PASS cases=6 deficitCell=true immediateStop=true subUnitRemainder=true
+AQUIFER_DEEP_STORAGE_PASS depth=64 baseflow=80 deepIntervals=1474 legacyIntervals=23
+PRECIPITATION_SPLIT_PASS randomized=10000 overflowSafe=true exactConstituents=true capacityAware=true atomicRejection=true
+NATURAL_AQUIFER_HEAD_PASS elevations=4 reserves=5 droughtReserve=true backwater=true
+NATURAL_BASEFLOW_QUOTA_PASS default=80 floor=32 monotonic=true
+AQUIFER_WEATHER_CYCLE_PASS scenarios=6 intervals=180000 droughtStops=6 stormRestarts=4 reconstructed=186 exactWaterSaltSediment=true rainSnowMelt=true partialCatchments=true
+WATER_BUDGET_PASS transfers=200000 exactVolumeSaltSediment=true hysteresis=true blocked=true noCatchup=true

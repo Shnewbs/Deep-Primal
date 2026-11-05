@@ -1,0 +1,27 @@
+{
+  "id": "dev174-drainage-probe-admission",
+  "status": "completed-released",
+  "claimed_utc": "2026-11-02T01:04:00Z",
+  "expires_utc": "2026-11-02T01:50:00Z",
+  "base_sha": "7d257452b4af338784152fed0c4bfc4bbe4fbd49",
+  "files": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/MountainDrainage.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/MountainDrainageFiniteProbeChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/DrainageChecks.java",
+    "docs/validation/engine-continuation/drainage-probe-admission-2026-11-02/**"
+  ],
+  "purpose": "Reject nonfinite off-grid terrain probes in contained river profile/lake sampling before NaN can enter cached waterline, preserving valid geography.",
+  "exclusions": [
+    "renderer-vulkan",
+    "lod-engine",
+    "organic",
+    "independent audit files"
+  ],
+  "build_policy": "No Actions; Java21 isolated checks; no full Java25 JAR claim",
+  "released_utc": "2026-11-02T01:09:00Z",
+  "implementation_commit": "afee02ba5807073b21050e4ba36dae6a5b493649",
+  "regression_commit": "790e17ebe53b59028ebca6f0c5306030505183d7",
+  "registration_commit": "084448265ce2340156add34befb5f0a98b145a71",
+  "validation_report": "docs/validation/engine-continuation/drainage-probe-admission-2026-11-02/README.md",
+  "build_status": "isolated-admission-fixture-pass; full Java25 build unavailable"
+}

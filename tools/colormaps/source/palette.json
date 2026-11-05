@@ -1,0 +1,46 @@
+{
+  "name": "Deep Primal — Natural Colormaps",
+  "version": "1.0",
+  "temperature_knots": [0, 0.25, 0.55, 0.8, 1],
+  "maps": {
+    "grass": {
+      "dry": ["9fac80", "a8ac77", "b9b579", "c4b773", "c8b16b"],
+      "wet": ["9fac80", "789565", "6f9c55", "619545", "55913b"]
+    },
+    "foliage": {
+      "dry": ["8b9e78", "929c6d", "a1a367", "aaa568", "b0a872"],
+      "wet": ["8b9e78", "648361", "57864f", "4a8248", "437c4c"]
+    },
+    "dry_foliage": {
+      "dry": ["b2a58b", "b7a37f", "bea578", "c2a16b", "c59b60"],
+      "wet": ["b2a58b", "94866a", "897653", "806447", "735745"]
+    }
+  },
+  "water_groups": [
+    {"label":"Meadow freshwater", "color":"497e88", "fog":"284a50", "clarity":1.0, "biomes":["plains","meadow","cherry_grove"]},
+    {"label":"Woodland freshwater", "color":"427b7c", "fog":"244749", "clarity":0.95, "biomes":["forest","birch_forest","windswept_forest"]},
+    {"label":"Desert spring", "color":"4d9996", "fog":"2b5a57", "clarity":1.15, "biomes":["desert"]},
+    {"label":"Open ocean", "color":"326d88", "fog":"183c51", "clarity":1.0, "biomes":["ocean"]},
+    {"label":"Boreal freshwater", "color":"4b7e88", "fog":"294a53", "clarity":1.05, "biomes":["taiga","old_growth_pine_taiga"]},
+    {"label":"Snowmelt freshwater", "color":"66969e", "fog":"355962", "clarity":1.15, "biomes":["snowy_plains","snowy_taiga","grove","snowy_slopes","snowy_beach","frozen_river"]},
+    {"label":"Peat wetland", "color":"72764d", "fog":"3b3e28", "clarity":0.55, "biomes":["swamp"]},
+    {"label":"Alpine freshwater", "color":"63a0a5", "fog":"345c64", "clarity":1.2, "biomes":["stony_peaks","frozen_peaks","jagged_peaks","windswept_hills"]},
+    {"label":"Seasonal dryland water", "color":"788b69", "fog":"424c37", "clarity":0.8, "biomes":["savanna"]},
+    {"label":"Redland mineral water", "color":"8a8966", "fog":"4b4932", "clarity":0.75, "biomes":["badlands"]},
+    {"label":"Tropical freshwater", "color":"487e68", "fog":"254636", "clarity":0.85, "biomes":["jungle","bamboo_jungle","sparse_jungle"]},
+    {"label":"Shaded forest water", "color":"4b7167", "fog":"293d35", "clarity":0.85, "biomes":["dark_forest"]},
+    {"label":"Sandy coastal water", "color":"468e9b", "fog":"28515c", "clarity":1.05, "biomes":["beach"]},
+    {"label":"Rocky coastal water", "color":"487a8b", "fog":"284652", "clarity":1.05, "biomes":["stony_shore"]},
+    {"label":"Mangrove brackish water", "color":"687b50", "fog":"35432a", "clarity":0.6, "biomes":["mangrove_swamp"]},
+    {"label":"Warm reef water", "color":"389f9a", "fog":"1d5a58", "clarity":1.25, "biomes":["warm_ocean"]},
+    {"label":"Warm coastal sea", "color":"3b8999", "fog":"204c59", "clarity":1.15, "biomes":["lukewarm_ocean"]},
+    {"label":"Cold sea", "color":"4a758c", "fog":"293e52", "clarity":1.0, "biomes":["cold_ocean"]},
+    {"label":"Ice-margin sea", "color":"678d9e", "fog":"354f60", "clarity":1.1, "biomes":["frozen_ocean"]},
+    {"label":"Deep sea", "color":"35627e", "fog":"193348", "clarity":0.9, "biomes":["deep_ocean"]},
+    {"label":"Deep cold sea", "color":"45677f", "fog":"23374b", "clarity":0.9, "biomes":["deep_cold_ocean"]},
+    {"label":"Deep ice sea", "color":"58798d", "fog":"2c4154", "clarity":1.0, "biomes":["deep_frozen_ocean"]},
+    {"label":"River water", "color":"4e8585", "fog":"2b4c4b", "clarity":1.0, "biomes":["river"]},
+    {"label":"Lush cave pool", "color":"488b79", "fog":"254e41", "clarity":1.1, "biomes":["lush_caves"]},
+    {"label":"Limestone cave pool", "color":"62969b", "fog":"34565d", "clarity":1.15, "biomes":["dripstone_caves"]}
+  ]
+}

@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.AssertionError: future cancellation signals request
+	at FutureChecks.check(FutureChecks.java:8)
+	at FutureChecks.main(FutureChecks.java:22)

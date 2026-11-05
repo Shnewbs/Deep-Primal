@@ -1,0 +1,732 @@
+{
+  "source_sha": "eba73bdb7f30610469f822dec3dacfe8e0fad0d4",
+  "verified_inputs": 741,
+  "mismatches": [],
+  "production_changes_since_previous_audit": true,
+  "pinned_compare": {
+    "repository_full_name": "Shnewbs/Deep-Primal",
+    "base": "8524b32749b9df2e922f3e2069ca62ea689d1c62",
+    "head": "eba73bdb7f30610469f822dec3dacfe8e0fad0d4",
+    "status": "ahead",
+    "ahead_by": 3,
+    "behind_by": 0,
+    "total_commits": 3,
+    "too_large": null,
+    "base_commit": {
+      "sha": "8524b32749b9df2e922f3e2069ca62ea689d1c62",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/commits/8524b32749b9df2e922f3e2069ca62ea689d1c62",
+      "html_url": "https://github.com/Shnewbs/Deep-Primal/commit/8524b32749b9df2e922f3e2069ca62ea689d1c62"
+    },
+    "merge_base_commit": {
+      "sha": "8524b32749b9df2e922f3e2069ca62ea689d1c62",
+      "url": "https://api.github.com/repos/Shnewbs/Deep-Primal/commits/8524b32749b9df2e922f3e2069ca62ea689d1c62",
+      "html_url": "https://github.com/Shnewbs/Deep-Primal/commit/8524b32749b9df2e922f3e2069ca62ea689d1c62"
+    },
+    "files": [
+      {
+        "filename": "docs/WATER-BUDGET-REQUIREMENTS.md",
+        "status": "modified",
+        "additions": 11,
+        "deletions": 0,
+        "changes": 11,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/colormaps/README.md",
+        "status": "added",
+        "additions": 27,
+        "deletions": 0,
+        "changes": 27,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/colormaps/lookup-check.txt",
+        "status": "added",
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/colormaps/validation.json",
+        "status": "added",
+        "additions": 45,
+        "deletions": 0,
+        "changes": 45,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/colormaps/water-palettes.csv",
+        "status": "added",
+        "additions": 41,
+        "deletions": 0,
+        "changes": 41,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/REVIEW.md",
+        "status": "added",
+        "additions": 528,
+        "deletions": 0,
+        "changes": 528,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/archive-output-rejected.txt",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/audit-corrections.json",
+        "status": "added",
+        "additions": 6,
+        "deletions": 0,
+        "changes": 6,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/build-result.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/delivery.json",
+        "status": "added",
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/executed-checks.json",
+        "status": "added",
+        "additions": 83,
+        "deletions": 0,
+        "changes": 83,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/extra-package.json",
+        "status": "added",
+        "additions": 12,
+        "deletions": 0,
+        "changes": 12,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/final-export.json",
+        "status": "added",
+        "additions": 29,
+        "deletions": 0,
+        "changes": 29,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/host.json",
+        "status": "added",
+        "additions": 12,
+        "deletions": 0,
+        "changes": 12,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/independent-core-result.json",
+        "status": "added",
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/lease.json",
+        "status": "added",
+        "additions": 11,
+        "deletions": 0,
+        "changes": 11,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/native-result.json",
+        "status": "added",
+        "additions": 18,
+        "deletions": 0,
+        "changes": 18,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/package.json",
+        "status": "added",
+        "additions": 41,
+        "deletions": 0,
+        "changes": 41,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/source-identity.json",
+        "status": "added",
+        "additions": 176,
+        "deletions": 0,
+        "changes": 176,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-hourly-audits/2026-10-24T2253-8524b32/toolchain-verification.json",
+        "status": "added",
+        "additions": 42,
+        "deletions": 0,
+        "changes": 42,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-stage2-2026-10-24/README.md",
+        "status": "modified",
+        "additions": 18,
+        "deletions": 3,
+        "changes": 21,
+        "previous_filename": null
+      },
+      {
+        "filename": "docs/engine-stage2-2026-10-24/RESULTS.md",
+        "status": "modified",
+        "additions": 12,
+        "deletions": 2,
+        "changes": 14,
+        "previous_filename": null
+      },
+      {
+        "filename": "engine-core/src/main/java/com/shnewbs/deepprimal/core/EngineBoatBuoyancy.java",
+        "status": "added",
+        "additions": 10,
+        "deletions": 0,
+        "changes": 10,
+        "previous_filename": null
+      },
+      {
+        "filename": "engine-core/src/main/java/com/shnewbs/deepprimal/core/StreamSourceCapacity.java",
+        "status": "added",
+        "additions": 14,
+        "deletions": 0,
+        "changes": 14,
+        "previous_filename": null
+      },
+      {
+        "filename": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityChunk.java",
+        "status": "added",
+        "additions": 100,
+        "deletions": 0,
+        "changes": 100,
+        "previous_filename": null
+      },
+      {
+        "filename": "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityGraph.java",
+        "status": "modified",
+        "additions": 96,
+        "deletions": 0,
+        "changes": 96,
+        "previous_filename": null
+      },
+      {
+        "filename": "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh",
+        "status": "modified",
+        "additions": 5,
+        "deletions": 2,
+        "changes": 7,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/coreChecks/java/com/shnewbs/deepprimal/core/BoatBuoyancyChecks.java",
+        "status": "added",
+        "additions": 27,
+        "deletions": 0,
+        "changes": 27,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+        "status": "modified",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/coreChecks/java/com/shnewbs/deepprimal/core/StreamSourceCapacityChecks.java",
+        "status": "added",
+        "additions": 38,
+        "deletions": 0,
+        "changes": 38,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/coreChecks/java/com/shnewbs/deepprimal/core/density/AdversarialChecks.java",
+        "status": "added",
+        "additions": 145,
+        "deletions": 0,
+        "changes": 145,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityChunkChecks.java",
+        "status": "added",
+        "additions": 101,
+        "deletions": 0,
+        "changes": 101,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/coreChecks/java/com/shnewbs/deepprimal/core/density/ReuseChecks.java",
+        "status": "added",
+        "additions": 95,
+        "deletions": 0,
+        "changes": 95,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/java/com/shnewbs/deepprimal/engine/DensityChunkMaterializer.java",
+        "status": "added",
+        "additions": 62,
+        "deletions": 0,
+        "changes": 62,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+        "status": "modified",
+        "additions": 61,
+        "deletions": 11,
+        "changes": 72,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/java/com/shnewbs/deepprimal/mixin/OceanBoatMixin.java",
+        "status": "modified",
+        "additions": 35,
+        "deletions": 0,
+        "changes": 35,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/badlands.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/bamboo_jungle.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/beach.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/birch_forest.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/cherry_grove.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/cold_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/dark_forest.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/deep_cold_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/deep_frozen_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/deep_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/desert.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/dripstone_caves.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/forest.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/frozen_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/frozen_peaks.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/frozen_river.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/grove.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/jagged_peaks.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/jungle.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/lukewarm_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/lush_caves.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/mangrove_swamp.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/meadow.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/old_growth_pine_taiga.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/plains.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/river.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/savanna.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/snowy_beach.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/snowy_plains.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/snowy_slopes.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/snowy_taiga.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/sparse_jungle.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/stony_peaks.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/stony_shore.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/swamp.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/taiga.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/warm_ocean.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/windswept_forest.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/deepprimal/water_palette/windswept_hills.json",
+        "status": "added",
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/textures/colormap/dry_foliage.png",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/textures/colormap/foliage.png",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/main/resources/assets/minecraft/textures/colormap/grass.png",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/noiseBenchmark/java/com/shnewbs/deepprimal/benchmark/DensityBenchmark.java",
+        "status": "modified",
+        "additions": 31,
+        "deletions": 10,
+        "changes": 41,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/visualValidation/java/com/shnewbs/deepprimal/validation/DensityChunkNativeChecks.java",
+        "status": "added",
+        "additions": 49,
+        "deletions": 0,
+        "changes": 49,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/visualValidation/java/com/shnewbs/deepprimal/validation/NoiseProfileChecks.java",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 0,
+        "changes": 4,
+        "previous_filename": null
+      },
+      {
+        "filename": "tools/colormaps/.gitignore",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0,
+        "changes": 2,
+        "previous_filename": null
+      },
+      {
+        "filename": "tools/colormaps/source/LookupCheck.java",
+        "status": "added",
+        "additions": 34,
+        "deletions": 0,
+        "changes": 34,
+        "previous_filename": null
+      },
+      {
+        "filename": "tools/colormaps/source/README.txt",
+        "status": "added",
+        "additions": 71,
+        "deletions": 0,
+        "changes": 71,
+        "previous_filename": null
+      },
+      {
+        "filename": "tools/colormaps/source/build_colormaps.py",
+        "status": "added",
+        "additions": 166,
+        "deletions": 0,
+        "changes": 166,
+        "previous_filename": null
+      },
+      {
+        "filename": "tools/colormaps/source/engine-inputs.json",
+        "status": "added",
+        "additions": 46,
+        "deletions": 0,
+        "changes": 46,
+        "previous_filename": null
+      },
+      {
+        "filename": "tools/colormaps/source/palette.json",
+        "status": "added",
+        "additions": 46,
+        "deletions": 0,
+        "changes": 46,
+        "previous_filename": null
+      }
+    ]
+  }
+}

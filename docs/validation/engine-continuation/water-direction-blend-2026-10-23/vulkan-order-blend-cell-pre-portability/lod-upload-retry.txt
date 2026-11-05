@@ -1,0 +1,1 @@
+LOD_UPLOAD_RETRY_NATIVE_PASS partialBytes=552 budgetReducedMiB=8-to-4 actualBallastBytes=4194304 blockedCalls=16 restored=true guards=5 isolatedGpuReleased=true

@@ -1,0 +1,17 @@
+{
+  "jam_id": "renderer-20261030-lod-scan-lifecycle-counters",
+  "parent_main": "d5e31a4455448e39c8361deb74c1c3fc7482bbfa",
+  "final_source_sha": "d6275559f3f96545d4de805196a4e2c9b6bafa50",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodDiskIndexService.java",
+    "docs/renderer-jams/20261030-lod-scan-lifecycle-counters/README.md",
+    "docs/renderer-jams/20261030-lod-scan-lifecycle-counters/REVIEW.md",
+    "docs/renderer-jams/20261030-lod-scan-lifecycle-counters/LEDGER.json",
+    "docs/renderer-jams/20261030-lod-scan-lifecycle-counters/CLAIM.json"
+  ],
+  "rubric_average": 5.97,
+  "delta_from_previous": 0,
+  "qualified_jar": false,
+  "gpu_acceptance": false,
+  "claim_released": true
+}

@@ -1,0 +1,37 @@
+{
+  "case": "vulkan-reuse-baseline",
+  "run_directory": "/tmp/deepprimal-travel-correct-0035",
+  "started_utc": "2026-10-23T01:37:35.068511+00:00",
+  "finished_utc": "2026-10-23T01:38:15.106402+00:00",
+  "exit_code": 1,
+  "timeout": false,
+  "elapsed_seconds": 40.04,
+  "build_successful": false,
+  "records": [
+    "[21:37:55] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: llvmpipe (LLVM 20.1.2, 256 bits) GL version 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2, Mesa",
+    "[21:38:03] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true",
+    "[21:38:04] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_PIPELINE_CACHE loadedBytes=32",
+    "[21:38:06] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x6520000000652, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x6530000000653, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "[21:38:08] [Render thread/INFO] [ne.vu.de.Startup/]: DEEPPRIMAL_VULKAN_FIRST_FRAME",
+    "[21:38:10] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x6520000000652, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x6530000000653, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "BACKEND_SELECTION_PASS backend=Vulkan",
+    "[21:38:11] [Render thread/WARN] [Deep Primal Vulkan/]: VULKAN_VALIDATION WARNING-Shader-OutputNotConsumed: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x6520000000652, type = VK_OBJECT_TYPE_SHADER_MODULE; Object 1: handle = 0x6530000000653, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0] (SPIR-V Interface) VK_SHADER_STAGE_VERTEX_BIT declared to output location 0 Component 0 but is not an Input declared by VK_SHADER_STAGE_FRAGMENT_BIT.",
+    "java.lang.AssertionError: Near-capacity same-size water update stalled or displaced closer coverage",
+    "java.lang.AssertionError: Near-capacity same-size water update stalled or displaced closer coverage",
+    "[21:38:12] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID b8cefc1a-994d-4279-a400-be2012baa8a0",
+    "java.lang.AssertionError: Near-capacity same-size water update stalled or displaced closer coverage",
+    "[21:38:12] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 0cb5b0b6-b5cd-45ae-b5b4-8beb19b8f0ee"
+  ],
+  "console_sha256": "64f2766e609154303a7355fa0e1fc2e73a76fb2ab945fb4aef190e8f8e7c181f",
+  "console_stable_samples": 4,
+  "sealed_console": "console-final.gz",
+  "screenshots": [],
+  "crash_reports": [
+    "crash-2026-10-22_20.40.04-client.txt",
+    "crash-2026-10-22_21.38.12-client.txt",
+    "crash-2026-10-22_20.58.01-client.txt",
+    "crash-2026-10-22_21.18.41-client.txt"
+  ],
+  "software_driver": true,
+  "owner_gpu_acceptance": false
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "record": "failed-dev19",
+    "sha256": "c14734215417de134ff2b351517c7be022a1ca0d7aa8e861086c18a17538fd5a",
+    "accepted": false,
+    "error": "Native server failure: [03:00:06] [Server thread/ERROR] [ne.ne.bu.EventBus/EVENTBUS]: Exception caught during firing event: Soil material revision requires V7 geography",
+    "fresh_game_execution": false
+  },
+  {
+    "record": "fresh-dev20",
+    "sha256": "cd8079ddcd2ebe682d2a3f0d88af2582fdd987e866777656df5b8b718d2691bd",
+    "accepted": true,
+    "error": null,
+    "fresh_game_execution": false
+  },
+  {
+    "record": "reopen-dev20",
+    "sha256": "fa75723d2f695143401a96cfeac6fc98133da7f105913b26f8222cce2ca332ad",
+    "accepted": true,
+    "error": null,
+    "fresh_game_execution": false
+  }
+]

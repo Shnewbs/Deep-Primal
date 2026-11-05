@@ -1,0 +1,1537 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 6195,
+    "sha256": "dbad1419a71caee7eb1eeaa28387434b06cbbfc1f274fde42d997082efdc2b96"
+  },
+  {
+    "path": "apply_material_fix.py",
+    "bytes": 6787,
+    "sha256": "7f469ab945671416f87c7b70e3e7fb956b2f36386168cec4771d94314752c035"
+  },
+  {
+    "path": "audit_material.py",
+    "bytes": 3829,
+    "sha256": "63ea2c17a23e24fc0e0ad13b864989bc82206255c1abbb0f4a7c732eed40caf7"
+  },
+  {
+    "path": "audit_opengl_side.py",
+    "bytes": 14693,
+    "sha256": "0b191d8a54c21db4aee39bcf211ab4d65034298ca66eb990afa3828c19f28aa3"
+  },
+  {
+    "path": "audit_vulkan_package.py",
+    "bytes": 4324,
+    "sha256": "b945b1ac221292b3074bfe6b851a703e97dbed1132798536137a1024f3963eec"
+  },
+  {
+    "path": "audit_water_side.py",
+    "bytes": 22614,
+    "sha256": "6db0838071ee24ddc3b47be3c0c28ecb47af499a9fa03f35efb9a9e924a82955"
+  },
+  {
+    "path": "baseline-WaterMaterialTransitionChecks.java",
+    "bytes": 16543,
+    "sha256": "b49508fbc37db65343c4ed7cb216b57462951f418037c863abb1932c6d7bcd24"
+  },
+  {
+    "path": "baseline-build/candidate-build-final.gz",
+    "bytes": 3652,
+    "sha256": "3d2e6644174e731e5f0534c93ad767c8adb123beb5a77c282c4cfa7dbccf638a"
+  },
+  {
+    "path": "baseline-build/candidate-build-result.json",
+    "bytes": 2459,
+    "sha256": "ced30a4eeb60920631cd48bc762d3ca1852ccaa5cf7eac3d9df496073b67a266"
+  },
+  {
+    "path": "baseline-build/candidate-build.log",
+    "bytes": 14509,
+    "sha256": "8219d883d25e48019142a8121b3735512657b2844496b272bd31da0e27e9b335"
+  },
+  {
+    "path": "baseline-package-audit.json",
+    "bytes": 2222,
+    "sha256": "810f8c468cdc7de51c044c6aa5d33772a0b44ad702485ba4ca08df82aad2e0f1"
+  },
+  {
+    "path": "baseline-source-proof.json",
+    "bytes": 314,
+    "sha256": "9d7f12b4925c5e891f6336caa886a6c20965a75f5ea71e80cf3f08975a2d4eaa"
+  },
+  {
+    "path": "before/AnimatedWaterRenderer.java",
+    "bytes": 30480,
+    "sha256": "a634cfcd10881102372fb948dceb36af685421836b363a27f2249ecd4606174d"
+  },
+  {
+    "path": "before/WaterFlowTransition.java",
+    "bytes": 1141,
+    "sha256": "bd6a82d35adf1a6dba17d4c40f46358cc280e6ef419dfbcf8e4e107773b9f2d8"
+  },
+  {
+    "path": "before/animated_water.fsh",
+    "bytes": 1312,
+    "sha256": "b8d9c0dfceee1e7157ddf2db233a4e86c65006565b9bdb79e4638840c33cc806"
+  },
+  {
+    "path": "before/animated_water.vsh",
+    "bytes": 3281,
+    "sha256": "f1a87e47761bd5be8531aa116667f9554ec2d9a45fcde173410fdf8cc0a696f1"
+  },
+  {
+    "path": "build_candidate.py",
+    "bytes": 2457,
+    "sha256": "ecb16fd86531aec33bde0b7485785db78459c3d50bc0d401bed5fda7622cd431"
+  },
+  {
+    "path": "candidate-build-final.gz",
+    "bytes": 3663,
+    "sha256": "9b62b7ae7563166cf68512398ef0e33f25fc5f9b93597e1c175c5063887e7f15"
+  },
+  {
+    "path": "candidate-build-result.json",
+    "bytes": 2459,
+    "sha256": "5c531df168f4f353ae2330839c38cbeffb18f87fa40141f0600ef9c410f98edd"
+  },
+  {
+    "path": "candidate-build.log",
+    "bytes": 14530,
+    "sha256": "d0f8dfd8f18e348a9198ea066e59a155d5642fcbe52e01919687e89e692e8e3a"
+  },
+  {
+    "path": "checkpoint-summary.json",
+    "bytes": 1598,
+    "sha256": "4d6dc22b5bd82d5385b84d67a981b0d071572064bc9ba1e5ab0620bb47fa46d8"
+  },
+  {
+    "path": "code-self-audit.json",
+    "bytes": 1558,
+    "sha256": "e6314cb744d349069b232618c501e1b79677ec916e7ae24bf7cd75c079dabe34"
+  },
+  {
+    "path": "compile-failed-AnimatedWaterRenderer.java",
+    "bytes": 31157,
+    "sha256": "7d74cac17d42219c8bb1886873d4b7cd3e814a547350aa07606677670800d77a"
+  },
+  {
+    "path": "compile-failed-WaterMaterialTransitionChecks.java",
+    "bytes": 16054,
+    "sha256": "f6b4f3bcfa733515bb431966c41f8f7c67bfba507822cb87938dffeb25cd8767"
+  },
+  {
+    "path": "core-after.json",
+    "bytes": 706,
+    "sha256": "976f2d7974cb8c2e4cf4c5f55217b601e584a71e765fc3639c60433046cf4759"
+  },
+  {
+    "path": "core-before.json",
+    "bytes": 854,
+    "sha256": "9b9f0ea91d530725e86278398e549a10c7d0c8b578c33d39b8ea134104af4589"
+  },
+  {
+    "path": "create_material_fixture.py",
+    "bytes": 652,
+    "sha256": "f66de28f303ad39fba1c0109b087645e75da57cc04985b9141aac9b2c932f38d"
+  },
+  {
+    "path": "final-parent.json",
+    "bytes": 51,
+    "sha256": "9eb2de3dead2c915d4c5d2cf47bfc24de4a5da598aed84d2aaa2dda72c658077"
+  },
+  {
+    "path": "finalize_manifest.py",
+    "bytes": 2237,
+    "sha256": "824c66f088f5087fc66326655c33067951a0b289bab28d7f640955998efb8e52"
+  },
+  {
+    "path": "initial-apply_material_fix.py",
+    "bytes": 6069,
+    "sha256": "4d93a6717d12dbffd06a31149afa14e11faefdfc203fa921ccdfc6f91ec90bc7"
+  },
+  {
+    "path": "initial-create_material_fixture.py",
+    "bytes": 17026,
+    "sha256": "7a4295fc7385a62c186dbedb9d35f044a94e15bf2694177d75504c82de452238"
+  },
+  {
+    "path": "inspect_frames.py",
+    "bytes": 1888,
+    "sha256": "a40f1a2e909f118c9da2b9e418dd2ce441fce582cd1a7dd46637751ef7328b4c"
+  },
+  {
+    "path": "make_frame_video.py",
+    "bytes": 2172,
+    "sha256": "218eda492d9ad450a8e08c1e1c15878f41cef558c4b0796f85248efa4904ec28"
+  },
+  {
+    "path": "material-before-after.png",
+    "bytes": 6352,
+    "sha256": "ff119525400fa61207566861fd3c34acd7b880bd227b9cbbb57f2c6934014c2b"
+  },
+  {
+    "path": "material-mip-contact.png",
+    "bytes": 10560,
+    "sha256": "88017ecc59e29a2d46e558a09cfc1ca01fe49c9ba7cb79a9acb21086cdcf67e6"
+  },
+  {
+    "path": "module-identities.json",
+    "bytes": 1655,
+    "sha256": "ba567fe576ddff92dc2e8852e7ee11871f620f9c84779e078ccd3cb8f9663970"
+  },
+  {
+    "path": "offline-audit-replay.json",
+    "bytes": 983,
+    "sha256": "fa5cc0f18f4b4eef0ae57f97214d380c1b056784e796c5ecbfa91c4a7cbe7bab"
+  },
+  {
+    "path": "opacity-auditor-correction.json",
+    "bytes": 360,
+    "sha256": "4fa12e5b779411890e5ae382a6cc388f650cb25bef11a776f6afcdbfd6eb488e"
+  },
+  {
+    "path": "pre-failfast-run_vulkan.py",
+    "bytes": 20806,
+    "sha256": "f594d68dc59d0473f78d0d4704cfc6b902b3320ef7e02527b369a4dbc41333c0"
+  },
+  {
+    "path": "prepare_checkpoint.py",
+    "bytes": 20710,
+    "sha256": "d44bd649b7e260821f2540acd29bcfcd48c24cf6174d4f5b14c1430002655039"
+  },
+  {
+    "path": "production-compile-correction.json",
+    "bytes": 255,
+    "sha256": "81679f08a3403dcfed0fdf80fc70033a2fb1221fb0898ca411f00894cf05f803"
+  },
+  {
+    "path": "production.patch",
+    "bytes": 8262,
+    "sha256": "45a073a2e9b7ee73ab834db542d7c5a9cd9c8edec47fe3931a47d5b088e87245"
+  },
+  {
+    "path": "rehydrate_evidence.py",
+    "bytes": 1578,
+    "sha256": "b7475d60ab159ac00fdd2a96751264a51f9089eb02ae1c5e874d8ab32c17328b"
+  },
+  {
+    "path": "rejected-and-superseded-summary.json",
+    "bytes": 1087,
+    "sha256": "9452f08988937668a76bb6ac5016743ffd0aef5ebe16aa4a6e184b9e96748cb6"
+  },
+  {
+    "path": "rejected-compile-build/candidate-build-final.gz",
+    "bytes": 2055,
+    "sha256": "ba186f11ba33f49af24cd3a6d1541f585162b94aadcc04f0d61265845c5e3ddd"
+  },
+  {
+    "path": "rejected-compile-build/candidate-build-result.json",
+    "bytes": 2464,
+    "sha256": "2a62b7cf63d5dbec5d0e68de83a49a21bc42f91d3dd78ad45a3041a650ffc49d"
+  },
+  {
+    "path": "rejected-compile-build/candidate-build.log",
+    "bytes": 9261,
+    "sha256": "6b9644cec35fdf526bd6d37090b7c4725769f1e7bb5f17d9fd4340c0c8eb825c"
+  },
+  {
+    "path": "reproduce_core_switch.py",
+    "bytes": 1403,
+    "sha256": "2ccecc3367c15d0efdfe815713f9fc7339565e53ae6c004c42e38bd3ec7f9782"
+  },
+  {
+    "path": "run_vulkan.py",
+    "bytes": 21198,
+    "sha256": "6b148eda29b392b05f8066013e21c170205e6947ecc40afbf2890d72be074fad"
+  },
+  {
+    "path": "screenshot-inspection.json",
+    "bytes": 961,
+    "sha256": "3e2e99bffa9d8d93a4f138d957f6d60cc288cabfa6115d7d193225c685d4532a"
+  },
+  {
+    "path": "source-input-manifest.json",
+    "bytes": 143066,
+    "sha256": "c003a3e78a447c224c0486f640d73eddd7afd061e5c9d817c6352dc0e1529908"
+  },
+  {
+    "path": "source-scope-audit.json",
+    "bytes": 1211,
+    "sha256": "ddd74fb93b81d6d6f537692768e3dad76e5c1922afab026c278016483303d889"
+  },
+  {
+    "path": "strict-opengl-material-audit.json",
+    "bytes": 1724,
+    "sha256": "186cc0e2b7ea4dbf225b1e94986bc605e0f84df561db623e6c0f8505486e6c2d"
+  },
+  {
+    "path": "strict-water-material-native-audit.json",
+    "bytes": 16463,
+    "sha256": "5418bc2bb62d51779a633f92c9df69d4711705d7db50ca70e535268104b04d35"
+  },
+  {
+    "path": "validation-compile-correction.json",
+    "bytes": 272,
+    "sha256": "307ecc2a44666a8345670a397dc6c9d17883f1d9f64ccbd28bf0a29cad319c51"
+  },
+  {
+    "path": "verify_archived_evidence.py",
+    "bytes": 2348,
+    "sha256": "11a9d8c42f782fed7ee9633e05e856dab12053cbcba6ef62a098ba74a39ce056"
+  },
+  {
+    "path": "vulkan-build-audit.json",
+    "bytes": 2180,
+    "sha256": "03b2f2f66ba544730d227450d0f464dc333ea5e80950615e45039f6feddd0308"
+  },
+  {
+    "path": "vulkan-material-baseline/action-history.json",
+    "bytes": 260,
+    "sha256": "adeb0f46cbb1a4308a2213f51fde1551c33c7a7947a7ea1e98be381737d5fc6f"
+  },
+  {
+    "path": "vulkan-material-baseline/command.json",
+    "bytes": 1405,
+    "sha256": "d06dbaf0dc07d82217b770c855b767e012dbcc7e6ca24e323a2e70f0e064a7ae"
+  },
+  {
+    "path": "vulkan-material-baseline/console-final.gz",
+    "bytes": 7313,
+    "sha256": "f7a9500efabd59fd09759948813d20d8f1515e3cef5604613bcd847bd8a3bc41"
+  },
+  {
+    "path": "vulkan-material-baseline/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c"
+  },
+  {
+    "path": "vulkan-material-baseline/live-action.json",
+    "bytes": 256,
+    "sha256": "4ebdee70991b1e8ddda9682e46bbe3a825c795197fb009774d8b8fcd92c1da69"
+  },
+  {
+    "path": "vulkan-material-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "vulkan-material-baseline/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc"
+  },
+  {
+    "path": "vulkan-material-baseline/result.json",
+    "bytes": 24435,
+    "sha256": "f7fa2416262708c3b857da186946916a9b22a1bed3a9190bc8e1f313bad90998"
+  },
+  {
+    "path": "vulkan-material-baseline/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "vulkan-material-baseline/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "a1687615e67b96fba4c4526d19c05d7c4c1458ace72a663d9f0ec95a27c8ca56"
+  },
+  {
+    "path": "vulkan-material-baseline/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "vulkan-material-baseline/startup-lifecycle.txt",
+    "bytes": 831,
+    "sha256": "644d37fa3baeeef41043f7f02ded72529cdb92ca677b86248160e3c90713868a"
+  },
+  {
+    "path": "vulkan-material-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "vulkan-material-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "vulkan-material-baseline/water-material-atlas.json",
+    "bytes": 230,
+    "sha256": "c694f09247bfa58cd37694bead1f816077eed271c9d4ed2ec7905c721f4f40d0"
+  },
+  {
+    "path": "vulkan-material-baseline/water-material-pixel-details.json",
+    "bytes": 78559,
+    "sha256": "acb3e0bc060d5d1cde6685af7897e81f59c772beea25f5f4b565c78ff1d4bf60"
+  },
+  {
+    "path": "vulkan-material-baseline/water-material-result.txt",
+    "bytes": 279,
+    "sha256": "acd9561398c0c82614765a96e5845ede9adf04ea9bcfd1e1e4e784434d67d802"
+  },
+  {
+    "path": "vulkan-material-baseline/water-material-upload-details.json",
+    "bytes": 79607,
+    "sha256": "eecf7459f87eae0c40ff88a0be7bcb4a322714ea5bd2cd1fc3b9d1ebda04ced7"
+  },
+  {
+    "path": "vulkan-material-baseline/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "9833b0cd80bc7b639bc15835dab38fb418508a97263a369e1b2fb1a203cda4c0"
+  },
+  {
+    "path": "vulkan-material-baseline-controlled-pixels.zip",
+    "bytes": 228232,
+    "sha256": "4fc78838157c93bbdf62cb32f604a45b4376a8448c222a18b47101d90d295c94"
+  },
+  {
+    "path": "vulkan-material-compile-failure/action-history.json",
+    "bytes": 3,
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "path": "vulkan-material-compile-failure/capture-request.txt",
+    "bytes": 20,
+    "sha256": "2ab19caecb4df045ac05c3f5b061e61ae7558ed8c2fd1c4d5d3d07fb50789e14"
+  },
+  {
+    "path": "vulkan-material-compile-failure/command.json",
+    "bytes": 1405,
+    "sha256": "d06dbaf0dc07d82217b770c855b767e012dbcc7e6ca24e323a2e70f0e064a7ae"
+  },
+  {
+    "path": "vulkan-material-compile-failure/console-final.gz",
+    "bytes": 4350,
+    "sha256": "459ee58f04325e237a701f98ffb04d56dc954d7d74dc2bc160b86257e4139068"
+  },
+  {
+    "path": "vulkan-material-compile-failure/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c"
+  },
+  {
+    "path": "vulkan-material-compile-failure/live-action.json",
+    "bytes": 218,
+    "sha256": "e5f07afc398fad6a7062fbc2ec2238d07d3526156b164488fd509b7181905de5"
+  },
+  {
+    "path": "vulkan-material-compile-failure/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "vulkan-material-compile-failure/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc"
+  },
+  {
+    "path": "vulkan-material-compile-failure/result.json",
+    "bytes": 935,
+    "sha256": "938f0405de3e95c9b3de1846be0d475866190e1660100714caf2cf143c2306b0"
+  },
+  {
+    "path": "vulkan-material-compile-failure/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "98028f1ccc91e9be92b64f5511f3c37cde9a31c008ae47cf9a9c99062ff94c6e"
+  },
+  {
+    "path": "vulkan-material-compile-failure/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "vulkan-material-compile-failure/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "vulkan-material-compile-failure-controlled-pixels.zip",
+    "bytes": 22,
+    "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+  },
+  {
+    "path": "vulkan-order-material-final/action-history.json",
+    "bytes": 2638,
+    "sha256": "521fbad1411cd48dc04c29e4bba6754d6fe8d728ba9c784e96bbe37602dcc286"
+  },
+  {
+    "path": "vulkan-order-material-final/after-reload/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "3cd2d6da24fdd5fe98c8833c3974b53736d327a26df4d461a3caa54064ebeb43"
+  },
+  {
+    "path": "vulkan-order-material-final/after-reload/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "b6d52203a11ee3e8a250f9e93a0b14f0fbbc7f70936b422bb61201fea684ade9"
+  },
+  {
+    "path": "vulkan-order-material-final/after-reload/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "43eb923398f7f025090356d88a2af6ee0ea36aa21f923c7ba74e2d7da02a1175"
+  },
+  {
+    "path": "vulkan-order-material-final/command.json",
+    "bytes": 1408,
+    "sha256": "a267517e7333b3a1367a729e0c9c683352c7e728e10a7a2cad5aa0dbc524a831"
+  },
+  {
+    "path": "vulkan-order-material-final/console-final.gz",
+    "bytes": 10575,
+    "sha256": "f6eeb9d39018ce8ef2436b2ea8f24b12e5b844a7d2a7c2a41466138abd07d094"
+  },
+  {
+    "path": "vulkan-order-material-final/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c"
+  },
+  {
+    "path": "vulkan-order-material-final/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "vulkan-order-material-final/frame-video-provenance.json",
+    "bytes": 1478,
+    "sha256": "24985a9580f962c2a4b11483661d2899f3adeca9d629876e1e919a94401b6185"
+  },
+  {
+    "path": "vulkan-order-material-final/frame-videos.json",
+    "bytes": 4784,
+    "sha256": "90b9ee36b99566003fa2020d2308747cff5c8933704f765a819aae2d30b18194"
+  },
+  {
+    "path": "vulkan-order-material-final/live-action.json",
+    "bytes": 420,
+    "sha256": "a674e4a2ca18d5a4e5b0e36487f99963c0641b6a5bf5032d23fe01598cc0cdd0"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/frame-video-provenance.json",
+    "bytes": 1539,
+    "sha256": "b937257c35c267826280b54bfef0c2f21c141c849c73236e981165698e955f0e"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/order-live-frames.webm",
+    "bytes": 629150,
+    "sha256": "1275034d18eeebd72cb257a315b6918df8c2cbaa29a9ef413c56d757504b9783"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/water-page-order-frames.txt",
+    "bytes": 870,
+    "sha256": "1ab9f9e931ea4c0da94418c15b42dc62f4b86ded1e673fea2a34f17021ab1c12"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/water-page-order-state.txt",
+    "bytes": 118,
+    "sha256": "e0654197b8f5afd5a6ae0b74d171203aa417841a949ebca3665a537b25c6f64a"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "vulkan-order-material-final/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "vulkan-order-material-final/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "vulkan-order-material-final/order-live-frames.webm",
+    "bytes": 703167,
+    "sha256": "bd5c000416e76e336eac091372577d18cfb3d66143e1500fa7960a2c826de3f5"
+  },
+  {
+    "path": "vulkan-order-material-final/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc"
+  },
+  {
+    "path": "vulkan-order-material-final/result.json",
+    "bytes": 49431,
+    "sha256": "123b9057b50b58cf697d1ce985a36eff4bc537d2d1cb8541bd94da2c9f086de8"
+  },
+  {
+    "path": "vulkan-order-material-final/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "vulkan-order-material-final/screenshots/order-recovery.png",
+    "bytes": 768705,
+    "sha256": "4a4e0afd83f587a19f7c2fb818b5f570c329f2879cbdf9d87b9e13f2726c5e30"
+  },
+  {
+    "path": "vulkan-order-material-final/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "d747bb1e303b8b1e8650caef8e1940660791a3a6240b84b6ca3a58891d565434"
+  },
+  {
+    "path": "vulkan-order-material-final/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "3cd2d6da24fdd5fe98c8833c3974b53736d327a26df4d461a3caa54064ebeb43"
+  },
+  {
+    "path": "vulkan-order-material-final/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "b6d52203a11ee3e8a250f9e93a0b14f0fbbc7f70936b422bb61201fea684ade9"
+  },
+  {
+    "path": "vulkan-order-material-final/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "vulkan-order-material-final/startup-lifecycle.txt",
+    "bytes": 831,
+    "sha256": "644d37fa3baeeef41043f7f02ded72529cdb92ca677b86248160e3c90713868a"
+  },
+  {
+    "path": "vulkan-order-material-final/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "vulkan-order-material-final/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "vulkan-order-material-final/water-direction-blend-details.json",
+    "bytes": 46333,
+    "sha256": "8231b82cc8f24ac07dddfa9e39f51c5225769d66d67b6e274d76ed32b91230a4"
+  },
+  {
+    "path": "vulkan-order-material-final/water-direction-blend-pass.txt",
+    "bytes": 238,
+    "sha256": "3cb7eb3e892b66039d9c21545f7ed256c684ebd11bf8ecb3656ec81305e67ae9"
+  },
+  {
+    "path": "vulkan-order-material-final/water-direction-blend-pixels.txt",
+    "bytes": 181,
+    "sha256": "655a3bd26d661b05749a7700cf9dd92de29e02084f5c6aff5c5888a602405931"
+  },
+  {
+    "path": "vulkan-order-material-final/water-direction-upload-details.json",
+    "bytes": 797,
+    "sha256": "9e7128da803f4dc3f9ceb6c85b089dfc1934596dbf12030481cfcd6dc3c458d0"
+  },
+  {
+    "path": "vulkan-order-material-final/water-direction-upload-pass.txt",
+    "bytes": 270,
+    "sha256": "9fdde7ffec82f0de599f5e244d93b4e857cbd9f5985ab32361ebb80a61ca942a"
+  },
+  {
+    "path": "vulkan-order-material-final/water-direction-upload.bin",
+    "bytes": 5040,
+    "sha256": "5dfab94f416fe27202c4bff813e2291204fe8c695a690a9dfe12ffd2d1aed48b"
+  },
+  {
+    "path": "vulkan-order-material-final/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "vulkan-order-material-final/water-flow-phase-pass.txt",
+    "bytes": 253,
+    "sha256": "60846405ab2bddf3c02fcf01f103382b7c3cd86d7ff8e5aba216d441e7b833c2"
+  },
+  {
+    "path": "vulkan-order-material-final/water-flow-phase-pixel-details.json",
+    "bytes": 2655,
+    "sha256": "8850a57c74eb56dd3f2fff806601ec900a3a528b9bcb6ef3e15a5290043838ad"
+  },
+  {
+    "path": "vulkan-order-material-final/water-flow-phase-pixels.txt",
+    "bytes": 216,
+    "sha256": "16e77957abd4585f5ba9fea0ec0b6d7190e4279d7833b3769f0220de1bc01b07"
+  },
+  {
+    "path": "vulkan-order-material-final/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "ea858722c97ff4c426ad4aa97642a51c1a01437ec0921b91281c15522e84966a"
+  },
+  {
+    "path": "vulkan-order-material-final/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "vulkan-order-material-final/water-material-atlas.json",
+    "bytes": 230,
+    "sha256": "7badc37778f5216a24334cfecd1f2056bdf94688508e016dca627a2ce5df6d90"
+  },
+  {
+    "path": "vulkan-order-material-final/water-material-pass.txt",
+    "bytes": 365,
+    "sha256": "008fb5e9f165eebedbd804e13b25e2e31d8f99b6e50de14396b044ff5e068777"
+  },
+  {
+    "path": "vulkan-order-material-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2"
+  },
+  {
+    "path": "vulkan-order-material-final/water-material-result.txt",
+    "bytes": 268,
+    "sha256": "a8f9a45fef51af9731d014a2fd44d388fee149b6d9c09fd4f43c3a0b78ef9a99"
+  },
+  {
+    "path": "vulkan-order-material-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5"
+  },
+  {
+    "path": "vulkan-order-material-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "d7359b1e18aa0d02a6b003c6c1b5a0bd199beae04f58271e239f9d88cb7f08ad"
+  },
+  {
+    "path": "vulkan-order-material-final/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-order-material-final/water-page-order-frames.txt",
+    "bytes": 885,
+    "sha256": "e441e7dc512ea88ddbca0f1fc38e34c027447a763331866cbf612a8de4465c62"
+  },
+  {
+    "path": "vulkan-order-material-final/water-page-order-state.txt",
+    "bytes": 117,
+    "sha256": "60f364378d6cced438398ae82566b727871b656526759525b4dc067ea04d5ca9"
+  },
+  {
+    "path": "vulkan-order-material-final/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "vulkan-order-material-final/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "vulkan-order-material-final/water-side-uv-pass.txt",
+    "bytes": 185,
+    "sha256": "8f42fe17f037f3ae7cf2d20655a090f34190400a9bdc3af377aca0166ee6a57a"
+  },
+  {
+    "path": "vulkan-order-material-final/water-side-uv-pixel-details.json",
+    "bytes": 732,
+    "sha256": "10087a1154f30875a21748c68758feb29c02ade851730683ea1a631d8311c773"
+  },
+  {
+    "path": "vulkan-order-material-final/water-side-uv-pixels.txt",
+    "bytes": 170,
+    "sha256": "49020bdbeb2b7fa825f7604c34a5731acb6f150670f7c8a82ba6bd15a7944612"
+  },
+  {
+    "path": "vulkan-order-material-final/water-side-uv-upload-details.json",
+    "bytes": 2147,
+    "sha256": "ee6c2046d50ddea38352dc2748bb12b84f50cb1d41cec2872b10e0956e4d83dc"
+  },
+  {
+    "path": "vulkan-order-material-final/water-side-uv-upload-pass.txt",
+    "bytes": 260,
+    "sha256": "a2f72c097d017e1ce099dbd85ed24e25f8e7176b3ea65b6ea5cbc488665fad53"
+  },
+  {
+    "path": "vulkan-order-material-final/water-side-uv-upload.bin",
+    "bytes": 8640,
+    "sha256": "5241d79476c0d6309df9a1dfc40f8ba8a47f1bbe87be50ad3db914119d51e7e0"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/frame-video-provenance.json",
+    "bytes": 1545,
+    "sha256": "4c0c41057ef3790c7c1f353d041be201b799a53842e07dd9bbfeba4e27e896fa"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/order-live-frames.webm",
+    "bytes": 694520,
+    "sha256": "0f4791065ec3bca693fed34b8abdcae868ad3a87c7a81026e8e7fd20e74d1801"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/water-page-order-frames.txt",
+    "bytes": 886,
+    "sha256": "00a5b2bf603ea1047a2b8a684207459d352d249cd8e6854ef8edc93cae5c8c63"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/water-page-order-state.txt",
+    "bytes": 116,
+    "sha256": "11efd2ff3501efe1e451bc274a145de870eb54d10e740456b57f3c72e8d23e33"
+  },
+  {
+    "path": "vulkan-order-material-final/waves-enabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "ca86743c8c749244e2859006c4ba87ce13e7392006d37e8d4b4db7f7a2672216"
+  },
+  {
+    "path": "vulkan-order-material-final-contact.png",
+    "bytes": 477086,
+    "sha256": "9bed180d60fc6d6c25d7367cae96fb619f5a60879f2339dcf86d56d664b668e9"
+  },
+  {
+    "path": "vulkan-order-material-final-controlled-pixels.zip",
+    "bytes": 502029,
+    "sha256": "4827d09f42fe33c6e8ca9def94c5e94edf28f4c9eb39e7bb3a444a36b21801fc"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/action-history.json",
+    "bytes": 2638,
+    "sha256": "41a47e08f0d12c8409bd3b27220bc631808fdd0ad54e3e19a4df98fbc78dd7a6"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/after-reload/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "3cd2d6da24fdd5fe98c8833c3974b53736d327a26df4d461a3caa54064ebeb43"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/after-reload/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "b6d52203a11ee3e8a250f9e93a0b14f0fbbc7f70936b422bb61201fea684ade9"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/after-reload/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "b423844de39ef147fd0ec8aeb219b1207b63ba00c0da5fe3cc0ba8d31bb221c8"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/command.json",
+    "bytes": 1595,
+    "sha256": "c1f02bae93597fd57efbf50dd60bbe291a27a107c0bb30134fdbf2d4d210ff88"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/console-final.gz",
+    "bytes": 10498,
+    "sha256": "d808ce6aa2b4ca7b282ed8cd02bc9a1172103a285d0894d114a09177463565da"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/frame-video-provenance.json",
+    "bytes": 1478,
+    "sha256": "2f62e7807f1ae1045a284d6f8fc50244e0ebd195dfc46624867ee29c562c3dda"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/frame-videos.json",
+    "bytes": 4784,
+    "sha256": "a6ac1bed597f43de69fb6dc45f3aa8202f411b7eb0aa58fc2a0d0c1a95c24c79"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/live-action.json",
+    "bytes": 420,
+    "sha256": "a732c74e67f5b96a9f75076c040a06f895cdef2d3eb10fbcf7d622b23e95dfd3"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/frame-video-provenance.json",
+    "bytes": 1539,
+    "sha256": "a3e0d9216ea36d35969882b768dfb67e02812928897fe3ae44902b2e05ac45e5"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/order-live-frames.webm",
+    "bytes": 636723,
+    "sha256": "1dc4cafe8dd33215a79947c4732ecb7ff2ac0f094bf31dd54d906c63a4d39dce"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/water-page-order-frames.txt",
+    "bytes": 870,
+    "sha256": "be2af3bc140749b70de19ee477d0a4fe7761c042f52a07f560e2f7dd4e3b882a"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/water-page-order-state.txt",
+    "bytes": 118,
+    "sha256": "e0654197b8f5afd5a6ae0b74d171203aa417841a949ebca3665a537b25c6f64a"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "ca86743c8c749244e2859006c4ba87ce13e7392006d37e8d4b4db7f7a2672216"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/order-live-frames.webm",
+    "bytes": 720050,
+    "sha256": "5903a65d7bcf39446feff88ab2b67767aec1333ab1baa2685e0eff37a923c266"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/result.json",
+    "bytes": 48886,
+    "sha256": "9f6cae0018a2824b7853945ddc2aa79de26300b52c1114e162c2e58464059e10"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/screenshots/order-recovery.png",
+    "bytes": 776255,
+    "sha256": "c8210899fea2a52a96f61e7d5d615ef15621a5acdfef899b662f50d69ade934a"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "eab2c08bae33feabadd87834ee02e9aecaa2908df2aa6c7b36d46bda084ed735"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "3cd2d6da24fdd5fe98c8833c3974b53736d327a26df4d461a3caa54064ebeb43"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "b6d52203a11ee3e8a250f9e93a0b14f0fbbc7f70936b422bb61201fea684ade9"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/startup-lifecycle.txt",
+    "bytes": 897,
+    "sha256": "ab4710bee85384b1b3b4413ffeeb26fcc483b486ce5fe7538b18e378ec40cc2d"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-direction-blend-details.json",
+    "bytes": 46333,
+    "sha256": "8231b82cc8f24ac07dddfa9e39f51c5225769d66d67b6e274d76ed32b91230a4"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-direction-blend-pass.txt",
+    "bytes": 238,
+    "sha256": "3cb7eb3e892b66039d9c21545f7ed256c684ebd11bf8ecb3656ec81305e67ae9"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-direction-blend-pixels.txt",
+    "bytes": 181,
+    "sha256": "655a3bd26d661b05749a7700cf9dd92de29e02084f5c6aff5c5888a602405931"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-direction-upload-details.json",
+    "bytes": 797,
+    "sha256": "9e7128da803f4dc3f9ceb6c85b089dfc1934596dbf12030481cfcd6dc3c458d0"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-direction-upload-pass.txt",
+    "bytes": 270,
+    "sha256": "9fdde7ffec82f0de599f5e244d93b4e857cbd9f5985ab32361ebb80a61ca942a"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-direction-upload.bin",
+    "bytes": 5040,
+    "sha256": "5dfab94f416fe27202c4bff813e2291204fe8c695a690a9dfe12ffd2d1aed48b"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-flow-phase-pass.txt",
+    "bytes": 253,
+    "sha256": "60846405ab2bddf3c02fcf01f103382b7c3cd86d7ff8e5aba216d441e7b833c2"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-flow-phase-pixel-details.json",
+    "bytes": 2655,
+    "sha256": "8850a57c74eb56dd3f2fff806601ec900a3a528b9bcb6ef3e15a5290043838ad"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-flow-phase-pixels.txt",
+    "bytes": 216,
+    "sha256": "16e77957abd4585f5ba9fea0ec0b6d7190e4279d7833b3769f0220de1bc01b07"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "43eb923398f7f025090356d88a2af6ee0ea36aa21f923c7ba74e2d7da02a1175"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-material-atlas.json",
+    "bytes": 230,
+    "sha256": "7badc37778f5216a24334cfecd1f2056bdf94688508e016dca627a2ce5df6d90"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-material-pass.txt",
+    "bytes": 365,
+    "sha256": "008fb5e9f165eebedbd804e13b25e2e31d8f99b6e50de14396b044ff5e068777"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "7307f562c297eb16b5b6f3a0b46e8964d32ba879949a250da06d395689f4d1e2"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-material-result.txt",
+    "bytes": 268,
+    "sha256": "a8f9a45fef51af9731d014a2fd44d388fee149b6d9c09fd4f43c3a0b78ef9a99"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "d7359b1e18aa0d02a6b003c6c1b5a0bd199beae04f58271e239f9d88cb7f08ad"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-page-order-frames.txt",
+    "bytes": 885,
+    "sha256": "8317e12b39ccc5d1ec369567fc32b0cb6b69af27bef276216c1b4029c4d301f2"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-page-order-state.txt",
+    "bytes": 117,
+    "sha256": "60f364378d6cced438398ae82566b727871b656526759525b4dc067ea04d5ca9"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "ca86743c8c749244e2859006c4ba87ce13e7392006d37e8d4b4db7f7a2672216"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-side-uv-pass.txt",
+    "bytes": 185,
+    "sha256": "8f42fe17f037f3ae7cf2d20655a090f34190400a9bdc3af377aca0166ee6a57a"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-side-uv-pixel-details.json",
+    "bytes": 732,
+    "sha256": "10087a1154f30875a21748c68758feb29c02ade851730683ea1a631d8311c773"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-side-uv-pixels.txt",
+    "bytes": 170,
+    "sha256": "49020bdbeb2b7fa825f7604c34a5731acb6f150670f7c8a82ba6bd15a7944612"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-side-uv-upload-details.json",
+    "bytes": 2147,
+    "sha256": "ee6c2046d50ddea38352dc2748bb12b84f50cb1d41cec2872b10e0956e4d83dc"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-side-uv-upload-pass.txt",
+    "bytes": 260,
+    "sha256": "a2f72c097d017e1ce099dbd85ed24e25f8e7176b3ea65b6ea5cbc488665fad53"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/water-side-uv-upload.bin",
+    "bytes": 8640,
+    "sha256": "5241d79476c0d6309df9a1dfc40f8ba8a47f1bbe87be50ad3db914119d51e7e0"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/frame-video-provenance.json",
+    "bytes": 1545,
+    "sha256": "c18cfcf37ae17614da876916829ed16b03866efd1f4f774db4f11d4b8f26a888"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/order-live-frames.webm",
+    "bytes": 688450,
+    "sha256": "b52dbbc6f4d06823d72d0a3022d8a41aa1b0358fb6c76a39ad8c807b1bb864a1"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/water-page-order-frames.txt",
+    "bytes": 885,
+    "sha256": "328e4e7dc823a05d7e5d2f852ca555d09c7be7d80166ff1f14da29fd19308c7f"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/water-page-order-state.txt",
+    "bytes": 116,
+    "sha256": "11efd2ff3501efe1e451bc274a145de870eb54d10e740456b57f3c72e8d23e33"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged/waves-enabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged-contact.png",
+    "bytes": 479463,
+    "sha256": "80f8796ee240c6d182488699c69f07d35720068dd1a2abe9066386351117b29d"
+  },
+  {
+    "path": "vulkan-order-material-final-packaged-controlled-pixels.zip",
+    "bytes": 502029,
+    "sha256": "421f7e0b581148a7c1175390c9a557603877eda9a6b19d84609f1fea9456dd14"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/action-history.json",
+    "bytes": 2103,
+    "sha256": "c5e82a8d8e21033993007cb034e57433be7e48dfb37e4712c6f0f0ab55ba55b4"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/after-reload/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "e1f6d3eec510235152ff6dde41a5d3e903a27fffa6579eb37f179bcb3db8556a"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/after-reload/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "b6d52203a11ee3e8a250f9e93a0b14f0fbbc7f70936b422bb61201fea684ade9"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/after-reload/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "1ddc60aaaf59b483f0cf7cb26e8c5ecc631effeb307ae5916efc4f331c4a7c0b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/command.json",
+    "bytes": 1411,
+    "sha256": "c83226daeab54318721f9b62d5ece249cde798005e1d98cb7e3996c03083dd0b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/console-final.gz",
+    "bytes": 8607,
+    "sha256": "85a99b00484e323054232d81fd40c47e69860821bc4abf69a22b43535c9b9f4f"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/crash-delta.json",
+    "bytes": 940,
+    "sha256": "4f7c324e63ecc609af464e07eff3c431b933440db7ec269a9a5566ad00098d9c"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/frame-video-provenance.json",
+    "bytes": 1478,
+    "sha256": "f6cf89389906ff7778fa3c4482cc0c1d4da5f597d1c0835212d423fdc19a34e2"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/frame-videos.json",
+    "bytes": 4784,
+    "sha256": "8316adb089c8e38f5426c1e39a54e2ba06f3ae89b3d9ed2eddbb1edc3d3b907b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/live-action.json",
+    "bytes": 414,
+    "sha256": "875664e8757384a29769c26b7a2b7b5ad5cf194a878bd4e7c3b5dd9d57641ac0"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/frame-video-provenance.json",
+    "bytes": 1539,
+    "sha256": "c7b0ee1ae78dae94765e7012363080b4af3e7ce665a97e8de94d5b33b0ad2a2c"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/order-live-frames.webm",
+    "bytes": 636866,
+    "sha256": "19dc36762139a00a6b64dd10c63c0cebc68217bf27f31e4a00aa11b493a846e3"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/water-page-order-frames.txt",
+    "bytes": 873,
+    "sha256": "0dc5ad63c120c87710b9ed7cf6182b073064f320f3be9aeccacf11a7fe0fbd3f"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/water-page-order-state.txt",
+    "bytes": 118,
+    "sha256": "a30261ed0b368cbe17d615b1f2820b0c456c967943c11f5ae9d1e82657478474"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/lod-disabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "ca86743c8c749244e2859006c4ba87ce13e7392006d37e8d4b4db7f7a2672216"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/order-live-frames.webm",
+    "bytes": 661138,
+    "sha256": "75cf9095fced98acd11f9947e9d67607a5ff3fb4977c98e46f16337beebb258d"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/prior-crash-reports.json",
+    "bytes": 883,
+    "sha256": "2fe9050d5004999281ca43ff08f72a9060804427eaf937f5278c92f07b0f80bc"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/result.json",
+    "bytes": 41759,
+    "sha256": "5d3b0395fc41341f1976659ac3a048b7699a7fce117aa22654944b157e4276e6"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/screenshots/reuse-gl-recovery.png",
+    "bytes": 777324,
+    "sha256": "3462c36fa3666f74af1402dfb1489b922a52c3e7527e120fe0143ac57b028aec"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "1465b684df474bf786c20d6d49e81ab45c36cf889148296c597a272d87ce94ae"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/selected-flow-gpu-uv.json",
+    "bytes": 2884,
+    "sha256": "e1f6d3eec510235152ff6dde41a5d3e903a27fffa6579eb37f179bcb3db8556a"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/selected-flow-gpu-vertices.bin",
+    "bytes": 432,
+    "sha256": "b6d52203a11ee3e8a250f9e93a0b14f0fbbc7f70936b422bb61201fea684ade9"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/startup-lifecycle.txt",
+    "bytes": 835,
+    "sha256": "bb9279732979f2c876164e63778155386d197a22ce22a8c7a956ef04c7d04049"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-direction-blend-details.json",
+    "bytes": 46333,
+    "sha256": "c4251590f9ee38424eea2b00c2fda30088e734175308843a6740f948f9766d9c"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-direction-blend-pass.txt",
+    "bytes": 238,
+    "sha256": "3cb7eb3e892b66039d9c21545f7ed256c684ebd11bf8ecb3656ec81305e67ae9"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-direction-blend-pixels.txt",
+    "bytes": 181,
+    "sha256": "655a3bd26d661b05749a7700cf9dd92de29e02084f5c6aff5c5888a602405931"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-direction-upload-details.json",
+    "bytes": 797,
+    "sha256": "e7c659f4bcdf63879998e7c594225090a1501cbc5ca1dd58902c84d743cf3d9f"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-direction-upload-pass.txt",
+    "bytes": 270,
+    "sha256": "9fdde7ffec82f0de599f5e244d93b4e857cbd9f5985ab32361ebb80a61ca942a"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-direction-upload.bin",
+    "bytes": 5040,
+    "sha256": "5dfab94f416fe27202c4bff813e2291204fe8c695a690a9dfe12ffd2d1aed48b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-flow-phase-pass.txt",
+    "bytes": 253,
+    "sha256": "60846405ab2bddf3c02fcf01f103382b7c3cd86d7ff8e5aba216d441e7b833c2"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-flow-phase-pixel-details.json",
+    "bytes": 2655,
+    "sha256": "7041e1945389fa5b95de52eed1ecb098e4d893c9023e427edc2f72d303a8434f"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-flow-phase-pixels.txt",
+    "bytes": 216,
+    "sha256": "8bb01757dc0da3ef6102337ff3c4c9dc976096bd448880cce39a3897a55a73b1"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-flow-texture.txt",
+    "bytes": 260,
+    "sha256": "8da94401fa390ca1ada4a51f5b708b44580e876ce3950687f7fe7498f8da2d57"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-material-atlas.json",
+    "bytes": 230,
+    "sha256": "451180d4e49a4ae99dc9afbc5768bf10e84a32fd27c7a7cbb3feb131c2420870"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-material-pass.txt",
+    "bytes": 365,
+    "sha256": "008fb5e9f165eebedbd804e13b25e2e31d8f99b6e50de14396b044ff5e068777"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-material-pixel-details.json",
+    "bytes": 77343,
+    "sha256": "f665c3090b50ec2945bb2dc2fdabe8b849ada32fb281e9427f59754da2dbd290"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-material-result.txt",
+    "bytes": 268,
+    "sha256": "a8f9a45fef51af9731d014a2fd44d388fee149b6d9c09fd4f43c3a0b78ef9a99"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-material-upload-details.json",
+    "bytes": 79613,
+    "sha256": "b8afcf780b419a4c9efa3d71597b8b2f917db90690de79b9d19bb6ae2a26f6a5"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-material-upload.bin",
+    "bytes": 282960,
+    "sha256": "d7359b1e18aa0d02a6b003c6c1b5a0bd199beae04f58271e239f9d88cb7f08ad"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-page-order-frames.txt",
+    "bytes": 885,
+    "sha256": "92e0e160de6eea83e376e634f13b22c9bee39474aa07fdca2606f3a281cb0e46"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-page-order-state.txt",
+    "bytes": 117,
+    "sha256": "c026538fae7841f4b65d74547da4b1ac5221733dfb626be30ac66854a135341a"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-side-uv-pass.txt",
+    "bytes": 185,
+    "sha256": "8f42fe17f037f3ae7cf2d20655a090f34190400a9bdc3af377aca0166ee6a57a"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-side-uv-pixel-details.json",
+    "bytes": 732,
+    "sha256": "b00dcfffd6a1805971e1943067a7c2411ebf50349c05fc175ca7fb7b8dfe006f"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-side-uv-pixels.txt",
+    "bytes": 170,
+    "sha256": "49020bdbeb2b7fa825f7604c34a5731acb6f150670f7c8a82ba6bd15a7944612"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-side-uv-upload-details.json",
+    "bytes": 2147,
+    "sha256": "58e7463f79a403ae24aef09c409632d63e5682137cf127db3321a5a4ba2e4932"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-side-uv-upload-pass.txt",
+    "bytes": 260,
+    "sha256": "a2f72c097d017e1ce099dbd85ed24e25f8e7176b3ea65b6ea5cbc488665fad53"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/water-side-uv-upload.bin",
+    "bytes": 8640,
+    "sha256": "5241d79476c0d6309df9a1dfc40f8ba8a47f1bbe87be50ad3db914119d51e7e0"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/frame-video-provenance.json",
+    "bytes": 1545,
+    "sha256": "285a8f873d34d3002f6c570aa0d13f745892fec17e401bf09604cbec146915ef"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/order-live-frames.webm",
+    "bytes": 675812,
+    "sha256": "abc44cb94a824455c1f64eae15fee956dc70b604d1b08289a84dca91aa5d7b11"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/order-pixels-far-first.png",
+    "bytes": 127,
+    "sha256": "b9a86be0523ef41c633fe1986defce3d22ded68d51de5fbb4f0465d0f7835a8b"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/order-pixels-near-first.png",
+    "bytes": 122,
+    "sha256": "0499701c987a532241f1e312af54898e5c6ad80e5deea30b6d269e9a7d6411ce"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/water-order-pixels.txt",
+    "bytes": 135,
+    "sha256": "0bdf0462bdcce5f931bdbe50357d76d0b54eb87344bbcab0951b4bd48653af11"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/water-page-order-frames.txt",
+    "bytes": 887,
+    "sha256": "cc73e3d39e729bc7578357ad8dc519dbaac7eda8f745dfbed5f877e88368067f"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/water-page-order-state.txt",
+    "bytes": 116,
+    "sha256": "e316ae413ec05e572767725d2edeed0415d75ce560ae3a7ba0b794fe684fdf7c"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final/waves-enabled/water-page-order.txt",
+    "bytes": 247,
+    "sha256": "1bac0b4fe1919e3ed3842227c380427ca8de08e2a646f8b8c12ff7dce784bbe6"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final-contact.png",
+    "bytes": 457739,
+    "sha256": "bf36ef61155594390fab7de58f2d85facdea1c4314e6788dcf8ade77516df9b8"
+  },
+  {
+    "path": "vulkan-reuse-gl-material-final-controlled-pixels.zip",
+    "bytes": 502834,
+    "sha256": "c8ae3cf5b92bab87e9071f303d4d951964145d0ec4c6fe6ca140498955b43c28"
+  }
+]

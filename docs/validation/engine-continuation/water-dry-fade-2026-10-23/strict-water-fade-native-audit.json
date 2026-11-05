@@ -1,0 +1,95 @@
+{
+  "all_focused_gates_pass": true,
+  "engine_acceptance_complete": false,
+  "scope": "Actual water GPU meshes with a controlled presentation clock preserve a dry fade through three empty recaptures, release at deadline and retarget rewet opacity continuously. This is GPU ownership/transition validation, not pixel-complete live-scene flicker acceptance. Also repeats four controlled completed-scan/native-tick cases enforce the 8192-key index bound while preserving queued order/edit guards and nearest remaining slots. This is injected scan completion, not full filesystem discovery or scene coverage. Also repeats real 552-byte partial GPU upload cancelled by an 8-to-4 MiB budget reduction beside 4194304 bytes of actual GPU ballast; bounded idle retry and same-view recovery after ballast closure. Five cancellation guards use an explicit occupancy ledger. Also repeats prior eviction/edit/capture, Vulkan GPU/frame/reload/save/shutdown controls. Isolated renderer; physical travel data is audited separately. Software driver, not owner GPU/FPS or full visual coverage acceptance.",
+  "sessions": [
+    {
+      "case": "vulkan-fade-final",
+      "strict_pass": true,
+      "started_utc": "2026-10-23T01:20:31.157311+00:00",
+      "finished_utc": "2026-10-23T01:21:13.198277+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/lod-engine/build/classes/java/main/",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/renderer-vulkan/build/classes/java/main/"
+      ],
+      "console_sha256": "6e539b548d632b4870280dc24093b7306841ce0003efc6eea45ed4db06a3e51f",
+      "sealed_console_gzip_sha256": "4b8ef9e1d4a01868c138c2d52d7673ff5f7cac2ffb096377289975d706de60eb",
+      "live_console_sha256_at_audit": "6e539b548d632b4870280dc24093b7306841ce0003efc6eea45ed4db06a3e51f",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-fade-final/screenshots/fade-recovery.png",
+          "bytes": 727010,
+          "sha256": "23ff223315b2dd0eefe75d77322254f6b6aa21805d0f5e2e623fd88056e3c694"
+        }
+      ]
+    },
+    {
+      "case": "vulkan-fade-final-packaged",
+      "strict_pass": true,
+      "started_utc": "2026-10-23T01:21:31.139681+00:00",
+      "finished_utc": "2026-10-23T01:22:13.180374+00:00",
+      "run_directory": "/tmp/deepprimal-travel-correct-0035",
+      "class_origins": [
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.25-dev-vulkan-linux.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/lod-engine/build/libs/DeepPrimal-LOD-0.0.1-alpha.25-dev.jar",
+        "VALIDATION_CLASS_ORIGIN class=net.vulkanmod.render.engine.VkCommandEncoder location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/renderer-vulkan/build/libs/DeepPrimal-Vulkan-0.0.1-alpha.25-dev-linux.jar"
+      ],
+      "console_sha256": "d1f33b9f2ec85762c5f71c7329ae29fe8404f702a7a6915cc5d7dcfffbcb973e",
+      "sealed_console_gzip_sha256": "2d5b9dfee4b409bfdfbdcf5c39941462ea61f53e922e8c66bf8b222e2b0754b1",
+      "live_console_sha256_at_audit": "d1f33b9f2ec85762c5f71c7329ae29fe8404f702a7a6915cc5d7dcfffbcb973e",
+      "eviction_recovery_cycles": 4,
+      "fixed_view_idle_calls": 16,
+      "freed_capacity_same_view_recovery": true,
+      "actual_ballast_bytes": 4193476,
+      "target_page_bytes": 1656,
+      "admission_controls": 4,
+      "real_chunk_capture_and_store_provenance": true,
+      "queued_edit_guard": true,
+      "frame_completions": 8,
+      "open_pass_rejections": 8,
+      "unforced_vulkan": true,
+      "marker_before_after_absent": true,
+      "new_crashes": 0,
+      "save_errors": 0,
+      "vuid_errors": 0,
+      "validation_errors": 0,
+      "final_buffers": 0,
+      "final_images": 0,
+      "software_driver": "Mesa llvmpipe 25.2.8",
+      "owner_gpu_fps_acceptance": false,
+      "screenshots": [
+        {
+          "path": "vulkan-fade-final-packaged/screenshots/fade-recovery.png",
+          "bytes": 723904,
+          "sha256": "bc141ce8efbc2ddfbc4aed184c050da90342d454fee1315c9249797f89027a2f"
+        }
+      ]
+    }
+  ]
+}

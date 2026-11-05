@@ -1,0 +1,5 @@
+PACKAGED_CLASS_PASS com.shnewbs.deepprimal.core.ByteLru
+PACKAGED_CLASS_PASS com.shnewbs.deepprimal.core.density.DensityGrid
+BYTE_LRU_OVERFLOW_PASS checks=3379936 bigIntegerOracle=true
+DENSITY_GRID_FINITE_PASS checks=11728
+COMBINED_OVERFLOW_PACKAGE_PASS

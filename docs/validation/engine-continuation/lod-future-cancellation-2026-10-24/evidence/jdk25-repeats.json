@@ -1,0 +1,173 @@
+{
+  "records": [
+    {
+      "run": 1,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 1,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 2,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 2,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 3,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 3,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 4,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 4,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 5,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 5,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 6,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 6,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 7,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 7,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 8,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 8,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 9,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 9,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 10,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 10,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 11,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 11,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    },
+    {
+      "run": 12,
+      "main": "AdapterChecks",
+      "exit": 0,
+      "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n",
+      "pass": true
+    },
+    {
+      "run": 12,
+      "main": "FutureChecks",
+      "exit": 0,
+      "output": "PASS R57 future checks=803 queuedCancelRuns=100 falseAndTrue=true\n",
+      "pass": true
+    }
+  ],
+  "pass": true
+}

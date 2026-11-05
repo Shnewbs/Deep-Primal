@@ -1,0 +1,1 @@
+WATER_FLOW_PHASE_PIXEL_NATIVE_PASS pairs=6 renders=12 directions=0,2,4,6,10,14 worldPhase=true exactPixels=true isolatedGpuReleased=true scope=controlledPhaseHelperAndProductionShaderNotFullStreamAcceptance

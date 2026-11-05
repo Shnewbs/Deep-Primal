@@ -1,0 +1,127 @@
+test_changed_sample_after_reopen (test_server_smoke.AcceptanceChecks.test_changed_sample_after_reopen) ... FAIL
+test_missing_bedrock (test_server_smoke.AcceptanceChecks.test_missing_bedrock) ... FAIL
+test_missing_sample (test_server_smoke.AcceptanceChecks.test_missing_sample) ... FAIL
+test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) ... 
+  test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal perf', occurrence=0) ... FAIL
+  test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal perf', occurrence=1) ... FAIL
+  test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal perf', occurrence=3) ... FAIL
+  test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal bench 400 400 5', occurrence=0) ... FAIL
+  test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal bench 500 500 0', occurrence=0) ... FAIL
+  test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='forceload query', occurrence=0) ... FAIL
+test_valid_runtime_receipt (test_server_smoke.AcceptanceChecks.test_valid_runtime_receipt) ... ok
+test_wrong_seed (test_server_smoke.AcceptanceChecks.test_wrong_seed) ... FAIL
+test_clean_completed_session (test_server_smoke.ShutdownChecks.test_clean_completed_session) ... ok
+test_clean_fresh_reopen_receipt (test_server_smoke.ShutdownChecks.test_clean_fresh_reopen_receipt) ... ok
+test_crash_never_leaves_old_or_partial_success_receipt (test_server_smoke.ShutdownChecks.test_crash_never_leaves_old_or_partial_success_receipt) ... ok
+test_crash_wins_over_success_and_cleanup (test_server_smoke.ShutdownChecks.test_crash_wins_over_success_and_cleanup) ... ok
+test_each_lifecycle_phase_required (test_server_smoke.ShutdownChecks.test_each_lifecycle_phase_required) ... ok
+test_flush_before_stop_does_not_prove_shutdown_save (test_server_smoke.ShutdownChecks.test_flush_before_stop_does_not_prove_shutdown_save) ... ok
+test_nonfatal_remote_key_failure_is_not_server_failure (test_server_smoke.ShutdownChecks.test_nonfatal_remote_key_failure_is_not_server_failure) ... ok
+test_nonzero_and_unfinished_process (test_server_smoke.ShutdownChecks.test_nonzero_and_unfinished_process) ... ok
+test_required_fixture_token_is_not_a_prefix (test_server_smoke.ShutdownChecks.test_required_fixture_token_is_not_a_prefix) ... ok
+test_unacknowledged_flush_rejects_receipt (test_server_smoke.ShutdownChecks.test_unacknowledged_flush_rejects_receipt) ... ok
+
+======================================================================
+FAIL: test_changed_sample_after_reopen (test_server_smoke.AcceptanceChecks.test_changed_sample_after_reopen)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 169, in test_changed_sample_after_reopen
+    self.reject(lambda command, i: 'preliminary surface=999 ' + command
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_missing_bedrock (test_server_smoke.AcceptanceChecks.test_missing_bedrock)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 173, in test_missing_bedrock
+    self.reject(lambda command, i: 'Test failed' if command.startswith('execute if block') else None)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_missing_sample (test_server_smoke.AcceptanceChecks.test_missing_sample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 166, in test_missing_sample
+    self.reject(lambda command, i: 'Command failed' if command.startswith('deepprimal sample') else None)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal perf', occurrence=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 209, in test_runtime_acceptance_gates
+    self.reject(replies, runtime=True)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal perf', occurrence=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 209, in test_runtime_acceptance_gates
+    self.reject(replies, runtime=True)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal perf', occurrence=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 209, in test_runtime_acceptance_gates
+    self.reject(replies, runtime=True)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal bench 400 400 5', occurrence=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 209, in test_runtime_acceptance_gates
+    self.reject(replies, runtime=True)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='deepprimal bench 500 500 0', occurrence=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 209, in test_runtime_acceptance_gates
+    self.reject(replies, runtime=True)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_runtime_acceptance_gates (test_server_smoke.AcceptanceChecks.test_runtime_acceptance_gates) (target='forceload query', occurrence=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 209, in test_runtime_acceptance_gates
+    self.reject(replies, runtime=True)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+======================================================================
+FAIL: test_wrong_seed (test_server_smoke.AcceptanceChecks.test_wrong_seed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 163, in test_wrong_seed
+    self.reject(lambda command, i: 'seed=99' if command == 'deepprimal info' else None)
+  File "/dev/shm/deepprimal-builder-2125/baseline/test_server_smoke.py", line 159, in reject
+    self.assertIsNotNone(error, 'Invalid game reply accepted')
+AssertionError: unexpectedly None : Invalid game reply accepted
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.029s
+
+FAILED (failures=10)

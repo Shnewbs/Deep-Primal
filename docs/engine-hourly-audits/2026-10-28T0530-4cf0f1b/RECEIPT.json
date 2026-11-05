@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "run_time_utc": "2026-10-28T05:30:00Z",
+  "role": "independent-auditor",
+  "repository": "Shnewbs/Deep-Primal",
+  "pinned_main": "4cf0f1b930b182903af3086071859d727379a74d",
+  "version": "0.0.1-alpha.29-dev.46-v8native.1",
+  "product_source_changed_by_auditor": false,
+  "source_blobs": {
+    "lod_scanner": "aa91a4f7fc51e01ca2df9d5d8f88ee116075cf7f",
+    "renderer_consumer": "c8cb68c86537d90d406228a8ec58457cb3f50492",
+    "density_adapter": "20443809ed72fa10f1c5f6ea885dd551f433d4ab",
+    "density_section": "669a9781fb6c7cb78d7de7744b85d26d9b0bf712",
+    "verified_dev46_product_sources": 10
+  },
+  "jdk": {
+    "vendor": "Eclipse Temurin",
+    "version": "25.0.5+8",
+    "isolated_copy": true,
+    "java25_compiler": true,
+    "java21_comparison": true
+  },
+  "tests": {
+    "dev46_api_double_assertions": 11047019,
+    "dev46_positions": 1376512,
+    "dev46_scenarios": 34,
+    "registered_scanner_assertions_per_jdk": 9006,
+    "new_integration_repro_assertions_per_jdk": 36,
+    "real_directory_scenarios": [
+      1,
+      16,
+      120,
+      8205
+    ],
+    "reproduction": "Immutable List.copyOf sorted in VoxelLodRenderer causes UnsupportedOperationException before any disk key admission; status catches as Cache index unavailable",
+    "native_minecraft": false
+  },
+  "grade": {
+    "category_scores": [
+      5,
+      4,
+      6,
+      4,
+      3,
+      7,
+      6,
+      4,
+      7,
+      4
+    ],
+    "total": 50,
+    "average": 5,
+    "tier": 2,
+    "carried": true,
+    "fresh_complete_regrade": false,
+    "acceptance_target_strictly_greater_than": 8.5
+  },
+  "artifact": {
+    "filename": "DeepPrimal_Audit_20261028T0530_4cf0f1b_SourceEvidence.zip",
+    "bytes": 38335,
+    "sha256": "72e72bd4d86f71a26835fd09d2e87722ef5370886f195fda587292bfc7813278",
+    "crc_entries_pass": 38
+  },
+  "unrun": [
+    "complete Gradle/NeoForge Java25 build",
+    "Minecraft native world save/reopen/lighting",
+    "JAR producer and nested CRCs",
+    "Windows AMD8060S Vulkan/OpenGL",
+    "whole-scene latency/soak"
+  ],
+  "new_jar": false,
+  "release_published": false,
+  "builder_interrupted": false,
+  "renderer_modified": false,
+  "schedule_modified": false
+}

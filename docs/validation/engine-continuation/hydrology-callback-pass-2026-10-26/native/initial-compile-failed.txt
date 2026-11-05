@@ -1,0 +1,6 @@
+/dev/shm/dp-builder2108/native/StreamIndexNativeChecks.java:40: error: composition is not public in HydrologyData; cannot be accessed from outside package
+    for(var pos:List.of(p,q)){HydrologyRuntime.write(l,pos,Blocks.AIR.defaultBlockState());data.composition.remove(pos.asLong());}
+                                                                                               ^
+Note: /dev/shm/dp-builder2108/native/StreamIndexNativeChecks.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 error

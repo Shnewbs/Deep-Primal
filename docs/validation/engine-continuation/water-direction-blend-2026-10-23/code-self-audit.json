@@ -1,0 +1,29 @@
+{
+  "scope": "Temporal flow-direction presentation only",
+  "transition": "Two stable endpoints plus one latest request. Never chain weighted endpoint histories. Stale revision rejected; repeated upload keeps start; queue admitted after current100ms ends. Idle first retarget immediate. Still/flow sprite switch remains immediate.",
+  "payload": "CPU14floats,GPU36bytes unchanged. Lowbytes of block/skylight preserved. UV2.x bits11-15 source;UV2.y bit15 active andbits8-14 age. Active-top Color.a carries cell x/z;shader restores tint alpha before applying existing opacity Normal fields.",
+  "phase": "Q25 modular uint arithmetic reconstructs old direction world phase;cell-local origin avoids loss of page-local precision near world limits. Prior explicit unwrapped textureGrad retained for both endpoints, with gradients outside conditional.",
+  "bounds": "History LRU capped32768 and reset. Existing bounded cleanup admission schedules latest pending target; eviction may still expose hard switches and needs larger scene coverage.",
+  "unchanged": [
+    "Water solver/quantity",
+    "geography V1/V2/V3",
+    "player edits",
+    "LOD and Vulkan/OpenGL backend code",
+    "side geometry and height/opacity transition logic"
+  ],
+  "costs": [
+    "Additional bounded per-cell history",
+    "extra interstage values",
+    "second texture fetch while blending",
+    "integer phase arithmetic"
+  ],
+  "limits": [
+    "Still/flow and material changes remain abrupt",
+    "Different-direction spatial shared edges remain open",
+    "No speed-dependent UV advection",
+    "Long stream/ocean/native/LOD scenes and cap churn not fully accepted",
+    "Pixel atlas is opaque;alpha-varying resource packs are not comprehensively accepted",
+    "Development Vulkan frames show rectangular distant LOD/horizon cutoffs;cause unresolved and full enabled-view coverage remains open",
+    "No matched profiling,ownerGPU/FPS or independent60Hz acceptance"
+  ]
+}

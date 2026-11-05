@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0152-pretransform-failures",
+  "owner": "renderer-hourly-only",
+  "status": "released",
+  "started_at": "2026-10-29T01:54:48.812Z",
+  "active_until": "2026-10-29T02:03:04.123Z",
+  "baseline_sha": "985b2f83538993130d1c94a25f6b77f26e490415",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodSubmissionProbe.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-pretransform-failures"
+  ],
+  "other_workstreams": "excluded; no shared build/test outputs; owner builds",
+  "consumed": "docs/renderer-jams/20261029-submit-stage-timing/REVIEW.md and independent Dev67 audit",
+  "goal": "Capture pre-draw failures in bounded LOD CPU telemetry while preserving exception propagation, GPU semantics and no telemetry-off clock work",
+  "released_at": "2026-10-29T02:03:04.123Z",
+  "implementation_sha": "155aeda003e6310d2174ecff74dfa7bb18f0b8b2",
+  "score": 5.63,
+  "artifact": "DeepPrimal_Renderer_PretransformFailureTelemetry_20261029_155aeda_SourceEvidence.zip",
+  "assertions_passed": 66368,
+  "gates_unrun": [
+    "Java25",
+    "complete Gradle/Minecraft",
+    "native Vulkan/OpenGL",
+    "water pixels",
+    "actual GPU",
+    "VRAM/frame-time",
+    "JAR"
+  ]
+}

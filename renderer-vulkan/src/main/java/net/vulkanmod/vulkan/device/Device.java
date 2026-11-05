@@ -1,0 +1,118 @@
+// VulkanMod 0.6.8+26.1.2, Collateral and contributors. LGPL-3.0-only.
+// Reconstructed from the matching published artifact; modified for Deep Primal on 2026-10-19.
+package net.vulkanmod.vulkan.device;
+
+import java.util.HashSet;
+import java.util.Set;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.MemoryStack;
+import org.lwjgl.vulkan.VK10;
+import org.lwjgl.vulkan.VK11;
+import org.lwjgl.vulkan.VkExtensionProperties;
+import org.lwjgl.vulkan.VkExtensionProperties.Buffer;
+import org.lwjgl.vulkan.VkPhysicalDevice;
+import org.lwjgl.vulkan.VkPhysicalDeviceFeatures2;
+import org.lwjgl.vulkan.VkPhysicalDeviceProperties;
+
+public class Device {
+  final VkPhysicalDevice physicalDevice;
+  final VkPhysicalDeviceProperties properties;
+  final Buffer extensionProperties;
+  public final VkPhysicalDeviceFeatures2 availableFeatures;
+  public final boolean dynamicRenderingSupported;
+  private final int vendorId;
+  public final String vendorIdString;
+  public final String deviceName;
+  public final String driverVersion;
+  public final String vkVersion;
+
+  public Device(VkPhysicalDevice device) {
+    this.physicalDevice = device;
+    this.properties = VkPhysicalDeviceProperties.malloc();
+    VK10.vkGetPhysicalDeviceProperties(this.physicalDevice, this.properties);
+    this.extensionProperties = getAvailableExtension(device);
+    this.vendorId = this.properties.vendorID();
+    this.vendorIdString = decodeVendor(this.properties.vendorID());
+    this.deviceName = this.properties.deviceNameString();
+    this.driverVersion =
+        decodeDvrVersion(this.properties.driverVersion(), this.properties.vendorID());
+    this.vkVersion = decDefVersion(this.properties.apiVersion());
+    this.availableFeatures = VkPhysicalDeviceFeatures2.calloc();
+    this.availableFeatures.sType$Default();
+    try (var stack = MemoryStack.stackPush()) {
+      var dynamic =
+          org.lwjgl.vulkan.VkPhysicalDeviceDynamicRenderingFeaturesKHR.calloc(stack)
+              .sType$Default();
+      this.availableFeatures.pNext(dynamic);
+      VK11.vkGetPhysicalDeviceFeatures2(this.physicalDevice, this.availableFeatures);
+      this.dynamicRenderingSupported = dynamic.dynamicRendering();
+      this.availableFeatures.pNext(0L);
+    }
+  }
+
+  public boolean hasExtension(String s) {
+    return this.extensionProperties.stream().anyMatch(pr -> pr.extensionNameString().equals(s));
+  }
+
+  public Set<String> getUnsupportedExtensions(Set<String> requiredExtensions) {
+    Set<String> unsupported = new HashSet<>(requiredExtensions);
+    extensionProperties.forEach(extension -> unsupported.remove(extension.extensionNameString()));
+    return unsupported;
+  }
+
+  public void close() {
+    properties.free();
+    extensionProperties.free();
+    availableFeatures.free();
+  }
+
+  private static String decodeVendor(int i) {
+    return switch (i) {
+      case 4098, 4130 -> "AMD";
+      case 4112 -> "Imagination Technologies";
+      case 4203 -> "Apple";
+      case 4318 -> "Nvidia";
+      case 5045 -> "ARM";
+      case 5348 -> "Broadcom";
+      case 6880 -> "Google";
+      case 20803 -> "Qualcomm";
+      case 32902 -> "Intel";
+      case 65541 -> "Mesa";
+      default -> "undef";
+    };
+  }
+
+  static String decDefVersion(int v) {
+    return VK10.VK_VERSION_MAJOR(v)
+        + "."
+        + VK10.VK_VERSION_MINOR(v)
+        + "."
+        + VK10.VK_VERSION_PATCH(v);
+  }
+
+  private static String decodeDvrVersion(int v, int i) {
+    return switch (i) {
+      case 4098, 4130 -> decDefVersion(v);
+      case 4318 -> decodeNvidia(v);
+      case 32902 -> decIntelVersion(v);
+      default -> decDefVersion(v);
+    };
+  }
+
+  private static String decIntelVersion(int v) {
+    return GLFW.glfwGetPlatform() == 393217 ? (v >>> 14) + "." + (v & 16383) : decDefVersion(v);
+  }
+
+  private static String decodeNvidia(int v) {
+    return (v >>> 22 & 1023) + "." + (v >>> 14 & 0xFF) + "." + (v >>> 6 & 0xFF) + "." + (v & 0xFF);
+  }
+
+  public static Buffer getAvailableExtension(VkPhysicalDevice device) {
+    int[] extensionCount = new int[1];
+    VK10.vkEnumerateDeviceExtensionProperties(device, (String) null, extensionCount, null);
+    Buffer availableExtensions = VkExtensionProperties.malloc(extensionCount[0]);
+    VK10.vkEnumerateDeviceExtensionProperties(
+        device, (String) null, extensionCount, availableExtensions);
+    return availableExtensions;
+  }
+}

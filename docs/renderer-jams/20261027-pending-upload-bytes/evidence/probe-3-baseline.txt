@@ -1,0 +1,7 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -XX:-UsePerfData -Xmx512m -Djava.io.tmpdir=/dev/shm/dp-renderer-pending-bytes-c748d588/tmp
+MEASURE scene=0 parts=3 bytes=1656 allocationBytesPerQuery=550.882568 batchMeanNsP50=83.476 batchMeanNsP95=301.382 batchMeanNsP99=570.372 queries=131072 signature=ee936654b3d310db5e7b5a0136dbcf25b5976c4e4f559c618d8122cb13b95487
+MEASURE scene=1 parts=4 bytes=108192 allocationBytesPerQuery=544.000000 batchMeanNsP50=62.263 batchMeanNsP95=202.757 batchMeanNsP99=420.360 queries=131072 signature=e66b60151a613744ee331b4604f5c62d1775b363572c8e2954f1fe16f3f991b0
+MEASURE scene=2 parts=3 bytes=57776 allocationBytesPerQuery=544.000000 batchMeanNsP50=61.401 batchMeanNsP95=227.433 batchMeanNsP99=788.620 queries=131072 signature=7e90c5234bee8e1a7b7891ca94b7effa92483a444cb19dfba68ccdee483db3aa
+MEASURE scene=3 parts=3 bytes=81880 allocationBytesPerQuery=544.000000 batchMeanNsP50=65.294 batchMeanNsP95=331.262 batchMeanNsP99=547.173 queries=131072 signature=aafa88a8f3253d78a1d7bc42795a8698c2a9b3f647f2df1e5fdc2cac7f2d761a
+MEASURE scene=4 parts=3 bytes=4140 allocationBytesPerQuery=544.000000 batchMeanNsP50=83.994 batchMeanNsP95=134.401 batchMeanNsP99=229.555 queries=131072 signature=3e9ff3e553604ddd8c752b393eda49ad896156a18662a3bcedcfbc300565df2a
+PENDING_UPLOAD_BYTES_PASS checks=10063 realMesherScenes=5 privateProductClass=/dev/shm/dp-renderer-pending-bytes-c748d588/baseline-classes actualGpuUpload=false methodHandleInvocation=true

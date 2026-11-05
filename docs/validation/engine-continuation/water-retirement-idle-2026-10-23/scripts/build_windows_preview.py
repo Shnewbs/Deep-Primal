@@ -1,0 +1,7 @@
+from pathlib import Path
+import subprocess,sys,os,json,hashlib,gzip,datetime
+R=Path(__file__).resolve().parent;P=R/'baseline';T=R/'toolchain';O=R/'windows-preview'
+cmd=[sys.executable,'tools/build_with_current_proxy.py','--java-home',str(T/'jdk-25.0.4.1+1'),'--gradle',str(T/'gradle-9.2.1/bin/gradle'),'--gradle-user-home',str(T/'gradle-cache'),'--trust-store','/etc/ssl/certs/java/cacerts','--neoform-agent',str(T/'checked-agent/neoform-process-fallback.jar'),'--','--no-daemon','--console=plain','--max-workers=2','-Dorg.gradle.jvmargs=-Xmx1G','-Porg.gradle.java.installations.paths='+str(T/'jdk-21.0.12.1+1')+','+str(T/'jdk-25.0.4.1+1'),'-PvulkanPlatform=windows','-Pmod_version=0.0.1-alpha.25-dev','--no-build-cache','--no-parallel','jar']
+started=datetime.datetime.now(datetime.timezone.utc).isoformat()
+with (O/'packaging.log').open('wb')as f:r=subprocess.run(cmd,cwd=P,stdout=f,stderr=subprocess.STDOUT,timeout=360)
+raw=(O/'packaging.log').read_bytes();(O/'packaging.log.gz').write_bytes(gzip.compress(raw,mtime=0));record={'command':cmd,'started_utc':started,'finished_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'exit_code':r.returncode,'raw_sha256':hashlib.sha256(raw).hexdigest(),'pass':r.returncode==0 and b'BUILD SUCCESSFUL'in raw,'scope':'Windows-native packaging of R43 tested product; no Windows native execution and no R44 production changes'};(O/'packaging-result.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record,indent=2));raise SystemExit(0 if record['pass']else 1)

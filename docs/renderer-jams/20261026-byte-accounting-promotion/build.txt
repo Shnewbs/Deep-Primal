@@ -1,0 +1,4 @@
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/workspace/scratch/c748d58856d9/qualification/tmp
+Picked up JAVA_TOOL_OPTIONS: -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=36255 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=36255 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -javaagent:/workspace/scratch/c748d58856d9/renderer-toolchain/checked-agent/neoform-process-fallback.jar
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 

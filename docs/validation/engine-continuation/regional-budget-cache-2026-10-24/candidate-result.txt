@@ -1,0 +1,1 @@
+REGIONAL_BUDGET_RESULT cases=172200 violations=0 maximum=32 ordinary=32 offline=32

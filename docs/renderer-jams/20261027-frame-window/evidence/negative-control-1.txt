@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: Crossing interval 0
+	at com.shnewbs.deepprimal.core.FrameIntervalChecks.main(FrameIntervalChecks.java:45)

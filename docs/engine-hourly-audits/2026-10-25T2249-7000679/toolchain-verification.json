@@ -1,0 +1,42 @@
+{
+  "scope": "private-validation-tools",
+  "verify_only": true,
+  "all_verified": true,
+  "assets": [
+    {
+      "asset": "jdk25.tar.gz",
+      "bytes": 141329719,
+      "sha256": "dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e",
+      "verified": true,
+      "elapsed_seconds": 0.16
+    },
+    {
+      "asset": "jdk21.tar.gz",
+      "bytes": 207473347,
+      "sha256": "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94",
+      "verified": true,
+      "elapsed_seconds": 0.16
+    },
+    {
+      "asset": "gradle.zip",
+      "bytes": 135535598,
+      "sha256": "72f44c9f8ebcb1af43838f45ee5c4aa9c5444898b3468ab3f4af7b6076c5bc3f",
+      "verified": true,
+      "elapsed_seconds": 0.11
+    },
+    {
+      "asset": "checked-agent/neoform-runtime-2.0.31-all.jar",
+      "bytes": 4483539,
+      "sha256": "6f5b0aae7e423efeea21cb848c5096e76fc4eec40256cbefdcfaa1583b197c07",
+      "verified": true,
+      "elapsed_seconds": 0.0
+    },
+    {
+      "asset": "checked-agent/asm-9.9.1.jar",
+      "bytes": 126252,
+      "sha256": "6f3828a215c920059a5efa2fb55c233d6c54ec5cadca99ce1b1bdd10077c7ddd",
+      "verified": true,
+      "elapsed_seconds": 0.0
+    }
+  ]
+}

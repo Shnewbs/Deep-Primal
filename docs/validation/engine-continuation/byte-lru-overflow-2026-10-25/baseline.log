@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.AssertionError: overflow bypass: bytes=-9223372036854775808 size=2
+	at ByteLruOverflowChecks.check(ByteLruOverflowChecks.java:41)
+	at ByteLruOverflowChecks.main(ByteLruOverflowChecks.java:10)

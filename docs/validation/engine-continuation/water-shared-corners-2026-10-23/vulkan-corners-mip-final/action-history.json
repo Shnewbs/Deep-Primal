@@ -1,0 +1,77 @@
+[
+  {
+    "action": "backend-check=Vulkan",
+    "completed": true,
+    "elapsed": 26.04
+  },
+  {
+    "action": "water-view=true,false,true",
+    "completed": true,
+    "elapsed": 28.04
+  },
+  {
+    "action": "audit-lake-camera",
+    "completed": true,
+    "elapsed": 32.05
+  },
+  {
+    "action": "corners-scene-before",
+    "completed": true,
+    "elapsed": 34.05
+  },
+  {
+    "action": "water-corner-field-check",
+    "completed": true,
+    "elapsed": 41.06
+  },
+  {
+    "action": "water-material-check",
+    "completed": true,
+    "elapsed": 42.06
+  },
+  {
+    "action": "water-side-material-check",
+    "completed": true,
+    "elapsed": 45.06
+  },
+  {
+    "action": "water-direction-upload-check",
+    "completed": true,
+    "elapsed": 46.06
+  },
+  {
+    "action": "water-side-uv-upload-check",
+    "completed": true,
+    "elapsed": 47.06
+  },
+  {
+    "action": "water-partial-fade-check",
+    "completed": true,
+    "elapsed": 48.07
+  },
+  {
+    "action": "water-gpu-reuse-check",
+    "completed": true,
+    "elapsed": 49.07
+  },
+  {
+    "action": "water-flow-texture-check",
+    "completed": true,
+    "elapsed": 50.07
+  },
+  {
+    "action": "vulkan-frame-completion-check",
+    "completed": true,
+    "elapsed": 51.07
+  },
+  {
+    "action": "vulkan-checks",
+    "completed": true,
+    "elapsed": 52.07
+  },
+  {
+    "action": "stop",
+    "completed": true,
+    "elapsed": 53.07
+  }
+]

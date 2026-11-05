@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261028T1700-gpu-upload-failure-unwind",
+  "claim_commit": "ad950094b844fe73b75d58ba07f52b6ae06cc137",
+  "source_commit": "61f6405d55d05b0f1d762e50c3d6d6ef4e4486fd",
+  "source_blobs": {
+    "renderer": "5e50adfe812413babfbe8463c301ead5bcaf5275",
+    "helper": "ca79e0b1e8bb69b861077f63872e6fcbd6244841",
+    "checks": "5c424c299647472ffcb1409f67fc49b821235bcc"
+  },
+  "source_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodGpuUploadFailure.java",
+    "docs/renderer-jams/20261028-gpu-upload-abort/LodGpuUploadFailureChecks.java"
+  ],
+  "independent_audit_consumed": "docs/engine-hourly-audits/2026-10-28T1628-1e6e530/REVIEW.md",
+  "java21": {
+    "version": "21.0.12.1",
+    "compile": "pass --release 21 -Xlint:all -Werror",
+    "runtime": "PASS 450015 assertions -Xverify:all",
+    "negative_control": "expected failure at assertion 2"
+  },
+  "java25": "not run; JDK unavailable",
+  "full_build": "not run; owner build",
+  "gpu": "not run",
+  "benchmark": "not run; no FPS/VRAM claim",
+  "jar": "not built or published",
+  "self_audit": {
+    "distance": 6.5,
+    "mesh": 6.85,
+    "gpu": 4.1,
+    "upscaling": 5,
+    "visual": 5.25,
+    "validation": 5.2,
+    "average": 5.48,
+    "previous": 5.45
+  },
+  "other_automations": "unchanged"
+}

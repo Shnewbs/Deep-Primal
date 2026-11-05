@@ -1,0 +1,33 @@
+{
+  "checkpoint": "R52",
+  "source_parent": "65705ec9f6eed1c9ecc26e6e8d54cd908707babc",
+  "scope": "Verification-only frozen V6 deposit ensemble and fresh existing core checks",
+  "production_files_changed": 0,
+  "new_validation_fixture_files": 1,
+  "new_full_gradle_build": false,
+  "new_native_execution": false,
+  "new_graphics_execution": false,
+  "installer_released": false,
+  "no_new_runtime_defect_reproduced": true,
+  "oracle_cases": 116279272,
+  "columns": 262144,
+  "chunks": 1024,
+  "seeds": 4,
+  "latitude_bands": 8,
+  "ore_voxels": 51370,
+  "multi_body_eligible_voxels": 91,
+  "host_pairs": 14,
+  "ore_types_observed": 5,
+  "missing_ore_types": [
+    "gold",
+    "redstone",
+    "lapis"
+  ],
+  "core_terrain_columns": 8712,
+  "core_protected_cave_cells": 110398,
+  "existing_deposit_oracle_cases": 1559040,
+  "production_geography_unchanged": true,
+  "balance_acceptance": false,
+  "engine_acceptance_complete": false,
+  "remaining": "Broader rare-host native distribution, geology/caves, Vulkan water publication/LOD, pressure, budgets and owner GPU acceptance. Frozen V1\u2013V6; new geography requires V7."
+}

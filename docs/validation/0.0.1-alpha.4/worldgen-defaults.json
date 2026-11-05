@@ -1,0 +1,118 @@
+[
+  {
+    "name": "standard",
+    "extraDepthConfig": false,
+    "info": "Prototype: y=-128..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/standard (built-in)]\n",
+    "peak": [
+      416.0,
+      -3550,
+      -738
+    ],
+    "rockscans": [
+      "ROCKSCAN x=-3550 z=-738 solid=519683 floatingBlocks=13 floatingComponents=11 largest=2\n",
+      "ROCKSCAN x=-3582 z=-706 solid=648736 floatingBlocks=5 floatingComponents=5 largest=1\n",
+      "ROCKSCAN x=-3422 z=-1762 solid=0 floatingBlocks=0 floatingComponents=0 largest=0\n"
+    ]
+  },
+  {
+    "name": "baseline",
+    "extraDepthConfig": false,
+    "info": "Prototype: y=-128..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 4 data pack(s) enabled: [vanilla (built-in)], [mod_data], [file/baseline (world)], [mod/deepprimal:worldgen/standard (built-in)]\n",
+    "peak": [
+      416.0,
+      -3550,
+      -738
+    ],
+    "rockscans": [
+      "ROCKSCAN x=-3550 z=-738 solid=424613 floatingBlocks=13 floatingComponents=11 largest=2\n",
+      "ROCKSCAN x=-3582 z=-706 solid=540192 floatingBlocks=8 floatingComponents=8 largest=1\n",
+      "ROCKSCAN x=-3422 z=-1762 solid=0 floatingBlocks=0 floatingComponents=0 largest=0\n"
+    ]
+  },
+  {
+    "name": "standard",
+    "extraDepthConfig": true,
+    "info": "Prototype: y=-128..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/deep (built-in)]\n"
+  },
+  {
+    "name": "deep",
+    "extraDepthConfig": true,
+    "info": "Prototype: y=-384..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/deep (built-in)]\n"
+  },
+  {
+    "name": "deep",
+    "extraDepthConfig": false,
+    "info": "Prototype: y=-384..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/standard (built-in)]\n"
+  },
+  {
+    "name": "flat",
+    "extraDepthConfig": true,
+    "info": "Prototype: y=-64..319, sea=-63, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/deep (built-in)]\n"
+  },
+  {
+    "name": "deep",
+    "extraDepthConfig": true,
+    "info": "Prototype: y=-384..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/deep (built-in)]\n",
+    "peak": [
+      416.0,
+      -3550,
+      -738
+    ],
+    "rockscans": [
+      "ROCKSCAN x=-3550 z=-738 solid=521266 floatingBlocks=3 floatingComponents=3 largest=1\n",
+      "ROCKSCAN x=-3582 z=-706 solid=650361 floatingBlocks=0 floatingComponents=0 largest=0\n",
+      "ROCKSCAN x=-3422 z=-1762 solid=0 floatingBlocks=0 floatingComponents=0 largest=0\n"
+    ]
+  },
+  {
+    "name": "deep",
+    "extraDepthConfig": true,
+    "info": "Prototype: y=-384..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/deep (built-in)]\n",
+    "peak": [
+      416.0,
+      -3550,
+      -738
+    ],
+    "rockscans": [
+      "ROCKSCAN x=-3550 z=-738 solid=521266 floatingBlocks=3 floatingComponents=3 largest=1\n",
+      "ROCKSCAN x=-3582 z=-706 solid=650361 floatingBlocks=0 floatingComponents=0 largest=0\n",
+      "ROCKSCAN x=-3422 z=-1762 solid=0 floatingBlocks=0 floatingComponents=0 largest=0\n"
+    ]
+  },
+  {
+    "name": "deep",
+    "extraDepthConfig": true,
+    "info": "Prototype: y=-384..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/deep (built-in)]\n",
+    "peak": [
+      416.0,
+      -3550,
+      -738
+    ],
+    "rockscans": [
+      "ROCKSCAN x=-3550 z=-738 solid=521266 floatingBlocks=3 floatingComponents=3 largest=1\n",
+      "ROCKSCAN x=-3582 z=-706 solid=650361 floatingBlocks=0 floatingComponents=0 largest=0\n",
+      "ROCKSCAN x=-3422 z=-1762 solid=0 floatingBlocks=0 floatingComponents=0 largest=0\n"
+    ]
+  },
+  {
+    "name": "packaged",
+    "extraDepthConfig": false,
+    "info": "Prototype: y=-128..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/standard (built-in)]\n"
+  },
+  {
+    "name": "packaged",
+    "extraDepthConfig": false,
+    "info": "Prototype: y=-128..639, sea=96, seed=-8843447232845721624. Native aquifers/vegetation are placeholders; no renewable groundwater yet.\n",
+    "packs": "There are 3 data pack(s) enabled: [vanilla (built-in)], [mod_data], [mod/deepprimal:worldgen/standard (built-in)]\n"
+  }
+]

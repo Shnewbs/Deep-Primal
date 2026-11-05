@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "base_inputs_verified": 575,
+  "applied_staged_files": 14,
+  "restored_bytes_equal_candidate": true,
+  "second_apply_refused": true,
+  "builds_or_dependencies_run": false
+}

@@ -1,0 +1,17 @@
+Initial and final forced full build:
+python3 jam3/run_build.py
+Exact expanded Gradle command: evidence/build-command.json
+
+Matched CPU probe (after javac -g compilation):
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/javac -g -d jam3/direct-classes -sourcepath jam3/project/engine-core/src/main/java jam3/fixtures/BaselineLodMesher.java jam3/fixtures/ReductionBench.java jam3/project/src/coreChecks/java/com/shnewbs/deepprimal/core/lod/LodReductionChecks.java
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/java -Xmx512m -cp jam3/direct-classes com.shnewbs.deepprimal.core.lod.ReductionBench
+
+Archive/compiled/source identities:
+python3 jam3/validate_package.py
+
+Packaged actual-class regressions after extracting the unique nested Core JAR:
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/javac -g -cp jam3/packaged-core.jar:jam3/project/build/classes/java/coreChecks -d jam3/direct-classes jam3/PackagedReduction.java
+/workspace/scratch/a2f7076b7762/audit-4a583db-20261026T1033/toolchain/jdk-25.0.4.1+1/bin/java -cp jam3/packaged-core.jar:jam3/project/build/classes/java/coreChecks:jam3/direct-classes PackagedReduction jam3/packaged-core.jar
+
+Two sequential default-profile actual packaged native sessions:
+python3 jam3/native_smoke.py

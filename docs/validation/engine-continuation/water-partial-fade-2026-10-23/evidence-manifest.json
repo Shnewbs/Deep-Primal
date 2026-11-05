@@ -1,0 +1,522 @@
+[
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/audit_water_partial.py",
+    "bytes": 10368,
+    "sha256": "daec091f8def18ebac496d1863da8b0570abd94922fa3ee7a599ee90b4f06a22"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/source-baseline.json",
+    "bytes": 41533,
+    "sha256": "4e7e5378b45efb2f42fa5fdbd868a5308fd17593135b35d63db667ec433b841a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/run_vulkan.py",
+    "bytes": 16371,
+    "sha256": "ceaeb950be4394079095b2cc7dc3b26b43008b01128e1ccf8913c214ca7e9b2c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/before-AnimatedWaterRenderer.java",
+    "bytes": 23921,
+    "sha256": "5233114165cbf8b68bbab5fa16312a6729b86d4d66bde09e296173892e3f26d2"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/audit_vulkan_package.py",
+    "bytes": 3851,
+    "sha256": "af12542e43c40b9f28723116753de3bfa16fd387f468ff8cde2c50353a65b6fd"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/water-partial-fade.patch",
+    "bytes": 10309,
+    "sha256": "a4c34ba54a7c69db5bd6cc9cc7d73f59a6380434635a532056c5a59d205e834e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/before-animated_water.vsh",
+    "bytes": 850,
+    "sha256": "ece436c812eb2b2a0993b8b296f591e3dad10903ee0e27db24402a57ee1031f6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-build-audit.json",
+    "bytes": 1890,
+    "sha256": "925ac30b848978caa41a0c304e28910f59938f6c8d799379dd96c27e136936e7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/README.md",
+    "bytes": 6354,
+    "sha256": "af8e185d085a0468b3773b4f41e18d8877405339421d6d46b7a2377af3b29622"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/candidate-build-result.json",
+    "bytes": 2396,
+    "sha256": "7f49dbed97d2317827429017dfea874b55b311602f30a2decdbd2594f072ea57"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/prepare_checkpoint.py",
+    "bytes": 19364,
+    "sha256": "2c229966dc2fcdbc2fd86e2e72bd5361c9766fa7c4175567a3ceabe5f88cbe4c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/candidate-build-final.gz",
+    "bytes": 3421,
+    "sha256": "25606c855c3905d68cb7fc582fcb4bb31b1b5af5ef698d528af3e6bef34384cc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/screenshot-inspection.json",
+    "bytes": 1402,
+    "sha256": "2002bfc603389e76fc7a58bdc2b076473c0d167d718d078b987bf5a38ccd9fa8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/audit_opengl_partial.py",
+    "bytes": 3152,
+    "sha256": "1fecf0d35e478f430895481be2bfda0c86d1dd7561738e12ec7b6c7678557d26"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/module-identities.json",
+    "bytes": 1114,
+    "sha256": "0236ef159b12a4032b963f69095525796054f88d98a7fe270622f6fb656dc59e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/source-scope-audit.json",
+    "bytes": 1525,
+    "sha256": "5f4241e03bf1628af3d84914efefc27617cee3a509d55dee7636d62f1a5b57fb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/strict-opengl-reuse-audit.json",
+    "bytes": 812,
+    "sha256": "a6007acce5c90c32ce2fbec917a9414e846f71c81134ff25ae9f36eacc4019c8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/build_candidate.py",
+    "bytes": 2339,
+    "sha256": "24e4bc259238f917606eec242b3eaee90c0c4afe3e126c113a6298fe49ba4a15"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/strict-water-partial-native-audit.json",
+    "bytes": 8205,
+    "sha256": "17940808342bc988ad299235ec240cd3b888f1b555329e890aabe8ba847c1b5e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/selected-records.txt",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/command.json",
+    "bytes": 1361,
+    "sha256": "4736b1e1e25ffbdbc8b84835fadf35e45430bef41a5fd2a48f596d5c1f40919f"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/action-history.json",
+    "bytes": 3,
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/result.json",
+    "bytes": 953,
+    "sha256": "c3b9b11d0797c09e8b2034d2f58a919d370e5e73df6595a67945b3b46bc5b47a"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/console-final.gz",
+    "bytes": 6319,
+    "sha256": "ba787657e36888b452afcfae0760dfc68d2bec85934dac2a5a5d823e1b982376"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/crash-delta.json",
+    "bytes": 492,
+    "sha256": "d643f4478faf961394a9a322e7f775c1372d728fa21a103ef24c3ed7690b191e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/live-action.json",
+    "bytes": 313,
+    "sha256": "f0d1d0de830b362a9912687e51cc6a00ad42915b89d8e7667a77f559b1279376"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/rejection.json",
+    "bytes": 253,
+    "sha256": "34c1262aeb599fbdf76529cc067db5a966c13383e2bbb420834d70c63b899955"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline/sealed-console.json",
+    "bytes": 1072,
+    "sha256": "232979060511e912011d424409088485a9a410657fb93d18f3c9b92986008139"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/selected-records.txt",
+    "bytes": 667,
+    "sha256": "ccb31588fdcfc9b6fb6fd29e0698c30f6cec684a1fe6f8a2e85ee15d55c83e40"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/command.json",
+    "bytes": 1362,
+    "sha256": "8fa158f6a8a8b85125853d243d67b68c313757772824c2d313800d249897fb46"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/action-history.json",
+    "bytes": 94,
+    "sha256": "43a47b7968bc82a66f417907efa49ad6c2af2cfa51ea804d7a89533229c3e503"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/result.json",
+    "bytes": 3618,
+    "sha256": "2e51de4e1305403f5ae26b42d55b6cd846bc07154b68e8c969a686bf6ab3c686"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/console-final.gz",
+    "bytes": 10825,
+    "sha256": "be3000674b90d30002ab2ffa50fba8ed0bac59068ab874409dc8d9770853288c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/crash-excerpt.txt",
+    "bytes": 2539,
+    "sha256": "77272ddb81442a3edb6323fea766be62619b5cf32eff87567a1e699108cfe375"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/crash-delta.json",
+    "bytes": 606,
+    "sha256": "49fa1bbb0912e3b8f469225fee8412240711167c1752dc252407ba561d9d9e5d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/live-action.json",
+    "bytes": 278,
+    "sha256": "c2545e48046325e1a041e4ec1b01a69689263372cb2d3bd59d3cc4165f744439"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-baseline2/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "04609a1773c6cc4a685c7f508d4c96943c861c7f093c8b59353493145e81730c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/selected-records.txt",
+    "bytes": 6183,
+    "sha256": "4f3e532591f614ea96f46131e1341cc37ef8c61a18aa62a086e71f623ca1879b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/command.json",
+    "bytes": 1541,
+    "sha256": "c43b7c867916402008818308fccaeb0b4bc7987042ce257aee7af78a83f4476d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/action-history.json",
+    "bytes": 1087,
+    "sha256": "17efc2c523a9123942f920c623449040893b96a5f2fbd84a8ce5f9651148d126"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/result.json",
+    "bytes": 10754,
+    "sha256": "e9412abff07908d530574ce288ff374c8f8e75c11f74fd2f93aadfc8b7517037"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/startup-lifecycle.txt",
+    "bytes": 883,
+    "sha256": "a2e11460f395472a6fde368894641aef4430e32b4502ea9266ad73b8f60fd495"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/console-final.gz",
+    "bytes": 8994,
+    "sha256": "7bde81900452878642986b31357acbd18a0f362928e4d5c34efc3848ffe7ac37"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/crash-delta.json",
+    "bytes": 604,
+    "sha256": "15ea09a0dc4ab53f23ca8eeb8a8fdb40fe74ba6c1c20d03984c5e57472e5667b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/live-action.json",
+    "bytes": 415,
+    "sha256": "2ff22b825aa4cbe92a13a95b5b0359c9495690ea32d5142ae6b48fafb8a37e9e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "c45f4af1d700077b285334ba7deb898cb9af569c2625216bd26a7d3ed10af9b7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/selected-records.txt",
+    "bytes": 2781,
+    "sha256": "c3123590e707dc5ce24ea63adc25e6de20b82ebe0d4ffd108f855a59abd6c334"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/command.json",
+    "bytes": 1367,
+    "sha256": "d0d95687d52fa52a6a92a928cd0290f5116f691699981ecb4d23ec1c401df612"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/action-history.json",
+    "bytes": 625,
+    "sha256": "9bd993154d503a843cfc844d875eb908e2eb161af1419c7cacf0785d1ed6da0e"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/result.json",
+    "bytes": 3075,
+    "sha256": "fd7b2808a39fc7d7913934abfdaf72c8f3cd91ec7b26bcc1b2fdd7d262671014"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/startup-lifecycle.txt",
+    "bytes": 821,
+    "sha256": "5b54abb141780f3a2fb506d7371d1368790d685998884475d2a8abb2ce3c8b0d"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/console-final.gz",
+    "bytes": 7058,
+    "sha256": "913079a6177a2cc0953f74fa8c43661516c9973be8084c2d0110e44f9c6c6ee0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/crash-delta.json",
+    "bytes": 604,
+    "sha256": "15ea09a0dc4ab53f23ca8eeb8a8fdb40fe74ba6c1c20d03984c5e57472e5667b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/live-action.json",
+    "bytes": 256,
+    "sha256": "f54bb45fae078d93150776e4529902e2243f3bf3ab0e11193f4eacf5898f5dd0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "c42378103cf0fd6bd4009f2c0c4547e33eabc400d2f5266902e904065c377b15"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/selected-records.txt",
+    "bytes": 5921,
+    "sha256": "0aec43ad3e9a3eb8c3a7939701871d2f82bba1a61b8faefba88cd9043ea4b8a6"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/lod-upload-retry.txt",
+    "bytes": 161,
+    "sha256": "101feb5c1f3dc359ecfb69c92f2543a349b2297e047dbcdbdc366ceec9082aa7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/water-gpu-reuse.txt",
+    "bytes": 232,
+    "sha256": "f76abe0114b7f6f11ce093744b2e13e29c6ca48a0e330549b15f61b47f56858b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/command.json",
+    "bytes": 1361,
+    "sha256": "413ecc75717b0d574462aaf2e1540c84341d020eb56d51af8ce8a3869e0b3368"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/action-history.json",
+    "bytes": 1087,
+    "sha256": "58d6b9c35ee1d777e0b842616c0eb4abfa96a3c62d8e9ead99f3f4f06386ab91"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/result.json",
+    "bytes": 10745,
+    "sha256": "4bd89cb1a231d64b1c0fd041ebbce074b4079dc9321e8a8b228be1ce89cd3d32"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/water-partial-fade.txt",
+    "bytes": 291,
+    "sha256": "6ad6380a86d616416065cd618c38ac1495539edec3d1642c3828b36d16fdd307"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/lod-disk-recovery.txt",
+    "bytes": 334,
+    "sha256": "c2e1d7d0519fc4109527974b7f77ae8345a1c629b3e4461b482cedbfe40dda3b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/startup-lifecycle.txt",
+    "bytes": 817,
+    "sha256": "7ef18df1443a25cdeb450ea2b08fd52aabd140f15c9cdadd469384e4616513f8"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/console-final.gz",
+    "bytes": 8958,
+    "sha256": "c1b7270f956dcf24eae32d7eb957b4b56b5fce49b212bcd64532fc46a3b9c425"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/frame-completion.txt",
+    "bytes": 101,
+    "sha256": "5a1f38e18ef6b203fc6ce05af7dcc98504de8e991871b27a5af24f7dfc053ccc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/startup-marker-after.json",
+    "bytes": 19,
+    "sha256": "c2d1f569e335f86911d5526948b4819793acee80fcba9d86be913a1f40ffbac4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/module-prelaunch-audit.json",
+    "bytes": 196,
+    "sha256": "94e4a8aec0142de3068554f162afc14d15f8be7d0eecdeff5bddecaec4cc3aeb"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/shutdown.txt",
+    "bytes": 83,
+    "sha256": "39b4c418379a7e499528798394390b795cf7a3ac3a5c0b2a587ef4ec2944fcc7"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/startup-marker-before.json",
+    "bytes": 44,
+    "sha256": "c1b8d76086b8557106dc02da42ab5591d6c7008fbabdd8cea18102dafc2d0900"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/saved-disconnect.txt",
+    "bytes": 29,
+    "sha256": "69b2c826004453cf659636f248245e6d7345a4c26f6489868c1c2c4b2db7ffc4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/lod-index-merge.txt",
+    "bytes": 181,
+    "sha256": "2f7365ab591d0e71e4aa10fe9095145f4c836ba1fc257411aee7caa10c1267d0"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/crash-delta.json",
+    "bytes": 604,
+    "sha256": "15ea09a0dc4ab53f23ca8eeb8a8fdb40fe74ba6c1c20d03984c5e57472e5667b"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/live-action.json",
+    "bytes": 257,
+    "sha256": "1fa85d9f5b9e7da208580e2e177434f34b1b34400d73ad31b432a1ab02f3601c"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/water-fade-continuity.txt",
+    "bytes": 250,
+    "sha256": "2d9fb8bddec4a5201b5db31760ce7f66e7f570c47f2fae306dca2c6237230285"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/sealed-console.json",
+    "bytes": 1070,
+    "sha256": "7ed3168f736b31cdbe786de5f2e048dd31b02b3a9ba600b0ef6bf08a592263fc"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished-packaged/screenshots/partial-recovery.png",
+    "bytes": 729300,
+    "sha256": "accbfdc9157deab1018e9a59b917ce77ee37f8fc3c2e8473fb4819d92df2e683"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-reuse-gl-partial-final/screenshots/reuse-gl-recovery.png",
+    "bytes": 739443,
+    "sha256": "e0896d03998b239985319bdd750706dc003f43de7645e115364eeabaae950df4"
+  },
+  {
+    "path": "docs/validation/engine-continuation/water-partial-fade-2026-10-23/vulkan-partial-finished/screenshots/partial-recovery.png",
+    "bytes": 725006,
+    "sha256": "35fe2e6e6170a8834581fede8d02f71327b639a075de7f177eb1de4a625fa6e8"
+  }
+]

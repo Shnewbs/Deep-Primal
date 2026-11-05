@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodDiskIndex.java": "d7e62afc327d0c43ed2c602edc4e40593e5a01847751470d7e812569ef2fce5a",
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexRequest.java": "2d27ebf00976422df793b64b02846c3a03addec0147a5ad607f83fa0975b7071",
+    "staged/engine-core/src/main/java/com/shnewbs/deepprimal/core/lod/LodIndexWorker.java": "8fdcdff1d49ea0a4a3027112670f63c726c17e279214000d1372134ab300cbd3",
+    "evidence/WorkerChecks.java": "332e8470b7e8464397d2cdbd3b2c255649ef6545aee41cd76823da7151b67e9c",
+    "evidence/AdapterChecks.java": "dbfaf20ddc238c7d6669c4969738239a911d645421031abcdbc727b712adfe91",
+    "evidence/RequestChecks.java": "46fd1bdfd0c2b2e332ca2b3405090d191360c360d23150d4e4186da7f3e62228",
+    "evidence/stubs/com/shnewbs/deepprimal/lod/LodModule.java": "8825f5369b1041c8d2cb1a29cb0c47d8d188490211b206329f0a1e4e40595a06"
+  },
+  "started": 1792849353.8443758,
+  "compile": {
+    "exit": 0,
+    "output": ""
+  },
+  "worker": {
+    "exit": 0,
+    "output": "PASS R56 worker checks=898 saturationRuns=100 turns=33 geometry=32 baselineLeakReproduced=true\n"
+  },
+  "adapter": {
+    "exit": 0,
+    "output": "PASS R56 extracted renderer adapter checks=20 camera/reset/disable/recovery/cap\n"
+  },
+  "r55_request": {
+    "exit": 0,
+    "output": "LOD_REQUEST_PASS checks=347 directoryEntries=8205 turnsPerCompleteScan=33 geometryInterleaves=32 workerThreads=1 executorQueueCap=2 quota=256 epochCameraAttribution=true midScanAndQueuedCancel=true wrongThreadCloseRejected=true rejectionRetry=true gracefulClose=true\n"
+  },
+  "pass": true
+}

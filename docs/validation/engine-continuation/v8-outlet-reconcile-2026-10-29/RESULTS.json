@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "source_only_version": "0.0.1-alpha.29-dev.91-outlet-reconcile.1",
+  "tested_main_base": "d58359b9c70379a62280435d843671114dd7f403",
+  "git_blob_expect": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletLedgerStore.java": "2adf9f7e47e9bd4e98c7e4778f5b07c1953151a8",
+    "tools/tests/V8OutletLedgerStoreChecks.java": "b03c09ced35a6f4a3d1c768379672890605c63f0",
+    "tools/test_v8_outlet_store.py": "ff308ba4af09088fbadbfc845715676f361c8d31"
+  },
+  "input_sha256": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8OutletLedgerStore.java": "e463c329d6f99b7ad62e88ddbecab772b84b112f957b4abb9845202b97df894c",
+    "tools/tests/V8OutletLedgerStoreChecks.java": "b1d6b3ffa7c2e9b6fa89740bd80f7e915100fbb1113e0187570512779278cad6",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/V8ConservedOutletLedger.java": "5c9552b4a1919287ca08b44639c5b9a745695f609d47706b037e5154c68b2aef",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedOutletTopology.java": "a912949a188ec7d1ca1d6e102b4f764c771a671da211989c2bad7dc13512fb64",
+    "tools/test_v8_outlet_store.py": "291375c72e39d1eda6abeed0dd278afc86602629a37e5cef1dc8753f73799351"
+  },
+  "toolchain": "OpenJDK 21.0.12.1; javac --release 21 -Xlint:all -Werror; java -ea -Xverify:all",
+  "runs": {
+    "normal": {
+      "positive": true,
+      "assertions": 181,
+      "negative_controls_passed": 14,
+      "negative_controls_total": 14,
+      "negative_control_results": {
+        "no-generation-CAS": true,
+        "replay-as-new-generation": true,
+        "ignore-checksum": true,
+        "ignore-world-identity": true,
+        "ignore-unreconciled-pending": true,
+        "ignore-pending-on-commit": true,
+        "accept-symlinked-checkpoint": true,
+        "skip-durable-native-accounts": true,
+        "skip-pending-conservation-receipts": true,
+        "skip-native-generation": true,
+        "discard-forensics": true,
+        "overwrite-forensic-quarantine": true,
+        "ignore-native-no-pending-mismatch": true,
+        "allow-unsorted-accounts": true
+      },
+      "source_observed": "V8_OUTLET_STORE_PASS assertions=181 generation=42 persistedTriplet=[800, 420, 260]"
+    },
+    "optimized": {
+      "positive": true,
+      "assertions": 181,
+      "negative_controls_passed": 14,
+      "negative_controls_total": 14,
+      "negative_control_results": {
+        "no-generation-CAS": true,
+        "replay-as-new-generation": true,
+        "ignore-checksum": true,
+        "ignore-world-identity": true,
+        "ignore-unreconciled-pending": true,
+        "ignore-pending-on-commit": true,
+        "accept-symlinked-checkpoint": true,
+        "skip-durable-native-accounts": true,
+        "skip-pending-conservation-receipts": true,
+        "skip-native-generation": true,
+        "discard-forensics": true,
+        "overwrite-forensic-quarantine": true,
+        "ignore-native-no-pending-mismatch": true,
+        "allow-unsorted-accounts": true
+      },
+      "source_observed": "V8_OUTLET_STORE_PASS assertions=181 generation=42 persistedTriplet=[800, 420, 260]"
+    }
+  },
+  "audit_consumed": {
+    "review": "docs/engine-hourly-audits/2026-10-29T2330-655ab648/REVIEW.md",
+    "pinned_source": "655ab648212c3d378d638ea0a99ca1c42f2bf4ec"
+  },
+  "native_or_gradle": false,
+  "qualified_jar": false,
+  "external_grade": 5,
+  "complete": false,
+  "source_commit": "18ec3a4d1ecb02cbc4e4c0fb794f2795616d8721"
+}

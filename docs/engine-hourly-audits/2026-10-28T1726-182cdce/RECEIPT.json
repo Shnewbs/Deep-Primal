@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "role": "independent-engine-auditor",
+  "run_id": "2026-10-28T1726-182cdce",
+  "pinned_main": "182cdce92eaed2eb371af4066b43b5dc45f61908",
+  "version": "0.0.1-alpha.29-dev.59-ecotone-query.1",
+  "inspected_commits": {
+    "builder": "338bf489329cb8abb0ae800bb4cd7f8fccfa268f",
+    "renderer": "61f6405d55d05b0f1d762e50c3d6d6ef4e4486fd"
+  },
+  "production_source_blobs": {
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodGpuUploadFailure.java": "ca79e0b1e8bb69b861077f63872e6fcbd6244841",
+    "src/main/java/com/shnewbs/deepprimal/engine/V8EcotoneColumnPlan.java": "89b9e298b7d246fa1ba40990138c7a62c0fd1a7c"
+  },
+  "auditor_changes": "audit documentation only; zero production source changes",
+  "host": "ephemeral Linux x86_64",
+  "java": {
+    "available": "OpenJDK 21.0.12.1",
+    "jdk25": false,
+    "strict_compile": true,
+    "verify_all": true
+  },
+  "tests": {
+    "gpu_unwind_assertions": 1000011,
+    "v8_column_assertions": 3599039,
+    "total_passed_assertions": 4599050,
+    "negative_controls_rejected": 2,
+    "api_doubles": true,
+    "full_materializer_compiled": false
+  },
+  "builder_reported_assertions": 14177063,
+  "builder_report_independently_repeated": false,
+  "evidence": {
+    "archive_name": "DeepPrimal_Dev59_IndependentAudit_20261028T1726_182cdce_SourceEvidence.zip",
+    "library_path": "/Deep Primal/Independent Audits/DeepPrimal_Dev59_IndependentAudit_20261028T1726_182cdce_SourceEvidence.zip",
+    "size_bytes": 11870,
+    "sha256": "26f52f63bd86895082098db5045c2180cadcd7f3ba6a9e472125a5ec610c8677",
+    "entries": 16,
+    "crc": "pass"
+  },
+  "grade": {
+    "basis": "historical complete grade carried forward; no fresh complete regrade",
+    "categories": [
+      5,
+      4,
+      6,
+      4,
+      3,
+      7,
+      6,
+      4,
+      7,
+      4
+    ],
+    "total": 50,
+    "average": 5,
+    "tier": 2,
+    "required_strictly_greater_than": 8.5,
+    "target_met": false
+  },
+  "jar": {
+    "built": false,
+    "reason": "2026-10-27 owner override: owner executes full Gradle/Minecraft/GPU builds; complete checkout, Java25 and dependencies unavailable",
+    "published": false,
+    "download": null
+  },
+  "not_run": [
+    "Java25",
+    "full Gradle/NeoForge",
+    "full class/package CRC",
+    "nested Windows payloads",
+    "native V8/world reopening",
+    "finite water long soak",
+    "Windows Vulkan/OpenGL GPU",
+    "controlled FPS/latency"
+  ],
+  "safe_to_commit": "only new audit paths, expected-current-main compare-and-swap; no builder state files"
+}

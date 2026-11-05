@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T0918-water-simulation-bulk-restore",
+  "owner": "Deep Primal hourly engineering",
+  "status": "completed-released",
+  "baseline_main": "43be12680116c5e62e5dc8d5ee260c1e3e8d95a2",
+  "started_utc": "2026-11-02T09:18:00Z",
+  "expires_utc": "2026-11-02T10:00:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterSimulation.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSimulationBulkRestoreChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/water-simulation-bulk-restore-2026-11-02/**"
+  ],
+  "purpose": "Remove quadratic per-cell stats recomputation during 256-cell water snapshot import and per-tick 1KiB terrain scratch allocation; preserve finite-water/material/source and exception behavior.",
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-02T0830-dev189/REVIEW.md",
+  "exclusions": [
+    "independent auditor reports",
+    "organics",
+    "native renderer",
+    "Vulkan",
+    "LOD",
+    "worldgen pipeline"
+  ],
+  "source_only": true,
+  "github_actions": false,
+  "native_jar": false,
+  "lease_released": true,
+  "ended_utc": "2026-11-02T09:22:00Z",
+  "production_commit": "2b5ba02119f049502babd8d36260d59858b54371",
+  "verified_source_blob": "cb0de12bdef9b536a63e512ef6452b06d2218aff",
+  "verified_test_blob": "050e0342dc12f8b329a91adf82a8bbbbc6f0f806",
+  "report": "docs/validation/engine-continuation/water-simulation-bulk-restore-2026-11-02/README.md",
+  "validation": "Java21 strict exact production-class compile, 616510 registered assertions and 2473744 differential assertions PASS; old source negative control FAIL as expected",
+  "full_build": false,
+  "qualified_jar": false,
+  "next": "Java25 full Gradle/CoreChecks and native query-water performance acceptance; preserve previous successful JAR"
+}

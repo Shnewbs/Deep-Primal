@@ -1,0 +1,12 @@
+{
+  "removed_owned_completed_or_failed_outputs": [
+    "/dev/shm/dp-renderer-recovery-c748d588/native-gradle-cache",
+    "/dev/shm/dp-renderer-recovery-c748d588/themes-build/resources",
+    "/dev/shm/dp-renderer-recovery-c748d588/themes-build/generated"
+  ],
+  "package_resource_validation_passed_before_removal": true,
+  "native_setup_copy_failed_errno": 28,
+  "native_setup_after_failed_copy_did_not_launch_server": true,
+  "memory_free_after": 367509504,
+  "disk_free_blocks_after": 16777216
+}

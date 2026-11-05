@@ -1,0 +1,20 @@
+# Dev77 independent engine audit — 2026-10-29 11:32 UTC
+
+**Audited immutable main source:** [1f9269078a9ffa58275dbc04825de8b3802cbf5b](https://github.com/Shnewbs/Deep-Primal/commit/1f9269078a9ffa58275dbc04825de8b3802cbf5b); **version:** `0.0.1-alpha.29-dev.77-seam-contract.1`. Separate auditor, no Builder lease, no production edits. **Full Gradle/Minecraft/GPU builds reserved to the owner by 2026-10-27 override; no new JAR.**
+
+## Verified independent Java25 results
+Restored owner-supplied Temurin 25.0.5+8 to an isolated Linux checkout; `java`/`javac` report 25.0.5. Git CLI still could not resolve github.com; isolated source and test files were reconstructed from retained evidence and verified byte-for-byte against exact pinned Git blob SHAs.
+
+- Exact [WatershedRegionPortBridge.java lines 50–80](https://github.com/Shnewbs/Deep-Primal/blob/1f9269078a9ffa58275dbc04825de8b3802cbf5b/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegionPortBridge.java#L50-L80), blob `5239b7bdc188ba17b76770e7ac977c1611c56378`, and exact [committed checks lines 92–134](https://github.com/Shnewbs/Deep-Primal/blob/1f9269078a9ffa58275dbc04825de8b3802cbf5b/tools/tests/WatershedRegionPortBridgeChecks.java#L92-L134), blob `08190ffe95107e15603dd45b010e57dbd9bbefc6`: strict `javac --release 25 -Xlint:all -Werror`; **3,909 assertions × 2 passes**. Contradictory shared flood, stage (including Dev76's 90-versus-900 reproduction), catchment, ocean/lake classification and receiver now fail closed. Signed-region seams preserved.
+- Additional independent Java25 signed-seam oracle: **34 assertions × 2 passes**, including eight distinct mismatches in both region orders. The identical regression **rejects the old Dev76 production source** (`AssertionError: accepted mismatch 1`).
+- Exact [LodErrorProjection.java lines 12–18](https://github.com/Shnewbs/Deep-Primal/blob/1f9269078a9ffa58275dbc04825de8b3802cbf5b/lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodErrorProjection.java#L12-L18), blob `895c4beef16e9d251cf8fe1f0b200f35a280e782`, unchanged LOD selector blob `f550847a571bbf56b243b2bb2b77ecc740b98e8d`, exact fixture blob `24fa8ad1d3beda28b33195844aa33cf75a0100f5`: Java25 strict compile and **501,280 assertions × 2 passes**. This confirms CPU pixel-selection arithmetic, not FPS or native FSR/Vulkan/GPU acceptance.
+- **Independently passed this run: 1,010,446 Java25 assertions.** Test doubles replace actual `WatershedRegion` / `TerrainEngine`; whole production dependency compilation was not executed. Historic Builder-reported assertions are not counted again.
+
+## Remaining critical gaps
+Dev77 observational region bridge is not invoked in native V8 worldgen, not a globally reconciled ocean/outlet graph, and assigns zero physical runoff rather than creating source water. Need authoritative minimum-spill interior paths, once-only discharge, validated ocean anchors, water/salt/sediment conservation, signed native world seams, and saved-profile/edit/unload/reopen acceptance. The pinned head's last commit changes an LOD camera getter; full renderer compilation wasn't run.
+
+**Whole-engine ten scores (2026-10-24 full baseline carried; NOT a fresh regrade):** terrain 5; biomes 4; hydrology/caves 6; features 4; performance/threading 3; determinism 7; architecture 6; extensibility 4; testing/docs 7; polish/tooling 4. **50/100, 5.0/10, Tier 2.** Must demonstrate **strictly >8.5/10**, not 8.5 inclusive.
+
+**Unrun:** complete checkout and wrapper Gradle9.2.1, NeoForge/full Java25, JAR/nested CRC and source-to-package identity, native saved world/restart, Windows AMD8060S Vulkan/OpenGL, GPU pixels/frame benchmarks, full water conservation, V1–V7 native replay. No new JAR, no GitHub/CurseForge release, no three-JAR retention changes, no Builder or renderer interruption.
+
+Evidence: `DeepPrimal_Dev77_IndependentAudit_20261029T1132_1f926907_Java25Evidence.zip` — **23,624 bytes**, SHA256 `7a9d753273faa4c22300736c07028ad7bb7dc7598207c1a1dcb1f1d89711d080`, CRC and per-member SHA256 verified, saved in Library `/Deep Primal/Independent Audits/`. Audit snapshot is not any later main commit.

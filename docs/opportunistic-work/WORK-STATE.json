@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "worker": "opportunistic-20261030-border-runner",
+  "status": "active",
+  "started_at": "2026-10-31T00:16:20Z",
+  "expires_at": "2026-10-31T00:46:20Z",
+  "scope": [
+    "tools/test_v8_generation_border_admission.py",
+    "tools/test_v8_generation_border_runner_failures.py",
+    "docs/opportunistic-work/20261030-border-runner.md",
+    "docs/opportunistic-work/WORK-STATE.json"
+  ],
+  "requirement": "roadmap.md / native old-new generation-border verification; trustworthy Dev116 validation",
+  "lease_released": false,
+  "last_delivered_jar": null,
+  "coordination": "Engine dev116 and renderer jam69 claims released; independent auditor is read-only. Validation-only scope; no production, renderer, water, texture, Gradle, or builder state files."
+}

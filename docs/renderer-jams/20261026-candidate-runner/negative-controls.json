@@ -1,0 +1,20 @@
+[
+  {
+    "control": "--candidate-sha256",
+    "exit": 1,
+    "rejected_before_output_created": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/dev/shm/renderer-runner-5rt4n6pz/runner.py\", line 59, in <module>\n    if __name__==\"__main__\":main()\n                            ^^^^^^\n  File \"/dev/shm/renderer-runner-5rt4n6pz/runner.py\", line 28, in main\n    if sha(candidate)!=a.candidate_sha256:raise ValueError(\"Candidate identity mismatch\")\n                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Candidate identity mismatch\n"
+  },
+  {
+    "control": "--check-sha256",
+    "exit": 1,
+    "rejected_before_output_created": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/dev/shm/renderer-runner-5rt4n6pz/runner.py\", line 59, in <module>\n    if __name__==\"__main__\":main()\n                            ^^^^^^\n  File \"/dev/shm/renderer-runner-5rt4n6pz/runner.py\", line 29, in main\n    if sha(check)!=a.check_sha256:raise ValueError(\"Private check identity mismatch\")\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Private check identity mismatch\n"
+  },
+  {
+    "control": "source Git identity",
+    "exit": 1,
+    "rejected_before_output_created": true,
+    "stderr": "Traceback (most recent call last):\n  File \"/dev/shm/renderer-runner-5rt4n6pz/runner.py\", line 59, in <module>\n    if __name__==\"__main__\":main()\n                            ^^^^^^\n  File \"/dev/shm/renderer-runner-5rt4n6pz/runner.py\", line 18, in main\n    if blob(data)!=entry[\"sha\"]: raise ValueError(\"Source identity mismatch: \"+str(path))\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Source identity mismatch: /workspace/scratch/c748d58856d9/jam5/project/engine-core/src/main/java/com/shnewbs/deepprimal/core/Aquifer.java\n"
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "source_ref": "4979010d684e63a78104f7be2a479702ffc37f25",
+  "restored_git_blobs_verified": 370,
+  "excluded_inputs": [
+    "docs",
+    "standalone-engine",
+    "renderer-vulkan",
+    "gradle/wrapper/gradle-wrapper.jar"
+  ],
+  "jdk": "Temurin 25.0.4.1+1",
+  "gradle": "9.2.1",
+  "downloads": {
+    "temurin25.tar.gz": {
+      "retrieval_url": "https://api.adoptium.net/v3/binary/latest/25/ga/linux/x64/jdk/hotspot/normal/eclipse",
+      "bytes": 141329719,
+      "sha256": "dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e"
+    },
+    "gradle-9.2.1-bin.zip": {
+      "retrieval_url": "https://services.gradle.org/distributions/gradle-9.2.1-bin.zip",
+      "bytes": 135535598,
+      "sha256": "72f44c9f8ebcb1af43838f45ee5c4aa9c5444898b3468ab3f4af7b6076c5bc3f"
+    }
+  },
+  "core_compile": {
+    "exit_code": 0,
+    "java_files": 54
+  },
+  "core_execution": {
+    "exit_code": 0,
+    "entry_point": "com.shnewbs.deepprimal.core.CoreChecks",
+    "evidence": "2026-10-22-restored-core.txt"
+  },
+  "full_default_build": {
+    "exit_code": 1,
+    "task": "build",
+    "flags": [
+      "-PwithoutVulkan",
+      "-Pmod_version=0.0.1-alpha.25-dev"
+    ],
+    "failure_stage": "settings plugin resolution, before mod compilation",
+    "diagnosis": "Java SocketException: Network is unreachable while resolving plugin repositories. curl can fetch the plugin marker. System truststore and IPv4 retries did not resolve it.",
+    "native_tests": "not run",
+    "installer": "not produced"
+  }
+}

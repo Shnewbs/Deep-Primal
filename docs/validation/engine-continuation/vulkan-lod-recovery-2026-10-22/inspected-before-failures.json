@@ -1,0 +1,38 @@
+[
+  {
+    "case": "vulkan-create",
+    "accepted": false,
+    "launcher_exit": 1,
+    "launcher_success_is_insufficient": false,
+    "crash": "crash-2026-10-22_16.45.10-client.txt",
+    "crash_sha256": "a92d2af5bab67cfef1d5a2dd6918b20ed1b3ead957d311d6d6ecf642ab311b43",
+    "exception": "Close the existing render pass before performing additional commands",
+    "excerpt": "vulkan-create/failure-excerpt.txt",
+    "console_sha256": "dd3ae71ca95baef3c6a982ecb04bb9ec9d425273b31df211ba5e56d8c64893d8",
+    "explicit_record": "WORLD_CREATION_FORM_PASS mode=fresh prepareMs=1118.277023\nCREATION_SCREEN net.minecraft.client.gui.screens.ConfirmScreen\nCREATION_SCREEN net.minecraft.client.gui.screens.LevelLoadingScreen\nWORLD_CREATION_JOIN_PASS revision=3 backend=Vulkan\nWORLD_CREATION_FAIL java.lang.IllegalStateException: Close the existing render pass before performing additional commands\n"
+  },
+  {
+    "case": "vulkan-frame-before-retry",
+    "accepted": false,
+    "launcher_exit": 1,
+    "launcher_success_is_insufficient": false,
+    "crash": "crash-2026-10-22_16.49.33-client.txt",
+    "crash_sha256": "54058d171506c0ab346a0a58a059d3f40a1acac3ab1523df1285e4844267e386",
+    "exception": "Close the existing render pass before performing additional commands",
+    "excerpt": "vulkan-frame-before-retry/failure-excerpt.txt",
+    "console_sha256": "343868243866b527b654783ea95a95f1b017b7af1887655da143ac6841942969",
+    "explicit_record": "Forced completion callback reached public map guard; crash stack preserved."
+  },
+  {
+    "case": "vulkan-disk-before-fixed-vulkan-retry",
+    "accepted": false,
+    "launcher_exit": 1,
+    "launcher_success_is_insufficient": false,
+    "crash": "crash-2026-10-22_17.02.55-client.txt",
+    "crash_sha256": "2cc63277841351482323978f4f151a7fc4c9370bce080d963da9b7a89c386aa0",
+    "exception": "Out-of-range cache must remain eligible",
+    "excerpt": "vulkan-disk-before-fixed-vulkan-retry/failure-excerpt.txt",
+    "console_sha256": "2542041a038824ee4189ce5d19ffd3578f0e34e03cc82065f20527f617ba81e9",
+    "explicit_record": "LOD_DISK_RECOVERY_OBSERVED retainedAfterOutside=0 startedAfterMove=false"
+  }
+]

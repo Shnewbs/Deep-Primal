@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "sessions": 10,
+  "nested_module_selections": 60,
+  "archive_crcs": 7,
+  "amd64_dlls": [
+    "windows/x64/org/lwjgl/shaderc/shaderc.dll",
+    "windows/x64/org/lwjgl/vma/lwjgl_vma.dll"
+  ],
+  "new_allowance_markers": 4,
+  "producer_export_equal": true,
+  "sha256": "d1823835f3c2a8c54217edfcf7349df379375df29f0714707c8d028aaaeac876",
+  "size": 125296337
+}

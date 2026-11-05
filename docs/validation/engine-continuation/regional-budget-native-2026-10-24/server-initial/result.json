@@ -1,0 +1,12 @@
+{
+  "mode": "initial",
+  "exit_code": 1,
+  "elapsed_seconds": 10.01,
+  "environment": null,
+  "regional": null,
+  "raw_sha256": "6e74fc575b32a655f05e5a1d385efcfbeb310fbe36e8515f8fd903957b74de65",
+  "saved": false,
+  "stopped": false,
+  "crashes": [],
+  "pass": false
+}

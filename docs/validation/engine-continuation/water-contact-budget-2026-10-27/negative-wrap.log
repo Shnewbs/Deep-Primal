@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.AssertionError: ancient identical pair admitted after stamp reuse
+	at com.shnewbs.deepprimal.core.WaterContactBudgetChecks.check(WaterContactBudgetChecks.java:15)
+	at com.shnewbs.deepprimal.core.WaterContactBudgetChecks.collisionAndRollover(WaterContactBudgetChecks.java:69)
+	at com.shnewbs.deepprimal.core.WaterContactBudgetChecks.main(WaterContactBudgetChecks.java:113)

@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "claim_id": "engine-20261102T1156-density-bounds-allocation",
+  "owner": "Deep Primal hourly engineering",
+  "status": "completed-released",
+  "baseline_main": "7fd00584b74c28f19d2f73852077d203ae678bac",
+  "started_utc": "2026-11-02T11:56:00Z",
+  "expires_utc": "2026-11-02T12:40:00Z",
+  "scope": [
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/density/DensityVolumeBounds.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/density/DensityVolumeBoundsAllocationChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "docs/validation/engine-continuation/density-bounds-allocation-2026-11-02/**"
+  ],
+  "purpose": "Eliminate transient array allocations in experimental V8 density box validation and interval multiplication while preserving conservative occupancy and NaN behavior",
+  "consumed_audit": "docs/engine-hourly-audits/2026-11-02T1130-dev195/REVIEW.md",
+  "exclusions": [
+    "auditor",
+    "organics",
+    "native renderer",
+    "Vulkan",
+    "LOD",
+    "water quantity"
+  ],
+  "github_actions": false,
+  "lease_released": true,
+  "production_validation": "Isolated Java21 1000100 interval parity cases passed; full CoreChecks pending",
+  "full_build": false,
+  "qualified_jar": false,
+  "report": "docs/validation/engine-continuation/density-bounds-allocation-2026-11-02/README.md",
+  "ended_utc": "2026-11-02T12:00:00Z"
+}

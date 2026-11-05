@@ -1,0 +1,1 @@
+public class JnaProbe { public static void main(String[] x) { if(com.sun.jna.Native.POINTER_SIZE!=8) throw new AssertionError(); System.out.println("JNA_NATIVE_DISPATCH_PASS lastError="+com.sun.jna.Native.getLastError()+" tmp="+System.getProperty("jna.tmpdir")); }}

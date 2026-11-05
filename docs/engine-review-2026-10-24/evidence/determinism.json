@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "same_host_only": true,
+  "modes": {
+    "jit": "NOISE_FINGERPRINT 6d53af6ab4d0f54f725723a6fcf0708bb6a7ff82b0b8a6082bb78b31d07267c1",
+    "interpreter": "NOISE_FINGERPRINT 6d53af6ab4d0f54f725723a6fcf0708bb6a7ff82b0b8a6082bb78b31d07267c1",
+    "no-avx": "NOISE_FINGERPRINT 6d53af6ab4d0f54f725723a6fcf0708bb6a7ff82b0b8a6082bb78b31d07267c1"
+  }
+}

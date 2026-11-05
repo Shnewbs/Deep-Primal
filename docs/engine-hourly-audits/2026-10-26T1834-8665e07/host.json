@@ -1,0 +1,1 @@
+{"platform":"Linux-6.18.55-x86_64-with-glibc2.39","cpu":"AMD EPYC9V74 virtual host","cgroup_limit_bytes":"8589934592","disk_free_at_finish":0,"java_heap_mib":512,"workload":"Fresh138-source independent compile, complete direct core and four LOD/timing fixtures; no Gradle/native/GPU/benchmark","windows_execution":false,"device_dri":false}

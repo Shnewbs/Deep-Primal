@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T1300-frustum-off-build",
+  "baseline_sha": "47f49a81a682c1b8b4e692c30f33c66594b5efbe",
+  "claim_commit": "faddf30160a7fccef68e8aa0d567e5c9d6ebcd53",
+  "source_parent": "0db433bcd8a351647e3a27588e2ecdeae5031984",
+  "source_commit": "c1423a90c045aba138152748116fca8f99c3a873",
+  "version": "0.0.1-alpha.29-dev.78-observed-receivers.1",
+  "changed_files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumBounds.java",
+    "docs/renderer-jams/20261029-frustum-off-build/tests/com/shnewbs/deepprimal/lod/client/LodPageFrustumDisabledBuildChecks.java",
+    "docs/renderer-jams/20261029-frustum-off-build/stubs/net/minecraft/world/phys/AABB.java",
+    "docs/renderer-jams/20261029-frustum-off-build/stubs/com/shnewbs/deepprimal/graphics/TerrainGpuMesh.java",
+    "docs/renderer-jams/20261029-frustum-off-build/README.md"
+  ],
+  "source_blobs": {
+    "bounds": "5784c92c9cf5b57dc4f4bfe8c2e03d9dbc0f6171",
+    "test": "447a426e70e0802f5d116c0075eea835c8dcb83b",
+    "aabb_stub": "6e6e6357be41ccb5e4495b2b16faecde2dcd6c1c",
+    "mesh_stub": "bf5d44b3205995c8093c707121664e3fa0525a68",
+    "unchanged_renderer": "e4aa0fa88a9edb49c3048af96ee8fcecfc22ac5e"
+  },
+  "consumed_audits": [
+    "docs/renderer-jams/20261029-projection-cache/REVIEW.md",
+    "docs/renderer-jams/20261029-frustum-ab-gate/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-29T1231-bee0509a/REVIEW.md"
+  ],
+  "tests": {
+    "java": "21.0.12.1",
+    "strict_compile": "javac --release 21 -Xlint:all -Werror",
+    "run": "java -ea -Xverify:all",
+    "modes": [
+      "true x2",
+      "false x2",
+      "FALSE x2"
+    ],
+    "assertions": 940,
+    "negative": "old source fails assertion 3",
+    "source_shape": "10/10"
+  },
+  "isolated_measurements": {
+    "kind": "CPU only, 51 paired x 1000 cache page union constructions, 3x48 parts",
+    "baseline_p50_ns_per_1000": [
+      887095,
+      912393
+    ],
+    "candidate_p50_ns_per_1000": [
+      8042,
+      7341
+    ],
+    "baseline_p95_ns_per_1000": [
+      2374152,
+      1064520
+    ],
+    "candidate_p95_ns_per_1000": [
+      58988,
+      61562
+    ],
+    "baseline_p99_ns_per_1000": [
+      3943060,
+      1175156
+    ],
+    "candidate_p99_ns_per_1000": [
+      117536,
+      2703139
+    ],
+    "avoided_coarse_aabb_allocations_per_run": 153000,
+    "minecraft_fps_measured": false
+  },
+  "grades": {
+    "distance_lod": 6.6,
+    "mesh": 6.95,
+    "gpu": 4.55,
+    "fsr_dlss": 5,
+    "compatibility": 5.3,
+    "validation": 6.15,
+    "average": 5.76,
+    "previous_average": 5.75,
+    "delta": 0.01
+  },
+  "unrun": [
+    "Java25 full Gradle/NeoForge and dev JAR",
+    "Vulkan/OpenGL native client, water pixels and resize/reopen/world switch",
+    "GPU p50/p95/p99, VRAM and draw/descriptor counts",
+    "NVIDIA RTX DLSS and AMD temporal FSR SDK integration"
+  ],
+  "artifact": {
+    "name": "DeepPrimal_Renderer_BroadphaseOffBuild_20261029_c1423a9_SourceEvidence.zip",
+    "size_bytes": 7815,
+    "sha256": "df9ac1788ce1b24e6e279567ba9de126baad418fcdde2ae7d2e1cad308243a90",
+    "library_path": "/Deep Primal/Renderer Jams/DeepPrimal_Renderer_BroadphaseOffBuild_20261029_c1423a9_SourceEvidence.zip",
+    "library_uploaded": true,
+    "qualified_jar": false
+  },
+  "next": "Owner native fixed/adaptive/off broadphase Vulkan/OpenGL pixels/VRAM/frame CPU-GPU p50/p95/p99; measured GPU submission/rebuild bottleneck then temporal FSR/DLSS."
+}

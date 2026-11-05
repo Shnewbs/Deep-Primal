@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "logical_paths": 15757,
+  "logical_bytes": 1133554686,
+  "unique_objects": 1065,
+  "unique_uncompressed_bytes": 124155406,
+  "raw_readback_files_split_losslessly": 7,
+  "every_original_file_sha256_reconstructed": true,
+  "archive_bytes": 32425676
+}

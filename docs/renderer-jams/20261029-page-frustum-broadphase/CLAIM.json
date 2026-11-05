@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "jam_id": "renderer-20261029T0502-page-frustum-broadphase",
+  "owner": "renderer-hourly-only",
+  "status": "released",
+  "started_at": "2026-10-29T05:02:00Z",
+  "active_until": "2026-10-29T05:40:00Z",
+  "baseline_sha": "561e332ec651e3254911b55f40853a29e01e0209",
+  "files": [
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/VoxelLodRenderer.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodPageFrustumBounds.java",
+    "lod-engine/src/main/java/com/shnewbs/deepprimal/lod/client/LodClient.java",
+    "docs/renderer-jams/20261029-page-frustum-broadphase/**",
+    "docs/renderer-jams/RENDERER-BACKLOG.md"
+  ],
+  "measurement_reservation": "isolated Java21 CPU conservative-frustum fixture only; no shared GPU/build reservation",
+  "other_workstreams": "excluded: engine V8/water, independent auditor, graphics upscaler provider, terrain/content",
+  "consumed": [
+    "docs/renderer-jams/20261029-squared-error-selection/REVIEW.md",
+    "docs/engine-hourly-audits/2026-10-28T2132-c08e0046/REVIEW.md"
+  ],
+  "goal": "Conservative page-level frustum rejection before per-mesh tests, safe bounds built at page promotion, instrumented avoided tests, parity regression; owner builds.",
+  "released_at": "2026-10-29T05:09:00Z",
+  "reviewed_source_sha": "9fd9cd02ede557eb7ded4ef3440e2af08cc2f7d9",
+  "score": 5.68,
+  "review_path": "docs/renderer-jams/20261029-page-frustum-broadphase/REVIEW.md",
+  "artifact": "DeepPrimal_Renderer_PageFrustumBroadphase_20261029_9fd9cd0_SourceEvidence.zip",
+  "artifact_sha256": "e98e5f2a43eed47df9624bb71b478c1bbaab19c55b001994bae69ff930aeddab"
+}
