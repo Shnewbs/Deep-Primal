@@ -9,3 +9,7 @@ deepprimal-benchmarks/
 __pycache__/
 *.py[cod]
 deliverables/
+
+# Local compiler outputs (including nested module output directories).
+**/bin/
+*.class
