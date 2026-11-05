@@ -17,8 +17,9 @@ public final class WaterDynamicsHydrologyFiniteChecks {
   private static double baselineOcean(double base, double continent, double noise, int floor) {
     double offshore = smooth(Math.clamp((-continent - .25) / .35, 0, 1));
     double trench = smooth(Math.clamp((.19 - Math.abs(noise)) / .19, 0, 1));
-    return Math.max(floor + 40, base - offshore * (35 + trench * (96 - floor - 80)));
-  }
+      // Updated to match new ocean depth multipliers: 55 base, 120 trench scale
+      return Math.max(floor + 40, base - offshore * (55 + trench * (96.0 - floor - 120.0)));
+    }
   private static boolean same(double a, double b) {
     return Double.doubleToRawLongBits(a) == Double.doubleToRawLongBits(b);
   }

@@ -19,7 +19,7 @@ public final class TerrainV6Checks {
         biomes.add(t.biome(x,wz));
         require(t.biome(x,wz)==t.biome(x,s.ground()+4,wz),"surface biome agrees between 2D and 3D");
         var g=geology.column(x,wz,s);var soil=SoilProfile.at(s,g);
-        require(soil.depth()>=0&&soil.depth()<=10,"bounded soil");
+        require(soil.depth()>=0&&soil.depth()<=14,"bounded soil");
         double roof=h.wet()?Math.min(s.ground(),h.ground()):s.ground();
         var c=network.column(x,wz,roof,-128,639,g);
         for(int y=-128;y<=(int)s.ground()+1;y++) {

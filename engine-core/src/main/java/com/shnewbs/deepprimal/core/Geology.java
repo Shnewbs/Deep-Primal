@@ -60,6 +60,17 @@ public final class Geology {
   }
 
   /**
+   * Returns true if the given position is on a mountain slope where visible
+   * lithological banding should be rendered. This enables the "stone layer"
+   * effect on mountain flanks where igneous, sedimentary, and metamorphic
+   * strata are exposed.
+   */
+  public static boolean isMountainStrataZone(int surfaceY, double slope, int y) {
+    return Double.isFinite(slope) && surfaceY >= 140 && slope > 0.8
+        && y <= surfaceY && surfaceY - y <= 120;
+  }
+
+  /**
    * Material-revision-3 outcrop palette. It perturbs bedding laterally and
    * varies band thickness and facies; the frozen host-rock function remains
    * authoritative for caves, ores, permeability, and older material revisions.
@@ -116,6 +127,32 @@ public final class Geology {
   /** Material revision 5 preserves the frozen intrusive granite and basalt bodies. */
   public OutcropColumn outcropColumnPreservingIntrusions(int x, int z, Column column) {
     return new OutcropColumn(x, z, column, true);
+  }
+
+  /**
+   * Returns the rock type for visible mountain strata banding. This creates
+   * distinct igneous, sedimentary, and metamorphic layers on mountain flanks
+   * based on the lithology province, with thickness variation from noise.
+   */
+  public Rock mountainStrataRock(int x, int z, Column column, int y) {
+    if (!isMountainStrataZone((int) Math.floor(column.bedding()), 1.0, y)) {
+      return column.rock(y);
+    }
+    Lithology lith = lithology(column);
+    double bandThickness = 18 + noise.field(x, z, 1900, 1885) * 6;
+    double bandOffset = column.bedding() + column.fault()
+        + noise.field(x, z, 560, 1881) * 12
+        + noise.field(x, z, 170, 1882) * 3;
+    int band = (int) Math.floor((y + bandOffset) / bandThickness);
+    double facies = noise.field(x, z, 920, 1883L + band * 37L);
+    return switch (lith) {
+      case SEDIMENTARY -> facies > .35 ? Rock.SANDSTONE
+          : facies > -.45 ? Rock.CALCITE : Rock.TUFF;
+      case IGNEOUS -> facies > .28 ? Rock.ANDESITE
+          : facies > -.40 ? Rock.BASALT : Rock.TUFF;
+      case METAMORPHIC -> facies > .28 ? Rock.DIORITE
+          : facies > -.40 ? Rock.GRANITE : Rock.DEEPSLATE;
+    };
   }
 
   /** Exact hydraulic subset; no terrain, strata, deposit or soil-horizon evaluation. */

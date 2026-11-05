@@ -2,7 +2,7 @@ package com.shnewbs.deepprimal.core;
 
 /** Explicit organic/topsoil/subsoil/weathered horizons above the same parent rock exposed in cuts. */
 public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
-  public enum Kind { LOAM, SAND, CLAY, PODZOL, GRAVEL, FROZEN }
+  public enum Kind { LOAM, SANDY_LOAM, LOAMY_SAND, SAND, CLAY, PODZOL, GRAVEL, FROZEN }
   public int depth() { return topsoil+subsoil+weathered; }
   /** Material revisions 0 and 1: exact legacy horizons. */
   public static SoilProfile at(TerrainEngine.Sample s,Geology.Column g) { return at(s,g,s.slope(),false,true); }
@@ -44,7 +44,7 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
     if (legacyMaterials) {
       Kind kind=s.temperature()<.23?Kind.FROZEN:s.wet()?(s.speed()>.3?Kind.GRAVEL:s.rain()>.72?Kind.CLAY:Kind.LOAM)
           :s.ground()<101||s.rain()<.35?Kind.SAND:s.temperature()<.42?Kind.PODZOL:s.rain()>.8?Kind.CLAY:Kind.LOAM;
-      return profile(s,g,slope,outcrop,kind);
+        return legacyProfile(s,g,slope,outcrop,kind);
     }
     Kind kind;
     if (s.temperature() < .23) {
@@ -79,21 +79,77 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
 
   private static SoilProfile profile(TerrainEngine.Sample s,Geology.Column g,
       double slope,boolean outcrop,Kind kind) {
-    int top=slope>1.6?0:kind==Kind.GRAVEL?1:s.rain()>.7?2:1;
-    int sub=(int)Math.clamp(1+s.rain()*3+s.sediment()*2-slope*2,0,6);
-    int weathered;
-    if (slope > 2.2) {
-      weathered = 0;
-    } else if (outcrop && top + sub == 0 && !s.wet()) {
-      weathered = 0;
-    } else {
-      weathered = g.permeability() > .4 ? 2 : 1;
-    }
-    return new SoilProfile(top,sub,weathered,kind);
-  }
+      // Enhanced dirt level/depth variation based on biome characteristics
+      double rain = s.rain();
+      double temp = s.temperature();
+      double sediment = s.sediment();
+    
+      // Topsoil depth: more organic matter in wet, temperate areas
+      int top;
+      if (slope > 1.6) {
+        top = 0;
+      } else if (kind == Kind.GRAVEL) {
+        top = 1;
+      } else if (kind == Kind.CLAY) {
+        top = rain > .8 ? 3 : 2;  // Thicker topsoil in very wet clay areas
+      } else if (kind == Kind.SAND || kind == Kind.LOAMY_SAND) {
+        top = 1;  // Thin topsoil in sandy areas
+      } else if (kind == Kind.SANDY_LOAM) {
+        top = rain > .6 ? 2 : 1;  // Moderate topsoil
+      } else if (kind == Kind.PODZOL) {
+        top = temp < .3 ? 2 : 1;  // Thicker in cold areas
+      } else if (kind == Kind.FROZEN) {
+        top = 1;
+      } else {
+        top = rain > .7 ? 3 : rain > .5 ? 2 : 1;  // LOAM: more topsoil in wet areas
+      }
+    
+      // Subsoil depth: deeper in areas with more sediment and less slope
+      int sub = (int) Math.clamp(1 + rain * 3 + sediment * 2 - slope * 2, 0, 8);
+    
+      // Weathered layer: thicker in permeable rock, thinner on steep slopes
+      int weathered;
+      if (slope > 2.2) {
+        weathered = 0;
+        } else {
+          weathered = g.permeability() > .4 ? 2 : 1;
+        }
+    
+        // Add variation for specific soil types
+        if (kind == Kind.SAND || kind == Kind.LOAMY_SAND) {
+          // Sandy soils have less weathered layer
+          weathered = Math.max(0, weathered - 1);
+        } else if (kind == Kind.CLAY) {
+          // Clay soils can have more weathered material
+          weathered += 1;
+        }
+    
+        // Outcrop rule: no weathered ribbon when no topsoil/subsoil on dry land
+        if (outcrop && top + sub == 0 && !s.wet()) {
+          weathered = 0;
+        }
+    
+        return new SoilProfile(top, sub, weathered, kind);
+      }
 
   private static double smooth(double value) {
     double t=Math.clamp(value,0,1);
     return t*t*t*(t*(t*6-15)+10);
   }
-}
+
+    /** Exact legacy horizon calculation for material revisions 0/1. */
+    private static SoilProfile legacyProfile(TerrainEngine.Sample s,Geology.Column g,
+        double slope,boolean outcrop,Kind kind) {
+      int top = slope > 1.6 ? 0 : kind == Kind.GRAVEL ? 1 : s.rain() > .7 ? 2 : 1;
+      int sub = (int) Math.clamp(1 + s.rain() * 3 + s.sediment() * 2 - slope * 2, 0, 6);
+      int weathered;
+      if (slope > 2.2) {
+        weathered = 0;
+      } else if (outcrop && top + sub == 0 && !s.wet()) {
+        weathered = 0;
+      } else {
+        weathered = g.permeability() > .4 ? 2 : 1;
+      }
+      return new SoilProfile(top, sub, weathered, kind);
+    }
+  }

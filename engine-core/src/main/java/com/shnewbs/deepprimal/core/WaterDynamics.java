@@ -76,9 +76,10 @@ public final class WaterDynamics {
     double offshore = smooth(Math.clamp((-continent - .25) / .35, 0, 1));
     double trench = smooth(Math.clamp((.19 - Math.abs(noise)) / .19, 0, 1));
     // Promote before arithmetic: integer floor+40 and 96-floor-80 can overflow.
-    double shaped = base - offshore * (35 + trench * (96.0 - floor - 80.0));
-    return Double.isFinite(shaped) ? Math.max(minimum, shaped) : Math.max(minimum, base);
-  }
+      // Increased depth multiplier: 35 -> 55 base, 80 -> 120 trench scale for deeper oceans
+      double shaped = base - offshore * (55 + trench * (96.0 - floor - 120.0));
+      return Double.isFinite(shaped) ? Math.max(minimum, shaped) : Math.max(minimum, base);
+    }
 
   private static double smooth(double t) {
     return t * t * (3 - 2 * t);

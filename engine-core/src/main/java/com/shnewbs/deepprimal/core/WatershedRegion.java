@@ -477,7 +477,7 @@ public final class WatershedRegion {
                   : Double.NEGATIVE_INFINITY;
           if (Double.isFinite(lake.level))
             lake.bathymetryDepth =
-                Math.clamp(4 + Math.sqrt(lake.cells) * .9 + (lake.spill - lake.min) * .12, 5, 20);
+                Math.clamp(6 + Math.sqrt(lake.cells) * 1.2 + (lake.spill - lake.min) * .15, 8, 35);
         }
         if (Double.isFinite(lake.level)) stage[a] = Math.max(downstream, lake.level);
       }

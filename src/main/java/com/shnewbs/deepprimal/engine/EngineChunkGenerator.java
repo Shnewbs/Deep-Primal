@@ -33,6 +33,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_rooted_trees"));
   private static final TagKey<Biome> WATER_EMERGENT_PLANTS = TagKey.create(
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_emergent_plants"));
+  private static final TagKey<Biome> WATER_SUBMERGED_PLANTS = TagKey.create(
+      Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_submerged_plants"));
+  private static final TagKey<Biome> WATER_FLOATING_PLANTS = TagKey.create(
+      Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_floating_plants"));
   public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
   public static final MapCodec<EngineChunkGenerator> CODEC_V2 = codecFor(2);
   public static final MapCodec<EngineChunkGenerator> CODEC_V3 = codecFor(3);
@@ -283,7 +287,13 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         if (ore >= 0) return orePalette.get(ore);
         boolean layered = materialRevision == 3
             || materialRevision >= 4 && Geology.isMountainOutcrop(bed, s.slope(), y);
-        Geology.Rock host = layered ? outcrop.rock(y) : geology.rock(y);
+        // Mountain strata banding on flanks (material revision 6+)
+        Geology.Rock host;
+        if (materialRevision >= 6 && Geology.isMountainStrataZone(bed, s.slope(), y)) {
+          host = geologyModel.mountainStrataRock(x, z, geology, y);
+        } else {
+          host = layered ? outcrop.rock(y) : geology.rock(y);
+        }
         return rock(host);
       }
       return s.wet()&&y<s.water()?water(s,y,ocean):Blocks.AIR.defaultBlockState();
@@ -296,6 +306,16 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       if((biome==6||biome==28)&&depth>0)return Blocks.MUD.defaultBlockState();
       if(biome==13&&depth==0)return Blocks.PODZOL.defaultBlockState();
       if(soil.kind()==SoilProfile.Kind.SAND)return (depth<soil.topsoil()+soil.subsoil()?Blocks.SAND:Blocks.SANDSTONE).defaultBlockState();
+      if(soil.kind()==SoilProfile.Kind.SANDY_LOAM) {
+        if(depth<soil.topsoil())return (depth==0?Blocks.GRASS_BLOCK:Blocks.DIRT).defaultBlockState();
+        if(depth<soil.topsoil()+soil.subsoil())return Blocks.DIRT.defaultBlockState();
+        return Blocks.SANDSTONE.defaultBlockState();
+      }
+      if(soil.kind()==SoilProfile.Kind.LOAMY_SAND) {
+        if(depth<soil.topsoil())return (depth==0?Blocks.GRASS_BLOCK:Blocks.DIRT).defaultBlockState();
+        if(depth<soil.topsoil()+soil.subsoil())return (depth<soil.topsoil()+1?Blocks.DIRT:Blocks.SAND).defaultBlockState();
+        return Blocks.SANDSTONE.defaultBlockState();
+      }
       if(depth<soil.topsoil())return (depth==0?(soil.kind()==SoilProfile.Kind.PODZOL?Blocks.PODZOL:soil.kind()==SoilProfile.Kind.FROZEN?Blocks.SNOW_BLOCK:Blocks.GRASS_BLOCK):Blocks.DIRT).defaultBlockState();
       if(depth<soil.topsoil()+soil.subsoil())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:Blocks.DIRT).defaultBlockState();
       return (geology.rock(y)==Geology.Rock.SANDSTONE?Blocks.SANDSTONE:Blocks.GRAVEL).defaultBlockState();
@@ -305,10 +325,23 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       if(!(original.is(Blocks.DIRT)||original.is(Blocks.GRASS_BLOCK)||original.is(Blocks.PODZOL)
           ||original.is(Blocks.MUD)||original.is(Blocks.CLAY)||original.is(Blocks.SAND)||original.is(Blocks.RED_SAND)))
         return original;
-      SoilTexture selected=original.is(Blocks.SAND)||original.is(Blocks.RED_SAND)?SoilTexture.SAND
-          :original.is(Blocks.CLAY)?SoilTexture.CLAY
-          :materialRevision>=6&&shoreSandWeight>.15&&shoreSandWeight<.85
-              ?SoilTexture.SANDY_LOAM:texture;
+      SoilTexture selected;
+      if (original.is(Blocks.SAND) || original.is(Blocks.RED_SAND)) {
+        selected = SoilTexture.SAND;
+      } else if (original.is(Blocks.CLAY)) {
+        selected = SoilTexture.CLAY;
+      } else if (materialRevision >= 6 && shoreSandWeight > .15 && shoreSandWeight < .85) {
+        // Grass-to-sand blending: use intermediate soil textures in the ecotone
+        if (shoreSandWeight < .35) {
+          selected = SoilTexture.LOAMY_SAND;  // More grass-like
+        } else if (shoreSandWeight < .65) {
+          selected = SoilTexture.SANDY_LOAM;  // Balanced blend
+        } else {
+          selected = SoilTexture.LOAMY_SAND;  // More sand-like
+        }
+      } else {
+        selected = texture;
+      }
       var cover=original.is(Blocks.GRASS_BLOCK)?GroundMaterials.Cover.GRASS
           :original.is(Blocks.PODZOL)?GroundMaterials.Cover.PODZOL:GroundMaterials.Cover.BARE;
       return GroundMaterials.soil(selected,cover).defaultBlockState();
@@ -642,6 +675,83 @@ public final class EngineChunkGenerator extends ChunkGenerator {
             }
           }
         }
+
+        // Submerged plants (seagrass, kelp) in tagged water biomes
+        boolean submergedPlants =
+            channelRevision >= 8
+                && biomeHolder != null
+                && biomeHolder.is(WATER_SUBMERGED_PLANTS);
+        if (submergedPlants && s.wet() && s.water() > y && engine.noise.hash(wx, wz, 4413) < .025) {
+          var plantPos = new BlockPos(wx, y, wz);
+          var support = c.getBlockState(plantPos.below());
+          if (c.getBlockState(plantPos).is(Blocks.WATER)
+              && (support.is(Blocks.SAND) || support.is(Blocks.GRAVEL)
+                  || support.is(Blocks.DIRT) || support.is(Blocks.CLAY)
+                  || support.getBlock() instanceof GroundMaterials.SoilBlock)) {
+            // Seagrass in shallow water, kelp in deeper water
+            int waterDepth = (int) (s.water() - y);
+            if (waterDepth >= 1 && waterDepth <= 4) {
+              c.setBlockState(plantPos, Blocks.SEAGRASS.defaultBlockState());
+            } else if (waterDepth > 4 && waterDepth <= 12 && engine.noise.hash(wx, wz, 4414) < .4) {
+              int kelpHeight = 2 + (int) (engine.noise.hash(wx, wz, 4415) * (waterDepth - 2));
+              for (int dy = 0; dy < kelpHeight && y + dy < s.water(); dy++) {
+                var kelpPos = new BlockPos(wx, y + dy, wz);
+                if (!c.getBlockState(kelpPos).is(Blocks.WATER)) break;
+                c.setBlockState(kelpPos, Blocks.KELP.defaultBlockState());
+              }
+              if (y + kelpHeight < s.water()) {
+                c.setBlockState(new BlockPos(wx, y + kelpHeight, wz), Blocks.KELP_PLANT.defaultBlockState());
+              }
+            }
+          }
+        }
+
+        // Floating plants (lily pads) in tagged water biomes
+        boolean floatingPlants =
+            channelRevision >= 8
+                && biomeHolder != null
+                && biomeHolder.is(WATER_FLOATING_PLANTS);
+        if (floatingPlants && s.wet() && s.water() == y && engine.noise.hash(wx, wz, 4416) < .015) {
+          var plantPos = new BlockPos(wx, y, wz);
+          if (c.getBlockState(plantPos).is(Blocks.WATER)
+              && c.getBlockState(plantPos.above()).isAir()) {
+            c.setBlockState(plantPos.above(), Blocks.LILY_PAD.defaultBlockState());
+          }
+        }
+
+        // Water-rooted trees with mangrove-style prop roots in tagged biomes
+        boolean waterRootedTrees =
+            channelRevision >= 8
+                && biomeHolder != null
+                && biomeHolder.is(WATER_ROOTED_TREES)
+                && nearWater(wx, wz, 4);
+        if (waterRootedTrees && s.wet() && s.water() > y && engine.noise.hash(wx, wz, 4417) < .008) {
+          var basePos = new BlockPos(wx, y, wz);
+          var support = c.getBlockState(basePos.below());
+          // Place mangrove propagules/roots in shallow water near shore
+          if (c.getBlockState(basePos).is(Blocks.WATER)
+              && (support.is(Blocks.SAND) || support.is(Blocks.GRAVEL)
+                  || support.is(Blocks.DIRT) || support.is(Blocks.CLAY)
+                  || support.is(Blocks.MUD)
+                  || support.getBlock() instanceof GroundMaterials.SoilBlock)) {
+            int waterDepth = (int) (s.water() - y);
+            if (waterDepth >= 1 && waterDepth <= 3) {
+              // Place mangrove propagule at water surface
+              c.setBlockState(basePos.above(), Blocks.MANGROVE_PROPAGULE.defaultBlockState()
+                  .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HANGING, false));
+              // Add prop roots extending down into water
+              for (int dy = 1; dy <= waterDepth; dy++) {
+                var rootPos = new BlockPos(wx, y + dy, wz);
+                if (!c.getBlockState(rootPos).is(Blocks.WATER)) break;
+                if (engine.noise.hash(wx, wz, 4418 + dy) < .6) {
+                  c.setBlockState(rootPos, Blocks.MANGROVE_ROOTS.defaultBlockState()
+                      .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, true));
+                }
+              }
+            }
+          }
+        }
+
         if (coverDraw < (shorePlants ? .42 : .11)) {
           var p = new BlockPos(wx, y, wz);
           if (!s.wet()
