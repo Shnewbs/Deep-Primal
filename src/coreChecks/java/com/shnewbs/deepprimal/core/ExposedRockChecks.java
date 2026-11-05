@@ -43,6 +43,21 @@ final class ExposedRockChecks {
   }
 
   private static void checkMountainOutcropBounds() {
+    var geology = new Geology(new TerrainNoise(73, true));
+    var graniteIntrusion = new Geology.Column(100, 0, 0, .9, 0, .5, 0, 0, 0, 0, 3);
+    var basaltIntrusion = new Geology.Column(100, 0, 2, -.9, 0, .5, 0, 0, 0, 0, 3);
+    var oldGranite = geology.outcropColumn(3, -7, graniteIntrusion);
+    var oldBasalt = geology.outcropColumn(3, -7, basaltIntrusion);
+    var newGranite = geology.outcropColumnPreservingIntrusions(3, -7, graniteIntrusion);
+    var newBasalt = geology.outcropColumnPreservingIntrusions(3, -7, basaltIntrusion);
+    if (newGranite.rock(100) != Geology.Rock.GRANITE
+        || newBasalt.rock(100) != Geology.Rock.BASALT
+        || oldGranite.rock(100) == Geology.Rock.GRANITE
+        || oldBasalt.rock(100) == Geology.Rock.BASALT
+        || newGranite.rock(145) == Geology.Rock.GRANITE
+        || newBasalt.rock(170) == Geology.Rock.BASALT)
+      throw new AssertionError("Intrusion preservation changed or escaped its frozen thresholds");
+
     if (!Geology.isMountainOutcrop(240, 1.31, 240)
         || !Geology.isMountainOutcrop(240, 1.31, 144)
         || Geology.isMountainOutcrop(240, 1.31, 143)

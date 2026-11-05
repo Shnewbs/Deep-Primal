@@ -69,10 +69,12 @@ public final class Geology {
     private final int x, z;
     private final double thickness, beddingOffset;
     private final Lithology lithology;
+    private final Column host;
+    private final boolean preserveIntrusions;
     private int cachedBand = Integer.MIN_VALUE;
     private Rock cachedRock;
 
-    private OutcropColumn(int x, int z, Column column) {
+    private OutcropColumn(int x, int z, Column column, boolean preserveIntrusions) {
       this.x = x;
       this.z = z;
       thickness = 26 + noise.field(x, z, 1900, 1885) * 4;
@@ -80,10 +82,16 @@ public final class Geology {
           + noise.field(x, z, 560, 1881) * 15
           + noise.field(x, z, 170, 1882) * 4;
       lithology = lithology(column);
+      host = column;
+      this.preserveIntrusions = preserveIntrusions;
     }
 
     /** This sampler is intended to be owned by one generated column. */
     public Rock rock(int y) {
+      if (preserveIntrusions) {
+        if (host.intrusion() > .80 && y < host.bedding() + 45) return Rock.GRANITE;
+        if (host.intrusion() < -.84 && y < host.bedding() + 70) return Rock.BASALT;
+      }
       int band = (int) Math.floor((y + beddingOffset) / thickness);
       if (band != cachedBand) {
         double facies = noise.field(x, z, 920, 1883L + band * 37L);
@@ -102,7 +110,12 @@ public final class Geology {
   }
 
   public OutcropColumn outcropColumn(int x, int z, Column column) {
-    return new OutcropColumn(x, z, column);
+    return new OutcropColumn(x, z, column, false);
+  }
+
+  /** Material revision 5 preserves the frozen intrusive granite and basalt bodies. */
+  public OutcropColumn outcropColumnPreservingIntrusions(int x, int z, Column column) {
+    return new OutcropColumn(x, z, column, true);
   }
 
   /** Exact hydraulic subset; no terrain, strata, deposit or soil-horizon evaluation. */

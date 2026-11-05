@@ -4,7 +4,7 @@
       "type": "deepprimal:prototype_deep",
       "generator": {
         "type": "deepprimal:continental_v7",
-        "material_revision": 4,
+        "material_revision": 5,
         "channel_revision": 6,
         "min_y": -384,
         "height": 1024,

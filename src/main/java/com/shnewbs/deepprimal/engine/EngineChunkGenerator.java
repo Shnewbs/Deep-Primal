@@ -38,7 +38,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         Codec.INT.optionalFieldOf("min_y",-128).forGetter(g->g.minY),
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
-        Codec.intRange(0,4).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
+        Codec.intRange(0,5).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
         Codec.intRange(0,6).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
     ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
         profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
@@ -74,8 +74,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,
       TerrainProfile profile,int materialRevision,int channelRevision) {
     super(source);
-    if(materialRevision<0||materialRevision>4||(materialRevision!=0&&revision!=7))
-      throw new IllegalArgumentException("Soil material revision requires V7 geography");
+    if(materialRevision<0||materialRevision>5||(materialRevision!=0&&revision!=7))
+      throw new IllegalArgumentException("Material revision requires V7 geography");
     this.materialRevision=materialRevision;
     this.channelRevision=channelRevision;
     this.profile=profile;
@@ -245,7 +245,9 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       tunnel=engine.tunnel(x,z);ocean=engine.ocean(x,z);
       iceBase=(int)Math.floor(engine.surfaceWithoutIce(x,z));
       geologyModel=new Geology(engine.noise);geology=geologyModel.column(x,z,s);soil=materialRevision>=2?SoilProfile.at(engine.noise,x,z,s,geology):SoilProfile.at(s,geology);
-      outcrop=materialRevision>=3?geologyModel.outcropColumn(x,z,geology):null;
+      outcrop=materialRevision>=5
+          ?geologyModel.outcropColumnPreservingIntrusions(x,z,geology)
+          :materialRevision>=3?geologyModel.outcropColumn(x,z,geology):null;
       texture=materialRevision>=1?SoilTexture.at(engine.noise,x,z,s,geology):null;
       this.deposits=deposits.column(x,z,geology,iceBase);
       double roof=Math.min(iceBase,hydraulic.ground());
