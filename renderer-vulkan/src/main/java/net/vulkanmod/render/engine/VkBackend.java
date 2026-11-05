@@ -23,6 +23,8 @@ public class VkBackend implements GpuBackend {
 
    @Override
    public void handleWindowCreationErrors(Error error) throws BackendCreationException {
+      com.shnewbs.deepprimal.settings.RendererPreferences.reportStartupFallback(
+          "Vulkan window creation failed; see latest.log.");
       throw new BackendCreationException("Cannot create Vulkan window: " + error);
    }
 
@@ -32,6 +34,9 @@ public class VkBackend implements GpuBackend {
          net.vulkanmod.deepprimal.Startup.arm();
          return new GpuDevice(new VkGpuDevice(window, defaultShaderSource, debugOptions));
       } catch (Exception | LinkageError error) {
+         com.shnewbs.deepprimal.settings.RendererPreferences.reportStartupFallback(
+             "Vulkan initialization failed (" + error.getClass().getSimpleName()
+                 + "); see latest.log.");
          net.vulkanmod.Initializer.LOGGER.error("Vulkan initialization failed; trying OpenGL", error);
          try { net.vulkanmod.vulkan.Vulkan.abortInitialization(); }
          catch (Exception | LinkageError cleanup) { error.addSuppressed(cleanup); }

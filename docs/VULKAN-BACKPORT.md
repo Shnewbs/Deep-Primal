@@ -1,6 +1,6 @@
 # Vulkan adapter
 
-Vulkan is the primary development sample/reference API and graphics validation target. The separately replaceable NeoForge backend is adapted from **VulkanMod 0.6.8+26.1.2**. The lean default JAR omits the optional adapter; include it using a Vulkan build profile below. Installed clients retain their saved API preference, with OpenGL as the recovery fallback. Open **Video Settings → Deep Primal distances → Performance → Graphics API**, select Vulkan, Apply, and restart Minecraft. The screen reports the active API separately from the next-launch preference.
+Vulkan is the primary development sample/reference API and graphics validation target. The separately replaceable NeoForge backend is adapted from **VulkanMod 0.6.8+26.1.2**. The lean default JAR omits the optional adapter; include it using a Vulkan build profile below. Installed clients retain their saved API preference, with OpenGL as the recovery fallback. Open **Video Settings → Graphics API**, select Vulkan under **API after restart**, Apply, and fully restart Minecraft. The screen reports the active device alongside the staged next-launch preference, and explains missing modules, startup recovery, renderer delegation and launch overrides. See the [2026-11-05 renderer/API audit](renderer-audits/2026-11-05-api-status.md).
 
 This is a Vulkan device/backend implementation, not an OpenGL translation flag. It uses Vulkan command buffers, buffers/images, shaderc compilation to SPIR-V, descriptors, graphics pipelines, frame fences, timestamps and a GLFW surface/swapchain. Minecraft retains its native chunk mesher, section workers, render passes and gameplay simulation. Deep Primal's horizon uses the same device abstraction. Fabric Loader/API and VulkanMod's custom terrain mesher are not bundled.
 
@@ -21,7 +21,7 @@ Commercial games in the Vulkan ecosystem are architectural references, not sourc
 - Cache pipeline variants by compatible attachment formats rather than framebuffer identity. Cache their hashes without per-draw boxing. Rebuild shader/pipeline caches safely during resource reloads.
 - Store metadata outside Minecraft pipeline objects. No global OpenGL-call emulation mixins or native vertex-format overwrite are installed.
 
-The preference is `backend=Vulkan` or `backend=OpenGL` in `config/deepprimal-renderer.properties`. A startup marker keeps an incomplete Vulkan startup from repeating on the next launch. Applying a new graphics preference clears that marker. Backend creation failures attempt OpenGL immediately. Known competing renderer mods disable this adapter; Deep Primal's existing renderer handoff remains active.
+The preference is `backend=Vulkan` or `backend=OpenGL` in `config/deepprimal-renderer.properties`. A startup marker keeps an incomplete Vulkan startup from repeating on the next launch. Explicitly applying an API selection clears that marker, including reselecting Vulkan to retry. Applying unrelated graphics settings preserves it. Backend creation failures attempt OpenGL immediately. Known competing renderer mods disable this adapter; Deep Primal's existing renderer handoff remains active.
 
 ## Build and limits
 

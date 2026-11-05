@@ -20,12 +20,18 @@ public final class Startup {
     if (com.shnewbs.deepprimal.settings.RendererPreferences.requestedBackend()
         != com.shnewbs.deepprimal.settings.RendererPreferences.Backend.Vulkan) return false;
     if (Files.exists(MARKER) && !Boolean.getBoolean("deepprimal.vulkan.retry")) {
+      com.shnewbs.deepprimal.settings.RendererPreferences.reportStartupFallback(
+          "Previous Vulkan startup did not finish; OpenGL recovery is active. Select Vulkan again,"
+              + " Apply, then restart to retry.");
       LOGGER.warn(
           "Previous Vulkan startup did not finish; recovering with OpenGL. Select Vulkan again to"
               + " retry.");
       return false;
     }
     if (!com.shnewbs.deepprimal.settings.RendererOwnership.owned()) {
+      com.shnewbs.deepprimal.settings.RendererPreferences.reportStartupFallback(
+          "Deep Primal Vulkan yielded to "
+              + com.shnewbs.deepprimal.settings.RendererOwnership.owner() + ".");
       LOGGER.warn("Another graphics replacement is installed; Deep Primal Vulkan is disabled.");
       return false;
     }

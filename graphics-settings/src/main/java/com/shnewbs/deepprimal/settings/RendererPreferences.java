@@ -7,6 +7,17 @@ import net.neoforged.fml.loading.FMLPaths;
 
 /** Backend-neutral restart preference; never initializes native graphics libraries. */
 public final class RendererPreferences {
+  private static volatile String startupFallbackReason = "";
+
+  /** Set by the optional adapter without loading any client or native graphics classes. */
+  public static void reportStartupFallback(String reason) {
+    startupFallbackReason = java.util.Objects.requireNonNull(reason);
+  }
+
+  public static String startupFallbackReason() {
+    return startupFallbackReason;
+  }
+
   public enum Backend {
     OpenGL,
     Vulkan

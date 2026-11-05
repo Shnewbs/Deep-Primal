@@ -38,6 +38,7 @@ public final class PrimalGraphicsScreen extends Screen {
   private final Map<String, String> baseline = new LinkedHashMap<>();
   private final List<Display> visible = new ArrayList<>();
   private boolean loaded, updating;
+  private boolean backendSelected;
   private int tab, scroll, left, top, panelWidth, contentX, contentWidth, rowHeight, shown;
   private Button apply;
   private EditBox search;
@@ -734,7 +735,7 @@ public final class PrimalGraphicsScreen extends Screen {
     add(
         5,
         "backend",
-        "Graphics API",
+        "API after restart",
         () -> RendererPreferences.savedBackend() == RendererPreferences.Backend.Vulkan ? 1 : 0,
         v -> {
           try {
@@ -833,6 +834,7 @@ public final class PrimalGraphicsScreen extends Screen {
 
   private void load() {
     define();
+    backendSelected = false;
     values.clear();
     controls.forEach((k, c) -> values.put(k, Integer.toString(c.get.getAsInt())));
     presetKeys.clear();
@@ -925,7 +927,19 @@ public final class PrimalGraphicsScreen extends Screen {
   }
 
   private String help(Control c) {
+    if (c.key.equals("backend"))
+      return c.help + " " + RendererStatus.summary(activeBackend(), stagedBackend()) + ". "
+          + RendererStatus.explanation(activeBackend(), stagedBackend());
     return c.tab == 6 ? c.help + " " + upscalingStatus() + ". " + upscalingReason() : c.help;
+  }
+
+  private String activeBackend() {
+    return com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName();
+  }
+
+  private RendererPreferences.Backend stagedBackend() {
+    return number(controls.get("backend")) == 1
+        ? RendererPreferences.Backend.Vulkan : RendererPreferences.Backend.OpenGL;
   }
 
   private boolean upscalingControlEnabled(Control c) {
@@ -1043,6 +1057,7 @@ public final class PrimalGraphicsScreen extends Screen {
                             b.active = false;
                           }
                           values.put(c.key, Integer.toString(v));
+                          if (c.key.equals("backend")) backendSelected = true;
                           if (c.key.equals("preset")) {
                             stagePreset(net.minecraft.client.GraphicsPreset.values()[v]);
                             rebuildWidgets();
@@ -1208,7 +1223,10 @@ public final class PrimalGraphicsScreen extends Screen {
       boolean oldSmooth = WaterVisualConfig.SMOOTH.get();
       boolean oldInterpolation = WaterVisualConfig.INTERPOLATE.get();
       Control backend = controls.get("backend");
-      backend.set.accept(number(backend));
+      // Unrelated settings must not erase an in-progress/failed Vulkan recovery marker.
+      // An explicit re-selection still permits retrying the same saved Vulkan preference.
+      if (backendSelected || !Objects.equals(values.get("backend"), baseline.get("backend")))
+        backend.set.accept(number(backend));
       Control preset = controls.get("preset");
       if (!Objects.equals(values.get("preset"), baseline.get("preset")))
         preset.set.accept(number(preset));
@@ -1298,7 +1316,9 @@ public final class PrimalGraphicsScreen extends Screen {
     }
     if (count == 0)
       g.text(font, Component.literal("No matching settings"), contentX, top + 34, 0xffb9c8c1);
-    String help = "Hover a setting for its purpose. Scroll to see more controls.";
+    String help = tab == 5
+        ? RendererStatus.explanation(activeBackend(), stagedBackend())
+        : "Hover a setting for its purpose. Scroll to see more controls.";
     for (Display row : visible) {
       Control c = row.control;
       int numericWidth = 44 + Math.max(40, Math.min(100, contentWidth / 3)) + 18;
@@ -1317,15 +1337,14 @@ public final class PrimalGraphicsScreen extends Screen {
       g.textWithWordWrap(font, Component.literal(help), hx, top + 32, 162, 0xffb9c8c1);
     }
     String note =
-        !RendererOwnership.owned()
+        tab == 5
+            ? RendererStatus.summary(activeBackend(), stagedBackend())
+            : !RendererOwnership.owned()
             ? "Renderer delegated to " + RendererOwnership.owner()
             : tab == 3
                 ? LodAccess.status()
                 : tab == 6
                     ? upscalingStatus()
-                : tab == 5
-                    ? "Active API: "
-                        + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName()
                     : "Staged: "
                         + values.get("render")
                         + " chunks | active: "
@@ -1347,6 +1366,14 @@ public final class PrimalGraphicsScreen extends Screen {
           left + 6,
           height - 43,
           UpscalingConfig.unavailableReason(stagedUpscaler()).isEmpty() ? 0xff93aa9c : 0xffe5b875);
+    if (tab == 5)
+      g.text(
+          font,
+          Component.literal(font.plainSubstrByWidth(
+              RendererStatus.explanation(activeBackend(), stagedBackend()), panelWidth - 12)),
+          left + 6,
+          height - 43,
+          0xffe5b875);
     if (panelWidth < 440)
       g.centeredText(
           font,
@@ -1435,4 +1462,3 @@ public final class PrimalGraphicsScreen extends Screen {
     }
   }
 }
-

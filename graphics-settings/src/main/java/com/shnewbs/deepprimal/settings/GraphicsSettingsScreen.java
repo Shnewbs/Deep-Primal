@@ -11,6 +11,7 @@ import net.neoforged.fml.ModList;
 public final class GraphicsSettingsScreen extends Screen {
   private final Screen parent;
   private RendererPreferences.Backend backend = RendererPreferences.savedBackend();
+  private boolean backendSelected;
   private String error;
   private int left, panelWidth, top;
 
@@ -41,16 +42,20 @@ public final class GraphicsSettingsScreen extends Screen {
                               ? RendererPreferences.Backend.OpenGL
                               : RendererPreferences.Backend.Vulkan;
                       button.setMessage(selection());
+                      backendSelected = true;
+                      button.active = ModList.get().isLoaded("deepprimal_vulkan")
+                          || backend == RendererPreferences.Backend.Vulkan;
                     })
                 .bounds(left, top, panelWidth, 20)
                 .build());
-    choice.active = ModList.get().isLoaded("deepprimal_vulkan");
+    choice.active = ModList.get().isLoaded("deepprimal_vulkan")
+        || backend == RendererPreferences.Backend.Vulkan;
     addRenderableWidget(
         Button.builder(
                 Component.literal("Apply"),
                 button -> {
                   try {
-                    RendererPreferences.save(backend);
+                    if (backendSelected) RendererPreferences.save(backend);
                     onClose();
                   } catch (java.io.IOException failure) {
                     error = "Could not save the graphics preference.";
@@ -90,10 +95,7 @@ public final class GraphicsSettingsScreen extends Screen {
         Component.literal(
             error != null
                 ? error
-                : ModList.get().isLoaded("deepprimal_vulkan")
-                    ? "Apply, then restart Minecraft. Unsupported Vulkan initialization recovers"
-                          + " with OpenGL. External graphics replacements take priority."
-                    : "The Vulkan module is not installed. OpenGL remains available."),
+                : RendererStatus.explanation(RenderSystem.getDevice().getBackendName(), backend)),
         left,
         top + 72,
         panelWidth,
