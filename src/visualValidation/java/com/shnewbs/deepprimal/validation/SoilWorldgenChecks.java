@@ -30,14 +30,19 @@ final class SoilWorldgenChecks {
           java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject().getAsJsonObject("dimensions")
           .getAsJsonObject("minecraft:overworld").getAsJsonObject("generator");
     }
-    require(template.get("material_revision").getAsInt() == 2, "New worlds select soil material revision");
+    require(template.get("material_revision").getAsInt() == 5,
+        "New worlds select the current V7 soil material revision");
+    require(template.get("channel_revision").getAsInt() == 6,
+        "New worlds select the integrated river features and deep-channel revision");
     var saved = level.getServer().getWorldPath(LevelResource.ROOT).resolve("soil-material-validation.json");
     if (reopen) template = com.google.gson.JsonParser.parseString(Files.readString(saved)).getAsJsonObject();
     var current = (EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, template).getOrThrow();
-    require(current.materialRevision() == 2, "Saved material revision");
+    require(current.materialRevision() == 5, "Saved material revision");
+    require(current.channelRevision() == 6, "Saved channel revision");
     var encoded = ChunkGenerator.CODEC.encodeStart(ops, current).getOrThrow().getAsJsonObject();
-    require(((EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, encoded).getOrThrow()).materialRevision() == 2,
-        "Codec material roundtrip");
+    var roundtrip = (EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, encoded).getOrThrow();
+    require(roundtrip.materialRevision() == 5 && roundtrip.channelRevision() == 6,
+        "Codec material and channel revision roundtrip");
     if (!reopen) Files.writeString(saved, encoded.toString());
     var legacyJson = encoded.deepCopy();
     legacyJson.remove("material_revision");
@@ -46,10 +51,15 @@ final class SoilWorldgenChecks {
     var explicitLegacy = legacyJson.deepCopy();
     explicitLegacy.addProperty("material_revision", 0);
     var control = (EngineChunkGenerator) ChunkGenerator.CODEC.parse(ops, explicitLegacy).getOrThrow();
-    for (int invalid : new int[] {-1, 3}) {
+    for (int invalid : new int[] {-1, 6}) {
       var bad = encoded.deepCopy();
       bad.addProperty("material_revision", invalid);
       require(ChunkGenerator.CODEC.parse(ops, bad).result().isEmpty(), "Invalid material revision rejected");
+    }
+    for (int invalid : new int[] {-1, 8}) {
+      var bad = encoded.deepCopy();
+      bad.addProperty("channel_revision", invalid);
+      require(ChunkGenerator.CODEC.parse(ops, bad).result().isEmpty(), "Invalid channel revision rejected");
     }
     long blocks = 0, changed = 0, decorations = 0, outcrops = 0;
     var cursor = new BlockPos.MutableBlockPos();

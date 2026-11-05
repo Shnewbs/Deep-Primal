@@ -61,10 +61,10 @@ public final class TerrainEngine {
 
   public TerrainEngine(long seed, int revision, TerrainOptions options) { this(seed, revision, options, 0); }
 
-  /** {@code channelRevision} 1-6 are saved V7 world options; 0 replays legacy worlds exactly. */
+  /** {@code channelRevision} 1-7 are saved V7 world options; 0 replays legacy worlds exactly. */
   public TerrainEngine(long seed, int revision, TerrainOptions options, int channelRevision) {
     if (revision < 1 || revision > 7) throw new IllegalArgumentException("Terrain revision");
-    if (channelRevision < 0 || channelRevision > 6 || channelRevision != 0 && revision != 7)
+    if (channelRevision < 0 || channelRevision > 7 || channelRevision != 0 && revision != 7)
       throw new IllegalArgumentException("Channel revision requires V7 geography");
     this.revision = revision;
     this.channelRevision = channelRevision;
@@ -238,8 +238,11 @@ public final class TerrainEngine {
       d =
           new WatershedRegion(
               l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall, revision >= 7, channelRevision >= 1,
-              channelRevision >= 2 ? noise : null, channelRevision >= 3, channelRevision >= 4,
-              channelRevision >= 5, null, null, channelRevision >= 6);
+              channelRevision >= 2 ? noise : null,
+              channelRevision >= 3 && channelRevision <= 6,
+              channelRevision >= 4 && channelRevision <= 6,
+              channelRevision >= 5 && channelRevision <= 6,
+              null, null, channelRevision == 6 || channelRevision == 7);
       watersheds.put(key, d);
       while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
     }

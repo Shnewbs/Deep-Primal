@@ -1,5 +1,13 @@
 # Deep Primal build/audit continuation
 
+**2026-11-04 staged integration:** new standard and deep engine presets now
+select channel revision 6, combining deeper main rivers, delta fans, oxbows,
+and conserved distributary shares in the default worldgen. The separate
+`riverDeltas` creation switch is removed. The old `engine_deltas_*` pack IDs
+remain available for saved-world compatibility and use the same revision-6
+behavior. Targeted Gradle checks are in progress; native save/reopen and visual
+acceptance remain open. See `ACTIVE-ENGINE-AUDIT.md` and `TERRAIN-V7.md`.
+
 **Latest, 2026-10-26: dev.20 Earth-Scaled Rivers is released to main and the Library.**
 Owner request: "perfect water engine part, including all water types and river
 sizes, including super wide rivers, and canyon rivers." New worlds save

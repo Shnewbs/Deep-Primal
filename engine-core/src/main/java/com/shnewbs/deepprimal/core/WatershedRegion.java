@@ -281,8 +281,9 @@ public final class WatershedRegion {
   }
 
   /**
-   * {@code deepChannels} selects channel revision 6: discharge-scaled thalwegs
-   * for flowing channels, excluding delta branches and lake basins.
+   * {@code deepChannels} selects a discharge-scaled thalweg for flowing
+   * channels, excluding delta branches and lake basins. It can be enabled
+   * independently of distributary planning.
    */
   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
@@ -298,8 +299,6 @@ public final class WatershedRegion {
       throw new IllegalArgumentException("Oxbow lakes require channel revision 3");
     if (budgetedDistributaries && !riverDeltas)
       throw new IllegalArgumentException("Distributary budgets require channel revision 3");
-    if (deepChannels && !budgetedDistributaries)
-      throw new IllegalArgumentException("Deep channels require channel revision 5");
     this.broadChannels=broadChannels;
     this.cascadeBeds=cascadeBeds;
     this.riverNoise=riverNoise;

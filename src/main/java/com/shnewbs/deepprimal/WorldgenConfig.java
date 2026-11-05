@@ -21,13 +21,12 @@ public final class WorldgenConfig {
   public static final ModConfigSpec.BooleanValue OCEAN_TRENCHES;
   public static final ModConfigSpec.BooleanValue NATURAL_RIVER_STEPS;
   public static final ModConfigSpec.BooleanValue SUPPORTED_RIVER_STEPS;
-  public static final ModConfigSpec.BooleanValue RIVER_DELTAS;
 
   static {
     var b = new ModConfigSpec.Builder();
     OWN_ENGINE =
         b.comment(
-                "Use Deep Primal continental_v6 for new worlds. Saved worlds retain their"
+                "Use Deep Primal continental_v7 for new worlds. Saved worlds retain their"
                     + " generator.")
             .define("builtInTerrainEngine", true);
     EXTRA_DEPTH =
@@ -79,15 +78,6 @@ public final class WorldgenConfig {
                 "Use bank-supported, stable channel surfaces in NEW worlds. Existing saves keep"
                     + " their stored profile.")
             .define("supportedRiverSteps", true);
-    RIVER_DELTAS =
-        b.comment(
-                "Build sediment fans with three distributary channels where great rivers reach a"
-                    + " low coast, leave oxbow lakes beside flat lowland trunks, and split each"
-                    + " fan's discharge between its branches; deepen main river channels in NEW"
-                    + " Deep Primal worlds (channel revision 6).",
-                "Saved worlds keep their serialized channel revision; revisions 0-5 are unchanged.",
-                "The fan extends inland from the mouth, so no land is added to the open ocean.")
-            .define("riverDeltas", false);
     SPEC = b.build();
   }
 
@@ -108,10 +98,7 @@ public final class WorldgenConfig {
                       : "routed_"
                   : "waterways_")
               + profile;
-    if (OWN_ENGINE.get())
-      profile =
-          (RIVER_DELTAS.get() ? "engine_deltas_" : "engine_")
-              + (EXTRA_DEPTH.get() ? "deep" : "standard");
+    if (OWN_ENGINE.get()) profile = "engine_" + (EXTRA_DEPTH.get() ? "deep" : "standard");
     for (String available :
         new String[] {
           "engine_standard",
@@ -140,11 +127,28 @@ public final class WorldgenConfig {
       event.addPackFinders(
           Identifier.fromNamespaceAndPath(DeepPrimal.ID, "worldgen/" + available),
           PackType.SERVER_DATA,
-          Component.literal("Deep Primal world generation: " + available),
+          Component.literal(displayName(available)),
           available.equals(profile) ? PackSource.BUILT_IN : OPTIONAL_PROFILE,
           available.equals(profile),
           Pack.Position.TOP);
     }
+  }
+
+  private static String displayName(String profile) {
+    boolean deep = profile.equals("deep") || profile.endsWith("_deep");
+    String family;
+    if (profile.startsWith("engine_deltas_")) family = "Legacy Deltas";
+    else if (profile.startsWith("engine_")) family = "Engine";
+    else if (profile.startsWith("supported_rivers_")) family = "Supported Rivers";
+    else if (profile.startsWith("supported_")) family = "Supported";
+    else if (profile.startsWith("natural_rivers_")) family = "Natural Rivers";
+    else if (profile.startsWith("natural_")) family = "Natural";
+    else if (profile.startsWith("ocean_")) family = "Ocean";
+    else if (profile.startsWith("contained_")) family = "Contained";
+    else if (profile.startsWith("routed_")) family = "Routed";
+    else if (profile.startsWith("waterways_")) family = "Waterways";
+    else family = "Legacy";
+    return "DP " + family + ": " + (deep ? "Deep" : "Standard");
   }
 
   private WorldgenConfig() {}

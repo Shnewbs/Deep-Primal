@@ -1,5 +1,18 @@
 # Active Deep Primal engine audit
 
+## 2026-11-04 integrated default river channels staged
+
+New `engine_standard` and `engine_deep` worlds now use channel revision 6 by
+default: deeper main channels, river-mouth deltas, oxbows, and conserved
+distributary flow are enabled together rather than split behind the
+`riverDeltas` creation switch. The switch is removed; legacy `engine_deltas_*`
+pack IDs remain discoverable for saved-world compatibility and carry the same
+revision-6 behavior. Revision 7 remains available as a depth-only codec option,
+but is not selected by the standard/deep presets. Existing saved generators
+keep their serialized revisions. Targeted Gradle checks are in progress; native
+save/reopen and visual acceptance for this default change have not been
+performed.
+
 ## 2026-10-25 channel revision 4 staged: oxbow lakes on delta fans
 
 No artifact, release or score change. On top of channel revision 3, `WatershedRegion`
