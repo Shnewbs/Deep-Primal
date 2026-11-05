@@ -1,1 +1,0 @@
-INTEGRATED_NATIVE_PASS ownGenerator=true ownBiomes=true modulesRetained=true loadedNineChunksMs=185.624237 minY=-128 height=768 nativeImportWithLegacyEnabled=true waterUnits=16 lodBytes=235888

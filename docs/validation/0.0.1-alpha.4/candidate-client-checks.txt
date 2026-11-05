@@ -1,7 +1,0 @@
-TERRAIN_CLIENT_CHECKS_PASS verticalNodes=8450 fullSections=8112 boundedSections=845 worldSections=48
-DEEPPRIMAL_CAPTURE_SAVED candidate-peak
-DEEPPRIMAL_CAPTURE_SAVED candidate-cliff
-DEEPPRIMAL_CAPTURE_SAVED candidate-vertical2
-DEEPPRIMAL_CAPTURE_SAVED controls
-WORLD_CREATION_CHECKS_PASS height=768 label=Deep Primal
-DEEPPRIMAL_CAPTURE_SAVED world-creation

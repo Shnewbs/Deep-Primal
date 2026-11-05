@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: overflow bypass: bytes=-9223372036854775808 size=2
-	at com.shnewbs.deepprimal.core.ByteLruOverflowChecks.check(ByteLruOverflowChecks.java:42)
-	at com.shnewbs.deepprimal.core.ByteLruOverflowChecks.main(ByteLruOverflowChecks.java:11)

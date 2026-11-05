@@ -1,5 +1,0 @@
-mode,samples,iterations,mean_ms,p50_ms,p95_ms,p99_ms,max_ms,mean_thread_allocated_bytes
-exact_graph,196608,16,1137.871284,1114.315508,1379.704341,1379.704341,1379.704341,10.0
-lattice_graph,196608,16,18.698732,17.495108,23.941359,23.941359,23.941359,19472.0
-DENSITY_APPROXIMATION samples=393216 rms=0.000003412 max=0.000006891 signMismatches=0
-DENSITY_BENCHMARK_COMPLETE nodes=56 depth=20 maxNodeVisits=164 checksum=-598346.131625276

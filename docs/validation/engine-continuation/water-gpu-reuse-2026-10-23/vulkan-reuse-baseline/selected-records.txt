@@ -1,8 +1,0 @@
-BACKEND_SELECTION_PASS backend=Vulkan
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-update-0135/project/build/classes/java/main/
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.graphics.WaterGpuMesh location=file:/workspace/scratch/a22609fabda0/water-update-0135/project/graphics-settings/build/classes/java/main/
-WATER_GPU_REUSE_OBSERVED targetBytes=46080 ballastBytes=33508224 resident=33554304 accepted=false
-java.lang.AssertionError: Near-capacity same-size water update stalled or displaced closer coverage
-java.lang.AssertionError: Near-capacity same-size water update stalled or displaced closer coverage
-java.lang.AssertionError: Near-capacity same-size water update stalled or displaced closer coverage
-BUILD FAILED in 37s

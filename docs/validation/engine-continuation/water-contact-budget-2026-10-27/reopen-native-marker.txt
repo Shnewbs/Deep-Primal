@@ -1,1 +1,0 @@
-CONTACT_NATIVE_PASS mode=reopen pageBoundary=true exactWaterSaltSediment=true actualSolverTick=true codec=true visits=2048 repeatedAdmissions=1000

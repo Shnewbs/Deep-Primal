@@ -1,7 +1,0 @@
-Filesystem       1B-blocks        Used Available Use% Mounted on
-overlay        33770192896 32351862784         0 100% /
-shm             5225717760  4698578944 527138816  90% /dev/shm
-
-openjdk version "25.0.4.1" 2026-08-18 LTS
-OpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)
-OpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)

@@ -1,6 +1,0 @@
-{
-  "skip_uncertain_tail": "rejected",
-  "duplicate_split": "rejected",
-  "force_empty_when_budget_exhausted": "rejected",
-  "assume_every_axis": "rejected"
-}

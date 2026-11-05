@@ -1,9 +1,0 @@
-{
-  "full_archive": {"error":"ENOSPC writing private diagnostic archive", "bytes_before_removal":106123264,"corruption_confirmed":"BadZipFile","own_partial_deleted":true,"not_delivered":true},
-  "baseline_controls":{"three_source":"ConcurrentModificationException","one_source":"two obsolete deliveries after lookup removal; expected zero"},
-  "fixture_compile_failures":["package-private composition field; corrected fixture reflection","LevelTickEvent.Post requires BooleanSupplier and Level; corrected"],
-  "native_launcher_failures":["unfiltered API classpath included build-tool Gson","runtime classpath omitted NeoForge universal JAR; two failed attempts retained","RCON password mismatch; unqualified attempt terminated"],
-  "rejected_stale_fixture_session":"An unchecked shell sequence continued after fixture compile failure. Old direct-replenishment classes ran; excluded from actual-tick acceptance. Producer identity preflight added and 12 controls passed.",
-  "accepted_final_sessions":["native/fresh-native.txt: actualTick=true cases=6","native/reopen-native.txt: actualTick=true cases=1"],
-  "production_test_failure":false
-}

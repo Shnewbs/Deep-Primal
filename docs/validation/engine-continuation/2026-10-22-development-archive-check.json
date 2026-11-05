@@ -1,8 +1,0 @@
-{
-  "scope": "unreleased-development-archive-only",
-  "bytes": 606627,
-  "sha256": "66904d475f08791c12740138bf32a0e21bc187b7d6c4101a62a401827f145162",
-  "nested_crc_checked": 4,
-  "build_compat_and_validation_classes_absent": true,
-  "release_audit_complete": false
-}

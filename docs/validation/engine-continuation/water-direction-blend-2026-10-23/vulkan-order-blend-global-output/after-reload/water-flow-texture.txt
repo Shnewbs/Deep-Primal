@@ -1,1 +1,0 @@
-WATER_FLOW_TEXTURE_NATIVE_PASS directions=0,4,16 samples=3 topVertices=12 readbackBytes=153792 actualCapture=true geometryAndQuantityUnchanged=true clientStateRestored=true isolatedGpuReleased=true scope=actualCapturedCellAndGpuUvsNotLiveFlowFlickerAcceptance

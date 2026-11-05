@@ -1,7 +1,0 @@
-{
-  "source_sha256": "bd6a82d35adf1a6dba17d4c40f46358cc280e6ef419dfbcf8e4e107773b9f2d8",
-  "exit_code": 1,
-  "stdout": "MATERIAL_CORE_RESULT routes=32 bad=32\n",
-  "stderr": "Exception in thread \"main\" java.lang.AssertionError: Still/flow endpoints must crossfade\n\tat MaterialCoreRepro.main(MaterialCoreRepro.java:8)\n",
-  "test_source": "import com.shnewbs.deepprimal.core.WaterFlowTransition;\npublic class MaterialCoreRepro { public static void main(String[] args) {\n int bad=0;for(int d=0;d<16;d++)for(int flip=0;flip<2;flip++){\n int a=flip==0?16:d,b=flip==0?d:16;var t=new WaterFlowTransition(a,0);t.target(b,25,1);\n if(t.source()!=a||t.target()!=b||!t.active(25)||t.age(25)!=0)bad++;\n }\n System.out.println(\"MATERIAL_CORE_RESULT routes=32 bad=\"+bad);\n if(bad!=0)throw new AssertionError(\"Still/flow endpoints must crossfade\");\n}}"
-}

@@ -1,7 +1,0 @@
-{
-  "source_sha": "5c54904a1316b27d6512aa219f938867d31a49f5",
-  "verified_inputs": 793,
-  "mismatches": [],
-  "missing_build_inputs": [],
-  "production_changes_since_previous_audit": "ten ground PNG resources; no runtime Java changes"
-}

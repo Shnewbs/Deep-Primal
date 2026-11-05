@@ -1,1 +1,0 @@
-WATER_PARTIAL_FADE_NATIVE_PASS samples=6 retainedVertices=40 readbackBytes=8640 originalDeadline=201 rewetDeadline=251 sameAllocation=true completedPartialReleased=true retainedArraysReused=true cpuBytes=1120 isolatedGpuReleased=true scope=controlledPageGpuGeometryOpacityNotLiveScenePixels

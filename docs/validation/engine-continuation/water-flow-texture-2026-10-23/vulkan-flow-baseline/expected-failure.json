@@ -1,7 +1,0 @@
-{
-  "accepted": false,
-  "explicit_reproduction": true,
-  "source_cell": "99,153,-235",
-  "directions": "0,4,16",
-  "observation": "Direction0/east and4/south had identical mesh UVs. Source client state restored before assertion; quantity unchanged. No production changes in baseline."
-}

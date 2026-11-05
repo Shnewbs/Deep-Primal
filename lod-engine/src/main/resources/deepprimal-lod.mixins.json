@@ -1,9 +1,0 @@
-{
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.shnewbs.deepprimal.lod.mixin",
-  "compatibilityLevel": "JAVA_25",
-  "client": ["client.LodDirtyMixin", "client.SpritePixelsAccess"],
-  "plugin": "com.shnewbs.deepprimal.settings.RendererMixinPlugin",
-  "injectors": { "defaultRequire": 1 }
-}

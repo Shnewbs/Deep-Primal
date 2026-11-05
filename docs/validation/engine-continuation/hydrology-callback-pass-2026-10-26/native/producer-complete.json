@@ -1,7 +1,0 @@
-{
-  "source_sha256": "b47f4eb829ff091eb3f3bf12b7a127a2c6fc341b0641a1021716216705961fba",
-  "fixture_classes": {
-    "com/shnewbs/deepprimal/validation/StreamIndexNativeChecks.class": "d8c7e7a9ace2a6b7000f383f0561a63105a969407c808a4e1ec70fbd91516db3"
-  },
-  "jar_sha256": "8bc119d5956f43f8d208486c7b5cf9895bdd1868e30dd6c19242fcac66553821"
-}

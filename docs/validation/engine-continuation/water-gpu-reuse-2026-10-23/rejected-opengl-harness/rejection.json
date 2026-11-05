@@ -1,6 +1,0 @@
-{
-  "accepted": false,
-  "reason": "OpenGL harness inherited DEEPPRIMAL_SHUTDOWN_RECORD and triggered a Vulkan-only stopping assertion. Gradle exit zero is insufficient. Scoped reuse/readback/fade/reload/save records precede failure; this session is excluded from all passing gates.",
-  "correction": "run_vulkan.py removes Vulkan shutdown injection for reuse-gl mode; a fresh separate session must pass strict audit.",
-  "console_sha256": "09ef6150f8a82cc8acc200614082d10d2637534fa102fc375a72085ea0fc00ad"
-}

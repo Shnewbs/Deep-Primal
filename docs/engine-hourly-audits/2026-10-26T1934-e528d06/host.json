@@ -1,1 +1,0 @@
-{"platform":"Linux-6.18.55-x86_64-with-glibc2.39","cpu":"AMD EPYC9V74 virtual host","workload":"Fresh staged extracted-loop/lifecycle/index tests plus input/method hash verification; no full core/build/native/benchmark","javac_heap_mib":128,"java_heap_mib":[128,96],"windows_execution":false,"device_dri":false,"overlay_free_at_finish":0}

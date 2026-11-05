@@ -1,9 +1,0 @@
-{
-  "index": "30",
-  "expectedIndexSha1": "5edb22a42a242f687e2c0f7a12948ed4eb0d3750",
-  "actualIndexSha1": "5edb22a42a242f687e2c0f7a12948ed4eb0d3750",
-  "objects": 4750,
-  "bytes": 456724711,
-  "missing": [],
-  "corrupt": []
-}

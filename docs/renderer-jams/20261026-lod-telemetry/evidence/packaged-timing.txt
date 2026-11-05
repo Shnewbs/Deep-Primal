@@ -1,2 +1,0 @@
-PACKAGED_TIMING_CLASS /workspace/scratch/c748d58856d9/jam2/packaged-core.jar
-ROLLING_TIMING_PASS oracleWindows=1580 samples=30000 concurrentWrites=100000 bounded=4096 reset=true overflow=true

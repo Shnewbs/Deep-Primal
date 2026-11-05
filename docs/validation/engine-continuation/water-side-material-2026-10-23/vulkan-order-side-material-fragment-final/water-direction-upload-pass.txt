@@ -1,1 +1,0 @@
-WATER_DIRECTION_UPLOAD_NATIVE_PASS samples=7 readbackBytes=5040 vertices=140 repeatedUpload=true latestQueued=true staleRevision=true lightPreserved=true historyCap=32768 historyReset=true vertexStride=36 isolatedGpuReleased=true scope=controlledActualProductionUploads

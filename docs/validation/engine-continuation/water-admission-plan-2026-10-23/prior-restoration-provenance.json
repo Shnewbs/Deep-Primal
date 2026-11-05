@@ -1,9 +1,0 @@
-{
-  "source_checkpoint": "d57dbeeba37c18c3c5892b840683fc3052f2ff64",
-  "restored_inputs_before_any_edits": 582,
-  "all_prior_snapshot_hashes_checked_before_write": true,
-  "toolchain_shared_readonly_assets_sequential_build_cache_use": "../water-frame-1732/toolchain",
-  "no_competing_native_or_gradle_jobs": true,
-  "driver_pins": "Same Mesa25.2.8/Xvfb1.9 as R38; see prior checkpoint graphics/toolchain manifests",
-  "original_older_missing_evidence_files": 73
-}

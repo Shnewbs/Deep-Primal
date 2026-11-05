@@ -1,1 +1,0 @@
-FRAME_INTERVAL_PASS oracleWindows=770 intervals=10000 bounded=512 independentContextResets=8 zeroOrigin=true clockWrap=true clockReversal=true observationGap=true

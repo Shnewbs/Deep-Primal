@@ -1,1 +1,0 @@
-{"pass":true,"amd64_dlls":[{"path":"windows/x64/org/lwjgl/shaderc/shaderc.dll","sha256":"36ca29c50b0878841abb5a0aef030fc18e5023915dd3452e6e199e7743669155"},{"path":"windows/x64/org/lwjgl/vma/lwjgl_vma.dll","sha256":"de91b82250ba19d44d2d455bad0a75afe6e30c4b0f55c5e012ec198220963743"}],"extra_diagnostic_fixture_excluded":true,"outer_nested_crc_after_native":true}

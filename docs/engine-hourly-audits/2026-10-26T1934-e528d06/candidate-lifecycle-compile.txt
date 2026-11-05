@@ -1,2 +1,0 @@
-Note: /dev/shm/audit-e528d06-20261026T1934/ExtractedLifecycleChecks.java uses unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.

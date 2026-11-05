@@ -1,5 +1,0 @@
-ALLOCATION fixture=0 before=446464 after=226912 samples=20
-ALLOCATION fixture=1 before=573160 after=353608 samples=20
-ALLOCATION fixture=2 before=509904 after=290352 samples=20
-ALLOCATION fixture=3 before=540992 after=321440 samples=20
-ALLOCATION fixture=4 before=790264 after=552284 samples=20

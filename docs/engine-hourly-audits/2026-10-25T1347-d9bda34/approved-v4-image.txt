@@ -1,1 +1,0 @@
-APPROVED_V4_IMAGE_PASS pixels=40960 actualPackComposeCases=40960 masks=8192 nativeGame=false

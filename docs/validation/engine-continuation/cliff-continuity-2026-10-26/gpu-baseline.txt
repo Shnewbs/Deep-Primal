@@ -1,4 +1,0 @@
-WATERFALL_UPLOAD_PASS samples=60 wallVertices=14880 rockLedgeVertices=240 uncappedSurfaceVertices=768 smoothModes=2 directions=2 verticalPages=3 repeatedUpload=true scope=productionGpuReadback
-Caused by: java.lang.AssertionError: Asynchronous cliff seam: scenario=0 time=125 first=-15.87207 other=-15.996094 gap=0.12402344
-Caused by: java.lang.AssertionError: Asynchronous cliff seam: scenario=0 time=125 first=-15.87207 other=-15.996094 gap=0.12402344
-BUILD FAILED in 1m 38s

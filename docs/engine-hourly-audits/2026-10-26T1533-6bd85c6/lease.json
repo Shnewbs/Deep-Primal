@@ -1,1 +1,0 @@
-{"role":"auditor","source_sha":"6bd85c6647a9b9f256df5ae2103589bbc8347161","status":"checkpointed_storage_blocked","builder_mutated":false,"isolated_cache_and_output":true,"timing_reservation_observed":"renderer completed; builder checkpointed; no exclusive benchmark","blocks_builder":false,"new_current_jar":false}

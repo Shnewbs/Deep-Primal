@@ -1,1 +1,0 @@
-WATER_VIEW_OBSERVATION label=enabled-animated backend=Vulkan animated=true waves=false lod=true ownsWater=true waterBytes=1156176 drawnPages=14860 pending=51 loadedChunks=168 horizonTiles=0 visibleTiles=0 camera=107.68827612381756,176.5875,-226.797007486035

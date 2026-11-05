@@ -1,4 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: unloaded read
-	at net.minecraft.server.level.ServerLevel.getBlockState(ServerLevel.java:1)
-	at com.shnewbs.deepprimal.engine.HydrologyRuntime.commitContact(HydrologyRuntime.java:18)
-	at com.shnewbs.deepprimal.engine.ContactUnloadChecks.main(ContactUnloadChecks.java:18)

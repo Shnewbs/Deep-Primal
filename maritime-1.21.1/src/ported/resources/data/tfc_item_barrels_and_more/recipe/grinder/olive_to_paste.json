@@ -1,9 +1,0 @@
-{
-  "type": "tfc_item_barrels_and_more:grinder",
-  "ingredient": {
-    "item": "tfc:food/olive"
-  },
-  "result": {
-    "id": "tfc:olive_paste"
-  }
-}

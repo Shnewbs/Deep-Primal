@@ -1,1 +1,0 @@
-VULKAN_SHUTDOWN_CONTINUATION_PASS rejectedCompletion=true followingCompletion=true

@@ -1,4 +1,0 @@
-LOADED_CORE ChunkCache /workspace/scratch/1a7cb29b04a2/audit-4fb29e0-20261026T0154/packaged-lifecycle/core.jar
-LOADED_CORE EngineCore /workspace/scratch/1a7cb29b04a2/audit-4fb29e0-20261026T0154/packaged-lifecycle/core.jar
-CACHE_LIFECYCLE_PASS checks=13
-CORE_CLOSE_LIFECYCLE_PASS blocked loader; empty closed caches; caller executor retained

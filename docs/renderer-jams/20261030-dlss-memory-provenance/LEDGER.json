@@ -1,9 +1,0 @@
-{
-  "jam_id":"renderer-jam-52",
-  "parent":"cbf596b006d504c50d081f2ef4814fb0f12e6dc8",
-  "implementation_commits":["c68bc7bca56c552fb708475661d7a4ce29881feb","ada0cacdfb9e7c29f0f491ab8f33171cc9929a35","c631ca66e3ab445f2d6e9a6ca92017d6b2db4fb9","d1a00f148c8759e0e362738c085f963741355344","063f6f6841a1151f8769548045f4aed38f82dfd3"],
-  "tests":{"command":"g++ -std=c++17 -Wall -Wextra -Werror -pedantic -I... test.cpp -o check && ./check","result":"PASS assertions=200006"},
-  "grades":{"distance_lod":6.80,"mesh_generation_reuse_scheduling":6.95,"gpu_culling_submission_memory":4.90,"actual_fsr_dlss":5.00,"visual_backend_settings":5.30,"validation_measured_performance":6.85,"average":5.97,"delta_from_jam_51":0.08},
-  "unrun":["Java25/full Gradle/NeoForge","production JNI/NGX build","Vulkan/OpenGL client execution","GPU frame-time p50/p95/p99 and VRAM","water pixels and lifecycle","playable JAR/package/release"],
-  "artifact":"No JAR claimed; owner-build override remains authoritative"
-}

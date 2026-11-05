@@ -1,5 +1,0 @@
-{
-  "initial_native_gate": "prepareServerRun failed before game launch: absent assetProperties after clean restoration",
-  "correction": "write server preparation properties referencing the independently copied current asset index30; no asset download needed for dedicated server",
-  "product_changes": false
-}

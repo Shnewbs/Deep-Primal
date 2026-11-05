@@ -1,9 +1,0 @@
-{
-  "scope": "extracted-production-pressure-search-with-world-doubles",
-  "source_sha256": "2fa1d0aa7c6a9e4fe698a45087ca4f6e29f2da41c72966ba69b35de65926127d",
-  "exit_code": 0,
-  "stdout": "PRESSURE_CUTOFF_REPRODUCED connectedWaterCells=262 searchLimit=128 firstSearchVisits=128 pendingOrigins=0 shortControlMovedUnits=4 externalRestarts=100 conserved=true native=false\n",
-  "stderr": "",
-  "defect_reproduced": true,
-  "native_minecraft_test": false
-}

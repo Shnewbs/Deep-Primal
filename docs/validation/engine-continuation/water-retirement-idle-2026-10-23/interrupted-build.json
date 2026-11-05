@@ -1,6 +1,0 @@
-{
-  "recorded_utc": "2026-10-23T23:40:52.740036+00:00",
-  "complete": false,
-  "raw_sha256": "7ccdcccb7463fb09ec6d3154ad0143a3ff99775810e46af1d633bcc10a01ec8d",
-  "reason": "Execution context changed; process handle unavailable, no local Java processes or held Gradle locks, log stops during core checks. This is not a full-build pass."
-}

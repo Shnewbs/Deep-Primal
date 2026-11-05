@@ -1,6 +1,0 @@
-{
-  "compile_exit": 0,
-  "execute_exit": 1,
-  "expected_assertion": "out-and-back camera restarts cancelled owner",
-  "expected_failure_reproduced": false
-}

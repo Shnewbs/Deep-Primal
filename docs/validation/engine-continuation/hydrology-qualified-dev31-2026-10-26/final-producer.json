@@ -1,9 +1,0 @@
-{
-  "source_sha": "a1583a508b0d67130d387bc018defd5758acd496",
-  "exit": 0,
-  "seconds": 11.81791374200111,
-  "sha256": "d1823835f3c2a8c54217edfcf7349df379375df29f0714707c8d028aaaeac876",
-  "size": 125296337,
-  "same_bytes_as_ten_native_sessions": true,
-  "producer_completed": true
-}

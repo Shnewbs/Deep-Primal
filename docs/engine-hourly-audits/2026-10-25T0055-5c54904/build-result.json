@@ -1,7 +1,0 @@
-{
-  "exit": 0,
-  "pass": true,
-  "source_sha": "5c54904a1316b27d6512aa219f938867d31a49f5",
-  "first_attempt": "build-attempt1.json",
-  "retry": "retained successful task outputs; rerun failed packaging and remaining tasks"
-}

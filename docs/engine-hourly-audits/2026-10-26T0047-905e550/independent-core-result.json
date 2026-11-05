@@ -1,9 +1,0 @@
-{
-  "exit": 1,
-  "pass": false,
-  "production_sources": 73,
-  "test_sources": 52,
-  "diagnostics_total": 105,
-  "log_sha256": "f25cef429278a35e22fa0f1066536b431a46b1cc9ed6c9f2caacb738c2fea528",
-  "core_execution": "not run; compilation failed"
-}

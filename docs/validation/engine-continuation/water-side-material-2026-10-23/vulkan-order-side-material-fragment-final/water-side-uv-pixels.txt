@@ -1,1 +1,0 @@
-WATER_SIDE_UV_PIXEL_RESULT pass=true pairs=6 renders=12 differentPixels=0 coveredPixels=1152 geometryMatched=true scope=controlledProductionShaderNotLiveStreamAcceptance

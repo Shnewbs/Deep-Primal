@@ -1,6 +1,0 @@
-{
-  "assertion": "raw[i*36+15]==255",
-  "result": "Failed on active source0-to-target4 blend alpha83 (cell3,5). Assertion predates active-top cell packing.",
-  "correction": "Require active flag, direction4/source0, derive cell from actual quad positions and require packed alpha; retain255 for inactive. Raw pixels independently enforce restored opacity.",
-  "production_changes": false
-}

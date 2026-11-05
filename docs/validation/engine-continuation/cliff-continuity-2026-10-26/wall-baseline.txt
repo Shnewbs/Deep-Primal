@@ -1,7 +1,0 @@
-WATERFALL_SIDE_PASS vertices=131072 amounts=16 previousAmounts=16 smoothModes=2 verticalPages=true
-STEPPED_BASIN_MESH_PASS vertices=6144 signedSections=3 smoothModes=2 internalFaces=0 levelSurface=true
-ROCK_LEDGE_PASS cases=8192 axes=2 signs=2 verticalSections=true interpolationSamples=5
-Exception in thread "main" java.lang.AssertionError: Cliff waterfall has open seam: lowerY=-1 amount=1 pool=1 frame=1 wallTop=0.921875 nextWallBottom=1
-	at com.shnewbs.deepprimal.core.WaterfallSideChecks.cliff(WaterfallSideChecks.java:170)
-	at com.shnewbs.deepprimal.core.WaterfallSideChecks.run(WaterfallSideChecks.java:47)
-	at com.shnewbs.deepprimal.core.WaterfallSideChecks.main(WaterfallSideChecks.java:6)

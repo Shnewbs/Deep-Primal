@@ -1,6 +1,0 @@
-{
-  "first_package_gate": "rejected; broad glob found old-named and current-named outputs",
-  "fix": "select exact current run/commit artifact; no production edits",
-  "status": "current named artifact all gates passed",
-  "extra_inspection_correction": "metadata scan used DensityGraph.java actual subdirectory; no source edit"
-}

@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: Stream allowance mismatch quota=1 start=-9223372036854775807 now=1 expected=1 actual=-1717986918
-	at com.shnewbs.deepprimal.validation.StreamAllowanceNativeChecks.run(StreamAllowanceNativeChecks.java:29)
-	at com.shnewbs.deepprimal.validation.StreamAllowanceNativeChecks.main(StreamAllowanceNativeChecks.java:40)

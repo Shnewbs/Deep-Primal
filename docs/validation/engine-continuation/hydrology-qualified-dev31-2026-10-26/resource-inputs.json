@@ -1,8 +1,0 @@
-{
-  "pass": true,
-  "required_docs": {
-    "docs/art/ground-textures-v4/validation.json": "70763a4db5cfa6f9b16912b8e300d1d43468ef251f5b73c28dda1a03a6327266",
-    "docs/art/sand-final/validation.json": "7f154e902c319fa3b7a5573f52c1901535998acd487882630203c7785869b8a6",
-    "docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json": "87a9f5ea1b12e662484116582b2ea24ad2243fdc9ced71daf482a7199848e0dd"
-  }
-}

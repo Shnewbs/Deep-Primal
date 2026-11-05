@@ -1,1 +1,0 @@
-{"scope":"audit setup only","failure":"Duplicate GenerateThemes from an extra authoring source directory; tracked source-set already included its generator","correction":"Removed only private init extra source directory; pinned production source unmodified","initial_failure_retained":true}

@@ -1,3 +1,0 @@
-# Renderer jam 39 — adjacent-first publication
-
-[Scored source c6b4aa0d](https://github.com/Shnewbs/Deep-Primal/commit/c6b4aa0d074b00a737a3d488c118a73ff76994bc) preserves culling semantics and avoids redundant adjacent/two-back AABB comparisons. [Read-only self-audit](REVIEW.md); [ledger](LEDGER.json). Java21 six focused processes passed 10,134,936 assertions and a negative mutant failed as expected. Two matched CPU benchmark runs show lower p50 on repeated bounds but 2.3–2.9% higher p50 for unique bounds. Renderer score 5.83/10, displayed delta +0.00. Full Java25/GPU/Minecraft/JAR remains owner-run. The 18,372-byte source evidence ZIP was saved to Library /Deep Primal/Renderer Jams. Renderer claim released; no other schedule modified.

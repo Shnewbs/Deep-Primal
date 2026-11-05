@@ -1,3 +1,0 @@
-{
-  "cause": "Auditor source enumeration raced restoration of two newly added fixtures. Full immutable source-identity gate had no missing inputs; retry enumerates completed restoration. No product edits."
-}

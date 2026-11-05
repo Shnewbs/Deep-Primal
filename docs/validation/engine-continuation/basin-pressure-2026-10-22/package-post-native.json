@@ -1,7 +1,0 @@
-{
-  "jar_sha256": "f9183d8de8368b1dfea52cda7cc5dfa0829a213fa1370298f88a5447f7ae2023",
-  "unchanged_after_native": true,
-  "packaged_explicit_passes": true,
-  "accepted_for_release": false,
-  "reason": "Broader latency, residency, budgets and visual acceptance remain open"
-}

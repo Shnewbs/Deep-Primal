@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: stale index/survey after missing FULL chunk key=0
-	at com.shnewbs.deepprimal.engine.SourceInvalidationLoopChecks.one(SourceInvalidationLoopChecks.java:92)
-	at com.shnewbs.deepprimal.engine.SourceInvalidationLoopChecks.main(SourceInvalidationLoopChecks.java:100)

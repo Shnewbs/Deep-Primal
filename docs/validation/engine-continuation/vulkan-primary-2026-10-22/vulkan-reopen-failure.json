@@ -1,9 +1,0 @@
-{
-  "case": "vulkan-scene",
-  "actual_backend": "OpenGL",
-  "acceptance": false,
-  "reason": "Recovery marker present on reopen despite earlier first-frame completion; root cause not proven. Explicit backend assertion correctly rejected fallback. Retry selects Vulkan explicitly; do not count failed attempt as Vulkan pass.",
-  "marker_present": true,
-  "marker_content": "Vulkan startup in progress\n",
-  "prior_log_sha256": "37779e3ceb5545e6be24d7c86d5a5844c3f261681c1b2a3999c5caab4d6e7a51"
-}

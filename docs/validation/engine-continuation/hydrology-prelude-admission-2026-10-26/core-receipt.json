@@ -1,1 +1,0 @@
-{"exit":0,"retained_current_core":true,"fresh_core_compilation":false,"command":"java -Xmx512m -Xverify:all -cp builder1700/final/independent-core com.shnewbs.deepprimal.core.CoreChecks","native_runtime_covered":false}

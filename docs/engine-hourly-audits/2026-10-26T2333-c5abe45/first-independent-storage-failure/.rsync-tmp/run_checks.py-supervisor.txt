@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "/workspace/scratch/a2f7076b7762/audit-c5abe45-20261026T2333/run_checks.py", line 11, in <module>
-    run('independent-compile',[str(j/'javac'),'-g','-d',str(out)]+[str(x) for x in src+tests],p)
-  File "/workspace/scratch/a2f7076b7762/audit-c5abe45-20261026T2333/run_checks.py", line 6, in run
-    results.append({'label':label,'exit':rc,'pass':rc==0});assert rc==0,label
-                                                                  ^^^^^
-AssertionError: independent-compile

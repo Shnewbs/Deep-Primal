@@ -1,7 +1,0 @@
-{
-  "first_package_acceptance": false,
-  "reason": "independent javac default debug metadata differed from Gradle -g; FarTerrain javap diff retained",
-  "remediation": "clean independent -g compile, exact product-class hashes, all tested instruction streams compared",
-  "product_source_changes": false,
-  "second_package_driver_rejection": "private validator path update was incomplete; corrected before archive acceptance"
-}

@@ -1,8 +1,0 @@
-{
-  "client_sha256": "bc3657cb043883443f60828b64578f7036a040360117ca0d9c0b19a77ac03bb9",
-  "client_has_completion": false,
-  "daemon_sha256": "d163350fbfa9aa29417a48e473f7eb8717543eeaa2e93eaa80b3ec464f329de2",
-  "daemon_has_completion": true,
-  "daemon_has_core_pass_records": true,
-  "interpretation": "Client console incomplete after launcher exit; do not use it as a complete build acceptance record. Separate daemon has explicit passing records. Candidate build will seal its bytes inside its producer."
-}

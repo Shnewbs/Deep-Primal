@@ -1,9 +1,0 @@
-{
-  "scope": "extracted-production-scheduler-logic",
-  "source_sha256": "62390989286a01b7d67dfa63dc7a61253f177a4bd3744a967c7225d060038617",
-  "exit_code": 1,
-  "stdout": "",
-  "stderr": "Exception in thread \"main\" java.lang.AssertionError: Farther discovery evicted a closer resident page with the cache full\n\tat PageAdmissionAudit.check(PageAdmissionAudit.java:64)\n\tat PageAdmissionAudit.main(PageAdmissionAudit.java:70)\n",
-  "full_mod_build": "not run: JDK 25/Gradle/native environment unavailable",
-  "native_visual_acceptance": "not run"
-}

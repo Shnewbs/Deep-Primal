@@ -1,1 +1,0 @@
-PRODUCTION_ALLOWANCE_DEFECT_CONFIRMED actual=-51 expected=1024 exactSource=true BigIntegerOracle=true

@@ -1,9 +1,0 @@
-plugins { id 'java-library' }
-group = 'com.shnewbs.deepprimal'
-version = rootProject.mod_version
-base.archivesName = 'DeepPrimal-Performance'
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
-dependencies { compileOnly files(rootProject.minecraftClasspath); implementation project(':engine-core') }
-processResources { inputs.property 'mod_version', rootProject.mod_version; filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: rootProject.mod_version) } }
-tasks.named('compileJava') { dependsOn rootProject.tasks.named('createMinecraftArtifacts') }
-tasks.named('jar') { preserveFileTimestamps = false; reproducibleFileOrder = true }

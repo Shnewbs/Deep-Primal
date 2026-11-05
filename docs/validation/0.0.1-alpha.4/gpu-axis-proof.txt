@@ -1,1 +1,0 @@
-GPU_AXIS_PROOF_PASS horizontal=2 vertical=20 markerDistance=260 goldPixels=100

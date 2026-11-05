@@ -1,5 +1,0 @@
-{
-  "before_sha256": "ef633d2f822df57303f24d5a9032e6cba70e25974af6d940fd1fb3c72ac12afd",
-  "after_sha256": "05ce52be24766bba31b5f62294e8e37b7e29193076e1f4f5a6c8b77c21809a75",
-  "scope": "Move public pass ownership after lazy frame startup drains fenced completions; existing open-pass guard remains."
-}

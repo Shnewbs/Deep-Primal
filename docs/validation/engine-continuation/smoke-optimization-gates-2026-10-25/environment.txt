@@ -1,3 +1,0 @@
-Filesystem       1B-blocks        Used Available Use% Mounted on
-overlay        33770192896 33400692736         0 100% /
-shm             5225717760  4775170048 450547712  92% /dev/shm

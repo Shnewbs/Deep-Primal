@@ -1,7 +1,0 @@
-BACKEND_SELECTION_PASS backend=Vulkan
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/98befbcef095/lod-index-0055/project/lod-engine/build/classes/java/main/
-LOD_INDEX_MERGE_OBSERVED seeded=1 incoming=8192 merged=8193
-java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193
-java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193
-java.lang.AssertionError: Completed LOD scan exceeded bounded recovery index: 8193
-BUILD FAILED in 34s

@@ -1,1 +1,0 @@
-{"pass":false,"available_disk":0,"available_shm":657051648,"memory_current":"8589815808","memory_limit":"8589934592","full_build":"deferred; insufficient independent filesystem/memory capacity","restoration_copy_attempt":"ENOSPC; recovered by relocating own completed verified checkout/cache; no new product compiled yet","native_sessions":0,"new_qualified_jar":false}

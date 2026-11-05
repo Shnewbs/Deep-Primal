@@ -1,4 +1,0 @@
-CLIENT_SAVED_DISCONNECT_PASS
-[21:44:25] [Render thread/ERROR] [ne.ne.bu.EventBus/EVENTBUS]: Exception caught during firing event: Shutdown fixture requires actual Vulkan
-java.lang.AssertionError: Shutdown fixture requires actual Vulkan
-BUILD SUCCESSFUL in 31s

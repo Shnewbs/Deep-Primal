@@ -1,1 +1,0 @@
-Initial private AdversarialChecks generator left an unused WARP input leaf. Coverage failed: insufficient accepted graph corpus: 100. Fixed generation to create only used inputs, and required any remaining rejected graph to report a budget failure. Final control/candidate corpus accepts all180 generated definitions.

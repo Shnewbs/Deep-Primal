@@ -1,6 +1,0 @@
-{
-  "compile_exit": 0,
-  "exit": 1,
-  "output": "Exception in thread \"main\" java.util.concurrent.TimeoutException\n\tat java.base/java.util.concurrent.FutureTask.get(FutureTask.java:206)\n\tat com.shnewbs.deepprimal.core.CoreCloseLifecycleChecks.main(CoreCloseLifecycleChecks.java:20)\n",
-  "expected_failure": true
-}

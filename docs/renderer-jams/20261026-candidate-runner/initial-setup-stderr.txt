@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/dev/shm/renderer-runner-5rt4n6pz/runner.py", line 59, in <module>
-    if __name__=="__main__":main()
-                            ^^^^^^
-  File "/dev/shm/renderer-runner-5rt4n6pz/runner.py", line 13, in main
-    for entry in manifest["tree"]:
-                 ~~~~~~~~^^^^^^^^
-KeyError: 'tree'

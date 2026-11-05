@@ -1,9 +1,0 @@
-{
-  "pass": true,
-  "checked_utc": "2026-10-23T23:02:57.523140+00:00",
-  "live_java_or_xvfb": [],
-  "offline_replay_pass": true,
-  "transient_transport_disconnect_recovered": true,
-  "source_changed_after_native": false,
-  "no_new_build_native_or_timing_execution": true
-}

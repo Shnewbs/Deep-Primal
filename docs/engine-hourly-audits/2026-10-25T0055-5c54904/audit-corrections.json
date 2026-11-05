@@ -1,8 +1,0 @@
-{
-  "first_build_failed": "jarJar: Could not read jar file for dependency",
-  "independent_scan": "Themes output rejected as not a zip file",
-  "retry": "full requested task graph passed; 8 executed, 24 up-to-date after 28 initial tasks executed",
-  "failure_cause": "unproven; failed first output not delivered",
-  "asset_preparation": "independent copied index30",
-  "source_scope": "exclude historical docs scripts, separate standalone-engine and Maritime; all selected module inputs match pinned blobs"
-}

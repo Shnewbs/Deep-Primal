@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/workspace/scratch/a2f7076b7762/audit-6bd85c6-20261026T1533/probes/probe.py", line 67, in <module>
-    if p.returncode!=0:raise RuntimeError('Admission JVM failed: '+str(p.returncode)+'\n'+p.stdout+p.stderr)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Admission JVM failed: 23
-

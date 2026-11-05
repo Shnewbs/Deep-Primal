@@ -1,7 +1,0 @@
-# Reproduction
-
-Copy these scripts into a private task root containing `density-stage2/` (this checkout), `project/` (released alpha.28), `toolchain/` (the pinned private JDK25/JDK21/Gradle/cache/compatibility helper) and the previous `fresh-compile.gradle`. Run `build_density.py`, `verify_density_artifact.py linux`, then `run_density_native.py candidate-stage2` sequentially. The native runner refuses to overwrite evidence/run directories and requires codec, selected-JAR class identity, normal save and shutdown gates.
-
-Use `./gradlew :densityBenchmark` in an ordinary Java25 environment. Retain three fresh-JVM timing runs with no competing work. This checkpoint's exact timed source is preserved in `timed-source/DensityBenchmark.java`. The current source adds an `error` argument to run the broader four-seed/16-site approximation diagnostic. To execute that directly, use the compiled core and noiseBenchmark class directories as the Java classpath and invoke `com.shnewbs.deepprimal.benchmark.DensityBenchmark error`. The expanded diagnostic was compiled with javac `-g` after the full build; it does not enter the mod package.
-
-Compile the private `DensityEvidence.java` against core classes, then run `DensityEvidence fingerprint` under ordinary Java, `-Xint` and `-XX:UseAVX=0`. Compare exact output. Its optional CSV preview mode is an exporter, not a claimed executed native or visual test in this checkpoint. Private tools and evidence exporters are never mod payload.

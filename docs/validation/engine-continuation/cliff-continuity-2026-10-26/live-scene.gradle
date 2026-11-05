@@ -1,1 +1,0 @@
-allprojects { tasks.withType(JavaExec).configureEach { if (name == 'runClient') systemProperty 'deepprimal.validationCliffScene', 'true' } }

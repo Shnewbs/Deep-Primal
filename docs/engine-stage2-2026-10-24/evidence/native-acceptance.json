@@ -1,8 +1,0 @@
-{
-  "pass": true,
-  "noise_codec_pass": true,
-  "density_codec_pass": true,
-  "worldgen_pass": true,
-  "offline_auth_network_warning": true,
-  "native_v8_blocks_generated": false
-}

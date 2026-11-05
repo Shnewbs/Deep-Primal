@@ -1,9 +1,0 @@
-{
-  "scope": "private-build-tool-compatibility",
-  "exit_code": 0,
-  "stdout": "BUILD_COMPAT_CHECKS_PASS pinnedTargets=2 unrelatedUntouched=true unknownRejected=true retainedCommand=true emptyFallback=true constructor=true\n",
-  "stderr": "",
-  "agent_sha256": "1ce24b58c882bb3e5ca62854b35ea102833bc5f97233567f46f9ccad421292bf",
-  "neoform_jar_sha256": "6f5b0aae7e423efeea21cb848c5096e76fc4eec40256cbefdcfaa1583b197c07",
-  "shipped_in_mod": false
-}

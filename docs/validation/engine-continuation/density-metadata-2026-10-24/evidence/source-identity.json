@@ -1,9 +1,0 @@
-{
-  "public_core_parent": "fa59cc793bf20a18ebbc058c645761975b0fd62e",
-  "unchanged_original_core_sources": 56,
-  "changed_staged_sources": 1,
-  "control_sha256": "bec956ee8b66cbc92903cc8302e32e08d5c933627a5d7dd4023edfe5128b4434",
-  "candidate_sha256": "afba37a75c44566b2079d536b5bdd54a823916dd1042b0325409ec372d3829c5",
-  "original_recipe_sha256": "fee1568e838df6be914cca76bd4a350347d2bcf7368ea452006acf34c77a218a",
-  "public_runtime_promoted": false
-}

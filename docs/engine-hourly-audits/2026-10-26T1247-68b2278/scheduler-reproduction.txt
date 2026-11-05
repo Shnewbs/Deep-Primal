@@ -1,2 +1,0 @@
-ADMISSION_PROBE_PASS fixed=false cases=216 late_matrix=5314 reproduction_calls=256 reproduction_late=255 wrapped_calls=0
-ADMISSION_PROBE_PASS fixed=true cases=1266 late_matrix=0 reproduction_calls=1 reproduction_late=0 wrapped_calls=20

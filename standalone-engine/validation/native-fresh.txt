@@ -1,2 +1,0 @@
-ENGINE_LOD_CAPTURE_PASS actualChunk=true units7=true boundedReads2048=true memoryEstimate=20330
-ENGINE_NATIVE_PASS customGenerator=true nineChunks=true bedrock=true volume=16 gravity=true nativeInputConversion=true fullBucket=true partialBucketSafe=true legacyModsAbsent=true milliseconds=256

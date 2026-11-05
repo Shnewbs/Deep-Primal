@@ -1,6 +1,0 @@
-{
-  "pass": false,
-  "failed_before_transfer": "No space left on device creating /tmp/openai-library-upload-vyzgipcr",
-  "stdout_result_empty": true,
-  "retry": "same current prepared helper and same request, private TMPDIR"
-}

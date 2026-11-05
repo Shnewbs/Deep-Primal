@@ -1,1 +1,0 @@
-WATERFALL_UPLOAD_PASS samples=60 wallVertices=15120 rockLedgeVertices=240 uncappedSurfaceVertices=744 smoothModes=2 directions=2 verticalPages=3 repeatedUpload=true scope=productionGpuReadback

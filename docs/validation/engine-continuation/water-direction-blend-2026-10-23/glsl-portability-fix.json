@@ -1,7 +1,0 @@
-{
-  "defect": "GLSL330 reserved packed variable accepted by Vulkan shader conversion but rejected by Mesa OpenGL compiler",
-  "before": "int packed",
-  "after": "int cellBits",
-  "scope": "identifier-only shader change;all final native sessions rerun",
-  "crash_sha256": "85e1ddfb1a89b85d7eb50447e3c095b26a04b33fe2af30897666c7b6201eba2e"
-}

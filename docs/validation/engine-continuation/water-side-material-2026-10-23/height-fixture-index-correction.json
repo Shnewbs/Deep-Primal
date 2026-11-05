@@ -1,6 +1,0 @@
-{
-  "excluded_case": "vulkan-side-material-baseline-attempt1",
-  "symptom": "All extra height-control images transparent and maxerror255 despite first320 routes passing",
-  "cause": "New extra-route IDs incorrectly selected nonexistent face6 indices instead of mapped vertical faces1..4",
-  "correction": "Map extra route index to physical face before draw; production and raw evidence unchanged; focused test rerun required"
-}

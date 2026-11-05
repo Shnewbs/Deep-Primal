@@ -1,4 +1,0 @@
-NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx768m -Djava.io.tmpdir=/dev/shm/dp-audit-bbf07e1-0430/tmp
-OpenJDK 64-Bit Server VM warning: Insufficient space for shared memory file: /tmp/hsperfdata_root/716
-
-LOD_PART_BOUNDS parts=18 loose=0 slabRejects=162 exactRejects=162 geometrySha256=3b6ae8b901558f5dcdb8bcc86f9d632c015d10e991c15fd01dd701d74e18f612

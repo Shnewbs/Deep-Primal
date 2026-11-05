@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.IllegalStateException: Split transfer exceeds constituent capacity
-	at com.shnewbs.deepprimal.core.WaterAccount.distribute(WaterAccount.java:73)
-	at com.shnewbs.deepprimal.core.SplitAdmissionChecks.main(SplitAdmissionChecks.java:18)

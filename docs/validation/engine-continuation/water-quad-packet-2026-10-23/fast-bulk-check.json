@@ -1,6 +1,0 @@
-{
-  "compile_exit": 0,
-  "check_exit": 0,
-  "stdout": "WATER_CORNER_BULK_CORE_PASS cases=210000 masks=16 scalarBytesIdentical=true readOnlyPredicate=true arbitraryVertexOpacityLightPreserved=true nonzeroOffsets=true\n",
-  "pass": true
-}

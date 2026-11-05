@@ -1,9 +1,0 @@
-{
-  "pass": true,
-  "jar_sha256": "d3a65fd36e3784cb20b2492d5760beb00c92289d2925cd7335726917615922f6",
-  "bytes": 126170827,
-  "crc_archives": 7,
-  "product_class_matches": 507,
-  "private_class_paths_excluded": 46,
-  "embedded_core_sha256": "f8405017b548fe8cb1eb3431307bac8d8b68e318d41df86b4f0a1cca286787cb"
-}

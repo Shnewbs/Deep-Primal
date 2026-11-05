@@ -1,1 +1,0 @@
-GROUND_MATERIAL_CLIENT_PASS backend=OpenGL sampleBlocks=3 soilBlocks=36 quads=234 tintIndices=true sprites=true items=true resourceReload=true captures=2 opaqueFacePixels=true

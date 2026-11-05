@@ -1,1 +1,0 @@
-PRECIPITATION_PERSISTENCE_PASS mode=fresh positiveDemand=131072 repeatedRejections=3 exactWaterSaltSediment=true

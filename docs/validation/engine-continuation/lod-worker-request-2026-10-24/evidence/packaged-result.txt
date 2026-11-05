@@ -1,4 +1,0 @@
-PACKAGED_SOURCE_IDENTITY_PASS class=com.shnewbs.deepprimal.core.lod.LodStore sha256=05b61026b3df7c5599a204b927ead8f7427523ea0421bb6312fefd93b91e6475 origin=file:/workspace/scratch/a22609fabda0/lod-lifecycle-1232/packaged-core.jar
-PACKAGED_SOURCE_IDENTITY_PASS class=com.shnewbs.deepprimal.core.lod.LodDiskIndex sha256=73d851dc62b7f61ca5560b3cc59c9635f7cd4ef94598d68e9b2bb44ab0ae9daa origin=file:/workspace/scratch/a22609fabda0/lod-lifecycle-1232/packaged-core.jar
-PACKAGED_SOURCE_IDENTITY_PASS class=com.shnewbs.deepprimal.core.lod.LodIndexRequest sha256=8852f3bf513d5e6ea6fbd107d1d318ac2c7e37ecf60b20d44d95f8160dcdad5b origin=file:/workspace/scratch/a22609fabda0/lod-lifecycle-1232/packaged-core.jar
-LOD_REQUEST_PASS checks=347 directoryEntries=8205 turnsPerCompleteScan=33 geometryInterleaves=32 workerThreads=1 executorQueueCap=2 quota=256 epochCameraAttribution=true midScanAndQueuedCancel=true wrongThreadCloseRejected=true rejectionRetry=true gracefulClose=true

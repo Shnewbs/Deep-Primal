@@ -1,3 +1,0 @@
-		Deep Primal Worldgen Prototype 0.0.1-alpha.4 (deepprimal)
- - deepprimal (jar(/workspace/scratch/c9df0c17f706/Deep-Primal/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.4.jar))
-[01:01:42] [Server thread/INFO] [minecraft/DedicatedServer]: Done (0.237s)! For help, type "help"

@@ -1,3 +1,0 @@
-OpenJDK 64-Bit Server VM warning: Insufficient space for shared memory file: /tmp/hsperfdata_root/31
-
-AUDIT_LOD_BYTES_PASS cases=7602 BigIntegerOracle=true allEightDetailMasks=true mutableRecomputed=true sequentialNoGet=true largeRepeatedReferences=true

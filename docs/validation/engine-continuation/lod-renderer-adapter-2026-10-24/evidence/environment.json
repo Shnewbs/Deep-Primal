@@ -1,9 +1,0 @@
-{
-  "java": "openjdk version \"17.0.20\" 2026-07-21\nOpenJDK Runtime Environment (build 17.0.20+8-1-24.04-Ubuntu)\nOpenJDK 64-Bit Server VM (build 17.0.20+8-1-24.04-Ubuntu, mixed mode, sharing)\n",
-  "javac_path": null,
-  "gradle_path": null,
-  "prior_workspace_exists": false,
-  "no_full_build_attempted": true,
-  "no_native_attempted": true,
-  "scope": "JDK17 jdk.compiler used for three staged worker/core files and exact two renderer methods with non-game doubles. Full source/game dependency checkout and JDK25/Gradle/native toolchains are absent locally; recovery remains possible, not attempted this checkpoint."
-}

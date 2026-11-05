@@ -1,7 +1,0 @@
-{
-  "workspace": "Previous scratch toolchain/world removed by maintenance. Recovered575 Git blobs by verified parent SHA and restored pinned JDK/Gradle/agent/graphics packages. All reported current measurements are fresh.",
-  "private_git_cli": "No CLI authentication; used connected repository reads and guarded writes without reconstructing credentials.",
-  "source_recovery": "First API blob read returned decoded text rather than JSON; changed to fetch_file base64 with SHA verification. A batch exceeded argument bound; resumed with bounded byte batches.",
-  "package_auditor": "Initial raw resources check incorrectly compared expanded mods.toml with unexpanded source; exact build-declared version substitution applied. No shader/production change and no comparison tolerance widened.",
-  "promotion": "Budget probe fails2ms target; candidate source stored only under staged evidence, not applied to working branch production/public tests."
-}

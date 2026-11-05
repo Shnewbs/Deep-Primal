@@ -1,2 +1,0 @@
-rootProject.name = 'renderer-admission-script-check'
-include('engine-core','graphics-settings','lod-engine')

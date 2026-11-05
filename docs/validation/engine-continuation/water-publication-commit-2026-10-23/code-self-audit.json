@@ -1,7 +1,0 @@
-{
-  "pass": true,
-  "review": "Both affected range-publication paths now change accepted mirror bytes only after synchronous GPU submission returns. Retirement offset/queue and per-quad cleanup advance after success. A failed later quad leaves earlier successfully submitted quads accepted; whole-cohort atomicity is not claimed. Temporary native buffers are freed in finally. Vertex stride, geometry, water volume and solver/worldgen code are unchanged.",
-  "reproduction": "Actual GPU readback, 16 cases, 832 differing bytes before fix; explicit retry did not repair baseline.",
-  "candidate": "48 cases across development/packaged software Vulkan and GL; 192 readbacks, zero differing bytes; candidate retry targets byte-identical to baseline intended targets.",
-  "open": ["Caller automatic retry policy and partial-cohort visibility", "Asynchronous failure/device-loss recovery", "CPU-enqueue outliers and total frame/memory", "Boundary submission scatter and normal-frame cap churn", "Long-stream/ocean visual acceptance"]
-}

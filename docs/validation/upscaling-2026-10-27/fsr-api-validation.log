@@ -1,9 +1,0 @@
-[11:01:30] [main/ERROR]: Couldn't find source for VERTEX shader (deepprimal_graphics:core/fsr_fullscreen)
-[11:01:30] [main/ERROR]: Couldn't find source for FRAGMENT shader (deepprimal_graphics:core/fsr_easu)
-[11:01:30] [main/ERROR]: Couldn't compile pipeline deepprimal_graphics:upscaling/fsr_easu: vertex shader deepprimal_graphics:core/fsr_fullscreen was invalid
-FSR_GPU_API_PASS renders=12 resizeCases=4 shaderReload=true missingShadersRejected=true failureLatched=true aliasRejected=true callerOwnership=true idempotentClose=true backend=llvmpipe (LLVM 20.1.2, 256 bits)
-SLF4J(W): Class path contains multiple SLF4J providers.
-SLF4J(W): Found provider [org.apache.logging.slf4j.SLF4JServiceProvider@1810399e]
-SLF4J(W): Found provider [org.slf4j.simple.SimpleServiceProvider@32d992b2]
-SLF4J(W): See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J(I): Actual provider is of type [org.apache.logging.slf4j.SLF4JServiceProvider@1810399e]

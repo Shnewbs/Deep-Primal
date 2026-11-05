@@ -1,8 +1,0 @@
-fsr_easu.frag REAL_CONVERTER_SPIRV_COMPILE_EXIT 0 /tmp/fsr-vulkan-converted/fsr_easu.frag
-fsr_easu.frag SPIRV_VALIDATE_EXIT 0 
-fsr_easu.vert REAL_CONVERTER_SPIRV_COMPILE_EXIT 0 /tmp/fsr-vulkan-converted/fsr_easu.vert
-fsr_easu.vert SPIRV_VALIDATE_EXIT 0 
-fsr_rcas.frag REAL_CONVERTER_SPIRV_COMPILE_EXIT 0 /tmp/fsr-vulkan-converted/fsr_rcas.frag
-fsr_rcas.frag SPIRV_VALIDATE_EXIT 0 
-fsr_rcas.vert REAL_CONVERTER_SPIRV_COMPILE_EXIT 0 /tmp/fsr-vulkan-converted/fsr_rcas.vert
-fsr_rcas.vert SPIRV_VALIDATE_EXIT 0 

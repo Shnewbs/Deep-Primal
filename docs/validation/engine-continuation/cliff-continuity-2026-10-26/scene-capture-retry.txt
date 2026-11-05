@@ -1,1 +1,0 @@
-Initial live numerical probe passed (336 frames); two early screenshots failed because the output directory was absent. The private fixture now creates screenshots/ before every capture and requires all three outputs before shutdown. A full rerun passed with all captures present. No product assertions were removed.

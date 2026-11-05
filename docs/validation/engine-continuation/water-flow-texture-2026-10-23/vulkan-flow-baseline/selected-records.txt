@@ -1,7 +1,0 @@
-BACKEND_SELECTION_PASS backend=Vulkan
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/a22609fabda0/water-flow-0255/project/build/classes/java/main/
-WATER_FLOW_CAPTURE_OBSERVED topUvEqual=true sourceDirections=0,4,16 actualCapture=true clientStateRestored=true unitsUnchanged=true position=BlockPos{x=99, y=153, z=-235}
-java.lang.AssertionError: Animated capture/meshing ignored a real water cell FLOW direction change
-java.lang.AssertionError: Animated capture/meshing ignored a real water cell FLOW direction change
-java.lang.AssertionError: Animated capture/meshing ignored a real water cell FLOW direction change
-BUILD FAILED in 47s

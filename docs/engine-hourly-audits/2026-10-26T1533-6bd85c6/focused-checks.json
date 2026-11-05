@@ -1,1 +1,0 @@
-{"pass":true,"tests":[{"test":"lod.LodReductionChecks","pass":true,"exit":0},{"test":"lod.LodPartBoundsChecks","pass":true,"exit":0},{"test":"SplitAdmissionChecks","pass":true,"exit":0}],"baseline_candidate_signatures":10,"independent_vs_gradle_core_classes":144,"packaged_execution":false,"gpu_execution":false}

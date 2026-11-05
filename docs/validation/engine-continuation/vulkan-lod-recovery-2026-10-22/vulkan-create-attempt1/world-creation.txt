@@ -1,5 +1,0 @@
-WORLD_CREATION_FORM_PASS mode=fresh prepareMs=900.271117
-CREATION_SCREEN net.minecraft.client.gui.screens.ConfirmScreen
-CREATION_SCREEN net.minecraft.client.gui.screens.LevelLoadingScreen
-WORLD_CREATION_JOIN_PASS revision=3 backend=Vulkan
-WORLD_CREATION_PASS

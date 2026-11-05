@@ -1,7 +1,0 @@
-BACKEND_SELECTION_PASS backend=Vulkan
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/travel-0035/project/lod-engine/build/classes/java/main/
-LOD_UPLOAD_CANCEL_OBSERVED partialBytes=552 indexed=false resident=4194304
-java.lang.AssertionError: Cancelled persisted upload lost its recovery key
-java.lang.AssertionError: Cancelled persisted upload lost its recovery key
-java.lang.AssertionError: Cancelled persisted upload lost its recovery key
-BUILD FAILED in 27s

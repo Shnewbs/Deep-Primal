@@ -1,4 +1,0 @@
-pluginManagement {
-    repositories { gradlePluginPortal() }
-}
-rootProject.name = 'maritime-1.21.1'

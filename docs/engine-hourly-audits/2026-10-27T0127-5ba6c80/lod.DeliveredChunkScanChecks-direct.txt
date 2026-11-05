@@ -1,3 +1,0 @@
-OpenJDK 64-Bit Server VM warning: Insufficient space for shared memory file: /tmp/hsperfdata_root/3552
-
-DELIVERED_SCAN_PASS coordinates=108999 outerBeyond32=92064 workBound=128 nearestFirst=true unique=true pauseRetry=true negativeCoordinates=true noChunkReferences=true

@@ -1,9 +1,0 @@
-{
-  "version": "NeoForge26.1.2.122",
-  "sources_jar_sha256": "839fe2b28223b0cbfb2d8a1ef27b95435283ee37b509e6f1105bb518f49dc43b",
-  "api_sources_sha256": {
-    "net/neoforged/neoforge/event/level/ChunkEvent.java": "26d83524cef485a3f37990feec142c9948810f922abc6275f33f66d9c3d42286",
-    "net/neoforged/neoforge/event/level/ChunkTicketLevelUpdatedEvent.java": "2619f1986d02292427b527b49aa31a63872d9a84c91641a4666cebeaec5dc6ef"
-  },
-  "reuse": "API observation only; no upstream implementation copied"
-}

@@ -1,4 +1,0 @@
-LOADED_CORE com.shnewbs.deepprimal.core.ByteLru /workspace/scratch/1a7cb29b04a2/audit-7aa3ae3-20261025T2349/packaged-overflow/current-core.jar
-LOADED_CORE com.shnewbs.deepprimal.core.density.DensityGrid /workspace/scratch/1a7cb29b04a2/audit-7aa3ae3-20261025T2349/packaged-overflow/current-core.jar
-BYTE_LRU_OVERFLOW_PASS checks=3379936 bigIntegerOracle=true
-DENSITY_GRID_FINITE_PASS checks=11728

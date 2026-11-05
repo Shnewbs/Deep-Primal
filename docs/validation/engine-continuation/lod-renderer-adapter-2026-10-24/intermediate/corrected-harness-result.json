@@ -1,7 +1,0 @@
-{
-  "compile_exit": 0,
-  "execute_exit": 1,
-  "expected_assertion": "adapter failed to finish",
-  "expected_failure_reproduced": true,
-  "source_sha256": "da3e74d0419730bbe602a9989fa9a9569f0c459cdda7eb0825e56fced5d5518a"
-}

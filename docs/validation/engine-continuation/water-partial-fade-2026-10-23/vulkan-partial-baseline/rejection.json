@@ -1,4 +1,0 @@
-{
-  "accepted": false,
-  "reason": "Bounded 120-second first action timeout before the new fixture; no assertion, save or shutdown pass. This does not reproduce the mixed-page defect. Cause unresolved; unchanged unforced retry is audited separately."
-}

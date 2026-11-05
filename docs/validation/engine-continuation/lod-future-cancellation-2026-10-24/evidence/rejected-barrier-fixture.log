@@ -1,6 +1,0 @@
-Exception in thread "main" java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.FutureTask@6193b845[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@1f17ae12[Wrapped task = FutureChecks$$Lambda$8/0x00007fe208006690@4d405ef7]] rejected from com.shnewbs.deepprimal.core.lod.LodIndexWorker@2e817b38[Running, pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 2]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2065)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:833)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1365)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:123)
-	at FutureChecks.main(FutureChecks.java:23)

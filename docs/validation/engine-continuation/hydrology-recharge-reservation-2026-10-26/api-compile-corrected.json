@@ -1,9 +1,0 @@
-{
-  "pass": true,
-  "exit": 0,
-  "classes": 5,
-  "candidate_sha256": "0db53c649469b5fe64d94de3fc0695038e42788207bb8f210e68fdf0adb88892",
-  "initial_attempt": "Failed because sources JARs on classpath triggered unintended dependency-source compilation; failure log retained",
-  "correction": "Binary dependencies only, empty sourcepath, implicit compilation disabled",
-  "native_execution": false
-}

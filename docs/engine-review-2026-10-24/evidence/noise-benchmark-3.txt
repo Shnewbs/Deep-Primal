@@ -1,6 +1,0 @@
-mode,samples_per_iteration,iterations,mean_ms,p50_ms,p95_ms,p99_ms,max_ms,mean_thread_allocated_bytes
-exact_scalar,196608,24,31.765155,31.739666,33.990103,41.305651,41.305651,6.7
-exact_bulk,196608,24,31.665464,31.090262,33.854125,38.454888,38.454888,0.0
-lattice_build_and_sample,196608,24,5.128086,5.079802,5.407064,5.690068,5.690068,19472.0
-APPROXIMATION samples=65536 rms=0.0036002048 max=0.0134137754 latticeNodes=2425 latticePayloadBytes=19400
-NOISE_BENCHMARK_COMPLETE checksum=460.5500779983476 java=25.0.4.1+1-LTS os=amd64 processors=8

@@ -1,1 +1,0 @@
-WATER_DIRECTION_BLEND_PIXEL_RESULT pass=true samples=240 renders=336 channelsBeyondTolerance=0 maxChannelError=1 tolerance=1 scope=controlledProductionShaderNotFullStreamAcceptance

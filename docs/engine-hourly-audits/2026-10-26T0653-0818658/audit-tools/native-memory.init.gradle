@@ -1,5 +1,0 @@
-gradle.projectsEvaluated {
-    def run = gradle.rootProject.extensions.getByName('neoForge').runs.getByName('server')
-    run.jvmArguments.set(run.jvmArguments.get().findAll { !it.startsWith('-Xmx') } + ['-Xmx768m'])
-}
-

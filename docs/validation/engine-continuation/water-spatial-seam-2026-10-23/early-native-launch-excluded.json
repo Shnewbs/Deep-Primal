@@ -1,1 +1,0 @@
-{"reason":"First native launcher started before the full build process had exited. It saved and stopped normally, but its measurements are excluded. Final validation requires a new completed full build, then sequential native sessions.","first_fixture_result":"audit passed; production defect and naive UV fidelity rejection reproduced","no_production_fix_promoted":true}

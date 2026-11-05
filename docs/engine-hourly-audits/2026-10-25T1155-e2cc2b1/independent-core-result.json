@@ -1,7 +1,0 @@
-{
-  "exit": 0,
-  "production_sources": 61,
-  "test_sources": 45,
-  "debug_metadata": "-g matches Gradle",
-  "log_sha256": "26cb681c6d619894143a6071b54fab5a72cb0d092ac7bc53ab6d337aa48d71f9"
-}

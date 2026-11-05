@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: adapter failed to finish
-	at AdapterChecks.finish(AdapterChecks.java:15)
-	at AdapterChecks.main(AdapterChecks.java:110)

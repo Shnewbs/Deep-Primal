@@ -1,1 +1,0 @@
-WATER_SIDE_UV_UPLOAD_NATIVE_PASS samples=12 readbackBytes=8640 sideVertices=192 surfaceVertices=48 stillAndFlowing=true repeatedUpload=true staleRevision=true lightPreserved=true vertexStride=36 isolatedGpuReleased=true scope=controlledActualProductionUploads

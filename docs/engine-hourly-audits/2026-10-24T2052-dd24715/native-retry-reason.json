@@ -1,4 +1,0 @@
-{
-  "first_attempt": "Gradle prepareServerRun rejected missing generated assetProperties before Minecraft execution",
-  "fix": "private generated property file points to independent audit cache; product source unchanged"
-}

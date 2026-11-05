@@ -1,7 +1,0 @@
-{
-  "pass": true,
-  "numeric_height_uv_cases": 200000,
-  "maximum_double_precision_error": 2.220446049250313e-16,
-  "light_flag_cases": 768,
-  "scope": "Independent algebra/bounds and light packing only, not GPU float precision or performance; native pixel/readback checks are separate."
-}

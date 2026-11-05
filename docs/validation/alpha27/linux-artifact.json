@@ -1,8 +1,0 @@
-{
-  "independent_core_sources": 49,
-  "independent_core_classes": 87,
-  "packaged_class_comparisons": 502,
-  "nested_archives": 6,
-  "jar": "/workspace/scratch/1a7cb29b04a2/terrain-next/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.27-vulkan-linux.jar",
-  "sha256": "df2890670895aab194af89c0e1d54ebc6ee8851220df1dc7b0e954913dc25039"
-}

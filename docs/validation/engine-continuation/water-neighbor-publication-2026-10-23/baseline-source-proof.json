@@ -1,9 +1,0 @@
-{
-  "parent": "f85fc8a565a64d1ed7789f830193f1b7aa614bba",
-  "existing_inputs": 575,
-  "unchanged": 574,
-  "only_fixture_changed": [
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCornerFieldChecks.java"
-  ],
-  "all_production_unchanged": true
-}

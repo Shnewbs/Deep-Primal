@@ -1,9 +1,0 @@
-{
-  "scope": "extracted-production-pressure-search-with-world-doubles",
-  "source_sha256": "2fa1d0aa7c6a9e4fe698a45087ca4f6e29f2da41c72966ba69b35de65926127d",
-  "exit_code": 1,
-  "stdout": "",
-  "stderr": "Exception in thread \"main\" java.lang.AssertionError: Pressure cutoff remains\n\tat PressureCutoffAudit.check(PressureCutoffAudit.java:126)\n\tat PressureCutoffAudit.main(PressureCutoffAudit.java:140)\n",
-  "defect_reproduced": false,
-  "native_minecraft_test": false
-}

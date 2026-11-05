@@ -1,8 +1,0 @@
-{
-  "exit": 0,
-  "production_sources": 57,
-  "log_sha256": "dc1f334fa0450715d829639677344a536f6ac30a6f1a7f04794a88aa0bf32269",
-  "independent_product_classes_match": 101,
-  "tested_instruction_identity_matches": 101,
-  "initial_identity_rejection": "Independent javac omitted -g local-variable debug metadata. No instruction differences; matched-debug clean compile and all 101 instruction comparisons pass. Original checked output retained."
-}

@@ -1,9 +1,0 @@
-[
-  "/workspace/scratch/c748d58856d9/renderer-toolchain/jdk-25.0.4.1+1/bin/java",
-  "-Xmx512m",
-  "-Xverify:all",
-  "-cp",
-  "/workspace/scratch/c748d58856d9/qualification/packaged-core.jar:/workspace/scratch/c748d58856d9/qualification/probe-classes:/workspace/scratch/c748d58856d9/qualification/independent-core",
-  "PackagedByteChecks",
-  "/workspace/scratch/c748d58856d9/qualification/packaged-core.jar"
-]

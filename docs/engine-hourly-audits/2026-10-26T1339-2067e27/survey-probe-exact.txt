@@ -1,2 +1,0 @@
-SURVEY_PASS fixed=false cases=38 checks=5973
-SURVEY_PASS fixed=true cases=158 checks=27752

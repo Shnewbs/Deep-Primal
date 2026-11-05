@@ -1,7 +1,0 @@
-BACKEND_SELECTION_PASS backend=Vulkan
-BACKEND_SELECTION_PASS backend=Vulkan
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.lod.client.VoxelLodRenderer location=file:/workspace/scratch/a22609fabda0/marker-origin-2229/project/lod-engine/build/classes/java/main/
-LOD_EVICTION_RECOVERY_OBSERVED cycle=0 indexed=false resident=0
-java.lang.AssertionError: Evicted persisted page must remain scheduled for recovery
-java.lang.AssertionError: Evicted persisted page must remain scheduled for recovery
-java.lang.AssertionError: Evicted persisted page must remain scheduled for recovery

@@ -1,1 +1,0 @@
-{"host":"Linux-6.18.55-x86_64-with-glibc2.39","eligible_cpus":9,"memory_limit":"8589934592\n","memory_events":"low 0\nhigh 0\nmax 443666\noom 1\noom_kill 1\noom_group_kill 0\n","free_bytes":628289536,"workload":"sequential one-worker forced build, functional core and Linux native save/reopen checks; no benchmark"}

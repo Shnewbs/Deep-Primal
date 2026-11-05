@@ -1,5 +1,0 @@
-DRAINAGE_SERVER_STARTED
-DRAINAGE_PROFILE settings=deepprimal:waterways_v6_deep minY=-384 values=0x1.bp7,0x1.0p7,0x1.8p6,0x1.8p6,0x1.6p6,0x1.ep7,
-RIVER_REOPEN_PASS direction=11 flow=true
-HYDROLOGY_REOPEN_PASS soil=8 measuredBucketUnits=3
-DRAINAGE_AUTO_PASS case=deep-reopen

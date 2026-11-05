@@ -1,3 +1,0 @@
-REGIONAL_BUDGET_RESULT cases=172200 violations=54972 maximum=80 ordinary=32 offline=32
-Exception in thread "main" java.lang.AssertionError: cache churn exceeded shared allowance
-	at com.shnewbs.deepprimal.core.RegionalBudgetChecks.main(RegionalBudgetChecks.java:46)

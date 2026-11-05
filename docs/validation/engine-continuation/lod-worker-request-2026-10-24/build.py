@@ -1,8 +1,0 @@
-from pathlib import Path
-import subprocess,sys,json,hashlib,re,datetime
-r=Path(__file__).resolve().parent;t=r/'toolchain';p=r/'project';e=r/'evidence'
-cmd=[sys.executable,'tools/build_with_current_proxy.py','--java-home',str(t/'jdk-25.0.4.1+1'),'--gradle',str(t/'gradle-9.2.1/bin/gradle'),'--gradle-user-home',str(t/'gradle-cache'),'--trust-store','/etc/ssl/certs/java/cacerts','--neoform-agent',str(t/'checked-agent/neoform-process-fallback.jar'),'--','-I',str(r/'fresh-compile.gradle'),'--no-daemon','--no-build-cache','--console=plain','--max-workers=2','-Dorg.gradle.jvmargs=-Xmx1G','-Porg.gradle.java.installations.paths='+str(t/'jdk-21.0.12.1+1')+','+str(t/'jdk-25.0.4.1+1'),'-PvulkanPlatform=linux','--rerun-tasks',':build']
-start=datetime.datetime.now(datetime.timezone.utc).isoformat()
-with (e/'build.log').open('wb') as out:a=subprocess.run(cmd,cwd=p,stdout=out,stderr=subprocess.STDOUT,timeout=900)
-b=(e/'build.log').read_bytes();text=b.decode(errors='replace');markers=['BUILD SUCCESSFUL','LOD_REQUEST_PASS checks=347','LOD_BUDGET_FIXED_PASS checks=19','TERRAIN_V6_CORE_PASS','DEPOSIT_PLAN_CORE_PASS','DEPOSIT_ALLOCATION_CORE_PASS cases=4194304','DEPOSIT_FIELD_CORE_PASS cases=90960','WATER_RETIREMENT_STATE_CORE_PASS cases=60000','WATER_BUDGET_PASS','HYDROLOGY_PASS','WATERSHED_CORE_PASS']
-d={'exit':a.returncode,'started_utc':start,'command':cmd,'raw_sha256':hashlib.sha256(b).hexdigest(),'markers':{m:m in text for m in markers},'tasks':re.findall(r'\d+ actionable tasks:.*',text)};d['pass']=a.returncode==0 and all(d['markers'].values());(e/'build-result.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps(d));raise SystemExit(0 if d['pass'] else 1)

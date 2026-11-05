@@ -1,5 +1,0 @@
-{
-  "phase": "Python syntax check before final native audit",
-  "error": "Generated one-line if followed by indented atlas assertions",
-  "correction": "Use block form; no raw evidence or production change"
-}

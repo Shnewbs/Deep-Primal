@@ -1,9 +1,0 @@
-{
-  "role": "auditor",
-  "run": "20261024T2052",
-  "source_sha": "dd2471527174e03c32108545ae38fccab46bf9c3",
-  "status": "completed",
-  "builder_mutated": false,
-  "performance_reservation": "completed; owner-paused",
-  "current_jar_native_gate": true
-}

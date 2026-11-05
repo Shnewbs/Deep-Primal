@@ -1,9 +1,0 @@
-{
-  "jar_sha256": "401e31898cca1261a3753f66fecc69e249aa7af190d193d644c4c06124ac2ad4",
-  "unchanged_after_native": true,
-  "native_cases": [
-    "packaged-reload",
-    "packaged-filling"
-  ],
-  "accepted_for_release": false
-}

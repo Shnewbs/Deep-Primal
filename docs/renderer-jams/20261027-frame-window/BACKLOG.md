@@ -1,8 +1,0 @@
-# Renderer backlog after frame-window staging
-Candidate b69d022383571977b90926770893baf271c91fd1; production remains c5abe457c4c7b36a11307128486c240e0b40d508/dev.31. No new JAR.
-1. Recover private build headroom; apply/rebase the four staged Java changes from actual current main under a fresh scoped production claim. Add only the demonstrated registration line to fresh CoreChecks. Force full Java25/Gradle/module/resource build, recursive archive/compiled/package/platform/fixture/art/notices identities and packaged backend/native/client gates before promotion and a unique qualified JAR.
-2. Capture actual GPU-first camera/travel/edit cold/warm baselines and discovery/readiness/cache/edit/native-handoff/water ordering coverage. FrameIntervalWindow is CPU interval instrumentation only; do not call it GPU time, complete context capture or measured game performance. Measure world-switch transition latency separately from reset windows.
-3. Bounded mesh/upload reuse, scheduling and hierarchical selection/refinement/hysteresis/coverage/invalidation; preserve material/UV/light/fluid/silhouette/signed seams.
-4. Authoritative unexplored delivery contract with generator/network-owned prerequisites. Independent requested/effective persisted native/vertical/LOD/simulation budgets; never slider-only expansion.
-5. Real official FSR/DLSS provider/input/resource lifetime/licensing/packaging/hardware integration; truthful native fallback. Frame generation separate/later.
-Six renderer grades [4,6,4,0,4,4], mean3.67, all carried unchanged. Whole-engine external5.0 unchanged. Capacity is temporary; renderer continuation remains enabled.

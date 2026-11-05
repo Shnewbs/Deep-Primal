@@ -1,7 +1,0 @@
-BACKEND_SELECTION_PASS backend=Vulkan
-VALIDATION_CLASS_ORIGIN class=com.shnewbs.deepprimal.client.render.AnimatedWaterRenderer location=file:/workspace/scratch/98befbcef095/water-fade-0117/project/build/classes/java/main/
-WATER_DRY_FADE_OBSERVED elapsed=25 remaining=76 retained=false bytes=0
-java.lang.AssertionError: Empty recapture removed water before its fade completed
-java.lang.AssertionError: Empty recapture removed water before its fade completed
-java.lang.AssertionError: Empty recapture removed water before its fade completed
-BUILD FAILED in 34s

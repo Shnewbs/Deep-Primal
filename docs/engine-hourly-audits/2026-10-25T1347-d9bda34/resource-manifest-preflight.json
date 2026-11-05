@@ -1,7 +1,0 @@
-{
-  "pinned_sha": "d9bda34219d97098e2044cb8ad08389f40de5189",
-  "manifest": "docs/art/ground-textures-v4/validation.json",
-  "mismatches": [],
-  "assets_checked": 10,
-  "note": "Exported assets checked; initial audit preflight incorrectly compared crop-input hashes with exported PNGs; initial diagnostic retained. No product changes."
-}

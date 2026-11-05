@@ -1,8 +1,0 @@
-TERRAIN_CLIENT_CHECKS_PASS verticalNodes=22050 fullSections=28224 boundedSections=2205 worldSections=64 independentVertical=true
-DEEPPRIMAL_CAPTURE_SAVED deep-peak
-DEEPPRIMAL_CAPTURE_SAVED axis-proof
-DEEPPRIMAL_CAPTURE_SAVED deep-cliff
-DEEPPRIMAL_CAPTURE_SAVED candidate-vertical2
-DEEPPRIMAL_CAPTURE_SAVED controls
-WORLD_CREATION_CHECKS_PASS height=1024 label=Deep Primal
-DEEPPRIMAL_CAPTURE_SAVED world-creation

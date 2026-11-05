@@ -1,2 +1,0 @@
-PACKET_BUDGET_CLASS_IDENTITY sha256=5ebff0e16dc1089f45e12010142572b2a0b172e1db02e653db6fad3b056cbbb3 origin=file:/workspace/scratch/a22609fabda0/water-boundary-packet-1330/project/engine-core/build/classes/java/main/
-PACKET_RETIRE_BUDGET fullBytes=33554304 sliceBytes=262080 slices=129 medianNanos=168111 p95Nanos=891644 maxNanos=1374075 targetNanos=2000000 allActiveExpired=true scope=boundedMetadataRetirementCpuOnlyExcludesGpuCopyAndBoundaryPatch

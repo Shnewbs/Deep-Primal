@@ -1,1 +1,0 @@
-WATER_PUBLICATION_FAILURE_RESULT pass=false cases=16 readbacks=64 differentBytes=832 injectedBeforeBackendWrite=true manualRetry=true scope=controlledSynchronousRejectionNotAsyncDeviceLossOrWholeCohortAtomicity

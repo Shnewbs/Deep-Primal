@@ -1,8 +1,0 @@
-[15:25:05] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_VALIDATION_ACTIVE true debugUtils=true
-[15:25:11] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
-BACKEND_SELECTION_PASS backend=Vulkan
-VULKAN_SHUTDOWN_FAILURE_QUEUED
-[15:25:16] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
-[15:25:16] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_RESOURCES_RELEASED buffers=0 images=0
-[15:25:16] [Render thread/INFO] [Deep Primal Vulkan/]: VULKAN_OPERATION_COUNTS {pipelineCreationNanos=76414784, descriptorBindSkips=0, pipelineCreates=51, validationErrors=0, descriptorBinds=16132, pipelineFeedbackValid=51, descriptorReuse=1830, pipelineCacheHits=0, descriptorUpdates=14302}
-BUILD SUCCESSFUL in 29s

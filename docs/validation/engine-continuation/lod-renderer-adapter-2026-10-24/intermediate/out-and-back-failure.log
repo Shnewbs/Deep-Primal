@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: camera cancellation cleanup
-	at AdapterChecks.check(AdapterChecks.java:6)
-	at AdapterChecks.main(AdapterChecks.java:96)

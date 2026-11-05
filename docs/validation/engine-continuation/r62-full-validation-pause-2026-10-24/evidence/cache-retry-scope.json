@@ -1,7 +1,0 @@
-{
-  "attempt1": "generated decompile output is not a valid ZIP; original client/server hashes and preprocessed ZIP pass",
-  "attempt2": "used the same invalid decompile cache again despite scoped move; cause unproven",
-  "attempt3": "private CreateMinecraftArtifacts.enableCache=false uses the documented public task property; no mod dependency/version/behavior change",
-  "gates": "all final archives/classes/native checks still required",
-  "owner_jar_released": false
-}

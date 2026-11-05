@@ -1,8 +1,0 @@
-Exception in thread "main" java.util.ConcurrentModificationException
-	at java.base/java.util.TreeMap$PrivateEntryIterator.nextEntry(TreeMap.java:1522)
-	at java.base/java.util.TreeMap$KeyIterator.next(TreeMap.java:1576)
-	at com.shnewbs.deepprimal.engine.StreamSourceIndex$1.next(StreamSourceIndex.java:53)
-	at com.shnewbs.deepprimal.engine.StreamSourceIndex$1.next(StreamSourceIndex.java:51)
-	at com.shnewbs.deepprimal.engine.SourceCallbackLoopChecks.sourcePass(SourceCallbackLoopChecks.java:85)
-	at com.shnewbs.deepprimal.engine.SourceCallbackLoopChecks.one(SourceCallbackLoopChecks.java:98)
-	at com.shnewbs.deepprimal.engine.SourceCallbackLoopChecks.main(SourceCallbackLoopChecks.java:109)

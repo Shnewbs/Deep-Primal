@@ -1,9 +1,0 @@
-{
-  "scope": "private validation tool only; original binary retained",
-  "original_sha256": "2c7f5a9534410fed5092d782a69ca7ffd9fce80e98b81ffe4944d703dd11d3b1",
-  "modified_sha256": "1054d02e16e5675e5c198fff2457ab565d9d1055d42cd4af5f9e5942a0eeb4ff",
-  "replacement_count": 1,
-  "original": "/usr/bin",
-  "replacement": "/tmp/dpv",
-  "target": "/workspace/scratch/a22609fabda0/pressure-admission-1835/toolchain/graphics-verified/usr/bin"
-}

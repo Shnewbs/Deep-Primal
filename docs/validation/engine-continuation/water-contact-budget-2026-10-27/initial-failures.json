@@ -1,8 +1,0 @@
-{
-  "core_default_tmp": "Rejected FileSystemException /tmp: No space left on device; raw initial-full-core.log",
-  "core_capture": "Retry process output could not be fully saved because /dev/shm filled; initial-capacity-full-core.log truncated, no pass credited",
-  "native_reopen": "Initial reopen exited 0 but log write failures, absent marker/flush/shutdown; rejected structured pass=false",
-  "recovery": "Removed only own copied compiler-only dependency JARs (92398304 bytes); repeated full core and fresh/reopen in private scratch",
-  "source_identity": "Remote/local audit manifest whitespace differed; selected 139 path/Git/SHA256 records matched exactly. Broad 300-file compare was not accepted; all 21 non-doc root entries matched pinned audit.",
-  "core_relative_output": "Rejected full suite at IntegratedEngineChecks: relative build/integrated-engine-checks output remained on full overlay despite private java.io.tmpdir. Final retry sets private working directory as well; raw initial-working-directory-full-core.log retained."
-}

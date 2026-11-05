@@ -1,6 +1,0 @@
-BACKEND_SELECTION_PASS backend=OpenGL
-WATER_CLIENT_PASS oldSpeedDefault=1 stagedToggles=true cancel=true inputBounds=true frostPalettes=3 opaqueTints=35 negativeJoinContinuity=true
-OCEAN_SURFACE_PASS bytes=29712
-WAKE_MESH_PASS bufferBytes=12288 vertices=144 reused=true
-NATIVE_RENDERER_CHECKS_PASS near=4 far=64 cached=12 visible=7 triangles=4167240 clientChunks=182 gpuUploadBytes=312000 owner=Deep Primal
-PACKAGED_CLIENT_BUILD_PASS backend=OpenGL

@@ -1,5 +1,0 @@
-{
-  "accepted": false,
-  "product_failure": false,
-  "error": "Auditor readiness condition waited for deposit/terrain fixtures but asserted source/soil markers before those fixtures completed. Own server terminated by harness cleanup; initial attempt excluded. Wait condition corrected without any committed-source changes."
-}

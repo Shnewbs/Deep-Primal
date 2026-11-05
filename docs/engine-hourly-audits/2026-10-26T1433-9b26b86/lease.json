@@ -1,1 +1,0 @@
-{"role":"auditor","source_sha":"9b26b8619b3a44c1542cc10f40a11658c4cd3cf0","status":"checkpointed_deferred","builder_mutated":false,"isolated_cache_and_output":true,"timing_reservation_observed":"renderer component CPU benchmark claim active; audit heavy work deferred","holds_builder_lease":false,"blocks_builder":false,"new_current_jar":false}

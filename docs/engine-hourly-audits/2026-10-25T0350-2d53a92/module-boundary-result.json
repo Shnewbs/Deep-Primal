@@ -1,8 +1,0 @@
-{
-  "exit": 0,
-  "pass": true,
-  "tasks": [
-    "verifyCoreBoundary",
-    "verifyModuleBoundaries"
-  ]
-}

@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.IllegalStateException: LOD index turn already pending
-	at com.shnewbs.deepprimal.core.lod.LodIndexWorker.submitIndex(LodIndexWorker.java:30)
-	at FutureChecks.main(FutureChecks.java:31)

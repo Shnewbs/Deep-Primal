@@ -1,6 +1,0 @@
-{
-  "before_source": "d6750d3620a949031d4e8ab0d0cd11af4a27b742",
-  "reason": "Do not skip authoritative native rediscovery just because the same key has disk work in flight; dirty revision must invalidate stale disk result",
-  "previous_build_and_server_sessions_passed_but_artifact_not_delivered": true,
-  "final_affected_checks_and_full_build_repeated": true
-}

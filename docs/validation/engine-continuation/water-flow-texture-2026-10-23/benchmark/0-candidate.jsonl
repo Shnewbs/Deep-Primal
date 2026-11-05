@@ -1,4 +1,0 @@
-{"scenario":"still-flat","stride":14,"vertices":1024,"floatPayloadBytes":57344,"geometryDigest":"245ca55cf4635011","samples":400,"warmups":1000,"medianNs":93120,"p95Ns":119401}
-{"scenario":"flow-flat","stride":14,"vertices":1024,"floatPayloadBytes":57344,"geometryDigest":"245ca55cf4635011","samples":400,"warmups":1000,"medianNs":59570,"p95Ns":185711}
-{"scenario":"flow-slopes","stride":14,"vertices":1792,"floatPayloadBytes":100352,"geometryDigest":"2ca5c8ac4e4dcc11","samples":400,"warmups":1000,"medianNs":149196,"p95Ns":193843}
-{"scenario":"flow-porous","stride":14,"vertices":24064,"floatPayloadBytes":1347584,"geometryDigest":"4a91cf2e02ff7c11","samples":400,"warmups":1000,"medianNs":1123220,"p95Ns":3849085}

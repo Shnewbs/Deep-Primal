@@ -1,7 +1,0 @@
-{
-  "source_sha": "e061ee22ce0c8111f5818e6cc2b4219a21671e99",
-  "verified_inputs": 844,
-  "mismatches": [],
-  "missing_build_inputs": [],
-  "restored_documented_build_example": "docs/engine-stage2-2026-10-24/examples/ground-surface-profile.json"
-}

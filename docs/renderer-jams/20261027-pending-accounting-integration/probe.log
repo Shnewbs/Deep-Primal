@@ -1,9 +1,0 @@
-PENDING_BYTES_PASS cases=10063 levels=3 source_semantics=old_stream_vs_indexed_loop
-MEASURE run=1 variant=old loops=200000 duration_ms=72.210 bytes_allocated=108800040 checksum=3026541304310
-MEASURE run=2 variant=new loops=200000 duration_ms=10.466 bytes_allocated=40 checksum=3026541304310
-MEASURE run=3 variant=new loops=200000 duration_ms=10.151 bytes_allocated=40 checksum=3026541304310
-MEASURE run=4 variant=old loops=200000 duration_ms=23.991 bytes_allocated=108800040 checksum=3026541304310
-MEASURE run=5 variant=new loops=200000 duration_ms=9.357 bytes_allocated=40 checksum=3026541304310
-MEASURE run=6 variant=old loops=200000 duration_ms=28.531 bytes_allocated=108800040 checksum=3026541304310
-MEASURE run=7 variant=old loops=200000 duration_ms=25.508 bytes_allocated=108800040 checksum=3026541304310
-MEASURE run=8 variant=new loops=200000 duration_ms=10.177 bytes_allocated=40 checksum=3026541304310

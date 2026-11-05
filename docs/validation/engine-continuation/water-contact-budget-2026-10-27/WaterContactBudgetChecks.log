@@ -1,2 +1,0 @@
-HELPER_ALLOCATION_PASS measured_visits=4096000 bytes=0 constructor_excluded=true adapter_excluded=true latency_not_measured=true
-CONTACT_BUDGET_PASS assertions=9481867 exact_identity=true fixed_arrays=true

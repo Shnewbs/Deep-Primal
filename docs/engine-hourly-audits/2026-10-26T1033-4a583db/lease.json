@@ -1,1 +1,0 @@
-{"role":"auditor","source_sha":"4a583dbcdec4df4be1ac7572c384813986067f2a","status":"checkpointed_native_gate_failed","builder_mutated":false,"isolated_cache_and_output":true,"timing_reservation_observed":"completed, functional checks only","jar_qualified":false,"unfinished_gate":"precipitation rejection crashes native server"}

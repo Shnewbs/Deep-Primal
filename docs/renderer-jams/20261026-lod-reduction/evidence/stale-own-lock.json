@@ -1,8 +1,0 @@
-{
-  "scope": "only current renderer isolated cache",
-  "exclusive_os_lock_acquired_before_removing_stale_lock": true,
-  "other_jobs_touched": false,
-  "removed_rejected_jar": [
-    "jam3/project/build/libs/DeepPrimal-26.1.2-0.0.1-alpha.29-dev.29-renderer.3-vulkan-windows.jar"
-  ]
-}

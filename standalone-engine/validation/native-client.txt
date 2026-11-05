@@ -1,4 +1,0 @@
-ENGINE_CAPTURE_SAVED continental-final
-ENGINE_CLIENT_PASS customMesherCells=6121 curvedCells=384 backend=OpenGL
-ENGINE_CAPTURE_SAVED coast-final
-ENGINE_CLIENT_PROCESS_PASS exit=0
