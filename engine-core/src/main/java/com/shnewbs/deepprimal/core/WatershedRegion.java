@@ -21,7 +21,7 @@ public final class WatershedRegion {
   private static final int OXBOW_LIMIT = 24;
   private final double ox, oz;
   private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas, floodplainLakes,
-      budgetedDistributaries, deepChannels;
+      budgetedDistributaries, deepChannels, deepWaterBodies;
   private final Oxbow[] oxbows;
   private final int[][] oxbowIndex;
   private final Distributary[] distributaries;
@@ -149,7 +149,7 @@ public final class WatershedRegion {
   private static final class Lake {
     final int id;
     int outlet = -1, lowest;
-    double min = Double.POSITIVE_INFINITY, spill, level = Double.NaN;
+    double min = Double.POSITIVE_INFINITY, spill, level = Double.NaN, bathymetryDepth;
     int cells, x0 = SIDE, z0 = SIDE, x1, z1;
 
     Lake(int id) {
@@ -290,11 +290,23 @@ public final class WatershedRegion {
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, false);
+  }
+
+  /** {@code deepWaterBodies} deepens still lakes and oxbows without changing their saved levels. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies) {
     if (admittedOceanInterior != null && admittedSea == null)
       throw new IllegalArgumentException("ocean interior authority requires seeded ocean boundary");
     this.floodplainLakes = floodplainLakes;
     this.budgetedDistributaries = budgetedDistributaries;
     this.deepChannels = deepChannels;
+    this.deepWaterBodies = deepWaterBodies;
     if (floodplainLakes && !riverDeltas)
       throw new IllegalArgumentException("Oxbow lakes require channel revision 3");
     if (budgetedDistributaries && !riverDeltas)
@@ -463,6 +475,9 @@ public final class WatershedRegion {
               lake.cells >= 3 && lake.spill - lake.min >= 1.5
                   ? Math.floor(lake.spill * 16) / 16
                   : Double.NEGATIVE_INFINITY;
+          if (Double.isFinite(lake.level))
+            lake.bathymetryDepth =
+                Math.clamp(4 + Math.sqrt(lake.cells) * .9 + (lake.spill - lake.min) * .12, 5, 20);
         }
         if (Double.isFinite(lake.level)) stage[a] = Math.max(downstream, lake.level);
       }
@@ -668,7 +683,10 @@ public final class WatershedRegion {
       if (level < TerrainEngine.SEA + 1) continue;
       planned.add(
           new Oxbow(cx, cz, ux, uz, radius, halfWidth, halfSpan, level,
-              Math.clamp(halfWidth * .35, 1.4, 3.4), s.sb));
+              deepWaterBodies
+                  ? Math.clamp(halfWidth * .8, 3, 10)
+                  : Math.clamp(halfWidth * .35, 1.4, 3.4),
+              s.sb));
     }
     return planned.toArray(Oxbow[]::new);
   }
@@ -1053,6 +1071,22 @@ public final class WatershedRegion {
           lerp(lerp(raw[a], raw[a + 1], u), lerp(raw[a + SIDE], raw[a + SIDE + 1], u), v);
       double detail = smooth((coarse - lakeLevel - 1) / 4);
       ground = lerp(coarse, base, detail);
+      if (deepWaterBodies && coarse < lakeLevel) {
+        Lake lake = null;
+        for (int corner = 0; corner < 4; corner++) {
+          int id = lakeAt[a + (corner & 1) + (corner >>> 1) * SIDE];
+          if (id > 0 && Double.isFinite(lakes[id].level) && lakes[id].level == lakeLevel) {
+            lake = lakes[id];
+            break;
+          }
+        }
+        if (lake != null) {
+          double basinRange = Math.max(1, lakeLevel - lake.min);
+          double basinPosition = Math.clamp((coarse - lake.min) / basinRange, 0, 1);
+          double bowl = 1 - smooth(basinPosition);
+          ground = Math.min(ground, lakeLevel - lake.bathymetryDepth * bowl);
+        }
+      }
       sediment = 1 - detail;
       double shoreStep =
           Math.max(

@@ -15,6 +15,23 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
     return at(s,g,s.slope()+slopeJitter(noise,x,z),true,false);
   }
 
+  /** Material revision 6 uses a coherent shoreline ecotone instead of per-column hash dithering. */
+  public static SoilProfile atCoherentShore(TerrainNoise noise,int x,int z,
+      TerrainEngine.Sample s,Geology.Column g) {
+    Kind kind;
+    if (s.temperature() < .23) kind = Kind.FROZEN;
+    else if (s.wet()) kind = s.speed() > .3 ? Kind.GRAVEL : s.rain() > .72 ? Kind.CLAY : Kind.LOAM;
+    else if (noise.field(x,z,40,34103)*.5+.5 < shoreSandWeight(s)) kind = Kind.SAND;
+    else kind = s.temperature() < .42 ? Kind.PODZOL : s.rain() > .8 ? Kind.CLAY : Kind.LOAM;
+    return profile(s,g,s.slope()+slopeJitter(noise,x,z),true,kind);
+  }
+
+  /** Continuous sand propensity used by the saved shoreline material revision. */
+  public static double shoreSandWeight(TerrainEngine.Sample s) {
+    return Math.max(1 - smooth((s.ground() - 97) / 12),
+        1 - smooth((s.rain() - .28) / .16));
+  }
+
   public static double slopeJitter(TerrainNoise noise,int x,int z) {
     return noise.field(x,z,48,34101)*.32+noise.field(x,z,13,34102)*.14;
   }
@@ -73,5 +90,10 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
       weathered = g.permeability() > .4 ? 2 : 1;
     }
     return new SoilProfile(top,sub,weathered,kind);
+  }
+
+  private static double smooth(double value) {
+    double t=Math.clamp(value,0,1);
+    return t*t*t*(t*(t*6-15)+10);
   }
 }

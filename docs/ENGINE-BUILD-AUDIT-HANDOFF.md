@@ -1,12 +1,17 @@
 # Deep Primal build/audit continuation
 
 **2026-11-04 staged integration:** new standard and deep engine presets now
-select channel revision 6, combining deeper main rivers, delta fans, oxbows,
-and conserved distributary shares in the default worldgen. The separate
-`riverDeltas` creation switch is removed. The old `engine_deltas_*` pack IDs
-remain available for saved-world compatibility and use the same revision-6
-behavior. Targeted Gradle checks are in progress; native save/reopen and visual
-acceptance remain open. See `ACTIVE-ENGINE-AUDIT.md` and `TERRAIN-V7.md`.
+select material revision 6 and channel revision 8. This combines deeper main
+rivers, delta fans, oxbows and conserved distributary shares with deeper still
+lake/oxbow beds and coherent sand-to-soil shoreline transitions. Biome tags
+enable added bank cover and mangrove trees at nearby water edges; underwater
+plants and custom water replacement remain out of scope. The separate
+`riverDeltas` creation switch is removed, and legacy `engine_deltas_*` pack IDs
+remain available. The full core suite and visual-validation compilation pass;
+the water-body checks sample 1,502 lakes and 15 oxbows with stable water levels,
+and the 1,024-column shore check confirms coherent mixed coverage. Native
+save/reopen and visual acceptance remain open. See `ACTIVE-ENGINE-AUDIT.md`
+and `TERRAIN-V7.md`.
 
 **Latest, 2026-10-26: dev.20 Earth-Scaled Rivers is released to main and the Library.**
 Owner request: "perfect water engine part, including all water types and river

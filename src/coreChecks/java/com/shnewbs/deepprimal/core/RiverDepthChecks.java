@@ -6,6 +6,7 @@ final class RiverDepthChecks {
 
   static void run() {
     checkDepthOnlyDefaultRevision();
+    checkDeepWaterBodies();
     long sampled = 0, deepened = 0, unchangedExterior = 0, unchangedLakes = 0;
     double deepestGain = 0;
     for (long seed : new long[] {0, 73, 20261020}) {
@@ -145,5 +146,55 @@ final class RiverDepthChecks {
     System.out.println("RIVER_DEPTH_ONLY_REVISION_PASS wetCentres=" + sampled
         + " deepenedCentres=" + deepened + " maxDepthGain=" + deepestGain
         + " unchangedExterior=" + unchangedExterior + " noDeltaOrLakePlanning=true");
+  }
+
+  private static void checkDeepWaterBodies() {
+    long lakeSamples = 0, deepenedLakes = 0, oxbowSamples = 0, deepenedOxbows = 0;
+    double deepestLakeGain = 0, deepestOxbowGain = 0;
+    for (long seed : new long[] {0, 73, 20261020}) {
+      var previous = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 6);
+      var deep = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 8);
+      var replay = new TerrainEngine(seed, 7, TerrainOptions.DEFAULT, 8);
+      for (int cz = -1; cz <= 1; cz++)
+        for (int cx = -1; cx <= 1; cx++) {
+          var oldRegion = previous.waterways(cx * 8192, cz * 8192);
+          var newRegion = deep.waterways(cx * 8192, cz * 8192);
+          var repeatRegion = replay.waterways(cx * 8192, cz * 8192);
+          if (!oldRegion.centerline().equals(newRegion.centerline())
+              || !oldRegion.lakeProbes().equals(newRegion.lakeProbes())
+              || !oldRegion.oxbowProbes().equals(newRegion.oxbowProbes())
+              || !newRegion.centerline().equals(repeatRegion.centerline()))
+            throw new AssertionError("Deep-water revision changed or randomized basin planning");
+          for (var lake : newRegion.lakeProbes()) {
+            var oldColumn = previous.column(lake.x(), lake.z());
+            var newColumn = deep.column(lake.x(), lake.z());
+            if (!oldColumn.wet() || !newColumn.wet() || oldColumn.water() != newColumn.water())
+              throw new AssertionError("Deep-water revision changed lake coverage or level");
+            double gain = oldColumn.ground() - newColumn.ground();
+            lakeSamples++;
+            deepestLakeGain = Math.max(deepestLakeGain, gain);
+            if (gain >= 2) deepenedLakes++;
+          }
+          for (var oxbow : newRegion.oxbowProbes()) {
+            var oldColumn = previous.column(oxbow.x(), oxbow.z());
+            var newColumn = deep.column(oxbow.x(), oxbow.z());
+            if (!oldColumn.wet() || !newColumn.wet() || oldColumn.water() != newColumn.water())
+              throw new AssertionError("Deep-water revision changed oxbow coverage or level");
+            double gain = oldColumn.ground() - newColumn.ground();
+            oxbowSamples++;
+            deepestOxbowGain = Math.max(deepestOxbowGain, gain);
+            if (gain >= 1) deepenedOxbows++;
+          }
+        }
+    }
+    if (lakeSamples < 10 || deepenedLakes < 10 || deepestLakeGain < 2
+        || oxbowSamples < 10 || deepenedOxbows < 10 || deepestOxbowGain < 1)
+      throw new AssertionError("Deep-water basin depth missing: lakes=" + lakeSamples
+          + "/" + deepenedLakes + " maxLakeGain=" + deepestLakeGain + " oxbows="
+          + oxbowSamples + "/" + deepenedOxbows + " maxOxbowGain=" + deepestOxbowGain);
+    System.out.println("WATER_BODY_DEPTH_REVISION_PASS lakes=" + lakeSamples
+        + " deepenedLakes=" + deepenedLakes + " maxLakeGain=" + deepestLakeGain
+        + " oxbows=" + oxbowSamples + " deepenedOxbows=" + deepenedOxbows
+        + " maxOxbowGain=" + deepestOxbowGain + " stableLevels=true");
   }
 }

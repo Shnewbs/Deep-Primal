@@ -1,17 +1,25 @@
 # Active Deep Primal engine audit
 
-## 2026-11-04 integrated default river channels staged
+## 2026-11-04 integrated water-body depth and shoreline ecotones staged
 
-New `engine_standard` and `engine_deep` worlds now use channel revision 6 by
-default: deeper main channels, river-mouth deltas, oxbows, and conserved
-distributary flow are enabled together rather than split behind the
-`riverDeltas` creation switch. The switch is removed; legacy `engine_deltas_*`
-pack IDs remain discoverable for saved-world compatibility and carry the same
-revision-6 behavior. Revision 7 remains available as a depth-only codec option,
-but is not selected by the standard/deep presets. Existing saved generators
-keep their serialized revisions. Targeted Gradle checks are in progress; native
-save/reopen and visual acceptance for this default change have not been
-performed.
+New `engine_standard` and `engine_deep` worlds now select material revision 6
+and channel revision 8. Revision 8 combines revision 6's deep channels, deltas,
+oxbows and conserved distributary shares with deeper still-water lake and oxbow
+beds; it preserves water coverage, surface level and channel planning. Material
+revision 6 replaces per-column shoreline dithering with a coherent spatial
+ecotone that shifts sand propensity with ground height and rainfall, including
+sandy-loam soil in the transition. Biome tags enable more shoreline ground
+cover and mangrove trees at nearby water edges. They do not place plants
+underwater or alter the custom water block. Ocean bathymetry is unchanged.
+Existing saved generators keep their serialized revisions; legacy
+`engine_deltas_*` pack IDs remain available. The full core suite and
+visual-validation compilation pass. The deep-water
+regression sampled 1,502 lakes (941 deepened, maximum 16.12 blocks) and 15
+oxbows (all deepened, maximum 1.6 blocks) with stable water levels; river
+revision 7 still passes its depth-only replay checks. The shoreline test
+classified 129 sand and 895 loam samples across a 32×32 grid, with 1,920/1,984
+adjacent pairs matching. A final source recompilation also passes. Native
+save/reopen and in-game visual acceptance remain open.
 
 ## 2026-10-25 channel revision 4 staged: oxbow lakes on delta fans
 

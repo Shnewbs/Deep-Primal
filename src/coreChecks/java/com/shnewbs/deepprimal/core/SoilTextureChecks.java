@@ -32,6 +32,33 @@ final class SoilTextureChecks {
     }
     System.out.println("SOIL_TEXTURE_PASS checks=" + checks + " classes=12 triangleStep=.1 invalidRejected=true");
     distribution();
+    coherentShore();
+  }
+
+  private static void coherentShore() {
+    var engine = new TerrainEngine(73, 7);
+    var geology = new Geology(engine.noise);
+    var shore =
+        new TerrainEngine.Sample(104, Double.NaN, .37, .5, .2, .1, 0, 0, 0, 1);
+    boolean[][] sand = new boolean[32][32];
+    int sandCount = 0, loamCount = 0, matchingEdges = 0, edges = 0;
+    for (int z = 0; z < 32; z++)
+      for (int x = 0; x < 32; x++) {
+        int wx = x * 2, wz = z * 2;
+        var host = geology.column(wx, wz, shore);
+        var first = SoilProfile.atCoherentShore(engine.noise, wx, wz, shore, host);
+        var replay = SoilProfile.atCoherentShore(engine.noise, wx, wz, shore, host);
+        if (!first.equals(replay)) throw new AssertionError("Shore cover replay");
+        sand[z][x] = first.kind() == SoilProfile.Kind.SAND;
+        if (sand[z][x]) sandCount++; else loamCount++;
+        if (x > 0) { if (sand[z][x] == sand[z][x - 1]) matchingEdges++; edges++; }
+        if (z > 0) { if (sand[z][x] == sand[z - 1][x]) matchingEdges++; edges++; }
+      }
+    if (sandCount < 20 || loamCount < 20 || matchingEdges < edges * .70)
+      throw new AssertionError("Shoreline cover is not a coherent mixed ecotone: sand="
+          + sandCount + " loam=" + loamCount + " adjacent=" + matchingEdges + "/" + edges);
+    System.out.println("SHORELINE_ECOTONE_PASS samples=1024 sand=" + sandCount
+        + " loam=" + loamCount + " adjacentCoherence=" + matchingEdges + "/" + edges);
   }
 
   private static void distribution() {
