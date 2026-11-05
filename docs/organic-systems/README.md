@@ -26,13 +26,17 @@ Run the isolated check using `python3 tools/organics/test_soil_ledger.py`. It co
 
 The [Foundations Soil compatibility note](FOUNDATIONS-SOIL-COMPATIBILITY.md) records the reviewed upstream 0.1.0-beta model, read-only adapter and isolated checks. FoundationsSoilPhysicsBridge reproduces upstream derived texture/moisture/root/soil-response equations with absent-input fail-closed behavior; it neither stores nor owns soil, water or nutrients. Native horizons, patch identity, water authority and save integration are still unimplemented.
 
+## Implemented: OS-03 immutable species catalog
+
+`SpeciesCatalog` accepts at most 4,096 validated `SpeciesPhysiology` definitions, rejects duplicate IDs, and exposes a defensive immutable list in canonical ID order plus stable-ID lookup. It is a portable registry snapshot only: it does not serialize definitions, register Minecraft content, change V8 vegetation placement, or provide a live world registry. Run `python tools/organics/test_species_catalog.py`; the isolated Java check verifies ordering, lookup, immutability, invalid inputs, deterministic shuffling and the capacity boundary.
+
 ## Dependency-aware implementation roadmap
 
 | Milestone | Scope | Dependencies and acceptance |
 | --- | --- | --- |
 | **OS-01** | Portable conserved mineral/detrital N/P/K pool | **Component implemented and locally tested**; native transaction/persistence still absent |
 | **OS-02** | Versioned soil patch identity, horizon capacity, pH/texture/structure and explicit finite-water pore owner link | **Read-only physical compatibility slice implemented and isolated-tested**; native patch identity, horizons, water ownership and persistence still absent |
-| **OS-03** | Versioned species definitions (annual, perennial, tree, grass, fungus), climate and root requirements | Validated data codec/registry and stable IDs; reject missing/invalid species fields and keep existing saves on pinned revisions |
+| **OS-03** | Versioned species definitions (annual, perennial, tree, grass, fungus), climate and root requirements | **Portable physiology and bounded immutable catalog implemented**; host codec/datapack registry, missing-field validation and save-pinned integration remain open |
 | **OS-04** | Deterministic bounded phenology and growth, including seedbank, dormancy and seasonal stress | Authoritative paused-when-empty calendar and admitted climate/light/soil inputs; no offline invented growth or free water |
 | **OS-05** | Procedural tree architecture, structural age, canopy competition and root footprint | Independent from frozen V1–V7 geography; stable tree IDs and seed/address-order invariance; approval before new texture families |
 | **OS-06** | Decomposition, fungal exchange, forest succession and regional cohorts | Paid nutrient/biomass transfers, bounded update budgets and unloaded-region policy; no per-leaf entity ticking |
@@ -40,7 +44,7 @@ The [Foundations Soil compatibility note](FOUNDATIONS-SOIL-COMPATIBILITY.md) rec
 
 ### Next concrete increment
 
-Implement a **versioned, validated species-physiology definition** in `core/organic/` with explicit thermal/light/moisture/phenology parameters and deterministic pure evaluation. Add malformed-definition and seeded replay tests. Keep it independent of `V8VegetationPolicy`, which freezes world-generation placement rather than living plant physiology. Do not wire native growth until calendar, finite-water and saved-world transaction ownership are qualified.
+Add a host-owned codec/registry adapter for the portable species catalog, with explicit versioned fields and malformed-definition rejection. Keep it independent of `V8VegetationPolicy`, which freezes world-generation placement rather than living plant physiology. Do not wire native growth until calendar, finite-water and saved-world transaction ownership are qualified.
 
 ## Validation and release state
 
