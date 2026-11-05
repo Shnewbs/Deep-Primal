@@ -238,6 +238,7 @@ public final class HorizonRenderer {
     updateView(mc.player.getX(), mc.player.getZ());
     int cx = Math.floorDiv(mc.player.getBlockX(), FarTerrain.TILE_BLOCKS),
         cz = Math.floorDiv(mc.player.getBlockZ(), FarTerrain.TILE_BLOCKS);
+    int effectiveRenderDistance = mc.options.getEffectiveRenderDistance();
     if (cx != centerX || cz != centerZ || range != farDistance() || ticks % 20 == 0) {
       centerX = cx;
       centerZ = cz;
@@ -246,7 +247,8 @@ public final class HorizonRenderer {
       var next = new ArrayList<Long>();
       for (int x = cx - radius; x <= cx + radius; x++)
         for (int z = cz - radius; z <= cz + radius; z++)
-          if (FarTerrain.inRange(x, z, mc.player.getX(), mc.player.getZ(), range))
+          if (FarTerrain.inRange(x, z, mc.player.getX(), mc.player.getZ(), range)
+              && !FarTerrain.inRange(x, z, mc.player.getX(), mc.player.getZ(), effectiveRenderDistance))
             next.add(FarTerrain.key(x, z));
       double px = mc.player.getX() / 512, pz = mc.player.getZ() / 512;
       next.sort(
@@ -347,6 +349,7 @@ public final class HorizonRenderer {
   @SubscribeEvent
   public void extract(ExtractLevelRenderStateEvent event) {
     if (!active()) return;
+    var mc = Minecraft.getInstance();
     if (upload != null && meshFuture == null && completedMesh == null && !backgroundPaused()) {
       if (worker == null)
         worker =
@@ -412,11 +415,13 @@ public final class HorizonRenderer {
       transitionBuilds++;
     }
     int vertical = ClientPerformanceConfig.VERTICAL_RENDER_DISTANCE.get();
+    int effectiveRenderDistance = mc.options.getEffectiveRenderDistance();
     var visible = visibleWork;
     visible.clear();
     visibleFine = visibleMedium = visibleCoarse = 0;
     for (TerrainGpuMesh tile : cache.values()) {
-      if (!FarTerrain.inRange(tile.x, tile.z, camera.x, camera.z, farDistance())) continue;
+      if (!FarTerrain.inRange(tile.x, tile.z, camera.x, camera.z, farDistance())
+          || FarTerrain.inRange(tile.x, tile.z, camera.x, camera.z, effectiveRenderDistance)) continue;
       if (vertical != 0
           && (tile.minY > camera.y + vertical * 16 || tile.maxY < camera.y - vertical * 16))
         continue;

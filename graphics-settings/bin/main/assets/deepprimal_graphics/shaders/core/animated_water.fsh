@@ -37,7 +37,10 @@ vec4 spatialSample(int direction, vec2 local, vec2 dx, vec2 dy) {
     uvec2 phase = uvec2(uint(c.y) * world.x - uint(c.x) * world.y,
                        uint(c.x) * world.x + uint(c.y) * world.y) & uvec2(67108863u);
     vec2 flow = vec2(c) / 33554432.0, p = local - vec2(0.5);
-    vec2 uv = vec2(0.5) + 0.5 * vec2(flow.y*p.x-flow.x*p.y, flow.x*p.x+flow.y*p.y) + vec2(phase)/67108864.0;
+    // Flow UVs are oriented downstream; this shared phase moves the texture with them.
+    float downstream = TextureMat[3][2];
+    vec2 uv = vec2(0.5) + 0.5 * vec2(flow.y*p.x-flow.x*p.y, flow.x*p.x+flow.y*p.y)
+        + vec2(phase)/67108864.0 - vec2(0.0, downstream);
     vec2 ux = 0.5 * vec2(flow.y*dx.x-flow.x*dx.y, flow.x*dx.x+flow.y*dx.y);
     vec2 uy = 0.5 * vec2(flow.y*dy.x-flow.x*dy.y, flow.x*dy.x+flow.y*dy.y);
     return textureGrad(Sampler0, flowBounds.xy + fract(uv) * flowBounds.zw, ux * flowBounds.zw, uy * flowBounds.zw);
