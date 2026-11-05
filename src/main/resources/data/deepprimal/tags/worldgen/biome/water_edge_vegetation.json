@@ -5,6 +5,9 @@
     "minecraft:mangrove_swamp",
     "minecraft:river",
     "minecraft:frozen_river",
+    "minecraft:beach",
+    "minecraft:snowy_beach",
+    "minecraft:stony_shore",
     "minecraft:jungle",
     "minecraft:sparse_jungle"
   ]

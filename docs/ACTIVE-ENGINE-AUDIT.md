@@ -1,5 +1,13 @@
 # Active Deep Primal engine audit
 
+## 2026-11-05 coastal vegetation coverage
+
+The built-in `deepprimal:water_edge_vegetation` biome tag now includes beaches,
+snowy beaches and stony shores in addition to rivers, swamps and jungle edges.
+This extends the existing integrated shoreline ground-cover rule; it does not
+replace water or add underwater/floating plants. The tag remains additive for
+datapacks.
+
 ## 2026-11-04 downstream flow advection
 
 The animated water shader now slowly advects flowing-water texture coordinates
