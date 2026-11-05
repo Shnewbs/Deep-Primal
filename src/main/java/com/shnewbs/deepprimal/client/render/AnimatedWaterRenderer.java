@@ -1114,7 +1114,8 @@ public final class AnimatedWaterRenderer {
       Page p = visible.get(i);
       p.offset.set((float) (p.x - camera.x), (float) (p.y - camera.y), (float) (p.z - camera.z));
       float elapsed = Math.min(65536, clock - p.uploaded);
-      p.texture.m00(elapsed).m23((clock & 65535) - elapsed);
+      p.texture.m00(elapsed).m23((clock & 65535) - elapsed)
+          .m32(WaterFlowField.downstreamPhase(clock));
       if (p.transform == null)
         p.transform = new DynamicUniforms.Transform(viewMatrix, white, p.offset, p.texture);
       transforms[i] = p.transform;

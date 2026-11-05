@@ -1,5 +1,15 @@
 # Active Deep Primal engine audit
 
+## 2026-11-04 downstream flow advection
+
+The animated water shader now slowly advects flowing-water texture coordinates
+along the direction-oriented flow axis. Its phase is derived from the existing
+paused-aware renderer clock and completes eight whole-cell cycles per 16-bit
+clock period, so clock wrap does not introduce a visual phase jump. Still-water
+sampling, geometry, quantities, and the renderer payload are unchanged. Core
+checks pass; full in-game stream/flicker acceptance remains open, so this is not
+a claim that the reported flicker is resolved.
+
 ## 2026-11-04 integrated water-body depth and shoreline ecotones staged
 
 New `engine_standard` and `engine_deep` worlds now select material revision 6

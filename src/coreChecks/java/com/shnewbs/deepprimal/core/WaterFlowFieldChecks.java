@@ -11,6 +11,16 @@ final class WaterFlowFieldChecks {
     return new WaterPatchMesher.Snapshot(u,new byte[u.length],new int[u.length],new int[256],f);
   }
   static void run() {
+    for (long time = 0; time < 65536; time++) {
+      float phase = WaterFlowField.downstreamPhase(time);
+      need(phase >= 0 && phase < 1, "downstream phase outside one atlas tile");
+      need(phase == WaterFlowField.downstreamPhase(time + 8192),
+          "downstream phase changed at its tile-period wrap");
+    }
+    need(WaterFlowField.downstreamPhase(8191) < 1
+        && WaterFlowField.downstreamPhase(8192) == 0
+        && WaterFlowField.downstreamPhase(65535) == WaterFlowField.downstreamPhase(65535 + 65536L),
+        "downstream phase is discontinuous at the renderer clock wrap");
     int codec=0;
     for(int a=0;a<17;a++)for(int b=0;b<17;b++)for(int c=0;c<17;c++)for(int d=0;d<17;d++) {
       int word=a|(b<<5)|(c<<10)|(d<<15);

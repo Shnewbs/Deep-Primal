@@ -2,6 +2,11 @@ package com.shnewbs.deepprimal.core;
 
 /** Canonical visual direction at one global water corner. Never changes quantity. */
 public final class WaterFlowField {
+  /** One downstream texture tile every 8192 ms; repeats exactly at the packet clock wrap. */
+  public static float downstreamPhase(long clockMillis) {
+    return (clockMillis & 8191L) / 8192.0f;
+  }
+
   public static int direction(WaterPatchMesher.Snapshot s, int x, int y, int z) {
     if (s == null) return -1;
     double vx = 0, vz = 0; boolean wet = false;
