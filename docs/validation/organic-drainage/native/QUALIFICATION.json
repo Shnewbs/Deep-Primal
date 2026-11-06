@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "tested_commit": "cd5bcdd1ccf3bfdf93b8b9129b6d967544cf896d",
+  "qualification_run": 42268907288,
+  "release_tag": "organic-42268907288",
+  "native_channel_revision": 10,
+  "owned_biomes": 40,
+  "native_review": "pending",
+  "package": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.128-organic-drainage.1-vulkan-windows.jar",
+  "package_sha256": "b5555b3bdcdaba85e6a9ab23d469833f37f124a2ac48e2010097d7ac758ab229",
+  "images": {
+    "scene-coast.png": "0f51a793a0dce02ae90b8f145a3476d17e15bfa04d3f0bf0046f3e169195fdb6",
+    "scene-headwater.png": "d536425bead29f8c544adbbe9524f7cda4a0bbfb87b2c2f205703328fb408800",
+    "scene-river.png": "fe6118447d13f99c24572d09e94076e120081e473bc385f7ab7507fa6316564f",
+    "scene-lake.png": "a4ad0e3c3f9ee595ca5c56f54a1ad80f40517808c534ee41ca08240c38a20244",
+    "scene-outlet.png": "dc5e659dca0e814e70c14f4ed541f447ad875d8eb8f039b2d67fa14af72a9293",
+    "scene-ridge.png": "3655724e66819445845a832e1c573db7e815fb8d2a40cbb60fc5e12cfc8a3ec6"
+  },
+  "run_url": "https://github.com/Shnewbs/Deep-Primal/actions/runs/42268907288",
+  "full_check_receipt": {
+    "reused": true,
+    "full_check_commit": "5b528ff5e707e5f56cdab4e58e7dd12740f66f09",
+    "full_check_run": 42265994875
+  }
+}
