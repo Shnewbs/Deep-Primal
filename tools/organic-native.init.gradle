@@ -2,8 +2,10 @@
 allprojects {
     plugins.withId('net.neoforged.moddev') {
         if (project == rootProject) {
-            neoForge.runs.client {
-                systemProperty 'deepprimal.validationOrganicTerrain', 'true'
+            neoForge.runs.configureEach { run ->
+                if (run.name == 'client') {
+                    run.systemProperty 'deepprimal.validationOrganicTerrain', 'true'
+                }
             }
         }
     }

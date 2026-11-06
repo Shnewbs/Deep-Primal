@@ -48,12 +48,19 @@ jobs:
             -I tools/organic-native.init.gradle -PvulkanPlatform=linux \
             -PvisualValidation -PworldCreationValidation \
             -PcreationName=Organic-Native -PclientRunDir=run-organic \
-            -PcaptureDir=build/organic-native -PgraphicsBackend=OpenGL runClient | tee build/organic-native-client.log
+            -PcaptureDir=build/organic-native -PgraphicsBackend=OpenGL :runClient | tee build/organic-native-client.log
           python - <<'PY'
           from pathlib import Path
           log=Path('build/organic-native-client.log').read_text()
           assert 'ORGANIC_NATIVE_WORLD_PASS channelRevision=10 ownedBiomes=40' in log
           assert 'INTEGRATED_CLIENT_PASS scenes=coast,headwater,river,lake,outlet,ridge' in log
+          for failure in ['Encountered an unexpected exception', 'This crash report has been saved',
+                          'Preparing crash report', 'Error executing task on Client',
+                          'Error stopping the server', 'Failed to save', 'Exception in thread']:
+              assert failure not in log, failure
+          capture=log.index('INTEGRATED_CLIENT_PASS scenes=')
+          saved=log.index('ThreadedAnvilChunkStorage: All dimensions are saved',capture)
+          assert log.index('Closing FML Loader',saved)>saved
           for name in ['coast','headwater','river','lake','outlet','ridge']:
               assert (Path('build/organic-native')/f'scene-{name}.png').is_file(), name
           PY
@@ -71,7 +78,9 @@ jobs:
               renderer=[p for p in jars if 'Vulkan' in p]
               assert len(renderer)==1, renderer
               with zipfile.ZipFile(io.BytesIO(root.read(renderer[0]))) as vulkan:
-                  assert any(n.endswith('.dll') for n in vulkan.namelist()), 'Missing Windows natives'
+                  dlls=[n.lower() for n in vulkan.namelist() if n.lower().endswith('.dll')]
+                  assert any('shaderc' in n for n in dlls), 'Missing Windows shaderc native'
+                  assert any('vma' in n for n in dlls), 'Missing Windows VMA native'
           print('WINDOWS_VULKAN_PACKAGE_PASS',package)
           PY
       - uses: actions/upload-artifact@v7.0.2
