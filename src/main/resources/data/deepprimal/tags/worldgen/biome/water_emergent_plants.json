@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "minecraft:river",
-    "minecraft:swamp",
-    "minecraft:mangrove_swamp",
-    "minecraft:beach"
+    "deepprimal:forested_swamp",
+    "deepprimal:sandy_shore",
+    "deepprimal:mangrove_forest",
+    "deepprimal:lowland_river"
   ]
 }

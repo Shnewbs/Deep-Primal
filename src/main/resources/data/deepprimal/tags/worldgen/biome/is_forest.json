@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "deepprimal:temperate_deciduous_forest",
+    "deepprimal:closed_boreal_forest",
+    "deepprimal:tropical_rainforest",
+    "deepprimal:tropical_rainforest/bamboo",
+    "deepprimal:seasonal_tropical_forest",
+    "deepprimal:temperate_rainforest",
+    "deepprimal:cool_mixed_forest",
+    "deepprimal:dry_boreal_woodland",
+    "deepprimal:open_boreal_woodland",
+    "deepprimal:subalpine_woodland",
+    "deepprimal:montane_forest",
+    "deepprimal:temperate_conifer_forest",
+    "deepprimal:mangrove_forest"
+  ]
+}

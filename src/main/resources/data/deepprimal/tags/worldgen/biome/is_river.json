@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "deepprimal:lowland_river",
+    "deepprimal:mountain_river/cold"
+  ]
+}

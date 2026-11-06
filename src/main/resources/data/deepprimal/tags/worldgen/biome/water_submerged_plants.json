@@ -1,12 +1,17 @@
 {
   "replace": false,
   "values": [
-    "minecraft:river",
-    "minecraft:frozen_river",
-    "minecraft:swamp",
-    "minecraft:mangrove_swamp",
-    "minecraft:lukewarm_ocean",
-    "minecraft:warm_ocean",
-    "minecraft:deep_lukewarm_ocean"
+    "deepprimal:open_ocean",
+    "deepprimal:forested_swamp",
+    "deepprimal:mangrove_forest",
+    "deepprimal:warm_ocean",
+    "deepprimal:marine_shelf",
+    "deepprimal:cold_ocean",
+    "deepprimal:cold_ocean/polar",
+    "deepprimal:deep_ocean_floor",
+    "deepprimal:deep_ocean_floor/cold",
+    "deepprimal:deep_ocean_floor/polar",
+    "deepprimal:lowland_river",
+    "deepprimal:mountain_river/cold"
   ]
 }

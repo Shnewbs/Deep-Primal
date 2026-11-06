@@ -1,14 +1,16 @@
 {
   "replace": false,
   "values": [
-    "minecraft:swamp",
-    "minecraft:mangrove_swamp",
-    "minecraft:river",
-    "minecraft:frozen_river",
-    "minecraft:beach",
-    "minecraft:snowy_beach",
-    "minecraft:stony_shore",
-    "minecraft:jungle",
-    "minecraft:sparse_jungle"
+    "deepprimal:temperate_deciduous_forest",
+    "deepprimal:forested_swamp",
+    "deepprimal:tropical_rainforest",
+    "deepprimal:tropical_rainforest/bamboo",
+    "deepprimal:seasonal_tropical_forest",
+    "deepprimal:sandy_shore",
+    "deepprimal:sandy_shore/polar",
+    "deepprimal:rocky_shore",
+    "deepprimal:mangrove_forest",
+    "deepprimal:lowland_river",
+    "deepprimal:mountain_river/cold"
   ]
 }

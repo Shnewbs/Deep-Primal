@@ -1,0 +1,887 @@
+{
+  "schema": 1,
+  "palette_revision": 1,
+  "description": "Initial owned biome integration for the existing 40 climate/geography slots; profiles and climate variants remain extensible independently of Minecraft biomes.",
+  "entries": [
+    {
+      "slot": 0,
+      "id": "deepprimal:mixed_grass_prairie",
+      "profile": "deepprimal:mixed_grass_prairie",
+      "legacy_id": "minecraft:plains",
+      "display_name": "Mixed Grass Prairie",
+      "temperature": 0.75,
+      "downfall": 0.55,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#879c51",
+      "foliage_color": "#879c51",
+      "water_palette": {
+        "color": 4816520,
+        "fog_color": 2640464,
+        "clarity": 1
+      },
+      "tags": []
+    },
+    {
+      "slot": 1,
+      "id": "deepprimal:temperate_deciduous_forest",
+      "profile": "deepprimal:temperate_deciduous_forest",
+      "legacy_id": "minecraft:forest",
+      "display_name": "Temperate Deciduous Forest",
+      "temperature": 0.65,
+      "downfall": 0.8,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#63914c",
+      "foliage_color": "#63914c",
+      "water_palette": {
+        "color": 4356988,
+        "fog_color": 2377545,
+        "clarity": 0.95
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:water_edge_vegetation"
+      ]
+    },
+    {
+      "slot": 2,
+      "id": "deepprimal:hot_desert",
+      "profile": "deepprimal:hot_desert",
+      "legacy_id": "minecraft:desert",
+      "display_name": "Hot Desert",
+      "temperature": 1.7,
+      "downfall": 0.05,
+      "has_precipitation": false,
+      "sky_color": "#84b9cf",
+      "grass_color": "#b5a568",
+      "foliage_color": "#b5a568",
+      "water_palette": {
+        "color": 5085590,
+        "fog_color": 2841175,
+        "clarity": 1.15
+      },
+      "tags": []
+    },
+    {
+      "slot": 3,
+      "id": "deepprimal:open_ocean",
+      "profile": "deepprimal:open_ocean",
+      "legacy_id": "minecraft:ocean",
+      "display_name": "Open Ocean",
+      "temperature": 0.5,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#6c9461",
+      "foliage_color": "#6c9461",
+      "water_palette": {
+        "color": 3304840,
+        "fog_color": 1588305,
+        "clarity": 1
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 4,
+      "id": "deepprimal:closed_boreal_forest",
+      "profile": "deepprimal:closed_boreal_forest",
+      "legacy_id": "minecraft:taiga",
+      "display_name": "Closed Boreal Forest",
+      "temperature": 0.15,
+      "downfall": 0.7,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#67805a",
+      "foliage_color": "#67805a",
+      "water_palette": {
+        "color": 4947592,
+        "fog_color": 2706003,
+        "clarity": 1.05
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 5,
+      "id": "deepprimal:dry_tundra",
+      "profile": "deepprimal:dry_tundra",
+      "legacy_id": "minecraft:snowy_plains",
+      "display_name": "Dry Tundra",
+      "temperature": -0.35,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#879282",
+      "foliage_color": "#879282",
+      "water_palette": {
+        "color": 6723230,
+        "fog_color": 3496290,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 6,
+      "id": "deepprimal:forested_swamp",
+      "profile": "deepprimal:forested_swamp",
+      "legacy_id": "minecraft:swamp",
+      "display_name": "Forested Swamp",
+      "temperature": 0.8,
+      "downfall": 0.95,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#6a8151",
+      "foliage_color": "#6a8151",
+      "water_palette": {
+        "color": 7501389,
+        "fog_color": 3882536,
+        "clarity": 0.55
+      },
+      "tags": [
+        "deepprimal:is_wetland",
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:water_emergent_plants",
+        "deepprimal:water_submerged_plants",
+        "deepprimal:water_floating_plants",
+        "deepprimal:water_rooted_trees"
+      ]
+    },
+    {
+      "slot": 7,
+      "id": "deepprimal:alpine_barrens",
+      "profile": "deepprimal:alpine_barrens",
+      "legacy_id": "minecraft:stony_peaks",
+      "display_name": "Alpine Barrens",
+      "temperature": 0.1,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#8a9378",
+      "foliage_color": "#8a9378",
+      "water_palette": {
+        "color": 6529189,
+        "fog_color": 3431524,
+        "clarity": 1.2
+      },
+      "tags": [
+        "deepprimal:is_mountain",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 8,
+      "id": "deepprimal:open_savanna",
+      "profile": "deepprimal:open_savanna",
+      "legacy_id": "minecraft:savanna",
+      "display_name": "Open Savanna",
+      "temperature": 1.3,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#84b9cf",
+      "grass_color": "#b3a45e",
+      "foliage_color": "#b3a45e",
+      "water_palette": {
+        "color": 7900009,
+        "fog_color": 4344887,
+        "clarity": 0.8
+      },
+      "tags": []
+    },
+    {
+      "slot": 9,
+      "id": "deepprimal:semidesert",
+      "profile": "deepprimal:semidesert",
+      "legacy_id": "minecraft:badlands",
+      "display_name": "Semidesert",
+      "temperature": 1.4,
+      "downfall": 0.15,
+      "has_precipitation": false,
+      "sky_color": "#84b9cf",
+      "grass_color": "#ad9458",
+      "foliage_color": "#ad9458",
+      "water_palette": {
+        "color": 9079142,
+        "fog_color": 4933938,
+        "clarity": 0.75
+      },
+      "tags": []
+    },
+    {
+      "slot": 10,
+      "id": "deepprimal:tropical_rainforest",
+      "profile": "deepprimal:tropical_rainforest",
+      "legacy_id": "minecraft:jungle",
+      "display_name": "Tropical Rainforest",
+      "temperature": 0.95,
+      "downfall": 0.95,
+      "has_precipitation": true,
+      "sky_color": "#84b9cf",
+      "grass_color": "#4e8f43",
+      "foliage_color": "#4e8f43",
+      "water_palette": {
+        "color": 4750952,
+        "fog_color": 2442806,
+        "clarity": 0.85
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:water_edge_vegetation"
+      ]
+    },
+    {
+      "slot": 11,
+      "id": "deepprimal:tropical_rainforest/bamboo",
+      "profile": "deepprimal:tropical_rainforest",
+      "legacy_id": "minecraft:bamboo_jungle",
+      "display_name": "Tropical Rainforest — Bamboo",
+      "temperature": 0.95,
+      "downfall": 0.95,
+      "has_precipitation": true,
+      "sky_color": "#84b9cf",
+      "grass_color": "#518d40",
+      "foliage_color": "#518d40",
+      "water_palette": {
+        "color": 4750952,
+        "fog_color": 2442806,
+        "clarity": 0.85
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:water_edge_vegetation"
+      ]
+    },
+    {
+      "slot": 12,
+      "id": "deepprimal:seasonal_tropical_forest",
+      "profile": "deepprimal:seasonal_tropical_forest",
+      "legacy_id": "minecraft:sparse_jungle",
+      "display_name": "Seasonal Tropical Forest",
+      "temperature": 0.95,
+      "downfall": 0.7,
+      "has_precipitation": true,
+      "sky_color": "#84b9cf",
+      "grass_color": "#749849",
+      "foliage_color": "#749849",
+      "water_palette": {
+        "color": 4750952,
+        "fog_color": 2442806,
+        "clarity": 0.85
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:water_edge_vegetation"
+      ]
+    },
+    {
+      "slot": 13,
+      "id": "deepprimal:temperate_rainforest",
+      "profile": "deepprimal:temperate_rainforest",
+      "legacy_id": "minecraft:dark_forest",
+      "display_name": "Temperate Rainforest",
+      "temperature": 0.65,
+      "downfall": 0.95,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#4f8051",
+      "foliage_color": "#4f8051",
+      "water_palette": {
+        "color": 4944231,
+        "fog_color": 2702645,
+        "clarity": 0.85
+      },
+      "tags": [
+        "deepprimal:is_forest"
+      ]
+    },
+    {
+      "slot": 14,
+      "id": "deepprimal:cool_mixed_forest",
+      "profile": "deepprimal:cool_mixed_forest",
+      "legacy_id": "minecraft:birch_forest",
+      "display_name": "Cool Mixed Forest",
+      "temperature": 0.5,
+      "downfall": 0.75,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#6c9356",
+      "foliage_color": "#6c9356",
+      "water_palette": {
+        "color": 4356988,
+        "fog_color": 2377545,
+        "clarity": 0.95
+      },
+      "tags": [
+        "deepprimal:is_forest"
+      ]
+    },
+    {
+      "slot": 15,
+      "id": "deepprimal:dry_boreal_woodland",
+      "profile": "deepprimal:dry_boreal_woodland",
+      "legacy_id": "minecraft:old_growth_pine_taiga",
+      "display_name": "Dry Boreal Woodland",
+      "temperature": 0.2,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#7e8c5b",
+      "foliage_color": "#7e8c5b",
+      "water_palette": {
+        "color": 4947592,
+        "fog_color": 2706003,
+        "clarity": 1.05
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 16,
+      "id": "deepprimal:open_boreal_woodland",
+      "profile": "deepprimal:open_boreal_woodland",
+      "legacy_id": "minecraft:snowy_taiga",
+      "display_name": "Open Boreal Woodland",
+      "temperature": -0.1,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#83917a",
+      "foliage_color": "#83917a",
+      "water_palette": {
+        "color": 6723230,
+        "fog_color": 3496290,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 17,
+      "id": "deepprimal:subalpine_woodland",
+      "profile": "deepprimal:subalpine_woodland",
+      "legacy_id": "minecraft:grove",
+      "display_name": "Subalpine Woodland",
+      "temperature": -0.1,
+      "downfall": 0.65,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#7d9676",
+      "foliage_color": "#7d9676",
+      "water_palette": {
+        "color": 6723230,
+        "fog_color": 3496290,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_mountain",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 18,
+      "id": "deepprimal:alpine_heath",
+      "profile": "deepprimal:alpine_heath",
+      "legacy_id": "minecraft:snowy_slopes",
+      "display_name": "Alpine Heath",
+      "temperature": -0.35,
+      "downfall": 0.45,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#929780",
+      "foliage_color": "#929780",
+      "water_palette": {
+        "color": 6723230,
+        "fog_color": 3496290,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_mountain",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 19,
+      "id": "deepprimal:icefield",
+      "profile": "deepprimal:icefield",
+      "legacy_id": "minecraft:frozen_peaks",
+      "display_name": "Icefield",
+      "temperature": -0.7,
+      "downfall": 0.2,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#a4b3a1",
+      "foliage_color": "#a4b3a1",
+      "water_palette": {
+        "color": 6529189,
+        "fog_color": 3431524,
+        "clarity": 1.2
+      },
+      "tags": [
+        "deepprimal:is_mountain",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 20,
+      "id": "deepprimal:alpine_barrens/rocky_peaks",
+      "profile": "deepprimal:alpine_barrens",
+      "legacy_id": "minecraft:jagged_peaks",
+      "display_name": "Alpine Barrens — Rocky Peaks",
+      "temperature": -0.45,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#929a87",
+      "foliage_color": "#929a87",
+      "water_palette": {
+        "color": 6529189,
+        "fog_color": 3431524,
+        "clarity": 1.2
+      },
+      "tags": [
+        "deepprimal:is_mountain",
+        "deepprimal:is_cold"
+      ]
+    },
+    {
+      "slot": 21,
+      "id": "deepprimal:montane_meadow",
+      "profile": "deepprimal:montane_meadow",
+      "legacy_id": "minecraft:meadow",
+      "display_name": "Montane Meadow",
+      "temperature": 0.45,
+      "downfall": 0.65,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#8baf65",
+      "foliage_color": "#8baf65",
+      "water_palette": {
+        "color": 4816520,
+        "fog_color": 2640464,
+        "clarity": 1
+      },
+      "tags": [
+        "deepprimal:is_mountain"
+      ]
+    },
+    {
+      "slot": 22,
+      "id": "deepprimal:montane_forest",
+      "profile": "deepprimal:montane_forest",
+      "legacy_id": "minecraft:cherry_grove",
+      "display_name": "Montane Forest",
+      "temperature": 0.5,
+      "downfall": 0.8,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#709456",
+      "foliage_color": "#709456",
+      "water_palette": {
+        "color": 4816520,
+        "fog_color": 2640464,
+        "clarity": 1
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_mountain"
+      ]
+    },
+    {
+      "slot": 23,
+      "id": "deepprimal:cold_steppe",
+      "profile": "deepprimal:cold_steppe",
+      "legacy_id": "minecraft:windswept_hills",
+      "display_name": "Cold Steppe",
+      "temperature": 0.3,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#9b9d69",
+      "foliage_color": "#9b9d69",
+      "water_palette": {
+        "color": 6529189,
+        "fog_color": 3431524,
+        "clarity": 1.2
+      },
+      "tags": [
+        "deepprimal:is_mountain"
+      ]
+    },
+    {
+      "slot": 24,
+      "id": "deepprimal:temperate_conifer_forest",
+      "profile": "deepprimal:temperate_conifer_forest",
+      "legacy_id": "minecraft:windswept_forest",
+      "display_name": "Temperate Conifer Forest",
+      "temperature": 0.45,
+      "downfall": 0.75,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#6a8a5b",
+      "foliage_color": "#6a8a5b",
+      "water_palette": {
+        "color": 4356988,
+        "fog_color": 2377545,
+        "clarity": 0.95
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_mountain"
+      ]
+    },
+    {
+      "slot": 25,
+      "id": "deepprimal:sandy_shore",
+      "profile": "deepprimal:sandy_shore",
+      "legacy_id": "minecraft:beach",
+      "display_name": "Sandy Shore",
+      "temperature": 0.8,
+      "downfall": 0.45,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#a7a16f",
+      "foliage_color": "#a7a16f",
+      "water_palette": {
+        "color": 4624027,
+        "fog_color": 2642268,
+        "clarity": 1.05
+      },
+      "tags": [
+        "deepprimal:is_shore",
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:water_emergent_plants"
+      ]
+    },
+    {
+      "slot": 26,
+      "id": "deepprimal:sandy_shore/polar",
+      "profile": "deepprimal:sandy_shore",
+      "legacy_id": "minecraft:snowy_beach",
+      "display_name": "Sandy Shore — Polar",
+      "temperature": -0.35,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#a0aaa0",
+      "foliage_color": "#a0aaa0",
+      "water_palette": {
+        "color": 6723230,
+        "fog_color": 3496290,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_shore",
+        "deepprimal:is_cold",
+        "deepprimal:water_edge_vegetation"
+      ]
+    },
+    {
+      "slot": 27,
+      "id": "deepprimal:rocky_shore",
+      "profile": "deepprimal:rocky_shore",
+      "legacy_id": "minecraft:stony_shore",
+      "display_name": "Rocky Shore",
+      "temperature": 0.45,
+      "downfall": 0.4,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#939e82",
+      "foliage_color": "#939e82",
+      "water_palette": {
+        "color": 4749963,
+        "fog_color": 2639442,
+        "clarity": 1.05
+      },
+      "tags": [
+        "deepprimal:is_shore",
+        "deepprimal:water_edge_vegetation"
+      ]
+    },
+    {
+      "slot": 28,
+      "id": "deepprimal:mangrove_forest",
+      "profile": "deepprimal:mangrove_forest",
+      "legacy_id": "minecraft:mangrove_swamp",
+      "display_name": "Mangrove Forest",
+      "temperature": 0.95,
+      "downfall": 0.95,
+      "has_precipitation": true,
+      "sky_color": "#84b9cf",
+      "grass_color": "#5d8150",
+      "foliage_color": "#5d8150",
+      "water_palette": {
+        "color": 6847312,
+        "fog_color": 3490602,
+        "clarity": 0.6
+      },
+      "tags": [
+        "deepprimal:is_forest",
+        "deepprimal:is_wetland",
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:water_emergent_plants",
+        "deepprimal:water_submerged_plants",
+        "deepprimal:water_rooted_trees"
+      ]
+    },
+    {
+      "slot": 29,
+      "id": "deepprimal:warm_ocean",
+      "profile": "deepprimal:warm_ocean",
+      "legacy_id": "minecraft:warm_ocean",
+      "display_name": "Warm Ocean",
+      "temperature": 0.8,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#74a979",
+      "foliage_color": "#74a979",
+      "water_palette": {
+        "color": 3710874,
+        "fog_color": 1923672,
+        "clarity": 1.25
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 30,
+      "id": "deepprimal:marine_shelf",
+      "profile": "deepprimal:marine_shelf",
+      "legacy_id": "minecraft:lukewarm_ocean",
+      "display_name": "Marine Shelf",
+      "temperature": 0.65,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#76a282",
+      "foliage_color": "#76a282",
+      "water_palette": {
+        "color": 3901849,
+        "fog_color": 2116697,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 31,
+      "id": "deepprimal:cold_ocean",
+      "profile": "deepprimal:cold_ocean",
+      "legacy_id": "minecraft:cold_ocean",
+      "display_name": "Cold Ocean",
+      "temperature": 0.25,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#779a85",
+      "foliage_color": "#779a85",
+      "water_palette": {
+        "color": 4879756,
+        "fog_color": 2702930,
+        "clarity": 1
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:is_cold",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 32,
+      "id": "deepprimal:cold_ocean/polar",
+      "profile": "deepprimal:cold_ocean",
+      "legacy_id": "minecraft:frozen_ocean",
+      "display_name": "Cold Ocean — Polar",
+      "temperature": -0.4,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#91aaa0",
+      "foliage_color": "#91aaa0",
+      "water_palette": {
+        "color": 6786462,
+        "fog_color": 3493728,
+        "clarity": 1.1
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:is_cold",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 33,
+      "id": "deepprimal:deep_ocean_floor",
+      "profile": "deepprimal:deep_ocean_floor",
+      "legacy_id": "minecraft:deep_ocean",
+      "display_name": "Deep Ocean Floor",
+      "temperature": 0.5,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#7c9b86",
+      "foliage_color": "#7c9b86",
+      "water_palette": {
+        "color": 3498622,
+        "fog_color": 1651528,
+        "clarity": 0.9
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 34,
+      "id": "deepprimal:deep_ocean_floor/cold",
+      "profile": "deepprimal:deep_ocean_floor",
+      "legacy_id": "minecraft:deep_cold_ocean",
+      "display_name": "Deep Ocean Floor — Cold",
+      "temperature": 0.2,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#7b958b",
+      "foliage_color": "#7b958b",
+      "water_palette": {
+        "color": 4548479,
+        "fog_color": 2307915,
+        "clarity": 0.9
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:is_cold",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 35,
+      "id": "deepprimal:deep_ocean_floor/polar",
+      "profile": "deepprimal:deep_ocean_floor",
+      "legacy_id": "minecraft:deep_frozen_ocean",
+      "display_name": "Deep Ocean Floor — Polar",
+      "temperature": -0.4,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#93aaa4",
+      "foliage_color": "#93aaa4",
+      "water_palette": {
+        "color": 5798285,
+        "fog_color": 2900308,
+        "clarity": 1
+      },
+      "tags": [
+        "deepprimal:is_ocean",
+        "deepprimal:is_cold",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 36,
+      "id": "deepprimal:lowland_river",
+      "profile": "deepprimal:lowland_river",
+      "legacy_id": "minecraft:river",
+      "display_name": "Lowland River",
+      "temperature": 0.55,
+      "downfall": 0.6,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#78a477",
+      "foliage_color": "#78a477",
+      "water_palette": {
+        "color": 5145989,
+        "fog_color": 2837579,
+        "clarity": 1
+      },
+      "tags": [
+        "deepprimal:is_river",
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:water_emergent_plants",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 37,
+      "id": "deepprimal:mountain_river/cold",
+      "profile": "deepprimal:mountain_river",
+      "legacy_id": "minecraft:frozen_river",
+      "display_name": "Mountain River — Cold",
+      "temperature": -0.25,
+      "downfall": 0.5,
+      "has_precipitation": true,
+      "sky_color": "#a4b9d1",
+      "grass_color": "#91aaa0",
+      "foliage_color": "#91aaa0",
+      "water_palette": {
+        "color": 6723230,
+        "fog_color": 3496290,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_river",
+        "deepprimal:is_cold",
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:water_submerged_plants"
+      ]
+    },
+    {
+      "slot": 38,
+      "id": "deepprimal:wet_cave",
+      "profile": "deepprimal:wet_cave",
+      "legacy_id": "minecraft:lush_caves",
+      "display_name": "Wet Cave",
+      "temperature": 0.5,
+      "downfall": 0.8,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#658b54",
+      "foliage_color": "#658b54",
+      "water_palette": {
+        "color": 4754297,
+        "fog_color": 2444865,
+        "clarity": 1.1
+      },
+      "tags": [
+        "deepprimal:is_cave"
+      ]
+    },
+    {
+      "slot": 39,
+      "id": "deepprimal:dry_cave",
+      "profile": "deepprimal:dry_cave",
+      "legacy_id": "minecraft:dripstone_caves",
+      "display_name": "Dry Cave",
+      "temperature": 0.5,
+      "downfall": 0.3,
+      "has_precipitation": true,
+      "sky_color": "#91b9db",
+      "grass_color": "#8a9378",
+      "foliage_color": "#8a9378",
+      "water_palette": {
+        "color": 6461083,
+        "fog_color": 3429981,
+        "clarity": 1.15
+      },
+      "tags": [
+        "deepprimal:is_cave"
+      ]
+    }
+  ]
+}

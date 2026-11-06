@@ -1,6 +1,6 @@
 # Deep Primal — named biome planning catalog
 
-Planning draft: 2026-10-21. **118 proposed biome profiles in 19 families.** These are qualitative design candidates; no registry entries, worldgen code or assets are implemented by this document.
+Planning draft: 2026-10-21. **118 proposed biome profiles in 19 families.** This catalog defines the planning roster. The [initial owned-biome integration](BIOME-IMPLEMENTATION.md) now provides 40 runtime entries covering 34 of these broad profiles and their climate/community variants; the remaining roster, species and ecological acceptance are still planned.
 
 [Biome architecture and decisions](BIOME-PLAN.md) · [Community variants and environmental layers](BIOME-VARIANTS-AND-COVERAGE.md) · [Natural material/type catalog](NATURAL-TYPE-CATALOG.md)
 

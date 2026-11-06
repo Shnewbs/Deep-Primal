@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "deepprimal:sandy_shore",
+    "deepprimal:sandy_shore/polar",
+    "deepprimal:rocky_shore"
+  ]
+}

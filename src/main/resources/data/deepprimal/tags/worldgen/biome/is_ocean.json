@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "deepprimal:open_ocean",
+    "deepprimal:warm_ocean",
+    "deepprimal:marine_shelf",
+    "deepprimal:cold_ocean",
+    "deepprimal:cold_ocean/polar",
+    "deepprimal:deep_ocean_floor",
+    "deepprimal:deep_ocean_floor/cold",
+    "deepprimal:deep_ocean_floor/polar"
+  ]
+}

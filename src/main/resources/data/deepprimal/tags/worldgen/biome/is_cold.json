@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "deepprimal:closed_boreal_forest",
+    "deepprimal:dry_tundra",
+    "deepprimal:alpine_barrens",
+    "deepprimal:dry_boreal_woodland",
+    "deepprimal:open_boreal_woodland",
+    "deepprimal:subalpine_woodland",
+    "deepprimal:alpine_heath",
+    "deepprimal:icefield",
+    "deepprimal:alpine_barrens/rocky_peaks",
+    "deepprimal:sandy_shore/polar",
+    "deepprimal:cold_ocean",
+    "deepprimal:cold_ocean/polar",
+    "deepprimal:deep_ocean_floor/cold",
+    "deepprimal:deep_ocean_floor/polar",
+    "deepprimal:mountain_river/cold"
+  ]
+}

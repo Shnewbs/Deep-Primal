@@ -9,8 +9,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.*;
 
 /**
- * Climate/geography selection is ours; existing biome assets are temporary material/content
- * palettes.
+ * Climate/geography selection and current engine biome assets belong to Deep Primal. Explicit
+ * saved palettes remain readable, including the native-biome palettes used by older worlds.
  */
 public final class RegionBiomeSource extends BiomeSource {
   public static final MapCodec<RegionBiomeSource> CODEC =

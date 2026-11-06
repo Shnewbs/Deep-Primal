@@ -5,7 +5,7 @@ import com.shnewbs.deepprimal.core.WaterDynamics;
 import com.shnewbs.deepprimal.engine.EngineFluid;
 import com.shnewbs.deepprimal.water.RiverConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BiomeTags;
+import com.shnewbs.deepprimal.engine.DeepPrimalBiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.AABB;
@@ -36,7 +36,7 @@ abstract class OceanBoatMixin {
     var boat = (AbstractBoat) (Object) this;
     if (!RiverConfig.OCEAN_MOTION.get()
         || !boat.isInWater()
-        || !boat.level().getBiome(boat.blockPosition()).is(BiomeTags.IS_OCEAN)) return;
+        || !DeepPrimalBiomeTags.isOcean(boat.level().getBiome(boat.blockPosition()))) return;
     double time = boat.level().getGameTime(), storm = boat.level().getRainLevel(1);
     double delta = 0;
     for (int corner = 0; corner < 4; corner++) {

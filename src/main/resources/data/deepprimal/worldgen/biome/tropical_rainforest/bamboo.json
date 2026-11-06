@@ -1,0 +1,30 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.95,
+  "downfall": 0.95,
+  "attributes": {
+    "minecraft:visual/sky_color": "#84b9cf",
+    "minecraft:visual/water_fog_color": "#254636"
+  },
+  "effects": {
+    "water_color": "#487e68",
+    "grass_color": "#518d40",
+    "foliage_color": "#518d40"
+  },
+  "carvers": [],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "spawners": {},
+  "spawn_costs": {}
+}

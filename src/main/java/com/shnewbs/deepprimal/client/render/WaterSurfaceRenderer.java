@@ -20,7 +20,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.BiomeTags;
+import com.shnewbs.deepprimal.engine.DeepPrimalBiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -154,7 +154,7 @@ public final class WaterSurfaceRenderer {
         var top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, p);
         var water = top.below();
         if (!level.isEmptyBlock(top)
-            || !level.getBiome(water).is(BiomeTags.IS_OCEAN)
+            || !DeepPrimalBiomeTags.isOcean(level.getBiome(water))
             || !level.getFluidState(water).is(FluidTags.WATER)
             || !level.getFluidState(water.below(2)).is(FluidTags.WATER)) continue;
         boolean shore = false;

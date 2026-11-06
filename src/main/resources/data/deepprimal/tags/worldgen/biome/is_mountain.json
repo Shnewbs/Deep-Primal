@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "deepprimal:alpine_barrens",
+    "deepprimal:subalpine_woodland",
+    "deepprimal:alpine_heath",
+    "deepprimal:icefield",
+    "deepprimal:alpine_barrens/rocky_peaks",
+    "deepprimal:montane_meadow",
+    "deepprimal:montane_forest",
+    "deepprimal:cold_steppe",
+    "deepprimal:temperate_conifer_forest"
+  ]
+}

@@ -4,7 +4,7 @@ import com.shnewbs.deepprimal.worldgen.OceanHeight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BiomeTags;
+import com.shnewbs.deepprimal.engine.DeepPrimalBiomeTags;
 import net.minecraft.tags.FluidTags;
 
 /** Find seeded offshore relief without loading chunks, then check one complete native column. */
@@ -34,7 +34,7 @@ final class OceanServerChecks {
                 QuartPos.fromBlock(96),
                 QuartPos.fromBlock(z),
                 level.getChunkSource().randomState().sampler());
-        if (!biome.is(BiomeTags.IS_OCEAN)
+        if (!DeepPrimalBiomeTags.isOcean(biome)
             || biome.value().coldEnoughToSnow(new BlockPos(x, 96, z), level.getSeaLevel()))
           continue;
         double h =

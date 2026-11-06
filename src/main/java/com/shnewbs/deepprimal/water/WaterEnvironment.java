@@ -2,7 +2,7 @@ package com.shnewbs.deepprimal.water;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.BiomeTags;
+import com.shnewbs.deepprimal.engine.DeepPrimalBiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -20,8 +20,8 @@ public final class WaterEnvironment {
     if (!RiverConfig.FINITE_SOURCES.get() || !event.getFluidState().is(FluidTags.WATER)) return;
     boolean natural =
         event.getState().getBlock() instanceof RiverWaterBlock
-            || event.getLevel().getBiome(event.getPos()).is(BiomeTags.IS_RIVER)
-            || event.getLevel().getBiome(event.getPos()).is(BiomeTags.IS_OCEAN);
+            || DeepPrimalBiomeTags.isRiver(event.getLevel().getBiome(event.getPos()))
+            || DeepPrimalBiomeTags.isOcean(event.getLevel().getBiome(event.getPos()));
     event.setCanConvert(event.getVanillaResult() && RiverConfig.NATURAL_RENEWAL.get() && natural);
   }
 
