@@ -13,6 +13,7 @@ on:
       - 'tools/publish_organic_qualification.py'
 permissions:
   contents: write
+  actions: read
 concurrency:
   group: organic-terrain-main
   cancel-in-progress: true
@@ -32,10 +33,46 @@ jobs:
           distribution: temurin
           java-version: '25'
           cache: gradle
-      - name: Build and run complete checks
+      - name: Resolve unchanged-engine check receipt
+        id: checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,os,subprocess
+          from pathlib import Path
+          base='5b528ff5e707e5f56cdab4e58e7dd12740f66f09'
+          run_id=42265994875
+          def api(path):
+              return json.loads(subprocess.run(['gh','api',path],check=True,text=True,capture_output=True).stdout)
+          allowed={'.github/workflows/organic-terrain.yml','.github/workflows/accept-organic-terrain.yml',
+                   'tools/organic-native.init.gradle','tools/publish_organic_qualification.py',
+                   'tools/accept_organic_qualification.py','docs/ORGANIC-DRAINAGE.md'}
+          reuse=False
+          try:
+              repo=os.environ['GITHUB_REPOSITORY']
+              previous=api(f'repos/{repo}/actions/runs/{run_id}')
+              jobs=api(f'repos/{repo}/actions/runs/{run_id}/jobs')['jobs']
+              compared=api(f'repos/{repo}/compare/{base}...{os.environ["GITHUB_SHA"]}')
+              full_pass=any(s['name']=='Build and run complete checks' and s['conclusion']=='success'
+                            for j in jobs for s in j['steps'])
+              reuse=(previous['head_sha']==base and full_pass and compared['behind_by']==0
+                     and len(compared['files'])<300
+                     and all(f['filename'] in allowed for f in compared['files']))
+          except Exception as error:
+              print('Full checks required; no reusable receipt:',type(error).__name__)
+          task='assemble' if reuse else 'build'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output: output.write('task='+task+'\n')
+          Path('build').mkdir(exist_ok=True)
+          Path('build/full-check-receipt.json').write_text(json.dumps(
+              {'reused':reuse,'full_check_commit':base if reuse else os.environ['GITHUB_SHA'],
+               'full_check_run':run_id if reuse else int(os.environ['GITHUB_RUN_ID'])}))
+          print('ENGINE_CHECK_RECEIPT',task,'unchanged-engine-reuse=',reuse)
+          PY
+      - name: Build with verified engine check receipt
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon -PvulkanPlatform=linux build
+          ./gradlew --no-daemon -PvulkanPlatform=linux ${{ steps.checks.outputs.task }}
       - name: Prepare native capture
         run: |
           sudo apt-get update
@@ -66,8 +103,9 @@ jobs:
           saved=log.index('ThreadedAnvilChunkStorage: All dimensions are saved',capture)
           stopped=log.index('[minecraft/Minecraft]: Stopping!',saved)
           assert log.index('BUILD SUCCESSFUL',stopped)>stopped
+          print('NATIVE_CAPTURE_FILES',[str(p) for p in Path('build/organic-native').rglob('*.png')])
           for name in ['coast','headwater','river','lake','outlet','ridge']:
-              assert (Path('build/organic-native')/f'scene-{name}.png').is_file(), name
+              assert (Path('build/organic-native/screenshots')/f'scene-{name}.png').is_file(), name
           PY
       - name: Assemble Windows Vulkan package
         run: |

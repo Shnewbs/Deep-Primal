@@ -27,9 +27,10 @@ def main():
         raise ValueError('Unexpected qualification destination or identity')
     tag = 'organic-' + run_id
     capture = root / 'build/organic-native'
+    images = capture / 'screenshots'
     names = ['scene-' + name + '.png' for name in ['coast', 'headwater', 'river', 'lake', 'outlet', 'ridge']]
     for name in names:
-        if not (capture / name).read_bytes().startswith(b'\x89PNG\r\n\x1a\n'):
+        if not (images / name).read_bytes().startswith(b'\x89PNG\r\n\x1a\n'):
             raise ValueError('Missing native PNG: ' + name)
     packages = list((root / 'build/libs').glob('*vulkan-windows.jar'))
     if len(packages) != 1:
@@ -40,16 +41,17 @@ def main():
         'schema': 1, 'tested_commit': source, 'qualification_run': int(run_id),
         'release_tag': tag, 'native_channel_revision': 10, 'owned_biomes': 40,
         'native_review': 'pending', 'package': package.name, 'package_sha256': digest(package),
-        'images': {name: digest(capture / name) for name in names},
+        'images': {name: digest(images / name) for name in names},
         'run_url': f'https://github.com/{repo}/actions/runs/{run_id}',
+        'full_check_receipt': json.loads((root / 'build/full-check-receipt.json').read_text(encoding='utf-8')),
     }
     receipt_file = capture / 'QUALIFICATION.json'
     receipt_file.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
     proof = root / 'build/organic-qualification.zip'
     with zipfile.ZipFile(proof, 'w', zipfile.ZIP_DEFLATED) as archive:
-        for path in sorted(capture.iterdir()):
+        for path in sorted(capture.rglob('*')):
             if path.is_file():
-                archive.write(path, path.name)
+                archive.write(path, path.relative_to(capture))
         archive.write(root / 'build/organic-native-client.log', 'native-client.log')
     notes = root / 'build/organic-release-notes.md'
     notes.write_text(
@@ -86,7 +88,8 @@ def main():
         destination = root / 'docs/validation/organic-drainage/native'
         destination.mkdir(parents=True, exist_ok=True)
         for name in names + ['QUALIFICATION.json']:
-            shutil.copyfile(capture / name, destination / name)
+            shutil.copyfile((capture if name == 'QUALIFICATION.json' else images) / name,
+                            destination / name)
         command('git', 'add', *[str(destination / name) for name in names + ['QUALIFICATION.json']])
         if command('git', 'diff', '--cached', '--quiet', check=False).returncode == 0:
             print('QUALIFICATION_EVIDENCE_ALREADY_PRESENT', tag)
