@@ -24,6 +24,7 @@ public final class WatershedRegion {
   /** Channel revision 4: abandoned meander loops beside flat, unconfined lowland trunks. */
   private static final double OXBOW_AREA = 160_000, OXBOW_GRADE = .0035;
   private static final int OXBOW_LIMIT = 24;
+  private final WaterTerrainConfig config;
   private final double ox, oz;
   private final boolean broadChannels, cascadeBeds, earthRivers, riverDeltas, floodplainLakes,
       budgetedDistributaries, deepChannels, deepWaterBodies;
@@ -308,7 +309,7 @@ public final class WatershedRegion {
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies) {
     this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
         floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
-        deepChannels, deepWaterBodies, false);
+        deepChannels, deepWaterBodies, false, WaterTerrainConfig.DEFAULTS);
   }
 
   /** Revision 9 varies lake shelves and retreats shallow margins within the admitted basin. */
@@ -318,31 +319,36 @@ public final class WatershedRegion {
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
       boolean naturalMargins) {
-    this(ox,oz,height,rain,broadChannels,cascadeBeds,riverNoise,riverDeltas,
-        floodplainLakes,budgetedDistributaries,admittedSea,admittedOceanInterior,
-        deepChannels,deepWaterBodies,naturalMargins,false);
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, naturalMargins, WaterTerrainConfig.DEFAULTS);
   }
 
-  /** Revision 10 derives receivers, channel admission, bends and lake beds from the terrain. */
+  /** Full constructor with datapack-loadable water/terrain configuration. */
   public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
       DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
-      boolean naturalMargins, boolean terrainResolved) {
-    if (terrainResolved && (riverNoise==null || riverDeltas || floodplainLakes
-        || budgetedDistributaries || deepWaterBodies || naturalMargins))
-      throw new IllegalArgumentException("Terrain-resolved drainage excludes legacy shape templates");
-    this.terrainResolved=terrainResolved;
-    this.sourceHeight=terrainResolved?height:null;
-    this.channelized=terrainResolved?new boolean[N]:null;
-    this.pathX=terrainResolved?new double[N]:null;
-    this.pathZ=terrainResolved?new double[N]:null;
+      WaterTerrainConfig config) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, false, config);
+  }
+
+  /** Full constructor with datapack-loadable water/terrain configuration and natural margins. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins, WaterTerrainConfig config) {
     if (naturalMargins && (!deepWaterBodies || riverNoise == null))
       throw new IllegalArgumentException("Natural margins require seeded deep lake geometry");
-    this.naturalMargins = naturalMargins;
     if (admittedOceanInterior != null && admittedSea == null)
       throw new IllegalArgumentException("ocean interior authority requires seeded ocean boundary");
+    this.naturalMargins = naturalMargins;
+    this.config = Objects.requireNonNull(config, "water terrain config");
     this.floodplainLakes = floodplainLakes;
     this.budgetedDistributaries = budgetedDistributaries;
     this.deepChannels = deepChannels;
@@ -520,9 +526,12 @@ public final class WatershedRegion {
               lake.cells >= 3 && lake.spill - lake.min >= 1.5
                   ? Math.floor(lake.spill * 16) / 16
                   : Double.NEGATIVE_INFINITY;
-          if (Double.isFinite(lake.level))
-            lake.bathymetryDepth =
-                Math.clamp(6 + Math.sqrt(lake.cells) * 1.2 + (lake.spill - lake.min) * .15, 8, 35);
+          if (Double.isFinite(lake.level)) {
+                      var lc = config.lake;
+                      lake.bathymetryDepth = Math.clamp(
+                          lc.baseDepth + Math.sqrt(lake.cells) * lc.cellDepthMultiplier + (lake.spill - lake.min) * lc.spillDepthMultiplier,
+                          lc.minDepth, lc.maxDepth);
+                    }
         }
         if (Double.isFinite(lake.level)) stage[a] = Math.max(downstream, lake.level);
       }

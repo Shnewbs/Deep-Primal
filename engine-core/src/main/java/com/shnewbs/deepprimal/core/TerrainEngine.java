@@ -39,7 +39,8 @@ public final class TerrainEngine {
   public final int channelRevision;
   public final TerrainOptions options;
   public final Landscape landscape;
-  private final Landforms landforms;
+    public final WaterTerrainConfig config;
+    private final Landforms landforms;
   private final LinkedHashMap<Long, Sample> foundations = new LinkedHashMap<>();
   private record BiomeColumn(Sample sample,Geology.Column geology,int surface) {}
   private final LinkedHashMap<Long,BiomeColumn> biomeColumns=new LinkedHashMap<>();
@@ -72,7 +73,8 @@ public final class TerrainEngine {
     this.options = java.util.Objects.requireNonNull(options);
     landscape = new Landscape(noise, options, revision);
     landforms = new Landforms(noise, options);
-  }
+      config = WaterTerrainConfig.load(java.nio.file.Path.of("config"));
+    }
 
   private Land land(int x, int z) {
     long key = ((long) x << 32) ^ (z & 0xffffffffL);
@@ -243,7 +245,7 @@ public final class TerrainEngine {
               channelRevision >= 4 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
               channelRevision >= 5 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
               null, null, channelRevision >= 6,
-              channelRevision == 8 || channelRevision == 9, channelRevision == 9, channelRevision == 10);
+              channelRevision >= 8, channelRevision >= 9, config);
       watersheds.put(key, d);
       while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
     }

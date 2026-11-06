@@ -19,18 +19,25 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
   public static SoilProfile atCoherentShore(TerrainNoise noise,int x,int z,
       TerrainEngine.Sample s,Geology.Column g) {
     Kind kind;
-    if (s.temperature() < .23) kind = Kind.FROZEN;
-    else if (s.wet()) kind = s.speed() > .3 ? Kind.GRAVEL : s.rain() > .72 ? Kind.CLAY : Kind.LOAM;
-    else if (noise.field(x,z,40,34103)*.5+.5 < shoreSandWeight(s)) kind = Kind.SAND;
-    else kind = s.temperature() < .42 ? Kind.PODZOL : s.rain() > .8 ? Kind.CLAY : Kind.LOAM;
-    return profile(s,g,s.slope()+slopeJitter(noise,x,z),true,kind);
-  }
+      double sandWeight = shoreSandWeight(s);
+      if (s.temperature() < .23) kind = Kind.FROZEN;
+      else if (s.wet()) kind = s.speed() > .3 ? Kind.GRAVEL : s.rain() > .72 ? Kind.CLAY : Kind.LOAM;
+      else if (sandWeight > .85) kind = Kind.SAND;
+      else if (sandWeight > .65) kind = Kind.LOAMY_SAND;  // More sand-like transition
+      else if (sandWeight > .35) kind = Kind.SANDY_LOAM;  // Balanced blend
+      else if (sandWeight > .15) kind = Kind.LOAMY_SAND;  // More grass-like transition
+      else kind = s.temperature() < .42 ? Kind.PODZOL : s.rain() > .8 ? Kind.CLAY : Kind.LOAM;
+      return profile(s,g,s.slope()+slopeJitter(noise,x,z),true,kind);
+    }
 
   /** Continuous sand propensity used by the saved shoreline material revision. */
   public static double shoreSandWeight(TerrainEngine.Sample s) {
-    return Math.max(1 - smooth((s.ground() - 97) / 12),
-        1 - smooth((s.rain() - .28) / .16));
-  }
+      double groundWeight = 1 - smooth((s.ground() - 97) / 12);
+      double rainWeight = 1 - smooth((s.rain() - .28) / .16);
+      double tempWeight = 1 - smooth((s.temperature() - .42) / .2);
+      // Combine multiple factors for smoother ecotone transition
+      return Math.max(Math.max(groundWeight, rainWeight), tempWeight * 0.5);
+    }
 
   public static double slopeJitter(TerrainNoise noise,int x,int z) {
     return noise.field(x,z,48,34101)*.32+noise.field(x,z,13,34102)*.14;

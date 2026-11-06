@@ -97,12 +97,13 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     orePalette=profile==null?List.of():profile.palette();
     this.revision = revision;
     engine = new TerrainEngine(0, revision, profile==null?TerrainOptions.DEFAULT:profile.options(), channelRevision);
-    if(profile!=null)depositPlan=profile.plan(engine.noise);
-    if (minY % 16 != 0 || height % 16 != 0 || height < 256 || height > 2048)
-      throw new IllegalArgumentException("Engine height");
-    this.minY = minY;
-    this.height = height;
-  }
+      WaterDynamics.setConfig(engine.config);
+      if(profile!=null)depositPlan=profile.plan(engine.noise);
+      if (minY % 16 != 0 || height % 16 != 0 || height < 256 || height > 2048)
+        throw new IllegalArgumentException("Engine height");
+      this.minY = minY;
+      this.height = height;
+    }
 
   public TerrainEngine geography() {
     return engine;
@@ -125,11 +126,12 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   public ChunkGeneratorStructureState createState(
       HolderLookup<StructureSet> sets, RandomState random, long seed) {
     engine = new TerrainEngine(seed, revision, profile==null?TerrainOptions.DEFAULT:profile.options(), channelRevision);
-    if(profile!=null)depositPlan=profile.plan(engine.noise);
-    if (biomeSource instanceof RegionBiomeSource b) b.bind(engine);
-    return ChunkGeneratorStructureState.createForFlat(
-        random, seed, biomeSource, java.util.stream.Stream.empty());
-  }
+      WaterDynamics.setConfig(engine.config);
+      if(profile!=null)depositPlan=profile.plan(engine.noise);
+      if (biomeSource instanceof RegionBiomeSource b) b.bind(engine);
+      return ChunkGeneratorStructureState.createForFlat(
+          random, seed, biomeSource, java.util.stream.Stream.empty());
+    }
 
   public int getMinY() {
     return minY;

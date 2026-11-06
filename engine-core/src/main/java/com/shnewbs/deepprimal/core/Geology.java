@@ -66,8 +66,8 @@ public final class Geology {
    * strata are exposed.
    */
   public static boolean isMountainStrataZone(int surfaceY, double slope, int y) {
-    return Double.isFinite(slope) && surfaceY >= 140 && slope > 0.8
-        && y <= surfaceY && surfaceY - y <= 120;
+      return Double.isFinite(slope) && surfaceY >= 130 && slope > 0.6
+          && y <= surfaceY && surfaceY - y <= 150;
   }
 
   /**
@@ -139,21 +139,23 @@ public final class Geology {
       return column.rock(y);
     }
     Lithology lith = lithology(column);
-    double bandThickness = 18 + noise.field(x, z, 1900, 1885) * 6;
+      double bandThickness = 16 + noise.field(x, z, 1900, 1885) * 8;  // Thinner bands for more visible layering
     double bandOffset = column.bedding() + column.fault()
-        + noise.field(x, z, 560, 1881) * 12
-        + noise.field(x, z, 170, 1882) * 3;
+          + noise.field(x, z, 560, 1881) * 15
+          + noise.field(x, z, 170, 1882) * 4;
     int band = (int) Math.floor((y + bandOffset) / bandThickness);
     double facies = noise.field(x, z, 920, 1883L + band * 37L);
-    return switch (lith) {
-      case SEDIMENTARY -> facies > .35 ? Rock.SANDSTONE
-          : facies > -.45 ? Rock.CALCITE : Rock.TUFF;
-      case IGNEOUS -> facies > .28 ? Rock.ANDESITE
-          : facies > -.40 ? Rock.BASALT : Rock.TUFF;
-      case METAMORPHIC -> facies > .28 ? Rock.DIORITE
-          : facies > -.40 ? Rock.GRANITE : Rock.DEEPSLATE;
-    };
-  }
+      // Add secondary facies for more variation within bands
+      double facies2 = noise.field(x, z, 921, 1884L + band * 37L);
+      return switch (lith) {
+        case SEDIMENTARY -> facies > .4 ? Rock.SANDSTONE
+            : facies > -.4 ? Rock.CALCITE : (facies2 > 0 ? Rock.TUFF : Rock.SANDSTONE);
+        case IGNEOUS -> facies > .35 ? Rock.ANDESITE
+            : facies > -.35 ? Rock.BASALT : (facies2 > 0 ? Rock.TUFF : Rock.ANDESITE);
+        case METAMORPHIC -> facies > .35 ? Rock.DIORITE
+            : facies > -.35 ? Rock.GRANITE : (facies2 > 0 ? Rock.DEEPSLATE : Rock.DIORITE);
+      };
+    }
 
   /** Exact hydraulic subset; no terrain, strata, deposit or soil-horizon evaluation. */
   public double permeability(int x, int z) {

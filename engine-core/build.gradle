@@ -4,3 +4,11 @@ version = rootProject.mod_version
 base.archivesName = 'DeepPrimal-Core'
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 tasks.named('jar') { preserveFileTimestamps = false; reproducibleFileOrder = true; manifest.attributes('FMLModType':'LIBRARY','Automatic-Module-Name':'com.shnewbs.deepprimal.core') }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+}
