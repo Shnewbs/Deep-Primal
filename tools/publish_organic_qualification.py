@@ -4,6 +4,7 @@ Runs only after the native and package checks. Creates a draft release and commi
 the six native views plus their exact provenance to main with normal fast-forward pushes.
 """
 from pathlib import Path
+import base64
 import hashlib
 import json
 import os
@@ -15,6 +16,36 @@ import zipfile
 
 def command(*args, capture=False, check=True):
     return subprocess.run(args, check=check, text=True, capture_output=capture)
+
+
+def image_transport(root, repo, source, images, names):
+    """Lossless review of private PNGs beyond the Contents API's 1 MiB limit.
+
+    The full source tree is retained in an unreferenced commit; no branch is created
+    or moved. Only its content-addressed pointer is included in the receipt.
+    """
+    def api(endpoint, payload=None):
+        args = ['gh', 'api', f'repos/{repo}/{endpoint}']
+        if payload is not None:
+            request = root / 'build/review-api-request.json'
+            request.write_text(json.dumps(payload), encoding='utf-8')
+            args += ['--method', 'POST', '--input', str(request)]
+        return json.loads(command(*args, capture=True).stdout)
+    entries, manifest = [], {}
+    for name in names:
+        encoded = base64.b64encode((images / name).read_bytes()).decode('ascii')
+        parts = []
+        for index, offset in enumerate(range(0, len(encoded), 180000)):
+            path = f'docs/validation/organic-drainage/transport/{name}.{index:03d}.b64'
+            blob = api('git/blobs', {'content': encoded[offset:offset + 180000], 'encoding': 'utf-8'})
+            entries.append({'path': path, 'mode': '100644', 'type': 'blob', 'sha': blob['sha']})
+            parts.append(path)
+        manifest[name] = parts
+    base = api('git/commits/' + source)['tree']['sha']
+    tree = api('git/trees', {'base_tree': base, 'tree': entries})
+    commit = api('git/commits', {'message': 'Lossless native image review transport',
+                               'tree': tree['sha'], 'parents': [source]})
+    return {'commit': commit['sha'], 'parts': manifest}
 
 
 def main():
@@ -44,6 +75,7 @@ def main():
         'images': {name: digest(images / name) for name in names},
         'run_url': f'https://github.com/{repo}/actions/runs/{run_id}',
         'full_check_receipt': json.loads((root / 'build/full-check-receipt.json').read_text(encoding='utf-8')),
+        'image_transport': image_transport(root, repo, source, images, names),
     }
     receipt_file = capture / 'QUALIFICATION.json'
     receipt_file.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')

@@ -9,13 +9,14 @@ import net.minecraft.world.level.chunk.status.ChunkStatus;
 
 /** Native fixed-seed coast, river and ridge captures; no generated presentation images. */
 final class EngineSceneChecks {
-  private static int stage, ticks;
+  private static int stage, ticks, settledTicks;
   private static String[] names = {"coast", "river", "ridge"};
   private static volatile boolean waiting, screenshotPending;
 
   private static void move(Minecraft mc, int view) {
     waiting = true;
     ticks = 0;
+    settledTicks = 0;
     mc.getSingleplayerServer()
         .execute(
             () -> {
@@ -194,17 +195,23 @@ final class EngineSceneChecks {
     if (waiting) return;
     ticks++;
     var p = mc.player.chunkPosition();
-    boolean ready =
-        loaded(mc, p.x() + 5, p.z())
-            && loaded(mc, p.x() - 5, p.z())
-            && loaded(mc, p.x(), p.z() + 5)
-            && loaded(mc, p.x(), p.z() - 5);
+    int loadedColumns = 0;
+    for (int dx = -5; dx <= 5; dx++)
+      for (int dz = -5; dz <= 5; dz++)
+        if (loaded(mc, p.x() + dx, p.z() + dz)) loadedColumns++;
+    boolean ready = loadedColumns == 121;
+    boolean rendered = mc.levelRenderer.hasRenderedAllSections();
+    settledTicks = ready && rendered ? settledTicks + 1 : 0;
     if (ticks % 100 == 0)
       System.out.println(
-          "ENGINE_SCENE_PROGRESS scene=" + stage + " ticks=" + ticks + " ready=" + ready);
-    if (ticks > 800) throw new AssertionError("Scene readiness timed out");
-    if (ticks < 200 || !ready || (!mc.levelRenderer.hasRenderedAllSections() && ticks < 650))
-      return;
+          "ENGINE_SCENE_PROGRESS scene=" + stage + " ticks=" + ticks
+              + " loadedColumns=" + loadedColumns + "/121 rendered=" + rendered
+              + " settled=" + settledTicks + " requested=" + mc.options.renderDistance().get()
+              + " effective=" + mc.options.getEffectiveRenderDistance()
+              + " sections=" + mc.levelRenderer.getSectionStatistics());
+    if (ticks > 2400) throw new AssertionError("Scene readiness timed out: "
+        + mc.levelRenderer.getSectionStatistics());
+    if (ticks < 200 || settledTicks < 20 || screenshotPending) return;
     String name = names[stage - 1];
     Path out = Path.of(System.getProperty("deepprimal.validationCapture"));
     out.toFile().mkdirs();

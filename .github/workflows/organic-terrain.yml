@@ -9,6 +9,7 @@ on:
       - 'engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java'
       - 'src/coreChecks/**/OrganicDrainage*'
       - 'src/visualValidation/**/WorldCreationChecks.java'
+      - 'src/visualValidation/**/EngineSceneChecks.java'
       - 'tools/organic-native.init.gradle'
       - 'tools/publish_organic_qualification.py'
 permissions:
