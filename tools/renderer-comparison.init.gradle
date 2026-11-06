@@ -1,0 +1,13 @@
+// Diagnostic-only native renderer comparison.
+allprojects {
+    plugins.withId('net.neoforged.moddev') {
+        if (project == rootProject) {
+            neoForge.runs.configureEach { run ->
+                if (run.name == 'client') {
+                    run.systemProperty 'deepprimal.validationOrganicTerrain', 'true'
+                    run.systemProperty 'deepprimal.renderer.disabled', System.getenv('DEEPPRIMAL_NATIVE_RENDERER_DISABLED') ?: 'false'
+                }
+            }
+        }
+    }
+}

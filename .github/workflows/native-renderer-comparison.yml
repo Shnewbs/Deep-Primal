@@ -1,0 +1,78 @@
+name: Native renderer comparison
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/native-renderer-comparison.yml','tools/renderer-comparison.init.gradle']
+permissions:
+  contents: write
+jobs:
+  compare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      ALSOFT_DRIVERS: 'null'
+      DEEPPRIMAL_COAST_ONLY: 'true'
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6.2.0
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - name: Compile comparison source
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon -PvulkanPlatform=linux assemble
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1-mesa-dri mesa-utils libflite1 flite1-dev
+      - name: Capture matched native renderers
+        run: |
+          set -o pipefail
+          for owner in owned native; do
+            mkdir -p "run-compare-$owner"
+            printf 'onboardAccessibility:false\nrenderDistance:8\nsimulationDistance:6\nmaxFps:60\nenableVsync:false\n' > "run-compare-$owner/options.txt"
+            if [ "$owner" = native ]; then export DEEPPRIMAL_NATIVE_RENDERER_DISABLED=true; else export DEEPPRIMAL_NATIVE_RENDERER_DISABLED=false; fi
+            xvfb-run -a -s '-screen 0 1280x900x24' ./gradlew --no-daemon \
+              -I tools/renderer-comparison.init.gradle -PvulkanPlatform=linux \
+              -PvisualValidation -PworldCreationValidation -PcreationName=Renderer-Comparison \
+              "-PclientRunDir=run-compare-$owner" "-PcaptureDir=build/compare-$owner" \
+              -PgraphicsBackend=OpenGL :runClient | tee "build/compare-$owner.log"
+            grep 'INTEGRATED_CLIENT_PASS scenes=coast' "build/compare-$owner.log"
+          done
+      - name: Preserve exact comparison evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,subprocess,hashlib,shutil
+          from pathlib import Path
+          root=Path.cwd()
+          proof=root/'build/comparison-proof'
+          proof.mkdir()
+          receipt={'source':os.environ['GITHUB_SHA'],'run':os.environ['GITHUB_RUN_ID'],'images':{}}
+          for owner in ['owned','native']:
+              image=root/f'build/compare-{owner}/screenshots/scene-coast.png'
+              data=image.read_bytes()
+              assert data.startswith(b'\x89PNG\r\n\x1a\n')
+              shutil.copyfile(image,proof/f'{owner}-coast.png')
+              shutil.copyfile(root/f'build/compare-{owner}.log',proof/f'{owner}.log')
+              receipt['images'][owner]=hashlib.sha256(data).hexdigest()
+          (proof/'COMPARISON.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          def run(*args,check=True):return subprocess.run(args,check=check)
+          run('gh','auth','setup-git','--hostname','github.com')
+          run('git','config','user.name','github-actions[bot]')
+          run('git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
+          for attempt in range(3):
+              run('git','fetch','origin','main')
+              run('git','checkout','--detach','FETCH_HEAD')
+              target=root/'docs/validation/organic-drainage/renderer-comparison'
+              shutil.copytree(proof,target,dirs_exist_ok=True)
+              run('git','add',str(target))
+              run('git','commit','-m','Record matched native renderer comparison '+os.environ['GITHUB_RUN_ID'])
+              if run('git','push','origin','HEAD:main',check=False).returncode==0:break
+          else:raise RuntimeError('Concurrent main changes prevented publication')
+          PY
