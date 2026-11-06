@@ -39,7 +39,7 @@ jobs:
       - name: Prepare native capture
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libgl1-mesa-dri mesa-utils
+          sudo apt-get install -y xvfb libgl1-mesa-dri mesa-utils libflite1 flite1-dev
           mkdir -p run-organic
           printf 'onboardAccessibility:false\nrenderDistance:8\nsimulationDistance:6\nmaxFps:60\nenableVsync:false\n' > run-organic/options.txt
       - name: Create and inspect an actual engine world
@@ -53,6 +53,7 @@ jobs:
             -PcaptureDir=build/organic-native -PgraphicsBackend=OpenGL :runClient | tee build/organic-native-client.log
           python - <<'PY'
           from pathlib import Path
+          import re
           log=Path('build/organic-native-client.log').read_text()
           assert 'ORGANIC_NATIVE_WORLD_PASS channelRevision=10 ownedBiomes=40' in log
           assert 'INTEGRATED_CLIENT_PASS scenes=coast,headwater,river,lake,outlet,ridge' in log
@@ -60,9 +61,11 @@ jobs:
                           'Preparing crash report', 'Error executing task on Client',
                           'Error stopping the server', 'Failed to save', 'Exception in thread']:
               assert failure not in log, failure
+          assert not re.search(r'\[(?:Render thread|Server thread)/(?:ERROR|FATAL)\]',log), 'Native render/server error'
           capture=log.index('INTEGRATED_CLIENT_PASS scenes=')
           saved=log.index('ThreadedAnvilChunkStorage: All dimensions are saved',capture)
-          assert log.index('Closing FML Loader',saved)>saved
+          stopped=log.index('[minecraft/Minecraft]: Stopping!',saved)
+          assert log.index('BUILD SUCCESSFUL',stopped)>stopped
           for name in ['coast','headwater','river','lake','outlet','ridge']:
               assert (Path('build/organic-native')/f'scene-{name}.png').is_file(), name
           PY
