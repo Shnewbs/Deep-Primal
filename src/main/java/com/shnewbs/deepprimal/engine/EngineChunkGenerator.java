@@ -27,6 +27,8 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
  * structures.
  */
 public final class EngineChunkGenerator extends ChunkGenerator {
+  private static final TagKey<Biome> RIPARIAN_MOSAIC = TagKey.create(
+      Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "riparian_mosaic"));
   private static final TagKey<Biome> WATER_EDGE_VEGETATION = TagKey.create(
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_edge_vegetation"));
   private static final TagKey<Biome> WATER_ROOTED_TREES = TagKey.create(
@@ -52,7 +54,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
         Codec.intRange(0,6).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
-        Codec.intRange(0,8).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
+        Codec.intRange(0,9).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
     ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
         profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
     return RecordCodecBuilder.mapCodec(
@@ -252,8 +254,12 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     final SoilProfile soil;final CaveNetwork.Column cave;final DepositPlan.Column deposits;
     final SoilTexture texture;
     final double shoreSandWeight;
+    final NaturalShore.Bed bedFacies;
     V6Column(int x,int z,TerrainEngine.Sample s,DepositPlan.Chunk deposits) {
       this.x=x;this.z=z;this.s=s;bed=(int)Math.floor(s.ground());
+      bedFacies = channelRevision >= 9
+          && (s.wet() || NaturalShore.exposedBank(engine.noise, x, z, s))
+          ? NaturalShore.bed(engine.noise, x, z, s) : null;
       biome=revision>=7?engine.biome(x,z):-1;
       hydraulic=engine.hydraulicColumn(x,z);double uncut=engine.raw(x,z);
       tunnel=engine.tunnel(x,z);ocean=engine.ocean(x,z);
@@ -300,6 +306,14 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     }
 
     private BlockState legacySoil(int depth,int y) {
+      if (bedFacies != null && (s.wet() || depth < 2)) {
+        return switch (bedFacies) {
+          case GRAVEL -> Blocks.GRAVEL.defaultBlockState();
+          case SAND -> GroundMaterials.soil(SoilTexture.SAND, GroundMaterials.Cover.BARE).defaultBlockState();
+          case SILT -> GroundMaterials.soil(SoilTexture.SILT, GroundMaterials.Cover.BARE).defaultBlockState();
+          case CLAY -> GroundMaterials.soil(SoilTexture.CLAY, GroundMaterials.Cover.BARE).defaultBlockState();
+        };
+      }
       if(s.wet())return (soil.kind()==SoilProfile.Kind.CLAY?Blocks.CLAY:soil.kind()==SoilProfile.Kind.GRAVEL?Blocks.GRAVEL:Blocks.SAND).defaultBlockState();
       if(biome==9)return (depth==0&&s.slope()<.45?Blocks.RED_SAND:
           Math.floorMod(y,12)<3?Blocks.ORANGE_TERRACOTTA:Math.floorMod(y,12)<5?Blocks.YELLOW_TERRACOTTA:Blocks.TERRACOTTA).defaultBlockState();
@@ -532,6 +546,11 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         double density = engine.forest(x, z);
         int biome = revision>=7?engine.biome(x,z):-1;
         double chance=revision>=7?Vegetation.treeChance(biome,density):Math.max(0,density-.20)*.66;
+        boolean naturalBank = channelRevision >= 9 && !s.wet() && s.sediment() > .55
+            && s.rain() >= .38 && chance > 0 && nearWater(x, z, 6);
+        if (naturalBank)
+          chance = NaturalShore.treeChance(biome, density,
+              engine.noise.field(x, z, 32, 94506) * .5 + .5);
         var biomeHolder =
             channelRevision >= 8
                     && x >= ox
@@ -544,7 +563,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         boolean waterRooted = biomeHolder != null && biomeHolder.is(WATER_ROOTED_TREES)
             && nearWater(x, z, 3);
         if (s.wet()
-            || s.ground() < (waterRooted ? getSeaLevel() - 1 : getSeaLevel() + 5)
+            || s.ground() < (waterRooted ? getSeaLevel() - 1
+                : naturalBank ? getSeaLevel() + .35 : getSeaLevel() + 5)
             || s.slope() > (revision>=7?1.5:.8)
             || s.temperature() < .1
             || s.rain() < .38
@@ -643,8 +663,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                 ? c.getNoiseBiome(
                     wx >> 2, Math.floorDiv((int) Math.floor(s.ground()), 4), wz >> 2)
                 : null;
+        boolean naturalPlants = channelRevision >= 9 && !s.wet() && s.sediment() > .55 && biomeHolder != null
+            && biomeHolder.is(RIPARIAN_MOSAIC) && nearWater(wx, wz, 5);
         boolean shorePlants =
-            biomeHolder != null
+            !naturalPlants && biomeHolder != null
                 && biomeHolder.is(WATER_EDGE_VEGETATION)
                 && nearWater(wx, wz, 3);
         boolean emergentPlants =
@@ -752,7 +774,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
           }
         }
 
-        if (coverDraw < (shorePlants ? .42 : .11)) {
+        double coverChance = naturalPlants
+            ? NaturalShore.coverChance(engine.noise.field(wx, wz, 18, 94507) * .5 + .5)
+            : shorePlants ? .42 : .11;
+        if (coverDraw < coverChance) {
           var p = new BlockPos(wx, y, wz);
           if (!s.wet()
               && (c.getBlockState(p.below()).is(Blocks.GRASS_BLOCK)

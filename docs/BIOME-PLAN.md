@@ -2,7 +2,7 @@
 
 Planning draft: 2026-10-21. Source baseline: main commit `9ee0f1841ddb0e4aa9b0ece1bdf5f4997dde7dd2`.
 
-**Runtime status:** the [owned-biome implementation](BIOME-IMPLEMENTATION.md) integrates an initial 40-entry Deep Primal palette and 13 owned habitat tags. The planning requirements below remain the target for the broader roster and climate/ecology work; this initial integration does not complete those requirements.
+**Runtime status:** the [owned-biome implementation](BIOME-IMPLEMENTATION.md) integrates an initial 40-entry Deep Primal palette and 14 owned habitat tags. The planning requirements below remain the target for the broader roster and climate/ecology work; this initial integration does not complete those requirements.
 
 **Confirmed owner direction, 2026-10-21: biomes first; climate scenarios afterward.** Define the biome roster and its requirements, then design climate scenarios to support those biomes. An existing climate grid must not dictate or prune the roster. **Climate must gate placement:** each biome can generate only where its relevant long-term climate requirements are met, alongside its terrain, water, substrate and other habitat requirements. Environmental implementation remains deferred. This update supplies named profiles, qualitative placement/material/community requirements and coverage checks. It does not create runtime biome entries, change generation, add textures, or complete an implementation milestone.
 

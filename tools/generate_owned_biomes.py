@@ -67,7 +67,7 @@ def outputs():
         for tag in entry['tags']:
             assert re.fullmatch(r'deepprimal:[a-z0-9_]+', tag), tag
             tags.setdefault(tag, []).append(biome_id)
-    assert len(tags) == 13
+    assert len(tags) == 14
     for tag, members in tags.items():
         assert set(members) <= set(ids)
         name = tag.removeprefix('deepprimal:')
@@ -100,7 +100,7 @@ def main():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding='utf-8')
     print(f'OWNED_BIOMES_{"CHECK" if args.check else "GENERATED"}_PASS '
-          f'biomes=40 tags=13 palettes=4 files={len(generated)}')
+          f'biomes=40 tags=14 palettes=4 files={len(generated)}')
 
 
 if __name__ == '__main__':

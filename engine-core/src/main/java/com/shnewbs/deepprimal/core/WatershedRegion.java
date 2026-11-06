@@ -7,6 +7,7 @@ import java.util.function.DoubleBinaryOperator;
 
 /** Immutable drainage, lake and channel geometry. No chunk/world reads or mutable simulation. */
 public final class WatershedRegion {
+  private final boolean naturalMargins;
   public static final int STEP = 32, SIDE = TerrainEngine.CELL / STEP + 1;
   private static final int N = SIDE * SIDE, TILE = 64, TILES = TerrainEngine.CELL / TILE;
   private static final double STREAM_AREA = 18_000;
@@ -301,6 +302,21 @@ public final class WatershedRegion {
       TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, false);
+  }
+
+  /** Revision 9 varies lake shelves and retreats shallow margins within the admitted basin. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins) {
+    if (naturalMargins && (!deepWaterBodies || riverNoise == null))
+      throw new IllegalArgumentException("Natural margins require seeded deep lake geometry");
+    this.naturalMargins = naturalMargins;
     if (admittedOceanInterior != null && admittedSea == null)
       throw new IllegalArgumentException("ocean interior authority requires seeded ocean boundary");
     this.floodplainLakes = floodplainLakes;
@@ -1058,6 +1074,8 @@ public final class WatershedRegion {
         bankFloor = Double.NEGATIVE_INFINITY;
     double lakeLevel = Double.NaN, channelFloor = Double.NEGATIVE_INFINITY, channelStage = Double.NaN;
     double bar = Double.NEGATIVE_INFINITY;
+    double naturalMarginRise = Double.NEGATIVE_INFINITY;
+    boolean protectedLakeMargin = false;
     for (int corner = 0; corner < 4; corner++) {
       int c = a + (corner & 1) + (corner >>> 1) * SIDE;
       if (lakeAt[c] > 0 && Double.isFinite(lakes[lakeAt[c]].level))
@@ -1085,9 +1103,15 @@ public final class WatershedRegion {
           double basinPosition = Math.clamp((coarse - lake.min) / basinRange, 0, 1);
           double bowl = 1 - smooth(basinPosition);
           ground = Math.min(ground, lakeLevel - lake.bathymetryDepth * bowl);
+          if (naturalMargins)
+            ground = NaturalShore.lakeBed(riverNoise, x, z, lakeLevel, coarse, ground);
+          if (naturalMargins)
+            naturalMarginRise = NaturalShore.marginRise(riverNoise, x, z, lakeLevel - coarse);
         }
       }
       sediment = 1 - detail;
+      if (naturalMargins && coarse >= lakeLevel)
+        ground = NaturalShore.bankGround(riverNoise, x, z, lakeLevel, coarse, ground);
       double shoreStep =
           Math.max(
                   Math.max(
@@ -1116,6 +1140,7 @@ public final class WatershedRegion {
         double t = Math.clamp(((x - s.ax) * vx + (z - s.az) * vz) / len, 0, 1);
         double dist = Math.hypot(x - s.ax - vx * t, z - s.az - vz * t), r = lerp(s.ra, s.rb, t);
         if (dist > r + 36 + s.reach) continue;
+        if (naturalMargins && dist < r + 4) protectedLakeMargin = true;
         boolean deepen =
             deepChannels && !s.delta && delta == null && !Double.isFinite(lakeLevel) && !lakeHalo[a];
         double level = lerp(s.sa, s.sb, t),
@@ -1209,6 +1234,12 @@ public final class WatershedRegion {
             sediment = Math.max(sediment, 1 - smooth(e / 6));
           }
         }
+    }
+    if (Double.isFinite(water) && naturalMarginRise > 0
+        && !protectedLakeMargin && !Double.isFinite(sill)) {
+      ground = Math.max(ground, lakeLevel + .35 + Math.min(.6, naturalMarginRise * .25));
+      water = Double.NaN;
+      fx = fz = speed = 0;
     }
     if (Double.isFinite(water) && bar > 0) {
       // An emergent bar stays dry above the rounded stage; contained banks surround it.

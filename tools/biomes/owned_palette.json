@@ -20,7 +20,9 @@
         "fog_color": 2640464,
         "clarity": 1
       },
-      "tags": []
+      "tags": [
+        "deepprimal:riparian_mosaic"
+      ]
     },
     {
       "slot": 1,
@@ -41,7 +43,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:water_edge_vegetation"
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -104,7 +107,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:is_cold"
+        "deepprimal:is_cold",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -151,7 +155,8 @@
         "deepprimal:water_emergent_plants",
         "deepprimal:water_submerged_plants",
         "deepprimal:water_floating_plants",
-        "deepprimal:water_rooted_trees"
+        "deepprimal:water_rooted_trees",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -193,7 +198,9 @@
         "fog_color": 4344887,
         "clarity": 0.8
       },
-      "tags": []
+      "tags": [
+        "deepprimal:riparian_mosaic"
+      ]
     },
     {
       "slot": 9,
@@ -233,7 +240,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:water_edge_vegetation"
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -255,7 +263,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:water_edge_vegetation"
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -277,7 +286,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:water_edge_vegetation"
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -298,7 +308,8 @@
         "clarity": 0.85
       },
       "tags": [
-        "deepprimal:is_forest"
+        "deepprimal:is_forest",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -319,7 +330,8 @@
         "clarity": 0.95
       },
       "tags": [
-        "deepprimal:is_forest"
+        "deepprimal:is_forest",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -341,7 +353,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:is_cold"
+        "deepprimal:is_cold",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -363,7 +376,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:is_cold"
+        "deepprimal:is_cold",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -386,7 +400,8 @@
       "tags": [
         "deepprimal:is_forest",
         "deepprimal:is_mountain",
-        "deepprimal:is_cold"
+        "deepprimal:is_cold",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -473,7 +488,8 @@
         "clarity": 1
       },
       "tags": [
-        "deepprimal:is_mountain"
+        "deepprimal:is_mountain",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -495,7 +511,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:is_mountain"
+        "deepprimal:is_mountain",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -538,7 +555,8 @@
       },
       "tags": [
         "deepprimal:is_forest",
-        "deepprimal:is_mountain"
+        "deepprimal:is_mountain",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -561,7 +579,8 @@
       "tags": [
         "deepprimal:is_shore",
         "deepprimal:water_edge_vegetation",
-        "deepprimal:water_emergent_plants"
+        "deepprimal:water_emergent_plants",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -584,7 +603,8 @@
       "tags": [
         "deepprimal:is_shore",
         "deepprimal:is_cold",
-        "deepprimal:water_edge_vegetation"
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -606,7 +626,8 @@
       },
       "tags": [
         "deepprimal:is_shore",
-        "deepprimal:water_edge_vegetation"
+        "deepprimal:water_edge_vegetation",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -632,7 +653,8 @@
         "deepprimal:water_edge_vegetation",
         "deepprimal:water_emergent_plants",
         "deepprimal:water_submerged_plants",
-        "deepprimal:water_rooted_trees"
+        "deepprimal:water_rooted_trees",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -814,7 +836,8 @@
         "deepprimal:is_river",
         "deepprimal:water_edge_vegetation",
         "deepprimal:water_emergent_plants",
-        "deepprimal:water_submerged_plants"
+        "deepprimal:water_submerged_plants",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {
@@ -838,7 +861,8 @@
         "deepprimal:is_river",
         "deepprimal:is_cold",
         "deepprimal:water_edge_vegetation",
-        "deepprimal:water_submerged_plants"
+        "deepprimal:water_submerged_plants",
+        "deepprimal:riparian_mosaic"
       ]
     },
     {

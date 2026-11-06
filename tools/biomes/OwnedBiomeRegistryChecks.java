@@ -88,7 +88,7 @@ public final class OwnedBiomeRegistryChecks {
             Identifier.fromNamespaceAndPath("deepprimal", name)), members);
       }
     }
-    require(tags.size() == 13, "All owned habitat tags registered");
+    require(tags.size() == 14, "All owned habitat tags registered");
     // Native tags are deliberately NOT populated with our biomes. Exercise the runtime bridge.
     tags.put(BiomeTags.IS_OCEAN, List.of(biomes.getOrThrow(key("minecraft:ocean")),
         biomes.getOrThrow(key("deepprimal:mixed_grass_prairie"))));
@@ -151,6 +151,6 @@ public final class OwnedBiomeRegistryChecks {
       rejected = "Engine biome palette".equals(expected.getMessage());
     }
     require(rejected, "Missing biome references rejected by native codec");
-    System.out.println("OWNED_BIOME_NATIVE_PASS biomes=40 tags=13 profiles=4 checks=" + checks);
+    System.out.println("OWNED_BIOME_NATIVE_PASS biomes=40 tags=14 profiles=4 checks=" + checks);
   }
 }

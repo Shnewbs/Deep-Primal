@@ -24,7 +24,7 @@ Runtime ocean/river behavior now checks `deepprimal:is_ocean` and `deepprimal:is
 
 ## Habitat tags
 
-Eight classification tags describe ocean, river, forest, wetland, shore, mountain, cave and cold habitats. Five water-vegetation tags describe edge vegetation, emergent plants, submerged plants, floating plants and water-rooted trees. Members must resolve to real owned biome definitions.
+Eight classification tags describe ocean, river, forest, wetland, shore, mountain, cave and cold habitats. The revision-9 riparian_mosaic tag adds eligibility for the coherent dry-bank vegetation pass. Five water-vegetation tags describe edge vegetation, emergent plants, submerged plants, floating plants and water-rooted trees. Members must resolve to real owned biome definitions.
 
 Floating freshwater plants are limited to the implemented forested-swamp profile rather than being admitted to warm marine water. Other detailed substrate, salinity, flow and species-specific eligibility still requires the broader organic-system work; tag admission alone is not a completed ecological simulation.
 
@@ -79,7 +79,7 @@ Variant keys are climate or existing-community expressions. They are not additio
 
 ## Generation and validation
 
-Run `python tools/generate_owned_biomes.py` after editing the manifest, and `python tools/generate_owned_biomes.py --check` to verify checked-in assets. The generator rejects invalid namespaces, unknown catalog parents, duplicate/changed slots and unexpected active palette contents. It writes 40 biome definitions, 40 water palettes, 13 tags, the language additions and four active profiles.
+Run `python tools/generate_owned_biomes.py` after editing the manifest, and `python tools/generate_owned_biomes.py --check` to verify checked-in assets. The generator rejects invalid namespaces, unknown catalog parents, duplicate/changed slots and unexpected active palette contents. It writes 40 biome definitions, 40 water palettes, 14 tags, the language additions and four active profiles.
 
 [OwnedBiomeRegistryChecks.java](../tools/biomes/OwnedBiomeRegistryChecks.java) runs against actual Minecraft 26.1.2 codecs and registries, plus the production `RegionBiomeSource` and habitat helper. It decodes and freezes the biome registry, binds all owned tags, verifies colors and empty native feature/spawn tables, tests ocean/river behavior independent of native tags, samples the authored source under multiple seeds, checks serialization, preserves legacy palettes and rejects a missing biome reference.
 
