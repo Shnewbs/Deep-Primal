@@ -10,6 +10,8 @@ import net.minecraft.world.level.chunk.status.ChunkStatus;
 /** Native fixed-seed coast, river and ridge captures; no generated presentation images. */
 final class EngineSceneChecks {
   private static int stage, ticks, settledTicks;
+  private static volatile java.util.List<net.minecraft.world.level.ChunkPos> expectedChunks = java.util.List.of();
+  private static volatile boolean samplingChunks;
   private static String[] names = {"coast", "river", "ridge"};
   private static volatile boolean waiting, screenshotPending;
 
@@ -17,6 +19,7 @@ final class EngineSceneChecks {
     waiting = true;
     ticks = 0;
     settledTicks = 0;
+    expectedChunks = java.util.List.of();
     mc.getSingleplayerServer()
         .execute(
             () -> {
@@ -64,6 +67,7 @@ final class EngineSceneChecks {
                           .filter(
                               a ->
                                   a.area() >= 3072
+                                      && Math.hypot(a.x() - a.outletX(), a.z() - a.outletZ()) >= 32
                                       && a.area() < 16000
                                       && a.level() > 110
                                       && Math.abs(
@@ -195,23 +199,38 @@ final class EngineSceneChecks {
     if (waiting) return;
     ticks++;
     var p = mc.player.chunkPosition();
+    if (ticks % 20 == 1 && !samplingChunks) {
+      samplingChunks = true;
+      mc.getSingleplayerServer().execute(() -> {
+        try {
+          var player = mc.getSingleplayerServer().getPlayerList().getPlayers().getFirst();
+          if (!player.chunkPosition().equals(p)) return;
+          var chunks = new java.util.ArrayList<net.minecraft.world.level.ChunkPos>();
+          player.getChunkTrackingView().forEach(chunks::add);
+          if (!chunks.isEmpty() && chunks.stream().anyMatch(c -> c.equals(p)))
+            expectedChunks = java.util.List.copyOf(chunks);
+        } finally {
+          samplingChunks = false;
+        }
+      });
+    }
+    var expected = expectedChunks;
     int loadedColumns = 0;
-    for (int dx = -5; dx <= 5; dx++)
-      for (int dz = -5; dz <= 5; dz++)
-        if (loaded(mc, p.x() + dx, p.z() + dz)) loadedColumns++;
-    boolean ready = loadedColumns == 121;
+    for (var chunk : expected)
+      if (loaded(mc, chunk.x(), chunk.z())) loadedColumns++;
+    boolean ready = !expected.isEmpty() && loadedColumns == expected.size();
     boolean rendered = mc.levelRenderer.hasRenderedAllSections();
     settledTicks = ready && rendered ? settledTicks + 1 : 0;
     if (ticks % 100 == 0)
       System.out.println(
           "ENGINE_SCENE_PROGRESS scene=" + stage + " ticks=" + ticks
-              + " loadedColumns=" + loadedColumns + "/121 rendered=" + rendered
+              + " loadedColumns=" + loadedColumns + "/" + expected.size() + " rendered=" + rendered
               + " settled=" + settledTicks + " requested=" + mc.options.renderDistance().get()
               + " effective=" + mc.options.getEffectiveRenderDistance()
               + " sections=" + mc.levelRenderer.getSectionStatistics());
     if (ticks > 2400) throw new AssertionError("Scene readiness timed out: "
         + mc.levelRenderer.getSectionStatistics());
-    if (ticks < 200 || settledTicks < 20 || screenshotPending) return;
+    if (ticks < 200 || settledTicks < 40 || screenshotPending) return;
     String name = names[stage - 1];
     Path out = Path.of(System.getProperty("deepprimal.validationCapture"));
     out.toFile().mkdirs();
