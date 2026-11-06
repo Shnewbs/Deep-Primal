@@ -10,8 +10,9 @@ on:
       - 'src/coreChecks/**/OrganicDrainage*'
       - 'src/visualValidation/**/WorldCreationChecks.java'
       - 'tools/organic-native.init.gradle'
+      - 'tools/publish_organic_qualification.py'
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: organic-terrain-main
   cancel-in-progress: true
@@ -21,6 +22,7 @@ jobs:
     timeout-minutes: 45
     env:
       LIBGL_ALWAYS_SOFTWARE: '1'
+      ALSOFT_DRIVERS: 'null'
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -83,13 +85,7 @@ jobs:
                   assert any('vma' in n for n in dlls), 'Missing Windows VMA native'
           print('WINDOWS_VULKAN_PACKAGE_PASS',package)
           PY
-      - uses: actions/upload-artifact@v7.0.2
-        if: always()
-        with:
-          name: organic-terrain-${{ github.sha }}
-          retention-days: 3
-          path: |
-            build/organic-native/**
-            build/organic-native-client.log
-            build/reports/**
-            build/libs/*vulkan-windows.jar
+      - name: Preserve package and proof for visual review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/publish_organic_qualification.py

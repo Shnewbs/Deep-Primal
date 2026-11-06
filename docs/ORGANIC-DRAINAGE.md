@@ -29,7 +29,7 @@ For the diagnostic image, run `OrganicDrainageCapture <output-directory>` using 
 
 ## Qualification gate
 
-The `Organic terrain qualification` workflow performs the full Linux build/check suite, creates an actual engine world through the native UI, verifies revision 10 and the owned biome palette, captures coast/headwater/river/lake/outlet/ridge views, and assembles a Windows Vulkan package with JarJar/native-DLL checks. It retains logs, screenshots and the resulting package as one commit-associated artifact for three days.
+The `Organic terrain qualification` workflow performs the full Linux build/check suite, creates an actual engine world through the native UI, verifies revision 10 and the owned biome palette, captures coast/headwater/river/lake/outlet/ridge views, and assembles a Windows Vulkan package with JarJar/native-DLL checks. After those gates pass, it preserves the package and proof bundle in a draft release and commits the six native images with their source/run/package hashes to main using ordinary fast-forward pushes. The draft is promoted only after an explicit visual-acceptance receipt matches those exact images and a successful qualification run. This avoids the account's exhausted Actions artifact storage.
 
 At source publication, native qualification is pending. Local Gradle execution is blocked by denied loopback sockets; direct compilation and the focused/native-codec checks are not presented as a successful full Gradle build or an in-game visual pass. Do not mark terrain or a release finalized solely because this document or workflow exists. Inspect the actual run, lifecycle, captures and package before closing acceptance.
 

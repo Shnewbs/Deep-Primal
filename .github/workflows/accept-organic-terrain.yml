@@ -1,0 +1,20 @@
+name: Publish reviewed organic terrain build
+on:
+  push:
+    branches: [main]
+    paths: ['docs/validation/organic-drainage/native/ACCEPTED.json']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish-reviewed-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - name: Verify reviewed evidence and publish its draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/accept_organic_qualification.py
