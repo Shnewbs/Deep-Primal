@@ -128,6 +128,7 @@ public final class WorldCreationChecks {
     var mc = Minecraft.getInstance();
     try {
       if (stage == 9) return;
+      if (stage == 8) { EngineSceneChecks.tick(Minecraft.getInstance()); return; }
       if (stage == 4 && mc.screen != null && mc.screen.getClass().getSimpleName().contains("Error"))
         throw new AssertionError(
             "Unexpected error screen during world creation: " + mc.screen.getClass());
@@ -205,12 +206,24 @@ public final class WorldCreationChecks {
         require(generator.geography().revision == 7, "Fresh creation selects V7 geography");
         var level=mc.getSingleplayerServer().overworld();
         require(level.getSeed()==20261020L,"Entered seed is the saved world seed");
-        var expected=new com.shnewbs.deepprimal.core.TerrainEngine(level.getSeed(),7,generator.terrainProfile().options());
+        var expected=new com.shnewbs.deepprimal.core.TerrainEngine(level.getSeed(),7,generator.terrainProfile().options(),generator.channelRevision());
         require(generator.geography().sample(341,-217).equals(expected.sample(341,-217)),"UI world binds the actual saved seed");
         report(
             "WORLD_CREATION_JOIN_PASS revision=7 seed=20261020 backend="
                 + com.mojang.blaze3d.systems.RenderSystem.getDevice().getBackendName());
         StartupLifecycleChecks.observe("creation-joined", output());
+        if (Boolean.getBoolean("deepprimal.validationOrganicTerrain")) {
+          require(generator.channelRevision()==10, "New world selects terrain-derived channels");
+          require(generator.getBiomeSource().possibleBiomes().size()==40, "Complete owned biome palette");
+          require(generator.getBiomeSource().possibleBiomes().stream().allMatch(
+              b->b.unwrapKey().orElseThrow().identifier().getNamespace().equals("deepprimal")),
+              "All native possible biomes belong to the mod");
+          require(mc.level.getBiome(mc.player.blockPosition()).unwrapKey().orElseThrow()
+              .identifier().getNamespace().equals("deepprimal"), "Actual joined biome belongs to the mod");
+          report("ORGANIC_NATIVE_WORLD_PASS channelRevision=10 ownedBiomes=40 seed=20261020");
+          stage=8;
+          return;
+        }
         mc.disconnectWithSavingScreen();
         StartupLifecycleChecks.observe("creation-disconnected", output());
         report("WORLD_CREATION_PASS");
@@ -227,3 +240,5 @@ public final class WorldCreationChecks {
     }
   }
 }
+
+

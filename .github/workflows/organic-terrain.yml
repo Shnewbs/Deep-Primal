@@ -1,0 +1,86 @@
+name: Organic terrain qualification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/organic-terrain.yml'
+      - 'engine-core/src/main/java/com/shnewbs/deepprimal/core/OrganicDrainage.java'
+      - 'engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java'
+      - 'src/coreChecks/**/OrganicDrainage*'
+      - 'src/visualValidation/**/WorldCreationChecks.java'
+      - 'tools/organic-native.init.gradle'
+permissions:
+  contents: read
+concurrency:
+  group: organic-terrain-main
+  cancel-in-progress: true
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LIBGL_ALWAYS_SOFTWARE: '1'
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6.2.0
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - name: Build and run complete checks
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon -PvulkanPlatform=linux build
+      - name: Prepare native capture
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1-mesa-dri mesa-utils
+          mkdir -p run-organic
+          printf 'onboardAccessibility:false\nrenderDistance:8\nsimulationDistance:6\nmaxFps:60\nenableVsync:false\n' > run-organic/options.txt
+      - name: Create and inspect an actual engine world
+        timeout-minutes: 18
+        run: |
+          set -o pipefail
+          xvfb-run -a -s '-screen 0 1280x900x24' ./gradlew --no-daemon \
+            -I tools/organic-native.init.gradle -PvulkanPlatform=linux \
+            -PvisualValidation -PworldCreationValidation \
+            -PcreationName=Organic-Native -PclientRunDir=run-organic \
+            -PcaptureDir=build/organic-native -PgraphicsBackend=OpenGL runClient | tee build/organic-native-client.log
+          python - <<'PY'
+          from pathlib import Path
+          log=Path('build/organic-native-client.log').read_text()
+          assert 'ORGANIC_NATIVE_WORLD_PASS channelRevision=10 ownedBiomes=40' in log
+          assert 'INTEGRATED_CLIENT_PASS scenes=coast,headwater,river,lake,outlet,ridge' in log
+          for name in ['coast','headwater','river','lake','outlet','ridge']:
+              assert (Path('build/organic-native')/f'scene-{name}.png').is_file(), name
+          PY
+      - name: Assemble Windows Vulkan package
+        run: |
+          ./gradlew --no-daemon -PvulkanPlatform=windows assemble
+          python - <<'PY'
+          from pathlib import Path
+          import io,json,zipfile
+          package=next(Path('build/libs').glob('*vulkan-windows.jar'))
+          with zipfile.ZipFile(package) as root:
+              metadata=json.loads(root.read('META-INF/jarjar/metadata.json'))
+              jars={entry['path'] for entry in metadata['jars']}
+              assert jars=={n for n in root.namelist() if n.startswith('META-INF/jarjar/') and n.endswith('.jar')}
+              renderer=[p for p in jars if 'Vulkan' in p]
+              assert len(renderer)==1, renderer
+              with zipfile.ZipFile(io.BytesIO(root.read(renderer[0]))) as vulkan:
+                  assert any(n.endswith('.dll') for n in vulkan.namelist()), 'Missing Windows natives'
+          print('WINDOWS_VULKAN_PACKAGE_PASS',package)
+          PY
+      - uses: actions/upload-artifact@v7.0.2
+        if: always()
+        with:
+          name: organic-terrain-${{ github.sha }}
+          retention-days: 3
+          path: |
+            build/organic-native/**
+            build/organic-native-client.log
+            build/reports/**
+            build/libs/*vulkan-windows.jar

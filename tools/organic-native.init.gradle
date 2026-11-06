@@ -1,0 +1,10 @@
+// Test-only properties; do not change a player's normal launch.
+allprojects {
+    plugins.withId('net.neoforged.moddev') {
+        if (project == rootProject) {
+            neoForge.runs.client {
+                systemProperty 'deepprimal.validationOrganicTerrain', 'true'
+            }
+        }
+    }
+}

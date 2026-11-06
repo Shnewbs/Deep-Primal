@@ -8,6 +8,10 @@ import java.util.function.DoubleBinaryOperator;
 /** Immutable drainage, lake and channel geometry. No chunk/world reads or mutable simulation. */
 public final class WatershedRegion {
   private final boolean naturalMargins;
+  private final boolean terrainResolved;
+  private final DoubleBinaryOperator sourceHeight;
+  private final boolean[] channelized;
+  private final double[] pathX, pathZ;
   public static final int STEP = 32, SIDE = TerrainEngine.CELL / STEP + 1;
   private static final int N = SIDE * SIDE, TILE = 64, TILES = TerrainEngine.CELL / TILE;
   private static final double STREAM_AREA = 18_000;
@@ -314,6 +318,26 @@ public final class WatershedRegion {
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
       boolean naturalMargins) {
+    this(ox,oz,height,rain,broadChannels,cascadeBeds,riverNoise,riverDeltas,
+        floodplainLakes,budgetedDistributaries,admittedSea,admittedOceanInterior,
+        deepChannels,deepWaterBodies,naturalMargins,false);
+  }
+
+  /** Revision 10 derives receivers, channel admission, bends and lake beds from the terrain. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins, boolean terrainResolved) {
+    if (terrainResolved && (riverNoise==null || riverDeltas || floodplainLakes
+        || budgetedDistributaries || deepWaterBodies || naturalMargins))
+      throw new IllegalArgumentException("Terrain-resolved drainage excludes legacy shape templates");
+    this.terrainResolved=terrainResolved;
+    this.sourceHeight=terrainResolved?height:null;
+    this.channelized=terrainResolved?new boolean[N]:null;
+    this.pathX=terrainResolved?new double[N]:null;
+    this.pathZ=terrainResolved?new double[N]:null;
     if (naturalMargins && (!deepWaterBodies || riverNoise == null))
       throw new IllegalArgumentException("Natural margins require seeded deep lake geometry");
     this.naturalMargins = naturalMargins;
@@ -425,6 +449,11 @@ public final class WatershedRegion {
           queue.add(b);
         }
     }
+    if (terrainResolved)
+      for (int n=0;n<count;n++) {
+        int a=sorted[n];
+        parent[a]=OrganicDrainage.receiver(a,SIDE,STEP,flood,order,parent[a]);
+      }
     int[] child = new int[N];
     Arrays.fill(child, -1);
     for (int n = count - 1; n >= 0; n--) {
@@ -513,7 +542,32 @@ public final class WatershedRegion {
         }
       }
     }
-    if (earthRivers)
+    if (terrainResolved) {
+      for (var lake : lakes)
+        if (lake!=null && Double.isFinite(lake.level) && lake.outlet>=0)
+          channelized[lake.outlet]=true;
+      for (int n=count-1;n>=0;n--) {
+        int a=sorted[n],b=parent[a];
+        boolean pool=lakeAt[a]>0 && Double.isFinite(lakes[lakeAt[a]].level);
+        if (!pool && area[a]>=STREAM_AREA && OrganicDrainage.convergent(a,SIDE,STEP,raw))
+          channelized[a]=true;
+        if (channelized[a] && b>=0) channelized[b]=true;
+      }
+      Arrays.fill(child,-1);
+      for (int a=0;a<N;a++) {
+        int b=parent[a];
+        if (b>=0 && channelized[a] && area[a]>=STREAM_AREA
+            && (child[b]<0 || area[a]>area[child[b]])) child[b]=a;
+      }
+      for (int a=0;a<N;a++) {
+        pathX[a]=px(a);pathZ[a]=pz(a);
+        int b=parent[a];
+        if (!channelized[a] || b<0 || area[a]<STREAM_AREA || ocean[a]) continue;
+        var point=OrganicDrainage.lowerCorridor(height,px(a),pz(a),px(b)-px(a),pz(b)-pz(a),STEP*.375);
+        pathX[a]=point.x();pathZ[a]=point.z();
+      }
+    }
+    if (earthRivers && !terrainResolved)
       for (int a = 0; a < N; a++) {
         int b = parent[a];
         if (b < 0 || area[a] < STREAM_AREA || ocean[a]) continue;
@@ -543,17 +597,26 @@ public final class WatershedRegion {
     for (int a = 0; a < N; a++) {
       int b = parent[a];
       if (b < 0 || area[a] < STREAM_AREA || ocean[a]) continue;
+      if (terrainResolved && (!channelized[a]
+          || lakeAt[a]>0 && lakeAt[a]==lakeAt[b] && Double.isFinite(lakes[lakeAt[a]].level))) continue;
       boolean source = child[a] < 0 || area[child[a]] < STREAM_AREA;
       if (source) heads++;
       int up = child[a], down = parent[b];
-      double ax = px(a), az = pz(a), bx = px(b), bz = pz(b), len = Math.hypot(bx - ax, bz - az);
+      double ax = terrainResolved?pathX[a]:px(a), az = terrainResolved?pathZ[a]:pz(a);
+      double bx = terrainResolved?pathX[b]:px(b), bz = terrainResolved?pathZ[b]:pz(b);
+      double len = Math.hypot(bx - ax, bz - az);
       double tx = up < 0 ? bx - ax : bx - px(up), tz = up < 0 ? bz - az : bz - pz(up);
       double ux = down < 0 ? bx - ax : px(down) - ax, uz = down < 0 ? bz - az : pz(down) - az;
       double tl = Math.max(1, Math.hypot(tx, tz)), ul = Math.max(1, Math.hypot(ux, uz));
       double c1x = ax + tx / tl * len * .28, c1z = az + tz / tl * len * .28;
       double c2x = bx - ux / ul * len * .28, c2z = bz - uz / ul * len * .28;
+      if (terrainResolved) {
+        var c1=OrganicDrainage.lowerCorridor(height,lerp(ax,bx,1./3),lerp(az,bz,1./3),bx-ax,bz-az,STEP*.25);
+        var c2=OrganicDrainage.lowerCorridor(height,lerp(ax,bx,2./3),lerp(az,bz,2./3),bx-ax,bz-az,STEP*.25);
+        c1x=c1.x();c1z=c1.z();c2x=c2.x();c2z=c2.z();
+      }
       double lastX = ax, lastZ = az;
-      if (earthRivers) {
+      if (earthRivers && !terrainResolved) {
         lastX += warp(ax, az, area[a], stage[a], 0);
         lastZ += warp(ax, az, area[a], stage[a], 1);
       }
@@ -569,9 +632,9 @@ public final class WatershedRegion {
           // Shared nodes take identical displacements, so confluences stay joined.
           double wa = k == 8 ? area[b] : lerp(area[a], area[b], t);
           double ws = k == 8 ? stage[b] : lerp(stage[a], stage[b], t);
-          double wx = warp(x, z, wa, ws, 0), wz = warp(x, z, wa, ws, 1);
-          x += wx;
-          z += wz;
+          double wx = terrainResolved?0:warp(x, z, wa, ws, 0);
+          double wz = terrainResolved?0:warp(x, z, wa, ws, 1);
+          if (!terrainResolved) { x += wx; z += wz; }
           double ka = lerp(incision[a], incision[b], before), kb = lerp(incision[a], incision[b], t);
           double ca = lerp(chainage[a], chainage[b], before), cb = lerp(chainage[a], chainage[b], t);
           double ba = lerp(braiding[a], braiding[b], before), bb = lerp(braiding[a], braiding[b], t);
@@ -1017,7 +1080,8 @@ public final class WatershedRegion {
     }
     if (!Double.isFinite(level)) return Double.NaN;
     double coarse = lerp(lerp(raw[a], raw[a + 1], u), lerp(raw[a + SIDE], raw[a + SIDE + 1], u), v);
-    return coarse < level ? level : Double.NaN;
+    double bed=terrainResolved?sourceHeight.applyAsDouble(x,z):coarse;
+    return bed < level ? level : Double.NaN;
   }
 
   /** V6-only roof footprint. A whole cross-section must have rock cover before its valley cut is suppressed. */
@@ -1088,7 +1152,8 @@ public final class WatershedRegion {
       double coarse =
           lerp(lerp(raw[a], raw[a + 1], u), lerp(raw[a + SIDE], raw[a + SIDE + 1], u), v);
       double detail = smooth((coarse - lakeLevel - 1) / 4);
-      ground = lerp(coarse, base, detail);
+      ground = terrainResolved?base:lerp(coarse, base, detail);
+      double admittedBed=terrainResolved?base:coarse;
       if (deepWaterBodies && coarse < lakeLevel) {
         Lake lake = null;
         for (int corner = 0; corner < 4; corner++) {
@@ -1119,11 +1184,11 @@ public final class WatershedRegion {
                   Math.max(
                       Math.abs(raw[a + SIDE] - raw[a]), Math.abs(raw[a + SIDE + 1] - raw[a + 1])))
               / STEP;
-      if (coarse < lakeLevel + shoreStep * 1.01)
+      if (admittedBed < lakeLevel + shoreStep * 1.01)
         joinedBed = Math.min(joinedBed, Math.floor(lakeLevel) - 1.001);
-      if (coarse >= lakeLevel && coarse < lakeLevel + shoreStep * 1.5)
+      if (admittedBed >= lakeLevel && admittedBed < lakeLevel + shoreStep * 1.5)
         bankFloor = Math.max(bankFloor, lakeLevel + .35);
-      if (coarse < lakeLevel) water = lakeLevel;
+      if (admittedBed < lakeLevel) water = lakeLevel;
     }
     if (!Double.isFinite(water) && lakeHalo[a]) {
       for (int n = 0; n < 4; n++) {
@@ -1140,6 +1205,9 @@ public final class WatershedRegion {
         double t = Math.clamp(((x - s.ax) * vx + (z - s.az) * vz) / len, 0, 1);
         double dist = Math.hypot(x - s.ax - vx * t, z - s.az - vz * t), r = lerp(s.ra, s.rb, t);
         if (dist > r + 36 + s.reach) continue;
+        // A nearby outlet's bank blend must not reshape the submerged basin.
+        if (terrainResolved && Double.isFinite(water) && Double.isFinite(lakeLevel) && dist >= r)
+          continue;
         if (naturalMargins && dist < r + 4) protectedLakeMargin = true;
         boolean deepen =
             deepChannels && !s.delta && delta == null && !Double.isFinite(lakeLevel) && !lakeHalo[a];
@@ -1200,7 +1268,7 @@ public final class WatershedRegion {
           double blend = smooth((dist - r) / bank);
           double wall = lerp(level + .35, base, blend);
           double cut = earthRivers ? lerp(s.ka, s.kb, t) : 0;
-          if (cut > 2) {
+          if (cut > 2 && !terrainResolved) {
             double canyon =
                 Math.min(base, level + .35 + canyonWall(x, z, dist - r, base - level - .35, cut));
             wall = lerp(wall, canyon, smooth((cut - 2) / 6));
@@ -1340,6 +1408,7 @@ public final class WatershedRegion {
             + segments.length * (earthRivers ? 176L : 112L)
             + index.length * 8L
             + refs * 4
+            + (terrainResolved?N*17L:0)
             + deltas.length * 80L
             + deltaIndex.length * 8L);
   }

@@ -51,6 +51,7 @@ public final class CoreChecks {
     GradientPaletteChecks.run();
     SoilTextureChecks.run();
     NaturalShoreChecks.main(new String[0]);
+    OrganicDrainageChecks.main(new String[0]);
     SoilProfileLegacyReplayChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.NoiseCoreChecks.main(new String[0]);
     com.shnewbs.deepprimal.core.density.DensityGraphChecks.main(new String[0]);

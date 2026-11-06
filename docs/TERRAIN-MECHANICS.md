@@ -116,3 +116,12 @@ New worlds now use saved `continental_v4`: bank containment, folded/faulted rock
 ## Alpha.27 implementation update
 
 V6 now implements the generation and bounded runtime mechanics described in [Terrain V6](TERRAIN-V6.md). Existing V1–V5 generators remain unchanged. The release adds geological cave routes and supported river tunnels, soil horizons, dunes, glacial relief and finite seasonal melt, authored deposit profiles, climate palettes, debris and local underground failures. Surface landslide dynamics, a moving ice-sheet solver, optional KubeJS authoring, external editor and the deferred natural-content catalogs remain outside this release. The validation record distinguishes native acceptance from broader engine/GPU work.
+
+## Owner direction — organic terrain (2026-11-06)
+
+Natural landforms must emerge from the generated geography and compatible local conditions. Do not choose a fixed river layout, circular lake bowl, repeated bank profile, crescent oxbow or equal-branch delta and disguise it with surface noise. River routing should respond to downhill gradients and contributing runoff; lake footprints and beds should follow connected depressions and their spill elevations. Geology, exposure and transport/deposition proxies should inform banks and materials. Straight reaches can occur where terrain supports them; forcing every reach to meander is another imposed shape.
+
+Determinism remains required: the same seed and saved generation revision must reproduce the same geography, regardless of chunk request order. Organic does not mean rerolling terrain on load. Existing saves keep their serialized revision. The current implementation is an approximation; this direction does not require a full live sediment simulator by default or override the sinkhole exclusion.
+
+Channel revision 10 starts replacing legacy shape rules with terrain-derived routing and basin admission. See [implementation, checks and remaining limitations](ORGANIC-DRAINAGE.md). It is not a completed geological or hydrodynamic simulation.
+
