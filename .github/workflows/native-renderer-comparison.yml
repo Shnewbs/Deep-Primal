@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/native-renderer-comparison.yml','tools/renderer-comparison.init.gradle']
+    paths: ['.github/workflows/native-renderer-comparison.yml','tools/renderer-comparison.init.gradle','src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java']
 permissions:
   contents: write
 jobs:
