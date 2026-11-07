@@ -1,0 +1,90 @@
+
+Welcome to Gradle 9.2.1!
+
+Here are the highlights of this release:
+ - Windows ARM support
+ - Improved publishing APIs
+ - Better guidance for dependency verification failures
+
+For more details see https://docs.gradle.org/9.2.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :createMinecraftArtifacts
+Loaded 127 artifacts from <checkout>/standalone-engine/build/tmp/createMinecraftArtifacts/nfrt_artifact_manifest.properties
+*** Started working on downloadManifest
+  ↓ https://piston-meta.mojang.com/mc/game/version_manifest_v2.json
+ ✓ Completed downloadManifest in 5.49s
+*** Started working on downloadJson
+ ✓ Completed downloadJson in 0.00s
+*** Started working on downloadClient
+*** Started working on downloadServer
+ ✓ Completed downloadServer in 0.04s
+ ✓ Completed downloadClient in 0.04s
+*** Started working on preProcessJar
+ ♻ Used cache of preProcessJar in 0.00s
+*** Started working on decompile
+ ♻ Used cache of decompile in 0.00s
+*** Started working on patch
+ ♻ Used cache of patch in 0.00s
+*** Started working on applyNeoforgePatches
+ ♻ Used cache of applyNeoforgePatches in 0.00s
+*** Started working on transformSources
+ ♻ Used cache of transformSources in 0.00s
+*** Started working on recompile
+ ♻ Used cache of recompile in 0.00s
+*** Started working on mergeWithSources
+ ♻ Used cache of mergeWithSources in 0.00s
+Total runtime: 6.26s
+
+
+> Task :lod-core:compileJava
+
+> Task :compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processResources
+> Task :classes
+> Task :lod-core:processResources NO-SOURCE
+> Task :lod-core:classes
+> Task :lod-core:jar
+> Task :jarJar
+> Task :jar
+> Task :assemble
+> Task :compileEngineChecksJava
+> Task :processEngineChecksResources NO-SOURCE
+> Task :engineChecksClasses
+
+> Task :engineChecks
+LOD_STORAGE_PASS signedCoordinates=true height1024=true structures=true trees=true airGaps=true staleRevision=true truncation=true bytes=664 memoryEstimate=7492
+ENGINE_CORE_PASS transfers=500000 deterministicSamples=4225 drainageAcyclic=true sharedEdges=10000 land=1231 ocean=2994 riverSamples=109 milliseconds=341
+
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :verifyIndependentCore
+> Task :check
+> Task :build
+> Task :lod-core:assemble
+> Task :lod-core:compileTestJava NO-SOURCE
+> Task :lod-core:processTestResources NO-SOURCE
+> Task :lod-core:testClasses UP-TO-DATE
+> Task :lod-core:test NO-SOURCE
+> Task :lod-core:check UP-TO-DATE
+> Task :lod-core:build
+> Task :compileNativeChecksJava
+
+[Incubating] Problems report is available at: file://<checkout>/standalone-engine/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 22s
+11 actionable tasks: 11 executed

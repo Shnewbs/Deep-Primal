@@ -1,0 +1,43 @@
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:458: error: variable terrainResolved might not have been initialized
+    if (terrainResolved)
+        ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:557: error: variable channelized might not have been initialized
+          channelized[lake.outlet]=true;
+          ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:562: error: variable channelized might not have been initialized
+          channelized[a]=true;
+          ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:563: error: variable channelized might not have been initialized
+        if (channelized[a] && b>=0) channelized[b]=true;
+            ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:568: error: variable channelized might not have been initialized
+        if (b>=0 && channelized[a] && area[a]>=STREAM_AREA
+                    ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:572: error: variable pathX might not have been initialized
+        pathX[a]=px(a);pathZ[a]=pz(a);
+        ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:572: error: variable pathZ might not have been initialized
+        pathX[a]=px(a);pathZ[a]=pz(a);
+                       ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:574: error: variable channelized might not have been initialized
+        if (!channelized[a] || b<0 || area[a]<STREAM_AREA || ocean[a]) continue;
+             ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:609: error: variable channelized might not have been initialized
+      if (terrainResolved && (!channelized[a]
+                               ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:614: error: variable pathX might not have been initialized
+      double ax = terrainResolved?pathX[a]:px(a), az = terrainResolved?pathZ[a]:pz(a);
+                                  ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:614: error: variable pathZ might not have been initialized
+      double ax = terrainResolved?pathX[a]:px(a), az = terrainResolved?pathZ[a]:pz(a);
+                                                                       ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:615: error: variable pathX might not have been initialized
+      double bx = terrainResolved?pathX[b]:px(b), bz = terrainResolved?pathZ[b]:pz(b);
+                                  ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:615: error: variable pathZ might not have been initialized
+      double bx = terrainResolved?pathX[b]:px(b), bz = terrainResolved?pathZ[b]:pz(b);
+                                                                       ^
+Deep-Primal/engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java:709: error: variable sourceHeight might not have been initialized
+  }
+  ^
+14 errors

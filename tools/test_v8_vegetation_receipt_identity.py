@@ -18,7 +18,7 @@ required = [
     "public int originZ()",
     "public boolean matchesChunk(ChunkAccess chunk)",
     "public void requireSameChunk(ChunkAccess chunk)",
-    "new V8VegetationNativeReceipt(words, candidateCount, observed, originX, originZ)",
+    "new V8VegetationNativeReceipt(words, candidateCount, observed, originX, originZ,\n        profileFingerprint)",
 ]
 for anchor in required:
     if src.count(anchor) != 1:

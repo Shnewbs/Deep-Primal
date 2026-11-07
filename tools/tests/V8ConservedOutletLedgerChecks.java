@@ -43,7 +43,12 @@ public final class V8ConservedOutletLedgerChecks {
     sameTotals(original, totals(once.snapshot()));
     ok(once.snapshot().accounts().get(a).water() == 43);
     ok(once.snapshot().accounts().get(b).water() == 17);
-    var duplicate = V8ConservedOutletLedger.apply(once.snapshot(), t);
+    V8ConservedOutletLedger.Result duplicate;
+    try {
+      duplicate = V8ConservedOutletLedger.apply(once.snapshot(), t);
+    } catch (IllegalArgumentException unexpected) {
+      throw new AssertionError("An exact committed transfer replay must be accepted", unexpected);
+    }
     ok(duplicate.applied() == 0 && duplicate.replayed() == 1);
     ok(duplicate.snapshot() == once.snapshot());
     // Persist/reopen all maps, including the last receipt, before replaying.

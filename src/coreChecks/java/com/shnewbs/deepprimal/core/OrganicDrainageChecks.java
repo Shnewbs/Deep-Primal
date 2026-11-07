@@ -84,6 +84,27 @@ public final class OrganicDrainageChecks {
 
     DoubleBinaryOperator plane=(x,z)->250+x*.014+z*.009;
     var oldPlane=region(plane,false); var newPlane=region(plane,true);
+    require(!(boolean)field(oldPlane,"terrainResolved"),"Legacy constructor enabled revision 10");
+    require(field(oldPlane,"channelized")==null && field(oldPlane,"pathX")==null
+        && field(oldPlane,"pathZ")==null,"Legacy constructor allocated organic routing arrays");
+    var configured=new WatershedRegion(-4096,-4096,plane,(x,z)->.7,true,true,
+        new TerrainNoise(20261105,true),false,false,false,null,null,true,false,false,true,
+        WaterTerrainConfig.DEFAULTS);
+    require((boolean)field(configured,"terrainResolved"),"Configured constructor lost revision 10");
+    require(field(configured,"sourceHeight")==plane,"Configured constructor lost fine terrain sampler");
+    require(field(configured,"config")==WaterTerrainConfig.DEFAULTS,"Configured constructor lost config");
+    require(configured.centerline().equals(newPlane.centerline()),"Constructor overloads disagree");
+    var legacyConfigured=new WatershedRegion(-4096,-4096,plane,(x,z)->.7,true,true,
+        new TerrainNoise(20261105,true),false,false,false,null,null,true,false,false,
+        WaterTerrainConfig.DEFAULTS);
+    require(legacyConfigured.centerline().equals(oldPlane.centerline()),"Configured legacy constructor changed routing");
+    boolean rejected=false;
+    try {
+      new WatershedRegion(-4096,-4096,plane,(x,z)->.7,true,true,
+          new TerrainNoise(20261105,true),false,false,false,null,null,true,true,false,true,
+          WaterTerrainConfig.DEFAULTS);
+    } catch (IllegalArgumentException expected) { rejected=true; }
+    require(rejected,"Revision 10 admitted legacy lake sculpting");
     conserved(newPlane);
     require(!oldPlane.centerline().isEmpty(),"Missing lattice-artifact fixture");
     require(newPlane.centerline().isEmpty(),"Sheet runoff cut periodic parallel channels");

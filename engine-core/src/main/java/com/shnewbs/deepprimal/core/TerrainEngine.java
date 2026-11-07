@@ -245,7 +245,8 @@ public final class TerrainEngine {
               channelRevision >= 4 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
               channelRevision >= 5 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
               null, null, channelRevision >= 6,
-              channelRevision >= 8, channelRevision >= 9, config);
+              channelRevision >= 8 && channelRevision <= 9, channelRevision == 9,
+              channelRevision == 10, config);
       watersheds.put(key, d);
       while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
     }

@@ -22,7 +22,8 @@ public record SoilProfile(int topsoil,int subsoil,int weathered,Kind kind) {
       double sandWeight = shoreSandWeight(s);
       if (s.temperature() < .23) kind = Kind.FROZEN;
       else if (s.wet()) kind = s.speed() > .3 ? Kind.GRAVEL : s.rain() > .72 ? Kind.CLAY : Kind.LOAM;
-      else if (sandWeight > .85) kind = Kind.SAND;
+      // Coherent world-space variation keeps a mixed shore even at constant elevation/climate.
+      else if (noise.field(x,z,40,34103)*.5+.5 < sandWeight) kind = Kind.SAND;
       else if (sandWeight > .65) kind = Kind.LOAMY_SAND;  // More sand-like transition
       else if (sandWeight > .35) kind = Kind.SANDY_LOAM;  // Balanced blend
       else if (sandWeight > .15) kind = Kind.LOAMY_SAND;  // More grass-like transition

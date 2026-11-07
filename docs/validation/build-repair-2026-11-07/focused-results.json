@@ -1,0 +1,18 @@
+{
+  "audited_main": "7b16d12b4d39f453e4ea61a7f125127d11360866",
+  "java": "Temurin 25.0.5+8",
+  "python_unit_tests": {
+    "tests": 74,
+    "passed": true
+  },
+  "checks": {
+    "organic-legacy": "ORGANIC_DRAINAGE_LEGACY_PASS revisions=0..9 columns=640 fields=6400\nORGANIC_DRAINAGE_PASS checks=816677 planeLegacyReaches=52900 planeOrganicReaches=0 wetBasinSamples=25022 unmodifiedRawBeds=19100 engineSeeds=8 reaches=4916 wetReachSamples=6655 terrainFittedKnots=4602\n",
+    "soil": "SOIL_TEXTURE_PASS checks=501519 classes=12 triangleStep=.1 invalidRejected=true\nSOIL_DISTRIBUTION columns=12675 seeds=3 selectableDrySoils={SAND=51, LOAMY_SAND=54, SANDY_LOAM=136, LOAM=67, SILT_LOAM=240, SILT=100, SANDY_CLAY_LOAM=69, CLAY_LOAM=56, SILTY_CLAY_LOAM=54, SANDY_CLAY=30, SILTY_CLAY=46, CLAY=414}\nSHORELINE_ECOTONE_PASS samples=1024 sand=129 loam=895 adjacentCoherence=1920/1984\nSOIL_PROFILE_LEGACY_REPLAY_PASS checks=150001 frozenRev2Sand=[10000, 6256, 4998, 0, 0]\n",
+    "test_watershed_interior_ports": "V8_INTERIOR_ROUTES_RUNNER_PASS positive=2 broken_rejected=3\n",
+    "test_watershed_outlet_topology": "{\n  \"source_sha256\": \"a912949a188ec7d1ca1d6e102b4f764c771a671da211989c2bad7dc13512fb64\",\n  \"test_sha256\": \"b5b049dbe6a67cad8a5a61fdad8ddb64cade93958573d3d955dea93b9839128e\",\n  \"java_version\": \"openjdk version \\\"25.0.5\\\" 2026-10-20 LTS\",\n  \"results\": {\n    \"positive\": 0,\n    \"unverified_water_as_ocean\": 1,\n    \"duplicated_routed_runoff\": 1,\n    \"unknown_frontier_treated_as_closed\": 1\n  }\n}\n",
+    "test_watershed_region_port_bridge": "V8_REGION_PORT_BRIDGE_RUNNER_PASS positive=2 broken_rejected=14\n",
+    "test_v8_outlet_ledger": "V8_OUTLET_LEDGER_SUITE_PASS positive=1 broken=3 V8_OUTLET_LEDGER_PASS assertions=40134 accounts=12 receipts=11\n",
+    "test_v8_outlet_store": "V8_OUTLET_STORE_RUNNER_PASS positive=True mutations={'no-generation-CAS': True, 'replay-as-new-generation': True, 'ignore-checksum': True, 'ignore-world-identity': True, 'ignore-unreconciled-pending': True, 'ignore-pending-on-commit': True, 'accept-symlinked-checkpoint': True, 'skip-durable-native-accounts': True, 'skip-pending-conservation-receipts': True, 'skip-native-generation': True, 'discard-forensics': True, 'overwrite-forensic-quarantine': True, 'ignore-native-no-pending-mismatch': True, 'allow-unsorted-accounts': True}\n"
+  },
+  "scope": "Automated component checks, not native gameplay or GPU qualification"
+}

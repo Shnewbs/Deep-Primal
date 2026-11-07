@@ -343,6 +343,38 @@ public final class WatershedRegion {
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
       boolean naturalMargins, WaterTerrainConfig config) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, naturalMargins, false, config);
+  }
+
+  /** Revision 10 follows terrain corridors and preserves the fine-sampled lake bed. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins, boolean terrainResolved) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, naturalMargins, terrainResolved, WaterTerrainConfig.DEFAULTS);
+  }
+
+  /** Full saved-policy constructor; older overloads retain revisions 0-9. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins, boolean terrainResolved, WaterTerrainConfig config) {
+    if (terrainResolved && (riverNoise == null || riverDeltas || floodplainLakes
+        || budgetedDistributaries || deepWaterBodies || naturalMargins))
+      throw new IllegalArgumentException("Terrain-resolved drainage requires seeded rivers without legacy basin templates");
+    this.terrainResolved = terrainResolved;
+    this.sourceHeight = Objects.requireNonNull(height, "terrain height");
+    this.channelized = terrainResolved ? new boolean[N] : null;
+    this.pathX = terrainResolved ? new double[N] : null;
+    this.pathZ = terrainResolved ? new double[N] : null;
     if (naturalMargins && (!deepWaterBodies || riverNoise == null))
       throw new IllegalArgumentException("Natural margins require seeded deep lake geometry");
     if (admittedOceanInterior != null && admittedSea == null)

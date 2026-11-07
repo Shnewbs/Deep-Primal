@@ -1,0 +1,114 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+
+> Task :graphics-settings:processResources UP-TO-DATE
+> Task :renderer-vulkan:processResources UP-TO-DATE
+> Task :performance-engine:processResources UP-TO-DATE
+> Task :lod-engine:processResources UP-TO-DATE
+> Task :engine-core:compileJava UP-TO-DATE
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes UP-TO-DATE
+> Task :engine-core:jar UP-TO-DATE
+> Task :engine-core:assemble UP-TO-DATE
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :gui-themes:createMinecraftArtifacts UP-TO-DATE
+> Task :gui-themes:compileJava UP-TO-DATE
+> Task :graphics-settings:compileJava UP-TO-DATE
+> Task :compileSoilDataJava UP-TO-DATE
+> Task :performance-engine:compileJava UP-TO-DATE
+> Task :graphics-settings:classes UP-TO-DATE
+> Task :performance-engine:classes UP-TO-DATE
+> Task :processSoilDataResources NO-SOURCE
+> Task :soilDataClasses UP-TO-DATE
+> Task :graphics-settings:jar UP-TO-DATE
+> Task :graphics-settings:assemble UP-TO-DATE
+> Task :performance-engine:jar UP-TO-DATE
+> Task :performance-engine:assemble UP-TO-DATE
+> Task :gui-themes:compileThemeAssetsJava UP-TO-DATE
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses UP-TO-DATE
+> Task :generateSoilResources UP-TO-DATE
+> Task :lod-engine:compileJava UP-TO-DATE
+> Task :lod-engine:classes UP-TO-DATE
+> Task :lod-engine:jar UP-TO-DATE
+> Task :lod-engine:assemble UP-TO-DATE
+> Task :gui-themes:generateThemeAssets UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :gui-themes:processResources UP-TO-DATE
+> Task :gui-themes:classes UP-TO-DATE
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar UP-TO-DATE
+> Task :gui-themes:assemble UP-TO-DATE
+
+> Task :renderer-vulkan:compileJava
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:14: warning: [removal] getByte(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getByte(null, ptr) != 0;
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:18: warning: [removal] getByte(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getByte(null, ptr);
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:22: warning: [removal] getShort(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getShort(null, ptr);
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:26: warning: [removal] getInt(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getInt(null, ptr);
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:30: warning: [removal] getLong(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getLong(null, ptr);
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:34: warning: [removal] getFloat(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getFloat(null, ptr);
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:38: warning: [removal] getDouble(Object,long) in Unsafe has been deprecated and marked for removal
+      return UNSAFE.getDouble(null, ptr);
+                   ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:42: warning: [removal] getLong(Object,long) in Unsafe has been deprecated and marked for removal
+      return BITS64 ? UNSAFE.getLong(null, ptr) : UNSAFE.getInt(null, ptr) & 4294967295L;
+                            ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:42: warning: [removal] getInt(Object,long) in Unsafe has been deprecated and marked for removal
+      return BITS64 ? UNSAFE.getLong(null, ptr) : UNSAFE.getInt(null, ptr) & 4294967295L;
+                                                        ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:46: warning: [removal] putByte(Object,long,byte) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putByte(null, ptr, value);
+            ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:50: warning: [removal] putShort(Object,long,short) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putShort(null, ptr, value);
+            ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:54: warning: [removal] putInt(Object,long,int) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putInt(null, ptr, value);
+            ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:58: warning: [removal] putLong(Object,long,long) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putLong(null, ptr, value);
+            ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:62: warning: [removal] putFloat(Object,long,float) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putFloat(null, ptr, value);
+            ^
+<checkout>/renderer-vulkan/src/main/java/net/vulkanmod/vulkan/util/MemoryAccess.java:66: warning: [removal] putDouble(Object,long,double) in Unsafe has been deprecated and marked for removal
+      UNSAFE.putDouble(null, ptr, value);
+            ^
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+15 warnings
+
+> Task :renderer-vulkan:classes
+> Task :compileJava
+> Task :classes
+> Task :renderer-vulkan:jar
+> Task :renderer-vulkan:assemble
+> Task :jarJar
+> Task :jar
+> Task :assemble
+
+[Incubating] Problems report is available at: file://<checkout>/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 14s
+27 actionable tasks: 5 executed, 22 up-to-date
