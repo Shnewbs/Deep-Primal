@@ -4,6 +4,8 @@ import com.mojang.blaze3d.pipeline.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.shnewbs.deepprimal.core.WaterPatchMesher;
+import com.shnewbs.deepprimal.core.WaterPageScan;
+import com.shnewbs.deepprimal.client.VerticalView;
 import com.shnewbs.deepprimal.core.WaterFlowField;
 import com.shnewbs.deepprimal.core.WaterCornerPacket;
 import com.shnewbs.deepprimal.core.WaterBoundaryIndex;
@@ -91,7 +93,9 @@ public final class AnimatedWaterRenderer {
   private ClientLevel level;
   private boolean stopped;
   private long session, clock, clockNanos, lastFrame;
-  private int discovery, captureTurn;
+  private WaterPageScan discovery, nearDiscovery;
+  private final LinkedHashSet<Long> deliveredPages = new LinkedHashSet<>();
+  private int captureTurn;
   public long residentBytes, uploads, captures, drawnPages, terrainInvalidationsAvoided, staleJobs;
   public long heightBoundaryWrites, heightBoundaryBytes, lastHeightBoundaryNanos, maxHeightBoundaryNanos;
   private final Matrix4f viewMatrix = new Matrix4f();
@@ -216,6 +220,14 @@ public final class AnimatedWaterRenderer {
     if (event.getLevel() instanceof ClientLevel client) {
       var pos = event.getChunk().getPos();
       chunkChanged(client, pos.x(), pos.z(), false);
+      if (owns && client == level) {
+        var chunk = event.getChunk();
+        for (int i = 0; i < chunk.getSections().length; i++)
+          if (chunk.getSections()[i].maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
+            deliveredPages.add(SectionPos.asLong(pos.x(), level.getMinSectionY() + i, pos.z()));
+            while (deliveredPages.size() > MAX_PAGES * 2) deliveredPages.removeFirst();
+          }
+      }
     }
   }
 
@@ -404,35 +416,59 @@ public final class AnimatedWaterRenderer {
     // resident water updates above; a starved page is what reads as stutter.
     var view = ((LevelRendererAccessor) mc.levelRenderer).deepprimal$viewArea();
     if (view != null) {
-      long discoveryDeadline = System.nanoTime() + 1_000_000;
-      for (int n = 0;
-          n < Math.min(512, view.sections.length) && System.nanoTime() < discoveryDeadline;
-          n++) {
-        var section = view.sections[Math.floorMod(discovery++, view.sections.length)];
-        long key = section.getSectionNode();
-        if (pages.containsKey(key)
-            || hidden.contains(key)
-            || !event.getFrustum().isVisible(section.getBoundingBox())) continue;
-        int x = SectionPos.x(key), y = SectionPos.y(key), z = SectionPos.z(key);
-        if (y < level.getMinSectionY() || y >= level.getMaxSectionY()) continue;
-        var chunk = level.getChunkSource().getChunk(x, z, false);
-        if (chunk == null || chunk instanceof EmptyLevelChunk) continue;
-        if (chunk
-            .getSection(chunk.getSectionIndexFromSectionY(y))
-            .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
-          Page p = new Page(key);
-          if (pages.size() >= MAX_PAGES) evict(camera, p);
-          if (pages.size() < MAX_PAGES) {
-            if (fresh.remove(key)) p.snapshot = EMPTY;
-            pages.put(key, p);
-            dirty.add(key);
-          }
-        }
+      int cx = (int)Math.floor(camera.x / 16), cy = (int)Math.floor(camera.y / 16),
+          cz = (int)Math.floor(camera.z / 16), radius = mc.options.getEffectiveRenderDistance();
+      var vertical = (VerticalView)view;
+      int low = Math.max(level.getMinSectionY(), vertical.deepprimal$minimumSectionY());
+      int high = Math.min(level.getMaxSectionY(), low + Math.min(level.getSectionsCount(),
+          vertical.deepprimal$verticalRadius() * 2 + 1));
+      int nearRadius = Math.min(8, radius);
+      if (nearDiscovery == null || nearDiscovery.done()
+          || nearDiscovery.shouldRetarget(cx, cy, cz, nearRadius, low, high))
+        nearDiscovery = new WaterPageScan(cx, cy, cz, nearRadius, low, high);
+      if (discovery == null || discovery.done()
+          || discovery.shouldRetarget(cx, cy, cz, radius, low, high))
+        discovery = new WaterPageScan(cx, cy, cz, radius, low, high);
+      // Separate bounded turns: new deliveries and nearby surfaces cannot wait behind
+      // millions of ring-grid slots at large render distances. Far coverage still advances.
+      long deliveryDeadline = System.nanoTime() + 250_000;
+      for (int n = 0; n < 128 && !deliveredPages.isEmpty()
+          && System.nanoTime() < deliveryDeadline; n++) {
+        long key = deliveredPages.removeFirst();
+        discover(SectionPos.x(key), SectionPos.y(key), SectionPos.z(key), event, camera);
       }
+      long nearDeadline = System.nanoTime() + 375_000;
+      nearDiscovery.drain(192, (x,y,z) -> {
+        if (System.nanoTime() >= nearDeadline) return false;
+        discover(x,y,z,event,camera); return true;
+      });
+      long farDeadline = System.nanoTime() + 375_000;
+      discovery.drain(192, (x,y,z) -> {
+        if (System.nanoTime() >= farDeadline) return false;
+        discover(x,y,z,event,camera); return true;
+      });
     }
     synchronizeVisibleHeights(visible);
     visible.sort(Comparator.comparingDouble((Page p) -> p.bounds.distanceToSqr(camera)).reversed());
     event.getRenderState().setRenderData(VISIBLE, List.copyOf(visible));
+  }
+
+  private void discover(int x, int y, int z, ExtractLevelRenderStateEvent event,
+      net.minecraft.world.phys.Vec3 camera) {
+    long key = SectionPos.asLong(x,y,z);
+    if (pages.containsKey(key) || hidden.contains(key)
+        || y < level.getMinSectionY() || y >= level.getMaxSectionY()
+        || !event.getFrustum().isVisible(new AABB(x*16., y*16.-1, z*16., x*16.+16, y*16.+17, z*16.+16))) return;
+    var chunk = level.getChunkSource().getChunk(x,z,false);
+    if (chunk == null || chunk instanceof EmptyLevelChunk
+        || !chunk.getSection(chunk.getSectionIndexFromSectionY(y))
+            .maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) return;
+    Page page = new Page(key);
+    if (pages.size() >= MAX_PAGES) evict(camera,page);
+    if (pages.size() < MAX_PAGES) {
+      if (fresh.remove(key)) page.snapshot = EMPTY;
+      pages.put(key,page); dirty.add(key);
+    }
   }
 
   /** Sample shared trajectories at this frame's clock instead of replaying a neighbor's
@@ -1176,7 +1212,9 @@ public final class AnimatedWaterRenderer {
     flowDirections.clear();
     cornerDirections.clear();
     residentBytes = 0;
-    discovery = 0;
+    discovery = null;
+    nearDiscovery = null;
+    deliveredPages.clear();
     lastFrame = 0;
   }
 

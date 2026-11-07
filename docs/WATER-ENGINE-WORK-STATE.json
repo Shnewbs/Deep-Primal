@@ -1,31 +1,48 @@
 {
   "schema": 1,
-  "owner": "foreground-water-write-guard-20261028T0041",
-  "status": "active",
-  "started_at": "2026-10-28T00:41:00Z",
-  "active_until": "2026-10-28T01:15:00Z",
+  "owner": "foreground-water-polish-20261107",
+  "status": "checkpointed",
+  "started_at": "2026-11-07T16:08:49.673802Z",
+  "active_until": "2026-11-07T16:08:49.673802Z",
   "scope": [
+    "build.gradle",
     "gradle.properties",
-    "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
-    "tools/water/test_native_write_guard.py",
-    "docs/validation/engine-continuation/water-native-write-guard-2026-10-28"
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/OrganicDrainageChecks.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+    "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json",
+    "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMeshChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WorldCreationChecks.java",
+    "tools/accept_organic_qualification.py",
+    "tools/biomes/OrganicChannelCodecChecks.java",
+    "tools/publish_organic_qualification.py",
+    ".github/workflows/organic-terrain.yml",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/HydraulicChannel.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPageScan.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/HydraulicChannelChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterPageScanChecks.java",
+    "tools/water/WaterPlanningProbe.java",
+    "tools/water/cliff-native.init.gradle"
   ],
-  "coordination": "Owner requested foreground continuation. Current engine and renderer runs are recorded completed; independent 00:29 UTC audit completed. This is a bounded foreground WATER claim only; root ENGINE-WORK-STATE.json and renderer files remain owned by their existing roles. Preserve all unrelated source. Owner performs full Gradle/Minecraft/GPU builds under October 27 override.",
-  "baseline": "5c146b95f4e90a10fb3985fdb6fc0f6fc143930d",
-  "current_evidence": "Pinned HydrologyRuntime blob 898649a479972c77c3c46470447197261107235a restored byte-exact. Implement and source-test post-native loaded/final-state verification consumed from the independent audit; no candidate test, native execution or release claimed at lease acquisition.",
+  "coordination": "Main advanced with two unrelated pure root-zone files during publication. Preserved 9b83343f2ea76ce55595c816f49c02b18be0e4f6, compiled the combined package, and ran its root-zone checks. Water production sources did not change after their complete build/native validation. Publish with expected-head protection; no branch or force push.",
+  "baseline": "12886c9926f090a2d9c9a332f24a983902849f05",
+  "current_evidence": "Full Java25/Gradle9.2.1 build, 74 Python tests, parent-source differential replay 0–10, revision11 native creation/six captures/save, actual codecs0–11, moving-water and 224-frame controlled cliff continuity PASS. See docs/validation/water-polish-2026-11-07/README.md.",
   "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
   "not_claimed": [
-    "full Java25/Gradle build",
-    "native Minecraft callback acceptance",
-    "broad natural-cliff flicker acceptance",
-    "water engine completion",
-    "new grade",
-    "new JAR or release"
+    "AAA/full water-engine completion",
+    "named Windows GPU frame/tick performance",
+    "new independent grade",
+    "full seasonal/ocean/world-ledger acceptance",
+    "universal natural-waterfall flicker elimination"
   ],
-  "updated_at": "2026-10-28T00:41:00Z",
-  "owner_goal": "Continue water engine alongside broader engine until independently evidenced completion; existing hourly builder updated",
+  "updated_at": "2026-11-07T16:08:49.673802Z",
+  "owner_goal": "Improve fluid presentation, loading priority, organic river geometry and mechanics while retaining finite volume and saved geography; broad water acceptance gates remain explicit.",
   "completion_gates": {
-    "continuous_surfaces": "Two cliff discontinuities fixed; actual GPU controlled readbacks and live controlled scene pass. Natural cliff temporal/pixel acceptance remains open.",
+    "continuous_surfaces": "Current native controlled cliff/cascade: 224 frames, 1,292,256 shared-corner comparisons, zero mismatches above quantization tolerance. Natural temporal/pixel and broad Windows Vulkan acceptance still open.",
     "volume_and_constituents": "existing scoped checks pass; world ledger/long soak incomplete",
     "loaded_unloaded_persistence": "incomplete broad acceptance",
     "seasonal_groundwater_and_oceans": "incomplete broad acceptance",
@@ -36,20 +53,19 @@
   "engine_complete": false,
   "milestone_source_sha": "3acffb22a996876a57ce2cfb73eee60747358acc",
   "latest_delivery": {
-    "version": "0.0.1-alpha.29-dev.28-water.2",
-    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar",
-    "export": "C:/workspace/deepprimal-deliverables/DeepPrimal-dev.28-water.2-Windows.jar",
-    "size": 125292084,
-    "sha256": "012ede8a138058b7a1fda66dd9c0fcd3bba414159322b98c6757feada5052ed3",
-    "producerEqualsExport": true,
-    "libraryTransfer": {
+    "version": "0.0.1-alpha.29-dev.129-water-polish.1",
+    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.129-water-polish.1-vulkan-windows.jar",
+    "size": 125873334,
+    "sha256": "721bcf0e472677e0e4bb00e5b69fe2591353bd6cdf4dfe3eb3590db9fd76fd63",
+    "publicationParent": "9b83343f2ea76ce55595c816f49c02b18be0e4f6",
+    "qualification": "Development test build. Live validation used Linux software OpenGL; Windows package statically checked. Full water completion is not claimed.",
+    "evidence": "docs/validation/water-polish-2026-11-07/README.md",
+    "downloadPersistence": {
       "status": "failed-before-transfer",
-      "reason": "hosted apps tools/list request failed: DNS"
-    },
-    "publicationParent": "d6c9674070d8bed83e79e9b7a6551172d9246f9b",
-    "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
+      "reason": "library_storage_limit_exceeded; direct workspace downloads remain available"
+    }
   },
-  "next_priority": "Close the seven non-transfer postwrite admission omissions without overwriting callback edits. Retain durable transaction/recovery, same-state ABA, natural waterfall temporal pixels, long-soak and named-hardware performance gates as unaccepted.",
+  "next_priority": "Natural waterfall temporal pixels and receiver-lattice regularity; named Windows GPU/Vulkan high-distance tails; broad persisted seasonal watershed/ocean ledger and long in-world conservation/reload acceptance remain open.",
   "latest_builder_checkpoint": {
     "updated_at": "2026-10-26T14:55:26Z",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -78,5 +94,35 @@
       "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterLiveContinuityChecks.java"
     ],
     "current_evidence": "Mixed-height wall closure and asynchronous stepped-height defects reproduced and fixed. Core wall matrix, OpenGL/Vulkan GPU readbacks, complete build, normal-version assembly and live Vulkan cliff fixture passed. Final dev.28-water.2 local export verified; hosted upload failed at DNS discovery."
+  },
+  "previous_work_claim": {
+    "owner": "foreground-water-write-guard-20261028T0041",
+    "status": "active",
+    "started_at": "2026-10-28T00:41:00Z",
+    "active_until": "2026-10-28T01:15:00Z",
+    "scope": [
+      "gradle.properties",
+      "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+      "tools/water/test_native_write_guard.py",
+      "docs/validation/engine-continuation/water-native-write-guard-2026-10-28"
+    ],
+    "baseline": "5c146b95f4e90a10fb3985fdb6fc0f6fc143930d",
+    "current_evidence": "Pinned HydrologyRuntime blob 898649a479972c77c3c46470447197261107235a restored byte-exact. Implement and source-test post-native loaded/final-state verification consumed from the independent audit; no candidate test, native execution or release claimed at lease acquisition.",
+    "updated_at": "2026-10-28T00:41:00Z",
+    "next_priority": "Close the seven non-transfer postwrite admission omissions without overwriting callback edits. Retain durable transaction/recovery, same-state ABA, natural waterfall temporal pixels, long-soak and named-hardware performance gates as unaccepted."
+  },
+  "previous_delivery": {
+    "version": "0.0.1-alpha.29-dev.28-water.2",
+    "artifact": "DeepPrimal-26.1.2-0.0.1-alpha.29-dev.28-water.2-vulkan-windows.jar",
+    "export": "C:/workspace/deepprimal-deliverables/DeepPrimal-dev.28-water.2-Windows.jar",
+    "size": 125292084,
+    "sha256": "012ede8a138058b7a1fda66dd9c0fcd3bba414159322b98c6757feada5052ed3",
+    "producerEqualsExport": true,
+    "libraryTransfer": {
+      "status": "failed-before-transfer",
+      "reason": "hosted apps tools/list request failed: DNS"
+    },
+    "publicationParent": "d6c9674070d8bed83e79e9b7a6551172d9246f9b",
+    "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
   }
 }

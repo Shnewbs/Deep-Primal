@@ -39,9 +39,10 @@ def main():
     ref = json.loads(gh('api', f'repos/{repo}/git/ref/tags/{tag}'))
     if ref['object']['type'] != 'commit' or ref['object']['sha'] != source:
         raise ValueError('Release tag does not identify the tested source')
+    retained_revision = int(proof['native_channel_revision']) - 1
     notes = root / 'accepted-organic-release-notes.md'
     notes.write_text(
-        'Terrain-derived drainage for new standard/deep worlds; saved revisions 0–9 retained.\n\n'
+        f'Terrain-derived drainage for new standard/deep worlds; saved revisions 0–{retained_revision} retained.\n\n'
         'Full build/core checks, eight-seed drainage checks, native world creation/owned biome '
         'admission, six native views and Windows shaderc/VMA packaging qualified.\n\n'
         f'Tested source: {source}\nQualification: {proof["run_url"]}\n'
@@ -49,8 +50,9 @@ def main():
         + accepted['visual_review'] + '\n\n'
         'Native captures use software OpenGL; Windows GPU/Vulkan execution remains a testing target.\n',
         encoding='utf-8')
+    version = proof['package'].removeprefix('DeepPrimal-26.1.2-').removesuffix('-vulkan-windows.jar')
     print(gh('release', 'edit', tag, '--repo', repo, '--draft=false', '--prerelease',
-             '--title', 'Deep Primal dev.128 — terrain-derived drainage', '--notes-file', str(notes)))
+             '--title', 'Deep Primal ' + version + ' — terrain-derived water', '--notes-file', str(notes)))
     print('ORGANIC_QUALIFICATION_ACCEPTED', tag)
 
 

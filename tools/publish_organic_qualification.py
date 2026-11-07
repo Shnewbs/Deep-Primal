@@ -70,7 +70,7 @@ def main():
     digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     receipt = {
         'schema': 1, 'tested_commit': source, 'qualification_run': int(run_id),
-        'release_tag': tag, 'native_channel_revision': 10, 'owned_biomes': 40,
+        'release_tag': tag, 'native_channel_revision': 11, 'owned_biomes': 40,
         'native_review': 'pending', 'package': package.name, 'package_sha256': digest(package),
         'images': {name: digest(images / name) for name in names},
         'run_url': f'https://github.com/{repo}/actions/runs/{run_id}',

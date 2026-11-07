@@ -93,7 +93,7 @@ jobs:
           from pathlib import Path
           import re
           log=Path('build/organic-native-client.log').read_text()
-          assert 'ORGANIC_NATIVE_WORLD_PASS channelRevision=10 ownedBiomes=40' in log
+          assert 'ORGANIC_NATIVE_WORLD_PASS channelRevision=11 ownedBiomes=40' in log
           assert 'INTEGRATED_CLIENT_PASS scenes=coast,headwater,river,lake,outlet,ridge' in log
           for failure in ['Encountered an unexpected exception', 'This crash report has been saved',
                           'Preparing crash report', 'Error executing task on Client',

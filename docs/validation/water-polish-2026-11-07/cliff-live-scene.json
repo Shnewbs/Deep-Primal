@@ -1,0 +1,12 @@
+{
+  "backend": "OpenGL",
+  "frames": 224,
+  "sharedCornerComparisons": 1292256,
+  "mismatches": 0,
+  "maximumGapBlocks": 6.1035156E-5,
+  "pages": 8,
+  "waterCells": 252,
+  "residentWaterBytes": 348192,
+  "heightPublicationP95Millis": 0.356194,
+  "scope": "Controlled client-only cliff and cascade in a live integrated world; per-frame opaque top CPU upload mirrors and rendered screenshots, not a world solver or pixel-difference test."
+}

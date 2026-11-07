@@ -1,0 +1,10 @@
+// Disposable native validation only; never changes a player's ordinary launch.
+allprojects {
+    plugins.withId('net.neoforged.moddev') {
+        if (project == rootProject) {
+            neoForge.runs.configureEach { run ->
+                if (run.name == 'client') run.systemProperty 'deepprimal.validationCliffScene', 'true'
+            }
+        }
+    }
+}

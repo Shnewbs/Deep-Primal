@@ -153,6 +153,9 @@ tasks.register('coreChecks', JavaExec) {
     javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
 }
 tasks.named('check') { dependsOn 'coreChecks', 'verifyCoreBoundary' }
+
+// Codec checks need the real FML lifecycle; native validation invokes them after boot.
+sourceSets.visualValidation.java.srcDir 'tools/biomes'
 tasks.register('groundMaterialResources', JavaExec) {
     dependsOn visualValidationClasses
     classpath = sourceSets.visualValidation.runtimeClasspath
@@ -312,4 +315,3 @@ tasks.register('densityBenchmark', JavaExec) {
     classpath = sourceSets.noiseBenchmark.runtimeClasspath
     mainClass = 'com.shnewbs.deepprimal.benchmark.DensityBenchmark'
 }
-

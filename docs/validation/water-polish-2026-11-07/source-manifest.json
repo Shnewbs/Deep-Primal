@@ -1,0 +1,49 @@
+{
+  "parent": "12886c9926f090a2d9c9a332f24a983902849f05",
+  "version": "0.0.1-alpha.29-dev.129-water-polish.1",
+  "nativeProductionSourceParity": "PASS; identical after normalizing line endings and terminal blank lines",
+  "files": {
+    "build.gradle": "04197bb70c03fc6582c0cb4715c051d743b4b8bbcf36fe28afa8bbbee5c1f374",
+    "gradle.properties": "95fe3cdeecebb4f9e10f01a7af9ec47f63a26275090523aa76ca0724b853c276",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java": "880527abab8daf236f1445d15fdf8c7565bf32bbe385762e271b5a980d4e5c30",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java": "300ecda8bf578d4691f569ffc9e0d8423bb1ca4459a05d9b7bf88108c8f9cd74",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java": "a1a1f2aaf1a8ba45b0e44dbd6671672d58bb19610e2ed6af0167ee13227bcf50",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/OrganicDrainageChecks.java": "133e5d493c1b9b4c6ea75b578586aefa7ce50a3367974b4b6621933eb50e7554",
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java": "8cca3225c326bf5b4fb0185251ce3e741e6ab37cf5c891cacad48eab61116607",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java": "daacb32f8b1543b3106eb8d2256c0800f05601e79e6f3933bc8470ee15d65bcd",
+    "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json": "a7d89ef942fc0a80b52831d1fcdba346cbc38f22de4605b85b71009f6eb51f7b",
+    "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json": "afa693328815bd780cad9426b15e8f2339cf0418c7408a58948b2de52c9719ce",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterMeshChecks.java": "7ba73b2aded65329278810feefd933029cc8ccdc9934ab76e8d9bfd653790f2a",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WorldCreationChecks.java": "fcd828031ccc4579a45e77d96f31471321c1b6e49ebff1dbbc0519bc9e48190b",
+    "tools/accept_organic_qualification.py": "03d5956791b6ac2d14b93de9c920ee38ee1bb3c35d5077508b7a17074f7d47c7",
+    "tools/biomes/OrganicChannelCodecChecks.java": "ae6dc4305884d04c74970402b5cee03f8c8be7adcdebceb195fabe9899f242d7",
+    "tools/publish_organic_qualification.py": "099c2e0354604dab30b6cff0c659780d8610fc10b7c548fba6f74d4ab5d997f5",
+    ".github/workflows/organic-terrain.yml": "2b522ff4865b5405be94ac8a0c1485fb816460dd78b8861eb61b8d11c177e4d6",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/HydraulicChannel.java": "01dcd609893c2587ea9a7421d449e4f68001a0992b2d4bee78d07e1922de9ffc",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPageScan.java": "b19be7243a9c399a7e47b97d0bd187c3f569410339965a95da51bfd6f699097e",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/HydraulicChannelChecks.java": "1ba250bb93c084e44bb47bff6971e49702d665642ead648da3f4622f45ed5a98",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterPageScanChecks.java": "eade2221def42ecbeea8e8a799ae6abe927d27c34911903fd61183c2767ce839",
+    "tools/water/WaterPlanningProbe.java": "51611a5cdf80ca1f85519a26dccd24646a5f6c7618c8d23bc51af9351f61efee",
+    "tools/water/cliff-native.init.gradle": "00177c66e1c2150b640d5ccbb43715c2a905f82fb188007000581dc059edef39"
+  },
+  "nativeImages": {
+    "water-polish-native/screenshots/scene-ridge.png": "3bb8023f7ea15902fbd74f2fe7059435ee5d74d8b0647a9f845f768b7609ac1a",
+    "water-polish-native/screenshots/scene-headwater.png": "d19652f6d8e2f78ac9a6ffd9df4a6447e7832c8ca18efe9aa5c59d007989c155",
+    "water-polish-native/screenshots/scene-lake.png": "aa3fee14bf12e683e8ba5ff6c7001c4c8875290c71b6c6808897f11c698e8cb6",
+    "water-polish-native/screenshots/scene-river.png": "b4c8eb1dde3b242fef022c7b0a9bc000a75f3e12c7ac513eb67a7f8b55c0452c",
+    "water-polish-native/screenshots/scene-outlet.png": "2114310ef23936e60d40930149381648501fed49a2453b1a18b8a86a3646a5eb",
+    "water-polish-native/screenshots/scene-coast.png": "e7d0b81ffbc13b0f4f4087c1a5883ccee1926dd7a430c278cf44742b7ad66e12",
+    "water-polish-native/screenshots/creation-form.png": "edfe5e759c91916377489d6781f3e28eddbd58510d4ff1b25049be59761ffd50",
+    "water-motion-native/screenshots/animated-water.png": "f2bb0e82efb755aa12915ae867ea47c0b9f63388be272cf21e9a0ce091561072",
+    "water-motion-native/screenshots/terrain.png": "210fd6a5b7a4827a2d2868becdd786843d604aea5da811da0a15ccd861af85b0",
+    "water-motion-native/screenshots/water-intermediate-high.png": "5d7bcc012085bc9296f3b32c16003476dc9dabe7e3bbab160cac10eb9f4c1aef",
+    "water-cliff-native/screenshots/cliff-settled.png": "f86cdb989455cad6f272382aabf2df41b823c11ad50c68bc4581ffd4dfda2991",
+    "water-cliff-native/screenshots/cliff-before.png": "4839c9610227ac5e6ce2afeafd10f8d748dd339dc9c4a7716cfa1cc39b1b69e3",
+    "water-cliff-native/screenshots/cliff-moving.png": "190a34849a942aba3b6fe0c37c2f74ca46396d88966a6c9ec58b7239cb8e0c3c"
+  },
+  "reconciledMain": "9b83343f2ea76ce55595c816f49c02b18be0e4f6",
+  "preservedConcurrentSource": {
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/organic/RootZoneFootprint.java": "3dde4ee365dd35709a888a05d70345004a830f7bd5376082525759d10c204640",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/organic/RootZoneFootprintChecks.java": "60d0af639130decde05a2b9826c9365b5582d23f134d5dffd88fd77552715ab2"
+  }
+}

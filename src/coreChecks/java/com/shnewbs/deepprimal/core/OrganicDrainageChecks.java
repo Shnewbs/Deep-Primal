@@ -194,7 +194,7 @@ public final class OrganicDrainageChecks {
       var constructor=type.getConstructor(long.class,int.class,optionsType,int.class);
       var column=type.getMethod("column",double.class,double.class);
       String[] fields={"ground","water","rain","temperature","slope","sediment","flowX","flowZ","speed","rock"};
-      for (int revision=0;revision<=9;revision++) for (long seed:new long[] {0,20261020}) {
+      for (int revision=0;revision<=10;revision++) for (long seed:new long[] {0,20261020}) {
         Object old=constructor.newInstance(seed,7,options,revision);
         var next=new TerrainEngine(seed,7,TerrainOptions.DEFAULT,revision);
         for (int n=0;n<32;n++) {
@@ -209,7 +209,7 @@ public final class OrganicDrainageChecks {
         }
       }
     }
-    System.out.println("ORGANIC_DRAINAGE_LEGACY_PASS revisions=0..9 columns=640 fields=6400");
+    System.out.println("ORGANIC_DRAINAGE_LEGACY_PASS revisions=0..10 columns=704 fields=7040");
   }
 
   private OrganicDrainageChecks() {}

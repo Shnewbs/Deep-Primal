@@ -9,6 +9,7 @@ import java.util.function.DoubleBinaryOperator;
 public final class WatershedRegion {
   private final boolean naturalMargins;
   private final boolean terrainResolved;
+  private final boolean hydraulicChannels;
   private final DoubleBinaryOperator sourceHeight;
   private final boolean[] channelized;
   private final double[] pathX, pathZ;
@@ -163,6 +164,9 @@ public final class WatershedRegion {
     }
   }
 
+  private record HydraulicReach(double depthA, double depthB, double speedA, double speedB,
+      double bendA, double bendB) {}
+
   private record Segment(
       double ax,
       double az,
@@ -184,7 +188,13 @@ public final class WatershedRegion {
       double ka,
       double kb,
       double reach,
-      boolean delta) {
+      boolean delta, HydraulicReach hydraulics) {
+    Segment(double ax, double az, double bx, double bz, double sa, double sb, double ra,
+        double rb, double aa, double ab, int sill, double crest, boolean source,
+        double ca, double cb, double wa, double wb, double ka, double kb, double reach, boolean delta) {
+      this(ax, az, bx, bz, sa, sb, ra, rb, aa, ab, sill, crest, source,
+          ca, cb, wa, wb, ka, kb, reach, delta, null);
+    }
     Segment(double ax, double az, double bx, double bz, double sa, double sb, double ra,
         double rb, double aa, double ab, int sill, double crest, boolean source) {
       this(ax, az, bx, bz, sa, sb, ra, rb, aa, ab, sill, crest, source, 0, 0, 0, 0, 0, 0, 0, false);
@@ -367,6 +377,21 @@ public final class WatershedRegion {
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
       boolean naturalMargins, boolean terrainResolved, WaterTerrainConfig config) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, naturalMargins, terrainResolved, config, false);
+  }
+
+  /** Revision 11 adds catchment/grade cross-sections on the terrain-derived receiver graph. */
+  public WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins, boolean terrainResolved, WaterTerrainConfig config, boolean hydraulicChannels) {
+    if (hydraulicChannels && !terrainResolved)
+      throw new IllegalArgumentException("Hydraulic channels require terrain-derived routing");
+    this.hydraulicChannels = hydraulicChannels;
     if (terrainResolved && (riverNoise == null || riverDeltas || floodplainLakes
         || budgetedDistributaries || deepWaterBodies || naturalMargins))
       throw new IllegalArgumentException("Terrain-resolved drainage requires seeded rivers without legacy basin templates");
@@ -632,6 +657,17 @@ public final class WatershedRegion {
             if (xx >= 0 && zz >= 0 && xx < SIDE && zz < SIDE) lakeHalo[zz * SIDE + xx] = true;
           }
       }
+    HydraulicChannel.Section[] sections = hydraulicChannels ? new HydraulicChannel.Section[N] : null;
+    if (hydraulicChannels)
+      for (int a = 0; a < N; a++) {
+        if (!channelized[a]) continue;
+        int b = parent[a], up = child[a];
+        double grade = b < 0 ? 0 : Math.max(0, (stage[a] - stage[b])
+            / Math.max(1, Math.hypot(pathX[b] - pathX[a], pathZ[b] - pathZ[a])));
+        double bend = up < 0 || b < 0 ? 0 : HydraulicChannel.bend(
+            pathX[a] - pathX[up], pathZ[a] - pathZ[up], pathX[b] - pathX[a], pathZ[b] - pathZ[a]);
+        sections[a] = HydraulicChannel.section(area[a], grade, bend);
+      }
     var lines = new ArrayList<Segment>();
     deltas = riverDeltas ? planDeltas() : new Delta[0];
     int heads = 0;
@@ -651,10 +687,15 @@ public final class WatershedRegion {
       double tl = Math.max(1, Math.hypot(tx, tz)), ul = Math.max(1, Math.hypot(ux, uz));
       double c1x = ax + tx / tl * len * .28, c1z = az + tz / tl * len * .28;
       double c2x = bx - ux / ul * len * .28, c2z = bz - uz / ul * len * .28;
-      if (terrainResolved) {
+      if (terrainResolved && !hydraulicChannels) {
         var c1=OrganicDrainage.lowerCorridor(height,lerp(ax,bx,1./3),lerp(az,bz,1./3),bx-ax,bz-az,STEP*.25);
         var c2=OrganicDrainage.lowerCorridor(height,lerp(ax,bx,2./3),lerp(az,bz,2./3),bx-ax,bz-az,STEP*.25);
         c1x=c1.x();c1z=c1.z();c2x=c2.x();c2z=c2.z();
+      } else if (hydraulicChannels) {
+        var tangentA=hydraulicTangent(a,child);
+        var tangentB=hydraulicTangent(b,child);
+        c1x=ax+tangentA.x()*len*.28;c1z=az+tangentA.z()*len*.28;
+        c2x=bx-tangentB.x()*len*.28;c2z=bz-tangentB.z()*len*.28;
       }
       double lastX = ax, lastZ = az;
       if (earthRivers && !terrainResolved) {
@@ -680,16 +721,25 @@ public final class WatershedRegion {
           double ca = lerp(chainage[a], chainage[b], before), cb = lerp(chainage[a], chainage[b], t);
           double ba = lerp(braiding[a], braiding[b], before), bb = lerp(braiding[a], braiding[b], t);
           double sa = lerp(stage[a], stage[b], before), sb = lerp(stage[a], stage[b], t);
+          HydraulicReach hydraulics = hydraulicChannels ? new HydraulicReach(
+              lerp(sections[a].depth(), sections[b].depth(), before),
+              lerp(sections[a].depth(), sections[b].depth(), t),
+              lerp(sections[a].speed(), sections[b].speed(), before),
+              lerp(sections[a].speed(), sections[b].speed(), t),
+              lerp(sections[a].bend(), sections[b].bend(), before),
+              lerp(sections[a].bend(), sections[b].bend(), t)) : null;
           lines.add(
               new Segment(
                   lastX, lastZ, x, z, sa, sb,
-                  earthRadius(lerp(area[a], area[b], before), sa, ba, source, before),
-                  earthRadius(lerp(area[a], area[b], t), sb, bb, source, t),
+                  hydraulicChannels ? lerp(sections[a].radius(), sections[b].radius(), before)
+                      : earthRadius(lerp(area[a], area[b], before), sa, ba, source, before),
+                  hydraulicChannels ? lerp(sections[a].radius(), sections[b].radius(), t)
+                      : earthRadius(lerp(area[a], area[b], t), sb, bb, source, t),
                   lerp(area[a], area[b], before),
                   lerp(area[a], area[b], t),
                   sill != 0 && k >= 5 && k <= 7 ? sill : 0,
                   sill == 0 ? 0 : Math.floor(lakes[sill].level),
-                  source, ca, cb, ba, bb, ka, kb, canyonReach(Math.max(ka, kb)), false));
+                  source, ca, cb, ba, bb, ka, kb, canyonReach(Math.max(ka, kb)), false, hydraulics));
           lastX = x;
           lastZ = z;
           continue;
@@ -1046,6 +1096,12 @@ public final class WatershedRegion {
     return raised > uncut + 1e-12 && weight > 0 ? new DeltaHit(raised, weight) : null;
   }
 
+  private OrganicDrainage.Point hydraulicTangent(int a, int[] child) {
+    int up=child[a], down=parent[a];
+    return HydraulicChannel.tangent(up<0?0:pathX[a]-pathX[up], up<0?0:pathZ[a]-pathZ[up],
+        down<0?0:pathX[down]-pathX[a], down<0?0:pathZ[down]-pathZ[a]);
+  }
+
   private double radius(double area, boolean source, double t) {
     if(broadChannels) {
       double r=Math.clamp(1.4+Math.sqrt(area)/185,2.1,32);
@@ -1254,7 +1310,7 @@ public final class WatershedRegion {
             deepChannels && !s.delta && delta == null && !Double.isFinite(lakeLevel) && !lakeHalo[a];
         double level = lerp(s.sa, s.sb, t),
             braid = earthRivers ? lerp(s.wa, s.wb, t) : 0,
-            depth =
+            depth = s.hydraulics != null ? lerp(s.hydraulics.depthA, s.hydraulics.depthB, t) :
                 earthRivers
                     ? (deepen
                         ? Math.clamp(1 + 1.6 * Math.sqrt(r), 2.5, 20)
@@ -1272,7 +1328,11 @@ public final class WatershedRegion {
           bankFloor = Math.max(bankFloor, lerp(guard, base, smooth((dist - r - 1.5) / bank)));
         if (dist < r) {
           double edge = Math.clamp(dist / r, 0, 1);
-          ground = Math.min(ground, level - depth + (depth - .3) * Math.pow(edge, 3));
+          if (s.hydraulics != null) {
+            double across = ((x - s.ax) * -vz + (z - s.az) * vx) / Math.sqrt(len) / r;
+            ground = Math.min(ground, level - HydraulicChannel.bedDepth(depth, across,
+                lerp(s.hydraulics.bendA, s.hydraulics.bendB, t)));
+          } else ground = Math.min(ground, level - depth + (depth - .3) * Math.pow(edge, 3));
           if (dist < Math.max(.8, r * .7)) {
             ground = Math.min(ground, Math.floor(level - grade) - 1.001);
             if (seaNear && base < TerrainEngine.SEA + 1)
@@ -1283,12 +1343,13 @@ public final class WatershedRegion {
             // Steep mountain creeks are shallow; flat rivers keep their full designed depth.
             // Revision 1 holds about the film its runtime baseflow sustains, so new creeks do not
             // surge and drain the generated volume before settling.
-            channelFloor = level - depth / (1 + 4 * grade) - Math.min(grade, 1) * .5 - .25;
+            channelFloor = s.hydraulics != null ? level - depth - .25
+                : level - depth / (1 + 4 * grade) - Math.min(grade, 1) * .5 - .25;
             channelStage = level;
             double l = Math.sqrt(len);
             fx = vx / l;
             fz = vz / l;
-            speed =
+            speed = s.hydraulics != null ? lerp(s.hydraulics.speedA, s.hydraulics.speedB, t) :
                 Math.clamp(
                     .08 + Math.sqrt(Math.max(0, (s.sa - s.sb) / l)) * .9
                         + (earthRivers ? Math.min(r, 12) : r) * .006,
@@ -1446,7 +1507,7 @@ public final class WatershedRegion {
         lakeProbes().size(),
         segments.length,
         N * (8L * 4 + 4 * 3 + 2 + (earthRivers ? 24 : 0))
-            + segments.length * (earthRivers ? 176L : 112L)
+            + segments.length * ((earthRivers ? 176L : 112L) + 8 + (hydraulicChannels ? 64 : 0))
             + index.length * 8L
             + refs * 4
             + (terrainResolved?N*17L:0)

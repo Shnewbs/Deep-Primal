@@ -23,6 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 @Mod(value = "deepprimal", dist = Dist.CLIENT)
 public final class WaterMeshChecks {
   private int stage, ticks, frames, meshChanges;
+  private boolean channelCodecsChecked;
   private long began, coalesced;
   private Object mesh;
   private net.minecraft.client.gui.screens.Screen warning;
@@ -49,6 +50,10 @@ public final class WaterMeshChecks {
   @SubscribeEvent
   public void tick(ClientTickEvent.Post event) {
     if (!Boolean.getBoolean("deepprimal.validationFilling")) return;
+    if (!channelCodecsChecked) {
+      OrganicChannelCodecChecks.main(new String[0]);
+      channelCodecsChecked = true;
+    }
     var mc = Minecraft.getInstance();
     if (Boolean.getBoolean("deepprimal.validationWaterShape")) {
       WaterShapeChecks.tick(mc);

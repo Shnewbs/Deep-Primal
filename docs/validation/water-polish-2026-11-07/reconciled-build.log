@@ -1,0 +1,129 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Invalid Java installation found at '/usr/lib/jvm/java-17-openjdk-amd64' (Common Linux Locations) auto-detected. It will be re-checked in the next build. This might have performance impact if it keeps failing. Run the 'javaToolchains' task for more details.
+> Task :graphics-settings:processResources UP-TO-DATE
+> Task :performance-engine:processResources UP-TO-DATE
+> Task :renderer-vulkan:processResources UP-TO-DATE
+> Task :lod-engine:processResources UP-TO-DATE
+> Task :graphics-settings:processTestResources NO-SOURCE
+> Task :lod-engine:processTestResources NO-SOURCE
+> Task :performance-engine:processTestResources NO-SOURCE
+> Task :renderer-vulkan:processTestResources NO-SOURCE
+> Task :gui-themes:createMinecraftArtifacts UP-TO-DATE
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :processSoilDataResources NO-SOURCE
+> Task :processCacheChecksResources NO-SOURCE
+> Task :processVisualValidationResources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :gui-themes:compileJava UP-TO-DATE
+> Task :gui-themes:compileThemeAssetsJava UP-TO-DATE
+> Task :gui-themes:processThemeAssetsResources NO-SOURCE
+> Task :gui-themes:themeAssetsClasses UP-TO-DATE
+> Task :verifyCoreBoundary
+> Task :verifyModuleBoundaries
+> Task :gui-themes:generateThemeAssets UP-TO-DATE
+> Task :gui-themes:processResources UP-TO-DATE
+> Task :gui-themes:classes UP-TO-DATE
+> Task :gui-themes:jarJar NO-SOURCE
+> Task :gui-themes:jar UP-TO-DATE
+> Task :gui-themes:assemble UP-TO-DATE
+> Task :gui-themes:compileTestJava NO-SOURCE
+> Task :gui-themes:processTestResources NO-SOURCE
+> Task :gui-themes:testClasses UP-TO-DATE
+> Task :gui-themes:test NO-SOURCE
+> Task :gui-themes:check UP-TO-DATE
+> Task :gui-themes:build UP-TO-DATE
+> Task :engine-core:compileJava
+> Task :engine-core:processResources NO-SOURCE
+> Task :engine-core:classes
+> Task :compileSoilDataJava UP-TO-DATE
+> Task :soilDataClasses UP-TO-DATE
+> Task :engine-core:jar
+> Task :engine-core:assemble
+> Task :engine-core:compileTestJava NO-SOURCE
+> Task :engine-core:processTestResources NO-SOURCE
+> Task :engine-core:testClasses UP-TO-DATE
+> Task :engine-core:test NO-SOURCE
+> Task :engine-core:check UP-TO-DATE
+> Task :engine-core:build
+> Task :performance-engine:compileJava UP-TO-DATE
+> Task :performance-engine:classes UP-TO-DATE
+> Task :performance-engine:jar UP-TO-DATE
+> Task :performance-engine:assemble UP-TO-DATE
+> Task :graphics-settings:compileJava UP-TO-DATE
+> Task :graphics-settings:classes UP-TO-DATE
+> Task :performance-engine:compileTestJava NO-SOURCE
+> Task :performance-engine:testClasses UP-TO-DATE
+> Task :performance-engine:test NO-SOURCE
+> Task :performance-engine:check UP-TO-DATE
+> Task :performance-engine:build UP-TO-DATE
+> Task :graphics-settings:jar UP-TO-DATE
+> Task :graphics-settings:assemble UP-TO-DATE
+> Task :graphics-settings:compileTestJava NO-SOURCE
+> Task :graphics-settings:testClasses UP-TO-DATE
+> Task :graphics-settings:test NO-SOURCE
+> Task :graphics-settings:check UP-TO-DATE
+> Task :graphics-settings:build UP-TO-DATE
+
+> Task :generateSoilResources
+SOIL_RESOURCES_GENERATED families=12 blocks=36 texturesReused=true
+
+> Task :lod-engine:compileJava UP-TO-DATE
+> Task :lod-engine:classes UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :lod-engine:jar UP-TO-DATE
+> Task :lod-engine:assemble UP-TO-DATE
+> Task :lod-engine:compileTestJava NO-SOURCE
+> Task :lod-engine:testClasses UP-TO-DATE
+> Task :lod-engine:test NO-SOURCE
+> Task :lod-engine:check UP-TO-DATE
+> Task :lod-engine:build UP-TO-DATE
+> Task :renderer-vulkan:compileJava UP-TO-DATE
+> Task :renderer-vulkan:classes UP-TO-DATE
+> Task :renderer-vulkan:jar UP-TO-DATE
+> Task :renderer-vulkan:assemble UP-TO-DATE
+> Task :renderer-vulkan:compileTestJava NO-SOURCE
+> Task :renderer-vulkan:testClasses UP-TO-DATE
+> Task :renderer-vulkan:test NO-SOURCE
+> Task :renderer-vulkan:check UP-TO-DATE
+> Task :renderer-vulkan:build UP-TO-DATE
+
+> Task :compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :classes
+> Task :jarJar
+> Task :jar
+> Task :assemble
+> Task :compileCacheChecksJava UP-TO-DATE
+> Task :cacheChecksClasses UP-TO-DATE
+
+> Task :cacheChecks
+CACHE_CHECKS_PASS corruption truncation bounds LRU250 exactDescriptorEquality dynamicOffsets commandReset
+
+> Task :compileVisualValidationJava UP-TO-DATE
+> Task :visualValidationClasses UP-TO-DATE
+
+> Task :groundMaterialResources
+GROUND_RESOURCES_PASS checks=119922 ownerImages=11 currentOwnerHashes=true manifestMatched=true masksComplementary=true modelLinks=true tintLayers=true
+GROUND_SURFACE_PROFILE_PASS checks=65 rejected=54 immutable=true exactLongSalts=true bounded=true
+GROUND_SIDE_MATH_PASS channelChecks=2359296 luminances=256 weights=256 surfaces=4 soils=3 maxError=1.5/255 opaque=true
+SOIL_RESOURCES_PASS families=12 blocks=36 covers=3 modelLootTintTags=true
+
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check
+> Task :build
+
+[Incubating] Problems report is available at: file://<workspace>/Deep-Primal/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 15s
+33 actionable tasks: 10 executed, 23 up-to-date
