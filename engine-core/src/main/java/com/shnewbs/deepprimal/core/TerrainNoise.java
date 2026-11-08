@@ -62,13 +62,16 @@ public final class TerrainNoise {
     double floorX = Math.floor(x), floorZ = Math.floor(z);
     int a = (int) (long) floorX, b = (int) (long) floorZ;
     double dx = x - floorX, dz = z - floorZ;
+    // smooth() is pure, so evaluating each fade curve once is bit-identical to the
+    // previous three calls (two for dx, one for dz).
+    double sx = smooth(dx), sz = smooth(dz);
     return lerp(
-            lerp(gradient(a, b, dx, dz, salt), gradient(a + 1, b, dx - 1, dz, salt), smooth(dx)),
+            lerp(gradient(a, b, dx, dz, salt), gradient(a + 1, b, dx - 1, dz, salt), sx),
             lerp(
                 gradient(a, b + 1, dx, dz - 1, salt),
                 gradient(a + 1, b + 1, dx - 1, dz - 1, salt),
-                smooth(dx)),
-            smooth(dz))
+                sx),
+            sz)
         * 1.7;
   }
 

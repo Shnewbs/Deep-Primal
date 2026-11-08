@@ -51,7 +51,13 @@ public final class TerrainEngine {
   private record Planned(long key, WatershedRegion region) {}
 
   private volatile Planned lastWatershed;
-  private final LinkedHashMap<Long, WatershedRegion> watersheds =
+  /**
+   * LRU of at most six regions. A region is built at most once per cache lifetime by the first
+   * thread that asks for it, outside {@link #watershedLock} and outside this engine's monitor, so
+   * unrelated lookups and builds of other regions no longer queue behind a build in progress.
+   */
+  private final Object watershedLock = new Object();
+  private final LinkedHashMap<Long, java.util.concurrent.FutureTask<WatershedRegion>> watersheds =
       new LinkedHashMap<>(8, .75f, true);
 
   public TerrainEngine(long seed) {
@@ -234,24 +240,85 @@ public final class TerrainEngine {
     return last != null && last.key == key ? last.region : loadWatershed(l, key);
   }
 
-  private synchronized WatershedRegion loadWatershed(Land l, long key) {
-    var d = watersheds.get(key);
-    if (d == null) {
-      d =
-          new WatershedRegion(
-              l.cx - CELL / 2., l.cz - CELL / 2., (x, z) -> raw(l, x, z), this::rainfall, revision >= 7, channelRevision >= 1,
-              channelRevision >= 2 ? noise : null,
-              channelRevision >= 3 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
-              channelRevision >= 4 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
-              channelRevision >= 5 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
-              null, null, channelRevision >= 6,
-              channelRevision >= 8 && channelRevision <= 9, channelRevision == 9,
-              channelRevision >= 10, config, channelRevision >= 11);
-      watersheds.put(key, d);
-      while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
+  private WatershedRegion loadWatershed(Land l, long key) {
+    java.util.concurrent.FutureTask<WatershedRegion> task;
+    boolean builder = false;
+    synchronized (watershedLock) {
+      task = watersheds.get(key);
+      if (task == null) {
+        task = new java.util.concurrent.FutureTask<>(() -> buildWatershed(l));
+        watersheds.put(key, task);
+        while (watersheds.size() > 6) watersheds.remove(watersheds.keySet().iterator().next());
+        builder = true;
+      }
     }
+    if (builder) task.run();
+    WatershedRegion d = await(task, key);
     lastWatershed = new Planned(key, d);
     return d;
+  }
+
+  /** Waits for a region without being interruptible, like the monitor this replaces. */
+  private WatershedRegion await(java.util.concurrent.FutureTask<WatershedRegion> task, long key) {
+    boolean interrupted = false;
+    try {
+      while (true) {
+        try {
+          return task.get();
+        } catch (InterruptedException e) {
+          interrupted = true;
+        } catch (java.util.concurrent.ExecutionException e) {
+          // A failed build is never cached; the next lookup retries it.
+          synchronized (watershedLock) {
+            watersheds.remove(key, task);
+          }
+          Throwable cause = e.getCause();
+          if (cause instanceof RuntimeException runtime) throw runtime;
+          if (cause instanceof Error error) throw error;
+          throw new IllegalStateException(cause);
+        }
+      }
+    } finally {
+      if (interrupted) Thread.currentThread().interrupt();
+    }
+  }
+
+  private WatershedRegion buildWatershed(Land l) {
+    double ox = l.cx - CELL / 2., oz = l.cz - CELL / 2.;
+    return new WatershedRegion(
+        ox, oz,
+        lattice(ox, oz, (x, z) -> raw(l, x, z)), lattice(ox, oz, this::rainfall),
+        revision >= 7, channelRevision >= 1,
+        channelRevision >= 2 ? noise : null,
+        channelRevision >= 3 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
+        channelRevision >= 4 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
+        channelRevision >= 5 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
+        null, null, channelRevision >= 6,
+        channelRevision >= 8 && channelRevision <= 9, channelRevision == 9,
+        channelRevision >= 10, config, channelRevision >= 11);
+  }
+
+  /**
+   * Evaluates a pure field at every lattice node of a region in parallel, then serves those exact
+   * values back. The region constructor reads every node once; any other coordinate (or a node whose
+   * coordinate does not round-trip exactly) falls through to the original function, so results are
+   * bit-identical to calling {@code field} directly.
+   */
+  private static java.util.function.DoubleBinaryOperator lattice(
+      double ox, double oz, java.util.function.DoubleBinaryOperator field) {
+    final int side = WatershedRegion.SIDE, step = WatershedRegion.STEP;
+    final double[] grid = new double[side * side];
+    java.util.stream.IntStream.range(0, side).parallel().forEach(z -> {
+      for (int x = 0; x < side; x++) grid[z * side + x] = field.applyAsDouble(ox + x * step, oz + z * step);
+    });
+    return (x, z) -> {
+      // The nearest node, accepted only if its coordinate reproduces x and z exactly (ox is an
+      // arbitrary double, so (x - ox) / step need not be integral even for a node).
+      long ix = Math.round((x - ox) / step), iz = Math.round((z - oz) / step);
+      if (ix >= 0 && iz >= 0 && ix < side && iz < side && ox + ix * step == x && oz + iz * step == z)
+        return grid[(int) (iz * side + ix)];
+      return field.applyAsDouble(x, z);
+    };
   }
 
   public WatershedRegion waterways(double x, double z) {
@@ -259,8 +326,9 @@ public final class TerrainEngine {
     return watershed(locate(x, z).land);
   }
 
-  public synchronized int cachedRegions() {
-    return revision >= 3 ? watersheds.size() : cache.size();
+  public int cachedRegions() {
+    if (revision >= 3) synchronized (watershedLock) { return watersheds.size(); }
+    synchronized (this) { return cache.size(); }
   }
 
   public int biome(double x, double z) {

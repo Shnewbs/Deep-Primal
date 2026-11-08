@@ -429,9 +429,8 @@ public final class WatershedRegion {
     Arrays.fill(order, -1);
     boolean[] seen = new boolean[N];
     int[] sorted = new int[N];
-    var queue =
-        new PriorityQueue<Integer>(
-            Comparator.<Integer>comparingDouble(a -> flood[a]).thenComparingInt(a -> a));
+    // Primitive heap with the identical (flood height, index) order; see FloodQueue.
+    var queue = new FloodQueue(flood, N);
     for (int z = 0; z < SIDE; z++)
       for (int x = 0; x < SIDE; x++) {
         int a = z * SIDE + x;
