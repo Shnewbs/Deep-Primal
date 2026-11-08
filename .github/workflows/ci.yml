@@ -1,0 +1,45 @@
+name: CI
+# Lightweight gate for every push to main and every pull request.
+# The heavy native/visual qualification workflows stay separate and path-filtered.
+on:
+  pull_request:
+  push:
+    branches: [main]
+    # Evidence and docs commits (including the bot's) must not re-run the build.
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  python-tools:
+    name: Python tool tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run self-contained tool tests
+        run: python3 tools/run_tool_tests.py
+  gradle-check:
+    name: Gradle check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6.2.0
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - name: Build and run checks
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon -PvulkanPlatform=linux check
