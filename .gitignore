@@ -13,3 +13,7 @@ deliverables/
 # Local compiler outputs (including nested module output directories).
 **/bin/
 *.class
+javac.*.args
+
+# Written to the working directory by tools/test_v8_relief_v5.py.
+/relief-v5-results.json

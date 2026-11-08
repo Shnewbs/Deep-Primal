@@ -49,6 +49,16 @@ SKIP = {
 }
 
 
+def modified_tracked_files():
+    """Paths git reports as modified, or None when git is unavailable."""
+    try:
+        done = subprocess.run(["git", "diff", "--name-only"], cwd=ROOT, text=True,
+                              capture_output=True, timeout=30)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    return set(done.stdout.split()) if done.returncode == 0 else None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--list", action="store_true", help="list tests and exit")
@@ -72,6 +82,7 @@ def main():
         return 0
 
     failures = []
+    dirty_before = modified_tracked_files()
     started = time.monotonic()
     for path in runnable:
         t0 = time.monotonic()
@@ -91,6 +102,12 @@ def main():
     print()
     for path in skipped:
         print(f"SKIPPED {path.name}: {SKIP[path.name]}")
+    dirty_after = modified_tracked_files()
+    if dirty_before is not None and dirty_after is not None and dirty_after - dirty_before:
+        print("WARNING: some tests rewrote tracked evidence files; review before committing "
+              "(`git checkout -- <path>` to discard):")
+        for name in sorted(dirty_after - dirty_before):
+            print("   ", name)
     print(f"\n{len(runnable) - len(failures)}/{len(runnable)} passed, "
           f"{len(skipped)} skipped, {time.monotonic() - started:.0f}s")
     if failures:
