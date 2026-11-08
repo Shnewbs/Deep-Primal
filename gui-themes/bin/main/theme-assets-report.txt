@@ -1,8 +1,0 @@
-basalt_copper: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-field_journal: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-rawhide_flint: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-riverstone_moss: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-timber_iron: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-clay_ember: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-obsidian_ash: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
-frost_slate: 274 textures; dimensions and alpha masks preserved; 36 inventory slots verified
