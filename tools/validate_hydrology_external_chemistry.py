@@ -26,9 +26,9 @@ def method(source, signature):
     raise AssertionError("Unbalanced Java method: " + signature)
 
 
-HARNESS = r'''import java.util.*;
+HARNESS = r'''import com.shnewbs.deepprimal.engine.WaterWriteScope;
+import java.util.*;
 public final class HydrologyRuntime {
-  private static int internalWrites;
   static final class ServerLevel {}
   static final class BlockPos {long asLong(){return 42L;}}
   static final class EngineFluid {static final Units UNITS=new Units(); static final class Units {}}
@@ -63,12 +63,10 @@ public final class HydrologyRuntime {
   }
   private static int cases;
   private static void scenario(String label,BlockState before,BlockState after,
-      boolean drop,int nestedWrites) {
+      boolean drop,WaterWriteScope.Scope scope) {
     var d=HydrologyData.INSTANCE;
     d.composition.clear();d.composition.put(42L,"carried-chemistry");d.dirty=0;
-    internalWrites=nestedWrites;
-    externalChange(LEVEL,POS,before,after);
-    internalWrites=0;
+    try (scope) { externalChange(LEVEL,POS,before,after); }
     if(d.composition.containsKey(42L)==drop || d.dirty!=(drop?1:0))
       throw new AssertionError(label+" drop="+drop+" retained="+d.composition
           +" dirty="+d.dirty);
@@ -76,21 +74,25 @@ public final class HydrologyRuntime {
   }
   public static void main(String[] args) {
     var river=state(true,false,16,0);
-    scenario("river-to-ocean-same-volume",river,state(true,true,16,0),true,0);
-    scenario("ocean-to-river-same-volume",state(true,true,16,0),river,true,0);
-    scenario("flow-only-preserves-parcel",river,state(true,false,16,12),false,0);
-    scenario("volume-change",river,state(true,false,15,0),true,0);
-    scenario("block-removal",river,state(false,false,0,0),true,0);
-    scenario("unrelated-block",state(false,false,0,0),river,false,0);
-    scenario("internal-water-write",river,state(true,true,16,0),false,1);
-    scenario("same-state-reference",river,river,false,0);
+    scenario("river-to-ocean-same-volume",river,state(true,true,16,0),true,null);
+    scenario("ocean-to-river-same-volume",state(true,true,16,0),river,true,null);
+    scenario("flow-only-preserves-parcel",river,state(true,false,16,12),false,null);
+    scenario("volume-change",river,state(true,false,15,0),true,null);
+    scenario("block-removal",river,state(false,false,0,0),true,null);
+    scenario("unrelated-block",state(false,false,0,0),river,false,null);
+    var changed=state(true,true,16,0);
+    scenario("internal-water-write",river,changed,false,WaterWriteScope.begin(LEVEL,42L,river,changed));
+    scenario("other-position",river,changed,true,WaterWriteScope.begin(LEVEL,43L,river,changed));
+    scenario("other-level",river,changed,true,WaterWriteScope.begin(new ServerLevel(),42L,river,changed));
+    scenario("other-transition",river,changed,true,WaterWriteScope.begin(LEVEL,42L,river,state(false,false,0,0)));
+    scenario("same-state-reference",river,river,false,null);
     var d=HydrologyData.INSTANCE;
     d.composition.clear();d.dirty=0;
     externalChange(LEVEL,POS,river,state(true,true,16,0));
     if(d.dirty!=0)throw new AssertionError("missing chemistry must not dirty save");
     cases++;
     System.out.println("HYDROLOGY_EXTERNAL_CHEMISTRY_PASS cases="+cases
-        +" finiteVolumeUnchanged=true nestedWritesIgnored=true");
+        +" finiteVolumeUnchanged=true scopedChanges=true");
   }
 }
 '''
@@ -102,7 +104,8 @@ def run_case(methods, expect_pass, label):
         f.write_text(HARNESS.replace("/*METHODS*/", methods), encoding="utf-8")
         java = Path(os.environ["JAVA_HOME"]) / "bin" / "java"
         javac = Path(os.environ["JAVA_HOME"]) / "bin" / "javac"
-        compiled = subprocess.run([str(javac), "--release", "25", str(f)],
+        compiled = subprocess.run([str(javac), "--release", "25", "-d", path,
+                                   str(SOURCE.with_name("WaterWriteScope.java")), str(f)],
                                   capture_output=True, text=True)
         if compiled.returncode:
             raise AssertionError(label + " source compile failure:\n" + compiled.stderr)

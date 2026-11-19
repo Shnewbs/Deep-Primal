@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.level.*;
@@ -18,33 +17,55 @@ public final class HydrologyRuntime {
   private static final WeakHashMap<ServerLevel, Work> WORK = new WeakHashMap<>();
   private static final int REGIONAL_DISCHARGE_UNITS = 32;
   private static final class Cursor {
-    int column;
+    int column, surveyed;
     final long[] visited = new long[256];
-    final double[] streamSurface = new double[256];
-    final int[] streamOutletY = new int[256];
-    final boolean[] streamCandidate = new boolean[256];
+    StreamColumns streams;
+
+    void plan(int column, double stage) {
+      if (streams == null) streams = new StreamColumns();
+      streams.plan(column, stage);
+    }
+
+    void forget(int column) {
+      if (streams != null) streams.remove(column);
+    }
+
+    boolean hasStream(int column) { return streams != null && streams.present[column]; }
+    boolean hasStreams() { return streams != null && streams.count > 0; }
+    double headwater() { return streams.stages[streams.ordered[0]]; }
+  }
+
+  /** Only chunks with a planned waterway need per-column source and delivery state. */
+  private static final class StreamColumns {
+    final double[] stages = new double[256];
     final long[] replenished = new long[256];
-    { Arrays.fill(replenished, Long.MIN_VALUE); }
-    final int[] streams = new int[256];
-    int streamCount, streamNext, surveyed;
-    /** Keeps planned columns ordered headwater-first; call after {@link #plan}. */
-    void candidate(int column, boolean wet) {
-      if (streamCandidate[column] == wet) return;
-      streamCandidate[column] = wet;
-      if (wet) {
-        int i = streamCount++;
-        for (; i > 0 && streamSurface[streams[i - 1]] < streamSurface[column]; i--) streams[i] = streams[i - 1];
-        streams[i] = column;
+    final boolean[] present = new boolean[256];
+    final int[] ordered = new int[256];
+    int count;
+
+    StreamColumns() { Arrays.fill(replenished, Long.MIN_VALUE); }
+
+    void plan(int column, double stage) {
+      if (present[column] && stages[column] == stage) return;
+      remove(column);
+      stages[column] = stage;
+      present[column] = true;
+      int i = count++;
+      for (; i > 0 && stages[ordered[i - 1]] < stage; i--) ordered[i] = ordered[i - 1];
+      ordered[i] = column;
+    }
+
+    void remove(int column) {
+      if (!present[column]) return;
+      present[column] = false;
+      for (int i = 0; i < count; i++) if (ordered[i] == column) {
+        System.arraycopy(ordered, i + 1, ordered, i, --count - i);
         return;
       }
-      for (int i = 0; i < streamCount; i++) if (streams[i] == column) {
-        System.arraycopy(streams, i + 1, streams, i, --streamCount - i); return;
-      }
     }
-    double headwater() { return streamCount == 0 ? Double.NEGATIVE_INFINITY : streamSurface[streams[0]]; }
   }
   private static final class RegionWork {
-    final double datum;
+    final double datum, meanTemperature;
     long tick = Long.MIN_VALUE;
     long precipitation = Long.MIN_VALUE;
     // Cache reconstruction cannot grant another allowance inside an existing aquifer step.
@@ -52,7 +73,10 @@ public final class HydrologyRuntime {
     int discharged = REGIONAL_DISCHARGE_UNITS;
     // Planned waterways draw on the region's long-run baseflow, separately from new dry springs.
     int natural = 1 << 16; // fail closed above any configurable baseflow quota
-    RegionWork(double datum) { this.datum = datum; }
+    RegionWork(double datum, double meanTemperature) {
+      this.datum = datum;
+      this.meanTemperature = meanTemperature;
+    }
   }
   private static final class Work {
     final LinkedHashMap<Long, Cursor> chunks = new LinkedHashMap<>();
@@ -277,10 +301,13 @@ public final class HydrologyRuntime {
     long key = HydrologyData.key(x, z);
     return work.regions.computeIfAbsent(key, k -> {
       int ox = Math.floorDiv(x, 64) * 64, oz = Math.floorDiv(z, 64) * 64;
-      double low = Double.POSITIVE_INFINITY;
-      for (int dz = 8; dz < 64; dz += 16) for (int dx = 8; dx < 64; dx += 16)
-        low = Math.min(low, t.column(ox + dx, oz + dz).ground());
-      return new RegionWork(low + 1);
+      double low = Double.POSITIVE_INFINITY, temperatureSum = 0;
+      for (int dz = 8; dz < 64; dz += 16) for (int dx = 8; dx < 64; dx += 16) {
+        var sample = t.column(ox + dx, oz + dz);
+        low = Math.min(low, sample.ground());
+        temperatureSum += sample.temperature();
+      }
+      return new RegionWork(low + 1, temperatureSum / 16);
     });
   }
   /**
@@ -362,11 +389,11 @@ public final class HydrologyRuntime {
     }
     var sample = t.column(x, z);
     if (sample.water() == TerrainEngine.SEA && t.ocean(x, z)) {
-      cursor.candidate(column, false);
+      cursor.forget(column);
       return;
     }
-    if (sample.wet()) plan(cursor, column, sample.water());
-    cursor.candidate(column, sample.wet());
+    if (sample.wet()) cursor.plan(column, sample.water());
+    else cursor.forget(column);
     // Deep lakes infiltrate at their floor; finding it is strictly capped.
     BlockPos bed = waterColumnBed(l, state.is(EngineRegistry.WATER_BLOCK.get()) ? p.below() : p);
     if (bed == null) return;
@@ -382,9 +409,13 @@ public final class HydrologyRuntime {
     boolean environmentalStep = aquifer.step(l.getGameTime());
     if (environmentalStep) {
       regional.tick = l.getGameTime(); regional.discharged = 0; regional.natural = 0;
-      double seasonal=sample.temperature()+(t.revision>=6?.18*Math.sin(2*Math.PI*Math.floorMod(l.getGameTime(),24000L*96)/(24000.*96)):0);
-      if (seasonal > .25) WaterAccount.move(aquifer.snow, aquifer.ground, 4096);
-      if(ice)meltIce(l,p,seasonal);
+      long year = 24_000L * 96;
+      double seasonalOffset = t.revision >= 6
+          ? .18 * Math.sin(2 * Math.PI * Math.floorMod(l.getGameTime(), year) / year) : 0;
+      // The shared snowpack uses its catchment climate. Exposed ice uses its own elevation.
+      if (regional.meanTemperature + seasonalOffset > .25)
+        WaterAccount.move(aquifer.snow, aquifer.ground, 4096);
+      if (ice) meltIce(l, p, sample.temperature() + seasonalOffset);
       // Coarse ocean evaporation closes the circulation account; salt stays in the ocean.
       d.ocean.evaporateInto(d.atmosphere, Math.min(4096,
           Math.max(0, WaterAccount.MAX / 4 - d.atmosphere.water())));
@@ -423,10 +454,6 @@ public final class HydrologyRuntime {
       regional.discharged += (int) ((before - aquifer.ground.water()) / WaterAccount.SCALE);
     }
   }
-  private static void plan(Cursor cursor, int column, double surface) {
-    cursor.streamSurface[column] = surface;
-    cursor.streamOutletY[column] = (int) Math.ceil(surface) - 1;
-  }
   /** Finds generated waterway columns soon after load; only visible engine water is sampled. */
   private static void survey(ServerLevel l, Work work, TerrainEngine t, long deadline) {
     // Give each queued chunk at most one turn. One chunk awaiting FULL must not block all
@@ -437,7 +464,7 @@ public final class HydrologyRuntime {
       var c = work.chunks.get(key);
       if (c == null) continue;
       var cp = new net.minecraft.world.level.ChunkPos((int) key, (int) (key >> 32));
-      if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) {
+      if (l.getChunkSource().getChunkNow(cp.x(), cp.z()) == null) {
         work.survey.addLast(key);
         continue;
       }
@@ -448,20 +475,20 @@ public final class HydrologyRuntime {
         var p = exposedColumnCell(l, top);
         if (p == null) continue;
         var state = l.getBlockState(p);
-        if (!state.is(EngineRegistry.WATER_BLOCK.get()) || boundary(state) || c.streamCandidate[col]) continue;
+        if (!state.is(EngineRegistry.WATER_BLOCK.get()) || boundary(state) || c.hasStream(col)) continue;
         var sample = t.column(x, z);
         if (!sample.wet() || sample.water() == TerrainEngine.SEA && t.ocean(x, z)) continue;
-        plan(c, col, sample.water());
-        c.candidate(col, true);
+        c.plan(col, sample.water());
       }
-      if (c.streamCount > 0) work.streamChunks.putIfAbsent(key, c);
+      if (c.hasStreams()) work.streamChunks.putIfAbsent(key, c);
       if (c.surveyed < 256) work.survey.addLast(key);
     }
   }
   private static void replenishStream(ServerLevel l, Work work, TerrainEngine t,
       Cursor cursor, int column, int x, int z) {
-    if (!cursor.streamCandidate[column]) return;
-    long now = l.getGameTime(), last = cursor.replenished[column];
+    if (!cursor.hasStream(column)) return;
+    var streams = cursor.streams;
+    long now = l.getGameTime(), last = streams.replenished[column];
     // At most one top-up per planned column per tick.
     if (last == now) return;
     var regional = region(work, t, x, z);
@@ -471,8 +498,9 @@ public final class HydrologyRuntime {
     // between pulses. The per-interval total and its debit are unchanged.
     int allowance = streamAllowance(quota, regional.tick, now);
     if (regional.natural >= allowance) return;
-    cursor.replenished[column] = now;
-    var outlet = new BlockPos(x, cursor.streamOutletY[column], z);
+    streams.replenished[column] = now;
+    double stage = streams.stages[column];
+    var outlet = new BlockPos(x, (int) Math.ceil(stage) - 1, z);
     if (!l.isInWorldBounds(outlet) || !l.hasChunkAt(outlet)) return;
     var state = l.getBlockState(outlet);
     if ((!state.isAir() && !state.is(EngineRegistry.WATER_BLOCK.get())) || boundary(state)) return;
@@ -481,7 +509,7 @@ public final class HydrologyRuntime {
     if (aquifer == null || !aquifer.canSupply(true)) return;
     int units = WaterRuntime.units(l, outlet);
     int sourceCapacity =
-        StreamSourceCapacity.remainingUnits(cursor.streamSurface[column], outlet.getY(), units);
+        StreamSourceCapacity.remainingUnits(stage, outlet.getY(), units);
     if (sourceCapacity <= 0) return;
     // Pay into the actual deficit cell. Cells below the outlet lie wholly under the planned
     // surface, so filling them can never raise the reach above its generated stage.
@@ -497,7 +525,7 @@ public final class HydrologyRuntime {
     long before = aquifer.ground.water();
     // Natural springs are limited by aquifer head pressure, planned capacity and the regional
     // baseflow quota; the fixed SOURCE_RATE only meters dry-land outlets.
-    emit(l, target, aquifer, Aquifer.naturalDatum(cursor.streamSurface[column]),
+    emit(l, target, aquifer, Aquifer.naturalDatum(stage),
         Math.min(sourceCapacity, allowance - regional.natural));
     regional.natural += (int) ((before - aquifer.ground.water()) / WaterAccount.SCALE);
   }
@@ -515,7 +543,10 @@ public final class HydrologyRuntime {
         && l.getChunkSource().getGenerator() instanceof EngineChunkGenerator) {
       var work = WORK.computeIfAbsent(l, k -> new Work());
       long key = e.getChunk().getPos().pack();
-      if (work.chunks.putIfAbsent(key, new Cursor()) == null) work.survey.add(key);
+      work.chunks.computeIfAbsent(key, chunk -> {
+        work.survey.add(chunk);
+        return new Cursor();
+      });
     }
   }
   @SubscribeEvent public void tick(LevelTickEvent.Post e) {
@@ -530,7 +561,7 @@ public final class HydrologyRuntime {
     // Planned waterways get their own bounded cadence; scan breadth must not starve a source.
     // The finite regional quota is offered headwater-first: springs feed the head of a reach and
     // lower columns are fed by flow, so downstream deficits must not consume the headwater share.
-    work.streamChunks.entrySet().removeIf(en -> en.getValue().streamCount == 0
+    work.streamChunks.entrySet().removeIf(en -> !en.getValue().hasStreams()
         || work.chunks.get(en.getKey()) != en.getValue());
     var order = new ArrayList<>(work.streamChunks.entrySet());
     order.sort((a, b) -> Double.compare(b.getValue().headwater(), a.getValue().headwater()));
@@ -538,19 +569,24 @@ public final class HydrologyRuntime {
       var entry = order.get(i);
       var c = entry.getValue();
       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
-      if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) continue;
-      for (int s = 0; s < c.streamCount && System.nanoTime() - streamDeadline < 0; s++) {
-        int col = c.streams[s], shuffled = col * 73 & 255;
+      if (l.getChunkSource().getChunkNow(cp.x(), cp.z()) == null) continue;
+      for (int s = 0; s < c.streams.count && System.nanoTime() - streamDeadline < 0; s++) {
+        int col = c.streams.ordered[s], shuffled = col * 73 & 255;
         replenishStream(l, work, t, c, col, cp.getMinBlockX() + (shuffled & 15), cp.getMinBlockZ() + (shuffled >> 4));
       }
     }
+    int waiting = 0;
     for (int i = 0; i < limit && !work.chunks.isEmpty() && System.nanoTime() - deadline < 0; i++) {
-      var entry = work.chunks.pollFirstEntry();
+      var entry = work.chunks.firstEntry();
+      // The unload event owns removal. A chunk may still be waiting for delivery on this tick.
+      work.chunks.putLast(entry.getKey(), entry.getValue());
       var cp = new net.minecraft.world.level.ChunkPos((int) (long) entry.getKey(), (int) (entry.getKey() >> 32));
-      var chunk = l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false);
-      if (!(chunk instanceof LevelChunk)) continue;
+      if (l.getChunkSource().getChunkNow(cp.x(), cp.z()) == null) {
+        if (++waiting >= work.chunks.size()) break;
+        continue;
+      }
+      waiting = 0;
       var c = entry.getValue();
-      work.chunks.putIfAbsent(entry.getKey(), c);
       long now = l.getGameTime();
       // Rotate allocation order each aquifer interval; 73 is coprime with 256.
       int scanOffset = (int) ((now / 20 * 73L) & 255);
@@ -562,7 +598,7 @@ public final class HydrologyRuntime {
       if (now > c.visited[col] && now - c.visited[col] >= 20) {
         c.visited[col] = now;
         visit(l, work, c, col, t, x, z);
-        if (c.streamCount > 0) work.streamChunks.putIfAbsent(entry.getKey(), c);
+        if (c.hasStreams()) work.streamChunks.putIfAbsent(entry.getKey(), c);
       }
     }
   }

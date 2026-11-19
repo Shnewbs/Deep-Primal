@@ -70,16 +70,17 @@ final class StreamSourceNativeChecks {
 
     Object work = instance("Work");
     Object cursor = instance("Cursor");
-    boolean[] candidates = (boolean[]) field(cursor.getClass(), "streamCandidate").get(cursor);
-    int[] outletY = (int[]) field(cursor.getClass(), "streamOutletY").get(cursor);
-    double[] surfaces = (double[]) field(cursor.getClass(), "streamSurface").get(cursor);
-    long[] replenished = (long[]) field(cursor.getClass(), "replenished").get(cursor);
-    candidates[0] = true;
-    candidates[1] = true;
-    outletY[0] = y;
-    outletY[1] = y;
-    surfaces[0] = y + 0.5;
-    surfaces[1] = y + 0.5;
+    Field streamData = field(cursor.getClass(), "streams");
+    Method plan = cursor.getClass().getDeclaredMethod("plan", int.class, double.class);
+    Method forget = cursor.getClass().getDeclaredMethod("forget", int.class);
+    plan.setAccessible(true);
+    forget.setAccessible(true);
+    forget.invoke(cursor, 0);
+    require(streamData.get(cursor) == null, "A dry chunk allocated stream state");
+    plan.invoke(cursor, 0, y + 0.5);
+    plan.invoke(cursor, 1, y + 0.5);
+    Object columns = streamData.get(cursor);
+    long[] replenished = (long[]) field(columns.getClass(), "replenished").get(columns);
 
     Method region = HydrologyRuntime.class.getDeclaredMethod(
         "region", work.getClass(), TerrainEngine.class, int.class, int.class);
@@ -123,9 +124,7 @@ final class StreamSourceNativeChecks {
     require(initialGround - deliveredGround == expectedDebit,
         "Aquifer debit did not equal the 10 accepted stream units");
 
-    candidates[2] = true;
-    outletY[2] = y;
-    surfaces[2] = y + 0.5;
+    plan.invoke(cursor, 2, y + 0.5);
     field(regional.getClass(), "natural").setInt(regional, 0);
     long beforeDeficit = aquifer.ground.water();
     java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 2, x + 3, z);
@@ -185,16 +184,16 @@ final class StreamSourceNativeChecks {
     }
 
     Object ordered = instance("Cursor");
-    double[] orderedSurface = (double[]) field(ordered.getClass(), "streamSurface").get(ordered);
-    Method candidate = ordered.getClass().getDeclaredMethod("candidate", int.class, boolean.class);
-    candidate.setAccessible(true);
     double[] planned = {100.25, 104.5, 99.0, 104.5, 102.0};
-    for (int i = 0; i < planned.length; i++) { orderedSurface[i] = planned[i]; candidate.invoke(ordered, i, true); }
-    candidate.invoke(ordered, 4, false);
-    int[] streams = (int[]) field(ordered.getClass(), "streams").get(ordered);
-    int count = field(ordered.getClass(), "streamCount").getInt(ordered);
-    require(count == 4 && orderedSurface[streams[0]] == 104.5 && orderedSurface[streams[1]] == 104.5
-        && streams[2] == 0 && streams[3] == 2, "Planned waterway quota order is not headwater-first");
+    for (int i = 0; i < planned.length; i++) plan.invoke(ordered, i, planned[i]);
+    plan.invoke(ordered, 2, 105.0);
+    plan.invoke(ordered, 2, 105.0);
+    forget.invoke(ordered, 4);
+    Object orderedData = streamData.get(ordered);
+    int[] streams = (int[]) field(orderedData.getClass(), "ordered").get(orderedData);
+    int count = field(orderedData.getClass(), "count").getInt(orderedData);
+    require(count == 4 && streams[0] == 2 && streams[1] == 1 && streams[2] == 3 && streams[3] == 0,
+        "Replanned stream columns must retain stable headwater-first order");
     checkSurveyTurns(level, terrain, first, ordered);
 
     for (long remaining : new long[] {0, 128, 256, 384, 512, 768}) {

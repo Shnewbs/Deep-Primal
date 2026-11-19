@@ -8,7 +8,7 @@ import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.neoforged.api.distmarker.Dist;
@@ -34,12 +34,22 @@ public final class PhysicalRegionalChecks {
     for(int x:SITES)for(int i=0;i<16;i++){var pos=new BlockPos(x+8+(i&3),y+1,8+(i>>2));parcels.add(HydrologyRuntime.contents(l,pos,l.getBlockState(pos)));}
     for(var q:parcels){out[0]+=q.water();out[1]+=q.salt();out[2]+=q.sediment();}return out;
   }
+  private static void visitOutlets(Method visit, ServerLevel level, Object work, Map<?, ?> chunks,
+      TerrainEngine terrain, int from, int to) throws ReflectiveOperationException {
+    for (int site : SITES) for (int i = from; i < to; i++) {
+      int x = site + 8 + (i & 3), z = 8 + (i >> 2);
+      var cursor = chunks.get(ChunkPos.pack(x >> 4, z >> 4));
+      check(cursor != null, "Delivered outlet chunk needs its current runtime cursor");
+      int column = (249 * ((x & 15) + 16 * (z & 15))) & 255; // inverse of the runtime's 73 permutation
+      visit.invoke(null, level, work, cursor, column, terrain, x, z);
+    }
+  }
   @SubscribeEvent public void start(net.neoforged.neoforge.event.server.ServerStartedEvent event)throws Exception{
     String dest=System.getenv("DEEPPRIMAL_PHYSICAL_RECORD");if(dest==null)return;
     var l=event.getServer().overworld();var src=l.getChunkSource();int y=l.getMinY()+8;
     var terrain=((EngineChunkGenerator)src.getGenerator()).geography();int found=0;
     for(int x=4096;x<4096+256*64&&found<2;x+=64){
-      boolean land=true;for(int i=0;i<16;i++){int px=x+8+(i&3),pz=8+(i>>2);var sample=terrain.column(px,pz);if(sample.water()==TerrainEngine.SEA&&terrain.ocean(px,pz)){land=false;break;}}
+      boolean land=true;for(int i=0;i<16;i++){int px=x+8+(i&3),pz=8+(i>>2);var sample=terrain.column(px,pz);if(sample.wet() || terrain.ocean(px,pz)){land=false;break;}}
       if(land)SITES[found++]=x;
     }
     check(found==2,"two bounded non-ocean regional fixtures");
@@ -53,12 +63,16 @@ public final class PhysicalRegionalChecks {
     }
     var wf=HydrologyRuntime.class.getDeclaredField("WORK");wf.setAccessible(true);var work=((Map<?,?>)wf.get(null)).get(l);
     var chunks=(Map<?,?>)field(work,"chunks");var regions=(Map<?,?>)field(work,"regions");
-    var visit=HydrologyRuntime.class.getDeclaredMethod("visit",ServerLevel.class,work.getClass(),int.class,int.class);visit.setAccessible(true);
+    Object currentCursor = chunks.get(ChunkPos.pack(SITES[0] >> 4, 0));
+    check(currentCursor != null, "Outlet chunk was delivered");
+    var visit = HydrologyRuntime.class.getDeclaredMethod("visit", ServerLevel.class, work.getClass(),
+        currentCursor.getClass(), int.class, TerrainEngine.class, int.class, int.class);
+    visit.setAccessible(true);
     var region=HydrologyRuntime.class.getDeclaredMethod("region",work.getClass(),TerrainEngine.class,int.class,int.class);region.setAccessible(true);
     var d=HydrologyData.get(l);l.setRainLevel(0);long now=l.getGameTime();var aquifers=new Aquifer[2];
     for(int n=0;n<2;n++){aquifers[n]=new Aquifer(new WaterAccount.Parcel(Aquifer.CAPACITY/2,400000,12000),WaterAccount.Parcel.EMPTY,30,true,now-20,30);d.aquifers.put(HydrologyData.key(SITES[n]+8,8),aquifers[n]);}
     long[] initial=total(l,d,aquifers,y);
-    for(int n=0;n<2;n++)for(int i=0;i<8;i++)visit.invoke(null,l,work,SITES[n]+8+(i&3),8+(i>>2));
+    visitOutlets(visit, l, work, chunks, terrain, 0, 8);
     for(int x:SITES){int count=0;for(int i=0;i<16;i++)count+=units(l,x,i,y);check(count==32,"ordinary regional32 delivery "+count);}
     int auxiliary=Math.max(32,chunks.size()+6);check(auxiliary<=128,"bounded auxiliary chunk fixture");
     int reloaded=0,evicted=0,mainReloaded=0;var oldChunks=new HashMap<Integer,LevelChunk>();
@@ -75,8 +89,8 @@ public final class PhysicalRegionalChecks {
       long deadline=System.nanoTime()+8_000_000_000L;boolean gone=false;
       for(int turn=0;turn<1000&&System.nanoTime()<deadline;turn++){
         src.tick(()->true,false);for(int n=0;n<128&&src.pollTask();n++){}
-        gone=true;for(int i=0;i<auxiliary;i++)if(src.getChunk((8192+i*64)>>4,0,ChunkStatus.FULL,false)!=null){gone=false;break;}
-        for(int x:SITES)gone &= src.getChunk(x>>4,0,ChunkStatus.FULL,false)==null;
+        gone=true;for(int i=0;i<auxiliary;i++)if(src.getChunkNow((8192+i*64)>>4,0)!=null){gone=false;break;}
+        for(int x:SITES)gone &= src.getChunkNow(x>>4,0)==null;
         gone &= !regions.containsKey(HydrologyData.key(SITES[0]+8,8));
         if(gone)break;Thread.sleep(1);
       }
@@ -84,13 +98,13 @@ public final class PhysicalRegionalChecks {
       check(!regions.containsKey(HydrologyData.key(SITES[0]+8,8)),"unrelated eviction clears active region cache");
       check(l.getGameTime()==now,"eviction stays in same aquifer interval");
       for(int n=0;n<2;n++){check(l.getChunk(SITES[n]>>4,0)!=priorMain.get(n),"outlet LevelChunk must reload from another instance");mainReloaded++;}
-      for(int n=0;n<2;n++)for(int i=8;i<16;i++)visit.invoke(null,l,work,SITES[n]+8+(i&3),8+(i>>2));
+      visitOutlets(visit, l, work, chunks, terrain, 8, 16);
       for(int x:SITES){int count=0;for(int i=0;i<16;i++)count+=units(l,x,i,y);check(count==32,"eviction granted another regional allowance "+count);}
       check(Arrays.equals(initial,total(l,d,aquifers,y)),"water/salt/sediment conservation after physical eviction");
     }
     check(unloadEvents>=evicted,"real chunk unload events observed");
     ((ServerLevelData)l.getLevelData()).setGameTime(now+20);
-    for(int n=0;n<2;n++)for(int i=0;i<8;i++)visit.invoke(null,l,work,SITES[n]+8+(i&3),8+(i>>2));
+    visitOutlets(visit, l, work, chunks, terrain, 0, 8);
     for(int x:SITES){int count=0;for(int i=0;i<16;i++)count+=units(l,x,i,y);check(count==64,"next interval resumes normal32 delivery "+count);}
     check(Arrays.equals(initial,total(l,d,aquifers,y)),"next-interval constituent conservation");
     d.setDirty();event.getServer().saveAllChunks(false,true,true);

@@ -156,6 +156,22 @@ public final class NativeWriteGuardProbe {
     check(w.writes == 0, "no-op requires no native callback");
     cleanup(); scenarios++;
 
+    var silent = new ServerLevel();
+    var silentPos = new BlockPos(19);
+    silent.script = (world, cell, target, invocation) -> {
+      // A cell owner can replace state without dispatching our native notification.
+      world.cells.put(cell.asLong(), STONE);
+      return false;
+    };
+    try {
+      call(silent, silentPos, FULL);
+      throw new AssertionError("silent foreign edit must reject admission");
+    } catch (IllegalStateException expected) {
+      check(silent.writes == 1 && silent.cells.get(silentPos.asLong()).equals(STONE)
+          && silent.ledgerCommits == 0, "refusal preserves a silent foreign edit");
+    }
+    cleanup(); scenarios++;
+
     var other = new ServerLevel();
     w = new ServerLevel();
     w.cells.put(1L, AIR); w.cells.put(2L, HALF);

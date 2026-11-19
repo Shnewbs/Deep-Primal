@@ -1,56 +1,40 @@
 {
   "schema": 1,
-  "owner": "foreground-water-polish-20261119",
+  "owner": "foreground-seasonal-water-20261119",
   "status": "checkpointed",
-  "started_at": "2026-11-19T15:35:00Z",
-  "active_until": "2026-11-19T16:28:26.955Z",
+  "started_at": "2026-11-19T21:06:00Z",
+  "active_until": "2026-11-19T21:23:00Z",
   "scope": [
-    ".github/workflows/organic-terrain.yml",
     "docs/WATER-ENGINE-WORK-STATE.json",
-    "docs/validation/water-polish-2026-11-19/README.md",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/ChannelCorridor.java",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/TerrainEngine.java",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WatershedRegion.java",
+    "docs/validation/engine-continuation/water-native-write-guard-2026-10-28/NativeWriteGuardProbe.java",
+    "docs/validation/seasonal-water-2026-11-19/README.md",
     "gradle.properties",
-    "graphics-settings/src/main/resources/assets/deepprimal_graphics/shaders/core/animated_water.fsh",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/ChannelCorridorChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/CoreChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/OrganicDrainageChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterFlowTextureChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterSurfaceShapeChecks.java",
-    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
-    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
-    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
     "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
-    "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json",
-    "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/AnimatedWaterChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/EnvironmentalWaterChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/PhysicalRegionalChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/SeasonalWaterChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/StreamSourceNativeChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WaterCliffSceneChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WorldCreationChecks.java",
-    "tools/biomes/OrganicChannelCodecChecks.java",
-    "tools/publish_organic_qualification.py"
+    "tools/validate_hydrology_external_chemistry.py"
   ],
   "coordination": "Source changes are based on the current main branch, including the watershed cache improvements. Publish by fast-forward using the expected main head. The source-only commit skips push-triggered package publishing.",
-  "baseline": "8f46154fb0d5c3dc86b45b51ea23010caa99aad8",
-  "current_evidence": "Full Java 25 / Gradle 9.2.1 build, revision 12 native creation, exact differential replay of revisions 0–11, controlled cliff and natural cascade checks on OpenGL and Vulkan, live Vulkan renderer lifecycle, ready-chunk stream admission, and exact parcel and aquifer persistence. See docs/validation/water-polish-2026-11-19/README.md.",
+  "baseline": "ae7849eebd907b44d495ddf1d5a0d42138eecc87",
+  "current_evidence": "Two 96-day seasonal cycles, 230,400 environmental intervals, 384 ocean exchanges, an exact disk restart, 64 auxiliary chunk evictions, four spring-chunk reloads and measured dry-cursor allocation. See docs/validation/seasonal-water-2026-11-19/README.md.",
   "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
   "not_claimed": [
     "AAA/full water-engine completion",
     "named Windows GPU frame/tick performance",
     "new independent grade",
-    "full seasonal/ocean/world-ledger acceptance",
+    "multi-watershed real-time multiplayer acceptance",
     "universal natural-waterfall flicker elimination"
   ],
-  "updated_at": "2026-11-19T16:28:26.955Z",
-  "owner_goal": "Fit narrow reaches to terrain relief, keep animated water edges continuous, admit delivered streams promptly, and verify finite-water accounting and saved geography.",
+  "updated_at": "2026-11-19T21:23:00Z",
+  "owner_goal": "Keep finite water and its constituents correct through seasonal recharge, world restarts and chunk delivery, and reduce water tracking allocations while exploring.",
   "completion_gates": {
     "continuous_surfaces": "Controlled cliff, ceiling, and one natural cascade pass on both native software backends. Live Vulkan rise, drying, fallback and resource reload pass. Extended coverage across seeds and Windows hardware remain open.",
-    "volume_and_constituents": "Native stream drought and recharge checks pass with exact accounting. Multi-season watershed and ocean accounting remain open.",
-    "loaded_unloaded_persistence": "A sealed parcel and groundwater matched after save and reopen. Broad streamed watershed persistence remains open.",
-    "seasonal_groundwater_and_oceans": "Long in-world recharge, ocean exchange and environmental persistence remain open.",
-    "performance": "Smooth top geometry uses four quads per cell. Named Windows GPU frame-time and loading tails at long distance remain open."
+    "volume_and_constituents": "A selected regional aquifer, snow, atmosphere, ocean and two surface cells conserved all constituents through two accelerated years with native exchange. Broad multiplayer circulation remains open.",
+    "loaded_unloaded_persistence": "An unavailable chunk retained and resumed its original cursor. Two physical eviction cycles preserved spring quotas and constituent totals. Six seasonal accounts and aquifer metadata matched across a process restart.",
+    "seasonal_groundwater_and_oceans": "Two controlled native years with rain, snow, melt, evaporation, spring discharge, ocean exchange and a winter restart passed. Uncontrolled multi-watershed sessions remain open.",
+    "performance": "Dry chunk hydrology registration allocated 2,112 bytes per cursor, down from 8,616 in the Java 25 probe. Long-distance Windows GPU frame times and whole-chunk loading tails remain open."
   },
   "automation_id": "6ae0c445a6c4819194f58ed18e077f52",
   "previous_automation_id": "6ad974bdc204819195e5465aeea9dca2",
@@ -69,7 +53,7 @@
       "reason": "library_storage_limit_exceeded; direct workspace downloads remain available"
     }
   },
-  "next_priority": "Verify frame times and loading tails on a Windows GPU at long view distances, expand the natural waterfall and chunk-streaming corpus, and exercise seasonal groundwater recharge and ocean exchanges.",
+  "next_priority": "Measure long-distance movement and frame times on a Windows GPU, then expand natural waterfall and real-time multiplayer watershed coverage across seeds.",
   "latest_builder_checkpoint": {
     "updated_at": "2026-10-26T14:55:26Z",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -130,6 +114,13 @@
     "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
   },
   "latest_source_checkpoint": {
+    "version": "0.0.1-alpha.29-dev.131-water-polish.3",
+    "saved_channel_revision": 12,
+    "evidence": "docs/validation/seasonal-water-2026-11-19/README.md",
+    "delivery": "source",
+    "acceptance_complete": false
+  },
+  "previous_source_checkpoint": {
     "version": "0.0.1-alpha.29-dev.130-water-polish.2",
     "saved_channel_revision": 12,
     "evidence": "docs/validation/water-polish-2026-11-19/README.md",

@@ -67,7 +67,7 @@ public final class EnvironmentalWaterChecks {
     System.out.println("ENVIRONMENT_MIXED_PRECIPITATION_PASS cases=" + cases
         + " swappedBiomes=true finiteAtmosphere=true capacityAware=true exactConstituents=true");
   }
-  private static void sampleBiome(net.minecraft.server.level.ServerLevel level, BlockPos p, String biome) {
+  static void sampleBiome(net.minecraft.server.level.ServerLevel level, BlockPos p, String biome) {
     level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),
         "fillbiome " + (p.getX() - 4) + " " + (p.getY() - 4) + " " + (p.getZ() - 4) + " "
             + (p.getX() + 3) + " " + (p.getY() + 3) + " " + (p.getZ() + 3) + " " + biome);
@@ -78,6 +78,12 @@ public final class EnvironmentalWaterChecks {
     for(var type:java.util.List.of(HydrologyRuntime.class,EngineChunkGenerator.class,TerrainEngine.class,WaterAccount.class))
       System.out.println("ENVIRONMENT_CLASS_ORIGIN class="+type.getName()+" source="+type.getProtectionDomain().getCodeSource().getLocation());
     var server = event.getServer(); var level = server.overworld();
+    String mode = System.getenv("DEEPPRIMAL_ENVIRONMENT_MODE");
+    if ("seasonal-write".equals(mode) || "seasonal-reopen".equals(mode)) {
+      SeasonalWaterChecks.run(level, Path.of(destination), mode.equals("seasonal-reopen"));
+      server.halt(false);
+      return;
+    }
     var d = HydrologyData.get(level);
     String stormProfile = System.getenv("DEEPPRIMAL_STORM_PROFILE");
     if (stormProfile != null) {
@@ -85,7 +91,7 @@ public final class EnvironmentalWaterChecks {
       server.halt(false);
       return;
     }
-    if ("legacy3".equals(System.getenv("DEEPPRIMAL_ENVIRONMENT_MODE"))) {
+    if ("legacy3".equals(mode)) {
       check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == 3, "Delivered V3 world preserves its saved generator");
       level.getChunk(0,0);
       var oldCell=level.getBlockState(new BlockPos(80,500,8));
@@ -96,7 +102,7 @@ public final class EnvironmentalWaterChecks {
     }
     int expectedRevision=Integer.parseInt(System.getenv().getOrDefault("DEEPPRIMAL_ENVIRONMENT_REVISION","4"));
     var persisted = new BlockPos(20, 500, 20);
-    boolean reopen = "reopen".equals(System.getenv("DEEPPRIMAL_ENVIRONMENT_MODE"));
+    boolean reopen = "reopen".equals(mode);
     if (reopen) {
       check(((EngineChunkGenerator) level.getChunkSource().getGenerator()).geography().revision == expectedRevision, "Saved terrain codec");
       var loaded = d.aquifers.get(HydrologyData.key(1000000, -1000000));
