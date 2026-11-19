@@ -104,6 +104,16 @@ void main() {
         sampled = mix(sampled, textureGrad(Sampler0, oldUV, oldDx, oldDy), previousWeight);
     }
     vec4 color = sampled * vertexColor;
+    float cylindrical = fog_cylindrical_distance(relativePosition);
+    // Terrain beyond the detailed view can keep its own fog range when LOD is active.
+    // The detailed water mesh still ends at the delivered view, so fade its coverage
+    // into that boundary to avoid a solid-looking edge on partially visible lakes.
+    if (DeepPrimalNearDistance >= 16.0) {
+        float fadeStart = DeepPrimalNearDistance - min(24.0, DeepPrimalNearDistance * 0.25);
+        color.a *= 1.0 - smoothstep(fadeStart, DeepPrimalNearDistance, cylindrical);
+    }
     if (color.a < 0.003) discard;
-    fragColor = apply_fog(color, length(relativePosition), length(relativePosition.xz), FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+    fragColor = apply_fog(color, fog_spherical_distance(relativePosition),
+        cylindrical, FogEnvironmentalStart, FogEnvironmentalEnd,
+        FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
 }

@@ -429,13 +429,17 @@ public final class HydrologyRuntime {
   }
   /** Finds generated waterway columns soon after load; only visible engine water is sampled. */
   private static void survey(ServerLevel l, Work work, TerrainEngine t, long deadline) {
-    while (!work.survey.isEmpty() && System.nanoTime() - deadline < 0) {
+    // Give each queued chunk at most one turn. One chunk awaiting FULL must not block all
+    // other admissions, and a partially surveyed chunk can already feed known outlets.
+    int attempts = work.survey.size();
+    while (attempts-- > 0 && !work.survey.isEmpty() && System.nanoTime() - deadline < 0) {
       long key = work.survey.removeFirst();
       var c = work.chunks.get(key);
       if (c == null) continue;
       var cp = new net.minecraft.world.level.ChunkPos((int) key, (int) (key >> 32));
       if (!(l.getChunkSource().getChunk(cp.x(), cp.z(), ChunkStatus.FULL, false) instanceof LevelChunk)) {
-        work.survey.addLast(key); return;
+        work.survey.addLast(key);
+        continue;
       }
       for (; c.surveyed < 256 && System.nanoTime() - deadline < 0; c.surveyed++) {
         int col = c.surveyed, shuffled = col * 73 & 255;
@@ -450,8 +454,8 @@ public final class HydrologyRuntime {
         plan(c, col, sample.water());
         c.candidate(col, true);
       }
-      if (c.surveyed < 256) { work.survey.addFirst(key); return; }
       if (c.streamCount > 0) work.streamChunks.putIfAbsent(key, c);
+      if (c.surveyed < 256) work.survey.addLast(key);
     }
   }
   private static void replenishStream(ServerLevel l, Work work, TerrainEngine t,

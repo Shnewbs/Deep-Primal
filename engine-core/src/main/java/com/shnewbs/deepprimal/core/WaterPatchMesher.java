@@ -125,7 +125,8 @@ public final class WaterPatchMesher {
           }
           boolean top = m.face(current, x, y, z, 0), oldTop = m.face(m.previous, x, y, z, 0);
           if (top || oldTop) {
-            int sub = smooth ? 3 : 1;
+            // The renderer publishes a distinct history at each half-block sample.
+            int sub = smooth ? 2 : 1;
             for (int iz = 0; iz < sub; iz++)
               for (int ix = 0; ix < sub; ix++) {
                 float a = ix / (float) sub,
@@ -154,7 +155,7 @@ public final class WaterPatchMesher {
               bx = 1;
               bz = az;
             }
-            int subdivisions = smooth ? 3 : 1;
+            int subdivisions = smooth ? 2 : 1;
             for (int section = 0; section < subdivisions; section++) {
               float from = section / (float) subdivisions, to = (section + 1f) / subdivisions;
               float ax0 = ax + (bx - ax) * from, az0 = az + (bz - az) * from;
@@ -176,7 +177,16 @@ public final class WaterPatchMesher {
     return new Mesh(Arrays.copyOf(m.vertices, m.size));
   }
 
-  private boolean face(Snapshot s, int x, int y, int z, int face) {
+  /** A capture only needs light and tint for cells that can contribute a visible face. */
+  public static boolean hasExposedFace(Snapshot snapshot, int x, int y, int z) {
+    if (snapshot.water(x, y, z) == 0) return false;
+    for (int face = 0; face < 6; face++) {
+      if (face(snapshot, x, y, z, face)) return true;
+    }
+    return false;
+  }
+
+  private static boolean face(Snapshot s, int x, int y, int z, int face) {
     int amount = s.water(x, y, z);
     if (amount == 0) return false;
     int dx = face == 2 ? 1 : face == 4 ? -1 : 0,
@@ -320,12 +330,14 @@ public final class WaterPatchMesher {
         textureV *= .5f;
       }
     }
-    float positionX = x + u, positionZ = z + v, positionY = y + target;
+    // A height retarget only moves Y. Using the new level as the horizontal phase would
+    // reopen seams when neighboring pages publish the same change on different frames.
+    float positionX = x + u, positionZ = z + v;
     vertices[size++] =
-        smooth ? WaterMeshShape.x(positionX, positionY, positionZ) : positionX;
+        smooth ? WaterMeshShape.x(positionX, 0, positionZ) : positionX;
     vertices[size++] = y;
     vertices[size++] =
-        smooth ? WaterMeshShape.z(positionX, positionY, positionZ) : positionZ;
+        smooth ? WaterMeshShape.z(positionX, 0, positionZ) : positionZ;
     vertices[size++] = target;
     vertices[size++] = old;
     vertices[size++] = textureU;

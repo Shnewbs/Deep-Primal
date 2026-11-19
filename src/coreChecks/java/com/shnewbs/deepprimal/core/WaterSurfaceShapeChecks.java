@@ -47,7 +47,7 @@ final class WaterSurfaceShapeChecks {
         throw new AssertionError("Patch checkerboard dimples");
       top++;
     }
-    if (top != 36) throw new AssertionError("Unexpected smooth top tessellation: " + top);
+    if (top != 16) throw new AssertionError("Unexpected smooth top tessellation: " + top);
     int verticalSeams = 0;
     for (int amount = 1; amount <= 16; amount++) {
       byte[] stepped = new byte[WaterPatchMesher.CELLS];
@@ -133,5 +133,48 @@ final class WaterSurfaceShapeChecks {
             + verticalSeams
             + " verticalPageSeamVertices="
             + verticalPageSeams);
+    retargetedPageEdges();
+  }
+
+  /** Adjacent pages can hold different captured levels while sharing a presented edge. */
+  private static void retargetedPageEdges() {
+    int compared = 0;
+    double maxGap = 0;
+    for (int axis = 0; axis < 2; axis++) {
+      for (int units = 1; units <= 16; units++) {
+        var left = edgeVertices(axis, 16, units);
+        var right = edgeVertices(axis, 0, 17 - units);
+        if (left.size() != 33 || right.size() != 33)
+          throw new AssertionError("A smooth section edge should have 33 half-block samples");
+        for (int vertex = 0; vertex <= 32; vertex++) {
+          float[] a = left.get(vertex), b = right.get(vertex);
+          if (a == null || b == null) throw new AssertionError("A half-block sample is missing");
+          double gap = Math.hypot(a[0] - b[0] - (axis == 0 ? 16 : 0),
+              a[1] - b[1] - (axis == 1 ? 16 : 0));
+          if (gap > 3e-6) throw new AssertionError("Water-level update moved a shared edge sideways: " + gap);
+          maxGap = Math.max(maxGap, gap);
+          compared++;
+        }
+      }
+    }
+    System.out.println("WATER_RETARGET_EDGE_PASS sharedHalfBlockSamples=" + compared + " maxHorizontalGap=" + maxGap);
+  }
+
+  private static java.util.Map<Integer, float[]> edgeVertices(int axis, int edge, int amount) {
+    byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
+    for (int z = -1; z <= 16; z++)
+      for (int x = -1; x <= 16; x++) {
+        units[WaterPatchMesher.index(x, 4, z)] = (byte) amount;
+        solid[WaterPatchMesher.index(x, 3, z)] = 1;
+      }
+    var out = new java.util.HashMap<Integer, float[]>();
+    var snapshot = new WaterPatchMesher.Snapshot(units, solid, new int[units.length], new int[256]);
+    var mesh = WaterPatchMesher.build(snapshot, null, true).vertices();
+    for (int n = 0; n < mesh.length; n += WaterPatchMesher.STRIDE) {
+      if (WaterPatchMesher.face(mesh[n + 10]) != 0 || Math.abs(mesh[n + 2 * axis] - edge) > .1f) continue;
+      float across = mesh[n + 2 * (1 - axis)];
+      out.put(Math.round(across * 2), new float[] {mesh[n], mesh[n + 2]});
+    }
+    return out;
   }
 }

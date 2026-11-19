@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 
 /** Real GPU water updates without rebuilding the terrain section. Not shipped. */
 public final class AnimatedWaterChecks {
-  private static int stage, ticks, samples;
+  private static int stage, ticks, samples, rises;
   private static long began, uploads, avoided;
   private static volatile boolean prepared;
   private static volatile boolean reloaded;
@@ -118,6 +118,9 @@ public final class AnimatedWaterChecks {
       terrain = section(mc).getSectionMesh();
       uploads = r.uploads;
       avoided = r.terrainInvalidationsAvoided;
+      samples = 0;
+      last = Float.NaN;
+      rises++;
       pool(mc, 16);
       stage = 3;
       ticks = 0;
@@ -128,9 +131,17 @@ public final class AnimatedWaterChecks {
           r.uploads > uploads && r.terrainInvalidationsAvoided >= avoided + 144,
           "Water updates use independent uploads");
       require(section(mc).getSectionMesh() == terrain, "Water height edits do not rebuild terrain");
+      // A software driver can miss the 100 ms window while it captures a screenshot.
+      // Retry a settled rise, and still require two distinct frames in one transition.
+      if (samples < 2 && rises < 5) {
+        pool(mc, 2);
+        stage = 2;
+        ticks = 0;
+        return;
+      }
       require(
           samples >= 2,
-          "Distinct intermediate displayed heights sampled across frames: " + samples);
+          "Distinct intermediate displayed heights across frames: " + samples + " after " + rises + " rises");
       pool(mc, 0);
       stage = 4;
       ticks = 0;
@@ -185,6 +196,8 @@ public final class AnimatedWaterChecks {
                 + RenderSystem.getDevice().getBackendName()
                 + " intermediateFrames="
                 + samples
+                + " rises="
+                + rises
                 + " uploads="
                 + r.uploads
                 + " terrainInvalidationsAvoided="

@@ -68,10 +68,10 @@ public final class TerrainEngine {
 
   public TerrainEngine(long seed, int revision, TerrainOptions options) { this(seed, revision, options, 0); }
 
-  /** {@code channelRevision} 1-11 are saved V7 world options; 0 replays legacy worlds exactly. */
+  /** {@code channelRevision} 1-12 are saved V7 world options; 0 replays legacy worlds exactly. */
   public TerrainEngine(long seed, int revision, TerrainOptions options, int channelRevision) {
     if (revision < 1 || revision > 7) throw new IllegalArgumentException("Terrain revision");
-    if (channelRevision < 0 || channelRevision > 11 || channelRevision != 0 && revision != 7)
+    if (channelRevision < 0 || channelRevision > 12 || channelRevision != 0 && revision != 7)
       throw new IllegalArgumentException("Channel revision requires V7 geography");
     this.revision = revision;
     this.channelRevision = channelRevision;
@@ -295,7 +295,7 @@ public final class TerrainEngine {
         channelRevision >= 5 && (channelRevision <= 6 || channelRevision == 8 || channelRevision == 9),
         null, null, channelRevision >= 6,
         channelRevision >= 8 && channelRevision <= 9, channelRevision == 9,
-        channelRevision >= 10, config, channelRevision >= 11);
+        channelRevision >= 10, config, channelRevision >= 11, channelRevision >= 12);
   }
 
   /**

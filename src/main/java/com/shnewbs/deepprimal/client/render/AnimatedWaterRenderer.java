@@ -152,7 +152,8 @@ public final class AnimatedWaterRenderer {
       WaterPatchMesher.Mesh mesh) {}
 
   private AnimatedWaterRenderer() {
-    for (int i = 0; i < 8; i++) heights.add(new Long2ObjectLinkedOpenHashMap<>());
+    // Four shared surface positions and the eight points on a cell's wall perimeter.
+    for (int i = 0; i < 12; i++) heights.add(new Long2ObjectLinkedOpenHashMap<>());
     for (int i = 0; i < 6; i++) alpha.add(new Long2ObjectLinkedOpenHashMap<>());
   }
 
@@ -222,8 +223,9 @@ public final class AnimatedWaterRenderer {
       chunkChanged(client, pos.x(), pos.z(), false);
       if (owns && client == level) {
         var chunk = event.getChunk();
-        for (int i = 0; i < chunk.getSections().length; i++)
-          if (chunk.getSections()[i].maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
+        var sections = chunk.getSections();
+        for (int i = sections.length - 1; i >= 0; i--)
+          if (sections[i].maybeHas(s -> s.is(EngineRegistry.WATER_BLOCK.get()))) {
             deliveredPages.add(SectionPos.asLong(pos.x(), level.getMinSectionY() + i, pos.z()));
             while (deliveredPages.size() > MAX_PAGES * 2) deliveredPages.removeFirst();
           }
@@ -416,17 +418,19 @@ public final class AnimatedWaterRenderer {
     // resident water updates above; a starved page is what reads as stutter.
     var view = ((LevelRendererAccessor) mc.levelRenderer).deepprimal$viewArea();
     if (view != null) {
-      int cx = (int)Math.floor(camera.x / 16), cy = (int)Math.floor(camera.y / 16),
-          cz = (int)Math.floor(camera.z / 16), radius = mc.options.getEffectiveRenderDistance();
-      var vertical = (VerticalView)view;
+      int cx = (int) Math.floor(camera.x / 16), cy = (int) Math.floor(camera.y / 16),
+          cz = (int) Math.floor(camera.z / 16), radius = view.getViewDistance();
+      var vertical = (VerticalView) view;
       int low = Math.max(level.getMinSectionY(), vertical.deepprimal$minimumSectionY());
-      int high = Math.min(level.getMaxSectionY(), low + Math.min(level.getSectionsCount(),
+      int high = Math.min(level.getMaxSectionY() + 1, low + Math.min(level.getSectionsCount(),
           vertical.deepprimal$verticalRadius() * 2 + 1));
       int nearRadius = Math.min(8, radius);
+      boolean scanFar = radius > nearRadius;
       if (nearDiscovery == null || nearDiscovery.done()
           || nearDiscovery.shouldRetarget(cx, cy, cz, nearRadius, low, high))
         nearDiscovery = new WaterPageScan(cx, cy, cz, nearRadius, low, high);
-      if (discovery == null || discovery.done()
+      if (!scanFar) discovery = null;
+      else if (discovery == null || discovery.done()
           || discovery.shouldRetarget(cx, cy, cz, radius, low, high))
         discovery = new WaterPageScan(cx, cy, cz, radius, low, high);
       // Separate bounded turns: new deliveries and nearby surfaces cannot wait behind
@@ -435,18 +439,26 @@ public final class AnimatedWaterRenderer {
       for (int n = 0; n < 128 && !deliveredPages.isEmpty()
           && System.nanoTime() < deliveryDeadline; n++) {
         long key = deliveredPages.removeFirst();
-        discover(SectionPos.x(key), SectionPos.y(key), SectionPos.z(key), event, camera);
+        int x = SectionPos.x(key), y = SectionPos.y(key), z = SectionPos.z(key);
+        if (y >= low && y < high && Math.abs(x - cx) <= radius && Math.abs(z - cz) <= radius)
+          discover(x, y, z, event, camera);
       }
-      long nearDeadline = System.nanoTime() + 375_000;
-      nearDiscovery.drain(192, (x,y,z) -> {
+      long nearDeadline = System.nanoTime() + (scanFar ? 375_000 : 750_000);
+      nearDiscovery.drain(scanFar ? 192 : 384, (x, y, z) -> {
         if (System.nanoTime() >= nearDeadline) return false;
-        discover(x,y,z,event,camera); return true;
+        discover(x, y, z, event, camera);
+        return true;
       });
-      long farDeadline = System.nanoTime() + 375_000;
-      discovery.drain(192, (x,y,z) -> {
-        if (System.nanoTime() >= farDeadline) return false;
-        discover(x,y,z,event,camera); return true;
-      });
+      if (scanFar) {
+        long farDeadline = System.nanoTime() + 375_000;
+        discovery.drain(192, (x, y, z) -> {
+          if (System.nanoTime() >= farDeadline) return false;
+          // The near pass already checks this column, including the full height window.
+          if (Math.abs(x - cx) > nearRadius || Math.abs(z - cz) > nearRadius)
+            discover(x, y, z, event, camera);
+          return true;
+        });
+      }
     }
     synchronizeVisibleHeights(visible);
     visible.sort(Comparator.comparingDouble((Page p) -> p.bounds.distanceToSqr(camera)).reversed());
@@ -457,7 +469,7 @@ public final class AnimatedWaterRenderer {
       net.minecraft.world.phys.Vec3 camera) {
     long key = SectionPos.asLong(x,y,z);
     if (pages.containsKey(key) || hidden.contains(key)
-        || y < level.getMinSectionY() || y >= level.getMaxSectionY()
+        || y < level.getMinSectionY() || y > level.getMaxSectionY()
         || !event.getFrustum().isVisible(new AABB(x*16., y*16.-1, z*16., x*16.+16, y*16.+17, z*16.+16))) return;
     var chunk = level.getChunkSource().getChunk(x,z,false);
     if (chunk == null || chunk instanceof EmptyLevelChunk
@@ -498,8 +510,9 @@ public final class AnimatedWaterRenderer {
                   BlockPos.asLong(p.x + Math.floorDiv(x2, 2), p.y + cy, p.z + Math.floorDiv(z2, 2)));
               if (h == null) continue;
               h.advance(clock);
-              int heightOffset = (byte) accepted.getShort(source + 26);
-              float progress = Math.clamp((clock - p.uploaded - heightOffset) / 100f, 0, 1);
+            int heightOffset = (byte) accepted.getShort(source + 26);
+            float progress = Math.clamp((clock - p.uploaded - heightOffset)
+                / (float) WaterSurfaceTransition.MILLIS, 0, 1);
               float shown = accepted.getFloat(source + 4)
                   + accepted.getShort(source + 24) / 16384f * (1 - progress);
               float shared = cy + h.at(clock);
@@ -569,6 +582,8 @@ public final class AnimatedWaterRenderer {
         for (int y = -1; y <= 16; y++) {
           int i = WaterPatchMesher.index(x, y, z);
           pos.set(page.x + x, page.y + y, page.z + z);
+          // The ceiling is an open sky halo. Missing horizontal chunks still seal their sides.
+          if (pos.getY() > level.getMaxY()) continue;
           if (chunk == null || !level.isInWorldBounds(pos)) {
             solid[i] = 1;
             continue;
@@ -577,15 +592,33 @@ public final class AnimatedWaterRenderer {
           if (state.is(EngineRegistry.WATER_BLOCK.get())) {
             units[i] = (byte) (int) state.getValue(EngineFluid.UNITS);
             flow[i] = (byte) (int) state.getValue(EngineFluid.FLOW);
-            light[i] = LevelRenderer.getLightCoords(level, pos.above());
           } else if (state.isSolid()) solid[i] = 1;
         }
-        if (x >= -1 && x <= 16 && z >= -1 && z <= 16) {
-          pos.set(page.x + x, page.y + 8, page.z + z);
-          colors[(z + 1) * 18 + x + 1] = BiomeColors.getAverageWaterColor(level, pos);
-        }
       }
-    return new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);
+    var snapshot = new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);
+    var tintColumns = new BitSet(colors.length);
+    for (int z = 0; z < 16; z++)
+      for (int x = 0; x < 16; x++) {
+        boolean exposed = false;
+        for (int y = 0; y < 16; y++) {
+          if (snapshot.water(x, y, z) == 0) continue;
+          if (!WaterPatchMesher.hasExposedFace(snapshot, x, y, z)
+              && (page.snapshot == null || !WaterPatchMesher.hasExposedFace(page.snapshot, x, y, z))) continue;
+          light[WaterPatchMesher.index(x, y, z)] = LevelRenderer.getLightCoords(
+              level, pos.set(page.x + x, page.y + y + 1, page.z + z));
+          exposed = true;
+        }
+        if (exposed)
+          for (int dz = 0; dz < 3; dz++) {
+            int start = (z + dz) * 18 + x;
+            tintColumns.set(start, start + 3);
+          }
+      }
+    for (int i = tintColumns.nextSetBit(0); i >= 0; i = tintColumns.nextSetBit(i + 1)) {
+      pos.set(page.x + i % 18 - 1, page.y + 8, page.z + i / 18 - 1);
+      colors[i] = BiomeColors.getAverageWaterColor(level, pos);
+    }
+    return snapshot;
   }
 
   private WaterSurfaceTransition transition(
@@ -766,7 +799,9 @@ public final class AnimatedWaterRenderer {
             if (wall) {
               // Clipped stacked walls and free surfaces can meet at the same world corner.
               // They need independent histories or the top packet re-extends the wall.
-              part = 4 + Math.round(values[i] - cx) + 2 * Math.round(values[i + 2] - cz);
+              int localX = x2 - 2 * cx, localZ = z2 - 2 * cz;
+              int perimeter = localX + 3 * localZ;
+              part = perimeter < 4 ? 4 + perimeter : 3 + perimeter;
               key = cellKey;
             }
             var map = heights.get(part);
@@ -777,7 +812,7 @@ public final class AnimatedWaterRenderer {
             }
             h.target(target - (heightLayer - cy), clock, faces.revision);
             target = h.target() + (heightLayer - cy);
-            while (map.size() > (wall ? MAX_HISTORY / 4 : MAX_HISTORY)) map.removeFirst();
+            while (map.size() > (wall ? MAX_HISTORY / 8 : MAX_HISTORY)) map.removeFirst();
             from = h.from(clock) + (heightLayer - cy);
             offset = h.offset(clock);
             int heightRemaining = h.remaining(clock);

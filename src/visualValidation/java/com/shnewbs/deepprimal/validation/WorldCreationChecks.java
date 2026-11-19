@@ -214,14 +214,14 @@ public final class WorldCreationChecks {
         StartupLifecycleChecks.observe("creation-joined", output());
         if (Boolean.getBoolean("deepprimal.validationOrganicTerrain")) {
           OrganicChannelCodecChecks.main(new String[0]);
-          require(generator.channelRevision()==11, "New world selects terrain-derived channels");
+          require(generator.channelRevision()==12, "New world selects terrain-derived channels");
           require(generator.getBiomeSource().possibleBiomes().size()==40, "Complete owned biome palette");
           require(generator.getBiomeSource().possibleBiomes().stream().allMatch(
               b->b.unwrapKey().orElseThrow().identifier().getNamespace().equals("deepprimal")),
               "All native possible biomes belong to the mod");
           require(mc.level.getBiome(mc.player.blockPosition()).unwrapKey().orElseThrow()
               .identifier().getNamespace().equals("deepprimal"), "Actual joined biome belongs to the mod");
-          report("ORGANIC_NATIVE_WORLD_PASS channelRevision=11 ownedBiomes=40 seed=20261020");
+          report("ORGANIC_NATIVE_WORLD_PASS channelRevision=12 ownedBiomes=40 seed=20261020");
           stage=8;
           return;
         }

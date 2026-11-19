@@ -29,7 +29,7 @@ public final class OrganicChannelCodecChecks {
        "terrain":{"deposits":[]}}
       """).getAsJsonObject();
     int checks=0;
-    for (int revision=0;revision<=11;revision++) {
+    for (int revision=0;revision<=12;revision++) {
       input.addProperty("channel_revision",revision);
       var generator=EngineChunkGenerator.CODEC_V7.codec().parse(ops,input).getOrThrow();
       if (generator.channelRevision()!=revision || generator.geography().channelRevision!=revision)
@@ -41,12 +41,12 @@ public final class OrganicChannelCodecChecks {
         throw new AssertionError("Saved generator revision/height "+revision);
       checks++;
     }
-    for (int rejected:new int[] {-1,12}) {
+    for (int rejected:new int[] {-1,13}) {
       input.addProperty("channel_revision",rejected);
       if (EngineChunkGenerator.CODEC_V7.codec().parse(ops,input).error().isEmpty())
         throw new AssertionError("Admitted invalid channel revision "+rejected);
       checks++;
     }
-    System.out.println("ORGANIC_CHANNEL_CODEC_PASS checks="+checks+" revisions=0..11 invalid=-1,12");
+    System.out.println("ORGANIC_CHANNEL_CODEC_PASS checks="+checks+" revisions=0..12 invalid=-1,13");
   }
 }

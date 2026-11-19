@@ -43,10 +43,11 @@ final class WaterFlowTextureChecks {
         require(b[i+5] >= 0 && b[i+5] <= 1 && b[i+6] >= 0 && b[i+6] <= 1, "UV stays within its atlas sprite");
         if (WaterPatchMesher.face(b[i+10]) != 0) require(b[i+5] <= .5f && b[i+6] <= .5f, "flowing side uses native texel density");
       }
-      // The first smooth subquad spans one third of each axis; V must follow flow.
+      // Measure the subquad in unrotated UVs to check the flowing sprite's texel density.
       double vx = b[3*step+6] - b[6], vz = b[step+6] - b[6];
       double angle = direction * Math.PI / 8;
-      require(Math.abs(vx*Math.cos(angle) + vz*Math.sin(angle) - 1.0/6) < .000001, "texture V follows flow rather than crossing it");
+      double span = a[step+6] - a[6];
+      require(Math.abs(vx*Math.cos(angle) + vz*Math.sin(angle) - .5 * span) < .000001, "texture V follows flow rather than crossing it");
       require(Math.abs(vx*Math.sin(angle) - vz*Math.cos(angle)) < .000001, "flow rotation remains orthogonal");
       require(Arrays.equals(units, snapshot.units()) && Arrays.equals(flow, snapshot.flow()), "worker snapshot remains immutable");
       var dry = new WaterPatchMesher.Snapshot(new byte[WaterPatchMesher.CELLS], still.solid(), still.lights(), still.colors());

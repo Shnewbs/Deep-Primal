@@ -389,6 +389,22 @@ public final class WatershedRegion {
       boolean budgetedDistributaries, OceanBoundary admittedSea,
       OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
       boolean naturalMargins, boolean terrainResolved, WaterTerrainConfig config, boolean hydraulicChannels) {
+    this(ox, oz, height, rain, broadChannels, cascadeBeds, riverNoise, riverDeltas,
+        floodplainLakes, budgetedDistributaries, admittedSea, admittedOceanInterior,
+        deepChannels, deepWaterBodies, naturalMargins, terrainResolved, config, hydraulicChannels,
+        false);
+  }
+
+  /** Revision 12 also fits confined reaches to lower terrain at sub-grid stations. */
+  WatershedRegion(double ox, double oz, DoubleBinaryOperator height,
+      DoubleBinaryOperator rain, boolean broadChannels, boolean cascadeBeds,
+      TerrainNoise riverNoise, boolean riverDeltas, boolean floodplainLakes,
+      boolean budgetedDistributaries, OceanBoundary admittedSea,
+      OceanBoundary admittedOceanInterior, boolean deepChannels, boolean deepWaterBodies,
+      boolean naturalMargins, boolean terrainResolved, WaterTerrainConfig config,
+      boolean hydraulicChannels, boolean refineCorridors) {
+    if (refineCorridors && !hydraulicChannels)
+      throw new IllegalArgumentException("Sub-grid corridors require hydraulic channels");
     if (hydraulicChannels && !terrainResolved)
       throw new IllegalArgumentException("Hydraulic channels require terrain-derived routing");
     this.hydraulicChannels = hydraulicChannels;
@@ -705,10 +721,21 @@ public final class WatershedRegion {
           lakeAt[a] > 0 && lakes[lakeAt[a]].outlet == a && Double.isFinite(lakes[lakeAt[a]].level)
               ? lakeAt[a]
               : 0;
+      // Refine narrow upland channels. Keep shared knots, trunks, lake outlets and estuaries
+      // on their existing route and retain the original monotone water stages at each station.
+      var corridor = refineCorridors && len > 1 && area[b] < TRUNK_AREA
+              && !lakeHalo[a] && !lakeHalo[b] && stage[b] > TerrainEngine.SEA + 2
+          ? ChannelCorridor.fit(height, new ChannelCorridor.Curve(ax, az, c1x, c1z, c2x, c2z, bx, bz), len)
+          : null;
       for (int k = 1; k <= 8; k++) {
         double t = k / 8., s = 1 - t, before = (k - 1) / 8.;
         double x = s * s * s * ax + 3 * s * s * t * c1x + 3 * s * t * t * c2x + t * t * t * bx;
         double z = s * s * s * az + 3 * s * s * t * c1z + 3 * s * t * t * c2z + t * t * t * bz;
+        if (corridor != null && k < 8) {
+          double offset = corridor.offset(t);
+          x += corridor.nx() * offset;
+          z += corridor.nz() * offset;
+        }
         if (earthRivers) {
           // Shared nodes take identical displacements, so confluences stay joined.
           double wa = k == 8 ? area[b] : lerp(area[a], area[b], t);

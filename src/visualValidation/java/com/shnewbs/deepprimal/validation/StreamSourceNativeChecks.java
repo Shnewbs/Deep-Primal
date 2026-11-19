@@ -195,6 +195,7 @@ final class StreamSourceNativeChecks {
     int count = field(ordered.getClass(), "streamCount").getInt(ordered);
     require(count == 4 && orderedSurface[streams[0]] == 104.5 && orderedSurface[streams[1]] == 104.5
         && streams[2] == 0 && streams[3] == 2, "Planned waterway quota order is not headwater-first");
+    checkSurveyTurns(level, terrain, first, ordered);
 
     for (long remaining : new long[] {0, 128, 256, 384, 512, 768}) {
       require(HydrologyRuntime.write(level, first, Blocks.AIR.defaultBlockState()),
@@ -224,6 +225,32 @@ final class StreamSourceNativeChecks {
         + " noRepeatDebit=true unrelatedWaterPreserved=true aquiferDebit=" + expectedDebit
         + " firstVisits=" + visits + " secondVisits=" + secondVisits
         + " outletY=" + y + " regionalQuota=true damEdits=true finiteDrought=true sustainedRecharge=true intervalCadence=true smoothRelease=true headwaterFirst=true deficitCellUnits=" + repaid);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static void checkSurveyTurns(ServerLevel level, TerrainEngine terrain, BlockPos loaded,
+      Object readyCursor) throws ReflectiveOperationException {
+    Object work = instance("Work");
+    var chunks = (java.util.Map<Long, Object>) field(work.getClass(), "chunks").get(work);
+    var queue = (java.util.Set<Long>) field(work.getClass(), "survey").get(work);
+    var streamChunks = (java.util.Map<Long, Object>) field(work.getClass(), "streamChunks").get(work);
+    var ready = level.getChunkAt(loaded).getPos();
+    var missing = new net.minecraft.world.level.ChunkPos(ready.x() + 32768, ready.z());
+    require(level.getChunkSource().getChunkNow(missing.x(), missing.z()) == null, "Survey fixture needs an absent chunk");
+    chunks.put(missing.pack(), instance("Cursor"));
+    chunks.put(ready.pack(), readyCursor);
+    queue.add(missing.pack());
+    queue.add(ready.pack());
+    Field surveyed = field(readyCursor.getClass(), "surveyed");
+    surveyed.setInt(readyCursor, 255);
+    var survey = HydrologyRuntime.class.getDeclaredMethod("survey", ServerLevel.class,
+        work.getClass(), TerrainEngine.class, long.class);
+    survey.setAccessible(true);
+    survey.invoke(null, level, work, terrain, System.nanoTime() + 1_000_000_000L);
+    require(surveyed.getInt(readyCursor) == 256 && streamChunks.get(ready.pack()) == readyCursor
+        && queue.size() == 1 && queue.contains(missing.pack()), "Absent chunk blocked a ready stream survey");
+    require(level.getChunkSource().getChunkNow(missing.x(), missing.z()) == null, "Survey loaded an absent chunk");
+    System.out.println("STREAM_SURVEY_NATIVE_PASS readyChunkAdvanced=true absentChunkSealed=true");
   }
 
   private StreamSourceNativeChecks() {}
