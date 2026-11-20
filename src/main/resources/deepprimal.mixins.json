@@ -9,6 +9,7 @@
     "RiverCurrentMixin",
     "RiverImpulseMixin",
     "FarmWaterMixin",
+    "LilyPadSupportMixin",
     "SwimmingMixin",
     "HorseBuoyancyMixin",
     "OceanBoatMixin",

@@ -1,26 +1,33 @@
 {
   "schema": 1,
-  "owner": "foreground-water-multiplayer-20261119",
+  "owner": "foreground-shoreline-habitats-20261120",
   "status": "checkpointed",
-  "started_at": "2026-11-19T22:16:29Z",
-  "active_until": "2026-11-20T02:41:25Z",
+  "started_at": "2026-11-20T02:59:00Z",
+  "active_until": "2026-11-20T17:07:49Z",
   "scope": [
     "docs/WATER-ENGINE-WORK-STATE.json",
-    "docs/validation/multi-basin-water-2026-11-19/README.md",
+    "docs/validation/shoreline-habitats-2026-11-20/README.md",
+    "docs/validation/shoreline-habitats-2026-11-20/lake.png",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
     "gradle.properties",
-    "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/EnvironmentalWaterChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/MultiplayerWaterChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/PhysicalRegionalChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/SeasonalWaterChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/StreamSourceNativeChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WatershedSchedulingChecks.java",
-    "tools/water/multiplayer.init.gradle"
+    "src/main/java/com/shnewbs/deepprimal/client/WaterEffects.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
+    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
+    "src/main/java/com/shnewbs/deepprimal/engine/ShorelineHabitat.java",
+    "src/main/java/com/shnewbs/deepprimal/mixin/LilyPadSupportMixin.java",
+    "src/main/java/com/shnewbs/deepprimal/mixin/PressureChunkMutationMixin.java",
+    "src/main/resources/data/deepprimal/tags/worldgen/biome/stillwater_plants.json",
+    "src/main/resources/deepprimal.mixins.json",
+    "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json",
+    "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json",
+    "src/visualValidation/java/com/shnewbs/deepprimal/client/ShorelineSceneChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java"
   ],
   "coordination": "Source changes are based on the current main branch, including the watershed cache improvements. Publish by fast-forward using the expected main head. The source-only commit skips push-triggered package publishing.",
-  "baseline": "e174488103c126ddec3d54935164e5036efc5532",
-  "current_evidence": "At 8,192 unavailable stream chunks the loaded lowland received its first water on tick 2. Warm exposed ice melted after a dry visit. Two pairs of clients swapped generated rivers in separate 2,406- and 2,408-tick sessions, observing eight measured fills and drains. See docs/validation/multi-basin-water-2026-11-19/README.md.",
+  "baseline": "c412ff794de945199ce3e21ef62e5437319f5ded",
+  "current_evidence": "Across 4,107 generated columns, the old and new saves agreed on all 7,622 water cells and 120,106 sixteenth-block units. The new world added natural lily patches, riffles, bank rocks and coral beds. docs/validation/shoreline-habitats-2026-11-20/README.md",
   "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
   "not_claimed": [
     "AAA/full water-engine completion",
@@ -29,14 +36,15 @@
     "multi-hour multiplayer circulation across seeds",
     "universal natural-waterfall flicker elimination"
   ],
-  "updated_at": "2026-11-20T02:41:25Z",
-  "owner_goal": "Keep loaded waterways supplied as players explore different river regions. Preserve finite groundwater and local ice melt at chunk boundaries.",
+  "updated_at": "2026-11-20T17:07:49Z",
+  "owner_goal": "Give lake margins, fast streams and warm coasts distinct habitats while preserving finite water and existing terrain.",
   "completion_gates": {
     "continuous_surfaces": "Controlled cliff, ceiling, and one natural cascade pass on both native software backends. Live Vulkan rise, drying, fallback and resource reload pass. Extended coverage across seeds and Windows hardware remain open.",
     "volume_and_constituents": "The seasonal six-account balance held across two native years and 384 ocean exchanges. Two networked clients acknowledged four measured fills and drains across separate river regions in each of two sessions. All eight pickups returned their exact chemistry. Long multiplayer circulation remains open.",
     "loaded_unloaded_persistence": "A resident lowland was supplied under 8,192 pending stream chunks. A stale cursor could not replace its successor. Physical evictions preserved quotas at reloaded springs and retained the third resident region. Six seasonal accounts and aquifer metadata matched across a process restart.",
     "seasonal_groundwater_and_oceans": "Two controlled native years passed with rain, snow, melt, evaporation, spring discharge, ocean exchange and a winter restart. A warm exposed ice block could melt after a dry column with one local melt per interval. Two occupied river regions kept advancing through a player swap.",
-    "performance": "Dry chunk registration measured 2,112 bytes per cursor in dev.131. Median server-thread allocation per hydrology tick under pending-stream pressure measured 5,696 bytes on dev.132 and 97,784 on dev.131. Whole-chunk tail latency and long-distance Windows GPU frame times remain open."
+    "performance": "Dry chunk registration measured 2,112 bytes per cursor in dev.131. Median server-thread allocation per hydrology tick under pending-stream pressure measured 5,696 bytes on dev.132 and 97,784 on dev.131. Whole-chunk tail latency and long-distance Windows GPU frame times remain open.",
+    "shoreline_habitats": "Seed 20261020 native old and new save comparison passed for one lake margin, one river and one warm shelf. Windows GPU captures and broader climate and seed coverage remain open."
   },
   "automation_id": "6ae0c445a6c4819194f58ed18e077f52",
   "previous_automation_id": "6ad974bdc204819195e5465aeea9dca2",
@@ -55,7 +63,7 @@
       "reason": "library_storage_limit_exceeded; direct workspace downloads remain available"
     }
   },
-  "next_priority": "Measure river and natural waterfall continuity across more terrain seeds during extended player movement, and capture Windows GPU frame and loading times at long view distances.",
+  "next_priority": "Resolve the remaining triangular rock contacts on steep natural cascades, qualify more seeds, and measure long-distance frame and loading times on Windows hardware.",
   "latest_builder_checkpoint": {
     "updated_at": "2026-10-26T14:55:26Z",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -116,16 +124,16 @@
     "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
   },
   "latest_source_checkpoint": {
-    "version": "0.0.1-alpha.29-dev.132-water-polish.4",
+    "version": "0.0.1-alpha.29-dev.133-water-habitats.1",
     "saved_channel_revision": 12,
-    "evidence": "docs/validation/multi-basin-water-2026-11-19/README.md",
+    "evidence": "docs/validation/shoreline-habitats-2026-11-20/README.md",
     "delivery": "source",
     "acceptance_complete": false
   },
   "previous_source_checkpoint": {
-    "version": "0.0.1-alpha.29-dev.131-water-polish.3",
+    "version": "0.0.1-alpha.29-dev.132-water-polish.4",
     "saved_channel_revision": 12,
-    "evidence": "docs/validation/seasonal-water-2026-11-19/README.md",
+    "evidence": "docs/validation/multi-basin-water-2026-11-19/README.md",
     "delivery": "source",
     "acceptance_complete": false
   }

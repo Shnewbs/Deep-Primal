@@ -133,6 +133,9 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
         bx = 1;
         bz = az;
       }
+      boolean curtain = (water(l, p.above()) && !water(l, adjacent.above()) && !l.getBlockState(adjacent.above()).isSolid())
+          || (water(l, p.below()) && !water(l, adjacent.below()) && !l.getBlockState(adjacent.below()).isSolid());
+      int sideColor = curtain ? com.shnewbs.deepprimal.core.WaterDynamics.cascadeTint(color) : color;
       for (int across = 0; across < SIDE_ALONG; across++) {
         float from = across / (float) SIDE_ALONG, to = (across + 1f) / SIDE_ALONG;
         float x0 = ax + (bx - ax) * from, z0 = az + (bz - az) * from;
@@ -159,7 +162,7 @@ public final class SmoothWaterRenderer implements CustomFluidRenderer {
               x0,
               h0 * high,
               z0,
-              color,
+              sideColor,
               light,
               d.getAxis() == Direction.Axis.X ? 1 : 2);
         }

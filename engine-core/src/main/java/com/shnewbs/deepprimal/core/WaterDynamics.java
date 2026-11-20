@@ -44,6 +44,10 @@ public final class WaterDynamics {
     return r << 16 | g << 8 | blue;
   }
 
+  public static int cascadeTint(int color) {
+    return (color & 0xff000000) | mix(color, 0xaad9db, .23);
+  }
+
   public static int palette(int nativeColor, double temperature, double rainfall) {
     // Invalid climate fields cannot be interpreted as a real biome tint.
     if (!Double.isFinite(temperature) || !Double.isFinite(rainfall))

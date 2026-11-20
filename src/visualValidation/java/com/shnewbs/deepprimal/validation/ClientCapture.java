@@ -36,6 +36,10 @@ public final class ClientCapture {
 
   @SubscribeEvent
   public void tick(ClientTickEvent.Post event) {
+    if (com.shnewbs.deepprimal.client.ShorelineSceneChecks.enabled()) {
+      com.shnewbs.deepprimal.client.ShorelineSceneChecks.tick(Minecraft.getInstance());
+      return;
+    }
     if (MultiplayerWaterChecks.enabled() || Boolean.getBoolean("deepprimal.validationUpscalingFrames")
         || Boolean.getBoolean("deepprimal.validationEngine")
         || Boolean.getBoolean("deepprimal.validationFilling")

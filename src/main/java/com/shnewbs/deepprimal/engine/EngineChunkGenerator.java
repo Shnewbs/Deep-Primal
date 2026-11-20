@@ -37,6 +37,8 @@ public final class EngineChunkGenerator extends ChunkGenerator {
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_emergent_plants"));
   private static final TagKey<Biome> WATER_SUBMERGED_PLANTS = TagKey.create(
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_submerged_plants"));
+  private static final TagKey<Biome> STILLWATER_PLANTS = TagKey.create(
+      Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "stillwater_plants"));
   private static final TagKey<Biome> WATER_FLOATING_PLANTS = TagKey.create(
       Registries.BIOME, Identifier.fromNamespaceAndPath("deepprimal", "water_floating_plants"));
   public static final MapCodec<EngineChunkGenerator> CODEC = codecFor(1);
@@ -54,9 +56,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         Codec.INT.optionalFieldOf("height",768).forGetter(g->g.height),
         TerrainProfile.CODEC.optionalFieldOf("terrain").forGetter(g->Optional.of(g.profile)),
         Codec.intRange(0,6).optionalFieldOf("material_revision",0).forGetter(g->g.materialRevision),
-        Codec.intRange(0,12).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision)
-    ).apply(i,(source,min,height,profile,materials,channels)->new EngineChunkGenerator(source,min,height,revision,
-        profile.orElseGet(TerrainConfig::creationProfile),materials,channels)));
+        Codec.intRange(0,12).optionalFieldOf("channel_revision",0).forGetter(g->g.channelRevision),
+        Codec.BOOL.optionalFieldOf("shoreline_habitats",false).forGetter(g->g.shorelineHabitats)
+    ).apply(i,(source,min,height,profile,materials,channels,habitats)->new EngineChunkGenerator(source,min,height,revision,
+        profile.orElseGet(TerrainConfig::creationProfile),materials,channels,habitats)));
     return RecordCodecBuilder.mapCodec(
         i ->
             i.group(
@@ -73,6 +76,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
   private final int materialRevision, channelRevision;
   private volatile TerrainEngine engine;
   private final TerrainProfile profile;
+  private final boolean shorelineHabitats;
   private final List<BlockState> orePalette;
   private volatile DepositPlan depositPlan;
 
@@ -84,15 +88,16 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     this(source,minY,height,revision,null);
   }
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,TerrainProfile profile) {
-    this(source,minY,height,revision,profile,0,0);
+    this(source,minY,height,revision,profile,0,0,false);
   }
   private EngineChunkGenerator(BiomeSource source, int minY, int height, int revision,
-      TerrainProfile profile,int materialRevision,int channelRevision) {
+      TerrainProfile profile,int materialRevision,int channelRevision,boolean shorelineHabitats) {
     super(source);
     if(materialRevision<0||materialRevision>6||(materialRevision!=0&&revision!=7))
       throw new IllegalArgumentException("Material revision requires V7 geography");
     this.materialRevision=materialRevision;
     this.channelRevision=channelRevision;
+    this.shorelineHabitats=shorelineHabitats;
     this.profile=profile;
     orePalette=profile==null?List.of():profile.palette();
     this.revision = revision;
@@ -109,6 +114,7 @@ public final class EngineChunkGenerator extends ChunkGenerator {
     return engine;
   }
   public int materialRevision() { return materialRevision; }
+  public boolean shorelineHabitats() { return shorelineHabitats; }
   public int channelRevision() { return channelRevision; }
 
   protected MapCodec<? extends ChunkGenerator> codec() {
@@ -287,6 +293,10 @@ public final class EngineChunkGenerator extends ChunkGenerator {
         if(cave!=null && cave.contains(y))
           return cave.flooded(y)?EngineRegistry.WATER_BLOCK.get().defaultBlockState():Blocks.AIR.defaultBlockState();
         int depth=bed-y;
+        if (shorelineHabitats && depth == 0 && s.wet() && (soil.depth() > 0 || deposits.at(y) < 0)) {
+          var bedBlock = ShorelineHabitat.bed(engine.noise, x, z, s, ocean);
+          if (bedBlock != null) return bedBlock.defaultBlockState();
+        }
         if(depth<soil.depth()) {
           var original=legacySoil(depth,y);
           return materialRevision>=1?soilMaterial(original):original;
@@ -665,6 +675,21 @@ public final class EngineChunkGenerator extends ChunkGenerator {
                 ? c.getNoiseBiome(
                     wx >> 2, Math.floorDiv((int) Math.floor(s.ground()), 4), wz >> 2)
                 : null;
+        if (shorelineHabitats && s.wet()) {
+          if (biomeHolder != null && biomeHolder.is(STILLWATER_PLANTS))
+            ShorelineHabitat.lilies(c, engine.noise, wx, wz, s);
+          continue;
+        }
+        if (shorelineHabitats && biomeHolder != null && s.slope() <= 2.5) {
+          double floor = Math.floor(s.ground());
+          for (var side : Direction.Plane.HORIZONTAL) {
+            var water = column(columns, ox, oz, wx + side.getStepX(), wz + side.getStepZ());
+            if (!water.wet() || Math.abs(water.water() - floor) > 2.5) continue;
+            ShorelineHabitat.bank(c, engine.noise, new BlockPos(wx, (int) floor + 1, wz), s, water,
+                biomeHolder.is(WATER_EMERGENT_PLANTS) || biomeHolder.is(STILLWATER_PLANTS));
+            break;
+          }
+        }
         boolean naturalPlants = channelRevision >= 9 && !s.wet() && s.sediment() > .55 && biomeHolder != null
             && biomeHolder.is(RIPARIAN_MOSAIC) && nearWater(wx, wz, 5);
         boolean shorePlants =

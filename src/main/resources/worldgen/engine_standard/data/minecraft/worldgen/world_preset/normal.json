@@ -6,6 +6,7 @@
         "type": "deepprimal:continental_v7",
         "material_revision": 6,
         "channel_revision": 12,
+        "shoreline_habitats": true,
         "min_y": -128,
         "height": 768,
         "biome_source": {

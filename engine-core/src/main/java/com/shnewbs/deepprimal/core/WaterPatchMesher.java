@@ -186,6 +186,12 @@ public final class WaterPatchMesher {
     return false;
   }
 
+  /** A curtain has an exposed vertical face continuing above or below, including the page halo. */
+  public static boolean fallingSide(Snapshot s, int x, int y, int z, int side) {
+    return s != null && side >= 1 && side <= 4 && face(s, x, y, z, side)
+        && (face(s, x, y + 1, z, side) || face(s, x, y - 1, z, side));
+  }
+
   private static boolean face(Snapshot s, int x, int y, int z, int face) {
     int amount = s.water(x, y, z);
     if (amount == 0) return false;

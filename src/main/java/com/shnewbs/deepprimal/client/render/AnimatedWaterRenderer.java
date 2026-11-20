@@ -735,6 +735,7 @@ public final class AnimatedWaterRenderer {
         float[] values = faces.vertices;
         int shownDirection = 16;
         WaterFlowTransition flowState = null;
+        boolean fallingSide = false;
         int cornerTargets = 0, cornerSources = 0, cornerAges = 0;
         for (int v = 0; v < values.length / WaterPatchMesher.STRIDE; v++) {
           int i = v * WaterPatchMesher.STRIDE;
@@ -744,6 +745,8 @@ public final class AnimatedWaterRenderer {
           long cellKey = BlockPos.asLong(p.x + cx, p.y + cy, p.z + cz);
           if ((v & 3) == 0) {
             int direction = WaterPatchMesher.direction(values[i + 10]);
+            fallingSide = face >= 1 && face <= 4 && WaterPatchMesher.fallingSide(
+                values[i + 13] != 0 ? ready.snapshot : p.snapshot, cx, cy, cz, face);
             // All faces share the cell's admitted material and original transition clock.
             // Unchanged still water stays sparse; the accepted snapshot seeds its first change.
             int previousDirection = p.snapshot != null && p.snapshot.water(cx, cy, cz) > 0
@@ -841,12 +844,13 @@ public final class AnimatedWaterRenderer {
           }
           int vertexOffset = data.position();
           data.putFloat(values[i]).putFloat(values[i + 1] + target).putFloat(values[i + 2]);
-          boolean blend = flowState != null && flowState.active(clock)
+          if (fallingSide) color = com.shnewbs.deepprimal.core.WaterDynamics.cascadeTint(color);
+          boolean blend = !fallingSide && flowState != null && flowState.active(clock)
               && (face == 0 || (flowState.source() < 16) != (shownDirection < 16));
           // Opacity lives in Normal; active faces reuse constant color alpha for cell-local UVs.
           data.put((byte) (color >> 16)).put((byte) (color >> 8)).put((byte) color)
               .put((byte) (face == 0 || blend ? cx | (cz << 4) : 255));
-          boolean flowingFace = shownDirection < 16;
+          boolean flowingFace = fallingSide || shownDirection < 16;
           boolean side = face != 0;
           if (face == 0) {
             data.putFloat(WaterFlowField.targets(cornerTargets, (cornerAges >>> 24) & 255))

@@ -1,6 +1,10 @@
 package com.shnewbs.deepprimal.mixin;
 
+import com.shnewbs.deepprimal.engine.ShorelineHabitat;
 import com.shnewbs.deepprimal.engine.WaterRuntime;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +21,16 @@ abstract class PressureChunkMutationMixin {
   private void deepprimal$invalidatePressure(BlockPos pos, BlockState state, int flags,
       CallbackInfoReturnable<BlockState> callback) {
     var chunk = (LevelChunk) (Object) this;
-    if (chunk.getLevel() instanceof ServerLevel server && server.getServer().isSameThread())
-      WaterRuntime.changed(server, pos, callback.getReturnValue(), state);
+    if (chunk.getLevel() instanceof ServerLevel server && server.getServer().isSameThread()) {
+      var before = callback.getReturnValue();
+      WaterRuntime.changed(server, pos, before, state);
+      // Finite transfers suppress normal shape notifications. Recheck only an actual pad losing support.
+      if ((flags & Block.UPDATE_KNOWN_SHAPE) != 0 && before != null && before != state
+          && ShorelineHabitat.supportsLily(before) && !ShorelineHabitat.supportsLily(state)) {
+        var above = pos.above();
+        if (chunk.getBlockState(above).is(Blocks.LILY_PAD))
+          server.neighborShapeChanged(Direction.DOWN, above, pos, state, Block.UPDATE_CLIENTS, 1);
+      }
+    }
   }
 }
