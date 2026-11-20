@@ -7,6 +7,20 @@ public final class WaterMeshShapeChecks {
   }
 
   static void run() {
+    int contacts = 0;
+    for (int cell = -17; cell <= 17; cell++)
+      for (double along : new double[] {-1, 0, .5, 8, 16})
+        for (double height : new double[] {-1, 0, .0625, 1, 15.5, 16}) {
+          for (double fraction : new double[] {0, .001, 1.0 / 3, .5, .999, 1}) {
+            double normal = cell + fraction;
+            float x = WaterMeshShape.x(normal, height, along);
+            float z = WaterMeshShape.z(along, height, normal);
+            if (x < cell || x > cell + 1 || z < cell || z > cell + 1
+                || ((fraction == 0 || fraction == 1) && (x != normal || z != normal)))
+              throw new AssertionError("Water leaves its rock contact plane at " + normal + ", " + height + ", " + along);
+            contacts++;
+          }
+        }
     int checked = 0;
     float minX = Float.POSITIVE_INFINITY, maxX = Float.NEGATIVE_INFINITY;
     float minZ = Float.POSITIVE_INFINITY, maxZ = Float.NEGATIVE_INFINITY;
@@ -51,7 +65,7 @@ public final class WaterMeshShapeChecks {
     }
     System.out.println(
         "WATER_MESH_SHAPE_PASS samples="
-            + checked
+            + checked + " terrainContacts=" + contacts
             + " periodicPages=true boundedDisplacement=true organicVariation=true sideUvCases=" + sideUvCases);
   }
 

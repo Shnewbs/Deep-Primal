@@ -1,33 +1,23 @@
 {
   "schema": 1,
-  "owner": "foreground-shoreline-habitats-20261120",
+  "owner": "foreground-terraced-water-20261120",
   "status": "checkpointed",
-  "started_at": "2026-11-20T02:59:00Z",
-  "active_until": "2026-11-20T17:07:49Z",
+  "started_at": "2026-11-20T17:09:00Z",
+  "active_until": "2026-11-20T17:27:26Z",
   "scope": [
     "docs/WATER-ENGINE-WORK-STATE.json",
-    "docs/validation/shoreline-habitats-2026-11-20/README.md",
-    "docs/validation/shoreline-habitats-2026-11-20/lake.png",
-    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterDynamics.java",
+    "docs/validation/waterfall-rock-contact-2026-11-20/README.md",
+    "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterMeshShape.java",
     "engine-core/src/main/java/com/shnewbs/deepprimal/core/WaterPatchMesher.java",
     "gradle.properties",
-    "src/main/java/com/shnewbs/deepprimal/client/WaterEffects.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterMeshShapeChecks.java",
+    "src/coreChecks/java/com/shnewbs/deepprimal/core/WaterfallSideChecks.java",
     "src/main/java/com/shnewbs/deepprimal/client/render/AnimatedWaterRenderer.java",
-    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java",
-    "src/main/java/com/shnewbs/deepprimal/engine/EngineChunkGenerator.java",
-    "src/main/java/com/shnewbs/deepprimal/engine/ShorelineHabitat.java",
-    "src/main/java/com/shnewbs/deepprimal/mixin/LilyPadSupportMixin.java",
-    "src/main/java/com/shnewbs/deepprimal/mixin/PressureChunkMutationMixin.java",
-    "src/main/resources/data/deepprimal/tags/worldgen/biome/stillwater_plants.json",
-    "src/main/resources/deepprimal.mixins.json",
-    "src/main/resources/worldgen/engine_deep/data/minecraft/worldgen/world_preset/normal.json",
-    "src/main/resources/worldgen/engine_standard/data/minecraft/worldgen/world_preset/normal.json",
-    "src/visualValidation/java/com/shnewbs/deepprimal/client/ShorelineSceneChecks.java",
-    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java"
+    "src/main/java/com/shnewbs/deepprimal/client/render/SmoothWaterRenderer.java"
   ],
   "coordination": "Source changes are based on the current main branch, including the watershed cache improvements. Publish by fast-forward using the expected main head. The source-only commit skips push-triggered package publishing.",
-  "baseline": "c412ff794de945199ce3e21ef62e5437319f5ded",
-  "current_evidence": "Across 4,107 generated columns, the old and new saves agreed on all 7,622 water cells and 120,106 sixteenth-block units. The new world added natural lily patches, riffles, bank rocks and coral beds. docs/validation/shoreline-habitats-2026-11-20/README.md",
+  "baseline": "afa32f1f461a47ffe906de832305953e2e8e9884",
+  "current_evidence": "A stacked curtain reproduced a 7/16-block opening at its lower edge in the parent. The corrected mesh passed all 1,440 new edge vertices and previous 1,024 vertical-section seam vertices. docs/validation/waterfall-rock-contact-2026-11-20/README.md",
   "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
   "not_claimed": [
     "AAA/full water-engine completion",
@@ -36,10 +26,10 @@
     "multi-hour multiplayer circulation across seeds",
     "universal natural-waterfall flicker elimination"
   ],
-  "updated_at": "2026-11-20T17:07:49Z",
-  "owner_goal": "Give lake margins, fast streams and warm coasts distinct habitats while preserving finite water and existing terrain.",
+  "updated_at": "2026-11-20T17:27:26Z",
+  "owner_goal": "Keep steep flowing water in contact with the bed and adjacent surface at real voxel steps.",
   "completion_gates": {
-    "continuous_surfaces": "Controlled cliff, ceiling, and one natural cascade pass on both native software backends. Live Vulkan rise, drying, fallback and resource reload pass. Extended coverage across seeds and Windows hardware remain open.",
+    "continuous_surfaces": "The steep-contact mesh checks pass at signed horizontal and vertical section boundaries. The native cliff still has exposed multi-block ledges. More seeds, extended player movement and Windows hardware qualification remain open.",
     "volume_and_constituents": "The seasonal six-account balance held across two native years and 384 ocean exchanges. Two networked clients acknowledged four measured fills and drains across separate river regions in each of two sessions. All eight pickups returned their exact chemistry. Long multiplayer circulation remains open.",
     "loaded_unloaded_persistence": "A resident lowland was supplied under 8,192 pending stream chunks. A stale cursor could not replace its successor. Physical evictions preserved quotas at reloaded springs and retained the third resident region. Six seasonal accounts and aquifer metadata matched across a process restart.",
     "seasonal_groundwater_and_oceans": "Two controlled native years passed with rain, snow, melt, evaporation, spring discharge, ocean exchange and a winter restart. A warm exposed ice block could melt after a dry column with one local melt per interval. Two occupied river regions kept advancing through a player swap.",
@@ -63,7 +53,7 @@
       "reason": "library_storage_limit_exceeded; direct workspace downloads remain available"
     }
   },
-  "next_priority": "Resolve the remaining triangular rock contacts on steep natural cascades, qualify more seeds, and measure long-distance frame and loading times on Windows hardware.",
+  "next_priority": "Trace wet cell occupancy, supply and drying across the exposed multi-block drops in the seed 20261020 mountain watercourse. Qualify additional natural sites and both hardware backends.",
   "latest_builder_checkpoint": {
     "updated_at": "2026-10-26T14:55:26Z",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -124,16 +114,16 @@
     "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
   },
   "latest_source_checkpoint": {
-    "version": "0.0.1-alpha.29-dev.133-water-habitats.1",
+    "version": "0.0.1-alpha.29-dev.134-water-contact.1",
     "saved_channel_revision": 12,
-    "evidence": "docs/validation/shoreline-habitats-2026-11-20/README.md",
     "delivery": "source",
+    "evidence": "docs/validation/waterfall-rock-contact-2026-11-20/README.md",
     "acceptance_complete": false
   },
   "previous_source_checkpoint": {
-    "version": "0.0.1-alpha.29-dev.132-water-polish.4",
+    "version": "0.0.1-alpha.29-dev.133-water-habitats.1",
     "saved_channel_revision": 12,
-    "evidence": "docs/validation/multi-basin-water-2026-11-19/README.md",
+    "evidence": "docs/validation/shoreline-habitats-2026-11-20/README.md",
     "delivery": "source",
     "acceptance_complete": false
   }

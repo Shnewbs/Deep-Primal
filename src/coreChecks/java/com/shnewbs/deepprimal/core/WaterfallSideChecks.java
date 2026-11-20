@@ -45,6 +45,7 @@ public final class WaterfallSideChecks {
     basin();
     ledge();
     cliff();
+    terracedCurrent();
   }
 
 
@@ -190,6 +191,45 @@ public final class WaterfallSideChecks {
       if (worldY == lowerY - 1) water[WaterPatchMesher.index(8, y, 8)] = (byte) pool;
     }
     return new WaterPatchMesher.Snapshot(water, new byte[water.length], new int[water.length], new int[256]);
+  }
+
+  /** The bottom of a stacked upper wall must meet the lower free surface on a steep step. */
+  private static void terracedCurrent() {
+    int count = 0;
+    for (int lowerY : new int[] {-1, 7, 15})
+      for (boolean smooth : new boolean[] {false, true})
+        for (int film : new int[] {1, 4, 8, 12, 16}) {
+          int origin = Math.floorDiv(lowerY, 16) * 16;
+          byte[] units = new byte[WaterPatchMesher.CELLS], solid = new byte[units.length];
+          for (int z = -1; z <= 16; z++) for (int x = -1; x <= 16; x++)
+            for (int y = -1; y <= 16; y++) {
+              int wy = origin + y;
+              if (wy < lowerY - 1) solid[WaterPatchMesher.index(x,y,z)] = 1;
+              else if (wy <= lowerY + (x >= 8 ? 2 : 0))
+                units[WaterPatchMesher.index(x,y,z)] = (byte)(wy == lowerY - 1 ? 16 : film);
+            }
+          var above = new long[(18 * 18 + 63) / 64];
+          if (origin + 17 <= lowerY + 2)
+            for (int z = -1; z <= 16; z++) for (int x = 8; x <= 16; x++) {
+              int column = (z + 1) * 18 + x + 1;
+              above[column >>> 6] |= 1L << (column & 63);
+            }
+          var snapshot = new WaterPatchMesher.Snapshot(units, solid, new int[units.length], new int[256], null, above);
+          var v = WaterPatchMesher.build(snapshot, null, smooth).vertices();
+          int witnesses = 0;
+          for (int i = 0; i < v.length; i += WaterPatchMesher.STRIDE) {
+            int cell = (int)v[i+9];
+            if (WaterPatchMesher.face(v[i+10]) == 0 && origin + (cell >>> 8) == lowerY
+                && (cell & 15) == 7 && Math.round(v[i] * 2) == 16) {
+              if (v[i+3] < 1) throw new AssertionError("Upper curtain leaves exposed rock below Y "
+                  + (lowerY + 1) + " at height " + v[i+3]);
+              witnesses++;
+            }
+          }
+          if (witnesses == 0) throw new AssertionError("Missing stacked step");
+          count += witnesses;
+        }
+    System.out.println("TERRACED_CURRENT_PASS edgeVertices=" + count + " verticalSections=3");
   }
 
   private WaterfallSideChecks() {}

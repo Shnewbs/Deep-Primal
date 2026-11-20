@@ -16,9 +16,19 @@ public final class WaterPatchMesher {
   }
 
   /** Flow is captured with quantity; null retains the legacy still-water material. */
-  public record Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors, byte[] flow) {
+  public record Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors, byte[] flow,
+      long[] waterAboveHalo) {
+    public Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors, byte[] flow) {
+      this(units, solid, lights, colors, flow, null);
+    }
     public Snapshot(byte[] units, byte[] solid, int[] lights, int[] colors) {
       this(units, solid, lights, colors, null);
+    }
+
+    boolean waterTwoAbove(int x, int y, int z) {
+      if (y < 15) return water(x, y + 2, z) > 0;
+      int column = (z + 1) * SIZE + x + 1;
+      return waterAboveHalo != null && (waterAboveHalo[column >>> 6] & (1L << (column & 63))) != 0;
     }
 
     public int direction(int x, int y, int z) {
@@ -231,17 +241,21 @@ public final class WaterPatchMesher {
     if (!Float.isNaN(cached)) return cached;
     float sum = 0;
     int count = 0;
-    boolean supportedFilm = false, supportedAbove = false;
+    boolean supportedFilm = false, supportedAbove = false, wetBelow = false, lowerNeighbor = false;
     for (int dz = -1; dz <= 0; dz++)
       for (int dx = -1; dx <= 0; dx++) {
         int n = s.water(x + dx, y, z + dz);
         boolean solidHere = s.solid(x + dx, y, z + dz);
         int above = n > 0 || solidHere ? s.water(x + dx, y + 1, z + dz) : 0;
+        int below = s.water(x + dx, y - 1, z + dz);
+        wetBelow |= n > 0 && below > 0 && above > 0;
+        lowerNeighbor |= n == 0 && !solidHere && below > 0;
         supportedFilm |= n > 0 && s.solid(x + dx, y - 1, z + dz);
-        supportedAbove |= solidHere && above > 0;
+        // A stacked waterfall wall ends at the integer layer even on a water-backed step.
+        supportedAbove |= above > 0 && (solidHere || s.waterTwoAbove(x + dx, y, z + dz));
         double height =
             WaterTransport.surfaceColumn(
-                n == 0 ? s.water(x + dx, y - 1, z + dz) : 0,
+                n == 0 ? below : 0,
                 n,
                 above, solidHere);
         if (!Double.isFinite(height)) continue;
@@ -250,7 +264,7 @@ public final class WaterPatchMesher {
       }
     // A downhill neighbour may pull the average beneath a wet cell's solid bed.
     // Apply the shared corner's support constraint, never a per-cell clamp.
-    return corners[key] = (float)WaterTransport.supportedSurface(count==0?0:sum/count,supportedFilm,supportedAbove);
+    return corners[key] = (float)WaterTransport.supportedSurface(count==0?0:sum/count,supportedFilm || (wetBelow && lowerNeighbor),supportedAbove);
   }
 
   private float height(Snapshot s, int x, int y, int z, float u, float v) {

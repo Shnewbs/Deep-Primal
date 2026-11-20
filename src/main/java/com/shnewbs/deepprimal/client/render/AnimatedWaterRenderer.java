@@ -243,11 +243,10 @@ public final class AnimatedWaterRenderer {
 
   public void changed(ClientLevel source, BlockPos p) {
     if (!owns || source != level) return;
-    for (int dy = -1; dy <= 1; dy++)
-      for (int dz = -1; dz <= 1; dz++)
-        for (int dx = -1; dx <= 1; dx++) {
-          long key =
-              SectionPos.asLong((p.getX() + dx) >> 4, (p.getY() + dy) >> 4, (p.getZ() + dz) >> 4);
+    for (int sy = (p.getY() - 2) >> 4; sy <= (p.getY() + 1) >> 4; sy++)
+      for (int sz = (p.getZ() - 1) >> 4; sz <= (p.getZ() + 1) >> 4; sz++)
+        for (int sx = (p.getX() - 1) >> 4; sx <= (p.getX() + 1) >> 4; sx++) {
+          long key = SectionPos.asLong(sx, sy, sz);
           invalidateHidden(key);
           Page page = pages.get(key);
           if (page != null) {
@@ -568,6 +567,7 @@ public final class AnimatedWaterRenderer {
     byte[] units = new byte[WaterPatchMesher.CELLS],
         solid = new byte[units.length], flow = new byte[units.length];
     int[] light = new int[units.length], colors = new int[18 * 18];
+    long[] waterAboveHalo = null;
     var chunks = new net.minecraft.world.level.chunk.LevelChunk[9];
     for (int dz = -1; dz <= 1; dz++)
       for (int dx = -1; dx <= 1; dx++) {
@@ -592,10 +592,16 @@ public final class AnimatedWaterRenderer {
           if (state.is(EngineRegistry.WATER_BLOCK.get())) {
             units[i] = (byte) (int) state.getValue(EngineFluid.UNITS);
             flow[i] = (byte) (int) state.getValue(EngineFluid.FLOW);
+            if (y == 16 && pos.getY() < level.getMaxY()
+                && chunk.getBlockState(pos.move(Direction.UP)).is(EngineRegistry.WATER_BLOCK.get())) {
+              if (waterAboveHalo == null) waterAboveHalo = new long[(18 * 18 + 63) / 64];
+              int column = (z + 1) * 18 + x + 1;
+              waterAboveHalo[column >>> 6] |= 1L << (column & 63);
+            }
           } else if (state.isSolid()) solid[i] = 1;
         }
       }
-    var snapshot = new WaterPatchMesher.Snapshot(units, solid, light, colors, flow);
+    var snapshot = new WaterPatchMesher.Snapshot(units, solid, light, colors, flow, waterAboveHalo);
     var tintColumns = new BitSet(colors.length);
     for (int z = 0; z < 16; z++)
       for (int x = 0; x < 16; x++) {

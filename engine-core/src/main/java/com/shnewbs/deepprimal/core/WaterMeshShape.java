@@ -20,12 +20,20 @@ public final class WaterMeshShape {
     return (float) (0.045 * Math.cos(a) - 0.012 * Math.cos(b));
   }
 
+  // Taper the normal displacement to zero on each voxel plane. The tangent
+  // stays free to move, while a thin film cannot slide through or away from rock.
+  private static float interiorWeight(double coordinate) {
+    return (float) (2 * Math.abs(coordinate - Math.rint(coordinate)));
+  }
+
   public static float x(double x, double y, double z) {
-    return (float) x + offsetX(x, y, z);
+    float weight = interiorWeight(x);
+    return weight == 0 ? (float)x : (float)x + weight * offsetX(x, y, z);
   }
 
   public static float z(double x, double y, double z) {
-    return (float) z + offsetZ(x, y, z);
+    float weight = interiorWeight(z);
+    return weight == 0 ? (float)z : (float)z + weight * offsetZ(x, y, z);
   }
 
   public static float flowingV(double x, double y, double z) {
