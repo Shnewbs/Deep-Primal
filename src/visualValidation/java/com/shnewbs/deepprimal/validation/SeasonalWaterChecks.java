@@ -145,6 +145,57 @@ final class SeasonalWaterChecks {
     }
   }
 
+  static void exposedIce(ServerLevel level) throws ReflectiveOperationException {
+    var data = HydrologyData.get(level);
+    var original = data.aquifers.get(REGION);
+    long time = level.getGameTime();
+    var cold = surface(level, COLD);
+    var first = surface(level, WARM);
+    var second = first.east();
+    var observer = surface(level, OBSERVER);
+    for (var pos : new BlockPos[] {cold, first, second, observer}) level.getChunkAt(pos);
+    var coldState = level.getBlockState(cold);
+    var firstState = level.getBlockState(first);
+    var secondState = level.getBlockState(second);
+    var observerState = level.getBlockState(observer);
+    try {
+      var region = new RegionVisit(level);
+      var aquifer = new Aquifer(new WaterAccount.Parcel(100_000, 19, 31), WaterAccount.Parcel.EMPTY,
+          0, false, YEAR - 20);
+      data.aquifers.put(REGION, aquifer);
+      level.setBlock(observer, Blocks.BEDROCK.defaultBlockState(), 2);
+      level.setBlock(cold, Blocks.ICE.defaultBlockState(), 2);
+      level.setBlock(first, Blocks.BLUE_ICE.defaultBlockState(), 2);
+      level.setBlock(second, Blocks.PACKED_ICE.defaultBlockState(), 2);
+      clock(level, YEAR);
+      region.at(observer);
+      region.at(cold);
+      region.at(first);
+      region.at(second);
+      require(HydrologyRuntime.contents(level, first, level.getBlockState(first)).equals(
+          new WaterAccount.Parcel(4096, 0, 0)), "Warm glacial ice missed its melt after a dry column");
+      require(level.getBlockState(cold).is(Blocks.ICE) && level.getBlockState(second).is(Blocks.PACKED_ICE),
+          "One exposed warm ice block may melt per aquifer interval");
+      // Transient region state can be rebuilt in the same interval after a chunk reload.
+      var rebuilt = new RegionVisit(level);
+      rebuilt.at(second);
+      require(level.getBlockState(second).is(Blocks.PACKED_ICE), "Reload reopened the melt allowance");
+      clock(level, YEAR + 20);
+      rebuilt.at(cold);
+      rebuilt.at(second);
+      require(HydrologyRuntime.contents(level, second, level.getBlockState(second)).equals(
+          new WaterAccount.Parcel(4096, 0, 0)), "The next interval must release a second fresh parcel");
+    } finally {
+      clock(level, time);
+      level.setBlock(cold, coldState, 2);
+      level.setBlock(first, firstState, 2);
+      level.setBlock(second, secondState, 2);
+      level.setBlock(observer, observerState, 2);
+      if (original == null) data.aquifers.remove(REGION);
+      else data.aquifers.put(REGION, original);
+    }
+  }
+
   private static final BlockPos OBSERVER = new BlockPos(-360, 0, 280);
   private static final BlockPos SEA = new BlockPos(2232, TerrainEngine.SEA - 1, 8);
 

@@ -1,0 +1,15 @@
+// Distinct offline profiles for the opt-in, loopback-only river validation.
+allprojects {
+    plugins.withId('net.neoforged.moddev') {
+        if (project == rootProject) {
+            neoForge.runs.configureEach { run ->
+                def role = System.getenv('DEEPPRIMAL_MULTIPLAYER_WATER')
+                if (run.name == 'client' && role in ['host', 'guest']) {
+                    def name = role == 'host' ? 'BasinHost' : 'BasinGuest'
+                    def id = UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes('UTF-8'))
+                    run.programArguments.addAll '--username', name, '--uuid', id.toString()
+                }
+            }
+        }
+    }
+}

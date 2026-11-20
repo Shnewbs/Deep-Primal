@@ -79,6 +79,12 @@ public final class EnvironmentalWaterChecks {
       System.out.println("ENVIRONMENT_CLASS_ORIGIN class="+type.getName()+" source="+type.getProtectionDomain().getCodeSource().getLocation());
     var server = event.getServer(); var level = server.overworld();
     String mode = System.getenv("DEEPPRIMAL_ENVIRONMENT_MODE");
+    if ("watershed-scheduling".equals(mode)) {
+      WatershedSchedulingChecks.run(level);
+      Files.writeString(Path.of(destination), "WATERSHED_SCHEDULING_PASS\n");
+      server.halt(false);
+      return;
+    }
     if ("seasonal-write".equals(mode) || "seasonal-reopen".equals(mode)) {
       SeasonalWaterChecks.run(level, Path.of(destination), mode.equals("seasonal-reopen"));
       server.halt(false);

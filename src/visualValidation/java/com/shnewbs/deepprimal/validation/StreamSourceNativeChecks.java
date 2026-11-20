@@ -17,13 +17,13 @@ import net.minecraft.world.level.block.Blocks;
 
 /** Dedicated-server check of metered natural stream output through the runtime path. */
 final class StreamSourceNativeChecks {
-  private static Field field(Class<?> type, String name) throws ReflectiveOperationException {
+  static Field field(Class<?> type, String name) throws ReflectiveOperationException {
     var field = type.getDeclaredField(name);
     field.setAccessible(true);
     return field;
   }
 
-  private static Object instance(String nested) throws ReflectiveOperationException {
+  static Object instance(String nested) throws ReflectiveOperationException {
     var type = Class.forName(HydrologyRuntime.class.getName() + "$" + nested);
     Constructor<?> constructor = type.getDeclaredConstructor();
     constructor.setAccessible(true);
@@ -88,14 +88,15 @@ final class StreamSourceNativeChecks {
     Object regional = region.invoke(null, work, terrain, x, z);
     field(regional.getClass(), "natural").setInt(regional, 0);
     Method replenish = HydrologyRuntime.class.getDeclaredMethod(
-        "replenishStream", ServerLevel.class, work.getClass(), TerrainEngine.class,
+        "replenishStream", ServerLevel.class, regional.getClass(), Aquifer.class, int.class,
         cursor.getClass(), int.class, int.class, int.class);
     replenish.setAccessible(true);
+    int quota = Aquifer.baseflowUnits(com.shnewbs.deepprimal.engine.HydrologyConfig.RAIN_QUANTA.get());
 
     int visits = 0;
     while (HydrologyRuntime.contents(level, first, level.getBlockState(first)).water()
         < 8L * WaterAccount.SCALE && visits++ < 16) {
-      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
     }
     int firstUnits = level.getBlockState(first).getValue(EngineFluid.UNITS);
     require(firstUnits == 8, "Fractional stream cell exceeded or missed its planned 8-unit surface");
@@ -103,15 +104,15 @@ final class StreamSourceNativeChecks {
     int secondVisits = 0;
     while (HydrologyRuntime.contents(level, second, level.getBlockState(second)).water()
         < 8L * WaterAccount.SCALE && secondVisits++ < 16) {
-      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 1, x + 1, z);
+      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 1, x + 1, z);
     }
     int secondUnits = level.getBlockState(second).getValue(EngineFluid.UNITS);
     require(secondUnits == 8, "Dry stream outlet did not fill to its planned 8-unit surface");
 
     long deliveredGround = aquifer.ground.water();
     for (int i = 0; i < 3; i++) {
-      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
-      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 1, x + 1, z);
+      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
+      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 1, x + 1, z);
     }
     require(aquifer.ground.water() == deliveredGround,
         "A full natural stream channel debited additional groundwater");
@@ -127,7 +128,7 @@ final class StreamSourceNativeChecks {
     plan.invoke(cursor, 2, y + 0.5);
     field(regional.getClass(), "natural").setInt(regional, 0);
     long beforeDeficit = aquifer.ground.water();
-    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 2, x + 3, z);
+    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 2, x + 3, z);
     int repaid = level.getBlockState(deficit.below()).getValue(EngineFluid.UNITS);
     require(level.getBlockState(deficit).isAir() && repaid > 8 && repaid <= 16
         && beforeDeficit - aquifer.ground.water() == (repaid - 8L) * WaterAccount.SCALE,
@@ -137,41 +138,40 @@ final class StreamSourceNativeChecks {
 
     require(HydrologyRuntime.write(level, first, Blocks.AIR.defaultBlockState()), "Clear metered outlet");
     field(regional.getClass(), "natural").setInt(regional, Aquifer.baseflowUnits(com.shnewbs.deepprimal.engine.HydrologyConfig.RAIN_QUANTA.get()));
-    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
     require(level.getBlockState(first).isAir() && aquifer.ground.water() == paidGround,
         "Natural local head must not bypass the regional discharge quota");
     field(regional.getClass(), "natural").setInt(regional, 0);
     require(HydrologyRuntime.write(level, first, Blocks.GOLD_BLOCK.defaultBlockState()), "Build source dam");
-    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
     require(level.getBlockState(first).is(Blocks.GOLD_BLOCK) && aquifer.ground.water() == paidGround,
         "Blocked natural outlet preserves edits and groundwater");
     require(HydrologyRuntime.write(level, first, Blocks.AIR.defaultBlockState()), "Reopen source dam");
     aquifer.ground.take(aquifer.capacity());
     aquifer.step(aquifer.lastTick() + 20);
-    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
     require(!aquifer.canSupply(true) && level.getBlockState(first).isAir(),
         "Exhausted natural source remains dry");
     aquifer.ground.add(new WaterAccount.Parcel(aquifer.start(), 0, 0));
     for (int i = 0; i < Aquifer.WET_STEPS - 1; i++) {
       aquifer.step(aquifer.lastTick() + 20);
-      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+      java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
       require(level.getBlockState(first).isAir(), "Natural source cannot skip sustained recharge");
     }
     aquifer.step(aquifer.lastTick() + 20);
     long recharge = aquifer.ground.water();
-    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+    java.util.Arrays.fill(replenished, Long.MIN_VALUE); replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
     int restartedUnits = level.getBlockState(first).getValue(EngineFluid.UNITS);
     require(restartedUnits > 0 && restartedUnits <= 8
         && recharge - aquifer.ground.water() == restartedUnits * WaterAccount.SCALE,
         "Recharged high-altitude source resumes with exact paid delivery");
     long paid = aquifer.ground.water();
-    replenish.invoke(null, level, work, terrain, cursor, 0, x, z);
+    replenish.invoke(null, level, regional, aquifer, quota, cursor, 0, x, z);
     require(level.getBlockState(first).getValue(EngineFluid.UNITS) == restartedUnits && aquifer.ground.water() == paid,
         "Natural source accepted a second top-up inside one tick");
 
     Method allowance = HydrologyRuntime.class.getDeclaredMethod("streamAllowance", int.class, long.class, long.class);
     allowance.setAccessible(true);
-    int quota = Aquifer.baseflowUnits(com.shnewbs.deepprimal.engine.HydrologyConfig.RAIN_QUANTA.get());
     require((int) allowance.invoke(null, quota, Long.MIN_VALUE, 5L) == quota
         && (int) allowance.invoke(null, quota, 100L, 99L) == quota
         && (int) allowance.invoke(null, quota, 100L, 119L) == quota
@@ -232,7 +232,7 @@ final class StreamSourceNativeChecks {
     Object work = instance("Work");
     var chunks = (java.util.Map<Long, Object>) field(work.getClass(), "chunks").get(work);
     var queue = (java.util.Set<Long>) field(work.getClass(), "survey").get(work);
-    var streamChunks = (java.util.Map<Long, Object>) field(work.getClass(), "streamChunks").get(work);
+    var groups = (java.util.Map<Long, Object>) field(work.getClass(), "streamRegions").get(work);
     var ready = level.getChunkAt(loaded).getPos();
     var missing = new net.minecraft.world.level.ChunkPos(ready.x() + 32768, ready.z());
     require(level.getChunkSource().getChunkNow(missing.x(), missing.z()) == null, "Survey fixture needs an absent chunk");
@@ -246,10 +246,24 @@ final class StreamSourceNativeChecks {
         work.getClass(), TerrainEngine.class, long.class);
     survey.setAccessible(true);
     survey.invoke(null, level, work, terrain, System.nanoTime() + 1_000_000_000L);
-    require(surveyed.getInt(readyCursor) == 256 && streamChunks.get(ready.pack()) == readyCursor
+    var group = groups.get(HydrologyData.key(ready.getMinBlockX(), ready.getMinBlockZ()));
+    int slot = (ready.x() & 3) + ((ready.z() & 3) << 2);
+    require(surveyed.getInt(readyCursor) == 256 && group != null
+        && ((Object[])field(group.getClass(), "chunks").get(group))[slot] == readyCursor
         && queue.size() == 1 && queue.contains(missing.pack()), "Absent chunk blocked a ready stream survey");
     require(level.getChunkSource().getChunkNow(missing.x(), missing.z()) == null, "Survey loaded an absent chunk");
-    System.out.println("STREAM_SURVEY_NATIVE_PASS readyChunkAdvanced=true absentChunkSealed=true");
+    var unload = work.getClass().getDeclaredMethod("unload", int.class, int.class, long.class);
+    var index = work.getClass().getDeclaredMethod("indexStreams", long.class, readyCursor.getClass());
+    var plan = readyCursor.getClass().getDeclaredMethod("plan", int.class, double.class);
+    unload.setAccessible(true);
+    index.setAccessible(true);
+    plan.setAccessible(true);
+    unload.invoke(work, ready.x(), ready.z(), ready.pack());
+    chunks.put(ready.pack(), instance("Cursor"));
+    plan.invoke(readyCursor, 0, 311.5);
+    index.invoke(work, ready.pack(), readyCursor);
+    require(groups.isEmpty(), "A replaced cursor re-registered its stale waterways");
+    System.out.println("STREAM_SURVEY_NATIVE_PASS readyChunkAdvanced=true absentChunkSealed=true staleCursorDiscarded=true");
   }
 
   private StreamSourceNativeChecks() {}

@@ -1,40 +1,42 @@
 {
   "schema": 1,
-  "owner": "foreground-seasonal-water-20261119",
+  "owner": "foreground-water-multiplayer-20261119",
   "status": "checkpointed",
-  "started_at": "2026-11-19T21:06:00Z",
-  "active_until": "2026-11-19T21:23:00Z",
+  "started_at": "2026-11-19T22:16:29Z",
+  "active_until": "2026-11-20T02:41:25Z",
   "scope": [
     "docs/WATER-ENGINE-WORK-STATE.json",
-    "docs/validation/engine-continuation/water-native-write-guard-2026-10-28/NativeWriteGuardProbe.java",
-    "docs/validation/seasonal-water-2026-11-19/README.md",
+    "docs/validation/multi-basin-water-2026-11-19/README.md",
     "gradle.properties",
     "src/main/java/com/shnewbs/deepprimal/engine/HydrologyRuntime.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/ClientCapture.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/EnvironmentalWaterChecks.java",
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/MultiplayerWaterChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/PhysicalRegionalChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/SeasonalWaterChecks.java",
     "src/visualValidation/java/com/shnewbs/deepprimal/validation/StreamSourceNativeChecks.java",
-    "tools/validate_hydrology_external_chemistry.py"
+    "src/visualValidation/java/com/shnewbs/deepprimal/validation/WatershedSchedulingChecks.java",
+    "tools/water/multiplayer.init.gradle"
   ],
   "coordination": "Source changes are based on the current main branch, including the watershed cache improvements. Publish by fast-forward using the expected main head. The source-only commit skips push-triggered package publishing.",
-  "baseline": "ae7849eebd907b44d495ddf1d5a0d42138eecc87",
-  "current_evidence": "Two 96-day seasonal cycles, 230,400 environmental intervals, 384 ocean exchanges, an exact disk restart, 64 auxiliary chunk evictions, four spring-chunk reloads and measured dry-cursor allocation. See docs/validation/seasonal-water-2026-11-19/README.md.",
+  "baseline": "e174488103c126ddec3d54935164e5036efc5532",
+  "current_evidence": "At 8,192 unavailable stream chunks the loaded lowland received its first water on tick 2. Warm exposed ice melted after a dry visit. Two pairs of clients swapped generated rivers in separate 2,406- and 2,408-tick sessions, observing eight measured fills and drains. See docs/validation/multi-basin-water-2026-11-19/README.md.",
   "consumed_audit": "docs/engine-hourly-audits/2026-10-28T0029-bcce835/REVIEW.md",
   "not_claimed": [
     "AAA/full water-engine completion",
     "named Windows GPU frame/tick performance",
     "new independent grade",
-    "multi-watershed real-time multiplayer acceptance",
+    "multi-hour multiplayer circulation across seeds",
     "universal natural-waterfall flicker elimination"
   ],
-  "updated_at": "2026-11-19T21:23:00Z",
-  "owner_goal": "Keep finite water and its constituents correct through seasonal recharge, world restarts and chunk delivery, and reduce water tracking allocations while exploring.",
+  "updated_at": "2026-11-20T02:41:25Z",
+  "owner_goal": "Keep loaded waterways supplied as players explore different river regions. Preserve finite groundwater and local ice melt at chunk boundaries.",
   "completion_gates": {
     "continuous_surfaces": "Controlled cliff, ceiling, and one natural cascade pass on both native software backends. Live Vulkan rise, drying, fallback and resource reload pass. Extended coverage across seeds and Windows hardware remain open.",
-    "volume_and_constituents": "A selected regional aquifer, snow, atmosphere, ocean and two surface cells conserved all constituents through two accelerated years with native exchange. Broad multiplayer circulation remains open.",
-    "loaded_unloaded_persistence": "An unavailable chunk retained and resumed its original cursor. Two physical eviction cycles preserved spring quotas and constituent totals. Six seasonal accounts and aquifer metadata matched across a process restart.",
-    "seasonal_groundwater_and_oceans": "Two controlled native years with rain, snow, melt, evaporation, spring discharge, ocean exchange and a winter restart passed. Uncontrolled multi-watershed sessions remain open.",
-    "performance": "Dry chunk hydrology registration allocated 2,112 bytes per cursor, down from 8,616 in the Java 25 probe. Long-distance Windows GPU frame times and whole-chunk loading tails remain open."
+    "volume_and_constituents": "The seasonal six-account balance held across two native years and 384 ocean exchanges. Two networked clients acknowledged four measured fills and drains across separate river regions in each of two sessions. All eight pickups returned their exact chemistry. Long multiplayer circulation remains open.",
+    "loaded_unloaded_persistence": "A resident lowland was supplied under 8,192 pending stream chunks. A stale cursor could not replace its successor. Physical evictions preserved quotas at reloaded springs and retained the third resident region. Six seasonal accounts and aquifer metadata matched across a process restart.",
+    "seasonal_groundwater_and_oceans": "Two controlled native years passed with rain, snow, melt, evaporation, spring discharge, ocean exchange and a winter restart. A warm exposed ice block could melt after a dry column with one local melt per interval. Two occupied river regions kept advancing through a player swap.",
+    "performance": "Dry chunk registration measured 2,112 bytes per cursor in dev.131. Median server-thread allocation per hydrology tick under pending-stream pressure measured 5,696 bytes on dev.132 and 97,784 on dev.131. Whole-chunk tail latency and long-distance Windows GPU frame times remain open."
   },
   "automation_id": "6ae0c445a6c4819194f58ed18e077f52",
   "previous_automation_id": "6ad974bdc204819195e5465aeea9dca2",
@@ -53,7 +55,7 @@
       "reason": "library_storage_limit_exceeded; direct workspace downloads remain available"
     }
   },
-  "next_priority": "Measure long-distance movement and frame times on a Windows GPU, then expand natural waterfall and real-time multiplayer watershed coverage across seeds.",
+  "next_priority": "Measure river and natural waterfall continuity across more terrain seeds during extended player movement, and capture Windows GPU frame and loading times at long view distances.",
   "latest_builder_checkpoint": {
     "updated_at": "2026-10-26T14:55:26Z",
     "source_sha": "293516cdb0c62d66ae12a5146e4ac2e6590c45a3",
@@ -114,16 +116,16 @@
     "qualification": "Development testing build; two reproduced cliff geometry faults repaired. Broad water acceptance remains open."
   },
   "latest_source_checkpoint": {
-    "version": "0.0.1-alpha.29-dev.131-water-polish.3",
+    "version": "0.0.1-alpha.29-dev.132-water-polish.4",
     "saved_channel_revision": 12,
-    "evidence": "docs/validation/seasonal-water-2026-11-19/README.md",
+    "evidence": "docs/validation/multi-basin-water-2026-11-19/README.md",
     "delivery": "source",
     "acceptance_complete": false
   },
   "previous_source_checkpoint": {
-    "version": "0.0.1-alpha.29-dev.130-water-polish.2",
+    "version": "0.0.1-alpha.29-dev.131-water-polish.3",
     "saved_channel_revision": 12,
-    "evidence": "docs/validation/water-polish-2026-11-19/README.md",
+    "evidence": "docs/validation/seasonal-water-2026-11-19/README.md",
     "delivery": "source",
     "acceptance_complete": false
   }

@@ -74,6 +74,11 @@ public final class PhysicalRegionalChecks {
     long[] initial=total(l,d,aquifers,y);
     visitOutlets(visit, l, work, chunks, terrain, 0, 8);
     for(int x:SITES){int count=0;for(int i=0;i<16;i++)count+=units(l,x,i,y);check(count==32,"ordinary regional32 delivery "+count);}
+    int witnessX=-8192, witnessZ=256;
+    l.setChunkForced(witnessX >> 4, witnessZ >> 4, true);
+    l.getChunk(witnessX >> 4, witnessZ >> 4);
+    var witness = region.invoke(null,work,terrain,witnessX+8,witnessZ+8);
+    long witnessKey = HydrologyData.key(witnessX+8,witnessZ+8);
     int auxiliary=Math.max(32,chunks.size()+6);check(auxiliary<=128,"bounded auxiliary chunk fixture");
     int reloaded=0,evicted=0,mainReloaded=0;var oldChunks=new HashMap<Integer,LevelChunk>();
     for(int cycle=0;cycle<2;cycle++){
@@ -95,7 +100,8 @@ public final class PhysicalRegionalChecks {
         if(gone)break;Thread.sleep(1);
       }
       check(gone,"server must physically evict auxiliary FULL chunks");evicted+=auxiliary;
-      check(!regions.containsKey(HydrologyData.key(SITES[0]+8,8)),"unrelated eviction clears active region cache");
+      check(!regions.containsKey(HydrologyData.key(SITES[0]+8,8)),"Unloaded spring region must release its transient cache");
+      check(regions.get(witnessKey) == witness, "Distant evictions reset a resident aquifer");
       check(l.getGameTime()==now,"eviction stays in same aquifer interval");
       for(int n=0;n<2;n++){check(l.getChunk(SITES[n]>>4,0)!=priorMain.get(n),"outlet LevelChunk must reload from another instance");mainReloaded++;}
       visitOutlets(visit, l, work, chunks, terrain, 8, 16);
@@ -107,7 +113,8 @@ public final class PhysicalRegionalChecks {
     visitOutlets(visit, l, work, chunks, terrain, 0, 8);
     for(int x:SITES){int count=0;for(int i=0;i<16;i++)count+=units(l,x,i,y);check(count==64,"next interval resumes normal32 delivery "+count);}
     check(Arrays.equals(initial,total(l,d,aquifers,y)),"next-interval constituent conservation");
+    l.setChunkForced(witnessX >> 4, witnessZ >> 4, false);
     d.setDirty();event.getServer().saveAllChunks(false,true,true);
-    Files.writeString(Path.of(dest),"PHYSICAL_REGIONAL_PASS regions=2 cycles=2 evicted="+evicted+" reloaded="+reloaded+" mainReloaded="+mainReloaded+" events="+unloadEvents+" sameIntervalUnitsEach=32 nextIntervalTotalEach=64 waterSaltSediment=true syntheticEvents=false physicalFULL=true controlledClockAdvance=true\n");
+    Files.writeString(Path.of(dest),"PHYSICAL_REGIONAL_PASS regions=2 cycles=2 evicted="+evicted+" reloaded="+reloaded+" mainReloaded="+mainReloaded+" events="+unloadEvents+" sameIntervalUnitsEach=32 nextIntervalTotalEach=64 waterSaltSediment=true syntheticEvents=false physicalFULL=true residentRegionPreserved=true controlledClockAdvance=true\n");
   }
 }
